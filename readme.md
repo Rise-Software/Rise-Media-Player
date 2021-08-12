@@ -10,7 +10,7 @@
 
 > The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :):
 
-![fluentplayer2](https://user-images.githubusercontent.com/74561130/129194847-2c2bf0cb-92f5-4bf4-818b-2e11afeab42d.png)
+![fluentplayer3](https://user-images.githubusercontent.com/74561130/129233854-7d239836-65fd-448c-8471-1d4a87fd5de7.png)
 
 - **How to download it?**
 
