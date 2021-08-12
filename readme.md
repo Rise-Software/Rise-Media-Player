@@ -1,5 +1,5 @@
 # Fluent Media Player (Working Title)
-![Group 38](https://user-images.githubusercontent.com/74561130/129194272-a323f553-bdbe-406d-9003-53c9a1b62d46.png)
+![Group 38](https://user-images.githubusercontent.com/74561130/129194987-6d4db866-a8b6-4f29-ba91-8816490d20f1.png)
 
 - **Our Discord**
 [![Discord](https://discord.com/api/guilds/872910570003791922/widget.png)](https://discord.gg/GQRYrrBMqd)
@@ -10,8 +10,7 @@
 
 > The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :):
 
-![fluentplayer2](https://user-images.githubusercontent.com/74561130/129193704-48e4ce1d-d20c-40a9-917c-784f2b28cb10.png)
-
+![fluentplayer2](https://user-images.githubusercontent.com/74561130/129194847-2c2bf0cb-92f5-4bf4-818b-2e11afeab42d.png)
 
 - **How to download it?**
 
