@@ -8,12 +8,16 @@
 
 - **How does it look?**
 
-> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :):
+> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :): Of course we couldn't forget Mica, Acrylic and Dark Mode support!
 
-![fluentplayer3](https://user-images.githubusercontent.com/74561130/129233854-7d239836-65fd-448c-8471-1d4a87fd5de7.png)
+> Light Mode
+![Group 39](https://user-images.githubusercontent.com/74561130/129236201-4af67799-becc-464b-91c6-c02d58342d04.png)
+> Dark Mode
+![Group 40](https://user-images.githubusercontent.com/74561130/129236191-15f9688f-a123-4a20-af92-f1ad9d7dd7a3.png)
+> Now Playing
+![now](https://user-images.githubusercontent.com/74561130/129236229-f8597d13-032b-4538-a9eb-1c147e1a843d.png)
 
 - **How to download it?**
-
 
 > There isn't any direct method to install it, so you need to fire up the project in Visual Studio, open the solution and then deploy it onto your Device. We wouldn't suggest downloading at this point, as it is simply not functional enough. If you want to know more, join our Discord! 
 
