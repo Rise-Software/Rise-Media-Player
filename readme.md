@@ -4,7 +4,7 @@
 - **Our Discord**
 [![Discord](https://discord.com/api/guilds/872910570003791922/widget.png)](https://discord.gg/GQRYrrBMqd)
 
-**Fluent Media Player (Working Title)** is a media player, designed to align to the Windows 11 visual stule, using **WinUI 2.6** and **C#**. We hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
+**Fluent Media Player (Working Title)** is a media player, designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#**. We hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
 
 - **How does it look?**
 
