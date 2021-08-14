@@ -14,7 +14,7 @@
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
     </Page.Resources>
     <Grid>
-        
+
         <Border
             x:Name="AppTitleBar"
             Height="40"
@@ -37,79 +37,74 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="Fluent Media Player - TRIAL 1" />
-
             </StackPanel>
         </Border>
-        
+
         <muxc:NavigationView x:Name="NavView"
                              SelectionChanged="NavigationView_SelectionChanged"
-                             IsTitleBarAutoPaddingEnabled="False"            
-                             IsBackButtonVisible="Visible"     
+                             IsTitleBarAutoPaddingEnabled="False"
+                             IsBackButtonVisible="Visible"
                              IsBackEnabled="True"
                              IsSettingsVisible="False"
-                             Header="Title" 
+                             Header="Title"
                              DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
                              Canvas.ZIndex="0">
-            
+
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Home" Tag="HomePage" x:Name="HomePageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10F;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader Content="Music"/>
+                <muxc:NavigationViewItemHeader Content="Music" />
                 <muxc:NavigationViewItem Content="Songs" Tag="SongsPage" x:Name="SongsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC4F;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC4F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Artists" Tag="ArtistsPage" x:Name="ArtistsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE125;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE125;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Albums" Tag="AlbumsPage" x:Name="AlbumsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE93C;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE93C;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Playlists" Tag="PlaylistsPage" x:Name="PlaylistsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE142;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE142;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader Content="Videos"/>
+                <muxc:NavigationViewItemHeader Content="Videos" />
                 <muxc:NavigationViewItem Content="Music Videos" Tag="MusicVideosPage" x:Name="MusicVideosPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE173;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE173;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Local Videos" Tag="LocalVideosPage" x:Name="LocalVideosPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.AutoSuggestBox>
-                <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your media"/>
+                <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your media" />
             </muxc:NavigationView.AutoSuggestBox>
 
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="Now Playing" Tag="NowPlayingPage" x:Name="NowPlayingPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE768;"/>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE768;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
 
-
             <ScrollViewer>
-                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"/>
+                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True" />
             </ScrollViewer>
         </muxc:NavigationView>
-
     </Grid>
 </Page>
-    
-

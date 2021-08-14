@@ -134,6 +134,13 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SongHub\BaseSong.cs" />
+    <Compile Include="SongHub\LocalSongsView.xaml.cs">
+      <DependentUpon>LocalSongsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SongHub\OfflineSong.cs" />
+    <Compile Include="SongHub\OnlineSong.cs" />
+    <Compile Include="SongHub\SongFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,6 +173,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SongHub\LocalSongsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
