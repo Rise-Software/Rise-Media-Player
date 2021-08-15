@@ -23,7 +23,7 @@ namespace Fluent_Media_Player_Dev.SongHub
             // Temp implementation.
 
             QueryOptions queryOption = new QueryOptions
-            (CommonFileQuery.OrderByTitle, new string[] { ".mp3", ".mp4", ".wma" })
+            (CommonFileQuery.OrderByTitle, new string[] { ".mp3", ".m4a", ".wma", ".aac", ".wav" })
             {
                 FolderDepth = FolderDepth.Deep
             };

@@ -21,6 +21,7 @@ namespace Fluent_Media_Player_Dev
         {
             this.InitializeComponent();
 
+
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
             titleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -48,7 +49,7 @@ namespace Fluent_Media_Player_Dev
 
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            NavView.Header = "Home";
+            NavView.Header = "Songs";
             ContentFrame.Navigate(typeof(LocalSongsView));
         }
 
