@@ -1,5 +1,5 @@
 # Fluent Media Player (Working Title)
-![Group 38](https://user-images.githubusercontent.com/74561130/129194987-6d4db866-a8b6-4f29-ba91-8816490d20f1.png)
+![Group 38](https://raw.githubusercontent.com/dlphin/Fluent-Media-Player-Dev/95b59884549b58d50a87a12f7776ce82fcf9e23d/Fluent_Banner-1.jpg )
 
 - **Our Discord**
 [![Discord](https://discord.com/api/guilds/872910570003791922/widget.png)](https://discord.gg/GQRYrrBMqd)
