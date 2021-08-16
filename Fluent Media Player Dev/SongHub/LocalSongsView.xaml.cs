@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Input;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,24 +15,21 @@ namespace Fluent_Media_Player_Dev.SongHub
     public sealed partial class LocalSongsView : Page
     {
         private SongFactory songFactory;
-        private ObservableCollection<string> filePaths = new ObservableCollection<string>();
+        private ObservableCollection<string> songNames = new ObservableCollection<string>();
 
         public LocalSongsView()
         {
-            this.InitializeComponent();
-            itemsControl.ItemsSource = filePaths;
+            InitializeComponent();
+            itemsControl.ItemsSource = songNames;
             songFactory = SongFactory.Create();
 
             _ = songFactory.GetMusicFiles().ContinueWith(async t =>
             {
                 if (t.IsCompletedSuccessfully && t.Result != null)
                 {
-                    foreach (string path in t.Result)
+                    foreach (OfflineSong eachSong in t.Result)
                     {
-                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                        {
-                            filePaths.Add(path);
-                        });
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => songNames.Add(eachSong.SongName));
                     }
                 }
             });

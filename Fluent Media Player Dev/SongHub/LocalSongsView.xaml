@@ -13,8 +13,16 @@
         <ItemsControl x:Name="itemsControl"  >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" x:Name="songName" Padding="10" Margin="0, 5, 0, 0" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}" Content="{Binding}"></Button>
+                    <Grid x:Name="SongElementGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" x:Name="songName" Padding="10" Margin="0, 5, 0, 0" Background="Transparent" BorderThickness="0" Content="{Binding}"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

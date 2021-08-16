@@ -17,28 +17,35 @@ namespace Fluent_Media_Player_Dev.SongHub
             return new SongFactory();
         }
 
-        public async Task<List<string>> GetMusicFiles(string path = "")
+        public async Task<List<OfflineSong>> GetMusicFiles(string path = "")
         {
-            List<string> musicFiles = new List<string>();
-            // Temp implementation.
+            // Temp implementation for grabbing music files from user music library folder.
+            // Note: Things can change anytime.
+            List<OfflineSong> musicFiles = new List<OfflineSong>();
 
-            QueryOptions queryOption = new QueryOptions
-            (CommonFileQuery.OrderByTitle, new string[] { ".mp3", ".m4a", ".wma", ".aac", ".wav" })
+            try
             {
-                FolderDepth = FolderDepth.Deep
-            };
+                QueryOptions queryOption = new QueryOptions
+                (CommonFileQuery.OrderByTitle, new string[] { ".mp3", ".m4a", ".wma", ".aac", ".wav", ".flac" })
+                {
+                    FolderDepth = FolderDepth.Deep
+                };
 
-            Queue<IStorageFolder> folders = new Queue<IStorageFolder>();
+                IReadOnlyList<StorageFile> musicLibraryfiles = await KnownFolders.MusicLibrary.CreateFileQueryWithOptions
+                  (queryOption).GetFilesAsync();
 
-            var files = await KnownFolders.MusicLibrary.CreateFileQueryWithOptions
-              (queryOption).GetFilesAsync();
-
-            foreach (var file in files)
-            {
-                musicFiles.Add(file.Name);
+                foreach (StorageFile file in musicLibraryfiles)
+                {
+                    musicFiles.Add(OfflineSong.Create(file.Name, file.Path));
+                }
             }
 
-            return new List<string>(musicFiles);
+            catch (Exception exception)
+            {
+                Console.WriteLine("Error ", exception.Message);
+            }
+
+            return new List<OfflineSong>(musicFiles);
         }
     }
 }
