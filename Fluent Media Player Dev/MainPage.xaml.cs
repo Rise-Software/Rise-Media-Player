@@ -20,8 +20,7 @@ namespace Fluent_Media_Player_Dev
         public MainPage()
         {
             this.InitializeComponent();
-
-            
+            ContentFrame.Navigate(typeof(HomePage));
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
@@ -118,6 +117,34 @@ namespace Fluent_Media_Player_Dev
             else
             {
                 AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+            }
+        }
+
+        private void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.IsSettingsInvoked)
+            {
+                // ContentFrame.Navigate(typeof(SettingsPage));
+                NavView.Header = "Settings";
+            }
+            else
+            {
+                string navTo = args.InvokedItemContainer.Tag.ToString();
+                if (navTo != null)
+                {
+                    switch (navTo)
+                    {
+                        case "HomePage":
+                            ContentFrame.Navigate(typeof(HomePage));
+                            NavView.Header = "Home";
+                            break;
+
+                        case "SongsPage":
+                            ContentFrame.Navigate(typeof(SongsPage));
+                            NavView.Header = "Songs";
+                            break;
+                    }
+                }
             }
         }
     }

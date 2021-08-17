@@ -31,13 +31,13 @@
                     Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Source="/Assets/Group 30.png" />
+                    Source="/Assets/iconography.png" />
                 <TextBlock
                     x:Name="AppTitle"
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Play/Pause Developer Preview" />
+                    Text="Discy Developer Preview" />
                 <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
             </StackPanel>
 
