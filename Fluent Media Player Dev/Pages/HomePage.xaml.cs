@@ -13,6 +13,7 @@ namespace Fluent_Media_Player_Dev
         public BlankPage1()
         {
             this.InitializeComponent();
+            ConnectServiceNotification.IsOpen = true;
         }
 
         private void DropDownButton_Click(object sender, RoutedEventArgs e)

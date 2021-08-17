@@ -25,6 +25,7 @@ namespace Fluent_Media_Player_Dev
         public SongsPage()
         {
             this.InitializeComponent();
+            
         }
     }
 }

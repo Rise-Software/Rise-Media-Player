@@ -21,6 +21,7 @@ namespace Fluent_Media_Player_Dev
         {
             this.InitializeComponent();
 
+            
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 

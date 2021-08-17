@@ -11,5 +11,10 @@
 
     <Grid>
         <TextBlock TextWrapping="WrapWholeWords" Padding="46,12,0,0"  Text="Welcome to Fluent Media Player." />
+        <muxc:InfoBar x:Name="ConnectServiceNotification"
+            Padding="46,12,0,0"
+            Title="Want better recommendations?"
+            Message="Access curated playlists, radio stations, sync your personal playlists and even stream media. There's even more too. Connect a service like Spotify now.">
+        </muxc:InfoBar>
     </Grid>
 </Page>
