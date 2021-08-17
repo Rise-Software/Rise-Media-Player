@@ -14,7 +14,6 @@
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
     </Page.Resources>
     <Grid>
-
         <Border
             x:Name="AppTitleBar"
             Height="40"
@@ -40,55 +39,55 @@
                     Text="Discy Developer Preview" />
                 <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
             </StackPanel>
-
         </Border>
 
         <muxc:NavigationView x:Name="NavView"
-                             SelectionChanged="NavigationView_SelectionChanged"
+                             BackRequested="NavView_BackRequested"
                              IsTitleBarAutoPaddingEnabled="False"
+                             ItemInvoked="NavView_ItemInvoked"
                              IsBackButtonVisible="Visible"
-                             IsBackEnabled="True"
+                             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsSettingsVisible="True"
                              Header="Title"
                              DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
                              Canvas.ZIndex="0">
 
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="At a glance" Tag="HomePage" x:Name="HomePageItem">
+                <muxc:NavigationViewItem Content="At a Glance" Tag="HomePage" x:Name="HomePageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xECA5;" />
+                        <FontIcon Glyph="&#xECA5;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Playlists" Tag="PlaylistsPage" x:Name="PlaylistsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE142;" />
+                        <FontIcon Glyph="&#xE142;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Devices" Tag="DevicesPage" x:Name="DevicesPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1C9;" />
+                        <FontIcon Glyph="&#xE1C9;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="Music" />
                 <muxc:NavigationViewItem Content="Songs" Tag="SongsPage" x:Name="SongsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC4F;" />
+                        <FontIcon Glyph="&#xEC4F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Artists" Tag="ArtistsPage" x:Name="ArtistsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE125;" />
+                        <FontIcon Glyph="&#xE125;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Albums" Tag="AlbumsPage" x:Name="AlbumsPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE93C;" />
+                        <FontIcon Glyph="&#xE93C;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="Videos" />
                 <muxc:NavigationViewItem Content="Local Videos" Tag="LocalVideosPage" x:Name="LocalVideosPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;" />
+                        <FontIcon Glyph="&#xE8B7;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
@@ -96,19 +95,41 @@
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="Help &amp; Tips" Tag="DiscyPage" x:Name="DiscyPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE897;" />
+                        <FontIcon Glyph="&#xE897;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Now Playing" Tag="NowPlayingPage" x:Name="NowPlayingPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE768;" />
+                        <FontIcon Glyph="&#xE768;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
 
-            <ScrollViewer>
-                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True" />
-            </ScrollViewer>
+            <Grid>
+                <muxc:InfoBar x:Name="IndexMessage"
+                              IsOpen="False"
+                              Severity="Warning"
+                              Title="Indexing your Library"
+                              Message="Please wait for indexing to finish."
+                              Margin="56,0,56,0" />
+
+                <StackPanel x:Name="IndexInfo"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="Collapsed">
+                    <TextBlock x:Name="IndexProgress" Text="Indexing your files..." />
+                    <muxc:ProgressBar x:Name="LoadingBar" />
+                </StackPanel>
+
+                <Grid x:Name="ContentGrid" Padding="56,16,56,0">
+                    <ScrollViewer>
+                        <Frame Visibility="Collapsed"
+                               x:FieldModifier="public"
+                               x:Name="ContentFrame" />
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
         </muxc:NavigationView>
     </Grid>
 </Page>

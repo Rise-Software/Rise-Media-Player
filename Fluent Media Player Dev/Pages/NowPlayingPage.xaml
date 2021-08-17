@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Fluent_Media_Player_Dev.Pages.AlbumsPage"
+    x:Class="Fluent_Media_Player_Dev.Pages.NowPlayingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fluent_Media_Player_Dev.Pages"
@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock>Albums</TextBlock>
+        <TextBlock>Now Playing</TextBlock>
     </Grid>
 </Page>

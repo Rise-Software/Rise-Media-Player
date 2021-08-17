@@ -1,10 +1,25 @@
-﻿using Fluent_Media_Player_Dev.SongHub;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using Windows.ApplicationModel.Core;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Fluent_Media_Player_Dev.Pages;
+using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
+using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -17,11 +32,62 @@ namespace Fluent_Media_Player_Dev
 
     public sealed partial class MainPage : Page
     {
+        #region Variables
+        public static MainPage Current;
+        public ObservableCollection<Song> Songs { get; }
+        public ObservableCollection<Album> Albums { get; set; }
+        private List<string> AddedAlbums { get; set; }
+        public ObservableCollection<string> Artists { get; set; }
+        private List<StorageFile> Files { get; set; }
+        public MediaPlaybackList PlaybackList { get; set; }
+        private List<string> Properties { get; set; }
+        #endregion
+        #region Classes
+        public class Album
+        {
+            public string Title { get; set; }
+            public string Artist { get; set; }
+            public BitmapImage Thumbnail { get; set; }
+            public RandomAccessStreamReference StreamThumb { get; set; }
+            public string Genre { get; set; }
+        }
+
+        public class Song
+        {
+            public string Title { get; set; }
+            public string Album { get; set; }
+            public string AlbumArtist { get; set; }
+            public string Artist { get; set; }
+            public string Duration { get; set; }
+            public string Genre { get; set; }
+            public uint Track { get; set; }
+            public int Cd { get; set; }
+        }
+        #endregion
+
         public MainPage()
         {
             this.InitializeComponent();
             ContentFrame.Navigate(typeof(HomePage));
+            FinishNavigation();
 
+            Current = this;
+
+            Songs = new ObservableCollection<Song>();
+            Albums = new ObservableCollection<Album>();
+            AddedAlbums = new List<string>();
+            Artists = new ObservableCollection<string>();
+            Files = new List<StorageFile>();
+            PlaybackList = new MediaPlaybackList();
+            Properties = new List<string>
+            {
+                "System.Music.DiscNumber",
+                "System.Music.PartOfSet"
+            };
+
+            IndexSongs();
+
+            #region Titlebar
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
             titleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -45,14 +111,163 @@ namespace Fluent_Media_Player_Dev
 
             //Register a handler for when the window changes focus
             Window.Current.Activated += Current_Activated;
+            #endregion
         }
 
-        private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        #region Songs
+        private async void IndexSongs()
         {
-            NavView.Header = "Songs";
-            ContentFrame.Navigate(typeof(LocalSongsView));
-        }
+            ContentFrame.Visibility = Visibility.Collapsed;
+            IndexInfo.Visibility = Visibility.Visible;
 
+            // Query options
+            QueryOptions queryOption = new QueryOptions
+                (CommonFileQuery.DefaultQuery, new string[]
+                {
+                    ".mp3", ".wma", ".wav", ".ogg", ".flac", ".aiff", ".aac"
+                })
+            {
+                FolderDepth = FolderDepth.Deep
+            };
+
+            // Add music library files to list
+            IReadOnlyList<StorageFile> musicLibrary = await KnownFolders.MusicLibrary.
+                CreateFileQueryWithOptions(queryOption).GetFilesAsync();
+
+            Files.AddRange(musicLibrary);
+
+            // Get items from future access list
+            Windows.Storage.AccessCache.StorageItemAccessList fa =
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList;
+            foreach (Windows.Storage.AccessCache.AccessListEntry entry in fa.Entries)
+            {
+                // Get folder from future access list
+                string faToken = entry.Token;
+                StorageFolder folder = await fa.GetFolderAsync(faToken);
+
+                // Query files inside folder
+                try
+                {
+                    IReadOnlyList<StorageFile> folderContents = await folder.CreateFileQueryWithOptions(queryOption).GetFilesAsync();
+                    Files.AddRange(folderContents);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+
+            int filesLength = Files.Count();
+            int currentFile = 0;
+            foreach (StorageFile file in Files)
+            {
+                currentFile++;
+                LoadingBar.Value = currentFile * 100 / filesLength;
+                IndexProgress.Text = "Indexed " + currentFile + " out of " + filesLength + " files";
+
+                // Get file properties
+                MusicProperties musicProperties = await file.Properties.GetMusicPropertiesAsync();
+                int cd = 1;
+
+                // Get the specified properties through StorageFile.Properties
+                IDictionary<string, object> extraProperties = await file.Properties.RetrievePropertiesAsync(Properties);
+
+                if (extraProperties["System.Music.DiscNumber"] != null)
+                {
+                    cd = int.Parse(extraProperties["System.Music.DiscNumber"].ToString());
+                }
+                else if (extraProperties["System.Music.PartOfSet"] != null)
+                {
+                    cd = int.Parse(extraProperties["System.Music.PartOfSet"].ToString());
+                }
+
+                MediaSource source = MediaSource.CreateFromStorageFile(file);
+                MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+                MediaItemDisplayProperties props = media.GetDisplayProperties();
+                props.Type = MediaPlaybackType.Music;
+
+                props.MusicProperties.Title = musicProperties.Title.Length > 0
+                    ? musicProperties.Title : file.DisplayName;
+
+                props.MusicProperties.Artist = musicProperties.Artist.Length > 0
+                    ? musicProperties.Artist : "Unknown Artist";
+
+                props.MusicProperties.AlbumTitle = musicProperties.Album.Length > 0
+                    ? musicProperties.Album : "Unknown Album";
+
+                props.MusicProperties.AlbumArtist = musicProperties.AlbumArtist.Length > 0
+                    ? musicProperties.AlbumArtist : "Unknown Artist";
+
+                props.MusicProperties.TrackNumber = musicProperties.TrackNumber > 0
+                    ? musicProperties.TrackNumber : 0;
+
+                props.MusicProperties.AlbumTrackCount = (uint)(cd > 1
+                    ? cd : 1);
+
+                // Add song
+                Song currentSong = new Song()
+                {
+                    Title = props.MusicProperties.Title,
+                    Artist = props.MusicProperties.Artist,
+                    Album = props.MusicProperties.AlbumTitle,
+                    AlbumArtist = props.MusicProperties.AlbumArtist,
+                    Duration = musicProperties.Duration.ToString("mm\\:ss"),
+                    Genre = musicProperties.Genre.First(),
+                    Track = props.MusicProperties.TrackNumber,
+                    Cd = cd
+                };
+                Songs.Add(currentSong);
+
+                media.ApplyDisplayProperties(props);
+
+                // Add song to queue
+                PlaybackList.Items.Add(media);
+
+                // Add album to album list
+                if (!AddedAlbums.Contains(currentSong.Album))
+                {
+                    AddedAlbums.Add(currentSong.Album);
+
+                    // Get file thumbnail
+                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+
+                    BitmapImage thumb = new BitmapImage();
+                    if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
+                    {
+                        thumb.SetSource(thumbnail);
+                    }
+
+                    Albums.Add(new Album()
+                    {
+                        StreamThumb = RandomAccessStreamReference.CreateFromStream(thumbnail),
+                        Thumbnail = thumb,
+                        Title = currentSong.Album,
+                        Artist = currentSong.AlbumArtist,
+                        Genre = currentSong.Genre
+                    });
+                }
+
+                // Add artist to artist list
+                if (!Artists.Contains(currentSong.Artist))
+                {
+                    Artists.Add(currentSong.Artist);
+                }
+
+                if (!Artists.Contains(currentSong.AlbumArtist))
+                {
+                    Artists.Add(currentSong.AlbumArtist);
+                }
+            }
+
+            // Show the main UI
+            IndexInfo.Visibility = Visibility.Collapsed;
+            IndexMessage.IsOpen = false;
+            ContentFrame.Visibility = Visibility.Visible;
+        }
+        #endregion
+
+        #region Titlebar
         private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             UpdateTitleBarLayout(sender);
@@ -119,33 +334,103 @@ namespace Fluent_Media_Player_Dev
                 AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
+        #endregion
 
+        #region Navigation
         private void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
+            if (IndexInfo.Visibility == Visibility.Visible)
+            {
+                FinishNavigation();
+                IndexMessage.IsOpen = true;
+                return;
+            }
+
+            string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {
-                // ContentFrame.Navigate(typeof(SettingsPage));
-                NavView.Header = "Settings";
+                ContentFrame.Navigate(typeof(SettingsPage));
             }
             else
             {
-                string navTo = args.InvokedItemContainer.Tag.ToString();
                 if (navTo != null)
                 {
                     switch (navTo)
                     {
+                        case "AlbumsPage":
+                            ContentFrame.Navigate(typeof(AlbumsPage));
+                            break;
+
+                        case "ArtistsPage":
+                            ContentFrame.Navigate(typeof(ArtistsPage));
+                            break;
+
+                        case "DevicesPage":
+                            ContentFrame.Navigate(typeof(DevicesPage));
+                            break;
+
+                        case "DiscyPage":
+                            ContentFrame.Navigate(typeof(DiscyPage));
+                            break;
+
                         case "HomePage":
                             ContentFrame.Navigate(typeof(HomePage));
-                            NavView.Header = "Home";
+                            break;
+
+                        case "LocalVideosPage":
+                            ContentFrame.Navigate(typeof(LocalVideosPage));
+                            break;
+
+                        case "NowPlayingPage":
+                            ContentFrame.Navigate(typeof(NowPlayingPage));
+                            break;
+
+                        case "PlaylistsPage":
+                            ContentFrame.Navigate(typeof(PlaylistsPage));
                             break;
 
                         case "SongsPage":
                             ContentFrame.Navigate(typeof(SongsPage));
-                            NavView.Header = "Songs";
+                            break;
+
+                        default:
                             break;
                     }
+
+                }
+            }
+            FinishNavigation();
+        }
+
+        private void NavView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+        {
+            ContentFrame.GoBack();
+            FinishNavigation();
+        }
+
+        private void FinishNavigation()
+        {
+            string type = ContentFrame.CurrentSourcePageType.ToString();
+            string tag = type.Split('.').Last();
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                {
+                    NavView.SelectedItem = item;
+                    NavView.Header = item.Content;
+                    break;
+                }
+            }
+            foreach (NavigationViewItemBase item in NavView.FooterMenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                {
+                    NavView.SelectedItem = item;
+                    NavView.Header = item.Content;
+                    break;
                 }
             }
         }
+        #endregion
     }
 }

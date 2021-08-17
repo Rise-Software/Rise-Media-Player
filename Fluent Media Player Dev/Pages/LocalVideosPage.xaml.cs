@@ -20,9 +20,9 @@ namespace Fluent_Media_Player_Dev.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AlbumsPage : Page
+    public sealed partial class LocalVideosPage : Page
     {
-        public AlbumsPage()
+        public LocalVideosPage()
         {
             this.InitializeComponent();
         }

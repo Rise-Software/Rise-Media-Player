@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="Fluent_Media_Player_Dev.HomePage"
+    x:Class="Fluent_Media_Player_Dev.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fluent_Media_Player_Dev"
+    xmlns:local="using:Fluent_Media_Player_Dev.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -14,13 +14,12 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <muxc:InfoBar x:Name="ConnectServiceNotification"
-            Padding="46,12,0,0"
-            Title="Want better recommendations?"
-            Message="Access curated playlists, radio stations, sync your personal playlists and even stream media. There's even more too. Connect a service like Spotify now."
+                      Title="Want better recommendations?"
+                      Message="Access curated playlists, radio stations, sync your personal playlists and even stream media. There's even more too. Connect a service like Spotify now."
                       Grid.Row="0">
         </muxc:InfoBar>
         <Grid Grid.Row="1">
-            <TextBlock TextWrapping="WrapWholeWords" Padding="46,12,0,0"  Text="Welcome to Fluent Media Player." />
+            <TextBlock TextWrapping="WrapWholeWords" Text="Welcome to Fluent Media Player." />
         </Grid>
     </Grid>
 </Page>
