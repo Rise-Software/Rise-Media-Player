@@ -24,7 +24,7 @@
             Canvas.ZIndex="1"
             IsHitTestVisible="True">
             <StackPanel Orientation="Horizontal">
-                
+
                 <Image
                     x:Name="AppFontIcon"
                     Width="16"
@@ -37,10 +37,10 @@
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Fluent Media Player - TRIAL 1" />
-                <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="788" />
+                    Text="Play/Pause Developer Preview" />
+                <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
             </StackPanel>
-            
+
         </Border>
 
         <muxc:NavigationView x:Name="NavView"
@@ -92,7 +92,6 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
-
 
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="Help &amp; Tips" Tag="DiscyPage" x:Name="DiscyPageItem">
