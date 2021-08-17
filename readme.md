@@ -1,9 +1,4 @@
-![Group 2](https://user-images.githubusercontent.com/74561130/129751444-b9d81dcc-1f9d-4518-a884-85c9a1b16f28.png)
-# Fluent Media Player (Working Title)
-![Group 38](https://user-images.githubusercontent.com/74561130/129194987-6d4db866-a8b6-4f29-ba91-8816490d20f1.png)
-
-- **Our Discord:**
-[![Discord](https://discord.com/api/guilds/872910570003791922/widget.png)](https://discord.gg/GQRYrrBMqd)
+![Group 2 (1)](https://user-images.githubusercontent.com/74561130/129751670-74c8cbab-3e99-4964-babd-cd08aa218c07.png)
 
 
 **Fluent Media Player (Working Title)** is a media player, designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#**. We hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
