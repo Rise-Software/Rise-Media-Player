@@ -1,3 +1,4 @@
+![Group 2](https://user-images.githubusercontent.com/74561130/129751444-b9d81dcc-1f9d-4518-a884-85c9a1b16f28.png)
 # Fluent Media Player (Working Title)
 ![Group 38](https://user-images.githubusercontent.com/74561130/129194987-6d4db866-a8b6-4f29-ba91-8816490d20f1.png)
 
