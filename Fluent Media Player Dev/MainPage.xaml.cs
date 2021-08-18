@@ -124,7 +124,7 @@ namespace Fluent_Media_Player_Dev
             QueryOptions queryOption = new QueryOptions
                 (CommonFileQuery.DefaultQuery, new string[]
                 {
-                    ".mp3", ".wma", ".wav", ".ogg", ".flac", ".aiff", ".aac"
+                    ".mp3", ".wma", ".wav", ".ogg", ".flac", ".aiff", ".aac", ".m4a"
                 })
             {
                 FolderDepth = FolderDepth.Deep
@@ -174,11 +174,27 @@ namespace Fluent_Media_Player_Dev
 
                 if (extraProperties["System.Music.DiscNumber"] != null)
                 {
-                    cd = int.Parse(extraProperties["System.Music.DiscNumber"].ToString());
+                    try
+                    {
+                        cd = int.Parse(extraProperties["System.Music.DiscNumber"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Problem: " + ex.Message);
+                        Debug.WriteLine("Problematic disc number: " + extraProperties["System.Music.DiscNumber"].ToString());
+                    }
                 }
                 else if (extraProperties["System.Music.PartOfSet"] != null)
                 {
-                    cd = int.Parse(extraProperties["System.Music.PartOfSet"].ToString());
+                    try
+                    {
+                        cd = int.Parse(extraProperties["System.Music.PartOfSet"].ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Problem: " + ex.Message);
+                        Debug.WriteLine("Problematic part of set: " + extraProperties["System.Music.PartOfSet"].ToString());
+                    }
                 }
 
                 MediaSource source = MediaSource.CreateFromStorageFile(file);
@@ -205,6 +221,9 @@ namespace Fluent_Media_Player_Dev
                 props.MusicProperties.AlbumTrackCount = (uint)(cd > 1
                     ? cd : 1);
 
+                string genre = musicProperties.Genre.FirstOrDefault() != null
+                    ? musicProperties.Genre.First() : "Unknown";
+
                 // Add song
                 Song currentSong = new Song()
                 {
@@ -213,7 +232,7 @@ namespace Fluent_Media_Player_Dev
                     Album = props.MusicProperties.AlbumTitle,
                     AlbumArtist = props.MusicProperties.AlbumArtist,
                     Duration = musicProperties.Duration.ToString("mm\\:ss"),
-                    Genre = musicProperties.Genre.First(),
+                    Genre = genre,
                     Track = props.MusicProperties.TrackNumber,
                     Cd = cd
                 };
