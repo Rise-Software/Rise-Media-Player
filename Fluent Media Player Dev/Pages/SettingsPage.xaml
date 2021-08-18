@@ -5,29 +5,30 @@
     xmlns:local="using:Fluent_Media_Player_Dev.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"></SolidColorBrush>
+    </Page.Resources>
 
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Left">
-                <TextBlock Text="Folders" Style="{ThemeResource SubtitleTextBlockStyle}" />
-                <RichTextBlock>
-                    <Paragraph>
-                        Add your own folders to your library by clicking the button. To delete them, click the folder you want to delete in the list.
-                    </Paragraph>
-                </RichTextBlock>
-                <Button Click="PickFolder_Click" Content="Add Folder" />
-            </StackPanel>
-            <ListView x:Name="FolderList"
-                  Grid.Row="1"
-                  MaxHeight="200"
-                  IsItemClickEnabled="True"
-                  ItemClick="FolderList_ItemClick"
-                  SelectionMode="Single" />
-        </Grid>
+        <muxc:NavigationView x:Name="SettingsNav"
+                             PaneDisplayMode="Top"
+                             IsBackButtonVisible="Collapsed"
+                             IsSettingsVisible="False"
+                             ItemInvoked="SettingsNav_ItemInvoked">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Content="Folders" Tag="FoldersPage" x:Name="FoldersPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B7;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+
+            <ScrollViewer>
+                <Frame x:Name="SettingsFrame" />
+            </ScrollViewer>
+        </muxc:NavigationView>
     </Grid>
 </Page>
