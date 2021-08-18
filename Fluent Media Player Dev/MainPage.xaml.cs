@@ -368,7 +368,6 @@ namespace Fluent_Media_Player_Dev
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {
-                NavView.Header = "Settings";
                 ContentFrame.Navigate(typeof(SettingsPage));
             }
             else
@@ -432,6 +431,13 @@ namespace Fluent_Media_Player_Dev
         {
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
+
+            if (tag == "SettingsPage")
+            {
+                NavView.SelectedItem = NavView.SettingsItem;
+                NavView.Header = "Settings";
+            }
+
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
@@ -441,6 +447,7 @@ namespace Fluent_Media_Player_Dev
                     break;
                 }
             }
+
             foreach (NavigationViewItemBase item in NavView.FooterMenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
