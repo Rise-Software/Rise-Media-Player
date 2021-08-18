@@ -368,6 +368,7 @@ namespace Fluent_Media_Player_Dev
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {
+                NavView.Header = "Settings";
                 ContentFrame.Navigate(typeof(SettingsPage));
             }
             else
