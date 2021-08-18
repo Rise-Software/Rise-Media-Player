@@ -8,6 +8,26 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock>Settings</TextBlock>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock Text="Folders" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <RichTextBlock>
+                    <Paragraph>
+                        Add your own folders to your library by clicking the button. To delete them, click the folder you want to delete in the list.
+                    </Paragraph>
+                </RichTextBlock>
+                <Button Click="PickFolder_Click" Content="Add Folder" />
+            </StackPanel>
+            <ListView x:Name="FolderList"
+                  Grid.Row="1"
+                  MaxHeight="200"
+                  IsItemClickEnabled="True"
+                  ItemClick="FolderList_ItemClick"
+                  SelectionMode="Single" />
+        </Grid>
     </Grid>
 </Page>
