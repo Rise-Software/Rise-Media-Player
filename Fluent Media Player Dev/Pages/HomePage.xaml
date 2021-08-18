@@ -17,9 +17,14 @@
                       Title="Want better recommendations?"
                       Message="Access curated playlists, radio stations, sync your personal playlists and even stream media. There's even more too. Connect a service like Spotify now."
                       Grid.Row="0">
+            <muxc:InfoBar.ActionButton>
+                <Button Content="Connect a streaming service"/>
+            </muxc:InfoBar.ActionButton>
+
         </muxc:InfoBar>
         <Grid Grid.Row="1">
-            <TextBlock TextWrapping="WrapWholeWords" Text="Welcome to Fluent Media Player." />
+            <TextBlock TextWrapping="WrapWholeWords" Padding="0,20,0,0" Text="A song we think you'll love" FontFamily="Segoe UI Variable" FontWeight="SemiBold" FontSize="14"/>
+            <TextBlock TextWrapping="WrapWholeWords" Padding="285,20,0,0" Text="Similar tracks" FontFamily="Segoe UI Variable" FontWeight="SemiBold" FontSize="14"/>
         </Grid>
     </Grid>
 </Page>

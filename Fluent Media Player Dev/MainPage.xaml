@@ -36,7 +36,7 @@
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Discy Developer Preview" />
+                    Text="" />
                 <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
             </StackPanel>
         </Border>
@@ -53,7 +53,7 @@
                              Canvas.ZIndex="0">
 
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="At a Glance" Tag="HomePage" x:Name="HomePageItem">
+                <muxc:NavigationViewItem Content="At a glance" Tag="HomePage" x:Name="HomePageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xECA5;" />
                     </muxc:NavigationViewItem.Icon>
@@ -109,8 +109,8 @@
                 <muxc:InfoBar x:Name="IndexMessage"
                               IsOpen="False"
                               Severity="Warning"
-                              Title="Indexing your Library"
-                              Message="Please wait for indexing to finish."
+                              Title="Indexing your library"
+                              Message="Please wait for indexing to finish. This really won't take long."
                               Margin="56,0,56,0" />
 
                 <StackPanel x:Name="IndexInfo"
