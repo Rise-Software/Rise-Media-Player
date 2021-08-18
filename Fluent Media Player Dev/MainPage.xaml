@@ -111,7 +111,7 @@
                               Severity="Warning"
                               Title="Indexing your library"
                               Message="Please wait for indexing to finish. This really won't take long."
-                              Margin="56,0,56,0" />
+                              Margin="56,16,56,0" />
 
                 <StackPanel x:Name="IndexInfo"
                             Orientation="Vertical"
