@@ -85,6 +85,11 @@
                         <FontIcon Glyph="&#xE93C;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Genres" Tag="GenresPage" x:Name="GenresPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE138;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="Videos" />
                 <muxc:NavigationViewItem Content="Local Videos" Tag="LocalVideosPage" x:Name="LocalVideosPageItem">
                     <muxc:NavigationViewItem.Icon>

@@ -36,6 +36,14 @@ namespace Fluent_Media_Player_Dev.Pages
                         SettingsFrame.Navigate(typeof(AppearancePage));
                         break;
 
+                    case "NavigationPage":
+                        SettingsFrame.Navigate(typeof(NavigationPage));
+                        break;
+
+                    case "AboutPage":
+                        SettingsFrame.Navigate(typeof(AboutPage));
+                        break;
+
                     default:
                         break;
                 }

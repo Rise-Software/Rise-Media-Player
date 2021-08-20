@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Margin="0,-16,0,0">
+    Margin="0,-10,0,0">
     <Page.Resources>
         <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
         <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"></SolidColorBrush>
@@ -20,15 +20,33 @@
                              IsSettingsVisible="False"
                              ItemInvoked="SettingsNav_ItemInvoked">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Media library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
+                <muxc:NavigationViewItem Content="Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8F1;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
+                <muxc:NavigationViewItem Content="App Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE790;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Playback" Tag="PlaybackPage" x:Name="PlaybackPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEC57;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Navigation" Tag="NavigationPage" x:Name="NavigationPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEA4B;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Devices" Tag="DevicesSettingsPage" x:Name="DevicesSettingsPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE1C9;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 

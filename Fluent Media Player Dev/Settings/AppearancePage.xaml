@@ -9,47 +9,9 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <muxc:Expander x:Name="AppThemeExpander">
-            <muxc:Expander.Header>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+        <TextBlock Padding="0,0,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Basics" />
 
-                    <FontIcon Margin="0,0,12,0"
-                              VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE790;"/>
-
-                    <StackPanel Grid.Column="1"
-                                Margin="0,12"
-                                Orientation="Vertical">
-                        <TextBlock Text="App theme" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Select which app theme to display"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords"/>
-                    </StackPanel>
-                </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <muxc:RadioButtons x:Name="ThemeRadioButtons" Margin="28,0,44,0">
-                    <RadioButton x:Name="LightThemeRadioButton"
-                                 Tag="Light"
-                                 Content="Light" />
-                    <RadioButton x:Name="DarkThemeRadioButton"
-                                 Tag="Dark"
-                                 Content="Dark" />
-                    <RadioButton x:Name="SystemThemeRadioButton"
-                                 Tag="Default"
-                                 Content="Use system setting" />
-                </muxc:RadioButtons>
-            </muxc:Expander.Content>
-        </muxc:Expander>
-
-        <Border x:Name="AlbumArtExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="ColoursExpander" Style="{ThemeResource SettingsCard}" Height="60">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -65,23 +27,51 @@
                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
                               Margin="0,12,12,12"
-                              Glyph="&#xE8B9;" />
+                              Glyph="&#xE790;" />
 
                     <StackPanel Grid.Column="1"
                             Margin="0,12"
                             Orientation="Vertical">
-                        <TextBlock Text="Square album art and video thumbnails" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Use square album art and video thumbnails, don't round corners"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="WrapWholeWords" />
+                        <TextBlock Text="Choose your colour" Style="{StaticResource BodyTextBlockStyle}"/>
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1" />
+                <ComboBox Grid.Column="1"  Margin="0,5,-15,0"   PlaceholderText="Use system colour" Width="Auto">
+                    <x:String>Use system colour</x:String>
+                    <x:String>Light</x:String>
+                    <x:String>Dark</x:String>
+                </ComboBox>
             </Grid>
         </Border>
 
-        <Border x:Name="CompactViewExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="HeadersExpander" Style="{ThemeResource SettingsCard}" Height="60">
+            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Margin="0,12,12,12"
+                              Glyph="&#xE185;" />
+
+                    <StackPanel Grid.Column="1"
+                            Margin="0,12"
+                            Orientation="Vertical">
+                        <TextBlock Text="Show page headers" Style="{StaticResource BodyTextBlockStyle}"/>
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
+            </Grid>
+        </Border>
+
+        <Border x:Name="CompactModeExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -102,49 +92,18 @@
                     <StackPanel Grid.Column="1"
                             Margin="0,12"
                             Orientation="Vertical">
-                        <TextBlock Text="Compact view" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Make menu categories compact"
+                        <TextBlock Text="Compact mode" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Decreases overall margins and padding to show more content. Makes sidebar groups collapsible."
                                Style="{StaticResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1" />
+                <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
             </Grid>
         </Border>
 
-        <Border x:Name="MatchExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="8" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Margin="0,12,12,12"
-                              Glyph="&#xEF1F;" />
-
-                    <StackPanel Grid.Column="1"
-                            Margin="0,12"
-                            Orientation="Vertical">
-                        <TextBlock Text="Match backgrounds" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Match album backgrounds and now playing to album art"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1" />
-            </Grid>
-        </Border>
-
+        <TextBlock Padding="0,20,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Sidebar" />
         <muxc:Expander x:Name="MenuItemsExpander">
             <muxc:Expander.Header>
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
@@ -162,8 +121,8 @@
                     <StackPanel Grid.Column="1"
                                 Margin="0,12"
                                 Orientation="Vertical">
-                        <TextBlock Text="Menu items" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose the menu items you want to see"
+                        <TextBlock Text="Show/hide sidebar items" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose the items and groups you always want to see on your sidebar."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords"/>
@@ -172,7 +131,7 @@
             </muxc:Expander.Header>
             <muxc:Expander.Content>
                 <StackPanel Orientation="Vertical" Spacing="8" Margin="28,0,44,0">
-                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="General" />
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="General" />
                     <GridView>
                         <CheckBox x:Name="AtAGlance" Content="At a glance" Margin="16,0,0,0" Checked="Option_Checked"
                             Unchecked="Option_Unchecked" />
@@ -182,7 +141,7 @@
                             Unchecked="Option_Unchecked" IsChecked="True" />
                     </GridView>
                     
-                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Music" />
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Music" />
                     <GridView>
                         <CheckBox x:Name="Songs" Content="Songs" Margin="16,0,0,0" Checked="Option_Checked"
                             Unchecked="Option_Unchecked" />
@@ -192,7 +151,7 @@
                             Unchecked="Option_Unchecked" IsChecked="True" />
                     </GridView>
                     
-                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Videos" />
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Videos" />
                     <GridView>
                         <CheckBox x:Name="LocalVideos" Content="Local videos" Margin="8,0,0,0" Checked="Option_Checked"
                             Unchecked="Option_Unchecked" />
