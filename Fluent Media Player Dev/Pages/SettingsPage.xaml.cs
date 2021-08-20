@@ -17,7 +17,7 @@ namespace Fluent_Media_Player_Dev.Pages
         {
             this.InitializeComponent();
             SettingsNav.SelectedItem = SettingsNav.MenuItems[0];
-            SettingsFrame.Navigate(typeof(FoldersPage));
+            SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
         #region Navigation
@@ -28,8 +28,12 @@ namespace Fluent_Media_Player_Dev.Pages
             {
                 switch (navTo)
                 {
-                    case "FoldersPage":
-                        SettingsFrame.Navigate(typeof(FoldersPage));
+                    case "MediaLibraryPage":
+                        SettingsFrame.Navigate(typeof(MediaLibraryPage));
+                        break;
+                    
+                    case "AppearancePage":
+                        SettingsFrame.Navigate(typeof(AppearancePage));
                         break;
 
                     default:

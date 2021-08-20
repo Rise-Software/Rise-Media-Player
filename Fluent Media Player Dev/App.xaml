@@ -2,9 +2,32 @@
     x:Class="Fluent_Media_Player_Dev.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fluent_Media_Player_Dev">
+    xmlns:local="using:Fluent_Media_Player_Dev"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Application.Resources>
-        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style TargetType="muxc:Expander">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="ExpandDirection" Value="Down" />
+            </Style>
+
+            <Style x:Key="SettingsCard" TargetType="Border">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
+                <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
+                <Setter Property="Padding" Value="16,0,32,0" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 
 </Application>

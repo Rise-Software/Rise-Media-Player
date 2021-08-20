@@ -1,0 +1,204 @@
+﻿<Page
+    x:Class="Fluent_Media_Player_Dev.Settings.AppearancePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fluent_Media_Player_Dev.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <muxc:Expander x:Name="AppThemeExpander">
+            <muxc:Expander.Header>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Margin="0,0,12,0"
+                              VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE790;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="0,12"
+                                Orientation="Vertical">
+                        <TextBlock Text="App theme" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Select which app theme to display"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <muxc:RadioButtons x:Name="ThemeRadioButtons" Margin="28,0,44,0">
+                    <RadioButton x:Name="LightThemeRadioButton"
+                                 Tag="Light"
+                                 Content="Light" />
+                    <RadioButton x:Name="DarkThemeRadioButton"
+                                 Tag="Dark"
+                                 Content="Dark" />
+                    <RadioButton x:Name="SystemThemeRadioButton"
+                                 Tag="Default"
+                                 Content="Use system setting" />
+                </muxc:RadioButtons>
+            </muxc:Expander.Content>
+        </muxc:Expander>
+
+        <Border x:Name="AlbumArtExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Margin="0,12,12,12"
+                              Glyph="&#xE8B9;" />
+
+                    <StackPanel Grid.Column="1"
+                            Margin="0,12"
+                            Orientation="Vertical">
+                        <TextBlock Text="Square album art and video thumbnails" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Use square album art and video thumbnails, don't round corners"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="CompactViewExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Margin="0,12,12,12"
+                              Glyph="&#xE73F;" />
+
+                    <StackPanel Grid.Column="1"
+                            Margin="0,12"
+                            Orientation="Vertical">
+                        <TextBlock Text="Compact view" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Make menu categories compact"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="MatchExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Margin="0,12,12,12"
+                              Glyph="&#xEF1F;" />
+
+                    <StackPanel Grid.Column="1"
+                            Margin="0,12"
+                            Orientation="Vertical">
+                        <TextBlock Text="Match backgrounds" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Match album backgrounds and now playing to album art"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1" />
+            </Grid>
+        </Border>
+
+        <muxc:Expander x:Name="MenuItemsExpander">
+            <muxc:Expander.Header>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Margin="0,0,12,0"
+                              VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE762;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="0,12"
+                                Orientation="Vertical">
+                        <TextBlock Text="Menu items" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose the menu items you want to see"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <StackPanel Orientation="Vertical" Spacing="8" Margin="28,0,44,0">
+                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="General" />
+                    <GridView>
+                        <CheckBox x:Name="AtAGlance" Content="At a glance" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="Playlists" Content="Playlists" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="Devices" Content="Devices" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                    </GridView>
+                    
+                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Music" />
+                    <GridView>
+                        <CheckBox x:Name="Songs" Content="Songs" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="Artists" Content="Artists" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="Albums" Content="Albums" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                    </GridView>
+                    
+                    <TextBlock FontSize="12" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Videos" />
+                    <GridView>
+                        <CheckBox x:Name="LocalVideos" Content="Local videos" Margin="8,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                    </GridView>
+                </StackPanel>
+            </muxc:Expander.Content>
+        </muxc:Expander>
+    </StackPanel>
+</Page>

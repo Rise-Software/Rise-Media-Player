@@ -435,7 +435,7 @@ namespace Fluent_Media_Player_Dev
             if (tag == "SettingsPage")
             {
                 NavView.SelectedItem = NavView.SettingsItem;
-                NavView.Header = "Settings";
+                Header.Text = "Settings";
             }
 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
@@ -443,7 +443,7 @@ namespace Fluent_Media_Player_Dev
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    NavView.Header = item.Content;
+                    Header.Text = item.Content.ToString();
                     break;
                 }
             }
@@ -453,7 +453,7 @@ namespace Fluent_Media_Player_Dev
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    NavView.Header = item.Content;
+                    Header.Text = item.Content.ToString();
                     break;
                 }
             }

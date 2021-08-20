@@ -158,8 +158,11 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\FoldersPage.xaml.cs">
-      <DependentUpon>FoldersPage.xaml</DependentUpon>
+    <Compile Include="Settings\AppearancePage.xaml.cs">
+      <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\MediaLibraryPage.xaml.cs">
+      <DependentUpon>MediaLibraryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SongHub\BaseSong.cs" />
     <Compile Include="SongHub\LocalSongsView.xaml.cs">
@@ -281,7 +284,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\FoldersPage.xaml">
+    <Page Include="Settings\AppearancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\MediaLibraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,7 +13,7 @@ namespace Fluent_Media_Player_Dev.Settings
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class FoldersPage : Page
+    public sealed partial class MediaLibraryPage : Page
     {
         #region Variables
         public ObservableCollection<ListEntry> _Entries = new ObservableCollection<ListEntry>();
@@ -24,10 +24,11 @@ namespace Fluent_Media_Player_Dev.Settings
         public class ListEntry
         {
             public string Path { get; set; }
+            public string DisplayName {  get; set; }
             public string Token { get; set; }
         }
         #endregion
-        public FoldersPage()
+        public MediaLibraryPage()
         {
             this.InitializeComponent();
             FutureAccess = StorageApplicationPermissions.FutureAccessList;
@@ -40,11 +41,12 @@ namespace Fluent_Media_Player_Dev.Settings
             {
                 // Get folder from future access list
                 string faToken = entry.Token;
-                StorageFolder fold = await FutureAccess.GetFolderAsync(faToken);
+                StorageFolder folder = await FutureAccess.GetFolderAsync(faToken);
 
                 _Entries.Add(new ListEntry
                 {
-                    Path = fold.Path,
+                    Path = folder.Path,
+                    DisplayName = folder.DisplayName,
                     Token = faToken
                 });
             }
@@ -76,6 +78,7 @@ namespace Fluent_Media_Player_Dev.Settings
                 _Entries.Add(new ListEntry
                 {
                     Path = folder.Path,
+                    DisplayName = folder.DisplayName,
                     Token = token
                 });
             }
@@ -100,5 +103,32 @@ namespace Fluent_Media_Player_Dev.Settings
                 _Entries.Remove(clickedEntry);
             }
         }
+
+        #region Checkboxes
+        private void SelectAll_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelectAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelectAll_Indeterminate(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Option_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Option_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

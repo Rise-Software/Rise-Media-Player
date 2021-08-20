@@ -48,10 +48,11 @@
                              IsBackButtonVisible="Visible"
                              IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsSettingsVisible="True"
-                             Header="Title"
                              DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
                              Canvas.ZIndex="0">
-
+            <muxc:NavigationView.Header>
+                <TextBlock x:Name="Header" Text="Title" />
+            </muxc:NavigationView.Header>
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="At a glance" Tag="HomePage" x:Name="HomePageItem">
                     <muxc:NavigationViewItem.Icon>
@@ -122,13 +123,10 @@
                     <muxc:ProgressBar x:Name="LoadingBar" />
                 </StackPanel>
 
-                <Grid x:Name="ContentGrid" Padding="56,16,56,0">
-                    <ScrollViewer>
-                        <Frame Visibility="Collapsed"
-                               x:FieldModifier="public"
-                               x:Name="ContentFrame" />
-                    </ScrollViewer>
-                </Grid>
+                <Frame Padding="56,16,56,16"
+                       Visibility="Collapsed"
+                       x:FieldModifier="public"
+                       x:Name="ContentFrame" />
             </Grid>
         </muxc:NavigationView>
     </Grid>

@@ -1,0 +1,177 @@
+﻿<Page
+    x:Class="Fluent_Media_Player_Dev.Settings.MediaLibraryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fluent_Media_Player_Dev.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <muxc:Expander x:Name="FoldersExpander">
+            <muxc:Expander.Header>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Margin="0,0,12,0"
+                              VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE8B7;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="0,12"
+                                Orientation="Vertical">
+                        <TextBlock Text="Manage media locations"
+                                   Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose which folders we search for media in"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <Grid Margin="28,0,44,0" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Add your own folders to your library by clicking the button. To delete them, click the folder you want to delete in the list"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+
+                    <ListView x:Name="FolderList"
+                              Grid.Row="1"
+                              IsItemClickEnabled="True"
+                              ItemClick="FolderList_ItemClick"
+                              ItemsSource="{Binding Entries}"
+                              MaxHeight="200"
+                              SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon Margin="0,0,12,0"
+                                              VerticalAlignment="Center"
+                                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                              FontSize="16"
+                                              Glyph="&#xE8B7;"/>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="0,12"
+                                                Orientation="Vertical">
+                                        <TextBlock Text="{Binding DisplayName}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                        <TextBlock Text="{Binding Path}"
+                                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                   TextWrapping="WrapWholeWords" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Grid.Row="2" Click="PickFolder_Click" Content="Add folder" />
+                </Grid>
+            </muxc:Expander.Content>
+        </muxc:Expander>
+
+        <muxc:Expander x:Name="FormatsExpander">
+            <muxc:Expander.Header>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Margin="0,0,12,0"
+                              VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xEA69;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="0,12"
+                                Orientation="Vertical">
+                        <TextBlock Text="Manage media formats" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose the media formats you want in your library"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <StackPanel Orientation="Vertical" Margin="28,0,44,0" Spacing="8">
+                    <CheckBox x:Name="SelectAll" Content="Select all" IsThreeState="True"
+                            Checked="SelectAll_Checked" Unchecked="SelectAll_Unchecked"
+                            Indeterminate="SelectAll_Indeterminate" />
+                    <GridView>
+                        <CheckBox x:Name="MP3" Content="MP3" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="OGG" Content="OGG" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="AAC" Content="AAC" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="FLAC" Content="FLAC" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="WAV" Content="WAV" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="AIFF" Content="AIFF" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="M4A" Content="M4A" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="WMA" Content="WMA" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                    </GridView>
+                </StackPanel>
+            </muxc:Expander.Content>
+        </muxc:Expander>
+
+        <Border x:Name="DeletionExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Margin="0,12,12,12"
+                              Glyph="&#xE74D;" />
+
+                    <StackPanel Grid.Column="1"
+                            Margin="0,12"
+                            Orientation="Vertical">
+                        <TextBlock Text="Media deletion" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="When music is deleted from your library, should we delete it from your files as well?"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1"
+                              OffContent="No"
+                              OnContent="Yes" />
+            </Grid>
+        </Border>
+    </StackPanel>
+</Page>
