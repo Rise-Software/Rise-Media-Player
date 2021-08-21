@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Margin="0,-10,0,0">
+    Margin="0,0,0,0">
     <Page.Resources>
         <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
         <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"></SolidColorBrush>
@@ -15,20 +15,24 @@
 
     <Grid>
         <muxc:NavigationView x:Name="SettingsNav"
-                             PaneDisplayMode="Top"
+                             PaneDisplayMode="Left"
                              IsBackButtonVisible="Collapsed"
                              IsSettingsVisible="False"
-                             ItemInvoked="SettingsNav_ItemInvoked">
+                             ItemInvoked="SettingsNav_ItemInvoked"
+                             CompactModeThresholdWidth="800"
+                             ExpandedModeThresholdWidth="800"
+                             IsPaneToggleButtonVisible="False">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
+
+                <muxc:NavigationViewItem Content="Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE8F1;" />
+                        <FontIcon Glyph="&#xE790;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="App Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
+                <muxc:NavigationViewItem Content="Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE790;" />
+                        <FontIcon Glyph="&#xE8F1;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -38,7 +42,7 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Navigation" Tag="NavigationPage" x:Name="NavigationPageItem">
+                <muxc:NavigationViewItem Content="Sidebar" Tag="SidebarPage" x:Name="SidebarPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEA4B;" />
                     </muxc:NavigationViewItem.Icon>
@@ -55,6 +59,7 @@
                         <FontIcon Glyph="&#xE946;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+
             </muxc:NavigationView.MenuItems>
 
             <Grid Padding="0,16,0,0">

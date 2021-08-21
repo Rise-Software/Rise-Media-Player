@@ -14,6 +14,19 @@
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
     </Page.Resources>
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Border
             x:Name="AppTitleBar"
             Height="40"
@@ -25,18 +38,18 @@
             <StackPanel Orientation="Horizontal">
 
                 <Image
-                    x:Name="AppFontIcon"
+                    x:Name="AppIcon"
                     Width="16"
                     Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Source="/Assets/iconography.png" />
+                    Source="/Assets/Square44x44Logo.altform-lightunplated_targetsize-24.png" />
                 <TextBlock
                     x:Name="AppTitle"
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="" />
+                    Text="Fluent Player" />
                 <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
             </StackPanel>
         </Border>
@@ -49,6 +62,9 @@
                              IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsSettingsVisible="True"
                              DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                             CompactModeThresholdWidth="800"
+                             ExpandedModeThresholdWidth="800"
+                             IsPaneToggleButtonVisible="True"
                              Canvas.ZIndex="0">
             <muxc:NavigationView.Header>
                 <TextBlock x:Name="Header" Text="Title" />

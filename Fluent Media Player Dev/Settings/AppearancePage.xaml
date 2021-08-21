@@ -9,7 +9,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,0,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Basics" />
+        <TextBlock Padding="0,0,0,5" FontSize="24" FontWeight="Bold" Style="{ThemeResource TitleTextBlockStyle}" Text="Appearance" />
+        <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Basics" />
 
         <Border x:Name="ColoursExpander" Style="{ThemeResource SettingsCard}" Height="60">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
@@ -35,15 +36,15 @@
                         <TextBlock Text="Choose your colour" Style="{StaticResource BodyTextBlockStyle}"/>
                     </StackPanel>
                 </Grid>
-                <ComboBox Grid.Column="1"  Margin="0,5,-15,0"   PlaceholderText="Use system colour" Width="Auto">
-                    <x:String>Use system colour</x:String>
+                <ComboBox Grid.Column="1"  VerticalAlignment="Center" Margin="0,0,-15,0"   PlaceholderText="Use system setting" Width="Auto">
                     <x:String>Light</x:String>
                     <x:String>Dark</x:String>
+                    <x:String>Use system setting</x:String>
                 </ComboBox>
             </Grid>
         </Border>
 
-        <Border x:Name="HeadersExpander" Style="{ThemeResource SettingsCard}" Height="60">
+        <Border x:Name="HeadersExpander" Style="{ThemeResource SettingsCard}" Height="61">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />

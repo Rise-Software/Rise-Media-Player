@@ -9,6 +9,9 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
+
+        <TextBlock Padding="0,0,0,5" FontSize="24" FontWeight="Bold" Style="{ThemeResource TitleTextBlockStyle}" Text="About" />
+        <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Version Info" />
         <Border x:Name="AboutExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -73,6 +76,8 @@
                 </StackPanel>
             </muxc:Expander.Content>
         </muxc:Expander>
+
+        
 
     </StackPanel>
 </Page>

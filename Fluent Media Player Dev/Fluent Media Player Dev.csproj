@@ -167,8 +167,8 @@
     <Compile Include="Settings\MediaLibraryPage.xaml.cs">
       <DependentUpon>MediaLibraryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\NavigationPage.xaml.cs">
-      <DependentUpon>NavigationPage.xaml</DependentUpon>
+    <Compile Include="Settings\SidebarPage.xaml.cs">
+      <DependentUpon>SidebarPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SongHub\BaseSong.cs" />
     <Compile Include="SongHub\LocalSongsView.xaml.cs">
@@ -303,7 +303,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\NavigationPage.xaml">
+    <Page Include="Settings\SidebarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

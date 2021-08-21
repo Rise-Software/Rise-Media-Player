@@ -20,9 +20,9 @@ namespace Fluent_Media_Player_Dev.Settings
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NavigationPage : Page
+    public sealed partial class SidebarPage : Page
     {
-        public NavigationPage()
+        public SidebarPage()
         {
             this.InitializeComponent();
         }
