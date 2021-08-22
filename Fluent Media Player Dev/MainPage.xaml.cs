@@ -376,6 +376,12 @@ namespace Fluent_Media_Player_Dev
                 return;
             }
 
+            if (args.InvokedItemContainer.Content.ToString() == Header.Text)
+            {
+                FinishNavigation();
+                return;
+            }
+
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {

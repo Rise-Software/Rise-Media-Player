@@ -22,6 +22,12 @@ namespace Fluent_Media_Player_Dev.Pages
         #region Navigation
         private void SettingsNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
+            if (args.InvokedItemContainer.Content.ToString() == Header.Text)
+            {
+                FinishNavigation();
+                return;
+            }
+
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (navTo != null)
             {
@@ -65,7 +71,7 @@ namespace Fluent_Media_Player_Dev.Pages
                     break;
                 }
             }
-            
+
             foreach (NavigationViewItemBase item in SettingsNav.FooterMenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
