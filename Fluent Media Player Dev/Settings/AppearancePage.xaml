@@ -9,7 +9,6 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,0,0,5" FontSize="24" FontWeight="Bold" Style="{ThemeResource TitleTextBlockStyle}" Text="Appearance" />
         <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Basics" />
 
         <Border x:Name="ColoursExpander" Style="{ThemeResource SettingsCard}" Height="60">
@@ -103,62 +102,5 @@
                 <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
             </Grid>
         </Border>
-
-        <TextBlock Padding="0,20,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Sidebar" />
-        <muxc:Expander x:Name="MenuItemsExpander">
-            <muxc:Expander.Header>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Margin="0,0,12,0"
-                              VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE762;"/>
-
-                    <StackPanel Grid.Column="1"
-                                Margin="0,12"
-                                Orientation="Vertical">
-                        <TextBlock Text="Show/hide sidebar items" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose the items and groups you always want to see on your sidebar."
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords"/>
-                    </StackPanel>
-                </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <StackPanel Orientation="Vertical" Spacing="8" Margin="28,0,44,0">
-                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="General" />
-                    <GridView>
-                        <CheckBox x:Name="AtAGlance" Content="At a glance" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="Playlists" Content="Playlists" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                        <CheckBox x:Name="Devices" Content="Devices" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                    </GridView>
-                    
-                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Music" />
-                    <GridView>
-                        <CheckBox x:Name="Songs" Content="Songs" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="Artists" Content="Artists" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                        <CheckBox x:Name="Albums" Content="Albums" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                    </GridView>
-                    
-                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Videos" />
-                    <GridView>
-                        <CheckBox x:Name="LocalVideos" Content="Local videos" Margin="8,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                    </GridView>
-                </StackPanel>
-            </muxc:Expander.Content>
-        </muxc:Expander>
     </StackPanel>
 </Page>

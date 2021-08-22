@@ -88,13 +88,13 @@ namespace Fluent_Media_Player_Dev
             IndexSongs();
 
             #region Titlebar
-            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             // Hide default title bar.
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
             UpdateTitleBarLayout(coreTitleBar);
 
@@ -300,6 +300,9 @@ namespace Fluent_Media_Player_Dev
             // Ensure the custom title bar does not overlap window caption controls
             Thickness currMargin = AppTitleBar.Margin;
             AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
+            SearchBar.Margin = new Thickness(currMargin.Left + AppData.DesiredSize.Width + 96, currMargin.Top, coreTitleBar.SystemOverlayRightInset + 32, currMargin.Bottom);
+
+            UpdateTitleBarItems(NavView);
         }
 
         private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
@@ -333,6 +336,11 @@ namespace Fluent_Media_Player_Dev
         // Update the TitleBar content layout depending on NavigationView DisplayMode
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
         {
+            UpdateTitleBarItems(sender);
+        }
+
+        private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView NavView)
+        {
             const int topIndent = 16;
             const int expandedIndent = 48;
             int minimalIndent = 104;
@@ -340,23 +348,26 @@ namespace Fluent_Media_Player_Dev
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
-            if (sender.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
+            if (NavView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
             {
                 AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                SearchBar.Margin = new Thickness(topIndent + AppData.DesiredSize.Width + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
-            else if (sender.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
+            else if (NavView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
                 AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                SearchBar.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right - 40, currMargin.Bottom);
             }
             else
             {
                 AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                SearchBar.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right + 56, currMargin.Bottom);
             }
         }
         #endregion
 
         #region Navigation
-        private void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (IndexInfo.Visibility == Visibility.Visible)
             {
@@ -368,7 +379,8 @@ namespace Fluent_Media_Player_Dev
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {
-                ContentFrame.Navigate(typeof(SettingsPage));
+                SettingsDialog dialog = new SettingsDialog();
+                await dialog.ShowAsync();
             }
             else
             {
@@ -431,12 +443,6 @@ namespace Fluent_Media_Player_Dev
         {
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
-
-            if (tag == "SettingsPage")
-            {
-                NavView.SelectedItem = NavView.SettingsItem;
-                Header.Text = "Settings";
-            }
 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {

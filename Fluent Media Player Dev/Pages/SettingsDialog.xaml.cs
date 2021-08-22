@@ -3,21 +3,20 @@ using Windows.UI.Xaml.Controls;
 using Fluent_Media_Player_Dev.Settings;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
+using Windows.UI.Xaml;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Fluent_Media_Player_Dev.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class SettingsPage : Page
+    public sealed partial class SettingsDialog : ContentDialog
     {
-        public SettingsPage()
+        public SettingsDialog()
         {
             this.InitializeComponent();
             SettingsNav.SelectedItem = SettingsNav.MenuItems[0];
-            SettingsFrame.Navigate(typeof(MediaLibraryPage));
+            SettingsFrame.Navigate(typeof(AppearancePage));
+            ContentDialog_SizeChanged(null, null);
         }
 
         #region Navigation
@@ -31,7 +30,7 @@ namespace Fluent_Media_Player_Dev.Pages
                     case "MediaLibraryPage":
                         SettingsFrame.Navigate(typeof(MediaLibraryPage));
                         break;
-                    
+
                     case "AppearancePage":
                         SettingsFrame.Navigate(typeof(AppearancePage));
                         break;
@@ -62,10 +61,54 @@ namespace Fluent_Media_Player_Dev.Pages
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     SettingsNav.SelectedItem = item;
+                    Header.Text = item.Content.ToString();
+                    break;
+                }
+            }
+            
+            foreach (NavigationViewItemBase item in SettingsNav.FooterMenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                {
+                    SettingsNav.SelectedItem = item;
+                    Header.Text = item.Content.ToString();
                     break;
                 }
             }
         }
         #endregion
+
+        private void CloseButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Hide();
+        }
+
+        private void ContentDialog_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width <= 700)
+            {
+                SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftCompact;
+                SettingsFrame.Width = 380;
+            }
+            else if (Window.Current.Bounds.Width <= 800)
+            {
+                SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftCompact;
+                SettingsFrame.Width = 460;
+            }
+            else
+            {
+                SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Left;
+                SettingsFrame.Width = 460;
+            }
+
+            if (Window.Current.Bounds.Height <= 600)
+            {
+                SettingsGrid.Height = Window.Current.Bounds.Height - 108;
+            }
+            else
+            {
+                SettingsGrid.Height = 460;
+            }
+        }
     }
 }

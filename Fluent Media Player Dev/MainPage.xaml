@@ -16,43 +16,56 @@
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState>
+                <VisualState x:Name="SmallWidth">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
+                        <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Border
-            x:Name="AppTitleBar"
-            Height="40"
-            Margin="48,8,0,0"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            Canvas.ZIndex="1"
-            IsHitTestVisible="True">
-            <StackPanel Orientation="Horizontal">
 
-                <Image
-                    x:Name="AppIcon"
-                    Width="16"
-                    Height="16"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Source="/Assets/Square44x44Logo.altform-lightunplated_targetsize-24.png" />
-                <TextBlock
-                    x:Name="AppTitle"
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Fluent Player" />
-                <AutoSuggestBox  Padding="300,0,12,24" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="Search your own media and the web" Width="673" />
-            </StackPanel>
-        </Border>
+        <Grid Canvas.ZIndex="1">
+            <Border x:Name="AppTitleBar"
+                    IsHitTestVisible="True"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    Height="40"
+                    Canvas.ZIndex="1" 
+                    Margin="48,8,0,0">
+                <StackPanel x:Name="AppData"
+                            Orientation="Horizontal"
+                            Width="Auto">
+                    <Image x:Name="AppFontIcon"
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"
+                           Source="Assets/Square44x44Logo.png" 
+                           Width="16" 
+                           Height="16" />
+                    <TextBlock x:Name="AppTitle"
+                               Text="Fluent Player"
+                               VerticalAlignment="Center"
+                               Margin="12,0,0,0"
+                               Visibility="Collapsed"
+                               Width="Auto"
+                               Style="{StaticResource CaptionTextBlockStyle}" />
+                </StackPanel>
+            </Border>
+
+            <AutoSuggestBox x:Name="SearchBar"
+                            Canvas.ZIndex="2"
+                            Height="32"
+                            HorizontalAlignment="Stretch"
+                            MaxWidth="530"
+                            VerticalAlignment="Top"
+                            AutomationProperties.Name="Search"
+                            PlaceholderText="Search your own media and the web"
+                            QueryIcon="Find" />
+        </Grid>
 
         <muxc:NavigationView x:Name="NavView"
                              BackRequested="NavView_BackRequested"

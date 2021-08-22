@@ -10,7 +10,6 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,0,0,5" FontSize="24" FontWeight="Bold" Style="{ThemeResource TitleTextBlockStyle}" Text="Library" />
         <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="File management" />
         <muxc:Expander x:Name="FoldersExpander">
             <muxc:Expander.Header>
@@ -90,7 +89,7 @@
             </muxc:Expander.Content>
         </muxc:Expander>
 
-        <Border x:Name="DeletionExpander" Style="{ThemeResource ResourceKey=SettingsCard}" Height="61">
+        <Border x:Name="DeletionExpander" Style="{ThemeResource ResourceKey=SettingsCard}">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -114,7 +113,7 @@
                         <TextBlock Text="When removing media from my library:" Style="{StaticResource BodyTextBlockStyle}"/>
                     </StackPanel>
                 </Grid>
-                <ComboBox Grid.Column="1" VerticalAlignment="Center" Margin="0,0,-15,0"  PlaceholderText="Only remove from the app" Width="Auto">
+                <ComboBox Grid.Column="1" VerticalAlignment="Center" Margin="0,0,-15,0" PlaceholderText="Only remove from the app" Width="Auto">
                     <x:String>Only remove from the app</x:String>
                     <x:String>Delete from my device</x:String>
                 </ComboBox>

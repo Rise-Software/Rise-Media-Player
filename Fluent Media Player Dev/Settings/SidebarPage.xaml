@@ -7,9 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
-    
+
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,0,0,5" FontSize="24" FontWeight="Bold" Style="{ThemeResource TitleTextBlockStyle}" Text="Sidebar" />
         <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="View options" />
         <Border x:Name="ResizeExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="8" VerticalAlignment="Center">
@@ -33,7 +32,9 @@
                             Margin="0,12"
                             Orientation="Vertical">
                         <TextBlock Text="Always show labels" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Even when the window is made smaller, labels will remain in the sidebar." Style="{StaticResource CaptionTextBlockStyle}"/>
+                        <TextBlock Text="Even when the window is made smaller, labels will remain in the sidebar."
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                 </Grid>
                 <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
@@ -62,12 +63,72 @@
                             Margin="0,12"
                             Orientation="Vertical">
                         <TextBlock Text="Use colourful icons" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Use full-colour, solid icons rather than line icons on the sidebar (Similar to Settings app)." Style="{StaticResource CaptionTextBlockStyle}"/>
+                        <TextBlock Text="Use full-colour, solid icons rather than line icons on the sidebar (Similar to Settings app)."
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                 </Grid>
                 <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
             </Grid>
         </Border>
+
+        <muxc:Expander x:Name="MenuItemsExpander">
+            <muxc:Expander.Header>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Margin="0,0,12,0"
+                              VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE762;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="0,12"
+                                Orientation="Vertical">
+                        <TextBlock Text="Show/hide sidebar items" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose the items and groups you always want to see on your sidebar."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <StackPanel Orientation="Vertical" Spacing="8" Margin="28,0,44,0">
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="General" />
+                    <GridView>
+                        <CheckBox x:Name="AtAGlance" Content="At a glance" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="Playlists" Content="Playlists" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="Devices" Content="Devices" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                    </GridView>
+
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Music" />
+                    <GridView>
+                        <CheckBox x:Name="Songs" Content="Songs" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                        <CheckBox x:Name="Artists" Content="Artists" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="Albums" Content="Albums" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                        <CheckBox x:Name="Genres" Content="Genres" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" IsChecked="True" />
+                    </GridView>
+
+                    <TextBlock FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Videos" />
+                    <GridView>
+                        <CheckBox x:Name="LocalVideos" Content="Local videos" Margin="16,0,0,0" Checked="Option_Checked"
+                            Unchecked="Option_Unchecked" />
+                    </GridView>
+                </StackPanel>
+            </muxc:Expander.Content>
+        </muxc:Expander>
 
         <TextBlock Padding="0,20,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="On Startup" />
         <Border Height="61" x:Name="OnStartupExpander" Style="{ThemeResource SettingsCard}">

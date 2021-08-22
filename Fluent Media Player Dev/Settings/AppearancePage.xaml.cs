@@ -26,30 +26,5 @@ namespace Fluent_Media_Player_Dev.Settings
         {
             this.InitializeComponent();
         }
-
-        private void SelectAll_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SelectAll_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SelectAll_Indeterminate(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Option_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Option_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
