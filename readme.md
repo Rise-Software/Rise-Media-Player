@@ -1,5 +1,4 @@
-![Group 2 (1)](https://user-images.githubusercontent.com/74561130/129751670-74c8cbab-3e99-4964-babd-cd08aa218c07.png)
-
+![risetest-min](https://user-images.githubusercontent.com/74561130/130504820-cd80d98b-c516-4a5a-a2dc-9734b3f00dbb.png)
 
 **Fluent Player (Working Title)** is the one app you'll need to access all of your media; be it music, videos or even your favourite streaming services! Designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#** we hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
 
