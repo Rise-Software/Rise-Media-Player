@@ -1,10 +1,12 @@
 ![risetest-min](https://user-images.githubusercontent.com/74561130/130504820-cd80d98b-c516-4a5a-a2dc-9734b3f00dbb.png)
 
-**Fluent Player (Working Title)** is the one app you'll need to access all of your media; be it music, videos or even your favourite streaming services! Designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#** we hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
+**Rise** brings your entire media library to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love Rise. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, theres plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer. Stream, curate and explore(+1). Almost infinite customisability with settings that are second to none.
+
 
 - **How does it look?**
 
-> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :): Of course we couldn't forget Mica, Acrylic and Dark Mode support!
+> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :): Of course we couldn't forget Mica, Acrylic and Dark Mode support! We also try and cater to a variety of users with a compact mode targeted to mouse users. 
+
 
 > **Light Mode**
 
@@ -20,5 +22,6 @@
 
 - **How to download it?**
 
-> There isn't any direct method to install it, so you need to fire up the project in Visual Studio, open the solution and then deploy it onto your Device. We wouldn't suggest downloading at this point, as it is simply not functional enough. If you want to know more, join our Discord! 
+> There isn't any direct method to install it yet. If you'd like to see what we're working on for yourself and try it out, open up the project in Visual Studio (following our system requirements) and build it! We hope you enjoy watching our progress :)
 
+(+1) Streaming services are not available yet.
