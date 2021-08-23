@@ -1,6 +1,6 @@
 ![risetest-min](https://user-images.githubusercontent.com/74561130/130504820-cd80d98b-c516-4a5a-a2dc-9734b3f00dbb.png)
 
-**Rise** brings your entire media library to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love Rise. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, theres plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer. Stream, curate and explore(+1). Almost infinite customisability with settings that are second to none.
+**Rise** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love Rise. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, theres plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer. Stream, curate and explore(+1). Almost infinite customisability with settings that are second to none.
 
 
 - **How does it look?**
