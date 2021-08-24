@@ -1,6 +1,6 @@
 ![risetest-min](https://user-images.githubusercontent.com/74561130/130504820-cd80d98b-c516-4a5a-a2dc-9734b3f00dbb.png)
 
-**Rise** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love Rise. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, there's plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer. Stream, curate and explore*. Almost infinite customisability with settings that are second to none.
+**Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, there's plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer. Stream, curate and explore*. Almost infinite customisability with settings that are second to none.
 
 
 - **Look**
@@ -17,4 +17,4 @@ The app is in an early stage. This is a render of a future version. The current 
 There isn't any download link yet. To install, open the project in Visual Studio and deploy the solution.
 
 \*Streaming services are not available yet.
-\*\*Windows 10 1809+, speaker device
+\*\*Windows 10 1809+, UWP Toolkit & Windows 10 SDK
