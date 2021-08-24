@@ -7,14 +7,13 @@
 
 The app is in an early stage. This is a render of a future version. The current version of the app does not resemble the final product, nor these renders. We try to cater to a variety of users with a compact mode targeted to mouse users. 
 
-![Group 39](https://user-images.githubusercontent.com/74561130/129236201-4af67799-becc-464b-91c6-c02d58342d04.png)
-![Group 40](https://user-images.githubusercontent.com/74561130/129236191-15f9688f-a123-4a20-af92-f1ad9d7dd7a3.png)
-![now](https://user-images.githubusercontent.com/74561130/129236229-f8597d13-032b-4538-a9eb-1c147e1a843d.png)
+![riseupdated](https://user-images.githubusercontent.com/74561130/130692327-6f3ce078-6501-4618-9ff6-d794d51b7873.png)
 
+![nowplayingnew](https://user-images.githubusercontent.com/74561130/130692352-70afe938-2742-4b1a-93a9-5a5537bcaf38.png)
 
 - **Download**
 
-There isn't any download link yet. To install, open the project in Visual Studio and deploy the solution.
+There isn't any installers or packages available yet. If you want to try it, open the project in Visual Studio and deploy the solution.
 
 \*Streaming services are not available yet.
 \*\*Windows 10 1809 (Minimum); Windows 11 21H2 (Recommended), UWP Toolkit & Windows 10 SDK
