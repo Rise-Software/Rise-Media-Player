@@ -3,6 +3,7 @@
 *Last Updated August 2021*
 
 **Base Software & Copyright**
+
 This project is not officially open source software and is protected by copyright. Selling, copying or otherwise distributing this software is prohibited*. Although you are permitted to modify and view the source code as much as you wish for your own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available on the main repository page.
 
 We have used very few pieces of open source software available on GitHub to make this project possible. 
@@ -11,11 +12,13 @@ We have used very few pieces of open source software available on GitHub to make
 *allowed to approved
 
 **Local Media Handling**
+
 By using this software and adding your folders, you give **Rise** Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music & Videos) by default.
 
 By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.
 
 **Streaming & Online Services**
+
 
 Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service/s. 
 
