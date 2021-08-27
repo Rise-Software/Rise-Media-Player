@@ -3,6 +3,7 @@
 
 *Last Updated August 2021*
 
+
 **Base Software & Copyright**
 
 This project is not officially open source software and is protected by copyright. Selling, copying or otherwise distributing this software is prohibited*. Although you are permitted to modify and view the source code as much as you wish for your own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available on the main repository page.
