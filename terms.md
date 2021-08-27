@@ -1,6 +1,9 @@
 ![newterms](https://user-images.githubusercontent.com/74561130/131143019-dbce294b-e56f-4f2e-ace7-d4e0363e811e.png)
 **Rise Media Player - Licence Agreement & Terms for Use**
 
+
+
+
 *Last Updated August 2021*
 
 
