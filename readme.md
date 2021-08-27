@@ -1,25 +1,18 @@
-![Group 2 (1)](https://user-images.githubusercontent.com/74561130/129751670-74c8cbab-3e99-4964-babd-cd08aa218c07.png)
+![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
 
+**Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, there's plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer; video services like YouTube and Netflix! Stream, curate and explore*. Almost infinite customisability with settings that are second to none.
 
-**Fluent Player (Working Title)** is the one app you'll need to access all of your media; be it music, videos or even your favourite streaming services! Designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#** we hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
+- **Appearance**
 
-- **How does it look?**
+The app is not even in alpha yet. This is a render of a future version. The current version of the app does not resemble the final product, nor these renders. We try to cater to a variety of users with a compact mode targeted to mouse users. 
 
-> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :): Of course we couldn't forget Mica, Acrylic and Dark Mode support!
+![riseupdated](https://user-images.githubusercontent.com/74561130/130692327-6f3ce078-6501-4618-9ff6-d794d51b7873.png)
 
-> **Light Mode**
+![nowplayingnew](https://user-images.githubusercontent.com/74561130/130692352-70afe938-2742-4b1a-93a9-5a5537bcaf38.png)
 
-![Group 39](https://user-images.githubusercontent.com/74561130/129236201-4af67799-becc-464b-91c6-c02d58342d04.png)
+- **Download**
 
-> **Dark Mode**
+Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution.
 
-![Group 40](https://user-images.githubusercontent.com/74561130/129236191-15f9688f-a123-4a20-af92-f1ad9d7dd7a3.png)
-
-> **Now Playing**
-
-![now](https://user-images.githubusercontent.com/74561130/129236229-f8597d13-032b-4538-a9eb-1c147e1a843d.png)
-
-- **How to download it?**
-
-> There isn't any direct method to install it, so you need to fire up the project in Visual Studio, open the solution and then deploy it onto your Device. We wouldn't suggest downloading at this point, as it is simply not functional enough. If you want to know more, join our Discord! 
-
+\*Streaming services are not available yet.
+\*\*Windows 10 1809 (Minimum); Windows 11 21H2 (Recommended), UWP Toolkit & Windows 10 SDK
