@@ -23,12 +23,13 @@ By default, you give the software access to track your listening history and hab
 Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service/s. 
 
 By using any one of these streaming services,
->Spotify (requires premium or equivalent account for streaming)
+- Spotify (requires premium or equivalent account for streaming)
 
->Deezer  (requires premium or equivalent account for streaming)
+- Deezer  (requires premium or equivalent account for streaming)
 
->YouTube & YouTube Music  (requires premium or equivalent account for music streaming)
->Netflix
+- YouTube & YouTube Music  (requires premium or equivalent account for music streaming)
+- 
+- Netflix
 
 >Amazon Prime Video & Music
 
