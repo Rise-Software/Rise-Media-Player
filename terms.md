@@ -24,10 +24,14 @@ Logging in and using your online accounts allows this software to manage your on
 
 By using any one of these streaming services,
 >Spotify (requires premium or equivalent account for streaming)
+
 >Deezer  (requires premium or equivalent account for streaming)
+
 >YouTube & YouTube Music  (requires premium or equivalent account for music streaming)
 >Netflix
+
 >Amazon Prime Video & Music
+
 you accept their own terms and conditions for service. These will be available at their respective websites.
 
 Congrats if you read this! Have a cookie :) 
