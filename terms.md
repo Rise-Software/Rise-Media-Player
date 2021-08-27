@@ -1,8 +1,9 @@
-Rise Media Player - Licence Agreement & Terms for Use
+![termsimg](https://user-images.githubusercontent.com/74561130/131140383-d5e78d16-f396-4ac3-ae88-d07a868c56d5.png)
+-**Rise Media Player - Licence Agreement & Terms for Use**
 Last Updated August 2021
 
-Base Software
-This project is not officially open source software. Selling, copying or otherwise distributing this software is prohibited. Although, users are permitted to modify and view the source code as much as they wish for their own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available here. 
+**Copyright and Protection**
+This project is not officially open source software and is protected by copyright. Selling, copying or otherwise distributing this software is prohibited. Although you are permitted to modify and view the source code as much as you wish for your own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available on the main repository page.
 
 Local Media Handling
 
