@@ -10,11 +10,15 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--#region Styles-->
+            <Thickness x:Key="ExpanderHeaderPadding">16,12,16,12</Thickness>
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="ExpandDirection" Value="Down" />
+                <Setter Property="Padding" Value="44,12" />
             </Style>
 
             <Style x:Key="SettingsCard" TargetType="Border">
@@ -25,9 +29,18 @@
                 <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
                 <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
                 <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-                <Setter Property="Padding" Value="16,0,32,0" />
+                <Setter Property="Padding" Value="16,12,16,12" />
             </Style>
+
+            <Style x:Key="Subheader" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="0,20,0,5" />
+            </Style>
+            <!--#endregion-->
+
         </ResourceDictionary>
+
     </Application.Resources>
 
 </Application>

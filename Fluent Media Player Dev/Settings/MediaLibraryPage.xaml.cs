@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using Windows.Storage;
-using Windows.Storage.AccessCache;
-using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Fluent_Media_Player_Dev.Dialogs;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using Windows.Storage.AccessCache;
+using static Fluent_Media_Player_Dev.Dialogs.FoldersDialog;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,91 +18,31 @@ namespace Fluent_Media_Player_Dev.Settings
     public sealed partial class MediaLibraryPage : Page
     {
         #region Variables
-        public ObservableCollection<ListEntry> _Entries = new ObservableCollection<ListEntry>();
-        public ObservableCollection<ListEntry> Entries { get { return _Entries; } }
-        public StorageItemAccessList FutureAccess { get; set; }
-        #endregion
-        #region Classes
-        public class ListEntry
+        public static MediaLibraryPage Current;
+        private FoldersDialog Dialog = new FoldersDialog();
+        public ContentDialog dialog = new ContentDialog
         {
-            public string Path { get; set; }
-            public string DisplayName {  get; set; }
-            public string Token { get; set; }
-        }
+            Title = "Folders",
+            PrimaryButtonText = "Add folder",
+            SecondaryButtonText = "Done",
+            DefaultButton = ContentDialogButton.Primary,
+        };
         #endregion
+
         public MediaLibraryPage()
         {
             this.InitializeComponent();
-            FutureAccess = StorageApplicationPermissions.FutureAccessList;
-            FillList();
+            Current = this;
+            dialog.Closing += Dialog_Closing;
+            dialog.Closed += Dialog_Closed;
+            dialog.Content = Dialog;
         }
 
-        private async void FillList()
+        private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
         {
-            foreach (AccessListEntry entry in FutureAccess.Entries)
+            if (args.Result == ContentDialogResult.Secondary)
             {
-                // Get folder from future access list
-                string faToken = entry.Token;
-                StorageFolder folder = await FutureAccess.GetFolderAsync(faToken);
-
-                _Entries.Add(new ListEntry
-                {
-                    Path = folder.Path,
-                    DisplayName = folder.DisplayName,
-                    Token = faToken
-                });
-            }
-        }
-
-        private async void PickFolder_Click(object sender, RoutedEventArgs e)
-        {
-            FolderPicker folderPicker = new FolderPicker();
-            folderPicker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
-            folderPicker.FileTypeFilter.Add(".mp3"); // meaningless, but you have to have something
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-
-            if (folder != null)
-            {
-                foreach (AccessListEntry entry in FutureAccess.Entries)
-                {
-                    // Get folder from future access list
-                    string faToken = entry.Token;
-                    StorageFolder fold = await FutureAccess.GetFolderAsync(faToken);
-                    if (folder.Path == fold.Path)
-                    {
-                        return;
-                    }
-                }
-
-                string token = Guid.NewGuid().ToString();
-                StorageApplicationPermissions.FutureAccessList.AddOrReplace(token, folder);
-
-                _Entries.Add(new ListEntry
-                {
-                    Path = folder.Path,
-                    DisplayName = folder.DisplayName,
-                    Token = token
-                });
-            }
-        }
-
-        private async void FolderList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            ContentDialog removeFolder = new ContentDialog
-            {
-                Title = "Remove this folder?",
-                Content = "You're about to remove this folder from your library. The folder won't be removed, but you won't see its contents in your library.",
-                CloseButtonText = "Cancel",
-                PrimaryButtonText = "Remove"
-            };
-
-            ContentDialogResult result = await removeFolder.ShowAsync();
-
-            if (result == ContentDialogResult.Primary)
-            {
-                ListEntry clickedEntry = e.ClickedItem as ListEntry;
-                FutureAccess.Remove(clickedEntry.Token);
-                _Entries.Remove(clickedEntry);
+                await MainPage.Current.Dialog.ShowAsync();
             }
         }
 
@@ -130,5 +72,60 @@ namespace Fluent_Media_Player_Dev.Settings
 
         }
         #endregion
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.Current.Dialog.Hide();
+            await dialog.ShowAsync();
+        }
+
+        private void Dialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (args.Result == ContentDialogResult.Primary)
+            {
+                args.Cancel = true;
+                AddFolder();
+                return;
+            }
+            else if (args.Result == ContentDialogResult.Secondary)
+            {
+                dialog.Hide();
+            }
+        }
+
+        public async void AddFolder()
+        {
+            FolderPicker folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.MusicLibrary;
+            folderPicker.FileTypeFilter.Add(".mp3"); // meaningless, but you have to have something
+            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+
+            if (folder != null)
+            {
+                foreach (AccessListEntry entry in FoldersDialog.Current.
+                    FutureAccess.Entries)
+                {
+                    // Get folder from future access list
+                    string faToken = entry.Token;
+                    StorageFolder fold = await FoldersDialog.Current.
+                        FutureAccess.GetFolderAsync(faToken);
+                    if (folder.Path == fold.Path)
+                    {
+                        return;
+                    }
+                }
+
+                string token = Guid.NewGuid().ToString();
+                StorageApplicationPermissions.FutureAccessList.AddOrReplace(token, folder);
+
+                FoldersDialog.Current.
+                    Entries.Add(new ListEntry
+                    {
+                        Path = folder.Path,
+                        DisplayName = folder.DisplayName,
+                        Token = token
+                    });
+            }
+        }
     }
 }

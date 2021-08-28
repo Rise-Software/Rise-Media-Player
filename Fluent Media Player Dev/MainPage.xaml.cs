@@ -17,9 +17,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Fluent_Media_Player_Dev.Dialogs;
 using Fluent_Media_Player_Dev.Pages;
+using Fluent_Media_Player_Dev.Settings;
+using Fluent_Media_Player_Dev.Converters;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
+using Windows.UI.Xaml.Data;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -34,6 +38,9 @@ namespace Fluent_Media_Player_Dev
     {
         #region Variables
         public static MainPage Current;
+        private ObservableCollection<string> Breadcrumbs =
+            new ObservableCollection<string>();
+        private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader;
         public ObservableCollection<Song> Songs { get; }
         public ObservableCollection<Album> Albums { get; set; }
         private List<string> AddedAlbums { get; set; }
@@ -41,7 +48,9 @@ namespace Fluent_Media_Player_Dev
         private List<StorageFile> Files { get; set; }
         public MediaPlaybackList PlaybackList { get; set; }
         private List<string> Properties { get; set; }
+        public SettingsDialog Dialog = new SettingsDialog();
         #endregion
+
         #region Classes
         public class Album
         {
@@ -84,6 +93,8 @@ namespace Fluent_Media_Player_Dev
                 "System.Music.DiscNumber",
                 "System.Music.PartOfSet"
             };
+            resourceLoader =
+                Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView("Information");
 
             IndexSongs();
 
@@ -163,7 +174,9 @@ namespace Fluent_Media_Player_Dev
             {
                 currentFile++;
                 LoadingBar.Value = currentFile * 100 / filesLength;
-                IndexProgress.Text = "Indexed " + currentFile + " out of " + filesLength + " files";
+                IndexProgress.Text = resourceLoader.GetString("Indexed") + " " +
+                    currentFile + " " + resourceLoader.GetString("OutOf") + " " +
+                    filesLength + " " + resourceLoader.GetString("Files") + " ";
 
                 // Get file properties
                 MusicProperties musicProperties = await file.Properties.GetMusicPropertiesAsync();
@@ -361,7 +374,7 @@ namespace Fluent_Media_Player_Dev
             else
             {
                 AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                SearchBar.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right + 56, currMargin.Bottom);
+                SearchBar.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Bottom);
             }
         }
         #endregion
@@ -376,7 +389,7 @@ namespace Fluent_Media_Player_Dev
                 return;
             }
 
-            if (args.InvokedItemContainer.Content.ToString() == Header.Text)
+            if (args.InvokedItemContainer.Content.ToString() == Breadcrumbs.Last())
             {
                 FinishNavigation();
                 return;
@@ -385,8 +398,9 @@ namespace Fluent_Media_Player_Dev
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked)
             {
-                SettingsDialog dialog = new SettingsDialog();
-                await dialog.ShowAsync();
+                await Dialog.ShowAsync();
+                NavView.SelectedItem = NavView.SettingsItem;
+                return;
             }
             else
             {
@@ -430,6 +444,10 @@ namespace Fluent_Media_Player_Dev
                             ContentFrame.Navigate(typeof(SongsPage));
                             break;
 
+                        case "StreamingPage":
+                            ContentFrame.Navigate(typeof(StreamingPage));
+                            break;
+
                         default:
                             break;
                     }
@@ -455,8 +473,9 @@ namespace Fluent_Media_Player_Dev
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Header.Text = item.Content.ToString();
-                    break;
+                    Breadcrumbs.Clear();
+                    Breadcrumbs.Add(item.Content.ToString());
+                    return;
                 }
             }
 
@@ -465,9 +484,59 @@ namespace Fluent_Media_Player_Dev
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Header.Text = item.Content.ToString();
-                    break;
+                    Breadcrumbs.Clear();
+                    Breadcrumbs.Add(item.Content.ToString());
+                    return;
                 }
+            }
+        }
+        #endregion
+
+        #region Settings
+        public void UpdateSidebarItems(bool newVis, string itemName)
+        {
+            Visibility visibility = BindlessBooleanToVisibility.
+                        BindlessConvert(newVis);
+            switch (itemName)
+            {
+                case "Home":
+                    HomePageItem.Visibility = visibility;
+                    break;
+
+                case "Playlists":
+                    PlaylistsPageItem.Visibility = visibility;
+                    break;
+
+                case "Devices":
+                    DevicesPageItem.Visibility = visibility;
+                    break;
+
+                case "Songs":
+                    SongsPageItem.Visibility = visibility;
+                    break;
+
+                case "Artists":
+                    ArtistsPageItem.Visibility = visibility;
+                    break;
+
+                case "Albums":
+                    AlbumsPageItem.Visibility = visibility;
+                    break;
+
+                case "Genres":
+                    GenresPageItem.Visibility = visibility;
+                    break;
+
+                case "LocalVideos":
+                    LocalVideosPageItem.Visibility = visibility;
+                    break;
+
+                case "Streaming":
+                    StreamingPageItem.Visibility = visibility;
+                    break;
+
+                default:
+                    break;
             }
         }
         #endregion

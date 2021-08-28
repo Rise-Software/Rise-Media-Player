@@ -6,96 +6,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    xmlns:uc="using:Fluent_Media_Player_Dev.Controls"
+    xmlns:gset="using:Fluent_Media_Player_Dev.Settings"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <gset:Settings />
+    </Page.DataContext>
+
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="File management" />
-        <muxc:Expander x:Name="FoldersExpander">
-            <muxc:Expander.Header>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Margin="0,0,12,0"
-                              VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE8B7;"/>
-
-                    <StackPanel Grid.Column="1"
-                                Margin="0,12"
-                                Orientation="Vertical">
-                        <TextBlock Text="Add/remove library folders"
-                                   Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose where we look for your music &amp; video files"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <Grid Margin="28,0,44,0" RowSpacing="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="We already look for your media files in your default user folders (Music &amp; Videos). You can add additional folders that we can use to populate your library"
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords" />
-
-                    <ListView x:Name="FolderList"
-                              Grid.Row="1"
-                              IsItemClickEnabled="True"
-                              ItemClick="FolderList_ItemClick"
-                              ItemsSource="{Binding Entries}"
-                              MaxHeight="200"
-                              SelectionMode="Single">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon Margin="0,0,12,0"
-                                              VerticalAlignment="Center"
-                                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                              FontSize="16"
-                                              Glyph="&#xE8B7;"/>
-
-                                    <StackPanel Grid.Column="1"
-                                                Margin="0,12"
-                                                Orientation="Vertical">
-                                        <TextBlock Text="{Binding DisplayName}" Style="{StaticResource BodyTextBlockStyle}"/>
-                                        <TextBlock Text="{Binding Path}"
-                                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                   TextWrapping="WrapWholeWords" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Button Grid.Row="2" Click="PickFolder_Click" Content="Add a folder" />
-                </Grid>
-            </muxc:Expander.Content>
-        </muxc:Expander>
-
-        <Border x:Name="DeletionExpander" Style="{ThemeResource ResourceKey=SettingsCard}">
-            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Streaming services" />
+        <Border x:Name="ConnectExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid ColumnSpacing="12"
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
@@ -104,30 +32,108 @@
                     <FontIcon VerticalAlignment="Center"
                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Margin="0,12,12,12"
-                              Glyph="&#xE74D;" />
+                              Glyph="&#xE703;" />
 
                     <StackPanel Grid.Column="1"
-                            Margin="0,12"
-                            Orientation="Vertical">
-                        <TextBlock Text="When removing media from my library:" Style="{StaticResource BodyTextBlockStyle}"/>
+                                Orientation="Vertical">
+                        <TextBlock Text="Connect an account"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Connect your accounts from different streaming services."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <ComboBox Grid.Column="1" VerticalAlignment="Center" Margin="0,0,-15,0" PlaceholderText="Only remove from the app" Width="Auto">
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <!--Button Content="Manage" /-->
+                    <Button Style="{ThemeResource AccentButtonStyle}" Content="Connect" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="Local files" />
+        <Border x:Name="FoldersExpander" Style="{ThemeResource ResourceKey=SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE8B7;"
+                              VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Add/remove library folders"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+
+                        <TextBlock Text="Choose where we look for your music &amp; video files."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <Button Grid.Column="1"
+                        Click="Button_Click"
+                        Content="Choose folders"
+                        VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="DeletionExpander" Style="{ThemeResource ResourceKey=SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE74D;"
+                              VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="When removing my local media and files:"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Only remove from the app"
+                          SelectedIndex="{Binding Deletion, Mode=TwoWay}"
+                          VerticalAlignment="Center">
                     <x:String>Only remove from the app</x:String>
                     <x:String>Delete from my device</x:String>
                 </ComboBox>
             </Grid>
         </Border>
 
-        <TextBlock Padding="0,20,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="View options" />
-        <Border x:Name="AlbumArtExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+        <TextBlock Style="{ThemeResource Subheader}" Text="View options" />
+        <Border x:Name="OfflineExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid ColumnSpacing="12"
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
@@ -135,110 +141,95 @@
 
                     <FontIcon VerticalAlignment="Center"
                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontFamily="Segoe MDL2 Assets"
                               FontSize="16"
-                              Margin="0,12,12,12"
-                              Glyph="&#xE93C;" />
+                              Glyph="&#xE946;" />
 
                     <StackPanel Grid.Column="1"
-                            Margin="0,12"
-                            Orientation="Vertical">
-                        <TextBlock Text="Show full album art &amp; thumbnails" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Corners will no longer be rounded on these elements."
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="WrapWholeWords" />
+                                Orientation="Vertical">
+                        <TextBlock Text="Show media in my library from:"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Use system setting"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>My local files only</x:String>
+                    <x:String>My services only</x:String>
+                    <x:String>Both</x:String>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <Border x:Name="AlbumArtExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE93C;"
+                              VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Show full album art &amp; thumbnails"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Corners will no longer be rounded on these elements."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1"
+                              IsOn="{Binding SquareAlbumArt, Mode=TwoWay}"
+                              
+                              VerticalAlignment="Center" />
             </Grid>
         </Border>
 
         <Border x:Name="MatchExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <FontIcon VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Margin="0,12,12,12"
-                              Glyph="&#xEF1F;" />
+                              Glyph="&#xEF1F;"
+                              VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1"
-                            Margin="0,12"
-                            Orientation="Vertical">
-                        <TextBlock Text="Match backgrounds" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Match album backgrounds and now playing to album art"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="WrapWholeWords" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1" Margin="0,0,-90,0"/>
-            </Grid>
-        </Border>
-
-        <TextBlock Padding="0,20,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Advanced" />
-        <muxc:Expander x:Name="FormatsExpander">
-            <muxc:Expander.Header>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Margin="0,0,12,0"
-                              VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xEA69;"/>
-
-                    <StackPanel Grid.Column="1"
-                                Margin="0,12"
                                 Orientation="Vertical">
-                        <TextBlock Text="Manage media file formats" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose what formats that will be allowed in your library"
+                        <TextBlock Text="Match backgrounds"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Match album backgrounds and now playing to album art."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords"/>
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <StackPanel Orientation="Vertical" Margin="28,0,44,0" Spacing="8">
-                    <CheckBox x:Name="SelectAll" Content="Select all (Default)" IsThreeState="True"
-                            Checked="SelectAll_Checked" Unchecked="SelectAll_Unchecked"
-                            Indeterminate="SelectAll_Indeterminate" />
-                    <GridView>
-                        <CheckBox x:Name="MP3" Content="MP3" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="OGG" Content="OGG" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                        <CheckBox x:Name="AAC" Content="AAC" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                        <CheckBox x:Name="FLAC" Content="FLAC" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="WAV" Content="WAV" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="AIFF" Content="AIFF" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" IsChecked="True" />
-                        <CheckBox x:Name="M4A" Content="M4A" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                        <CheckBox x:Name="WMA" Content="WMA" Margin="16,0,0,0" Checked="Option_Checked"
-                            Unchecked="Option_Unchecked" />
-                    </GridView>
-                </StackPanel>
-            </muxc:Expander.Content>
-        </muxc:Expander>
-
-
+                <ToggleSwitch Grid.Column="1"
+                              IsOn="{Binding MatchAlbumArt, Mode=TwoWay}"
+                              
+                              VerticalAlignment="Center" />
+            </Grid>
+        </Border>
     </StackPanel>
 </Page>

@@ -9,14 +9,18 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Padding="0,10,0,5" FontSize="14" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Version Info" />
+        <Image Source="/Assets/Logo.png"
+               Height="80"
+               HorizontalAlignment="Left" />
+        <TextBlock Style="{ThemeResource Subheader}" Text="Version Info" />
         <Border x:Name="AboutExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="8" VerticalAlignment="Center">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid ColumnSpacing="12"
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
@@ -25,57 +29,58 @@
                     <FontIcon VerticalAlignment="Center"
                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Margin="0,12,12,12"
                               Glyph="&#xE946;" />
 
                     <StackPanel Grid.Column="1"
-                            Margin="0,12"
-                            Orientation="Vertical">
-                        <TextBlock Text="Fluent Player (Working Title)" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Version 0.0.2 WIP"
+                                Orientation="Vertical">
+                        <RichTextBlock>
+                            <Paragraph>
+                                <Bold FontWeight="SemiBold">Rise</Bold> Media Player
+                            </Paragraph>
+                        </RichTextBlock>
+                        <TextBlock Text="Version 0.0.1.4"
                                Style="{StaticResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <Button Content="Copy Version" Grid.Column="1" Margin="0,0,-15,0"/>
+                <Button Content="Copy Version" Grid.Column="1" />
             </Grid>
         </Border>
 
         <muxc:Expander x:Name="UsefulLinksExpander">
-        <muxc:Expander.Header>
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <muxc:Expander.Header>
+                <Grid ColumnSpacing="12"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <FontIcon Margin="0,0,12,0"
-                              VerticalAlignment="Center"
+                    <FontIcon Glyph="&#xE167;"
                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xE167;"/>
+                              VerticalAlignment="Center" />
 
-                <StackPanel Grid.Column="1"
-                                Margin="0,12"
+                    <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                    <TextBlock Text="Useful links" Style="{StaticResource BodyTextBlockStyle}"/>
-                    <TextBlock Text="Access our GitHub, Discord &amp; Reddit pages."
+                        <TextBlock Text="Useful links" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Access our GitHub, Discord &amp; Reddit pages."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords"/>
-                </StackPanel>
-            </Grid>
-        </muxc:Expander.Header>
-        <muxc:Expander.Content>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
                 <StackPanel>
-                    <HyperlinkButton Margin="28,0,44,0" Content="Collaborate on GitHub" NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev" />
-                    <HyperlinkButton Margin="28,0,44,0" Content="Discord Server" NavigateUri="https://disboard.org/server/872910570003791922" />
+                    <HyperlinkButton Content="Collaborate on GitHub"
+                                     NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev" />
+                    <HyperlinkButton Content="Discord Server"
+                                     NavigateUri="https://disboard.org/server/872910570003791922" />
                 </StackPanel>
             </muxc:Expander.Content>
         </muxc:Expander>
-
-        
-
     </StackPanel>
 </Page>

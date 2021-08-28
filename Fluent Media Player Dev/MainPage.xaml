@@ -4,14 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Fluent_Media_Player_Dev"
+    xmlns:conv="using:Fluent_Media_Player_Dev.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:gset="using:Fluent_Media_Player_Dev.Settings"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <gset:Settings />
+    </Page.DataContext>
+
     <Page.Resources>
+        <conv:BooleanToVisibility x:Key="BoolToVis" />
         <!--  This top margin is the height of the custom TitleBar  -->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+        <Thickness x:Key="NavigationViewHeaderMargin">56,45,56,3</Thickness>
+        <Style TargetType="muxc:BreadcrumbBarItem">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -46,13 +58,16 @@
                            Source="Assets/Square44x44Logo.png" 
                            Width="16" 
                            Height="16" />
-                    <TextBlock x:Name="AppTitle"
-                               Text="Fluent Player"
-                               VerticalAlignment="Center"
-                               Margin="12,0,0,0"
-                               Visibility="Collapsed"
-                               Width="Auto"
-                               Style="{StaticResource CaptionTextBlockStyle}" />
+                    <RichTextBlock x:Name="AppTitle"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="12,0,0,0"
+                                   Visibility="Collapsed"
+                                   Width="Auto">
+                        <Paragraph>
+                            <Bold FontWeight="SemiBold">Rise</Bold> Media Player
+                        </Paragraph>
+                    </RichTextBlock>
                 </StackPanel>
             </Border>
 
@@ -69,71 +84,86 @@
 
         <muxc:NavigationView x:Name="NavView"
                              BackRequested="NavView_BackRequested"
-                             IsTitleBarAutoPaddingEnabled="False"
-                             ItemInvoked="NavView_ItemInvoked"
-                             IsBackButtonVisible="Visible"
-                             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
-                             IsSettingsVisible="True"
-                             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
                              CompactModeThresholdWidth="800"
+                             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
                              ExpandedModeThresholdWidth="800"
+                             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsPaneToggleButtonVisible="True"
+                             IsSettingsVisible="True"
+                             ItemInvoked="NavView_ItemInvoked"
+                             IsTitleBarAutoPaddingEnabled="False"
                              Canvas.ZIndex="0">
             <muxc:NavigationView.Header>
-                <TextBlock x:Name="Header" Text="Title" />
+                <muxc:BreadcrumbBar x:Name="Header"
+                                    ItemsSource="{x:Bind Breadcrumbs}" />
             </muxc:NavigationView.Header>
+
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="At a glance" Tag="HomePage" x:Name="HomePageItem">
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Home" Tag="HomePage" Visibility="{Binding ShowAtAGlance}" x:Name="HomePageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xECA5;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Playlists" Tag="PlaylistsPage" x:Name="PlaylistsPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Playlists" Tag="PlaylistsPage" Visibility="{Binding ShowPlaylists}" x:Name="PlaylistsPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE142;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Devices" Tag="DevicesPage" x:Name="DevicesPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Devices" Tag="DevicesPage" Visibility="{Binding ShowDevices}" x:Name="DevicesPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE1C9;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader Content="Music" />
-                <muxc:NavigationViewItem Content="Songs" Tag="SongsPage" x:Name="SongsPageItem">
+
+                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Music" />
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Songs" Tag="SongsPage" Visibility="{Binding ShowSongs}" x:Name="SongsPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEC4F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Artists" Tag="ArtistsPage" x:Name="ArtistsPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Artists" Tag="ArtistsPage" Visibility="{Binding ShowArtists}" x:Name="ArtistsPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE125;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Albums" Tag="AlbumsPage" x:Name="AlbumsPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Albums" Tag="AlbumsPage" Visibility="{Binding ShowAlbums}" x:Name="AlbumsPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE93C;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Genres" Tag="GenresPage" x:Name="GenresPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Genres" Tag="GenresPage" Visibility="{Binding ShowGenres}" x:Name="GenresPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE138;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+
                 <muxc:NavigationViewItemHeader Content="Videos" />
-                <muxc:NavigationViewItem Content="Local Videos" Tag="LocalVideosPage" x:Name="LocalVideosPageItem">
+                <muxc:NavigationViewItem x:Uid="/Sidebar/LocalVideos" Tag="LocalVideosPage" Visibility="{Binding ShowLocalVideos}" x:Name="LocalVideosPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B7;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Streaming" Tag="StreamingPage" Visibility="{Binding ShowStreaming}" x:Name="StreamingPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE12B;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem Content="Help &amp; Tips" Tag="DiscyPage" x:Name="DiscyPageItem">
+                <muxc:NavigationViewItem x:Uid="/Sidebar/HelpTips" Tag="DiscyPage" x:Name="DiscyPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE897;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Now Playing" Tag="NowPlayingPage" x:Name="NowPlayingPageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/NowPlaying" Tag="NowPlayingPage" x:Name="NowPlayingPageItem">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE768;" />
                     </muxc:NavigationViewItem.Icon>
@@ -142,10 +172,9 @@
 
             <Grid>
                 <muxc:InfoBar x:Name="IndexMessage"
+                              x:Uid="/Information/IndexingInfo"
                               IsOpen="False"
                               Severity="Warning"
-                              Title="Indexing your library"
-                              Message="Please wait for indexing to finish. This really won't take long."
                               Margin="56,16,56,0" />
 
                 <StackPanel x:Name="IndexInfo"
@@ -153,7 +182,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Visibility="Collapsed">
-                    <TextBlock x:Name="IndexProgress" Text="Indexing your files..." />
+                    <TextBlock x:Name="IndexProgress" x:Uid="IndexingProgress" />
                     <muxc:ProgressBar x:Name="LoadingBar" />
                 </StackPanel>
 

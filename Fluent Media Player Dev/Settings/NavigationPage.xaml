@@ -1,0 +1,202 @@
+﻿<Page
+    x:Class="Fluent_Media_Player_Dev.Settings.NavigationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fluent_Media_Player_Dev.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:gset="using:Fluent_Media_Player_Dev.Settings"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <gset:Settings />
+    </Page.DataContext>
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="View options" />
+        <Border x:Name="ResizeExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE185;"
+                              VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Always show labels"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Even when the window is made smaller, labels will remain in the sidebar."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1"
+                              IsOn="{Binding ShowLabels, Mode=TwoWay}"
+                              Margin="0,0,-74,0"
+                              VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="ColourfulIconsExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xF354;" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Use colourful icons" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Use full-colour, solid icons rather than line icons on the sidebar (Similar to Settings app)."
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Style="{StaticResource CaptionTextBlockStyle}" />
+                    </StackPanel>
+                </Grid>
+                <ToggleSwitch Grid.Column="1"
+                              IsOn="{Binding ColorfulIcons, Mode=TwoWay}"
+                              Margin="0,0,-74,0"/>
+            </Grid>
+        </Border>
+
+        <muxc:Expander x:Name="MenuItemsExpander">
+            <muxc:Expander.Header>
+                <Grid ColumnSpacing="12"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE762;"/>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Show/hide sidebar items" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Choose the items and groups you always want to see on your sidebar."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Grid>
+            </muxc:Expander.Header>
+            <muxc:Expander.Content>
+                <StackPanel Orientation="Vertical" Spacing="8">
+                    <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General" />
+                    <GridView IsItemClickEnabled="False" SelectionMode="None">
+                        <CheckBox x:Name="AtAGlance"
+                                  Content="At a glance"
+                                  IsChecked="{Binding ShowAtAGlance, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Playlists"
+                                  Content="Playlists"
+                                  IsChecked="{Binding ShowPlaylists, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Devices"
+                                  Content="Devices"
+                                  IsChecked="{Binding ShowDevices, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                    </GridView>
+
+                    <TextBlock Margin="0,-10,0,0" Style="{ThemeResource Subheader}" Text="Music" />
+                    <GridView IsItemClickEnabled="False" SelectionMode="None" IsTabStop="False">
+                        <CheckBox x:Name="Songs"
+                                  Content="Songs"
+                                  IsChecked="{Binding ShowSongs, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Artists"
+                                  Content="Artists"
+                                  IsChecked="{Binding ShowArtists, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Albums"
+                                  Content="Albums"
+                                  IsChecked="{Binding ShowAlbums, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Genres"
+                                  Content="Genres"
+                                  IsChecked="{Binding ShowGenres, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                    </GridView>
+
+                    <TextBlock Margin="0,-10,0,0" Style="{ThemeResource Subheader}" Text="Videos" />
+                    <GridView IsItemClickEnabled="False" SelectionMode="None">
+                        <CheckBox x:Name="LocalVideos"
+                                  Content="Local &amp; Purchased"
+                                  IsChecked="{Binding ShowLocalVideos, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                        <CheckBox x:Name="Streaming"
+                                  Content="Streaming &amp; Services"
+                                  IsChecked="{Binding ShowStreaming, Mode=TwoWay}"
+                                  Margin="16,0,0,0" />
+                    </GridView>
+                </StackPanel>
+            </muxc:Expander.Content>
+        </muxc:Expander>
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="On Startup" />
+        <Border x:Name="OnStartupExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE7E8;" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Open Fluent Player to:" Style="{StaticResource BodyTextBlockStyle}"/>
+                    </StackPanel>
+                </Grid>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="At a glance"
+                          SelectedIndex="{Binding OpenTo, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>At a glance</x:String>
+                    <x:String>Devices</x:String>
+                    <x:String>Playlists</x:String>
+                    <x:String>Songs</x:String>
+                    <x:String>Artists</x:String>
+                    <x:String>Albums</x:String>
+                    <x:String>Genres</x:String>
+                    <x:String>Now Playing</x:String>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+    </StackPanel>
+</Page>
