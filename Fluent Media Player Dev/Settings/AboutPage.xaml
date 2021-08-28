@@ -9,8 +9,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <Image Source="/Assets/Logo.png"
-               Height="80"
+        <Image Source="/Assets/Branding/settingsbanner.png"
+               Height="50"
                HorizontalAlignment="Left" />
         <TextBlock Style="{ThemeResource Subheader}" Text="Version Info" />
         <Border x:Name="AboutExpander" Style="{ThemeResource SettingsCard}">
@@ -82,5 +82,8 @@
                 </StackPanel>
             </muxc:Expander.Content>
         </muxc:Expander>
+
+
+
     </StackPanel>
 </Page>

@@ -127,7 +127,7 @@
     <value>Albums</value>
   </data>
   <data name="Appearance.Content" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Personalise</value>
   </data>
   <data name="Artists.Content" xml:space="preserve">
     <value>Artists</value>
@@ -136,10 +136,10 @@
     <value>Devices</value>
   </data>
   <data name="Discs.Content" xml:space="preserve">
-    <value>Discs</value>
+    <value>Feedback</value>
   </data>
   <data name="Experimental.Content" xml:space="preserve">
-    <value>Experimental</value>
+    <value>Language</value>
   </data>
   <data name="Genres.Content" xml:space="preserve">
     <value>Genres</value>

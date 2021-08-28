@@ -30,7 +30,7 @@
                    Margin="-24"
                    VerticalAlignment="Stretch" />
         <muxc:NavigationView x:Name="SettingsNav"
-                             PaneDisplayMode="Left"
+                             PaneDisplayMode="Top"
                              IsBackButtonVisible="Collapsed"
                              IsSettingsVisible="False"
                              ItemInvoked="SettingsNav_ItemInvoked"
@@ -69,45 +69,39 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE790;" />
+                        <muxc:ImageIcon Source="/Assets/Settings/personalise.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE8F1;" />
+                        <muxc:ImageIcon Source="/Assets/Settings/library.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Playback" Tag="PlaybackPage" x:Name="PlaybackPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xEC57;" />
+                        <muxc:ImageIcon Source="/Assets/Settings/playback.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem x:Uid="/Sidebar/Navigation" Tag="NavigationPage" x:Name="NavigationPageItem">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xEA4B;" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-
-                <muxc:NavigationViewItem x:Uid="/Sidebar/Discs" Tag="DiscsPage" x:Name="DiscsPageItem">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE958;" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Discs" Tag="DiscsPage" x:Name="DiscsPageItem">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="/Assets/Settings/feedback.png"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Experimental" Tag="ExperimentalPage" x:Name="ExperimentalPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xF1AD;" />
+                        <muxc:ImageIcon Source="/Assets/Settings/langalt3.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/About" Tag="AboutPage" x:Name="AboutPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE946;" />
+                        <muxc:ImageIcon Source="/Assets/Settings/aboutalt.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>

@@ -207,7 +207,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\genres.png" />
+    <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\iconography.png" />
     <Content Include="Assets\ladybug.wmv" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -217,6 +217,26 @@
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\NavigationView\Albums.png" />
+    <Content Include="Assets\NavigationView\Artists.png" />
+    <Content Include="Assets\NavigationView\At a glance.png" />
+    <Content Include="Assets\NavigationView\Devices.png" />
+    <Content Include="Assets\NavigationView\DiscyHelp.png" />
+    <Content Include="Assets\NavigationView\Genres.png" />
+    <Content Include="Assets\NavigationView\Local Videos.png" />
+    <Content Include="Assets\NavigationView\Now Playing.png" />
+    <Content Include="Assets\NavigationView\Online Videos.png" />
+    <Content Include="Assets\NavigationView\Playlists.png" />
+    <Content Include="Assets\NavigationView\Settings.png" />
+    <Content Include="Assets\NavigationView\Songs.png" />
+    <Content Include="Assets\Settings\about.png" />
+    <Content Include="Assets\Settings\aboutalt.png" />
+    <Content Include="Assets\Settings\feedback.png" />
+    <Content Include="Assets\Settings\langalt3.png" />
+    <Content Include="Assets\Settings\language.png" />
+    <Content Include="Assets\Settings\library.png" />
+    <Content Include="Assets\Settings\personalise.png" />
+    <Content Include="Assets\Settings\playback.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />

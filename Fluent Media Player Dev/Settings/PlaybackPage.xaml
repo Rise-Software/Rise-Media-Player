@@ -14,7 +14,7 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Listening" />
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Listening"/>
         <muxc:Expander x:Name="EqualizerExpander">
             <muxc:Expander.Header>
                 <Grid ColumnSpacing="12"
@@ -88,7 +88,7 @@
             </Grid>
         </Border>
 
-        <Border x:Name="GaplessExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="GaplessExpander" Style="{ThemeResource SettingsCard}" Height="61">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />

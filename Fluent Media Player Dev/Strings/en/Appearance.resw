@@ -121,7 +121,7 @@
     <value>Add liked songs to their own playlist</value>
   </data>
   <data name="AtAGlanceD.Text" xml:space="preserve">
-    <value>Add widgets, suggestions and info to make your experience more personal.</value>
+    <value>Add widgets to make your experience more personal.</value>
     <comment>D = Setting description text</comment>
   </data>
   <data name="AtAGlanceH.Text" xml:space="preserve">
