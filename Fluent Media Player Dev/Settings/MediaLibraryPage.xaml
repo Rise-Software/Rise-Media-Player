@@ -172,7 +172,7 @@
             </Grid>
         </Border>
 
-        <Border x:Name="SeperateLocalMusicExpander" Style="{ThemeResource SettingsCard}" Margin="0,4,0,0">
+        <Border x:Name="SeperateLocalMusicExpander" Style="{ThemeResource SettingsCard}" Margin="0,5,0,0">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -202,7 +202,7 @@
                 </Grid>
                 <ToggleSwitch Grid.Column="1"
                               IsOn="{Binding CompactMode, Mode=TwoWay}"
-                              
+                              Margin="0,0,-74,0"
                               VerticalAlignment="Center" />
             </Grid>
         </Border>
@@ -234,7 +234,7 @@
                 </Grid>
                 <ToggleSwitch Grid.Column="1"
                               IsOn="{Binding CompactMode, Mode=TwoWay}"
-                              
+                              Margin="0,0,-74,0"
                               VerticalAlignment="Center" />
             </Grid>
         </Border>
@@ -265,7 +265,7 @@
                 </Grid>
                 <ToggleSwitch Grid.Column="1"
                               IsOn="{Binding CompactMode, Mode=TwoWay}"
-                              
+                              Margin="0,0,-74,0"
                               VerticalAlignment="Center" />
             </Grid>
         </Border>

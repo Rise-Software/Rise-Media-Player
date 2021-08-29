@@ -67,21 +67,22 @@
             </muxc:NavigationView.AutoSuggestBox>
 
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Uid="/Sidebar/Appearance" Tag="AppearancePage" x:Name="AppearancePageItem">
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/personalise.png"/>
+                        <muxc:ImageIcon Source="/Assets/NavigationView/albums.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem x:Uid="/Sidebar/Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/library.png"/>
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-
-                <muxc:NavigationViewItem x:Uid="/Sidebar/Playback" Tag="PlaybackPage" x:Name="PlaybackPageItem">
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Playback" Tag="PlaybackPage" x:Name="PlaybackPageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Settings/playback.png"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem x:Uid="/Sidebar/Appearance" Tag="AppearancePage" x:Name="AppearancePageItem" Padding="0,15,0,15">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="/Assets/Settings/personalise.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -95,7 +96,7 @@
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Experimental" Tag="ExperimentalPage" x:Name="ExperimentalPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/langalt3.png"/>
+                        <muxc:ImageIcon Source="/Assets/Settings/language.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 

@@ -14,15 +14,19 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Listening"/>
-        <muxc:Expander x:Name="EqualizerExpander">
-            <muxc:Expander.Header>
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General"/>
+
+        <Border x:Name="EqualiserExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <Grid ColumnSpacing="12"
-                      HorizontalAlignment="Stretch"
                       VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <FontIcon VerticalAlignment="Center"
@@ -32,61 +36,71 @@
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Equalizer" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Equaliser"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Choose different sound profiles depending on your media type"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <StackPanel Orientation="Vertical" Spacing="8">
-                    <ComboBox PlaceholderText="Flat"
-                              SelectedIndex="{Binding PresetEQ, Mode=TwoWay}"
-                              VerticalAlignment="Center">
-                        <x:String>Flat</x:String>
-                        <x:String>Treble boost</x:String>
-                        <x:String>Bass boost</x:String>
-                        <x:String>Headphones</x:String>
-                        <x:String>Laptop</x:String>
-                        <x:String>Portable speakers</x:String>
-                        <x:String>Home stereo</x:String>
-                        <x:String>TV</x:String>
-                        <x:String>Car</x:String>
-                        <x:String>Custom</x:String>
-                    </ComboBox>
-                    <TextBlock Text="No EQ :(" />
-                </StackPanel>
-            </muxc:Expander.Content>
-        </muxc:Expander>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <!--Button Content="Manage" /-->
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE00F;" />
 
-        <Border x:Name="CrossfadeExpander" Style="{ThemeResource SettingsCard}">
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border x:Name="StreamingQualityExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid ColumnSpacing="12"
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xE13C;"
-                              VerticalAlignment="Center" />
+                              Glyph="&#xEA69;" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Crossfade"
+                        <TextBlock Text="Manage streaming quality"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    VerticalAlignment="Center" />
+                        <TextBlock Text="Change video resolution and music bitrate."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding Crossfade, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <!--Button Content="Manage" /-->
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE00F;" />
+
+                </StackPanel>
             </Grid>
         </Border>
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="Music" />
 
         <Border x:Name="GaplessExpander" Style="{ThemeResource SettingsCard}" Height="61">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
@@ -110,6 +124,10 @@
                         <TextBlock Text="Gapless playback"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    VerticalAlignment="Center" />
+                        <TextBlock Text="We will instantly move to your next track without waiting."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
                 <ToggleSwitch Grid.Column="1"
@@ -119,57 +137,49 @@
             </Grid>
         </Border>
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Online" />
-        <muxc:Expander x:Name="QualityExpander">
-            <muxc:Expander.Header>
-                <Grid ColumnSpacing="12"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center">
+        <Border x:Name="CrossfadeExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <FontIcon VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xEA69;"/>
+                              Glyph="&#xE13C;"
+                              VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Manage online media quality" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose your preferred video resolution and music quality."
+                        <TextBlock Text="Crossfade"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Blend the end &amp; beginning of your music tracks."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords"/>
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-            </muxc:Expander.Header>
-            <muxc:Expander.Content>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Music" />
-                    <muxc:RadioButtons x:Name="MusicRadioButtons"
-                                       SelectedIndex="{Binding MusicQuality, Mode=TwoWay}" 
-                                       MaxColumns="3">
-                        <x:String>Low</x:String>
-                        <x:String>Medium</x:String>
-                        <x:String>High</x:String>
-                    </muxc:RadioButtons>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Select crossfade duration"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>No crossfade</x:String>
+                    <x:String>3 seconds</x:String>
+                    <x:String>5 seconds</x:String>
+                    <x:String>10 seconds</x:String>
+                </ComboBox>
+            </Grid>
+        </Border>
 
-                    <TextBlock Style="{ThemeResource Subheader}" Text="Video" />
-                    <muxc:RadioButtons x:Name="BorderRadioButtons"
-                                       SelectedIndex="{Binding VideoQuality, Mode=TwoWay}"
-                                       MaxColumns="3">
-                        <x:String>Low</x:String>
-                        <x:String>Medium</x:String>
-                        <x:String>High</x:String>
-                    </muxc:RadioButtons>
-                </StackPanel>
-            </muxc:Expander.Content>
-        </muxc:Expander>
+        <TextBlock Style="{ThemeResource Subheader}" Text="Video" />
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Experimental" />
-        <Border x:Name="ReplaceExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="VideoScaleExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -183,54 +193,32 @@
 
                     <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xE15D;"
+                              Glyph="&#xE1D9;"
                               VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Replace system volume and playback flyouts"
+                        <TextBlock Text="Scaling"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    VerticalAlignment="Center" />
+                        <TextBlock Text="Adjust how your video scales depending on window size."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding ReplaceFlyouts, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Select scaling settings"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>Scale to window size</x:String>
+                    <x:String>Always match resolution</x:String>
+                </ComboBox>
             </Grid>
         </Border>
+        
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Navigation" />
-        <Border x:Name="GoTrackExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE102;"
-                              VerticalAlignment="Center" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Go to now playing when you play a track"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding GoTrack, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
-            </Grid>
-        </Border>
+        <TextBlock Style="{ThemeResource Subheader}" Text="Now Playing &amp; System Flyouts" />
 
         <Border x:Name="GoDeviceExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
@@ -263,8 +251,49 @@
             </Grid>
         </Border>
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="View Options" />
-        <Border x:Name="SuggestionsExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="NowPlayingExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE102;" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Customise Now Playing"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="Choose what to show on your now playing UI."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <!--Button Content="Manage" /-->
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE00F;" />
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border x:Name="FlyoutsExpander" Style="{ThemeResource SettingsCard}" Margin="0,5,0,0">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -278,145 +307,23 @@
 
                     <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xE1CF;"
+                              Glyph="&#xE15D;"
                               VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Show suggestions on now playing"
+                        <TextBlock Text="Replace system volume and playback flyouts"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    VerticalAlignment="Center" />
                     </StackPanel>
                 </Grid>
                 <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding ShowSuggestions, Mode=TwoWay}"
+                              IsOn="{Binding ReplaceFlyouts, Mode=TwoWay}"
                               Margin="0,0,-74,0"
                               VerticalAlignment="Center" />
             </Grid>
         </Border>
 
-        <Border x:Name="ScaleExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE1D9;"
-                              VerticalAlignment="Center" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Scale video resolution to window size"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding ScaleToWindow, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
-            </Grid>
-        </Border>
-
-        <Border x:Name="VisualiserExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE9E9;"
-                              VerticalAlignment="Center" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Enable/disable the visualiser"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding Visualiser, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
-            </Grid>
-        </Border>
-
-        <Border x:Name="QueueExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE14C;"
-                              VerticalAlignment="Center" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Show the queue button"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding QueueButton, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
-            </Grid>
-        </Border>
-
-        <Border x:Name="ControlsExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE17C;"
-                              VerticalAlignment="Center" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Always show window controls"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding AlwaysShowControls, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
-            </Grid>
-        </Border>
+        
     </StackPanel>
 </Page>
