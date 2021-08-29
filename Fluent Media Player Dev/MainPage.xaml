@@ -56,8 +56,8 @@
                            HorizontalAlignment="Left" 
                            VerticalAlignment="Center"
                            Source="Assets/Square44x44Logo.png" 
-                           Width="16" 
-                           Height="16" />
+                           Width="18" 
+                           Height="18" />
                     <RichTextBlock x:Name="AppTitle"
                                    FontSize="12"
                                    VerticalAlignment="Center"
