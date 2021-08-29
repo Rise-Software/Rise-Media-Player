@@ -30,7 +30,7 @@
                    Margin="-24"
                    VerticalAlignment="Stretch" />
         <muxc:NavigationView x:Name="SettingsNav"
-                             PaneDisplayMode="Top"
+                             PaneDisplayMode="Left"
                              IsBackButtonVisible="Collapsed"
                              IsSettingsVisible="False"
                              ItemInvoked="SettingsNav_ItemInvoked"
@@ -70,7 +70,7 @@
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Library" Tag="MediaLibraryPage" x:Name="MediaLibraryPageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/NavigationView/albums.png"/>
+                        <muxc:ImageIcon Source="/Assets/Settings/library.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -82,7 +82,13 @@
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Appearance" Tag="AppearancePage" x:Name="AppearancePageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/personalise.png"/>
+                        <muxc:ImageIcon Source="/Assets/settings/personalise.png"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Sidebar (Temp)" Tag="NavigationPage" x:Name="NavigationPageItem" Padding="0,15,0,15">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="/Assets/Settings/sidebartemp.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -102,7 +108,7 @@
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/About" Tag="AboutPage" x:Name="AboutPageItem">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/aboutalt.png"/>
+                        <muxc:ImageIcon Source="/Assets/Settings/about.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>

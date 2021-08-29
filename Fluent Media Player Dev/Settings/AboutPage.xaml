@@ -66,7 +66,7 @@
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
                         <TextBlock Text="Useful links" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Access our GitHub, Discord &amp; Reddit pages."
+                        <TextBlock Text="Access our GitHub, Discord, Reddit, Terms &amp; Conditions pages."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords"/>
@@ -76,9 +76,20 @@
             <muxc:Expander.Content>
                 <StackPanel>
                     <HyperlinkButton Content="Collaborate on GitHub"
+                                     Padding="10,10,10,10"
                                      NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev" />
                     <HyperlinkButton Content="Discord Server"
+                                     Padding="10,10,10,10"
+                                     Margin="0,3,0,0"
                                      NavigateUri="https://disboard.org/server/872910570003791922" />
+                    <HyperlinkButton Content="View our subreddit"
+                                     Padding="10,10,10,10"
+                                     Margin="0,3,0,0"
+                                     NavigateUri="https://www.reddit.com/r/fluentplayer/" />
+                    <HyperlinkButton Content="Terms &amp; Conditions"
+                                     Padding="10,10,10,10"
+                                     Margin="0,3,0,0"
+                                     NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev/blob/master/terms(english).md" />
                 </StackPanel>
             </muxc:Expander.Content>
         </muxc:Expander>

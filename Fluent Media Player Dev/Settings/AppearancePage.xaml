@@ -88,7 +88,7 @@
 
         <TextBlock Style="{ThemeResource Subheader}" Text="Navigation &amp; Now Playing" />
 
-        <Border x:Name="MoreGroupsInSettings" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="OnStartupExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -100,26 +100,37 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xF168;"
-                              VerticalAlignment="Center" />
+                              Glyph="&#xE7E8;" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Split the Settings dialog into more groups"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   VerticalAlignment="Center" />
+                        <TextBlock Text="On startup" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Select what page to go to when you start the app"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding CompactMode, Mode=TwoWay}"
-                              Margin="0,0,-74,0"
-                              VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="At a glance"
+                          SelectedIndex="{Binding OpenTo, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>At a glance</x:String>
+                    <x:String>Devices</x:String>
+                    <x:String>Playlists</x:String>
+                    <x:String>Songs</x:String>
+                    <x:String>Artists</x:String>
+                    <x:String>Albums</x:String>
+                    <x:String>Genres</x:String>
+                    <x:String>Now Playing</x:String>
+                </ComboBox>
             </Grid>
         </Border>
 
-        <Border x:Name="CompactModeExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="CompactModeExpander" Style="{ThemeResource SettingsCard}" Margin="0,5,0,0">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -195,6 +206,8 @@
                 </StackPanel>
             </Grid>
         </Border>
+
+        
 
         <TextBlock Text="Privacy &amp; recommendations" Style="{ThemeResource Subheader}" />
 

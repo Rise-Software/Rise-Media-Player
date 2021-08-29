@@ -14,7 +14,8 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="View options" />
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General" />
+
         <Border x:Name="ResizeExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -29,28 +30,66 @@
 
                     <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
-                              Glyph="&#xE185;"
+                              Glyph="&#xE944;"
                               VerticalAlignment="Center" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Always show labels"
+                        <TextBlock Text="Window resize changes"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    VerticalAlignment="Center" />
-                        <TextBlock Text="Even when the window is made smaller, labels will remain in the sidebar."
+                        <TextBlock Text="Choose what to do with the sidebar when the window is made smaller."
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Select an option"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>Don't show the sidebar</x:String>
+                    <x:String>Only show icons</x:String>
+                    <x:String>Show everything</x:String>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <TextBlock Margin="0,0,0,0" Style="{ThemeResource Subheader}" Text="Appearance" />
+
+        <Border x:Name="HamburgerExpander" Style="{ThemeResource SettingsCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE700;"
+                              VerticalAlignment="Center" />
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <TextBlock Text="Show the hamburger button"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+
+                    </StackPanel>
+                </Grid>
                 <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding ShowLabels, Mode=TwoWay}"
+                              IsOn="{Binding CompactMode, Mode=TwoWay}"
                               Margin="0,0,-74,0"
                               VerticalAlignment="Center" />
             </Grid>
         </Border>
 
-        <Border x:Name="ColourfulIconsExpander" Style="{ThemeResource SettingsCard}">
+        <Border x:Name="IconStyleExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -69,17 +108,25 @@
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Use colourful icons" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Use full-colour, solid icons rather than line icons on the sidebar (Similar to Settings app)."
+                        <TextBlock Text="Icon style" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock Text="Select through a variety of beautiful icon sets for your sidebar."
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    Style="{StaticResource CaptionTextBlockStyle}" />
                     </StackPanel>
                 </Grid>
-                <ToggleSwitch Grid.Column="1"
-                              IsOn="{Binding ColorfulIcons, Mode=TwoWay}"
-                              Margin="0,0,-74,0"/>
+                <ComboBox Grid.Column="1"
+                          PlaceholderText="Select a style"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                          VerticalAlignment="Center">
+                    <x:String>High Contrast</x:String>
+                    <x:String>Colourful</x:String>
+                </ComboBox>
+                <Button Margin="115,0,0,0" Style="{StaticResource AccentButtonStyle}" Grid.Column="1" Content="Get more" Click="Button_Click" />
             </Grid>
         </Border>
+
+        <TextBlock Margin="0,0,0,0" Style="{ThemeResource Subheader}" Text="Add/remove sidebar items" />
+
 
         <muxc:Expander x:Name="MenuItemsExpander">
             <muxc:Expander.Header>
@@ -98,11 +145,6 @@
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical">
-                        <TextBlock Text="Show/hide sidebar items" Style="{StaticResource BodyTextBlockStyle}"/>
-                        <TextBlock Text="Choose the items and groups you always want to see on your sidebar."
-                                   Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                 </Grid>
             </muxc:Expander.Header>
@@ -151,52 +193,13 @@
                                   IsChecked="{Binding ShowLocalVideos, Mode=TwoWay}"
                                   Margin="16,0,0,0" />
                         <CheckBox x:Name="Streaming"
-                                  Content="Streaming &amp; Services"
+                                  Content="Streaming Services"
                                   IsChecked="{Binding ShowStreaming, Mode=TwoWay}"
                                   Margin="16,0,0,0" />
                     </GridView>
                 </StackPanel>
             </muxc:Expander.Content>
         </muxc:Expander>
-
-        <TextBlock Style="{ThemeResource Subheader}" Text="On Startup" />
-        <Border x:Name="OnStartupExpander" Style="{ThemeResource SettingsCard}">
-            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <FontIcon VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                              FontSize="16"
-                              Glyph="&#xE7E8;" />
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical">
-                        <TextBlock Text="Open Fluent Player to:" Style="{StaticResource BodyTextBlockStyle}"/>
-                    </StackPanel>
-                </Grid>
-                <ComboBox Grid.Column="1"
-                          PlaceholderText="At a glance"
-                          SelectedIndex="{Binding OpenTo, Mode=TwoWay}"
-                          VerticalAlignment="Center">
-                    <x:String>At a glance</x:String>
-                    <x:String>Devices</x:String>
-                    <x:String>Playlists</x:String>
-                    <x:String>Songs</x:String>
-                    <x:String>Artists</x:String>
-                    <x:String>Albums</x:String>
-                    <x:String>Genres</x:String>
-                    <x:String>Now Playing</x:String>
-                </ComboBox>
-            </Grid>
-        </Border>
 
     </StackPanel>
 </Page>
