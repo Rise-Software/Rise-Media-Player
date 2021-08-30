@@ -76,7 +76,7 @@
 
                 <muxc:NavigationViewItem x:Uid="/Sidebar/Playback" Tag="PlaybackPage" x:Name="PlaybackPageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/playback.png"/>
+                        <muxc:ImageIcon Source="/Assets/Settings/Playback.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -88,7 +88,7 @@
 
                 <muxc:NavigationViewItem Content="Sidebar (Temp)" Tag="NavigationPage" x:Name="NavigationPageItem" Padding="0,15,0,15">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Settings/sidebartemp.png"/>
+                        <muxc:ImageIcon Source="/Assets/Settings/sidebar.png"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 

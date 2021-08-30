@@ -208,15 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Branding\settingsbanner.png" />
-    <Content Include="Assets\iconography.png" />
-    <Content Include="Assets\ladybug.wmv" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\NavigationView\Albums.png" />
     <Content Include="Assets\NavigationView\Artists.png" />
     <Content Include="Assets\NavigationView\At a glance.png" />
@@ -235,7 +232,7 @@
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\Settings\Playback.png" />
     <Content Include="Assets\Settings\Personalise.png" />
-    <Content Include="Assets\Settings\sidebartemp.png" />
+    <Content Include="Assets\Settings\Sidebar.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -274,9 +271,6 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\testvideo.mp4" />
-    <Content Include="Assets\Group 30.png" />
-    <Content Include="Assets\Group 7.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -395,7 +389,9 @@
     <PRIResource Include="Strings\en\Information.resw" />
     <PRIResource Include="Strings\en\Sidebar.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\WindowsIcons\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

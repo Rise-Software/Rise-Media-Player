@@ -121,7 +121,7 @@
                     <x:String>High Contrast</x:String>
                     <x:String>Colourful</x:String>
                 </ComboBox>
-                <Button Margin="115,0,0,0" Style="{StaticResource AccentButtonStyle}" Grid.Column="1" Content="Get more" Click="Button_Click" />
+                <Button Margin="115,0,0,0" Style="{StaticResource AccentButtonStyle}" Grid.Column="1" Content="Get more"/>
             </Grid>
         </Border>
 
