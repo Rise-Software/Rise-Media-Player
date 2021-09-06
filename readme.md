@@ -14,5 +14,5 @@ The app is not even in alpha yet. This is a render of a future version. The curr
 
 Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution.
 
-\*Streaming services are not available yet.
+\*Streaming services are not available yet, nor will be until release. Some stresming services may require a premium level account or equivalent. Terms apply. Some services may use their website counterparts, so local downloading may not be available.
 \*\*Windows 10 1809 (Minimum); Windows 11 21H2 (Recommended), UWP Toolkit & Windows 10 SDK
