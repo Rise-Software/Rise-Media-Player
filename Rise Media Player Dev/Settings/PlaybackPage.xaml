@@ -14,7 +14,7 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General"/>
+        <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/EQ"
                                ExpanderKind="Button"
                                Icon="&#xE9E9;">
@@ -32,7 +32,7 @@
         </uc:NavigationExpander>
 
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Music" />
+        <TextBlock x:Uid="/Playback/MusicH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/Gapless"
                                ExpanderKind="Static"
                                Icon="&#xEA69;">
@@ -42,29 +42,21 @@
         <uc:NavigationExpander x:Uid="/Playback/Crossfade"
                                ExpanderKind="Static"
                                Icon="&#xE13C;">
-            <ComboBox PlaceholderText="Select crossfade duration"
-                      SelectedIndex="{Binding CrossfadeDuration, Mode=TwoWay}">
-                <x:String>No crossfade</x:String>
-                <x:String>3 seconds</x:String>
-                <x:String>5 seconds</x:String>
-                <x:String>10 seconds</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind Crossfade}"
+                      SelectedIndex="{Binding CrossfadeDuration, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Video" />
+        <TextBlock x:Uid="/Playback/VideoH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/Scaling"
                                ExpanderKind="Static"
                                Icon="&#xE1D9;">
-            <ComboBox PlaceholderText="Select scaling settings"
-                      SelectedIndex="{Binding ScaleToWindow, Mode=TwoWay}">
-                <x:String>Scale to window size</x:String>
-                <x:String>Always match resolution</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind VideoScale}"
+                      SelectedIndex="{Binding ScaleToWindow, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Now Playing &amp; System Flyouts" />
+        <TextBlock x:Uid="/Playback/NowPlayingH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/GoDevice"
                                ExpanderKind="Static"
                                Icon="&#xE7F6;">

@@ -403,6 +403,10 @@ namespace RMP.App
                     ContentFrame.Navigate(typeof(StreamingPage));
                     break;
 
+                case 9:
+                    ContentFrame.Navigate(typeof(NowPlayingPage));
+                    break;
+
                 default:
                     ContentFrame.Navigate(typeof(HomePage));
                     break;

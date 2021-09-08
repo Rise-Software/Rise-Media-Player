@@ -22,9 +22,30 @@ namespace RMP.App.Settings
     /// </summary>
     public sealed partial class PlaybackPage : Page
     {
+        private List<string> Crossfade { get; set; }
+        private List<string> VideoScale { get; set; }
+
+        private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader =
+            Windows.ApplicationModel.Resources.
+                ResourceLoader.GetForCurrentView("Playback");
+
         public PlaybackPage()
         {
             this.InitializeComponent();
+
+            Crossfade = new List<string>
+            {
+                resourceLoader.GetString("Duration0"),
+                resourceLoader.GetString("Duration3s"),
+                resourceLoader.GetString("Duration5s"),
+                resourceLoader.GetString("Duration10s")
+            };
+
+            VideoScale = new List<string>
+            {
+                resourceLoader.GetString("WindowSize"),
+                resourceLoader.GetString("MatchRes")
+            };
         }
     }
 }

@@ -123,6 +123,9 @@
   <data name="AddAccount.Title" xml:space="preserve">
     <value>Add an account</value>
   </data>
+  <data name="AdvancedH.Text" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
     <value>Choose where we look for your music &amp; video files.</value>
   </data>
@@ -132,11 +135,23 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>When removing local media:</value>
   </data>
+  <data name="Device" xml:space="preserve">
+    <value>Delete from my device</value>
+  </data>
   <data name="DisableLocal.Title" xml:space="preserve">
     <value>Disable all local files and devices</value>
   </data>
   <data name="DisableOnline.Title" xml:space="preserve">
     <value>Disable all online services</value>
+  </data>
+  <data name="OnlineH.Text" xml:space="preserve">
+    <value>Online media &amp; services</value>
+  </data>
+  <data name="OnlyApp" xml:space="preserve">
+    <value>Only remove from the app</value>
+  </data>
+  <data name="OwnH.Text" xml:space="preserve">
+    <value>Your own media &amp; devices</value>
   </data>
   <data name="Ripping.Description" xml:space="preserve">
     <value>Choose what you want to happen when you rip a disc.</value>

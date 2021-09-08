@@ -123,6 +123,18 @@
   <data name="Crossfade.Title" xml:space="preserve">
     <value>Crossfade</value>
   </data>
+  <data name="Duration0" xml:space="preserve">
+    <value>No crossfade</value>
+  </data>
+  <data name="Duration10s" xml:space="preserve">
+    <value>10 seconds</value>
+  </data>
+  <data name="Duration3s" xml:space="preserve">
+    <value>3 seconds</value>
+  </data>
+  <data name="Duration5s" xml:space="preserve">
+    <value>5 seconds</value>
+  </data>
   <data name="EQ.Description" xml:space="preserve">
     <value>Choose different sound profiles depending on your media type.</value>
   </data>
@@ -138,14 +150,26 @@
   <data name="Gapless.Title" xml:space="preserve">
     <value>Gapless playback</value>
   </data>
+  <data name="GeneralH.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
   <data name="GoDevice.Title" xml:space="preserve">
     <value>Go to now playing when you connect an audio device</value>
+  </data>
+  <data name="MatchRes" xml:space="preserve">
+    <value>Always match resolution</value>
+  </data>
+  <data name="MusicH.Text" xml:space="preserve">
+    <value>Music</value>
   </data>
   <data name="NowPlaying.Description" xml:space="preserve">
     <value>Choose what to show on your Now Playing UI.</value>
   </data>
   <data name="NowPlaying.Title" xml:space="preserve">
     <value>Customize Now Playing</value>
+  </data>
+  <data name="NowPlayingH.Text" xml:space="preserve">
+    <value>Now Playing &amp; System Flyouts</value>
   </data>
   <data name="Scaling.Description" xml:space="preserve">
     <value>Adjust how your video scales depending on window size.</value>
@@ -158,5 +182,11 @@
   </data>
   <data name="StreamingQuality.Title" xml:space="preserve">
     <value>Manage streaming quality</value>
+  </data>
+  <data name="VideoH.Text" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="WindowSize" xml:space="preserve">
+    <value>Scale to window size</value>
   </data>
 </root>

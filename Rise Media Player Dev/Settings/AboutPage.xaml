@@ -65,7 +65,5 @@
                                  NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev/blob/master/terms(english).md" />
             </StackPanel>
         </uc:NavigationExpander>
-
-
     </StackPanel>
 </Page>

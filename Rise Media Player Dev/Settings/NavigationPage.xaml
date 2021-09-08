@@ -14,20 +14,16 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General" />
+        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Resize"
                                ExpanderKind="Static"
                                Icon="&#xE944;">
-            <ComboBox PlaceholderText="Select an option"
-                      SelectedIndex="{Binding Resize, Mode=TwoWay}">
-                <x:String>Don't show the sidebar</x:String>
-                <x:String>Only show icons</x:String>
-                <x:String>Show everything</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind Show}"
+                      SelectedIndex="{Binding Resize, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Appearance" />
+        <TextBlock x:Uid="/Navigation/AppearanceH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Hamburger"
                                ExpanderKind="Static"
                                Icon="&#xE700;">
@@ -41,7 +37,7 @@
         </uc:NavigationExpander>
 
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Add/remove sidebar items" />
+        <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/MenuItems"
                                ExpanderKind="Expander"
                                Icon="&#xE762;">
@@ -86,6 +82,5 @@
                 </GridView>
             </StackPanel>
         </uc:NavigationExpander>
-
     </StackPanel>
 </Page>

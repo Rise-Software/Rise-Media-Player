@@ -40,7 +40,7 @@ namespace RMP.App.Settings
 
         public static bool Reindex
         {
-            get => SettingsManager.GetBoolSetting("Local", "Reindex", false);
+            get => SettingsManager.GetBoolSetting("Local", "Reindex", true);
             set => SettingsManager.SetBoolSetting("Local", "Reindex", value);
         }
 

@@ -22,9 +22,20 @@ namespace RMP.App.Settings
     /// </summary>
     public sealed partial class NavigationPage : Page
     {
+        private List<string> Show { get; set; }
+        private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader =
+            Windows.ApplicationModel.Resources.
+                ResourceLoader.GetForCurrentView("Navigation");
+
         public NavigationPage()
         {
             this.InitializeComponent();
+            Show = new List<string>
+            {
+                resourceLoader.GetString("NoIcons"),
+                resourceLoader.GetString("OnlyIcons"),
+                resourceLoader.GetString("Everything")
+            };
         }
 
         #region Checkboxes

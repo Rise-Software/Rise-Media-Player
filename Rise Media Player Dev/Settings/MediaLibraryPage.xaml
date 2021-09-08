@@ -14,7 +14,7 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="Online media &amp; services" />
+        <TextBlock x:Uid="/MediaLibrary/OnlineH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/AddAccount"
                                ExpanderKind="Button"
                                Icon="&#xE13D;">
@@ -24,7 +24,8 @@
                       VerticalAlignment="Center" />
         </uc:NavigationExpander>
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Your own media &amp; devices" />
+
+        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
                                Click="ChooseFolders_Click"
                                ExpanderKind="Button"
@@ -38,11 +39,8 @@
         <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
                                ExpanderKind="Static"
                                Icon="&#xE74D;">
-            <ComboBox PlaceholderText="Only remove from the app"
-                      SelectedIndex="{Binding Deletion, Mode=TwoWay}">
-                <x:String>Only remove from the app</x:String>
-                <x:String>Delete from my device</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind Deletion}"
+                      SelectedIndex="{Binding Deletion, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/MediaLibrary/Ripping"
@@ -61,7 +59,8 @@
             <ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
-        <TextBlock Style="{ThemeResource Subheader}" Text="Advanced" />
+
+        <TextBlock x:Uid="/MediaLibrary/AdvancedH" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/DisableOnline"
                                ExpanderKind="Static"
                                Icon="&#xE701;">

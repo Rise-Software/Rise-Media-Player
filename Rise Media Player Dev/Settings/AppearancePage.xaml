@@ -14,19 +14,12 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Appearance/AppearanceH"
-                   Margin="0,-20,0,0"
-                   Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
                                ExpanderKind="Static"
                                Icon="&#xE790;">
-            <ComboBox PlaceholderText="Use system setting"
-                      SelectedIndex="{Binding Theme, Mode=TwoWay}"
-                      VerticalAlignment="Center">
-                <x:String>Light</x:String>
-                <x:String>Dark</x:String>
-                <x:String>Use system setting</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind Themes}"
+                      SelectedIndex="{Binding Theme, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/FullArt"
@@ -41,17 +34,8 @@
                                ExpanderKind="Static"
                                Icon="&#xE7E8;"
                                Margin="0,0,0,4">
-            <ComboBox PlaceholderText="At a glance"
-                      SelectedIndex="{Binding OpenTo, Mode=TwoWay}"
-                      VerticalAlignment="Center">
-                <x:String>At a glance</x:String>
-                <x:String>Playlists</x:String>
-                <x:String>Devices</x:String>
-                <x:String>Songs</x:String>
-                <x:String>Artists</x:String>
-                <x:String>Albums</x:String>
-                <x:String>Genres</x:String>
-            </ComboBox>
+            <ComboBox ItemsSource="{x:Bind Startup}"
+                      SelectedIndex="{Binding OpenTo, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
@@ -91,7 +75,5 @@
                       FontSize="16"
                       Glyph="&#xE00F;" />
         </uc:NavigationExpander>
-
-
     </StackPanel>
 </Page>

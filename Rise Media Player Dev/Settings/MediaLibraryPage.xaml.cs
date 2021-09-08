@@ -6,6 +6,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using static RMP.App.Dialogs.FoldersDialog;
+using System.Collections.Generic;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,15 +27,27 @@ namespace RMP.App.Settings
             SecondaryButtonText = "Done",
             DefaultButton = ContentDialogButton.Primary,
         };
+
+        private List<string> Deletion { get; set; }
+        private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader =
+            Windows.ApplicationModel.Resources.
+                ResourceLoader.GetForCurrentView("MediaLibrary");
         #endregion
 
         public MediaLibraryPage()
         {
             this.InitializeComponent();
             Current = this;
+
             dialog.Closing += Dialog_Closing;
             dialog.Closed += Dialog_Closed;
             dialog.Content = Dialog;
+
+            Deletion = new List<string>
+            {
+                resourceLoader.GetString("OnlyApp"),
+                resourceLoader.GetString("Device")
+            };
         }
 
         private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)

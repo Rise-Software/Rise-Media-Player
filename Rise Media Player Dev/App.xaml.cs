@@ -44,7 +44,7 @@ namespace RMP.App
         /// Configures the app to use the Sqlite data source. If no existing Sqlite database exists, 
         /// loads a demo database filled with fake data so the app has content.
         /// </summary>
-        public async static void UseSQLite()
+        public static async void UseSQLite()
         {
             await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
@@ -114,7 +114,7 @@ namespace RMP.App
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
+            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }

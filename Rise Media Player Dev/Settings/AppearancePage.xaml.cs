@@ -22,12 +22,37 @@ namespace RMP.App.Settings
     /// </summary>
     public sealed partial class AppearancePage : Page
     {
+        private List<string> Themes { get; set; }
+        private List<string> Startup { get; set; }
+
         private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader =
             Windows.ApplicationModel.Resources.
                 ResourceLoader.GetForCurrentView("Appearance");
+
         public AppearancePage()
         {
             this.InitializeComponent();
+
+            Themes = new List<string>
+            {
+                resourceLoader.GetString("Light"),
+                resourceLoader.GetString("Dark"),
+                resourceLoader.GetString("System")
+            };
+
+            Startup = new List<string>
+            {
+                resourceLoader.GetString("Home"),
+                resourceLoader.GetString("Playlists"),
+                resourceLoader.GetString("Devices"),
+                resourceLoader.GetString("Songs"),
+                resourceLoader.GetString("Artists"),
+                resourceLoader.GetString("Albums"),
+                resourceLoader.GetString("Genres"),
+                resourceLoader.GetString("LocalVideos"),
+                resourceLoader.GetString("Streaming"),
+                resourceLoader.GetString("NowPlaying")
+            };
         }
 
         private void SidebarCustomize_Click(object sender, RoutedEventArgs e)
