@@ -12,28 +12,32 @@
     <Page.DataContext>
         <local:LanguageSettings />
     </Page.DataContext>
-
+    
     <StackPanel Orientation="Vertical" Spacing="4">
+        <TextBlock Text="Selection" Style="{ThemeResource Subheader}" Margin="0,-10,0,0" />
         <uc:NavigationExpander x:Uid="/Language/Select"
                                ExpanderKind="Static"
                                Icon="&#xE12B;">
             <ComboBox PlaceholderText="Use system language"
                       SelectedIndex="{Binding Language, Mode=TwoWay}"
                       VerticalAlignment="Center">
-                <x:String>Use system setting</x:String>
-                <x:String>Chinese</x:String>
+                <x:String>中国人</x:String>
                 <x:String>English</x:String>
-                <x:String>French</x:String>
-                <x:String>German</x:String>
-                <x:String>Greek</x:String>
-                <x:String>Hindi</x:String>
-                <x:String>Italian</x:String>
-                <x:String>Korean</x:String>
-                <x:String>Malay</x:String>
-                <x:String>Polish</x:String>
-                <x:String>Portugese</x:String>
-                <x:String>Romanian</x:String>
-                <x:String>Spanish</x:String>
+                <x:String>English (United Kingdom)</x:String>
+                <x:String>English (United States)</x:String>
+                <x:String>Français</x:String>
+                <x:String>Deutsch</x:String>
+                <x:String>Ελληνικά</x:String>
+                <x:String>हिंदी</x:String>
+                <x:String>Italiano</x:String>
+                <x:String>한국인</x:String>
+                <x:String>Melayu</x:String>
+                <x:String>Polskie</x:String>
+                <x:String>Português (Portugal)</x:String>
+                <x:String>Português (Brasil)</x:String>
+                <x:String>Română</x:String>
+                <x:String>Español</x:String>
+                <x:String>Use system setting</x:String>
             </ComboBox>
         </uc:NavigationExpander>
 

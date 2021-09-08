@@ -11,7 +11,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <GridView x:Name="AlbumGridView" Margin="-56,0" Padding="56,0">
+        <GridView x:Name="AlbumGridView" Margin="-56,0" Padding="45,0">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical"
@@ -19,7 +19,7 @@
                                 Margin="12"
                                 Width="134">
                         <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                CornerRadius="4"
+                                CornerRadius="5"
                                 Width="134">
                             <Grid>
                                 <FontIcon Glyph="&#xEA69;" />
@@ -31,10 +31,12 @@
                         </Border>
 
                         <TextBlock Text="{Binding Title}"
+                                   Padding="0,7,0,0"
                                    MaxLines="1"
-                                   Style="{ThemeResource BaseTextBlockStyle}"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
                                    TextWrapping="Wrap" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
+                        <TextBlock FontSize="13">
                             <Hyperlink UnderlineStyle="None">
                                 <Run Text="{Binding Artist}" />
                             </Hyperlink>

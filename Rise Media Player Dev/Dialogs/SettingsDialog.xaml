@@ -44,6 +44,7 @@
                     </Grid.ColumnDefinitions>
 
                     <muxc:BreadcrumbBar x:Name="Header"
+                                        FontWeight="Bold"
                                         ItemsSource="{x:Bind Breadcrumbs}" />
                     <Button x:Name="CloseButton"
                             Grid.Column="1"
@@ -92,7 +93,6 @@
                 <muxc:NavigationViewItem x:Name="AboutPageItem"
                                          x:Uid="/Sidebar/About"
                                          Tag="AboutPage" />
-
             </muxc:NavigationView.FooterMenuItems>
 
             <Grid x:Name="SettingsGrid">

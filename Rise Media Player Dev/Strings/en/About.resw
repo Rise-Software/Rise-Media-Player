@@ -117,16 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="commAboutH.Text" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="contCommunity.Description" xml:space="preserve">
+    <value>View the amazing people that helped make this project possible, become one yourself!</value>
+  </data>
+  <data name="contCommunity.Title" xml:space="preserve">
+    <value>Contributors &amp; Insiders</value>
+  </data>
   <data name="Discord.Content" xml:space="preserve">
     <value>Discord Server</value>
   </data>
   <data name="GitHub.Content" xml:space="preserve">
     <value>Collaborate on GitHub</value>
   </data>
+  <data name="legalAboutH.Text" xml:space="preserve">
+    <value>Legal</value>
+  </data>
   <data name="Reddit.Content" xml:space="preserve">
     <value>View our subreddit</value>
   </data>
   <data name="TermsAndConditions.Content" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
+  <data name="termsLegal.Title" xml:space="preserve">
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="UsefulLinks.Description" xml:space="preserve">
@@ -136,7 +151,7 @@
     <value>Useful links</value>
   </data>
   <data name="vButton.Content" xml:space="preserve">
-    <value>Copy Version</value>
+    <value>View Changelog</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Version Info</value>

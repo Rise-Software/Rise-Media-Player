@@ -14,11 +14,12 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Resize"
                                ExpanderKind="Static"
                                Icon="&#xE944;">
             <ComboBox ItemsSource="{x:Bind Show}"
+                      PlaceholderText="Don't show the sidebar"
                       SelectedIndex="{Binding Resize, Mode=TwoWay}" />
         </uc:NavigationExpander>
 

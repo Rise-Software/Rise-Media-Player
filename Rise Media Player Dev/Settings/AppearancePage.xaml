@@ -14,11 +14,12 @@
     </Page.DataContext>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
                                ExpanderKind="Static"
                                Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
+                      PlaceholderText="Use system setting"
                       SelectedIndex="{Binding Theme, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
@@ -35,6 +36,7 @@
                                Icon="&#xE7E8;"
                                Margin="0,0,0,4">
             <ComboBox ItemsSource="{x:Bind Startup}"
+                      PlaceholderText="Songs"
                       SelectedIndex="{Binding OpenTo, Mode=TwoWay}" />
         </uc:NavigationExpander>
 

@@ -12,9 +12,11 @@
     <StackPanel Orientation="Vertical" Spacing="4">
         <Image Source="/Assets/Branding/settingsbanner.png"
                Height="50"
-               HorizontalAlignment="Left" />
-        <TextBlock x:Uid="/About/vInfoH" Style="{ThemeResource Subheader}" />
-        <Border x:Name="AboutExpander" Style="{ThemeResource SettingsCard}">
+               HorizontalAlignment="Left" 
+               Margin="0,10,0,0"/>
+        <TextBlock x:Uid="/About/vInfoH" Style="{ThemeResource Subheader}" Margin="0,-10,0,0"/>
+
+        <Border x:Name="VersionExpander" Style="{ThemeResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -37,7 +39,7 @@
                                 <Bold FontWeight="SemiBold">Rise</Bold> Media Player
                             </Paragraph>
                         </RichTextBlock>
-                        <TextBlock Text="v0.0.1.4"
+                        <TextBlock Text="Version: DEV"
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords" />
@@ -47,6 +49,128 @@
             </Grid>
         </Border>
 
+        <TextBlock x:Uid="/About/commAboutH" Style="{ThemeResource Subheader}" Margin="0,-10,0,0"/>
+
+        <uc:NavigationExpander x:Uid="/About/contCommunity"
+                               ExpanderKind="Expander"
+                               Icon="&#xE822;">
+            <StackPanel Spacing="3">
+                <Border x:Name="CollaboratorExpander" Margin="0,10,0,0">
+                    <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xE785;" />
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <RichTextBlock>
+                                    <Paragraph>
+                                        Get access to internal builds
+                                    </Paragraph>
+                                </RichTextBlock>
+                                <TextBlock Text="Receive early, in testing, builds and find out what's coming soon."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border x:Name="helpteamExpander" Margin="0,15,0,0">
+                    <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xF131;" />
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <RichTextBlock>
+                                    <Paragraph>
+                                        Work with us
+                                    </Paragraph>
+                                </RichTextBlock>
+                                <TextBlock Text="Let us know what you want to see, or code and design with us!"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border x:Name="notdevExpander" Margin="0,15,0,10">
+                    <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontSize="16"
+                              Glyph="&#xF103;" />
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <RichTextBlock>
+                                    <Paragraph>
+                                        Not a developer? Not a problem!
+                                    </Paragraph>
+                                </RichTextBlock>
+                                <TextBlock Text="Become an insider to suggest new features."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel>
+                                <Button Margin="0,10,0,10" Content="Become a contributor" Grid.Column="1" Style="{StaticResource AccentButtonStyle}"/>
+                                <Button Margin="165,-43,0,10" Content="Become an insider" Grid.Column="1"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                        
+            </StackPanel>
+        </uc:NavigationExpander>
+        
         <uc:NavigationExpander x:Uid="/About/UsefulLinks"
                                ExpanderKind="Expander"
                                Icon="&#xE167;">
@@ -56,14 +180,19 @@
                                  NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev" />
                 <HyperlinkButton x:Uid="/About/Discord"
                                  Padding="10,10,10,10"
+                                 Margin="175,-47,0,0"
                                  NavigateUri="https://disboard.org/server/872910570003791922" />
                 <HyperlinkButton x:Uid="/About/Reddit"
                                  Padding="10,10,10,10"
                                  NavigateUri="https://www.reddit.com/r/fluentplayer/" />
                 <HyperlinkButton x:Uid="/About/TermsAndConditions"
                                  Padding="10,10,10,10"
+                                 Margin="175,-47,0,0"
                                  NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev/blob/master/terms(english).md" />
             </StackPanel>
         </uc:NavigationExpander>
+
+        
+
     </StackPanel>
 </Page>
