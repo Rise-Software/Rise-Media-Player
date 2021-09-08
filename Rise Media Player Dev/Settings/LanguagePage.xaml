@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="RMP.App.Settings.LanguagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RMP.App.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:RMP.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:LanguageSettings />
+    </Page.DataContext>
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <uc:NavigationExpander x:Uid="/Language/Select"
+                               ExpanderKind="Static"
+                               Icon="&#xE12B;">
+            <ComboBox PlaceholderText="Use system language"
+                      SelectedIndex="{Binding Language, Mode=TwoWay}"
+                      VerticalAlignment="Center">
+                <x:String>Use system setting</x:String>
+                <x:String>Chinese</x:String>
+                <x:String>English</x:String>
+                <x:String>French</x:String>
+                <x:String>German</x:String>
+                <x:String>Greek</x:String>
+                <x:String>Hindi</x:String>
+                <x:String>Italian</x:String>
+                <x:String>Korean</x:String>
+                <x:String>Malay</x:String>
+                <x:String>Polish</x:String>
+                <x:String>Portugese</x:String>
+                <x:String>Romanian</x:String>
+                <x:String>Spanish</x:String>
+            </ComboBox>
+        </uc:NavigationExpander>
+
+    </StackPanel>
+</Page>

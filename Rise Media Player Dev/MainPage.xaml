@@ -1,0 +1,190 @@
+﻿<Page
+    x:Class="RMP.App.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:RMP.App"
+    xmlns:conv="using:RMP.App.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:gset="using:RMP.App.Settings"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <gset:NavigationSettings />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <conv:BooleanToVisibility x:Key="BoolToVis" />
+        <!--  This top margin is the height of the custom TitleBar  -->
+        <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+        <Thickness x:Key="NavigationViewHeaderMargin">56,45,56,3</Thickness>
+        <Style TargetType="muxc:BreadcrumbBarItem">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="SmallWidth">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
+                        <Setter Target="AppTitle.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid Canvas.ZIndex="1">
+            <Border x:Name="AppTitleBar"
+                    IsHitTestVisible="True"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    Height="40"
+                    Canvas.ZIndex="1" 
+                    Margin="48,8,0,0">
+                <StackPanel x:Name="AppData"
+                            Orientation="Horizontal"
+                            Width="Auto">
+                    <Image x:Name="AppFontIcon"
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"
+                           Source="Assets/Square44x44Logo.png" 
+                           Width="18" 
+                           Height="18" />
+                    <RichTextBlock x:Name="AppTitle"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="12,0,0,0"
+                                   Visibility="Collapsed"
+                                   Width="Auto">
+                        <Paragraph>
+                            <Bold FontWeight="SemiBold">Rise</Bold> Media Player
+                        </Paragraph>
+                    </RichTextBlock>
+                </StackPanel>
+            </Border>
+
+            <AutoSuggestBox x:Name="SearchBar"
+                            Canvas.ZIndex="2"
+                            Height="32"
+                            HorizontalAlignment="Stretch"
+                            MaxWidth="530"
+                            VerticalAlignment="Top"
+                            AutomationProperties.Name="Search"
+                            PlaceholderText="Search your own media and the web"
+                            QueryIcon="Find" />
+        </Grid>
+
+        <muxc:NavigationView x:Name="NavView"
+                             BackRequested="NavView_BackRequested"
+                             CompactModeThresholdWidth="800"
+                             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+                             ExpandedModeThresholdWidth="800"
+                             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
+                             IsPaneToggleButtonVisible="True"
+                             IsSettingsVisible="True"
+                             ItemInvoked="NavView_ItemInvoked"
+                             IsTitleBarAutoPaddingEnabled="False"
+                             Canvas.ZIndex="0">
+            <muxc:NavigationView.Header>
+                <muxc:BreadcrumbBar x:Name="Header"
+                                    ItemsSource="{x:Bind Breadcrumbs}" />
+            </muxc:NavigationView.Header>
+
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Name="HomePageItem"
+                                         x:Uid="/Sidebar/Home"
+                                         Tag="HomePage"
+                                         Visibility="{Binding ShowAtAGlance}" />
+                <muxc:NavigationViewItem x:Name="PlaylistsPageItem"
+                                         x:Uid="/Sidebar/Playlists"
+                                         Tag="PlaylistsPage"
+                                         Visibility="{Binding ShowPlaylists}" />
+                <muxc:NavigationViewItem x:Name="DevicesPageItem"
+                                         x:Uid="/Sidebar/Devices"
+                                         Tag="DevicesPage"
+                                         Visibility="{Binding ShowDevices}" />
+
+                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Music" />
+                <muxc:NavigationViewItem x:Name="SongsPageItem"
+                                         x:Uid="/Sidebar/Songs"
+                                         Tag="SongsPage"
+                                         Visibility="{Binding ShowSongs}" />
+                <muxc:NavigationViewItem x:Name="ArtistsPageItem"
+                                         x:Uid="/Sidebar/Artists"
+                                         Tag="ArtistsPage"
+                                         Visibility="{Binding ShowArtists}" />
+                <muxc:NavigationViewItem x:Name="AlbumsPageItem"
+                                         x:Uid="/Sidebar/Albums"
+                                         Tag="AlbumsPage"
+                                         Visibility="{Binding ShowAlbums}" />
+                <muxc:NavigationViewItem x:Name="GenresPageItem"
+                                         x:Uid="/Sidebar/Genres"
+                                         Tag="GenresPage"
+                                         Visibility="{Binding ShowGenres}" />
+
+                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Videos" />
+                <muxc:NavigationViewItem x:Name="LocalVideosPageItem"
+                                         x:Uid="/Sidebar/LocalVideos"
+                                         Tag="LocalVideosPage"
+                                         Visibility="{Binding ShowLocalVideos}" />
+                <muxc:NavigationViewItem x:Name="StreamingPageItem"
+                                         x:Uid="/Sidebar/Streaming"
+                                         Tag="StreamingPage"
+                                         Visibility="{Binding ShowStreaming}" />
+            </muxc:NavigationView.MenuItems>
+
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem x:Name="DiscyPageItem"
+                                         x:Uid="/Sidebar/HelpTips"
+                                         Tag="DiscyPage" />
+                <muxc:NavigationViewItem x:Name="NowPlayingPageItem"
+                                         x:Uid="/Sidebar/NowPlaying"
+                                         Tag="NowPlayingPage" />
+                <muxc:NavigationViewItem x:Name="SettingsPageItem"
+                                         x:Uid="/Sidebar/Settings"
+                                         Tag="SettingsPage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/NavigationView/Settings.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+
+            <Grid>
+                <muxc:InfoBar x:Name="IndexMessage"
+                              x:Uid="/Information/IndexingInfo"
+                              IsOpen="False"
+                              Severity="Warning"
+                              Margin="56,16,56,0" />
+
+                <StackPanel x:Name="IndexInfo"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="Collapsed">
+                    <TextBlock x:Uid="IndexingProgress"
+                               x:Name="IndexProgress"
+                               x:FieldModifier="public" />
+                    <muxc:ProgressBar x:Name="LoadingBar" x:FieldModifier="public" />
+                </StackPanel>
+
+                <Frame x:Name="ContentFrame"
+                       x:FieldModifier="public"
+                       Padding="56,0">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition />
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </Grid>
+        </muxc:NavigationView>
+    </Grid>
+</Page>

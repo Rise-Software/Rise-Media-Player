@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="RMP.App.SongHub.LocalSongsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RMP.App.SongHub"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid x:Name="RootGrid" Padding="5,12,0,0">
+        <ItemsControl x:Name="itemsControl"  >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="SongElementGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" x:Name="songName" Padding="10" Margin="0, 5, 0, 0" Background="Transparent" BorderThickness="0" Content="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>

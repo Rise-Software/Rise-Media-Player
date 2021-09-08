@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NETStandard.Library" Version="2.0.3" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.18" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Models\Rise.Models.csproj" />
+	</ItemGroup>
+
+</Project>

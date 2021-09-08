@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="RMP.App.Settings.PlaybackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RMP.App.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:RMP.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:PlaybackSettings />
+    </Page.DataContext>
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <TextBlock Margin="0,-20,0,0" Style="{ThemeResource Subheader}" Text="General"/>
+        <uc:NavigationExpander x:Uid="/Playback/EQ"
+                               ExpanderKind="Button"
+                               Icon="&#xE9E9;">
+            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Playback/StreamingQuality"
+                               ExpanderKind="Button"
+                               Icon="&#xEA69;">
+            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:NavigationExpander>
+
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="Music" />
+        <uc:NavigationExpander x:Uid="/Playback/Gapless"
+                               ExpanderKind="Static"
+                               Icon="&#xEA69;">
+            <ToggleSwitch IsOn="{Binding Gapless, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Playback/Crossfade"
+                               ExpanderKind="Static"
+                               Icon="&#xE13C;">
+            <ComboBox PlaceholderText="Select crossfade duration"
+                      SelectedIndex="{Binding CrossfadeDuration, Mode=TwoWay}">
+                <x:String>No crossfade</x:String>
+                <x:String>3 seconds</x:String>
+                <x:String>5 seconds</x:String>
+                <x:String>10 seconds</x:String>
+            </ComboBox>
+        </uc:NavigationExpander>
+
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="Video" />
+        <uc:NavigationExpander x:Uid="/Playback/Scaling"
+                               ExpanderKind="Static"
+                               Icon="&#xE1D9;">
+            <ComboBox PlaceholderText="Select scaling settings"
+                      SelectedIndex="{Binding ScaleToWindow, Mode=TwoWay}">
+                <x:String>Scale to window size</x:String>
+                <x:String>Always match resolution</x:String>
+            </ComboBox>
+        </uc:NavigationExpander>
+
+
+        <TextBlock Style="{ThemeResource Subheader}" Text="Now Playing &amp; System Flyouts" />
+        <uc:NavigationExpander x:Uid="/Playback/GoDevice"
+                               ExpanderKind="Static"
+                               Icon="&#xE7F6;">
+            <ToggleSwitch IsOn="{Binding GoDevice, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Playback/NowPlaying"
+                               ExpanderKind="Button"
+                               Icon="&#xE102;"
+                               Margin="0,0,0,4">
+            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Playback/Flyouts"
+                               ExpanderKind="Static"
+                               Icon="&#xE15D;">
+            <ToggleSwitch IsOn="{Binding ReplaceFlyouts, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+    </StackPanel>
+</Page>

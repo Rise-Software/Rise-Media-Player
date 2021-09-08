@@ -1,0 +1,48 @@
+﻿<UserControl
+    x:Class="RMP.App.UserControls.SongList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RMP.App.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <ListView ItemsSource="{x:Bind ViewModel.Songs}" Margin="-56,0" Padding="56,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center">
+                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,18,8,8" Text="{Binding Track}" />
+
+                            <StackPanel HorizontalAlignment="Left"
+                                        Margin="8"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" Width="Auto" />
+                                <TextBlock>
+                                        <Hyperlink UnderlineStyle="None">
+                                            <Run Text="{Binding Artist}" />
+                                        </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   Margin="8,18,8,8"
+                                   Text="{Binding Length}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

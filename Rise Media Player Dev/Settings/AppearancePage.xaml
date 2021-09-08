@@ -1,0 +1,97 @@
+﻿<Page
+    x:Class="RMP.App.Settings.AppearancePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RMP.App.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:RMP.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:AppearanceSettings />
+    </Page.DataContext>
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <TextBlock x:Uid="/Appearance/AppearanceH"
+                   Margin="0,-20,0,0"
+                   Style="{ThemeResource Subheader}" />
+        <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
+                               ExpanderKind="Static"
+                               Icon="&#xE790;">
+            <ComboBox PlaceholderText="Use system setting"
+                      SelectedIndex="{Binding Theme, Mode=TwoWay}"
+                      VerticalAlignment="Center">
+                <x:String>Light</x:String>
+                <x:String>Dark</x:String>
+                <x:String>Use system setting</x:String>
+            </ComboBox>
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/FullArt"
+                               ExpanderKind="Static"
+                               Icon="&#xE93C;">
+            <ToggleSwitch IsOn="{Binding SquareAlbumArt, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+
+        <TextBlock x:Uid="/Appearance/NavigationH" Style="{ThemeResource Subheader}" />
+        <uc:NavigationExpander x:Uid="/Appearance/Startup"
+                               ExpanderKind="Static"
+                               Icon="&#xE7E8;"
+                               Margin="0,0,0,4">
+            <ComboBox PlaceholderText="At a glance"
+                      SelectedIndex="{Binding OpenTo, Mode=TwoWay}"
+                      VerticalAlignment="Center">
+                <x:String>At a glance</x:String>
+                <x:String>Playlists</x:String>
+                <x:String>Devices</x:String>
+                <x:String>Songs</x:String>
+                <x:String>Artists</x:String>
+                <x:String>Albums</x:String>
+                <x:String>Genres</x:String>
+            </ComboBox>
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
+                               ExpanderKind="Static"
+                               Icon="&#xE73F;">
+            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
+                               Click="SidebarCustomize_Click"
+                               ExpanderKind="Button"
+                               Icon="&#xE9D5;">
+            <FontIcon Glyph="&#xE00F;"
+                      FontSize="16"
+                      Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+        </uc:NavigationExpander>
+
+
+        <TextBlock x:Uid="/Appearance/PrivacyH" Style="{ThemeResource Subheader}" />
+        <uc:NavigationExpander x:Uid="/Appearance/History"
+                               ExpanderKind="Static"
+                               Icon="&#xEADF;"
+                               Margin="0,0,0,4">
+            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
+                               ExpanderKind="Static"
+                               Icon="&#xE8FD;">
+            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
+                               ExpanderKind="Button"
+                               Icon="&#xECA5;">
+            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:NavigationExpander>
+
+
+    </StackPanel>
+</Page>
