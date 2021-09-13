@@ -11,7 +11,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <GridView x:Name="AlbumGridView" Margin="-56,0" Padding="45,0">
+        <GridView x:Name="AlbumGridView" Margin="-56,0,-56,0" Padding="44,0,56,0">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical"

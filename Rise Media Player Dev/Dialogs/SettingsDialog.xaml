@@ -9,8 +9,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Style="{StaticResource DefaultContentDialogStyle}"
     SizeChanged="ContentDialog_SizeChanged">
+
     <ContentDialog.Resources>
-        <x:Double x:Key="ContentDialogMaxWidth">1200</x:Double>
+        <x:Double x:Key="ContentDialogMaxWidth">1000</x:Double>
+        <x:Double x:Key="ContentDialogMaxHeight">620</x:Double>
         <SolidColorBrush x:Key="NavigationViewContentBackground"
                          Color="Transparent" />
         <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
@@ -29,6 +31,7 @@
                    HorizontalAlignment="Left"
                    Margin="-24"
                    VerticalAlignment="Stretch" />
+
         <muxc:NavigationView x:Name="SettingsNav"
                              PaneDisplayMode="Left"
                              IsBackButtonVisible="Collapsed"
@@ -100,8 +103,7 @@
                               Padding="0,0,28,0"
                               VerticalScrollBarVisibility="Auto">
                     <Frame x:Name="SettingsFrame"
-                           x:FieldModifier="public"
-                           Width="460">
+                           x:FieldModifier="public">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition />

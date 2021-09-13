@@ -145,5 +145,49 @@
                 <ContentPresenter Content="{x:Bind Controls}" />
             </muxc:Expander.Content>
         </muxc:Expander>
+
+        <!-- Transparent -->
+        <Border x:Name="RootTransparent"
+                x:Load="{x:Bind ExpanderKind.Equals(Transparent)}"
+                Style="{ThemeResource TransparentCard}">
+            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid ColumnSpacing="12"
+                  VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon VerticalAlignment="Center"
+                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                          FontSize="16"
+                          Glyph="{x:Bind Icon}" />
+
+                    <StackPanel Grid.Column="1"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="{x:Bind Title}"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Bind Description}"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"
+                                   VerticalAlignment="Center"
+                                   Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}" />
+                    </StackPanel>
+                </Grid>
+
+                <ContentPresenter Grid.Column="1"
+                                  Content="{x:Bind Controls}"
+                                  VerticalAlignment="Center"
+                                  VerticalContentAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BecomeContributor.Content" xml:space="preserve">
+    <value>Become a contributor</value>
+  </data>
+  <data name="BecomeInsider.Content" xml:space="preserve">
+    <value>Become an insider</value>
+  </data>
   <data name="commAboutH.Text" xml:space="preserve">
     <value>Community</value>
   </data>
@@ -131,6 +137,18 @@
   </data>
   <data name="GitHub.Content" xml:space="preserve">
     <value>Collaborate on GitHub</value>
+  </data>
+  <data name="Insider.Description" xml:space="preserve">
+    <value>Become an insider to suggest new features.</value>
+  </data>
+  <data name="Insider.Title" xml:space="preserve">
+    <value>Not a developer? Not a problem!</value>
+  </data>
+  <data name="InternalAccess.Description" xml:space="preserve">
+    <value>Receive early, in testing, builds and find out what's coming soon.</value>
+  </data>
+  <data name="InternalAccess.Title" xml:space="preserve">
+    <value>Get access to internal builds</value>
   </data>
   <data name="legalAboutH.Text" xml:space="preserve">
     <value>Legal</value>
@@ -155,5 +173,11 @@
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Version Info</value>
+  </data>
+  <data name="Work.Description" xml:space="preserve">
+    <value>Let us know what you want to see, or code and design with us!</value>
+  </data>
+  <data name="Work.Title" xml:space="preserve">
+    <value>Work with us</value>
   </data>
 </root>

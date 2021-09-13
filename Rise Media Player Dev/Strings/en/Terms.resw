@@ -117,64 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add folder</value>
+  <data name="BaseH.Text" xml:space="preserve">
+    <value>Base Software &amp; Copyright</value>
   </data>
-  <data name="AddAccount.Description" xml:space="preserve">
-    <value>Login to your services securely</value>
+  <data name="BodyPart1.Text" xml:space="preserve">
+    <value>This project is not officially open source software and is protected by copyright. Selling, copying or otherwise distributing this software is prohibited*. Although you are permitted to modify and view the source code as much as you wish for your own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available on the main repository page.
+
+We have used very few pieces of open source software available on GitHub to make this project possible.
+
+*Some exemptions may apply to approved contributors.</value>
   </data>
-  <data name="AddAccount.Title" xml:space="preserve">
-    <value>Add an account</value>
+  <data name="BodyPart2.Text" xml:space="preserve">
+    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
+
+By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
   </data>
-  <data name="AdvancedH.Text" xml:space="preserve">
-    <value>Advanced</value>
+  <data name="BodyPart3.Text" xml:space="preserve">
+    <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).
+
+By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
+
+Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
   </data>
-  <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music &amp; video files.</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>If you don't accept these, no Rise Media Player :( We've kept these relatively short to make sure you can read them.</value>
   </data>
-  <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove library folders</value>
+  <data name="LastUpdated.Text" xml:space="preserve">
+    <value>Last Updated: August 2021</value>
   </data>
-  <data name="Deletion.Title" xml:space="preserve">
-    <value>When removing local media:</value>
+  <data name="LocalH.Text" xml:space="preserve">
+    <value>Local Media Handling</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>Delete from device</value>
+  <data name="StreamingH.Text" xml:space="preserve">
+    <value>Streaming &amp; Online Services</value>
   </data>
-  <data name="DisableLocal.Title" xml:space="preserve">
-    <value>Disable all local files and devices</value>
-  </data>
-  <data name="DisableOnline.Title" xml:space="preserve">
-    <value>Disable all online services</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="FolderInfo.Text" xml:space="preserve">
-    <value>We already look for your media files in your default user folders (Music &amp; Videos). You can add additional folders that we can use to populate your library.</value>
-  </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Folders</value>
-  </data>
-  <data name="OnlineH.Text" xml:space="preserve">
-    <value>Online media &amp; services</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Only remove from app</value>
-  </data>
-  <data name="OwnH.Text" xml:space="preserve">
-    <value>Your own media &amp; devices</value>
-  </data>
-  <data name="Ripping.Description" xml:space="preserve">
-    <value>Choose what you want to happen when you rip a disc.</value>
-  </data>
-  <data name="Ripping.Title" xml:space="preserve">
-    <value>Disc ripping options</value>
-  </data>
-  <data name="SeparateLocal.Description" xml:space="preserve">
-    <value>Add a 'Local Music' sidebar item rather than merging online and local music together in one place. Videos are already separated.</value>
-  </data>
-  <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Separate sidebar entry</value>
+  <data name="TermsStart.Text" xml:space="preserve">
+    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
   </data>
 </root>

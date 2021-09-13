@@ -125,7 +125,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\StringToVisibility.cs" />
-    <Compile Include="Indexer.cs" />
+    <Compile Include="ChangeTracker.cs" />
+    <Compile Include="Dialogs\SetupDialog.xaml.cs">
+      <DependentUpon>SetupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceLoaders.cs" />
+    <Compile Include="Settings\SetupSettings.cs" />
+    <Compile Include="Setup\AppearancePage.xaml.cs">
+      <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\ConnectPage.xaml.cs">
+      <DependentUpon>ConnectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\FinishPage.xaml.cs">
+      <DependentUpon>FinishPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\LocalPage.xaml.cs">
+      <DependentUpon>LocalPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\PrivacyPage.xaml.cs">
+      <DependentUpon>PrivacyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\TermsPage.xaml.cs">
+      <DependentUpon>TermsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SongIndexer.cs" />
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
@@ -184,6 +208,9 @@
     </Compile>
     <Compile Include="Dialogs\SettingsDialog.xaml.cs">
       <DependentUpon>SettingsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SetupPage.xaml.cs">
+      <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StreamingPage.xaml.cs">
       <DependentUpon>StreamingPage.xaml</DependentUpon>
@@ -251,6 +278,12 @@
     <Content Include="Assets\Settings\Playback.png" />
     <Content Include="Assets\Settings\Appearance.png" />
     <Content Include="Assets\Settings\Sidebar.png" />
+    <Content Include="Assets\Setup\Appearance.png" />
+    <Content Include="Assets\Setup\Connect.png" />
+    <Content Include="Assets\Setup\Done.png" />
+    <Content Include="Assets\Setup\Local.png" />
+    <Content Include="Assets\Setup\Privacy.png" />
+    <Content Include="Assets\Setup\Terms.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -303,9 +336,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\SetupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\LanguagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Setup\AppearancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\ConnectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\FinishPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\LocalPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\PrivacyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\TermsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AlbumGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -371,6 +432,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SetupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StreamingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -422,7 +487,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fluent Media Player Dev_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en\Language.resw" />
     <PRIResource Include="Strings\en\About.resw" />
     <PRIResource Include="Strings\en\Playback.resw" />
@@ -444,6 +508,15 @@
       <Project>{7fb357a3-39f9-4069-8718-464521a9d194}</Project>
       <Name>Rise.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Setup.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Terms.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Connect.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

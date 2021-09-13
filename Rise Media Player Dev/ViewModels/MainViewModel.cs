@@ -123,10 +123,6 @@ namespace RMP.App.ViewModels
 
                 await GetListsAsync();
                 IsLoading = false;
-
-                // Don't index again unless the user requests it
-                MainPage.Current.ShowLibrary();
-                SettingsManager.SetBoolSetting("Local", "Reindex", false);
             });
         }
     }

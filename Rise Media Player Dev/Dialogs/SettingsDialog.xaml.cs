@@ -174,32 +174,29 @@ namespace RMP.App.Dialogs
 
         private void ContentDialog_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
         {
-            if (Window.Current.Bounds.Width <= 600)
+            double windowWidth = Window.Current.Bounds.Width;
+            double windowHeight = Window.Current.Bounds.Height;
+
+            if (windowWidth < 800)
             {
                 SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftCompact;
-                SettingsFrame.Width = double.NaN;
+                SettingsFrame.Width = windowWidth - 178;
                 DualTone.Width = 96;
-            }
-            else if (Window.Current.Bounds.Width <= 800)
-            {
-                SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Left;
-                SettingsFrame.Width = double.NaN;
-                DualTone.Width = 248;
             }
             else
             {
                 SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Left;
-                SettingsFrame.Width = 500;
+                SettingsFrame.Width = 422;
                 DualTone.Width = 248;
             }
 
-            if (Window.Current.Bounds.Height <= 670)
+            if (windowHeight < 630)
             {
-                SettingsGrid.Height = Window.Current.Bounds.Height - 128;
+                RootGrid.Height = windowHeight - 100;
             }
             else
             {
-                SettingsGrid.Height = 530;
+                RootGrid.Height = 530;
             }
         }
     }

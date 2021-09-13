@@ -31,6 +31,6 @@ namespace Rise.Repository
         /// <summary>
         /// Deletes a song.
         /// </summary>
-        Task DeleteAsync(Guid songId);
+        Task DeleteAsync(string location);
     }
 }

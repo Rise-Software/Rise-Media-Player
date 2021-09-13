@@ -14,7 +14,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="We already look for your media files in your default user folders (Music &amp; Videos). You can add additional folders that we can use to populate your library"
+        <TextBlock x:Uid="/MediaLibrary/FolderInfo"
                    Style="{StaticResource CaptionTextBlockStyle}"
                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                    TextWrapping="WrapWholeWords" />

@@ -34,6 +34,7 @@ namespace RMP.App.UserControls
         private readonly string Button = "Button";
         private readonly string Expander = "Expander";
         private readonly string Static = "Static";
+        private readonly string Transparent = "Transparent";
 
         public string Icon { get; set; }
 

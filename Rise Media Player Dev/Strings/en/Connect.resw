@@ -117,64 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add folder</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
   </data>
-  <data name="AddAccount.Description" xml:space="preserve">
-    <value>Login to your services securely</value>
+  <data name="Soon.Title" xml:space="preserve">
+    <value>Internet accounts &amp; services are coming soon.</value>
   </data>
-  <data name="AddAccount.Title" xml:space="preserve">
-    <value>Add an account</value>
-  </data>
-  <data name="AdvancedH.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music &amp; video files.</value>
-  </data>
-  <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove library folders</value>
-  </data>
-  <data name="Deletion.Title" xml:space="preserve">
-    <value>When removing local media:</value>
-  </data>
-  <data name="Device" xml:space="preserve">
-    <value>Delete from device</value>
-  </data>
-  <data name="DisableLocal.Title" xml:space="preserve">
-    <value>Disable all local files and devices</value>
-  </data>
-  <data name="DisableOnline.Title" xml:space="preserve">
-    <value>Disable all online services</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="FolderInfo.Text" xml:space="preserve">
-    <value>We already look for your media files in your default user folders (Music &amp; Videos). You can add additional folders that we can use to populate your library.</value>
-  </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Folders</value>
-  </data>
-  <data name="OnlineH.Text" xml:space="preserve">
-    <value>Online media &amp; services</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Only remove from app</value>
-  </data>
-  <data name="OwnH.Text" xml:space="preserve">
-    <value>Your own media &amp; devices</value>
-  </data>
-  <data name="Ripping.Description" xml:space="preserve">
-    <value>Choose what you want to happen when you rip a disc.</value>
-  </data>
-  <data name="Ripping.Title" xml:space="preserve">
-    <value>Disc ripping options</value>
-  </data>
-  <data name="SeparateLocal.Description" xml:space="preserve">
-    <value>Add a 'Local Music' sidebar item rather than merging online and local music together in one place. Videos are already separated.</value>
-  </data>
-  <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Separate sidebar entry</value>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>*Music streaming requires a premium level account to function. Only one music streaming service can be enabled at a time.</value>
   </data>
 </root>

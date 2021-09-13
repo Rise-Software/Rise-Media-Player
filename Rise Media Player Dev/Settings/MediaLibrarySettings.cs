@@ -38,12 +38,6 @@ namespace RMP.App.Settings
             set => SettingsManager.SetBoolSetting("MediaLibrary", "DisableLocal", value);
         }
 
-        public static bool Reindex
-        {
-            get => SettingsManager.GetBoolSetting("Local", "Reindex", true);
-            set => SettingsManager.SetBoolSetting("Local", "Reindex", value);
-        }
-
         #region Unused
         public bool MergeAM
         {

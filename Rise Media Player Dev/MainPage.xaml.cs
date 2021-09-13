@@ -15,6 +15,7 @@ using RMP.App.Settings;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 using Microsoft.UI.Xaml.Controls;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -27,37 +28,11 @@ namespace RMP.App
     {
         #region Variables
         public static MainPage Current;
-        private ObservableCollection<string> Breadcrumbs =
+        private readonly ObservableCollection<string> Breadcrumbs =
             new ObservableCollection<string>();
 
+        public SongIndexer Indexer = new SongIndexer();
         public SettingsDialog Dialog = new SettingsDialog();
-        #endregion
-
-        #region Classes
-        /* public class Album
-        {
-            public string Title { get; set; }
-            public string Artist { get; set; }
-            public BitmapImage Thumbnail { get; set; }
-            public RandomAccessStreamReference StreamThumb { get; set; }
-            public string Genre { get; set; }
-        }
-
-        public class Song
-        {
-            public string Title { get; set; }
-            public string Artist { get; set; }
-            public uint Track { get; set; }
-            public int Disc { get; set; }
-            public string Album { get; set; }
-            public string AlbumArtist { get; set; }
-            public string Genre { get; set; }
-            public string Duration { get; set; }
-            public int Year { get; set; }
-            public string Filename { get; set; }
-            public string Location { get; set; }
-            public double Rating { get; set; }
-        } */
         #endregion
 
         #region NavView Icons
@@ -245,13 +220,6 @@ namespace RMP.App
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            if (IndexInfo.Visibility == Visibility.Visible)
-            {
-                FinishNavigation();
-                IndexMessage.IsOpen = true;
-                return;
-            }
-
             if (args.InvokedItemContainer.Content.ToString() == Breadcrumbs.Last())
             {
                 FinishNavigation();
@@ -359,7 +327,7 @@ namespace RMP.App
         #endregion
 
         #region Settings
-        public void ApplyStartupSettings()
+        public async void ApplyStartupSettings()
         {
             // Sidebar icon colors
             UpdateIconColor(NavigationSettings.ColorfulIcons);
@@ -414,16 +382,7 @@ namespace RMP.App
 
             FinishNavigation();
 
-            // Song indexing
-            if (MediaLibrarySettings.Reindex)
-            {
-                // Hide UI while indexing takes place
-                ContentFrame.Visibility = Visibility.Collapsed;
-                IndexInfo.Visibility = Visibility.Visible;
-
-                Indexer songIndexer = new Indexer();
-                songIndexer.IndexSongs();
-            }
+            await Indexer.IndexLibrarySongs();
         }
 
         public void UpdateSidebarItems(bool newVis, string itemName)
@@ -507,17 +466,6 @@ namespace RMP.App
             StreamingPageItem.Icon = streamingIconMono;
             DiscyPageItem.Icon = helpIconMono;
             NowPlayingPageItem.Icon = playingIconMono;
-        }
-
-        public async void ShowLibrary()
-        {
-            // This has to run on the UI thread *shrugs*
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                IndexInfo.Visibility = Visibility.Collapsed;
-                IndexMessage.IsOpen = false;
-                ContentFrame.Visibility = Visibility.Visible;
-            });
         }
         #endregion
     }

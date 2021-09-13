@@ -132,7 +132,7 @@
     <value>Indexing your library</value>
   </data>
   <data name="IndexingProgress.Text" xml:space="preserve">
-    <value>Getting your files...</value>
+    <value>Indexing your library...</value>
   </data>
   <data name="Organizing" xml:space="preserve">
     <value>Organizing your library...</value>

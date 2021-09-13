@@ -19,19 +19,16 @@ namespace RMP.App.Settings
     {
         #region Variables
         public static MediaLibraryPage Current;
-        private FoldersDialog Dialog = new FoldersDialog();
+        private readonly FoldersDialog Dialog = new FoldersDialog();
         public ContentDialog dialog = new ContentDialog
         {
-            Title = "Folders",
-            PrimaryButtonText = "Add folder",
-            SecondaryButtonText = "Done",
+            Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
+            PrimaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Add"),
+            SecondaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Done"),
             DefaultButton = ContentDialogButton.Primary,
         };
 
         private List<string> Deletion { get; set; }
-        private Windows.ApplicationModel.Resources.ResourceLoader resourceLoader =
-            Windows.ApplicationModel.Resources.
-                ResourceLoader.GetForCurrentView("MediaLibrary");
         #endregion
 
         public MediaLibraryPage()
@@ -45,8 +42,8 @@ namespace RMP.App.Settings
 
             Deletion = new List<string>
             {
-                resourceLoader.GetString("OnlyApp"),
-                resourceLoader.GetString("Device")
+                ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
+                ResourceLoaders.MediaLibraryLoader.GetString("Device")
             };
         }
 
@@ -55,6 +52,7 @@ namespace RMP.App.Settings
             if (args.Result == ContentDialogResult.Secondary)
             {
                 await MainPage.Current.Dialog.ShowAsync();
+                await MainPage.Current.Indexer.IndexLibrarySongs();
             }
         }
 

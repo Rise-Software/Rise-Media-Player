@@ -52,28 +52,6 @@ namespace Rise.Repository.SQL
         public async Task<Album> UpsertAsync(Album album)
         {
             var current = await _db.Albums.FirstOrDefaultAsync(_album => _album.Id == album.Id);
-            bool inserted = false;
-            Debug.WriteLine(album.Title);
-
-            // Try to find duplicate albums
-            foreach (var item in _db.Albums)
-            {
-                // When finding a duplicate album, tell the app it
-                // has been added to the database already
-                if (item.Equals(album))
-                {
-                    Debug.WriteLine("Duplicate detected");
-                    inserted = true;
-                    break;
-                }
-            }
-
-            if (inserted)
-            {
-                await _db.SaveChangesAsync();
-                return album;
-            }
-
             if (null == current)
             {
                 _db.Albums.Add(album);

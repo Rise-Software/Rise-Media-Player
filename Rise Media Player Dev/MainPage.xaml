@@ -158,23 +158,6 @@
             </muxc:NavigationView.FooterMenuItems>
 
             <Grid>
-                <muxc:InfoBar x:Name="IndexMessage"
-                              x:Uid="/Information/IndexingInfo"
-                              IsOpen="False"
-                              Severity="Warning"
-                              Margin="56,16,56,0" />
-
-                <StackPanel x:Name="IndexInfo"
-                            Orientation="Vertical"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Visibility="Collapsed">
-                    <TextBlock x:Uid="IndexingProgress"
-                               x:Name="IndexProgress"
-                               x:FieldModifier="public" />
-                    <muxc:ProgressBar x:Name="LoadingBar" x:FieldModifier="public" />
-                </StackPanel>
-
                 <Frame x:Name="ContentFrame"
                        x:FieldModifier="public"
                        Padding="56,0">

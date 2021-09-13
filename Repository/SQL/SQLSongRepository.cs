@@ -53,11 +53,7 @@ namespace Rise.Repository.SQL
         public async Task<Song> UpsertAsync(Song song)
         {
             var current = await _db.Songs.FirstOrDefaultAsync(_song => _song.Id == song.Id);
-            if (!_db.Songs.Contains(song))
-            {
-                _db.Songs.Add(song);
-            }
-            else if (null == current)
+            if (null == current)
             {
                 _db.Songs.Add(song);
             }
@@ -70,9 +66,9 @@ namespace Rise.Repository.SQL
             return song;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(string location)
         {
-            var song = await _db.Songs.FirstOrDefaultAsync(_song => _song.Id == id);
+            var song = await _db.Songs.FirstOrDefaultAsync(_song => _song.Location == location);
             if (null != song)
             {
                 _db.Songs.Remove(song);
