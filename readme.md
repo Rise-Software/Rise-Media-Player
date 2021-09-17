@@ -2,7 +2,7 @@
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. And for those living in the modern world, there's plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer; video services like YouTube and Netflix! Stream, curate and explore*. Almost infinite customisability with settings that are second to none.
 
-#Appearance
+## Appearance & Design
 
 ![risenewimage](https://user-images.githubusercontent.com/74561130/133660500-93993dac-e3b9-4e47-add6-bd4e207dfef8.png)
 
@@ -12,7 +12,7 @@ The app is not even in alpha yet. This is a render of a future version. The curr
 
 ![nowplayingnew](https://user-images.githubusercontent.com/74561130/130692352-70afe938-2742-4b1a-93a9-5a5537bcaf38.png)
 
-#Download & Insider Program
+## Downloads, Contribute and the Insider Program
 
 Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution.
 
