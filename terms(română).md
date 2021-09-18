@@ -1,4 +1,4 @@
-![newterms](https://user-images.githubusercontent.com/74561130/131143019-dbce294b-e56f-4f2e-ace7-d4e0363e811e.png)
+![Untitled](https://user-images.githubusercontent.com/88824061/133898558-43343daf-51b9-462b-9aa2-4eac76ae3cbb.png)
 > **Rise Media Player - Contract licență și termeni de utilizare**
 
 
