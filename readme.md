@@ -1,6 +1,6 @@
 ![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
 
-**Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. And for those living in the modern world, there's plenty of features for you too! Connect music services such as Spotify, YouTube Music & Deezer; video services like YouTube and Netflix! Stream, curate and explore*. Almost infinite customisability with settings that are second to none.
+**Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
 ## Appearance & Design
 
