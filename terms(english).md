@@ -14,7 +14,7 @@ This project is not officially open source software and is protected by copyrigh
 We have used very few pieces of open source software available on GitHub to make this project possible. 
 - XAML Controls Gallery (Microsoft) - used for controls and Fluent Design
 
-*some exemptions may apply to approved contributors.
+*some exemptions may apply to approved contributors and those with permission to do so.
 
 **Local Media Handling**
 
