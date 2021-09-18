@@ -33,6 +33,7 @@ Created with WinUI and the latest design ideologies, Rise is modern while keepin
 * Discy (the help assistant)
 * Recommendation API
 * Playlists
+* Disc Ripping & Burning features
 
 ## Licensing
 
@@ -48,7 +49,7 @@ Users are allowed to freely edit and view the code for their own personal use an
 
 Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution. 
 
-We have a simple insider program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u
+We have a simple insider program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://bit.ly/rise-insider
 
 If you'd like to contribute, join the Rise Apps discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure.
 
