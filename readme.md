@@ -53,7 +53,7 @@ We have an Insider Program that is growing every single day! If you'd like early
 
 If you'd like to contribute, join the Rise Apps' Discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure. Contributors need to have Discord for now, but won't need to in the near future.
 
-## ![icons8-download-48](https://user-images.githubusercontent.com/74561130/133905429-a7ede131-6b26-426e-8716-b60259fa7e82.png) Credits
+## Credits
 
 **Development & design**
 
