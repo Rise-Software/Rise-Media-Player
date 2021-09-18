@@ -4,7 +4,17 @@
 
 
 
-> *Actualizat ultima dată în august 2021*
+> *Actualizat ultima dată în septembrie 2021*
+
+## Descriere
+
+Acesta este software gratuit cu nicio garanție de niciun fel. Ne cerem scuze :(
+
+Utilizăm licența GPL cu câteva clauze schimbate pentru a proteja integritatea aplicației noastre. Licența GPL este disponibilă aici: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+**Clauze schimbate:**
+
+Utilizatorilor li se acordă permisiunea de a edita și vizualiza codul liber pentru utilizarea lor personală și recreație. Totuși, spre deosebire de licența GPL, noi nu le permitem utilizatorilor să partajeze, distribuie sau să vândă codul nostru dacă nu au permisiunea noastră și a contributorilor noștri. Vă rugăm simplu să ne întrebați și vom fi bucuroși să discutăm cu dumneavoastră.
 
 **Software bază și drepturi de autor**
 
