@@ -2,9 +2,9 @@
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
-## Appearance & Design
+## Appearance & design
 
-Created with WinUI and the latest design ideologies, Rise is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on any device they want! You can see a render of the current design we are going for:
+Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on any device they want! You can see a render of the current design we are going for:
 
 ![risenewimage](https://user-images.githubusercontent.com/74561130/133660500-93993dac-e3b9-4e47-add6-bd4e207dfef8.png)
 
@@ -19,7 +19,7 @@ Created with WinUI and the latest design ideologies, Rise is modern while keepin
 * Albums & Songs View
 * (BASIC) OneDrive Support
 
-## Planned Features
+## Planned features
 
 **Coming VERY soon**
 * Media Playback (Internal Testing)
@@ -28,7 +28,7 @@ Created with WinUI and the latest design ideologies, Rise is modern while keepin
 * Artists View (Internal Testing)
 * Properties Window
 
-**Later Features**
+**Features coming later**
 * Streaming Services
 * Discy (the help assistant)
 * Recommendation API
@@ -49,9 +49,9 @@ Users are allowed to freely edit and view the code for their own personal use an
 
 Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution. 
 
-We have a simple insider program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://bit.ly/rise-insider
+We have an Insider Program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://bit.ly/rise-insider
 
-If you'd like to contribute, join the Rise Apps discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure.
+If you'd like to contribute, join the Rise Apps' Discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure. Contributors need to have Discord for now, but won't need to in the near future.
 
 ## Credits
 
@@ -59,3 +59,8 @@ If you'd like to contribute, join the Rise Apps discord server and ask for the c
 
 * Design, translation and Rise team lead - Joseph (josephbeattie on GitHub)
 * Programming & development - Omar (YourOrdinaryCat)
+
+**Contributors**
+
+* AlfarexGuy2019
+* MakeshVineeth
