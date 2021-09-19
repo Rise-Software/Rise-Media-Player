@@ -1,5 +1,5 @@
 ![termeninoi](https://github.com/dlphin/dolphin/blob/main/Untitled.png)
-> **Rise Media Player - Licence Agreement & Terms for Use**
+> **Rise Media Player - Contract licență și termeni de utilizare**
 
 
 
