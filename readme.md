@@ -43,7 +43,7 @@ We use the GPL License with a few changed clauses to protect our apps' integrity
 
 **Changed clauses:**
 
-Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our more comprehensive terms are available here: https://github.com/josephbeattie/Fluent-Media-Player-Dev/blob/master/terms(english).md
+Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our more comprehensive terms are available here: https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms
 
 ## Downloads, Contribute and the Insider Program
 
