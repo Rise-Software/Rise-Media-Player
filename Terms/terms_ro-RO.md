@@ -10,7 +10,7 @@
 
 Acesta este software gratuit cu nicio garanție de niciun fel. Ne cerem scuze :(
 
-We use the GPL License with a few changed clauses to protect our apps' integrity. The GPL License is available here: Utilizăm licența GPL cu câteva clauze schimbate pentru a proteja integritatea aplicației noastre. Licența GPL este disponibilă [aici](https://www.gnu.org/licenses/gpl-3.0.en.html).
+Utilizăm licența GPL cu câteva clauze schimbate pentru a proteja integritatea aplicației noastre. Licența GPL este disponibilă [aici](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 **Clauze schimbate:**
 
