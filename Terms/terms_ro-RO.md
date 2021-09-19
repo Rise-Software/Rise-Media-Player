@@ -26,7 +26,7 @@ Am utilizat foarte puține piese de software cu sursă deschisă disponibile pe 
 
 ## Gestionare media locală
 
-Utilizând acest software și adăugându-vă folderele, oferiți **Rise** Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music & Videos) by default.acces integral să editeze metadatele media, să vizualizeze fișierele, să le șteargă etc. De asemenea, oferiți acces locațiilor prestabilite pentru media (Muzică și Fișiere video)
+Utilizând acest software și adăugându-vă folderele, oferiți **Rise** Media Player acces integral să editeze metadatele media, să vizualizeze fișierele, să le șteargă etc. De asemenea, oferiți acces locațiilor prestabilite pentru media (Muzică și Fișiere video).
 
 În mod implicit, permiteți software-ului să vă urmărească istoricul de ascultare și obiceiurile pentru a vă servi recomandări personalizate. Acest comportament poate fi dezactivat.
 
