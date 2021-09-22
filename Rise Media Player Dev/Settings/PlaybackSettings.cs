@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RMP.App.Settings
+﻿namespace RMP.App.Settings
 {
     public class PlaybackSettings
     {
@@ -19,7 +13,7 @@ namespace RMP.App.Settings
             get => SettingsManager.GetBoolSetting("Playback", "Crossfade", false);
             set => SettingsManager.SetBoolSetting("Playback", "Crossfade", value);
         }
-        
+
         public static int CrossfadeDuration
         {
             get => SettingsManager.GetIntSetting("Playback", "CrossfadeDuration", 0);

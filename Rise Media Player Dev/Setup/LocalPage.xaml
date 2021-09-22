@@ -5,9 +5,44 @@
     xmlns:local="using:RMP.App.Setup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:settings="using:RMP.App.Settings"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.DataContext>
+        <settings:MediaLibrarySettings />
+    </Page.DataContext>
 
-    </Grid>
+    <StackPanel Spacing="20">
+        <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
+
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
+                                   ExpanderKind="Button"
+                                   Icon="&#xE8B7;">
+                <FontIcon Glyph="&#xE2B4;"
+                          FontSize="16"
+                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                          VerticalAlignment="Center" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
+                                   ExpanderKind="Static"
+                                   Icon="&#xE74D;">
+                <ComboBox ItemsSource="{x:Bind Deletion}"
+                          PlaceholderText="Delete from device"
+                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/MediaLibrary/SeparateLocal"
+                               ExpanderKind="Static"
+                               Icon="&#xE145;">
+                <ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+        </StackPanel>
+
+        <TextBlock x:Uid="/Local/Tip"
+                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                   Style="{StaticResource BodyTextBlockStyle}" />
+    </StackPanel>
 </Page>

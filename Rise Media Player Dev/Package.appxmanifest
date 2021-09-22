@@ -50,5 +50,6 @@
     <uap3:Capability Name="backgroundMediaPlayback"/>
     <rescap:Capability Name="broadFileSystemAccess" />
     <uap:Capability Name="musicLibrary"/>
+    <uap:Capability Name="videosLibrary"/>
   </Capabilities>
 </Package>

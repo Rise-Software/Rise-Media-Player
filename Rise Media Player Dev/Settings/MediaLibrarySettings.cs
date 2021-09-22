@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RMP.App.Settings
+﻿namespace RMP.App.Settings
 {
     public class MediaLibrarySettings
     {
         public static int Deletion
         {
-            get => SettingsManager.GetIntSetting("MediaLibrary", "Deletion", 0);
-            set => SettingsManager.SetIntSetting("MediaLibrary", "Deletion", value);
+            get => SettingsManager.GetIntSetting("Local", "Deletion", 0);
+            set => SettingsManager.SetIntSetting("Local", "Deletion", value);
         }
 
         public static bool MatchAlbumArt
@@ -28,8 +22,8 @@ namespace RMP.App.Settings
 
         public static bool DisableOnline
         {
-            get => SettingsManager.GetBoolSetting("MediaLibrary", "DisableOnline", true);
-            set => SettingsManager.SetBoolSetting("MediaLibrary", "DisableOnline", value);
+            get => SettingsManager.GetBoolSetting("Local", "DisableOnline", true);
+            set => SettingsManager.SetBoolSetting("Local", "DisableOnline", value);
         }
 
         public static bool DisableLocal

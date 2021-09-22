@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Rise.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Rise.Models;
 
 namespace Rise.Repository.SQL
 {
@@ -50,29 +51,29 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public async Task<Song> UpsertAsync(Song song)
+        public async Task UpsertAsync(Song song)
         {
-            var current = await _db.Songs.FirstOrDefaultAsync(_song => _song.Id == song.Id);
+            Song current = await _db.Songs.FirstOrDefaultAsync(_song => _song.Id == song.Id).ConfigureAwait(false);
             if (null == current)
             {
-                _db.Songs.Add(song);
+                _ = await _db.Songs.AddAsync(song).ConfigureAwait(false);
+                Debug.WriteLine("Upserted song to DB!");
             }
             else
             {
                 _db.Entry(current).CurrentValues.SetValues(song);
             }
 
-            await _db.SaveChangesAsync();
-            return song;
+            int savedSongs = await _db.SaveChangesAsync().ConfigureAwait(false);
+            Debug.WriteLine("Saved " + savedSongs + " songs to the database.");
         }
 
-        public async Task DeleteAsync(string location)
+        public async Task DeleteAsync(Song song)
         {
-            var song = await _db.Songs.FirstOrDefaultAsync(_song => _song.Location == location);
             if (null != song)
             {
-                _db.Songs.Remove(song);
-                await _db.SaveChangesAsync();
+                _ = _db.Songs.Remove(song);
+                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Rise.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Rise.Models;
 
 namespace Rise.Repository.SQL
 {
@@ -49,29 +49,29 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public async Task<Album> UpsertAsync(Album album)
+        public async Task UpsertAsync(Album album)
         {
-            var current = await _db.Albums.FirstOrDefaultAsync(_album => _album.Id == album.Id);
+            Album current = await _db.Albums.FirstOrDefaultAsync(_album => _album.Id == album.Id).ConfigureAwait(false);
             if (null == current)
             {
-                _db.Albums.Add(album);
+                _ = await _db.Albums.AddAsync(album).ConfigureAwait(false);
+                Debug.WriteLine("Upserted album to DB!");
             }
             else
             {
                 _db.Entry(current).CurrentValues.SetValues(album);
             }
 
-            await _db.SaveChangesAsync();
-            return album;
+            int savedAlbums = await _db.SaveChangesAsync().ConfigureAwait(false);
+            Debug.WriteLine("Saved " + savedAlbums + " albums to the database.");
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Album album)
         {
-            var album = await _db.Albums.FirstOrDefaultAsync(_album => _album.Id == id);
             if (null != album)
             {
-                _db.Albums.Remove(album);
-                await _db.SaveChangesAsync();
+                _ = _db.Albums.Remove(album);
+                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }

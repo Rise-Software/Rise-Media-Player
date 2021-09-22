@@ -5,32 +5,35 @@
     xmlns:local="using:RMP.App.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:conv="using:RMP.App.Converters"
+    xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
-        <GridView x:Name="AlbumGridView" Margin="-56,0,-56,0" Padding="44,0,56,0">
+        <GridView ItemsSource="{x:Bind ViewModel.Albums}"
+                  Margin="-56,0,-56,0"
+                  Padding="44,0,56,0">
             <GridView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="viewmodels:AlbumViewModel">
                     <StackPanel Orientation="Vertical"
                                 Spacing="2"
                                 Margin="12"
                                 Width="134">
-                        <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                CornerRadius="5"
-                                Width="134">
+                        <Border CornerRadius="5" Width="134">
                             <Grid>
                                 <FontIcon Glyph="&#xEA69;" />
                                 <Image Height="134"
-                                       Source="{Binding ThumbnailBitmap}"
                                        Stretch="UniformToFill"
-                                       Width="134" />
+                                       Width="134">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                    </Image.Source>
+                                </Image>
                             </Grid>
                         </Border>
 
-                        <TextBlock Text="{Binding Title}"
+                        <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    MaxLines="1"
                                    FontSize="14"
@@ -38,7 +41,7 @@
                                    TextWrapping="Wrap" />
                         <TextBlock FontSize="13">
                             <Hyperlink UnderlineStyle="None">
-                                <Run Text="{Binding Artist}" />
+                                <Run Text="{x:Bind Artist}" />
                             </Hyperlink>
                         </TextBlock>
                     </StackPanel>

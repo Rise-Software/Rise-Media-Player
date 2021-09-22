@@ -1,23 +1,22 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Rise.Repository;
+using Rise.Repository.SQL;
+using RMP.App.Settings;
+using RMP.App.ViewModels;
+using RMP.App.Views;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Windows.Storage;
-using Rise.Repository.SQL;
-using Microsoft.EntityFrameworkCore;
-using Rise.Repository;
-using RMP.App.ViewModels;
-using Windows.ApplicationModel.Background;
-using System.Diagnostics;
-using Windows.Storage.Search;
-using Windows.Storage.FileProperties;
-using System.Collections.Generic;
-using RMP.App.Settings;
-using RMP.App.Dialogs;
-using RMP.App.Views;
 
 namespace RMP.App
 {
@@ -36,7 +35,15 @@ namespace RMP.App
         /// </summary>
         public static IRepository Repository { get; private set; }
 
-        private static readonly ChangeTracker changeTracker = new ChangeTracker();
+        /// <summary>
+        /// Gets the music library.
+        /// </summary>
+        public static StorageLibrary MusicLibrary { get; private set; }
+
+        /// <summary>
+        /// Gets the video library.
+        /// </summary>
+        public static StorageLibrary VideoLibrary { get; private set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -44,11 +51,8 @@ namespace RMP.App
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-
-            UseSQLite();
-            SetupFileTrackers();
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -56,43 +60,123 @@ namespace RMP.App
         /// </summary>
         public static async void UseSQLite()
         {
-            await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
+            _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
-            var dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
+            DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
                 "Data Source=" + dbPath);
             Repository = new SQLRepository(dbOptions);
             ViewModel = new MainViewModel();
         }
 
         /// <summary>
-        /// Sets up the filesystem trackers for media library and future access list.
+        /// Sets up the filesystem trackers for media library.
         /// </summary>
         public static async void SetupFileTrackers()
         {
+            MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
+            VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
+
             StorageFolder music = KnownFolders.MusicLibrary;
+            StorageFolder videos = KnownFolders.VideosLibrary;
 
             // Create a query containing all the files the app will be tracking
-            QueryOptions option = SongIndexer.SongQueryOptions;
+            QueryOptions musicOption = SongIndexer.SongQueryOptions;
+            // QueryOptions videosOption = SongIndexer.VideoQueryOptions;
 
             // Optimize indexing performance by using the Windows Indexer
-            option.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
+            musicOption.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
+            // videosOption.IndexerOption = IndexerOption.UseIndexerWhenAvailable;
 
             // Prefetch file properties
-            option.SetPropertyPrefetch(PropertyPrefetchOptions.MusicProperties,
+            musicOption.SetPropertyPrefetch(PropertyPrefetchOptions.MusicProperties,
                 SongIndexer.SongProperties);
 
-            StorageFileQueryResult resultSet =
-              music.CreateFileQueryWithOptions(option);
+            // videosOption.SetPropertyPrefetch(PropertyPrefetchOptions.MusicProperties,
+            // SongIndexer.VideoProperties);
+
+            StorageFileQueryResult musicResultSet =
+              music.CreateFileQueryWithOptions(musicOption);
+
+            // StorageFileQueryResult videosResultSet =
+            // videos.CreateFileQueryWithOptions(videosOption);
 
             // Indicate to the system the app is ready to change track
-            await resultSet.GetFilesAsync(0, 1);
+            _ = await musicResultSet.GetFilesAsync(0, 1);
+            // _ = await videosResultSet.GetFilesAsync(0, 1);
 
             // Attach an event handler for when something changes on the system
-            resultSet.ContentsChanged += MediaLibrary_ContentsChanged;
-            Debug.WriteLine("Registered!");
+            musicResultSet.ContentsChanged += MusicLibrary_ContentsChanged;
+            MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+            Debug.WriteLine("Registered trackers!");
+            // videosResultSet.ContentsChanged += VideosLibrary_ContentsChanged;
         }
 
-        private async static void MediaLibrary_ContentsChanged(IStorageQueryResultBase sender, object args)
+        /// <summary>
+        /// Handle folders being removed/added from the music library.
+        /// </summary>
+        private static async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
+        {
+            Debug.WriteLine("Folder changes!");
+
+            await SongIndexer.IndexAllSongs();
+            ChangeTracker.HandleMusicFolderChanges(sender.Folders);
+        }
+
+        /// <summary>
+        /// Handle changes in the user's music library.
+        /// </summary>
+        private static async void MusicLibrary_ContentsChanged(IStorageQueryResultBase sender, object args)
+        {
+            Debug.WriteLine("New change!");
+            StorageFolder changedFolder = sender.Folder;
+            StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
+            folderTracker.Enable();
+
+            StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
+            IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+
+            foreach (StorageLibraryChange change in changes)
+            {
+                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
+                {
+                    // Change tracker is in an invalid state and must be reset
+                    // This should be a very rare case, but must be handled
+                    folderTracker.Reset();
+                    return;
+                }
+
+                if (change.IsOfType(StorageItemTypes.File))
+                {
+                    await ChangeTracker.ManageSongChange(change);
+                }
+                else if (change.IsOfType(StorageItemTypes.Folder))
+                {
+                    // Not interested in folders
+                }
+                else
+                {
+                    if (change.ChangeType == StorageLibraryChangeType.Deleted)
+                    {
+                        for (int i = 0; i < ViewModel.Songs.Count; i++)
+                        {
+                            if (change.PreviousPath == ViewModel.Songs[i].Location)
+                            {
+                                ViewModel.Songs[i].Delete();
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Mark that all the changes have been seen and for the change tracker
+            // to never return these changes again
+            await changeReader.AcceptChangesAsync();
+        }
+
+        /// <summary>
+        /// Handle changes in the user's video library.
+        /// </summary>
+        /* private static async void VideosLibrary_ContentsChanged(IStorageQueryResultBase sender, object args)
         {
             StorageFolder changedFolder = sender.Folder;
             StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
@@ -110,19 +194,26 @@ namespace RMP.App
                     folderTracker.Reset();
                     return;
                 }
+
                 if (change.IsOfType(StorageItemTypes.File))
                 {
-                    await changeTracker.ManageChange(change);
+                    await changeTracker.ManageVideoChange(change);
                 }
                 else if (change.IsOfType(StorageItemTypes.Folder))
                 {
-                    // No-op; not interested in folders
+                    // Not interested in folders
                 }
                 else
                 {
                     if (change.ChangeType == StorageLibraryChangeType.Deleted)
                     {
-                        await Repository.Songs.DeleteAsync(change.PreviousPath);
+                        for (int i = 0; i < ViewModel.Videos.Count; i++)
+                        {
+                            if (change.PreviousPath == ViewModel.Videos[i].Location)
+                            {
+                                ViewModel.Videos[i].Delete();
+                            }
+                        }
                     }
                 }
             }
@@ -130,20 +221,18 @@ namespace RMP.App
             // Mark that all the changes have been seen and for the change tracker
             // to never return these changes again
             await changeReader.AcceptChangesAsync();
-        }
+        } */
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -166,15 +255,14 @@ namespace RMP.App
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    if (SetupSettings.SetupCompleted)
-                    {
-                        rootFrame.Navigate(typeof(SetupPage), e.Arguments);
-                    }
-                    else
-                    {
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                    }
+                    UseSQLite();
+                    SetupFileTrackers();
 
+                    _ = !SetupSettings.SetupCompleted
+                        ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
+                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
+
+                    await SongIndexer.IndexAllSongs();
                 }
 
                 // Ensure the current window is active
@@ -187,7 +275,7 @@ namespace RMP.App
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }

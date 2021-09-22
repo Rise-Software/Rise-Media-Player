@@ -1,19 +1,16 @@
-﻿using Microsoft.Toolkit.Uwp;
-using Rise.Models;
+﻿using Rise.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.System;
+using Windows.ApplicationModel.Core;
 
 namespace RMP.App.ViewModels
 {
     public class SongViewModel : BaseViewModel, IEditableObject
     {
-        private DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
         /// Initializes a new instance of the SongViewModel class that wraps a Song object.
@@ -229,13 +226,19 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether the item has to be deleted.
+        /// </summary>
+        public bool WillRemove { get; set; }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>
-        /// Used when sync'ing with the server to reduce load and only upload the models that have changed.
+        /// Used to reduce load and only upser the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
         private bool _isLoading;
+
 
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
@@ -281,7 +284,22 @@ namespace RMP.App.ViewModels
                 App.ViewModel.Songs.Add(this);
             }
 
-            await App.Repository.Songs.UpsertAsync(Model);
+            await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete song from repository and ViewModel.
+        /// </summary>
+        public void Delete()
+        {
+            AlbumViewModel album = App.ViewModel.Albums.
+                        First(a => a.Title == Album &&
+                        a.Artist == AlbumArtist);
+            album.SongCount--;
+
+            IsModified = true;
+            WillRemove = true;
+            Debug.WriteLine("Song removed!");
         }
 
         /// <summary>

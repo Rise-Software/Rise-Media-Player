@@ -22,7 +22,7 @@ namespace RMP.App.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new InvalidOperationException("Use the boolean to visibility converter in this situation." +
+            throw new InvalidOperationException("Use the boolean to visibility converter in this situation. " +
                 "A string is very likely unnecessary in this case.");
         }
     }
@@ -37,7 +37,7 @@ namespace RMP.App.Converters
         public static void BindlessConvertBack(object value)
         {
             throw new InvalidOperationException("Use the boolean to visibility converter in this situation." +
-                "A string is very likely unnecessary in this case.");
+                "A string is very likely unnecessary in this case. You tried to convert: " + value.ToString());
         }
     }
 }

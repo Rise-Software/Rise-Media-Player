@@ -1,13 +1,13 @@
-﻿using System.Linq;
-using Windows.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using RMP.App.Settings;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
-using Windows.UI.Xaml;
-using System.Collections.ObjectModel;
-using Microsoft.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using System;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,15 +61,16 @@ namespace RMP.App.Dialogs
 
         public SettingsDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
+
+            ContentDialog_SizeChanged(null, null);
 
             // Sidebar icon colors
             UpdateIconColor(NavigationSettings.ColorfulIcons);
 
-            SettingsFrame.Navigate(typeof(MediaLibraryPage));
+            _ = SettingsFrame.Navigate(typeof(MediaLibraryPage));
             FinishNavigation();
-            ContentDialog_SizeChanged(null, null);
         }
 
         #region Navigation
@@ -87,23 +88,23 @@ namespace RMP.App.Dialogs
                 switch (navTo)
                 {
                     case "AppearancePage":
-                        SettingsFrame.Navigate(typeof(AppearancePage));
+                        _ = SettingsFrame.Navigate(typeof(AppearancePage));
                         break;
 
                     case "MediaLibraryPage":
-                        SettingsFrame.Navigate(typeof(MediaLibraryPage));
+                        _ = SettingsFrame.Navigate(typeof(MediaLibraryPage));
                         break;
 
                     case "PlaybackPage":
-                        SettingsFrame.Navigate(typeof(PlaybackPage));
+                        _ = SettingsFrame.Navigate(typeof(PlaybackPage));
                         break;
 
                     case "LanguagePage":
-                        SettingsFrame.Navigate(typeof(LanguagePage));
+                        _ = SettingsFrame.Navigate(typeof(LanguagePage));
                         break;
 
                     case "AboutPage":
-                        SettingsFrame.Navigate(typeof(AboutPage));
+                        _ = SettingsFrame.Navigate(typeof(AboutPage));
                         break;
 
                     default:
@@ -166,38 +167,32 @@ namespace RMP.App.Dialogs
         }
         #endregion
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-            MainPage.Current.FinishNavigation();
-        }
-
-        private void ContentDialog_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             double windowWidth = Window.Current.Bounds.Width;
             double windowHeight = Window.Current.Bounds.Height;
 
             if (windowWidth < 800)
             {
+                SettingsFrame.Width = windowWidth - 196;
                 SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftCompact;
-                SettingsFrame.Width = windowWidth - 178;
                 DualTone.Width = 96;
             }
             else
             {
+                SettingsFrame.Width = 800 - 312;
                 SettingsNav.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Left;
-                SettingsFrame.Width = 422;
                 DualTone.Width = 248;
             }
 
-            if (windowHeight < 630)
-            {
-                RootGrid.Height = windowHeight - 100;
-            }
-            else
-            {
-                RootGrid.Height = 530;
-            }
+            // The odd number is because for some reason the dialog has a 1px transparent
+            // line at the bottom. Don't shoot me, I'm just the messenger.
+            RootGrid.Height = windowHeight < 598 ? windowHeight - 83 : 598 - 83;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
         }
     }
 }

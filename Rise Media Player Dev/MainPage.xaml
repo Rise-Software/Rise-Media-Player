@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:gset="using:RMP.App.Settings"
+    xmlns:uc="using:RMP.App.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -17,7 +18,7 @@
 
     <Page.Resources>
         <conv:BooleanToVisibility x:Key="BoolToVis" />
-        <!--  This top margin is the height of the custom TitleBar  -->
+        <!-- This top margin is the height of the custom TitleBar -->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
         <Thickness x:Key="NavigationViewHeaderMargin">56,45,56,3</Thickness>
         <Style TargetType="muxc:BreadcrumbBarItem">
@@ -25,6 +26,7 @@
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
     </Page.Resources>
+
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -35,46 +37,26 @@
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-                        <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
         <Grid Canvas.ZIndex="1">
-            <Border x:Name="AppTitleBar"
-                    IsHitTestVisible="True"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    Height="40"
-                    Canvas.ZIndex="1" 
-                    Margin="48,8,0,0">
-                <StackPanel x:Name="AppData"
-                            Orientation="Horizontal"
-                            Width="Auto">
-                    <Image x:Name="AppFontIcon"
-                           HorizontalAlignment="Left" 
-                           VerticalAlignment="Center"
-                           Source="Assets/Square44x44Logo.png" 
-                           Width="18" 
-                           Height="18" />
-                    <RichTextBlock x:Name="AppTitle"
-                                   FontSize="12"
-                                   VerticalAlignment="Center"
-                                   Margin="12,0,0,0"
-                                   Visibility="Collapsed"
-                                   Width="Auto">
-                        <Paragraph>
-                            <Bold FontWeight="SemiBold">Rise</Bold> Media Player
-                        </Paragraph>
-                    </RichTextBlock>
-                </StackPanel>
-            </Border>
+            <uc:MicaTitleBar x:Name="AppTitleBar"
+                             x:FieldModifier="public"
+                             Canvas.ZIndex="1"
+                             AddLabelWidth="800"
+                             Height="40"
+                             Margin="48,8,0,0"
+                             VerticalAlignment="Top" />
 
             <AutoSuggestBox x:Name="SearchBar"
+                            x:FieldModifier="public"
                             Canvas.ZIndex="2"
                             Height="32"
                             HorizontalAlignment="Stretch"
+                            Margin="8"
                             MaxWidth="530"
                             VerticalAlignment="Top"
                             AutomationProperties.Name="Search"
@@ -83,6 +65,8 @@
         </Grid>
 
         <muxc:NavigationView x:Name="NavView"
+                             x:FieldModifier="public"
+                             Canvas.ZIndex="0"
                              BackRequested="NavView_BackRequested"
                              CompactModeThresholdWidth="800"
                              DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
@@ -90,9 +74,8 @@
                              IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsPaneToggleButtonVisible="True"
                              IsSettingsVisible="True"
-                             ItemInvoked="NavView_ItemInvoked"
                              IsTitleBarAutoPaddingEnabled="False"
-                             Canvas.ZIndex="0">
+                             ItemInvoked="NavView_ItemInvoked">
             <muxc:NavigationView.Header>
                 <muxc:BreadcrumbBar x:Name="Header"
                                     ItemsSource="{x:Bind Breadcrumbs}" />
@@ -169,5 +152,45 @@
                 </Frame>
             </Grid>
         </muxc:NavigationView>
+
+        <muxc:TeachingTip x:Name="IndexingTip"
+                          x:Uid="/Information/Indexing"
+                          x:FieldModifier="public"
+                          PlacementMargin="0,24,-26,0"
+                          PreferredPlacement="TopRight">
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource Glyph="&#xEA69;" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="AddedTip"
+                          x:Uid="/Information/Added"
+                          x:FieldModifier="public"
+                          PlacementMargin="0,24,-26,0"
+                          PreferredPlacement="TopRight">
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource Glyph="&#xE73E;" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
+        
+        <muxc:TeachingTip x:Name="CheckTip"
+                          x:Uid="/Information/Check"
+                          x:FieldModifier="public"
+                          PlacementMargin="0,24,-26,0"
+                          PreferredPlacement="TopRight">
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource Glyph="&#xF16A;" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
+        
+        <muxc:TeachingTip x:Name="NoNewTip"
+                          x:Uid="/Information/NoNew"
+                          x:FieldModifier="public"
+                          PlacementMargin="0,24,-26,0"
+                          PreferredPlacement="TopRight">
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource Glyph="&#xE8F1;" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
     </Grid>
 </Page>

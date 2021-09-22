@@ -19,13 +19,14 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateKeyFile>Fluent Media Player Dev_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Rise.App_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateThumbprint>B9338DFD21798387F0CBF5CEDF0DE14B4823B8D3</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -124,6 +125,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTracker.cs" />
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
@@ -158,8 +160,12 @@
     <Compile Include="Settings\MediaLibrarySettings.cs" />
     <Compile Include="Settings\NavigationSettings.cs" />
     <Compile Include="Settings\PlaybackSettings.cs" />
+    <Compile Include="TitleBars.cs" />
     <Compile Include="UserControls\AlbumGrid.xaml.cs">
       <DependentUpon>AlbumGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MicaTitleBar.xaml.cs">
+      <DependentUpon>MicaTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SongList.xaml.cs">
       <DependentUpon>SongList.xaml</DependentUpon>
@@ -372,6 +378,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\MicaTitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SongList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -483,7 +493,7 @@
       <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.2</Version>
+      <Version>2.7.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -517,6 +527,12 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en\Connect.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rise.App_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\en\Finish.resw" />
+    <PRIResource Include="Strings\en\Privacy.resw" />
+    <PRIResource Include="Strings\en\Local.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

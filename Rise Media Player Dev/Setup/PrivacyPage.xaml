@@ -5,9 +5,38 @@
     xmlns:local="using:RMP.App.Setup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:settings="using:RMP.App.Settings"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.DataContext>
+        <settings:AppearanceSettings />
+    </Page.DataContext>
 
-    </Grid>
+    <StackPanel Spacing="20">
+        <TextBlock x:Uid="/Privacy/Header" Style="{StaticResource BaseTextBlockStyle}" />
+
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <uc:NavigationExpander x:Uid="/Appearance/History"
+                               ExpanderKind="Static"
+                               Icon="&#xEADF;"
+                               Margin="0,0,0,4">
+                <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
+                               ExpanderKind="Static"
+                               Icon="&#xE8FD;">
+                <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
+                               ExpanderKind="Button"
+                               Icon="&#xECA5;">
+                <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+            </uc:NavigationExpander>
+        </StackPanel>
+    </StackPanel>
 </Page>

@@ -6,7 +6,7 @@
         /// Returns the songs repository.
         /// </summary>
         ISongRepository Songs { get; }
-        
+
         /// <summary>
         /// Returns the albums repository.
         /// </summary>

@@ -1,10 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp;
-using RMP.App.Settings;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.System;
 
@@ -12,7 +8,7 @@ namespace RMP.App.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
         /// Creates a new MainViewModel.
@@ -69,15 +65,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            await dispatcherQueue.EnqueueAsync(() => IsLoading = true);
+            _ = await dispatcherQueue.EnqueueAsync(() => IsLoading = true);
 
-            var songs = await App.Repository.Songs.GetAsync();
+            System.Collections.Generic.IEnumerable<Rise.Models.Song> songs = await App.Repository.Songs.GetAsync();
             if (songs == null)
             {
                 return;
             }
 
-            var albums = await App.Repository.Albums.GetAsync();
+            System.Collections.Generic.IEnumerable<Rise.Models.Album> albums = await App.Repository.Albums.GetAsync();
             if (albums == null)
             {
                 return;
@@ -86,13 +82,13 @@ namespace RMP.App.ViewModels
             await dispatcherQueue.EnqueueAsync(() =>
             {
                 Songs.Clear();
-                foreach (var s in songs)
+                foreach (Rise.Models.Song s in songs)
                 {
                     Songs.Add(new SongViewModel(s));
                 }
 
                 Albums.Clear();
-                foreach (var a in albums)
+                foreach (Rise.Models.Album a in albums)
                 {
                     Albums.Add(new AlbumViewModel(a));
                 }
@@ -106,19 +102,33 @@ namespace RMP.App.ViewModels
         /// </summary>
         public void Sync()
         {
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 IsLoading = true;
-                foreach (var modifiedSong in Songs
-                    .Where(song => song.IsModified).Select(song => song.Model))
+                foreach (SongViewModel modifiedSong in Songs
+                    .Where(song => song.IsModified))
                 {
-                    await App.Repository.Songs.UpsertAsync(modifiedSong);
+                    if (modifiedSong.WillRemove)
+                    {
+                        await App.Repository.Songs.DeleteAsync(modifiedSong.Model);
+                    }
+                    else
+                    {
+                        await App.Repository.Songs.UpsertAsync(modifiedSong.Model);
+                    }
                 }
 
-                foreach (var modifiedAlbum in Albums
-                    .Where(album => album.IsModified).Select(album => album.Model))
+                foreach (AlbumViewModel modifiedAlbum in Albums
+                    .Where(album => album.IsModified))
                 {
-                    await App.Repository.Albums.UpsertAsync(modifiedAlbum);
+                    if (modifiedAlbum.WillRemove)
+                    {
+                        await App.Repository.Albums.DeleteAsync(modifiedAlbum.Model);
+                    }
+                    else
+                    {
+                        await App.Repository.Albums.UpsertAsync(modifiedAlbum.Model);
+                    }
                 }
 
                 await GetListsAsync();

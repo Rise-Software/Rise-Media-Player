@@ -5,41 +5,60 @@
     xmlns:local="using:RMP.App.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:viewmodels="using:RMP.App.ViewModels"
+    xmlns:conv="using:RMP.App.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:BooleanToVisibility x:Key="BoolToVis" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.Songs}" Margin="-56,0" Padding="56,0">
+        <ListView x:Name="List"
+                  ItemsSource="{x:Bind ViewModel.Songs}"
+                  Margin="-56,0"
+                  Padding="56,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
+                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                    <Grid ColumnSpacing="12"
+                          DataContextChanged="Grid_DataContextChanged"
+                          Visibility="{x:Bind WillRemove, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15.5" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Center">
-                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,18,8,8" Text="{Binding Track}" />
 
-                            <StackPanel HorizontalAlignment="Left"
-                                        Margin="8"
-                                        Orientation="Vertical"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" Width="Auto" />
-                                <TextBlock>
-                                        <Hyperlink UnderlineStyle="None">
-                                            <Run Text="{Binding Artist}" />
-                                        </Hyperlink>
-                                </TextBlock>
-                            </StackPanel>
+                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   HorizontalAlignment="Right"
+                                   Text="{x:Bind Track}" />
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                            <TextBlock Text="{x:Bind Title}"
+                                       TextTrimming="CharacterEllipsis"
+                                       Width="Auto" />
+
+                            <TextBlock>
+                                <Hyperlink UnderlineStyle="None">
+                                    <Run Text="{x:Bind Artist}" />
+                                </Hyperlink>
+                            </TextBlock>
                         </StackPanel>
 
-                        <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="2"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Margin="8,18,8,8"
-                                   Text="{Binding Length}" />
+                                   Text="{x:Bind Length}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

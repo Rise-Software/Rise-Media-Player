@@ -25,7 +25,7 @@
         <Button x:Name="RootButton"
                 x:Load="{x:Bind ExpanderKind.Equals(Button)}"
                 Click="OnButtonClick"
-                Style="{ThemeResource ActionCard}">
+                Style="{StaticResource ActionCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -69,7 +69,7 @@
         <!-- Border -->
         <Border x:Name="RootBorder"
                 x:Load="{x:Bind ExpanderKind.Equals(Static)}"
-                Style="{ThemeResource SettingsCard}">
+                Style="{StaticResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -136,7 +136,7 @@
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    VerticalAlignment="Center"
-                                   Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}"/>
+                                   Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}" />
                     </StackPanel>
                 </Grid>
             </muxc:Expander.Header>
@@ -149,7 +149,7 @@
         <!-- Transparent -->
         <Border x:Name="RootTransparent"
                 x:Load="{x:Bind ExpanderKind.Equals(Transparent)}"
-                Style="{ThemeResource TransparentCard}">
+                Style="{StaticResource TransparentCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />

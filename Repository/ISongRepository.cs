@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Rise.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Rise.Models;
 
 namespace Rise.Repository
 {
@@ -26,11 +26,11 @@ namespace Rise.Repository
         /// Adds a new song if the song does not exist, updates the 
         /// existing song otherwise.
         /// </summary>
-        Task<Song> UpsertAsync(Song song);
+        Task UpsertAsync(Song song);
 
         /// <summary>
         /// Deletes a song.
         /// </summary>
-        Task DeleteAsync(string location);
+        Task DeleteAsync(Song song);
     }
 }

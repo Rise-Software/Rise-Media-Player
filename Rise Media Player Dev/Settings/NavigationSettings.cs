@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RMP.App.Dialogs;
 
 namespace RMP.App.Settings
 {
@@ -33,7 +29,7 @@ namespace RMP.App.Settings
             {
                 SettingsManager.SetBoolSetting("Navigation", "ColorfulIcons", value);
                 MainPage.Current.UpdateIconColor(value);
-                Dialogs.SettingsDialog.Current.UpdateIconColor(value);
+                SettingsDialog.Current.UpdateIconColor(value);
             }
         }
 

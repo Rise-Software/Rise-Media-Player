@@ -2,20 +2,13 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.System;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace RMP.App.ViewModels
 {
     public class AlbumViewModel : BaseViewModel, IEditableObject
     {
-        private DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
@@ -94,6 +87,30 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the album song count.
+        /// </summary>
+        public int SongCount
+        {
+            get => Model.SongCount;
+            set
+            {
+                if (value != Model.SongCount)
+                {
+                    if (value < 1)
+                    {
+                        Delete();
+                    }
+                    else
+                    {
+                        Model.SongCount = value;
+                        IsModified = true;
+                        OnPropertyChanged(nameof(SongCount));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the album thumbnail.
         /// </summary>
         public string Thumbnail
@@ -110,49 +127,16 @@ namespace RMP.App.ViewModels
             }
         }
 
-        private ImageSource PrivThumbnailBitmap { get; set; }
-        public ImageSource ThumbnailBitmap
-        {
-            get => PrivThumbnailBitmap;
-            set
-            {
-                IsModified = true;
-                PrivThumbnailBitmap = value;
-                OnPropertyChanged(nameof(ThumbnailBitmap));
-            }
-        }
-
         /// <summary>
-        /// Load thumbnail image from LocalCache.
+        /// Gets or sets a value that indicates whether the item has to be deleted.
         /// </summary>
-        /// <param name="imgFilename">Image filename.</param>
-        /// <returns>Generated image from Uri.</returns>
-        /// <remarks>In case the file doesn't exist, a default image will be loaded.</remarks>
-        public async Task LoadThumbnailsAsync(string imgFilename)
-        {
-            BitmapImage bmp = new BitmapImage();
-            StorageFolder localCache = ApplicationData.Current.LocalCacheFolder;
-
-            IStorageItem resultingItem = await localCache.TryGetItemAsync(imgFilename);
-
-            // If the file doesn't exist, use default thumbnail
-            if (resultingItem != null)
-            {
-                StorageFile file = resultingItem as StorageFile;
-                IRandomAccessStreamWithContentType stream = await file.OpenReadAsync();
-                bmp.SetSource(stream);
-
-                ThumbnailBitmap = bmp;
-            }
-
-            return;
-        }
+        public bool WillRemove { get; set; }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>
-        /// Used when sync'ing with the server to reduce load and only upload the models that have changed.
+        /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
         private bool _isLoading;
@@ -201,7 +185,17 @@ namespace RMP.App.ViewModels
                 App.ViewModel.Albums.Add(this);
             }
 
-            await App.Repository.Albums.UpsertAsync(Model);
+            await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete album from repository and ViewModel.
+        /// </summary>
+        public void Delete()
+        {
+            IsModified = true;
+            WillRemove = true;
+            Debug.WriteLine("Album removed!");
         }
 
         /// <summary>

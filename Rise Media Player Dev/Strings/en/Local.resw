@@ -117,70 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customize what we do with it.</value>
   </data>
-  <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
-  </data>
-  <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="Decide" xml:space="preserve">
-    <value>Decide for me</value>
-  </data>
-  <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
-  </data>
-  <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
-  </data>
-  <data name="Intro.Text" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
-  </data>
-  <data name="LicenseH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
-  </data>
-  <data name="LocalH" xml:space="preserve">
-    <value>Your own media</value>
-  </data>
-  <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
-  </data>
-  <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
-  </data>
-  <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
-  </data>
-  <data name="PreSetup" xml:space="preserve">
-    <value>Pre-setup</value>
-  </data>
-  <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
-  </data>
-  <data name="Start.Content" xml:space="preserve">
-    <value>Start setup</value>
-  </data>
-  <data name="Step1" xml:space="preserve">
-    <value>Step 1 of 5</value>
-  </data>
-  <data name="Step2" xml:space="preserve">
-    <value>Step 2 of 5</value>
-  </data>
-  <data name="Step3" xml:space="preserve">
-    <value>Step 3 of 5</value>
-  </data>
-  <data name="Step4" xml:space="preserve">
-    <value>Step 4 of 5</value>
-  </data>
-  <data name="Step5" xml:space="preserve">
-    <value>Step 5 of 5</value>
-  </data>
-  <data name="Welcome.Text" xml:space="preserve">
-    <value>Welcome to</value>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
   </data>
 </root>

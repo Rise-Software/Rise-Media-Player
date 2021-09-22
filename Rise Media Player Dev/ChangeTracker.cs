@@ -1,21 +1,16 @@
 ﻿using RMP.App.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
+using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 
 namespace RMP.App
 {
     public class ChangeTracker
     {
-        public async Task ManageChange(StorageLibraryChange change)
+        public static async Task ManageSongChange(StorageLibraryChange change)
         {
-            StorageFile file = null;
+            StorageFile file;
 
             // Temp variable used for instantiating StorageFiles for sorting if needed later
             switch (change.ChangeType)
@@ -40,7 +35,7 @@ namespace RMP.App
                     {
                         if (change.PreviousPath == App.ViewModel.Songs[i].Location)
                         {
-                            App.ViewModel.Songs.RemoveAt(i);
+                            App.ViewModel.Songs[i].Delete();
                             await SongIndexer.AddSong(file);
                         }
                     }
@@ -53,7 +48,7 @@ namespace RMP.App
                     {
                         if (change.PreviousPath == App.ViewModel.Songs[i].Location)
                         {
-                            App.ViewModel.Songs.RemoveAt(i);
+                            App.ViewModel.Songs[i].Delete();
                         }
                     }
                     break;
@@ -64,7 +59,7 @@ namespace RMP.App
                     {
                         if (change.PreviousPath == App.ViewModel.Songs[i].Location)
                         {
-                            App.ViewModel.Songs.RemoveAt(i);
+                            App.ViewModel.Songs[i].Delete();
                         }
                     }
                     break;
@@ -77,7 +72,7 @@ namespace RMP.App
                     {
                         if (change.PreviousPath == App.ViewModel.Songs[i].Location)
                         {
-                            App.ViewModel.Songs.RemoveAt(i);
+                            App.ViewModel.Songs[i].Delete();
                             await SongIndexer.AddSong(file);
                         }
                     }
@@ -90,6 +85,29 @@ namespace RMP.App
                 default:
                     // These are safe to ignore, I think
                     break;
+            }
+        }
+
+        public static void HandleMusicFolderChanges(IObservableVector<StorageFolder> folders)
+        {
+            bool isInFolder = false;
+            foreach (SongViewModel song in App.ViewModel.Songs)
+            {
+                foreach (StorageFolder folder in folders)
+                {
+                    if (song.Location.StartsWith(folder.Path))
+                    {
+                        isInFolder = true;
+                        break;
+                    }
+                }
+
+                if (!isInFolder)
+                {
+                    song.Delete();
+                }
+
+                isInFolder = false;
             }
         }
     }

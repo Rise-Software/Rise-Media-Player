@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RMP.App.ViewModels
 {
@@ -37,7 +32,7 @@ namespace RMP.App.ViewModels
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
         protected bool Set<T>(ref T storage, T value,
-            [CallerMemberName] String propertyName = null)
+            [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {

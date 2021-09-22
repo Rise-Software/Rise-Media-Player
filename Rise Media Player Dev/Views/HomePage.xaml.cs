@@ -12,12 +12,8 @@ namespace RMP.App.Views
     {
         public HomePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ConnectServiceNotification.IsOpen = true;
-        }
-
-        private void DropDownButton_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Rise.Repository.SQL
             dbOptionsBuilder)
         {
             _dbOptions = dbOptionsBuilder.Options;
-            using (var db = new Context(_dbOptions))
+            using (Context db = new Context(_dbOptions))
             {
-                db.Database.EnsureCreated();
+                _ = db.Database.EnsureCreated();
             }
         }
 

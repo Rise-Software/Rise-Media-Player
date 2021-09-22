@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <StackPanel Orientation="Vertical" Spacing="12">
+        <TextBlock x:Uid="/Finish/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
-    </Grid>
+        <TextBlock x:Uid="/Finish/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
+        <TextBlock x:Uid="/Finish/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
+    </StackPanel>
 </Page>

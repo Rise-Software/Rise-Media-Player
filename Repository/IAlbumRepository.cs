@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Rise.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Rise.Models;
 
 namespace Rise.Repository
 {
@@ -26,11 +26,11 @@ namespace Rise.Repository
         /// Adds a new album if the album does not exist, updates the 
         /// existing album otherwise.
         /// </summary>
-        Task<Album> UpsertAsync(Album album);
+        Task UpsertAsync(Album album);
 
         /// <summary>
         /// Deletes an album.
         /// </summary>
-        Task DeleteAsync(Guid albumId);
+        Task DeleteAsync(Album album);
     }
 }

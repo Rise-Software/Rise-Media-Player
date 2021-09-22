@@ -1,18 +1,8 @@
-﻿using RMP.App.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using RMP.App.Converters;
+using RMP.App.ViewModels;
+using System.ServiceModel.Channels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,9 +14,26 @@ namespace RMP.App.UserControls
         /// Gets the app-wide ViewModel instance.
         /// </summary>
         public MainViewModel ViewModel => App.ViewModel;
+        private readonly BooleanToVisibility BoolToVis = new BooleanToVisibility();
         public SongList()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void Grid_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            Grid itemRoot = sender as Grid;
+            if (List.ContainerFromItem(itemRoot.DataContext) is ListViewItem lvi)
+            {
+                Windows.UI.Xaml.Data.Binding binding = new Windows.UI.Xaml.Data.Binding
+                {
+                    Source = itemRoot.DataContext,
+                    Path = new PropertyPath("WillRemove"),
+                    Converter = BoolToVis,
+                    ConverterParameter = "Reverse",
+                };
+                lvi.SetBinding(VisibilityProperty, binding);
+            }
         }
     }
 }

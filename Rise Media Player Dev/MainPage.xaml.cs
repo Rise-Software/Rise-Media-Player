@@ -1,21 +1,19 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using RMP.App.Converters;
+using RMP.App.Dialogs;
+using RMP.App.Settings;
+using RMP.App.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
-using Windows.UI.ViewManagement;
+using System.Threading.Tasks;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Imaging;
-using RMP.App.Dialogs;
-using RMP.App.Views;
-using RMP.App.Converters;
-using RMP.App.Settings;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
-using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,6 +30,8 @@ namespace RMP.App
             new ObservableCollection<string>();
 
         public SongIndexer Indexer = new SongIndexer();
+
+        private MainTitleBar MainTitleBarHandle { get; set; }
         public SettingsDialog Dialog = new SettingsDialog();
         #endregion
 
@@ -105,189 +105,91 @@ namespace RMP.App
 
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
 
+            MainTitleBarHandle = new MainTitleBar();
+            MainTitleBarHandle.InitTitleBar();
+
             ApplyStartupSettings();
-
-            #region Titlebar
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            // Hide default title bar.
-            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
-            UpdateTitleBarLayout(coreTitleBar);
-
-            // Set XAML element as a draggable region.
-            Window.Current.SetTitleBar(AppTitleBar);
-
-            // Register a handler for when the size of the overlaid caption control changes.
-            // For example, when the app moves to a screen with a different DPI.
-            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
-
-            // Register a handler for when the title bar visibility changes.
-            // For example, when the title bar is invoked in full screen mode.
-            coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
-
-            //Register a handler for when the window changes focus
-            Window.Current.Activated += Current_Activated;
-            #endregion
-        }
-
-        #region Titlebar
-        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            UpdateTitleBarLayout(sender);
-        }
-
-        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
-        {
-            // Update title bar control size as needed to account for system size changes.
-            AppTitleBar.Height = coreTitleBar.Height;
-
-            // Ensure the custom title bar does not overlap window caption controls
-            Thickness currMargin = AppTitleBar.Margin;
-            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
-            SearchBar.Margin = new Thickness(currMargin.Left + AppData.DesiredSize.Width + 96, currMargin.Top, coreTitleBar.SystemOverlayRightInset + 32, currMargin.Bottom);
-
-            UpdateTitleBarItems(NavView);
-        }
-
-        private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            if (sender.IsVisible)
-            {
-                AppTitleBar.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AppTitleBar.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        // Update the TitleBar based on the inactive/active state of the app
-        private void Current_Activated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
-        {
-            SolidColorBrush defaultForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
-            SolidColorBrush inactiveForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
-
-            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
-            {
-                AppTitle.Foreground = inactiveForegroundBrush;
-            }
-            else
-            {
-                AppTitle.Foreground = defaultForegroundBrush;
-            }
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
         {
-            UpdateTitleBarItems(sender);
+            MainTitleBarHandle.UpdateTitleBarItems(sender);
         }
-
-        private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView NavView)
-        {
-            const int topIndent = 16;
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            Thickness currMargin = AppTitleBar.Margin;
-
-            // Set the TitleBar margin dependent on NavigationView display mode
-            if (NavView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
-            {
-                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                SearchBar.Margin = new Thickness(topIndent + AppData.DesiredSize.Width + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
-            }
-            else if (NavView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
-            {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                SearchBar.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right - 40, currMargin.Bottom);
-            }
-            else
-            {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                SearchBar.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Bottom);
-            }
-        }
-        #endregion
 
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
+            string navTo = args.InvokedItemContainer.Tag.ToString();
+            if (args.IsSettingsInvoked || navTo == "SettingsPage")
+            {
+                _ = await Dialog.ShowAsync();
+                FinishNavigation();
+                return;
+            }
+
             if (args.InvokedItemContainer.Content.ToString() == Breadcrumbs.Last())
             {
                 FinishNavigation();
                 return;
             }
 
-            string navTo = args.InvokedItemContainer.Tag.ToString();
-            if (args.IsSettingsInvoked || navTo == "SettingsPage")
+            if (navTo != null)
             {
-                await Dialog.ShowAsync();
-                return;
-            }
-            else
-            {
-                if (navTo != null)
+                switch (navTo)
                 {
-                    switch (navTo)
-                    {
-                        case "AlbumsPage":
-                            ContentFrame.Navigate(typeof(AlbumsPage));
-                            break;
+                    case "AlbumsPage":
+                        _ = ContentFrame.Navigate(typeof(AlbumsPage));
+                        break;
 
-                        case "ArtistsPage":
-                            ContentFrame.Navigate(typeof(ArtistsPage));
-                            break;
+                    case "ArtistsPage":
+                        _ = ContentFrame.Navigate(typeof(ArtistsPage));
+                        break;
 
-                        case "DevicesPage":
-                            ContentFrame.Navigate(typeof(DevicesPage));
-                            break;
+                    case "DevicesPage":
+                        _ = ContentFrame.Navigate(typeof(DevicesPage));
+                        break;
 
-                        case "DiscyPage":
-                            ContentFrame.Navigate(typeof(DiscyPage));
-                            break;
+                    case "DiscyPage":
+                        _ = ContentFrame.Navigate(typeof(DiscyPage));
+                        break;
 
-                        case "GenresPage":
-                            ContentFrame.Navigate(typeof(GenresPage));
-                            break;
+                    case "GenresPage":
+                        _ = ContentFrame.Navigate(typeof(GenresPage));
+                        break;
 
-                        case "HomePage":
-                            ContentFrame.Navigate(typeof(HomePage));
-                            break;
+                    case "HomePage":
+                        _ = ContentFrame.Navigate(typeof(HomePage));
+                        break;
 
-                        case "LocalVideosPage":
-                            ContentFrame.Navigate(typeof(LocalVideosPage));
-                            break;
+                    case "LocalVideosPage":
+                        _ = ContentFrame.Navigate(typeof(LocalVideosPage));
+                        break;
 
-                        case "NowPlayingPage":
-                            ContentFrame.Navigate(typeof(NowPlayingPage));
-                            break;
+                    case "NowPlayingPage":
+                        _ = ContentFrame.Navigate(typeof(NowPlayingPage));
+                        break;
 
-                        case "PlaylistsPage":
-                            ContentFrame.Navigate(typeof(PlaylistsPage));
-                            break;
+                    case "PlaylistsPage":
+                        _ = ContentFrame.Navigate(typeof(PlaylistsPage));
+                        break;
 
-                        case "SongsPage":
-                            ContentFrame.Navigate(typeof(SongsPage));
-                            break;
+                    case "SongsPage":
+                        _ = ContentFrame.Navigate(typeof(SongsPage));
+                        break;
 
-                        case "StreamingPage":
-                            ContentFrame.Navigate(typeof(StreamingPage));
-                            break;
+                    case "StreamingPage":
+                        _ = ContentFrame.Navigate(typeof(StreamingPage));
+                        break;
 
-                        default:
-                            break;
-                    }
-
+                    default:
+                        break;
                 }
             }
+
             FinishNavigation();
         }
 
@@ -327,7 +229,7 @@ namespace RMP.App
         #endregion
 
         #region Settings
-        public async void ApplyStartupSettings()
+        public void ApplyStartupSettings()
         {
             // Sidebar icon colors
             UpdateIconColor(NavigationSettings.ColorfulIcons);
@@ -336,53 +238,51 @@ namespace RMP.App
             switch (AppearanceSettings.OpenTo)
             {
                 case 0:
-                    ContentFrame.Navigate(typeof(HomePage));
+                    _ = ContentFrame.Navigate(typeof(HomePage));
                     break;
 
                 case 1:
-                    ContentFrame.Navigate(typeof(PlaylistsPage));
+                    _ = ContentFrame.Navigate(typeof(PlaylistsPage));
                     break;
 
                 case 2:
-                    ContentFrame.Navigate(typeof(DevicesPage));
+                    _ = ContentFrame.Navigate(typeof(DevicesPage));
                     break;
 
                 case 3:
-                    ContentFrame.Navigate(typeof(SongsPage));
+                    _ = ContentFrame.Navigate(typeof(SongsPage));
                     break;
 
                 case 4:
-                    ContentFrame.Navigate(typeof(ArtistsPage));
+                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
                     break;
 
                 case 5:
-                    ContentFrame.Navigate(typeof(AlbumsPage));
+                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
                     break;
 
                 case 6:
-                    ContentFrame.Navigate(typeof(GenresPage));
+                    _ = ContentFrame.Navigate(typeof(GenresPage));
                     break;
 
                 case 7:
-                    ContentFrame.Navigate(typeof(LocalVideosPage));
+                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
                     break;
 
                 case 8:
-                    ContentFrame.Navigate(typeof(StreamingPage));
+                    _ = ContentFrame.Navigate(typeof(StreamingPage));
                     break;
 
                 case 9:
-                    ContentFrame.Navigate(typeof(NowPlayingPage));
+                    _ = ContentFrame.Navigate(typeof(NowPlayingPage));
                     break;
 
                 default:
-                    ContentFrame.Navigate(typeof(HomePage));
+                    _ = ContentFrame.Navigate(typeof(HomePage));
                     break;
             }
 
             FinishNavigation();
-
-            await Indexer.IndexLibrarySongs();
         }
 
         public void UpdateSidebarItems(bool newVis, string itemName)

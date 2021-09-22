@@ -6,12 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 
 namespace RMP.App
 {
@@ -31,11 +30,6 @@ namespace RMP.App
         public static AlbumViewModel Album { get; set; }
 
         /// <summary>
-        /// Music library folder.
-        /// </summary>
-        private readonly StorageFolder MusicFolder = KnownFolders.MusicLibrary;
-
-        /// <summary>
         /// Query options for song indexing.
         /// </summary>
         public static readonly QueryOptions SongQueryOptions =
@@ -47,11 +41,6 @@ namespace RMP.App
             {
                 FolderDepth = FolderDepth.Deep
             };
-
-        /// <summary>
-        /// List of indexed Videos.
-        /// </summary>
-        // private List<StorageFile> Videos { get; set; }
 
         /// <summary>
         /// List of extra properties to get from songs.
@@ -75,10 +64,15 @@ namespace RMP.App
         #endregion
 
         /// <summary>
-        /// Index songs in the music library.
+        /// Index songs in the user's library.
         /// </summary>
-        public async Task IndexLibrarySongs()
+        public static async Task IndexAllSongs()
         {
+            /*if (Settings.SetupSettings.SetupCompleted)
+            {
+                MainPage.Current.CheckTip.IsOpen = true;
+            }*/
+
             AddedSongs = 0;
 
             // Optimize indexing performance by using the Windows Indexer
@@ -87,64 +81,27 @@ namespace RMP.App
             // Prefetch file properties
             SongQueryOptions.SetPropertyPrefetch(PropertyPrefetchOptions.MusicProperties, SongProperties);
 
-            // Prepare the query
-            StorageFileQueryResult musicQueryResult = MusicFolder.CreateFileQueryWithOptions(SongQueryOptions);
+            // Index music library
+            await IndexFolder(KnownFolders.MusicLibrary);
 
-            // Index by steps
-            uint index = 0, stepSize = 10;
-            IReadOnlyList<StorageFile> files = await musicQueryResult.GetFilesAsync(index, stepSize);
-            index += 10;
-
-            // Start crawling data
-            while (files.Count != 0)
+            // Show information to the user
+            if (AddedSongs > 0)
             {
-                Task<IReadOnlyList<StorageFile>> fileTask =
-                    musicQueryResult.GetFilesAsync(index, stepSize).AsTask();
-
-                // Process files
-                foreach (StorageFile file in files)
-                {
-                    await AddSong(file);
-                }
-
-                files = await fileTask;
-                index += 10;
+                // App.ViewModel.Sync();
             }
 
-            // Get items from future access list
-            StorageItemAccessList fa = StorageApplicationPermissions.FutureAccessList;
-
-            // Iterate the entries, get the files inside them
-            foreach (AccessListEntry entry in fa.Entries)
+            /*if (Settings.SetupSettings.SetupCompleted)
             {
-                // Get folder from future access list
-                string faToken = entry.Token;
-                StorageFolder folder = await fa.GetFolderAsync(faToken);
-
-                // Prepare the query
-                StorageFileQueryResult folderQueryResult = folder.CreateFileQueryWithOptions(SongQueryOptions);
-                index = 0;
-                files = await folderQueryResult.GetFilesAsync(index, stepSize);
-
-                // Start crawling data
-                while (files.Count != 0)
+                MainPage.Current.CheckTip.IsOpen = false;
+                if (AddedSongs > 0)
                 {
-                    Task<IReadOnlyList<StorageFile>> fileTask =
-                        folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
-
-                    // Process files
-                    foreach (StorageFile file in files)
-                    {
-                        await AddSong(file);
-                    }
-
-                    files = await fileTask;
-                    index += 10;
+                    MainPage.Current.AddedTip.IsOpen = true;
                 }
-            }
-
-            // Save changes
-            App.ViewModel.Sync();
+                else
+                {
+                    MainPage.Current.NoNewTip.IsOpen = true;
+                }
+            }*/
         }
 
         /// <summary>
@@ -156,7 +113,7 @@ namespace RMP.App
         {
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
-                var destinationFile = await ApplicationData.Current.LocalCacheFolder.
+                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                     CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
 
                 Windows.Storage.Streams.Buffer MyBuffer = new Windows.Storage.Streams.
@@ -168,13 +125,15 @@ namespace RMP.App
                 using (IRandomAccessStream strm = await
                     destinationFile.OpenAsync(FileAccessMode.ReadWrite))
                 {
-                    await strm.WriteAsync(iBuf);
+                    _ = await strm.WriteAsync(iBuf);
                 }
             }
         }
 
-        /// <summary>Replaces characters in <c>text</c> that are not allowed in 
-        /// file names with the specified replacement character.</summary>
+        /// <summary>
+        /// Replaces characters in <c>text</c> that are not allowed in 
+        /// file names with the specified replacement character.
+        /// </summary>
         /// <param name="text">Text to make into a valid filename. The same string is returned if it is valid already.</param>
         /// <param name="replacement">Replacement character, or null to simply remove bad characters.</param>
         /// <returns>A string that can be used as a filename. If the output string would otherwise be empty, returns "_".</returns>
@@ -193,12 +152,12 @@ namespace RMP.App
                     char repl = replacement ?? '\0';
                     if (repl != '\0')
                     {
-                        sb.Append(repl);
+                        _ = sb.Append(repl);
                     }
                 }
                 else
                 {
-                    sb.Append(c);
+                    _ = sb.Append(c);
                 }
             }
 
@@ -218,7 +177,7 @@ namespace RMP.App
 
             int cd = 1;
             IDictionary<string, object> extraProps =
-                await file.Properties.RetrievePropertiesAsync(SongIndexer.SongProperties);
+                await file.Properties.RetrievePropertiesAsync(SongProperties);
 
             // Check if disc number is valid
             if (extraProps["System.Music.DiscNumber"] != null)
@@ -314,18 +273,68 @@ namespace RMP.App
                     string filename = MakeValidFileName(Song.Album);
                     await SaveBitmapFromThumbnail(thumbnail, $@"{filename}.png");
 
+                    string thumb = "ms-appx:///Assets/Default.png";
+
+                    IStorageItem resultingItem = await ApplicationData.Current.LocalFolder.
+                        TryGetItemAsync($@"{filename}.png");
+
+                    // If the file doesn't exist, use default thumbnail
+                    if (resultingItem != null)
+                    {
+                        thumb = $@"ms-appdata:///local/{filename}.png";
+                    }
+
                     // Set AlbumViewModel data
                     Album = new AlbumViewModel
                     {
                         Title = Song.Album,
                         Artist = Song.AlbumArtist,
                         Genre = Song.Genre,
-                        Thumbnail = $@"{filename}.png"
+                        SongCount = 1,
+                        Thumbnail = thumb
                     };
 
                     // Add new data to the ViewModel
                     App.ViewModel.Albums.Add(Album);
                 }
+                else
+                {
+                    AlbumViewModel album = App.ViewModel.Albums.
+                        First(a => a.Title == Song.Album &&
+                        a.Artist == Song.AlbumArtist);
+                    album.SongCount++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Index a folder's contents and add the result to the ViewModel and database.
+        /// </summary>
+        /// <param name="folder">Folder to index.</param>
+        public static async Task IndexFolder(StorageFolder folder)
+        {
+            // Prepare the query
+            StorageFileQueryResult folderQueryResult = folder.CreateFileQueryWithOptions(SongQueryOptions);
+
+            // Index by steps
+            uint index = 0, stepSize = 10;
+            IReadOnlyList<StorageFile> files = await folderQueryResult.GetFilesAsync(index, stepSize);
+            index += 10;
+
+            // Start crawling data
+            while (files.Count != 0)
+            {
+                Task<IReadOnlyList<StorageFile>> fileTask =
+                    folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
+
+                // Process files
+                foreach (StorageFile file in files)
+                {
+                    await AddSong(file);
+                }
+
+                files = await fileTask;
+                index += 10;
             }
         }
     }

@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +10,17 @@ namespace RMP.App.Setup
     /// </summary>
     public sealed partial class AppearancePage : Page
     {
+        private List<string> Themes { get; set; }
         public AppearancePage()
         {
             this.InitializeComponent();
+
+            Themes = new List<string>
+            {
+                ResourceLoaders.AppearanceLoader.GetString("Light"),
+                ResourceLoaders.AppearanceLoader.GetString("Dark"),
+                ResourceLoaders.AppearanceLoader.GetString("System")
+            };
         }
     }
 }

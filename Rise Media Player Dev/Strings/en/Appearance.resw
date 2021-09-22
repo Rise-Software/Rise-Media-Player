@@ -162,6 +162,9 @@
   <data name="Genres" xml:space="preserve">
     <value>Genres</value>
   </data>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
+  </data>
   <data name="History.Title" xml:space="preserve">
     <value>Track media history and habits</value>
   </data>
@@ -209,5 +212,8 @@
   </data>
   <data name="System" xml:space="preserve">
     <value>Use system setting</value>
+  </data>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>*Compact mode changes won't take effect until after setup has completed.</value>
   </data>
 </root>

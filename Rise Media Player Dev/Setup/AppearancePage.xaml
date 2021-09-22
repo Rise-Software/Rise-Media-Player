@@ -5,9 +5,43 @@
     xmlns:local="using:RMP.App.Setup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:settings="using:RMP.App.Settings"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.DataContext>
+        <settings:AppearanceSettings />
+    </Page.DataContext>
 
-    </Grid>
+    <StackPanel Spacing="20">
+        <TextBlock x:Uid="/Appearance/Header" Style="{StaticResource BaseTextBlockStyle}" />
+
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
+                                   ExpanderKind="Static"
+                                   Icon="&#xE790;">
+                <ComboBox ItemsSource="{x:Bind Themes}"
+                          PlaceholderText="Use system setting"
+                          SelectedIndex="{Binding Theme, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
+                                   ExpanderKind="Static"
+                                   Icon="&#xE73F;">
+                <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
+                                   ExpanderKind="Button"
+                                   Icon="&#xE9D5;">
+                <FontIcon Glyph="&#xE00F;"
+                          FontSize="16"
+                          Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+            </uc:NavigationExpander>
+        </StackPanel>
+
+        <TextBlock x:Uid="/Appearance/Tip"
+                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                   Style="{StaticResource BodyTextBlockStyle}" />
+    </StackPanel>
 </Page>

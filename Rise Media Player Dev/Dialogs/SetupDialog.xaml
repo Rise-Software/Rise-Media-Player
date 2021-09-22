@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     Style="{StaticResource DefaultContentDialogStyle}"
     SizeChanged="ContentDialog_SizeChanged"
     mc:Ignorable="d">
@@ -22,9 +21,9 @@
             <RowDefinition Height="56" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" ColumnSpacing="28">
+        <Grid x:Name="InfoGrid" Grid.Row="0" ColumnSpacing="28">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="188" />
+                <ColumnDefinition x:Name="IconColumn" Width="188" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
@@ -39,7 +38,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock x:Name="Header"
-                           Padding="0,0,0,8"
+                           Padding="0,0,0,4"
                            Style="{StaticResource TitleTextBlockStyle}" />
 
                 <ScrollViewer Grid.Row="1"
@@ -59,7 +58,8 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="1"
+        <Grid x:Name="ControlGrid"
+              Grid.Row="1"
               Background="{ThemeResource ContentDialogBackground}"
               ColumnSpacing="8"
               Height="80"
@@ -67,7 +67,7 @@
               Padding="24"
               VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="210" />
+                <ColumnDefinition x:Name="ProgressColumn" Width="210" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
@@ -88,17 +88,18 @@
                     Style="{StaticResource AccentButtonStyle}" />
             <Button x:Name="SecondaryButton"
                     Grid.Column="2"
-                    Click="SecondaryButton_Click"
+                    Click="SecondaryButton_ClickAsync"
                     HorizontalAlignment="Stretch" />
         </Grid>
 
         <Button x:Name="BackButton"
                 Click="BackButton_Click"
-                Height="36"
+                Height="30"
                 HorizontalAlignment="Left"
+                Padding="0"
                 ToolTipService.ToolTip="Back"
                 VerticalAlignment="Top"
-                Width="36">
+                Width="30">
             <FontIcon FontSize="12" Glyph="&#xE112;" />
         </Button>
     </Grid>

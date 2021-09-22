@@ -11,7 +11,7 @@ namespace RMP.App.Converters
             // Reversed result
             if (parameter is string param)
             {
-                if (param == "0")
+                if (param == "Reverse")
                 {
                     return (value is bool val && val) ? Visibility.Collapsed : Visibility.Visible;
                 }
