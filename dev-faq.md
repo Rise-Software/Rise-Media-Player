@@ -1,5 +1,5 @@
 ![devfaq](https://user-images.githubusercontent.com/74561130/135676941-3a7d1cdf-cb8a-456d-a4c1-2734542289e9.png)
-> **Rise Media Player - Devlopment Frequently Asked Questions**
+> **Rise Media Player - Development Frequently Asked Questions**
 
 
 
@@ -46,8 +46,17 @@ In terms of other versions, we have no exact dates to give you all, but this is 
 * Local recommendations and recently played
 * Discy in the majority of the app
 
+**Beta**
 
-## Insider Program & Contribution
+* Streaming services and reccommendations in some form
+* Equaliser
+* Visualiser
+* Find album info
+* Disc ripping
+* Networks support
+* More stuff
+
+## Insider Program, Translations & Contribution
 
 **What benefits do I get from joining the Insider Program?**
 
@@ -66,8 +75,18 @@ https://bit.ly/rise-insider
 
 Good luck testing!
 
+**How can I become a contributor or a translator?**
+
+If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922
+
 **Hey, I'm an Insider. How do I get builds?**
 
 When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the msix package for the new build. **Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds** Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry! 
+
+## What's Discy?
+
+You'll have to see ;) 
+
+
 
 
