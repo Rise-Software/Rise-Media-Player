@@ -27,11 +27,13 @@ We have used very few pieces of open source software available on GitHub to make
 
 ## Local Media Handling
 
-By using this software and adding your folders, you give **Rise** Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music & Videos) by default.
+By using this software and adding your folders and devices, you give **Rise** Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music & Videos) by default.
 
 By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.
 
 ## Streaming & Online Services
+
+**NOTE: STREAMING SERVICES WON'T BE AVAILABLE UNTIL AT LEAST 2022 - THESE TERMS ARE NOT APPLICABLE CURRENTLY**
 
 Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service/s. 
 
