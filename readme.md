@@ -1,25 +1,66 @@
-![Group 2 (1)](https://user-images.githubusercontent.com/74561130/129751670-74c8cbab-3e99-4964-babd-cd08aa218c07.png)
+![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
 
+**Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
-**Fluent Player (Working Title)** is the one app you'll need to access all of your media; be it music, videos or even your favourite streaming services! Designed to align to the Windows 11 visual style, using **WinUI 2.6** and **C#** we hope to create a media player that is not only beautiful, but incredibly functional; taking features from classic media players like **Windows Media Player** and bringing it to the modern world, with online services and more sharing features.
+## Appearance & design
 
-- **How does it look?**
+Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on any device they want! You can see a render of the current design we are going for:
 
-> The app is in a very early stage. Please note that the current version of the app does not resemble the final product. We have made some renders of what we hope the final app looks like :): Of course we couldn't forget Mica, Acrylic and Dark Mode support!
+![risenewimage](https://user-images.githubusercontent.com/74561130/133660500-93993dac-e3b9-4e47-add6-bd4e207dfef8.png)
 
-> **Light Mode**
+**Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
-![Group 39](https://user-images.githubusercontent.com/74561130/129236201-4af67799-becc-464b-91c6-c02d58342d04.png)
+## Features in the current commit
 
-> **Dark Mode**
+* Song & Album Indexing
+* Modern Titlebar
+* Search UI
+* Settings UI - Some settings work
+* Albums & Songs View
+* (BASIC) OneDrive Support
 
-![Group 40](https://user-images.githubusercontent.com/74561130/129236191-15f9688f-a123-4a20-af92-f1ad9d7dd7a3.png)
+## Planned features
 
-> **Now Playing**
+**Coming VERY soon**
+* Media Playback (Internal Testing)
+* Now Playing Bar
+* Settings Window (Internal Testing)
+* Artists View (Internal Testing)
+* Properties Window
 
-![now](https://user-images.githubusercontent.com/74561130/129236229-f8597d13-032b-4538-a9eb-1c147e1a843d.png)
+**Features coming later**
+* Streaming Services
+* Discy (the help assistant)
+* Recommendation API
+* Playlists
+* Disc Ripping & Burning features
 
-- **How to download it?**
+## Licensing
 
-> There isn't any direct method to install it, so you need to fire up the project in Visual Studio, open the solution and then deploy it onto your Device. We wouldn't suggest downloading at this point, as it is simply not functional enough. If you want to know more, join our Discord! 
+This is free software with no warranty of any kind. Sorry :(
 
+We use the GPL License with a few changed clauses to protect our apps' integrity. The GPL License is available here: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+**Changed clauses:**
+
+Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our more comprehensive terms are available here: https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms
+
+## Downloads, Contribute and the Insider Program
+
+Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution. 
+
+We have an Insider Program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://bit.ly/rise-insider
+
+If you'd like to contribute, join the Rise Apps' Discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure. Contributors need to have Discord for now, but won't need to in the near future.
+
+## Credits
+
+**Development & design**
+
+* Design, translation and Rise team lead - Joseph (josephbeattie on GitHub)
+* Programming & development - Omar (YourOrdinaryCat)
+
+**Contributors**
+
+* AlfarexGuy2019
+* MakeshVineeth
