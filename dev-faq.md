@@ -4,48 +4,70 @@
 
 
 
-> *Updated for Pre-Alpha 1*
+> *Updated for Pre-Alpha 1 - October 1st 2021*
 
-## Overview
+## When will Rise Media Player be released?
 
-This is free software with no warranty of any kind. Sorry :(
+There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
 
-We use the GPL License with a few changed clauses to protect our apps' integrity. The GPL License is available here: https://www.gnu.org/licenses/gpl-3.0.en.html
+In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+* Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+* Alpha Builds - New Year (2022) up to March 2022. **Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.**
+* Beta - April -TBD (**This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features**)
 
-**Changed clauses:**
+## What features are you prioritising?
 
-Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you.
+**Pre Alpha (there will be many pre-alpha versions)**
 
-## Base Software & Copyright
+* Song, Album, Artist and Genre Indexing
+* Album, Artist, Genre and Songs Views (static for now)
+* Media Playback
+* Command Bar (BASIC)
+* User Controlled Media Locations
+* UI Manipulation through Settings
+* *Basic* Metadata control for Music
+* *Basic* Now Playing UI
+* *Basic* Properties Window
+* FAQ Help Section
+* Discy in small areas
 
-This project is not officially open source software and is protected by copyright. Selling, copying or otherwise distributing this software is prohibited*. Although you are permitted to modify and view the source code as much as you wish for your own personal use or the use of Rise Media Player (e.g. contributing on GitHub). More info about becoming a contributor is available on the main repository page.
+**Late Pre-Alpha - Alpha**
 
-We have used very few pieces of open source software available on GitHub to make this project possible. 
-- XAML Controls Gallery (Microsoft) - used for controls and Fluent Design
-
-*some exemptions may apply to approved contributors and those with permission to do so.
-
-## Local Media Handling
-
-By using this software and adding your folders and devices, you give **Rise** Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music & Videos) by default.
-
-By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.
-
-## Streaming & Online Services
-
-**NOTE: STREAMING SERVICES WON'T BE AVAILABLE UNTIL AT LEAST 2022 - THESE TERMS ARE NOT APPLICABLE CURRENTLY**
-
-Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service/s. 
-
-By using any one of these streaming services,
-* Spotify (requires premium or equivalent account for streaming)
-* Deezer  (requires premium or equivalent account for streaming)
-* YouTube & YouTube Music  (requires premium or equivalent account for music streaming)
-* Netflix
-* Amazon Prime Video & Music
-
-you accept their own terms and conditions for service. These will be available at their respective websites.
+* **These versions will be pushed from the Microsoft Store**
+* Playlists
+* Devices support
+* Disc Burning
+* Multi-language support for 12 languages at start (not complete)
+* Some online services in background - Discord Rich Presence & Last.fm Scrobbling
+* Views and sorting for music added
+* Video indexing and playback
+* Improved Now Playing experience and queue
+* Overhauled Settings UI brought to all builds.
+* Local recommendations and recently played
+* Discy in the majority of the app
 
 
-Congrats if you read this! Have a cookie :) 
-Please follow all of these terms for the best experience and least issues.
+## Insider Program & Contribution
+
+**What benefits do I get from joining the Insider Program?**
+
+First, the app early.
+
+Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+
+Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+
+*Features tagged as Experimental in the Settings interface
+
+**How do I join the Insider Program?**
+
+Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things.
+https://bit.ly/rise-insider
+
+Good luck testing!
+
+**Hey, I'm an Insider. How do I get builds?**
+
+When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the msix package for the new build. **Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds** Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry! 
+
+
