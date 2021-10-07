@@ -6,7 +6,7 @@
 
 Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on any device they want! You can see a render of the current design we are going for:!
 
-[rmbg4oqy8xm71](https://user-images.githubusercontent.com/74561130/135764081-21296dc9-04bf-43f3-bed4-d82e52532daa.png)
+![rmbg4oqy8xm71](https://user-images.githubusercontent.com/74561130/135764081-21296dc9-04bf-43f3-bed4-d82e52532daa.png)
 
 **Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
