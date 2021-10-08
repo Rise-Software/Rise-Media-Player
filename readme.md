@@ -4,7 +4,8 @@
 
 ## Appearance & design
 
-Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on laptops, desktops, and even tablets! Here is an up-to-date render with all our planned features:
+Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, you can use it on any Windows device!* 
+Here is an up-to-date render with all our planned features:
 
 ![rmbg4oqy8xm71](https://user-images.githubusercontent.com/74561130/135764081-21296dc9-04bf-43f3-bed4-d82e52532daa.png)
 
@@ -57,11 +58,16 @@ If you'd like to contribute, join the Rise Apps' Discord server and ask for the 
 
 **Creators**
 
-* [Joseph (@josephbeattie on GitHub)](https://github.com/josephbeattie): Rise Team Leader and Founder - Design, Occasional Programming, Development. Languages and Translations: English Language & Spanish.
-* [Omar (@YourOrdinaryCat)](https://github.com/yourordinarycat): Programming & Development. Languages and Translations: Italian
+* [Joseph Beattie (@josephbeattie)](https://github.com/josephbeattie): Rise Team Leader and Founder - Design, Occasional Programming, Development. Languages and Translations: English Language & Spanish.
+* [Omar Salas (@YourOrdinaryCat)](https://github.com/yourordinarycat): Programming & Development.
 
 **Contributors**
 
 * [Agnihotra Nath (@AlfarexGuy2019)](https://github.com/alfarexguy2019)
 * [Makesh Vineeth (@MakeshVineeth)](https://github.com/makeshvineeth)
 * [Rareș Pița (@dlphin)](https://github.com/dlphin)
+
+
+* - Any Windows device running Windows 10 1903 or later. Windows Mobile/Windows Phone is not supported. 
+
+
