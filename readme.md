@@ -10,7 +10,7 @@ Created with WinUI and the latest design ideologies, Rise Media Player is modern
 
 **Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
-## Features Available In Current Build
+## Features Available in the current commit
 
 * Song & Album Indexing
 * Modern Titlebar
@@ -35,7 +35,7 @@ Created with WinUI and the latest design ideologies, Rise Media Player is modern
 * Playlists
 * Disc Ripping & Burning features
 
-## License and Information
+## Licensing
 
 This is free software with no warranty of any kind. Sorry :(
 
@@ -43,7 +43,7 @@ We use the GPL License with a few changed clauses to protect our apps' integrity
 
 **Changed clauses:**
 
-Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our Contributive Terms are available [here](https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms)
+Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our more comprehensive terms are available [here](https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms)
 
 ## Downloads, Contribute and the Insider Program
 
@@ -55,10 +55,10 @@ If you'd like to contribute, join the Rise Apps' Discord server and ask for the 
 
 ## Credits
 
-**Development & design**
+**Creators**
 
-* [Joseph (@josephbeattie on GitHub)](https://github.com/josephbeattie): Design, Translation and Rise Team Leader.
-* [Omar (@YourOrdinaryCat)](https://github.com/yourordinarycat): Programming & development
+* [Joseph (@josephbeattie on GitHub)](https://github.com/josephbeattie): Rise Team Leader and Founder - Design, Occasional Programming, Development. Languages and Translations: English Language & Spanish.
+* [Omar (@YourOrdinaryCat)](https://github.com/yourordinarycat): Programming & Development. Languages and Translations: Italian
 
 **Contributors**
 
