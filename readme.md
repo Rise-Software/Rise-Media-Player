@@ -4,13 +4,13 @@
 
 ## Appearance & design
 
-Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on any device they want! You can see a render of the current design we are going for:!
+Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, they can use it on laptops, desktops, and even tablets! Here is an up-to-date render with all our planned features:
 
 ![rmbg4oqy8xm71](https://user-images.githubusercontent.com/74561130/135764081-21296dc9-04bf-43f3-bed4-d82e52532daa.png)
 
 **Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
-## Features in the current commit
+## Features Available In Current Build
 
 * Song & Album Indexing
 * Modern Titlebar
@@ -35,7 +35,7 @@ Created with WinUI and the latest design ideologies, Rise Media Player is modern
 * Playlists
 * Disc Ripping & Burning features
 
-## Licensing
+## License and Information
 
 This is free software with no warranty of any kind. Sorry :(
 
@@ -43,13 +43,13 @@ We use the GPL License with a few changed clauses to protect our apps' integrity
 
 **Changed clauses:**
 
-Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our more comprehensive terms are available here: https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms
+Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our Contributive Terms are available [here](https://github.com/josephbeattie/Fluent-Media-Player-Dev/tree/master/Terms)
 
 ## Downloads, Contribute and the Insider Program
 
 Installers or packages aren't available yet. If you want to try it, open the project in Visual Studio and deploy the solution. 
 
-We have an Insider Program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program here: https://bit.ly/rise-insider
+We have an Insider Program that is growing every single day! If you'd like early packages before they're available, join the Rise Insider Program [here](https://bit.ly/rise-insider)
 
 If you'd like to contribute, join the Rise Apps' Discord server and ask for the collaborator role, we'll take you through the vetting process. If you'd like to translate, it's a very similar procedure. Contributors need to have Discord for now, but won't need to in the near future.
 
@@ -57,10 +57,11 @@ If you'd like to contribute, join the Rise Apps' Discord server and ask for the 
 
 **Development & design**
 
-* Design, translation and Rise team lead - Joseph (josephbeattie on GitHub)
-* Programming & development - Omar (YourOrdinaryCat)
+* [Joseph (@josephbeattie on GitHub)](https://github.com/josephbeattie): Design, Translation and Rise Team Leader.
+* [Omar (@YourOrdinaryCat)](https://github.com/yourordinarycat): Programming & development
 
 **Contributors**
 
-* AlfarexGuy2019
-* MakeshVineeth
+* [Agnihotra Nath (@AlfarexGuy2019)](https://github.com/alfarexguy2019)
+* [Makesh Vineeth (@MakeshVineeth)](https://github.com/makeshvineeth)
+* [Rareș Pița (@dlphin)](https://github.com/dlphin)
