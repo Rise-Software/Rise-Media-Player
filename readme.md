@@ -1,5 +1,8 @@
 ![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
 
+![message](https://user-images.githubusercontent.com/74561130/137599213-56f7c945-b59f-4617-8570-0670925902a1.png)
+
+
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
 ## Appearance & design
@@ -7,7 +10,7 @@
 Created with WinUI and the latest design ideologies, Rise Media Player is modern while keeping all of the classic features people need. We use WinUI 2.6/2.7 to keep our user interface, clean, modern and consistent with Windows 11 UX. Although, this app does work on Windows 10 too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, you can use it on any Windows device!* 
 Here is an up-to-date render with all our planned features:
 
-![rmbg4oqy8xm71](https://user-images.githubusercontent.com/74561130/135764081-21296dc9-04bf-43f3-bed4-d82e52532daa.png)
+
 
 **Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
