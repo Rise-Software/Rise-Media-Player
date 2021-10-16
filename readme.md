@@ -1,6 +1,6 @@
 ![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
 
-![message](https://user-images.githubusercontent.com/74561130/137599213-56f7c945-b59f-4617-8570-0670925902a1.png)
+![message](https://user-images.githubusercontent.com/74561130/137599281-33bbff63-babc-4328-ab0a-ab557d69a470.png)
 
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
