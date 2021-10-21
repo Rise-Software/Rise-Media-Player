@@ -10,9 +10,24 @@ namespace RMP.App.Views
             InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
         {
             _ = await Methods.LaunchURI(URLs.Feedback);
+        }
+
+        private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await Methods.LaunchURI(URLs.Changes);
+        }
+
+        private async void InsiderButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await Methods.LaunchURI(URLs.Insider);
+        }
+
+        private async void ContributeButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await Methods.LaunchURI(URLs.GitHub);
         }
     }
 }

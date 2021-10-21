@@ -70,13 +70,15 @@
                                    MaxWidth="432"
                                    Style="{StaticResource BaseTextBlockStyle}" />
                         <VariableSizedWrapGrid Orientation="Vertical"
-                                               HorizontalAlignment="Center"
+                                               HorizontalAlignment="Stretch"
                                                HorizontalChildrenAlignment="Center"
                                                ItemHeight="40"
                                                ItemWidth="186"
-                                               Margin="-24,0"
+                                               Margin="-24,8,-24,0"
                                                MaximumRowsOrColumns="2">
-                            <Button Width="178">
+                            <Button Click="ChangelogButton_Click"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="4">
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -87,7 +89,10 @@
                                     <TextBlock Grid.Column="1" Text="Changelog" />
                                 </Grid>
                             </Button>
-                            <Button Click="Button_Click" Width="178">
+
+                            <Button Click="FeedbackButton_Click"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="4">
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -98,7 +103,10 @@
                                     <TextBlock Grid.Column="1" Text="Submit feedback" />
                                 </Grid>
                             </Button>
-                            <Button Width="178">
+
+                            <Button Click="InsiderButton_Click"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="4">
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -109,7 +117,10 @@
                                     <TextBlock Grid.Column="1" Text="Insider Programme" />
                                 </Grid>
                             </Button>
-                            <Button Width="178">
+
+                            <Button Click="ContributeButton_Click"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="4">
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />

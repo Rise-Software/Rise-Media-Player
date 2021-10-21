@@ -10,7 +10,7 @@
     <ScrollViewer Margin="-56,0"
                   Padding="56,0"
                   VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="4">
+        <StackPanel Orientation="Vertical" Padding="0,0,0,120" Spacing="4">
             <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
 
             <uc:NavigationExpander x:Uid="/HelpTips/ReleaseDate"

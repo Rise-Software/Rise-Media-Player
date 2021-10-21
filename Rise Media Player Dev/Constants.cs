@@ -122,9 +122,21 @@
             "System.Music.TrackNumber";
     }
 
+    /// <summary>
+    /// Important URLs.
+    /// </summary>
     public static class URLs
     {
         public const string Feedback =
             "https://forms.office.com/r/4ccbeP47XX";
+
+        public const string Changes =
+            "https://github.com/Rise-Software/Rise-Media-Player/commits/bloom_build-(main)";
+
+        public const string GitHub =
+            "https://github.com/Rise-Software/Rise-Media-Player";
+
+        public const string Insider =
+            "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u";
     }
 }
