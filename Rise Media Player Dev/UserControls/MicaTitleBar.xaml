@@ -39,9 +39,9 @@
                    x:Load="{x:Bind ShowIcon}"
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"
-                   Source="ms-appx:///Assets/Square44x44Logo.png" 
-                   Width="18" 
-                   Height="18" />
+                   Source="ms-appx:///Assets/App/Titlebar.png" 
+                   Width="16" 
+                   Height="16" />
             <RichTextBlock x:Name="DefaultTitle"
                            x:Load="{x:Bind Title, Converter={StaticResource StrToBool}, ConverterParameter=Reverse}"
                            FontSize="12"
