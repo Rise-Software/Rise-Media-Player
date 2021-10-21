@@ -98,7 +98,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center">
                     <Button.Content>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Misc/Feedback.png" />
+                        <FontIcon FontSize="16" Glyph="&#xED15;" />
                     </Button.Content>
                 </Button>
             </Grid>

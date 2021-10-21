@@ -300,7 +300,7 @@
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Misc\Feedback.png" />
+    <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\Albums.png" />
     <Content Include="Assets\NavigationView\Artists.png" />
     <Content Include="Assets\NavigationView\At a glance.png" />
@@ -316,7 +316,6 @@
     <Content Include="Assets\Settings\Library.png" />
     <Content Include="Assets\Settings\About.png" />
     <Content Include="Assets\Settings\Language.png" />
-    <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\Settings\Playback.png" />
     <Content Include="Assets\Settings\Appearance.png" />
     <Content Include="Assets\Settings\Sidebar.png" />
@@ -592,7 +591,9 @@
     <PRIResource Include="Strings\en-gb\Information.resw" />
     <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\Misc\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Rise.Models.csproj">
       <Project>{e004f435-7a57-4421-b0b2-9f52ca67e908}</Project>

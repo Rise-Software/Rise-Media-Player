@@ -70,28 +70,51 @@
                 <muxc:NavigationViewItem x:Name="MediaLibraryPageItem"
                                          x:Uid="/Sidebar/Library"
                                          Padding="0,15"
-                                         Tag="MediaLibraryPage" />
+                                         Tag="MediaLibraryPage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Library.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="PlaybackPageItem"
                                          x:Uid="/Sidebar/Playback"
                                          Padding="0,15"
-                                         Tag="PlaybackPage" />
+                                         Tag="PlaybackPage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Playback.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="AppearancePageItem"
                                          x:Uid="/Sidebar/Appearance"
                                          Padding="0,15"
-                                         Tag="AppearancePage" />
-
+                                         Tag="AppearancePage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Appearance.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem x:Name="FeedbackPageItem"
                                          x:Uid="/Sidebar/Feedback"
-                                         Tag="FeedbackPage" />
+                                         Tag="FeedbackPage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Feedback.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="LanguagePageItem"
                                          x:Uid="/Sidebar/Language"
-                                         Tag="LanguagePage" />
+                                         Tag="LanguagePage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Language.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="AboutPageItem"
                                          x:Uid="/Sidebar/About"
-                                         Tag="AboutPage" />
+                                         Tag="AboutPage">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/About.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
 
             <ScrollViewer VerticalScrollBarVisibility="Visible" Padding="0,0,24,0">

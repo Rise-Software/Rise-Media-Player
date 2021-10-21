@@ -70,8 +70,8 @@
                     <VariableSizedWrapGrid Orientation="Vertical"
                                            HorizontalAlignment="Center"
                                            HorizontalChildrenAlignment="Center"
-                                           ItemHeight="36"
-                                           ItemWidth="182"
+                                           ItemHeight="40"
+                                           ItemWidth="186"
                                            Margin="-24,0"
                                            MaximumRowsOrColumns="2">
                         <Button Width="178">
