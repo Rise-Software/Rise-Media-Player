@@ -105,17 +105,14 @@ namespace RMP.App.ViewModels
                     return;
                 }
 
-                if (!songs.ElementAt(i).WillRemove)
-                {
-                    item = await CreateMusicItem(songs.ElementAt(i));
-                    PlaybackList.Items.Add(item);
-                    PlayingSongs.Add(songs.ElementAt(i));
-                }
+                item = await CreateMusicItem(songs.ElementAt(i));
+                PlaybackList.Items.Add(item);
+                PlayingSongs.Add(songs.ElementAt(i));
 
                 addedSongs++;
                 if (i >= itemCount - 1)
                 {
-                    i = 0;
+                    i = -1;
                 }
             }
 
