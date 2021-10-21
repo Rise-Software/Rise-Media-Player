@@ -56,7 +56,7 @@
                             Click="QueueButton_Click"
                             Height="32">
                         <Button.Content>
-                            <FontIcon Glyph="&#xEA37;" />
+                            <FontIcon FontSize="16" Glyph="&#xEA37;" />
                         </Button.Content>
                     </Button>
 
@@ -90,7 +90,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="14" Glyph="&#xEA37;" />
+                                <FontIcon FontSize="16" Glyph="&#xEA37;" />
                                 <TextBlock x:Uid="/NowPlaying/QueueItem" Grid.Column="1" />
                             </Grid>
                         </ToggleButton.Content>
@@ -109,7 +109,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="14" Glyph="&#xE93C;" />
+                                <FontIcon FontSize="16" Glyph="&#xE93C;" />
                                 <TextBlock x:Uid="/NowPlaying/AlbumQueueItem" Grid.Column="1" />
                             </Grid>
                         </ToggleButton.Content>

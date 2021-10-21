@@ -69,7 +69,7 @@
 
                         <muxc:SplitButton>
                             <StackPanel Orientation="Horizontal" Spacing="6">
-                                <FontIcon Glyph="&#xE104;" FontSize="14" />
+                                <FontIcon Glyph="&#xE104;" FontSize="16" />
                                 <TextBlock x:Uid="/Details/EditAlbum"
                                            Style="{StaticResource BodyTextBlockStyle}" />
                             </StackPanel>
