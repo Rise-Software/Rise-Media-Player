@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -29,98 +30,106 @@
     </Page.Resources>
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
-        <Border BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
-                BorderThickness="{ThemeResource ExpanderHeaderBorderThickness}"
-                CornerRadius="8"
-                Margin="0,20,0,120"
-                MaxHeight="380"
-                VerticalAlignment="Top">
-            <Grid>
-                <Border CornerRadius="8" Padding="{ThemeResource ExpanderHeaderBorderThickness}">
-                    <Image HorizontalAlignment="Center"
-                           Opacity="0.8"
-                           Stretch="UniformToFill"
-                           Style="{ThemeResource BackgroundImage}" />
-                </Border>
+        <StackPanel Orientation="Vertical" Spacing="12">
+            <Border BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
+                    BorderThickness="{ThemeResource ExpanderHeaderBorderThickness}"
+                    CornerRadius="8"
+                    Margin="0,20,0,0"
+                    MaxHeight="380"
+                    VerticalAlignment="Top">
+                <Grid>
+                    <Border CornerRadius="8" Padding="{ThemeResource ExpanderHeaderBorderThickness}">
+                        <Image HorizontalAlignment="Center"
+                               Opacity="0.8"
+                               Stretch="UniformToFill"
+                               Style="{ThemeResource BackgroundImage}" />
+                    </Border>
 
-                <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Stretch" />
+                    <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" />
 
-                <StackPanel HorizontalAlignment="Center"
-                            Margin="24"
-                            Orientation="Vertical"
-                            Spacing="24"
-                            VerticalAlignment="Center">
-                    <Image Height="52"
-                           Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="24"
+                                Orientation="Vertical"
+                                Spacing="24"
+                                VerticalAlignment="Center">
+                        <Image Height="52"
+                               Source="ms-appx:///Assets/Branding/settingsbanner.png" />
 
-                    <TextBlock Text="Welcome to Pre-Alpha 1!"
-                               FontSize="24"
-                               HorizontalAlignment="Center"
-                               HorizontalTextAlignment="Center"
-                               Style="{StaticResource TitleTextBlockStyle}" />
-                    <TextBlock Text="Remember this is the earliest possible look at our app. Please submit feedback and feature requests :)"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               HorizontalAlignment="Center"
-                               HorizontalTextAlignment="Center"
-                               Margin="0,-4,0,4"
-                               MaxWidth="432"
-                               Style="{StaticResource BaseTextBlockStyle}" />
-                    <VariableSizedWrapGrid Orientation="Vertical"
-                                           HorizontalAlignment="Center"
-                                           HorizontalChildrenAlignment="Center"
-                                           ItemHeight="40"
-                                           ItemWidth="186"
-                                           Margin="-24,0"
-                                           MaximumRowsOrColumns="2">
-                        <Button Width="178">
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <TextBlock Text="Welcome to Pre-Alpha 1!"
+                                   FontSize="24"
+                                   HorizontalAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   Style="{StaticResource TitleTextBlockStyle}" />
+                        <TextBlock Text="Remember this is the earliest possible look at our app. Please submit feedback and feature requests :)"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   HorizontalAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="0,-4,0,4"
+                                   MaxWidth="432"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                        <VariableSizedWrapGrid Orientation="Vertical"
+                                               HorizontalAlignment="Center"
+                                               HorizontalChildrenAlignment="Center"
+                                               ItemHeight="40"
+                                               ItemWidth="186"
+                                               Margin="-24,0"
+                                               MaximumRowsOrColumns="2">
+                            <Button Width="178">
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="16" Glyph="&#xF0E3;" />
-                                <TextBlock Grid.Column="1" Text="Changelog" />
-                            </Grid>
-                        </Button>
-                        <Button Click="Button_Click" Width="178">
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                    <FontIcon FontSize="16" Glyph="&#xF0E3;" />
+                                    <TextBlock Grid.Column="1" Text="Changelog" />
+                                </Grid>
+                            </Button>
+                            <Button Click="Button_Click" Width="178">
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="16" Glyph="&#xED15;" />
-                                <TextBlock Grid.Column="1" Text="Submit feedback" />
-                            </Grid>
-                        </Button>
-                        <Button Width="178">
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                    <FontIcon FontSize="16" Glyph="&#xED15;" />
+                                    <TextBlock Grid.Column="1" Text="Submit feedback" />
+                                </Grid>
+                            </Button>
+                            <Button Width="178">
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="16" Glyph="&#xECA7;" />
-                                <TextBlock Grid.Column="1" Text="Insider Programme" />
-                            </Grid>
-                        </Button>
-                        <Button Width="178">
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                    <FontIcon FontSize="16" Glyph="&#xECA7;" />
+                                    <TextBlock Grid.Column="1" Text="Insider Programme" />
+                                </Grid>
+                            </Button>
+                            <Button Width="178">
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="16" Glyph="&#xEC7A;" />
-                                <TextBlock Grid.Column="1" Text="Contribute" />
-                            </Grid>
-                        </Button>
-                    </VariableSizedWrapGrid>
-                </StackPanel>
-            </Grid>
-        </Border>
+                                    <FontIcon FontSize="16" Glyph="&#xEC7A;" />
+                                    <TextBlock Grid.Column="1" Text="Contribute" />
+                                </Grid>
+                            </Button>
+                        </VariableSizedWrapGrid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <muxc:InfoBar x:Uid="/Information/AtAGlance"
+                          IsClosable="False"
+                          IsOpen="True"
+                          Margin="0,0,0,120"
+                          Severity="Informational" />
+        </StackPanel>
     </ScrollViewer>
 </Page>
