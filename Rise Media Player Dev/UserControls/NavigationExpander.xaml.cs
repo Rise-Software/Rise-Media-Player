@@ -11,7 +11,7 @@ namespace RMP.App.UserControls
     {
         public NavigationExpander()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public string Title { get; set; }

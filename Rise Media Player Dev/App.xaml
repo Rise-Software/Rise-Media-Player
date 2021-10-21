@@ -11,7 +11,11 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--#region Styles-->
-            <Thickness x:Key="ExpanderHeaderPadding">16,12,16,12</Thickness>
+            <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <Thickness x:Key="ExpanderHeaderPadding">16,12,8,12</Thickness>
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />

@@ -13,7 +13,7 @@ namespace Rise.Models
         public int Disc { get; set; }
         public string Album { get; set; }
         public string AlbumArtist { get; set; }
-        public string Genre { get; set; }
+        public string Genres { get; set; }
         public string Length { get; set; }
         public uint Year { get; set; }
         public string Location { get; set; }
@@ -32,10 +32,9 @@ namespace Rise.Models
                    Disc == other.Disc &&
                    Album == other.Album &&
                    AlbumArtist == other.AlbumArtist &&
-                   Genre == other.Genre &&
+                   Genres == other.Genres &&
                    Length == other.Length &&
-                   Year == other.Year &&
-                   Rating == other.Rating;
+                   Year == other.Year;
         }
     }
 }

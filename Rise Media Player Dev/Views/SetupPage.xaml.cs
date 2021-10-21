@@ -1,9 +1,8 @@
 ﻿using RMP.App.Dialogs;
+using RMP.App.Windows;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace RMP.App.Views
 {
@@ -13,20 +12,20 @@ namespace RMP.App.Views
     public sealed partial class SetupPage : Page
     {
         public static SetupPage Current { get; set; }
-        private SetupTitleBar SetupTitleBarHandle { get; set; }
+
+        private readonly SetupDialog Dialog = new SetupDialog();
+
         public SetupPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
 
-            SetupTitleBarHandle = new SetupTitleBar();
-            SetupTitleBarHandle.InitTitleBar();
+            _ = new SetupTitleBar();
         }
 
         private async void SetupButton_Click(object sender, RoutedEventArgs e)
         {
-            SetupDialog setupDialog = new SetupDialog();
-            _ = await setupDialog.ShowAsync();
+            _ = await Dialog.ShowAsync();
         }
     }
 }

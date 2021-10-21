@@ -1,20 +1,18 @@
 ﻿using RMP.App.Dialogs;
-using RMP.App.Views;
+using RMP.App.Settings.ViewModels;
+using RMP.App.Windows;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace RMP.App.Settings
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MediaLibraryPage : Page
     {
         #region Variables
+        private SettingsViewModel ViewModel => App.SViewModel;
+
         public static MediaLibraryPage Current;
         private readonly FoldersDialog Dialog = new FoldersDialog();
         public ContentDialog dialog = new ContentDialog
@@ -42,16 +40,18 @@ namespace RMP.App.Settings
                 ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
                 ResourceLoaders.MediaLibraryLoader.GetString("Device")
             };
+
+            DataContext = ViewModel;
         }
 
         private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
         {
-            _ = await MainPage.Current.Dialog.ShowAsync();
+            _ = await MainPage.Current.SDialog.ShowAsync();
         }
 
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.Dialog.Hide();
+            MainPage.Current.SDialog.Hide();
             _ = await dialog.ShowAsync();
         }
 

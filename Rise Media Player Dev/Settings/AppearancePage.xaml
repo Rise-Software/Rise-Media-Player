@@ -1,20 +1,16 @@
 ﻿<Page
     x:Class="RMP.App.Settings.AppearancePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:viewmodels="using:RMP.App.Settings.ViewModels"
     xmlns:uc="using:RMP.App.UserControls"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <local:AppearanceSettings />
-    </Page.DataContext>
-
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
                                ExpanderKind="Static"
                                Icon="&#xE790;">
@@ -25,12 +21,13 @@
 
         <uc:NavigationExpander x:Uid="/Appearance/FullArt"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE93C;">
-            <ToggleSwitch IsOn="{Binding SquareAlbumArt, Mode=TwoWay}" />
+            <!--ToggleSwitch IsOn="{Binding SquareAlbumArt, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
 
-        <TextBlock x:Uid="/Appearance/NavigationH" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/Startup"
                                ExpanderKind="Static"
                                Icon="&#xE7E8;"
@@ -42,8 +39,9 @@
 
         <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE73F;">
-            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
@@ -51,31 +49,32 @@
                                ExpanderKind="Button"
                                Icon="&#xE9D5;">
             <FontIcon Glyph="&#xE00F;"
-                      FontSize="16"
-                      Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                      FontSize="16" />
         </uc:NavigationExpander>
 
 
-        <TextBlock x:Uid="/Appearance/PrivacyH" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/PrivacyH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/History"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xEADF;"
                                Margin="0,0,0,4">
-            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            <!--ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE8FD;">
-            <ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" />
+            <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
                                ExpanderKind="Button"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xECA5;">
-            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                      FontSize="16"
-                      Glyph="&#xE00F;" />
+            <!--FontIcon FontSize="16"
+                      Glyph="&#xE00F;" /-->
         </uc:NavigationExpander>
     </StackPanel>
 </Page>

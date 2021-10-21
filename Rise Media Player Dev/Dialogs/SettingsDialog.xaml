@@ -69,12 +69,15 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="MediaLibraryPageItem"
                                          x:Uid="/Sidebar/Library"
+                                         Padding="0,15"
                                          Tag="MediaLibraryPage" />
                 <muxc:NavigationViewItem x:Name="PlaybackPageItem"
                                          x:Uid="/Sidebar/Playback"
+                                         Padding="0,15"
                                          Tag="PlaybackPage" />
                 <muxc:NavigationViewItem x:Name="AppearancePageItem"
                                          x:Uid="/Sidebar/Appearance"
+                                         Padding="0,15"
                                          Tag="AppearancePage" />
 
             </muxc:NavigationView.MenuItems>

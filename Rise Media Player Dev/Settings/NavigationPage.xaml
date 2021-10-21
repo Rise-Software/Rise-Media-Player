@@ -1,49 +1,49 @@
 ﻿<Page
     x:Class="RMP.App.Settings.NavigationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:viewmodels="using:RMP.App.Settings.ViewModels"
     xmlns:uc="using:RMP.App.UserControls"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <local:NavigationSettings />
-    </Page.DataContext>
-
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Resize"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE944;">
-            <ComboBox ItemsSource="{x:Bind Show}"
+            <!--ComboBox ItemsSource="{x:Bind Show}"
                       PlaceholderText="Don't show the sidebar"
-                      SelectedIndex="{Binding Resize, Mode=TwoWay}" />
+                      SelectedIndex="{Binding Resize, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
 
-        <TextBlock x:Uid="/Navigation/AppearanceH" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Hamburger"
                                ExpanderKind="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE700;">
-            <ToggleSwitch IsOn="{Binding Hamburger, Mode=TwoWay}" />
+            <!--ToggleSwitch IsOn="{Binding Hamburger, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Navigation/IconStyle"
                                ExpanderKind="Static"
                                Icon="&#xF354;">
-            <ToggleSwitch IsOn="{Binding ColorfulIcons, Mode=TwoWay}" />
+            <ComboBox ItemsSource="{x:Bind IconPacks}"
+                      PlaceholderText="Default"
+                      SelectedIndex="{Binding IconPack, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
-        <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{ThemeResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/MenuItems"
                                ExpanderKind="Expander"
                                Icon="&#xE762;">
             <StackPanel Orientation="Vertical" Spacing="8">
-                <TextBlock x:Uid="/Sidebar/GeneralH" Margin="0,-20,0,0" Style="{ThemeResource Subheader}" />
+                <TextBlock x:Uid="/Sidebar/GeneralH" Margin="0,-20,0,0" Style="{StaticResource Subheader}" />
                 <GridView IsItemClickEnabled="False" SelectionMode="None">
                     <CheckBox x:Uid="/Sidebar/Home"
                               IsChecked="{Binding ShowAtAGlance, Mode=TwoWay}"
@@ -56,7 +56,7 @@
                               Margin="16,0,0,0" />
                 </GridView>
 
-                <TextBlock x:Uid="/Sidebar/MusicH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
+                <TextBlock x:Uid="/Sidebar/MusicH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
                 <GridView IsItemClickEnabled="False" SelectionMode="None">
                     <CheckBox x:Uid="/Sidebar/Songs"
                               IsChecked="{Binding ShowSongs, Mode=TwoWay}"
@@ -72,7 +72,7 @@
                               Margin="16,0,0,0" />
                 </GridView>
 
-                <TextBlock x:Uid="/Sidebar/VideosH" Margin="0,-10,0,0" Style="{ThemeResource Subheader}" />
+                <TextBlock x:Uid="/Sidebar/VideosH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
                 <GridView IsItemClickEnabled="False" SelectionMode="None">
                     <CheckBox x:Uid="/Sidebar/LocalVideos"
                               IsChecked="{Binding ShowLocalVideos, Mode=TwoWay}"

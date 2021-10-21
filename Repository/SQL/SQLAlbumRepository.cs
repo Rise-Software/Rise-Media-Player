@@ -2,7 +2,6 @@
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,20 +30,18 @@ namespace Rise.Repository.SQL
                 .FirstOrDefaultAsync(album => album.Id == id);
         }
 
-        public async Task<IEnumerable<Album>> GetAsync(string value)
+        public async Task<IEnumerable<Album>> GetAsync(string search)
         {
-            string[] parameters = value.Split(' ');
+            string[] parameters = search.Split(' ');
             return await _db.Albums
                 .Where(album =>
                     parameters.Any(parameter =>
                         album.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        album.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        album.Genre.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                        album.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
                 .OrderByDescending(album =>
                     parameters.Count(parameter =>
                         album.Title.StartsWith(parameter) ||
-                        album.Artist.StartsWith(parameter) ||
-                        album.Genre.StartsWith(parameter)))
+                        album.Artist.StartsWith(parameter)))
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -55,15 +52,13 @@ namespace Rise.Repository.SQL
             if (null == current)
             {
                 _ = await _db.Albums.AddAsync(album).ConfigureAwait(false);
-                Debug.WriteLine("Upserted album to DB!");
             }
             else
             {
                 _db.Entry(current).CurrentValues.SetValues(album);
             }
 
-            int savedAlbums = await _db.SaveChangesAsync().ConfigureAwait(false);
-            Debug.WriteLine("Saved " + savedAlbums + " albums to the database.");
+            _ = await _db.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(Album album)

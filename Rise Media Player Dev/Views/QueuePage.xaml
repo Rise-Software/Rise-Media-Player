@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="RMP.App.Views.QueuePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary Source="/ResourceDictionaries/SongTemplates.xaml" />
+    </Page.Resources>
+
+    <Grid>
+        <ListView x:Name="MainList"
+                  DoubleTapped="MainList_DoubleTapped"
+                  ItemsSource="{x:Bind ViewModel.PlayingSongs}"
+                  ItemTemplate="{StaticResource SongListItem}"
+                  Margin="-16,0,-16,-124"
+                  Padding="16,0,16,124" />
+    </Grid>
+</Page>

@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RMP.App.ViewModels
@@ -13,7 +14,12 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
         /// </summary>
-        public AlbumViewModel(Album model = null) => Model = model ?? new Album();
+        public AlbumViewModel(Album model = null)
+        {
+            Model = model ?? new Album();
+            IsNewAlbum = true;
+            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
+        }
 
         private Album _model;
 
@@ -40,7 +46,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string Title
         {
-            get => Model.Title;
+            get
+            {
+                if (Model.Title == "UnknownAlbumResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
+                }
+
+                return Model.Title;
+            }
             set
             {
                 if (value != Model.Title)
@@ -57,7 +71,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string Artist
         {
-            get => Model.Artist;
+            get
+            {
+                if (Model.Artist == "UnknownArtistResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
+                }
+
+                return Model.Artist;
+            }
             set
             {
                 if (value != Model.Artist)
@@ -72,16 +94,16 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets or sets the album genre.
         /// </summary>
-        public string Genre
+        public string Genres
         {
-            get => Model.Genre;
+            get => Model.Genres;
             set
             {
-                if (value != Model.Genre)
+                if (value != Model.Genres)
                 {
-                    Model.Genre = value;
+                    Model.Genres = value;
                     IsModified = true;
-                    OnPropertyChanged(nameof(Genre));
+                    OnPropertyChanged(nameof(Genres));
                 }
             }
         }
@@ -89,24 +111,17 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets or sets the album song count.
         /// </summary>
-        public int SongCount
+        public uint TrackCount
         {
-            get => Model.SongCount;
-            set
+            get
             {
-                if (value != Model.SongCount)
+                int count = App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.WillRemove);
+
+                if (count == 0)
                 {
-                    if (value < 1)
-                    {
-                        Delete();
-                    }
-                    else
-                    {
-                        Model.SongCount = value;
-                        IsModified = true;
-                        OnPropertyChanged(nameof(SongCount));
-                    }
+                    Delete();
                 }
+                return (uint)count;
             }
         }
 
@@ -182,19 +197,20 @@ namespace RMP.App.ViewModels
             if (IsNewAlbum)
             {
                 IsNewAlbum = false;
-                App.ViewModel.Albums.Add(this);
+                App.MViewModel.Albums.Add(this);
             }
 
             await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Delete album from repository and ViewModel.
+        /// Delete album from repository and MViewModel.
         /// </summary>
         public void Delete()
         {
             IsModified = true;
             WillRemove = true;
+            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
             Debug.WriteLine("Album removed!");
         }
 

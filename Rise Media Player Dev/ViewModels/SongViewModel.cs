@@ -1,21 +1,29 @@
 ﻿using Rise.Models;
+using RMP.App.Windows;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
+using Windows.Storage;
+using Windows.UI.ViewManagement;
 
 namespace RMP.App.ViewModels
 {
-    public class SongViewModel : BaseViewModel, IEditableObject
+    public class SongViewModel : BaseViewModel
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
         /// Initializes a new instance of the SongViewModel class that wraps a Song object.
         /// </summary>
-        public SongViewModel(Song model = null) => Model = model ?? new Song();
+        public SongViewModel(Song model = null)
+        {
+            Model = model ?? new Song();
+            IsNewSong = true;
+
+            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
+            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
+        }
 
         private Song _model;
 
@@ -49,7 +57,6 @@ namespace RMP.App.ViewModels
                 {
                     Model.Title = value;
                     IsModified = true;
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(Title));
                 }
             }
@@ -60,7 +67,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string Artist
         {
-            get => Model.Artist;
+            get
+            {
+                if (Model.Artist == "UnknownArtistResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
+                }
+
+                return Model.Artist;
+            }
             set
             {
                 if (value != Model.Artist)
@@ -111,7 +126,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string Album
         {
-            get => Model.Album;
+            get
+            {
+                if (Model.Album == "UnknownAlbumResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
+                }
+
+                return Model.Album;
+            }
             set
             {
                 if (value != Model.Album)
@@ -128,7 +151,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string AlbumArtist
         {
-            get => Model.AlbumArtist;
+            get
+            {
+                if (Model.AlbumArtist == "UnknownArtistResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
+                }
+
+                return Model.AlbumArtist;
+            }
             set
             {
                 if (value != Model.AlbumArtist)
@@ -141,18 +172,18 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the song genre. 
+        /// Gets or sets the song genres.
         /// </summary>
-        public string Genre
+        public string Genres
         {
-            get => Model.Genre;
+            get => Model.Genres;
             set
             {
-                if (value != Model.Genre)
+                if (value != Model.Genres)
                 {
-                    Model.Genre = value;
+                    Model.Genres = value;
                     IsModified = true;
-                    OnPropertyChanged(nameof(Genre));
+                    OnPropertyChanged(nameof(Genres));
                 }
             }
         }
@@ -209,6 +240,16 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Gets the song filename.
+        /// </summary>
+        public string Filename => Path.GetFileName(Location);
+
+        /// <summary>
+        /// Gets the song extension.
+        /// </summary>
+        public string Extension => Path.GetExtension(Location);
+
+        /// <summary>
         /// Gets or sets the song rating.
         /// </summary>
         public uint Rating
@@ -226,19 +267,32 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Gets the song album's thumbnail.
+        /// </summary>
+        public string Thumbnail => App.MViewModel.Albums.
+            FirstOrDefault(a => a.Model.Title == Model.Album
+                        && a.Model.Artist == Model.AlbumArtist).Thumbnail;
+
+        private bool _willRemove;
+
+        /// <summary>
         /// Gets or sets a value that indicates whether the item has to be deleted.
         /// </summary>
-        public bool WillRemove { get; set; }
+        public bool WillRemove
+        {
+            get => _willRemove;
+            set => Set(ref _willRemove, value);
+        }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>
-        /// Used to reduce load and only upser the models that have changed.
+        /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        private bool _isLoading;
 
+        private bool _isLoading;
 
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
@@ -260,7 +314,7 @@ namespace RMP.App.ViewModels
             set => Set(ref _isNewSong, value);
         }
 
-        private bool _isInEdit = false;
+        private bool _isInEdit;
 
         /// <summary>
         /// Gets or sets a value that indicates whether the song data is being edited.
@@ -278,28 +332,38 @@ namespace RMP.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
+
             if (IsNewSong)
             {
                 IsNewSong = false;
-                App.ViewModel.Songs.Add(this);
+                App.MViewModel.Songs.Add(this);
             }
 
             await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
+
+            OnPropertyChanged(string.Empty);
+            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
+            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
 
         /// <summary>
-        /// Delete song from repository and ViewModel.
+        /// Delete song from repository and MViewModel.
         /// </summary>
-        public void Delete()
+        public async Task Delete()
         {
-            AlbumViewModel album = App.ViewModel.Albums.
-                        First(a => a.Title == Album &&
-                        a.Artist == AlbumArtist);
-            album.SongCount--;
-
+            await CancelEditsAsync();
             IsModified = true;
             WillRemove = true;
-            Debug.WriteLine("Song removed!");
+
+            if (!IsNewSong)
+            {
+                App.MViewModel.Songs.Remove(this);
+            }
+
+            await App.Repository.Songs.DeleteAsync(Model).ConfigureAwait(false);
+
+            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
+            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
 
         /// <summary>
@@ -338,7 +402,23 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Enables edit mode.
         /// </summary>
-        public void StartEdit() => IsInEdit = true;
+        public async Task StartEdit()
+        {
+            IsInEdit = true;
+
+            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+
+            if (file != null)
+            {
+                SongPropertiesViewModel props = new SongPropertiesViewModel(this, file.DateCreated)
+                {
+                    FileProps = await file.GetBasicPropertiesAsync()
+                };
+
+                _ = await GeneralControl.CreateWindow(typeof(PropertiesPage),
+                    ApplicationViewMode.Default, 380, 550, props);
+            }
+        }
 
         /// <summary>
         /// Reloads all of the song data.
@@ -347,23 +427,5 @@ namespace RMP.App.ViewModels
         {
             Model = await App.Repository.Songs.GetAsync(Model.Id);
         }
-
-        /// <summary>
-        /// Called when a bound DataGrid control causes the song to enter edit mode.
-        /// </summary>
-        public void BeginEdit()
-        {
-            // Not used.
-        }
-
-        /// <summary>
-        /// Called when a bound DataGrid control cancels the edits that have been made to a song.
-        /// </summary>
-        public async void CancelEdit() => await CancelEditsAsync();
-
-        /// <summary>
-        /// Called when a bound DataGrid control commits the edits that have been made to a song.
-        /// </summary>
-        public async void EndEdit() => await SaveAsync();
     }
 }

@@ -1,43 +1,39 @@
 ﻿<Page
     x:Class="RMP.App.Setup.LocalPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.Setup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:RMP.App.Settings.ViewModels"
     xmlns:uc="using:RMP.App.UserControls"
-    xmlns:settings="using:RMP.App.Settings"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
-
-    <Page.DataContext>
-        <settings:MediaLibrarySettings />
-    </Page.DataContext>
 
     <StackPanel Spacing="20">
         <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
-
         <StackPanel Orientation="Vertical" Spacing="4">
             <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
                                    ExpanderKind="Button"
                                    Icon="&#xE8B7;">
                 <FontIcon Glyph="&#xE2B4;"
                           FontSize="16"
-                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                           VerticalAlignment="Center" />
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
                                    ExpanderKind="Static"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE74D;">
-                <ComboBox ItemsSource="{x:Bind Deletion}"
+                <!--ComboBox ItemsSource="{x:Bind Deletion}"
                           PlaceholderText="Delete from device"
-                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" />
+                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" /-->
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/MediaLibrary/SeparateLocal"
-                               ExpanderKind="Static"
-                               Icon="&#xE145;">
-                <ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" />
+                                   ExpanderKind="Static"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   Icon="&#xE145;">
+                <!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /-->
             </uc:NavigationExpander>
         </StackPanel>
 

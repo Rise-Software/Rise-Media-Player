@@ -13,6 +13,11 @@
         IAlbumRepository Albums { get; }
 
         /// <summary>
+        /// Returns the artists repository.
+        /// </summary>
+        IArtistRepository Artists { get; }
+
+        /// <summary>
         /// Returns the videos repository.
         /// </summary>
         // IVideoRepository Videos { get; }

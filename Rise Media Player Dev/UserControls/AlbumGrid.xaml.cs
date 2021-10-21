@@ -1,19 +1,30 @@
 ﻿using RMP.App.ViewModels;
+using RMP.App.Views;
+using RMP.App.Windows;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using Windows.UI.Xaml.Input;
 
 namespace RMP.App.UserControls
 {
     public sealed partial class AlbumGrid : UserControl
     {
         /// <summary>
-        /// Gets the app-wide ViewModel instance.
+        /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public MainViewModel ViewModel => App.ViewModel;
+        public MainViewModel ViewModel => App.MViewModel;
+
         public AlbumGrid()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void Image_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+            }
         }
     }
 }

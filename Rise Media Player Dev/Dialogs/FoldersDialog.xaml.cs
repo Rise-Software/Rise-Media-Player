@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace RMP.App.Dialogs
 {
@@ -23,9 +18,12 @@ namespace RMP.App.Dialogs
             Current = this;
         }
 
-        private async void FolderList_ItemClick(object sender, ItemClickEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await MusicLibrary.RequestRemoveFolderAsync((StorageFolder)e.ClickedItem);
+            if ((e.OriginalSource as FrameworkElement).DataContext is StorageFolder folder)
+            {
+                _ = await MusicLibrary.RequestRemoveFolderAsync(folder);
+            }
         }
     }
 }

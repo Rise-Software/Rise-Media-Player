@@ -31,21 +31,19 @@ namespace Rise.Repository.SQL
                 .FirstOrDefaultAsync(song => song.Id == id);
         }
 
-        public async Task<IEnumerable<Song>> GetAsync(string value)
+        public async Task<IEnumerable<Song>> GetAsync(string search)
         {
-            string[] parameters = value.Split(' ');
+            string[] parameters = search.Split(' ');
             return await _db.Songs
                 .Where(song =>
                     parameters.Any(parameter =>
                         song.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
                         song.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        song.Genre.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
                         song.Location.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
                 .OrderByDescending(song =>
                     parameters.Count(parameter =>
                         song.Title.StartsWith(parameter) ||
                         song.Artist.StartsWith(parameter) ||
-                        song.Genre.StartsWith(parameter) ||
                         song.Location.StartsWith(parameter)))
                 .AsNoTracking()
                 .ToListAsync();
@@ -64,8 +62,7 @@ namespace Rise.Repository.SQL
                 _db.Entry(current).CurrentValues.SetValues(song);
             }
 
-            int savedSongs = await _db.SaveChangesAsync().ConfigureAwait(false);
-            Debug.WriteLine("Saved " + savedSongs + " songs to the database.");
+            _ = await _db.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(Song song)

@@ -1,5 +1,6 @@
-﻿using RMP.App.Settings;
+﻿using RMP.App.Settings.ViewModels;
 using RMP.App.Setup;
+using RMP.App.Windows;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
@@ -7,12 +8,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace RMP.App.Dialogs
 {
     public sealed partial class SetupDialog : ContentDialog
     {
+        private SettingsViewModel ViewModel => App.SViewModel;
+
         #region Setup Icons
         private readonly BitmapSource TermsImage =
             new BitmapImage(new Uri("ms-appx:///Assets/Setup/Terms.png"));
@@ -42,9 +43,9 @@ namespace RMP.App.Dialogs
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SetupSettings.SetupProgress > 0)
+            if (ViewModel.SetupProgress > 0)
             {
-                _ = SetupSettings.SetupProgress--;
+                ViewModel.SetupProgress--;
             }
             Navigate();
         }
@@ -52,14 +53,14 @@ namespace RMP.App.Dialogs
         private void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
             PrimaryAction();
-            _ = SetupSettings.SetupProgress++;
+            ViewModel.SetupProgress++;
             Navigate();
         }
 
         private async void SecondaryButton_ClickAsync(object sender, RoutedEventArgs e)
         {
             await SecondaryActionAsync();
-            _ = SetupSettings.SetupProgress++;
+            ViewModel.SetupProgress++;
             Navigate();
         }
 
@@ -68,7 +69,7 @@ namespace RMP.App.Dialogs
         /// </summary>
         private void PrimaryAction()
         {
-            switch (SetupSettings.SetupProgress)
+            switch (ViewModel.SetupProgress)
             {
                 case 0:
                     break;
@@ -98,15 +99,15 @@ namespace RMP.App.Dialogs
         /// </summary>
         private async Task SecondaryActionAsync()
         {
-            switch (SetupSettings.SetupProgress)
+            switch (ViewModel.SetupProgress)
             {
                 case 0:
-                    _ = SetupSettings.SetupProgress--;
+                    ViewModel.SetupProgress--;
                     Hide();
                     break;
 
                 case 1:
-                    _ = SetupSettings.SetupProgress++;
+                    ViewModel.SetupProgress++;
                     break;
 
                 case 2:
@@ -119,8 +120,8 @@ namespace RMP.App.Dialogs
                     break;
 
                 case 5:
-                    SetupSettings.SetupCompleted = true;
-                    SetupSettings.SetupProgress = 0;
+                    ViewModel.SetupCompleted = true;
+                    ViewModel.SetupProgress = 0;
                     _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
                     break;
 
@@ -136,12 +137,12 @@ namespace RMP.App.Dialogs
         /// </summary>
         private void Navigate()
         {
-            BackButton.Visibility = SetupSettings.SetupProgress > 1 ?
+            BackButton.Visibility = ViewModel.SetupProgress > 1 ?
                 Visibility.Visible : Visibility.Collapsed;
 
             ContentDialog_SizeChanged(null, null);
 
-            switch (SetupSettings.SetupProgress)
+            switch (ViewModel.SetupProgress)
             {
                 case 0:
                     Header.Text = ResourceLoaders.SetupLoader.GetString("LicenseH");
@@ -210,8 +211,8 @@ namespace RMP.App.Dialogs
                     break;
 
                 case 6:
-                    SetupSettings.SetupCompleted = true;
-                    SetupSettings.SetupProgress = 0;
+                    ViewModel.SetupCompleted = true;
+                    ViewModel.SetupProgress = 0;
                     Hide();
 
                     Frame rootFrame = Window.Current.Content as Frame;

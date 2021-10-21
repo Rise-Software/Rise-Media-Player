@@ -1,12 +1,11 @@
 ﻿<UserControl
     x:Class="RMP.App.UserControls.NavigationExpander"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:conv="using:RMP.App.Converters"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:conv="using:RMP.App.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -33,29 +32,27 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid ColumnSpacing="12"
-                  VerticalAlignment="Center">
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <FontIcon VerticalAlignment="Center"
-                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                          FontSize="16"
-                          Glyph="{x:Bind Icon}" />
-
+                              FontSize="16"
+                              Glyph="{x:Bind Icon}" />
                     <StackPanel Grid.Column="1"
-                            Orientation="Vertical"
-                            VerticalAlignment="Center">
+                                Orientation="Vertical"
+                                VerticalAlignment="Center">
                         <TextBlock Text="{x:Bind Title}"
-                               Style="{StaticResource BodyTextBlockStyle}"
-                               VerticalAlignment="Center" />
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
                         <TextBlock Text="{x:Bind Description}"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="WrapWholeWords"
-                               VerticalAlignment="Center"
-                               Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}"/>
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   TextWrapping="WrapWholeWords"
+                                   VerticalAlignment="Center"
+                                   Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}"/>
                     </StackPanel>
                 </Grid>
 
@@ -77,26 +74,25 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid ColumnSpacing="12"
-                  VerticalAlignment="Center">
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <FontIcon VerticalAlignment="Center"
-                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                          FontSize="16"
-                          Glyph="{x:Bind Icon}" />
+                              FontSize="16"
+                              Glyph="{x:Bind Icon}" />
 
                     <StackPanel Grid.Column="1"
-                            Orientation="Vertical"
-                            VerticalAlignment="Center">
+                                Orientation="Vertical"
+                                VerticalAlignment="Center">
                         <TextBlock Text="{x:Bind Title}"
-                               Style="{StaticResource BodyTextBlockStyle}"
-                               VerticalAlignment="Center" />
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
                         <TextBlock Text="{x:Bind Description}"
                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    TextWrapping="WrapWholeWords"
                                    VerticalAlignment="Center"
                                    Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}" />
@@ -122,7 +118,6 @@
                     </Grid.ColumnDefinitions>
 
                     <FontIcon VerticalAlignment="Center"
-                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                               FontSize="16"
                               Glyph="{x:Bind Icon}" />
 
@@ -134,7 +129,7 @@
                                    VerticalAlignment="Center" />
                         <TextBlock Text="{x:Bind Description}"
                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    VerticalAlignment="Center"
                                    Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}" />
                     </StackPanel>
@@ -157,26 +152,25 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid ColumnSpacing="12"
-                  VerticalAlignment="Center">
+                      VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <FontIcon VerticalAlignment="Center"
-                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                          FontSize="16"
-                          Glyph="{x:Bind Icon}" />
+                              FontSize="16"
+                              Glyph="{x:Bind Icon}" />
 
                     <StackPanel Grid.Column="1"
-                            Orientation="Vertical"
-                            VerticalAlignment="Center">
+                                Orientation="Vertical"
+                                VerticalAlignment="Center">
                         <TextBlock Text="{x:Bind Title}"
-                               Style="{StaticResource BodyTextBlockStyle}"
-                               VerticalAlignment="Center" />
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
                         <TextBlock Text="{x:Bind Description}"
                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    TextWrapping="WrapWholeWords"
                                    VerticalAlignment="Center"
                                    Visibility="{x:Bind Description, Converter={StaticResource StrToVis}}" />

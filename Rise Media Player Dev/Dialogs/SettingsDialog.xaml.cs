@@ -1,21 +1,23 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using RMP.App.Settings;
+using RMP.App.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace RMP.App.Dialogs
 {
     public sealed partial class SettingsDialog : ContentDialog
     {
         #region Variables
+        private SettingsViewModel ViewModel => App.SViewModel;
+
         public static SettingsDialog Current;
         public ObservableCollection<string> Breadcrumbs =
             new ObservableCollection<string>();
@@ -67,14 +69,14 @@ namespace RMP.App.Dialogs
             ContentDialog_SizeChanged(null, null);
 
             // Sidebar icon colors
-            UpdateIconColor(NavigationSettings.ColorfulIcons);
+            UpdateIconColor(ViewModel.IconPack);
 
             _ = SettingsFrame.Navigate(typeof(MediaLibraryPage));
             FinishNavigation();
         }
 
         #region Navigation
-        private void SettingsNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private async void SettingsNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (args.InvokedItemContainer.Content.ToString() == Breadcrumbs.Last())
             {
@@ -97,6 +99,11 @@ namespace RMP.App.Dialogs
 
                     case "PlaybackPage":
                         _ = SettingsFrame.Navigate(typeof(PlaybackPage));
+                        break;
+
+                    case "FeedbackPage":
+                        Uri uri = new Uri(URLs.Feedback);
+                        _ = await Launcher.LaunchUriAsync(uri);
                         break;
 
                     case "LanguagePage":
@@ -145,9 +152,9 @@ namespace RMP.App.Dialogs
         #endregion
 
         #region Settings
-        public void UpdateIconColor(bool coloredIcons)
+        public void UpdateIconColor(int coloredIcons)
         {
-            if (coloredIcons)
+            if (coloredIcons == 1)
             {
                 MediaLibraryPageItem.Icon = libraryIconColor;
                 PlaybackPageItem.Icon = playbackIconColor;

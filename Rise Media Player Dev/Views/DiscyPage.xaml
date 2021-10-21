@@ -1,13 +1,77 @@
 ﻿<Page
     x:Class="RMP.App.Views.DiscyPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:RMP.App.UserControls"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock>Help &amp; Tips</TextBlock>
-    </Grid>
+    <ScrollViewer Margin="-56,0"
+                  Padding="56,0"
+                  VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+
+            <uc:NavigationExpander x:Uid="/HelpTips/ReleaseDate"
+                                   ExpanderKind="Expander"
+                                   Icon="&#xE121;">
+                <TextBlock x:Uid="/HelpTips/ReleaseInfo"
+                           Style="{StaticResource BodyTextBlockStyle}" />
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/HelpTips/Features"
+                                   ExpanderKind="Expander"
+                                   Icon="&#xE9D5;">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Uid="/HelpTips/PreAlphaH"
+                               Margin="0,-10,0,0"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/PreAlpha"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/HelpTips/AlphaH"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/Alpha"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/HelpTips/BetaH"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/Beta"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+                </StackPanel>
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/HelpTips/InsiderProgram"
+                                   ExpanderKind="Expander"
+                                   Icon="&#xF1AD;">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Uid="/HelpTips/BenefitsH"
+                               Margin="0,-10,0,0"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/Benefits"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/HelpTips/JoinH"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/Join"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/HelpTips/HowTransH"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/HowTrans"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/HelpTips/InsiderH"
+                               Style="{StaticResource Subheader}" />
+                    <TextBlock x:Uid="/HelpTips/Insider"
+                               Style="{StaticResource BodyTextBlockStyle}" />
+                </StackPanel>
+            </uc:NavigationExpander>
+
+            <uc:NavigationExpander x:Uid="/HelpTips/WhatDiscy"
+                                   ExpanderKind="Static"
+                                   Icon="&#xF142;" />
+        </StackPanel>
+    </ScrollViewer>
 </Page>

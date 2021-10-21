@@ -8,11 +8,11 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RMP.App</RootNamespace>
-    <AssemblyName>Rise Media Player Dev</AssemblyName>
-    <DefaultLanguage>en</DefaultLanguage>
+    <AssemblyName>Rise Media Player</AssemblyName>
+    <DefaultLanguage>en-gb</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,9 +24,11 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>B9338DFD21798387F0CBF5CEDF0DE14B4823B8D3</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
+    <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -125,14 +127,39 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converters\NullToBoolean.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
-    <Compile Include="ChangeTracker.cs" />
+    <Compile Include="ChangeTrackers\SongsTracker.cs" />
+    <Compile Include="Methods.cs" />
+    <Compile Include="Props\FilePage.xaml.cs">
+      <DependentUpon>FilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Props\Properties.cs" />
+    <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
+      <DependentUpon>UnavailableDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
+    <Compile Include="Views\ArtistSongsPage.xaml.cs">
+      <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
+      <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PropertiesPage.xaml.cs">
+      <DependentUpon>PropertiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Props\DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceLoaders.cs" />
-    <Compile Include="Settings\SetupSettings.cs" />
     <Compile Include="Setup\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
@@ -151,18 +178,19 @@
     <Compile Include="Setup\TermsPage.xaml.cs">
       <DependentUpon>TermsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SongIndexer.cs" />
+    <Compile Include="Indexers\SongIndexer.cs" />
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\AppearanceSettings.cs" />
-    <Compile Include="Settings\LanguageSettings.cs" />
-    <Compile Include="Settings\MediaLibrarySettings.cs" />
-    <Compile Include="Settings\NavigationSettings.cs" />
-    <Compile Include="Settings\PlaybackSettings.cs" />
-    <Compile Include="TitleBars.cs" />
+    <Compile Include="Views\QueuePage.xaml.cs">
+      <DependentUpon>QueuePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowControl.cs" />
     <Compile Include="UserControls\AlbumGrid.xaml.cs">
       <DependentUpon>AlbumGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ArtistGrid.xaml.cs">
+      <DependentUpon>ArtistGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
@@ -170,8 +198,13 @@
     <Compile Include="UserControls\SongList.xaml.cs">
       <DependentUpon>SongList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\PlaybackViewModel.cs" />
+    <Compile Include="Views\AlbumSongsPage.xaml.cs">
+      <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
@@ -200,14 +233,14 @@
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Windows\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LocalVideosPage.xaml.cs">
       <DependentUpon>LocalVideosPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NowPlayingPage.xaml.cs">
-      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
+    <Compile Include="Windows\NowPlaying.xaml.cs">
+      <DependentUpon>NowPlaying.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
@@ -234,7 +267,7 @@
     <Compile Include="Settings\PlaybackPage.xaml.cs">
       <DependentUpon>PlaybackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Settings\ViewModels\SettingsManager.cs" />
     <Compile Include="Settings\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>
@@ -259,12 +292,15 @@
   <ItemGroup>
     <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\Default.png" />
+    <Content Include="Assets\Discy.png" />
+    <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Misc\Feedback.png" />
     <Content Include="Assets\NavigationView\Albums.png" />
     <Content Include="Assets\NavigationView\Artists.png" />
     <Content Include="Assets\NavigationView\At a glance.png" />
@@ -328,6 +364,13 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
+    <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
+    <Content Include="Assets\Unavailable\Netflix.png" />
+    <Content Include="Assets\Unavailable\Playlists.png" />
+    <Content Include="Assets\Unavailable\Prime.png" />
+    <Content Include="Assets\Unavailable\Videos.png" />
+    <Content Include="Assets\Unavailable\YouTube.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -342,7 +385,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Props\FilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\UnavailableDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\SongTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArtistSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CurrentlyPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PropertiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SetupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Props\DetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -378,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\ArtistGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\MicaTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -385,6 +460,10 @@
     <Page Include="UserControls\SongList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AlbumSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GenresPage.xaml">
       <SubType>Designer</SubType>
@@ -422,7 +501,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Windows\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -430,7 +509,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NowPlayingPage.xaml">
+    <Page Include="Windows\NowPlaying.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -478,37 +557,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\QueuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>3.1.18</Version>
+      <Version>3.1.20</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.0.2</Version>
+      <Version>7.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
-      <Version>7.0.2</Version>
+      <Version>7.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
+      <Version>7.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.7.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\Language.resw" />
-    <PRIResource Include="Strings\en\About.resw" />
-    <PRIResource Include="Strings\en\Playback.resw" />
-    <PRIResource Include="Strings\en\Navigation.resw" />
-    <PRIResource Include="Strings\en\Appearance.resw" />
-    <PRIResource Include="Strings\en\MediaLibrary.resw" />
-    <PRIResource Include="Strings\en\Information.resw" />
-    <PRIResource Include="Strings\en\Sidebar.resw" />
+    <PRIResource Include="Strings\en-gb\Language.resw" />
+    <PRIResource Include="Strings\en-gb\About.resw" />
+    <PRIResource Include="Strings\en-gb\Playback.resw" />
+    <PRIResource Include="Strings\en-gb\Navigation.resw" />
+    <PRIResource Include="Strings\en-gb\Appearance.resw" />
+    <PRIResource Include="Strings\en-gb\MediaLibrary.resw" />
+    <PRIResource Include="Strings\en-gb\Information.resw" />
+    <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\WindowsIcons\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Models\Rise.Models.csproj">
       <Project>{e004f435-7a57-4421-b0b2-9f52ca67e908}</Project>
@@ -520,19 +604,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\Setup.resw" />
+    <PRIResource Include="Strings\en-gb\Setup.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\Terms.resw" />
+    <PRIResource Include="Strings\en-gb\Terms.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\Connect.resw" />
+    <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Rise.App_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\en\Finish.resw" />
-    <PRIResource Include="Strings\en\Privacy.resw" />
-    <PRIResource Include="Strings\en\Local.resw" />
+    <PRIResource Include="Strings\en-gb\MediaData.resw" />
+    <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
+    <PRIResource Include="Strings\en-gb\File.resw" />
+    <PRIResource Include="Strings\en-gb\Details.resw" />
+    <PRIResource Include="Strings\en-gb\Props.resw" />
+    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
+    <PRIResource Include="Strings\en-gb\Finish.resw" />
+    <PRIResource Include="Strings\en-gb\Privacy.resw" />
+    <PRIResource Include="Strings\en-gb\Local.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

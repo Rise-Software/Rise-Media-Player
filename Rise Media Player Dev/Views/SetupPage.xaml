@@ -18,6 +18,7 @@
                              AddLabelWidth="0"
                              Height="40"
                              Margin="16,8,0,0"
+                             ShowIcon="True"
                              VerticalAlignment="Top" />
         </Grid>
 

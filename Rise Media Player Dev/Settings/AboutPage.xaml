@@ -1,11 +1,9 @@
 ﻿<Page
     x:Class="RMP.App.Settings.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RMP.App.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:RMP.App.UserControls"
     mc:Ignorable="d">
 
@@ -13,10 +11,9 @@
         <Image Source="/Assets/Branding/settingsbanner.png"
                Height="50"
                HorizontalAlignment="Left" 
-               Margin="0,10,0,0"/>
-        <TextBlock x:Uid="/About/vInfoH" Style="{ThemeResource Subheader}" Margin="0,-10,0,0"/>
-
-        <Border x:Name="VersionExpander" Style="{ThemeResource SettingsCard}">
+               Margin="0,10,0,0" />
+        <TextBlock x:Uid="/About/vInfoH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+        <Border x:Name="VersionExpander" Style="{StaticResource SettingsCard}">
             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -50,9 +47,11 @@
         </Border>
 
 
-        <TextBlock x:Uid="/About/commAboutH" Style="{ThemeResource Subheader}" Margin="0,-10,0,0"/>
-
-        <uc:NavigationExpander x:Uid="/About/contCommunity"
+        <TextBlock x:Uid="/About/commAboutH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+        <uc:NavigationExpander x:Uid="/About/YouInsider"
+                               ExpanderKind="Static"
+                               Icon="&#xF1AD;" />
+        <!--uc:NavigationExpander x:Uid="/About/contCommunity"
                                ExpanderKind="Expander"
                                Icon="&#xE822;">
             <StackPanel Orientation="Vertical" Spacing="16">
@@ -68,12 +67,12 @@
                                        ExpanderKind="Transparent"
                                        Icon="&#xF103;" />
 
-                <StackPanel Orientation="Horizontal" Spacing="12">
+                <GridView IsItemClickEnabled="False" SelectionMode="None">
                     <Button x:Uid="/About/BecomeContributor" Style="{StaticResource AccentButtonStyle}" />
                     <Button x:Uid="/About/BecomeInsider" />
-                </StackPanel>
+                </GridView>
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:NavigationExpander-->
 
         <uc:NavigationExpander x:Uid="/About/UsefulLinks"
                                ExpanderKind="Expander"
@@ -81,7 +80,7 @@
             <GridView IsItemClickEnabled="False" SelectionMode="None">
                 <HyperlinkButton x:Uid="/About/GitHub"
                                  Padding="10,10,10,10"
-                                 NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev" />
+                                 NavigateUri="https://github.com/Rise-Software/Rise-Media-Player" />
                 <HyperlinkButton x:Uid="/About/Discord"
                                  Padding="10,10,10,10"
                                  NavigateUri="https://disboard.org/server/872910570003791922" />

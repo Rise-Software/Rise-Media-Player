@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="RMP.App.Views.CurrentlyPlayingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:RMP.App.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
+                   FontWeight="Normal"
+                   MaxLines="1"
+                   Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   MaxLines="1"
+                   Style="{StaticResource BodyTextBlockStyle}" />
+        <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
+                   Margin="0,4"
+                   MaxLines="1"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   TextWrapping="NoWrap"
+                   VerticalAlignment="Center" />
+    </StackPanel>
+</Page>

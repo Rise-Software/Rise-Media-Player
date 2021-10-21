@@ -1,39 +1,66 @@
-﻿using RMP.App.Converters;
-using RMP.App.ViewModels;
-using System.ServiceModel.Channels;
+﻿using RMP.App.ViewModels;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using Windows.UI.Xaml.Input;
 
 namespace RMP.App.UserControls
 {
     public sealed partial class SongList : UserControl
     {
         /// <summary>
-        /// Gets the app-wide ViewModel instance.
+        /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public MainViewModel ViewModel => App.ViewModel;
-        private readonly BooleanToVisibility BoolToVis = new BooleanToVisibility();
+        private MainViewModel MViewModel => App.MViewModel;
+
+        /// <summary>
+        /// Gets the app-wide NPViewModel instance.
+        /// </summary>
+        private static PlaybackViewModel PViewModel => App.PViewModel;
+
         public SongList()
         {
             InitializeComponent();
+            Loaded += SongList_Loaded;
+
+            DataContext = MViewModel;
         }
 
-        private void Grid_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        public DataTemplate Header { get; set; }
+        public ObservableCollection<SongViewModel> List { get; set; }
+
+        private void SongList_Loaded(object sender, RoutedEventArgs e)
         {
-            Grid itemRoot = sender as Grid;
-            if (List.ContainerFromItem(itemRoot.DataContext) is ListViewItem lvi)
+            if (Header == null)
             {
-                Windows.UI.Xaml.Data.Binding binding = new Windows.UI.Xaml.Data.Binding
-                {
-                    Source = itemRoot.DataContext,
-                    Path = new PropertyPath("WillRemove"),
-                    Converter = BoolToVis,
-                    ConverterParameter = "Reverse",
-                };
-                lvi.SetBinding(VisibilityProperty, binding);
+                MainList.Margin = new Thickness(-56, 0, -56, 0);
+                return;
             }
+
+            MainList.HeaderTemplate = Header;
+        }
+
+        private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            int itemIndex = MainList.SelectedIndex;
+
+            if (itemIndex < 0)
+            {
+                return;
+            }
+
+            PViewModel.CancelTask();
+            await PViewModel.CreatePlaybackList(itemIndex, List, PViewModel.Token);
+        }
+
+        private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            MViewModel.SelectedSong = (e.OriginalSource as FrameworkElement).DataContext as SongViewModel;
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            await MViewModel.SelectedSong.StartEdit();
         }
     }
 }

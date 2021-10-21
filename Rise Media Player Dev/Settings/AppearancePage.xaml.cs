@@ -1,23 +1,21 @@
 ﻿using RMP.App.Dialogs;
+using RMP.App.Settings.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace RMP.App.Settings
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AppearancePage : Page
     {
+        private SettingsViewModel ViewModel => App.SViewModel;
+
         private List<string> Themes { get; set; }
         private List<string> Startup { get; set; }
 
         public AppearancePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             Themes = new List<string>
             {
@@ -39,6 +37,8 @@ namespace RMP.App.Settings
                 ResourceLoaders.AppearanceLoader.GetString("Streaming"),
                 ResourceLoaders.AppearanceLoader.GetString("NowPlaying")
             };
+
+            DataContext = ViewModel;
         }
 
         private void SidebarCustomize_Click(object sender, RoutedEventArgs e)
