@@ -1,6 +1,6 @@
 ![130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d](https://user-images.githubusercontent.com/74561130/137598956-e4bfe5c4-1b2b-4649-a1a1-41efc97a04cc.png)
 
-**PRE ALPHA 1 COMING TOMORROW**
+**PRE ALPHA 1 OUT NOW! Download the installer from the download link below or clone the repository to build :)**
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
