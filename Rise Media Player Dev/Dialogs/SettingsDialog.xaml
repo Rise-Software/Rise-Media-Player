@@ -12,7 +12,6 @@
     <ContentDialog.Resources>
         <x:Double x:Key="ContentDialogMaxWidth">962</x:Double>
         <x:Double x:Key="ContentDialogMaxHeight">1000</x:Double>
-        <Thickness x:Key="ContentDialogPadding">0</Thickness>
         <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"></SolidColorBrush>
         <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
         <Thickness x:Key="NavigationViewContentMargin">52,0,0,0</Thickness>
@@ -27,6 +26,7 @@
         <Rectangle x:Name="DualTone"
                    Fill="{ThemeResource ContentDialogBackground}"
                    HorizontalAlignment="Left"
+                   Margin="-24"
                    VerticalAlignment="Stretch" />
 
         <muxc:NavigationView x:Name="SettingsNav"
@@ -34,7 +34,7 @@
                              IsPaneToggleButtonVisible="False"
                              IsSettingsVisible="False"
                              ItemInvoked="SettingsNav_ItemInvoked"
-                             Margin="24,24,0,24"
+                             Margin="0,0,-24,0"
                              OpenPaneLength="200"
                              PaneDisplayMode="Left">
             <muxc:NavigationView.Header>
