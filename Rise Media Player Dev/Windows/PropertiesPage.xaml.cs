@@ -1,7 +1,6 @@
 ﻿using RMP.App.Props;
 using RMP.App.ViewModels;
 using System;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -66,11 +65,15 @@ namespace RMP.App.Windows
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-            await MainPage.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            bool result = await Props.SaveChangesAsync();
+
+            if (result)
             {
-                _ = await Props.SaveChangesAsync();
-            });
+                _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                return;
+            }
+
+            ErrorTip.IsOpen = true;
         }
     }
 }

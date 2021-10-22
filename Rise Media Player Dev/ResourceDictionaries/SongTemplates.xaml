@@ -30,6 +30,30 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="NowPlayingQueueItem">
+        <Grid ColumnSpacing="12" Padding="0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Title}" />
+                <TextBlock>
+                    <Hyperlink UnderlineStyle="None">
+                        <Run Text="{Binding Artist}" />
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <TextBlock Grid.Column="1"
+                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                       Text="{Binding Length}"
+                       VerticalAlignment="Center" />
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="AlbumHeader">
         <Grid Margin="-56,0,-56,0">
             <Grid ColumnSpacing="24" Padding="68,48,68,32">

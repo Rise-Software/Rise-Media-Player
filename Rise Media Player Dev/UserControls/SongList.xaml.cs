@@ -18,6 +18,8 @@ namespace RMP.App.UserControls
         /// </summary>
         private static PlaybackViewModel PViewModel => App.PViewModel;
 
+        private SongViewModel SelectedSong { get; set; }
+
         public SongList()
         {
             InitializeComponent();
@@ -55,12 +57,25 @@ namespace RMP.App.UserControls
 
         private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            MViewModel.SelectedSong = (e.OriginalSource as FrameworkElement).DataContext as SongViewModel;
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
+            }
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            await MViewModel.SelectedSong.StartEdit();
+            await SelectedSong.StartEdit();
         }
+
+        // Set the selected item manually, otherwise seems broken.
+        /*private void MainList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                MViewModel.SelectedSong = song;
+            }
+        }*/
     }
 }

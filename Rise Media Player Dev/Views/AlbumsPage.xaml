@@ -21,14 +21,13 @@
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
-                    IsOpen="False"
                     Margin="-12,0">
             <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
                           Click="PlayItem_Click"
                           Icon="Play"
-                          IsCompact="True"
-                          IsEnabled="{x:Bind MViewModel.SelectedAlbum, Converter={StaticResource NullToBool}, Mode=OneWay}" />
+                          IsEnabled="{x:Bind MViewModel.SelectedAlbum, Converter={StaticResource NullToBool}, Mode=OneWay}"
+                          Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
 
@@ -50,8 +49,12 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/Delete" Icon="Delete" />
-            <AppBarButton x:Uid="/Information/Edit" Icon="Edit" />
+            <AppBarButton x:Uid="/Information/Delete"
+                          Icon="Delete"
+                          Style="{StaticResource AppBarCompactButton}" />
+            <AppBarButton x:Uid="/Information/Edit"
+                          Icon="Edit"
+                          Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
 

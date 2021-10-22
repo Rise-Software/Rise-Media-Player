@@ -1,17 +1,29 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
+using System.Threading;
 
 namespace RMP.App.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private readonly Dictionary<PropertyChangedEventHandler, SynchronizationContext> PropertyChangedEvents =
+            new Dictionary<PropertyChangedEventHandler, SynchronizationContext>();
+
         /// <summary> 
         /// Occurs when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged
+        {
+            add
+            {
+                PropertyChangedEvents.Add(value, SynchronizationContext.Current);
+            }
+            remove
+            {
+                PropertyChangedEvents.Remove(value);
+            }
+        }
 
         /// <summary>
         /// Notifies listeners that a property value has changed.
@@ -21,7 +33,18 @@ namespace RMP.App.ViewModels
         /// that support <see cref="CallerMemberNameAttribute"/>.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+            foreach (KeyValuePair<PropertyChangedEventHandler, SynchronizationContext> @event in PropertyChangedEvents)
+            {
+                if (@event.Value == null)
+                {
+                    @event.Key.Invoke(this, args);
+                }
+                else
+                {
+                    @event.Value.Post(s => @event.Key.Invoke(s, args), this);
+                }
+            }
         }
 
         /// <summary>

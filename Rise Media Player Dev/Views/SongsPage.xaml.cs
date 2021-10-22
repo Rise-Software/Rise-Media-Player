@@ -8,7 +8,7 @@ namespace RMP.App.Views
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public MainViewModel ViewModel => App.MViewModel;
+        private MainViewModel ViewModel => App.MViewModel;
 
         public SongsPage()
         {

@@ -35,17 +35,17 @@
                   Margin="-56,48,-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
-                  SelectedItem="{x:Bind MViewModel.SelectedSong, Mode=TwoWay}"
+                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
-            <ListView.ContextFlyout>
-                <MenuFlyout>
+            <ListView.Resources>
+                <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
                     <MenuFlyout.Items>
                         <MenuFlyoutItem x:Name="Props"
                                         x:Uid="/MediaData/Properties"
                                         Click="Props_Click" />
                     </MenuFlyout.Items>
                 </MenuFlyout>
-            </ListView.ContextFlyout>
+            </ListView.Resources>
         </ListView>
     </Grid>
 </UserControl>

@@ -12,17 +12,18 @@ namespace RMP.App.UserControls
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public MainViewModel ViewModel => App.MViewModel;
+        private MainViewModel ViewModel => App.MViewModel;
 
         public ArtistGrid()
         {
             InitializeComponent();
         }
 
-        private void Image_Tapped(object sender, TappedRoutedEventArgs e)
+        private void GridView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
+                ViewModel.SelectedArtist = artist;
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
             }
         }

@@ -88,9 +88,9 @@ namespace RMP.App.ViewModels
         {
             get
             {
-                int count = App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name && !s.WillRemove);
+                int count = App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
 
-                if (count == 0 && AlbumCount == 0)
+                if (count == 0)
                 {
                     Delete();
                 }
@@ -104,19 +104,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets or sets the artist's album count.
         /// </summary>
-        public int AlbumCount
-        {
-            get
-            {
-                int count = App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name && !a.WillRemove);
-
-                if (count == 0 && SongCount == 0)
-                {
-                    WillRemove = true;
-                }
-                return count;
-            }
-        }
+        public int AlbumCount => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
 
         public string Albums => AlbumCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Albums");
 
@@ -185,10 +173,13 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete artist from repository and MViewModel.
         /// </summary>
-        public void Delete()
+        public async void Delete()
         {
             IsModified = true;
             WillRemove = true;
+
+            App.MViewModel.Artists.Remove(this);
+            await App.Repository.Artists.DeleteAsync(Model).ConfigureAwait(false);
             Debug.WriteLine("Artist removed!");
         }
 

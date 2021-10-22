@@ -1,5 +1,4 @@
 ﻿using RMP.App.ViewModels;
-using System;
 using Windows.Storage;
 
 namespace RMP.App.Settings

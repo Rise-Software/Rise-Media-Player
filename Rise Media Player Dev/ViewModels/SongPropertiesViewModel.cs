@@ -1,5 +1,4 @@
-﻿using Rise.Models;
-using RMP.App.Props;
+﻿using RMP.App.Props;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -12,74 +11,72 @@ namespace RMP.App.ViewModels
     public class SongPropertiesViewModel : BaseViewModel
     {
         private static SongViewModel Song { get; set; }
-        private static Song Model { get; set; }
         public BasicProperties FileProps { get; set; }
 
         public SongPropertiesViewModel(SongViewModel song, DateTimeOffset creationDate)
         {
             Song = song;
-            Model = song.Model;
             Created = creationDate.Date.ToString("d");
             _filename = Path.GetFileName(Location);
         }
 
         public string Title
         {
-            get => Model.Title;
-            set => Model.Title = value;
+            get => Song.Title;
+            set => Song.Title = value;
         }
 
         public string Artist
         {
-            get => Model.Artist;
-            set => Model.Artist = value;
+            get => Song.Artist;
+            set => Song.Artist = value;
         }
 
         public uint Track
         {
-            get => Model.Track;
-            set => Model.Track = value;
+            get => Song.Track;
+            set => Song.Track = value;
         }
 
         public int Disc
         {
-            get => Model.Disc;
-            set => Model.Disc = value;
+            get => Song.Disc;
+            set => Song.Disc = value;
         }
 
         public string Album
         {
-            get => Model.Album;
-            set => Model.Album = value;
+            get => Song.Album;
+            set => Song.Album = value;
         }
 
         public string AlbumArtist
         {
-            get => Model.AlbumArtist;
-            set => Model.AlbumArtist = value;
+            get => Song.AlbumArtist;
+            set => Song.AlbumArtist = value;
         }
 
         public string Genres
         {
-            get => Model.Genres;
-            set => Model.Genres = value;
+            get => Song.Genres;
+            set => Song.Genres = value;
         }
 
         public uint Year
         {
-            get => Model.Year;
-            set => Model.Year = value;
+            get => Song.Year;
+            set => Song.Year = value;
         }
 
         public uint Rating
         {
-            get => Model.Rating;
-            set => Model.Rating = value;
+            get => Song.Rating;
+            set => Song.Rating = value;
         }
 
         public string Thumbnail => Song.Thumbnail;
 
-        public string Location => Model.Location;
+        public string Location => Song.Location;
 
         private string _filename;
         public string Filename
@@ -125,7 +122,7 @@ namespace RMP.App.ViewModels
                 props["System.Rating"] = Rating;
 
                 await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
-                Model.Location = songFile.Path;
+                Song.Location = songFile.Path;
 
                 try
                 {

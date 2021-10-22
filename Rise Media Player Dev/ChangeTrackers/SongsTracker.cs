@@ -19,7 +19,7 @@ namespace RMP.App.ChangeTrackers
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public static MainViewModel ViewModel => App.MViewModel;
+        private static MainViewModel ViewModel => App.MViewModel;
 
         /// <summary>
         /// Sets up the filesystem tracker for music library.
@@ -214,7 +214,7 @@ namespace RMP.App.ChangeTrackers
             {
                 foreach (StorageFolder folder in folders)
                 {
-                    if (song.Location == folder.Path + Path.GetFileName(song.Location))
+                    if (song.Location == folder.Path + @"\" + Path.GetFileName(song.Location))
                     {
                         isInFolder = true;
                         break;

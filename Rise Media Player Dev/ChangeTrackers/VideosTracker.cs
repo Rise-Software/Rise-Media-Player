@@ -15,7 +15,7 @@ namespace RMP.App.ChangeTrackers
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public static MainViewModel MViewModel => App.MViewModel;
+        private static MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
         /// Manage changes to the videos library.

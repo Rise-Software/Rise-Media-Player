@@ -10,10 +10,10 @@
     d:DesignWidth="400">
 
     <Grid>
-        <GridView ItemsSource="{x:Bind ViewModel.Artists}"
+        <GridView DoubleTapped="GridView_DoubleTapped"
+                  ItemsSource="{x:Bind ViewModel.Artists}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind ViewModel.SelectedArtist, Mode=TwoWay}"
                   SelectionMode="Single">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
@@ -25,7 +25,6 @@
                                 Width="84">
                             <Image Height="84"
                                    Stretch="UniformToFill"
-                                   Tapped="Image_Tapped"
                                    Width="84">
                                 <Image.Source>
                                     <BitmapImage UriSource="{x:Bind Picture}" />

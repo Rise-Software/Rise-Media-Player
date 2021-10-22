@@ -22,22 +22,7 @@ namespace RMP.App.Indexers
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        public static MainViewModel ViewModel => App.MViewModel;
-
-        /// <summary>
-        /// Instance of SongViewModel.
-        /// </summary>
-        public static SongViewModel Song { get; set; }
-
-        /// <summary>
-        /// Instance of AlbumViewModel.
-        /// </summary>
-        public static AlbumViewModel Album { get; set; }
-
-        /// <summary>
-        /// Instance of ArtistViewModel.
-        /// </summary>
-        public static ArtistViewModel Artist { get; set; }
+        private static MainViewModel ViewModel => App.MViewModel;
 
         /// <summary>
         /// Amount of songs added after indexing.
@@ -246,8 +231,8 @@ namespace RMP.App.Indexers
             if (!songExists)
             {
                 AddedSongs++;
-                Song = new SongViewModel(song);
-                await Song.SaveAsync();
+                SongViewModel svm = new SongViewModel(song);
+                await svm.SaveAsync();
             }
 
             // If album isn't there already, add it to the database
@@ -262,20 +247,16 @@ namespace RMP.App.Indexers
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
                     string filename = MakeValidFileName(song.Album);
-                    await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                    filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
-                    IStorageItem resultingItem = await ApplicationData.Current.LocalFolder.
-                        TryGetItemAsync($@"{filename}.png");
-
-                    // If the file doesn't exist, use default thumbnail
-                    if (resultingItem != null)
+                    if (filename != "/")
                     {
                         thumb = $@"ms-appdata:///local/{filename}.png";
                     }
                 }
 
                 // Set AlbumViewModel data
-                Album = new AlbumViewModel
+                AlbumViewModel alvm = new AlbumViewModel
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
@@ -284,38 +265,34 @@ namespace RMP.App.Indexers
                 };
 
                 // Add new data to the MViewModel
-                await Album.SaveAsync();
+                await alvm.SaveAsync();
             }
             else
             {
-                AlbumViewModel album = ViewModel.Albums.
+                AlbumViewModel alvm = ViewModel.Albums.
                     First(a => a.Model.Title == song.Album &&
                                a.Model.Artist == song.AlbumArtist);
 
                 // Update album information, in case previous songs don't have it
                 // and the album is known
-                if (album.Model.Title != "UnknownAlbumResource")
+                if (alvm.Model.Title != "UnknownAlbumResource")
                 {
-                    if (album.Model.Artist == "UnknownArtistResource")
+                    if (alvm.Model.Artist == "UnknownArtistResource")
                     {
-                        album.Model.Artist = song.AlbumArtist;
+                        alvm.Model.Artist = song.AlbumArtist;
                     }
 
-                    if (album.Thumbnail == "ms-appx:///Assets/Default.png")
+                    if (alvm.Thumbnail == "ms-appx:///Assets/Default.png")
                     {
                         // Get song thumbnail and make a PNG out of it
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
                         string filename = MakeValidFileName(song.Album);
-                        await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                        filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
-                        IStorageItem resultingItem = await ApplicationData.Current.LocalFolder.
-                            TryGetItemAsync($@"{filename}.png");
-
-                        // If the file doesn't exist, use default thumbnail
-                        if (resultingItem != null)
+                        if (filename != "/")
                         {
-                            album.Thumbnail = $@"ms-appdata:///local/{filename}.png";
+                            alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                         }
                     }
                 }
@@ -324,13 +301,13 @@ namespace RMP.App.Indexers
             // If artist isn't there already, add it to the database
             if (!artistExists)
             {
-                Artist = new ArtistViewModel
+                ArtistViewModel arvm = new ArtistViewModel
                 {
                     Name = song.Artist,
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                await Artist.SaveAsync();
+                await arvm.SaveAsync();
             }
 
             // Check for the album artist as well
@@ -340,13 +317,13 @@ namespace RMP.App.Indexers
             // If album artist isn't there already, add it to the database
             if (!artistExists)
             {
-                Artist = new ArtistViewModel
+                ArtistViewModel arvm = new ArtistViewModel
                 {
                     Name = song.AlbumArtist,
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                await Artist.SaveAsync();
+                await arvm.SaveAsync();
             }
         }
 
@@ -355,12 +332,13 @@ namespace RMP.App.Indexers
         /// </summary>
         /// <param name="thumbnail">StorageItemThumbnail to convert.</param>
         /// <param name="filename">Filename of output image.</param>
-        public static async Task SaveBitmapFromThumbnailAsync(StorageItemThumbnail thumbnail, string filename)
+        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
+        public static async Task<string> SaveBitmapFromThumbnailAsync(StorageItemThumbnail thumbnail, string filename)
         {
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
+                    CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 
                 Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
 
@@ -372,7 +350,11 @@ namespace RMP.App.Indexers
                 {
                     _ = await strm.WriteAsync(iBuf);
                 }
+
+                return Path.GetFileNameWithoutExtension(destinationFile.Path);
             }
+
+            return "/";
         }
 
         /// <summary>

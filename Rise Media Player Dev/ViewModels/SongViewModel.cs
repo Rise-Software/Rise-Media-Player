@@ -1,6 +1,7 @@
 ﻿using Rise.Models;
 using RMP.App.Windows;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -269,9 +270,24 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets the song album's thumbnail.
         /// </summary>
-        public string Thumbnail => App.MViewModel.Albums.
-            FirstOrDefault(a => a.Model.Title == Model.Album
+        public string Thumbnail
+        {
+            get
+            {
+                string thumb = "ms-appx:///Assets/Default.png";
+                try
+                {
+                    thumb = App.MViewModel.Albums.First(a => a.Model.Title == Model.Album
                         && a.Model.Artist == Model.AlbumArtist).Thumbnail;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+
+                return thumb;
+            }
+        }
 
         private bool _willRemove;
 

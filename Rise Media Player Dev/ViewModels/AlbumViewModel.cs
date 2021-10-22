@@ -206,10 +206,13 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete album from repository and MViewModel.
         /// </summary>
-        public void Delete()
+        public async void Delete()
         {
             IsModified = true;
             WillRemove = true;
+
+            App.MViewModel.Albums.Remove(this);
+            await App.Repository.Albums.DeleteAsync(Model).ConfigureAwait(false);
             OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
             Debug.WriteLine("Album removed!");
         }
