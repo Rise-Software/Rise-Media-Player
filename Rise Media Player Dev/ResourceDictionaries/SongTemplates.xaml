@@ -120,4 +120,35 @@
             </Grid>
         </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="ArtistGridItem">
+        <StackPanel Margin="12"
+                    Orientation="Horizontal"
+                    Spacing="12"
+                    Width="210">
+            <Border CornerRadius="42"
+                                Width="84">
+                <Image Height="84"
+                       Stretch="UniformToFill"
+                       Width="84">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding Picture}" />
+                    </Image.Source>
+                </Image>
+            </Border>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Name}"
+                           MaxLines="2"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           TextWrapping="Wrap" />
+                <!--TextBlock Text="{Binding Songs}"
+                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                           Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock Text="{Binding Albums}"
+                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                           Style="{StaticResource CaptionTextBlockStyle}" /-->
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

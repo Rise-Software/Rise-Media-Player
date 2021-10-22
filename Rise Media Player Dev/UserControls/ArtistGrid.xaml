@@ -4,49 +4,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary Source="/ResourceDictionaries/SongTemplates.xaml" />
+    </UserControl.Resources>
+
     <Grid>
         <GridView DoubleTapped="GridView_DoubleTapped"
+                  ItemTemplate="{StaticResource ArtistGridItem}"
                   ItemsSource="{x:Bind ViewModel.Artists}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectionMode="Single">
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:ArtistViewModel">
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="12"
-                                Margin="12"
-                                Width="210">
-                        <Border CornerRadius="42"
-                                Width="84">
-                            <Image Height="84"
-                                   Stretch="UniformToFill"
-                                   Width="84">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Picture}" />
-                                </Image.Source>
-                            </Image>
-                        </Border>
-
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind Name}"
-                                       MaxLines="2"
-                                       Style="{StaticResource BaseTextBlockStyle}"
-                                       TextWrapping="Wrap" />
-                            <TextBlock Text="{x:Bind Songs}"
-                                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                       Style="{StaticResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="{x:Bind Albums}"
-                                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                       Style="{StaticResource CaptionTextBlockStyle}" />
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+                  SelectionMode="Single" />
     </Grid>
 </UserControl>
