@@ -36,7 +36,7 @@
                                 <Bold FontWeight="SemiBold">Rise</Bold> Media Player
                             </Paragraph>
                         </RichTextBlock>
-                        <TextBlock Text="Version: DEV"
+                        <TextBlock Text="Version: Pre-Alpha 1"
                                    Style="{StaticResource CaptionTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords" />
