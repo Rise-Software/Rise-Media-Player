@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using static RMP.App.Enums;
 
 namespace RMP.App.ViewModels
@@ -104,13 +105,26 @@ namespace RMP.App.ViewModels
                 }
             }
 
-            IEnumerable<SongViewModel> enumerable =
-                from s in Songs
-                where (StrictFilters[0] ? s.Model.Title == Filters[0] : s.Model.Title.Contains(Filters[0]))
-                   && (StrictFilters[1] ? s.Model.Album == Filters[1] : s.Model.Album.Contains(Filters[1]))
-                   && (StrictFilters[2] ? s.Model.AlbumArtist == Filters[2] : s.Model.AlbumArtist.Contains(Filters[2]))
-                   && (StrictFilters[3] ? s.Model.Artist == Filters[3] : s.Model.Artist.Contains(Filters[3]))
-                select s;
+            IEnumerable<SongViewModel> enumerable;
+            if (App.SViewModel.FilterByNameOnly)
+            {
+                enumerable =
+                    from s in Songs
+                    where (StrictFilters[0] ? s.Model.Title == Filters[0] : s.Model.Title.Contains(Filters[0]))
+                       && (StrictFilters[1] ? s.Model.Album == Filters[1] : s.Model.Album.Contains(Filters[1]))
+                       && (StrictFilters[3] ? s.Model.Artist == Filters[3] : s.Model.Artist.Contains(Filters[3]))
+                    select s;
+            }
+            else
+            {
+                enumerable =
+                    from s in Songs
+                    where (StrictFilters[0] ? s.Model.Title == Filters[0] : s.Model.Title.Contains(Filters[0]))
+                       && (StrictFilters[1] ? s.Model.Album == Filters[1] : s.Model.Album.Contains(Filters[1]))
+                       && (StrictFilters[2] ? s.Model.AlbumArtist == Filters[2] : s.Model.AlbumArtist.Contains(Filters[2]))
+                       && (StrictFilters[3] ? s.Model.Artist == Filters[3] : s.Model.Artist.Contains(Filters[3]))
+                    select s;
+            }
 
             switch (OrderBy)
             {
@@ -176,9 +190,9 @@ namespace RMP.App.ViewModels
             // If there are no songs, don't bother loading lists
             if (songs == null)
             {
-                SongsTracker.SetupMusicTracker();
+                await SongsTracker.SetupMusicTracker();
                 await SongIndexer.IndexAllSongsAsync();
-                await SongsTracker.HandleMusicFolderChanges(App.MusicLibrary.Folders);
+                await SongsTracker.HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
                 return;
             }
 
@@ -211,9 +225,9 @@ namespace RMP.App.ViewModels
 
             IsLoading = false;
 
-            SongsTracker.SetupMusicTracker();
+            await SongsTracker.SetupMusicTracker();
             await SongIndexer.IndexAllSongsAsync();
-            await SongsTracker.HandleMusicFolderChanges(App.MusicLibrary.Folders);
+            await SongsTracker.HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
         }
 
         /// <summary>

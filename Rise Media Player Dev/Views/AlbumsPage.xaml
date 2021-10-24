@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:RMP.App.Converters"
-    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -58,7 +58,11 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View" Icon="View">
+            <AppBarButton x:Uid="/Information/View">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECAA;" />
+                </AppBarButton.Icon>
+
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Default">
@@ -78,11 +82,54 @@
                                 <FontIcon Glyph="&#xE185;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator />
+
+                        <ToggleMenuFlyoutItem x:Uid="/Information/NameOnly"
+                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
         </CommandBar>
 
-        <uc:AlbumGrid Grid.Row="1" />
+        <GridView x:Name="AlbumGrid"
+                  Grid.Row="1"
+                  Margin="-56,0"
+                  Padding="44,0,44,120"
+                  SelectedItem="{x:Bind MViewModel.SelectedAlbum, Mode=TwoWay}"
+                  SelectionMode="Single">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:AlbumViewModel">
+                    <StackPanel Orientation="Vertical"
+                                Spacing="2"
+                                Margin="12"
+                                Width="134">
+                        <Border CornerRadius="5"
+                                Width="134">
+                            <Image Height="134"
+                                   Stretch="UniformToFill"
+                                   Tapped="Image_Tapped"
+                                   Width="134">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <TextBlock Text="{x:Bind Title}"
+                                   Padding="0,7,0,0"
+                                   MaxLines="1"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap" />
+                        <TextBlock FontSize="13">
+                            <Hyperlink UnderlineStyle="None">
+                                <Run Text="{x:Bind Artist}" />
+                            </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

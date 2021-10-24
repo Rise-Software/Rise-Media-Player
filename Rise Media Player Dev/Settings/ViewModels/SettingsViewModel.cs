@@ -1,4 +1,5 @@
-﻿using RMP.App.Windows;
+﻿using RMP.App.Views;
+using RMP.App.Windows;
 
 namespace RMP.App.Settings.ViewModels
 {
@@ -107,6 +108,19 @@ namespace RMP.App.Settings.ViewModels
             get => (bool)Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
         }
+
+        public bool FilterByNameOnly
+        {
+            get => (bool)Get("MediaLibrary", nameof(FilterByNameOnly), false);
+            set
+            {
+                Set("MediaLibrary", nameof(FilterByNameOnly), value);
+                if (AlbumsPage.Current != null)
+                {
+                    AlbumsPage.Current.RefreshAlbums();
+                }
+            }
+        }
         #endregion
 
         #region Navigation
@@ -131,6 +145,18 @@ namespace RMP.App.Settings.ViewModels
                 Set("Local", nameof(IconPack), value);
                 MainPage.Current.UpdateIconColor(value);
             }
+        }
+
+        public bool ShowMusicHeader
+        {
+            get => (bool)Get("Navigation", nameof(ShowMusicHeader), true);
+            set => Set("Navigation", nameof(ShowMusicHeader), value);
+        }
+
+        public bool ShowVideoHeader
+        {
+            get => (bool)Get("Navigation", nameof(ShowVideoHeader), true);
+            set => Set("Navigation", nameof(ShowVideoHeader), value);
         }
 
         public bool ShowAtAGlance
@@ -185,6 +211,18 @@ namespace RMP.App.Settings.ViewModels
         {
             get => (bool)Get("Navigation", nameof(ShowStreaming), true);
             set => Set("Navigation", nameof(ShowStreaming), value);
+        }
+
+        public bool ShowHelpCentre
+        {
+            get => (bool)Get("Navigation", nameof(ShowHelpCentre), true);
+            set => Set("Navigation", nameof(ShowHelpCentre), value);
+        }
+
+        public bool ShowNowPlaying
+        {
+            get => (bool)Get("Navigation", nameof(ShowNowPlaying), true);
+            set => Set("Navigation", nameof(ShowNowPlaying), value);
         }
         #endregion
 

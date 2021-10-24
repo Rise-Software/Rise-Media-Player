@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <GridView ItemsSource="{x:Bind ViewModel.Albums}"
+        <GridView ItemsSource="{x:Bind List, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   SelectedItem="{x:Bind ViewModel.SelectedAlbum, Mode=TwoWay}"

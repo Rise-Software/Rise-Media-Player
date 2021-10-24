@@ -96,6 +96,7 @@ namespace RMP.App.ViewModels
                 return;
             }
 
+            // Needs to account for the selected index offset.
             for (int i = index + 1; addedSongs < itemCount; i++)
             {
                 if (token.IsCancellationRequested)
@@ -103,6 +104,11 @@ namespace RMP.App.ViewModels
                     Debug.WriteLine("Stop!");
                     CanContinue = true;
                     return;
+                }
+
+                if (i == itemCount)
+                {
+                    i = 0;
                 }
 
                 item = await CreateMusicItem(songs.ElementAt(i));

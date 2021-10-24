@@ -13,6 +13,6 @@
 
     <Grid>
         <uc:SongList x:Name="SongList"
-                     Header="{StaticResource ArtistHeader}" />
+                     SelectedArtist="{x:Bind SelectedArtist}" />
     </Grid>
 </Page>

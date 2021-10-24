@@ -24,7 +24,7 @@ namespace RMP.App.ChangeTrackers
         /// <summary>
         /// Sets up the filesystem tracker for music library.
         /// </summary>
-        public static async void SetupMusicTracker()
+        public static async Task SetupMusicTracker()
         {
             App.MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             StorageFolder music = KnownFolders.MusicLibrary;
@@ -72,7 +72,7 @@ namespace RMP.App.ChangeTrackers
                     // This should be a very rare case, but must be handled
                     folderTracker.Reset();
                     await SongIndexer.IndexAllSongsAsync();
-                    await HandleMusicFolderChanges(App.MusicLibrary.Folders);
+                    await HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
                     return;
                 }
 
@@ -112,7 +112,7 @@ namespace RMP.App.ChangeTrackers
             Debug.WriteLine("Music folder changes!");
 
             await SongIndexer.IndexAllSongsAsync();
-            await HandleMusicFolderChanges(sender.Folders);
+            await HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
         }
 
         /// <summary>
@@ -207,13 +207,16 @@ namespace RMP.App.ChangeTrackers
         /// Manage changes to the music library folders.
         /// </summary>
         /// <param name="folders">Folder changes.</param>
-        public static async Task HandleMusicFolderChanges(IObservableVector<StorageFolder> folders)
+        public static async Task HandleMusicFolderChanges(IReadOnlyList<StorageFolder> folders)
         {
-            bool isInFolder = false;
             foreach (SongViewModel song in ViewModel.Songs)
             {
+                bool isInFolder = false;
                 foreach (StorageFolder folder in folders)
                 {
+                    Debug.WriteLine("-----");
+                    Debug.WriteLine("Location: " + song.Location);
+                    Debug.WriteLine("Path: " + folder.Path + @"\" + Path.GetFileName(song.Location));
                     if (song.Location == folder.Path + @"\" + Path.GetFileName(song.Location))
                     {
                         isInFolder = true;
@@ -225,8 +228,6 @@ namespace RMP.App.ChangeTrackers
                 {
                     await song.Delete();
                 }
-
-                isInFolder = false;
             }
         }
     }

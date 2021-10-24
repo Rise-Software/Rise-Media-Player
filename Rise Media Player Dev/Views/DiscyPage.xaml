@@ -14,14 +14,14 @@
             <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
 
             <uc:NavigationExpander x:Uid="/HelpTips/ReleaseDate"
-                                   ExpanderKind="Expander"
+                                   ExpanderStyle="Default"
                                    Icon="&#xE121;">
                 <TextBlock x:Uid="/HelpTips/ReleaseInfo"
                            Style="{StaticResource BodyTextBlockStyle}" />
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/HelpTips/Features"
-                                   ExpanderKind="Expander"
+                                   ExpanderStyle="Default"
                                    Icon="&#xE9D5;">
                 <StackPanel Orientation="Vertical">
                     <TextBlock x:Uid="/HelpTips/PreAlphaH"
@@ -43,7 +43,7 @@
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/HelpTips/InsiderProgram"
-                                   ExpanderKind="Expander"
+                                   ExpanderStyle="Default"
                                    Icon="&#xF1AD;">
                 <StackPanel Orientation="Vertical">
                     <TextBlock x:Uid="/HelpTips/BenefitsH"
@@ -70,7 +70,7 @@
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/HelpTips/WhatDiscy"
-                                   ExpanderKind="Static"
+                                   ExpanderStyle="Static"
                                    Icon="&#xF142;" />
         </StackPanel>
     </ScrollViewer>

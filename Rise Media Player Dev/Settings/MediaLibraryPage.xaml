@@ -12,7 +12,7 @@
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/MediaLibrary/OnlineH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/AddAccount"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE13D;">
             <!--FontIcon Glyph="&#xE2B4;"
@@ -24,7 +24,7 @@
         <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
                                Click="ChooseFolders_Click"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Icon="&#xE8B7;">
             <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
@@ -32,7 +32,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE74D;">
             <!--ComboBox ItemsSource="{x:Bind Deletion}"
@@ -41,7 +41,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/MediaLibrary/Ripping"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE958;"
                                Margin="0,0,0,4">
@@ -51,7 +51,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/MediaLibrary/SeparateLocal"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE145;">
             <!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /-->
@@ -60,14 +60,14 @@
 
         <TextBlock x:Uid="/MediaLibrary/AdvancedH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/MediaLibrary/DisableOnline"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE701;">
             <!--ToggleSwitch IsOn="{Binding DisableOnline, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/MediaLibrary/DisableLocal"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xEC50;">
             <!--ToggleSwitch IsOn="{Binding DisableLocal, Mode=TwoWay}" /-->

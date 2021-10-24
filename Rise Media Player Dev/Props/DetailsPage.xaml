@@ -21,7 +21,7 @@
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <uc:NavigationExpander x:Uid="/Details/AsFile"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Icon="&#xE8B7;">
             <Button x:Name="LocalButton"
                     Background="Transparent"

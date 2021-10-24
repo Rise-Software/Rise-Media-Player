@@ -25,21 +25,29 @@ namespace RMP.App.UserControls
             InitializeComponent();
             Loaded += SongList_Loaded;
 
-            DataContext = MViewModel;
+            DataContext = this;
         }
 
-        public DataTemplate Header { get; set; }
+        public AlbumViewModel SelectedAlbum { get; set; }
+        public ArtistViewModel SelectedArtist { get; set; }
+
         public ObservableCollection<SongViewModel> List { get; set; }
 
         private void SongList_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Header == null)
+            if (SelectedAlbum != null)
             {
-                MainList.Margin = new Thickness(-56, 0, -56, 0);
+                MainList.HeaderTemplate = Resources["AlbumHeader"] as DataTemplate;
                 return;
             }
 
-            MainList.HeaderTemplate = Header;
+            if (SelectedArtist != null)
+            {
+                MainList.HeaderTemplate = Resources["ArtistHeader"] as DataTemplate;
+                return;
+            }
+
+            MainList.Margin = new Thickness(-56, 0, -56, 0);
         }
 
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -68,14 +76,5 @@ namespace RMP.App.UserControls
         {
             await SelectedSong.StartEdit();
         }
-
-        // Set the selected item manually, otherwise seems broken.
-        /*private void MainList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                MViewModel.SelectedSong = song;
-            }
-        }*/
     }
 }
