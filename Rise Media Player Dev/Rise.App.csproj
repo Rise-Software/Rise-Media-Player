@@ -130,6 +130,7 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
+    <Compile Include="Dialogs\LegacySettings.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
@@ -389,6 +390,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\LegacySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Props\FilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

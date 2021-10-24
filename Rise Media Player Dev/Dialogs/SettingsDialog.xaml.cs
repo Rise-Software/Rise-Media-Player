@@ -30,7 +30,7 @@ namespace RMP.App.Dialogs
             double windowHeight = Window.Current.Bounds.Height;
 
             SettingsFrame.Width = windowWidth < 800 ?
-                windowWidth - 64 : 800 - 64;
+                windowWidth - 76 : 800 - 76;
 
             RootGrid.Height = windowHeight < 800 ?
                 windowHeight - 64 : 800 - 64;
