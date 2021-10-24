@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BecomeContributor.Content" xml:space="preserve">
-    <value>Become a contributor</value>
-  </data>
-  <data name="BecomeInsider.Content" xml:space="preserve">
-    <value>Become an insider</value>
-  </data>
-  <data name="commAboutH.Text" xml:space="preserve">
-    <value>Community</value>
-  </data>
-  <data name="contCommunity.Description" xml:space="preserve">
-    <value>View the amazing people that helped make this project possible, become one yourself!</value>
-  </data>
-  <data name="contCommunity.Title" xml:space="preserve">
-    <value>Contributors &amp; Insiders</value>
+  <data name="Contribute.Text" xml:space="preserve">
+    <value>Contribute</value>
   </data>
   <data name="Discord.Content" xml:space="preserve">
     <value>Discord Server</value>
@@ -138,20 +126,14 @@
   <data name="GitHub.Content" xml:space="preserve">
     <value>Collaborate on GitHub</value>
   </data>
-  <data name="Insider.Description" xml:space="preserve">
-    <value>Become an insider to suggest new features.</value>
+  <data name="MoreH.Text" xml:space="preserve">
+    <value>More</value>
   </data>
-  <data name="Insider.Title" xml:space="preserve">
-    <value>Not a developer? Not a problem!</value>
+  <data name="Recent.Description" xml:space="preserve">
+    <value>Most recent changes: Improved stability, new settings UI.</value>
   </data>
-  <data name="InternalAccess.Description" xml:space="preserve">
-    <value>Receive early, in testing, builds and find out what's coming soon.</value>
-  </data>
-  <data name="InternalAccess.Title" xml:space="preserve">
-    <value>Get access to internal builds</value>
-  </data>
-  <data name="legalAboutH.Text" xml:space="preserve">
-    <value>Legal</value>
+  <data name="Recent.Title" xml:space="preserve">
+    <value>Recent changes</value>
   </data>
   <data name="Reddit.Content" xml:space="preserve">
     <value>View our subreddit</value>
@@ -171,14 +153,11 @@
   <data name="vButton.Content" xml:space="preserve">
     <value>View Changelog</value>
   </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Version Info</value>
-  </data>
-  <data name="Work.Description" xml:space="preserve">
-    <value>Let us know what you want to see, or code and design with us!</value>
-  </data>
-  <data name="Work.Title" xml:space="preserve">
-    <value>Work with us</value>
   </data>
   <data name="YouInsider.Description" xml:space="preserve">
     <value>Current channel: Bloom</value>

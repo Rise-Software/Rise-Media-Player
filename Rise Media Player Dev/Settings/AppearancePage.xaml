@@ -12,7 +12,7 @@
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
                       PlaceholderText="Use system setting"
@@ -20,7 +20,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/FullArt"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE93C;">
             <!--ToggleSwitch IsOn="{Binding SquareAlbumArt, Mode=TwoWay}" /-->
@@ -29,7 +29,7 @@
 
         <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/Startup"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Icon="&#xE7E8;"
                                Margin="0,0,0,4">
             <ComboBox ItemsSource="{x:Bind Startup}"
@@ -38,7 +38,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE73F;">
             <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
@@ -46,7 +46,7 @@
 
         <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
                                Click="SidebarCustomize_Click"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Icon="&#xE9D5;">
             <FontIcon Glyph="&#xE00F;"
                       FontSize="16" />
@@ -55,7 +55,7 @@
 
         <TextBlock x:Uid="/Appearance/PrivacyH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/History"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xEADF;"
                                Margin="0,0,0,4">
@@ -63,14 +63,14 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE8FD;">
             <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xECA5;">
             <!--FontIcon FontSize="16"

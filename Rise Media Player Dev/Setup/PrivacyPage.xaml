@@ -14,7 +14,7 @@
 
         <StackPanel Orientation="Vertical" Spacing="4">
             <uc:NavigationExpander x:Uid="/Appearance/History"
-                                   ExpanderKind="Static"
+                                   ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xEADF;"
                                    Margin="0,0,0,4">
@@ -22,14 +22,14 @@
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
-                                   ExpanderKind="Static"
+                                   ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE8FD;">
                 <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
-                                   ExpanderKind="Button"
+                                   ExpanderStyle="Button"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xECA5;">
                 <!--FontIcon FontSize="16"

@@ -6,128 +6,160 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    SizeChanged="ContentDialog_SizeChanged"
-    Style="{StaticResource DefaultContentDialogStyle}">
+    Style="{StaticResource DefaultContentDialogStyle}"
+    SizeChanged="ContentDialog_SizeChanged">
 
     <ContentDialog.Resources>
         <x:Double x:Key="ContentDialogMaxWidth">962</x:Double>
-        <x:Double x:Key="ContentDialogMaxHeight">1000</x:Double>
-        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"></SolidColorBrush>
-        <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
-        <Thickness x:Key="NavigationViewContentMargin">52,0,0,0</Thickness>
-        <Thickness x:Key="NavigationViewHeaderMargin">0,1,24,0</Thickness>
+        <x:Double x:Key="ContentDialogMaxHeight">598</x:Double>
         <Style TargetType="muxc:BreadcrumbBarItem">
             <Setter Property="FontSize" Value="28" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
     </ContentDialog.Resources>
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" Margin="-24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
         <Rectangle x:Name="DualTone"
                    Fill="{ThemeResource ContentDialogBackground}"
-                   HorizontalAlignment="Left"
-                   Margin="-24"
-                   VerticalAlignment="Stretch" />
+                   Height="60"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Top" />
 
-        <muxc:NavigationView x:Name="SettingsNav"
-                             IsBackButtonVisible="Collapsed"
-                             IsPaneToggleButtonVisible="False"
-                             IsSettingsVisible="False"
-                             ItemInvoked="SettingsNav_ItemInvoked"
-                             Margin="0,0,-24,0"
-                             OpenPaneLength="200"
-                             PaneDisplayMode="Left">
-            <muxc:NavigationView.Header>
-                <Grid VerticalAlignment="Center">
+        <Grid BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
+              BorderThickness="0,0,0,1"
+              ColumnSpacing="8"
+              Height="Auto"
+              HorizontalAlignment="Stretch"
+              Padding="14"
+              VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          HorizontalAlignment="Stretch"
+                          VerticalScrollBarVisibility="Hidden">
+                <Grid ColumnSpacing="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <muxc:BreadcrumbBar x:Name="Header" ItemsSource="{x:Bind Breadcrumbs}" />
-                    <Button x:Name="CloseButton"
-                            Grid.Column="1"
-                            Click="CloseButton_Click"
-                            Height="36"
-                            HorizontalAlignment="Right"
-                            ToolTipService.ToolTip="Close"
-                            VerticalAlignment="Bottom"
-                            Width="36">
-                        <FontIcon FontSize="12" Glyph="&#xE8BB;" />
-                    </Button>
+                    <ToggleButton x:Name="Library"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="LibraryItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
+                                <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="Playback"
+                                  Grid.Column="1"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="PlaybackItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
+                                <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="Appearance"
+                                  Grid.Column="2"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="AppearanceItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
+                                <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
                 </Grid>
-            </muxc:NavigationView.Header>
-
-            <muxc:NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="SettingsSearch"
-                                HorizontalAlignment="Stretch"
-                                Margin="-12,0,-12,0"
-                                QueryIcon="Find"
-                                PlaceholderText="Find a setting" />
-            </muxc:NavigationView.AutoSuggestBox>
-
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Name="MediaLibraryPageItem"
-                                         x:Uid="/Sidebar/Library"
-                                         Padding="0,15"
-                                         Tag="MediaLibraryPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Library.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="PlaybackPageItem"
-                                         x:Uid="/Sidebar/Playback"
-                                         Padding="0,15"
-                                         Tag="PlaybackPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Playback.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="AppearancePageItem"
-                                         x:Uid="/Sidebar/Appearance"
-                                         Padding="0,15"
-                                         Tag="AppearancePage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Appearance.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
-
-            <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem x:Name="FeedbackPageItem"
-                                         x:Uid="/Sidebar/Feedback"
-                                         Tag="FeedbackPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Feedback.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="LanguagePageItem"
-                                         x:Uid="/Sidebar/Language"
-                                         Tag="LanguagePage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Language.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="AboutPageItem"
-                                         x:Uid="/Sidebar/About"
-                                         Tag="AboutPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/About.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.FooterMenuItems>
-
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Padding="0,0,24,0">
-                <Frame x:Name="SettingsFrame"
-                       x:FieldModifier="public"
-                       Padding="0,0,0,12">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition />
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
             </ScrollViewer>
-        </muxc:NavigationView>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                <AutoSuggestBox HorizontalAlignment="Stretch"
+                                Width="172"
+                                PlaceholderText="Find a setting"
+                                QueryIcon="Find" />
+                <ToggleButton x:Name="About"
+                              x:Uid="/Sidebar/About"
+                              Checked="ToggleButton_Checked"
+                              Height="32"
+                              Padding="0"
+                              Tag="AboutItem"
+                              Width="32">
+                    <ToggleButton.Content>
+                        <FontIcon Glyph="&#xE946;" />
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <Button x:Uid="/Information/Feedback"
+                        Click="Button_Click"
+                        Height="32"
+                        Padding="0"
+                        Width="32">
+                    <Button.Content>
+                        <FontIcon Glyph="&#xED15;" />
+                    </Button.Content>
+                </Button>
+
+                <Button x:Name="CloseButton"
+                        Click="CloseButton_Click"
+                        Height="32"
+                        Style="{StaticResource TransparentButton}"
+                        Padding="0"
+                        ToolTipService.ToolTip="Close"
+                        Width="32">
+                    <FontIcon FontSize="8" Glyph="&#xE8BB;" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <muxc:BreadcrumbBar x:Name="Header"
+                            Grid.Row="1"
+                            ItemsSource="{x:Bind Breadcrumbs}"
+                            Margin="32,8,0,0" />
+
+        <ScrollViewer Grid.Row="2" Padding="32,0" VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="SettingsFrame"
+                   x:FieldModifier="public">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </ScrollViewer>
     </Grid>
 </ContentDialog>

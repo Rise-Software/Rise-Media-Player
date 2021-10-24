@@ -14,11 +14,15 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
+            <Style x:Key="StretchedGridViewItem" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+
             <Thickness x:Key="ExpanderHeaderPadding">16,12,8,12</Thickness>
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="ExpandDirection" Value="Down" />
                 <Setter Property="Padding" Value="44,12" />
@@ -36,13 +40,14 @@
             </Style>
 
             <Style x:Key="TransparentCard" TargetType="Border">
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
                 <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
+                <Setter Property="Padding" Value="16,12,16,12" />
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
 
             <Style x:Key="ActionCard" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
@@ -67,6 +72,15 @@
                 <Setter Property="LabelPosition" Value="Collapsed" />
                 <Setter Property="MinWidth" Value="40" />
                 <Setter Property="Width" Value="Auto" />
+            </Style>
+
+            <Style x:Key="TransparentButton" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+
+            <Style TargetType="FontIcon">
+                <Setter Property="FontSize" Value="16" />
             </Style>
             <!--#endregion-->
 

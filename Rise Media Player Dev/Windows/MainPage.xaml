@@ -72,11 +72,9 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
                 <AutoSuggestBox x:Name="BigSearch"
                                 Height="32"
                                 HorizontalAlignment="Stretch"
-                                MaxWidth="530"
                                 VerticalAlignment="Top"
                                 AutomationProperties.Name="Search"
                                 PlaceholderText="Search music on this device"
@@ -91,11 +89,9 @@
                                 QueryIcon="Find" />
                 <Button x:Uid="/Information/Feedback"
                         Grid.Column="1"
-                        Background="Transparent"
-                        BorderThickness="0"
                         Click="Button_Click"
                         Height="32"
-                        HorizontalAlignment="Right"
+                        Style="{StaticResource TransparentButton}"
                         VerticalAlignment="Center">
                     <Button.Content>
                         <FontIcon FontSize="16" Glyph="&#xED15;" />
@@ -131,11 +127,17 @@
                                          Tag="DevicesPage"
                                          Visibility="{Binding ShowDevices}" />
 
-                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Music" />
+                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Music" Visibility="{Binding ShowMusicHeader}" />
                 <muxc:NavigationViewItem x:Name="SongsPageItem"
                                          x:Uid="/Sidebar/Songs"
                                          Tag="SongsPage"
-                                         Visibility="{Binding ShowSongs}" />
+                                         Visibility="{Binding ShowSongs}">
+                    <muxc:NavigationViewItem.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="works here tho" />
+                        </MenuFlyout>
+                    </muxc:NavigationViewItem.ContextFlyout>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="ArtistsPageItem"
                                          x:Uid="/Sidebar/Artists"
                                          Tag="ArtistsPage"
@@ -149,7 +151,7 @@
                                          Tag="GenresPage"
                                          Visibility="{Binding ShowGenres}" />
 
-                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Videos" />
+                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Videos" Visibility="{Binding ShowVideoHeader}" />
                 <muxc:NavigationViewItem x:Name="LocalVideosPageItem"
                                          x:Uid="/Sidebar/LocalVideos"
                                          Tag="LocalVideosPage"
@@ -163,10 +165,12 @@
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem x:Name="DiscyPageItem"
                                          x:Uid="/Sidebar/HelpTips"
-                                         Tag="DiscyPage" />
+                                         Tag="DiscyPage"
+                                         Visibility="{Binding ShowHelpCentre}" />
                 <muxc:NavigationViewItem x:Name="NowPlayingPageItem"
                                          x:Uid="/Sidebar/NowPlaying"
-                                         Tag="NowPlayingPage" />
+                                         Tag="NowPlayingPage"
+                                         Visibility="{Binding ShowNowPlaying}" />
                 <muxc:NavigationViewItem x:Name="SettingsPageItem"
                                          x:Uid="/Sidebar/Settings"
                                          Tag="SettingsPage">

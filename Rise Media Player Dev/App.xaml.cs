@@ -6,6 +6,7 @@ using RMP.App.ViewModels;
 using RMP.App.Views;
 using RMP.App.Windows;
 using System;
+using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -83,6 +84,7 @@ namespace RMP.App
         private async void InitDatabase()
         {
             _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
+            Debug.WriteLine(ApplicationData.Current.LocalCacheFolder.Path);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
             DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
                 "Data Source=" + dbPath);
@@ -99,6 +101,13 @@ namespace RMP.App
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+#if DEBUG
+            if (Debugger.IsAttached)
+            {
+                DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (!(Window.Current.Content is Frame rootFrame))

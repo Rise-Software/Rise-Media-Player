@@ -12,7 +12,7 @@
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/EQ"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE9E9;">
             <!--FontIcon FontSize="16"
@@ -20,7 +20,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Playback/StreamingQuality"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xEA69;">
             <!--FontIcon FontSize="16"
@@ -30,14 +30,14 @@
 
         <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/Gapless"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE101;">
             <!--ToggleSwitch IsOn="{Binding Gapless, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Playback/Crossfade"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE13C;">
             <!--ComboBox ItemsSource="{x:Bind Crossfade}"
@@ -48,7 +48,7 @@
 
         <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/Scaling"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE1D9;">
             <!--ComboBox ItemsSource="{x:Bind VideoScale}"
@@ -59,14 +59,14 @@
 
         <TextBlock x:Uid="/Playback/NowPlayingH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Playback/GoDevice"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE7F6;">
             <!--ToggleSwitch IsOn="{Binding GoDevice, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Playback/NowPlaying"
-                               ExpanderKind="Button"
+                               ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE102;"
                                Margin="0,0,0,4">
@@ -75,7 +75,7 @@
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Playback/Flyouts"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE15D;">
             <!--ToggleSwitch IsOn="{Binding ReplaceFlyouts, Mode=TwoWay}" /-->

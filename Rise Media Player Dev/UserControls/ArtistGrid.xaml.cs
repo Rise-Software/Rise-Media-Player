@@ -23,7 +23,6 @@ namespace RMP.App.UserControls
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                ViewModel.SelectedArtist = artist;
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
             }
         }

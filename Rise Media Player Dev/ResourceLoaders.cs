@@ -44,5 +44,11 @@ namespace RMP.App
         /// </summary>
         public static ResourceLoader SetupLoader { get; } =
             ResourceLoader.GetForViewIndependentUse("Setup");
+
+        /// <summary>
+        /// Loads Sidebar resources.
+        /// </summary>
+        public static ResourceLoader SidebarLoader { get; } =
+            ResourceLoader.GetForViewIndependentUse("Sidebar");
     }
 }

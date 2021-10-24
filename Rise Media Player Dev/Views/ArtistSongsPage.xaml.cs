@@ -13,6 +13,8 @@ namespace RMP.App.Views
         /// </summary>
         private MainViewModel ViewModel => App.MViewModel;
 
+        private ArtistViewModel SelectedArtist { get; set; }
+
         public ArtistSongsPage()
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace RMP.App.Views
         {
             if (e.Parameter is ArtistViewModel artist)
             {
+                SelectedArtist = artist;
                 ViewModel.ClearFilters();
 
                 ViewModel.Filters[3] = artist.Model.Name;

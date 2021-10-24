@@ -17,7 +17,7 @@
                       Title="English is currently the only available language"
                       Message="Other languages and regions will be available soon." />
         <uc:NavigationExpander x:Uid="/Language/Select"
-                               ExpanderKind="Static"
+                               ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Icon="&#xE12B;">
             <!--ComboBox PlaceholderText="Use system language"
