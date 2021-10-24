@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.Content" xml:space="preserve">
+  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Abt" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="Account.Content" xml:space="preserve">
@@ -126,7 +129,7 @@
   <data name="Albums.Content" xml:space="preserve">
     <value>Albums</value>
   </data>
-  <data name="Appearance.Content" xml:space="preserve">
+  <data name="Appearance.Text" xml:space="preserve">
     <value>Personalise</value>
   </data>
   <data name="Artists.Content" xml:space="preserve">
@@ -137,9 +140,6 @@
   </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Feedback</value>
-  </data>
-  <data name="GeneralH.Text" xml:space="preserve">
-    <value>General</value>
   </data>
   <data name="Genres.Content" xml:space="preserve">
     <value>Genres</value>
@@ -153,7 +153,10 @@
   <data name="Language.Content" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="Library.Content" xml:space="preserve">
+  <data name="Lib" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="Library.Text" xml:space="preserve">
     <value>Library</value>
   </data>
   <data name="LocalVideos.Content" xml:space="preserve">
@@ -162,16 +165,19 @@
   <data name="Music.Content" xml:space="preserve">
     <value>Music</value>
   </data>
-  <data name="MusicH.Text" xml:space="preserve">
-    <value>Music</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>Navigation</value>
   </data>
   <data name="NowPlaying.Content" xml:space="preserve">
     <value>Now Playing</value>
   </data>
-  <data name="Playback.Content" xml:space="preserve">
+  <data name="Pers" xml:space="preserve">
+    <value>Personalise</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playback.Text" xml:space="preserve">
     <value>Playback</value>
   </data>
   <data name="Playlists.Content" xml:space="preserve">
@@ -187,9 +193,6 @@
     <value>Streaming Services</value>
   </data>
   <data name="Videos.Content" xml:space="preserve">
-    <value>Videos</value>
-  </data>
-  <data name="VideosH.Text" xml:space="preserve">
     <value>Videos</value>
   </data>
 </root>
