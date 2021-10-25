@@ -87,7 +87,7 @@ namespace RMP.App.ViewModels
         /// Gets or sets the string that indicates how the
         /// sorting must be done.
         /// </summary>
-        public SortMethods OrderBy { get; set; }
+        public SortMethods SortBy { get; set; }
 
         /// <summary>
         /// Filters the song collection based on various filters.
@@ -126,7 +126,7 @@ namespace RMP.App.ViewModels
                     select s;
             }
 
-            switch (OrderBy)
+            switch (SortBy)
             {
                 case SortMethods.Title:
                     enumerable = enumerable.OrderBy(s => s.Title);
@@ -164,7 +164,7 @@ namespace RMP.App.ViewModels
         {
             Filters = new string[4] { "", "", "", "" };
             StrictFilters = new bool[4] { false, false, false, false };
-            OrderBy = SortMethods.Default;
+            SortBy = SortMethods.Default;
         }
 
         private bool _isLoading = false;

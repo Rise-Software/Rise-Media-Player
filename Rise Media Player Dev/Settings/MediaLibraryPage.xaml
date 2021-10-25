@@ -43,8 +43,7 @@
         <uc:NavigationExpander x:Uid="/MediaLibrary/Ripping"
                                ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE958;"
-                               Margin="0,0,0,4">
+                               Icon="&#xE958;">
             <!--FontIcon VerticalAlignment="Center"
                       FontSize="16"
                       Glyph="&#xE00F;" /-->

@@ -3,7 +3,7 @@
     public static class Enums
     {
         /// <summary>
-        /// Different sorting methods for the song list.
+        /// Different sorting methods for the lists/grids.
         /// </summary>
         public enum SortMethods
         {

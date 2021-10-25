@@ -13,7 +13,7 @@
         <x:Double x:Key="ContentDialogMaxWidth">962</x:Double>
         <x:Double x:Key="ContentDialogMaxHeight">598</x:Double>
         <Style TargetType="muxc:BreadcrumbBarItem">
-            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontSize" Value="24" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
     </ContentDialog.Resources>
@@ -36,7 +36,7 @@
               ColumnSpacing="8"
               Height="Auto"
               HorizontalAlignment="Stretch"
-              Padding="14"
+              Padding="16,14,12,14"
               VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -107,11 +107,40 @@
 
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
-                        Spacing="8">
+                        Spacing="6">
                 <AutoSuggestBox HorizontalAlignment="Stretch"
                                 Width="172"
                                 PlaceholderText="Find a setting"
                                 QueryIcon="Find" />
+
+                <Button x:Name="MoreButton"
+                        x:Uid="/Information/More"
+                        Height="32"
+                        Padding="0"
+                        Width="32">
+                    <Button.Content>
+                        <FontIcon FontSize="14" Glyph="&#xE10C;" />
+                    </Button.Content>
+
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutSubItem x:Uid="/Information/Style">
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/HC" GroupName="Icons" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Colorful" GroupName="Icons" />
+
+                                <MenuFlyoutSeparator />
+
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Sidebar" GroupName="Dialog" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/MenuBar" GroupName="Dialog" />
+                            </MenuFlyoutSubItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+                <Rectangle Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
+                           Height="26"
+                           Width="1" />
+
                 <ToggleButton x:Name="About"
                               x:Uid="/Sidebar/About"
                               Checked="ToggleButton_Checked"
@@ -120,7 +149,7 @@
                               Tag="AboutItem"
                               Width="32">
                     <ToggleButton.Content>
-                        <FontIcon Glyph="&#xE946;" />
+                        <FontIcon FontSize="14" Glyph="&#xE946;" />
                     </ToggleButton.Content>
                 </ToggleButton>
 
@@ -130,18 +159,19 @@
                         Padding="0"
                         Width="32">
                     <Button.Content>
-                        <FontIcon Glyph="&#xED15;" />
+                        <FontIcon FontSize="14" Glyph="&#xED15;" />
                     </Button.Content>
                 </Button>
 
                 <Button x:Name="CloseButton"
+                        x:Uid="/Information/Close"
                         Click="CloseButton_Click"
                         Height="32"
-                        Style="{StaticResource TransparentButton}"
+                        Margin="4,0,0,0"
                         Padding="0"
-                        ToolTipService.ToolTip="Close"
+                        Style="{StaticResource TransparentButton}"
                         Width="32">
-                    <FontIcon FontSize="8" Glyph="&#xE8BB;" />
+                    <FontIcon FontSize="14" Glyph="&#xE10A;" />
                 </Button>
             </StackPanel>
         </Grid>
@@ -149,11 +179,14 @@
         <muxc:BreadcrumbBar x:Name="Header"
                             Grid.Row="1"
                             ItemsSource="{x:Bind Breadcrumbs}"
-                            Margin="32,8,0,0" />
+                            Margin="32,20,32,0" />
 
-        <ScrollViewer Grid.Row="2" Padding="32,0" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2"
+                      Padding="32,0"
+                      VerticalScrollBarVisibility="Auto">
             <Frame x:Name="SettingsFrame"
-                   x:FieldModifier="public">
+                   x:FieldModifier="public"
+                   Padding="0,4,0,32">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

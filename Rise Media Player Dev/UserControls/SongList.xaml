@@ -13,26 +13,12 @@
     </UserControl.Resources>
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="MainList.Margin" Value="-56,0,-56,0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <ListView x:Name="MainList"
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind List}"
                   ItemTemplate="{StaticResource SongListItem}"
-                  Margin="-56,48,-56,0"
+                  Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"

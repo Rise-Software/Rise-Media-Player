@@ -279,7 +279,36 @@ namespace RMP.App.Settings.ViewModels
         }
 
         #region Methods
-        // hehe
+        /// <summary>
+        /// Changes the visibility of NavigationView headers.
+        /// </summary>
+        /// <param name="visibilityCheck">1 checks for music, 2 checks for videos.</param>
+        public void ChangeHeaderVisibility(int visibilityCheck)
+        {
+            if (visibilityCheck == 1)
+            {
+                if (!ShowSongs && !ShowArtists &&
+                    !ShowAlbums && !ShowGenres)
+                {
+                    ShowMusicHeader = false;
+                }
+                else
+                {
+                    ShowMusicHeader = true;
+                }
+            }
+            else if (visibilityCheck == 2)
+            {
+                if (!ShowLocalVideos && !ShowStreaming)
+                {
+                    ShowVideoHeader = false;
+                }
+                else
+                {
+                    ShowVideoHeader = true;
+                }
+            }
+        }
         #endregion
     }
 }

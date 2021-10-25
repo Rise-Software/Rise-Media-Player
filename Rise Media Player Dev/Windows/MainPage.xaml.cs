@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
@@ -369,6 +370,76 @@ namespace RMP.App.Windows
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             _ = await Methods.LaunchURI(URLs.Feedback);
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem click = (MenuFlyoutItem)sender;
+            HideItem(click.Tag.ToString(), false);
+        }
+
+        private void HideItem(string item, bool value)
+        {
+            int visibilityCheck = 0;
+            switch (item)
+            {
+                case "Home":
+                    ViewModel.ShowAtAGlance = value;
+                    break;
+
+                case "Playlists":
+                    ViewModel.ShowPlaylists = value;
+                    break;
+
+                case "Devices":
+                    ViewModel.ShowDevices = value;
+                    break;
+
+                case "Songs":
+                    ViewModel.ShowSongs = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Artists":
+                    ViewModel.ShowArtists = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Albums":
+                    ViewModel.ShowAlbums = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Genres":
+                    ViewModel.ShowGenres = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "LocalVideos":
+                    ViewModel.ShowLocalVideos = value;
+                    visibilityCheck = 2;
+                    break;
+
+                case "Streaming":
+                    ViewModel.ShowStreaming = value;
+                    visibilityCheck = 2;
+                    break;
+
+                case "Help":
+                    ViewModel.ShowHelpCentre = value;
+                    break;
+
+                case "NowPlaying":
+                    ViewModel.ShowNowPlaying = value;
+                    break;
+            }
+
+            ViewModel.ChangeHeaderVisibility(visibilityCheck);
+        }
+
+        private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            App.MViewModel.Sync();
         }
     }
 }

@@ -10,13 +10,13 @@
     <StackPanel Orientation="Vertical" Spacing="4">
         <GridView HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
+                  ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                   Margin="0,10,0,0"
                   SelectionMode="None"
                   UseSystemFocusVisuals="False">
             <Image Height="45"
                    HorizontalAlignment="Left"
-                   Source="ms-appx:///Assets/Branding/settingsbanner.png"
-                   Width="{x:Bind ItemStack.RenderSize.Width}" />
+                   Source="ms-appx:///Assets/Branding/settingsbanner.png" />
 
             <StackPanel x:Name="ItemStack"
                         HorizontalAlignment="Right"

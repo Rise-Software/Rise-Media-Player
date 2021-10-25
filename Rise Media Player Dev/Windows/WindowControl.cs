@@ -63,6 +63,7 @@ namespace RMP.App.Windows
             int minWidth, int minHeight, object parameter = null)
         {
             AppWindow window = await AppWindow.TryCreateAsync();
+            Size minSize = new Size(minWidth, minHeight);
 
             Frame frame = new Frame();
             _ = frame.Navigate(page, parameter);
@@ -70,7 +71,8 @@ namespace RMP.App.Windows
             ElementCompositionPreview.SetAppWindowContent(window, frame);
             _ = new WindowTitleBar(window.TitleBar);
             _ = window.Presenter.RequestPresentation(viewMode);
-            WindowManagementPreview.SetPreferredMinSize(window, new Size(minWidth, minHeight));
+            WindowManagementPreview.SetPreferredMinSize(window, minSize);
+            window.RequestSize(minSize);
 
             return await window.TryShowAsync();
         }

@@ -38,16 +38,12 @@ namespace RMP.App.UserControls
             if (SelectedAlbum != null)
             {
                 MainList.HeaderTemplate = Resources["AlbumHeader"] as DataTemplate;
-                return;
             }
 
             if (SelectedArtist != null)
             {
                 MainList.HeaderTemplate = Resources["ArtistHeader"] as DataTemplate;
-                return;
             }
-
-            MainList.Margin = new Thickness(-56, 0, -56, 0);
         }
 
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

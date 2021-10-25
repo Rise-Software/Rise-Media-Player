@@ -65,7 +65,7 @@
             <Style x:Key="Subheader" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Padding" Value="0,20,0,5" />
+                <Setter Property="Padding" Value="0,16,0,5" />
             </Style>
 
             <Style x:Key="AppBarCompactButton" TargetType="AppBarButton" BasedOn="{StaticResource DefaultAppBarButtonStyle}">

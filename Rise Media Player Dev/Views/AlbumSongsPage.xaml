@@ -13,6 +13,7 @@
 
     <Grid>
         <uc:SongList x:Name="SongList"
+                     Margin="0,56,0,0"
                      SelectedAlbum="{x:Bind SelectedAlbum}" />
     </Grid>
 </Page>

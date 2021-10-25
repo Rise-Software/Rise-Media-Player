@@ -123,14 +123,26 @@
   <data name="Added.Title" xml:space="preserve">
     <value>New media added</value>
   </data>
+  <data name="Artist.Text" xml:space="preserve">
+    <value>Artist</value>
+  </data>
   <data name="AtAGlance.Message" xml:space="preserve">
     <value>This page will soon be home to your recommendations, recently played and more. We hope to introduce this feature soon, although it will not likely be seen in Pre-Alpha.</value>
   </data>
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>About this page</value>
   </data>
+  <data name="BigSearch.PlaceholderText" xml:space="preserve">
+    <value>Search music on this device</value>
+  </data>
   <data name="Check.Title" xml:space="preserve">
     <value>Checking for new media in your library...</value>
+  </data>
+  <data name="Close.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Colorful.Text" xml:space="preserve">
+    <value>Colorful Icons</value>
   </data>
   <data name="Delete.ToolTipService.ToolTip" xml:space="preserve">
     <value>Delete</value>
@@ -141,11 +153,20 @@
   <data name="Feedback.ToolTipService.ToolTip" xml:space="preserve">
     <value>Feedback</value>
   </data>
+  <data name="HC.Text" xml:space="preserve">
+    <value>High Contrast Icons</value>
+  </data>
   <data name="Indexing.Subtitle" xml:space="preserve">
     <value>We're adding some media to your library. This really won't take long.</value>
   </data>
   <data name="Indexing.Title" xml:space="preserve">
     <value>Adding media to your library</value>
+  </data>
+  <data name="MenuBar.Text" xml:space="preserve">
+    <value>Menu bar</value>
+  </data>
+  <data name="More.ToolTipService.ToolTip" xml:space="preserve">
+    <value>More settings</value>
   </data>
   <data name="NameOnly.Text" xml:space="preserve">
     <value>Filter by name only</value>
@@ -156,6 +177,12 @@
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
     <value>Play</value>
   </data>
+  <data name="Remove.Text" xml:space="preserve">
+    <value>Remove from sidebar</value>
+  </data>
+  <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove folder</value>
+  </data>
   <data name="SetupFinalise.Text" xml:space="preserve">
     <value>We’re just making sure all of your changes are saved.</value>
   </data>
@@ -165,8 +192,20 @@
   <data name="Shuffle.Label" xml:space="preserve">
     <value>Shuffle</value>
   </data>
+  <data name="Sidebar.Text" xml:space="preserve">
+    <value>Sidebar (Classic)</value>
+  </data>
+  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sort</value>
+  </data>
+  <data name="Style.Text" xml:space="preserve">
+    <value>Settings style</value>
+  </data>
+  <data name="Title.Text" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="View.Label" xml:space="preserve">
     <value>View</value>

@@ -1,13 +1,14 @@
 ﻿using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
 using RMP.App.Windows;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using static RMP.App.Enums;
 
 namespace RMP.App.Views
 {
@@ -20,7 +21,7 @@ namespace RMP.App.Views
         /// </summary>
         private MainViewModel MViewModel => App.MViewModel;
 
-        private ObservableCollection<AlbumViewModel> Albums { get; set; }
+        private SortMethods SortBy = SortMethods.Default;
 
         /// <summary>
         /// Gets the app-wide NPViewModel instance.
@@ -43,18 +44,28 @@ namespace RMP.App.Views
 
         public void RefreshAlbums()
         {
-            Debug.WriteLine("getting sussy albums");
+            IEnumerable<AlbumViewModel> enumerable;
             if (App.SViewModel.FilterByNameOnly)
             {
-                Albums = new ObservableCollection<AlbumViewModel>
-                    (MViewModel.Albums.GroupBy(a => a.Model.Title).Select(a => a.First()));
+                enumerable = MViewModel.Albums.GroupBy(a => a.Model.Title).Select(a => a.First());
             }
             else
             {
-                Albums = MViewModel.Albums;
+                enumerable = MViewModel.Albums;
             }
 
-            AlbumGrid.ItemsSource = Albums;
+            switch (SortBy)
+            {
+                case SortMethods.Artist:
+                    enumerable = enumerable.OrderBy(a => a.Artist);
+                    break;
+
+                default:
+                    enumerable = enumerable.OrderBy(s => s.Title);
+                    break;
+            }
+
+            AlbumGrid.ItemsSource = enumerable;
         }
 
         private async void PlayItem_Click(object sender, RoutedEventArgs e)
@@ -81,7 +92,7 @@ namespace RMP.App.Views
                 MViewModel.Filters[2] = MViewModel.SelectedAlbum.Model.Artist;
             }
 
-            MViewModel.OrderBy = Enums.SortMethods.Random;
+            MViewModel.SortBy = Enums.SortMethods.Random;
             await PViewModel.CreatePlaybackList(0, MViewModel.FilteredSongs, PViewModel.Token);
         }
 
@@ -91,6 +102,23 @@ namespace RMP.App.Views
             {
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
             }
+        }
+
+        private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuFlyoutItem)sender;
+            switch (item.Tag.ToString())
+            {
+                case "Artist":
+                    SortBy = SortMethods.Artist;
+                    break;
+
+                default:
+                    SortBy = SortMethods.Default;
+                    break;
+            }
+
+            RefreshAlbums();
         }
     }
 }
