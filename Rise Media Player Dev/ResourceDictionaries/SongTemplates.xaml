@@ -53,22 +53,20 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="8"
-                                VerticalAlignment="Center">
-                        <TextBlock Text="{Binding SelectedAlbum.Title}"
+                    <TextBlock Text="{Binding SelectedAlbum.Title}"
                                    MaxLines="1"
                                    Style="{StaticResource TitleTextBlockStyle}"
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
 
-                        <FontIcon FontSize="24"
+                    <FontIcon Grid.Column="1"
+                              FontSize="24"
                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                   Glyph="&#xF12B;"
                                   Margin="0,6,0,0"
                                   VerticalAlignment="Center" />
-                    </StackPanel>
 
-                    <ToggleButton Grid.Column="1"
+                    <!--ToggleButton Grid.Column="1"
                                   Background="Transparent"
                                   BorderThickness="0"
                                   Height="32"
@@ -84,7 +82,7 @@
                                   Padding="0"
                                   Width="32">
                         <FontIcon FontSize="16" Glyph="&#xE19E;" />
-                    </ToggleButton>
+                    </ToggleButton-->
                 </Grid>
 
                 <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">

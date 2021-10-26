@@ -43,7 +43,14 @@ namespace RMP.App.UserControls
 
         public ExpanderStyles ExpanderStyle { get; set; }
 
-        public string Icon { get; set; }
+        public static DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(string), typeof(NavigationExpander), null);
+
+        public string Icon
+        {
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
 
         public static DependencyProperty ControlsProperty =
             DependencyProperty.Register("Controls", typeof(object), typeof(NavigationExpander), null);

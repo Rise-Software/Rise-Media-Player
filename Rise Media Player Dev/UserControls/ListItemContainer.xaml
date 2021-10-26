@@ -15,72 +15,133 @@
         <conv:BooleanToVisibility x:Key="BoolToVis" />
     </UserControl.Resources>
 
-    <Grid Padding="0,4">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+        </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Stretch"
-                   Text="{Binding Track}"
-                   TextAlignment="End"
-                   VerticalAlignment="Center"
-                   Visibility="{x:Bind IsPointerOver,
-                                Converter={StaticResource BoolToVis},
-                                ConverterParameter=Reverse,
-                                Mode=OneWay}"
-                   Width="24" />
+        <Rectangle Fill="Transparent"
+                   HorizontalAlignment="Stretch" />
 
-        <Button Click="OnButtonClick"
-                Height="32"
-                Padding="0"
-                Style="{StaticResource TransparentButton}"
-                Visibility="{x:Bind IsPointerOver, Mode=OneWay}"
-                Width="32">
-            <FontIcon Glyph="&#xE102;" />
-        </Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="12" />
+            </Grid.ColumnDefinitions>
 
-        <Rectangle Grid.Column="1"
-                   Fill="Transparent"
-                   VerticalAlignment="Stretch"
-                   Width="12" />
+            <Rectangle Fill="Transparent"
+                       VerticalAlignment="Stretch" />
 
-        <StackPanel Grid.Column="2"
-                    Orientation="Vertical">
-            <StackPanel.Transitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition />
-                </TransitionCollection>
-            </StackPanel.Transitions>
-            <TextBlock Text="{Binding Title}"
-                       TextTrimming="CharacterEllipsis"
-                       Width="Auto" />
-            <TextBlock>
-                <Hyperlink UnderlineStyle="None">
-                    <Run Text="{Binding Artist}" />
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-        <Rectangle Grid.Column="3"
-                   Fill="Transparent"
-                   VerticalAlignment="Stretch"
-                   Width="12" />
+                <Rectangle Fill="Transparent"
+                           VerticalAlignment="Stretch" />
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Stretch"
+                           Text="{Binding Track}"
+                           TextAlignment="Right"
+                           VerticalAlignment="Center"
+                           Visibility="{x:Bind IsPointerOver,
+                                        Converter={StaticResource BoolToVis},
+                                        ConverterParameter=Reverse,
+                                        Mode=OneWay}"
+                           Width="24" />
+                <Rectangle Grid.Row="2"
+                           Fill="Transparent"
+                           VerticalAlignment="Stretch" />
+            </Grid>
 
-        <Grid Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
+            <Button Grid.Column="1"
+                    Click="OnButtonClick"
+                    Height="32"
+                    Padding="0"
+                    Style="{StaticResource TransparentButton}"
+                    Visibility="{x:Bind IsPointerOver, Mode=OneWay}"
+                    Width="32">
+                <FontIcon Glyph="&#xE102;" />
+            </Button>
 
-            <Rectangle Fill="Transparent" />
-            <TextBlock Grid.Row="1"
-                       Text="{Binding Length}" />
-            <Rectangle Grid.Row="2" Fill="Transparent" />
+            <Rectangle Grid.Column="2"
+                       Fill="Transparent"
+                       VerticalAlignment="Stretch" />
+
+            <StackPanel Grid.Column="3" Orientation="Vertical">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+
+                <TextBlock Text="{Binding Title}"
+                           TextTrimming="CharacterEllipsis" />
+                <Grid ColumnSpacing="4">
+                    <Grid.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </Grid.Transitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock>
+                        <Hyperlink UnderlineStyle="None">
+                            <Run Text="{Binding Artist}" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Grid.Column="1" Text="•" />
+
+                    <TextBlock Grid.Column="2">
+                        <Hyperlink UnderlineStyle="None">
+                            <Run Text="{Binding Album}" />
+                        </Hyperlink>
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+
+            <Rectangle Grid.Column="4"
+                       Fill="Transparent"
+                       VerticalAlignment="Stretch" />
+
+            <Grid Grid.Column="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Rectangle Fill="Transparent"
+                           VerticalAlignment="Stretch" />
+                <TextBlock Grid.Row="1" Text="{Binding Length}" />
+                <Rectangle Grid.Row="2"
+                           Fill="Transparent"
+                           VerticalAlignment="Stretch" />
+            </Grid>
+
+            <Rectangle Grid.Column="6"
+                       Fill="Transparent"
+                       VerticalAlignment="Stretch" />
         </Grid>
+
+        <Rectangle Grid.Row="2"
+                   Fill="Transparent"
+                   Height="4"
+                   VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>

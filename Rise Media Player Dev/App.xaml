@@ -11,14 +11,16 @@
 
             <!--#region Styles-->
             <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Setter Property="MinHeight" Value="0" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="0" />
             </Style>
 
             <Style x:Key="StretchedGridViewItem" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
-            <Thickness x:Key="ExpanderHeaderPadding">16,12,8,12</Thickness>
+            <Thickness x:Key="ExpanderHeaderPadding">16,8,0,8</Thickness>
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="VerticalAlignment" Value="Top" />
@@ -46,7 +48,6 @@
                 <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-                <Setter Property="Padding" Value="16,12,16,12" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
 

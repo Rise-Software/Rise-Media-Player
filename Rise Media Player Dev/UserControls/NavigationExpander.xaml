@@ -15,6 +15,7 @@
             <conv:StringToVisibility x:Key="StrToVis" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResourceDictionaries/RightAlignedToggleSwitch.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/Expanders.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -34,7 +35,7 @@
 
                 <FontIcon VerticalAlignment="Center"
                           FontSize="16"
-                          Glyph="{x:Bind Icon}" />
+                          Glyph="{x:Bind Icon, Mode=OneWay}" />
                 <StackPanel Grid.Column="1"
                             Orientation="Vertical"
                             VerticalAlignment="Center">
@@ -70,7 +71,7 @@
 
                 <FontIcon VerticalAlignment="Center"
                               FontSize="16"
-                              Glyph="{x:Bind Icon}" />
+                              Glyph="{x:Bind Icon, Mode=OneWay}" />
 
                 <StackPanel Grid.Column="1"
                                 Orientation="Vertical"
@@ -97,7 +98,9 @@
 
         <!-- Expander -->
         <muxc:Expander x:Name="RootExpander"
-                       x:Load="False">
+                       x:Load="False"
+                       HorizontalContentAlignment="Stretch"
+                       Style="{StaticResource SettingsExpanderStyle}">
             <muxc:Expander.Header>
                 <Grid ColumnSpacing="12"
                       VerticalAlignment="Center">
@@ -109,7 +112,7 @@
 
                     <FontIcon VerticalAlignment="Center"
                               FontSize="16"
-                              Glyph="{x:Bind Icon}" />
+                              Glyph="{x:Bind Icon, Mode=OneWay}" />
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical"
@@ -125,7 +128,7 @@
                     </StackPanel>
 
                     <ContentPresenter Grid.Column="2"
-                                      Content="{x:Bind HeaderControls}"
+                                      Content="{x:Bind HeaderControls, Mode=OneWay}"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Center"
                                       VerticalContentAlignment="Center" />
@@ -133,7 +136,7 @@
             </muxc:Expander.Header>
 
             <muxc:Expander.Content>
-                <ContentPresenter Content="{x:Bind Controls}" />
+                <ContentPresenter Content="{x:Bind Controls, Mode=OneWay}" />
             </muxc:Expander.Content>
         </muxc:Expander>
 
@@ -150,7 +153,7 @@
 
                 <FontIcon VerticalAlignment="Center"
                           FontSize="16"
-                          Glyph="{x:Bind Icon}" />
+                          Glyph="{x:Bind Icon, Mode=OneWay}" />
 
                 <StackPanel Grid.Column="1"
                             Orientation="Vertical"
