@@ -143,7 +143,11 @@
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UserControls\ListItemContainer.xaml.cs">
+      <DependentUpon>ListItemContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -403,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\SongTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ListItemContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

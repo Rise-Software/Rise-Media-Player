@@ -107,7 +107,7 @@ namespace RMP.App.Windows
             new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")) };
 
         private readonly FontIcon helpIconMono =
-            new FontIcon() { Glyph = "\uE897" };
+            new FontIcon() { Glyph = "\uE9CE" };
 
         private readonly ImageIcon playingIconColor =
             new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Now Playing.png")) };

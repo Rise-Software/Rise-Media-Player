@@ -92,7 +92,7 @@ namespace RMP.App.Views
                 MViewModel.Filters[2] = MViewModel.SelectedAlbum.Model.Artist;
             }
 
-            MViewModel.SortBy = Enums.SortMethods.Random;
+            MViewModel.SortBy = SortMethods.Random;
             await PViewModel.CreatePlaybackList(0, MViewModel.FilteredSongs, PViewModel.Token);
         }
 

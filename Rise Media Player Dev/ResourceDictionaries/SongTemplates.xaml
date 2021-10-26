@@ -1,35 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <DataTemplate x:Key="SongListItem">
-        <Grid ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15.5" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                       HorizontalAlignment="Right"
-                       Text="{Binding Track}" />
-
-            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
-                <TextBlock Text="{Binding Title}"
-                           TextTrimming="CharacterEllipsis"
-                           Width="Auto" />
-                <TextBlock>
-                    <Hyperlink UnderlineStyle="None">
-                        <Run Text="{Binding Artist}" />
-                    </Hyperlink>
-                </TextBlock>
-            </StackPanel>
-
-            <TextBlock Grid.Column="2"
-                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                       Text="{Binding Length}" />
-        </Grid>
-    </DataTemplate>
-
     <DataTemplate x:Key="NowPlayingQueueItem">
         <Grid ColumnSpacing="12" Padding="0,4">
             <Grid.ColumnDefinitions>
@@ -63,7 +34,7 @@
 
             <Border CornerRadius="8">
                 <Image Height="154"
-                       Stretch="UniformToFill"
+                       Stretch="Uniform"
                        Width="154">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding SelectedAlbum.Thumbnail}" />
@@ -73,15 +44,115 @@
 
             <StackPanel Grid.Column="1"
                         Orientation="Vertical"
-                        Spacing="8">
-                <TextBlock Text="{Binding SelectedAlbum.Title}"
-                           MaxLines="2"
-                           Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        Spacing="8"
+                        VerticalAlignment="Center">
+                <Grid ColumnSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding SelectedAlbum.Title}"
+                                   MaxLines="1"
+                                   Style="{StaticResource TitleTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+
+                        <FontIcon FontSize="24"
+                                  Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                  Glyph="&#xF12B;"
+                                  Margin="0,6,0,0"
+                                  VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <ToggleButton Grid.Column="1"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  Height="32"
+                                  Padding="0"
+                                  Width="32">
+                        <FontIcon FontSize="16" Glyph="&#xE19F;" />
+                    </ToggleButton>
+
+                    <ToggleButton Grid.Column="2"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  Height="32"
+                                  Padding="0"
+                                  Width="32">
+                        <FontIcon FontSize="16" Glyph="&#xE19E;" />
+                    </ToggleButton>
+                </Grid>
+
+                <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
                     <Hyperlink UnderlineStyle="None">
                         <Run Text="{Binding SelectedAlbum.Artist}" />
                     </Hyperlink>
                 </TextBlock>
+
+                <TextBlock Text="{Binding SelectedAlbum.Genres}"
+                           MaxLines="1"
+                           Style="{StaticResource BodyTextBlockStyle}" />
+
+                <CommandBar Background="Transparent"
+                            DefaultLabelPosition="Right"
+                            HorizontalAlignment="Left"
+                            Margin="-12,0">
+                    <AppBarButton x:Name="PlayItem"
+                                  x:Uid="/Information/Play"
+                                  Command="{Binding PlayAllCommand}"
+                                  Icon="Play"
+                                  Style="{StaticResource AppBarCompactButton}" />
+
+                    <AppBarSeparator />
+
+                    <AppBarButton x:Name="ShuffleItem"
+                                  x:Uid="/Information/Shuffle"
+                                  Command="{Binding ShuffleCommand}"
+                                  Icon="Shuffle" />
+                    <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Playlist">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon Glyph="&#xE142;" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+
+                    <AppBarSeparator />
+
+                    <AppBarButton x:Uid="/Information/Delete"
+                                  Icon="Delete"
+                                  Style="{StaticResource AppBarCompactButton}" />
+                    <AppBarButton x:Uid="/Information/Edit"
+                                  Icon="Edit"
+                                  Style="{StaticResource AppBarCompactButton}" />
+
+                    <!--AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                                                  Click="SortFlyoutItem_Click"
+                                                  IsChecked="True"
+                                                  Tag="Title" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
+                                                  Click="SortFlyoutItem_Click"
+                                                  Tag="Artist" />
+
+                                <MenuFlyoutSeparator />
+
+                                <ToggleMenuFlyoutItem x:Uid="/Information/NameOnly"
+                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}" />
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton-->
+                </CommandBar>
             </StackPanel>
         </Grid>
     </DataTemplate>

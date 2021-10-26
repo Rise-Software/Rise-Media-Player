@@ -96,7 +96,15 @@ namespace RMP.App.ViewModels
         /// </summary>
         public string Genres
         {
-            get => Model.Genres;
+            get
+            {
+                if (Model.Genres == "UnknownGenreResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
+                }
+
+                return Model.Genres;
+            }
             set
             {
                 if (value != Model.Genres)
