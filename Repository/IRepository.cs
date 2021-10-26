@@ -16,6 +16,11 @@
         /// Returns the artists repository.
         /// </summary>
         IArtistRepository Artists { get; }
+        
+        /// <summary>
+        /// Returns the artists repository.
+        /// </summary>
+        IGenreRepository Genres { get; }
 
         /// <summary>
         /// Returns the videos repository.

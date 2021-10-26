@@ -47,7 +47,7 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
-        /// The collection of albums in the list. 
+        /// The collection of artists in the list. 
         /// </summary>
         public ObservableCollection<ArtistViewModel> Artists { get; set; }
             = new ObservableCollection<ArtistViewModel>();
@@ -55,12 +55,29 @@ namespace RMP.App.ViewModels
         private ArtistViewModel _selectedArtist;
 
         /// <summary>
-        /// Gets or sets the selected album, or null if no album is selected. 
+        /// Gets or sets the selected artist, or null if no artist is selected. 
         /// </summary>
         public ArtistViewModel SelectedArtist
         {
             get => _selectedArtist;
             set => Set(ref _selectedArtist, value);
+        }
+
+        /// <summary>
+        /// The collection of genres in the list. 
+        /// </summary>
+        public ObservableCollection<GenreViewModel> Genres { get; set; }
+            = new ObservableCollection<GenreViewModel>();
+
+        private GenreViewModel _selectedGenre;
+
+        /// <summary>
+        /// Gets or sets the selected genre, or null if no genre is selected. 
+        /// </summary>
+        public GenreViewModel SelectedGenre
+        {
+            get => _selectedGenre;
+            set => Set(ref _selectedGenre, value);
         }
 
         /// <summary>
@@ -198,6 +215,7 @@ namespace RMP.App.ViewModels
 
             IEnumerable<Album> albums = await App.Repository.Albums.GetAsync();
             IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
+            IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
 
             Songs.Clear();
             foreach (Song s in songs)
@@ -220,6 +238,15 @@ namespace RMP.App.ViewModels
                 foreach (Artist a in artists)
                 {
                     Artists.Add(new ArtistViewModel(a));
+                }
+            }
+
+            Genres.Clear();
+            if (genres != null)
+            {
+                foreach (Genre g in genres)
+                {
+                    Genres.Add(new GenreViewModel(g));
                 }
             }
 
@@ -274,6 +301,19 @@ namespace RMP.App.ViewModels
                     else
                     {
                         await App.Repository.Artists.UpsertAsync(modifiedArtist.Model);
+                    }
+                }
+
+                foreach (GenreViewModel modifiedGenre in Genres
+                    .Where(genre => genre.IsModified))
+                {
+                    if (modifiedGenre.WillRemove)
+                    {
+                        await App.Repository.Genres.DeleteAsync(modifiedGenre.Model);
+                    }
+                    else
+                    {
+                        await App.Repository.Genres.UpsertAsync(modifiedGenre.Model);
                     }
                 }
 

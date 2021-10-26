@@ -187,7 +187,7 @@ namespace RMP.App.Indexers
                 ? musicProperties.AlbumArtist : "UnknownArtistResource";
 
             string genre = musicProperties.Genre.FirstOrDefault() != null
-                ? string.Join("; ", musicProperties.Genre) : "UnknownGenreResource";
+                ? musicProperties.Genre.First() : "UnknownGenreResource";
 
             string length = musicProperties.Duration.ToString("mm\\:ss");
 
@@ -226,6 +226,10 @@ namespace RMP.App.Indexers
             // Check if artist exists
             bool artistExists = ViewModel.Artists.
                 Any(a => a.Model.Name == song.Artist);
+
+            // Check if genre exists
+            bool genreExists = ViewModel.Genres.
+                Any(g => g.Model.Name == song.Genres);
 
             // If song isn't there already, add it to the database
             if (!songExists)
@@ -324,6 +328,17 @@ namespace RMP.App.Indexers
                 };
 
                 await arvm.SaveAsync();
+            }
+
+            // If genre isn't there already, add it to the database
+            if (!genreExists)
+            {
+                GenreViewModel gvm = new GenreViewModel
+                {
+                    Name = song.Genres
+                };
+
+                await gvm.SaveAsync();
             }
         }
 

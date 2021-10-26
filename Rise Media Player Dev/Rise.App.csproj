@@ -148,6 +148,7 @@
     <Compile Include="UserControls\ListItemContainer.xaml.cs">
       <DependentUpon>ListItemContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
