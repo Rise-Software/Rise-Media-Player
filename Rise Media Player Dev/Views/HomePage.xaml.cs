@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using RMP.App.Common;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace RMP.App.Views

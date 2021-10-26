@@ -1,4 +1,4 @@
-﻿namespace RMP.App
+﻿namespace RMP.App.Common
 {
     /// <summary>
     /// The list of properties found in the System.Music namespace.

@@ -128,14 +128,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Dialogs\LegacySettings.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
-    <Compile Include="Methods.cs" />
+    <Compile Include="Common\Methods.cs" />
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>

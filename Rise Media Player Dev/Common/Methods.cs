@@ -4,11 +4,11 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace RMP.App
+namespace RMP.App.Common
 {
     /// <summary>
-    /// Methods that don't really fit anywhere else, usually really
-    /// simple stuff like launching URIs and whatnot.
+    /// Methods that don't really fit anywhere else or can be used in multiple
+    /// parts of the app, usually simple stuff like launching URIs and whatnot.
     /// </summary>
     public class Methods
     {

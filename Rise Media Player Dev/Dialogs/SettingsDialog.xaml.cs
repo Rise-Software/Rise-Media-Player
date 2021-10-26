@@ -1,4 +1,5 @@
-﻿using RMP.App.Settings;
+﻿using RMP.App.Common;
+using RMP.App.Settings;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -1,4 +1,4 @@
-﻿namespace RMP.App
+﻿namespace RMP.App.Common
 {
     public static class Enums
     {
