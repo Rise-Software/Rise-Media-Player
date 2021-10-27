@@ -35,6 +35,13 @@ namespace RMP.App.UserControls
         {
             InitializeComponent();
             Current = this;
+
+            Loaded += AlbumGrid_Loaded;
+        }
+
+        private void AlbumGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshList(CurrentMethod);
         }
 
         #region Commands
@@ -193,38 +200,31 @@ namespace RMP.App.UserControls
 
         private async Task StartShuffle()
         {
-            MViewModel.ClearFilters();
-
+            IEnumerable<SongViewModel> songs;
             if (MViewModel.SelectedAlbum != null)
             {
-                MViewModel.Filters[1] = MViewModel.SelectedAlbum.Model.Title;
-                MViewModel.Filters[2] = MViewModel.SelectedAlbum.Model.Artist;
+                songs = MViewModel.SongsFromAlbum(MViewModel.SelectedAlbum, MViewModel.Songs);
+                songs = MViewModel.RandomizeSongs(songs);
+                await PViewModel.CreatePlaybackList(0, songs, PViewModel.Token);
             }
-
-            MViewModel.SortBy = SortMethods.Random;
-            await PViewModel.CreatePlaybackList(0, MViewModel.FilteredSongs, PViewModel.Token);
         }
 
         private async Task StartPlayback()
         {
-            MViewModel.ClearFilters();
-
+            IEnumerable<SongViewModel> songs;
             if (MViewModel.SelectedAlbum != null)
             {
-                MViewModel.Filters[1] = MViewModel.SelectedAlbum.Model.Title;
-                MViewModel.Filters[2] = MViewModel.SelectedAlbum.Model.Artist;
+                songs = MViewModel.SongsFromAlbum(MViewModel.SelectedAlbum, MViewModel.Songs);
+                await PViewModel.CreatePlaybackList(0, songs, PViewModel.Token);
             }
-
-            MViewModel.SortBy = SortMethods.Random;
-            await PViewModel.CreatePlaybackList(0, MViewModel.FilteredSongs, PViewModel.Token);
         }
 
         private void RefreshList(SortMethods method = SortMethods.Default)
         {
             CurrentMethod = method;
             var albums = new ObservableCollection<AlbumViewModel>(SortList(method));
+            
             List.Clear();
-
             foreach (AlbumViewModel album in albums)
             {
                 List.Add(album);

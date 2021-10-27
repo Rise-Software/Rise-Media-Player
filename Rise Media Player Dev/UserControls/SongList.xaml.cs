@@ -1,6 +1,6 @@
 ﻿using RMP.App.Common;
 using RMP.App.ViewModels;
-using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -39,19 +39,43 @@ namespace RMP.App.UserControls
         }
 
         #region Commands
+        private RelayCommand _shuffleCommand;
         /// <summary>
         /// <see cref="RelayCommand"/> used to bind to the shuffle Button's Command property
         /// to start shuffling songs.
         /// </summary>
-        public RelayCommand ShuffleCommand =
-            new RelayCommand(async () => await StartShuffle(Current.List));
+        public RelayCommand ShuffleCommand
+        {
+            get
+            {
+                if (_shuffleCommand == null)
+                {
+                    _shuffleCommand =
+                        new RelayCommand(async () => await StartShuffle(List));
+                }
 
+                return _shuffleCommand;
+            }
+        }
+
+        private RelayCommand _playCommand;
         /// <summary>
         /// <see cref="RelayCommand"/> used to bind to a ListView item's play button
         /// Command property to start playing songs from that offset.
         /// </summary>
-        public RelayCommand PlayCommand =
-            new RelayCommand(async () => await StartPlayback(Current.List, 0));
+        public RelayCommand PlayCommand
+        {
+            get
+            {
+                if (_playCommand == null)
+                {
+                    _playCommand =
+                        new RelayCommand(async () => await StartPlayback(List, 0));
+                }
+
+                return _playCommand;
+            }
+        }
 
         private RelayCommand _sortDefaultCommand;
         /// <summary>
@@ -185,7 +209,7 @@ namespace RMP.App.UserControls
 
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
             {
                 int itemIndex = MainList.SelectedIndex;
 
@@ -222,16 +246,15 @@ namespace RMP.App.UserControls
         }
         #endregion
 
-        private static async Task StartShuffle(ObservableCollection<SongViewModel> songs)
+        private async Task StartShuffle(IEnumerable<SongViewModel> songs)
         {
-            Random rng = new Random();
-            songs = new ObservableCollection<SongViewModel>(songs.OrderBy(s => rng.Next()));
+            songs = App.MViewModel.RandomizeSongs(songs);
 
             ViewModel.CancelTask();
             await ViewModel.CreatePlaybackList(0, songs, ViewModel.Token);
         }
 
-        private static async Task StartPlayback(ObservableCollection<SongViewModel> songs, int startIndex)
+        private async Task StartPlayback(IEnumerable<SongViewModel> songs, int startIndex)
         {
             ViewModel.CancelTask();
             await ViewModel.CreatePlaybackList(startIndex, songs, ViewModel.Token);
@@ -240,8 +263,8 @@ namespace RMP.App.UserControls
         private void RefreshList(SortMethods method = SortMethods.Default)
         {
             var songs = new ObservableCollection<SongViewModel>(SortList(method));
-            List.Clear();
 
+            List.Clear();
             foreach (SongViewModel song in songs)
             {
                 List.Add(song);

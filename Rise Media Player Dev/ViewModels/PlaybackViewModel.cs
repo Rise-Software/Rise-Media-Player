@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace RMP.App.ViewModels
 
         private bool CanContinue = true;
 
-        public async Task CreatePlaybackList(int index, ObservableCollection<SongViewModel> songs, CancellationToken token)
+        public async Task CreatePlaybackList(int index, IEnumerable<SongViewModel> songs, CancellationToken token)
         {
             while (!CanContinue)
             {

@@ -1,7 +1,6 @@
 ﻿using RMP.App.ViewModels;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
-using static RMP.App.Common.Enums;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Views
 {
@@ -14,9 +13,7 @@ namespace RMP.App.Views
 
         public SongsPage()
         {
-            ViewModel.ClearFilters();
             InitializeComponent();
-
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }

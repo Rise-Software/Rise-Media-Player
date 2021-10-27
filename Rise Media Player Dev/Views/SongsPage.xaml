@@ -77,6 +77,6 @@
 
         <uc:SongList x:Name="MainList"
                      Grid.Row="1"
-                     List="{x:Bind ViewModel.FilteredSongs}" />
+                     List="{x:Bind ViewModel.Songs}" />
     </Grid>
 </Page>

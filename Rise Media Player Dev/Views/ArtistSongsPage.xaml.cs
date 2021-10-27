@@ -1,5 +1,7 @@
 ﻿using RMP.App.ViewModels;
 using RMP.App.Windows;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -14,11 +16,27 @@ namespace RMP.App.Views
         private MainViewModel ViewModel => App.MViewModel;
 
         private ArtistViewModel SelectedArtist { get; set; }
+        private ObservableCollection<SongViewModel> Songs { get; set; }
+            = new ObservableCollection<SongViewModel>();
 
         public ArtistSongsPage()
         {
             InitializeComponent();
             MainPage.Current.CrumbsHeader.Visibility = Visibility.Collapsed;
+
+            Loaded += ArtistSongsPage_Loaded;
+        }
+
+        private void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            IEnumerable<SongViewModel> songs =
+                ViewModel.SongsFromArtist(SelectedArtist, ViewModel.Songs);
+
+            Songs.Clear();
+            foreach (SongViewModel song in songs)
+            {
+                Songs.Add(song);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -26,12 +44,6 @@ namespace RMP.App.Views
             if (e.Parameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
-                ViewModel.ClearFilters();
-
-                ViewModel.Filters[3] = artist.Model.Name;
-                ViewModel.StrictFilters[3] = true;
-
-                SongList.List = ViewModel.FilteredSongs;
             }
 
             base.OnNavigatedTo(e);

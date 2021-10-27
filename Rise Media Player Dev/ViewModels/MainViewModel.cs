@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-using static RMP.App.Common.Enums;
 
 namespace RMP.App.ViewModels
 {
@@ -83,105 +82,69 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets a list of filtered songs.
         /// </summary>
-        public ObservableCollection<SongViewModel> FilteredSongs => FilterSongs();
+        public ObservableCollection<SongViewModel> FilteredSongs { get; set; }
+            = new ObservableCollection<SongViewModel>();
 
         /// <summary>
-        /// Gets or sets the strings to filter by for the filtered songs list.
-        /// In order: Title, Album, Album Artist, Artist.
+        /// Filters a song collection based on the provided album.
         /// </summary>
-        public string[] Filters { get; set; }
-            = new string[4] { "", "", "", "" };
-
-        /// <summary>
-        /// Gets or sets the bools that indicates whether or not
-        /// to filter based on equality. In order: Title, Album,
-        /// Album Artist, Artist.
-        /// </summary>
-        public bool[] StrictFilters { get; set; }
-            = new bool[4] { false, false, false, false };
-
-        /// <summary>
-        /// Gets or sets the string that indicates how the
-        /// sorting must be done.
-        /// </summary>
-        public SortMethods SortBy { get; set; }
-
-        /// <summary>
-        /// Filters the song collection based on various filters.
-        /// </summary>
-        /// <returns>A filtered collection with songs.</returns>
-        public ObservableCollection<SongViewModel> FilterSongs()
+        /// <returns>Enumerable with songs from the specified album.</returns>
+        public IEnumerable<SongViewModel> SongsFromAlbum(AlbumViewModel album,
+            ObservableCollection<SongViewModel> songs, bool strictFiltering = true)
         {
-            // Make sure the strings have values. If they
-            // don't, we can't compare based on equality.
-            for (int i = 0; i < Filters.Length; i++)
-            {
-                if (Filters[i] == "")
-                {
-                    StrictFilters[i] = false;
-                }
-            }
-
             IEnumerable<SongViewModel> enumerable;
             if (App.SViewModel.FilterByNameOnly)
             {
-                enumerable =
-                    from s in Songs
-                    where (StrictFilters[0] ? s.Model.Title == Filters[0] : s.Model.Title.Contains(Filters[0]))
-                       && (StrictFilters[1] ? s.Model.Album == Filters[1] : s.Model.Album.Contains(Filters[1]))
-                       && (StrictFilters[3] ? s.Model.Artist == Filters[3] : s.Model.Artist.Contains(Filters[3]))
-                    select s;
+                if (strictFiltering)
+                {
+                    enumerable = songs.Where(s => s.Model.Album == album.Model.Title);
+                }
+                else
+                {
+                    enumerable = songs.Where(s => s.Model.Album.Contains(album.Model.Title));
+                }
             }
             else
             {
-                enumerable =
-                    from s in Songs
-                    where (StrictFilters[0] ? s.Model.Title == Filters[0] : s.Model.Title.Contains(Filters[0]))
-                       && (StrictFilters[1] ? s.Model.Album == Filters[1] : s.Model.Album.Contains(Filters[1]))
-                       && (StrictFilters[2] ? s.Model.AlbumArtist == Filters[2] : s.Model.AlbumArtist.Contains(Filters[2]))
-                       && (StrictFilters[3] ? s.Model.Artist == Filters[3] : s.Model.Artist.Contains(Filters[3]))
-                    select s;
+                if (strictFiltering)
+                {
+                    enumerable = songs.Where(s => s.Model.Album == album.Model.Title
+                    && s.Model.Artist == album.Model.Artist);
+                }
+                else
+                {
+                    enumerable = songs.Where(s => s.Model.Album.Contains(album.Model.Title)
+                    && s.Model.Artist.Contains(album.Model.Artist));
+                }
             }
 
-            switch (SortBy)
-            {
-                case SortMethods.Title:
-                    enumerable = enumerable.OrderBy(s => s.Title);
-                    break;
-
-                case SortMethods.Album:
-                    enumerable = enumerable.OrderBy(s => s.Album);
-                    break;
-
-                case SortMethods.Artist:
-                    enumerable = enumerable.OrderBy(s => s.Artist);
-                    break;
-
-                case SortMethods.AlbumArtist:
-                    enumerable = enumerable.OrderBy(s => s.AlbumArtist);
-                    break;
-
-                case SortMethods.Random:
-                    Random rng = new Random();
-                    enumerable = enumerable.OrderBy(a => rng.Next());
-                    break;
-
-                default:
-                    enumerable = enumerable.OrderBy(s => s.Disc).ThenBy(s => s.Track);
-                    break;
-            }
-
-            return new ObservableCollection<SongViewModel>(enumerable);
+            return enumerable;
         }
 
         /// <summary>
-        /// Clears the currently applied filters.
+        /// Filters a song collection based on the provided artist.
         /// </summary>
-        public void ClearFilters()
+        /// <returns>Enumerable with songs from the specified artist.</returns>
+        public IEnumerable<SongViewModel> SongsFromArtist(ArtistViewModel artist,
+            ObservableCollection<SongViewModel> songs, bool strictFiltering = true)
         {
-            Filters = new string[4] { "", "", "", "" };
-            StrictFilters = new bool[4] { false, false, false, false };
-            SortBy = SortMethods.Default;
+            IEnumerable<SongViewModel> enumerable;
+            if (strictFiltering)
+            {
+                enumerable = songs.Where(s => s.Model.Artist == artist.Model.Name);
+            }
+            else
+            {
+                enumerable = songs.Where(s => s.Model.Artist.Contains(artist.Model.Name));
+            }
+
+            return enumerable;
+        }
+
+        public IOrderedEnumerable<SongViewModel> RandomizeSongs(IEnumerable<SongViewModel> songs)
+        {
+            Random rng = new Random();
+            return songs.OrderBy(s => rng.Next());
         }
 
         private bool _isLoading = false;

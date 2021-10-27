@@ -7,8 +7,6 @@ namespace RMP.App.Views
 {
     public sealed partial class AlbumsPage : Page
     {
-        public static AlbumsPage Current;
-
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -23,8 +21,6 @@ namespace RMP.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            Current = this;
         }
     }
 }
