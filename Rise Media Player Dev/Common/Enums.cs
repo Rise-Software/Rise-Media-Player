@@ -33,6 +33,16 @@
             AlbumArtist,
 
             /// <summary>
+            /// Sorts based on year.
+            /// </summary>
+            Year,
+
+            /// <summary>
+            /// Sorts based on genre.
+            /// </summary>
+            Genre,
+
+            /// <summary>
             /// Sorts randomly.
             /// </summary>
             Random

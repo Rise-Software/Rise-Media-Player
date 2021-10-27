@@ -20,7 +20,7 @@ namespace RMP.App.UserControls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ListProperty =
+        public static DependencyProperty ListProperty =
             DependencyProperty.Register(nameof(List), typeof(ObservableCollection<AlbumViewModel>),
                 typeof(AlbumGrid), null);
 

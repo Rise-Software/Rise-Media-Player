@@ -1,4 +1,5 @@
 ﻿using RMP.App.ViewModels;
+using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
 
 namespace RMP.App.Views
@@ -14,6 +15,8 @@ namespace RMP.App.Views
         {
             ViewModel.ClearFilters();
             InitializeComponent();
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }
 }

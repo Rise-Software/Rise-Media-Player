@@ -19,7 +19,7 @@
         <ListView x:Name="MainList"
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
-                  ItemsSource="{x:Bind List}"
+                  ItemsSource="{x:Bind List, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"

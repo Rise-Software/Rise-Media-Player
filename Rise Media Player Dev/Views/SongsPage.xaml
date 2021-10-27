@@ -4,10 +4,79 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:RMP.App.UserControls"
     mc:Ignorable="d">
 
     <Grid>
-        <uc:SongList List="{x:Bind ViewModel.FilteredSongs}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <CommandBar Background="Transparent"
+                    DefaultLabelPosition="Right"
+                    HorizontalAlignment="Left"
+                    Margin="-12,0">
+            <AppBarButton x:Name="PlayItem"
+                          x:Uid="/Information/Play"
+                          Command="{x:Bind MainList.PlayCommand}"
+                          Icon="Play"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Name="ShuffleItem"
+                          x:Uid="/Information/Shuffle"
+                          Command="{x:Bind MainList.ShuffleCommand}"
+                          Icon="Shuffle" />
+            <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Playlist">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE142;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/Delete"
+                          Icon="Delete"
+                          Style="{StaticResource AppBarCompactButton}" />
+            <AppBarButton x:Uid="/Information/Edit"
+                          Icon="Edit"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Track"
+                                                  Command="{x:Bind MainList.SortDefaultCommand}"
+                                                  IsChecked="True"
+                                                  Tag="Track" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                                                  Command="{x:Bind MainList.SortTitleCommand}"
+                                                  Tag="Title" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
+                                                  Command="{x:Bind MainList.SortArtistCommand}"
+                                                  Tag="Artist" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
+                                                  Command="{x:Bind MainList.SortGenreCommand}"
+                                                  Tag="Genre" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
+                                                  Command="{x:Bind MainList.SortYearCommand}"
+                                                  Tag="Year" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+
+        <uc:SongList x:Name="MainList"
+                     Grid.Row="1"
+                     List="{x:Bind ViewModel.FilteredSongs}" />
     </Grid>
 </Page>

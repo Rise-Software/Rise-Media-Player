@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <DataTemplate x:Key="NowPlayingQueueItem">
         <Grid ColumnSpacing="12" Padding="0,4">
             <Grid.ColumnDefinitions>
@@ -60,11 +61,11 @@
                                    TextTrimming="CharacterEllipsis" />
 
                     <FontIcon Grid.Column="1"
-                              FontSize="24"
-                                  Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                  Glyph="&#xF12B;"
-                                  Margin="0,6,0,0"
-                                  VerticalAlignment="Center" />
+                              FontSize="20"
+                              Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                              Glyph="&#xF12B;"
+                              Margin="0,6,0,0"
+                              VerticalAlignment="Center" />
 
                     <!--ToggleButton Grid.Column="1"
                                   Background="Transparent"
@@ -101,7 +102,7 @@
                             Margin="-12,0">
                     <AppBarButton x:Name="PlayItem"
                                   x:Uid="/Information/Play"
-                                  Command="{Binding PlayAllCommand}"
+                                  Command="{Binding PlayCommand}"
                                   Icon="Play"
                                   Style="{StaticResource AppBarCompactButton}" />
 
@@ -132,24 +133,28 @@
                                   Icon="Edit"
                                   Style="{StaticResource AppBarCompactButton}" />
 
-                    <!--AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+                    <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Track"
+                                                          Command="{Binding SortDefaultCommand}"
+                                                          IsChecked="True"
+                                                          Tag="Track" />
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  Click="SortFlyoutItem_Click"
-                                                  IsChecked="True"
-                                                  Tag="Title" />
+                                                          Command="{Binding SortTitleCommand}"
+                                                          Tag="Title" />
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Click="SortFlyoutItem_Click"
-                                                  Tag="Artist" />
-
-                                <MenuFlyoutSeparator />
-
-                                <ToggleMenuFlyoutItem x:Uid="/Information/NameOnly"
-                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}" />
+                                                          Command="{Binding SortArtistCommand}"
+                                                          Tag="Artist" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
+                                                          Command="{Binding SortGenreCommand}"
+                                                          Tag="Genre" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
+                                                          Command="{Binding SortYearCommand}"
+                                                          Tag="Year" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
-                    </AppBarButton-->
+                    </AppBarButton>
                 </CommandBar>
             </StackPanel>
         </Grid>
