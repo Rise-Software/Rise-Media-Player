@@ -109,12 +109,12 @@ namespace RMP.App.ViewModels
                 if (strictFiltering)
                 {
                     enumerable = songs.Where(s => s.Model.Album == album.Model.Title
-                    && s.Model.Artist == album.Model.Artist);
+                    && s.Model.AlbumArtist == album.Model.Artist);
                 }
                 else
                 {
                     enumerable = songs.Where(s => s.Model.Album.Contains(album.Model.Title)
-                    && s.Model.Artist.Contains(album.Model.Artist));
+                    && s.Model.AlbumArtist.Contains(album.Model.Artist));
                 }
             }
 

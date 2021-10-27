@@ -60,7 +60,6 @@
                         <TextBlock Text="{x:Bind Props.Title}"
                                    FontSize="22"
                                    MaxLines="2"
-                                   Padding="2,0,0,0"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Props.Artist}"

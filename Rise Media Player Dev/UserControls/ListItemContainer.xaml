@@ -27,8 +27,10 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="32" />
                 <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="12" />
@@ -77,7 +79,27 @@
                        Fill="Transparent"
                        VerticalAlignment="Stretch" />
 
-            <StackPanel Grid.Column="3" Orientation="Vertical">
+            <Border Grid.Column="3"
+                    CornerRadius="4"
+                    Height="32"
+                    Width="32">
+                <Border.Transitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </Border.Transitions>
+                <Image Height="32" Width="32">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding Thumbnail}" />
+                    </Image.Source>
+                </Image>
+            </Border>
+
+            <Rectangle Grid.Column="4"
+                       Fill="Transparent"
+                       VerticalAlignment="Stretch" />
+
+            <StackPanel Grid.Column="5" Orientation="Vertical">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <RepositionThemeTransition />
@@ -86,7 +108,7 @@
 
                 <TextBlock Text="{Binding Title}"
                            TextTrimming="CharacterEllipsis" />
-                <Grid ColumnSpacing="4">
+                <Grid>
                     <Grid.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition />
@@ -95,6 +117,9 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="4" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="4" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
@@ -105,21 +130,33 @@
                         </Hyperlink>
                     </TextBlock>
 
-                    <TextBlock Grid.Column="1" Text="•" />
+                    <Rectangle Grid.Column="1"
+                               Fill="Transparent"
+                               VerticalAlignment="Stretch" />
 
-                    <TextBlock Grid.Column="2">
+                    <TextBlock Grid.Column="2" Text="•" />
+
+                    <Rectangle Grid.Column="3"
+                               Fill="Transparent"
+                               VerticalAlignment="Stretch" />
+
+                    <TextBlock Grid.Column="4">
                         <Hyperlink UnderlineStyle="None">
                             <Run Text="{Binding Album}" />
                         </Hyperlink>
                     </TextBlock>
+
+                    <Rectangle Grid.Column="5"
+                               Fill="Transparent"
+                               VerticalAlignment="Stretch" />
                 </Grid>
             </StackPanel>
 
-            <Rectangle Grid.Column="4"
+            <Rectangle Grid.Column="6"
                        Fill="Transparent"
                        VerticalAlignment="Stretch" />
 
-            <Grid Grid.Column="5">
+            <Grid Grid.Column="7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="Auto" />
@@ -134,7 +171,7 @@
                            VerticalAlignment="Stretch" />
             </Grid>
 
-            <Rectangle Grid.Column="6"
+            <Rectangle Grid.Column="8"
                        Fill="Transparent"
                        VerticalAlignment="Stretch" />
         </Grid>

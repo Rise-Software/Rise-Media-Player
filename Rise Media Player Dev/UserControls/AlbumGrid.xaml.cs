@@ -223,7 +223,7 @@ namespace RMP.App.UserControls
         {
             CurrentMethod = method;
             var albums = new ObservableCollection<AlbumViewModel>(SortList(method));
-            
+
             List.Clear();
             foreach (AlbumViewModel album in albums)
             {
@@ -242,7 +242,7 @@ namespace RMP.App.UserControls
             }
             else
             {
-                albums = List;
+                albums = MViewModel.Albums;
             }
 
             switch (method)
