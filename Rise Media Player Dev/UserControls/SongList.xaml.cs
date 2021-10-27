@@ -185,14 +185,17 @@ namespace RMP.App.UserControls
 
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            int itemIndex = MainList.SelectedIndex;
-
-            if (itemIndex < 0)
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                return;
-            }
+                int itemIndex = MainList.SelectedIndex;
 
-            await StartPlayback(List, itemIndex);
+                if (itemIndex < 0)
+                {
+                    return;
+                }
+
+                await StartPlayback(List, itemIndex);
+            }
         }
 
         private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)

@@ -13,19 +13,19 @@
         <GridView ItemsSource="{x:Bind List, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind ViewModel.SelectedAlbum, Mode=TwoWay}"
-                  SelectionMode="Single">
+                  SelectedItem="{x:Bind MViewModel.SelectedAlbum, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  Tapped="GridView_Tapped">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel">
-                    <StackPanel Orientation="Vertical"
+                    <StackPanel Margin="12"
+                                Orientation="Vertical"
                                 Spacing="2"
-                                Margin="12"
                                 Width="134">
                         <Border CornerRadius="5"
                                 Width="134">
                             <Image Height="134"
                                    Stretch="UniformToFill"
-                                   Tapped="Image_Tapped"
                                    Width="134">
                                 <Image.Source>
                                     <BitmapImage UriSource="{x:Bind Thumbnail}" />

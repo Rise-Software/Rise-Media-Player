@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:RMP.App.Converters"
-    xmlns:viewmodels="using:RMP.App.ViewModels"
+    xmlns:uc="using:RMP.App.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -25,7 +25,7 @@
                     Margin="-12,0">
             <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
-                          Click="PlayItem_Click"
+                          Command="{x:Bind MainGrid.PlayCommand}"
                           Icon="Play"
                           IsEnabled="{x:Bind MViewModel.SelectedAlbum, Converter={StaticResource NullToBool}, Mode=OneWay}"
                           Style="{StaticResource AppBarCompactButton}" />
@@ -34,7 +34,7 @@
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Click="ShuffleItem_Click"
+                          Command="{x:Bind MainGrid.ShuffleCommand}"
                           Icon="Shuffle" />
             <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
                 <AppBarButton.Flyout>
@@ -79,60 +79,25 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  Click="SortFlyoutItem_Click"
+                                                  Command="{x:Bind MainGrid.SortTitleCommand}"
                                                   IsChecked="True"
                                                   Tag="Title" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Click="SortFlyoutItem_Click"
+                                                  Command="{x:Bind MainGrid.SortArtistCommand}"
                                                   Tag="Artist" />
 
                         <MenuFlyoutSeparator />
 
                         <ToggleMenuFlyoutItem x:Uid="/Information/NameOnly"
+                                              Command="{x:Bind MainGrid.SortNameOnlyCommand}"
                                               IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
         </CommandBar>
 
-        <GridView x:Name="AlbumGrid"
-                  Grid.Row="1"
-                  Margin="-56,0"
-                  Padding="44,0,44,120"
-                  SelectedItem="{x:Bind MViewModel.SelectedAlbum, Mode=TwoWay}"
-                  SelectionMode="Single">
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:AlbumViewModel">
-                    <StackPanel Orientation="Vertical"
-                                Spacing="2"
-                                Margin="12"
-                                Width="134">
-                        <Border CornerRadius="5"
-                                Width="134">
-                            <Image Height="134"
-                                   Stretch="UniformToFill"
-                                   Tapped="Image_Tapped"
-                                   Width="134">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                                </Image.Source>
-                            </Image>
-                        </Border>
-
-                        <TextBlock Text="{x:Bind Title}"
-                                   Padding="0,7,0,0"
-                                   MaxLines="1"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   TextWrapping="Wrap" />
-                        <TextBlock FontSize="13">
-                            <Hyperlink UnderlineStyle="None">
-                                <Run Text="{x:Bind Artist}" />
-                            </Hyperlink>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+        <uc:AlbumGrid x:Name="MainGrid"
+                      Grid.Row="1"
+                      List="{x:Bind MViewModel.Albums}" />
     </Grid>
 </Page>

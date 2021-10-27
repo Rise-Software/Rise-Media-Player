@@ -1,6 +1,7 @@
 ﻿using RMP.App.ViewModels;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
+using static RMP.App.Common.Enums;
 
 namespace RMP.App.Views
 {

@@ -23,7 +23,11 @@ namespace RMP.App.Settings
             DefaultButton = ContentDialogButton.Primary,
         };
 
-        private List<string> Deletion { get; set; }
+        private readonly List<string> Deletion = new List<string>
+        {
+            ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
+            ResourceLoaders.MediaLibraryLoader.GetString("Device")
+        };
         #endregion
 
         public MediaLibraryPage()
@@ -34,12 +38,6 @@ namespace RMP.App.Settings
             dialog.Closing += Dialog_Closing;
             dialog.Closed += Dialog_Closed;
             dialog.Content = Dialog;
-
-            Deletion = new List<string>
-            {
-                ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
-                ResourceLoaders.MediaLibraryLoader.GetString("Device")
-            };
 
             DataContext = ViewModel;
         }

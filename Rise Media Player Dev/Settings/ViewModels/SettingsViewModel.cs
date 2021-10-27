@@ -1,5 +1,4 @@
-﻿using RMP.App.Views;
-using RMP.App.Windows;
+﻿using RMP.App.Windows;
 
 namespace RMP.App.Settings.ViewModels
 {
@@ -112,14 +111,7 @@ namespace RMP.App.Settings.ViewModels
         public bool FilterByNameOnly
         {
             get => (bool)Get("MediaLibrary", nameof(FilterByNameOnly), false);
-            set
-            {
-                Set("MediaLibrary", nameof(FilterByNameOnly), value);
-                if (AlbumsPage.Current != null)
-                {
-                    AlbumsPage.Current.RefreshAlbums();
-                }
-            }
+            set => Set("MediaLibrary", nameof(FilterByNameOnly), value);
         }
         #endregion
 
