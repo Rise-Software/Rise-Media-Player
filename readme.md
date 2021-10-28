@@ -1,4 +1,6 @@
-![130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d](https://user-images.githubusercontent.com/74561130/137598956-e4bfe5c4-1b2b-4649-a1a1-41efc97a04cc.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+</p>
 
 **PRE ALPHA 1 OUT NOW! Download the installer from the download link below or clone the repository to build :)**
 
