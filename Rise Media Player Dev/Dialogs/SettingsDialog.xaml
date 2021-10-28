@@ -43,63 +43,65 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="ItemGrid" ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <ScrollViewer Height="32" HorizontalScrollBarVisibility="Auto">
+                <Grid x:Name="ItemGrid" ColumnSpacing="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <ToggleButton x:Name="Library"
-                              Checked="ToggleButton_Checked"
-                              Tag="LibraryItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="Library"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="LibraryItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
-                            <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
+                                <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
 
-                <ToggleButton x:Name="Playback"
-                              Grid.Column="1"
-                              Checked="ToggleButton_Checked"
-                              Tag="PlaybackItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="Playback"
+                                  Grid.Column="1"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="PlaybackItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
-                            <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
+                                <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
 
-                <ToggleButton x:Name="Appearance"
-                              Grid.Column="2"
-                              Checked="ToggleButton_Checked"
-                              Tag="AppearanceItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="Appearance"
+                                  Grid.Column="2"
+                                  Checked="ToggleButton_Checked"
+                                  Tag="AppearanceItem">
+                        <ToggleButton.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
-                            <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
-            </Grid>
+                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
+                                <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
+                            </Grid>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                </Grid>
+            </ScrollViewer>
 
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"

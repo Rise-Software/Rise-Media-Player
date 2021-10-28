@@ -41,7 +41,7 @@ namespace RMP.App.Dialogs
             RootGrid.Height = windowHeight < 620 ?
                 windowHeight - 64 : 620 - 64;
 
-            double gridWidth = ItemGrid.DesiredSize.Width;
+            /*double gridWidth = ItemGrid.DesiredSize.Width;
             double itemsWidth = 0;
 
             foreach (ToggleButton button in Toggles)
@@ -65,7 +65,7 @@ namespace RMP.App.Dialogs
                 {
                     button.Height = 0;
                 }
-            }
+            }*/
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
