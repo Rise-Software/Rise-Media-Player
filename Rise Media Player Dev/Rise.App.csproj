@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\VisualTreeHelpers.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Dialogs\LegacySettings.cs" />
     <Compile Include="Common\Enums.cs" />

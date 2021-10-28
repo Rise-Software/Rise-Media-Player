@@ -1,6 +1,8 @@
 ﻿using RMP.App.Common;
 using RMP.App.Settings;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -13,6 +15,8 @@ namespace RMP.App.Dialogs
         public static SettingsDialog Current;
         public ObservableCollection<string> Breadcrumbs =
             new ObservableCollection<string>();
+
+        private IEnumerable<ToggleButton> Toggles { get; set; }
         #endregion
 
         public SettingsDialog()
@@ -20,9 +24,8 @@ namespace RMP.App.Dialogs
             InitializeComponent();
             Current = this;
 
-            ContentDialog_SizeChanged(null, null);
-
             Library.IsChecked = true;
+            Toggles = ItemGrid.GetChildren<ToggleButton>();
         }
 
         private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -30,11 +33,39 @@ namespace RMP.App.Dialogs
             double windowWidth = Window.Current.Bounds.Width;
             double windowHeight = Window.Current.Bounds.Height;
 
+            Debug.WriteLine(windowWidth);
+
             RootGrid.Width = windowWidth < 800 ?
-                windowWidth - 64 : 800 -64;
+                windowWidth - 64 : 800 - 64;
 
             RootGrid.Height = windowHeight < 620 ?
                 windowHeight - 64 : 620 - 64;
+
+            double gridWidth = ItemGrid.DesiredSize.Width;
+            double itemsWidth = 0;
+
+            foreach (ToggleButton button in Toggles)
+            {
+                itemsWidth += button.DesiredSize.Width;
+
+                if (gridWidth < itemsWidth + 6)
+                {
+                    // Overflowing is needed.
+                    Debug.WriteLine("Overflow!");
+                    button.Height = 0;
+                }
+                else
+                {
+                    // Overflowing is not needed.
+                    Debug.WriteLine("Not overflow!");
+                    button.Height = double.NaN;
+                }
+                
+                if (windowWidth == 500)
+                {
+                    button.Height = 0;
+                }
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

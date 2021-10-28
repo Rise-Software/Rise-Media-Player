@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -20,37 +21,6 @@ namespace RMP.App.Common
         public static async Task<bool> LaunchURI(string str)
         {
             return await Launcher.LaunchUriAsync(new Uri(str));
-        }
-
-        /// <summary>
-        /// Tries to find the specified visual child.
-        /// </summary>
-        /// <typeparam name="childItem">The kind of item to find.</typeparam>
-        /// <param name="obj">Object where search will happen.</param>
-        /// <returns>The item if it's found, null otherwise.</returns>
-        public static childItem FindVisualChild<childItem>(DependencyObject obj)
-            where childItem : DependencyObject
-        {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-
-                if (child != null && child is childItem item)
-                {
-                    return item;
-                }
-                else
-                {
-                    childItem childOfChild = FindVisualChild<childItem>(child);
-
-                    if (childOfChild != null)
-                    {
-                        return childOfChild;
-                    }
-                }
-            }
-
-            return null;
         }
     }
 }
