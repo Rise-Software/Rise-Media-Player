@@ -67,14 +67,9 @@ Here are up to date renders and screenshots with all our current features:
 
 This is free software with no warranty of any kind. Sorry :(
 
-We use the GPL License with a few changed clauses to protect our apps' integrity. Click the GPL License button to see the full license without the changed clauses.
+We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
-**Changed clauses:**
-
-Users are allowed to freely edit and view the code for their own personal use and recreation. Although, unlike the regular GPL license, we do not allow users to share, distribute or sell our code unless they have our & our contributors permission to do so. Please simply ask and we'll be happy to chat with you. Our own comprehensive terms are also available below.
-
-[![OurTerms](https://user-images.githubusercontent.com/74561130/137586737-d792a57b-b2b0-410b-bb2a-a06a4da2ab52.png)](https://github.com/Rise-Software/Rise-Media-Player/tree/master/Terms) [![GPL](https://user-images.githubusercontent.com/74561130/137586878-642d9907-aee4-4b69-bc4a-2c7d1e44540c.png)](https://www.gnu.org/licenses/gpl-3.0.en.html) 
-
+[![OurTerms](https://user-images.githubusercontent.com/74561130/137586737-d792a57b-b2b0-410b-bb2a-a06a4da2ab52.png)](https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE) 
 
 
 ## Downloads, Contribute and the Insider Program
