@@ -34,7 +34,7 @@
                            Visibility="Collapsed"
                            Width="Auto">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 1
+                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 2
                 </Paragraph>
             </RichTextBlock>
             <TextBlock x:Name="AppTitle"

@@ -115,6 +115,7 @@
                              IsSettingsVisible="True"
                              IsTitleBarAutoPaddingEnabled="False"
                              ItemInvoked="NavView_ItemInvoked"
+                             OpenPaneLength="260"
                              PaneDisplayMode="LeftMinimal">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="HomePageItem"

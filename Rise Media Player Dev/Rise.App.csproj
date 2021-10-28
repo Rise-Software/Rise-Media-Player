@@ -145,8 +145,11 @@
     </Compile>
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
-    <Compile Include="UserControls\ListItemContainer.xaml.cs">
-      <DependentUpon>ListItemContainer.xaml</DependentUpon>
+    <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
+      <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FullSongListItem.xaml.cs">
+      <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
@@ -192,17 +195,11 @@
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowControl.cs" />
-    <Compile Include="UserControls\AlbumGrid.xaml.cs">
-      <DependentUpon>AlbumGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ArtistGrid.xaml.cs">
       <DependentUpon>ArtistGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SongList.xaml.cs">
-      <DependentUpon>SongList.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -415,7 +412,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ListItemContainer.xaml">
+    <Page Include="UserControls\AlbumSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FullSongListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,10 +468,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AlbumGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UserControls\ArtistGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -478,10 +475,6 @@
     <Page Include="UserControls\MicaTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\SongList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AlbumSongsPage.xaml">
       <SubType>Designer</SubType>

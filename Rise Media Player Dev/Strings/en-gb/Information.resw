@@ -150,6 +150,9 @@
   <data name="Delete.ToolTipService.ToolTip" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Descending.Text" xml:space="preserve">
+    <value>Descending order</value>
+  </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -178,7 +181,7 @@
     <value>More settings</value>
   </data>
   <data name="NameOnly.Text" xml:space="preserve">
-    <value>Filter by name only</value>
+    <value>Merge albums with same title</value>
   </data>
   <data name="NoNew.Title" xml:space="preserve">
     <value>No new media found in your library</value>

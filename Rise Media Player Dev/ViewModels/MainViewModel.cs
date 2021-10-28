@@ -4,9 +4,11 @@ using RMP.App.Indexers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
+using static RMP.App.Common.Enums;
 
 namespace RMP.App.ViewModels
 {
@@ -90,10 +92,10 @@ namespace RMP.App.ViewModels
         /// </summary>
         /// <returns>Enumerable with songs from the specified album.</returns>
         public IEnumerable<SongViewModel> SongsFromAlbum(AlbumViewModel album,
-            ObservableCollection<SongViewModel> songs, bool strictFiltering = true)
+            ObservableCollection<SongViewModel> songs, bool merge, bool strictFiltering = true)
         {
             IEnumerable<SongViewModel> enumerable;
-            if (App.SViewModel.FilterByNameOnly)
+            if (merge)
             {
                 if (strictFiltering)
                 {
@@ -141,10 +143,101 @@ namespace RMP.App.ViewModels
             return enumerable;
         }
 
-        public IOrderedEnumerable<SongViewModel> RandomizeSongs(IEnumerable<SongViewModel> songs)
+        /// <summary>
+        /// Sorts a list of songs.
+        /// </summary>
+        /// <param name="list">List to sort.</param>
+        /// <param name="method">Preferred sorting method.</param>
+        /// <returns>An IOrderedEnumerable with the sorted songs.</returns>
+        public IOrderedEnumerable<SongViewModel> SortSongs(IEnumerable<SongViewModel> list,
+            SortMethods method, bool descending = false)
         {
-            Random rng = new Random();
-            return songs.OrderBy(s => rng.Next());
+            Debug.WriteLine("Sorting...");
+            IOrderedEnumerable<SongViewModel> songs;
+
+            switch (method)
+            {
+                case SortMethods.Title:
+                    songs = list.OrderBy(s => s.Title);
+                    break;
+
+                case SortMethods.Artist:
+                    songs = list.OrderBy(s => s.Artist);
+                    break;
+
+                case SortMethods.Genre:
+                    songs = list.OrderBy(s => s.Genres);
+                    break;
+
+                case SortMethods.Year:
+                    songs = list.OrderBy(s => s.Year);
+                    break;
+
+                case SortMethods.Random:
+                    Random rng = new Random();
+                    songs = list.OrderBy(s => rng.Next());
+                    break;
+
+                default:
+                    songs = list.OrderBy(s => s.Disc).ThenBy(s => s.Track);
+                    break;
+            }
+
+            if (descending)
+            {
+                songs.Reverse();
+            }
+
+            return songs;
+        }
+
+        /// <summary>
+        /// Sorts a list of albums.
+        /// </summary>
+        /// <param name="list">List to sort.</param>
+        /// <param name="method">Preferred sorting method.</param>
+        /// <returns>An IOrderedEnumerable with the sorted albums.</returns>
+        public IEnumerable<AlbumViewModel> SortAlbums(IEnumerable<AlbumViewModel> list,
+            SortMethods method, bool merge, bool descending)
+        {
+            Debug.WriteLine("Sorting...");
+            IEnumerable<AlbumViewModel> albums;
+
+            if (merge)
+            {
+                albums = list.GroupBy(a => a.Title).Select(a => a.First());
+            }
+            else
+            {
+                albums = list;
+            }
+
+            switch (method)
+            {
+                case SortMethods.Artist:
+                    albums = albums.OrderBy(a => a.Artist);
+                    break;
+
+                case SortMethods.Genre:
+                    albums = albums.OrderBy(a => a.Genres);
+                    break;
+
+                case SortMethods.Random:
+                    Random rng = new Random();
+                    albums = albums.OrderBy(a => rng.Next());
+                    break;
+
+                default:
+                    albums = albums.OrderBy(a => a.Title);
+                    break;
+            }
+
+            if (descending)
+            {
+                albums.Reverse();
+            }
+
+            return albums;
         }
 
         private bool _isLoading = false;

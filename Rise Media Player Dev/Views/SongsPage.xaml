@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:uc="using:RMP.App.UserControls" xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
@@ -20,15 +20,16 @@
                     Margin="-12,0">
             <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
-                          Command="{x:Bind MainList.PlayCommand}"
+                          Click="PlayButton_Click"
                           Icon="Play"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButton}"
+                          Tag="Play" />
 
             <AppBarSeparator />
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Command="{x:Bind MainList.ShuffleCommand}"
+                          Click="ShuffleButton_Click"
                           Icon="Shuffle" />
             <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
                 <AppBarButton.Flyout>
@@ -55,28 +56,62 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Track"
-                                                  Command="{x:Bind MainList.SortDefaultCommand}"
-                                                  IsChecked="True"
+                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Track" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  Command="{x:Bind MainList.SortTitleCommand}"
+                                                  Click="SortFlyoutItem_Click"
+                                                  IsChecked="True"
                                                   Tag="Title" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Command="{x:Bind MainList.SortArtistCommand}"
+                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Artist" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                  Command="{x:Bind MainList.SortGenreCommand}"
+                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Genre" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
-                                                  Command="{x:Bind MainList.SortYearCommand}"
+                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Year" />
+
+                        <MenuFlyoutSeparator />
+
+                        <ToggleMenuFlyoutItem x:Uid="/Information/Descending"
+                                              Click="SortFlyoutItem_Click"
+                                              IsChecked="{x:Bind DescendingSort, Mode=TwoWay}"
+                                              Tag="Descending" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
         </CommandBar>
 
-        <uc:SongList x:Name="MainList"
-                     Grid.Row="1"
-                     List="{x:Bind ViewModel.Songs}" />
+        <ListView x:Name="MainList"
+                  Grid.Row="1"
+                  DoubleTapped="MainList_DoubleTapped"
+                  IsDoubleTapEnabled="True"
+                  ItemsSource="{x:Bind Songs}"
+                  Margin="-56,0"
+                  Padding="44,0,44,120"
+                  RightTapped="MainList_RightTapped"
+                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
+                  SelectionMode="Single">
+            <ListView.Resources>
+                <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem x:Name="Props"
+                                        x:Uid="/MediaData/Properties"
+                                        Click="Props_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE104;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                    <uc:FullSongListItem Click="PlayButton_Click" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

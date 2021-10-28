@@ -4,18 +4,15 @@ using Windows.UI.Xaml.Input;
 
 namespace RMP.App.UserControls
 {
-    /// <summary>
-    /// A container for ListView items, used to support hover states easily.
-    /// </summary>
-    public sealed partial class ListItemContainer : UserControl
+    public sealed partial class AlbumSongListItem : UserControl
     {
-        public ListItemContainer()
+        public AlbumSongListItem()
         {
             InitializeComponent();
         }
 
         public static readonly DependencyProperty IsPointerOverProperty =
-            DependencyProperty.Register("IsPointerOver", typeof(bool), typeof(ListItemContainer),
+            DependencyProperty.Register("IsPointerOver", typeof(bool), typeof(FullSongListItem),
                 new PropertyMetadata(false));
 
         public bool IsPointerOver

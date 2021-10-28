@@ -361,13 +361,13 @@ namespace RMP.App.ViewModels
             {
                 IsNewSong = false;
                 App.MViewModel.Songs.Add(this);
+
+                OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
+                OnPropertyChanged(nameof(ArtistViewModel.SongCount));
             }
 
             await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
 
-            OnPropertyChanged(string.Empty);
-            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
 
         /// <summary>

@@ -128,7 +128,7 @@
     public static class URLs
     {
         public const string Feedback =
-            "https://forms.office.com/r/4ccbeP47XX";
+            "https://github.com/Rise-Software/Rise-Media-Player/issues/new";
 
         public const string Changes =
             "https://github.com/Rise-Software/Rise-Media-Player/commits/bloom_build-(main)";

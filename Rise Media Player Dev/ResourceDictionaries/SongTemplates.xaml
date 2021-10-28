@@ -55,10 +55,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="{Binding SelectedAlbum.Title}"
-                                   MaxLines="1"
-                                   Style="{StaticResource TitleTextBlockStyle}"
-                                   VerticalAlignment="Center"
-                                   TextTrimming="CharacterEllipsis" />
+                               MaxLines="1"
+                               Style="{StaticResource TitleTextBlockStyle}"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" />
 
                     <FontIcon Grid.Column="1"
                               FontSize="20"

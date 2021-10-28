@@ -12,9 +12,9 @@
     </Page.Resources>
 
     <Grid>
-        <uc:SongList x:Name="SongList"
+        <!--uc:SongList x:Name="SongList"
                      List="{x:Bind Songs}"
                      Margin="0,56,0,0"
-                     SelectedArtist="{x:Bind SelectedArtist}" />
+                     SelectedArtist="{x:Bind SelectedArtist}" /-->
     </Grid>
 </Page>

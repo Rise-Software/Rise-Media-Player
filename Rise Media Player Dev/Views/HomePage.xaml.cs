@@ -1,6 +1,7 @@
 ﻿using RMP.App.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Views
 {
@@ -9,6 +10,7 @@ namespace RMP.App.Views
         public HomePage()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
