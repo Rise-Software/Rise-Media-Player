@@ -43,7 +43,7 @@ Here are up to date renders and screenshots with all our current features:
 
 ## Planned features
 
-**Coming VERY soon (later in Pre-Alpha / Start of Alpha**
+**Coming VERY soon (later in Pre-Alpha / Start of Alpha)**
 * Deeper File Association
 * Tips (DISCY) and Help Guide (just the start)
 * Advanced Command Bar
