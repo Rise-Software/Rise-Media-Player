@@ -4,15 +4,15 @@ using Windows.UI.Xaml.Input;
 
 namespace RMP.App.UserControls
 {
-    public sealed partial class AlbumSongListItem : UserControl
+    public sealed partial class ArtistSongListItem : UserControl
     {
-        public AlbumSongListItem()
+        public ArtistSongListItem()
         {
             InitializeComponent();
         }
 
         public static readonly DependencyProperty IsPointerOverProperty =
-            DependencyProperty.Register("IsPointerOver", typeof(bool), typeof(AlbumSongListItem),
+            DependencyProperty.Register("IsPointerOver", typeof(bool), typeof(ArtistSongListItem),
                 new PropertyMetadata(false));
 
         public bool IsPointerOver

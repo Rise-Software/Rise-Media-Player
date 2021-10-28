@@ -149,6 +149,9 @@
     <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
       <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ArtistSongListItem.xaml.cs">
+      <DependentUpon>ArtistSongListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FullSongListItem.xaml.cs">
       <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
@@ -196,9 +199,6 @@
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowControl.cs" />
-    <Compile Include="UserControls\ArtistGrid.xaml.cs">
-      <DependentUpon>ArtistGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
     </Compile>
@@ -417,6 +417,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ArtistSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\FullSongListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -466,10 +470,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Setup\TermsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ArtistGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
