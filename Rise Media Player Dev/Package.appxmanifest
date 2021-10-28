@@ -11,7 +11,7 @@
 	<Identity
 	  Name="072d305e-c1df-4c67-bbc4-0d6938d227b8"
 	  Publisher="CN=Rise Software"
-	  Version="0.0.1.0" />
+	  Version="0.0.2.0" />
 
 	<mp:PhoneIdentity PhoneProductId="072d305e-c1df-4c67-bbc4-0d6938d227b8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

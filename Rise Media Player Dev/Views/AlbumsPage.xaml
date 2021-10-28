@@ -35,7 +35,7 @@
                           x:Uid="/Information/Shuffle"
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" Icon="Add" IsCompact="True">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Playlist">
@@ -51,10 +51,19 @@
 
             <AppBarButton x:Uid="/Information/Delete"
                           Icon="Delete"
+                          IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
             <AppBarButton x:Uid="/Information/Edit"
                           Icon="Edit"
+                          IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
+            <AppBarToggleButton x:Uid="/Information/Select"
+                                Checked="AppBarToggleButton_Checked"
+                                Style="{StaticResource AppBarCompactButton}">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE1E3;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
 
             <AppBarSeparator />
 
@@ -104,7 +113,8 @@
             </AppBarButton>
         </CommandBar>
 
-        <GridView Grid.Row="1"
+        <GridView x:Name="MainGrid"
+                  Grid.Row="1"
                   ItemsSource="{x:Bind Albums}"
                   Margin="-56,0"
                   Padding="44,0,44,120"

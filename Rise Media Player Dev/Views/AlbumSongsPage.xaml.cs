@@ -18,7 +18,7 @@ namespace RMP.App.Views
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
-        private MainViewModel MViewModel => App.MViewModel;
+        public MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
         /// Gets the app-wide PViewModel instance.
@@ -26,12 +26,12 @@ namespace RMP.App.Views
         private PlaybackViewModel PViewModel => App.PViewModel;
 
         private AlbumViewModel SelectedAlbum { get; set; }
-        private SongViewModel SelectedSong { get; set; }
+        private SongViewModel SelectedSong => MViewModel.SelectedSong;
 
         private ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
 
-        private SortMethods CurrentMethod = SortMethods.Default;
+        private SortMethods CurrentMethod = SortMethods.Track;
         private bool DescendingSort { get; set; }
 
         public AlbumSongsPage()
@@ -55,7 +55,7 @@ namespace RMP.App.Views
                     Songs.Add(song);
                 }
 
-                RefreshList(SortMethods.Default);
+                RefreshList(SortMethods.Track);
             }
 
             base.OnNavigatedTo(e);
@@ -81,7 +81,7 @@ namespace RMP.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                SelectedSong = song;
+                MViewModel.SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }
@@ -106,6 +106,11 @@ namespace RMP.App.Views
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
             await PViewModel.StartShuffle(Songs);
+        }
+
+        private async void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MViewModel.SelectedSong.StartEdit();
         }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)

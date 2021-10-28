@@ -10,7 +10,7 @@
             /// <summary>
             /// Sorts based on Disc, then based on track.
             /// </summary>
-            Default,
+            Track,
 
             /// <summary>
             /// Sorts based on title.

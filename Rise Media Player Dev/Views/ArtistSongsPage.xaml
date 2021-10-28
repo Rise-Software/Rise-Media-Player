@@ -5,12 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converters="using:RMP.App.Converters"
     xmlns:uc="using:RMP.App.UserControls"
     xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <ResourceDictionary Source="/ResourceDictionaries/SongTemplates.xaml" />
+        <converters:NullToBoolean x:Key="NullToBool" />
     </Page.Resources>
 
     <Grid>
@@ -23,7 +24,7 @@
                   Margin="-56,0"
                   Padding="44,56,44,120"
                   RightTapped="MainList_RightTapped"
-                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
+                  SelectedItem="{x:Bind MViewModel.SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
@@ -83,7 +84,7 @@
                                               x:Uid="/Information/Shuffle"
                                               Click="ShuffleButton_Click"
                                               Icon="Shuffle" />
-                                <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
+                                <AppBarButton x:Uid="/Information/Add" IsEnabled="False" Icon="Add" IsCompact="True">
                                     <AppBarButton.Flyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem Text="Playlist">
@@ -101,7 +102,9 @@
                                               Icon="Delete"
                                               Style="{StaticResource AppBarCompactButton}" />
                                 <AppBarButton x:Uid="/Information/Edit"
+                                              Click="EditButton_Click"
                                               Icon="Edit"
+                                              IsEnabled="{Binding ElementName=MainList, Path=DataContext.MViewModel.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
 
                                 <AppBarButton x:Uid="/Information/Sort" Icon="Sort">

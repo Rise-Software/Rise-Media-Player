@@ -83,6 +83,18 @@ namespace RMP.App.Views
                 SortSongs(MViewModel.Songs, SortMethods.Random, DescendingSort), 0);
         }
 
+        private void AppBarToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)((AppBarToggleButton)sender).IsChecked)
+            {
+                MainGrid.Tapped -= GridView_Tapped;
+            }
+            else
+            {
+                MainGrid.Tapped += GridView_Tapped;
+            }
+        }
+
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             SViewModel.FilterByNameOnly = Merge.IsChecked;

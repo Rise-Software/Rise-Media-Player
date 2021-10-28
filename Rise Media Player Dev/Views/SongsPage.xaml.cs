@@ -20,7 +20,7 @@ namespace RMP.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
-        private SongViewModel SelectedSong { get; set; }
+        private SongViewModel SelectedSong => MViewModel.SelectedSong;
         private ObservableCollection<SongViewModel> Songs => MViewModel.Songs;
 
         private SortMethods CurrentMethod = SortMethods.Title;
@@ -54,7 +54,7 @@ namespace RMP.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                SelectedSong = song;
+                MViewModel.SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }
@@ -81,13 +81,22 @@ namespace RMP.App.Views
             await PViewModel.StartShuffle(Songs);
         }
 
+        private async void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MViewModel.SelectedSong.StartEdit();
+        }
+
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             MenuFlyoutItem item = sender as MenuFlyoutItem;
             switch (item.Tag.ToString())
             {
+                case "Title":
+                    CurrentMethod = SortMethods.Title;
+                    break;
+
                 case "Track":
-                    CurrentMethod = SortMethods.Default;
+                    CurrentMethod = SortMethods.Track;
                     break;
 
                 case "Artist":

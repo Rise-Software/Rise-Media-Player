@@ -30,6 +30,17 @@ namespace RMP.App.ViewModels
         public ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
 
+        private SongViewModel _selectedSong;
+
+        /// <summary>
+        /// Gets or sets the selected song, or null if no song is selected. 
+        /// </summary>
+        public SongViewModel SelectedSong
+        {
+            get => _selectedSong;
+            set => Set(ref _selectedSong, value);
+        }
+
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>

@@ -195,6 +195,12 @@
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove folder</value>
   </data>
+  <data name="Select.Label" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Select</value>
+  </data>
   <data name="SetupFinalise.Text" xml:space="preserve">
     <value>We’re just making sure all of your changes are saved.</value>
   </data>
