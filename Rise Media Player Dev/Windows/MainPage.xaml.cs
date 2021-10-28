@@ -203,7 +203,15 @@ namespace RMP.App.Windows
                     break;
 
                 case "GenresPage":
-                    _ = ContentFrame.Navigate(typeof(GenresPage));
+                    // _ = ContentFrame.Navigate(typeof(GenresPage));
+                    dialog = new UnavailableDialog
+                    {
+                        Header = "You can't check out the genres yet.",
+                        Description = "Hopefully you can start soon!",
+                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Genres.png"))
+                    };
+
+                    _ = await dialog.ShowAsync();
                     break;
 
                 case "HomePage":
