@@ -17,7 +17,7 @@ Here are up to date renders and screenshots with all our current features:
 
 **Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
 
-## Features Available in Pre-Alpha 1
+## Features Available in current commit
 
 **All Users, GitHub or Insider**
 * Song & Album Indexing
