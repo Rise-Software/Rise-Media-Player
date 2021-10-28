@@ -149,11 +149,11 @@ namespace RMP.App.ViewModels
         /// <param name="list">List to sort.</param>
         /// <param name="method">Preferred sorting method.</param>
         /// <returns>An IOrderedEnumerable with the sorted songs.</returns>
-        public IOrderedEnumerable<SongViewModel> SortSongs(IEnumerable<SongViewModel> list,
+        public IEnumerable<SongViewModel> SortSongs(IEnumerable<SongViewModel> list,
             SortMethods method, bool descending = false)
         {
             Debug.WriteLine("Sorting...");
-            IOrderedEnumerable<SongViewModel> songs;
+            IEnumerable<SongViewModel> songs;
 
             switch (method)
             {
@@ -185,7 +185,7 @@ namespace RMP.App.ViewModels
 
             if (descending)
             {
-                songs.Reverse();
+                songs = songs.Reverse();
             }
 
             return songs;
@@ -234,7 +234,7 @@ namespace RMP.App.ViewModels
 
             if (descending)
             {
-                albums.Reverse();
+                albums = albums.Reverse();
             }
 
             return albums;
