@@ -1,4 +1,6 @@
-![newwww-min](https://user-images.githubusercontent.com/74561130/130691567-d7a0e4ab-6791-4e08-924a-89ff220e4e4d.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+</p>
 
 ## Note
 
