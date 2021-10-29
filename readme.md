@@ -74,9 +74,9 @@ We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
 ## Downloads, Contribute and the Insider Program
 
-MSIX packages are available now for the Pre-Alpha 1 build. You can try them by joining the Insider Program! We aren't going to be available in the Microsoft Store for the Pre-Alpha process as we will be releasing many builds over the next few months. Trying to approve each build on a regular basis is just not feasible. 
+MSIX packages are available now for the Pre-Alpha 1 build. We aren't going to be available in the Microsoft Store for a while as we will be releasing many builds over the next few months. Trying to approve each build on a regular basis is just not feasible. 
 
-If you'd like early packages before they're available, join the Rise Insider Program. Like to contribute code or translate the app? Click the contribute button! And, if you're already an insider, you can leave the program or change your channel from Insider Settings.
+Currently, all users can try out the MSIX packages. When we move to the store, you must be signed up to the insider program to be able to install. You can do this from the button below.
 
 **If you are an Insider already, just click the Download button and you'll be taken to a page to download :)**
 
