@@ -44,24 +44,10 @@ Here are up to date renders and screenshots with all our current features:
 ## Planned features
 
 **Coming VERY soon (later in Pre-Alpha / Start of Alpha)**
-* Deeper File Association
-* Tips (DISCY) and Help Guide (just the start)
-* Advanced Command Bar
-* View and Sorting options for music
-* Video Support
-* Recently played
-* Ability to change and export album art
-* Context sensitive properties window
-* Language support for 14 languages to start, more coming later.
-* Discord Rich Presence
+On GitHub Issues Page
 
 **Features coming later**
-* last fm Scrobble
-* Online & Streaming Services
-* Recommendations
-* Playlists
-* Device Support
-* Disc Ripping & Burning features
+On GitHub Issues Page
 
 ## Licensing
 
