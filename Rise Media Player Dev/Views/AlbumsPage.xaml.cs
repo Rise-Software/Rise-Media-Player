@@ -53,6 +53,15 @@ namespace RMP.App.Views
             }
         }
 
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                SelectedAlbum = album;
+                AlbumFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAlbum != null)
@@ -83,16 +92,15 @@ namespace RMP.App.Views
                 SortSongs(MViewModel.Songs, SortMethods.Random, DescendingSort), 0);
         }
 
-        private void AppBarToggleButton_Checked(object sender, RoutedEventArgs e)
+        private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)
+            => MainGrid.Tapped -= GridView_Tapped;
+
+        private void SelectToggleButton_Unchecked(object sender, RoutedEventArgs e)
+            => MainGrid.Tapped += GridView_Tapped;
+
+        private void SelectItem_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)((AppBarToggleButton)sender).IsChecked)
-            {
-                MainGrid.Tapped -= GridView_Tapped;
-            }
-            else
-            {
-                MainGrid.Tapped += GridView_Tapped;
-            }
+            MainGrid.SelectedItem = SelectedAlbum;
         }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
@@ -117,6 +125,14 @@ namespace RMP.App.Views
                     CurrentMethod = SortMethods.Year;
                     break;
 
+                case "Ascending":
+                    DescendingSort = false;
+                    break;
+
+                case "Descending":
+                    DescendingSort = true;
+                    break;
+
                 default:
                     break;
             }
@@ -136,5 +152,6 @@ namespace RMP.App.Views
                 Albums.Add(album);
             }
         }
+
     }
 }

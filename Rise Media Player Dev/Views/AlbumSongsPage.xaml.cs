@@ -37,7 +37,9 @@ namespace RMP.App.Views
         public AlbumSongsPage()
         {
             InitializeComponent();
-            MainPage.Current.CrumbsHeader.Visibility = Visibility.Collapsed;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            DataContext = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,6 +61,7 @@ namespace RMP.App.Views
             }
 
             base.OnNavigatedTo(e);
+            MainPage.Current.FinishNavigation();
         }
 
         #region Event handlers
@@ -132,6 +135,14 @@ namespace RMP.App.Views
 
                 case "Year":
                     CurrentMethod = SortMethods.Year;
+                    break;
+
+                case "Ascending":
+                    DescendingSort = false;
+                    break;
+
+                case "Descending":
+                    DescendingSort = true;
                     break;
 
                 default:

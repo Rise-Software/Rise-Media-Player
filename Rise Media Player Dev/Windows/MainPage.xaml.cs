@@ -270,7 +270,7 @@ namespace RMP.App.Windows
             }
         }
 
-        private void FinishNavigation()
+        public void FinishNavigation()
         {
             if (ContentFrame.CurrentSourcePageType == null)
             {
@@ -280,15 +280,21 @@ namespace RMP.App.Windows
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
-            CrumbsHeader.Visibility = tag == "AlbumSongsPage" || tag == "ArtistSongsPage" ?
-                Visibility.Collapsed : Visibility.Visible;
+            Breadcrumbs.Clear();
+            if (tag == "AlbumSongsPage" || tag == "ArtistSongsPage")
+            {
+                Breadcrumbs.Add(new Crumb
+                {
+                    Title = ""
+                });
+                return;
+            }
 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Clear();
                     Breadcrumbs.Add(new Crumb
                     {
                         Title = item.Content.ToString()
@@ -302,7 +308,6 @@ namespace RMP.App.Windows
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Clear();
                     Breadcrumbs.Add(new Crumb
                     {
                         Title = item.Content.ToString()

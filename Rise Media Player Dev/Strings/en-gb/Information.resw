@@ -123,8 +123,14 @@
   <data name="Added.Title" xml:space="preserve">
     <value>New media added</value>
   </data>
+  <data name="Album.Text" xml:space="preserve">
+    <value>Album</value>
+  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Artist</value>
+  </data>
+  <data name="Ascending.Text" xml:space="preserve">
+    <value>Ascending</value>
   </data>
   <data name="AtAGlance.Message" xml:space="preserve">
     <value>This page will soon be home to your recommendations, recently played and more. We hope to introduce this feature soon, although it will not likely be seen in Pre-Alpha.</value>
@@ -145,19 +151,19 @@
     <value>Colourful Icons</value>
   </data>
   <data name="Delete.Label" xml:space="preserve">
-    <value>Delete</value>
+    <value>Remove...</value>
   </data>
   <data name="Delete.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Delete</value>
+    <value>Remove...</value>
   </data>
   <data name="Descending.Text" xml:space="preserve">
-    <value>Descending order</value>
+    <value>Descending</value>
   </data>
   <data name="Edit.Label" xml:space="preserve">
-    <value>Edit</value>
+    <value>Properties and Info</value>
   </data>
   <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Edit</value>
+    <value>Properties and Info</value>
   </data>
   <data name="Feedback.ToolTipService.ToolTip" xml:space="preserve">
     <value>Feedback</value>
@@ -199,6 +205,9 @@
     <value>Select</value>
   </data>
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectAlbum.Text" xml:space="preserve">
     <value>Select</value>
   </data>
   <data name="SetupFinalise.Text" xml:space="preserve">

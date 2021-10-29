@@ -61,6 +61,8 @@
                           IsEnabled="{x:Bind MViewModel.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                           Style="{StaticResource AppBarCompactButton}" />
 
+            <AppBarSeparator />
+
             <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
@@ -71,6 +73,9 @@
                                                   Click="SortFlyoutItem_Click"
                                                   IsChecked="True"
                                                   Tag="Title" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Album"
+                                                  Click="SortFlyoutItem_Click"
+                                                  Tag="Album" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
                                                   Click="SortFlyoutItem_Click"
                                                   Tag="Artist" />
@@ -83,10 +88,15 @@
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem x:Uid="/Information/Descending"
-                                              Click="SortFlyoutItem_Click"
-                                              IsChecked="{x:Bind DescendingSort, Mode=TwoWay}"
-                                              Tag="Descending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  IsChecked="True"
+                                                  Tag="Ascending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  Tag="Descending" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -104,15 +114,13 @@
                   SelectionMode="Single">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
-                    <MenuFlyout.Items>
-                        <MenuFlyoutItem x:Name="Props"
-                                        x:Uid="/MediaData/Properties"
-                                        Click="Props_Click">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE104;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout.Items>
+                    <MenuFlyoutItem x:Name="Props"
+                                    x:Uid="/MediaData/Properties"
+                                    Click="Props_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
                 </MenuFlyout>
             </ListView.Resources>
 

@@ -1,5 +1,10 @@
-﻿using Windows.UI.Xaml;
+﻿using RMP.App.ViewModels;
+using RMP.App.Views;
+using RMP.App.Windows;
+using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 
 namespace RMP.App.UserControls
@@ -10,6 +15,8 @@ namespace RMP.App.UserControls
         {
             InitializeComponent();
         }
+
+        private AlbumViewModel Album;
 
         public static readonly DependencyProperty IsPointerOverProperty =
             DependencyProperty.Register("IsPointerOver", typeof(bool), typeof(ArtistSongListItem),
@@ -43,6 +50,18 @@ namespace RMP.App.UserControls
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
             Click?.Invoke(this, e);
+        }
+
+        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (Album == null)
+            {
+                Album = App.MViewModel.Albums.
+                    FirstOrDefault(a => a.Title == AlbumLink.Text);
+            }
+
+            MainPage.Current.ContentFrame.
+                Navigate(typeof(AlbumSongsPage), Album);
         }
     }
 }

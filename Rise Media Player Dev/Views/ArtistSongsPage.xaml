@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:RMP.App.Converters"
     xmlns:uc="using:RMP.App.UserControls"
@@ -14,6 +15,16 @@
         <converters:NullToBoolean x:Key="NullToBool" />
     </Page.Resources>
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
     <Grid>
         <ListView x:Name="MainList"
                   Grid.Row="1"
@@ -21,8 +32,8 @@
                   Header="{x:Bind SelectedArtist}"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
-                  Margin="-56,0"
-                  Padding="44,56,44,120"
+                  Margin="-56,-56,-56,0"
+                  Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind MViewModel.SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
@@ -62,7 +73,7 @@
                                     Orientation="Vertical"
                                     Spacing="8">
                             <TextBlock Text="{x:Bind Name}"
-                                       MaxLines="2"
+                                       MaxLines="1"
                                        Style="{StaticResource TitleTextBlockStyle}" />
 
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Songs}" />
@@ -126,8 +137,15 @@
 
                                             <MenuFlyoutSeparator />
 
-                                            <ToggleMenuFlyoutItem x:Uid="/Information/Descending"
-                                                                  Click="Descending_Click" />
+                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                                      Click="SortFlyoutItem_Click"
+                                                                      GroupName="Descending"
+                                                                      IsChecked="True"
+                                                                      Tag="Ascending" />
+                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                                      Click="SortFlyoutItem_Click"
+                                                                      GroupName="Descending"
+                                                                      Tag="Descending" />
                                         </MenuFlyout>
                                     </AppBarButton.Flyout>
                                 </AppBarButton>

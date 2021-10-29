@@ -57,17 +57,10 @@
                           Icon="Edit"
                           IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
-            <AppBarToggleButton x:Uid="/Information/Select"
-                                Checked="AppBarToggleButton_Checked"
-                                Style="{StaticResource AppBarCompactButton}">
-                <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xE1E3;" />
-                </AppBarToggleButton.Icon>
-            </AppBarToggleButton>
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View">
+            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -99,18 +92,36 @@
 
                         <MenuFlyoutSeparator />
 
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  IsChecked="True"
+                                                  Tag="Ascending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  Tag="Descending" />
+
+                        <MenuFlyoutSeparator />
+
                         <ToggleMenuFlyoutItem x:Name="Merge"
                                               x:Uid="/Information/NameOnly"
                                               Click="SortFlyoutItem_Click"
                                               IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=OneWay}"
                                               Tag="Merge" />
-                        <ToggleMenuFlyoutItem x:Uid="/Information/Descending"
-                                              Click="SortFlyoutItem_Click"
-                                              IsChecked="{x:Bind DescendingSort, Mode=TwoWay}"
-                                              Tag="Descending" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+
+            <AppBarSeparator />
+
+            <AppBarToggleButton x:Uid="/Information/Select"
+                                Checked="SelectToggleButton_Checked"
+                                Unchecked="SelectToggleButton_Unchecked">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE1E3;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
         </CommandBar>
 
         <GridView x:Name="MainGrid"
@@ -118,9 +129,28 @@
                   ItemsSource="{x:Bind Albums}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
+                  RightTapped="MainGrid_RightTapped"
                   SelectedItem="{x:Bind SelectedAlbum, Mode=TwoWay}"
                   SelectionMode="Single"
                   Tapped="GridView_Tapped">
+            <GridView.Resources>
+                <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbum" Click="SelectItem_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="Props"
+                                    x:Uid="/MediaData/Properties"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </GridView.Resources>
+
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel">
                     <StackPanel Margin="12"

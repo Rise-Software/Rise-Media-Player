@@ -172,6 +172,14 @@ namespace RMP.App.ViewModels
                     songs = list.OrderBy(s => s.Title);
                     break;
 
+                case SortMethods.Album:
+                    songs = list.OrderBy(s => s.Album);
+                    break;
+
+                case SortMethods.AlbumArtist:
+                    songs = list.OrderBy(s => s.AlbumArtist);
+                    break;
+
                 case SortMethods.Artist:
                     songs = list.OrderBy(s => s.Artist);
                     break;

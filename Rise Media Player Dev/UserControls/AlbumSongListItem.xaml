@@ -92,11 +92,22 @@
 
                 <TextBlock Text="{Binding Title}"
                            TextTrimming="CharacterEllipsis" />
-                <TextBlock Grid.Row="1" Width="Auto">
-                    <Hyperlink UnderlineStyle="None">
-                        <Run Text="{Binding Artist}" />
-                    </Hyperlink>
-                </TextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock>
+                        <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">
+                            <Run x:Name="ArtistLink" Text="{Binding Artist}" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <Rectangle Grid.Column="1"
+                               Fill="Transparent"
+                               VerticalAlignment="Stretch" />
+                </Grid>
             </Grid>
 
             <Rectangle Grid.Column="4"

@@ -2,12 +2,15 @@
     x:Class="RMP.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
+
+            <media:AttachedCardShadow x:Key="CommonShadow" Offset="4" />
 
             <!--#region Styles-->
             <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">

@@ -99,6 +99,10 @@ namespace RMP.App.Views
                     CurrentMethod = SortMethods.Track;
                     break;
 
+                case "Album":
+                    CurrentMethod = SortMethods.Album;
+                    break;
+
                 case "Artist":
                     CurrentMethod = SortMethods.Artist;
                     break;
@@ -109,6 +113,14 @@ namespace RMP.App.Views
 
                 case "Year":
                     CurrentMethod = SortMethods.Year;
+                    break;
+
+                case "Ascending":
+                    DescendingSort = false;
+                    break;
+
+                case "Descending":
+                    DescendingSort = true;
                     break;
 
                 default:

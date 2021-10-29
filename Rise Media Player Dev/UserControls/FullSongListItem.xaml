@@ -126,8 +126,8 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock>
-                        <Hyperlink UnderlineStyle="None">
-                            <Run Text="{Binding Artist}" />
+                        <Hyperlink Click="ArtistLink_Click" UnderlineStyle="None">
+                            <Run x:Name="ArtistLink" Text="{Binding Artist}" />
                         </Hyperlink>
                     </TextBlock>
 
@@ -143,8 +143,8 @@
                                VerticalAlignment="Stretch" />
 
                     <TextBlock Grid.Column="4">
-                        <Hyperlink UnderlineStyle="None">
-                            <Run Text="{Binding Album}" />
+                        <Hyperlink Click="AlbumLink_Click" UnderlineStyle="None">
+                            <Run x:Name="AlbumLink" Text="{Binding Album}" />
                         </Hyperlink>
                     </TextBlock>
 
