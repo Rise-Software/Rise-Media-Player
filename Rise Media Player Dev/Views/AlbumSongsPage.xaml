@@ -29,13 +29,13 @@
         <ListView x:Name="MainList"
                   Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
-                  Header="{x:Bind SelectedAlbum}"
+                  Header="{x:Bind SelectedAlbum, Mode=OneWay}"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
                   Margin="-56,-56,-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
-                  SelectedItem="{x:Bind MViewModel.SelectedSong, Mode=TwoWay}"
+                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
@@ -117,7 +117,7 @@
                             </Grid>
 
                             <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
-                                <Hyperlink UnderlineStyle="None">
+                                <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">
                                     <Run Text="{x:Bind Artist}" />
                                 </Hyperlink>
                             </TextBlock>
@@ -163,7 +163,7 @@
                                               Style="{StaticResource AppBarCompactButton}" />
                                 <AppBarButton x:Uid="/Information/Edit"
                                               Icon="Edit"
-                                              IsEnabled="{Binding ElementName=MainList, Path=DataContext.MViewModel.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
+                                              IsEnabled="{Binding ElementName=MainList, Path=DataContext.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
 
                                 <!--AppBarButton x:Uid="/Information/Sort" Icon="Sort">

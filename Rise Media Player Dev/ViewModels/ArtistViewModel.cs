@@ -150,8 +150,14 @@ namespace RMP.App.ViewModels
                     if (type.InnerText == "image")
                     {
                         img = node.FirstChild.InnerText;
-                        Debug.WriteLine(img);
-                        return img;
+
+                        string path = await Methods.SaveImageFromURLAsync(img, $@"{name}.png");
+                        Debug.WriteLine(path);
+
+                        if (path != "/")
+                        {
+                            return $@"ms-appdata:///local/{path}.png";
+                        }
                     }
                 }
             }

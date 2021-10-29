@@ -2,8 +2,10 @@
 using RMP.App.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using static RMP.App.Common.Enums;
@@ -25,8 +27,24 @@ namespace RMP.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
-        private AlbumViewModel SelectedAlbum { get; set; }
-        private SongViewModel SelectedSong => MViewModel.SelectedSong;
+        private ArtistViewModel Artist;
+        private static DependencyProperty SelectedAlbumProperty =
+            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumSongsPage), null);
+
+        private AlbumViewModel SelectedAlbum
+        {
+            get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
+            set => SetValue(SelectedAlbumProperty, value);
+        }
+
+        private static DependencyProperty SelectedSongProperty =
+            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(AlbumSongsPage), null);
+
+        private SongViewModel SelectedSong
+        {
+            get => (SongViewModel)GetValue(SelectedSongProperty);
+            set => SetValue(SelectedSongProperty, value);
+        }
 
         private ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
@@ -84,15 +102,24 @@ namespace RMP.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                MViewModel.SelectedSong = song;
+                SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }
 
-        private async void Props_Click(object sender, RoutedEventArgs e)
+        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
         {
-            await SelectedSong.StartEdit();
+            if (Artist == null)
+            {
+                Artist = App.MViewModel.Artists.
+                    FirstOrDefault(a => a.Name == SelectedAlbum.Artist);
+            }
+
+            Frame.Navigate(typeof(ArtistSongsPage), Artist);
         }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+            => await SelectedSong.StartEdit();
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -107,13 +134,17 @@ namespace RMP.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            await PViewModel.StartShuffle(Songs);
-        }
+            => await PViewModel.StartShuffle(Songs);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
+            => await SelectedSong.StartEdit();
+
+        private void Descending_Click(object sender, RoutedEventArgs e)
         {
-            await MViewModel.SelectedSong.StartEdit();
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            DescendingSort = item.IsChecked;
+
+            RefreshList(CurrentMethod);
         }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
@@ -148,14 +179,6 @@ namespace RMP.App.Views
                 default:
                     break;
             }
-
-            RefreshList(CurrentMethod);
-        }
-
-        private void Descending_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            DescendingSort = item.IsChecked;
 
             RefreshList(CurrentMethod);
         }

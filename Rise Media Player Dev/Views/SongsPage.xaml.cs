@@ -20,7 +20,15 @@ namespace RMP.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
-        private SongViewModel SelectedSong => MViewModel.SelectedSong;
+        private static DependencyProperty SelectedSongProperty =
+            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
+
+        private SongViewModel SelectedSong
+        {
+            get => (SongViewModel)GetValue(SelectedSongProperty);
+            set => SetValue(SelectedSongProperty, value);
+        }
+
         private ObservableCollection<SongViewModel> Songs => MViewModel.Songs;
 
         private SortMethods CurrentMethod = SortMethods.Title;
@@ -54,7 +62,7 @@ namespace RMP.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                MViewModel.SelectedSong = song;
+                SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }
@@ -83,7 +91,7 @@ namespace RMP.App.Views
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await MViewModel.SelectedSong.StartEdit();
+            await SelectedSong.StartEdit();
         }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)

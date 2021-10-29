@@ -3,9 +3,12 @@ using RMP.App.ViewModels;
 using RMP.App.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using static RMP.App.Common.Enums;
 
@@ -28,7 +31,15 @@ namespace RMP.App.Views
         /// </summary>
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private AlbumViewModel SelectedAlbum { get; set; }
+        private static DependencyProperty SelectedAlbumProperty =
+            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumsPage), null);
+
+        private AlbumViewModel SelectedAlbum
+        {
+            get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
+            set => SetValue(SelectedAlbumProperty, value);
+        }
+
         private ObservableCollection<AlbumViewModel> Albums { get; set; }
             = new ObservableCollection<AlbumViewModel>();
 
@@ -59,6 +70,17 @@ namespace RMP.App.Views
             {
                 SelectedAlbum = album;
                 AlbumFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
+        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            var parent = VisualTreeHelper.GetParent(sender) as FrameworkElement;
+
+            if (parent.DataContext is AlbumViewModel album)
+            {
+                Frame.Navigate(typeof(ArtistSongsPage),
+                    App.MViewModel.Artists.FirstOrDefault(a => a.Name == album.Artist));
             }
         }
 
@@ -97,11 +119,6 @@ namespace RMP.App.Views
 
         private void SelectToggleButton_Unchecked(object sender, RoutedEventArgs e)
             => MainGrid.Tapped += GridView_Tapped;
-
-        private void SelectItem_Click(object sender, RoutedEventArgs e)
-        {
-            MainGrid.SelectedItem = SelectedAlbum;
-        }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
@@ -152,6 +169,5 @@ namespace RMP.App.Views
                 Albums.Add(album);
             }
         }
-
     }
 }

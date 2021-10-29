@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 
@@ -16,6 +19,17 @@ namespace RMP.App.Common
     /// </summary>
     public class Methods
     {
+        /// <summary>
+        /// List of invalid characters in a filename.
+        /// </summary>
+        private static char[] _invalids = new char[] { '"', '<', '>', '|',
+            '\0', '\x0001', '\x0002', '\x0003', '\x0004', '\x0005',
+            '\x0006', '\a', '\b', '\t', '\n', '\v', '\f', '\r',
+            '\x000e', '\x000f', '\x0010', '\x0011', '\x0012',
+            '\x0013', '\x0014', '\x0015', '\x0016', '\x0017',
+            '\x0018', '\x0019', '\x001a', '\x001b', '\x001c',
+            '\x001d', '\x001e', '\x001f', ':', '*', '?', '\\', '/' };
+
         /// <summary>
         /// Launchs an URI from a string.
         /// </summary>
@@ -61,6 +75,40 @@ namespace RMP.App.Common
         }
 
         /// <summary>
+        /// Replaces characters in <c>text</c> that are not allowed in 
+        /// file names with the specified replacement character.
+        /// </summary>
+        /// <param name="text">Text to make into a valid filename. The same string is returned if it is valid already.</param>
+        /// <param name="replacement">Replacement character, or null to simply remove bad characters.</param>
+        /// <returns>A string that can be used as a filename. If the output string would otherwise be empty, returns "_".</returns>
+        public static string MakeValidFileName(string text, char? replacement = '_')
+        {
+            StringBuilder sb = new StringBuilder(text.Length);
+            char[] invalids = _invalids ?? (_invalids = Path.GetInvalidFileNameChars());
+            bool changed = false;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+                if (invalids.Contains(c))
+                {
+                    changed = true;
+                    char repl = replacement ?? '\0';
+                    if (repl != '\0')
+                    {
+                        _ = sb.Append(repl);
+                    }
+                }
+                else
+                {
+                    _ = sb.Append(c);
+                }
+            }
+
+            return sb.Length == 0 ? "_" : changed ? sb.ToString() : text;
+        }
+
+        /// <summary>
         /// Checks whether or not the URL points to an image.
         /// </summary>
         /// <param name="url">URL to check</param>
@@ -91,11 +139,28 @@ namespace RMP.App.Common
             return false;
         }
 
-        public static async Task SaveImage(string url, string filename)
+        public static async Task<string> SaveImageFromURLAsync(string url, string filename)
         {
             HttpClient client = new HttpClient();
-            IInputStream stream = await client.GetInputStreamAsync(new Uri(url));
-            // BitmapImage bitmap = new BitmapImage(stream);
+            StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
+                CreateFileAsync(MakeValidFileName(filename), CreationCollisionOption.GenerateUniqueName);
+
+            try
+            {
+                IBuffer buffer = await client.GetBufferAsync(new Uri(url));
+
+                using (IRandomAccessStream strm = await
+                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    _ = await strm.WriteAsync(buffer);
+                }
+
+                return Path.GetFileNameWithoutExtension(destinationFile.Path);
+            }
+            catch
+            {
+                return "/";
+            }
         }
     }
 }

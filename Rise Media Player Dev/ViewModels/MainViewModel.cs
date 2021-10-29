@@ -30,33 +30,11 @@ namespace RMP.App.ViewModels
         public ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
 
-        private SongViewModel _selectedSong;
-
-        /// <summary>
-        /// Gets or sets the selected song, or null if no song is selected. 
-        /// </summary>
-        public SongViewModel SelectedSong
-        {
-            get => _selectedSong;
-            set => Set(ref _selectedSong, value);
-        }
-
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
         public ObservableCollection<AlbumViewModel> Albums { get; set; }
             = new ObservableCollection<AlbumViewModel>();
-
-        private AlbumViewModel _selectedAlbum;
-
-        /// <summary>
-        /// Gets or sets the selected album, or null if no album is selected. 
-        /// </summary>
-        public AlbumViewModel SelectedAlbum
-        {
-            get => _selectedAlbum;
-            set => Set(ref _selectedAlbum, value);
-        }
 
         /// <summary>
         /// The collection of artists in the list. 
@@ -64,33 +42,11 @@ namespace RMP.App.ViewModels
         public ObservableCollection<ArtistViewModel> Artists { get; set; }
             = new ObservableCollection<ArtistViewModel>();
 
-        private ArtistViewModel _selectedArtist;
-
-        /// <summary>
-        /// Gets or sets the selected artist, or null if no artist is selected. 
-        /// </summary>
-        public ArtistViewModel SelectedArtist
-        {
-            get => _selectedArtist;
-            set => Set(ref _selectedArtist, value);
-        }
-
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
         public ObservableCollection<GenreViewModel> Genres { get; set; }
             = new ObservableCollection<GenreViewModel>();
-
-        private GenreViewModel _selectedGenre;
-
-        /// <summary>
-        /// Gets or sets the selected genre, or null if no genre is selected. 
-        /// </summary>
-        public GenreViewModel SelectedGenre
-        {
-            get => _selectedGenre;
-            set => Set(ref _selectedGenre, value);
-        }
 
         /// <summary>
         /// Gets a list of filtered songs.

@@ -58,7 +58,7 @@
             <AppBarButton x:Uid="/Information/Edit"
                           Click="EditButton_Click"
                           Icon="Edit"
-                          IsEnabled="{x:Bind MViewModel.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
+                          IsEnabled="{x:Bind SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                           Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
@@ -110,7 +110,7 @@
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
-                  SelectedItem="{x:Bind MViewModel.SelectedSong, Mode=TwoWay}"
+                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
