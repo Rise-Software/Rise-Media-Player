@@ -15,22 +15,22 @@ namespace RMP.App.Views
 
         private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Feedback);
+            _ = await Methods.LaunchURIAsync(URLs.Feedback);
         }
 
         private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Changes);
+            _ = await Methods.LaunchURIAsync(URLs.Changes);
         }
 
         private async void InsiderButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Insider);
+            _ = await Methods.LaunchURIAsync(URLs.Insider);
         }
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.GitHub);
+            _ = await Methods.LaunchURIAsync(URLs.GitHub);
         }
     }
 }

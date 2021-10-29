@@ -116,7 +116,7 @@ namespace RMP.App.Dialogs
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await Methods.LaunchURI(URLs.Feedback);
+            await Methods.LaunchURIAsync(URLs.Feedback);
         }
     }
 }
