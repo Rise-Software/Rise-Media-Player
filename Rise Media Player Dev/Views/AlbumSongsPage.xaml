@@ -157,11 +157,11 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton x:Uid="/Information/Delete"
-                                              Click="EditButton_Click"
                                               Icon="Delete"
                                               IsEnabled="False"
                                               Style="{StaticResource AppBarCompactButton}" />
                                 <AppBarButton x:Uid="/Information/Edit"
+                                              Click="EditButton_Click"
                                               Icon="Edit"
                                               IsEnabled="{Binding ElementName=MainList, Path=DataContext.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
