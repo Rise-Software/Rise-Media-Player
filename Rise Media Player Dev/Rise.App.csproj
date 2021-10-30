@@ -145,7 +145,13 @@
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Settings\InsiderPage.xaml.cs">
+      <DependentUpon>InsiderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
+      <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
       <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
     </Compile>
@@ -410,6 +416,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\SongTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\InsiderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AdaptiveItemPane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

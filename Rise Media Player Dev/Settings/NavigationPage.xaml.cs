@@ -1,6 +1,7 @@
 ﻿using RMP.App.Settings.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Settings
 {
@@ -24,6 +25,8 @@ namespace RMP.App.Settings
         {
             InitializeComponent();
             DataContext = ViewModel;
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }
 }

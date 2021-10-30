@@ -144,5 +144,8 @@
 
         public const string Insider =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u";
+
+        public const string License =
+            "https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE";
     }
 }

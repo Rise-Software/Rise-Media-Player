@@ -53,7 +53,8 @@
 
                     <ToggleButton x:Name="Library"
                                   Checked="ToggleButton_Checked"
-                                  Tag="LibraryItem">
+                                  Tag="LibraryItem"
+                                  Unchecked="ToggleButton_Unchecked">
                         <ToggleButton.Content>
                             <Grid ColumnSpacing="6">
                                 <Grid.ColumnDefinitions>
@@ -61,7 +62,8 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
+                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" /-->
+                                <FontIcon Glyph="&#xEA69;" />
                                 <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
                             </Grid>
                         </ToggleButton.Content>
@@ -70,7 +72,8 @@
                     <ToggleButton x:Name="Playback"
                                   Grid.Column="1"
                                   Checked="ToggleButton_Checked"
-                                  Tag="PlaybackItem">
+                                  Tag="PlaybackItem"
+                                  Unchecked="ToggleButton_Unchecked">
                         <ToggleButton.Content>
                             <Grid ColumnSpacing="6">
                                 <Grid.ColumnDefinitions>
@@ -78,7 +81,8 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
+                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" /-->
+                                <FontIcon Glyph="&#xE102;" />
                                 <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
                             </Grid>
                         </ToggleButton.Content>
@@ -87,7 +91,8 @@
                     <ToggleButton x:Name="Appearance"
                                   Grid.Column="2"
                                   Checked="ToggleButton_Checked"
-                                  Tag="AppearanceItem">
+                                  Tag="AppearanceItem"
+                                  Unchecked="ToggleButton_Unchecked">
                         <ToggleButton.Content>
                             <Grid ColumnSpacing="6">
                                 <Grid.ColumnDefinitions>
@@ -95,7 +100,8 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
+                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" /-->
+                                <FontIcon Glyph="&#xE771;" />
                                 <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
                             </Grid>
                         </ToggleButton.Content>
@@ -123,6 +129,10 @@
                     <Button.Flyout>
                         <MenuFlyout>
                             <MenuFlyoutSubItem x:Uid="/Information/Style">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon Glyph="&#xE771;" />
+                                </MenuFlyoutSubItem.Icon>
+
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/HC" GroupName="Icons" />
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/Colorful" GroupName="Icons" />
 
@@ -131,6 +141,20 @@
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/Sidebar" GroupName="Dialog" />
                                 <muxc:RadioMenuFlyoutItem x:Uid="/Information/MenuBar" GroupName="Dialog" />
                             </MenuFlyoutSubItem>
+
+                            <MenuFlyoutSeparator />
+
+                            <MenuFlyoutItem x:Uid="/Sidebar/Lang" Click="MenuFlyoutItem_Click" Tag="Langs">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE12B;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutItem x:Uid="/Sidebar/Insider" Click="MenuFlyoutItem_Click" Tag="Ins">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xECA7;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
@@ -145,6 +169,7 @@
                               Height="32"
                               Padding="0"
                               Tag="AboutItem"
+                              Unchecked="ToggleButton_Unchecked"
                               Width="32">
                     <ToggleButton.Content>
                         <FontIcon FontSize="14" Glyph="&#xE946;" />

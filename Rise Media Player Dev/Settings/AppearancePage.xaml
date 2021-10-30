@@ -47,8 +47,7 @@
                                Click="SidebarCustomize_Click"
                                ExpanderStyle="Button"
                                Icon="&#xE9D5;">
-            <FontIcon Glyph="&#xE00F;"
-                      FontSize="16" />
+            <FontIcon Glyph="&#xE00F;" />
         </uc:NavigationExpander>
 
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Settings
 {
@@ -40,6 +41,7 @@ namespace RMP.App.Settings
             dialog.Content = Dialog;
 
             DataContext = ViewModel;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)

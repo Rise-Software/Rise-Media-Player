@@ -150,6 +150,18 @@
   <data name="Home.Content" xml:space="preserve">
     <value>At a glance</value>
   </data>
+  <data name="Ins" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>Insider settings</value>
+  </data>
+  <data name="Lang.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Langs" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="Language.Content" xml:space="preserve">
     <value>Language</value>
   </data>

@@ -3,8 +3,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using static RMP.App.Common.Enums;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace RMP.App.UserControls
 {
     [ContentProperty(Name = "Controls")]

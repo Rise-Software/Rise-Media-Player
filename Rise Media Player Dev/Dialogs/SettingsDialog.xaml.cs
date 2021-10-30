@@ -2,7 +2,6 @@
 using RMP.App.Settings;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,19 +23,25 @@ namespace RMP.App.Dialogs
             InitializeComponent();
             Current = this;
 
-            Library.IsChecked = true;
             Toggles = ItemGrid.GetChildren<ToggleButton>();
+            Library.IsChecked = true;
+
+            Opened += SettingsDialog_Opened;
         }
 
+        private void SettingsDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
+            => ResizeDialog();
+
         private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
+            => ResizeDialog();
+
+        private void ResizeDialog()
         {
             double windowWidth = Window.Current.Bounds.Width;
             double windowHeight = Window.Current.Bounds.Height;
 
-            Debug.WriteLine(windowWidth);
-
-            RootGrid.Width = windowWidth < 800 ?
-                windowWidth - 64 : 800 - 64;
+            SettingsFrame.Width = windowWidth < 800 ?
+                windowWidth - 68 : 800 - 68;
 
             RootGrid.Height = windowHeight < 620 ?
                 windowHeight - 64 : 620 - 64;
@@ -69,16 +74,16 @@ namespace RMP.App.Dialogs
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+            => Hide();
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            Library.IsChecked = false;
-            Playback.IsChecked = false;
-            Appearance.IsChecked = false;
-            About.IsChecked = false;
+            foreach (ToggleButton button in Toggles)
+            {
+                button.Unchecked -= ToggleButton_Unchecked;
+                button.IsChecked = false;
+                button.Unchecked += ToggleButton_Unchecked;
+            }
 
             ToggleButton clicked = (ToggleButton)sender;
             clicked.Checked -= ToggleButton_Checked;
@@ -115,8 +120,51 @@ namespace RMP.App.Dialogs
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
+            => await Methods.LaunchURIAsync(URLs.Feedback);
+
+        private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            await Methods.LaunchURIAsync(URLs.Feedback);
+            foreach (ToggleButton button in Toggles)
+            {
+                button.Unchecked -= ToggleButton_Unchecked;
+                button.IsChecked = false;
+                button.Unchecked += ToggleButton_Unchecked;
+            }
+
+            ToggleButton toggle = sender as ToggleButton;
+            toggle.IsChecked = true;
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (ToggleButton button in Toggles)
+            {
+                button.Unchecked -= ToggleButton_Unchecked;
+                button.IsChecked = false;
+                button.Unchecked += ToggleButton_Unchecked;
+            }
+
+            About.Unchecked -= ToggleButton_Unchecked;
+            About.IsChecked = false;
+            About.Unchecked += ToggleButton_Unchecked;
+
+            Breadcrumbs.Clear();
+
+            MenuFlyoutItem item = sender as MenuFlyoutItem;
+            string tag = item.Tag.ToString();
+            switch (tag)
+            {
+                case "Langs":
+                    SettingsFrame.Navigate(typeof(LanguagePage));
+                    break;
+
+                case "Ins":
+                    SettingsFrame.Navigate(typeof(InsiderPage));
+                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Abt"));
+                    break;
+            }
+
+            Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString(tag));
         }
     }
 }
