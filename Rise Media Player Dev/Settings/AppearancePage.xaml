@@ -10,7 +10,15 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Appearance/AppearanceH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <uc:NavigationExpander x:Uid="/Appearance/DesignUnavailable"
+                               ExpanderStyle="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               Icon="&#xE946;">
+            <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
+        </uc:NavigationExpander>
+            
+        <TextBlock x:Uid="/Appearance/AppearanceH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"
                                Icon="&#xE790;">

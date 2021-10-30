@@ -17,7 +17,7 @@
                     <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Center">
                         <TextBlock x:Uid="/About/CurrentC" FontWeight="SemiBold" />
-                        <TextBlock x:Uid="/About/Bloom"
+                        <TextBlock x:Uid="/About/Bloom" FontSize="12"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                 </StackPanel>

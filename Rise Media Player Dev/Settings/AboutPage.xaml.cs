@@ -27,7 +27,13 @@ namespace RMP.App.Settings
                     SettingsDialog.Current.Breadcrumbs.Add
                         (ResourceLoaders.SidebarLoader.GetString("Ins"));
                     break;
+
+                case "Version":
+
+                    break;
             }
+
+
         }
     }
 }

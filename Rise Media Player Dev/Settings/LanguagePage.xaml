@@ -21,7 +21,7 @@
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Center">
                             <TextBlock x:Uid="/Language/System" FontWeight="SemiBold" />
-                            <TextBlock x:Name="SysLang"
+                            <TextBlock x:Name="SysLang" FontSize="12"
                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                         </StackPanel>
                     </StackPanel>
@@ -45,7 +45,7 @@
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xE7BA;" VerticalAlignment="Center" />
                             <TextBlock>
-                                <Hyperlink UnderlineStyle="None">
+                                <Hyperlink UnderlineStyle="None" NavigateUri="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u">
                                     <Run x:Uid="/Language/Report" />
                                 </Hyperlink>
                             </TextBlock>
@@ -56,8 +56,8 @@
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xE144;" />
                             <TextBlock>
-                                <Hyperlink UnderlineStyle="None">
-                                    <Run x:Uid="/Language/Translate" />
+                                <Hyperlink UnderlineStyle="None" NavigateUri="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UNFA0WVdDTDRIMTlRVU4yT0FDOENWMVJMVC4u">
+                                    <Run x:Uid="/Language/Translate"/>
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
@@ -75,7 +75,7 @@
         <uc:NavigationExpander x:Uid="/Language/Match"
                                ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE776;">
+                               Icon="&#xE923;">
             <!--ToggleSwitch /-->
         </uc:NavigationExpander>
 
