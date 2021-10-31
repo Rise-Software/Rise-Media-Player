@@ -3,7 +3,6 @@ using Rise.Repository;
 using Rise.Repository.SQL;
 using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
-using RMP.App.Views;
 using RMP.App.Windows;
 using System;
 using System.Diagnostics;
@@ -84,12 +83,11 @@ namespace RMP.App
         private async void InitDatabase()
         {
             _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
-            Debug.WriteLine(ApplicationData.Current.LocalCacheFolder.Path);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
             DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
                 "Data Source=" + dbPath);
-            Repository = new SQLRepository(dbOptions);
 
+            Repository = new SQLRepository(dbOptions);
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
         }
@@ -133,9 +131,10 @@ namespace RMP.App
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    _ = !SViewModel.SetupCompleted
+                    /*_ = !SViewModel.SetupCompleted
                         ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
-                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        : */
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 
                 // Ensure the current window is active

@@ -196,7 +196,7 @@ namespace RMP.App.Dialogs
 
                     SetupProgress.Value = 80;
                     SetupIcon.Source = AppearanceImage;
-                    _ = SetupFrame.Navigate(typeof(Setup.AppearancePage));
+                    _ = SetupFrame.Navigate(typeof(AppearancePage));
                     break;
 
                 case 5:
