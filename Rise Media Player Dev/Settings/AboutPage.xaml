@@ -58,7 +58,9 @@
                                         VerticalAlignment="Center">
                                 <TextBlock Text="GitHub" FontWeight="SemiBold" />
                                 <TextBlock> 
-                                    <Hyperlink UnderlineStyle="None" FontSize="12">
+                                    <Hyperlink UnderlineStyle="None"
+                                               FontSize="12"
+                                               NavigateUri="https://github.com/Rise-Software/Rise-Media-Player">
                                         <Run x:Uid="/About/Contribute" />
                                     </Hyperlink>
                                 </TextBlock>

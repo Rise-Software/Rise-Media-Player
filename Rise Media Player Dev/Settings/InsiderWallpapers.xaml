@@ -23,8 +23,9 @@
         </FlipView>
 
         <StackPanel Orientation="Horizontal" Padding="0,10,0,0" Spacing="4">
-            <TextBlock Text="{x:Bind WallsView.SelectedIndex, Mode=OneWay}" FontWeight="SemiBold" />
-            <TextBlock Text="of" FontWeight="SemiBold" />
+            <TextBlock x:Name="CurrentWall"
+                       FontWeight="SemiBold" />
+            <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" />
             <TextBlock Text="{x:Bind Walls.Count}" FontWeight="SemiBold" />
         </StackPanel>
 

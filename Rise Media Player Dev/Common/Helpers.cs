@@ -6,12 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 
@@ -74,20 +74,50 @@ namespace RMP.App.Common
             return sb.Length == 0 ? "_" : changed ? sb.ToString() : text;
         }
 
-        public static bool IsValidImage(string path)
+        /// <summary>
+        /// Saves a <see cref="SoftwareBitmap"/> to a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="softwareBitmap"><see cref="SoftwareBitmap"/> to save.</param>
+        /// <param name="outputFile"><see cref="StorageFile"/> where the <see cref="SoftwareBitmap"/>
+        /// should be stored.</param>
+        /// <returns>Whether or not the operation was successful.</returns>
+        public static async Task<bool> SaveSoftwareBitmapToFile(SoftwareBitmap softwareBitmap, StorageFile outputFile)
         {
-            try
+            using (IRandomAccessStream stream = await outputFile.OpenAsync(FileAccessMode.ReadWrite))
             {
-                BitmapImage newImage = new BitmapImage(new Uri(path));
-            }
-            catch (NotSupportedException)
-            {
-                // System.NotSupportedException:
-                // No imaging component suitable to complete this operation was found.
-                return false;
-            }
+                // Create an encoder with the desired format
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
 
-            return true;
+                // Set the software bitmap
+                encoder.SetSoftwareBitmap(softwareBitmap);
+                encoder.IsThumbnailGenerated = true;
+
+                try
+                {
+                    await encoder.FlushAsync();
+                }
+                catch (Exception err)
+                {
+                    const int WINCODEC_ERR_UNSUPPORTEDOPERATION = unchecked((int)0x88982F81);
+                    switch (err.HResult)
+                    {
+                        case WINCODEC_ERR_UNSUPPORTEDOPERATION:
+                            // If the encoder does not support writing a thumbnail, then try again
+                            // but disable thumbnail generation.
+                            encoder.IsThumbnailGenerated = false;
+                            break;
+                        default:
+                            return false;
+                    }
+                }
+
+                if (encoder.IsThumbnailGenerated == false)
+                {
+                    await encoder.FlushAsync();
+                }
+
+                return true;
+            }
         }
     }
 
@@ -136,31 +166,45 @@ namespace RMP.App.Common
         public static async Task<string> SaveImageFromURLAsync(string url, string filename)
         {
             HttpClient client = new HttpClient();
+
+            StorageFile tempFile = await ApplicationData.Current.LocalCacheFolder.
+                CreateFileAsync("tempboi", CreationCollisionOption.GenerateUniqueName);
+
             StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                 CreateFileAsync(FileHelpers.MakeValidFileName(filename), CreationCollisionOption.GenerateUniqueName);
 
+            bool result = false;
+            string path = "/";
             try
             {
                 IBuffer buffer = await client.GetBufferAsync(new Uri(url));
-
                 using (IRandomAccessStream strm = await
-                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    tempFile.OpenAsync(FileAccessMode.ReadWrite))
                 {
                     _ = await strm.WriteAsync(buffer);
-                }
 
-                if (FileHelpers.IsValidImage(destinationFile.Path))
-                {
-                    return Path.GetFileNameWithoutExtension(destinationFile.Path);
+                    // Create the decoder from the stream
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(strm);
+
+                    // Get the SoftwareBitmap representation of the file
+                    SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync();
+                    result = await FileHelpers.SaveSoftwareBitmapToFile(softBmp, destinationFile);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine("Exception when getting the image: " + ex.Message);
+            }
+
+            await tempFile.DeleteAsync();
+            if (result)
+            {
+                path = Path.GetFileNameWithoutExtension(destinationFile.Path);
+                return path;
             }
 
             await destinationFile.DeleteAsync();
-            return "/";
+            return path;
         }
 
         /// <summary>

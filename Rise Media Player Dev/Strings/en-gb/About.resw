@@ -154,6 +154,9 @@ Created by Joseph Beattie &amp; YourOrdinaryCat</value>
   <data name="MoreH.Text" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="Of.Text" xml:space="preserve">
+    <value>of</value>
+  </data>
   <data name="Recent.Description" xml:space="preserve">
     <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
   </data>

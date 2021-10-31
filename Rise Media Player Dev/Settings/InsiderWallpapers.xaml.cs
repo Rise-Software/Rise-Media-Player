@@ -63,6 +63,7 @@ namespace RMP.App.Settings
         {
             if (WallsView.SelectedIndex > -1)
             {
+                CurrentWall.Text = (WallsView.SelectedIndex + 1).ToString();
                 WallName.Text = Walls[WallsView.SelectedIndex].Name;
                 WallShortDesc.Text = Walls[WallsView.SelectedIndex].ShortDescription;
                 WallDesc.Text = Walls[WallsView.SelectedIndex].Description;

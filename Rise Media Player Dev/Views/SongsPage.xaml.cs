@@ -20,7 +20,7 @@ namespace RMP.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
-        private static DependencyProperty SelectedSongProperty =
+        private readonly static DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
 
         private SongViewModel SelectedSong

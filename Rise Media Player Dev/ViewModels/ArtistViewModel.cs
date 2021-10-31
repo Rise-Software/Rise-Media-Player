@@ -229,11 +229,11 @@ namespace RMP.App.ViewModels
 
             if (IsNewArtist)
             {
-                Picture = await GetPictureAsync();
                 IsNewArtist = false;
                 App.MViewModel.Artists.Add(this);
             }
 
+            Picture = await GetPictureAsync();
             await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
         }
 
