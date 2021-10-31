@@ -43,15 +43,15 @@
                             Spacing="12">
                     <Button Click="ReportButton_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xE7BA;" VerticalAlignment="Center" />
-                            <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemAccentColorLight2}" />
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE7BA;" VerticalAlignment="Center" />
+                            <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
 
                     <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xE144;" />
-                            <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemAccentColorLight2}" />
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
+                            <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

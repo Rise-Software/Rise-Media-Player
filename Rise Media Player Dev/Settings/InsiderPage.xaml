@@ -28,15 +28,15 @@
                             Spacing="12">
                     <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xE73A;" VerticalAlignment="Center" />
-                            <TextBlock x:Uid="/About/Change" Foreground="{ThemeResource SystemAccentColorLight2}" />
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE73A;" VerticalAlignment="Center" />
+                            <TextBlock x:Uid="/About/Change" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
 
                     <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xF3B1;" />
-                            <TextBlock x:Uid="/About/Leave" Foreground="{ThemeResource SystemAccentColorLight2}" />
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xF3B1;" />
+                            <TextBlock x:Uid="/About/Leave" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
