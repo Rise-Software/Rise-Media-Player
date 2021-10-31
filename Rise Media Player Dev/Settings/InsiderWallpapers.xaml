@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="RMP.App.Settings.InsiderWallpapers"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Rise.Models"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" Spacing="4">
+        <FlipView x:Name="WallsView"
+                  Height="108"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{x:Bind Walls}"
+                  Margin="0,10,0,0"
+                  SelectionChanged="WallsView_SelectionChanged"
+                  Width="192">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="models:Wallpaper">
+                    <Image Source="{x:Bind Source}" />
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <StackPanel Orientation="Horizontal" Padding="0,10,0,0" Spacing="4">
+            <TextBlock x:Name="CurrentWall"
+                       FontWeight="SemiBold" />
+            <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" />
+            <TextBlock Text="{x:Bind Walls.Count}" FontWeight="SemiBold" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Padding="0,10,0,0" Spacing="4">
+            <TextBlock x:Name="WallName" FontWeight="SemiBold" />
+            <TextBlock Text="-" />
+            <TextBlock x:Name="WallShortDesc" Style="{StaticResource BodyTextBlockStyle}" />
+        </StackPanel>
+
+        <TextBlock x:Name="WallDesc"
+                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                   HorizontalAlignment="Left"
+                   MaxWidth="360"
+                   TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" Padding="0,10,0,0" Spacing="8">
+            <Button Click="Button_Click" Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE159;" />
+                    <TextBlock x:Uid="/About/Save" />
+                </StackPanel>
+            </Button>
+
+            <Button>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xF6FA;" />
+                    <TextBlock x:Uid="/About/Learn" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Page>

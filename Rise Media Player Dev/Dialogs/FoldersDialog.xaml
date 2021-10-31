@@ -36,38 +36,32 @@
                     <Border Style="{StaticResource SettingsCard}">
                         <Grid ColumnSpacing="12" VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Grid ColumnSpacing="12"
-                                  VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
+                            <FontIcon VerticalAlignment="Center"
+                                      Glyph="&#xE8B7;"
+                                      FontSize="16" />
 
-                                <FontIcon VerticalAlignment="Center"
-                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                          FontSize="16"
-                                          Glyph="&#xE8B7;" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{x:Bind DisplayName}"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                                <TextBlock Text="{x:Bind Path}"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
 
-                                <StackPanel Grid.Column="1"
-                                            Orientation="Vertical"
-                                            VerticalAlignment="Center">
-                                    <TextBlock Text="{x:Bind DisplayName}"
-                                               Style="{StaticResource BodyTextBlockStyle}"
-                                               VerticalAlignment="Center" />
-                                    <TextBlock Text="{x:Bind Path}"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               VerticalAlignment="Center" />
-                                </StackPanel>
-                            </Grid>
-
-                            <Button Grid.Column="1"
+                            <Button x:Uid="/Information/RemoveFolder"
+                                    Grid.Column="2"
                                     Click="Button_Click"
-                                    Padding="8">
+                                    Padding="8"
+                                    Style="{StaticResource TransparentButton}">
                                 <FontIcon Glyph="&#xE106;" FontSize="12" />
                             </Button>
                         </Grid>

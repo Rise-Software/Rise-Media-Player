@@ -4,71 +4,72 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:RMP.App.UserControls"
+    xmlns:uc="using:RMP.App.UserControls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <GridView HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Stretch"
-                  Margin="0,10,0,0"
-                  SelectionMode="None"
-                  UseSystemFocusVisuals="False">
-            <Image Height="45"
-                   HorizontalAlignment="Left"
-                   Source="ms-appx:///Assets/Branding/settingsbanner.png"
-                   Width="{x:Bind ItemStack.RenderSize.Width}" />
+        <uc:AdaptiveItemPane Margin="0,10,0,0">
+            <uc:AdaptiveItemPane.LeftPane>
+                <Image Height="45"
+                       Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+            </uc:AdaptiveItemPane.LeftPane>
 
-            <StackPanel x:Name="ItemStack"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal"
-                        Spacing="12">
-                <Button Style="{StaticResource TransparentButton}">
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="8">
-                        <FontIcon Glyph="&#xE946;" VerticalAlignment="Center" />
+            <uc:AdaptiveItemPane.RightPane>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="12">
+                    <Button x:Name="Version"
+                            Click="CommandBarButton_Click"
+                            Style="{StaticResource TransparentButton}"
+                            Tag="Version">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <FontIcon Glyph="&#xE946;" VerticalAlignment="Center" />
 
-                        <StackPanel Orientation="Vertical"
-                                    VerticalAlignment="Center">
-                            <TextBlock x:Uid="/About/Version"
-                                       FontWeight="SemiBold" />
-                            <TextBlock Text="Pre-Alpha 1"
-                                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock x:Uid="/About/Version"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="Pre-Alpha 2" FontSize="12"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Button>
+                    </Button>
 
-                <Button Style="{StaticResource TransparentButton}">
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="8">
-                        <FontIcon Glyph="&#xECA7;" VerticalAlignment="Center" />
+                    <Button Click="CommandBarButton_Click" Style="{StaticResource TransparentButton}" Tag="Insider">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <FontIcon Glyph="&#xECA7;" VerticalAlignment="Center" />
 
-                        <StackPanel Orientation="Vertical"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="Insider" FontWeight="SemiBold" />
-                            <TextBlock Text="Bloom"
-                                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Insider" FontWeight="SemiBold" />
+                                <TextBlock Text="Bloom" FontSize="12"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Button>
+                    </Button>
 
-                <Button Style="{StaticResource TransparentButton}">
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="8">
-                        <FontIcon Glyph="&#xEC7A;" VerticalAlignment="Center" />
+                    <Button Style="{StaticResource TransparentButton}">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <FontIcon Glyph="&#xEC7A;" VerticalAlignment="Center" />
 
-                        <StackPanel Orientation="Vertical"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="GitHub" FontWeight="SemiBold" />
-                            <TextBlock>
-                                <Hyperlink UnderlineStyle="None">
-                                    <Run x:Uid="/About/Contribute" />
-                                </Hyperlink>
-                            </TextBlock>
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="GitHub" FontWeight="SemiBold" />
+                                <TextBlock> 
+                                    <Hyperlink UnderlineStyle="None"
+                                               FontSize="12"
+                                               NavigateUri="https://github.com/Rise-Software/Rise-Media-Player">
+                                        <Run x:Uid="/About/Contribute" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </GridView>
+                    </Button>
+                </StackPanel>
+            </uc:AdaptiveItemPane.RightPane>
+        </uc:AdaptiveItemPane>
 
         <uc:NavigationExpander x:Uid="/About/Recent"
                                ExpanderStyle="Default"
@@ -76,27 +77,34 @@
 
 
         <TextBlock x:Uid="/About/MoreH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
-        <uc:NavigationExpander x:Uid="/About/YouInsider"
+        <uc:NavigationExpander x:Uid="/About/Social"
                                ExpanderStyle="Static"
-                               Icon="&#xF1AD;" />
-
-        <uc:NavigationExpander x:Uid="/About/UsefulLinks"
-                               ExpanderStyle="Default"
-                               Icon="&#xE167;">
-            <GridView IsItemClickEnabled="False" SelectionMode="None">
-                <HyperlinkButton x:Uid="/About/GitHub"
-                                 Padding="10,10,10,10"
-                                 NavigateUri="https://github.com/Rise-Software/Rise-Media-Player" />
-                <HyperlinkButton x:Uid="/About/Discord"
-                                 Padding="10,10,10,10"
-                                 NavigateUri="https://disboard.org/server/872910570003791922" />
-                <HyperlinkButton x:Uid="/About/Reddit"
-                                 Padding="10,10,10,10"
-                                 NavigateUri="https://www.reddit.com/r/fluentplayer/" />
-                <HyperlinkButton x:Uid="/About/TermsAndConditions"
-                                 Padding="10,10,10,10"
-                                 NavigateUri="https://github.com/josephbeattie/Fluent-Media-Player-Dev/blob/master/terms(english).md" />
-            </GridView>
+                               Icon="&#xE15F;">
+            <StackPanel Orientation="Horizontal">
+                <HyperlinkButton Content="Discord"
+                                 NavigateUri="https://discord.gg/GNEwaDbCef"
+                                 Padding="10" />
+                <HyperlinkButton Content="Reddit"
+                                 NavigateUri="https://www.reddit.com/r/risesoftware/"
+                                 Padding="10" />
+                <HyperlinkButton Content="Twitter"
+                                 NavigateUri="http://www.twitter.com/appsbyrise/"
+                                 Padding="10" />
+            </StackPanel>
         </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/About/TermsAndConditions"
+                               Click="NavigationExpander_Click"
+                               ExpanderStyle="Button"
+                               Icon="&#xF28B;">
+            <FontIcon Glyph="&#xE2B4;"
+                      FontSize="16"
+                      VerticalAlignment="Center" />
+        </uc:NavigationExpander>
+
+        <muxc:TeachingTip x:Name="vTip"
+                          x:Uid="/About/More"
+                          CloseButtonClick="VTip_CloseButtonClick"
+                          Target="{x:Bind Version}" />
     </StackPanel>
 </Page>

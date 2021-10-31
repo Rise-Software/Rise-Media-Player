@@ -11,11 +11,66 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock Text="Selection" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
-        <muxc:InfoBar IsOpen="True"
+        <uc:AdaptiveItemPane Margin="0,10,0,0">
+            <uc:AdaptiveItemPane.LeftPane>
+                <StackPanel Orientation="Horizontal" Spacing="20">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+                        <FontIcon Glyph="&#xE128;" VerticalAlignment="Center" />
+
+                        <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Center">
+                            <TextBlock x:Uid="/Language/System" FontWeight="SemiBold" />
+                            <TextBlock x:Name="SysLang" FontSize="12"
+                                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Rectangle Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}"
+                               Height="36"
+                               Width="1" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+                        <FontIcon Glyph="&#xF2B7;" VerticalAlignment="Center" />
+                        <TextBlock x:Uid="/Language/Translations" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+            </uc:AdaptiveItemPane.LeftPane>
+
+            <uc:AdaptiveItemPane.RightPane>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="12">
+                    <Button Click="ReportButton_Click" Style="{StaticResource TransparentButton}">
+                        <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE7BA;" VerticalAlignment="Center" />
+                            <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButton}">
+                        <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
+                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
+                            <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </uc:AdaptiveItemPane.RightPane>
+        </uc:AdaptiveItemPane>
+
+        <TextBlock x:Uid="/Language/Options" Style="{StaticResource Subheader}" />
+        <muxc:InfoBar IsClosable="False"
+                      IsOpen="True"
                       Severity="Informational"
                       Title="English is currently the only available language"
                       Message="Other languages and regions will be available soon." />
+        <uc:NavigationExpander x:Uid="/Language/Match"
+                               ExpanderStyle="Static"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               Icon="&#xE923;">
+            <!--ToggleSwitch /-->
+        </uc:NavigationExpander>
+
         <uc:NavigationExpander x:Uid="/Language/Select"
                                ExpanderStyle="Static"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -41,6 +96,6 @@
                 <x:String>Português (Portugal)</x:String>
                 <x:String>Română</x:String>
             </ComboBox-->
-            </uc:NavigationExpander>
+        </uc:NavigationExpander>
     </StackPanel>
 </Page>

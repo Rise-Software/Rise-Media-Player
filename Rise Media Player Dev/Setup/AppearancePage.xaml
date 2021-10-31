@@ -14,7 +14,7 @@
 
         <StackPanel Orientation="Vertical" Spacing="4">
             <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
-                                   ExpanderKind="Static"
+                                   ExpanderStyle="Static"
                                    Icon="&#xE790;">
                 <ComboBox ItemsSource="{x:Bind Themes}"
                           PlaceholderText="Use system setting"
@@ -22,14 +22,14 @@
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
-                                   ExpanderKind="Static"
+                                   ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE73F;">
                 <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
             </uc:NavigationExpander>
 
             <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
-                                   ExpanderKind="Button"
+                                   ExpanderStyle="Button"
                                    Icon="&#xE9D5;">
                 <FontIcon Glyph="&#xE00F;"
                           FontSize="16" />

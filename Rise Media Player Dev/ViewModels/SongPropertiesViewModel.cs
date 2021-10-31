@@ -1,5 +1,4 @@
-﻿using RMP.App.Props;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -70,8 +69,8 @@ namespace RMP.App.ViewModels
 
         public uint Rating
         {
-            get => Song.Rating;
-            set => Song.Rating = value;
+            get => Song.Rating / 20;
+            set => Song.Rating = value * 20;
         }
 
         public string Thumbnail => Song.Thumbnail;
@@ -110,7 +109,17 @@ namespace RMP.App.ViewModels
             if (songFile != null)
             {
                 // Get song properties.
-                var props = await songFile.Properties.RetrievePropertiesAsync(Properties.ViewModelProperties);
+                var musicProps = await songFile.Properties.GetMusicPropertiesAsync();
+
+                musicProps.Title = Title;
+                musicProps.Artist = Artist;
+                musicProps.TrackNumber = Track;
+                musicProps.Album = Album;
+                musicProps.AlbumArtist = AlbumArtist;
+                musicProps.Year = Year;
+                musicProps.Rating = Rating * 20;
+                
+                /*var props = await songFile.Properties.RetrievePropertiesAsync(Properties.ViewModelProperties);
 
                 // Apply properties.
                 props["System.Title"] = Title;
@@ -119,14 +128,15 @@ namespace RMP.App.ViewModels
                 props[SystemMusic.AlbumTitle] = Album;
                 props[SystemMusic.AlbumArtist] = AlbumArtist;
                 props["System.Media.Year"] = Year;
-                props["System.Rating"] = Rating;
+                props["System.Rating"] = Rating * 20;*/
 
                 await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
                 Song.Location = songFile.Path;
 
                 try
                 {
-                    await songFile.Properties.SavePropertiesAsync(props);
+                    // await songFile.Properties.SavePropertiesAsync(props);
+                    await musicProps.SavePropertiesAsync();
                     result = true;
                 }
                 catch (Exception ex)

@@ -1,9 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
-using static RMP.App.Enums;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using static RMP.App.Common.Enums;
 
 namespace RMP.App.UserControls
 {
@@ -43,7 +41,14 @@ namespace RMP.App.UserControls
 
         public ExpanderStyles ExpanderStyle { get; set; }
 
-        public string Icon { get; set; }
+        public static DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(string), typeof(NavigationExpander), null);
+
+        public string Icon
+        {
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
 
         public static DependencyProperty ControlsProperty =
             DependencyProperty.Register("Controls", typeof(object), typeof(NavigationExpander), null);

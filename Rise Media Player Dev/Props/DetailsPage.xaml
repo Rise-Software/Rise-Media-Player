@@ -60,7 +60,6 @@
                         <TextBlock Text="{x:Bind Props.Title}"
                                    FontSize="22"
                                    MaxLines="2"
-                                   Padding="2,0,0,0"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Props.Artist}"
@@ -129,14 +128,14 @@
                     <TextBox x:Name="SongTitle"
                              Grid.Column="1"
                              Text="{x:Bind Props.Title, Mode=TwoWay}" />
-                    <TextBox x:Name="SongAlbum"
-                             Grid.Column="1"
-                             Grid.Row="1"
-                             Text="{x:Bind Props.Album, Mode=TwoWay}" />
                     <TextBox x:Name="SongArtist"
                              Grid.Column="1"
-                             Grid.Row="2"
+                             Grid.Row="1"
                              Text="{x:Bind Props.Artist, Mode=TwoWay}" />
+                    <TextBox x:Name="SongAlbum"
+                             Grid.Column="1"
+                             Grid.Row="2"
+                             Text="{x:Bind Props.Album, Mode=TwoWay}" />
                     <TextBox x:Name="SongTrack"
                              Grid.Column="1"
                              Grid.Row="3"
@@ -199,21 +198,6 @@
                           x:Uid="/Details/Local"
                           IsLightDismissEnabled="True"
                           PreferredPlacement="Bottom"
-                          Target="{x:Bind LocalButton}">
-            <muxc:TeachingTip.HeroContent>
-                <Image AutomationProperties.Name="Discy"
-                       Height="52"
-                       HorizontalAlignment="Left"
-                       Margin="8,8,8,0"
-                       VerticalAlignment="Center"
-                       Width="60">
-                    <Image.Source>
-                        <SvgImageSource UriSource="ms-appx:///Assets/Discy.svg"
-                                        RasterizePixelHeight="154"
-                                        RasterizePixelWidth="170" />
-                    </Image.Source>
-                </Image>
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
+                          Target="{x:Bind LocalButton}" />
     </StackPanel>
 </Page>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l/p5S8tW3A8PEpU+BnFpCISy9wofOrbp7tu978zGeW2YbS4++Iqv4gSw+Q7qQ7i/F6JQHmmBGtthn1p0Lajnow==",
+  "dgSpecHash": "9wzU33+YXyn8Nz+3vaD1LXRwVC40MQZj/lDVC2UaxwS66UjCSwuegc2hER6e9mOq1FAq6KagxQuSomilgGWHtA==",
   "success": true,
-  "projectFilePath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\Rise.Models.csproj",
+  "projectFilePath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\Rise.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josep\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\josep\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

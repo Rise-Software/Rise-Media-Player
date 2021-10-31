@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using RMP.App.Common;
 using RMP.App.Dialogs;
 using RMP.App.Settings.ViewModels;
 using RMP.App.Views;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
@@ -106,7 +108,7 @@ namespace RMP.App.Windows
             new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")) };
 
         private readonly FontIcon helpIconMono =
-            new FontIcon() { Glyph = "\uE897" };
+            new FontIcon() { Glyph = "\uE9CE" };
 
         private readonly ImageIcon playingIconColor =
             new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Now Playing.png")) };
@@ -268,7 +270,7 @@ namespace RMP.App.Windows
             }
         }
 
-        private void FinishNavigation()
+        public void FinishNavigation()
         {
             if (ContentFrame.CurrentSourcePageType == null)
             {
@@ -278,15 +280,21 @@ namespace RMP.App.Windows
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
-            CrumbsHeader.Visibility = tag == "AlbumSongsPage" || tag == "ArtistSongsPage" ?
-                Visibility.Collapsed : Visibility.Visible;
+            Breadcrumbs.Clear();
+            if (tag == "AlbumSongsPage" || tag == "ArtistSongsPage")
+            {
+                Breadcrumbs.Add(new Crumb
+                {
+                    Title = ""
+                });
+                return;
+            }
 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Clear();
                     Breadcrumbs.Add(new Crumb
                     {
                         Title = item.Content.ToString()
@@ -300,7 +308,6 @@ namespace RMP.App.Windows
                 if (item is NavigationViewItem && item.Tag.ToString() == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Clear();
                     Breadcrumbs.Add(new Crumb
                     {
                         Title = item.Content.ToString()
@@ -368,7 +375,77 @@ namespace RMP.App.Windows
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Feedback);
+            _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem click = (MenuFlyoutItem)sender;
+            HideItem(click.Tag.ToString(), false);
+        }
+
+        private void HideItem(string item, bool value)
+        {
+            int visibilityCheck = 0;
+            switch (item)
+            {
+                case "Home":
+                    ViewModel.ShowAtAGlance = value;
+                    break;
+
+                case "Playlists":
+                    ViewModel.ShowPlaylists = value;
+                    break;
+
+                case "Devices":
+                    ViewModel.ShowDevices = value;
+                    break;
+
+                case "Songs":
+                    ViewModel.ShowSongs = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Artists":
+                    ViewModel.ShowArtists = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Albums":
+                    ViewModel.ShowAlbums = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "Genres":
+                    ViewModel.ShowGenres = value;
+                    visibilityCheck = 1;
+                    break;
+
+                case "LocalVideos":
+                    ViewModel.ShowLocalVideos = value;
+                    visibilityCheck = 2;
+                    break;
+
+                case "Streaming":
+                    ViewModel.ShowStreaming = value;
+                    visibilityCheck = 2;
+                    break;
+
+                case "Help":
+                    ViewModel.ShowHelpCentre = value;
+                    break;
+
+                case "NowPlaying":
+                    ViewModel.ShowNowPlaying = value;
+                    break;
+            }
+
+            ViewModel.ChangeHeaderVisibility(visibilityCheck);
+        }
+
+        private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            App.MViewModel.Sync();
         }
     }
 }

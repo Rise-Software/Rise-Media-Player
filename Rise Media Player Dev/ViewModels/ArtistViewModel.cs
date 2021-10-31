@@ -1,8 +1,11 @@
 ﻿using Rise.Models;
+using RMP.App.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Windows.Data.Xml.Dom;
 
 namespace RMP.App.ViewModels
 {
@@ -99,6 +102,69 @@ namespace RMP.App.ViewModels
             }
         }
 
+        public async Task<string> GetPictureAsync()
+        {
+            string name = HttpUtility.UrlEncode(Name);
+
+            string xml = await WebHelpers.
+                CreateGETRequestAsync(URLs.MusicBrainz + "artist/?query=artist:" + name);
+
+            if (xml == null)
+            {
+                return "ms-appx:///Assets/Default.png";
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+
+            XmlNodeList nodes = doc.GetElementsByTagName("artist");
+
+            string id = "";
+            foreach (IXmlNode node in nodes)
+            {
+                XmlNamedNodeMap attrs = node.Attributes;
+                IXmlNode idAttr = attrs.GetNamedItem("id");
+
+                if (idAttr != null)
+                {
+                    id = idAttr.InnerText;
+                    break;
+                }
+            }
+
+            if (id != "")
+            {
+                xml = await WebHelpers.
+                    CreateGETRequestAsync(URLs.MusicBrainz + "artist/" + id + "?inc=url-rels");
+
+                doc.LoadXml(xml);
+
+                nodes = doc.GetElementsByTagName("relation");
+
+                string img;
+                foreach (IXmlNode node in nodes)
+                {
+                    XmlNamedNodeMap attrs = node.Attributes;
+                    IXmlNode type = attrs.GetNamedItem("type");
+
+                    if (type.InnerText == "image")
+                    {
+                        img = node.FirstChild.InnerText;
+
+                        string path = await WebHelpers.SaveImageFromURLAsync(img, $@"{name}.png");
+                        Debug.WriteLine(path);
+
+                        if (path != "/")
+                        {
+                            return $@"ms-appdata:///local/{path}.png";
+                        }
+                    }
+                }
+            }
+
+            return "ms-appx:///Assets/Default.png";
+        }
+
         public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
 
         /// <summary>
@@ -167,6 +233,7 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
+            Picture = await GetPictureAsync();
             await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
         }
 

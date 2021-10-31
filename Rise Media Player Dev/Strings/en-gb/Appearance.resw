@@ -150,6 +150,15 @@
   <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="DesignPresetsH.Text" xml:space="preserve">
+    <value>Design and layout presets</value>
+  </data>
+  <data name="DesignUnavailable.Description" xml:space="preserve">
+    <value>Layout presets and custom themes are coming soon.</value>
+  </data>
+  <data name="DesignUnavailable.Title" xml:space="preserve">
+    <value>This feature is unavailable</value>
+  </data>
   <data name="Devices" xml:space="preserve">
     <value>Devices</value>
   </data>
@@ -178,7 +187,7 @@
     <value>Local &amp; Purchased</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
-    <value>Navigation &amp; Now Playing</value>
+    <value>Navigation</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
     <value>Now Playing</value>

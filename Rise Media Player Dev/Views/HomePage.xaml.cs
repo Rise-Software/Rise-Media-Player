@@ -1,5 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using RMP.App.Common;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Views
 {
@@ -8,26 +10,27 @@ namespace RMP.App.Views
         public HomePage()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Feedback);
+            _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
         }
 
         private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Changes);
+            _ = await FileHelpers.LaunchURIAsync(URLs.Changes);
         }
 
         private async void InsiderButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.Insider);
+            _ = await FileHelpers.LaunchURIAsync(URLs.Insider);
         }
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURI(URLs.GitHub);
+            _ = await FileHelpers.LaunchURIAsync(URLs.GitHub);
         }
     }
 }

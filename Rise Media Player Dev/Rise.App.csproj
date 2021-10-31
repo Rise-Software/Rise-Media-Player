@@ -22,13 +22,14 @@
     <PackageCertificateKeyFile>Rise.App_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <PackageCertificateThumbprint>
     </PackageCertificateThumbprint>
-    <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\</AppxPackageDir>
+    <AppxPackageDir>E:\RiseSoftware\RiseMPPre2\</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -128,13 +129,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Dialogs\LegacySettings.cs" />
+    <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
-    <Compile Include="Methods.cs" />
+    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
+      <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>
@@ -142,7 +148,27 @@
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Settings\InsiderPage.xaml.cs">
+      <DependentUpon>InsiderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\InsiderWallpapers.xaml.cs">
+      <DependentUpon>InsiderWallpapers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
+      <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
+      <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ArtistSongListItem.xaml.cs">
+      <DependentUpon>ArtistSongListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FullSongListItem.xaml.cs">
+      <DependentUpon>FullSongListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -186,17 +212,8 @@
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowControl.cs" />
-    <Compile Include="UserControls\AlbumGrid.xaml.cs">
-      <DependentUpon>AlbumGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ArtistGrid.xaml.cs">
-      <DependentUpon>ArtistGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\SongList.xaml.cs">
-      <DependentUpon>SongList.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -382,6 +399,11 @@
     <Content Include="Assets\Unavailable\Prime.png" />
     <Content Include="Assets\Unavailable\Videos.png" />
     <Content Include="Assets\Unavailable\YouTube.png" />
+    <Content Include="Assets\Wallpapers\DarkBlue.png" />
+    <Content Include="Assets\Wallpapers\DarkPink.png" />
+    <Content Include="Assets\Wallpapers\LightBlue.png" />
+    <Content Include="Assets\Wallpapers\LightPink.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +411,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\LegacySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\SettingsDialogContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Props\FilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -397,7 +427,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceDictionaries\Expanders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\SongTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\InsiderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\InsiderWallpapers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AdaptiveItemPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AlbumSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ArtistSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FullSongListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -449,21 +507,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AlbumGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\ArtistGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\MicaTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\SongList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AlbumSongsPage.xaml">
       <SubType>Designer</SubType>

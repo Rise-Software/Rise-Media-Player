@@ -1,5 +1,10 @@
-﻿using RMP.App.Settings.ViewModels;
+﻿using RMP.App.Common;
+using RMP.App.Settings.ViewModels;
+using Windows.Globalization;
+using Windows.System.UserProfile;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Settings
 {
@@ -11,6 +16,18 @@ namespace RMP.App.Settings
         {
             InitializeComponent();
             DataContext = ViewModel;
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            string topUserLanguage = GlobalizationPreferences.Languages[0];
+            Language sys = new Language(topUserLanguage);
+            SysLang.Text = sys.DisplayName;
         }
+
+        private async void TranslateButton_Click(object sender, RoutedEventArgs e)
+            => await FileHelpers.LaunchURIAsync(URLs.Translations);
+
+        private async void ReportButton_Click(object sender, RoutedEventArgs e)
+            => await FileHelpers.LaunchURIAsync(URLs.TranslationReports);
     }
 }

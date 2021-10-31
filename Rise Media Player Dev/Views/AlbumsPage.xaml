@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:RMP.App.Converters"
     xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d">
@@ -24,18 +25,17 @@
                     Margin="-12,0">
             <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
-                          Click="PlayItem_Click"
+                          Click="PlayButton_Click"
                           Icon="Play"
-                          IsEnabled="{x:Bind MViewModel.SelectedAlbum, Converter={StaticResource NullToBool}, Mode=OneWay}"
                           Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Click="ShuffleItem_Click"
+                          Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" Icon="Add" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" Icon="Add" IsCompact="True">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Playlist">
@@ -51,14 +51,16 @@
 
             <AppBarButton x:Uid="/Information/Delete"
                           Icon="Delete"
+                          IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
             <AppBarButton x:Uid="/Information/Edit"
                           Icon="Edit"
+                          IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View">
+            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -77,38 +79,88 @@
             <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="A-Z">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE185;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                                                  Click="SortFlyoutItem_Click"
+                                                  IsChecked="True"
+                                                  Tag="Title" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
+                                                  Click="SortFlyoutItem_Click"
+                                                  Tag="Artist" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
+                                                  Click="SortFlyoutItem_Click"
+                                                  Tag="Genre" />
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem x:Uid="/Information/NameOnly"
-                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  IsChecked="True"
+                                                  Tag="Ascending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                  Click="SortFlyoutItem_Click"
+                                                  GroupName="Descending"
+                                                  Tag="Descending" />
+
+                        <MenuFlyoutSeparator />
+
+                        <ToggleMenuFlyoutItem x:Name="Merge"
+                                              x:Uid="/Information/NameOnly"
+                                              Click="SortFlyoutItem_Click"
+                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=OneWay}"
+                                              Tag="Merge" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+
+            <AppBarSeparator />
+
+            <AppBarToggleButton x:Uid="/Information/Select"
+                                Checked="SelectToggleButton_Checked"
+                                Unchecked="SelectToggleButton_Unchecked">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE1E3;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
         </CommandBar>
 
-        <GridView x:Name="AlbumGrid"
+        <GridView x:Name="MainGrid"
                   Grid.Row="1"
+                  ItemsSource="{x:Bind Albums}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind MViewModel.SelectedAlbum, Mode=TwoWay}"
-                  SelectionMode="Single">
+                  RightTapped="MainGrid_RightTapped"
+                  SelectedItem="{x:Bind SelectedAlbum, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  Tapped="GridView_Tapped">
+            <GridView.Resources>
+                <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbum">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="Props"
+                                    x:Uid="/MediaData/Properties"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </GridView.Resources>
+
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel">
-                    <StackPanel Orientation="Vertical"
+                    <StackPanel Margin="12"
+                                Orientation="Vertical"
                                 Spacing="2"
-                                Margin="12"
                                 Width="134">
                         <Border CornerRadius="5"
                                 Width="134">
                             <Image Height="134"
                                    Stretch="UniformToFill"
-                                   Tapped="Image_Tapped"
                                    Width="134">
                                 <Image.Source>
                                     <BitmapImage UriSource="{x:Bind Thumbnail}" />
@@ -123,7 +175,7 @@
                                    FontWeight="SemiBold"
                                    TextWrapping="Wrap" />
                         <TextBlock FontSize="13">
-                            <Hyperlink UnderlineStyle="None">
+                            <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">
                                 <Run Text="{x:Bind Artist}" />
                             </Hyperlink>
                         </TextBlock>

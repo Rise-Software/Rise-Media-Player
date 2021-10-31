@@ -145,7 +145,7 @@
     <value>Album artist</value>
   </data>
   <data name="SongArtist.Text" xml:space="preserve">
-    <value>Artist</value>
+    <value>Artist(s)</value>
   </data>
   <data name="SongTitle.Text" xml:space="preserve">
     <value>Song title</value>

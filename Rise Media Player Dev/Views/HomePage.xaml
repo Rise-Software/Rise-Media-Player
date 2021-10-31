@@ -57,7 +57,7 @@
                         <Image Height="52"
                                Source="ms-appx:///Assets/Branding/settingsbanner.png" />
 
-                        <TextBlock Text="Welcome to Pre-Alpha 1!"
+                        <TextBlock Text="Welcome to Pre-Alpha 2!"
                                    FontSize="24"
                                    HorizontalAlignment="Center"
                                    HorizontalTextAlignment="Center"

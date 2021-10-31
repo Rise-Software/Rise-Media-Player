@@ -132,6 +132,9 @@
   <data name="Appearance.Text" xml:space="preserve">
     <value>Personalise</value>
   </data>
+  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Personalise</value>
+  </data>
   <data name="Artists.Content" xml:space="preserve">
     <value>Artists</value>
   </data>
@@ -150,6 +153,18 @@
   <data name="Home.Content" xml:space="preserve">
     <value>At a glance</value>
   </data>
+  <data name="Ins" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>Insider Hub</value>
+  </data>
+  <data name="Lang.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Langs" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="Language.Content" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -157,6 +172,9 @@
     <value>Library</value>
   </data>
   <data name="Library.Text" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
     <value>Library</value>
   </data>
   <data name="LocalVideos.Content" xml:space="preserve">
@@ -180,6 +198,9 @@
   <data name="Playback.Text" xml:space="preserve">
     <value>Playback</value>
   </data>
+  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Playback</value>
+  </data>
   <data name="Playlists.Content" xml:space="preserve">
     <value>Playlists</value>
   </data>
@@ -194,5 +215,8 @@
   </data>
   <data name="Videos.Content" xml:space="preserve">
     <value>Videos</value>
+  </data>
+  <data name="Walls" xml:space="preserve">
+    <value>Wallpapers</value>
   </data>
 </root>

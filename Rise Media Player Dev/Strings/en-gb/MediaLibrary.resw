@@ -145,7 +145,7 @@
     <value>Disable all local files and devices</value>
   </data>
   <data name="DisableOnline.Title" xml:space="preserve">
-    <value>Disable all online services</value>
+    <value>Disable all online services and networks</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
@@ -172,9 +172,9 @@
     <value>Disc ripping options</value>
   </data>
   <data name="SeparateLocal.Description" xml:space="preserve">
-    <value>Add a 'Local Music' sidebar item rather than merging online and local music together in one place. Videos are already separated.</value>
+    <value>Create a seperate sidebar entry for your local music, rather than merging online and local music together in one place.</value>
   </data>
   <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Separate sidebar entry</value>
+    <value>Split local &amp; online library in sidebar</value>
   </data>
 </root>

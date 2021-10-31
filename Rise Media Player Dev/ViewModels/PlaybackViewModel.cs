@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +12,7 @@ using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
+using static RMP.App.Common.Enums;
 
 namespace RMP.App.ViewModels
 {
@@ -25,6 +27,7 @@ namespace RMP.App.ViewModels
             PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
         }
 
+        #region Variables
         /// <summary>
         /// Gets or sets the list of songs that are currently queued.
         /// </summary>
@@ -54,8 +57,23 @@ namespace RMP.App.ViewModels
         public CancellationToken Token => CTS.Token;
 
         private bool CanContinue = true;
+        #endregion
 
-        public async Task CreatePlaybackList(int index, ObservableCollection<SongViewModel> songs, CancellationToken token)
+        public async Task StartShuffle(IEnumerable<SongViewModel> songs)
+        {
+            songs = App.MViewModel.SortSongs(songs, SortMethods.Random);
+
+            CancelTask();
+            await CreatePlaybackList(0, songs, Token);
+        }
+
+        public async Task StartPlayback(IEnumerable<SongViewModel> songs, int startIndex)
+        {
+            CancelTask();
+            await CreatePlaybackList(startIndex, songs, Token);
+        }
+
+        public async Task CreatePlaybackList(int index, IEnumerable<SongViewModel> songs, CancellationToken token)
         {
             while (!CanContinue)
             {
@@ -127,6 +145,11 @@ namespace RMP.App.ViewModels
             return;
         }
 
+        /// <summary>
+        /// Creates a MediaPlaybackItem from a SongViewModel.
+        /// </summary>
+        /// <param name="model">Song to convert.</param>
+        /// <returns>A MediaPlaybackItem based on the song.</returns>
         private async Task<MediaPlaybackItem> CreateMusicItem(SongViewModel model)
         {
             StorageFile file = await StorageFile.GetFileFromPathAsync(model.Location);

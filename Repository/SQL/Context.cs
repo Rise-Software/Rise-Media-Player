@@ -27,6 +27,11 @@ namespace Rise.Repository.SQL
         public DbSet<Artist> Artists { get; set; }
 
         /// <summary>
+        /// Gets the genres DbSet.
+        /// </summary>
+        public DbSet<Genre> Genres { get; set; }
+
+        /// <summary>
         /// Gets the videos DbSet.
         /// </summary>
         // public DbSet<Video> Videos { get; set; }

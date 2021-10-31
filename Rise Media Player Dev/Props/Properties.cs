@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RMP.App.Common;
+using System.Collections.Generic;
 
 namespace RMP.App.Props
 {

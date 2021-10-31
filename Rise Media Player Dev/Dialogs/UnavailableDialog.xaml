@@ -71,7 +71,8 @@
                            Style="{StaticResource BaseTextBlockStyle}" />
                 <GridView HorizontalAlignment="Center"
                           SelectionMode="None">
-                    <Button Content="See what we're working on"
+                    <Button Click="Button_Click"
+                            Content="See what we're working on"
                             Margin="2"
                             Width="208" />
                     <Button Click="CloseButton_Click"

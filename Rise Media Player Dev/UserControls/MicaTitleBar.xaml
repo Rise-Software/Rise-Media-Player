@@ -16,21 +16,6 @@
     </UserControl.Resources>
 
     <Border Background="Transparent" IsHitTestVisible="True">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{x:Bind AddLabelWidth}" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="DefaultTitle.Visibility" Value="Visible" />
-                        <Setter Target="AppTitle.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <StackPanel x:Name="AppData"
                     Orientation="Horizontal"
                     Spacing="12"
@@ -43,17 +28,17 @@
                    Width="16" 
                    Height="16" />
             <RichTextBlock x:Name="DefaultTitle"
-                           x:Load="{x:Bind Title, Converter={StaticResource StrToBool}, ConverterParameter=Reverse}"
+                           x:Load="False"
                            FontSize="12"
                            VerticalAlignment="Center"
                            Visibility="Collapsed"
                            Width="Auto">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 1
+                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 2
                 </Paragraph>
             </RichTextBlock>
             <TextBlock x:Name="AppTitle"
-                       x:Load="{x:Bind Title, Converter={StaticResource StrToBool}, ConverterParameter=null}"
+                       x:Load="False"
                        FontSize="12"
                        Text="{x:Bind Title}"
                        VerticalAlignment="Center"

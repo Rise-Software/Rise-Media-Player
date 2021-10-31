@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\Rise.Models.csproj": {}
+    "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\Rise.Models.csproj": {}
   },
   "projects": {
-    "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\Rise.Models.csproj": {
+    "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\Rise.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\Rise.Models.csproj",
+        "projectUniqueName": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\Rise.Models.csproj",
         "projectName": "Rise.Models",
-        "projectPath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\Rise.Models.csproj",
+        "projectPath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\Rise.Models.csproj",
         "packagesPath": "C:\\Users\\josep\\.nuget\\packages\\",
-        "outputPath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (6)\\Models\\obj\\",
+        "outputPath": "E:\\Libraries and Folders\\Downloads\\GWALBUM\\RMP (9)\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -14,7 +14,7 @@
         <ListView x:Name="MainList"
                   DoubleTapped="MainList_DoubleTapped"
                   ItemsSource="{x:Bind ViewModel.PlayingSongs}"
-                  ItemTemplate="{StaticResource SongListItem}"
+                  ItemTemplate="{StaticResource NowPlayingQueueItem}"
                   Margin="-16,0,-16,-124"
                   Padding="16,0,16,124" />
     </Grid>

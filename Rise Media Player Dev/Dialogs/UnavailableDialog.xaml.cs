@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using RMP.App.Common;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -21,6 +22,11 @@ namespace RMP.App.Dialogs
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Hide();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await FileHelpers.LaunchURIAsync(URLs.GitHub);
         }
     }
 }

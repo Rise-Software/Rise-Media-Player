@@ -9,11 +9,11 @@
   IgnorableNamespaces="uap mp uap3 rescap">
 
 	<Identity
-	  Name="072d305e-c1df-4c67-bbc4-0d6938d227b8"
-	  Publisher="CN=Rise Software"
-	  Version="0.0.1.0" />
+	  Name="60499RiseSoftware.RiseMediaPlayer"
+	  Publisher="CN=71DBF32F-E672-41A2-A72F-A610029965F3"
+	  Version="0.0.11.0" />
 
-	<mp:PhoneIdentity PhoneProductId="072d305e-c1df-4c67-bbc4-0d6938d227b8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+	<mp:PhoneIdentity PhoneProductId="f66d7ce4-c03d-419d-bab6-2751fb830bf4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
 		<DisplayName>Rise Media Player</DisplayName>

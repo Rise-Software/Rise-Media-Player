@@ -25,6 +25,9 @@ namespace Rise.Repository.SQL
         public IArtistRepository Artists => new SQLArtistRepository(
             new Context(_dbOptions));
 
+        public IGenreRepository Genres => new SQLGenreRepository(
+            new Context(_dbOptions));
+
         // public IVideoRepository Videos => new SQLVideoRepository(
         // new Context(_dbOptions));
     }

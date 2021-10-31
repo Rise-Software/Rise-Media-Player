@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Settings
 {
@@ -23,7 +24,11 @@ namespace RMP.App.Settings
             DefaultButton = ContentDialogButton.Primary,
         };
 
-        private List<string> Deletion { get; set; }
+        private readonly List<string> Deletion = new List<string>
+        {
+            ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
+            ResourceLoaders.MediaLibraryLoader.GetString("Device")
+        };
         #endregion
 
         public MediaLibraryPage()
@@ -35,13 +40,8 @@ namespace RMP.App.Settings
             dialog.Closed += Dialog_Closed;
             dialog.Content = Dialog;
 
-            Deletion = new List<string>
-            {
-                ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
-                ResourceLoaders.MediaLibraryLoader.GetString("Device")
-            };
-
             DataContext = ViewModel;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)

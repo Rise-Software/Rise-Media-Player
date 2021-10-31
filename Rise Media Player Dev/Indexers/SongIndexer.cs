@@ -1,4 +1,5 @@
 ﻿using Rise.Models;
+using RMP.App.Common;
 using RMP.App.Props;
 using RMP.App.ViewModels;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -41,17 +41,6 @@ namespace RMP.App.Indexers
             {
                 FolderDepth = FolderDepth.Deep
             };
-
-        /// <summary>
-        /// List of invalid characters in a filename.
-        /// </summary>
-        private static char[] _invalids = new char[] { '"', '<', '>', '|',
-            '\0', '\x0001', '\x0002', '\x0003', '\x0004', '\x0005',
-            '\x0006', '\a', '\b', '\t', '\n', '\v', '\f', '\r',
-            '\x000e', '\x000f', '\x0010', '\x0011', '\x0012',
-            '\x0013', '\x0014', '\x0015', '\x0016', '\x0017',
-            '\x0018', '\x0019', '\x001a', '\x001b', '\x001c',
-            '\x001d', '\x001e', '\x001f', ':', '*', '?', '\\', '/' };
         #endregion
 
         /// <summary>
@@ -187,7 +176,7 @@ namespace RMP.App.Indexers
                 ? musicProperties.AlbumArtist : "UnknownArtistResource";
 
             string genre = musicProperties.Genre.FirstOrDefault() != null
-                ? string.Join("; ", musicProperties.Genre) : "UnknownGenreResource";
+                ? musicProperties.Genre.First() : "UnknownGenreResource";
 
             string length = musicProperties.Duration.ToString("mm\\:ss");
 
@@ -227,6 +216,10 @@ namespace RMP.App.Indexers
             bool artistExists = ViewModel.Artists.
                 Any(a => a.Model.Name == song.Artist);
 
+            // Check if genre exists
+            bool genreExists = ViewModel.Genres.
+                Any(g => g.Model.Name == song.Genres);
+
             // If song isn't there already, add it to the database
             if (!songExists)
             {
@@ -246,7 +239,7 @@ namespace RMP.App.Indexers
                     // Get song thumbnail and make a PNG out of it
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-                    string filename = MakeValidFileName(song.Album);
+                    string filename = FileHelpers.MakeValidFileName(song.Album);
                     filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                     if (filename != "/")
@@ -287,7 +280,7 @@ namespace RMP.App.Indexers
                         // Get song thumbnail and make a PNG out of it
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
-                        string filename = MakeValidFileName(song.Album);
+                        string filename = FileHelpers.MakeValidFileName(song.Album);
                         filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                         if (filename != "/")
@@ -325,6 +318,17 @@ namespace RMP.App.Indexers
 
                 await arvm.SaveAsync();
             }
+
+            // If genre isn't there already, add it to the database
+            if (!genreExists)
+            {
+                GenreViewModel gvm = new GenreViewModel
+                {
+                    Name = song.Genres
+                };
+
+                await gvm.SaveAsync();
+            }
         }
 
         /// <summary>
@@ -355,40 +359,6 @@ namespace RMP.App.Indexers
             }
 
             return "/";
-        }
-
-        /// <summary>
-        /// Replaces characters in <c>text</c> that are not allowed in 
-        /// file names with the specified replacement character.
-        /// </summary>
-        /// <param name="text">Text to make into a valid filename. The same string is returned if it is valid already.</param>
-        /// <param name="replacement">Replacement character, or null to simply remove bad characters.</param>
-        /// <returns>A string that can be used as a filename. If the output string would otherwise be empty, returns "_".</returns>
-        public static string MakeValidFileName(string text, char? replacement = '_')
-        {
-            StringBuilder sb = new StringBuilder(text.Length);
-            char[] invalids = _invalids ?? (_invalids = Path.GetInvalidFileNameChars());
-            bool changed = false;
-
-            for (int i = 0; i < text.Length; i++)
-            {
-                char c = text[i];
-                if (invalids.Contains(c))
-                {
-                    changed = true;
-                    char repl = replacement ?? '\0';
-                    if (repl != '\0')
-                    {
-                        _ = sb.Append(repl);
-                    }
-                }
-                else
-                {
-                    _ = sb.Append(c);
-                }
-            }
-
-            return sb.Length == 0 ? "_" : changed ? sb.ToString() : text;
         }
     }
 }

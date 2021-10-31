@@ -68,8 +68,7 @@
         <uc:NavigationExpander x:Uid="/Playback/NowPlaying"
                                ExpanderStyle="Button"
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE102;"
-                               Margin="0,0,0,4">
+                               Icon="&#xE102;">
             <!--FontIcon FontSize="16"
                       Glyph="&#xE00F;" /-->
         </uc:NavigationExpander>
