@@ -54,6 +54,7 @@ namespace RMP.App.Views
                     return;
                 }
 
+                SelectedSong = null;
                 await PViewModel.StartPlayback(Songs, itemIndex);
             }
         }
@@ -68,15 +69,14 @@ namespace RMP.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedSong.StartEdit();
-        }
+            => await SelectedSong.StartEdit();
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
+                SelectedSong = null;
                 await PViewModel.StartPlayback(Songs, index);
                 return;
             }
@@ -86,12 +86,14 @@ namespace RMP.App.Views
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
+            SelectedSong = null;
             await PViewModel.StartShuffle(Songs);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
             await SelectedSong.StartEdit();
+            SelectedSong = null;
         }
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)

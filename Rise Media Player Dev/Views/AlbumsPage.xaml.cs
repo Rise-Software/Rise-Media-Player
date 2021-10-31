@@ -16,6 +16,7 @@ namespace RMP.App.Views
 {
     public sealed partial class AlbumsPage : Page
     {
+        #region Variables
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -45,6 +46,7 @@ namespace RMP.App.Views
 
         private SortMethods CurrentMethod = SortMethods.Title;
         private bool DescendingSort { get; set; }
+        #endregion
 
         public AlbumsPage()
         {
@@ -60,8 +62,9 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
-                SelectedAlbum = null;
             }
+
+            SelectedAlbum = null;
         }
 
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -82,6 +85,8 @@ namespace RMP.App.Views
                 Frame.Navigate(typeof(ArtistSongsPage),
                     App.MViewModel.Artists.FirstOrDefault(a => a.Name == album.Artist));
             }
+
+            SelectedAlbum = null;
         }
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
@@ -90,7 +95,10 @@ namespace RMP.App.Views
             {
                 IEnumerable<SongViewModel> songs =
                     MViewModel.SongsFromAlbum(SelectedAlbum, MViewModel.Songs, Merge.IsChecked);
-                await PViewModel.StartPlayback(songs, 0);
+                SelectedAlbum = null;
+
+                await PViewModel.StartPlayback(MViewModel.
+                    SortSongs(songs, SortMethods.Track, DescendingSort), 0);
                 return;
             }
 
@@ -104,6 +112,8 @@ namespace RMP.App.Views
             {
                 IEnumerable<SongViewModel> songs =
                     MViewModel.SongsFromAlbum(SelectedAlbum, MViewModel.Songs, Merge.IsChecked);
+
+                SelectedAlbum = null;
 
                 await PViewModel.StartPlayback(MViewModel.
                     SortSongs(songs, SortMethods.Random, DescendingSort), 0);
