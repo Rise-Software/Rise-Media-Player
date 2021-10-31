@@ -7,6 +7,12 @@ namespace RMP.App.Settings.ViewModels
         // Empty constructor.
         public SettingsViewModel() { }
 
+        public string[] OpenLocations = new string[10]
+        {
+            "HomePage", "PlaylistsPage", "DevicesPage", "SongsPage", "ArtistsPage",
+            "AlbumsPage", "GenresPage", "LocalVideosPage", "StreamingPage", "NowPlayingPage"
+        };
+
         #region Appearance
         public int Theme
         {
@@ -26,54 +32,19 @@ namespace RMP.App.Settings.ViewModels
             set => Set("Appearance", nameof(OpenTo), value);
         }
 
-        public string Open
-        {
-            get
-            {
-                int open = (int)Get("Appearance", nameof(OpenTo), 0);
-
-                switch (open)
-                {
-                    case 0:
-                        return "HomePage";
-
-                    case 1:
-                        return "PlaylistsPage";
-
-                    case 2:
-                        return "DevicesPage";
-
-                    case 3:
-                        return "SongsPage";
-
-                    case 4:
-                        return "ArtistsPage";
-
-                    case 5:
-                        return "AlbumsPage";
-
-                    case 6:
-                        return "GenresPage";
-
-                    case 7:
-                        return "LocalVideosPage";
-
-                    case 8:
-                        return "StreamingPage";
-
-                    case 9:
-                        return "NowPlayingPage";
-
-                    default:
-                        return "HomePage";
-                }
-            }
-        }
+        public string Open =>
+            OpenLocations[(int)Get("Appearance", nameof(OpenTo), 0)];
 
         public bool CompactMode
         {
             get => (bool)Get("Appearance", nameof(CompactMode), true);
             set => Set("Appearance", nameof(CompactMode), value);
+        }
+
+        public bool ColoredSettingsIcons
+        {
+            get => (bool)Get("Appearance", nameof(ColoredSettingsIcons), true);
+            set => Set("Appearance", nameof(ColoredSettingsIcons), value);
         }
 
         public bool TrackHistory
@@ -136,6 +107,43 @@ namespace RMP.App.Settings.ViewModels
             {
                 Set("Local", nameof(IconPack), value);
                 MainPage.Current.UpdateIconColor(value);
+            }
+        }
+
+        public bool ShowAllGeneral
+        {
+            get => ShowAtAGlance || ShowDevices || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
+            set
+            {
+                ShowAtAGlance = value;
+                ShowDevices = value;
+                ShowPlaylists = value;
+                ShowHelpCentre = value;
+                ShowNowPlaying = value;
+            }
+        }
+
+        public bool ShowAllMusic
+        {
+            get => ShowSongs || ShowArtists || ShowAlbums || ShowGenres;
+            set
+            {
+                ShowMusicHeader = value;
+                ShowSongs = value;
+                ShowArtists = value;
+                ShowAlbums = value;
+                ShowGenres = value;
+            }
+        }
+
+        public bool ShowAllVideo
+        {
+            get => ShowLocalVideos || ShowStreaming;
+            set
+            {
+                ShowVideoHeader = value;
+                ShowLocalVideos = value;
+                ShowStreaming = value;
             }
         }
 

@@ -60,7 +60,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" /-->
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
                             <FontIcon FontSize="14" Glyph="&#xEA69;" />
                             <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
                         </Grid>
@@ -79,7 +79,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" /-->
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
                             <FontIcon FontSize="14" Glyph="&#xE102;" />
                             <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
                         </Grid>
@@ -98,7 +98,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" /-->
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
                             <FontIcon FontSize="14" Glyph="&#xE771;" />
                             <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
                         </Grid>
@@ -131,8 +131,16 @@
                                     <FontIcon Glyph="&#xE771;" />
                                 </MenuFlyoutSubItem.Icon>
 
-                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/HC" GroupName="Icons" />
-                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Colorful" GroupName="Icons" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/HC"
+                                                          Click="IconFlyoutItem_Click"
+                                                          GroupName="Icons"
+                                                          IsChecked="{x:Bind ViewModel.ColoredSettingsIcons.Equals(x:False)}"
+                                                          Tag="HC" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Colorful"
+                                                          Click="IconFlyoutItem_Click"
+                                                          GroupName="Icons"
+                                                          IsChecked="{x:Bind ViewModel.ColoredSettingsIcons}"
+                                                          Tag="Color" />
 
                                 <MenuFlyoutSeparator />
 

@@ -1,5 +1,7 @@
-﻿using RMP.App.Common;
+﻿using Microsoft.UI.Xaml.Controls;
+using RMP.App.Common;
 using RMP.App.Settings;
+using RMP.App.Settings.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -12,10 +14,19 @@ namespace RMP.App.Dialogs
     {
         #region Variables
         public static SettingsDialog Current;
+        private SettingsViewModel ViewModel => App.SViewModel;
+
         public ObservableCollection<string> Breadcrumbs =
             new ObservableCollection<string>();
 
         private IEnumerable<ToggleButton> Toggles { get; set; }
+
+        private readonly ObservableCollection<FontIcon> FontIcons =
+            new ObservableCollection<FontIcon>();
+
+        private readonly ObservableCollection<ImageIcon> ImageIcons =
+            new ObservableCollection<ImageIcon>();
+
         private double Breakpoint { get; set; }
         #endregion
 
@@ -25,6 +36,16 @@ namespace RMP.App.Dialogs
             Current = this;
 
             Toggles = ItemGrid.GetChildren<ToggleButton>();
+
+            foreach (ToggleButton toggle in Toggles)
+            {
+                DependencyObject content = toggle.Content as DependencyObject;
+
+                FontIcons.Add(content.FindVisualChild<FontIcon>());
+                ImageIcons.Add(content.FindVisualChild<ImageIcon>());
+            }
+
+            ChangeIcons(ViewModel.ColoredSettingsIcons);
             Library.IsChecked = true;
 
             // Calculate the breakpoints only on initial opening.
@@ -162,6 +183,43 @@ namespace RMP.App.Dialogs
             About.Unchecked -= ToggleButton_Unchecked;
             About.IsChecked = false;
             About.Unchecked += ToggleButton_Unchecked;
+        }
+
+        private void IconFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            RadioMenuFlyoutItem item = sender as RadioMenuFlyoutItem;
+            if (item.Tag.ToString() == "HC")
+            {
+                App.SViewModel.ColoredSettingsIcons = false;
+                ChangeIcons(false);
+            }
+            else
+            {
+                App.SViewModel.ColoredSettingsIcons = true;
+                ChangeIcons(true);
+            }
+        }
+
+        private void ChangeIcons(bool coloredIconsVisible)
+        {
+            Visibility coloredIconVisibility = Visibility.Collapsed;
+            Visibility monoIconVisibility = Visibility.Visible;
+
+            if (coloredIconsVisible)
+            {
+                coloredIconVisibility = Visibility.Visible;
+                monoIconVisibility = Visibility.Collapsed;
+            }
+
+            foreach (FontIcon icon in FontIcons)
+            {
+                icon.Visibility = monoIconVisibility;
+            }
+
+            foreach (ImageIcon icon in ImageIcons)
+            {
+                icon.Visibility = coloredIconVisibility;
+            }
         }
     }
 }

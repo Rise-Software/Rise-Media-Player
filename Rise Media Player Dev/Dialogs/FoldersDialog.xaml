@@ -52,8 +52,8 @@
                                            Style="{StaticResource BodyTextBlockStyle}"
                                            VerticalAlignment="Center" />
                                 <TextBlock Text="{x:Bind Path}"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                            VerticalAlignment="Center" />
                             </StackPanel>
 

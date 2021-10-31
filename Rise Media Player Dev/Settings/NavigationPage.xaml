@@ -42,7 +42,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/GeneralItems"
                                Icon="&#xE71D;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch />
+                <ToggleSwitch IsOn="{Binding ShowAllGeneral, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
@@ -113,7 +113,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/MusicItems"
                                Icon="&#xE189;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch />
+                <ToggleSwitch IsOn="{Binding ShowAllMusic, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
@@ -184,7 +184,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/VideoItems"
                                Icon="&#xE173;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch />
+                <ToggleSwitch IsOn="{Binding ShowAllVideo, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
