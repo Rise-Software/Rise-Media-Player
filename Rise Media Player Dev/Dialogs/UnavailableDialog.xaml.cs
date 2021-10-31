@@ -26,7 +26,7 @@ namespace RMP.App.Dialogs
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await Methods.LaunchURIAsync(URLs.GitHub);
+            await FileHelpers.LaunchURIAsync(URLs.GitHub);
         }
     }
 }

@@ -375,7 +375,7 @@ namespace RMP.App.Windows
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await Methods.LaunchURIAsync(URLs.Feedback);
+            _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)

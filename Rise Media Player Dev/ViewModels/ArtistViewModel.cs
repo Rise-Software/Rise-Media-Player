@@ -106,7 +106,7 @@ namespace RMP.App.ViewModels
         {
             string name = HttpUtility.UrlEncode(Name);
 
-            string xml = await Methods.
+            string xml = await WebHelpers.
                 CreateGETRequestAsync(URLs.MusicBrainz + "artist/?query=artist:" + name);
 
             if (xml == null)
@@ -134,7 +134,7 @@ namespace RMP.App.ViewModels
 
             if (id != "")
             {
-                xml = await Methods.
+                xml = await WebHelpers.
                     CreateGETRequestAsync(URLs.MusicBrainz + "artist/" + id + "?inc=url-rels");
 
                 doc.LoadXml(xml);
@@ -151,7 +151,7 @@ namespace RMP.App.ViewModels
                     {
                         img = node.FirstChild.InnerText;
 
-                        string path = await Methods.SaveImageFromURLAsync(img, $@"{name}.png");
+                        string path = await WebHelpers.SaveImageFromURLAsync(img, $@"{name}.png");
                         Debug.WriteLine(path);
 
                         if (path != "/")

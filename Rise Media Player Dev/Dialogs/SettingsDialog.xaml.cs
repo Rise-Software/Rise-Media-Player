@@ -139,7 +139,7 @@ namespace RMP.App.Dialogs
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => await Methods.LaunchURIAsync(URLs.Feedback);
+            => await FileHelpers.LaunchURIAsync(URLs.Feedback);
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {

@@ -239,7 +239,7 @@ namespace RMP.App.Indexers
                     // Get song thumbnail and make a PNG out of it
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-                    string filename = Methods.MakeValidFileName(song.Album);
+                    string filename = FileHelpers.MakeValidFileName(song.Album);
                     filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                     if (filename != "/")
@@ -280,7 +280,7 @@ namespace RMP.App.Indexers
                         // Get song thumbnail and make a PNG out of it
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
-                        string filename = Methods.MakeValidFileName(song.Album);
+                        string filename = FileHelpers.MakeValidFileName(song.Album);
                         filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                         if (filename != "/")

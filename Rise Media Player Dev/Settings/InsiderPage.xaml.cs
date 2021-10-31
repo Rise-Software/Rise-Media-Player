@@ -13,7 +13,7 @@ namespace RMP.App.Settings
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => await Methods.LaunchURIAsync(URLs.Insider);
+            => await FileHelpers.LaunchURIAsync(URLs.Insider);
 
         private void NavigationExpander_Click(object sender, RoutedEventArgs e)
         {
