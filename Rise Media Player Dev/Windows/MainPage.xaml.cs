@@ -289,11 +289,6 @@ namespace RMP.App.Windows
 
         public void FinishNavigation()
         {
-            if (ContentFrame.CurrentSourcePageType == null)
-            {
-                _ = ContentFrame.Navigate(typeof(HomePage));
-            }
-
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 

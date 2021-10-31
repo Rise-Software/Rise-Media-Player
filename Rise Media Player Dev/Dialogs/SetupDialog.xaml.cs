@@ -216,7 +216,9 @@ namespace RMP.App.Dialogs
                     Hide();
 
                     Frame rootFrame = Window.Current.Content as Frame;
+                    rootFrame.CacheSize = 0;
                     _ = rootFrame.Navigate(typeof(MainPage));
+                    rootFrame.CacheSize = 1;
                     break;
 
                 default:
