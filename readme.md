@@ -22,11 +22,13 @@ Here are up to date renders and screenshots with all our current features:
 **All Users, GitHub or Insider**
 * Song & Album Indexing
 * Media Playback (MP3, M4A, WAV, FLAC and others)
+* Sorting for Songs and Albums
 * Now Playing Bar
 * Now Playing Window
 * Artist, Album and Songs Views
 * Modern Titlebar
-* Settings UI - Very few settings work (Sidebar customization)
+* Sidebar with quick links
+* Modern Settings UI - Very few settings work (Sidebar customization)
 * Albums & Songs View
 * (BASIC) OneDrive Support
 * Properties/ Song Info Window
