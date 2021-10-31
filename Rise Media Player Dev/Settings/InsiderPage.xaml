@@ -26,25 +26,17 @@
             <uc:AdaptiveItemPane.RightPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="12">
-                    <Button Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xE73A;" VerticalAlignment="Center" />
-                            <TextBlock>
-                                <Hyperlink UnderlineStyle="None">
-                                    <Run x:Uid="/About/Change" />
-                                </Hyperlink>
-                            </TextBlock>
+                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xE73A;" VerticalAlignment="Center" />
+                            <TextBlock x:Uid="/About/Change" Foreground="{ThemeResource SystemAccentColorLight2}" />
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
-                            <FontIcon Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xF3B1;" />
-                            <TextBlock>
-                                <Hyperlink UnderlineStyle="None">
-                                    <Run x:Uid="/About/Leave" />
-                                </Hyperlink>
-                            </TextBlock>
+                            <FontIcon Foreground="{ThemeResource SystemAccentColorLight2}" Glyph="&#xF3B1;" />
+                            <TextBlock x:Uid="/About/Leave" Foreground="{ThemeResource SystemAccentColorLight2}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -53,6 +45,7 @@
 
         <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/About/Walls"
+                               Click="NavigationExpander_Click"
                                ExpanderStyle="Button"
                                Icon="&#xE8B9;">
             <FontIcon Glyph="&#xE00F;" />

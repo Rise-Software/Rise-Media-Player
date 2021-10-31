@@ -16,6 +16,7 @@ namespace RMP.App.Dialogs
             new ObservableCollection<string>();
 
         private IEnumerable<ToggleButton> Toggles { get; set; }
+        private double Breakpoint { get; set; }
         #endregion
 
         public SettingsDialog()
@@ -26,51 +27,53 @@ namespace RMP.App.Dialogs
             Toggles = ItemGrid.GetChildren<ToggleButton>();
             Library.IsChecked = true;
 
-            Opened += SettingsDialog_Opened;
+            // Calculate the breakpoints only on initial opening.
+            Loaded += (s, e) => Opened += SettingsDialog_Opened;
         }
 
         private void SettingsDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
-            => ResizeDialog();
+        {
+            FirstDefinition.Width = new GridLength(1, GridUnitType.Auto);
+
+            Breakpoint = ItemGrid.DesiredSize.Width + SecondGrid.DesiredSize.Width;
+            ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
+
+            FirstDefinition.Width = new GridLength(1, GridUnitType.Star);
+
+            Opened -= SettingsDialog_Opened;
+            SizeChanged += ContentDialog_SizeChanged;
+
+            // From now on, register the size changed event whenever the dialog gets opened.
+            Opened += (s, e) => SizeChanged += ContentDialog_SizeChanged;
+        }
 
         private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
-            => ResizeDialog();
+            => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
 
-        private void ResizeDialog()
+        private void ResizeDialog(double height, double width)
         {
-            double windowWidth = Window.Current.Bounds.Width;
-            double windowHeight = Window.Current.Bounds.Height;
+            SettingsFrame.Width = width < 800 ?
+                width - 68 : 800 - 68;
 
-            SettingsFrame.Width = windowWidth < 800 ?
-                windowWidth - 68 : 800 - 68;
+            RootGrid.Height = height < 620 ?
+                height - 64 : 620 - 64;
 
-            RootGrid.Height = windowHeight < 620 ?
-                windowHeight - 64 : 620 - 64;
-
-            /*double gridWidth = ItemGrid.DesiredSize.Width;
-            double itemsWidth = 0;
-
-            foreach (ToggleButton button in Toggles)
+            if (width - 40 < Breakpoint)
             {
-                itemsWidth += button.DesiredSize.Width;
-
-                if (gridWidth < itemsWidth + 6)
+                foreach (ToggleButton button in Toggles)
                 {
                     // Overflowing is needed.
-                    Debug.WriteLine("Overflow!");
-                    button.Height = 0;
+                    button.MaxWidth = 38;
                 }
-                else
+            }
+            else
+            {
+                foreach (ToggleButton button in Toggles)
                 {
                     // Overflowing is not needed.
-                    Debug.WriteLine("Not overflow!");
-                    button.Height = double.NaN;
+                    button.MaxWidth = double.PositiveInfinity;
                 }
-                
-                if (windowWidth == 500)
-                {
-                    button.Height = 0;
-                }
-            }*/
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -78,12 +81,7 @@ namespace RMP.App.Dialogs
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            foreach (ToggleButton button in Toggles)
-            {
-                button.Unchecked -= ToggleButton_Unchecked;
-                button.IsChecked = false;
-                button.Unchecked += ToggleButton_Unchecked;
-            }
+            UncheckToggleButtons();
 
             ToggleButton clicked = (ToggleButton)sender;
             clicked.Checked -= ToggleButton_Checked;
@@ -124,12 +122,7 @@ namespace RMP.App.Dialogs
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (ToggleButton button in Toggles)
-            {
-                button.Unchecked -= ToggleButton_Unchecked;
-                button.IsChecked = false;
-                button.Unchecked += ToggleButton_Unchecked;
-            }
+            UncheckToggleButtons();
 
             ToggleButton toggle = sender as ToggleButton;
             toggle.IsChecked = true;
@@ -137,17 +130,7 @@ namespace RMP.App.Dialogs
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ToggleButton button in Toggles)
-            {
-                button.Unchecked -= ToggleButton_Unchecked;
-                button.IsChecked = false;
-                button.Unchecked += ToggleButton_Unchecked;
-            }
-
-            About.Unchecked -= ToggleButton_Unchecked;
-            About.IsChecked = false;
-            About.Unchecked += ToggleButton_Unchecked;
-
+            UncheckToggleButtons();
             Breadcrumbs.Clear();
 
             MenuFlyoutItem item = sender as MenuFlyoutItem;
@@ -165,6 +148,20 @@ namespace RMP.App.Dialogs
             }
 
             Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString(tag));
+        }
+
+        private void UncheckToggleButtons()
+        {
+            foreach (ToggleButton button in Toggles)
+            {
+                button.Unchecked -= ToggleButton_Unchecked;
+                button.IsChecked = false;
+                button.Unchecked += ToggleButton_Unchecked;
+            }
+
+            About.Unchecked -= ToggleButton_Unchecked;
+            About.IsChecked = false;
+            About.Unchecked += ToggleButton_Unchecked;
         }
     }
 }

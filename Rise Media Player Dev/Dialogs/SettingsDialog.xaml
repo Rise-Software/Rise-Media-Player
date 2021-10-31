@@ -6,8 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Style="{StaticResource DefaultContentDialogStyle}"
-    SizeChanged="ContentDialog_SizeChanged">
+    Style="{StaticResource DefaultContentDialogStyle}">
 
     <ContentDialog.Resources>
         <x:Double x:Key="ContentDialogMaxWidth">962</x:Double>
@@ -39,81 +38,80 @@
               Padding="16,14,12,14"
               VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition x:Name="FirstDefinition" Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ScrollViewer Height="32" HorizontalScrollBarVisibility="Auto">
-                <Grid x:Name="ItemGrid" ColumnSpacing="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+            <Grid x:Name="ItemGrid" ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                    <ToggleButton x:Name="Library"
-                                  Checked="ToggleButton_Checked"
-                                  Tag="LibraryItem"
-                                  Unchecked="ToggleButton_Unchecked">
-                        <ToggleButton.Content>
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                <ToggleButton x:Name="Library"
+                              Checked="ToggleButton_Checked"
+                              Tag="LibraryItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" /-->
-                                <FontIcon Glyph="&#xEA69;" />
-                                <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
-                            </Grid>
-                        </ToggleButton.Content>
-                    </ToggleButton>
+                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" /-->
+                            <FontIcon FontSize="14" Glyph="&#xEA69;" />
+                            <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
 
-                    <ToggleButton x:Name="Playback"
-                                  Grid.Column="1"
-                                  Checked="ToggleButton_Checked"
-                                  Tag="PlaybackItem"
-                                  Unchecked="ToggleButton_Unchecked">
-                        <ToggleButton.Content>
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                <ToggleButton x:Name="Playback"
+                              Grid.Column="1"
+                              Checked="ToggleButton_Checked"
+                              Tag="PlaybackItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" /-->
-                                <FontIcon Glyph="&#xE102;" />
-                                <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
-                            </Grid>
-                        </ToggleButton.Content>
-                    </ToggleButton>
+                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" /-->
+                            <FontIcon FontSize="14" Glyph="&#xE102;" />
+                            <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
 
-                    <ToggleButton x:Name="Appearance"
-                                  Grid.Column="2"
-                                  Checked="ToggleButton_Checked"
-                                  Tag="AppearanceItem"
-                                  Unchecked="ToggleButton_Unchecked">
-                        <ToggleButton.Content>
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                <ToggleButton x:Name="Appearance"
+                              Grid.Column="2"
+                              Checked="ToggleButton_Checked"
+                              Tag="AppearanceItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                                <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" /-->
-                                <FontIcon Glyph="&#xE771;" />
-                                <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
-                            </Grid>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-                </Grid>
-            </ScrollViewer>
+                            <!--muxc:ImageIcon Height="16" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" /-->
+                            <FontIcon FontSize="14" Glyph="&#xE771;" />
+                            <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </Grid>
 
-            <StackPanel Grid.Column="1"
+            <StackPanel x:Name="SecondGrid"
+                        Grid.Column="1"
                         Orientation="Horizontal"
                         Spacing="6">
                 <AutoSuggestBox HorizontalAlignment="Stretch"
-                                Width="172"
+                                Width="160"
                                 PlaceholderText="Find a setting"
                                 QueryIcon="Find" />
 

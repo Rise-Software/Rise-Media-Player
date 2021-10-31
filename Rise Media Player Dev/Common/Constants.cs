@@ -145,7 +145,16 @@
         public const string Insider =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u";
 
+        public const string InsiderWalls =
+            "https://drive.google.com/drive/u/2/folders/19L-EvHxPRBsR4RhmArseEUxf1nc-nYgj";
+
         public const string License =
             "https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE";
+
+        public const string Translations =
+            "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UNFA0WVdDTDRIMTlRVU4yT0FDOENWMVJMVC4u";
+
+        public const string TranslationReports =
+            "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
     }
 }

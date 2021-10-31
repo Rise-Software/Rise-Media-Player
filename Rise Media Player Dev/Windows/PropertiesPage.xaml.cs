@@ -1,6 +1,8 @@
-﻿using RMP.App.Props;
+﻿using RMP.App.Common;
+using RMP.App.Props;
 using RMP.App.ViewModels;
 using System;
+using System.Collections.Generic;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,11 +14,14 @@ namespace RMP.App.Windows
     public sealed partial class PropertiesPage : Page
     {
         private SongPropertiesViewModel Props { get; set; }
+        private IEnumerable<ToggleButton> Toggles { get; set; }
 
         public PropertiesPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            Toggles = ItemGrid.GetChildren<ToggleButton>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,9 +64,7 @@ namespace RMP.App.Windows
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-        }
+            => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
