@@ -1,4 +1,5 @@
-﻿using RMP.App.ViewModels;
+﻿using RMP.App.Common;
+using RMP.App.ViewModels;
 using RMP.App.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ namespace RMP.App.Views
     /// </summary>
     public sealed partial class AlbumSongsPage : Page
     {
+        #region Variables
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -26,6 +28,15 @@ namespace RMP.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
+
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper
+        {
+            get { return navigationHelper; }
+        }
 
         private ArtistViewModel Artist;
         private static DependencyProperty SelectedAlbumProperty =
@@ -51,18 +62,33 @@ namespace RMP.App.Views
 
         private SortMethods CurrentMethod = SortMethods.Track;
         private bool DescendingSort { get; set; }
+        #endregion
 
         public AlbumSongsPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            navigationHelper = new NavigationHelper(this);
+            navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        /// <summary>
+        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// provided when recreating a page from a prior session.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event; typically <see cref="NavigationHelper"/>
+        /// </param>
+        /// <param name="e">Event data that provides both the navigation parameter passed to
+        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
+        /// a dictionary of state preserved by this page during an earlier
+        /// session.  The state will be null the first time a page is visited.</param>
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.Parameter is AlbumViewModel album)
+            if (e.NavigationParameter is AlbumViewModel album)
             {
                 SelectedAlbum = album;
 
@@ -77,9 +103,6 @@ namespace RMP.App.Views
 
                 RefreshList(SortMethods.Track);
             }
-
-            base.OnNavigatedTo(e);
-            MainPage.Current.FinishNavigation();
         }
 
         #region Event handlers
@@ -195,5 +218,22 @@ namespace RMP.App.Views
                 Songs.Add(song);
             }
         }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }

@@ -196,7 +196,7 @@ namespace RMP.App.Dialogs
 
                     SetupProgress.Value = 80;
                     SetupIcon.Source = AppearanceImage;
-                    _ = SetupFrame.Navigate(typeof(Setup.AppearancePage));
+                    _ = SetupFrame.Navigate(typeof(AppearancePage));
                     break;
 
                 case 5:
@@ -216,7 +216,9 @@ namespace RMP.App.Dialogs
                     Hide();
 
                     Frame rootFrame = Window.Current.Content as Frame;
+                    rootFrame.CacheSize = 0;
                     _ = rootFrame.Navigate(typeof(MainPage));
+                    rootFrame.CacheSize = 1;
                     break;
 
                 default:

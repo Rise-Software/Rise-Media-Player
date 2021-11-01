@@ -1,4 +1,5 @@
-﻿using RMP.App.ViewModels;
+﻿using RMP.App.Common;
+using RMP.App.ViewModels;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,6 +11,7 @@ namespace RMP.App.Views
 {
     public sealed partial class SongsPage : Page
     {
+        #region Variables
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -19,6 +21,15 @@ namespace RMP.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
+
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper
+        {
+            get { return navigationHelper; }
+        }
 
         private readonly static DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
@@ -33,12 +44,14 @@ namespace RMP.App.Views
 
         private SortMethods CurrentMethod = SortMethods.Title;
         private bool DescendingSort { get; set; }
+        #endregion
 
         public SongsPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
+            navigationHelper = new NavigationHelper(this);
             RefreshList(CurrentMethod);
         }
 
@@ -152,5 +165,22 @@ namespace RMP.App.Views
                 Songs.Add(song);
             }
         }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }

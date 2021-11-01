@@ -84,12 +84,11 @@ namespace RMP.App
         private async void InitDatabase()
         {
             _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
-            Debug.WriteLine(ApplicationData.Current.LocalCacheFolder.Path);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
             DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
                 "Data Source=" + dbPath);
-            Repository = new SQLRepository(dbOptions);
 
+            Repository = new SQLRepository(dbOptions);
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
         }

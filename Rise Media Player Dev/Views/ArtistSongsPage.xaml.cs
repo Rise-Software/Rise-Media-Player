@@ -1,4 +1,5 @@
-﻿using RMP.App.ViewModels;
+﻿using RMP.App.Common;
+using RMP.App.ViewModels;
 using RMP.App.Windows;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ namespace RMP.App.Views
 {
     public sealed partial class ArtistSongsPage : Page
     {
+        #region Variables
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -21,6 +23,15 @@ namespace RMP.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
+
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper
+        {
+            get { return navigationHelper; }
+        }
 
         private static DependencyProperty SelectedArtistProperty =
             DependencyProperty.Register("SelectedArtist", typeof(ArtistViewModel), typeof(ArtistSongsPage), null);
@@ -45,6 +56,7 @@ namespace RMP.App.Views
 
         private SortMethods CurrentMethod = SortMethods.Track;
         private bool DescendingSort { get; set; }
+        #endregion
 
         public ArtistSongsPage()
         {
@@ -52,11 +64,13 @@ namespace RMP.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
+            navigationHelper = new NavigationHelper(this);
+            navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.Parameter is ArtistViewModel artist)
+            if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
 
@@ -71,9 +85,6 @@ namespace RMP.App.Views
 
                 RefreshList(SortMethods.Track);
             }
-
-            base.OnNavigatedTo(e);
-            MainPage.Current.FinishNavigation();
         }
 
         #region Event handlers
@@ -184,5 +195,22 @@ namespace RMP.App.Views
                 Songs.Add(song);
             }
         }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }

@@ -25,8 +25,16 @@ namespace RMP.App.Windows
     {
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
-
         public static MainPage Current;
+
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper
+        {
+            get { return navigationHelper; }
+        }
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
             = new ObservableCollection<Crumb>();
@@ -124,22 +132,36 @@ namespace RMP.App.Windows
 
             MainTitleBarHandle = new MainTitleBar();
 
-            Loaded += MainPage_Loaded;
-            NavigationCacheMode = NavigationCacheMode.Required;
-
+            Loaded += async (s, e) => await ApplyStartupSettings();
             DataContext = ViewModel;
-        }
 
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            await ApplyStartupSettings();
+            NavigationCacheMode = NavigationCacheMode.Required;
+            navigationHelper = new NavigationHelper(this);
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
-        {
-            MainTitleBarHandle.UpdateTitleBarItems(sender);
-        }
+            => MainTitleBarHandle.UpdateTitleBarItems(sender);
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// <para>
+        /// Page specific logic should be placed in event handlers for the
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method
+        /// in addition to page state preserved during an earlier session.
+        /// </para>
+        /// </summary>
+        /// <param name="e">Event data that describes how this page was reached.</param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedFrom(e);
+        #endregion
 
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
@@ -162,15 +184,10 @@ namespace RMP.App.Windows
             {
                 await Navigate(navTo);
             }
-
-            FinishNavigation();
         }
 
         private void NavView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
-        {
-            ContentFrame.GoBack();
-            FinishNavigation();
-        }
+            => ContentFrame.GoBack();
 
         private async Task Navigate(string navTo)
         {
@@ -272,11 +289,6 @@ namespace RMP.App.Windows
 
         public void FinishNavigation()
         {
-            if (ContentFrame.CurrentSourcePageType == null)
-            {
-                _ = ContentFrame.Navigate(typeof(HomePage));
-            }
-
             string type = ContentFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
@@ -374,9 +386,7 @@ namespace RMP.App.Windows
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
-        }
+            => _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
@@ -444,8 +454,9 @@ namespace RMP.App.Windows
         }
 
         private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            App.MViewModel.Sync();
-        }
+            => App.MViewModel.Sync();
+
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+            => FinishNavigation();
     }
 }

@@ -1,4 +1,5 @@
-﻿using RMP.App.Settings.ViewModels;
+﻿using RMP.App.Common;
+using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
 using RMP.App.Windows;
 using System.Collections.Generic;
@@ -32,6 +33,15 @@ namespace RMP.App.Views
         /// </summary>
         private SettingsViewModel SViewModel => App.SViewModel;
 
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper
+        {
+            get { return navigationHelper; }
+        }
+
         private static DependencyProperty SelectedAlbumProperty =
             DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumsPage), null);
 
@@ -53,6 +63,7 @@ namespace RMP.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
+            navigationHelper = new NavigationHelper(this);
             RefreshList(SortMethods.Title, SViewModel.FilterByNameOnly);
         }
 
@@ -179,5 +190,22 @@ namespace RMP.App.Views
                 Albums.Add(album);
             }
         }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }
