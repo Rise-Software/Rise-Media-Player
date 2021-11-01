@@ -6,6 +6,7 @@ using RMP.App.ViewModels;
 using RMP.App.Views;
 using RMP.App.Windows;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using Windows.ApplicationModel;
@@ -164,6 +165,29 @@ namespace RMP.App
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private ObservableCollection<SongViewModel> Songs => MViewModel.Songs;
+
+        protected override async void OnFileActivated(FileActivatedEventArgs args)
+        {
+            // TODO: Handle file activation
+            // The number of files received is args.Files.Size
+            // The name of the first file is args.Files[0].Name
+            var rootFrame = new Frame();
+            rootFrame.Navigate(typeof(NowPlaying), args);
+            Window.Current.Content = rootFrame;
+            Window.Current.Activate();
+            await PViewModel.StartPlayback(Songs, GetSongIndex(args.Files[0].Name, Songs));
+        }
+
+        public static int GetSongIndex(string fileName, ObservableCollection<SongViewModel> songs)
+        {
+            for (int i = 0; i < songs.Count; i++)
+            {
+                if (songs[i].Title == fileName) return i;
+            }
+            return -1;
         }
     }
 }

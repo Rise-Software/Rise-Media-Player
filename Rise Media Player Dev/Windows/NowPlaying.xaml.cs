@@ -1,5 +1,7 @@
 ﻿using RMP.App.ViewModels;
 using RMP.App.Views;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,6 +19,9 @@ namespace RMP.App.Windows
         {
             InitializeComponent();
             Player.SetMediaPlayer(ViewModel.Player);
+
+            ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             DataContext = ViewModel;
             _ = PlayFrame.Navigate(typeof(CurrentlyPlayingPage));
