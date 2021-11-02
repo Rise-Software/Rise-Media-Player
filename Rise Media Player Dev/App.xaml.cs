@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Rise.Repository;
 using Rise.Repository.SQL;
 using RMP.App.Settings.ViewModels;
