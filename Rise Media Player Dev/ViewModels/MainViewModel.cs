@@ -1,4 +1,5 @@
-﻿using Rise.Models;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.Models;
 using RMP.App.ChangeTrackers;
 using RMP.App.Indexers;
 using System;
@@ -21,6 +22,11 @@ namespace RMP.App.ViewModels
         /// </summary>
         public MainViewModel()
         {
+            FilteredSongs = new AdvancedCollectionView(Songs);
+            FilteredAlbums = new AdvancedCollectionView(Albums);
+            FilteredArtists = new AdvancedCollectionView(Artists);
+            FilteredGenres = new AdvancedCollectionView(Genres);
+
             _ = Task.Run(GetListsAsync);
         }
 
@@ -30,11 +36,15 @@ namespace RMP.App.ViewModels
         public ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
 
+        public AdvancedCollectionView FilteredSongs { get; set; }
+
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
         public ObservableCollection<AlbumViewModel> Albums { get; set; }
             = new ObservableCollection<AlbumViewModel>();
+
+        public AdvancedCollectionView FilteredAlbums { get; set; }
 
         /// <summary>
         /// The collection of artists in the list. 
@@ -42,17 +52,15 @@ namespace RMP.App.ViewModels
         public ObservableCollection<ArtistViewModel> Artists { get; set; }
             = new ObservableCollection<ArtistViewModel>();
 
+        public AdvancedCollectionView FilteredArtists { get; set; }
+
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
         public ObservableCollection<GenreViewModel> Genres { get; set; }
             = new ObservableCollection<GenreViewModel>();
 
-        /// <summary>
-        /// Gets a list of filtered songs.
-        /// </summary>
-        public ObservableCollection<SongViewModel> FilteredSongs { get; set; }
-            = new ObservableCollection<SongViewModel>();
+        public AdvancedCollectionView FilteredGenres { get; set; }
 
         /// <summary>
         /// Filters a song collection based on the provided album.

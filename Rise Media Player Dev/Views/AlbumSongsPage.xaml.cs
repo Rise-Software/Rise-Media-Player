@@ -117,7 +117,7 @@ namespace RMP.App.Views
                     return;
                 }
 
-                await PViewModel.StartPlayback(Songs, itemIndex);
+                // await PViewModel.StartPlayback(Songs, itemIndex);
             }
         }
 
@@ -149,15 +149,15 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await PViewModel.StartPlayback(Songs, index);
+                // await PViewModel.StartPlayback(Songs, index);
                 return;
             }
 
-            await PViewModel.StartPlayback(Songs, 0);
+            // await PViewModel.StartPlayback(Songs, 0);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await PViewModel.StartShuffle(Songs);
+            => _ = Equals(1, 1); // await PViewModel.StartShuffle(Songs);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();

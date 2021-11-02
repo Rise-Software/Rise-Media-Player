@@ -108,13 +108,13 @@ namespace RMP.App.Views
                     MViewModel.SongsFromAlbum(SelectedAlbum, MViewModel.Songs, Merge.IsChecked);
                 SelectedAlbum = null;
 
-                await PViewModel.StartPlayback(MViewModel.
-                    SortSongs(songs, SortMethods.Track, DescendingSort), 0);
+                /*await PViewModel.StartPlayback(MViewModel.
+                    SortSongs(songs, SortMethods.Track, DescendingSort), 0);*/
                 return;
             }
 
-            await PViewModel.StartPlayback(MViewModel.
-                SortSongs(MViewModel.Songs, SortMethods.Album, DescendingSort), 0);
+            /*await PViewModel.StartPlayback(MViewModel.
+                SortSongs(MViewModel.Songs, SortMethods.Album, DescendingSort), 0);*/
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -126,13 +126,13 @@ namespace RMP.App.Views
 
                 SelectedAlbum = null;
 
-                await PViewModel.StartPlayback(MViewModel.
-                    SortSongs(songs, SortMethods.Random, DescendingSort), 0);
+                /*await PViewModel.StartPlayback(MViewModel.
+                    SortSongs(songs, SortMethods.Random, DescendingSort), 0);*/
                 return;
             }
 
-            await PViewModel.StartPlayback(MViewModel.
-                SortSongs(MViewModel.Songs, SortMethods.Random, DescendingSort), 0);
+            /*await PViewModel.StartPlayback(MViewModel.
+                SortSongs(MViewModel.Songs, SortMethods.Random, DescendingSort), 0);*/
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)
