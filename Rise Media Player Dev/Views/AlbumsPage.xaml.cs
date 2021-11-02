@@ -1,9 +1,7 @@
-﻿using RMP.App.Common;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using RMP.App.Common;
 using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
-using RMP.App.Windows;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,7 +9,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using static RMP.App.Common.Enums;
 
 namespace RMP.App.Views
 {
@@ -37,12 +34,9 @@ namespace RMP.App.Views
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        public NavigationHelper NavigationHelper => navigationHelper;
 
-        private static DependencyProperty SelectedAlbumProperty =
+        private static readonly DependencyProperty SelectedAlbumProperty =
             DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumsPage), null);
 
         private AlbumViewModel SelectedAlbum
@@ -51,11 +45,11 @@ namespace RMP.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
-        private ObservableCollection<AlbumViewModel> Albums { get; set; }
-            = new ObservableCollection<AlbumViewModel>();
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
 
-        private SortMethods CurrentMethod = SortMethods.Title;
-        private bool DescendingSort { get; set; }
+        private string SortProperty = "Title";
+        private SortDirection CurrentSort = SortDirection.Ascending;
         #endregion
 
         public AlbumsPage()
@@ -64,7 +58,13 @@ namespace RMP.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             navigationHelper = new NavigationHelper(this);
-            RefreshList(SortMethods.Title, SViewModel.FilterByNameOnly);
+            navigationHelper.LoadState += NavigationHelper_LoadState;
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            Albums.SortDescriptions.Clear();
+            Albums.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
         }
 
         #region Event handlers
@@ -72,7 +72,7 @@ namespace RMP.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
             }
 
             SelectedAlbum = null;
@@ -93,7 +93,7 @@ namespace RMP.App.Views
 
             if (parent.DataContext is AlbumViewModel album)
             {
-                Frame.Navigate(typeof(ArtistSongsPage),
+                _ = Frame.Navigate(typeof(ArtistSongsPage),
                     App.MViewModel.Artists.FirstOrDefault(a => a.Name == album.Artist));
             }
 
@@ -102,37 +102,51 @@ namespace RMP.App.Views
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            Songs.Filter = null;
+            Songs.SortDescriptions.Clear();
+
             if (SelectedAlbum != null)
             {
-                IEnumerable<SongViewModel> songs =
-                    MViewModel.SongsFromAlbum(SelectedAlbum, MViewModel.Songs, Merge.IsChecked);
-                SelectedAlbum = null;
-
-                /*await PViewModel.StartPlayback(MViewModel.
-                    SortSongs(songs, SortMethods.Track, DescendingSort), 0);*/
-                return;
+                if (App.SViewModel.FilterByNameOnly)
+                {
+                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+                }
+                else
+                {
+                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title
+                        && ((SongViewModel)s).AlbumArtist == SelectedAlbum.Artist;
+                }
+            }
+            else
+            {
+                Songs.SortDescriptions.Add(new SortDescription("Album", CurrentSort));
             }
 
-            /*await PViewModel.StartPlayback(MViewModel.
-                SortSongs(MViewModel.Songs, SortMethods.Album, DescendingSort), 0);*/
+            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+            await PViewModel.StartPlayback
+                (Songs.GetEnumerator(), 0, Songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
+            Songs.Filter = null;
+
             if (SelectedAlbum != null)
             {
-                IEnumerable<SongViewModel> songs =
-                    MViewModel.SongsFromAlbum(SelectedAlbum, MViewModel.Songs, Merge.IsChecked);
-
-                SelectedAlbum = null;
-
-                /*await PViewModel.StartPlayback(MViewModel.
-                    SortSongs(songs, SortMethods.Random, DescendingSort), 0);*/
-                return;
+                if (App.SViewModel.FilterByNameOnly)
+                {
+                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+                }
+                else
+                {
+                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title
+                        && ((SongViewModel)s).AlbumArtist == SelectedAlbum.Artist;
+                }
             }
 
-            /*await PViewModel.StartPlayback(MViewModel.
-                SortSongs(MViewModel.Songs, SortMethods.Random, DescendingSort), 0);*/
+            await PViewModel.StartShuffle
+                (Songs.GetEnumerator(), Songs.Count);
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -143,53 +157,41 @@ namespace RMP.App.Views
 
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            SViewModel.FilterByNameOnly = Merge.IsChecked;
             MenuFlyoutItem item = sender as MenuFlyoutItem;
-            switch (item.Tag.ToString())
+
+            Albums.SortDescriptions.Clear();
+            string tag = item.Tag.ToString();
+            switch (tag)
             {
-                case "Title":
-                    CurrentMethod = SortMethods.Title;
-                    break;
-
-                case "Artist":
-                    CurrentMethod = SortMethods.Artist;
-                    break;
-
-                case "Genre":
-                    CurrentMethod = SortMethods.Genre;
-                    break;
-
-                case "Year":
-                    CurrentMethod = SortMethods.Year;
-                    break;
-
                 case "Ascending":
-                    DescendingSort = false;
+                    CurrentSort = SortDirection.Ascending;
                     break;
 
                 case "Descending":
-                    DescendingSort = true;
+                    CurrentSort = SortDirection.Descending;
                     break;
 
                 default:
+                    SortProperty = tag;
                     break;
             }
 
-            RefreshList(CurrentMethod, Merge.IsChecked);
+            Albums.SortDescriptions.
+                Add(new SortDescription(SortProperty, CurrentSort));
+        }
+
+        private void Merge_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                // Do something to filter the albums based on name only.
+                return;
+            }
+
+            Albums.Filter = null;
         }
         #endregion
-
-        private void RefreshList(SortMethods method, bool mergeAlbums)
-        {
-            var albums = new ObservableCollection<AlbumViewModel>
-                (App.MViewModel.SortAlbums(MViewModel.Albums, method, mergeAlbums, DescendingSort));
-
-            Albums.Clear();
-            foreach (AlbumViewModel album in albums)
-            {
-                Albums.Add(album);
-            }
-        }
 
         #region NavigationHelper registration
         /// <summary>

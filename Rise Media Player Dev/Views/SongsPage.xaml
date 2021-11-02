@@ -81,7 +81,7 @@
                                                   Tag="Artist" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
                                                   Click="SortFlyoutItem_Click"
-                                                  Tag="Genre" />
+                                                  Tag="Genres" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
                                                   Click="SortFlyoutItem_Click"
                                                   Tag="Year" />

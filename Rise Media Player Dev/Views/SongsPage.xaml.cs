@@ -25,10 +25,7 @@ namespace RMP.App.Views
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        public NavigationHelper NavigationHelper => navigationHelper;
 
         private readonly static DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
@@ -51,8 +48,13 @@ namespace RMP.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             navigationHelper = new NavigationHelper(this);
-            Songs.SortDescriptions.
-                Add(new SortDescription(SortProperty, CurrentSort));
+            navigationHelper.LoadState += NavigationHelper_LoadState;
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            Songs.SortDescriptions.Clear();
+            Songs.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
         }
 
         #region Event handlers
@@ -61,7 +63,6 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
             {
                 int itemIndex = MainList.SelectedIndex;
-
                 if (itemIndex < 0)
                 {
                     return;

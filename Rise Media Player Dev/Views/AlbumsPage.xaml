@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:RMP.App.Converters"
     xmlns:viewmodels="using:RMP.App.ViewModels"
@@ -88,7 +89,7 @@
                                                   Tag="Artist" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
                                                   Click="SortFlyoutItem_Click"
-                                                  Tag="Genre" />
+                                                  Tag="Genres" />
 
                         <MenuFlyoutSeparator />
 
@@ -106,8 +107,8 @@
 
                         <ToggleMenuFlyoutItem x:Name="Merge"
                                               x:Uid="/Information/NameOnly"
-                                              Click="SortFlyoutItem_Click"
-                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=OneWay}"
+                                              Click="Merge_Click"
+                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}"
                                               Tag="Merge" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
@@ -125,6 +126,8 @@
         </CommandBar>
 
         <GridView x:Name="MainGrid"
+                  animations:Connected.ListItemElementName="ItemThumbnail"
+                  animations:Connected.ListItemKey="Art"
                   Grid.Row="1"
                   ItemsSource="{x:Bind Albums}"
                   Margin="-56,0"
@@ -157,8 +160,8 @@
                                 Orientation="Vertical"
                                 Spacing="2"
                                 Width="134">
-                        <Border CornerRadius="5"
-                                Width="134">
+                        <Border x:Name="ItemThumbnail"
+                                CornerRadius="5">
                             <Image Height="134"
                                    Stretch="UniformToFill"
                                    Width="134">

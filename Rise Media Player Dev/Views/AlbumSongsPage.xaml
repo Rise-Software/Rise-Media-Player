@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:RMP.App.Converters"
     xmlns:uc="using:RMP.App.UserControls"
@@ -14,16 +14,6 @@
     <Page.Resources>
         <converters:NullToBoolean x:Key="NullToBool" />
     </Page.Resources>
-
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <ContinuumNavigationTransitionInfo />
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </Page.Transitions>
 
     <Grid>
         <ListView x:Name="MainList"
@@ -59,7 +49,8 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border CornerRadius="8">
+                        <Border animations:Connected.Key="Art"
+                                CornerRadius="8">
                             <Image Height="154"
                                    Stretch="Uniform"
                                    Width="154">
@@ -165,34 +156,6 @@
                                               Icon="Edit"
                                               IsEnabled="{Binding ElementName=MainList, Path=DataContext.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
-
-                                <!--AppBarButton x:Uid="/Information/Sort" Icon="Sort">
-                                    <AppBarButton.Flyout>
-                                        <MenuFlyout>
-                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Track"
-                                                                      Click="SortFlyoutItem_Click"
-                                                                      IsChecked="True"
-                                                                      Tag="Track" />
-                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                                      Click="SortFlyoutItem_Click"
-                                                                      Tag="Title" />
-                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                                      Click="SortFlyoutItem_Click"
-                                                                      Tag="Artist" />
-                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                                      Click="SortFlyoutItem_Click"
-                                                                      Tag="Genre" />
-                                            <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
-                                                                      Click="SortFlyoutItem_Click"
-                                                                      Tag="Year" />
-
-                                            <MenuFlyoutSeparator />
-                                            
-                                            <ToggleMenuFlyoutItem x:Uid="/Information/Descending"
-                                                                  Click="Descending_Click" />
-                                        </MenuFlyout>
-                                    </AppBarButton.Flyout>
-                                </AppBarButton-->
                             </CommandBar>
                         </StackPanel>
                     </Grid>
