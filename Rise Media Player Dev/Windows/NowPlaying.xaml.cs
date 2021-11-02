@@ -1,4 +1,4 @@
-﻿using RMP.App.ViewModels;
+using RMP.App.ViewModels;
 using RMP.App.Views;
 using Windows.UI;
 using Windows.UI.ViewManagement;
