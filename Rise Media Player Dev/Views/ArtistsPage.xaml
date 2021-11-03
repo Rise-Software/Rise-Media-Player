@@ -4,11 +4,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:viewmodels="using:RMP.App.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
-        <GridView ItemsSource="{x:Bind Artists}"
+        <GridView animations:Connected.ListItemElementName="ItemThumbnail"
+                  animations:Connected.ListItemKey="Art"
+                  ItemsSource="{x:Bind Artists}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   SelectedItem="{x:Bind SelectedArtist, Mode=TwoWay}"
@@ -20,8 +23,8 @@
                                 Orientation="Horizontal"
                                 Spacing="12"
                                 Width="210">
-                        <Border CornerRadius="42"
-                                Width="84">
+                        <Border x:Name="ItemThumbnail"
+                                CornerRadius="42">
                             <Image Height="84"
                                    Stretch="UniformToFill"
                                    Width="84">

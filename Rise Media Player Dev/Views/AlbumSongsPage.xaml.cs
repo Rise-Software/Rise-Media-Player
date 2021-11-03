@@ -139,14 +139,14 @@ namespace RMP.App.Views
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            int index = 0;
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int index = MainList.Items.IndexOf(song);
-                await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
-                return;
+                index = MainList.Items.IndexOf(song);
+                SelectedSong = null;
             }
 
-            await PViewModel.StartPlayback(Songs.GetEnumerator(), 0, Songs.Count);
+            await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)

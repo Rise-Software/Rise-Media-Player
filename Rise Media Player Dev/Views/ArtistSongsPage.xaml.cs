@@ -1,7 +1,6 @@
-﻿using RMP.App.Common;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using RMP.App.Common;
 using RMP.App.ViewModels;
-using RMP.App.Windows;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,12 +27,9 @@ namespace RMP.App.Views
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        public NavigationHelper NavigationHelper => navigationHelper;
 
-        private static DependencyProperty SelectedArtistProperty =
+        private static readonly DependencyProperty SelectedArtistProperty =
             DependencyProperty.Register("SelectedArtist", typeof(ArtistViewModel), typeof(ArtistSongsPage), null);
 
         private ArtistViewModel SelectedArtist
@@ -42,7 +38,7 @@ namespace RMP.App.Views
             set => SetValue(SelectedArtistProperty, value);
         }
 
-        private static DependencyProperty SelectedSongProperty =
+        private static readonly DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(ArtistSongsPage), null);
 
         private SongViewModel SelectedSong
@@ -51,11 +47,10 @@ namespace RMP.App.Views
             set => SetValue(SelectedSongProperty, value);
         }
 
-        private ObservableCollection<SongViewModel> Songs { get; set; }
-            = new ObservableCollection<SongViewModel>();
+        private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
 
-        private SortMethods CurrentMethod = SortMethods.Track;
-        private bool DescendingSort { get; set; }
+        private string SortProperty = "Title";
+        private SortDirection CurrentSort = SortDirection.Ascending;
         #endregion
 
         public ArtistSongsPage()
@@ -68,22 +63,27 @@ namespace RMP.App.Views
             navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
+        /// <summary>
+        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// provided when recreating a page from a prior session.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event; typically <see cref="NavigationHelper"/>
+        /// </param>
+        /// <param name="e">Event data that provides both the navigation parameter passed to
+        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
+        /// a dictionary of state preserved by this page during an earlier
+        /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
+                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name
+                    && ((SongViewModel)s).AlbumArtist == artist.Name;
 
-                IEnumerable<SongViewModel> songs =
-                    MViewModel.SongsFromArtist(SelectedArtist, MViewModel.Songs, App.SViewModel.FilterByNameOnly);
-
-                Songs.Clear();
-                foreach (SongViewModel song in songs)
-                {
-                    Songs.Add(song);
-                }
-
-                RefreshList(SortMethods.Track);
+                Songs.SortDescriptions.Clear();
+                Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
             }
         }
 
@@ -93,13 +93,14 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
             {
                 int itemIndex = MainList.SelectedIndex;
-
                 if (itemIndex < 0)
                 {
                     return;
                 }
 
-                // await PViewModel.StartPlayback(Songs, itemIndex);
+                SelectedSong = null;
+                await PViewModel.StartPlayback
+                    (Songs.GetEnumerator(), itemIndex, Songs.Count);
             }
         }
 
@@ -119,14 +120,14 @@ namespace RMP.App.Views
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
+            int index = 0;
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int index = MainList.Items.IndexOf(song);
-                // await PViewModel.StartPlayback(Songs, index);
-                return;
+                index = MainList.Items.IndexOf(song);
+                SelectedSong = null;
             }
 
-            // await PViewModel.StartPlayback(Songs, 0);
+            await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -138,59 +139,34 @@ namespace RMP.App.Views
         private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             MenuFlyoutItem item = sender as MenuFlyoutItem;
-            switch (item.Tag.ToString())
+            Songs.SortDescriptions.Clear();
+
+            string tag = item.Tag.ToString();
+            switch (tag)
             {
-                case "Title":
-                    CurrentMethod = SortMethods.Title;
-                    break;
-
-                case "Artist":
-                    CurrentMethod = SortMethods.Artist;
-                    break;
-
-                case "Genre":
-                    CurrentMethod = SortMethods.Genre;
-                    break;
-
-                case "Year":
-                    CurrentMethod = SortMethods.Year;
-                    break;
-
                 case "Ascending":
-                    DescendingSort = false;
+                    CurrentSort = SortDirection.Ascending;
                     break;
 
                 case "Descending":
-                    DescendingSort = true;
+                    CurrentSort = SortDirection.Descending;
+                    break;
+
+                case "Track":
+                    Songs.SortDescriptions.
+                        Add(new SortDescription("Disc", CurrentSort));
+                    SortProperty = tag;
                     break;
 
                 default:
+                    SortProperty = tag;
                     break;
             }
 
-            RefreshList(CurrentMethod);
-        }
-
-        private void Descending_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            DescendingSort = item.IsChecked;
-
-            RefreshList(CurrentMethod);
+            Songs.SortDescriptions.
+                Add(new SortDescription(SortProperty, CurrentSort));
         }
         #endregion
-
-        private void RefreshList(SortMethods method)
-        {
-            var songs = new ObservableCollection<SongViewModel>
-                (App.MViewModel.SortSongs(Songs, method, DescendingSort));
-
-            Songs.Clear();
-            foreach (SongViewModel song in songs)
-            {
-                Songs.Add(song);
-            }
-        }
 
         #region NavigationHelper registration
         /// <summary>
