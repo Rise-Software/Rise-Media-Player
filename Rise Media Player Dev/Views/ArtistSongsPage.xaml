@@ -84,8 +84,8 @@
 
                                 <AppBarButton x:Name="ShuffleItem"
                                               x:Uid="/Information/Shuffle"
-                                              Click="ShuffleButton_Click"
-                                              Icon="Shuffle" />
+                                              Icon="Shuffle"
+                                              IsEnabled="False" />
                                 <AppBarButton x:Uid="/Information/Add" IsEnabled="False" Icon="Add" IsCompact="True">
                                     <AppBarButton.Flyout>
                                         <MenuFlyout>
@@ -109,6 +109,8 @@
                                               Icon="Edit"
                                               IsEnabled="{Binding ElementName=MainList, Path=DataContext.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
+
+                                <AppBarSeparator />
 
                                 <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
                                     <AppBarButton.Flyout>

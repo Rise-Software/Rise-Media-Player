@@ -6,8 +6,10 @@ using RMP.App.ViewModels;
 using RMP.App.Views;
 using RMP.App.Windows;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
@@ -46,12 +48,17 @@ namespace RMP.App
         /// <summary>
         /// Gets the music library.
         /// </summary>
-        public static StorageLibrary MusicLibrary { get; set; }
+        public static StorageLibrary MusicLibrary { get; private set; }
+
+        /// <summary>
+        /// Gets all the folders in the music library.
+        /// </summary>
+        public static List<StorageFolder> MusicFolders { get; private set; }
 
         /// <summary>
         /// Gets the video library.
         /// </summary>
-        public static StorageLibrary VideoLibrary { get; set; }
+        public static StorageLibrary VideoLibrary { get; private set; }
         #endregion
 
         /// <summary>
@@ -74,8 +81,6 @@ namespace RMP.App
 
             InitializeComponent();
             Suspending += OnSuspending;
-
-            InitDatabase();
         }
 
         /// <summary>
@@ -91,6 +96,26 @@ namespace RMP.App
             Repository = new SQLRepository(dbOptions);
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
+
+            MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
+            MusicFolders = new List<StorageFolder>();
+
+            await RefreshMusicLibrary();
+        }
+
+        public static async Task RefreshMusicLibrary()
+        {
+            MusicFolders.Clear();
+            foreach (StorageFolder folder in MusicLibrary.Folders)
+            {
+                MusicFolders.Add(folder);
+            }
+
+            foreach (StorageFolder folder in
+                await KnownFolders.MusicLibrary.GetFoldersAsync())
+            {
+                MusicFolders.Add(folder);
+            }
         }
 
         /// <summary>
@@ -106,6 +131,7 @@ namespace RMP.App
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            InitDatabase();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

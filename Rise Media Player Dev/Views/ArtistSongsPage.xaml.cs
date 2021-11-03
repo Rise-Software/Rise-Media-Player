@@ -130,8 +130,8 @@ namespace RMP.App.Views
             await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
         }
 
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => _ = 1; // await PViewModel.StartShuffle(Songs);
+        // private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            // => await PViewModel.StartShuffle(Songs);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();

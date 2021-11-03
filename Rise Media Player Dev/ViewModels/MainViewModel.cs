@@ -35,7 +35,6 @@ namespace RMP.App.ViewModels
         /// </summary>
         public ObservableCollection<SongViewModel> Songs { get; set; }
             = new ObservableCollection<SongViewModel>();
-
         public AdvancedCollectionView FilteredSongs { get; set; }
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace RMP.App.ViewModels
         /// </summary>
         public ObservableCollection<AlbumViewModel> Albums { get; set; }
             = new ObservableCollection<AlbumViewModel>();
-
         public AdvancedCollectionView FilteredAlbums { get; set; }
 
         /// <summary>
@@ -51,7 +49,6 @@ namespace RMP.App.ViewModels
         /// </summary>
         public ObservableCollection<ArtistViewModel> Artists { get; set; }
             = new ObservableCollection<ArtistViewModel>();
-
         public AdvancedCollectionView FilteredArtists { get; set; }
 
         /// <summary>
@@ -59,7 +56,6 @@ namespace RMP.App.ViewModels
         /// </summary>
         public ObservableCollection<GenreViewModel> Genres { get; set; }
             = new ObservableCollection<GenreViewModel>();
-
         public AdvancedCollectionView FilteredGenres { get; set; }
 
         /// <summary>
@@ -248,7 +244,7 @@ namespace RMP.App.ViewModels
             {
                 await SongsTracker.SetupMusicTracker();
                 await SongIndexer.IndexAllSongsAsync();
-                await SongsTracker.HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
+                await SongsTracker.HandleMusicFolderChanges(App.MusicFolders);
                 return;
             }
 
@@ -293,7 +289,7 @@ namespace RMP.App.ViewModels
 
             await SongsTracker.SetupMusicTracker();
             await SongIndexer.IndexAllSongsAsync();
-            await SongsTracker.HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
+            await SongsTracker.HandleMusicFolderChanges(App.MusicFolders);
         }
 
         /// <summary>

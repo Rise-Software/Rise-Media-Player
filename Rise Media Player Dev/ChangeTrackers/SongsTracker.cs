@@ -25,7 +25,6 @@ namespace RMP.App.ChangeTrackers
         /// </summary>
         public static async Task SetupMusicTracker()
         {
-            App.MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             StorageFolder music = KnownFolders.MusicLibrary;
 
             // Create a query containing all the files the app will be tracking
@@ -71,7 +70,7 @@ namespace RMP.App.ChangeTrackers
                     // This should be a very rare case, but must be handled
                     folderTracker.Reset();
                     await SongIndexer.IndexAllSongsAsync();
-                    await HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
+                    await HandleMusicFolderChanges(App.MusicFolders);
                     return;
                 }
 
@@ -109,9 +108,10 @@ namespace RMP.App.ChangeTrackers
         private static async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
         {
             Debug.WriteLine("Music folder changes!");
+            await App.RefreshMusicLibrary();
 
             await SongIndexer.IndexAllSongsAsync();
-            await HandleMusicFolderChanges(await KnownFolders.MusicLibrary.GetFoldersAsync());
+            await HandleMusicFolderChanges(App.MusicFolders);
         }
 
         /// <summary>
@@ -206,16 +206,13 @@ namespace RMP.App.ChangeTrackers
         /// Manage changes to the music library folders.
         /// </summary>
         /// <param name="folders">Folder changes.</param>
-        public static async Task HandleMusicFolderChanges(IReadOnlyList<StorageFolder> folders)
+        public static async Task HandleMusicFolderChanges(List<StorageFolder> folders)
         {
             foreach (SongViewModel song in ViewModel.Songs)
             {
                 bool isInFolder = false;
                 foreach (StorageFolder folder in folders)
                 {
-                    Debug.WriteLine("-----");
-                    Debug.WriteLine("Location: " + song.Location);
-                    Debug.WriteLine("Path: " + folder.Path + @"\" + Path.GetFileName(song.Location));
                     if (song.Location == folder.Path + @"\" + Path.GetFileName(song.Location))
                     {
                         isInFolder = true;
