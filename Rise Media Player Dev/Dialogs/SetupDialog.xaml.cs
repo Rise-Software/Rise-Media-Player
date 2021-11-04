@@ -1,6 +1,6 @@
 ﻿using RMP.App.Settings.ViewModels;
 using RMP.App.Setup;
-using RMP.App.Windows;
+using RMP.App.Views;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;

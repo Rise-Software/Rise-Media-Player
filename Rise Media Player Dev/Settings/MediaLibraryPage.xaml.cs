@@ -1,6 +1,6 @@
 ﻿using RMP.App.Dialogs;
 using RMP.App.Settings.ViewModels;
-using RMP.App.Windows;
+using RMP.App.Views;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;

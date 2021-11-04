@@ -25,9 +25,9 @@ namespace RMP.App.Settings
         }
 
         private async void TranslateButton_Click(object sender, RoutedEventArgs e)
-            => await FileHelpers.LaunchURIAsync(URLs.Translations);
+            => await FileHelpers.LaunchUriAsync(URLs.Translations);
 
         private async void ReportButton_Click(object sender, RoutedEventArgs e)
-            => await FileHelpers.LaunchURIAsync(URLs.TranslationReports);
+            => await FileHelpers.LaunchUriAsync(URLs.TranslationReports);
     }
 }

@@ -1,12 +1,11 @@
 using RMP.App.ViewModels;
-using RMP.App.Views;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace RMP.App.Windows
+namespace RMP.App.Views
 {
     public sealed partial class NowPlaying : Page
     {

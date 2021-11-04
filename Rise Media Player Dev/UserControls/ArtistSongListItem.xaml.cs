@@ -1,6 +1,5 @@
 ﻿using RMP.App.ViewModels;
 using RMP.App.Views;
-using RMP.App.Windows;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

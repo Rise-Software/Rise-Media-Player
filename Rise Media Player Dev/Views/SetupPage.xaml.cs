@@ -1,5 +1,4 @@
 ﻿using RMP.App.Dialogs;
-using RMP.App.Windows;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -239,8 +239,8 @@ namespace RMP.App.Indexers
                     // Get song thumbnail and make a PNG out of it
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-                    string filename = FileHelpers.MakeValidFileName(song.Album);
-                    filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                    string filename = song.Album.AsValidFileName();
+                    filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                     if (filename != "/")
                     {
@@ -280,8 +280,8 @@ namespace RMP.App.Indexers
                         // Get song thumbnail and make a PNG out of it
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
-                        string filename = FileHelpers.MakeValidFileName(song.Album);
-                        filename = await SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                        string filename = song.Album.AsValidFileName();
+                        filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
 
                         if (filename != "/")
                         {
@@ -329,36 +329,6 @@ namespace RMP.App.Indexers
 
                 await gvm.SaveAsync();
             }
-        }
-
-        /// <summary>
-        /// Convert StorageItemThumbnail to a BitmapImage and save it.
-        /// </summary>
-        /// <param name="thumbnail">StorageItemThumbnail to convert.</param>
-        /// <param name="filename">Filename of output image.</param>
-        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
-        public static async Task<string> SaveBitmapFromThumbnailAsync(StorageItemThumbnail thumbnail, string filename)
-        {
-            if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
-            {
-                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
-
-                Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
-
-                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
-                    buffer.Capacity, InputStreamOptions.None);
-
-                using (IRandomAccessStream strm = await
-                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    _ = await strm.WriteAsync(iBuf);
-                }
-
-                return Path.GetFileNameWithoutExtension(destinationFile.Path);
-            }
-
-            return "/";
         }
     }
 }

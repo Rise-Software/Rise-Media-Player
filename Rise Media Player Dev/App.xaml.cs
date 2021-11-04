@@ -4,7 +4,6 @@ using Rise.Repository.SQL;
 using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
 using RMP.App.Views;
-using RMP.App.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,6 +80,7 @@ namespace RMP.App
 
             InitializeComponent();
             Suspending += OnSuspending;
+            InitDatabase();
         }
 
         /// <summary>
@@ -94,13 +94,14 @@ namespace RMP.App
                 "Data Source=" + dbPath);
 
             Repository = new SQLRepository(dbOptions);
-            MViewModel = new MainViewModel();
-            PViewModel = new PlaybackViewModel();
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             MusicFolders = new List<StorageFolder>();
 
             await RefreshMusicLibrary();
+
+            MViewModel = new MainViewModel();
+            PViewModel = new PlaybackViewModel();
         }
 
         public static async Task RefreshMusicLibrary()
@@ -131,7 +132,6 @@ namespace RMP.App
                 DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            InitDatabase();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

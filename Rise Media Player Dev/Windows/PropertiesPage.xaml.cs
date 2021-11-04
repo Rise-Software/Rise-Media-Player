@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Windows
+namespace RMP.App.Views
 {
     public sealed partial class PropertiesPage : Page
     {

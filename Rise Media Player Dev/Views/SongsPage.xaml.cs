@@ -53,6 +53,7 @@ namespace RMP.App.Views
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            Songs.Filter = null;
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
         }

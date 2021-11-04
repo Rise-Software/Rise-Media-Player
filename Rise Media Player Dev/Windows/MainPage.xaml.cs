@@ -2,7 +2,6 @@
 using RMP.App.Common;
 using RMP.App.Dialogs;
 using RMP.App.Settings.ViewModels;
-using RMP.App.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
-namespace RMP.App.Windows
+namespace RMP.App.Views
 {
     /// <summary>
     /// Main app page, hosts the NavigationView and ContentFrame.
@@ -26,15 +25,6 @@ namespace RMP.App.Windows
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
         public static MainPage Current;
-
-        private readonly NavigationHelper navigationHelper;
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
             = new ObservableCollection<Crumb>();
@@ -136,32 +126,11 @@ namespace RMP.App.Windows
             DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
-            navigationHelper = new NavigationHelper(this);
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
             => MainTitleBarHandle.UpdateTitleBarItems(sender);
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
-        #endregion
 
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
@@ -386,7 +355,7 @@ namespace RMP.App.Windows
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchURIAsync(URLs.Feedback);
+            => _ = await FileHelpers.LaunchUriAsync(URLs.Feedback);
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {

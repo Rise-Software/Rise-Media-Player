@@ -1,5 +1,4 @@
 ﻿using RMP.App.UserControls;
-using RMP.App.Views;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -14,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
-namespace RMP.App.Windows
+namespace RMP.App.Views
 {
     public class GeneralControl
     {

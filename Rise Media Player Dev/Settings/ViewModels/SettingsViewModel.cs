@@ -1,4 +1,4 @@
-﻿using RMP.App.Windows;
+﻿using RMP.App.Views;
 
 namespace RMP.App.Settings.ViewModels
 {
