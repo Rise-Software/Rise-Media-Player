@@ -5,14 +5,11 @@ using RMP.App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
-using Windows.Storage.Streams;
-using Buffer = Windows.Storage.Streams.Buffer;
 
 namespace RMP.App.Indexers
 {

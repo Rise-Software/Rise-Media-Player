@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RMP.App.Indexers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -17,7 +18,7 @@ namespace RMP.App.ViewModels
     public class PlaybackViewModel : BaseViewModel
     {
         /// <summary>
-        /// Creates a new NowPlayingViewModel.
+        /// Creates a new <see cref="PlaybackViewModel"/>.
         /// </summary>
         public PlaybackViewModel()
         {
@@ -67,6 +68,20 @@ namespace RMP.App.ViewModels
         {
             CancelTask();
             await CreatePlaybackList(startIndex, count, songs, Token);
+        }
+
+        public async Task StartPlayback(IEnumerator<IStorageItem> songs, int startIndex, int count)
+        {
+            CancelTask();
+            List<SongViewModel> list = new List<SongViewModel>();
+            while (songs.MoveNext())
+            {
+                list.Add(new SongViewModel
+                    (await SongIndexer.CreateModelAsync(songs.Current as StorageFile)));
+            }
+
+            await CreatePlaybackList(startIndex, count, list.GetEnumerator(), Token);
+            songs.Dispose();
         }
 
         public async Task CreatePlaybackList(int index, int count, IEnumerator<object> songs, CancellationToken token)
@@ -136,10 +151,10 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
-        /// Creates a MediaPlaybackItem from a SongViewModel.
+        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="SongViewModel"/>.
         /// </summary>
         /// <param name="model">Song to convert.</param>
-        /// <returns>A MediaPlaybackItem based on the song.</returns>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         private async Task<MediaPlaybackItem> CreateMusicItem(SongViewModel model)
         {
             StorageFile file = await StorageFile.GetFileFromPathAsync(model.Location);
