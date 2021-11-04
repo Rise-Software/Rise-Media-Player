@@ -100,7 +100,8 @@ namespace RMP.App.Views
 
         private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
         {
-            var parent = VisualTreeHelper.GetParent(sender) as FrameworkElement;
+            FrameworkElement parent =
+                VisualTreeHelper.GetParent(sender) as FrameworkElement;
 
             if (parent.DataContext is AlbumViewModel album)
             {
@@ -135,14 +136,18 @@ namespace RMP.App.Views
 
             Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
-            await PViewModel.StartPlayback
-                (Songs.GetEnumerator(), 0, Songs.Count);
+
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartPlayback
+                    (Songs.GetEnumerator(), 0, Songs.Count);
+            }
+            Songs.Refresh();
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
             Songs.Filter = null;
-
             if (SelectedAlbum != null)
             {
                 if (App.SViewModel.FilterByNameOnly)
@@ -156,8 +161,12 @@ namespace RMP.App.Views
                 }
             }
 
-            await PViewModel.StartShuffle
-                (Songs.GetEnumerator(), Songs.Count);
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartShuffle
+                    (Songs.GetEnumerator(), Songs.Count);
+            }
+            Songs.Refresh();
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)

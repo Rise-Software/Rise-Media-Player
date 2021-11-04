@@ -70,8 +70,12 @@ namespace RMP.App.Views
                 }
 
                 SelectedSong = null;
-                await PViewModel.StartPlayback
-                    (Songs.GetEnumerator(), itemIndex, Songs.Count);
+                using (Songs.DeferRefresh())
+                {
+                    await PViewModel.StartPlayback
+                        (Songs.GetEnumerator(), itemIndex, Songs.Count);
+                }
+                Songs.Refresh();
             }
         }
 
@@ -96,13 +100,21 @@ namespace RMP.App.Views
                 SelectedSong = null;
             }
 
-            await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
+            }
+            Songs.Refresh();
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
             SelectedSong = null;
-            await PViewModel.StartShuffle(Songs.GetEnumerator(), Songs.Count);
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartShuffle(Songs.GetEnumerator(), Songs.Count);
+            }
+            Songs.Refresh();
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)

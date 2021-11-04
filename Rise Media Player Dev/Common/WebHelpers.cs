@@ -44,6 +44,7 @@ namespace RMP.App.Common
                 Debug.WriteLine("Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message);
             }
 
+            client.Dispose();
             return httpResponseBody;
         }
 
@@ -87,6 +88,8 @@ namespace RMP.App.Common
             }
 
             await tempFile.DeleteAsync();
+            client.Dispose();
+
             if (result)
             {
                 path = Path.GetFileNameWithoutExtension(destinationFile.Path);
@@ -105,6 +108,7 @@ namespace RMP.App.Common
         public static async Task<bool> IsImageURLAsync(string url)
         {
             HttpClient client = new HttpClient();
+            bool result = false;
 
             // Send the GET request asynchronously and retrieve the response as a string.
             try
@@ -117,15 +121,16 @@ namespace RMP.App.Common
                 if (type.MediaType.ToLower(CultureInfo.InvariantCulture)
                     .StartsWith("image/"))
                 {
-                    return true;
+                    result = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                Debug.WriteLine(ex.Message);
             }
 
-            return false;
+            client.Dispose();
+            return result;
         }
     }
 }

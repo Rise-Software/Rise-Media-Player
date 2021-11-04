@@ -103,14 +103,18 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
             {
                 int itemIndex = MainList.SelectedIndex;
-
                 if (itemIndex < 0)
                 {
                     return;
                 }
 
-                await PViewModel.StartPlayback
-                    (Songs.GetEnumerator(), itemIndex, Songs.Count);
+                SelectedSong = null;
+                using (Songs.DeferRefresh())
+                {
+                    await PViewModel.StartPlayback
+                        (Songs.GetEnumerator(), itemIndex, Songs.Count);
+                }
+                Songs.Refresh();
             }
         }
 
@@ -121,17 +125,6 @@ namespace RMP.App.Views
                 SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
-        }
-
-        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-        {
-            if (Artist == null)
-            {
-                Artist = App.MViewModel.Artists.
-                    FirstOrDefault(a => a.Name == SelectedAlbum.Artist);
-            }
-
-            Frame.Navigate(typeof(ArtistSongsPage), Artist);
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
@@ -146,14 +139,39 @@ namespace RMP.App.Views
                 SelectedSong = null;
             }
 
-            await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
+            }
+            Songs.Refresh();
         }
 
-        // private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            // => await PViewModel.StartShuffle(Songs);
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedSong = null;
+            using (Songs.DeferRefresh())
+            {
+                await PViewModel.StartShuffle(Songs.GetEnumerator(), Songs.Count);
+            }
+            Songs.Refresh();
+        }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+        {
+            await SelectedSong.StartEdit();
+            SelectedSong = null;
+        }
+
+        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (Artist == null)
+            {
+                Artist = App.MViewModel.Artists.
+                    FirstOrDefault(a => a.Name == SelectedAlbum.Artist);
+            }
+
+            Frame.Navigate(typeof(ArtistSongsPage), Artist);
+        }
         #endregion
 
         #region NavigationHelper registration

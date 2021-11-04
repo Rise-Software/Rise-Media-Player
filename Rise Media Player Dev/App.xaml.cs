@@ -218,8 +218,8 @@ namespace RMP.App
             // Ensure the current window is active
             Window.Current.Activate();
 
-            _ = await GeneralControl.CreateWindow(typeof(NowPlaying),
-                AppWindowPresentationKind.Default, 320, 300);
+            _ = await typeof(NowPlaying).
+                OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
             await PViewModel.StartPlayback(args.Files.GetEnumerator(), 0, args.Files.Count);
         }

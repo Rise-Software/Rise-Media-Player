@@ -15,14 +15,6 @@ namespace RMP.App.Common
     public class FileHelpers
     {
         /// <summary>
-        /// Launchs an <see cref="Uri"/> from a <see cref="string"/>.
-        /// </summary>
-        /// <param name="str">The <see cref="Uri"/> <see cref="string"/>.</param>
-        /// <returns>Whether or not the launch was successful.</returns>
-        public static async Task<bool> LaunchUriAsync(string str)
-            => await Launcher.LaunchUriAsync(new Uri(str));
-
-        /// <summary>
         /// Saves a <see cref="SoftwareBitmap"/> to a <see cref="StorageFile"/>.
         /// </summary>
         /// <param name="softwareBitmap"><see cref="SoftwareBitmap"/> to save.</param>
@@ -69,9 +61,9 @@ namespace RMP.App.Common
         }
 
         /// <summary>
-        /// Convert StorageItemThumbnail to a BitmapImage and save it.
+        /// Converts a <see cref="StorageItemThumbnail"/> to a <see cref="Buffer"/> and saves it.
         /// </summary>
-        /// <param name="thumbnail">StorageItemThumbnail to convert.</param>
+        /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
         /// <param name="filename">Filename of output image.</param>
         /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
         public static async Task<string> SaveBitmapFromThumbnailAsync(StorageItemThumbnail thumbnail, string filename)
@@ -82,7 +74,6 @@ namespace RMP.App.Common
                     CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 
                 Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
-
                 IBuffer iBuf = await thumbnail.ReadAsync(buffer,
                     buffer.Capacity, InputStreamOptions.None);
 
@@ -111,6 +102,22 @@ namespace RMP.App.Common
             '\x0013', '\x0014', '\x0015', '\x0016', '\x0017',
             '\x0018', '\x0019', '\x001a', '\x001b', '\x001c',
             '\x001d', '\x001e', '\x001f', ':', '*', '?', '\\', '/' };
+
+        /// <summary>
+        /// Launchs an <see cref="Uri"/> from a <see cref="string"/>.
+        /// </summary>
+        /// <param name="str">The <see cref="Uri"/> <see cref="string"/>.</param>
+        /// <returns>Whether or not the launch was successful.</returns>
+        public static async Task<bool> LaunchAsync(this string str)
+            => await Launcher.LaunchUriAsync(new Uri(str));
+
+        /// <summary>
+        /// Launchs an <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to launch.</param>
+        /// <returns>Whether or not the launch was successful.</returns>
+        public static async Task<bool> LaunchAsync(this Uri uri)
+            => await Launcher.LaunchUriAsync(uri);
 
         /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 

@@ -13,23 +13,23 @@ namespace RMP.App.Common
         /// <summary>
         /// Tries to find the specified visual child.
         /// </summary>
-        /// <typeparam name="childItem">The kind of item to find.</typeparam>
+        /// <typeparam name="ChildItem">The kind of item to find.</typeparam>
         /// <param name="obj">Object where search will happen.</param>
         /// <returns>The item if it's found, null otherwise.</returns>
-        public static childItem FindVisualChild<childItem>(this DependencyObject obj)
-            where childItem : DependencyObject
+        public static ChildItem FindVisualChild<ChildItem>(this DependencyObject obj)
+            where ChildItem : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(obj, i);
 
-                if (child != null && child is childItem item)
+                if (child != null && child is ChildItem item)
                 {
                     return item;
                 }
                 else
                 {
-                    childItem childOfChild = child.FindVisualChild<childItem>();
+                    ChildItem childOfChild = child.FindVisualChild<ChildItem>();
 
                     if (childOfChild != null)
                     {
@@ -47,9 +47,9 @@ namespace RMP.App.Common
         /// <param name="parent">Where to find the item.</param>
         /// <param name="recurse">Whether or not the search should be recursive.</param>
         /// <returns>All child items found.</returns>
-        public static IEnumerable<childItem> GetChildren<childItem>
+        public static IEnumerable<ChildItem> GetChildren<ChildItem>
             (this DependencyObject parent, bool recurse = false)
-                where childItem : DependencyObject
+                where ChildItem : DependencyObject
         {
             if (parent != null)
             {
@@ -59,13 +59,13 @@ namespace RMP.App.Common
                     // Retrieve child visual at specified index value.
                     DependencyObject child = VisualTreeHelper.GetChild(parent, i);
 
-                    if (child != null && child is childItem item)
+                    if (child != null && child is ChildItem item)
                     {
                         yield return item;
 
                         if (recurse)
                         {
-                            foreach (var grandChild in child.GetChildren<childItem>(true))
+                            foreach (var grandChild in child.GetChildren<ChildItem>(true))
                             {
                                 yield return grandChild;
                             }

@@ -21,7 +21,7 @@ namespace RMP.App.Settings
         }
 
         private async void NavigationExpander_Click(object sender, RoutedEventArgs e)
-            => await FileHelpers.LaunchUriAsync(URLs.License);
+            => _ = await URLs.License.LaunchAsync();
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
         {

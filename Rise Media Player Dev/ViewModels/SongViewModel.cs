@@ -429,7 +429,6 @@ namespace RMP.App.ViewModels
         public async Task StartEdit()
         {
             IsInEdit = true;
-
             StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
             if (file != null)
@@ -439,8 +438,8 @@ namespace RMP.App.ViewModels
                     FileProps = await file.GetBasicPropertiesAsync()
                 };
 
-                _ = await GeneralControl.CreateWindow(typeof(PropertiesPage),
-                    ApplicationViewMode.Default, 380, 550, props);
+                _ = await typeof(PropertiesPage).
+                    OpenInWindowAsync(ApplicationViewMode.Default, 380, 550, props);
             }
         }
 

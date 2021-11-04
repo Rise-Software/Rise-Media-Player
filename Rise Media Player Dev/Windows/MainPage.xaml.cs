@@ -217,8 +217,8 @@ namespace RMP.App.Views
                     break;
 
                 case "NowPlayingPage":
-                    _ = await GeneralControl.CreateWindow(typeof(NowPlaying),
-                        AppWindowPresentationKind.Default, 320, 300);
+                    _ = await typeof(NowPlaying).
+                        OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
                     break;
 
                 case "PlaylistsPage":
@@ -355,7 +355,7 @@ namespace RMP.App.Views
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchUriAsync(URLs.Feedback);
+            => _ = await URLs.Feedback.LaunchAsync();
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {

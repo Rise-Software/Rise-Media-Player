@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -60,8 +61,19 @@ namespace RMP.App.ViewModels
 
         public async Task StartShuffle(IEnumerator<object> songs, int count)
         {
+            List<SongViewModel> list = new List<SongViewModel>();
+
+            while (songs.MoveNext())
+            {
+                list.Add(songs.Current as SongViewModel);
+            }
+
+            Random rng = new Random();
+            list = list.OrderBy(s => rng.Next()).ToList();
+
             CancelTask();
-            await CreatePlaybackList(0, count, songs, Token);
+            await CreatePlaybackList(0, count,
+                list.AsEnumerable().GetEnumerator(), Token);
         }
 
         public async Task StartPlayback(IEnumerator<object> songs, int startIndex, int count)

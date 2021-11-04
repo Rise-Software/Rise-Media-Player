@@ -84,8 +84,8 @@
 
                                 <AppBarButton x:Name="ShuffleItem"
                                               x:Uid="/Information/Shuffle"
-                                              Icon="Shuffle"
-                                              IsEnabled="False" />
+                                              Click="ShuffleButton_Click"
+                                              Icon="Shuffle" />
                                 <AppBarButton x:Uid="/Information/Add" IsEnabled="False" Icon="Add" IsCompact="True">
                                     <AppBarButton.Flyout>
                                         <MenuFlyout>

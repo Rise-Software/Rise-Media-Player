@@ -20,13 +20,9 @@ namespace RMP.App.Dialogs
         public string Description { get; set; }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+            => Hide();
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            await FileHelpers.LaunchUriAsync(URLs.GitHub);
-        }
+            => _ = await URLs.GitHub.LaunchAsync();
     }
 }

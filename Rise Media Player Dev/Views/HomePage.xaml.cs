@@ -25,16 +25,16 @@ namespace RMP.App.Views
         }
 
         private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchUriAsync(URLs.Feedback);
+            => _ = await URLs.Feedback.LaunchAsync();
 
         private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchUriAsync(URLs.Changes);
+            => _ = await URLs.Changes.LaunchAsync();
 
         private async void InsiderButton_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchUriAsync(URLs.Insider);
+            => _ = await URLs.Insider.LaunchAsync();
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
-            => _ = await FileHelpers.LaunchUriAsync(URLs.GitHub);
+            => _ = await URLs.GitHub.LaunchAsync();
 
         #region NavigationHelper registration
         /// <summary>

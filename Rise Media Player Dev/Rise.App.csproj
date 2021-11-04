@@ -221,7 +221,7 @@
     <Compile Include="Views\QueuePage.xaml.cs">
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\WindowControl.cs" />
+    <Compile Include="Common\WindowHelpers.cs" />
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
     </Compile>

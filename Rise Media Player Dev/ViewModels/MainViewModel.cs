@@ -2,13 +2,10 @@
 using Rise.Models;
 using RMP.App.ChangeTrackers;
 using RMP.App.Indexers;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using static RMP.App.Common.Enums;
 
 namespace RMP.App.ViewModels
 {
@@ -57,167 +54,6 @@ namespace RMP.App.ViewModels
             = new ObservableCollection<GenreViewModel>();
         public AdvancedCollectionView FilteredGenres { get; set; }
 
-        /// <summary>
-        /// Filters a song collection based on the provided album.
-        /// </summary>
-        /// <returns>Enumerable with songs from the specified album.</returns>
-        public IEnumerable<SongViewModel> SongsFromAlbum(AlbumViewModel album,
-            ObservableCollection<SongViewModel> songs, bool merge, bool strictFiltering = true)
-        {
-            IEnumerable<SongViewModel> enumerable;
-            if (merge)
-            {
-                if (strictFiltering)
-                {
-                    enumerable = songs.Where(s => s.Model.Album == album.Model.Title);
-                }
-                else
-                {
-                    enumerable = songs.Where(s => s.Model.Album.Contains(album.Model.Title));
-                }
-            }
-            else
-            {
-                if (strictFiltering)
-                {
-                    enumerable = songs.Where(s => s.Model.Album == album.Model.Title
-                    && s.Model.AlbumArtist == album.Model.Artist);
-                }
-                else
-                {
-                    enumerable = songs.Where(s => s.Model.Album.Contains(album.Model.Title)
-                    && s.Model.AlbumArtist.Contains(album.Model.Artist));
-                }
-            }
-
-            return enumerable;
-        }
-
-        /// <summary>
-        /// Filters a song collection based on the provided artist.
-        /// </summary>
-        /// <returns>Enumerable with songs from the specified artist.</returns>
-        public IEnumerable<SongViewModel> SongsFromArtist(ArtistViewModel artist,
-            ObservableCollection<SongViewModel> songs, bool strictFiltering = true)
-        {
-            IEnumerable<SongViewModel> enumerable;
-            if (strictFiltering)
-            {
-                enumerable = songs.Where(s => s.Model.Artist == artist.Model.Name);
-            }
-            else
-            {
-                enumerable = songs.Where(s => s.Model.Artist.Contains(artist.Model.Name));
-            }
-
-            return enumerable;
-        }
-
-        /// <summary>
-        /// Sorts a list of songs.
-        /// </summary>
-        /// <param name="list">List to sort.</param>
-        /// <param name="method">Preferred sorting method.</param>
-        /// <returns>An IOrderedEnumerable with the sorted songs.</returns>
-        public IEnumerable<SongViewModel> SortSongs(IEnumerable<SongViewModel> list,
-            SortMethods method, bool descending = false)
-        {
-            Debug.WriteLine("Sorting...");
-            IEnumerable<SongViewModel> songs;
-
-            switch (method)
-            {
-                case SortMethods.Title:
-                    songs = list.OrderBy(s => s.Title);
-                    break;
-
-                case SortMethods.Album:
-                    songs = list.OrderBy(s => s.Album);
-                    break;
-
-                case SortMethods.AlbumArtist:
-                    songs = list.OrderBy(s => s.AlbumArtist);
-                    break;
-
-                case SortMethods.Artist:
-                    songs = list.OrderBy(s => s.Artist);
-                    break;
-
-                case SortMethods.Genre:
-                    songs = list.OrderBy(s => s.Genres);
-                    break;
-
-                case SortMethods.Year:
-                    songs = list.OrderBy(s => s.Year);
-                    break;
-
-                case SortMethods.Random:
-                    Random rng = new Random();
-                    songs = list.OrderBy(s => rng.Next());
-                    break;
-
-                default:
-                    songs = list.OrderBy(s => s.Disc).ThenBy(s => s.Track);
-                    break;
-            }
-
-            if (descending)
-            {
-                songs = songs.Reverse();
-            }
-
-            return songs;
-        }
-
-        /// <summary>
-        /// Sorts a list of albums.
-        /// </summary>
-        /// <param name="list">List to sort.</param>
-        /// <param name="method">Preferred sorting method.</param>
-        /// <returns>An IOrderedEnumerable with the sorted albums.</returns>
-        public IEnumerable<AlbumViewModel> SortAlbums(IEnumerable<AlbumViewModel> list,
-            SortMethods method, bool merge, bool descending)
-        {
-            Debug.WriteLine("Sorting...");
-            IEnumerable<AlbumViewModel> albums;
-
-            if (merge)
-            {
-                albums = list.GroupBy(a => a.Title).Select(a => a.First());
-            }
-            else
-            {
-                albums = list;
-            }
-
-            switch (method)
-            {
-                case SortMethods.Artist:
-                    albums = albums.OrderBy(a => a.Artist);
-                    break;
-
-                case SortMethods.Genre:
-                    albums = albums.OrderBy(a => a.Genres);
-                    break;
-
-                case SortMethods.Random:
-                    Random rng = new Random();
-                    albums = albums.OrderBy(a => rng.Next());
-                    break;
-
-                default:
-                    albums = albums.OrderBy(a => a.Title);
-                    break;
-            }
-
-            if (descending)
-            {
-                albums = albums.Reverse();
-            }
-
-            return albums;
-        }
-
         private bool _isLoading = false;
 
         /// <summary>
@@ -234,8 +70,7 @@ namespace RMP.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            // _ = await dispatcherQueue.EnqueueAsync(() => IsLoading = true);
-
+            IsLoading = true;
             IEnumerable<Song> songs = await App.Repository.Songs.GetAsync();
 
             // If there are no songs, don't bother loading lists
