@@ -139,6 +139,7 @@
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\VisualTreeHelpers.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Dialogs\LegacySettings.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
-    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
