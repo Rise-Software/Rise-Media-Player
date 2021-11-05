@@ -126,7 +126,7 @@ namespace RMP.App.Views
             DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
-            SDialog.Content = new SettingsDialog();
+            SDialog.Content = new SettingsPage();
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode

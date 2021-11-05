@@ -30,7 +30,7 @@ namespace RMP.App.Settings
             {
                 case "Insider":
                     Frame.Navigate(typeof(InsiderPage));
-                    SettingsDialog.Current.Breadcrumbs.Add
+                    SettingsDialogContainer.Breadcrumbs.Add
                         (ResourceLoaders.SidebarLoader.GetString("Ins"));
                     break;
 
@@ -41,8 +41,6 @@ namespace RMP.App.Settings
         }
 
         private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-            Clipboard.SetContent(VersionData);
-        }
+            => Clipboard.SetContent(VersionData);
     }
 }

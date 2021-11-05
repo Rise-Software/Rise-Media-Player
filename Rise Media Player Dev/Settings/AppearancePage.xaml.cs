@@ -44,8 +44,8 @@ namespace RMP.App.Settings
         {
             Frame.Navigate(typeof(NavigationPage));
 
-            SettingsDialog.Current.
-                Breadcrumbs.Add(ResourceLoaders.AppearanceLoader.GetString("Sidebar"));
+            SettingsDialogContainer.Breadcrumbs.
+                Add(ResourceLoaders.AppearanceLoader.GetString("Sidebar"));
         }
     }
 }

@@ -18,7 +18,8 @@ namespace RMP.App.Settings
         private void NavigationExpander_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InsiderWallpapers));
-            SettingsDialog.Current.Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Walls"));
+            SettingsDialogContainer.Breadcrumbs.
+                Add(ResourceLoaders.SidebarLoader.GetString("Walls"));
         }
     }
 }

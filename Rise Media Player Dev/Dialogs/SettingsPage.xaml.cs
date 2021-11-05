@@ -11,14 +11,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Dialogs
 {
-    public sealed partial class SettingsDialog : Page
+    public sealed partial class SettingsPage : Page
     {
         #region Variables
-        public static SettingsDialog Current;
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        public ObservableCollection<string> Breadcrumbs =
-            new ObservableCollection<string>();
+        public ObservableCollection<string> Breadcrumbs =>
+            SettingsDialogContainer.Breadcrumbs;
 
         private IEnumerable<ToggleButton> Toggles { get; set; }
 
@@ -31,11 +30,9 @@ namespace RMP.App.Dialogs
         private double Breakpoint { get; set; }
         #endregion
 
-        public SettingsDialog()
+        public SettingsPage()
         {
             InitializeComponent();
-            Current = this;
-
             Toggles = ItemGrid.GetChildren<ToggleButton>();
 
             foreach (ToggleButton toggle in Toggles)
@@ -50,7 +47,7 @@ namespace RMP.App.Dialogs
             Library.IsChecked = true;
 
             Loaded += SettingsDialog_Loaded;
-            // SizeChanged += (s, a) => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
+            SizeChanged += (s, a) => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
@@ -66,11 +63,11 @@ namespace RMP.App.Dialogs
 
         private void ResizeDialog(double height, double width)
         {
-            SettingsFrame.Width = width < 800 ?
-                width - 68 : 800 - 68;
+            RootGrid.Width = width < 800 ?
+                width - 12 : 800 - 12;
 
             RootGrid.Height = height < 620 ?
-                height - 64 : 620 - 64;
+                height - 68 : 620 - 68;
 
             if (width - 40 < Breakpoint)
             {
@@ -90,8 +87,8 @@ namespace RMP.App.Dialogs
             }
         }
 
-        // private void CloseButton_Click(object sender, RoutedEventArgs e)
-        // => Hide();
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+            => SettingsDialogContainer.Current.Hide();
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
