@@ -142,7 +142,6 @@
     <Compile Include="Common\VisualTreeHelpers.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
-    <Compile Include="Dialogs\LegacySettings.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
@@ -182,6 +181,9 @@
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ClassicSettings.xaml.cs">
+      <DependentUpon>ClassicSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
@@ -272,7 +274,7 @@
     <Compile Include="Views\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SettingsPage.xaml.cs">
+    <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SetupPage.xaml.cs">
@@ -420,10 +422,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\LegacySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Dialogs\SettingsDialogContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -469,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ArtistSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\ClassicSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -576,7 +578,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\SettingsPage.xaml">
+    <Page Include="Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

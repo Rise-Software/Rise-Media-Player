@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using RMP.App.Common;
+using RMP.App.Dialogs;
 using RMP.App.Settings;
 using RMP.App.Settings.ViewModels;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Dialogs
+namespace RMP.App.Settings
 {
     public sealed partial class SettingsPage : Page
     {

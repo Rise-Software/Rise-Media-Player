@@ -1,27 +1,26 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using RMP.App.Common;
-using RMP.App.Settings;
+using RMP.App.Dialogs;
 using RMP.App.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
-namespace RMP.App.Dialogs
+namespace RMP.App.Settings
 {
-    public sealed partial class LegacySettings : ContentDialog
+    public sealed partial class ClassicSettings : Page
     {
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        public static LegacySettings Current;
-        public ObservableCollection<string> Breadcrumbs =
-            new ObservableCollection<string>();
+        public static ClassicSettings Current;
+        public ObservableCollection<string> Breadcrumbs =>
+            SettingsDialogContainer.Breadcrumbs;
         #endregion
 
         #region NavView Icons
@@ -62,12 +61,12 @@ namespace RMP.App.Dialogs
             new FontIcon() { Glyph = "\uE946" };
         #endregion
 
-        public LegacySettings()
+        public ClassicSettings()
         {
             InitializeComponent();
             Current = this;
 
-            ContentDialog_SizeChanged(null, null);
+            Settings_SizeChanged(null, null);
 
             // Sidebar icon colors
             UpdateIconColor(ViewModel.IconPack);
@@ -103,8 +102,7 @@ namespace RMP.App.Dialogs
                         break;
 
                     case "FeedbackPage":
-                        Uri uri = new Uri(URLs.Feedback);
-                        _ = await Launcher.LaunchUriAsync(uri);
+                        _ = await URLs.Feedback.LaunchAsync();
                         break;
 
                     case "LanguagePage":
@@ -175,7 +173,7 @@ namespace RMP.App.Dialogs
         }
         #endregion
 
-        private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Settings_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             double windowWidth = Window.Current.Bounds.Width;
             double windowHeight = Window.Current.Bounds.Height;
@@ -199,8 +197,6 @@ namespace RMP.App.Dialogs
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+            => SettingsDialogContainer.Current.Hide();
     }
 }
