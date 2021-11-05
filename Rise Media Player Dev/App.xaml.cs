@@ -128,45 +128,7 @@ namespace RMP.App
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (Debugger.IsAttached)
-            {
-                DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (!(Window.Current.Content is Frame rootFrame))
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                // Associate the frame with a SuspensionManager key.
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-                rootFrame.CacheSize = 0;
-
-                if ((e.PreviousExecutionState == ApplicationExecutionState.Terminated) ||
-                    (e.PreviousExecutionState == ApplicationExecutionState.ClosedByUser &&
-                    SViewModel.PickUp))
-                {
-                    // Restore the saved session state only when appropriate.
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue.
-                    }
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
+            Frame rootFrame = await InitializeWindowAsync(e);
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -210,6 +172,34 @@ namespace RMP.App
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
+            Frame rootFrame = await InitializeWindowAsync(args);
+            if (rootFrame.Content == null)
+            {
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                _ = !SViewModel.SetupCompleted
+                    ? rootFrame.Navigate(typeof(SetupPage))
+                    : rootFrame.Navigate(typeof(MainPage));
+            }
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+
+            _ = await typeof(NowPlaying).
+                OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+
+            await PViewModel.StartPlayback(args.Files.GetEnumerator(), 0, args.Files.Count);
+        }
+
+        /// <summary>
+        /// Initializes the main app window.
+        /// </summary>
+        /// <param name="args">Event args, must be of type
+        /// <see cref="FileActivatedEventArgs"/> or <see cref="LaunchActivatedEventArgs"/>.</param>
+        /// <returns>The app window's root frame.</returns>
+        private async Task<Frame> InitializeWindowAsync(dynamic args)
+        {
 #if DEBUG
             if (Debugger.IsAttached)
             {
@@ -249,23 +239,7 @@ namespace RMP.App
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                _ = !SViewModel.SetupCompleted
-                    ? rootFrame.Navigate(typeof(SetupPage))
-                    : rootFrame.Navigate(typeof(MainPage));
-            }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
-
-            _ = await typeof(NowPlaying).
-                OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
-
-            await PViewModel.StartPlayback(args.Files.GetEnumerator(), 0, args.Files.Count);
+            return rootFrame;
         }
     }
 }
