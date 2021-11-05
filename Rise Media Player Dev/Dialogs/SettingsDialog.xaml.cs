@@ -7,10 +7,11 @@ using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Navigation;
 
 namespace RMP.App.Dialogs
 {
-    public sealed partial class SettingsDialog : ContentDialog
+    public sealed partial class SettingsDialog : Page
     {
         #region Variables
         public static SettingsDialog Current;
@@ -48,28 +49,20 @@ namespace RMP.App.Dialogs
             ChangeIcons(ViewModel.ColoredSettingsIcons);
             Library.IsChecked = true;
 
-            // Calculate the breakpoints only on initial opening.
-            Loaded += (s, e) => Opened += SettingsDialog_Opened;
+            Loaded += SettingsDialog_Loaded;
+            // SizeChanged += (s, a) => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        private void SettingsDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
+        private void SettingsDialog_Loaded(object sender, RoutedEventArgs e)
         {
             FirstDefinition.Width = new GridLength(1, GridUnitType.Auto);
 
             Breakpoint = ItemGrid.DesiredSize.Width + SecondGrid.DesiredSize.Width;
             ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
-
             FirstDefinition.Width = new GridLength(1, GridUnitType.Star);
-
-            Opened -= SettingsDialog_Opened;
-            SizeChanged += ContentDialog_SizeChanged;
-
-            // From now on, register the size changed event whenever the dialog gets opened.
-            Opened += (s, e) => SizeChanged += ContentDialog_SizeChanged;
         }
-
-        private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
-            => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
 
         private void ResizeDialog(double height, double width)
         {
@@ -97,8 +90,8 @@ namespace RMP.App.Dialogs
             }
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-            => Hide();
+        // private void CloseButton_Click(object sender, RoutedEventArgs e)
+        // => Hide();
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {

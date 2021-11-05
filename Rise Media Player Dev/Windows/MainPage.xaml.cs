@@ -31,8 +31,8 @@ namespace RMP.App.Views
 
         private MainTitleBar MainTitleBarHandle { get; set; }
 
-        public SettingsDialog SDialog { get; }
-            = new SettingsDialog();
+        public SettingsDialogContainer SDialog { get; }
+            = new SettingsDialogContainer();
         #endregion
 
         #region Classes
@@ -126,6 +126,7 @@ namespace RMP.App.Views
             DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
+            SDialog.Content = new SettingsDialog();
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
