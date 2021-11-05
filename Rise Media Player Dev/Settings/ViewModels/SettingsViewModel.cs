@@ -35,6 +35,12 @@ namespace RMP.App.Settings.ViewModels
         public string Open =>
             OpenLocations[(int)Get("Appearance", nameof(OpenTo), 0)];
 
+        public bool PickUp
+        {
+            get => (bool)Get("Appearance", nameof(PickUp), false);
+            set => Set("Appearance", nameof(PickUp), value);
+        }
+
         public bool CompactMode
         {
             get => (bool)Get("Appearance", nameof(CompactMode), true);

@@ -192,6 +192,9 @@
   <data name="NowPlaying" xml:space="preserve">
     <value>Now Playing</value>
   </data>
+  <data name="PickUp.Title" xml:space="preserve">
+    <value>Pick up where you left off</value>
+  </data>
   <data name="Playlists" xml:space="preserve">
     <value>Playlists</value>
   </data>

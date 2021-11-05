@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Rise.Repository;
 using Rise.Repository.SQL;
+using RMP.App.Common;
 using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
 using RMP.App.Views;
@@ -125,7 +126,7 @@ namespace RMP.App
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (Debugger.IsAttached)
@@ -140,12 +141,26 @@ namespace RMP.App
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                // Associate the frame with a SuspensionManager key.
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+                rootFrame.CacheSize = 0;
+
+                if ((e.PreviousExecutionState == ApplicationExecutionState.Terminated) ||
+                    (e.PreviousExecutionState == ApplicationExecutionState.ClosedByUser &&
+                    SViewModel.PickUp))
                 {
-                    //TODO: Load state from previously suspended application
+                    // Restore the saved session state only when appropriate.
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (SuspensionManagerException)
+                    {
+                        // Something went wrong restoring state.
+                        // Assume there is no state and continue.
+                    }
                 }
 
                 // Place the frame in the current Window
@@ -186,20 +201,49 @@ namespace RMP.App
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
+#if DEBUG
+            if (Debugger.IsAttached)
+            {
+                DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
             if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Associate the frame with a SuspensionManager key.
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+                rootFrame.CacheSize = 0;
+
+                if ((args.PreviousExecutionState == ApplicationExecutionState.Terminated) ||
+                    (args.PreviousExecutionState == ApplicationExecutionState.ClosedByUser &&
+                    SViewModel.PickUp))
+                {
+                    // Restore the saved session state only when appropriate.
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (SuspensionManagerException)
+                    {
+                        // Something went wrong restoring state.
+                        // Assume there is no state and continue.
+                    }
+                }
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;

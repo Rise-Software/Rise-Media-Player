@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -128,6 +129,18 @@ namespace RMP.App.Views
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SDialog.Content = new SettingsPage();
+
+            SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
+            SystemNavigationManagerPreview.GetForCurrentView().
+                CloseRequested += MainPage_CloseRequested;
+        }
+
+        private async void MainPage_CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
+        {
+            if (ViewModel.PickUp)
+            {
+                await SuspensionManager.SaveAsync();
+            }
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
@@ -308,7 +321,10 @@ namespace RMP.App.Views
             UpdateIconColor(ViewModel.IconPack);
 
             // Startup setting
-            await Navigate(ViewModel.Open);
+            if (ContentFrame.Content == null)
+            {
+                await Navigate(ViewModel.Open);
+            }
 
             FinishNavigation();
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);

@@ -17,7 +17,7 @@
                                Icon="&#xE946;">
             <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
         </uc:NavigationExpander>
-            
+
         <TextBlock x:Uid="/Appearance/AppearanceH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"
@@ -42,6 +42,12 @@
             <ComboBox ItemsSource="{x:Bind Startup}"
                       PlaceholderText="Songs"
                       SelectedIndex="{Binding OpenTo, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/PickUp"
+                               ExpanderStyle="Static"
+                               Icon="&#xE126;">
+            <ToggleSwitch IsOn="{Binding PickUp, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
