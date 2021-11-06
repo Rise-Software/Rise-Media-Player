@@ -64,7 +64,7 @@ This is free software with no warranty of any kind. Sorry :(
 
 We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
-![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![OurTerms](https://user-images.githubusercontent.com/74561130/137586737-d792a57b-b2b0-410b-bb2a-a06a4da2ab52.png)](https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) 
+[![OurTerms](https://user-images.githubusercontent.com/74561130/137586737-d792a57b-b2b0-410b-bb2a-a06a4da2ab52.png)](https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE)
 
 
 ## Downloads, Contribute and the Insider Program
@@ -75,8 +75,7 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 **If you are an Insider already, just click the Download button and you'll be taken to a page to download :)**
 
-![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.11.0/RiseMP_v0.0.11.0.msixbundle) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![Contribute](https://user-images.githubusercontent.com/74561130/137586097-1f64560c-9bb1-47cc-bd44-fa87c1b09e5b.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ1pJWFRWOFA1MDk3MUtVRk5SWVlTQktPWS4u) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![Insider Program Settings](https://user-images.githubusercontent.com/74561130/137586189-b814375d-7786-49ba-984c-5d7868b527a4.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) 
-
+[![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.11.0/RiseMP_v0.0.11.0.msixbundle) ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png) [![Contribute](https://user-images.githubusercontent.com/74561130/137586097-1f64560c-9bb1-47cc-bd44-fa87c1b09e5b.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ1pJWFRWOFA1MDk3MUtVRk5SWVlTQktPWS4u)[![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u)[![Insider Program Settings](https://user-images.githubusercontent.com/74561130/137586189-b814375d-7786-49ba-984c-5d7868b527a4.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u)
 ## Credits
 
 **Creators**
