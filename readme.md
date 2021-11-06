@@ -26,7 +26,7 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 ## Features Available in current commit
 
 **All Users, GitHub or Insider**
-* Song & Album Indexing
+* Song & Album Indexing (Brand new system in this build made for speed and stability)
 * Media Playback (MP3, M4A, WAV, FLAC and others)
 * Sorting for Songs and Albums
 * Now Playing Bar
@@ -42,20 +42,18 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 * Early version of command bar with basic functionality
 * Colourful icons setting for more Windows 11 esque experience
 * Casting to devices, repeat
+* Insider Settings page with RiseMP wallpapers
+* Pick up where you left off support
 
 **Insider Exclusives**
 
-(You get these features if you sign up for the Insider Program and use the MSIX version. Cloning from GitHub will not contain these)
-* Prototype settings redesign (may come later than Pre-Alpha 1)
-* Insider settings page with insider options and goodies!
+(You get these features if you sign up for the Insider Program and use the Store version. Cloning from GitHub will not contain these)
+* Nothing yet. There will be some exclusive features and themes for your PC though, so stay tuned! 
 
 ## Planned features
 
 **Coming VERY soon (later in Pre-Alpha / Start of Alpha)**
 
-On GitHub Issues Page
-
-**Features coming later**
 On [GitHub Issues Page](https://github.com/Rise-Software/Rise-Media-Player/issues)
 
 ## Licensing
