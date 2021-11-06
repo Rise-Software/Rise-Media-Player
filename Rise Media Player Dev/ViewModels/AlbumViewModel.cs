@@ -1,7 +1,6 @@
 ﻿using Rise.Models;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -123,7 +122,7 @@ namespace RMP.App.ViewModels
         {
             get
             {
-                int count = App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.WillRemove);
+                int count = App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.Removed);
 
                 if (count == 0)
                 {
@@ -151,9 +150,22 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the item has to be deleted.
+        /// Gets or sets a value that indicates whether or not the
+        /// item has to be removed.
         /// </summary>
-        public bool WillRemove { get; set; }
+        public bool Removed
+        {
+            get => Model.Removed;
+            private set
+            {
+                if (value != Model.Removed)
+                {
+                    Model.Removed = value;
+                    IsModified = true;
+                    OnPropertyChanged(string.Empty);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
@@ -202,6 +214,8 @@ namespace RMP.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
+            Removed = false;
+
             if (IsNewAlbum)
             {
                 IsNewAlbum = false;
@@ -217,12 +231,11 @@ namespace RMP.App.ViewModels
         public async void Delete()
         {
             IsModified = true;
-            WillRemove = true;
+            Removed = true;
 
             App.MViewModel.Albums.Remove(this);
-            await App.Repository.Albums.DeleteAsync(Model).ConfigureAwait(false);
+            await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
             OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
-            Debug.WriteLine("Album removed!");
         }
 
         /// <summary>

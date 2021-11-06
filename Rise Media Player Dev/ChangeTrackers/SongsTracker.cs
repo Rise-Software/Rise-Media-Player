@@ -90,7 +90,7 @@ namespace RMP.App.ChangeTrackers
                         {
                             if (change.PreviousPath == ViewModel.Songs[i].Location)
                             {
-                                await ViewModel.Songs[i].Delete();
+                                await ViewModel.Songs[i].DeleteAsync();
                             }
                         }
                     }
@@ -147,9 +147,8 @@ namespace RMP.App.ChangeTrackers
                     {
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
-                            await ViewModel.Songs[i].Delete();
-                            newSong = await SongIndexer.CreateModelAsync(file);
-                            await SongIndexer.SaveModelsAsync(newSong, file);
+                            ViewModel.Songs[i].Location = file.Path;
+                            await ViewModel.Songs[i].SaveAsync();
                         }
                     }
                     break;
@@ -161,7 +160,7 @@ namespace RMP.App.ChangeTrackers
                     {
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
-                            await ViewModel.Songs[i].Delete();
+                            await ViewModel.Songs[i].DeleteAsync();
                         }
                     }
                     break;
@@ -172,7 +171,7 @@ namespace RMP.App.ChangeTrackers
                     {
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
-                            await ViewModel.Songs[i].Delete();
+                            await ViewModel.Songs[i].DeleteAsync();
                         }
                     }
                     break;
@@ -185,7 +184,7 @@ namespace RMP.App.ChangeTrackers
                     {
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
-                            await ViewModel.Songs[i].Delete();
+                            await ViewModel.Songs[i].DeleteAsync();
                             newSong = await SongIndexer.CreateModelAsync(file);
                             await SongIndexer.SaveModelsAsync(newSong, file);
                         }
@@ -208,6 +207,7 @@ namespace RMP.App.ChangeTrackers
         /// <param name="folders">Folder changes.</param>
         public static async Task HandleMusicFolderChanges(List<StorageFolder> folders)
         {
+            List<SongViewModel> toRemove = new List<SongViewModel>();
             foreach (SongViewModel song in ViewModel.Songs)
             {
                 bool isInFolder = false;
@@ -222,9 +222,17 @@ namespace RMP.App.ChangeTrackers
 
                 if (!isInFolder)
                 {
-                    await song.Delete();
+                    toRemove.Add(song);
                 }
             }
+
+            foreach (SongViewModel song in toRemove)
+            {
+                await song.DeleteAsync();
+            }
+
+            toRemove.Clear();
+            toRemove.TrimExcess();
         }
     }
 }

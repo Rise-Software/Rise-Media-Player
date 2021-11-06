@@ -11,6 +11,7 @@ namespace Rise.Models
         public string Picture { get; set; }
         public int SongCount { get; set; }
         public int AlbumCount { get; set; }
+        public bool Removed { get; set; }
 
         /// <summary>
         /// Returns the Album title.

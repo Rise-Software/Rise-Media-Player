@@ -275,6 +275,8 @@ namespace RMP.App.ViewModels
             }
         }
 
+        private string _thumbnail;
+
         /// <summary>
         /// Gets the song album's thumbnail.
         /// </summary>
@@ -282,30 +284,40 @@ namespace RMP.App.ViewModels
         {
             get
             {
-                string thumb = "ms-appx:///Assets/Default.png";
-                try
+                if (_thumbnail == null)
                 {
-                    thumb = App.MViewModel.Albums.First(a => a.Model.Title == Model.Album
-                        && a.Model.Artist == Model.AlbumArtist).Thumbnail;
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
+                    _thumbnail = "ms-appx:///Assets/Default.png";
+                    try
+                    {
+                        _thumbnail = App.MViewModel.Albums.First(a => a.Model.Title == Model.Album
+                            && a.Model.Artist == Model.AlbumArtist).Thumbnail;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
                 }
 
-                return thumb;
+                return _thumbnail;
             }
         }
 
-        private bool _willRemove;
-
         /// <summary>
-        /// Gets or sets a value that indicates whether the item has to be deleted.
+        /// Gets or sets a value that indicates whether or not the
+        /// item has to be removed.
         /// </summary>
-        public bool WillRemove
+        public bool Removed
         {
-            get => _willRemove;
-            set => Set(ref _willRemove, value);
+            get => Model.Removed;
+            private set
+            {
+                if (value != Model.Removed)
+                {
+                    Model.Removed = value;
+                    IsModified = true;
+                    OnPropertyChanged(string.Empty);
+                }
+            }
         }
 
         /// <summary>
@@ -356,6 +368,7 @@ namespace RMP.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
+            Removed = false;
 
             if (IsNewSong)
             {
@@ -367,24 +380,23 @@ namespace RMP.App.ViewModels
             }
 
             await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
-
         }
 
         /// <summary>
-        /// Delete song from repository and MViewModel.
+        /// Delete song from MViewModel.
         /// </summary>
-        public async Task Delete()
+        public async Task DeleteAsync()
         {
             await CancelEditsAsync();
             IsModified = true;
-            WillRemove = true;
+            Removed = true;
 
             if (!IsNewSong)
             {
                 App.MViewModel.Songs.Remove(this);
             }
 
-            await App.Repository.Songs.DeleteAsync(Model).ConfigureAwait(false);
+            await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
 
             OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
             OnPropertyChanged(nameof(ArtistViewModel.SongCount));

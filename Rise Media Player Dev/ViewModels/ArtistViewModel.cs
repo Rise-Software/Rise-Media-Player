@@ -85,20 +85,20 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the artist's song count.
+        /// Gets or sets a value that indicates whether or not the
+        /// item has to be removed.
         /// </summary>
-        public int SongCount
+        public bool Removed
         {
-            get
+            get => Model.Removed;
+            private set
             {
-                int count = App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
-
-                if (count == 0)
+                if (value != Model.Removed)
                 {
-                    Delete();
+                    Model.Removed = value;
+                    IsModified = true;
+                    OnPropertyChanged(string.Empty);
                 }
-
-                return count;
             }
         }
 
@@ -165,19 +165,30 @@ namespace RMP.App.ViewModels
             return "ms-appx:///Assets/Default.png";
         }
 
+        /// <summary>
+        /// Gets or sets the artist's song count.
+        /// </summary>
+        public int SongCount
+        {
+            get
+            {
+                int count = App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
+
+                if (count == 0)
+                {
+                    Delete();
+                }
+
+                return count;
+            }
+        }
         public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
 
         /// <summary>
         /// Gets or sets the artist's album count.
         /// </summary>
         public int AlbumCount => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
-
         public string Albums => AlbumCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Albums");
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the item has to be deleted.
-        /// </summary>
-        public bool WillRemove { get; set; }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
@@ -226,6 +237,7 @@ namespace RMP.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
+            Removed = false;
 
             if (IsNewArtist)
             {
@@ -243,10 +255,10 @@ namespace RMP.App.ViewModels
         public async void Delete()
         {
             IsModified = true;
-            WillRemove = true;
+            Removed = true;
 
             App.MViewModel.Artists.Remove(this);
-            await App.Repository.Artists.DeleteAsync(Model).ConfigureAwait(false);
+            await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
             Debug.WriteLine("Artist removed!");
         }
 

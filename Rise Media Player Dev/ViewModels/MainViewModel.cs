@@ -89,7 +89,10 @@ namespace RMP.App.ViewModels
             Songs.Clear();
             foreach (Song s in songs)
             {
-                Songs.Add(new SongViewModel(s));
+                if (!s.Removed)
+                {
+                    Songs.Add(new SongViewModel(s));
+                }
             }
 
             Albums.Clear();
@@ -97,7 +100,10 @@ namespace RMP.App.ViewModels
             {
                 foreach (Album a in albums)
                 {
-                    Albums.Add(new AlbumViewModel(a));
+                    if (!a.Removed)
+                    {
+                        Albums.Add(new AlbumViewModel(a));
+                    }
                 }
             }
 
@@ -106,7 +112,10 @@ namespace RMP.App.ViewModels
             {
                 foreach (Artist a in artists)
                 {
-                    Artists.Add(new ArtistViewModel(a));
+                    if (!a.Removed)
+                    {
+                        Artists.Add(new ArtistViewModel(a));
+                    }
                 }
             }
 
@@ -137,7 +146,7 @@ namespace RMP.App.ViewModels
                 foreach (SongViewModel modifiedSong in Songs
                     .Where(song => song.IsModified))
                 {
-                    if (modifiedSong.WillRemove)
+                    if (modifiedSong.Removed)
                     {
                         await App.Repository.Songs.DeleteAsync(modifiedSong.Model);
                     }
@@ -150,7 +159,7 @@ namespace RMP.App.ViewModels
                 foreach (AlbumViewModel modifiedAlbum in Albums
                     .Where(album => album.IsModified))
                 {
-                    if (modifiedAlbum.WillRemove)
+                    if (modifiedAlbum.Removed)
                     {
                         await App.Repository.Albums.DeleteAsync(modifiedAlbum.Model);
                     }
@@ -163,7 +172,7 @@ namespace RMP.App.ViewModels
                 foreach (ArtistViewModel modifiedArtist in Artists
                     .Where(artist => artist.IsModified))
                 {
-                    if (modifiedArtist.WillRemove)
+                    if (modifiedArtist.Removed)
                     {
                         await App.Repository.Artists.DeleteAsync(modifiedArtist.Model);
                     }
