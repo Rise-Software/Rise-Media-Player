@@ -187,7 +187,14 @@ namespace RMP.App
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
-            await SuspensionManager.SaveAsync();
+            try
+            {
+                await SuspensionManager.SaveAsync();
+            }
+            catch (SuspensionManagerException)
+            {
+
+            }
             deferral.Complete();
         }
 

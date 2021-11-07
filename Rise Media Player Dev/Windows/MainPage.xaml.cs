@@ -180,7 +180,14 @@ namespace RMP.App.Views
         {
             if (ViewModel.PickUp)
             {
-                await SuspensionManager.SaveAsync();
+                try
+                {
+                    await SuspensionManager.SaveAsync();
+                }
+                catch (SuspensionManagerException)
+                {
+
+                }
             }
         }
 
