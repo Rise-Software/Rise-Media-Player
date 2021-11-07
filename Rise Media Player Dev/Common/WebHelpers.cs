@@ -42,6 +42,7 @@ namespace RMP.App.Common
             catch (Exception ex)
             {
                 Debug.WriteLine("Error: " + ex.HResult.ToString("X") + " Message: " + ex.Message);
+                httpResponseBody = null;
             }
 
             client.Dispose();

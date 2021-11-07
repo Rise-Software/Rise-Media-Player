@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using RMP.App.Common;
 using RMP.App.Dialogs;
-using RMP.App.Settings;
 using RMP.App.Settings.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

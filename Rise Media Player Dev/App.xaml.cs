@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Rise.Repository;
 using Rise.Repository.SQL;
+using RMP.App.ChangeTrackers;
 using RMP.App.Common;
+using RMP.App.Indexing;
 using RMP.App.Settings.ViewModels;
 using RMP.App.ViewModels;
 using RMP.App.Views;
@@ -60,6 +62,17 @@ namespace RMP.App
         /// Gets the video library.
         /// </summary>
         public static StorageLibrary VideoLibrary { get; private set; }
+
+        /// <summary>
+        /// Gets all the folders in the videos library.
+        /// </summary>
+        public static List<StorageFolder> VideoFolders { get; private set; }
+
+        private static List<StorageLibraryChange> Changes { get; set; }
+            = new List<StorageLibraryChange>();
+
+        public static Indexer Indexer { get; private set; }
+            = new Indexer();
         #endregion
 
         /// <summary>
@@ -82,7 +95,9 @@ namespace RMP.App
 
             InitializeComponent();
             Suspending += OnSuspending;
+
             InitDatabase();
+            // LeavingBackground += BackgroundLeft;
         }
 
         /// <summary>
@@ -99,11 +114,27 @@ namespace RMP.App
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             MusicFolders = new List<StorageFolder>();
-
             await RefreshMusicLibrary();
 
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
+
+            MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+        }
+
+        private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
+        {
+            await MViewModel.IndexSongsAsync();
+            await RefreshMusicLibrary();
+            await SongsTracker.HandleMusicFolderChanges(MusicFolders);
+        }
+
+        private async void BackgroundLeft(object sender, LeavingBackgroundEventArgs e)
+        {
+            // Reindex library when leaving background.
+            await MViewModel.IndexSongsAsync();
+            await RefreshMusicLibrary();
+            await SongsTracker.HandleMusicFolderChanges(MusicFolders);
         }
 
         public static async Task RefreshMusicLibrary()
@@ -213,11 +244,11 @@ namespace RMP.App
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
+                rootFrame.CacheSize = 0;
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Associate the frame with a SuspensionManager key.
                 SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-                rootFrame.CacheSize = 0;
 
                 if ((args.PreviousExecutionState == ApplicationExecutionState.Terminated) ||
                     (args.PreviousExecutionState == ApplicationExecutionState.ClosedByUser &&

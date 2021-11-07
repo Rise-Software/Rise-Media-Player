@@ -105,9 +105,17 @@ namespace RMP.App.ViewModels
         public async Task<string> GetPictureAsync()
         {
             string name = HttpUtility.UrlEncode(Name);
+            string xml = null;
 
-            string xml = await WebHelpers.
-                CreateGETRequestAsync(URLs.MusicBrainz + "artist/?query=artist:" + name);
+            try
+            {
+                xml = await WebHelpers.
+                    CreateGETRequestAsync(URLs.MusicBrainz + "artist/?query=artist:" + name);
+            }
+            catch
+            {
+                return "ms-appx:///Assets/Default.png";
+            }
 
             if (xml == null)
             {
@@ -168,20 +176,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets or sets the artist's song count.
         /// </summary>
-        public int SongCount
-        {
-            get
-            {
-                int count = App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
-
-                if (count == 0)
-                {
-                    Delete();
-                }
-
-                return count;
-            }
-        }
+        public int SongCount => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
         public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
 
         /// <summary>
@@ -250,9 +245,23 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Checks whether or not the artist is available. If it's not,
+        /// delete it.
+        /// </summary>
+        public async Task CheckAvailability()
+        {
+            if (SongCount == 0 && AlbumCount == 0)
+            {
+                await DeleteAsync();
+                return;
+            }
+            Removed = false;
+        }
+
+        /// <summary>
         /// Delete artist from repository and MViewModel.
         /// </summary>
-        public async void Delete()
+        public async Task DeleteAsync()
         {
             IsModified = true;
             Removed = true;

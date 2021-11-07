@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
@@ -131,8 +132,19 @@ namespace RMP.App.Views
             SDialog.Content = new SettingsPage();
 
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
+
             SystemNavigationManagerPreview.GetForCurrentView().
                 CloseRequested += MainPage_CloseRequested;
+
+            App.Indexer.Started += Indexer_Started;
+        }
+
+        private async void Indexer_Started()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                CheckTip.IsOpen = true;
+            });
         }
 
         private async void MainPage_CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)

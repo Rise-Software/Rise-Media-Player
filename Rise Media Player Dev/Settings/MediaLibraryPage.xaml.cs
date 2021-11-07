@@ -3,6 +3,8 @@ using RMP.App.Settings.ViewModels;
 using RMP.App.Views;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,7 +18,7 @@ namespace RMP.App.Settings
 
         public static MediaLibraryPage Current;
         private readonly FoldersDialog Dialog = new FoldersDialog();
-        public ContentDialog dialog = new ContentDialog
+        public ContentDialog FolderDialog = new ContentDialog
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
             PrimaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Add"),
@@ -36,37 +38,33 @@ namespace RMP.App.Settings
             InitializeComponent();
             Current = this;
 
-            dialog.Closing += Dialog_Closing;
-            dialog.Closed += Dialog_Closed;
-            dialog.Content = Dialog;
+            FolderDialog.Closing += Dialog_Closing;
+            FolderDialog.Closed += Dialog_Closed;
+            FolderDialog.Content = Dialog;
 
             DataContext = ViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
-        {
-            _ = await MainPage.Current.SDialog.ShowAsync();
-        }
+            => _ = await MainPage.Current.SDialog.ShowAsync();
 
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.SDialog.Hide();
-            _ = await dialog.ShowAsync();
+            _ = await FolderDialog.ShowAsync();
         }
 
-        private void Dialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        private async void Dialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
         {
             if (args.Result == ContentDialogResult.Primary)
             {
                 args.Cancel = true;
-                AddFolder();
+                _ = await AddFolder();
             }
         }
 
-        public async void AddFolder()
-        {
-            _ = await FoldersDialog.Current.MusicLibrary.RequestAddFolderAsync();
-        }
+        private async Task<StorageFolder> AddFolder()
+            => await FoldersDialog.Current.MusicLibrary.RequestAddFolderAsync();
     }
 }

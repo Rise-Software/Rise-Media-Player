@@ -118,19 +118,8 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Gets or sets the album song count.
         /// </summary>
-        public uint TrackCount
-        {
-            get
-            {
-                int count = App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.Removed);
-
-                if (count == 0)
-                {
-                    Delete();
-                }
-                return (uint)count;
-            }
-        }
+        public int TrackCount =>
+            App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.Removed);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
@@ -226,16 +215,37 @@ namespace RMP.App.ViewModels
         }
 
         /// <summary>
+        /// Checks whether or not the album is available. If it's not,
+        /// delete it.
+        /// </summary>
+        public async Task CheckAvailability()
+        {
+            if (TrackCount == 0)
+            {
+                await DeleteAsync();
+                return;
+            }
+            Removed = false;
+        }
+
+        /// <summary>
         /// Delete album from repository and MViewModel.
         /// </summary>
-        public async void Delete()
+        public async Task DeleteAsync()
         {
             IsModified = true;
             Removed = true;
 
             App.MViewModel.Albums.Remove(this);
             await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
+
+            ArtistViewModel artist = App.MViewModel.Artists.
+                FirstOrDefault(a => a.Model.Name == Model.Artist);
+
+            if (artist != null)
+            {
+                await artist.CheckAvailability();
+            }
         }
 
         /// <summary>

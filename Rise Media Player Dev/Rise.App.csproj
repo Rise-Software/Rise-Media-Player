@@ -150,6 +150,7 @@
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>
@@ -216,7 +217,7 @@
     <Compile Include="Setup\TermsPage.xaml.cs">
       <DependentUpon>TermsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Indexers\SongIndexer.cs" />
+    <Compile Include="Indexing\Indexer.cs" />
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>

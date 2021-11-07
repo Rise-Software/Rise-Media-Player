@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Rise.Models;
+using RMP.App.Props;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -151,6 +155,82 @@ namespace RMP.App.Common
             }
 
             return sb.Length == 0 ? "_" : changed ? sb.ToString() : text;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Song file.</param>
+        /// <returns>A song based on the file.</returns>
+        public static async Task<Song> AsSongModelAsync(this StorageFile file)
+        {
+            // Put the value into memory to make sure that the system
+            // really fetches the property.
+            MusicProperties musicProperties =
+                await file.Properties.GetMusicPropertiesAsync();
+
+            int cd = 1;
+            IDictionary<string, object> extraProps =
+                await file.Properties.RetrievePropertiesAsync(Properties.DiscProperties);
+
+            // Check if disc number is valid.
+            if (extraProps[SystemMusic.DiscNumber] != null)
+            {
+                try
+                {
+                    cd = int.Parse(extraProps[SystemMusic.DiscNumber].ToString());
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Problem: " + ex.Message);
+                    Debug.WriteLine("Problematic disc number: " + extraProps[SystemMusic.DiscNumber].ToString());
+                }
+            }
+            else if (extraProps[SystemMusic.PartOfSet] != null)
+            {
+                try
+                {
+                    cd = int.Parse(extraProps[SystemMusic.PartOfSet].ToString());
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Problem: " + ex.Message);
+                    Debug.WriteLine("Problematic part of set: " + extraProps[SystemMusic.PartOfSet].ToString());
+                }
+            }
+
+            // Valid song metadata is needed.
+            string title = musicProperties.Title.Length > 0
+                ? musicProperties.Title : file.DisplayName;
+
+            string artist = musicProperties.Artist.Length > 0
+                ? musicProperties.Artist : "UnknownArtistResource";
+
+            string albumTitle = musicProperties.Album.Length > 0
+                ? musicProperties.Album : "UnknownAlbumResource";
+
+            string albumArtist = musicProperties.AlbumArtist.Length > 0
+                ? musicProperties.AlbumArtist : "UnknownArtistResource";
+
+            string genre = musicProperties.Genre.FirstOrDefault() != null
+                ? musicProperties.Genre.First() : "UnknownGenreResource";
+
+            string length = musicProperties.Duration.ToString("mm\\:ss");
+
+            return new Song
+            {
+                Title = title,
+                Artist = artist,
+                Track = musicProperties.TrackNumber,
+                Disc = cd,
+                Album = albumTitle,
+                AlbumArtist = albumArtist,
+                Genres = genre,
+                Length = length,
+                Year = musicProperties.Year,
+                Location = file.Path,
+                Rating = musicProperties.Rating
+            };
         }
     }
 }

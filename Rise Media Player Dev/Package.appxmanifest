@@ -53,7 +53,7 @@
 					<!-- File associations for audio files -->
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="mp3">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.mp3</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -61,7 +61,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="m4a">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.m4a</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -69,7 +69,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="wma">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.wma</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -77,7 +77,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="wav">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.wav</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -85,7 +85,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="flac">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.flac</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -93,7 +93,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="ogg">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.ogg</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -101,7 +101,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="aac">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.aac</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -109,7 +109,7 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="aiff">
-							<uap:Logo>Assets/SmallTile.scale-400.png</uap:Logo>
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.aiff</uap:FileType>
 							</uap:SupportedFileTypes>

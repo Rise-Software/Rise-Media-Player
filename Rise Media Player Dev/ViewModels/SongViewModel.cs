@@ -397,9 +397,22 @@ namespace RMP.App.ViewModels
             }
 
             await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
+            AlbumViewModel album = App.MViewModel.Albums.
+                FirstOrDefault(a => a.Model.Title == Model.Album &&
+                           a.Model.Artist == Model.AlbumArtist);
 
-            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
+            if (album != null)
+            {
+                await album.CheckAvailability();
+            }
+
+            ArtistViewModel artist = App.MViewModel.Artists.
+                FirstOrDefault(a => a.Model.Name == Model.Artist);
+            
+            if (artist != null)
+            {
+                await artist.CheckAvailability();
+            }
         }
 
         /// <summary>

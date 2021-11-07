@@ -56,6 +56,7 @@ namespace RMP.App.Views
             Songs.Filter = null;
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
+            Songs.Refresh();
         }
 
         #region Event handlers

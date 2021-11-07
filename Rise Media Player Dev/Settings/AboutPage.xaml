@@ -105,6 +105,7 @@
         <muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"
                           CloseButtonClick="VTip_CloseButtonClick"
+                          IsLightDismissEnabled="True"
                           Target="{x:Bind Version}" />
     </StackPanel>
 </Page>

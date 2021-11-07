@@ -1,4 +1,4 @@
-﻿using RMP.App.Indexers;
+﻿using RMP.App.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -89,7 +89,7 @@ namespace RMP.App.ViewModels
             while (songs.MoveNext())
             {
                 list.Add(new SongViewModel
-                    (await SongIndexer.CreateModelAsync(songs.Current as StorageFile)));
+                    (await (songs.Current as StorageFile).AsSongModelAsync()));
             }
 
             await CreatePlaybackList(startIndex, count, list.GetEnumerator(), Token);
