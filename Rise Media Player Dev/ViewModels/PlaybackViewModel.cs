@@ -16,7 +16,7 @@ using Windows.UI.Core;
 
 namespace RMP.App.ViewModels
 {
-    public class PlaybackViewModel : BaseViewModel
+    public class PlaybackViewModel : BaseViewModel, ICancellableTask
     {
         /// <summary>
         /// Creates a new <see cref="PlaybackViewModel"/>.
@@ -51,12 +51,13 @@ namespace RMP.App.ViewModels
         public MediaPlaybackList PlaybackList { get; set; }
             = new MediaPlaybackList();
 
-        private CancellationTokenSource CTS { get; set; }
+        public CancellationTokenSource CTS { get; set; }
             = new CancellationTokenSource();
 
         public CancellationToken Token => CTS.Token;
 
-        private bool CanContinue = true;
+        public bool CanContinue { get; set; }
+            = true;
         #endregion
 
         public async Task StartShuffle(IEnumerator<object> songs, int count)

@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
-using Windows.UI.Core;
 
 namespace RMP.App.ViewModels
 {
@@ -21,6 +20,24 @@ namespace RMP.App.ViewModels
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         public Indexer Indexer => App.Indexer;
+
+        /// <summary>
+        /// Whether or not are we currently indexing. This is to avoid
+        /// unnecessarily indexing concurrently.
+        /// </summary>
+        public bool IsIndexing = false;
+
+        /// <summary>
+        /// Whether or not is there a recrawl queued. If true,
+        /// <see cref="IndexSongsAsync"/> will call itself when necessary.
+        /// </summary>
+        public bool QueuedReindex = false;
+
+        /// <summary>
+        /// Whether or not can indexing start. This is set to true once
+        /// <see cref="MainPage"/> loads up, at which point indexing starts.
+        /// </summary>
+        public bool CanIndex = false;
 
         /// <summary>
         /// Creates a new MainViewModel.
@@ -140,35 +157,61 @@ namespace RMP.App.ViewModels
                 IsLoading = false;
             }
 
-            await IndexSongsAsync();
             await KnownFolders.MusicLibrary.
                 TrackForegroundAsync(QueryPresets.SongQueryOptions,
                 SongsTracker.MusicQueryResultChanged);
 
+            while (!CanIndex)
+            {
+                await Task.Delay(1000);
+            }
+
+            await StartFullIndex();
+        }
+
+        public async Task StartFullIndex()
+        {
+            await IndexSongsAsync();
+            await App.RefreshMusicLibrary();
             await SongsTracker.HandleMusicFolderChanges(App.MusicFolders);
         }
 
         public async Task IndexSongsAsync()
         {
-            Indexer.Started += DeferMusicRefresh;
-            Indexer.FileIndexed += SongFileIndexed;
-            Indexer.Finished += (s, e) => RefreshMusic();
+            if (!CanIndex)
+            {
+                return;
+            }
 
+            if (IsIndexing)
+            {
+                QueuedReindex = true;
+                return;
+            }
+
+            IsIndexing = true;
+
+            Indexer.CancelTask();
             await Indexer.IndexLibraryAsync(App.MusicLibrary,
                 QueryPresets.SongQueryOptions,
+                Indexer.Token,
+                SongFileIndexed,
                 IndexerOption.UseIndexerWhenAvailable,
                 PropertyPrefetchOptions.MusicProperties,
                 Properties.DiscProperties);
 
-            Indexer.Started -= DeferMusicRefresh;
-            Indexer.FileIndexed -= SongFileIndexed;
-            Indexer.Finished -= (s, e) => RefreshMusic();
+            if (QueuedReindex)
+            {
+                IsIndexing = false;
+                QueuedReindex = false;
+                await IndexSongsAsync();
+            }
         }
 
-        private async void SongFileIndexed(object sender, StorageFile e)
+        private async Task SongFileIndexed(StorageFile file)
         {
-            Song song = await e.AsSongModelAsync();
-            await SaveModelsAsync(song, e);
+            Song song = await file.AsSongModelAsync();
+            await SaveModelsAsync(song, file);
         }
 
         /// <summary>
@@ -368,58 +411,6 @@ namespace RMP.App.ViewModels
                 await GetListsAsync();
                 IsLoading = false;
             });
-        }
-
-        public async void DeferMusicRefresh()
-        {
-            if (MainPage.Current != null)
-            {
-                await MainPage.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    FilteredSongs.DeferRefresh();
-                    FilteredAlbums.DeferRefresh();
-                    FilteredArtists.DeferRefresh();
-                    FilteredGenres.DeferRefresh();
-                });
-            }
-            else
-            {
-                FilteredSongs.DeferRefresh();
-                FilteredAlbums.DeferRefresh();
-                FilteredArtists.DeferRefresh();
-                FilteredGenres.DeferRefresh();
-            }
-        }
-
-        public async void RefreshMusic()
-        {
-            if (MainPage.Current != null)
-            {
-                await MainPage.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    FilteredSongs.DeferRefresh().Dispose();
-                    FilteredAlbums.DeferRefresh().Dispose();
-                    FilteredArtists.DeferRefresh().Dispose();
-                    FilteredGenres.DeferRefresh().Dispose();
-
-                    FilteredSongs.Refresh();
-                    FilteredAlbums.Refresh();
-                    FilteredArtists.Refresh();
-                    FilteredGenres.Refresh();
-                });
-            }
-            else
-            {
-                FilteredSongs.DeferRefresh().Dispose();
-                FilteredAlbums.DeferRefresh().Dispose();
-                FilteredArtists.DeferRefresh().Dispose();
-                FilteredGenres.DeferRefresh().Dispose();
-
-                FilteredSongs.Refresh();
-                FilteredAlbums.Refresh();
-                FilteredArtists.Refresh();
-                FilteredGenres.Refresh();
-            }
         }
     }
 }

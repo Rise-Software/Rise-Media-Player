@@ -166,7 +166,7 @@
     <value>Choose what to show on your Now Playing UI.</value>
   </data>
   <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Customize Now Playing</value>
+    <value>Customise Now Playing</value>
   </data>
   <data name="NowPlayingH.Text" xml:space="preserve">
     <value>Now Playing &amp; System Flyouts</value>

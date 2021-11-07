@@ -240,7 +240,7 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
-            Picture = await GetPictureAsync();
+            Picture = "ms-appx:///Assets/Default.png";
             await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
         }
 

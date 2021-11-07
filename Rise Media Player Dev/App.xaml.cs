@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Rise.Repository;
 using Rise.Repository.SQL;
-using RMP.App.ChangeTrackers;
 using RMP.App.Common;
 using RMP.App.Indexing;
 using RMP.App.Settings.ViewModels;
@@ -123,19 +122,10 @@ namespace RMP.App
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
-        {
-            await MViewModel.IndexSongsAsync();
-            await RefreshMusicLibrary();
-            await SongsTracker.HandleMusicFolderChanges(MusicFolders);
-        }
+            => await MViewModel.StartFullIndex();
 
         private async void BackgroundLeft(object sender, LeavingBackgroundEventArgs e)
-        {
-            // Reindex library when leaving background.
-            await MViewModel.IndexSongsAsync();
-            await RefreshMusicLibrary();
-            await SongsTracker.HandleMusicFolderChanges(MusicFolders);
-        }
+            => await MViewModel.StartFullIndex();
 
         public static async Task RefreshMusicLibrary()
         {

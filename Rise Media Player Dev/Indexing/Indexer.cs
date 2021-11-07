@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RMP.App.Common;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
@@ -9,8 +11,18 @@ using Windows.Storage.Search;
 
 namespace RMP.App.Indexing
 {
-    public class Indexer
+    public class Indexer : ICancellableTask
     {
+        #region Cancellation support
+        public CancellationTokenSource CTS { get; set; }
+            = new CancellationTokenSource();
+
+        public CancellationToken Token => CTS.Token;
+
+        public bool CanContinue { get; set; }
+            = true;
+        #endregion
+
         #region Events and delegates
         public delegate void IndexingStarted();
 
@@ -20,11 +32,20 @@ namespace RMP.App.Indexing
         #endregion
 
         #region Event handlers
+        protected virtual void OnStarted()
+        {
+            CanContinue = false;
+            Started?.Invoke();
+        }
+
         protected virtual void OnFileIndexed(StorageFile file)
             => FileIndexed?.Invoke(this, file);
 
         protected virtual void OnFinished(int files)
-            => Finished?.Invoke(this, files);
+        {
+            CanContinue = true;
+            Finished?.Invoke(this, files);
+        }
         #endregion
 
         /// <summary>
@@ -34,14 +55,33 @@ namespace RMP.App.Indexing
         /// <param name="library"><see cref="StorageLibrary"/> to index.</param>
         /// <param name="queryOptions"><see cref="QueryOptions"/> to use.</param>
         /// <param name="indexerOption">Whether or not to use the system index.</param>
+        /// <param name="processFile">An async delegate that takes an indexed
+        /// <see cref="StorageFile"/> as a parameter. The <see cref="FileIndexed"/>
+        /// event is used if this parameter is set to null.</param>
         /// <param name="prefetchOptions">What options to prefetch.</param>
         /// <param name="extraProps">Extra properties to prefetch.</param>
         public async Task IndexLibraryAsync(StorageLibrary library,
             QueryOptions queryOptions,
+            CancellationToken token,
+            Func<StorageFile, Task> process = null,
             IndexerOption indexerOption = IndexerOption.UseIndexerWhenAvailable,
             PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
             IEnumerable<string> extraProps = null)
         {
+            while (!CanContinue)
+            {
+                // Not so efficient, but it's legitimately the only thing I could
+                // think of to prevent the tasks from overlapping
+                await Task.Delay(30);
+            }
+
+            OnStarted();
+            bool useProc = true;
+            if (process == null)
+            {
+                useProc = false;
+            }
+
             int indexedFiles = 0;
 
             // Optimize indexing performance by using the Windows Indexer.
@@ -51,10 +91,22 @@ namespace RMP.App.Indexing
             queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
 
             // Index library.
-            Started?.Invoke();
             foreach (StorageFolder folder in library.Folders)
             {
-                indexedFiles += await IndexFolderAsync(folder, queryOptions);
+                if (token.IsCancellationRequested)
+                {
+                    OnFinished(indexedFiles);
+                    return;
+                }
+
+                if (useProc)
+                {
+                    indexedFiles += await IndexFolderAsync(folder, queryOptions, token, process);
+                }
+                else
+                {
+                    indexedFiles += await IndexFolderAsync(folder, queryOptions, token);
+                }
             }
 
             OnFinished(indexedFiles);
@@ -66,8 +118,17 @@ namespace RMP.App.Indexing
         /// <param name="folder">Folder to index.</param>
         /// <param name="options">Query options.</param>
         /// <returns>The amount of files indexed.</returns>
-        private async Task<int> IndexFolderAsync(StorageFolder folder, QueryOptions options)
+        private async Task<int> IndexFolderAsync(StorageFolder folder,
+            QueryOptions options,
+            CancellationToken token,
+            Func<StorageFile, Task> process = null)
         {
+            bool useProc = true;
+            if (process == null)
+            {
+                useProc = false;
+            }
+
             int indexedFiles = 0;
 
             // Prepare the query
@@ -87,8 +148,20 @@ namespace RMP.App.Indexing
                 // Process files
                 foreach (StorageFile file in fileList)
                 {
+                    if (token.IsCancellationRequested)
+                    {
+                        return indexedFiles;
+                    }
+
                     indexedFiles++;
-                    OnFileIndexed(file);
+                    if (useProc)
+                    {
+                        await process(file);
+                    }
+                    else
+                    {
+                        OnFileIndexed(file);
+                    }
                 }
 
                 fileList = await fileTask;
@@ -147,6 +220,12 @@ namespace RMP.App.Indexing
             }
 
             OnFinished(indexedFiles);
+        }
+
+        public void CancelTask()
+        {
+            CTS.Cancel();
+            CTS = new CancellationTokenSource();
         }
     }
 

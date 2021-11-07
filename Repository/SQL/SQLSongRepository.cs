@@ -2,7 +2,6 @@
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -55,7 +54,6 @@ namespace Rise.Repository.SQL
             if (null == current)
             {
                 _ = await _db.Songs.AddAsync(song).ConfigureAwait(false);
-                Debug.WriteLine("Upserted song to DB!");
             }
             else
             {

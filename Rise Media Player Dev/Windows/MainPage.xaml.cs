@@ -36,6 +36,11 @@ namespace RMP.App.Views
 
         public SettingsDialogContainer SDialog { get; }
             = new SettingsDialogContainer();
+
+        private IDisposable SongsDefer { get; set; }
+        private IDisposable AlbumsDefer { get; set; }
+        private IDisposable ArtistsDefer { get; set; }
+        private IDisposable GenresDefer { get; set; }
         #endregion
 
         #region Classes
@@ -137,6 +142,7 @@ namespace RMP.App.Views
                 CloseRequested += MainPage_CloseRequested;
 
             App.Indexer.Started += Indexer_Started;
+            App.Indexer.Finished += Indexer_Finished;
         }
 
         private async void Indexer_Started()
@@ -144,6 +150,29 @@ namespace RMP.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 CheckTip.IsOpen = true;
+
+                SongsDefer = App.MViewModel.FilteredSongs.DeferRefresh();
+                AlbumsDefer = App.MViewModel.FilteredAlbums.DeferRefresh();
+                ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
+                GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
+            });
+        }
+
+        private async void Indexer_Finished(object sender, int e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                AddedTip.IsOpen = true;
+
+                SongsDefer.Dispose();
+                AlbumsDefer.Dispose();
+                ArtistsDefer.Dispose();
+                GenresDefer.Dispose();
+
+                App.MViewModel.FilteredSongs.Refresh();
+                App.MViewModel.FilteredAlbums.Refresh();
+                App.MViewModel.FilteredArtists.Refresh();
+                App.MViewModel.FilteredGenres.Refresh();
             });
         }
 
@@ -340,6 +369,8 @@ namespace RMP.App.Views
 
             FinishNavigation();
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+
+            App.MViewModel.CanIndex = true;
         }
 
         /// <summary>

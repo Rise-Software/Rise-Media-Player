@@ -170,9 +170,6 @@ namespace RMP.App.ChangeTrackers
         {
             List<SongViewModel> toRemove = new List<SongViewModel>();
 
-            // Avoid refreshing lists while songs are being added.
-            ViewModel.DeferMusicRefresh();
-
             foreach (SongViewModel song in ViewModel.Songs)
             {
                 bool isInFolder = false;
@@ -198,9 +195,6 @@ namespace RMP.App.ChangeTrackers
 
             toRemove.Clear();
             toRemove.TrimExcess();
-
-            // Refresh all the lists.
-            ViewModel.RefreshMusic();
         }
     }
 }
