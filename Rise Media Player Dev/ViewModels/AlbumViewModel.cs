@@ -199,7 +199,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Saves album data that has been edited.
         /// </summary>
-        public async Task SaveAsync()
+        public void Save()
         {
             IsInEdit = false;
             IsModified = false;
@@ -211,18 +211,18 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Albums.Add(this);
             }
 
-            await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Albums.QueueUpsert(Model);
         }
 
         /// <summary>
         /// Checks whether or not the album is available. If it's not,
         /// delete it.
         /// </summary>
-        public async Task CheckAvailability()
+        public void CheckAvailability()
         {
             if (TrackCount == 0)
             {
-                await DeleteAsync();
+                Delete();
                 return;
             }
             Removed = false;
@@ -231,20 +231,20 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete album from repository and MViewModel.
         /// </summary>
-        public async Task DeleteAsync()
+        public void Delete()
         {
             IsModified = true;
             Removed = true;
 
             App.MViewModel.Albums.Remove(this);
-            await App.Repository.Albums.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Albums.QueueUpsert(Model);
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
 
             if (artist != null)
             {
-                await artist.CheckAvailability();
+                artist.CheckAvailability();
             }
         }
 
@@ -310,6 +310,6 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Called when a bound DataGrid control commits the edits that have been made to an album.
         /// </summary>
-        public async void EndEdit() => await SaveAsync();
+        public void EndEdit() => Save();
     }
 }

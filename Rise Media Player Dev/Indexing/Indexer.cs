@@ -259,6 +259,15 @@ namespace RMP.App.Indexing
             return resultSet;
         }
 
+        /// <summary>
+        /// Registers a background <see cref="StorageLibraryChangeTracker"/>.
+        /// </summary>
+        /// <param name="library">Library to track.</param>
+        /// <param name="taskName">Preferred background task name.</param>
+        /// <param name="entryPoint">The <see cref="BackgroundTaskBuilder.TaskEntryPoint"/>.
+        /// If not provided, the single process model will be used for the background
+        /// task.</param>
+        /// <returns>Whether or not the registration was successful.</returns>
         public static async Task<bool> TrackBackgroundAsync(this StorageLibrary library,
             string taskName, string entryPoint = null)
         {

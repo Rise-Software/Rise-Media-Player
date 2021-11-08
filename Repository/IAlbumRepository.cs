@@ -23,13 +23,17 @@ namespace Rise.Repository
         Task<Album> GetAsync(Guid id);
 
         /// <summary>
-        /// Adds a new album if the album does not exist, updates the 
-        /// existing album otherwise.
+        /// Queues an album for upserting.
         /// </summary>
-        Task UpsertAsync(Album album);
+        void QueueUpsert(Album album);
 
         /// <summary>
-        /// Deletes an album.
+        /// Upserts all queued albums.
+        /// </summary>
+        Task UpsertQueuedAsync();
+
+        /// <summary>
+        /// Deletes a song.
         /// </summary>
         Task DeleteAsync(Album album);
     }

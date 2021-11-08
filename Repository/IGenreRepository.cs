@@ -23,10 +23,14 @@ namespace Rise.Repository
         Task<Genre> GetAsync(Guid id);
 
         /// <summary>
-        /// Adds a new genre if the genre does not exist, updates the 
-        /// existing genre otherwise.
+        /// Queues a genre for upserting.
         /// </summary>
-        Task UpsertAsync(Genre genre);
+        void QueueUpsert(Genre genre);
+
+        /// <summary>
+        /// Upserts all queued genres.
+        /// </summary>
+        Task UpsertQueuedAsync();
 
         /// <summary>
         /// Deletes a genre.

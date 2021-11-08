@@ -166,14 +166,19 @@ namespace RMP.App.ViewModels
                 await Task.Delay(1000);
             }
 
-            await StartFullIndex();
+            await StartFullCrawlAsync();
         }
 
-        public async Task StartFullIndex()
+        public async Task StartFullCrawlAsync()
         {
             await IndexSongsAsync();
             await App.RefreshMusicLibrary();
             await SongsTracker.HandleMusicFolderChanges(App.MusicFolders);
+
+            await App.Repository.Songs.UpsertQueuedAsync();
+            await App.Repository.Albums.UpsertQueuedAsync();
+            await App.Repository.Artists.UpsertQueuedAsync();
+            await App.Repository.Genres.UpsertQueuedAsync();
         }
 
         public async Task IndexSongsAsync()
@@ -242,7 +247,7 @@ namespace RMP.App.ViewModels
             if (!songExists)
             {
                 SongViewModel svm = new SongViewModel(song);
-                await svm.SaveAsync();
+                svm.Save();
             }
 
             // If album isn't there already, add it to the database.
@@ -275,7 +280,7 @@ namespace RMP.App.ViewModels
                 };
 
                 // Add new data to the MViewModel.
-                await alvm.SaveAsync();
+                alvm.Save();
             }
             else
             {
@@ -317,7 +322,7 @@ namespace RMP.App.ViewModels
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                await arvm.SaveAsync();
+                arvm.Save();
             }
 
             // Check for the album artist as well.
@@ -333,7 +338,7 @@ namespace RMP.App.ViewModels
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                await arvm.SaveAsync();
+                arvm.Save();
             }
 
             // If genre isn't there already, add it to the database.
@@ -344,7 +349,7 @@ namespace RMP.App.ViewModels
                     Name = song.Genres
                 };
 
-                await gvm.SaveAsync();
+                gvm.Save();
             }
         }
 
@@ -365,7 +370,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        await App.Repository.Songs.UpsertAsync(modifiedSong.Model);
+                        App.Repository.Songs.QueueUpsert(modifiedSong.Model);
                     }
                 }
 
@@ -378,7 +383,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        await App.Repository.Albums.UpsertAsync(modifiedAlbum.Model);
+                        App.Repository.Albums.QueueUpsert(modifiedAlbum.Model);
                     }
                 }
 
@@ -391,7 +396,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        await App.Repository.Artists.UpsertAsync(modifiedArtist.Model);
+                        App.Repository.Artists.QueueUpsert(modifiedArtist.Model);
                     }
                 }
 
@@ -404,7 +409,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        await App.Repository.Genres.UpsertAsync(modifiedGenre.Model);
+                        App.Repository.Genres.QueueUpsert(modifiedGenre.Model);
                     }
                 }
 

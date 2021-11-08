@@ -23,10 +23,14 @@ namespace Rise.Repository
         Task<Song> GetAsync(Guid id);
 
         /// <summary>
-        /// Adds a new song if the song does not exist, updates the 
-        /// existing song otherwise.
+        /// Queues a song for upserting.
         /// </summary>
-        Task UpsertAsync(Song song);
+        void QueueUpsert(Song song);
+
+        /// <summary>
+        /// Upserts all queued songs.
+        /// </summary>
+        Task UpsertQueuedAsync();
 
         /// <summary>
         /// Deletes a song.

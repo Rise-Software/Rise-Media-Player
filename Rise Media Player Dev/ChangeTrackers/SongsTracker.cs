@@ -49,9 +49,7 @@ namespace RMP.App.ChangeTrackers
                 }
                 else if (change.IsOfType(StorageItemTypes.Folder))
                 {
-                    await ViewModel.IndexSongsAsync();
-                    await App.RefreshMusicLibrary();
-                    await HandleMusicFolderChanges(App.MusicFolders);
+                    await ViewModel.StartFullCrawlAsync();
                 }
                 else
                 {
@@ -109,7 +107,7 @@ namespace RMP.App.ChangeTrackers
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
                             ViewModel.Songs[i].Location = file.Path;
-                            await ViewModel.Songs[i].SaveAsync();
+                            ViewModel.Songs[i].Save();
                         }
                     }
                     break;

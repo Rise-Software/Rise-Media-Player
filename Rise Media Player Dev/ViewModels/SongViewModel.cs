@@ -364,7 +364,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Saves song data that has been edited.
         /// </summary>
-        public async Task SaveAsync()
+        public void Save()
         {
             IsInEdit = false;
             IsModified = false;
@@ -379,7 +379,7 @@ namespace RMP.App.ViewModels
                 OnPropertyChanged(nameof(ArtistViewModel.SongCount));
             }
 
-            await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Songs.QueueUpsert(Model);
         }
 
         /// <summary>
@@ -396,22 +396,22 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Songs.Remove(this);
             }
 
-            await App.Repository.Songs.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Songs.QueueUpsert(Model);
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
 
             if (album != null)
             {
-                await album.CheckAvailability();
+                album.CheckAvailability();
             }
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
-            
+
             if (artist != null)
             {
-                await artist.CheckAvailability();
+                artist.CheckAvailability();
             }
         }
 

@@ -228,7 +228,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Saves artist data that has been edited.
         /// </summary>
-        public async Task SaveAsync()
+        public void Save()
         {
             IsInEdit = false;
             IsModified = false;
@@ -241,18 +241,18 @@ namespace RMP.App.ViewModels
             }
 
             Picture = "ms-appx:///Assets/Default.png";
-            await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Artists.QueueUpsert(Model);
         }
 
         /// <summary>
         /// Checks whether or not the artist is available. If it's not,
         /// delete it.
         /// </summary>
-        public async Task CheckAvailability()
+        public void CheckAvailability()
         {
             if (SongCount == 0 && AlbumCount == 0)
             {
-                await DeleteAsync();
+                Delete();
                 return;
             }
             Removed = false;
@@ -261,13 +261,13 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete artist from repository and MViewModel.
         /// </summary>
-        public async Task DeleteAsync()
+        public void Delete()
         {
             IsModified = true;
             Removed = true;
 
             App.MViewModel.Artists.Remove(this);
-            await App.Repository.Artists.UpsertAsync(Model).ConfigureAwait(false);
+            App.Repository.Artists.QueueUpsert(Model);
             Debug.WriteLine("Artist removed!");
         }
 
@@ -333,6 +333,6 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Called when a bound DataGrid control commits the edits that have been made to an artist.
         /// </summary>
-        public async void EndEdit() => await SaveAsync();
+        public void EndEdit() => Save();
     }
 }

@@ -122,10 +122,10 @@ namespace RMP.App
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
-            => await MViewModel.StartFullIndex();
+            => await MViewModel.StartFullCrawlAsync();
 
         private async void BackgroundLeft(object sender, LeavingBackgroundEventArgs e)
-            => await MViewModel.StartFullIndex();
+            => await MViewModel.StartFullCrawlAsync();
 
         public static async Task RefreshMusicLibrary()
         {

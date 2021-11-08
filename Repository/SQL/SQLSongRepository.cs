@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace Rise.Repository.SQL
     public class SQLSongRepository : ISongRepository
     {
         private readonly Context _db;
+        private readonly List<Song> _songs;
 
         public SQLSongRepository(Context db)
         {
             _db = db;
+            _songs = new List<Song>();
         }
 
         public async Task<IEnumerable<Song>> GetAsync()
@@ -48,19 +51,13 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public async Task UpsertAsync(Song song)
-        {
-            Song current = await _db.Songs.FirstOrDefaultAsync(_song => _song.Id == song.Id).ConfigureAwait(false);
-            if (null == current)
-            {
-                _ = await _db.Songs.AddAsync(song).ConfigureAwait(false);
-            }
-            else
-            {
-                _db.Entry(current).CurrentValues.SetValues(song);
-            }
+        public void QueueUpsert(Song song)
+            => _songs.Add(song);
 
-            _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+        public async Task UpsertQueuedAsync()
+        {
+            await _db.BulkInsertOrUpdateAsync(_songs);
+            _songs.Clear();
         }
 
         public async Task DeleteAsync(Song song)

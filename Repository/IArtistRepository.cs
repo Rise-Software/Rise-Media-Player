@@ -23,10 +23,14 @@ namespace Rise.Repository
         Task<Artist> GetAsync(Guid id);
 
         /// <summary>
-        /// Adds a new artist if the artist does not exist, updates the 
-        /// existing artist otherwise.
+        /// Queues an artist for upserting.
         /// </summary>
-        Task UpsertAsync(Artist artist);
+        void QueueUpsert(Artist artist);
+
+        /// <summary>
+        /// Upserts all queued artists.
+        /// </summary>
+        Task UpsertQueuedAsync();
 
         /// <summary>
         /// Deletes an artist.
