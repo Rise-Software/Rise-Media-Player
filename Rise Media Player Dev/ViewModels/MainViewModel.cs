@@ -207,10 +207,11 @@ namespace RMP.App.ViewModels
 
             if (QueuedReindex)
             {
-                IsIndexing = false;
                 QueuedReindex = false;
                 await IndexSongsAsync();
             }
+
+            IsIndexing = false;
         }
 
         private async Task SongFileIndexed(StorageFile file)

@@ -96,7 +96,7 @@ namespace RMP.App
             Suspending += OnSuspending;
 
             InitDatabase();
-            // LeavingBackground += BackgroundLeft;
+            LeavingBackground += BackgroundLeft;
         }
 
         /// <summary>
@@ -122,7 +122,10 @@ namespace RMP.App
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
-            => await MViewModel.StartFullCrawlAsync();
+        {
+            Debug.WriteLine("Definition changes!");
+            await MViewModel.StartFullCrawlAsync();
+        }
 
         private async void BackgroundLeft(object sender, LeavingBackgroundEventArgs e)
             => await MViewModel.StartFullCrawlAsync();
