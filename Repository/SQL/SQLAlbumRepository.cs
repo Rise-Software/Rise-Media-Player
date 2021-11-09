@@ -49,8 +49,14 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public void QueueUpsert(Album album)
-            => _albums.Add(album);
+        public async Task QueueUpsertAsync(Album album)
+        {
+            _albums.Add(album);
+            if (_albums.Count >= 200)
+            {
+                await UpsertQueuedAsync();
+            }
+        }
 
         public async Task UpsertQueuedAsync()
         {

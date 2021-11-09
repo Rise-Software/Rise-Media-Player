@@ -96,7 +96,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Saves genre data that has been edited.
         /// </summary>
-        public void Save()
+        public async Task SaveAsync()
         {
             IsModified = false;
             if (IsNewGenre)
@@ -105,7 +105,7 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Genres.Add(this);
             }
 
-            App.Repository.Genres.QueueUpsert(Model);
+            await App.Repository.Genres.QueueUpsertAsync(Model);
         }
     }
 }

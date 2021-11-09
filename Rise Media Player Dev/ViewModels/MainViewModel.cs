@@ -248,7 +248,7 @@ namespace RMP.App.ViewModels
             if (!songExists)
             {
                 SongViewModel svm = new SongViewModel(song);
-                svm.Save();
+                await svm.SaveAsync();
             }
 
             // If album isn't there already, add it to the database.
@@ -323,7 +323,7 @@ namespace RMP.App.ViewModels
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                arvm.Save();
+                await arvm.SaveAsync();
             }
 
             // Check for the album artist as well.
@@ -339,7 +339,7 @@ namespace RMP.App.ViewModels
                     Picture = "ms-appx:///Assets/Default.png"
                 };
 
-                arvm.Save();
+                await arvm.SaveAsync();
             }
 
             // If genre isn't there already, add it to the database.
@@ -350,7 +350,7 @@ namespace RMP.App.ViewModels
                     Name = song.Genres
                 };
 
-                gvm.Save();
+                await gvm.SaveAsync();
             }
         }
 
@@ -371,7 +371,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        App.Repository.Songs.QueueUpsert(modifiedSong.Model);
+                        await App.Repository.Songs.QueueUpsertAsync(modifiedSong.Model);
                     }
                 }
 
@@ -384,7 +384,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        App.Repository.Albums.QueueUpsert(modifiedAlbum.Model);
+                        await App.Repository.Albums.QueueUpsertAsync(modifiedAlbum.Model);
                     }
                 }
 
@@ -397,7 +397,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        App.Repository.Artists.QueueUpsert(modifiedArtist.Model);
+                        await App.Repository.Artists.QueueUpsertAsync(modifiedArtist.Model);
                     }
                 }
 
@@ -410,7 +410,7 @@ namespace RMP.App.ViewModels
                     }
                     else
                     {
-                        App.Repository.Genres.QueueUpsert(modifiedGenre.Model);
+                        await App.Repository.Genres.QueueUpsertAsync(modifiedGenre.Model);
                     }
                 }
 

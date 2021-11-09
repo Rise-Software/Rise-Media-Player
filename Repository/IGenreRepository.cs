@@ -25,7 +25,7 @@ namespace Rise.Repository
         /// <summary>
         /// Queues a genre for upserting.
         /// </summary>
-        void QueueUpsert(Genre genre);
+        Task QueueUpsertAsync(Genre genre);
 
         /// <summary>
         /// Upserts all queued genres.

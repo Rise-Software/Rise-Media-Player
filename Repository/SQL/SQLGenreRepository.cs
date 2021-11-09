@@ -47,8 +47,14 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public void QueueUpsert(Genre genre)
-            => _genres.Add(genre);
+        public async Task QueueUpsertAsync(Genre genre)
+        {
+            _genres.Add(genre);
+            if (_genres.Count >= 200)
+            {
+                await UpsertQueuedAsync();
+            }
+        }
 
         public async Task UpsertQueuedAsync()
         {

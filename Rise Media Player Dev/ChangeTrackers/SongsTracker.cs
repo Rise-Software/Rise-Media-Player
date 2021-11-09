@@ -107,7 +107,7 @@ namespace RMP.App.ChangeTrackers
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
                             ViewModel.Songs[i].Location = file.Path;
-                            ViewModel.Songs[i].Save();
+                            await ViewModel.Songs[i].SaveAsync();
                         }
                     }
                     break;

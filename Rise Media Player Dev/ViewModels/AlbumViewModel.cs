@@ -211,18 +211,18 @@ namespace RMP.App.ViewModels
                 App.MViewModel.Albums.Add(this);
             }
 
-            App.Repository.Albums.QueueUpsert(Model);
+            App.Repository.Albums.QueueUpsertAsync(Model);
         }
 
         /// <summary>
         /// Checks whether or not the album is available. If it's not,
         /// delete it.
         /// </summary>
-        public void CheckAvailability()
+        public async Task CheckAvailabilityAsync()
         {
             if (TrackCount == 0)
             {
-                Delete();
+                await DeleteAsync();
                 return;
             }
             Removed = false;
@@ -231,20 +231,20 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete album from repository and MViewModel.
         /// </summary>
-        public void Delete()
+        public async Task DeleteAsync()
         {
             IsModified = true;
             Removed = true;
 
             App.MViewModel.Albums.Remove(this);
-            App.Repository.Albums.QueueUpsert(Model);
+            await App.Repository.Albums.QueueUpsertAsync(Model);
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
 
             if (artist != null)
             {
-                artist.CheckAvailability();
+                await artist.CheckAvailabilityAsync();
             }
         }
 

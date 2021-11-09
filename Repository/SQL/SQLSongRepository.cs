@@ -51,8 +51,14 @@ namespace Rise.Repository.SQL
                 .ToListAsync();
         }
 
-        public void QueueUpsert(Song song)
-            => _songs.Add(song);
+        public async Task QueueUpsertAsync(Song song)
+        {
+            _songs.Add(song);
+            if (_songs.Count >= 200)
+            {
+                await UpsertQueuedAsync();
+            }
+        }
 
         public async Task UpsertQueuedAsync()
         {

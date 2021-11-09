@@ -146,7 +146,7 @@ namespace RMP.App.ViewModels
                     result = false;
                 }
 
-                Song.Save();
+                await Song.SaveAsync();
             }
 
             return result;

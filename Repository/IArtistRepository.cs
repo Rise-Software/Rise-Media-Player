@@ -25,7 +25,7 @@ namespace Rise.Repository
         /// <summary>
         /// Queues an artist for upserting.
         /// </summary>
-        void QueueUpsert(Artist artist);
+        Task QueueUpsertAsync(Artist artist);
 
         /// <summary>
         /// Upserts all queued artists.

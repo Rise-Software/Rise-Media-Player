@@ -105,7 +105,7 @@ namespace RMP.App.ViewModels
         public async Task<string> GetPictureAsync()
         {
             string name = HttpUtility.UrlEncode(Name);
-            string xml = null;
+            string xml;
 
             try
             {
@@ -228,7 +228,7 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Saves artist data that has been edited.
         /// </summary>
-        public void Save()
+        public async Task SaveAsync()
         {
             IsInEdit = false;
             IsModified = false;
@@ -241,18 +241,18 @@ namespace RMP.App.ViewModels
             }
 
             Picture = "ms-appx:///Assets/Default.png";
-            App.Repository.Artists.QueueUpsert(Model);
+            await App.Repository.Artists.QueueUpsertAsync(Model);
         }
 
         /// <summary>
         /// Checks whether or not the artist is available. If it's not,
         /// delete it.
         /// </summary>
-        public void CheckAvailability()
+        public async Task CheckAvailabilityAsync()
         {
             if (SongCount == 0 && AlbumCount == 0)
             {
-                Delete();
+                await DeleteAsync();
                 return;
             }
             Removed = false;
@@ -261,13 +261,13 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Delete artist from repository and MViewModel.
         /// </summary>
-        public void Delete()
+        public async Task DeleteAsync()
         {
             IsModified = true;
             Removed = true;
 
             App.MViewModel.Artists.Remove(this);
-            App.Repository.Artists.QueueUpsert(Model);
+            await App.Repository.Artists.QueueUpsertAsync(Model);
             Debug.WriteLine("Artist removed!");
         }
 
@@ -333,6 +333,6 @@ namespace RMP.App.ViewModels
         /// <summary>
         /// Called when a bound DataGrid control commits the edits that have been made to an artist.
         /// </summary>
-        public void EndEdit() => Save();
+        public async Task EndEditAsync() => await SaveAsync();
     }
 }
