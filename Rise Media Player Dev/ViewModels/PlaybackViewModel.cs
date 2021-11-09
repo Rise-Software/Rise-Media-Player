@@ -145,15 +145,15 @@ namespace RMP.App.ViewModels
                     return;
                 }
 
-                item = await CreateMusicItem(songs.Current as SongViewModel);
-                PlaybackList.Items.Add(item);
-                PlayingSongs.Add(songs.Current as SongViewModel);
-
                 if (!songs.MoveNext())
                 {
                     songs.Reset();
                     songs.MoveNext();
                 }
+
+                item = await CreateMusicItem(songs.Current as SongViewModel);
+                PlaybackList.Items.Add(item);
+                PlayingSongs.Add(songs.Current as SongViewModel);
 
                 addedSongs++;
             }

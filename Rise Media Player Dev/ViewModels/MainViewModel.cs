@@ -171,9 +171,9 @@ namespace RMP.App.ViewModels
 
         public async Task StartFullCrawlAsync()
         {
-            await IndexSongsAsync();
             await App.RefreshMusicLibrary();
             await SongsTracker.HandleMusicFolderChanges(App.MusicFolders);
+            await IndexSongsAsync();
 
             await App.Repository.Songs.UpsertQueuedAsync();
             await App.Repository.Albums.UpsertQueuedAsync();

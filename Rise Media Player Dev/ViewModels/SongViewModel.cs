@@ -309,15 +309,7 @@ namespace RMP.App.ViewModels
         public bool Removed
         {
             get => Model.Removed;
-            private set
-            {
-                if (value != Model.Removed)
-                {
-                    Model.Removed = value;
-                    IsModified = true;
-                    OnPropertyChanged(string.Empty);
-                }
-            }
+            private set => Model.Removed = value;
         }
 
         /// <summary>
