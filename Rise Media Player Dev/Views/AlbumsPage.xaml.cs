@@ -112,6 +112,14 @@ namespace RMP.App.Views
             SelectedAlbum = null;
         }
 
+        private void ShowArtist_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(ArtistSongsPage),
+                App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedAlbum.Artist));
+
+            SelectedAlbum = null;
+        }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             Songs.Filter = null;

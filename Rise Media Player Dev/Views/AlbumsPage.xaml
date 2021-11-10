@@ -113,6 +113,7 @@
                                               x:Uid="/Information/NameOnly"
                                               Click="Merge_Click"
                                               IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}"
+                                              IsEnabled="False"
                                               Tag="Merge" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
@@ -142,17 +143,40 @@
                   Tapped="GridView_Tapped">
             <GridView.Resources>
                 <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbum">
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    Click="PlayButton_Click">
                         <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
+                            <FontIcon Glyph="&#xE102;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShuffleAlbum"
+                                    Click="ShuffleButton_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE14B;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShowArtist"
+                                    Click="ShowArtist_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE125;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem x:Name="Props"
                                     x:Uid="/MediaData/Properties"
                                     IsEnabled="False">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbum">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout>

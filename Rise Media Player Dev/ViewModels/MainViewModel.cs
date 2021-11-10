@@ -50,6 +50,8 @@ namespace RMP.App.ViewModels
             FilteredGenres = new AdvancedCollectionView(Genres);
 
             _ = Task.Run(GetListsAsync);
+            Windows.UI.Xaml.Application.Current.LeavingBackground +=
+                async (s, e) => await StartFullCrawlAsync();
         }
 
         /// <summary>

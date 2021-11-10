@@ -195,6 +195,9 @@
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
     <value>Play</value>
   </data>
+  <data name="PlayItem.Text" xml:space="preserve">
+    <value>Play</value>
+  </data>
   <data name="Remove.Text" xml:space="preserve">
     <value>Remove from sidebar</value>
   </data>
@@ -216,8 +219,14 @@
   <data name="SetupFinalise.Title" xml:space="preserve">
     <value>Applying settings</value>
   </data>
+  <data name="ShowArtist.Text" xml:space="preserve">
+    <value>Show artist</value>
+  </data>
   <data name="Shuffle.Label" xml:space="preserve">
     <value>Shuffle</value>
+  </data>
+  <data name="ShuffleAlbum.Text" xml:space="preserve">
+    <value>Shuffle whole album</value>
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>
