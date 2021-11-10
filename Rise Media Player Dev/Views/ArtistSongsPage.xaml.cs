@@ -124,6 +124,10 @@ namespace RMP.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 index = MainList.Items.IndexOf(song);
+            }
+            else if (SelectedSong != null)
+            {
+                index = MainList.Items.IndexOf(SelectedSong);
                 SelectedSong = null;
             }
 

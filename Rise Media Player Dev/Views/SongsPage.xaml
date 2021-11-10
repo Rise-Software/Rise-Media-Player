@@ -118,8 +118,23 @@
                   SelectionMode="Single">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
-                    <MenuFlyoutItem x:Name="Props"
-                                    x:Uid="/MediaData/Properties"
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    Click="PlayButton_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE102;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShowArtist"
+                                    Click="ShowArtist_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE125;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutItem x:Uid="/MediaData/Properties"
                                     Click="Props_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;" />

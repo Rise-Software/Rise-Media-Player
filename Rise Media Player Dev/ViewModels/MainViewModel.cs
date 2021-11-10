@@ -159,15 +159,14 @@ namespace RMP.App.ViewModels
                 IsLoading = false;
             }
 
-            await KnownFolders.MusicLibrary.
-                TrackForegroundAsync(QueryPresets.SongQueryOptions,
-                SongsTracker.MusicQueryResultChanged);
-
             while (!CanIndex)
             {
                 await Task.Delay(1000);
             }
 
+            await KnownFolders.MusicLibrary.
+                TrackForegroundAsync(QueryPresets.SongQueryOptions,
+                SongsTracker.MusicQueryResultChanged);
             await StartFullCrawlAsync();
         }
 

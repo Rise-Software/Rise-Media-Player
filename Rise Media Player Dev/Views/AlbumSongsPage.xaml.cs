@@ -130,12 +130,24 @@ namespace RMP.App.Views
         private async void Props_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();
 
+        private void ShowArtist_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(ArtistSongsPage),
+                App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedSong.Artist));
+
+            SelectedSong = null;
+        }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             int index = 0;
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 index = MainList.Items.IndexOf(song);
+            }
+            else if (SelectedSong != null)
+            {
+                index = MainList.Items.IndexOf(SelectedSong);
                 SelectedSong = null;
             }
 
