@@ -248,7 +248,15 @@ namespace RMP.App.Views
                     break;
 
                 case "DiscyPage":
-                    _ = ContentFrame.Navigate(typeof(DiscyPage));
+                    // _ = ContentFrame.Navigate(typeof(DiscyPage));
+                    dialog = new UnavailableDialog
+                    {
+                        Header = "Help & Tips are not available yet.",
+                        Description = "Hopefully you'll find this section helpful!",
+                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")),
+                    };
+
+                    _ = await dialog.ShowAsync();
                     break;
 
                 case "GenresPage":
@@ -490,8 +498,11 @@ namespace RMP.App.Views
             ViewModel.ChangeHeaderVisibility(visibilityCheck);
         }
 
-        private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
-            => App.MViewModel.Sync();
+        private async void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            await App.MViewModel.StartFullCrawlAsync();
+            App.MViewModel.Sync();
+        }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
             => FinishNavigation();
