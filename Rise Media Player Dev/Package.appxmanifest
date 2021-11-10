@@ -10,7 +10,7 @@
 
 	<Identity
 	  Name="072d305e-c1df-4c67-bbc4-0d6938d227b8"
-	  Publisher="CN=Rise Software"
+	  Publisher="CN=71DBF32F-E672-41A2-A72F-A610029965F3"
 	  Version="0.0.12.0" />
 
 	<mp:PhoneIdentity PhoneProductId="072d305e-c1df-4c67-bbc4-0d6938d227b8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

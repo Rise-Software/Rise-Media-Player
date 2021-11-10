@@ -26,8 +26,7 @@
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>37C6E85EC8154E9EBC116BC34A27F26C67D1AB0A</PackageCertificateThumbprint>
     <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 2\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
