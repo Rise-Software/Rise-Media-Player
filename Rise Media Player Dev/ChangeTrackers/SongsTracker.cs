@@ -37,9 +37,7 @@ namespace RMP.App.ChangeTrackers
                     // Change tracker is in an invalid state and must be reset
                     // This should be a very rare case, but must be handled
                     folderTracker.Reset();
-                    await ViewModel.IndexSongsAsync();
-                    await App.RefreshMusicLibrary();
-                    await HandleMusicFolderChanges(App.MusicFolders);
+                    await ViewModel.StartFullCrawlAsync();
                     return;
                 }
 
@@ -163,24 +161,13 @@ namespace RMP.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the music library folders.
         /// </summary>
-        /// <param name="folders">Folder changes.</param>
-        public static async Task HandleMusicFolderChanges(List<StorageFolder> folders)
+        public static async Task HandleMusicFolderChanges()
         {
             List<SongViewModel> toRemove = new List<SongViewModel>();
 
             foreach (SongViewModel song in ViewModel.Songs)
             {
-                bool isInFolder = false;
-                foreach (StorageFolder folder in folders)
-                {
-                    if (song.Location == folder.Path + @"\" + Path.GetFileName(song.Location))
-                    {
-                        isInFolder = true;
-                        break;
-                    }
-                }
-
-                if (!isInFolder)
+                if (!File.Exists(song.Location))
                 {
                     toRemove.Add(song);
                 }

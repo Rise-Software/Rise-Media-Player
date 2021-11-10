@@ -111,8 +111,6 @@ namespace RMP.App
             Repository = new SQLRepository(dbOptions);
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
-            MusicFolders = new List<StorageFolder>();
-            await RefreshMusicLibrary();
 
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
@@ -124,21 +122,6 @@ namespace RMP.App
         {
             Debug.WriteLine("Definition changes!");
             await MViewModel.StartFullCrawlAsync();
-        }
-
-        public static async Task RefreshMusicLibrary()
-        {
-            MusicFolders.Clear();
-            foreach (StorageFolder folder in MusicLibrary.Folders)
-            {
-                MusicFolders.Add(folder);
-            }
-
-            foreach (StorageFolder folder in
-                await KnownFolders.MusicLibrary.GetFoldersAsync())
-            {
-                MusicFolders.Add(folder);
-            }
         }
 
         /// <summary>
