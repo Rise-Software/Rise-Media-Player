@@ -1,11 +1,11 @@
-﻿using RMP.App.Common;
-using RMP.App.Dialogs;
+﻿using Rise.App.Common;
+using Rise.App.Dialogs;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class AboutPage : Page
     {

@@ -1,9 +1,9 @@
-﻿using RMP.App.Common;
-using RMP.App.Dialogs;
+﻿using Rise.App.Common;
+using Rise.App.Dialogs;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class InsiderPage : Page
     {

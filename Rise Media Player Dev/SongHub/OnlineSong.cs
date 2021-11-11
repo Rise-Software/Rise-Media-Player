@@ -1,4 +1,4 @@
-﻿namespace RMP.App.SongHub
+﻿namespace Rise.App.SongHub
 {
     internal class OnlineSong : BaseSong
     {

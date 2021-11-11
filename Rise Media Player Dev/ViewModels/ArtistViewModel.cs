@@ -1,5 +1,5 @@
 ﻿using Rise.Models;
-using RMP.App.Common;
+using Rise.App.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Windows.Data.Xml.Dom;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : BaseViewModel
     {

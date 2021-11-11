@@ -1,8 +1,9 @@
-﻿using RMP.App.Settings.ViewModels;
+﻿using Rise.App.Common;
+using Rise.App.Settings.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Setup
+namespace Rise.App.Setup
 {
     public sealed partial class LocalPage : Page
     {

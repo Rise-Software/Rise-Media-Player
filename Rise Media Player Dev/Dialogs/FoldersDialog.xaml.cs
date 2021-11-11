@@ -3,7 +3,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Dialogs
+namespace Rise.App.Dialogs
 {
     public sealed partial class FoldersDialog : Page
     {

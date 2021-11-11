@@ -1,9 +1,9 @@
-﻿using RMP.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     /// <summary>
     /// Setup page.

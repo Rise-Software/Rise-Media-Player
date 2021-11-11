@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using RMP.App.Common;
-using RMP.App.Settings.ViewModels;
-using RMP.App.ViewModels;
+using Rise.App.Common;
+using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     public sealed partial class AlbumsPage : Page
     {

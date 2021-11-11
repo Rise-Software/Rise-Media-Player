@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 
-namespace RMP.App.SongHub
+namespace Rise.App.SongHub
 {
     internal class SongFactory
     {

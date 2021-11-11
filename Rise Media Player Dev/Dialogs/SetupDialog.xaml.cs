@@ -1,6 +1,7 @@
-﻿using RMP.App.Settings.ViewModels;
-using RMP.App.Setup;
-using RMP.App.Views;
+﻿using Rise.App.Common;
+using Rise.App.Settings.ViewModels;
+using Rise.App.Setup;
+using Rise.App.Views;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
@@ -8,7 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace RMP.App.Dialogs
+namespace Rise.App.Dialogs
 {
     public sealed partial class SetupDialog : ContentDialog
     {

@@ -1,12 +1,12 @@
-﻿using RMP.App.ViewModels;
-using RMP.App.Views;
+﻿using Rise.App.ViewModels;
+using Rise.App.Views;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 
-namespace RMP.App.UserControls
+namespace Rise.App.UserControls
 {
     public sealed partial class ArtistSongListItem : UserControl
     {

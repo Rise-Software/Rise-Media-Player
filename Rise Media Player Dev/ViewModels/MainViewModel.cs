@@ -1,10 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.Models;
-using RMP.App.ChangeTrackers;
-using RMP.App.Common;
-using RMP.App.Indexing;
-using RMP.App.Props;
-using RMP.App.Views;
+using Rise.App.ChangeTrackers;
+using Rise.App.Common;
+using Rise.App.Indexing;
+using Rise.App.Props;
+using Rise.App.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {

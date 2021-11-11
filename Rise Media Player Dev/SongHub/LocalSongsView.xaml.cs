@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.SongHub
+namespace Rise.App.SongHub
 {
     public sealed partial class LocalSongsView : Page
     {

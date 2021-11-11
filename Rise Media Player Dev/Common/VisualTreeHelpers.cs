@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace RMP.App.Common
+namespace Rise.App.Common
 {
     public static class VisualTreeExtensions
     {

@@ -1,5 +1,5 @@
 ﻿using Rise.Models;
-using RMP.App.Props;
+using Rise.App.Props;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ using Windows.Storage.Streams;
 using Windows.System;
 using Buffer = Windows.Storage.Streams.Buffer;
 
-namespace RMP.App.Common
+namespace Rise.App.Common
 {
     public class FileHelpers
     {

@@ -1,6 +1,6 @@
-﻿using RMP.App.Views;
+﻿using Rise.App.Views;
 
-namespace RMP.App.Settings.ViewModels
+namespace Rise.App.Settings.ViewModels
 {
     public class SettingsViewModel : SettingsManager
     {

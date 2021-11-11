@@ -1,7 +1,7 @@
-﻿using RMP.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     public sealed partial class GenresPage : Page
     {

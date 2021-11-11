@@ -1,4 +1,4 @@
-﻿using RMP.App.Common;
+﻿using Rise.App.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class PlaybackViewModel : BaseViewModel, ICancellableTask
     {

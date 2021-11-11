@@ -1,10 +1,11 @@
 ﻿using Rise.Models;
+using Rise.App.Common;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class AlbumViewModel : BaseViewModel, IEditableObject
     {

@@ -1,6 +1,7 @@
-﻿using RMP.App.Dialogs;
-using RMP.App.Settings.ViewModels;
-using RMP.App.Views;
+﻿using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.Settings.ViewModels;
+using Rise.App.Views;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class MediaLibraryPage : Page
     {

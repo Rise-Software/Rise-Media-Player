@@ -9,7 +9,7 @@ using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 
-namespace RMP.App.Common
+namespace Rise.App.Common
 {
     public class WebHelpers
     {

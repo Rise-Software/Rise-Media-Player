@@ -1,9 +1,9 @@
-﻿using RMP.App.Common;
+﻿using Rise.App.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace RMP.App.Dialogs
+namespace Rise.App.Dialogs
 {
     public sealed partial class UnavailableDialog : ContentDialog
     {

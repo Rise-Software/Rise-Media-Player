@@ -1,4 +1,4 @@
-﻿using RMP.App.UserControls;
+﻿using Rise.App.UserControls;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     public static class WindowExtensions
     {

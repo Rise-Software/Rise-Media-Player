@@ -1,5 +1,5 @@
 ﻿<ContentDialog
-    x:Class="RMP.App.Dialogs.SettingsDialogContainer"
+    x:Class="Rise.App.Dialogs.SettingsDialogContainer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

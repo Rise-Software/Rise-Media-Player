@@ -7,7 +7,7 @@
     <ProjectGuid>{5DF9776E-7514-4365-A6FB-7718BA80945D}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RMP.App</RootNamespace>
+    <RootNamespace>Rise.App</RootNamespace>
     <AssemblyName>Rise Media Player</AssemblyName>
     <DefaultLanguage>en-gb</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -26,7 +26,7 @@
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>37C6E85EC8154E9EBC116BC34A27F26C67D1AB0A</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>1E41558D10681719D61D85785AC6E05BD21E1621</PackageCertificateThumbprint>
     <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 2\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -198,7 +198,7 @@
     <Compile Include="Props\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceLoaders.cs" />
+    <Compile Include="Common\ResourceLoaders.cs" />
     <Compile Include="Setup\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>

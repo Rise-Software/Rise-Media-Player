@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="RMP.App.Dialogs.FoldersDialog"
+    x:Class="Rise.App.Dialogs.FoldersDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

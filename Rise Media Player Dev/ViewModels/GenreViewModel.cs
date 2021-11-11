@@ -1,7 +1,8 @@
 ﻿using Rise.Models;
+using Rise.App.Common;
 using System.Threading.Tasks;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class GenreViewModel : BaseViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace RMP.App.Common
+﻿namespace Rise.App.Common
 {
     public static class Enums
     {

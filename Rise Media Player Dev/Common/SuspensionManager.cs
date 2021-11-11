@@ -8,7 +8,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Common
+namespace Rise.App.Common
 {
     /// <summary>
     /// SuspensionManager captures global session state to simplify process lifetime management

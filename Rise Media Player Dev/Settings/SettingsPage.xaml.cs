@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using RMP.App.Common;
-using RMP.App.Dialogs;
-using RMP.App.Settings.ViewModels;
+using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.Settings.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class SettingsPage : Page
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace RMP.App.Converters
+namespace Rise.App.Converters
 {
     public class NullToBoolean : IValueConverter
     {

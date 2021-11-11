@@ -1,4 +1,4 @@
-﻿using RMP.App.Common;
+﻿using Rise.App.Common;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,7 +9,7 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
-namespace RMP.App.Indexing
+namespace Rise.App.Indexing
 {
     public class Indexer : ICancellableTask
     {

@@ -1,6 +1,6 @@
 ﻿using Windows.Storage.Search;
 
-namespace RMP.App.Indexing
+namespace Rise.App.Indexing
 {
     public class QueryPresets
     {

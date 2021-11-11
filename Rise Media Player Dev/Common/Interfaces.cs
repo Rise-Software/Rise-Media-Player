@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace RMP.App.Common
+namespace Rise.App.Common
 {
     /// <summary>
     /// Allows for Tasks to be cancelled while running.

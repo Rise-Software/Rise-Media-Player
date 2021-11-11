@@ -1,6 +1,6 @@
 ﻿using Rise.Models;
-using RMP.App.Common;
-using RMP.App.ViewModels;
+using Rise.App.Common;
+using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 
-namespace RMP.App.ChangeTrackers
+namespace Rise.App.ChangeTrackers
 {
     public class SongsTracker
     {

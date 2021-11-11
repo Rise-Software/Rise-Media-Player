@@ -1,9 +1,9 @@
-﻿using RMP.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace RMP.App.Props
+namespace Rise.App.Props
 {
     public sealed partial class DetailsPage : Page
     {

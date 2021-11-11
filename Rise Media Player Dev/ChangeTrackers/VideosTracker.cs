@@ -1,4 +1,4 @@
-﻿using RMP.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
-namespace RMP.App.ChangeTrackers
+namespace Rise.App.ChangeTrackers
 {
     /* public class VideosTracker
     {

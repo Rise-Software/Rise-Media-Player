@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.UserControls
+namespace Rise.App.UserControls
 {
     public sealed partial class MicaTitleBar : UserControl
     {

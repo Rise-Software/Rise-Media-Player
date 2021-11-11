@@ -1,7 +1,7 @@
-﻿using RMP.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Windows.Storage;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public class SettingsManager : BaseViewModel
     {

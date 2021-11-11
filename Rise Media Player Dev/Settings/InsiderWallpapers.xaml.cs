@@ -6,7 +6,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class InsiderWallpapers : Page
     {

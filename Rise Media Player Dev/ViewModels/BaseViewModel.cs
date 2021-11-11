@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

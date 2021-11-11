@@ -1,13 +1,13 @@
 ﻿<Page
-    x:Class="RMP.App.Views.SongsPage"
+    x:Class="Rise.App.Views.SongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:RMP.App.Converters"
-    xmlns:uc="using:RMP.App.UserControls"
-    xmlns:viewmodels="using:RMP.App.ViewModels"
+    xmlns:converters="using:Rise.App.Converters"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>

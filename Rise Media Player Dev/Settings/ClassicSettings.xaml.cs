@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using RMP.App.Common;
-using RMP.App.Dialogs;
-using RMP.App.Settings.ViewModels;
+using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
-namespace RMP.App.Settings
+namespace Rise.App.Settings
 {
     public sealed partial class ClassicSettings : Page
     {

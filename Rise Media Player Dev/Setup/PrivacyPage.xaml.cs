@@ -1,7 +1,7 @@
-﻿using RMP.App.Settings.ViewModels;
+﻿using Rise.App.Settings.ViewModels;
 using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Setup
+namespace Rise.App.Setup
 {
     public sealed partial class PrivacyPage : Page
     {

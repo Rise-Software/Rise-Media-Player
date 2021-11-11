@@ -1,7 +1,7 @@
-﻿using RMP.App.Common;
+﻿using Rise.App.Common;
 using System.Collections.Generic;
 
-namespace RMP.App.Props
+namespace Rise.App.Props
 {
     public class Properties
     {

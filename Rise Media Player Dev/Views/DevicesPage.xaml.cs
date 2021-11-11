@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     public sealed partial class DevicesPage : Page
     {

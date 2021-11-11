@@ -1,9 +1,9 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
-using static RMP.App.Common.Enums;
+using static Rise.App.Common.Enums;
 
-namespace RMP.App.UserControls
+namespace Rise.App.UserControls
 {
     [ContentProperty(Name = "Controls")]
     public sealed partial class NavigationExpander : UserControl

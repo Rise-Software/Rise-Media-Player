@@ -1,8 +1,8 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using RMP.App.Common;
-using RMP.App.Dialogs;
-using RMP.App.Settings;
-using RMP.App.Settings.ViewModels;
+using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.Settings;
+using Rise.App.Settings.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
-namespace RMP.App.Views
+namespace Rise.App.Views
 {
     /// <summary>
     /// Main app page, hosts the NavigationView and ContentFrame.

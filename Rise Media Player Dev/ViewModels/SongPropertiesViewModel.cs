@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class SongPropertiesViewModel : BaseViewModel
     {

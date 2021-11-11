@@ -1,5 +1,6 @@
 ﻿using Rise.Models;
-using RMP.App.Views;
+using Rise.App.Common;
+using Rise.App.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
 
-namespace RMP.App.ViewModels
+namespace Rise.App.ViewModels
 {
     public class SongViewModel : BaseViewModel
     {
