@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLSongRepository : ISongRepository
+    public class SQLSongRepository : ISQLRepository<Song>
     {
         private static Context _db;
         private readonly DbContextOptions<Context> _dbOptions;
@@ -61,9 +61,9 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task QueueUpsertAsync(Song song)
+        public async Task QueueUpsertAsync(Song item)
         {
-            _songs.Add(song);
+            _songs.Add(item);
             if (_songs.Count >= 200)
             {
                 await UpsertQueuedAsync();
@@ -79,13 +79,13 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task DeleteAsync(Song song)
+        public async Task DeleteAsync(Song item)
         {
             using (_db = new Context(_dbOptions))
             {
-                if (null != song)
+                if (null != item)
                 {
-                    _ = _db.Songs.Remove(song);
+                    _ = _db.Songs.Remove(item);
                     _ = await _db.SaveChangesAsync().ConfigureAwait(false);
                 }
             }

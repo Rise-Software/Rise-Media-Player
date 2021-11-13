@@ -8,59 +8,59 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLArtistRepository : ISQLRepository<Artist>
+    public class SQLVideoRepository : ISQLRepository<Video>
     {
         private static Context _db;
         private readonly DbContextOptions<Context> _dbOptions;
-        private readonly List<Artist> _artists;
+        private readonly List<Video> _videos;
 
-        public SQLArtistRepository(DbContextOptions<Context> options)
+        public SQLVideoRepository(DbContextOptions<Context> options)
         {
             _dbOptions = options;
-            _artists = new List<Artist>();
+            _videos = new List<Video>();
         }
 
-        public async Task<IEnumerable<Artist>> GetAsync()
+        public async Task<IEnumerable<Video>> GetAsync()
         {
             using (_db = new Context(_dbOptions))
             {
-                return await _db.Artists
+                return await _db.Videos
                     .AsNoTracking()
                     .ToListAsync();
             }
         }
 
-        public async Task<Artist> GetAsync(Guid id)
+        public async Task<Video> GetAsync(Guid id)
         {
             using (_db = new Context(_dbOptions))
             {
-                return await _db.Artists
+                return await _db.Videos
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(artist => artist.Id == id);
+                    .FirstOrDefaultAsync(video => video.Id == id);
             }
         }
 
-        public async Task<IEnumerable<Artist>> GetAsync(string search)
+        public async Task<IEnumerable<Video>> GetAsync(string search)
         {
             using (_db = new Context(_dbOptions))
             {
                 string[] parameters = search.Split(' ');
-                return await _db.Artists
-                    .Where(artist =>
+                return await _db.Videos
+                    .Where(video =>
                         parameters.Any(parameter =>
-                            artist.Name.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                            video.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
                     .OrderByDescending(artist =>
                         parameters.Count(parameter =>
-                            artist.Name.StartsWith(parameter)))
+                            artist.Title.StartsWith(parameter)))
                     .AsNoTracking()
                     .ToListAsync();
             }
         }
 
-        public async Task QueueUpsertAsync(Artist item)
+        public async Task QueueUpsertAsync(Video item)
         {
-            _artists.Add(item);
-            if (_artists.Count >= 200)
+            _videos.Add(item);
+            if (_videos.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -70,18 +70,18 @@ namespace Rise.Repository.SQL
         {
             using (_db = new Context(_dbOptions))
             {
-                await _db.BulkInsertOrUpdateAsync(_artists);
-                _artists.Clear();
+                await _db.BulkInsertOrUpdateAsync(_videos);
+                _videos.Clear();
             }
         }
 
-        public async Task DeleteAsync(Artist item)
+        public async Task DeleteAsync(Video item)
         {
             using (_db = new Context(_dbOptions))
             {
                 if (null != item)
                 {
-                    _ = _db.Artists.Remove(item);
+                    _ = _db.Videos.Remove(item);
                     _ = await _db.SaveChangesAsync().ConfigureAwait(false);
                 }
             }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLGenreRepository : IGenreRepository
+    public class SQLGenreRepository : ISQLRepository<Genre>
     {
         private static Context _db;
         private readonly DbContextOptions<Context> _dbOptions;
@@ -57,9 +57,9 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task QueueUpsertAsync(Genre genre)
+        public async Task QueueUpsertAsync(Genre item)
         {
-            _genres.Add(genre);
+            _genres.Add(item);
             if (_genres.Count >= 200)
             {
                 await UpsertQueuedAsync();
@@ -75,13 +75,13 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task DeleteAsync(Genre genre)
+        public async Task DeleteAsync(Genre item)
         {
             using (_db = new Context(_dbOptions))
             {
-                if (null != genre)
+                if (null != item)
                 {
-                    _ = _db.Genres.Remove(genre);
+                    _ = _db.Genres.Remove(item);
                     _ = await _db.SaveChangesAsync().ConfigureAwait(false);
                 }
             }

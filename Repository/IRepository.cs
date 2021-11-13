@@ -1,30 +1,32 @@
-﻿namespace Rise.Repository
+﻿using Rise.Models;
+
+namespace Rise.Repository
 {
     public interface IRepository
     {
         /// <summary>
         /// Returns the songs repository.
         /// </summary>
-        ISongRepository Songs { get; }
+        ISQLRepository<Song> Songs { get; }
 
         /// <summary>
         /// Returns the albums repository.
         /// </summary>
-        IAlbumRepository Albums { get; }
+        ISQLRepository<Album> Albums { get; }
 
         /// <summary>
         /// Returns the artists repository.
         /// </summary>
-        IArtistRepository Artists { get; }
-        
+        ISQLRepository<Artist> Artists { get; }
+
         /// <summary>
         /// Returns the artists repository.
         /// </summary>
-        IGenreRepository Genres { get; }
+        ISQLRepository<Genre> Genres { get; }
 
         /// <summary>
         /// Returns the videos repository.
         /// </summary>
-        // IVideoRepository Videos { get; }
+        ISQLRepository<Video> Videos { get; }
     }
 }

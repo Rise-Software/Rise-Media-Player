@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Rise.Models;
 
 namespace Rise.Repository.SQL
 {
@@ -16,10 +17,10 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public ISongRepository Songs => new SQLSongRepository(_dbOptions);
-        public IAlbumRepository Albums => new SQLAlbumRepository(_dbOptions);
-        public IArtistRepository Artists => new SQLArtistRepository(_dbOptions);
-        public IGenreRepository Genres => new SQLGenreRepository(_dbOptions);
-        // public IVideoRepository Videos => new SQLVideoRepository(_dbOptions);
+        public ISQLRepository<Song> Songs => new SQLSongRepository(_dbOptions);
+        public ISQLRepository<Album> Albums => new SQLAlbumRepository(_dbOptions);
+        public ISQLRepository<Artist> Artists => new SQLArtistRepository(_dbOptions);
+        public ISQLRepository<Genre> Genres => new SQLGenreRepository(_dbOptions);
+        public ISQLRepository<Video> Videos => new SQLVideoRepository(_dbOptions);
     }
 }
