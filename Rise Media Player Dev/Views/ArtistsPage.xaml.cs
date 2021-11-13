@@ -37,7 +37,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+                _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
             }
 
             SelectedArtist = null;

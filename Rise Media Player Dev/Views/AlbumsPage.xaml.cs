@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Settings.ViewModels;
 using Rise.App.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -145,12 +146,16 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
-            using (Songs.DeferRefresh())
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
             {
-                await PViewModel.StartPlayback
-                    (Songs.GetEnumerator(), 0, Songs.Count);
+                songs.Add(enumerator.Current as SongViewModel);
             }
-            Songs.Refresh();
+
+            enumerator.Dispose();
+            await PViewModel.StartPlayback(songs.GetEnumerator(), 0, songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -169,12 +174,16 @@ namespace Rise.App.Views
                 }
             }
 
-            using (Songs.DeferRefresh())
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
             {
-                await PViewModel.StartShuffle
-                    (Songs.GetEnumerator(), Songs.Count);
+                songs.Add(enumerator.Current as SongViewModel);
             }
-            Songs.Refresh();
+
+            enumerator.Dispose();
+            await PViewModel.StartShuffle(songs.GetEnumerator(), songs.Count);
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)

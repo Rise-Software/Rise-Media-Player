@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -109,12 +110,18 @@ namespace Rise.App.Views
                 }
 
                 SelectedSong = null;
-                using (Songs.DeferRefresh())
+
+                IEnumerator<object> enumerator = Songs.GetEnumerator();
+                List<SongViewModel> songs = new List<SongViewModel>();
+
+                while (enumerator.MoveNext())
                 {
-                    await PViewModel.StartPlayback
-                        (Songs.GetEnumerator(), itemIndex, Songs.Count);
+                    songs.Add(enumerator.Current as SongViewModel);
                 }
-                Songs.Refresh();
+
+                enumerator.Dispose();
+                await PViewModel.StartPlayback
+                    (songs.GetEnumerator(), itemIndex, songs.Count);
             }
         }
 
@@ -151,21 +158,32 @@ namespace Rise.App.Views
                 SelectedSong = null;
             }
 
-            using (Songs.DeferRefresh())
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
             {
-                await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
+                songs.Add(enumerator.Current as SongViewModel);
             }
-            Songs.Refresh();
+
+            enumerator.Dispose();
+            await PViewModel.StartPlayback(songs.GetEnumerator(), index, songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
             SelectedSong = null;
-            using (Songs.DeferRefresh())
+
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
             {
-                await PViewModel.StartShuffle(Songs.GetEnumerator(), Songs.Count);
+                songs.Add(enumerator.Current as SongViewModel);
             }
-            Songs.Refresh();
+
+            enumerator.Dispose();
+            await PViewModel.StartShuffle(songs.GetEnumerator(), songs.Count);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
