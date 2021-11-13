@@ -10,45 +10,55 @@ namespace Rise.Repository.SQL
 {
     public class SQLSongRepository : ISongRepository
     {
-        private readonly Context _db;
+        private static Context _db;
+        private readonly DbContextOptions<Context> _dbOptions;
         private readonly List<Song> _songs;
 
-        public SQLSongRepository(Context db)
+        public SQLSongRepository(DbContextOptions<Context> options)
         {
-            _db = db;
+            _dbOptions = options;
             _songs = new List<Song>();
         }
 
         public async Task<IEnumerable<Song>> GetAsync()
         {
-            return await _db.Songs
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Songs
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task<Song> GetAsync(Guid id)
         {
-            return await _db.Songs
-                .AsNoTracking()
-                .FirstOrDefaultAsync(song => song.Id == id);
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Songs
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(song => song.Id == id);
+            }
         }
 
         public async Task<IEnumerable<Song>> GetAsync(string search)
         {
-            string[] parameters = search.Split(' ');
-            return await _db.Songs
-                .Where(song =>
-                    parameters.Any(parameter =>
-                        song.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        song.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        song.Location.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(song =>
-                    parameters.Count(parameter =>
-                        song.Title.StartsWith(parameter) ||
-                        song.Artist.StartsWith(parameter) ||
-                        song.Location.StartsWith(parameter)))
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                string[] parameters = search.Split(' ');
+                return await _db.Songs
+                    .Where(song =>
+                        parameters.Any(parameter =>
+                            song.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
+                            song.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
+                            song.Location.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByDescending(song =>
+                        parameters.Count(parameter =>
+                            song.Title.StartsWith(parameter) ||
+                            song.Artist.StartsWith(parameter) ||
+                            song.Location.StartsWith(parameter)))
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task QueueUpsertAsync(Song song)
@@ -62,16 +72,22 @@ namespace Rise.Repository.SQL
 
         public async Task UpsertQueuedAsync()
         {
-            await _db.BulkInsertOrUpdateAsync(_songs);
-            _songs.Clear();
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkInsertOrUpdateAsync(_songs);
+                _songs.Clear();
+            }
         }
 
         public async Task DeleteAsync(Song song)
         {
-            if (null != song)
+            using (_db = new Context(_dbOptions))
             {
-                _ = _db.Songs.Remove(song);
-                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                if (null != song)
+                {
+                    _ = _db.Songs.Remove(song);
+                    _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                }
             }
         }
     }

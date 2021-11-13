@@ -16,19 +16,10 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public ISongRepository Songs => new SQLSongRepository(
-            new Context(_dbOptions));
-
-        public IAlbumRepository Albums => new SQLAlbumRepository(
-            new Context(_dbOptions));
-
-        public IArtistRepository Artists => new SQLArtistRepository(
-            new Context(_dbOptions));
-
-        public IGenreRepository Genres => new SQLGenreRepository(
-            new Context(_dbOptions));
-
-        // public IVideoRepository Videos => new SQLVideoRepository(
-        // new Context(_dbOptions));
+        public ISongRepository Songs => new SQLSongRepository(_dbOptions);
+        public IAlbumRepository Albums => new SQLAlbumRepository(_dbOptions);
+        public IArtistRepository Artists => new SQLArtistRepository(_dbOptions);
+        public IGenreRepository Genres => new SQLGenreRepository(_dbOptions);
+        // public IVideoRepository Videos => new SQLVideoRepository(_dbOptions);
     }
 }
