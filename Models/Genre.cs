@@ -8,6 +8,7 @@ namespace Rise.Models
     public class Genre : DbObject, IEquatable<Genre>
     {
         public string Name { get; set; }
+        public bool Removed { get; set; }
 
         /// <summary>
         /// Returns the genre.

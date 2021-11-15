@@ -1,5 +1,5 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
+using Rise.Models;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
@@ -41,9 +41,14 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the item has to be deleted.
+        /// Gets or sets a value that indicates whether or not the
+        /// item has to be removed.
         /// </summary>
-        public bool WillRemove { get; set; }
+        public bool Removed
+        {
+            get => Model.Removed;
+            private set => Model.Removed = value;
+        }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
@@ -52,16 +57,6 @@ namespace Rise.App.ViewModels
         /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        
-        private bool _isLoading;
-        /// <summary>
-        /// Gets or sets a value that indicates whether to show a progress bar. 
-        /// </summary>
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
 
         private bool _isNew;
         /// <summary>
