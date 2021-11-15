@@ -3,7 +3,7 @@ using Windows.Storage;
 
 namespace Rise.App.Settings
 {
-    public class SettingsManager : BaseViewModel
+    public class SettingsManager : ViewModel
     {
         /// <summary>
         /// Gets an app setting.

@@ -55,7 +55,7 @@ namespace Rise.App.Indexing
         /// <param name="library"><see cref="StorageLibrary"/> to index.</param>
         /// <param name="queryOptions"><see cref="QueryOptions"/> to use.</param>
         /// <param name="indexerOption">Whether or not to use the system index.</param>
-        /// <param name="processFile">An async delegate that takes an indexed
+        /// <param name="process">An async delegate that takes an indexed
         /// <see cref="StorageFile"/> as a parameter. The <see cref="FileIndexed"/>
         /// event is used if this parameter is set to null.</param>
         /// <param name="prefetchOptions">What options to prefetch.</param>

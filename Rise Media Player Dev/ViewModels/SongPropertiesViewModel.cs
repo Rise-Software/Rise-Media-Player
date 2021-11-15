@@ -7,75 +7,74 @@ using Windows.Storage.FileProperties;
 
 namespace Rise.App.ViewModels
 {
-    public class SongPropertiesViewModel : BaseViewModel
+    public class SongPropertiesViewModel : ViewModel<SongViewModel>
     {
-        private static SongViewModel Song { get; set; }
         public BasicProperties FileProps { get; set; }
 
         public SongPropertiesViewModel(SongViewModel song, DateTimeOffset creationDate)
         {
-            Song = song;
+            Model = song;
             Created = creationDate.Date.ToString("d");
             _filename = Path.GetFileName(Location);
         }
 
         public string Title
         {
-            get => Song.Title;
-            set => Song.Title = value;
+            get => Model.Title;
+            set => Model.Title = value;
         }
 
         public string Artist
         {
-            get => Song.Artist;
-            set => Song.Artist = value;
+            get => Model.Artist;
+            set => Model.Artist = value;
         }
 
         public uint Track
         {
-            get => Song.Track;
-            set => Song.Track = value;
+            get => Model.Track;
+            set => Model.Track = value;
         }
 
         public int Disc
         {
-            get => Song.Disc;
-            set => Song.Disc = value;
+            get => Model.Disc;
+            set => Model.Disc = value;
         }
 
         public string Album
         {
-            get => Song.Album;
-            set => Song.Album = value;
+            get => Model.Album;
+            set => Model.Album = value;
         }
 
         public string AlbumArtist
         {
-            get => Song.AlbumArtist;
-            set => Song.AlbumArtist = value;
+            get => Model.AlbumArtist;
+            set => Model.AlbumArtist = value;
         }
 
         public string Genres
         {
-            get => Song.Genres;
-            set => Song.Genres = value;
+            get => Model.Genres;
+            set => Model.Genres = value;
         }
 
         public uint Year
         {
-            get => Song.Year;
-            set => Song.Year = value;
+            get => Model.Year;
+            set => Model.Year = value;
         }
 
         public uint Rating
         {
-            get => Song.Rating / 20;
-            set => Song.Rating = value * 20;
+            get => Model.Rating / 20;
+            set => Model.Rating = value * 20;
         }
 
-        public string Thumbnail => Song.Thumbnail;
+        public string Thumbnail => Model.Thumbnail;
 
-        public string Location => Song.Location;
+        public string Location => Model.Location;
 
         private string _filename;
         public string Filename
@@ -131,7 +130,7 @@ namespace Rise.App.ViewModels
                 props["System.Rating"] = Rating * 20;*/
 
                 await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
-                Song.Location = songFile.Path;
+                Model.Location = songFile.Path;
 
                 try
                 {
@@ -141,12 +140,12 @@ namespace Rise.App.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await Song.CancelEditsAsync();
+                    await Model.CancelEditsAsync();
                     Debug.WriteLine(ex.Message);
                     result = false;
                 }
 
-                await Song.SaveAsync();
+                await Model.SaveAsync();
             }
 
             return result;

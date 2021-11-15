@@ -16,7 +16,7 @@ using Windows.UI.Core;
 
 namespace Rise.App.ViewModels
 {
-    public class PlaybackViewModel : BaseViewModel, ICancellableTask
+    public class PlaybackViewModel : ViewModel, ICancellableTask
     {
         /// <summary>
         /// Creates a new <see cref="PlaybackViewModel"/>.

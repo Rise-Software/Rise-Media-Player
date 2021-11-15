@@ -11,7 +11,7 @@ using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
-    public class SongViewModel : BaseViewModel
+    public class SongViewModel : ViewModel<Song>
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -21,30 +21,10 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-            IsNewSong = true;
+            IsNew = true;
 
             OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
             OnPropertyChanged(nameof(ArtistViewModel.SongCount));
-        }
-
-        private Song _model;
-
-        /// <summary>
-        /// Gets or sets the underlying Song object.
-        /// </summary>
-        public Song Model
-        {
-            get => _model;
-            set
-            {
-                if (_model != value)
-                {
-                    _model = value;
-
-                    // Raise the PropertyChanged event for all properties.
-                    OnPropertyChanged(string.Empty);
-                }
-            }
         }
 
         /// <summary>
@@ -332,21 +312,19 @@ namespace Rise.App.ViewModels
             set => Set(ref _isLoading, value);
         }
 
-        private bool _isNewSong;
-
+        private bool _isNew;
         /// <summary>
-        /// Gets or sets a value that indicates whether this is a new song.
+        /// Gets or sets a value that indicates whether this is a new item.
         /// </summary>
-        public bool IsNewSong
+        public bool IsNew
         {
-            get => _isNewSong;
-            set => Set(ref _isNewSong, value);
+            get => _isNew;
+            set => Set(ref _isNew, value);
         }
 
         private bool _isInEdit;
-
         /// <summary>
-        /// Gets or sets a value that indicates whether the song data is being edited.
+        /// Gets or sets a value that indicates whether the item data is being edited.
         /// </summary>
         public bool IsInEdit
         {
@@ -363,9 +341,9 @@ namespace Rise.App.ViewModels
             IsModified = false;
             Removed = false;
 
-            if (IsNewSong)
+            if (IsNew)
             {
-                IsNewSong = false;
+                IsNew = false;
                 App.MViewModel.Songs.Add(this);
 
                 OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
@@ -384,7 +362,7 @@ namespace Rise.App.ViewModels
             IsModified = true;
             Removed = true;
 
-            if (!IsNewSong)
+            if (!IsNew)
             {
                 App.MViewModel.Songs.Remove(this);
             }
@@ -418,7 +396,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            if (IsNewSong)
+            if (IsNew)
             {
                 AddNewSongCanceled?.Invoke(this, EventArgs.Empty);
             }

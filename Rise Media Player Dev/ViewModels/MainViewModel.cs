@@ -16,7 +16,7 @@ using Windows.Storage.Search;
 
 namespace Rise.App.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ViewModel
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         public Indexer Indexer => App.Indexer;
@@ -281,7 +281,7 @@ namespace Rise.App.ViewModels
                 };
 
                 // Add new data to the MViewModel.
-                alvm.Save();
+                alvm.SaveAsync();
             }
             else
             {

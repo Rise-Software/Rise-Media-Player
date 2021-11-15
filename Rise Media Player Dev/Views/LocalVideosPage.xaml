@@ -8,6 +8,12 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock>Local Videos</TextBlock>
+        <GridView>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="Hi" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

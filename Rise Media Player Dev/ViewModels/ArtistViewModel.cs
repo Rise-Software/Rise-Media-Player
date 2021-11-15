@@ -9,7 +9,7 @@ using Windows.Data.Xml.Dom;
 
 namespace Rise.App.ViewModels
 {
-    public class ArtistViewModel : BaseViewModel
+    public class ArtistViewModel : ViewModel<Artist>
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -19,27 +19,7 @@ namespace Rise.App.ViewModels
         public ArtistViewModel(Artist model = null)
         {
             Model = model ?? new Artist();
-            IsNewArtist = true;
-        }
-
-        private Artist _model;
-
-        /// <summary>
-        /// Gets or sets the underlying Artist object.
-        /// </summary>
-        public Artist Model
-        {
-            get => _model;
-            set
-            {
-                if (_model != value)
-                {
-                    _model = value;
-
-                    // Raise the PropertyChanged event for all properties.
-                    OnPropertyChanged(string.Empty);
-                }
-            }
+            IsNew = true;
         }
 
         /// <summary>
@@ -192,30 +172,18 @@ namespace Rise.App.ViewModels
         /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        private bool _isLoading;
 
+        private bool _isNew;
         /// <summary>
-        /// Gets or sets a value that indicates whether to show a progress bar. 
+        /// Gets or sets a value that indicates whether this is a new item.
         /// </summary>
-        public bool IsLoading
+        public bool IsNew
         {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
-
-        private bool _isNewArtist;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new artist.
-        /// </summary>
-        public bool IsNewArtist
-        {
-            get => _isNewArtist;
-            set => Set(ref _isNewArtist, value);
+            get => _isNew;
+            set => Set(ref _isNew, value);
         }
 
         private bool _isInEdit = false;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the artist data is being edited.
         /// </summary>
@@ -234,9 +202,9 @@ namespace Rise.App.ViewModels
             IsModified = false;
             Removed = false;
 
-            if (IsNewArtist)
+            if (IsNew)
             {
-                IsNewArtist = false;
+                IsNew = false;
                 App.MViewModel.Artists.Add(this);
             }
 
@@ -281,7 +249,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            if (IsNewArtist)
+            if (IsNew)
             {
                 AddNewArtistCanceled?.Invoke(this, EventArgs.Empty);
             }
@@ -316,23 +284,5 @@ namespace Rise.App.ViewModels
         {
             Model = await App.Repository.Artists.GetAsync(Model.Id);
         }
-
-        /// <summary>
-        /// Called when a bound DataGrid control causes the artist to enter edit mode.
-        /// </summary>
-        public void BeginEdit()
-        {
-            // Not used.
-        }
-
-        /// <summary>
-        /// Called when a bound DataGrid control cancels the edits that have been made to an artist.
-        /// </summary>
-        public async void CancelEdit() => await CancelEditsAsync();
-
-        /// <summary>
-        /// Called when a bound DataGrid control commits the edits that have been made to an artist.
-        /// </summary>
-        public async Task EndEditAsync() => await SaveAsync();
     }
 }
