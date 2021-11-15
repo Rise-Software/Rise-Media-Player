@@ -30,6 +30,80 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the video directors.
+        /// </summary>
+        public string Directors
+        {
+            get => Model.Directors;
+            set
+            {
+                if (Model.Directors != value)
+                {
+                    Model.Directors = value;
+                    OnPropertyChanged(nameof(Directors));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the video location.
+        /// </summary>
+        public string Location
+        {
+            get => Model.Location;
+            set
+            {
+                if (Model.Location != value)
+                {
+                    Model.Location = value;
+                    OnPropertyChanged(nameof(Location));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the video year.
+        /// </summary>
+        public uint Year
+        {
+            get => Model.Year;
+            set
+            {
+                if (Model.Year != value)
+                {
+                    Model.Year = value;
+                    OnPropertyChanged(nameof(Year));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the video rating.
+        /// </summary>
+        public uint Rating
+        {
+            get => Model.Rating;
+            set
+            {
+                if (Model.Rating != value)
+                {
+                    Model.Rating = value;
+                    OnPropertyChanged(nameof(Rating));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether or not the
+        /// item has to be removed.
+        /// </summary>
+        public bool Removed
+        {
+            get => Model.Removed;
+            private set => Model.Removed = value;
+        }
+
         private bool _isNew;
         /// <summary>
         /// Gets or sets a value that indicates whether this is a new item.
