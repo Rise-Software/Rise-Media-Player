@@ -281,7 +281,7 @@ namespace Rise.App.ViewModels
                 };
 
                 // Add new data to the MViewModel.
-                alvm.SaveAsync();
+                await alvm.SaveAsync();
             }
             else
             {
@@ -404,7 +404,7 @@ namespace Rise.App.ViewModels
                 foreach (GenreViewModel modifiedGenre in Genres
                     .Where(genre => genre.IsModified))
                 {
-                    if (modifiedGenre.WillRemove)
+                    if (modifiedGenre.Removed)
                     {
                         await App.Repository.Genres.DeleteAsync(modifiedGenre.Model);
                     }
