@@ -12,12 +12,15 @@ namespace Rise.Repository.SQL
     {
         private static Context _db;
         private readonly DbContextOptions<Context> _dbOptions;
-        private readonly List<Artist> _artists;
+        private readonly List<Artist> _upsertQueue;
+        private readonly List<Artist> _removalQueue;
 
         public SQLArtistRepository(DbContextOptions<Context> options)
         {
             _dbOptions = options;
-            _artists = new List<Artist>();
+
+            _upsertQueue = new List<Artist>();
+            _removalQueue = new List<Artist>();
         }
 
         public async Task<IEnumerable<Artist>> GetAsync()
@@ -59,8 +62,8 @@ namespace Rise.Repository.SQL
 
         public async Task QueueUpsertAsync(Artist item)
         {
-            _artists.Add(item);
-            if (_artists.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -70,20 +73,26 @@ namespace Rise.Repository.SQL
         {
             using (_db = new Context(_dbOptions))
             {
-                await _db.BulkInsertOrUpdateAsync(_artists);
-                _artists.Clear();
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
             }
         }
 
-        public async Task DeleteAsync(Artist item)
+        public async Task QueueDeletionAsync(Artist item)
+        {
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
+            {
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
         {
             using (_db = new Context(_dbOptions))
             {
-                if (null != item)
-                {
-                    _ = _db.Artists.Remove(item);
-                    _ = await _db.SaveChangesAsync().ConfigureAwait(false);
-                }
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

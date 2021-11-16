@@ -12,12 +12,15 @@ namespace Rise.Repository.SQL
     {
         private static Context _db;
         private readonly DbContextOptions<Context> _dbOptions;
-        private readonly List<Song> _songs;
+        private readonly List<Song> _upsertQueue;
+        private readonly List<Song> _removalQueue;
 
         public SQLSongRepository(DbContextOptions<Context> options)
         {
             _dbOptions = options;
-            _songs = new List<Song>();
+
+            _upsertQueue = new List<Song>();
+            _removalQueue = new List<Song>();
         }
 
         public async Task<IEnumerable<Song>> GetAsync()
@@ -63,8 +66,8 @@ namespace Rise.Repository.SQL
 
         public async Task QueueUpsertAsync(Song item)
         {
-            _songs.Add(item);
-            if (_songs.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -74,20 +77,26 @@ namespace Rise.Repository.SQL
         {
             using (_db = new Context(_dbOptions))
             {
-                await _db.BulkInsertOrUpdateAsync(_songs);
-                _songs.Clear();
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
             }
         }
 
-        public async Task DeleteAsync(Song item)
+        public async Task QueueDeletionAsync(Song item)
+        {
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
+            {
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
         {
             using (_db = new Context(_dbOptions))
             {
-                if (null != item)
-                {
-                    _ = _db.Songs.Remove(item);
-                    _ = await _db.SaveChangesAsync().ConfigureAwait(false);
-                }
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

@@ -32,8 +32,13 @@ namespace Rise.Repository
         Task UpsertQueuedAsync();
 
         /// <summary>
-        /// Deletes an item.
+        /// Queues an item for deletion.
         /// </summary>
-        Task DeleteAsync(T item);
+        Task QueueDeletionAsync(T item);
+
+        /// <summary>
+        /// Deletes all queued items.
+        /// </summary>
+        Task DeleteQueuedAsync();
     }
 }

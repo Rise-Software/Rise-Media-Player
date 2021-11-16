@@ -183,8 +183,7 @@ namespace Rise.App.ViewModels
         {
             await SongsTracker.HandleMusicFolderChanges();
             await IndexLibrariesAsync();
-
-            await UpsertAllAsync();
+            await UpdateItemsAsync();
         }
 
         public async Task IndexLibrariesAsync()
@@ -408,15 +407,21 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Upserts all queued items.
+        /// Upserts and removes all queued items.
         /// </summary>
-        public async Task UpsertAllAsync()
+        public async Task UpdateItemsAsync()
         {
             await App.Repository.Songs.UpsertQueuedAsync();
             await App.Repository.Albums.UpsertQueuedAsync();
             await App.Repository.Artists.UpsertQueuedAsync();
             await App.Repository.Genres.UpsertQueuedAsync();
             await App.Repository.Videos.UpsertQueuedAsync();
+
+            await App.Repository.Songs.DeleteQueuedAsync();
+            await App.Repository.Albums.DeleteQueuedAsync();
+            await App.Repository.Artists.DeleteQueuedAsync();
+            await App.Repository.Genres.DeleteQueuedAsync();
+            await App.Repository.Videos.DeleteQueuedAsync();
         }
 
         /// <summary>
@@ -429,7 +434,7 @@ namespace Rise.App.ViewModels
             {
                 if (modifiedSong.Removed)
                 {
-                    await App.Repository.Songs.DeleteAsync(modifiedSong.Model);
+                    await App.Repository.Songs.QueueDeletionAsync(modifiedSong.Model);
                 }
                 else
                 {
@@ -441,7 +446,7 @@ namespace Rise.App.ViewModels
             {
                 if (modifiedAlbum.Removed)
                 {
-                    await App.Repository.Albums.DeleteAsync(modifiedAlbum.Model);
+                    await App.Repository.Albums.QueueDeletionAsync(modifiedAlbum.Model);
                 }
                 else
                 {
@@ -453,7 +458,7 @@ namespace Rise.App.ViewModels
             {
                 if (modifiedArtist.Removed)
                 {
-                    await App.Repository.Artists.DeleteAsync(modifiedArtist.Model);
+                    await App.Repository.Artists.QueueDeletionAsync(modifiedArtist.Model);
                 }
                 else
                 {
@@ -465,7 +470,7 @@ namespace Rise.App.ViewModels
             {
                 if (modifiedGenre.Removed)
                 {
-                    await App.Repository.Genres.DeleteAsync(modifiedGenre.Model);
+                    await App.Repository.Genres.QueueDeletionAsync(modifiedGenre.Model);
                 }
                 else
                 {
@@ -477,7 +482,7 @@ namespace Rise.App.ViewModels
             {
                 if (modifiedVideo.Removed)
                 {
-                    await App.Repository.Videos.DeleteAsync(modifiedVideo.Model);
+                    await App.Repository.Videos.QueueDeletionAsync(modifiedVideo.Model);
                 }
                 else
                 {
