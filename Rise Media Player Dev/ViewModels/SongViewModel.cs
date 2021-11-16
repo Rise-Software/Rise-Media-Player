@@ -281,7 +281,6 @@ namespace Rise.App.ViewModels
         public bool IsModified { get; set; }
 
         private bool _isLoading;
-
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
         /// </summary>

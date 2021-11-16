@@ -260,6 +260,8 @@ namespace Rise.App.ViewModels
                     {
                         thumb = $@"ms-appdata:///local/{filename}.png";
                     }
+
+                    thumbnail.Dispose();
                 }
 
                 // Set AlbumViewModel data.
@@ -305,6 +307,8 @@ namespace Rise.App.ViewModels
                             alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                             save = true;
                         }
+
+                        thumbnail.Dispose();
                     }
 
                     if (save)
@@ -393,6 +397,7 @@ namespace Rise.App.ViewModels
                     vid.Thumbnail = Resources.MusicThumb;
                 }
 
+                thumbnail.Dispose();
                 await vid.SaveAsync();
             }
         }

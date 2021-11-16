@@ -7,11 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.Media;
-using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Core;
 
 namespace Rise.App.ViewModels
@@ -35,7 +32,6 @@ namespace Rise.App.ViewModels
             new ObservableCollection<SongViewModel>();
 
         private SongViewModel _currentSong;
-
         /// <summary>
         /// Gets the song that's currently playing.
         /// </summary>
@@ -120,8 +116,8 @@ namespace Rise.App.ViewModels
             }
 
             // Add initial item to avoid delays when starting playback
-            MediaPlaybackItem item =
-                await CreateMusicItem(songs.Current as SongViewModel);
+            SongViewModel song = songs.Current as SongViewModel;
+            MediaPlaybackItem item = await song.AsPlaybackItemAsync();
 
             PlaybackList.Items.Add(item);
             PlayingSongs.Add(songs.Current as SongViewModel);
@@ -132,9 +128,7 @@ namespace Rise.App.ViewModels
             Player.Source = PlaybackList;
             Player.Play();
 
-            SetCurrentSong(item);
-            songs.MoveNext();
-
+            SetCurrentSong(0);
             while (addedSongs < count)
             {
                 if (token.IsCancellationRequested)
@@ -151,7 +145,9 @@ namespace Rise.App.ViewModels
                     songs.MoveNext();
                 }
 
-                item = await CreateMusicItem(songs.Current as SongViewModel);
+                song = songs.Current as SongViewModel;
+                item = await song.AsPlaybackItemAsync();
+
                 PlaybackList.Items.Add(item);
                 PlayingSongs.Add(songs.Current as SongViewModel);
 
@@ -160,57 +156,14 @@ namespace Rise.App.ViewModels
 
             songs.Dispose();
             CanContinue = true;
-            return;
         }
 
-        /// <summary>
-        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="SongViewModel"/>.
-        /// </summary>
-        /// <param name="model">Song to convert.</param>
-        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        private async Task<MediaPlaybackItem> CreateMusicItem(SongViewModel model)
+        public void SetCurrentSong(uint index)
         {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(model.Location);
-
-            MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new MediaPlaybackItem(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Music;
-
-            props.MusicProperties.Title = model.Title;
-            props.MusicProperties.Artist = model.Artist;
-            props.MusicProperties.AlbumTitle = model.Album;
-            props.MusicProperties.AlbumArtist = model.AlbumArtist;
-            props.MusicProperties.TrackNumber = model.Track;
-
-            if (model.Thumbnail != null)
+            if (index >= 0 && index < PlayingSongs.Count)
             {
-                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(model.Thumbnail));
+                CurrentSong = PlayingSongs[(int)index];
             }
-
-            media.ApplyDisplayProperties(props);
-            return media;
-        }
-
-        public void SetCurrentSong(MediaPlaybackItem item)
-        {
-            if (item == null)
-            {
-                return;
-            }
-
-            MusicDisplayProperties props = item.GetDisplayProperties().MusicProperties;
-            SongViewModel song = new SongViewModel
-            {
-                Title = props.Title,
-                Artist = props.Artist,
-                Album = props.AlbumTitle,
-                AlbumArtist = props.AlbumArtist,
-                Track = props.TrackNumber
-            };
-
-            CurrentSong = song;
         }
 
         public void CancelTask()
@@ -230,7 +183,7 @@ namespace Rise.App.ViewModels
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                SetCurrentSong(sender.CurrentItem);
+                SetCurrentSong(sender.CurrentItemIndex);
             });
         }
     }

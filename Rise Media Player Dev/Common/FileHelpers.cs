@@ -1,4 +1,5 @@
 ﻿using Rise.App.Props;
+using Rise.App.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
@@ -75,7 +79,7 @@ namespace Rise.App.Common
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+                    CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 
                 Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
                 IBuffer iBuf = await thumbnail.ReadAsync(buffer,
@@ -261,6 +265,67 @@ namespace Rise.App.Common
                 Location = file.Path,
                 Rating = videoProperties.Rating
             };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">File to convert.</param>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the file.</returns>
+        public static async Task<MediaPlaybackItem> AsPlaybackItemAsync(this StorageFile file)
+        {
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            Song song = await file.AsSongModelAsync();
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Music;
+
+            props.MusicProperties.Title = song.Title;
+            props.MusicProperties.Artist = song.Artist;
+            props.MusicProperties.AlbumTitle = song.Album;
+            props.MusicProperties.AlbumArtist = song.AlbumArtist;
+            props.MusicProperties.TrackNumber = song.Track;
+
+            StorageItemThumbnail thumb =
+                await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
+
+            props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            thumb.Dispose();
+
+            media.ApplyDisplayProperties(props);
+            return media;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="SongViewModel"/>.
+        /// </summary>
+        /// <param name="model">Song to convert.</param>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
+        public static async Task<MediaPlaybackItem> AsPlaybackItemAsync(this SongViewModel model)
+        {
+            StorageFile file = await StorageFile.GetFileFromPathAsync(model.Location);
+
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Music;
+
+            props.MusicProperties.Title = model.Title;
+            props.MusicProperties.Artist = model.Artist;
+            props.MusicProperties.AlbumTitle = model.Album;
+            props.MusicProperties.AlbumArtist = model.AlbumArtist;
+            props.MusicProperties.TrackNumber = model.Track;
+
+            if (model.Thumbnail != null)
+            {
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(model.Thumbnail));
+            }
+
+            media.ApplyDisplayProperties(props);
+            return media;
         }
     }
 }
