@@ -157,4 +157,17 @@
         public const string TranslationReports =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
     }
+
+    /// <summary>
+    /// App resource URIs.
+    /// </summary>
+    public static class Resources
+    {
+        /// <summary>
+        /// Default thumbnail for songs that don't
+        /// contain one already.
+        /// </summary>
+        public const string MusicThumb =
+            "ms-appx:///Assets/Default.png";
+    }
 }

@@ -15,12 +15,18 @@ namespace Rise.Repository.SQL
             {
                 _ = db.Database.EnsureCreated();
             }
+
+            Songs = new SQLSongRepository(_dbOptions);
+            Albums = new SQLAlbumRepository(_dbOptions);
+            Artists = new SQLArtistRepository(_dbOptions);
+            Genres = new SQLGenreRepository(_dbOptions);
+            Videos = new SQLVideoRepository(_dbOptions);
         }
 
-        public ISQLRepository<Song> Songs => new SQLSongRepository(_dbOptions);
-        public ISQLRepository<Album> Albums => new SQLAlbumRepository(_dbOptions);
-        public ISQLRepository<Artist> Artists => new SQLArtistRepository(_dbOptions);
-        public ISQLRepository<Genre> Genres => new SQLGenreRepository(_dbOptions);
-        public ISQLRepository<Video> Videos => new SQLVideoRepository(_dbOptions);
+        public ISQLRepository<Song> Songs { get; set; }
+        public ISQLRepository<Album> Albums { get; set; }
+        public ISQLRepository<Artist> Artists { get; set; }
+        public ISQLRepository<Genre> Genres { get; set; }
+        public ISQLRepository<Video> Videos { get; set; }
     }
 }

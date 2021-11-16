@@ -11,7 +11,7 @@ using Windows.Storage.Search;
 
 namespace Rise.App.Indexing
 {
-    public class Indexer : ICancellableTask
+    public class IndexingHelper : ICancellableTask
     {
         #region Cancellation support
         public CancellationTokenSource CTS { get; set; }
@@ -229,7 +229,7 @@ namespace Rise.App.Indexing
         }
     }
 
-    public static class IndexerExtensions
+    public static class StorageExtensions
     {
         /// <summary>
         /// Registers a <see cref="StorageFolder"/> for foreground change tracking.

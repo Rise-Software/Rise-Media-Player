@@ -94,12 +94,12 @@ namespace Rise.App.ViewModels
             }
             catch
             {
-                return "ms-appx:///Assets/Default.png";
+                return Resources.MusicThumb;
             }
 
             if (xml == null)
             {
-                return "ms-appx:///Assets/Default.png";
+                return Resources.MusicThumb;
             }
 
             XmlDocument doc = new XmlDocument();
@@ -150,7 +150,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            return "ms-appx:///Assets/Default.png";
+            return Resources.MusicThumb;
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
-            Picture = "ms-appx:///Assets/Default.png";
+            Picture = Resources.MusicThumb;
             await App.Repository.Artists.QueueUpsertAsync(Model);
         }
 

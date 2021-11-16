@@ -128,15 +128,7 @@ namespace Rise.App.Views
 
             if (SelectedAlbum != null)
             {
-                if (App.SViewModel.FilterByNameOnly)
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-                }
-                else
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title
-                        && ((SongViewModel)s).AlbumArtist == SelectedAlbum.Artist;
-                }
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
             }
             else
             {
@@ -163,15 +155,7 @@ namespace Rise.App.Views
             Songs.Filter = null;
             if (SelectedAlbum != null)
             {
-                if (App.SViewModel.FilterByNameOnly)
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-                }
-                else
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title
-                        && ((SongViewModel)s).AlbumArtist == SelectedAlbum.Artist;
-                }
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
             }
 
             IEnumerator<object> enumerator = Songs.GetEnumerator();

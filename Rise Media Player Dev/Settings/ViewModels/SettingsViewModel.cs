@@ -84,12 +84,6 @@ namespace Rise.App.Settings.ViewModels
             get => (bool)Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
         }
-
-        public bool FilterByNameOnly
-        {
-            get => (bool)Get("MediaLibrary", nameof(FilterByNameOnly), false);
-            set => Set("MediaLibrary", nameof(FilterByNameOnly), value);
-        }
         #endregion
 
         #region Navigation

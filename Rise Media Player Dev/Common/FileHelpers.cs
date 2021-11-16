@@ -1,5 +1,5 @@
-﻿using Rise.Models;
-using Rise.App.Props;
+﻿using Rise.App.Props;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,7 +75,7 @@ namespace Rise.App.Common
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
+                    CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
 
                 Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
                 IBuffer iBuf = await thumbnail.ReadAsync(buffer,
@@ -230,6 +230,36 @@ namespace Rise.App.Common
                 Year = musicProperties.Year,
                 Location = file.Path,
                 Rating = musicProperties.Rating
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Video"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Video file.</param>
+        /// <returns>A video based on the file.</returns>
+        public static async Task<Video> AsVideoModelAsync(this StorageFile file)
+        {
+            // Put the value into memory to make sure that the system
+            // really fetches the property.
+            VideoProperties videoProperties =
+                await file.Properties.GetVideoPropertiesAsync();
+
+            // Valid song metadata is needed.
+            string title = videoProperties.Title.Length > 0
+                ? videoProperties.Title : file.DisplayName;
+
+            string directors = videoProperties.Directors.Count > 0
+                ? string.Join(";", videoProperties.Directors) : "UnknownArtistResource";
+
+            return new Video
+            {
+                Title = title,
+                Directors = directors,
+                Length = videoProperties.Duration,
+                Year = videoProperties.Year,
+                Location = file.Path,
+                Rating = videoProperties.Rating
             };
         }
     }

@@ -22,7 +22,7 @@ namespace Rise.App.ViewModels
             get => _model;
             set
             {
-                if (!_model.Equals(value))
+                if (_model == null || !_model.Equals(value))
                 {
                     _model = value;
 

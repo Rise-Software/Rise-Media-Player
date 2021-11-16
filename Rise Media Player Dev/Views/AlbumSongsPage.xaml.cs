@@ -82,15 +82,7 @@ namespace Rise.App.Views
             if (e.NavigationParameter is AlbumViewModel album)
             {
                 SelectedAlbum = album;
-                if (App.SViewModel.FilterByNameOnly)
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
-                }
-                else
-                {
-                    Songs.Filter = s => ((SongViewModel)s).Album == album.Title
-                        && ((SongViewModel)s).AlbumArtist == album.Artist;
-                }
+                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
 
                 Songs.SortDescriptions.Clear();
                 Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));

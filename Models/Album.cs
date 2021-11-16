@@ -22,7 +22,7 @@ namespace Rise.Models
         public bool Equals(Album other)
         {
             return Title == other.Title &&
-                   Artist == other.Artist;
+                   Genres == other.Genres;
         }
     }
 }

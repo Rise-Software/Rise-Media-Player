@@ -149,6 +149,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                AddedTip.IsOpen = false;
                 CheckTip.IsOpen = true;
 
                 SongsDefer = App.MViewModel.FilteredSongs.DeferRefresh();
@@ -162,6 +163,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
 
                 SongsDefer.Dispose();
@@ -276,15 +278,7 @@ namespace Rise.App.Views
                     break;
 
                 case "LocalVideosPage":
-                    // _ = ContentFrame.Navigate(typeof(LocalVideosPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Sadly, local video is not available but is coming very soon.",
-                        Description = "We can't wait for you to relive old memories.",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Videos.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
+                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
                     break;
 
                 case "NowPlayingPage":
@@ -386,6 +380,7 @@ namespace Rise.App.Views
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
 
             App.MViewModel.CanIndex = true;
+            _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
         }
 
         /// <summary>
@@ -501,7 +496,7 @@ namespace Rise.App.Views
         private async void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             await App.MViewModel.StartFullCrawlAsync();
-            App.MViewModel.Sync();
+            await App.MViewModel.SyncAsync();
         }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)

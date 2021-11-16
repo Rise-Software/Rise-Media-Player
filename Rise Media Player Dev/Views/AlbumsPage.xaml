@@ -106,15 +106,6 @@
                                                   Click="SortFlyoutItem_Click"
                                                   GroupName="Descending"
                                                   Tag="Descending" />
-
-                        <MenuFlyoutSeparator />
-
-                        <ToggleMenuFlyoutItem x:Name="Merge"
-                                              x:Uid="/Information/NameOnly"
-                                              Click="Merge_Click"
-                                              IsChecked="{x:Bind SViewModel.FilterByNameOnly, Mode=TwoWay}"
-                                              IsEnabled="False"
-                                              Tag="Merge" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>

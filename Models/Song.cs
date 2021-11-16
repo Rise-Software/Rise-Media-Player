@@ -19,6 +19,7 @@ namespace Rise.Models
         public string Location { get; set; }
         public uint Rating { get; set; }
         public bool Removed { get; set; }
+        public string Thumbnail { get; set; }
 
         /// <summary>
         /// Returns the song title.

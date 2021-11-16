@@ -1,4 +1,6 @@
 ﻿using Rise.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
@@ -31,6 +33,22 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the video length.
+        /// </summary>
+        public TimeSpan Length
+        {
+            get => Model.Length;
+            set
+            {
+                if (Model.Length != value)
+                {
+                    Model.Length = value;
+                    OnPropertyChanged(nameof(Length));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the video directors.
         /// </summary>
         public string Directors
@@ -58,6 +76,22 @@ namespace Rise.App.ViewModels
                 {
                     Model.Location = value;
                     OnPropertyChanged(nameof(Location));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the video thumbnail.
+        /// </summary>
+        public string Thumbnail
+        {
+            get => Model.Thumbnail;
+            set
+            {
+                if (Model.Thumbnail != value)
+                {
+                    Model.Thumbnail = value;
+                    OnPropertyChanged(nameof(Thumbnail));
                 }
             }
         }
@@ -122,6 +156,20 @@ namespace Rise.App.ViewModels
         {
             get => _isInEdit;
             set => Set(ref _isInEdit, value);
+        }
+
+        /// <summary>
+        /// Saves video data that has been edited.
+        /// </summary>
+        public async Task SaveAsync()
+        {
+            if (IsNew)
+            {
+                IsNew = false;
+                App.MViewModel.Videos.Add(this);
+            }
+
+            await App.Repository.Videos.QueueUpsertAsync(Model);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using Rise.Models;
-using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,7 +77,6 @@ namespace Rise.App.ChangeTrackers
         public static async Task ManageSongChange(StorageLibraryChange change)
         {
             StorageFile file;
-            Song newSong;
 
             switch (change.ChangeType)
             {
@@ -86,15 +84,13 @@ namespace Rise.App.ChangeTrackers
                 case StorageLibraryChangeType.Created:
                     // Song was created..?
                     file = (StorageFile)await change.GetStorageItemAsync();
-                    newSong = await file.AsSongModelAsync();
-                    await ViewModel.SaveModelsAsync(newSong, file);
+                    await ViewModel.SaveMusicModelsAsync(file);
                     break;
 
                 case StorageLibraryChangeType.MovedIntoLibrary:
                     // Song was moved into the library
                     file = (StorageFile)await change.GetStorageItemAsync();
-                    newSong = await file.AsSongModelAsync();
-                    await ViewModel.SaveModelsAsync(newSong, file);
+                    await ViewModel.SaveMusicModelsAsync(file);
                     break;
 
                 case StorageLibraryChangeType.MovedOrRenamed:
@@ -142,8 +138,7 @@ namespace Rise.App.ChangeTrackers
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
                             await ViewModel.Songs[i].DeleteAsync();
-                            newSong = await file.AsSongModelAsync();
-                            await ViewModel.SaveModelsAsync(newSong, file);
+                            await ViewModel.SaveMusicModelsAsync(file);
                         }
                     }
                     break;

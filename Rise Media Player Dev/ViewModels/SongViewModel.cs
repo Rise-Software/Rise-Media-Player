@@ -1,8 +1,7 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
 using Rise.App.Views;
+using Rise.Models;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -256,30 +255,20 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private string _thumbnail;
-
         /// <summary>
         /// Gets the song album's thumbnail.
         /// </summary>
         public string Thumbnail
         {
-            get
+            get => Model.Thumbnail;
+            set
             {
-                if (_thumbnail == null)
+                if (value != Model.Thumbnail)
                 {
-                    _thumbnail = "ms-appx:///Assets/Default.png";
-                    try
-                    {
-                        _thumbnail = App.MViewModel.Albums.First(a => a.Model.Title == Model.Album
-                            && a.Model.Artist == Model.AlbumArtist).Thumbnail;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex.Message);
-                    }
+                    Model.Thumbnail = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Thumbnail));
                 }
-
-                return _thumbnail;
             }
         }
 
