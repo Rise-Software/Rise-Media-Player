@@ -64,24 +64,6 @@ namespace Rise.App.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
-        /// </summary>
-        public bool Removed
-        {
-            get => Model.Removed;
-            private set
-            {
-                if (value != Model.Removed)
-                {
-                    Model.Removed = value;
-                    IsModified = true;
-                    OnPropertyChanged(string.Empty);
-                }
-            }
-        }
-
         public async Task<string> GetPictureAsync()
         {
             string name = HttpUtility.UrlEncode(Name);
@@ -200,7 +182,6 @@ namespace Rise.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
-            Removed = false;
 
             if (IsNew)
             {
@@ -223,7 +204,6 @@ namespace Rise.App.ViewModels
                 await DeleteAsync();
                 return;
             }
-            Removed = false;
         }
 
         /// <summary>
@@ -232,11 +212,9 @@ namespace Rise.App.ViewModels
         public async Task DeleteAsync()
         {
             IsModified = true;
-            Removed = true;
 
             App.MViewModel.Artists.Remove(this);
-            await App.Repository.Artists.QueueUpsertAsync(Model);
-            Debug.WriteLine("Artist removed!");
+            await App.Repository.Artists.QueueDeletionAsync(Model);
         }
 
         /// <summary>

@@ -128,16 +128,6 @@ namespace Rise.App.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
-        /// </summary>
-        public bool Removed
-        {
-            get => Model.Removed;
-            private set => Model.Removed = value;
-        }
-
         private bool _isNew;
         /// <summary>
         /// Gets or sets a value that indicates whether this is a new item.

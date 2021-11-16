@@ -100,7 +100,7 @@ namespace Rise.App.ViewModels
         /// Gets or sets the album song count.
         /// </summary>
         public int TrackCount =>
-            App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.Removed);
+            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
@@ -115,24 +115,6 @@ namespace Rise.App.ViewModels
                     Model.Thumbnail = value;
                     IsModified = true;
                     OnPropertyChanged(nameof(Thumbnail));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
-        /// </summary>
-        public bool Removed
-        {
-            get => Model.Removed;
-            private set
-            {
-                if (value != Model.Removed)
-                {
-                    Model.Removed = value;
-                    IsModified = true;
-                    OnPropertyChanged(string.Empty);
                 }
             }
         }
@@ -183,7 +165,6 @@ namespace Rise.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
-            Removed = false;
 
             if (IsNew)
             {
@@ -205,7 +186,6 @@ namespace Rise.App.ViewModels
                 await DeleteAsync();
                 return;
             }
-            Removed = false;
         }
 
         /// <summary>
@@ -214,10 +194,9 @@ namespace Rise.App.ViewModels
         public async Task DeleteAsync()
         {
             IsModified = true;
-            Removed = true;
 
             App.MViewModel.Albums.Remove(this);
-            await App.Repository.Albums.QueueUpsertAsync(Model);
+            await App.Repository.Albums.QueueDeletionAsync(Model);
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);

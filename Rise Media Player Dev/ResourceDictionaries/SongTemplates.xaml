@@ -10,11 +10,8 @@
 
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding Title}" />
-                <TextBlock>
-                    <Hyperlink UnderlineStyle="None">
-                        <Run Text="{Binding Artist}" />
-                    </Hyperlink>
-                </TextBlock>
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                           Text="{Binding Artist}" />
             </StackPanel>
 
             <TextBlock Grid.Column="1"

@@ -41,16 +41,6 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
-        /// </summary>
-        public bool Removed
-        {
-            get => Model.Removed;
-            private set => Model.Removed = value;
-        }
-
-        /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>

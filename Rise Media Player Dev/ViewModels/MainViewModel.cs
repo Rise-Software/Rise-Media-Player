@@ -20,11 +20,16 @@ namespace Rise.App.ViewModels
     {
         private IndexingHelper Indexer => App.Indexer;
 
+        private bool _isIndexing = false;
         /// <summary>
         /// Whether or not are we currently indexing. This is to avoid
         /// unnecessarily indexing concurrently.
         /// </summary>
-        public bool IsIndexing = false;
+        public bool IsIndexing
+        {
+            get => _isIndexing;
+            set => Set(ref _isIndexing, value);
+        }
 
         /// <summary>
         /// Whether or not is there a recrawl queued. If true,
@@ -34,7 +39,8 @@ namespace Rise.App.ViewModels
 
         /// <summary>
         /// Whether or not can indexing start. This is set to true once
-        /// <see cref="MainPage"/> loads up, at which point indexing starts.
+        /// <see cref="MainPage"/> loads up, at which point running from the
+        /// UI thread is possible.
         /// </summary>
         public bool CanIndex = false;
 
@@ -106,18 +112,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            bool skip = false;
             IsLoading = true;
 
             IEnumerable<Song> songs = await App.Repository.Songs.GetAsync();
 
             // If there are no songs, don't bother loading lists
-            if (songs == null)
-            {
-                skip = true;
-            }
-
-            if (!skip)
+            if (songs != null)
             {
                 IEnumerable<Album> albums = await App.Repository.Albums.GetAsync();
                 IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
@@ -127,10 +127,7 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    if (!s.Removed)
-                    {
-                        Songs.Add(new SongViewModel(s));
-                    }
+                    Songs.Add(new SongViewModel(s));
                 }
 
                 Albums.Clear();
@@ -138,10 +135,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        if (!a.Removed)
-                        {
-                            Albums.Add(new AlbumViewModel(a));
-                        }
+                        Albums.Add(new AlbumViewModel(a));
                     }
                 }
 
@@ -150,10 +144,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        if (!a.Removed)
-                        {
-                            Artists.Add(new ArtistViewModel(a));
-                        }
+                        Artists.Add(new ArtistViewModel(a));
                     }
                 }
 
@@ -430,65 +421,6 @@ namespace Rise.App.ViewModels
         public async Task SyncAsync()
         {
             IsLoading = true;
-            foreach (SongViewModel modifiedSong in Songs)
-            {
-                if (modifiedSong.Removed)
-                {
-                    await App.Repository.Songs.QueueDeletionAsync(modifiedSong.Model);
-                }
-                else
-                {
-                    await App.Repository.Songs.QueueUpsertAsync(modifiedSong.Model);
-                }
-            }
-
-            foreach (AlbumViewModel modifiedAlbum in Albums)
-            {
-                if (modifiedAlbum.Removed)
-                {
-                    await App.Repository.Albums.QueueDeletionAsync(modifiedAlbum.Model);
-                }
-                else
-                {
-                    await App.Repository.Albums.QueueUpsertAsync(modifiedAlbum.Model);
-                }
-            }
-
-            foreach (ArtistViewModel modifiedArtist in Artists)
-            {
-                if (modifiedArtist.Removed)
-                {
-                    await App.Repository.Artists.QueueDeletionAsync(modifiedArtist.Model);
-                }
-                else
-                {
-                    await App.Repository.Artists.QueueUpsertAsync(modifiedArtist.Model);
-                }
-            }
-
-            foreach (GenreViewModel modifiedGenre in Genres)
-            {
-                if (modifiedGenre.Removed)
-                {
-                    await App.Repository.Genres.QueueDeletionAsync(modifiedGenre.Model);
-                }
-                else
-                {
-                    await App.Repository.Genres.QueueUpsertAsync(modifiedGenre.Model);
-                }
-            }
-
-            foreach (VideoViewModel modifiedVideo in Videos)
-            {
-                if (modifiedVideo.Removed)
-                {
-                    await App.Repository.Videos.QueueDeletionAsync(modifiedVideo.Model);
-                }
-                else
-                {
-                    await App.Repository.Videos.QueueUpsertAsync(modifiedVideo.Model);
-                }
-            }
 
             await GetListsAsync();
             IsLoading = false;

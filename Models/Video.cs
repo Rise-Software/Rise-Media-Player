@@ -13,7 +13,6 @@ namespace Rise.Models
         public uint Rating { get; set; }
         public string Title { get; set; }
         public uint Year { get; set; }
-        public bool Removed { get; set; }
         public string Thumbnail { get; set; }
 
         /// <summary>

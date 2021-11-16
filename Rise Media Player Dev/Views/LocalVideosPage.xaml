@@ -13,28 +13,18 @@
                   Padding="44,0,44,120">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel">
-                    <StackPanel Margin="12"
-                                Orientation="Vertical"
-                                Spacing="2"
-                                Width="238">
-                        <Border x:Name="ItemThumbnail"
-                                CornerRadius="5">
-                            <Image Height="134"
-                                   Stretch="UniformToFill"
-                                   Width="238">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                                </Image.Source>
-                            </Image>
-                        </Border>
-
-                        <TextBlock Text="{x:Bind Title}"
-                                   Padding="0,7,0,0"
-                                   MaxLines="1"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   TextWrapping="Wrap" />
-                    </StackPanel>
+                    <Border x:Name="ItemThumbnail"
+                            CornerRadius="5"
+                            Margin="5"
+                            ToolTipService.ToolTip="{x:Bind Title}">
+                        <Image Height="134"
+                               Stretch="UniformToFill"
+                               Width="192">
+                            <Image.Source>
+                                <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

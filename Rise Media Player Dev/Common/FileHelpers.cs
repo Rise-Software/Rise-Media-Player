@@ -201,7 +201,7 @@ namespace Rise.App.Common
 
             // Valid song metadata is needed.
             string title = musicProperties.Title.Length > 0
-                ? musicProperties.Title : file.DisplayName;
+                ? musicProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
 
             string artist = musicProperties.Artist.Length > 0
                 ? musicProperties.Artist : "UnknownArtistResource";
@@ -247,7 +247,7 @@ namespace Rise.App.Common
 
             // Valid song metadata is needed.
             string title = videoProperties.Title.Length > 0
-                ? videoProperties.Title : file.DisplayName;
+                ? videoProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
 
             string directors = videoProperties.Directors.Count > 0
                 ? string.Join(";", videoProperties.Directors) : "UnknownArtistResource";
