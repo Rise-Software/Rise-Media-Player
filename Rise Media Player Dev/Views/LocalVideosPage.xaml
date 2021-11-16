@@ -14,10 +14,11 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel">
                     <Border x:Name="ItemThumbnail"
+                            Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                             CornerRadius="5"
                             Margin="5"
                             ToolTipService.ToolTip="{x:Bind Title}">
-                        <Image Height="134"
+                        <Image Height="108"
                                Stretch="UniformToFill"
                                Width="192">
                             <Image.Source>
