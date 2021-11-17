@@ -238,14 +238,14 @@ namespace Rise.App.Common
                 {
                     // When the previous key or Alt+Left are pressed navigate back
                     e.Handled = true;
-                    this.GoBackCommand.Execute(null);
+                    GoBackCommand.Execute(null);
                 }
                 else if (((int)virtualKey == 167 && noModifiers) ||
                     (virtualKey == VirtualKey.Right && onlyAlt))
                 {
                     // When the next key or Alt+Right are pressed navigate forward
                     e.Handled = true;
-                    this.GoForwardCommand.Execute(null);
+                    GoForwardCommand.Execute(null);
                 }
             }
         }
@@ -272,8 +272,8 @@ namespace Rise.App.Common
             if (backPressed ^ forwardPressed)
             {
                 e.Handled = true;
-                if (backPressed) this.GoBackCommand.Execute(null);
-                if (forwardPressed) this.GoForwardCommand.Execute(null);
+                if (backPressed) GoBackCommand.Execute(null);
+                if (forwardPressed) GoForwardCommand.Execute(null);
             }
         }
 #endif

@@ -36,7 +36,7 @@ namespace Rise.App
         /// <summary>
         /// Gets the app-wide NowPlayingViewModel singleton instance.
         /// </summary>
-        public static PlaybackViewModel PViewModel { get; private set; }
+        public static MusicPlaybackViewModel PViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide SettingsViewModel singleton instance.
@@ -113,7 +113,7 @@ namespace Rise.App
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             MViewModel = new MainViewModel();
-            PViewModel = new PlaybackViewModel();
+            PViewModel = new MusicPlaybackViewModel();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
@@ -199,7 +199,7 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartPlayback(args.Files.GetEnumerator(), 0, args.Files.Count);
+            await PViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
         }
 
         /// <summary>

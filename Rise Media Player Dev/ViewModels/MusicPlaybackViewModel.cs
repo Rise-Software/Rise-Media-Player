@@ -13,12 +13,12 @@ using Windows.UI.Core;
 
 namespace Rise.App.ViewModels
 {
-    public class PlaybackViewModel : ViewModel, ICancellableTask
+    public class MusicPlaybackViewModel : ViewModel, ICancellableTask
     {
         /// <summary>
-        /// Creates a new <see cref="PlaybackViewModel"/>.
+        /// Creates a new <see cref="MusicPlaybackViewModel"/>.
         /// </summary>
-        public PlaybackViewModel()
+        public MusicPlaybackViewModel()
         {
             Player.Source = PlaybackList;
             PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
@@ -56,7 +56,7 @@ namespace Rise.App.ViewModels
             = true;
         #endregion
 
-        public async Task StartShuffle(IEnumerator<object> songs, int count)
+        public async Task StartShuffleAsync(IEnumerator<object> songs, int count)
         {
             List<SongViewModel> list = new List<SongViewModel>();
 
@@ -69,17 +69,17 @@ namespace Rise.App.ViewModels
             list = list.OrderBy(s => rng.Next()).ToList();
 
             CancelTask();
-            await CreatePlaybackList(0, count,
+            await CreatePlaybackListAsync(0, count,
                 list.AsEnumerable().GetEnumerator(), Token);
         }
 
-        public async Task StartPlayback(IEnumerator<object> songs, int startIndex, int count)
+        public async Task StartPlaybackAsync(IEnumerator<object> songs, int startIndex, int count)
         {
             CancelTask();
-            await CreatePlaybackList(startIndex, count, songs, Token);
+            await CreatePlaybackListAsync(startIndex, count, songs, Token);
         }
 
-        public async Task StartPlayback(IEnumerator<IStorageItem> songs, int startIndex, int count)
+        public async Task StartPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)
         {
             CancelTask();
             List<SongViewModel> list = new List<SongViewModel>();
@@ -89,11 +89,11 @@ namespace Rise.App.ViewModels
                     (await (songs.Current as StorageFile).AsSongModelAsync()));
             }
 
-            await CreatePlaybackList(startIndex, count, list.GetEnumerator(), Token);
+            await CreatePlaybackListAsync(startIndex, count, list.GetEnumerator(), Token);
             songs.Dispose();
         }
 
-        public async Task CreatePlaybackList(int index, int count, IEnumerator<object> songs, CancellationToken token)
+        public async Task CreatePlaybackListAsync(int index, int count, IEnumerator<object> songs, CancellationToken token)
         {
             while (!CanContinue)
             {

@@ -24,7 +24,7 @@ namespace Rise.App.Views
         /// <summary>
         /// Gets the app-wide PViewModel instance.
         /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
+        private MusicPlaybackViewModel PViewModel => App.PViewModel;
 
         /// <summary>
         /// Gets the app-wide SViewModel instance.
@@ -147,7 +147,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartPlayback(songs.GetEnumerator(), 0, songs.Count);
+            await PViewModel.StartPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -167,7 +167,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartShuffle(songs.GetEnumerator(), songs.Count);
+            await PViewModel.StartShuffleAsync(songs.GetEnumerator(), songs.Count);
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)

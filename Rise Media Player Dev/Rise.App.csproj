@@ -232,7 +232,7 @@
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
-    <Compile Include="ViewModels\PlaybackViewModel.cs" />
+    <Compile Include="ViewModels\MusicPlaybackViewModel.cs" />
     <Compile Include="Views\AlbumSongsPage.xaml.cs">
       <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
     </Compile>
@@ -314,6 +314,9 @@
     </Compile>
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />
+    <Compile Include="Windows\VideoPlaybackPage.xaml.cs">
+      <DependentUpon>VideoPlaybackPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -621,6 +624,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\QueuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\VideoPlaybackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

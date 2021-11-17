@@ -8,7 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MusicPlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 

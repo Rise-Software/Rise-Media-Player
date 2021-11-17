@@ -8,7 +8,9 @@
     mc:Ignorable="d">
 
     <Grid>
-        <GridView ItemsSource="{x:Bind MViewModel.FilteredVideos}"
+        <GridView IsItemClickEnabled="True"
+                  ItemClick="GridView_ItemClick"
+                  ItemsSource="{x:Bind MViewModel.FilteredVideos}"
                   Margin="-56,0"
                   Padding="44,0,44,120">
             <GridView.ItemTemplate>
