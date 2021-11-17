@@ -26,7 +26,7 @@ namespace Rise.App.Views
         /// <param name="minHeight">Minimum window height.</param>
         /// <param name="parameter">Parameters for the frame.</param>
         /// <returns>Whether or not the window opened successfully.</returns>
-        public static async Task<bool> OpenInWindowAsync(this Type page, ApplicationViewMode viewMode,
+        public static async Task<int> OpenInWindowAsync(this Type page, ApplicationViewMode viewMode,
             int minWidth, int minHeight, object parameter = null)
         {
             CoreApplicationView window = CoreApplication.CreateNewView();
@@ -48,7 +48,15 @@ namespace Rise.App.Views
                 _ = newView.TryResizeView(minSize);
             });
 
-            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newView.Id);
+            bool result = await ApplicationViewSwitcher.
+                TryShowAsStandaloneAsync(newView.Id);
+
+            if (result)
+            {
+                return newView.Id;
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -74,6 +82,12 @@ namespace Rise.App.Views
             _ = window.Presenter.RequestPresentation(viewMode);
             WindowManagementPreview.SetPreferredMinSize(window, minSize);
             window.RequestSize(minSize);
+
+            window.Closed += delegate
+            {
+                frame.Content = null;
+                window = null;
+            };
 
             return await window.TryShowAsync();
         }

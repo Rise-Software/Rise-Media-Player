@@ -23,7 +23,7 @@ namespace Rise.App.Common
             HttpClient client = new HttpClient();
             HttpRequestHeaderCollection headers = client.DefaultRequestHeaders;
 
-            string httpResponseBody = null;
+            string httpResponseBody;
 
             string header = URLs.UserAgent;
             if (!headers.UserAgent.TryParseAdd(header))

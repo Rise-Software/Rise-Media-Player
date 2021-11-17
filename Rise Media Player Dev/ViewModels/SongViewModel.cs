@@ -5,7 +5,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
@@ -421,6 +425,36 @@ namespace Rise.App.ViewModels
         public async Task RefreshSongsAsync()
         {
             Model = await App.Repository.Songs.GetAsync(Model.Id);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
+        /// </summary>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
+        {
+            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Music;
+
+            props.MusicProperties.Title = Title;
+            props.MusicProperties.Artist = Artist;
+            props.MusicProperties.AlbumTitle = Album;
+            props.MusicProperties.AlbumArtist = AlbumArtist;
+            props.MusicProperties.TrackNumber = Track;
+
+            if (Thumbnail != null)
+            {
+                props.Thumbnail = RandomAccessStreamReference.
+                    CreateFromUri(new Uri(Thumbnail));
+            }
+
+            media.ApplyDisplayProperties(props);
+            return media;
         }
     }
 }

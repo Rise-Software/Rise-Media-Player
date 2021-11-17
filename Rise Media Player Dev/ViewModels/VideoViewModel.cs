@@ -1,6 +1,11 @@
 ﻿using Rise.Models;
 using System;
 using System.Threading.Tasks;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -160,6 +165,33 @@ namespace Rise.App.ViewModels
             }
 
             await App.Repository.Videos.QueueUpsertAsync(Model);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="VideoViewModel"/>.
+        /// </summary>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
+        {
+            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Video;
+
+            props.VideoProperties.Title = Title;
+            props.VideoProperties.Subtitle = Directors;
+
+            if (Thumbnail != null)
+            {
+                props.Thumbnail = RandomAccessStreamReference.
+                    CreateFromUri(new Uri(Thumbnail));
+            }
+
+            media.ApplyDisplayProperties(props);
+            return media;
         }
     }
 }

@@ -272,7 +272,7 @@ namespace Rise.App.Common
         /// </summary>
         /// <param name="file">File to convert.</param>
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the file.</returns>
-        public static async Task<MediaPlaybackItem> AsPlaybackItemAsync(this StorageFile file)
+        public static async Task<MediaPlaybackItem> AsSongPlaybackItemAsync(this StorageFile file)
         {
             MediaSource source = MediaSource.CreateFromStorageFile(file);
             MediaPlaybackItem media = new MediaPlaybackItem(source);
@@ -293,36 +293,6 @@ namespace Rise.App.Common
 
             props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
             thumb.Dispose();
-
-            media.ApplyDisplayProperties(props);
-            return media;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="SongViewModel"/>.
-        /// </summary>
-        /// <param name="model">Song to convert.</param>
-        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        public static async Task<MediaPlaybackItem> AsPlaybackItemAsync(this SongViewModel model)
-        {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(model.Location);
-
-            MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new MediaPlaybackItem(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Music;
-
-            props.MusicProperties.Title = model.Title;
-            props.MusicProperties.Artist = model.Artist;
-            props.MusicProperties.AlbumTitle = model.Album;
-            props.MusicProperties.AlbumArtist = model.AlbumArtist;
-            props.MusicProperties.TrackNumber = model.Track;
-
-            if (model.Thumbnail != null)
-            {
-                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(model.Thumbnail));
-            }
 
             media.ApplyDisplayProperties(props);
             return media;
