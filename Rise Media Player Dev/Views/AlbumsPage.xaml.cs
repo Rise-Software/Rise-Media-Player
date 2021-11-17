@@ -22,9 +22,9 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide PViewModel instance.
+        /// Gets the app-wide MPViewModel instance.
         /// </summary>
-        private MusicPlaybackViewModel PViewModel => App.PViewModel;
+        private MusicPlaybackViewModel PViewModel => App.MPViewModel;
 
         /// <summary>
         /// Gets the app-wide SViewModel instance.

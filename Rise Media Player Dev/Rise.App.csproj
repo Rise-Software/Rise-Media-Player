@@ -180,6 +180,7 @@
     </Compile>
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
+    <Compile Include="ViewModels\VideoPlaybackViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>

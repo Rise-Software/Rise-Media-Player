@@ -25,7 +25,7 @@ namespace Rise.App.Views
         /// <param name="minWidth">Minimum window width.</param>
         /// <param name="minHeight">Minimum window height.</param>
         /// <param name="parameter">Parameters for the frame.</param>
-        /// <returns>Whether or not the window opened successfully.</returns>
+        /// <returns>The <see cref="ApplicationView.Id"/>.</returns>
         public static async Task<int> OpenInWindowAsync(this Type page, ApplicationViewMode viewMode,
             int minWidth, int minHeight, object parameter = null)
         {

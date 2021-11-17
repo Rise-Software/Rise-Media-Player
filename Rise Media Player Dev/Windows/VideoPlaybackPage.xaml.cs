@@ -7,25 +7,14 @@ namespace Rise.App.Views
 {
     public sealed partial class VideoPlaybackPage : Page
     {
-        private MediaPlayer Player { get; set; }
+        private VideoPlaybackViewModel ViewModel => App.VPViewModel;
 
         public VideoPlaybackPage()
         {
             InitializeComponent();
-        }
+            PlayerElement.SetMediaPlayer(ViewModel.Player);
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.Parameter is VideoViewModel video)
-            {
-                Player = new MediaPlayer();
-                PlayerElement.SetMediaPlayer(Player);
-
-                Player.Source = await video.AsPlaybackItemAsync();
-                Player.Play();
-            }
-
-            base.OnNavigatedTo(e);
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }
 }

@@ -24,13 +24,15 @@
                                         IsZoomButtonVisible="False"
                                         IsRepeatButtonVisible="True"
                                         IsRepeatEnabled="True"
-                                        IsSkipBackwardButtonVisible="False"
-                                        IsSkipForwardButtonVisible="False"
+                                        IsSkipBackwardButtonVisible="True"
+                                        IsSkipForwardButtonVisible="True"
+                                        IsSkipBackwardEnabled="True"
+                                        IsSkipForwardEnabled="True"
                                         IsCompact="False"
                                         IsSeekBarVisible="True"
                                         IsSeekEnabled="True"
-                                        IsNextTrackButtonVisible="True"
-                                        IsPreviousTrackButtonVisible="True" />
+                                        IsNextTrackButtonVisible="False"
+                                        IsPreviousTrackButtonVisible="False" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
     </Grid>

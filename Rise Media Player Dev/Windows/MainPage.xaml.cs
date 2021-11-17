@@ -377,7 +377,7 @@ namespace Rise.App.Views
             }
 
             FinishNavigation();
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+            PlayerElement.SetMediaPlayer(App.MPViewModel.Player);
 
             App.MViewModel.CanIndex = true;
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());

@@ -29,17 +29,22 @@ namespace Rise.App
     {
         #region Variables
         /// <summary>
-        /// Gets the app-wide MainViewModel singleton instance.
+        /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
         /// </summary>
         public static MainViewModel MViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide NowPlayingViewModel singleton instance.
+        /// Gets the app-wide <see cref="MusicPlaybackViewModel"/> singleton instance.
         /// </summary>
-        public static MusicPlaybackViewModel PViewModel { get; private set; }
+        public static MusicPlaybackViewModel MPViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide SettingsViewModel singleton instance.
+        /// Gets the app-wide <see cref="VideoPlaybackViewModel"/> singleton instance.
+        /// </summary>
+        public static VideoPlaybackViewModel VPViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
         /// </summary>
         public static SettingsViewModel SViewModel { get; private set; }
 
@@ -113,7 +118,8 @@ namespace Rise.App
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             MViewModel = new MainViewModel();
-            PViewModel = new MusicPlaybackViewModel();
+            MPViewModel = new MusicPlaybackViewModel();
+            VPViewModel = new VideoPlaybackViewModel();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
@@ -199,7 +205,7 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
+            await MPViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
         }
 
         /// <summary>
