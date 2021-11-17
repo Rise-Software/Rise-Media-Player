@@ -680,6 +680,7 @@
     <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\MediaPlayerIcons.ttf" />
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-gb\MediaData.resw" />
     <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
