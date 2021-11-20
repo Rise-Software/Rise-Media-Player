@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
@@ -123,7 +123,8 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowMusicHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{Binding ShowAllMusic, Mode=OneWay}"
+                                  IsOn="{Binding ShowMusicHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -194,7 +195,8 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowVideoHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{Binding ShowAllVideo, Mode=OneWay}"
+                                  IsOn="{Binding ShowVideoHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 

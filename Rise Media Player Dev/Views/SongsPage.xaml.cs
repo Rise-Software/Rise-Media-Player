@@ -19,9 +19,9 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide MPViewModel instance.
+        /// Gets the app-wide PViewModel instance.
         /// </summary>
-        private MusicPlaybackViewModel PViewModel => App.MPViewModel;
+        private PlaybackViewModel PViewModel => App.PViewModel;
 
         private readonly NavigationHelper navigationHelper;
         /// <summary>
@@ -75,7 +75,7 @@ namespace Rise.App.Views
                 SelectedSong = null;
                 using (Songs.DeferRefresh())
                 {
-                    await PViewModel.StartPlaybackAsync
+                    await PViewModel.StartMusicPlaybackAsync
                         (Songs.GetEnumerator(), itemIndex, Songs.Count);
                 }
                 Songs.Refresh();
@@ -124,7 +124,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -140,7 +140,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartShuffleAsync(songs.GetEnumerator(), songs.Count);
+            await PViewModel.StartMusicShuffleAsync(songs.GetEnumerator(), songs.Count);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)

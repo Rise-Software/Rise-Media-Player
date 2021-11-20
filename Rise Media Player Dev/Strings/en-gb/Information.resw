@@ -186,6 +186,12 @@
   <data name="More.ToolTipService.ToolTip" xml:space="preserve">
     <value>More settings</value>
   </data>
+  <data name="MoveDown.Text" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="MoveUp.Text" xml:space="preserve">
+    <value>Move up</value>
+  </data>
   <data name="NameOnly.Text" xml:space="preserve">
     <value>Merge albums with same title</value>
   </data>
@@ -203,6 +209,9 @@
   </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove folder</value>
+  </data>
+  <data name="RemoveSection.Text" xml:space="preserve">
+    <value>Remove whole section</value>
   </data>
   <data name="Select.Label" xml:space="preserve">
     <value>Select</value>
@@ -226,7 +235,7 @@
     <value>Shuffle</value>
   </data>
   <data name="ShuffleAlbum.Text" xml:space="preserve">
-    <value>Shuffle whole album</value>
+    <value>Shuffle album</value>
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>
@@ -242,6 +251,12 @@
   </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="ToBottom.Text" xml:space="preserve">
+    <value>Move to bottom</value>
+  </data>
+  <data name="ToTop.Text" xml:space="preserve">
+    <value>Move to top</value>
   </data>
   <data name="Track.Text" xml:space="preserve">
     <value>Track number</value>

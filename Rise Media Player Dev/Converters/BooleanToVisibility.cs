@@ -35,16 +35,16 @@ namespace Rise.App.Converters
         }
     }
 
-    public class BindlessBooleanToVisibility
+    public static class BindlessBooleanToVisibility
     {
-        public static Visibility Convert(object value)
+        public static Visibility AsVisibility(this bool value)
         {
-            return (value is bool boolean && boolean) ? Visibility.Visible : Visibility.Collapsed;
+            return value ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public static bool ConvertBack(object value)
+        public static bool AsBool(this Visibility value)
         {
-            return value is Visibility visibility && visibility == Visibility.Visible;
+            return value == Visibility.Visible;
         }
     }
 }

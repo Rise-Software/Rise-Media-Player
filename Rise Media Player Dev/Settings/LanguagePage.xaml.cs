@@ -1,5 +1,5 @@
 ﻿using Rise.App.Common;
-using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using Windows.Globalization;
 using Windows.System.UserProfile;
 using Windows.UI.Xaml;

@@ -12,7 +12,7 @@ namespace Rise.App.Views
         /// <summary>
         /// Gets the app-wide NPViewModel instance.
         /// </summary>
-        private MusicPlaybackViewModel ViewModel => App.MPViewModel;
+        private PlaybackViewModel ViewModel => App.PViewModel;
 
         public NowPlaying()
         {

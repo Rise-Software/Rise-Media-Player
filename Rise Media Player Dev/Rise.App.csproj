@@ -143,6 +143,7 @@
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Converters\ResourceToString.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
@@ -179,8 +180,9 @@
       <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GenreViewModel.cs" />
+    <Compile Include="ViewModels\NavViewItemViewModel.cs" />
+    <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
-    <Compile Include="ViewModels\VideoPlaybackViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Views\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -233,7 +235,7 @@
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
-    <Compile Include="ViewModels\MusicPlaybackViewModel.cs" />
+    <Compile Include="ViewModels\PlaybackViewModel.cs" />
     <Compile Include="Views\AlbumSongsPage.xaml.cs">
       <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
     </Compile>
@@ -386,18 +388,18 @@
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\Settings\Feedback.png" />
-    <Content Include="Assets\NavigationView\Albums.png" />
-    <Content Include="Assets\NavigationView\Artists.png" />
-    <Content Include="Assets\NavigationView\At a glance.png" />
+    <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
     <Content Include="Assets\NavigationView\Devices.png" />
-    <Content Include="Assets\NavigationView\DiscyHelp.png" />
-    <Content Include="Assets\NavigationView\Genres.png" />
-    <Content Include="Assets\NavigationView\Local Videos.png" />
-    <Content Include="Assets\NavigationView\Now Playing.png" />
+    <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\NowPlayingPage\Colorful.png" />
     <Content Include="Assets\NavigationView\Online Videos.png" />
-    <Content Include="Assets\NavigationView\Playlists.png" />
-    <Content Include="Assets\NavigationView\Settings.png" />
-    <Content Include="Assets\NavigationView\Songs.png" />
+    <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
     <Content Include="Assets\Settings\Library.png" />
     <Content Include="Assets\Settings\About.png" />
     <Content Include="Assets\Settings\Language.png" />
@@ -681,7 +683,12 @@
     <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\MediaPlayerIcons.ttf" />
+    <Content Include="Assets\MediaPlayerIcons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SampleItemData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-gb\MediaData.resw" />
     <PRIResource Include="Strings\en-gb\NowPlaying.resw" />

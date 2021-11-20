@@ -24,7 +24,7 @@ namespace Rise.App.Indexing
             new QueryOptions(CommonFileQuery.DefaultQuery,
             new string[]
             {
-                ".m4v", ".mp4", ".mov", ".asf", ".avi", ".wmv"
+                ".m4v", ".mp4", ".mov", ".asf", ".avi", ".wmv", ".mkv"
             })
             {
                 FolderDepth = FolderDepth.Deep

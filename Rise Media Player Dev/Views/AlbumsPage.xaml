@@ -110,16 +110,6 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-
-            <AppBarSeparator />
-
-            <AppBarToggleButton x:Uid="/Information/Select"
-                                Checked="SelectToggleButton_Checked"
-                                Unchecked="SelectToggleButton_Unchecked">
-                <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xE1E3;" />
-                </AppBarToggleButton.Icon>
-            </AppBarToggleButton>
         </CommandBar>
 
         <GridView x:Name="MainGrid"

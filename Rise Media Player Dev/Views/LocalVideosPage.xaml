@@ -4,30 +4,124 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
-        <GridView IsItemClickEnabled="True"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <CommandBar Background="Transparent"
+                    DefaultLabelPosition="Right"
+                    HorizontalAlignment="Left"
+                    Margin="-12,0">
+            <AppBarButton x:Name="PlayItem"
+                          x:Uid="/Information/Play"
+                          Icon="Play"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECC8;" />
+                </AppBarButton.Icon>
+
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Playlist">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE142;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/Delete"
+                          Icon="Delete"
+                          IsEnabled="False"
+                          Style="{StaticResource AppBarCompactButton}" />
+            <AppBarButton x:Uid="/Information/Edit"
+                          Icon="Edit"
+                          IsEnabled="False"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECAA;" />
+                </AppBarButton.Icon>
+
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Default">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xF0E2;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
+            <AppBarButton x:Uid="/Information/Sort"
+                          Icon="Sort">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                                                  IsChecked="True"
+                                                  Tag="Title" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
+                                                  Tag="Artist" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
+                                                  Tag="Genres" />
+
+                        <MenuFlyoutSeparator />
+
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                  GroupName="Descending"
+                                                  IsChecked="True"
+                                                  Tag="Ascending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                  GroupName="Descending"
+                                                  Tag="Descending" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+
+        <GridView Grid.Row="1"
+                  IsItemClickEnabled="True"
                   ItemClick="GridView_ItemClick"
                   ItemsSource="{x:Bind MViewModel.FilteredVideos}"
                   Margin="-56,0"
-                  Padding="44,0,44,120">
+                  Padding="52,0,52,120">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel">
-                    <Border x:Name="ItemThumbnail"
-                            Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
-                            CornerRadius="5"
-                            Margin="5"
-                            ToolTipService.ToolTip="{x:Bind Title}">
-                        <Image Height="108"
-                               Stretch="UniformToFill"
-                               Width="192">
-                            <Image.Source>
-                                <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                    <StackPanel Orientation="Vertical" Spacing="2">
+                        <Border x:Name="ItemThumbnail"
+                                Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
+                                CornerRadius="4"
+                                Margin="4"
+                                ToolTipService.ToolTip="{x:Bind Title}">
+                            <Image Height="108"
+                                   Stretch="UniformToFill"
+                                   Width="192">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <TextBlock Text="{x:Bind Length}"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                    </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

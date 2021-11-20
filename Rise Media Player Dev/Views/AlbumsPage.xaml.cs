@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
-using Rise.App.Settings.ViewModels;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +21,9 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide MPViewModel instance.
+        /// Gets the app-wide PViewModel instance.
         /// </summary>
-        private MusicPlaybackViewModel PViewModel => App.MPViewModel;
+        private PlaybackViewModel PViewModel => App.PViewModel;
 
         /// <summary>
         /// Gets the app-wide SViewModel instance.
@@ -147,7 +146,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -167,7 +166,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartShuffleAsync(songs.GetEnumerator(), songs.Count);
+            await PViewModel.StartMusicShuffleAsync(songs.GetEnumerator(), songs.Count);
         }
 
         private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)

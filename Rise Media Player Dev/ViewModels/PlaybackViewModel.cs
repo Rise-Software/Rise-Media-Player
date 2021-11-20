@@ -13,12 +13,12 @@ using Windows.UI.Core;
 
 namespace Rise.App.ViewModels
 {
-    public class MusicPlaybackViewModel : ViewModel, ICancellableTask
+    public class PlaybackViewModel : ViewModel, ICancellableTask
     {
         /// <summary>
-        /// Creates a new <see cref="MusicPlaybackViewModel"/>.
+        /// Creates a new <see cref="PlaybackViewModel"/>.
         /// </summary>
-        public MusicPlaybackViewModel()
+        public PlaybackViewModel()
         {
             Player.Source = PlaybackList;
             PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
@@ -56,7 +56,7 @@ namespace Rise.App.ViewModels
             = true;
         #endregion
 
-        public async Task StartShuffleAsync(IEnumerator<object> songs, int count)
+        public async Task StartMusicShuffleAsync(IEnumerator<object> songs, int count)
         {
             List<SongViewModel> list = new List<SongViewModel>();
 
@@ -73,10 +73,16 @@ namespace Rise.App.ViewModels
                 list.AsEnumerable().GetEnumerator(), Token);
         }
 
-        public async Task StartPlaybackAsync(IEnumerator<object> songs, int startIndex, int count)
+        public async Task StartMusicPlaybackAsync(IEnumerator<object> songs, int startIndex, int count)
         {
             CancelTask();
             await CreatePlaybackListAsync(startIndex, count, songs, Token);
+        }
+
+        public async Task PlayVideoAsync(VideoViewModel video)
+        {
+            Player.Source = await video.AsPlaybackItemAsync();
+            Player.Play();
         }
 
         public async Task StartPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)
@@ -133,7 +139,6 @@ namespace Rise.App.ViewModels
             {
                 if (token.IsCancellationRequested)
                 {
-                    Debug.WriteLine("Stop!");
                     songs.Dispose();
                     CanContinue = true;
                     return;

@@ -1,0 +1,98 @@
+[
+  {
+    "LabelResource": "Home",
+    "Tag": "HomePage",
+    "Icon": "\uECA5",
+    "HeaderGroup": "General",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "NowPlaying",
+    "Tag": "NowPlayingPage",
+    "Icon": "\uEA37",
+    "HeaderGroup": "General",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Playlists",
+    "Tag": "PlaylistsPage",
+    "Icon": "\uE8FD",
+    "HeaderGroup": "General",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Music",
+    "Tag": "Header",
+    "Icon": "",
+    "HeaderGroup": "Music",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Songs",
+    "Tag": "SongsPage",
+    "Icon": "\uEC4F",
+    "HeaderGroup": "Music",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Artists",
+    "Tag": "ArtistsPage",
+    "Icon": "\uE125",
+    "HeaderGroup": "Music",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Albums",
+    "Tag": "AlbumsPage",
+    "Icon": "\uE93C",
+    "HeaderGroup": "Music",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Genres",
+    "Tag": "GenresPage",
+    "Icon": "\uE138",
+    "HeaderGroup": "Music",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Videos",
+    "Tag": "Header",
+    "Icon": "",
+    "HeaderGroup": "Videos",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "LocalVideos",
+    "Tag": "LocalVideosPage",
+    "Icon": "\uE8B2",
+    "HeaderGroup": "Videos",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
+    "LabelResource": "Discy",
+    "Tag": "DiscyPage",
+    "Icon": "\uE9CE",
+    "HeaderGroup": "General",
+    "Visible": true,
+    "IsFooter": true
+  },
+  {
+    "LabelResource": "Settings",
+    "Tag": "SettingsPage",
+    "Icon": "\uE115",
+    "HeaderGroup": "General",
+    "Visible": true,
+    "IsFooter": true
+  }
+]

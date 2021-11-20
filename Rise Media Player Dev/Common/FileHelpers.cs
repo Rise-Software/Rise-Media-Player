@@ -1,5 +1,4 @@
 ﻿using Rise.App.Props;
-using Rise.App.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -117,7 +116,14 @@ namespace Rise.App.Common
         /// <param name="str">The <see cref="Uri"/> <see cref="string"/>.</param>
         /// <returns>Whether or not the launch was successful.</returns>
         public static async Task<bool> LaunchAsync(this string str)
-            => await Launcher.LaunchUriAsync(new Uri(str));
+        {
+            if (str.IsValidUri())
+            {
+                return await Launcher.LaunchUriAsync(new Uri(str));
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Launchs an <see cref="Uri"/>.
@@ -126,6 +132,19 @@ namespace Rise.App.Common
         /// <returns>Whether or not the launch was successful.</returns>
         public static async Task<bool> LaunchAsync(this Uri uri)
             => await Launcher.LaunchUriAsync(uri);
+
+        /// <summary>
+        /// Checks whether or not the provided <see cref="string"/> is
+        /// a valid <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="str"><see cref="string"/> to check.</param>
+        /// <param name="kind">The kind of <see cref="Uri"/> to check.
+        /// Won't check for a specific type by default.</param>
+        /// <returns>Whether or not the <see cref="string"/> is
+        /// a valid <see cref="Uri"/>.</returns>
+        public static bool IsValidUri(this string str,
+            UriKind kind = UriKind.RelativeOrAbsolute)
+            => Uri.TryCreate(str, kind, out _);
 
         /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 

@@ -70,5 +70,29 @@ namespace Rise.App.Common
                 }
             }
         }
+
+        /// <summary>
+        /// Tries to find the specified visual parent.
+        /// </summary>
+        /// <typeparam name="ParentItem">The kind of item to find.</typeparam>
+        /// <param name="obj">Object where search will happen.</param>
+        /// <returns>The item if it's found, null otherwise.</returns>
+        public static ParentItem FindVisualParent<ParentItem>(this DependencyObject obj)
+            where ParentItem : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            if (parent == null)
+            {
+                return null;
+            }
+            else if (parent is ParentItem)
+            {
+                return parent as ParentItem;
+            }
+            else
+            {
+                return parent.FindVisualParent<ParentItem>();
+            }
+        }
     }
 }

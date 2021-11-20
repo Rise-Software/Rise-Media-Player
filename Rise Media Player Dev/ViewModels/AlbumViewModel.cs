@@ -2,7 +2,6 @@
 using Rise.Models;
 using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
@@ -16,8 +15,16 @@ namespace Rise.App.ViewModels
         /// </summary>
         public AlbumViewModel(Album model = null)
         {
-            Model = model ?? new Album();
-            IsNew = true;
+            if (model != null)
+            {
+                Model = model;
+            }
+            else
+            {
+                Model = new Album();
+                IsNew = true;
+            }
+
             OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
 
@@ -126,7 +133,7 @@ namespace Rise.App.ViewModels
         /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        
+
         private bool _isLoading;
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 

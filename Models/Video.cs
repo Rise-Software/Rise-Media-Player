@@ -21,10 +21,6 @@ namespace Rise.Models
         public override string ToString() => Title;
 
         public bool Equals(Video other)
-        {
-            return Title == other.Title &&
-                   Year == other.Year &&
-                   Directors == other.Directors;
-        }
+            => Location == other.Location;
     }
 }

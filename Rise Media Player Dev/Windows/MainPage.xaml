@@ -6,8 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:conv="using:Rise.App.Converters"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:local="using:Rise.App.Views"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -15,10 +16,90 @@
     <Page.Resources>
         <ResourceDictionary>
             <conv:BooleanToVisibility x:Key="BoolToVis" />
+            <conv:ResourceToString x:Key="StrToRes" />
 
             <!-- This top margin is the height of the custom TitleBar -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
+
+            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
+                <MenuFlyoutItem x:Uid="/Information/ToTop"
+                                Click="ToTop_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE11C;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem x:Uid="/Information/MoveUp"
+                                Click="MoveUp_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE010;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem x:Uid="/Information/MoveDown"
+                                Click="MoveDown_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE011;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem x:Uid="/Information/ToBottom"
+                                Click="ToBottom_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE118;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutSeparator />
+
+                <MenuFlyoutItem x:Uid="/Information/Remove"
+                                Click="HideItem_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE77A;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem x:Uid="/Information/RemoveSection"
+                                Click="HideSection_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xECC9;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+
+            <local:MenuItemTemplateSelector x:Key="NavViewItem">
+                <local:MenuItemTemplateSelector.GlyphTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                                                 Tag="{x:Bind Tag}"
+                                                 Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon Glyph="{x:Bind Icon, Mode=OneWay}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:MenuItemTemplateSelector.GlyphTemplate>
+
+                <local:MenuItemTemplateSelector.ImageTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                                                 Tag="{x:Bind Tag}"
+                                                 Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
+                            <muxc:NavigationViewItem.Icon>
+                                <muxc:ImageIcon Source="{x:Bind Icon, Mode=OneWay}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:MenuItemTemplateSelector.ImageTemplate>
+
+                <local:MenuItemTemplateSelector.HeaderTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItemHeader Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                                                       Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
+                    </DataTemplate>
+                </local:MenuItemTemplateSelector.HeaderTemplate>
+            </local:MenuItemTemplateSelector>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -112,204 +193,13 @@
                              ExpandedModeThresholdWidth="800"
                              IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
                              IsPaneToggleButtonVisible="True"
-                             IsSettingsVisible="True"
+                             IsSettingsVisible="False"
                              IsTitleBarAutoPaddingEnabled="False"
                              ItemInvoked="NavView_ItemInvoked"
+                             MenuItemTemplateSelector="{StaticResource NavViewItem}"
                              OpenPaneLength="260"
-                             PaneDisplayMode="LeftMinimal">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem x:Name="HomePageItem"
-                                         x:Uid="/Sidebar/Home"
-                                         Tag="HomePage"
-                                         Visibility="{Binding ShowAtAGlance}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Home">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="PlaylistsPageItem"
-                                         x:Uid="/Sidebar/Playlists"
-                                         Tag="PlaylistsPage"
-                                         Visibility="{Binding ShowPlaylists}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Playlists">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="DevicesPageItem"
-                                         x:Uid="/Sidebar/Devices"
-                                         Tag="DevicesPage"
-                                         Visibility="{Binding ShowDevices}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Devices">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-
-                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Music" Visibility="{Binding ShowMusicHeader}" />
-                <muxc:NavigationViewItem x:Name="SongsPageItem"
-                                         x:Uid="/Sidebar/Songs"
-                                         Tag="SongsPage"
-                                         Visibility="{Binding ShowSongs}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Songs">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="ArtistsPageItem"
-                                         x:Uid="/Sidebar/Artists"
-                                         Tag="ArtistsPage"
-                                         Visibility="{Binding ShowArtists}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Artists">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="AlbumsPageItem"
-                                         x:Uid="/Sidebar/Albums"
-                                         Tag="AlbumsPage"
-                                         Visibility="{Binding ShowAlbums}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Albums">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="GenresPageItem"
-                                         x:Uid="/Sidebar/Genres"
-                                         Tag="GenresPage"
-                                         Visibility="{Binding ShowGenres}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Genres">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-
-                <muxc:NavigationViewItemHeader x:Uid="/Sidebar/Videos" Visibility="{Binding ShowVideoHeader}" />
-                <muxc:NavigationViewItem x:Name="LocalVideosPageItem"
-                                         x:Uid="/Sidebar/LocalVideos"
-                                         Tag="LocalVideosPage"
-                                         Visibility="{Binding ShowLocalVideos}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="LocalVideos">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="StreamingPageItem"
-                                         x:Uid="/Sidebar/Streaming"
-                                         Tag="StreamingPage"
-                                         Visibility="{Binding ShowStreaming}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Streaming">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
-
-            <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem x:Name="DiscyPageItem"
-                                         x:Uid="/Sidebar/HelpTips"
-                                         Tag="DiscyPage"
-                                         Visibility="{Binding ShowHelpCentre}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="Help">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="NowPlayingPageItem"
-                                         x:Uid="/Sidebar/NowPlaying"
-                                         Tag="NowPlayingPage"
-                                         Visibility="{Binding ShowNowPlaying}">
-                    <muxc:NavigationViewItem.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Uid="/Information/Remove"
-                                            Click="MenuFlyoutItem_Click"
-                                            Tag="NowPlaying">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE77A;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </muxc:NavigationViewItem.ContextFlyout>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="SettingsPageItem"
-                                         x:Uid="/Sidebar/Settings"
-                                         Tag="SettingsPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/NavigationView/Settings.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.FooterMenuItems>
-
+                             PaneDisplayMode="LeftMinimal"
+                             RightTapped="NavView_RightTapped">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

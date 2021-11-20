@@ -1,22 +1,21 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Rise.App.Common;
+﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
-using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Core.Preview;
+using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
-using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
 namespace Rise.App.Views
 {
@@ -26,7 +25,9 @@ namespace Rise.App.Views
     public sealed partial class MainPage : Page
     {
         #region Variables
-        private SettingsViewModel ViewModel => App.SViewModel;
+        private SettingsViewModel SViewModel => App.SViewModel;
+        private SidebarViewModel SBViewModel => App.SBViewModel;
+
         public static MainPage Current;
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
@@ -41,6 +42,10 @@ namespace Rise.App.Views
         private IDisposable AlbumsDefer { get; set; }
         private IDisposable ArtistsDefer { get; set; }
         private IDisposable GenresDefer { get; set; }
+        private IDisposable VideosDefer { get; set; }
+
+        private NavigationViewItem RightClickedItem { get; set; }
+        private int _viewId = -1;
         #endregion
 
         #region Classes
@@ -55,91 +60,18 @@ namespace Rise.App.Views
         }
         #endregion
 
-        #region NavView Icons (TODO: FIX THIS TERRIBLE CODE)
-        private readonly ImageIcon homeIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/At a glance.png")) };
-
-        private readonly FontIcon homeIconMono =
-            new FontIcon() { Glyph = "\uECA5" };
-
-        private readonly ImageIcon playlistsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Playlists.png")) };
-
-        private readonly FontIcon playlistsIconMono =
-            new FontIcon() { Glyph = "\uE8FD" };
-
-        private readonly ImageIcon devicesIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Devices.png")) };
-
-        private readonly FontIcon devicesIconMono =
-            new FontIcon() { Glyph = "\uE1C9" };
-
-        private readonly ImageIcon songsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Songs.png")) };
-
-        private readonly FontIcon songsIconMono =
-            new FontIcon() { Glyph = "\uEC4F" };
-
-        private readonly ImageIcon artistsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Artists.png")) };
-
-        private readonly FontIcon artistsIconMono =
-            new FontIcon() { Glyph = "\uE125" };
-
-        private readonly ImageIcon albumsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Albums.png")) };
-
-        private readonly FontIcon albumsIconMono =
-            new FontIcon() { Glyph = "\uE93C" };
-
-        private readonly ImageIcon genresIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Genres.png")) };
-
-        private readonly FontIcon genresIconMono =
-            new FontIcon() { Glyph = "\uE138" };
-
-        private readonly ImageIcon videosIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Local Videos.png")) };
-
-        private readonly FontIcon videosIconMono =
-            new FontIcon() { Glyph = "\uE8B7" };
-
-        private readonly ImageIcon streamingIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Online Videos.png")) };
-
-        private readonly FontIcon streamingIconMono =
-            new FontIcon() { Glyph = "\uE12B" };
-
-        private readonly ImageIcon helpIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")) };
-
-        private readonly FontIcon helpIconMono =
-            new FontIcon() { Glyph = "\uE9CE" };
-
-        private readonly ImageIcon playingIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Now Playing.png")) };
-
-        private readonly FontIcon playingIconMono =
-            new FontIcon() { Glyph = "\uE768" };
-        #endregion
-
         public MainPage()
         {
             InitializeComponent();
             Current = this;
 
             MainTitleBarHandle = new MainTitleBar();
-
             Loaded += async (s, e) => await ApplyStartupSettings();
-            DataContext = ViewModel;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SDialog.Content = new SettingsPage();
 
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
-
-            SystemNavigationManagerPreview.GetForCurrentView().
-                CloseRequested += MainPage_CloseRequested;
 
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
@@ -156,6 +88,7 @@ namespace Rise.App.Views
                 AlbumsDefer = App.MViewModel.FilteredAlbums.DeferRefresh();
                 ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
                 GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
+                VideosDefer = App.MViewModel.FilteredVideos.DeferRefresh();
             });
         }
 
@@ -170,27 +103,14 @@ namespace Rise.App.Views
                 AlbumsDefer.Dispose();
                 ArtistsDefer.Dispose();
                 GenresDefer.Dispose();
+                VideosDefer.Dispose();
 
                 App.MViewModel.FilteredSongs.Refresh();
                 App.MViewModel.FilteredAlbums.Refresh();
                 App.MViewModel.FilteredArtists.Refresh();
                 App.MViewModel.FilteredGenres.Refresh();
+                App.MViewModel.FilteredVideos.Refresh();
             });
-        }
-
-        private async void MainPage_CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
-        {
-            if (ViewModel.PickUp)
-            {
-                try
-                {
-                    await SuspensionManager.SaveAsync();
-                }
-                catch (SuspensionManagerException)
-                {
-
-                }
-            }
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
@@ -255,7 +175,7 @@ namespace Rise.App.Views
                     {
                         Header = "Help & Tips are not available yet.",
                         Description = "Hopefully you'll find this section helpful!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")),
+                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png")),
                     };
 
                     _ = await dialog.ShowAsync();
@@ -267,7 +187,7 @@ namespace Rise.App.Views
                     {
                         Header = "You can't check out the genres yet.",
                         Description = "Hopefully you can start soon!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Genres.png"))
+                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"))
                     };
 
                     _ = await dialog.ShowAsync();
@@ -282,8 +202,15 @@ namespace Rise.App.Views
                     break;
 
                 case "NowPlayingPage":
-                    _ = await typeof(NowPlaying).
-                        OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                    if (_viewId == -1)
+                    {
+                        _viewId = await typeof(NowPlaying).
+                            OpenInWindowAsync(ApplicationViewMode.Default, 320, 300);
+                    }
+                    else
+                    {
+                        await ApplicationViewSwitcher.TryShowAsStandaloneAsync(_viewId);
+                    }
                     break;
 
                 case "PlaylistsPage":
@@ -336,162 +263,93 @@ namespace Rise.App.Views
                 return;
             }
 
-            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            foreach (NavViewItemViewModel item in SBViewModel.Items)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
                     Breadcrumbs.Add(new Crumb
                     {
-                        Title = item.Content.ToString()
+                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
                     });
                     return;
                 }
             }
 
-            foreach (NavigationViewItemBase item in NavView.FooterMenuItems)
+            foreach (NavViewItemViewModel item in SBViewModel.FooterItems)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
                     Breadcrumbs.Add(new Crumb
                     {
-                        Title = item.Content.ToString()
+                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
                     });
                     return;
                 }
             }
         }
+
         #endregion
 
         #region Settings
         private async Task ApplyStartupSettings()
         {
-            // Sidebar icon colors
-            UpdateIconColor(ViewModel.IconPack);
+            // Sidebar icons
+            await SBViewModel.LoadItemsAsync();
+            ChangeIconPack(SViewModel.CurrentPack);
 
             // Startup setting
             if (ContentFrame.Content == null)
             {
-                await Navigate(ViewModel.Open);
+                await Navigate(SViewModel.Open);
             }
 
             FinishNavigation();
-            PlayerElement.SetMediaPlayer(App.MPViewModel.Player);
+            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
 
             App.MViewModel.CanIndex = true;
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
         }
-
-        /// <summary>
-        /// TERRIBLE FUNCTION, REMOVE ASAP!!!
-        /// </summary>
-        /// <param name="icons">WHY WOULD YOU WANT TO KNOW WHAT THIS DOES???</param>
-        public void UpdateIconColor(int icons)
+        
+        public void ChangeIconPack(string newIcons)
         {
-            if (icons == 1)
-            {
-                SettingsPageItem.Visibility = Visibility.Visible;
-                NavView.IsSettingsVisible = false;
+            SBViewModel.ChangeIconPack(newIcons);
 
-                HomePageItem.Icon = homeIconColor;
-                PlaylistsPageItem.Icon = playlistsIconColor;
-                DevicesPageItem.Icon = devicesIconColor;
-                SongsPageItem.Icon = songsIconColor;
-                ArtistsPageItem.Icon = artistsIconColor;
-                AlbumsPageItem.Icon = albumsIconColor;
-                GenresPageItem.Icon = genresIconColor;
-                LocalVideosPageItem.Icon = videosIconColor;
-                StreamingPageItem.Icon = streamingIconColor;
-                DiscyPageItem.Icon = helpIconColor;
-                NowPlayingPageItem.Icon = playingIconColor;
-                return;
-            }
+            // Refresh item templates.
+            NavView.MenuItemsSource = null;
+            NavView.FooterMenuItemsSource = null;
 
-            SettingsPageItem.Visibility = Visibility.Collapsed;
-            NavView.IsSettingsVisible = true;
-
-            HomePageItem.Icon = homeIconMono;
-            PlaylistsPageItem.Icon = playlistsIconMono;
-            DevicesPageItem.Icon = devicesIconMono;
-            SongsPageItem.Icon = songsIconMono;
-            ArtistsPageItem.Icon = artistsIconMono;
-            AlbumsPageItem.Icon = albumsIconMono;
-            GenresPageItem.Icon = genresIconMono;
-            LocalVideosPageItem.Icon = videosIconMono;
-            StreamingPageItem.Icon = streamingIconMono;
-            DiscyPageItem.Icon = helpIconMono;
-            NowPlayingPageItem.Icon = playingIconMono;
+            NavView.MenuItemsSource = SBViewModel.Items;
+            NavView.FooterMenuItemsSource = SBViewModel.FooterItems;
         }
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Feedback.LaunchAsync();
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void HideItem_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+
+        private void HideSection_Click(object sender, RoutedEventArgs e)
         {
-            MenuFlyoutItem click = (MenuFlyoutItem)sender;
-            HideItem(click.Tag.ToString(), false);
+            NavViewItemViewModel item = SBViewModel.
+                ItemFromTag(RightClickedItem.Tag.ToString());
+
+            SBViewModel.HideGroup(item.HeaderGroup);
         }
 
-        private void HideItem(string item, bool value)
-        {
-            int visibilityCheck = 0;
-            switch (item)
-            {
-                case "Home":
-                    ViewModel.ShowAtAGlance = value;
-                    break;
+        private void MoveUp_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveUp(RightClickedItem.Tag.ToString());
 
-                case "Playlists":
-                    ViewModel.ShowPlaylists = value;
-                    break;
+        private void MoveDown_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveDown(RightClickedItem.Tag.ToString());
 
-                case "Devices":
-                    ViewModel.ShowDevices = value;
-                    break;
+        private void ToTop_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveToTop(RightClickedItem.Tag.ToString());
 
-                case "Songs":
-                    ViewModel.ShowSongs = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Artists":
-                    ViewModel.ShowArtists = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Albums":
-                    ViewModel.ShowAlbums = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Genres":
-                    ViewModel.ShowGenres = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "LocalVideos":
-                    ViewModel.ShowLocalVideos = value;
-                    visibilityCheck = 2;
-                    break;
-
-                case "Streaming":
-                    ViewModel.ShowStreaming = value;
-                    visibilityCheck = 2;
-                    break;
-
-                case "Help":
-                    ViewModel.ShowHelpCentre = value;
-                    break;
-
-                case "NowPlaying":
-                    ViewModel.ShowNowPlaying = value;
-                    break;
-            }
-
-            ViewModel.ChangeHeaderVisibility(visibilityCheck);
-        }
+        private void ToBottom_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
 
         private async void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -501,5 +359,45 @@ namespace Rise.App.Views
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
             => FinishNavigation();
+
+        private void NavView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            DependencyObject source = e.OriginalSource as DependencyObject;
+
+            if (source.FindVisualParent<NavigationViewItem>()
+                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            {
+                RightClickedItem = item;
+                NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+            }
+        }
+    }
+
+    [ContentProperty(Name = "GlyphTemplate")]
+    public class MenuItemTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate GlyphTemplate { get; set; }
+        public DataTemplate ImageTemplate { get; set; }
+
+        public DataTemplate HeaderTemplate { get; set; }
+        // public DataTemplate SeparatorTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            NavViewItemViewModel itemData = item as NavViewItemViewModel;
+            if (itemData.Tag == "Header")
+            {
+                return HeaderTemplate;
+            }
+
+            if (itemData.Icon.IsValidUri(UriKind.Absolute))
+            {
+                return ImageTemplate;
+            }
+            else
+            {
+                return GlyphTemplate;
+            }
+        }
     }
 }

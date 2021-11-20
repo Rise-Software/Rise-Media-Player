@@ -14,10 +14,10 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide VPViewModel instance.
+        /// Gets the app-wide PViewModel instance.
         /// </summary>
-        private VideoPlaybackViewModel VPViewModel => App.VPViewModel;
-        private int viewId = -1;
+        private PlaybackViewModel PViewModel => App.PViewModel;
+        private int _viewId = -1;
 
         public LocalVideosPage()
         {
@@ -27,17 +27,17 @@ namespace Rise.App.Views
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (viewId == -1)
+            if (_viewId == -1)
             {
-                viewId = await typeof(VideoPlaybackPage).
+                _viewId = await typeof(VideoPlaybackPage).
                     OpenInWindowAsync(ApplicationViewMode.Default, 360, 500);
             }
             else
             {
-                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId);
+                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(_viewId);
             }
 
-            await VPViewModel.PlayVideoAsync(e.ClickedItem as VideoViewModel);
+            await PViewModel.PlayVideoAsync(e.ClickedItem as VideoViewModel);
         }
     }
 }

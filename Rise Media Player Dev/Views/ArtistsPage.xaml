@@ -35,8 +35,7 @@
                         </Border>
 
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock ContinuumNavigationTransitionInfo.IsExitElement="True"
-                                       Text="{x:Bind Name}"
+                            <TextBlock Text="{x:Bind Name}"
                                        MaxLines="2"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        TextWrapping="Wrap" />

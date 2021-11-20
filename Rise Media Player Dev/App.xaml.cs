@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
 using Rise.App.Indexing;
-using Rise.App.Settings.ViewModels;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Repository;
@@ -34,19 +33,19 @@ namespace Rise.App
         public static MainViewModel MViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide <see cref="MusicPlaybackViewModel"/> singleton instance.
+        /// Gets the app-wide <see cref="PlaybackViewModel"/> singleton instance.
         /// </summary>
-        public static MusicPlaybackViewModel MPViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the app-wide <see cref="VideoPlaybackViewModel"/> singleton instance.
-        /// </summary>
-        public static VideoPlaybackViewModel VPViewModel { get; private set; }
+        public static PlaybackViewModel PViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
         /// </summary>
         public static SettingsViewModel SViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
+        /// </summary>
+        public static SidebarViewModel SBViewModel { get; private set; }
 
         /// <summary>
         /// Pipeline for interacting with backend service or database.
@@ -118,8 +117,8 @@ namespace Rise.App
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             MViewModel = new MainViewModel();
-            MPViewModel = new MusicPlaybackViewModel();
-            VPViewModel = new VideoPlaybackViewModel();
+            PViewModel = new PlaybackViewModel();
+            SBViewModel = new SidebarViewModel();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
@@ -175,6 +174,7 @@ namespace Rise.App
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
+            await SBViewModel.SerializeItemsAsync();
             try
             {
                 await SuspensionManager.SaveAsync();
@@ -183,6 +183,7 @@ namespace Rise.App
             {
 
             }
+
             deferral.Complete();
         }
 
@@ -205,7 +206,7 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await MPViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
+            await PViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
         }
 
         /// <summary>
