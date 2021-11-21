@@ -91,7 +91,7 @@
     "LabelResource": "Settings",
     "Tag": "SettingsPage",
     "Icon": "\uE115",
-    "HeaderGroup": "General",
+    "HeaderGroup": "Settings",
     "Visible": true,
     "IsFooter": true
   }

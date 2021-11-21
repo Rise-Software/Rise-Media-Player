@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -21,11 +20,23 @@ namespace Rise.App.ViewModels
         public ObservableCollection<NavViewItemViewModel> FooterItems { get; set; } =
             new ObservableCollection<NavViewItemViewModel>();
 
-        private readonly string[] _defaultIcons = new string[10]
+        private readonly Dictionary<string, string> _defaultIcons =
+            new Dictionary<string, string>();
+
+        public SidebarViewModel()
         {
-            "\uECA5", "\uEA37", "\uE8FD", "\uEC4F", "\uE125",
-            "\uE93C", "\uE138", "\uE8B2", "\uE9CE", "\uE115"
-        };
+            // Populate the default icon dictionary.
+            _defaultIcons.Add("HomePage", "\uECA5");
+            _defaultIcons.Add("NowPlayingPage", "\uEA37");
+            _defaultIcons.Add("PlaylistsPage", "\uE8FD");
+            _defaultIcons.Add("SongsPage", "\uEC4F");
+            _defaultIcons.Add("ArtistsPage", "\uE125");
+            _defaultIcons.Add("AlbumsPage", "\uE93C");
+            _defaultIcons.Add("GenresPage", "\uE138");
+            _defaultIcons.Add("LocalVideosPage", "\uE8B2");
+            _defaultIcons.Add("DiscyPage", "\uE9CE");
+            _defaultIcons.Add("SettingsPage", "\uE115");
+        }
 
         /// <summary>
         /// Loads sidebar items inside the JSON file. If the file's
@@ -230,13 +241,11 @@ namespace Rise.App.ViewModels
             }
             else
             {
-                int counter = 0;
                 foreach (NavViewItemViewModel item in Items)
                 {
                     if (!item.Tag.Equals("Header"))
                     {
-                        item.Icon = _defaultIcons[counter];
-                        counter++;
+                        item.Icon = _defaultIcons[item.Tag];
                     }
                 }
 
@@ -244,8 +253,7 @@ namespace Rise.App.ViewModels
                 {
                     if (!item.Tag.Equals("Header"))
                     {
-                        item.Icon = _defaultIcons[counter];
-                        counter++;
+                        item.Icon = _defaultIcons[item.Tag];
                     }
                 }
             }
@@ -336,6 +344,48 @@ namespace Rise.App.ViewModels
 
         #region Moving
         /// <summary>
+        /// Checks if an item can be moved down.
+        /// </summary>
+        /// <param name="tag">Item's tag.</param>
+        /// <returns>True if the item can be moved down,
+        /// false otherwise.</returns>
+        public bool CanMoveDown(string tag)
+        {
+            NavViewItemViewModel item = ItemFromTag(tag);
+            int index;
+
+            if (!item.IsFooter)
+            {
+                index = Items.IndexOf(item);
+                if (index + 1 == Items.Count)
+                {
+                    return false;
+                }
+
+                if (Items.ElementAt(index + 1).HeaderGroup != item.HeaderGroup)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                index = FooterItems.IndexOf(item);
+                if (index + 1 == FooterItems.Count)
+                {
+                    return false;
+                }
+
+                if (FooterItems.ElementAt(index + 1).HeaderGroup !=
+                    item.HeaderGroup)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Moves an item down.
         /// </summary>
         /// <param name="tag">Item's tag.</param>
@@ -368,21 +418,74 @@ namespace Rise.App.ViewModels
             if (!item.IsFooter)
             {
                 index = Items.IndexOf(item);
-                Items.Move(index, Items.Count - 1);
+                while (index < Items.Count &&
+                    !Items.ElementAt(index + 1).Tag.Equals("Header"))
+                {
+                    Items.Move(index, index + 1);
+                    index++;
+                }
             }
             else
             {
                 index = FooterItems.IndexOf(item);
-                FooterItems.Move(index, FooterItems.Count - 1);
+                while (index < FooterItems.Count &&
+                    !FooterItems.ElementAt(index + 1).Tag.Equals("Header"))
+                {
+                    FooterItems.Move(index, index + 1);
+                    index++;
+                }
             }
+        }
+
+        /// <summary>
+        /// Checks if an item can be moved up.
+        /// </summary>
+        /// <param name="tag">Item's tag.</param>
+        /// <returns>True if the item can be moved up,
+        /// false otherwise.</returns>
+        public bool CanMoveUp(string tag)
+        {
+            NavViewItemViewModel item = ItemFromTag(tag);
+            int index;
+
+            if (!item.IsFooter)
+            {
+                index = Items.IndexOf(item);
+                if (index - 1 == -1)
+                {
+                    return false;
+                }
+
+                if (Items.ElementAt(index - 1).HeaderGroup != item.HeaderGroup ||
+                    (Items.ElementAt(index - 1).HeaderGroup == item.HeaderGroup &&
+                    Items.ElementAt(index - 1).Tag.Equals("Header")))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                index = FooterItems.IndexOf(item);
+                if (index - 1 == -1)
+                {
+                    return false;
+                }
+
+                if (FooterItems.ElementAt(index - 1).HeaderGroup != item.HeaderGroup ||
+                    (FooterItems.ElementAt(index - 1).HeaderGroup == item.HeaderGroup &&
+                    FooterItems.ElementAt(index - 1).Tag.Equals("Header")))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
         /// Moves an item up.
         /// </summary>
         /// <param name="tag">Item's tag.</param>
-        /// <param name="inFooter">Whether or not the item is
-        /// in the footer.</param>
         public void MoveUp(string tag)
         {
             NavViewItemViewModel item = ItemFromTag(tag);
@@ -404,22 +507,29 @@ namespace Rise.App.ViewModels
         /// Moves an item to the top.
         /// </summary>
         /// <param name="tag">Item's tag.</param>
-        /// <param name="inFooter">Whether or not the item is
-        /// in the footer.</param>
         public void MoveToTop(string tag)
         {
             NavViewItemViewModel item = ItemFromTag(tag);
             int index;
 
-            if (!item.IsFooter)
+            if (item.HeaderGroup == "General")
             {
                 index = Items.IndexOf(item);
                 Items.Move(index, 0);
             }
             else
             {
-                index = FooterItems.IndexOf(item);
-                FooterItems.Move(index, 0);
+                NavViewItemViewModel header = HeaderFromGroupName(item.HeaderGroup);
+                if (!item.IsFooter)
+                {
+                    index = Items.IndexOf(item);
+                    Items.Move(index, Items.IndexOf(header) + 1);
+                }
+                else
+                {
+                    index = FooterItems.IndexOf(item);
+                    FooterItems.Move(index, FooterItems.IndexOf(header) + 1);
+                }
             }
         }
         #endregion

@@ -23,28 +23,32 @@
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
             <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/ToTop"
+                <MenuFlyoutItem x:Name="TopOption"
+                                x:Uid="/Information/ToTop"
                                 Click="ToTop_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE11C;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Uid="/Information/MoveUp"
+                <MenuFlyoutItem x:Name="UpOption"
+                                x:Uid="/Information/MoveUp"
                                 Click="MoveUp_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Uid="/Information/MoveDown"
+                <MenuFlyoutItem x:Name="DownOption"
+                                x:Uid="/Information/MoveDown"
                                 Click="MoveDown_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Uid="/Information/ToBottom"
+                <MenuFlyoutItem x:Name="BottomOption"
+                                x:Uid="/Information/ToBottom"
                                 Click="ToBottom_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE118;" />
@@ -64,6 +68,15 @@
                                 Click="HideSection_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+
+            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
+                <MenuFlyoutItem x:Uid="/Information/Remove"
+                                Click="HideItem_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE77A;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
             </MenuFlyout>

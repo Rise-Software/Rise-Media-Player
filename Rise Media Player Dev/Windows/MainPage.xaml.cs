@@ -369,7 +369,25 @@ namespace Rise.App.Views
                 is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
             {
                 RightClickedItem = item;
-                NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                string tag = item.Tag.ToString();
+
+                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                {
+                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                }
+                else
+                {
+                    bool up = SBViewModel.CanMoveUp(tag);
+                    bool down = SBViewModel.CanMoveDown(tag);
+
+                    TopOption.IsEnabled = up;
+                    UpOption.IsEnabled = up;
+
+                    DownOption.IsEnabled = down;
+                    BottomOption.IsEnabled = down;
+
+                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                }
             }
         }
     }
