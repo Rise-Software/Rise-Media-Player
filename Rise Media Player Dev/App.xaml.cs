@@ -236,7 +236,7 @@ namespace Rise.App
 
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-                rootFrame.CacheSize = 0;
+                rootFrame.CacheSize = 1;
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Associate the frame with a SuspensionManager key.

@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <Grid>
@@ -35,5 +37,38 @@
                                         IsPreviousTrackButtonVisible="False" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
+
+        <Grid ColumnSpacing="8" Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BackButton"
+                    Command="{x:Bind NavigationHelper.GoBackCommand}"
+                    Height="40"
+                    Style="{StaticResource TransparentButton}"
+                    Width="40"
+                    VerticalAlignment="Top"
+                    AutomationProperties.Name="Back"
+                    AutomationProperties.AutomationId="BackButton"
+                    AutomationProperties.ItemType="Navigation Button">
+                <muxc:AnimatedIcon>
+                    <animatedvisuals:AnimatedBackVisualSource/>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back"/>
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
+
+            <uc:MicaTitleBar x:Name="AppTitleBar"
+                             Grid.Column="1"
+                             Canvas.ZIndex="1"
+                             AddLabelWidth="800"
+                             Height="40"
+                             IsHitTestVisible="False"
+                             ShowIcon="True"
+                             VerticalAlignment="Top" />
+        </Grid>
     </Grid>
 </Page>

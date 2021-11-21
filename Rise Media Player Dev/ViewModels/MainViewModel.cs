@@ -231,8 +231,7 @@ namespace Rise.App.ViewModels
 
             // Check if album exists.
             bool albumExists = Albums.
-                Any(a => a.Model.Title == song.Album &&
-                    a.Model.Genres == song.Genres);
+                Any(a => a.Model.Title == song.Album);
 
             // Check if artist exists.
             bool artistExists = Artists.

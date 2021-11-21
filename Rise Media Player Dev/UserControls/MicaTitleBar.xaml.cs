@@ -8,10 +8,10 @@ namespace Rise.App.UserControls
         public MicaTitleBar()
         {
             InitializeComponent();
-            Loaded += ApplyTitle;
+            Loaded += (s, e) => ApplyTitle();
         }
 
-        private void ApplyTitle(object sender, RoutedEventArgs e)
+        private void ApplyTitle()
         {
             if (Title != null)
             {
@@ -22,7 +22,8 @@ namespace Rise.App.UserControls
                 _ = FindName("DefaultTitle");
             }
 
-            SizeChanged += UserControl_SizeChanged;
+            HandleSizeChanges();
+            SizeChanged += (s, e) => HandleSizeChanges();
         }
 
         public string Title { get; set; }
@@ -30,7 +31,7 @@ namespace Rise.App.UserControls
         public bool ShowIcon { get; set; }
         public double LabelWidth => AppData.DesiredSize.Width;
 
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void HandleSizeChanges()
         {
             double width = Window.Current.Bounds.Width;
 

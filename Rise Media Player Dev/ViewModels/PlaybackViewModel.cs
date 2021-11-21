@@ -81,7 +81,9 @@ namespace Rise.App.ViewModels
 
         public async Task PlayVideoAsync(VideoViewModel video)
         {
-            Player.Source = await video.AsPlaybackItemAsync();
+            PlaybackList.Items.Clear();
+
+            PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
             Player.Play();
         }
 
@@ -131,7 +133,6 @@ namespace Rise.App.ViewModels
             // Not disposing the media player here is intentional, it gets
             // marshalled from a different thread when setting the media players
             // and running on the UI thread here isn't desirable.
-            Player.Source = PlaybackList;
             Player.Play();
 
             SetCurrentSong(0);

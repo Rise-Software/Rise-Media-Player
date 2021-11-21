@@ -255,7 +255,8 @@
                                                     IsSeekBarVisible="True"
                                                     IsSeekEnabled="True"
                                                     IsNextTrackButtonVisible="True"
-                                                    IsPreviousTrackButtonVisible="True" />
+                                                    IsPreviousTrackButtonVisible="True"
+                                                    ShowAndHideAutomatically="False" />
                         </MediaPlayerElement.TransportControls>
                     </MediaPlayerElement>
                 </Grid>

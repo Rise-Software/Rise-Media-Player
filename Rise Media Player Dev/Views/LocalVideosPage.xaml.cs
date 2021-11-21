@@ -1,6 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using Rise.App.Common;
+using Rise.App.ViewModels;
 using System;
-using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -17,27 +18,28 @@ namespace Rise.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
-        private int _viewId = -1;
+
+        private readonly NavigationHelper navigationHelper;
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        public NavigationHelper NavigationHelper => navigationHelper;
 
         public LocalVideosPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            navigationHelper = new NavigationHelper(this);
         }
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (_viewId == -1)
-            {
-                _viewId = await typeof(VideoPlaybackPage).
-                    OpenInWindowAsync(ApplicationViewMode.Default, 360, 500);
-            }
-            else
-            {
-                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(_viewId);
-            }
-
             await PViewModel.PlayVideoAsync(e.ClickedItem as VideoViewModel);
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                rootFrame.Navigate(typeof(VideoPlaybackPage));
+            }
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -66,7 +65,7 @@ namespace Rise.App.Views
             Current = this;
 
             MainTitleBarHandle = new MainTitleBar();
-            Loaded += async (s, e) => await ApplyStartupSettings();
+            Loaded += MainPage_Loaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SDialog.Content = new SettingsPage();
@@ -75,6 +74,27 @@ namespace Rise.App.Views
 
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Sidebar icons
+            await SBViewModel.LoadItemsAsync();
+            ChangeIconPack(SViewModel.CurrentPack);
+
+            // Startup setting
+            if (ContentFrame.Content == null)
+            {
+                await Navigate(SViewModel.Open);
+            }
+
+            FinishNavigation();
+            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+
+            App.MViewModel.CanIndex = true;
+            _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+
+            Loaded -= MainPage_Loaded;
         }
 
         private async void Indexer_Started()
@@ -293,25 +313,6 @@ namespace Rise.App.Views
         #endregion
 
         #region Settings
-        private async Task ApplyStartupSettings()
-        {
-            // Sidebar icons
-            await SBViewModel.LoadItemsAsync();
-            ChangeIconPack(SViewModel.CurrentPack);
-
-            // Startup setting
-            if (ContentFrame.Content == null)
-            {
-                await Navigate(SViewModel.Open);
-            }
-
-            FinishNavigation();
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
-
-            App.MViewModel.CanIndex = true;
-            _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-        }
-        
         public void ChangeIconPack(string newIcons)
         {
             SBViewModel.ChangeIconPack(newIcons);

@@ -11,10 +11,7 @@ namespace Rise.App.Views
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        public NavigationHelper NavigationHelper => navigationHelper;
 
         public HomePage()
         {
