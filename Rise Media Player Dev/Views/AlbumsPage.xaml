@@ -95,6 +95,9 @@
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
                                                   Click="SortFlyoutItem_Click"
                                                   Tag="Genres" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
+                                                  Click="SortFlyoutItem_Click"
+                                                  Tag="Year" />
 
                         <MenuFlyoutSeparator />
 

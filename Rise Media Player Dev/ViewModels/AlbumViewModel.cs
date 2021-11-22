@@ -127,6 +127,23 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Gets or setss the album release year.
+        /// </summary>
+        public uint Year
+        {
+            get => Model.Year;
+            set
+            {
+                if (value != Model.Year)
+                {
+                    Model.Year = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Year));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>

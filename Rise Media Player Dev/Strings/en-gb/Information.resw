@@ -265,6 +265,6 @@
     <value>View</value>
   </data>
   <data name="Year.Text" xml:space="preserve">
-    <value>Year</value>
+    <value>Release year</value>
   </data>
 </root>

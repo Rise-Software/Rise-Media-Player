@@ -269,7 +269,8 @@ namespace Rise.App.ViewModels
                     Title = song.Album,
                     Artist = song.AlbumArtist,
                     Genres = song.Genres,
-                    Thumbnail = thumb
+                    Thumbnail = thumb,
+                    Year = song.Year
                 };
 
                 song.Thumbnail = thumb;
@@ -308,6 +309,12 @@ namespace Rise.App.ViewModels
                         }
 
                         thumbnail.Dispose();
+                    }
+
+                    if (alvm.Year == 0)
+                    {
+                        alvm.Year = song.Year;
+                        save = true;
                     }
 
                     if (save)
