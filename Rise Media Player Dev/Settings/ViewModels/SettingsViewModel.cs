@@ -136,17 +136,15 @@ namespace Rise.App.ViewModels
 
         public bool ShowAllGeneral
         {
-            get => ShowAtAGlance || ShowDevices || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
+            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
             set
             {
                 ShowAtAGlance = value;
-                ShowDevices = value;
                 ShowPlaylists = value;
                 ShowHelpCentre = value;
                 ShowNowPlaying = value;
 
                 OnPropertyChanged(nameof(ShowAtAGlance));
-                OnPropertyChanged(nameof(ShowDevices));
                 OnPropertyChanged(nameof(ShowPlaylists));
                 OnPropertyChanged(nameof(ShowHelpCentre));
                 OnPropertyChanged(nameof(ShowNowPlaying));
@@ -185,7 +183,7 @@ namespace Rise.App.ViewModels
         {
             get
             {
-                bool vis = ShowLocalVideos || ShowStreaming;
+                bool vis = ShowLocalVideos;
                 if (!vis)
                 {
                     ShowVideoHeader = false;
@@ -198,10 +196,8 @@ namespace Rise.App.ViewModels
             {
                 ShowVideoHeader = value;
                 ShowLocalVideos = value;
-                ShowStreaming = value;
 
                 OnPropertyChanged(nameof(ShowLocalVideos));
-                OnPropertyChanged(nameof(ShowStreaming));
             }
         }
 
@@ -227,12 +223,6 @@ namespace Rise.App.ViewModels
         {
             get => SBViewModel.IsItemVisible("PlaylistsPage");
             set => ChangeItemVisibility("PlaylistsPage", value);
-        }
-
-        public bool ShowDevices
-        {
-            get => SBViewModel.IsItemVisible("DevicesPage");
-            set => ChangeItemVisibility("DevicesPage", value);
         }
 
         public bool ShowSongs
@@ -263,12 +253,6 @@ namespace Rise.App.ViewModels
         {
             get => SBViewModel.IsItemVisible("LocalVideosPage");
             set => ChangeItemVisibility("LocalVideosPage", value);
-        }
-
-        public bool ShowStreaming
-        {
-            get => SBViewModel.IsItemVisible("StreamingPage");
-            set => ChangeItemVisibility("StreamingPage", value);
         }
 
         public bool ShowHelpCentre
