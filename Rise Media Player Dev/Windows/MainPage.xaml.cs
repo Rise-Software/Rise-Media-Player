@@ -237,18 +237,6 @@ namespace Rise.App.Views
                     _ = ContentFrame.Navigate(typeof(ArtistsPage));
                     break;
 
-                case "DevicesPage":
-                    // _ = ContentFrame.Navigate(typeof(DevicesPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Device view and sync is not available yet.",
-                        Description = "This will be coming in a future update.",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Devices.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
-                    break;
-
                 case "DiscyPage":
                     // _ = ContentFrame.Navigate(typeof(DiscyPage));
                     dialog = new UnavailableDialog
@@ -262,15 +250,7 @@ namespace Rise.App.Views
                     break;
 
                 case "GenresPage":
-                    // _ = ContentFrame.Navigate(typeof(GenresPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "You can't check out the genres yet.",
-                        Description = "Hopefully you can start soon!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
+                    _ = ContentFrame.Navigate(typeof(GenresPage));
                     break;
 
                 case "HomePage":
@@ -309,20 +289,6 @@ namespace Rise.App.Views
                     _ = ContentFrame.Navigate(typeof(SongsPage));
                     break;
 
-                case "StreamingPage":
-                    // _ = ContentFrame.Navigate(typeof(StreamingPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Streaming services for videos, films and TV are not available yet.",
-                        Description = "We are prioritising other features first, including local playback.",
-                        LeftHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Netflix.png")),
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Prime.png")),
-                        RightHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/YouTube.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
-                    break;
-
                 default:
                     break;
             }
@@ -334,14 +300,6 @@ namespace Rise.App.Views
             string tag = type.Split('.').Last();
 
             Breadcrumbs.Clear();
-            if (tag == "AlbumSongsPage" || tag == "ArtistSongsPage")
-            {
-                Breadcrumbs.Add(new Crumb
-                {
-                    Title = ""
-                });
-                return;
-            }
 
             foreach (NavViewItemViewModel item in SBViewModel.Items)
             {

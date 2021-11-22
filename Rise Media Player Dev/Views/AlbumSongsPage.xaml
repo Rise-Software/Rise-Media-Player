@@ -22,7 +22,7 @@
                   Header="{x:Bind SelectedAlbum, Mode=OneWay}"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
-                  Margin="-56,-56,-56,0"
+                  Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"

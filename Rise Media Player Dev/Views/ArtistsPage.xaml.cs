@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Common;
 using Rise.App.ViewModels;
-using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,8 +15,16 @@ namespace Rise.App.Views
         /// </summary>
         private MainViewModel MViewModel => App.MViewModel;
 
-        private ArtistViewModel SelectedArtist { get; set; }
-        private ObservableCollection<ArtistViewModel> Artists => MViewModel.Artists;
+        private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
+
+        private static readonly DependencyProperty SelectedArtistProperty =
+            DependencyProperty.Register("SelectedArtist", typeof(ArtistViewModel), typeof(ArtistsPage), null);
+
+        private ArtistViewModel SelectedArtist
+        {
+            get => (ArtistViewModel)GetValue(SelectedArtistProperty);
+            set => SetValue(SelectedArtistProperty, value);
+        }
 
         private readonly NavigationHelper navigationHelper;
         /// <summary>
