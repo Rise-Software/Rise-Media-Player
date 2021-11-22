@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
+using Rise.App.Converters;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.Settings.ViewModels;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
@@ -386,6 +388,42 @@ namespace Rise.App.Views
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
 
             App.MViewModel.CanIndex = true;
+
+            /*switch (ViewModel.ColorTheme)
+            {
+                case 0:
+                    // No tint
+                    Background.Color = Colors.Transparent;
+                    break;
+                case 1:
+                    // Use system accent color
+                    Background.Color = (Color)Resources["SystemAccentColor"];
+                    break;
+                case 2:
+                    // Use custom colors
+                    switch (ViewModel.Color)
+                    {
+                        case -1:
+                            Background.Color = Colors.Transparent;
+                            break;
+                        case 0:
+                            Background.Color = Colors.IndianRed;
+                            break;
+                        case 1:
+                            Background.Color = Colors.BlueViolet;
+                            break;
+                        case 2:
+                            Background.Color = Colors.DarkSeaGreen;
+                            break;
+                        case 3:
+                            Background.Color = Colors.CornflowerBlue;
+                            break;
+                        case 4:
+                            Background.Color = Colors.DarkGoldenrod;
+                            break;
+                    }
+                    break;
+            }*/
         }
 
         /// <summary>

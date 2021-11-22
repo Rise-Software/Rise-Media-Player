@@ -145,6 +145,7 @@
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
+    <Compile Include="Converters\IntToColorBrush.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">

@@ -19,6 +19,13 @@ namespace Rise.App.Settings
             ResourceLoaders.AppearanceLoader.GetString("System")
         };
 
+        private readonly List<string> ColorThemes = new List<string>
+        {
+            "No tint",
+            "Use system accent color",
+            "Rise"
+        };
+
         private readonly List<string> Startup = new List<string>
         {
             ResourceLoaders.AppearanceLoader.GetString("Home"),
@@ -47,6 +54,22 @@ namespace Rise.App.Settings
 
             SettingsDialogContainer.Breadcrumbs.
                 Add(ResourceLoaders.AppearanceLoader.GetString("Sidebar"));
+        }
+
+        private void ColorThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (ColorThemeComboBox.SelectedIndex)
+            {
+                case 0:
+                    RiseColorsStackPanel.Visibility = Visibility.Collapsed;
+                    break;
+                case 1:
+                    RiseColorsStackPanel.Visibility = Visibility.Collapsed;
+                    break;
+                case 2:
+                    RiseColorsStackPanel.Visibility = Visibility.Visible;
+                    break;
+            }
         }
     }
 }

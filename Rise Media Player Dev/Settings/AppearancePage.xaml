@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
@@ -25,6 +26,31 @@
             <ComboBox ItemsSource="{x:Bind Themes}"
                       PlaceholderText="Use system setting"
                       SelectedIndex="{Binding Theme, Mode=TwoWay}" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/Appearance/ChooseColor"
+                               ExpanderStyle="Default"
+                               Icon="&#xE790;">
+            <StackPanel Orientation="Vertical">
+                <RelativePanel>
+                    <TextBlock VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">Color theme</TextBlock>
+                    <ComboBox ItemsSource="{x:Bind ColorThemes}"
+                              PlaceholderText="Accent"
+                              x:Name="ColorThemeComboBox"
+                              SelectionChanged="ColorThemeComboBox_SelectionChanged"
+                              RelativePanel.AlignRightWithPanel="True"
+                              SelectedIndex="{Binding ColorTheme, Mode=TwoWay}" />
+                </RelativePanel>
+                <StackPanel Padding="0,10,0,0" Orientation="Horizontal" x:Name="RiseColorsStackPanel">
+                    <muxc:RadioButtons x:Name="RiseRadioButtons" MaxColumns="5" SelectedIndex="{Binding Color, Mode=TwoWay}">
+                        <Border ToolTipService.ToolTip="Rise Red" Background="IndianRed" Width="40" Height="40" CornerRadius="4" />
+                        <Border ToolTipService.ToolTip="Rise Violet" Background="BlueViolet" Width="40" Height="40" CornerRadius="4" />
+                        <Border ToolTipService.ToolTip="Rise Green" Background="DarkSeaGreen" Width="40" Height="40" CornerRadius="4" />
+                        <Border ToolTipService.ToolTip="Rise Blue" Background="CornflowerBlue" Width="40" Height="40" CornerRadius="4" />
+                        <Border ToolTipService.ToolTip="Rise Gold" Background="DarkGoldenrod" Width="40" Height="40" CornerRadius="4" />
+                    </muxc:RadioButtons>
+                </StackPanel>
+            </StackPanel>
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/FullArt"
