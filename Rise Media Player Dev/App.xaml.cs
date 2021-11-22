@@ -220,7 +220,7 @@ namespace Rise.App
 #if DEBUG
             if (Debugger.IsAttached)
             {
-                DebugSettings.EnableFrameRateCounter = true;
+                // DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 

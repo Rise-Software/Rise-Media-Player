@@ -1,6 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -22,6 +24,15 @@ namespace Rise.App.Views
 
             NavigationCacheMode = NavigationCacheMode.Required;
             navigationHelper = new NavigationHelper(this);
+
+            Loaded += (s, e) => _ = new ApplicationTitleBar(AppTitleBar);
+            _ = new ApplicationTitleBar(AppTitleBar);
         }
+
+        private void Page_PointerExited(object sender, PointerRoutedEventArgs e)
+            => TopGrid.Visibility = Visibility.Collapsed;
+
+        private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => TopGrid.Visibility = Visibility.Visible;
     }
 }

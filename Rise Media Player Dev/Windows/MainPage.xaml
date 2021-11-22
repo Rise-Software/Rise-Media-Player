@@ -147,7 +147,6 @@
 
         <Grid Canvas.ZIndex="1">
             <uc:MicaTitleBar x:Name="AppTitleBar"
-                             x:FieldModifier="public"
                              Canvas.ZIndex="1"
                              AddLabelWidth="800"
                              Height="40"

@@ -93,140 +93,41 @@ namespace Rise.App.Views
         }
     }
 
-    public class MainTitleBar
+    /// <summary>
+    /// A simple titlebar handler that can be used on an
+    /// <see cref="ApplicationView"/>. For use with the
+    /// <see cref="MicaTitleBar"/> control.
+    /// </summary>
+    public class ApplicationTitleBar
     {
-        private readonly MicaTitleBar AppTitleBar = MainPage.Current.AppTitleBar;
-        private readonly Grid ControlsPanel = MainPage.Current.ControlsPanel;
-        private readonly Microsoft.UI.Xaml.Controls.NavigationView NavView =
-            MainPage.Current.NavView;
+        private readonly MicaTitleBar _titleBar;
 
-        public MainTitleBar()
+        public ApplicationTitleBar(MicaTitleBar titleBar,
+            TypedEventHandler<CoreApplicationViewTitleBar, object> metricsChangedHandler = null)
         {
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            _titleBar = titleBar;
+            ApplicationViewTitleBar bar = ApplicationView.GetForCurrentView().TitleBar;
 
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            bar.ButtonBackgroundColor = Colors.Transparent;
+            bar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             // Hide default title bar.
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
 
             // Set XAML element as a draggable region.
-            Window.Current.SetTitleBar(AppTitleBar);
+            Window.Current.SetTitleBar(_titleBar);
 
             // Register a handler for when the size of the overlaid caption control changes.
             // For example, when the app moves to a screen with a different DPI.
-            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
-
-            // Register a handler for when the title bar visibility changes.
-            // For example, when the title bar is invoked in full screen mode.
-            coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
-
-            //Register a handler for when the window changes focus
-            Window.Current.Activated += Current_Activated;
-
-            UpdateTitleBarLayout(coreTitleBar);
-        }
-
-        /// <summary>
-        /// Handle TitleBar layout metrics changes.
-        /// </summary>
-        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            UpdateTitleBarLayout(sender);
-        }
-
-        /// <summary>
-        /// Update the TitleBar layout.
-        /// </summary>
-        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
-        {
-            // Update title bar control size as needed to account for system size changes.
-            AppTitleBar.Height = coreTitleBar.Height;
-
-            // Ensure the custom title bar does not overlap window caption controls
-            Thickness currMargin = AppTitleBar.Margin;
-            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
-            ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
-
-            UpdateTitleBarItems(NavView);
-        }
-
-        private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            AppTitleBar.Visibility = sender.IsVisible ?
-                Visibility.Visible : Visibility.Collapsed;
-        }
-
-        /// <summary>
-        /// Update the TitleBar based on the inactive/active state of the app.
-        /// </summary>
-        private void Current_Activated(object sender, WindowActivatedEventArgs e)
-        {
-            SolidColorBrush defaultForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
-            SolidColorBrush inactiveForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
-
-            AppTitleBar.Foreground = e.WindowActivationState == CoreWindowActivationState.Deactivated
-                ? inactiveForegroundBrush
-                : defaultForegroundBrush;
-        }
-
-        /// <summary>
-        /// Update the TitleBar content layout depending on NavigationView DisplayMode.
-        /// </summary>
-        public void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView NavView)
-        {
-            const int topIndent = 16;
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            // If the back button is not visible, reduce the TitleBar content indent.
-            if (NavView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
+            if (metricsChangedHandler != null)
             {
-                minimalIndent = 48;
-            }
-
-            Thickness currMargin = AppTitleBar.Margin;
-
-            // Set the TitleBar margin dependent on NavigationView display mode
-            if (NavView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
-            {
-                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(topIndent + AppTitleBar.LabelWidth + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
-            }
-            else if (NavView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
-            {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                coreTitleBar.LayoutMetricsChanged += metricsChangedHandler;
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Top, expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+                coreTitleBar.LayoutMetricsChanged += (s, e) => HandleResize(s);
             }
-        }
-    }
-
-    public class SetupTitleBar
-    {
-        private readonly MicaTitleBar AppTitleBar = SetupPage.Current.AppTitleBar;
-        public SetupTitleBar()
-        {
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            // Hide default title bar.
-            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
-
-            // Set XAML element as a draggable region.
-            Window.Current.SetTitleBar(AppTitleBar);
-
-            // Register a handler for when the size of the overlaid caption control changes.
-            // For example, when the app moves to a screen with a different DPI.
-            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
 
             // Register a handler for when the title bar visibility changes.
             // For example, when the title bar is invoked in full screen mode.
@@ -234,52 +135,40 @@ namespace Rise.App.Views
 
             //Register a handler for when the window changes focus
             Window.Current.Activated += Current_Activated;
-            UpdateTitleBarLayout(coreTitleBar);
         }
 
-        /// <summary>
-        /// Handle TitleBar layout metrics changes.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            UpdateTitleBarLayout(sender);
-        }
-
-        /// <summary>
-        /// Update the TitleBar layout.
-        /// </summary>
-        /// <param name="coreTitleBar">Core App TitleBar.</param>
-        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
+        private void HandleResize(CoreApplicationViewTitleBar coreTitleBar)
         {
             // Update title bar control size as needed to account for system size changes.
-            AppTitleBar.Height = coreTitleBar.Height;
+            _titleBar.Height = coreTitleBar.Height;
 
             // Ensure the custom title bar does not overlap window caption controls
-            Thickness currMargin = AppTitleBar.Margin;
-            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
+            Thickness currMargin = _titleBar.Margin;
+            _titleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
         }
 
         private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
         {
-            AppTitleBar.Visibility = sender.IsVisible ?
+            _titleBar.Visibility = sender.IsVisible ?
                 Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
         /// Update the TitleBar based on the inactive/active state of the app.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e">Window activation event args.</param>
         private void Current_Activated(object sender, WindowActivatedEventArgs e)
         {
-            SolidColorBrush defaultForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
-            SolidColorBrush inactiveForegroundBrush = (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
+            SolidColorBrush defaultForegroundBrush =
+                (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
 
-            AppTitleBar.Foreground = e.WindowActivationState == CoreWindowActivationState.Deactivated
-                ? inactiveForegroundBrush
-                : defaultForegroundBrush;
+            SolidColorBrush inactiveForegroundBrush =
+                (SolidColorBrush)Application.Current.Resources["TextFillColorDisabledBrush"];
+
+            _titleBar.Foreground =
+                e.WindowActivationState == CoreWindowActivationState.Deactivated ?
+                inactiveForegroundBrush :
+                defaultForegroundBrush;
         }
     }
 

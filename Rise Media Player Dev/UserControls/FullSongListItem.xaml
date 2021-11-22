@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <conv:BooleanToVisibility x:Key="BoolToVis" />
+        <conv:TimeSpanToString x:Key="TimeToStr" />
     </UserControl.Resources>
 
     <Grid>
@@ -167,7 +168,8 @@
 
                 <Rectangle Fill="Transparent"
                            VerticalAlignment="Stretch" />
-                <TextBlock Grid.Row="1" Text="{Binding Length}" />
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Length, Converter={StaticResource TimeToStr}}" />
                 <Rectangle Grid.Row="2"
                            Fill="Transparent"
                            VerticalAlignment="Stretch" />

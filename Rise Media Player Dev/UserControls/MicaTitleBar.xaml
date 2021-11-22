@@ -24,25 +24,22 @@
                    x:Load="{x:Bind ShowIcon}"
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"
-                   Source="ms-appx:///Assets/App/Titlebar.png" 
+                   Source="{x:Bind Icon, Mode=OneWay}" 
                    Width="16" 
                    Height="16" />
             <RichTextBlock x:Name="DefaultTitle"
-                           x:Load="False"
                            FontSize="12"
+                           IsTextSelectionEnabled="False"
                            VerticalAlignment="Center"
-                           Visibility="Collapsed"
                            Width="Auto">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 2+
+                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 3
                 </Paragraph>
             </RichTextBlock>
             <TextBlock x:Name="AppTitle"
-                       x:Load="False"
                        FontSize="12"
-                       Text="{x:Bind Title}"
+                       Text="{x:Bind Title, Mode=OneWay}"
                        VerticalAlignment="Center"
-                       Visibility="Collapsed"
                        Width="Auto" />
         </StackPanel>
     </Border>

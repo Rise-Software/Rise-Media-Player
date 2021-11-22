@@ -29,7 +29,7 @@
                                         VerticalAlignment="Center">
                                 <TextBlock x:Uid="/About/Version"
                                            FontWeight="SemiBold" />
-                                <TextBlock Text="Pre-Alpha 2+" FontSize="12"
+                                <TextBlock Text="Pre-Alpha 3" FontSize="12"
                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                             </StackPanel>
                         </StackPanel>

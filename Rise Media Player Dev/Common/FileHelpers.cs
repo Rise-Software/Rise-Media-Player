@@ -238,7 +238,7 @@ namespace Rise.App.Common
             string genre = musicProperties.Genre.FirstOrDefault() != null
                 ? musicProperties.Genre.First() : "UnknownGenreResource";
 
-            string length = musicProperties.Duration.ToString("mm\\:ss");
+            TimeSpan length = musicProperties.Duration;
 
             return new Song
             {

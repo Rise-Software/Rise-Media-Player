@@ -7,10 +7,51 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:uc="using:Rise.App.UserControls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited">
 
     <Grid>
+        <Grid x:Name="TopGrid"
+              Canvas.ZIndex="1"
+              Background="{ThemeResource SystemControlAcrylicElementBrush}"
+              Height="32"
+              VerticalAlignment="Top">
+            <Grid.Transitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Grid.Transitions>
+
+            <Button x:Name="BackButton"
+                    Command="{x:Bind NavigationHelper.GoBackCommand}"
+                    CornerRadius="0"
+                    Height="32"
+                    Style="{StaticResource TransparentButton}"
+                    Width="40"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="Back"
+                    AutomationProperties.AutomationId="BackButton"
+                    AutomationProperties.ItemType="Navigation Button">
+                <muxc:AnimatedIcon>
+                    <animatedvisuals:AnimatedBackVisualSource/>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back"/>
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
+
+            <uc:MicaTitleBar x:Name="AppTitleBar"
+                             Canvas.ZIndex="1"
+                             AddLabelWidth="0"
+                             Height="32"
+                             Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
+                             Margin="48,0,0,0"
+                             ShowIcon="True" />
+        </Grid>
+
         <MediaPlayerElement x:Name="PlayerElement"
+                            Canvas.ZIndex="0"
                             AreTransportControlsEnabled="True"
                             Visibility="Visible">
             <MediaPlayerElement.TransportControls>
@@ -37,38 +78,5 @@
                                         IsPreviousTrackButtonVisible="False" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
-
-        <Grid ColumnSpacing="8" Margin="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="BackButton"
-                    Command="{x:Bind NavigationHelper.GoBackCommand}"
-                    Height="40"
-                    Style="{StaticResource TransparentButton}"
-                    Width="40"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
-                <muxc:AnimatedIcon>
-                    <animatedvisuals:AnimatedBackVisualSource/>
-                    <muxc:AnimatedIcon.FallbackIconSource>
-                        <muxc:SymbolIconSource Symbol="Back"/>
-                    </muxc:AnimatedIcon.FallbackIconSource>
-                </muxc:AnimatedIcon>
-            </Button>
-
-            <uc:MicaTitleBar x:Name="AppTitleBar"
-                             Grid.Column="1"
-                             Canvas.ZIndex="1"
-                             AddLabelWidth="800"
-                             Height="40"
-                             IsHitTestVisible="False"
-                             ShowIcon="True"
-                             VerticalAlignment="Top" />
-        </Grid>
     </Grid>
 </Page>

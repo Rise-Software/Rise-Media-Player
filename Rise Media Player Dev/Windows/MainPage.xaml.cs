@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -31,8 +32,6 @@ namespace Rise.App.Views
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
             = new ObservableCollection<Crumb>();
-
-        private MainTitleBar MainTitleBarHandle { get; set; }
 
         public SettingsDialogContainer SDialog { get; }
             = new SettingsDialogContainer();
@@ -64,7 +63,6 @@ namespace Rise.App.Views
             InitializeComponent();
             Current = this;
 
-            MainTitleBarHandle = new MainTitleBar();
             Loaded += MainPage_Loaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
@@ -76,7 +74,7 @@ namespace Rise.App.Views
             App.Indexer.Finished += Indexer_Finished;
         }
 
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
             // Sidebar icons
             await SBViewModel.LoadItemsAsync();
@@ -95,6 +93,12 @@ namespace Rise.App.Views
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
 
             Loaded -= MainPage_Loaded;
+
+            // When the page is loaded, initialize the titlebar.
+            Loaded += (s, e) =>
+                _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+
+            _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
         }
 
         private async void Indexer_Started()
@@ -133,9 +137,65 @@ namespace Rise.App.Views
             });
         }
 
-        // Update the TitleBar content layout depending on NavigationView DisplayMode
+        #region TitleBar
+        // Update the TitleBar content layout.
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
-            => MainTitleBarHandle.UpdateTitleBarItems(sender);
+            => UpdateTitleBarItems(sender);
+
+        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+            => UpdateTitleBarLayout(sender);
+
+        /// <summary>
+        /// Update the TitleBar layout.
+        /// </summary>
+        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
+        {
+            // Update title bar control size as needed to account for system size changes.
+            AppTitleBar.Height = coreTitleBar.Height;
+
+            // Ensure the custom title bar does not overlap window caption controls
+            Thickness currMargin = AppTitleBar.Margin;
+            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
+            ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+
+            UpdateTitleBarItems(NavView);
+        }
+
+        /// <summary>
+        /// Update the TitleBar content layout depending on NavigationView DisplayMode.
+        /// </summary>
+        public void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
+        {
+            const int topIndent = 16;
+            const int expandedIndent = 48;
+            int minimalIndent = 104;
+
+            // If the back button is not visible, reduce the TitleBar content indent.
+            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
+            {
+                minimalIndent = 48;
+            }
+
+            Thickness currMargin = AppTitleBar.Margin;
+
+            // Set the TitleBar margin dependent on NavigationView display mode
+            if (navView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
+            {
+                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(topIndent + AppTitleBar.LabelWidth + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+            }
+            else if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
+            {
+                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+            }
+            else
+            {
+                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Top, expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+            }
+        }
+        #endregion
 
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)

@@ -184,7 +184,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets the song length. 
         /// </summary>
-        public string Length
+        public TimeSpan Length
         {
             get => Model.Length;
             set

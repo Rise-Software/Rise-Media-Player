@@ -10,21 +10,15 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class SetupPage : Page
     {
-        public static SetupPage Current { get; set; }
-
         private readonly SetupDialog Dialog = new SetupDialog();
 
         public SetupPage()
         {
             InitializeComponent();
-            Current = this;
-
-            _ = new SetupTitleBar();
+            _ = new ApplicationTitleBar(AppTitleBar);
         }
 
         private async void SetupButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await Dialog.ShowAsync();
-        }
+            => _ = await Dialog.ShowAsync();
     }
 }

@@ -8,25 +8,59 @@ namespace Rise.App.UserControls
         public MicaTitleBar()
         {
             InitializeComponent();
+            Icon = "ms-appx:///Assets/App/Titlebar.png";
+
             Loaded += (s, e) => ApplyTitle();
         }
 
         private void ApplyTitle()
         {
-            if (Title != null)
+            if (Title == null)
             {
-                _ = FindName("AppTitle");
+                AppTitle.Visibility = Visibility.Collapsed;
+                DefaultTitle.Visibility = Visibility.Visible;
             }
             else
             {
-                _ = FindName("DefaultTitle");
+                AppTitle.Visibility = Visibility.Visible;
+                DefaultTitle.Visibility = Visibility.Collapsed;
             }
 
             HandleSizeChanges();
             SizeChanged += (s, e) => HandleSizeChanges();
         }
 
-        public string Title { get; set; }
+        public static DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), null);
+
+        public string Icon
+        {
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+
+        public static DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), null);
+
+        public string Title
+        {
+            get => (string)GetValue(TitleProperty);
+            set
+            {
+                SetValue(TitleProperty, value);
+                if (value == null)
+                {
+                    AppTitle.Visibility = Visibility.Collapsed;
+                    DefaultTitle.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    AppTitle.Visibility = Visibility.Visible;
+                    DefaultTitle.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         public int AddLabelWidth { get; set; }
         public bool ShowIcon { get; set; }
         public double LabelWidth => AppData.DesiredSize.Width;

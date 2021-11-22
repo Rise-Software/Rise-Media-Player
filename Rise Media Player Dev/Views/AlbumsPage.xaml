@@ -171,7 +171,7 @@
                                 Spacing="2"
                                 Width="134">
                         <Border x:Name="ItemThumbnail"
-                                CornerRadius="5">
+                                CornerRadius="4">
                             <Image Height="134"
                                    Stretch="UniformToFill"
                                    Width="134">
@@ -184,8 +184,7 @@
                         <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    MaxLines="1"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
+                                   Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap" />
                         <TextBlock FontSize="13">
                             <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">

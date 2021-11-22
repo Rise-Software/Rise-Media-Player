@@ -5,8 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <conv:TimeSpanToString x:Key="TimeToStr" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -101,14 +106,14 @@
                   ItemClick="GridView_ItemClick"
                   ItemsSource="{x:Bind MViewModel.FilteredVideos}"
                   Margin="-56,0"
-                  Padding="52,0,52,120">
+                  Padding="48,0,48,120"
+                  SelectionMode="None">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel">
-                    <StackPanel Orientation="Vertical" Spacing="2">
+                    <StackPanel Orientation="Vertical" Margin="8" Spacing="2">
                         <Border x:Name="ItemThumbnail"
                                 Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                                 CornerRadius="4"
-                                Margin="4"
                                 ToolTipService.ToolTip="{x:Bind Title}">
                             <Image Height="108"
                                    Stretch="UniformToFill"
@@ -119,8 +124,12 @@
                             </Image>
                         </Border>
 
-                        <TextBlock Text="{x:Bind Length}"
+                        <TextBlock Text="{x:Bind Title}"
+                                   Padding="0,7,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind Length, Converter={StaticResource TimeToStr}, ConverterParameter=D-S}"
+                                   FontSize="13"
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

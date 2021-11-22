@@ -148,6 +148,7 @@
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
+    <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
@@ -282,7 +283,7 @@
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SetupPage.xaml.cs">
+    <Compile Include="Windows\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StreamingPage.xaml.cs">
@@ -305,13 +306,6 @@
     <Compile Include="Settings\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SongHub\BaseSong.cs" />
-    <Compile Include="SongHub\LocalSongsView.xaml.cs">
-      <DependentUpon>LocalSongsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SongHub\OfflineSong.cs" />
-    <Compile Include="SongHub\OnlineSong.cs" />
-    <Compile Include="SongHub\SongFactory.cs" />
     <Compile Include="Views\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
@@ -590,7 +584,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SetupPage.xaml">
+    <Page Include="Windows\SetupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -615,10 +609,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\NavigationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SongHub\LocalSongsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

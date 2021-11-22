@@ -17,7 +17,7 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             VersionData.RequestedOperation = DataPackageOperation.Copy;
-            VersionData.SetText("Pre-Alpha 2+ - v0.0.12.0");
+            VersionData.SetText("Pre-Alpha 3 - v0.0.13.0");
         }
 
         private async void NavigationExpander_Click(object sender, RoutedEventArgs e)
