@@ -185,7 +185,7 @@
     <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
-    <Compile Include="Views\ArtistSongsPage.xaml.cs">
+    <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\ClassicSettings.xaml.cs">
@@ -194,7 +194,7 @@
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GenreSongsPage.xaml.cs">
+    <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
@@ -240,10 +240,10 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\PlaybackViewModel.cs" />
-    <Compile Include="Views\AlbumSongsPage.xaml.cs">
+    <Compile Include="Views\Albums\AlbumSongsPage.xaml.cs">
       <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GenresPage.xaml.cs">
+    <Compile Include="Views\Genres\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\NavigationExpander.xaml.cs">
@@ -253,17 +253,14 @@
     <Compile Include="Dialogs\FoldersDialog.xaml.cs">
       <DependentUpon>FoldersDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AlbumsPage.xaml.cs">
+    <Compile Include="Views\Albums\AlbumsPage.xaml.cs">
       <DependentUpon>AlbumsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArtistsPage.xaml.cs">
+    <Compile Include="Views\Artists\ArtistsPage.xaml.cs">
       <DependentUpon>ArtistsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DevicesPage.xaml.cs">
-      <DependentUpon>DevicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiscyPage.xaml.cs">
       <DependentUpon>DiscyPage.xaml</DependentUpon>
@@ -471,7 +468,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArtistSongsPage.xaml">
+    <Page Include="Views\Artists\ArtistSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -483,7 +480,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GenreSongsPage.xaml">
+    <Page Include="Views\Genres\GenreSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -531,11 +528,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AlbumSongsPage.xaml">
+    <Page Include="Views\Albums\AlbumSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GenresPage.xaml">
+    <Page Include="Views\Genres\GenresPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -551,15 +548,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AlbumsPage.xaml">
+    <Page Include="Views\Albums\AlbumsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArtistsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DevicesPage.xaml">
+    <Page Include="Views\Artists\ArtistsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
