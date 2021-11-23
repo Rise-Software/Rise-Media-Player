@@ -10,7 +10,11 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors">
 
     <Grid>
         <Grid.Background>
@@ -24,7 +28,7 @@
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
             <Border.Background>
-                <media:BackdropBlurBrush Amount="10.0" />
+                <media:BackdropBlurBrush x:Name="BlurBrush" />
             </Border.Background>
         </Border>
 
@@ -121,7 +125,8 @@
                    Grid.Row="1"
                    Padding="16,12,16,0"
                    VerticalAlignment="Bottom"
-                   VerticalContentAlignment="Bottom">
+                   VerticalContentAlignment="Bottom"
+                   Visibility="Collapsed">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

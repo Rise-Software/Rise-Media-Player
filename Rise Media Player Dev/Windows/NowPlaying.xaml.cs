@@ -1,9 +1,13 @@
 using Rise.App.ViewModels;
+using System;
+using System.Numerics;
 using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Rise.App.Views
 {
@@ -67,6 +71,18 @@ namespace Rise.App.Views
             }
 
             clicked.Checked += ToggleButton_Checked;
+        }
+
+        private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            PlayFrame.Visibility = Visibility.Visible;
+            BlurBrush.Amount = 10;
+        }
+
+        private void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            PlayFrame.Visibility = Visibility.Collapsed;
+            BlurBrush.Amount = 0;
         }
     }
 }
