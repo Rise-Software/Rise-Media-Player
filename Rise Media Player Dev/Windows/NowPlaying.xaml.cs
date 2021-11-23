@@ -18,6 +18,8 @@ namespace Rise.App.Views
         /// </summary>
         private PlaybackViewModel ViewModel => App.PViewModel;
 
+        private bool IsInCurrentlyPlayingPage = true;
+
         public NowPlaying()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace Rise.App.Views
             AlbumQueue.Visibility = Visibility.Visible;
             QueueButton.Visibility = Visibility.Collapsed;
             Queue.IsChecked = true;
+            IsInCurrentlyPlayingPage = false;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +52,7 @@ namespace Rise.App.Views
             Queue.Visibility = Visibility.Collapsed;
             AlbumQueue.Visibility = Visibility.Collapsed;
             QueueButton.Visibility = Visibility.Visible;
+            IsInCurrentlyPlayingPage = true;
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -75,18 +79,24 @@ namespace Rise.App.Views
 
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            PlayFrameHoverAnimationIn.Begin();
-            BlurBrushBorderAnimationIn.Begin();
-            PlayFrame.Visibility = Visibility.Visible;
-            BlurBrush.Amount = 10;
+            if (IsInCurrentlyPlayingPage)
+            {
+                PlayFrameHoverAnimationIn.Begin();
+                BlurBrushBorderAnimationIn.Begin();
+                PlayFrame.Visibility = Visibility.Visible;
+                BlurBrush.Amount = 10;
+            }
         }
 
         private void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            PlayFrameHoverAnimationOut.Begin();
-            BlurBrushBorderAnimationOut.Begin();
-            PlayFrame.Visibility = Visibility.Collapsed;
-            BlurBrush.Amount = 0;
+            if (IsInCurrentlyPlayingPage)
+            {
+                PlayFrameHoverAnimationOut.Begin();
+                BlurBrushBorderAnimationOut.Begin();
+                PlayFrame.Visibility = Visibility.Collapsed;
+                BlurBrush.Amount = 0;
+            }
         }
     }
 }
