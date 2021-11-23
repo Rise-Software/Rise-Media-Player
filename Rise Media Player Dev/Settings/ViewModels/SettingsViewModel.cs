@@ -22,7 +22,7 @@ namespace Rise.App.Settings.ViewModels
 
         public int ColorTheme
         {
-            get => (int)Get("ColorTheme", nameof(ColorTheme), 0);
+            get => (int)Get("ColorTheme", nameof(ColorTheme), -2);
             set => Set("ColorTheme", nameof(ColorTheme), value);
         }
 

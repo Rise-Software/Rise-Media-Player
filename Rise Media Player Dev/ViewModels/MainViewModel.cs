@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
+using Windows.UI.Xaml;
 
 namespace Rise.App.ViewModels
 {
