@@ -75,12 +75,16 @@ namespace Rise.App.Views
 
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
+            PlayFrameHoverAnimationIn.Begin();
+            BlurBrushBorderAnimationIn.Begin();
             PlayFrame.Visibility = Visibility.Visible;
             BlurBrush.Amount = 10;
         }
 
         private void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
+            PlayFrameHoverAnimationOut.Begin();
+            BlurBrushBorderAnimationOut.Begin();
             PlayFrame.Visibility = Visibility.Collapsed;
             BlurBrush.Amount = 0;
         }

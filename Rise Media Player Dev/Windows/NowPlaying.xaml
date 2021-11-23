@@ -12,9 +12,23 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
     PointerEntered="Page_PointerEntered"
-    PointerExited="Page_PointerExited"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors">
+    PointerExited="Page_PointerExited">
+
+    <Page.Resources>
+        <Storyboard x:Name="PlayFrameHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="PlayFrame"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="PlayFrameHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="PlayFrame"></FadeOutThemeAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="BlurBrushBorderAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="BlurBrushBorderAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeOutThemeAnimation>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid>
         <Grid.Background>
@@ -26,7 +40,8 @@
         </Grid.Background>
 
         <Border HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                x:Name="BlurBrushBorder">
             <Border.Background>
                 <media:BackdropBlurBrush x:Name="BlurBrush" />
             </Border.Background>
