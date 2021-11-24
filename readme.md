@@ -92,7 +92,8 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 ### MSIX Install Instructions 
 **If Windows Prompts about Untrusted Application**
-* Simply right click and Go to Digital signatures Tab
+* Simply right click the MSIX and click Properties
+* Go to Digital signatures Tab
 * Select Rise Software and click Details
 * In next popup select View Certificate
 * In next popup select Install Certificate
