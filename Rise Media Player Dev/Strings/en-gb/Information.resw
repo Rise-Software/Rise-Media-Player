@@ -165,6 +165,9 @@
   <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
     <value>Properties and Info</value>
   </data>
+  <data name="Fdb.Text" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
   <data name="Feedback.ToolTipService.ToolTip" xml:space="preserve">
     <value>Feedback</value>
   </data>
@@ -213,6 +216,9 @@
   <data name="RemoveSection.Text" xml:space="preserve">
     <value>Remove whole section</value>
   </data>
+  <data name="Scan.Text" xml:space="preserve">
+    <value>Scan for new media</value>
+  </data>
   <data name="Select.Label" xml:space="preserve">
     <value>Select</value>
   </data>
@@ -221,6 +227,9 @@
   </data>
   <data name="SelectAlbum.Text" xml:space="preserve">
     <value>Select</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>App settings</value>
   </data>
   <data name="SetupFinalise.Text" xml:space="preserve">
     <value>We’re just making sure all of your changes are saved.</value>

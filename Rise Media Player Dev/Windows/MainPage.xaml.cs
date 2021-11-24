@@ -62,12 +62,11 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             Current = this;
+            SDialog.Content = new SettingsPage();
 
             Loaded += MainPage_Loaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
-            SDialog.Content = new SettingsPage();
-
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             App.Indexer.Started += Indexer_Started;
@@ -347,6 +346,15 @@ namespace Rise.App.Views
         private async void Button_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Feedback.LaunchAsync();
 
+        private async void StartScan_Click(object sender, RoutedEventArgs e)
+        {
+            await App.MViewModel.StartFullCrawlAsync();
+            await App.MViewModel.SyncAsync();
+        }
+
+        private async void OpenSettings_Click(object sender, RoutedEventArgs e)
+            => _ = await SDialog.ShowAsync();
+
         private void HideItem_Click(object sender, RoutedEventArgs e)
             => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
 
@@ -369,12 +377,6 @@ namespace Rise.App.Views
 
         private void ToBottom_Click(object sender, RoutedEventArgs e)
             => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private async void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            await App.MViewModel.StartFullCrawlAsync();
-            await App.MViewModel.SyncAsync();
-        }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
             => FinishNavigation();
