@@ -4,8 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
@@ -61,6 +61,19 @@
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
+                <uc:NavigationExpander x:Uid="/Navigation/NowPlaying"
+                                       ExpanderStyle="Transparent"
+                                       Icon="&#xEA37;"
+                                       Margin="0,-8">
+                    <ToggleSwitch IsOn="{Binding ShowNowPlaying, Mode=TwoWay}"
+                                  Margin="0,2,0,0" />
+                </uc:NavigationExpander>
+
+                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
+                           Height="1"
+                           HorizontalAlignment="Stretch"
+                           Margin="-16,0" />
+
                 <uc:NavigationExpander x:Uid="/Navigation/Playlists"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8FD;"
@@ -74,37 +87,11 @@
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Devices"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE1C9;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowDevices, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
                 <uc:NavigationExpander x:Uid="/Navigation/HelpCentre"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE897;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowHelpCentre, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
-                <uc:NavigationExpander x:Uid="/Navigation/NowPlaying"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE768;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowNowPlaying, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{Binding ShowHelpCentre, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
             </StackPanel>
@@ -208,21 +195,8 @@
                 <uc:NavigationExpander x:Uid="/Navigation/Local"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8B7;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowLocalVideos, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
-                <uc:NavigationExpander x:Uid="/Navigation/Streaming"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE12B;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowStreaming, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{Binding ShowLocalVideos, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
             </StackPanel>

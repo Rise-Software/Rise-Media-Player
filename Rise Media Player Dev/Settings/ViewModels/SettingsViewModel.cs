@@ -11,10 +11,10 @@ namespace Rise.App.ViewModels
         // Empty constructor.
         public SettingsViewModel() { }
 
-        public string[] OpenLocations = new string[10]
+        public string[] OpenLocations = new string[8]
         {
-            "HomePage", "PlaylistsPage", "DevicesPage", "SongsPage", "ArtistsPage",
-            "AlbumsPage", "GenresPage", "LocalVideosPage", "StreamingPage", "NowPlayingPage"
+            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
+            "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
         };
 
         private readonly string[] _iconPacks = new string[2]
