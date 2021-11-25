@@ -126,8 +126,14 @@
   <data name="Album.Text" xml:space="preserve">
     <value>Album</value>
   </data>
+  <data name="Albums.Text" xml:space="preserve">
+    <value>Albums</value>
+  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Artist</value>
+  </data>
+  <data name="Artists.Text" xml:space="preserve">
+    <value>Artists</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
     <value>Ascending</value>
@@ -251,6 +257,9 @@
   </data>
   <data name="SmallSearch.PlaceholderText" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Songs.Text" xml:space="preserve">
+    <value>Songs</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sort</value>

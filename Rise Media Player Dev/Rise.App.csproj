@@ -134,6 +134,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
@@ -151,6 +152,9 @@
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\VFoldersDialog.xaml.cs">
+      <DependentUpon>VFoldersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Props\FilePage.xaml.cs">
@@ -171,6 +175,9 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AlbumGrid.xaml.cs">
+      <DependentUpon>AlbumGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
       <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
     </Compile>
@@ -179,6 +186,9 @@
     </Compile>
     <Compile Include="UserControls\FullSongListItem.xaml.cs">
       <DependentUpon>FullSongListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HeaderControl.xaml.cs">
+      <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
@@ -285,9 +295,6 @@
     </Compile>
     <Compile Include="Windows\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StreamingPage.xaml.cs">
-      <DependentUpon>StreamingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AboutPage.xaml.cs">
@@ -428,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\VFoldersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Props\FilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -456,6 +467,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AlbumGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AlbumSongListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -465,6 +480,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FullSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -585,10 +604,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SetupPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StreamingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

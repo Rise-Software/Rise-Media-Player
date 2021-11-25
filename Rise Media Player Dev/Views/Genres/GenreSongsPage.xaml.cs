@@ -3,9 +3,11 @@ using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -48,9 +50,86 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
+
+        private RelayCommand _playCommand;
+        private RelayCommand PlayCommand
+        {
+            get
+            {
+                if (_playCommand == null)
+                {
+                    _playCommand = new RelayCommand(async () => await StartPlaybackAsync());
+                }
+
+                return _playCommand;
+            }
+            set => _playCommand = value;
+        }
+
+        private RelayCommand _shuffleCommand;
+        private RelayCommand ShuffleCommand
+        {
+            get
+            {
+                if (_shuffleCommand == null)
+                {
+                    _shuffleCommand = new RelayCommand(async () => await StartPlaybackAsync(0, true));
+                }
+
+                return _shuffleCommand;
+            }
+            set => _shuffleCommand = value;
+        }
+
+        private RelayCommand _sortCommand;
+        private RelayCommand SortCommand
+        {
+            get
+            {
+                if (_sortCommand == null)
+                {
+                    _sortCommand = new RelayCommand(SortItems);
+                }
+
+                return _sortCommand;
+            }
+            set => _sortCommand = value;
+        }
+
+        private RelayCommand _viewCommand;
+        private RelayCommand ViewCommand
+        {
+            get
+            {
+                if (_viewCommand == null)
+                {
+                    _viewCommand = new RelayCommand(ChangeView);
+                }
+
+                return _viewCommand;
+            }
+            set => _viewCommand = value;
+        }
+
+        private RelayCommand _editCommand;
+        private RelayCommand EditCommand
+        {
+            get
+            {
+                if (_editCommand == null)
+                {
+                    _editCommand = new RelayCommand(async () => await SelectedSong.StartEdit());
+                }
+
+                return _editCommand;
+            }
+            set => _editCommand = value;
+        }
         #endregion
 
         public GenreSongsPage()
@@ -79,37 +158,24 @@ namespace Rise.App.Views
             if (e.NavigationParameter is GenreViewModel genre)
             {
                 SelectedGenre = genre;
-                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(genre.Name);
 
+                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(genre.Name);
                 Songs.SortDescriptions.Clear();
                 Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+
+                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(genre.Name);
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
             }
         }
 
         #region Event handlers
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int itemIndex = MainList.SelectedIndex;
-                if (itemIndex < 0)
-                {
-                    return;
-                }
-
-                SelectedSong = null;
-
-                IEnumerator<object> enumerator = Songs.GetEnumerator();
-                List<SongViewModel> songs = new List<SongViewModel>();
-
-                while (enumerator.MoveNext())
-                {
-                    songs.Add(enumerator.Current as SongViewModel);
-                }
-
-                enumerator.Dispose();
-                await PViewModel.StartMusicPlaybackAsync
-                    (songs.GetEnumerator(), itemIndex, songs.Count);
+                int index = MainList.Items.IndexOf(song);
+                await StartPlaybackAsync(index);
             }
         }
 
@@ -127,12 +193,22 @@ namespace Rise.App.Views
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            int index = 0;
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                index = MainList.Items.IndexOf(song);
+                int index = MainList.Items.IndexOf(song);
+                await StartPlaybackAsync(index);
+                return;
             }
-            else if (SelectedSong != null)
+
+            await StartPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await StartPlaybackAsync(0, true);
+
+        private async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
+        {
+            if (SelectedSong != null && index == 0)
             {
                 index = MainList.Items.IndexOf(SelectedSong);
                 SelectedSong = null;
@@ -147,23 +223,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedSong = null;
-
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicShuffleAsync(Songs.GetEnumerator(), Songs.Count);
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
@@ -172,13 +232,24 @@ namespace Rise.App.Views
             SelectedSong = null;
         }
 
-        private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void ChangeView_Click(object sender, RoutedEventArgs e)
         {
             MenuFlyoutItem item = sender as MenuFlyoutItem;
-            Songs.SortDescriptions.Clear();
-
             string tag = item.Tag.ToString();
+
             switch (tag)
+            {
+                default:
+                    break;
+            }
+        }
+
+        private void SortItems(object param)
+        {
+            Songs.SortDescriptions.Clear();
+            string by = param.ToString();
+
+            switch (by)
             {
                 case "Ascending":
                     CurrentSort = SortDirection.Ascending;
@@ -191,16 +262,35 @@ namespace Rise.App.Views
                 case "Track":
                     Songs.SortDescriptions.
                         Add(new SortDescription("Disc", CurrentSort));
-                    SortProperty = tag;
+                    SortProperty = by;
                     break;
 
                 default:
-                    SortProperty = tag;
+                    SortProperty = by;
                     break;
             }
 
             Songs.SortDescriptions.
                 Add(new SortDescription(SortProperty, CurrentSort));
+        }
+
+        private void ChangeView(object param)
+        {
+            string view = param.ToString();
+            switch (view)
+            {
+                case "Default":
+                    CurrentSort = SortDirection.Ascending;
+                    break;
+
+                case "Descending":
+                    CurrentSort = SortDirection.Descending;
+                    break;
+
+                default:
+                    SortProperty = view;
+                    break;
+            }
         }
         #endregion
 
@@ -220,5 +310,20 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => navigationHelper.OnNavigatedFrom(e);
         #endregion
+    }
+
+    [ContentProperty(Name = "GenreTemplate")]
+    public class GenreContentTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate GenreTemplate { get; set; }
+        public DataTemplate AlbumTemplate { get; set; }
+
+        public DataTemplate ArtistTemplate { get; set; }
+        // public DataTemplate SeparatorTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            return GenreTemplate;
+        }
     }
 }

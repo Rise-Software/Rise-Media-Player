@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -21,6 +20,7 @@ namespace Rise.App.ViewModels
         public PlaybackViewModel()
         {
             Player.Source = PlaybackList;
+            PlaybackList.AutoRepeatEnabled = true;
             PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
         }
 
@@ -56,31 +56,19 @@ namespace Rise.App.ViewModels
             = true;
         #endregion
 
-        public async Task StartMusicShuffleAsync(IEnumerator<object> songs, int count)
-        {
-            List<SongViewModel> list = new List<SongViewModel>();
-
-            while (songs.MoveNext())
-            {
-                list.Add(songs.Current as SongViewModel);
-            }
-
-            Random rng = new Random();
-            list = list.OrderBy(s => rng.Next()).ToList();
-
-            CancelTask();
-            await CreatePlaybackListAsync(0, count,
-                list.AsEnumerable().GetEnumerator(), Token);
-        }
-
-        public async Task StartMusicPlaybackAsync(IEnumerator<object> songs, int startIndex, int count)
+        public async Task StartMusicPlaybackAsync(IEnumerator<object> songs, int startIndex, int count, bool shuffle = false)
         {
             CancelTask();
+
+            PlaybackList.ShuffleEnabled = shuffle;
             await CreatePlaybackListAsync(startIndex, count, songs, Token);
         }
 
         public async Task PlayVideoAsync(VideoViewModel video)
         {
+            CancelTask();
+
+            PlaybackList.ShuffleEnabled = false;
             PlaybackList.Items.Clear();
 
             PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
@@ -90,6 +78,8 @@ namespace Rise.App.ViewModels
         public async Task StartPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)
         {
             CancelTask();
+
+            PlaybackList.ShuffleEnabled = false;
             List<SongViewModel> list = new List<SongViewModel>();
             while (songs.MoveNext())
             {

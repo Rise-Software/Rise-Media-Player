@@ -3,6 +3,7 @@ using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -64,21 +65,10 @@ namespace Rise.App.Views
         #region Event handlers
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int itemIndex = MainList.SelectedIndex;
-                if (itemIndex < 0)
-                {
-                    return;
-                }
-
-                SelectedSong = null;
-                using (Songs.DeferRefresh())
-                {
-                    await PViewModel.StartMusicPlaybackAsync
-                        (Songs.GetEnumerator(), itemIndex, Songs.Count);
-                }
-                Songs.Refresh();
+                int index = MainList.Items.IndexOf(song);
+                await StartPlaybackAsync(index);
             }
         }
 
@@ -104,12 +94,22 @@ namespace Rise.App.Views
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            int index = 0;
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                index = MainList.Items.IndexOf(song);
+                int index = MainList.Items.IndexOf(song);
+                await StartPlaybackAsync(index);
+                return;
             }
-            else if (SelectedSong != null)
+
+            await StartPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await StartPlaybackAsync(0, true);
+
+        private async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
+        {
+            if (SelectedSong != null && index == 0)
             {
                 index = MainList.Items.IndexOf(SelectedSong);
                 SelectedSong = null;
@@ -124,23 +124,7 @@ namespace Rise.App.Views
             }
 
             enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedSong = null;
-
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicShuffleAsync(songs.GetEnumerator(), songs.Count);
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)

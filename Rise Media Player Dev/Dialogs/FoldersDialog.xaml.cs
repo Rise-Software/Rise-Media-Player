@@ -9,7 +9,7 @@ namespace Rise.App.Dialogs
     {
         #region Variables
         public static FoldersDialog Current;
-        public StorageLibrary MusicLibrary => App.MusicLibrary;
+        private StorageLibrary MusicLibrary => App.MusicLibrary;
         #endregion
 
         public FoldersDialog()

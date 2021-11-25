@@ -26,7 +26,16 @@
         <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
                                Click="ChooseFolders_Click"
                                ExpanderStyle="Button"
-                               Icon="&#xE8B7;">
+                               Icon="&#xE93C;">
+            <FontIcon Glyph="&#xE2B4;"
+                      FontSize="16"
+                      VerticalAlignment="Center" />
+        </uc:NavigationExpander>
+
+        <uc:NavigationExpander x:Uid="/MediaLibrary/VChooseFolders"
+                               Click="VChooseFolders_Click"
+                               ExpanderStyle="Button"
+                               Icon="&#xE8B2;">
             <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
                       VerticalAlignment="Center" />
