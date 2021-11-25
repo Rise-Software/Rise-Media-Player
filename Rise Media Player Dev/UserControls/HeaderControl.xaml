@@ -207,7 +207,7 @@
 
                                     <AppBarSeparator />
 
-                                    <AppBarButton x:Uid="/Information/View">
+                                    <!--AppBarButton x:Uid="/Information/View">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xECAA;" />
                                         </AppBarButton.Icon>
@@ -228,7 +228,7 @@
                                                                           GroupName="View" />
                                             </MenuFlyout>
                                         </AppBarButton.Flyout>
-                                    </AppBarButton>
+                                    </AppBarButton-->
 
                                     <AppBarButton x:Uid="/Information/Sort"
                                                   Icon="Sort">
