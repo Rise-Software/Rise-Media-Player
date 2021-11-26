@@ -410,6 +410,7 @@ namespace Rise.App.Views
         {
             var uiSettings = new UISettings();
             Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
+            byte opacity = 35;
             switch (ViewModel.Color)
             {
                 case -3:
@@ -425,31 +426,31 @@ namespace Rise.App.Views
                                 var decoder = await BitmapDecoder.CreateAsync(stream);
                                 var colorThief = new ColorThiefDotNet.ColorThief();
                                 var color = await colorThief.GetColor(decoder);
-                                _Grid.Background = new SolidColorBrush(Color.FromArgb(25, color.Color.R, color.Color.G, color.Color.B));
+                                _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, color.Color.R, color.Color.G, color.Color.B));
                             }
                         }
                     }
                     break;
                 case -2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, accentColor.R, accentColor.G, accentColor.B));
                     break;
                 case -1:
                     _Grid.Background = new SolidColorBrush(Colors.Transparent);
                     break;
                 case 0:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 205, 92, 92));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 205, 92, 92));
                     break;
                 case 1:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 138, 43, 226));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 138, 43, 226));
                     break;
                 case 2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 143, 188, 143));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 143, 188, 143));
                     break;
                 case 3:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 100, 149, 237));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 149, 237));
                     break;
                 case 4:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 184, 135, 11));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 184, 135, 11));
                     break;
             }
         }
