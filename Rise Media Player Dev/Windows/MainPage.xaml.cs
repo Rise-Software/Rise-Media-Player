@@ -8,6 +8,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
@@ -147,6 +149,16 @@ namespace Rise.App.Views
 
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
+
+            ViewModel.PropertyChanged += SViewModel_PropertyChanged;
+        }
+
+        private void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Color")
+            {
+                HandleViewModelColorSetting();
+            }
         }
 
         private async void Indexer_Started()
@@ -165,7 +177,7 @@ namespace Rise.App.Views
         private async void Indexer_Finished(object sender, int e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
+            {                
                 AddedTip.IsOpen = true;
 
                 SongsDefer.Dispose();
@@ -389,7 +401,53 @@ namespace Rise.App.Views
             FinishNavigation();
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
 
+            HandleViewModelColorSetting();
+
             App.MViewModel.CanIndex = true;
+        }
+
+        public async void HandleViewModelColorSetting()
+        {
+            var uiSettings = new UISettings();
+            Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
+            switch (ViewModel.Color)
+            {
+                case -3:
+                    if (App.PViewModel.CurrentSong != null)
+                    {
+                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                        using (IRandomAccessStream stream = await random.OpenReadAsync())
+                        {
+                            var decoder = await BitmapDecoder.CreateAsync(stream);
+                            var colorThief = new ColorThiefDotNet.ColorThief();
+                            var color = await colorThief.GetColor(decoder);
+                            _Grid.Background = new SolidColorBrush(Color.FromArgb(25, color.Color.R, color.Color.G, color.Color.B));
+                        }
+                    }
+                    break;
+                case -2:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B));
+                    break;
+                case -1:
+                    _Grid.Background = new SolidColorBrush(Colors.Transparent);
+                    break;
+                case 0:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 205, 92, 92));
+                    break;
+                case 1:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 138, 43, 226));
+                    break;
+                case 2:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 143, 188, 143));
+                    break;
+                case 3:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 100, 149, 237));
+                    break;
+                case 4:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(25, 184, 135, 11));
+                    break;
+            }
         }
 
         /// <summary>

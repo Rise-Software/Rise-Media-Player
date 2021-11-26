@@ -81,6 +81,12 @@ namespace Rise.App.ViewModels
         {
             CancelTask();
             await CreatePlaybackList(startIndex, count, songs, Token);
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
         }
 
         public async Task StartPlayback(IEnumerator<IStorageItem> songs, int startIndex, int count)
@@ -95,6 +101,12 @@ namespace Rise.App.ViewModels
 
             await CreatePlaybackList(startIndex, count, list.GetEnumerator(), Token);
             songs.Dispose();
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
         }
 
         public async Task CreatePlaybackList(int index, int count, IEnumerator<object> songs, CancellationToken token)

@@ -145,7 +145,6 @@
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
-    <Compile Include="Converters\IntToColorBrush.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
@@ -626,6 +625,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ksemenenko.ColorThief">
+      <Version>1.1.1.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
       <Version>3.1.21</Version>
     </PackageReference>

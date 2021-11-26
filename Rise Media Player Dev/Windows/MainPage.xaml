@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{Binding Color, Converter={StaticResource IntToColorBrush}}">
+    <Grid x:Name="_Grid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="SmallWidth">

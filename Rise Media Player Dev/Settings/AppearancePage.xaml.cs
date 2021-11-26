@@ -22,8 +22,9 @@ namespace Rise.App.Settings
         private readonly List<string> ColorThemes = new List<string>
         {
             "No tint",
-            "Use system accent color",
-            "Rise"
+            "Use system accent colour",
+            "Use custom accent colour",
+            "Use album art"
         };
 
         private readonly List<string> Startup = new List<string>
@@ -74,6 +75,10 @@ namespace Rise.App.Settings
                     {
                         ViewModel.Color = 0;
                     }
+                    break;
+                case 3:
+                    RiseColorsStackPanel.Visibility = Visibility.Collapsed;
+                    ViewModel.Color = -3;
                     break;
             }
         }
