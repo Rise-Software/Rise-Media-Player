@@ -46,7 +46,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush Opacity="0.25" Stretch="UniformToFill">
+            <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill">
                 <ImageBrush.ImageSource>
                     <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
                 </ImageBrush.ImageSource>
@@ -87,7 +87,8 @@
                             Background="Transparent"
                             BorderThickness="0"
                             Click="QueueButton_Click"
-                            Height="32">
+                            Height="32"
+                            Visibility="Collapsed">
                         <Button.Content>
                             <FontIcon FontSize="16" Glyph="&#xEA37;" />
                         </Button.Content>
@@ -168,7 +169,7 @@
                                 AreTransportControlsEnabled="True"
                                 Height="Auto"
                                 VerticalAlignment="Bottom"
-                                Visibility="Visible">
+                                Visibility="Collapsed">
                 <MediaPlayerElement.TransportControls>
                     <MediaTransportControls x:Name="MediaControls"
                                             IsFastForwardButtonVisible="False"

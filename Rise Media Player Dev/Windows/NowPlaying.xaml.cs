@@ -86,6 +86,9 @@ namespace Rise.App.Views
                 PlayerElementHoverAnimationIn.Begin();
                 QueueButtonHoverAnimationIn.Begin();
                 PlayFrame.Visibility = Visibility.Visible;
+                Player.Visibility = Visibility.Visible;
+                ImageBrushAlbumCover.Opacity = 0.25;
+                QueueButton.Visibility = Visibility.Visible;
                 BlurBrush.Amount = 10;
             }
         }
@@ -99,6 +102,9 @@ namespace Rise.App.Views
                 PlayerElementHoverAnimationOut.Begin();
                 QueueButtonHoverAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
+                Player.Visibility = Visibility.Collapsed;
+                ImageBrushAlbumCover.Opacity = 1;
+                QueueButton.Visibility = Visibility.Collapsed;
                 BlurBrush.Amount = 0;
             }
         }
