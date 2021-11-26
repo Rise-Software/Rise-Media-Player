@@ -8,7 +8,7 @@
 </p>
 
 
-### ** Download the installer from the download link below or clone the repository to build :) Pre-Alpha 3 coming soon.**
+### **Download the installer from the download link below or clone the repository to build :) Pre-Alpha 3 coming soon.**
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
