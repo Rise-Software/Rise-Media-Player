@@ -15,7 +15,6 @@
     <Page.Resources>
         <ResourceDictionary>
             <conv:BooleanToVisibility x:Key="BoolToVis" />
-            <conv:IntToColorBrush x:Key="IntToColorBrush" x:Name="IntToColorBrush" />
 
             <!-- This top margin is the height of the custom TitleBar -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
