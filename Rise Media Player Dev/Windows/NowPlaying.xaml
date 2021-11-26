@@ -28,6 +28,20 @@
         <Storyboard x:Name="BlurBrushBorderAnimationOut">
             <FadeOutThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeOutThemeAnimation>
         </Storyboard>
+
+        <Storyboard x:Name="PlayerElementHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="Player"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="PlayerElementHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="Player"></FadeOutThemeAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="QueueButtonHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="QueueButton"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="QueueButtonHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="QueueButton"></FadeOutThemeAnimation>
+        </Storyboard>
     </Page.Resources>
 
     <Grid>

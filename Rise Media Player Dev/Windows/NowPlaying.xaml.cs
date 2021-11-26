@@ -83,6 +83,8 @@ namespace Rise.App.Views
             {
                 PlayFrameHoverAnimationIn.Begin();
                 BlurBrushBorderAnimationIn.Begin();
+                PlayerElementHoverAnimationIn.Begin();
+                QueueButtonHoverAnimationIn.Begin();
                 PlayFrame.Visibility = Visibility.Visible;
                 BlurBrush.Amount = 10;
             }
@@ -94,6 +96,8 @@ namespace Rise.App.Views
             {
                 PlayFrameHoverAnimationOut.Begin();
                 BlurBrushBorderAnimationOut.Begin();
+                PlayerElementHoverAnimationOut.Begin();
+                QueueButtonHoverAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
                 BlurBrush.Amount = 0;
             }
