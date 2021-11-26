@@ -416,13 +416,17 @@ namespace Rise.App.Views
                     if (App.PViewModel.CurrentSong != null)
                     {
                         Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                        using (IRandomAccessStream stream = await random.OpenReadAsync())
+                        _Grid.Background = new SolidColorBrush(Colors.Transparent);
+                        if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
                         {
-                            var decoder = await BitmapDecoder.CreateAsync(stream);
-                            var colorThief = new ColorThiefDotNet.ColorThief();
-                            var color = await colorThief.GetColor(decoder);
-                            _Grid.Background = new SolidColorBrush(Color.FromArgb(25, color.Color.R, color.Color.G, color.Color.B));
+                            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                            using (IRandomAccessStream stream = await random.OpenReadAsync())
+                            {
+                                var decoder = await BitmapDecoder.CreateAsync(stream);
+                                var colorThief = new ColorThiefDotNet.ColorThief();
+                                var color = await colorThief.GetColor(decoder);
+                                _Grid.Background = new SolidColorBrush(Color.FromArgb(25, color.Color.R, color.Color.G, color.Color.B));
+                            }
                         }
                     }
                     break;
