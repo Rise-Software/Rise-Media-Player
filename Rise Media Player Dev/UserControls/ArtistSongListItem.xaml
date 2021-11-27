@@ -16,129 +16,54 @@
         <conv:TimeSpanToString x:Key="TimeToStr" />
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="4" />
-        </Grid.RowDefinitions>
+    <Grid Background="Transparent"
+          ColumnSpacing="12"
+          Padding="12,4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <Rectangle Fill="Transparent"
-                   HorizontalAlignment="Stretch" />
+        <TextBlock HorizontalAlignment="Stretch"
+                   Text="{Binding Track}"
+                   TextAlignment="Right"
+                   VerticalAlignment="Center"
+                   Visibility="{x:Bind IsPointerOver,
+                                Converter={StaticResource BoolToVis},
+                                ConverterParameter=Reverse,
+                                Mode=OneWay}"
+                   Width="24" />
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="12" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="12" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="12" />
-            </Grid.ColumnDefinitions>
+        <Button x:Uid="/Information/Play"
+                Click="OnButtonClick"
+                Height="32"
+                Padding="0"
+                Style="{StaticResource TransparentButton}"
+                Visibility="{x:Bind IsPointerOver, Mode=OneWay}"
+                Width="32">
+            <FontIcon Glyph="&#xE102;" />
+        </Button>
 
-            <Rectangle Fill="Transparent"
-                       VerticalAlignment="Stretch" />
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </StackPanel.Transitions>
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Title}"
+                       TextTrimming="CharacterEllipsis" />
 
-                <Rectangle Fill="Transparent"
-                           VerticalAlignment="Stretch" />
-                <TextBlock Grid.Row="1"
-                           HorizontalAlignment="Stretch"
-                           Text="{Binding Track}"
-                           TextAlignment="Right"
-                           VerticalAlignment="Center"
-                           Visibility="{x:Bind IsPointerOver,
-                                        Converter={StaticResource BoolToVis},
-                                        ConverterParameter=Reverse,
-                                        Mode=OneWay}"
-                           Width="24" />
-                <Rectangle Grid.Row="2"
-                           Fill="Transparent"
-                           VerticalAlignment="Stretch" />
-            </Grid>
+            <TextBlock>
+                <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">
+                    <Run x:Name="AlbumLink" Text="{Binding Album}" />
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
 
-            <Button x:Uid="/Information/Play"
-                    Grid.Column="1"
-                    Click="OnButtonClick"
-                    Height="32"
-                    Padding="0"
-                    Style="{StaticResource TransparentButton}"
-                    Visibility="{x:Bind IsPointerOver, Mode=OneWay}"
-                    Width="32">
-                <FontIcon Glyph="&#xE102;" />
-            </Button>
-
-            <Rectangle Grid.Column="2"
-                       Fill="Transparent"
-                       VerticalAlignment="Stretch" />
-
-            <Grid Grid.Column="3">
-                <Grid.Transitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition />
-                    </TransitionCollection>
-                </Grid.Transitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="{Binding Title}"
-                           TextTrimming="CharacterEllipsis" />
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock>
-                        <Hyperlink Click="Hyperlink_Click" UnderlineStyle="None">
-                            <Run x:Name="AlbumLink" Text="{Binding Album}" />
-                        </Hyperlink>
-                    </TextBlock>
-
-                    <Rectangle Grid.Column="1"
-                               Fill="Transparent"
-                               VerticalAlignment="Stretch" />
-                </Grid>
-            </Grid>
-
-            <Rectangle Grid.Column="4"
-                       Fill="Transparent"
-                       VerticalAlignment="Stretch" />
-
-            <Grid Grid.Column="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                <Rectangle Fill="Transparent"
-                           VerticalAlignment="Stretch" />
-                <TextBlock Grid.Row="1"
-                           Text="{Binding Length, Converter={StaticResource TimeToStr}}" />
-                <Rectangle Grid.Row="2"
-                           Fill="Transparent"
-                           VerticalAlignment="Stretch" />
-            </Grid>
-
-            <Rectangle Grid.Column="6"
-                       Fill="Transparent"
-                       VerticalAlignment="Stretch" />
-        </Grid>
-
-        <Rectangle Grid.Row="2"
-                   Fill="Transparent"
-                   Height="4"
-                   VerticalAlignment="Stretch" />
+        <TextBlock Grid.Column="2"
+                   Text="{Binding Length, Converter={StaticResource TimeToStr}}"
+                   VerticalAlignment="Center" />
     </Grid>
 </UserControl>
