@@ -20,7 +20,7 @@ namespace Rise.App.Settings
             VersionData.SetText("Pre-Alpha 3 - v0.0.13.0");
         }
 
-        private async void NavigationExpander_Click(object sender, RoutedEventArgs e)
+        private async void ExpanderControl_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.License.LaunchAsync();
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)

@@ -254,8 +254,8 @@
     <Compile Include="Views\Genres\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NavigationExpander.xaml.cs">
-      <DependentUpon>NavigationExpander.xaml</DependentUpon>
+    <Compile Include="UserControls\ExpanderControl.xaml.cs">
+      <DependentUpon>ExpanderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibility.cs" />
     <Compile Include="Dialogs\FoldersDialog.xaml.cs">
@@ -553,7 +553,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\NavigationExpander.xaml">
+    <Page Include="UserControls\ExpanderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

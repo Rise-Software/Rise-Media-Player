@@ -11,14 +11,14 @@
         <TextBlock x:Uid="/Connect/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:NavigationExpander x:Uid="/Connect/Soon"
+            <uc:ExpanderControl x:Uid="/Connect/Soon"
                                    ExpanderStyle="Static"
                                    Icon="&#xE13D;">
                 <!--FontIcon Glyph="&#xE2B4;"
                           FontSize="16"
                           Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                           VerticalAlignment="Center" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
         </StackPanel>
 
         <TextBlock x:Uid="/Connect/Tip"

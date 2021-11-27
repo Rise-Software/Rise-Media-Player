@@ -20,7 +20,7 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <uc:NavigationExpander x:Uid="/Details/AsFile"
+        <uc:ExpanderControl x:Uid="/Details/AsFile"
                                ExpanderStyle="Static"
                                Icon="&#xE8B7;">
             <Button x:Name="LocalButton"
@@ -32,7 +32,7 @@
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
                 </Button.Content>
             </Button>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
         <Border Style="{StaticResource SettingsCard}">
             <StackPanel Orientation="Vertical"

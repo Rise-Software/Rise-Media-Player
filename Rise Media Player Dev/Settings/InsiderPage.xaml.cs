@@ -15,7 +15,7 @@ namespace Rise.App.Settings
         private async void Button_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Insider.LaunchAsync();
 
-        private void NavigationExpander_Click(object sender, RoutedEventArgs e)
+        private void ExpanderControl_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InsiderWallpapers));
             SettingsDialogContainer.Breadcrumbs.

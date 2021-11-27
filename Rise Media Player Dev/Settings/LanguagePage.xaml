@@ -62,11 +62,11 @@
                       Severity="Informational"
                       Title="English is currently the only available language"
                       Message="Other languages and regions will be available soon." />
-        <uc:NavigationExpander x:Uid="/Language/Match"
+        <uc:ExpanderControl x:Uid="/Language/Match"
                                ExpanderStyle="Disabled"
                                Icon="&#xE923;" />
 
-        <uc:NavigationExpander x:Uid="/Language/Select"
+        <uc:ExpanderControl x:Uid="/Language/Select"
                                ExpanderStyle="Disabled"
                                Icon="&#xE12B;">
             <ComboBox PlaceholderText="Use system language"
@@ -90,6 +90,6 @@
                 <x:String>Português (Portugal)</x:String>
                 <x:String>Română</x:String>
             </ComboBox>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

@@ -7,11 +7,11 @@ using static Rise.App.Common.Enums;
 namespace Rise.App.UserControls
 {
     [ContentProperty(Name = "Controls")]
-    public sealed partial class NavigationExpander : UserControl
+    public sealed partial class ExpanderControl : UserControl
     {
         private readonly ExpanderViewModel ViewModel = new ExpanderViewModel();
 
-        public NavigationExpander()
+        public ExpanderControl()
         {
             InitializeComponent();
         }

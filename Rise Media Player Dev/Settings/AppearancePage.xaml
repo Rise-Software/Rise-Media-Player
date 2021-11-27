@@ -9,75 +9,75 @@
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Appearance/DesignUnavailable"
+        <uc:ExpanderControl x:Uid="/Appearance/DesignUnavailable"
                                ExpanderStyle="Disabled"
                                Icon="&#xE946;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
         <TextBlock x:Uid="/Appearance/AppearanceH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
+        <uc:ExpanderControl x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"
                                Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
                       PlaceholderText="Use system setting"
                       SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/FullArt"
+        <uc:ExpanderControl x:Uid="/Appearance/FullArt"
                                ExpanderStyle="Disabled"
                                Icon="&#xE93C;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.SquareAlbumArt, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Appearance/Startup"
+        <uc:ExpanderControl x:Uid="/Appearance/Startup"
                                ExpanderStyle="Static"
                                Icon="&#xE7E8;">
             <ComboBox ItemsSource="{x:Bind Startup}"
                       PlaceholderText="Songs"
                       SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/PickUp"
+        <uc:ExpanderControl x:Uid="/Appearance/PickUp"
                                ExpanderStyle="Static"
                                Icon="&#xE126;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
+        <uc:ExpanderControl x:Uid="/Appearance/CompactMode"
                                ExpanderStyle="Disabled"
                                Icon="&#xE73F;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
+        <uc:ExpanderControl x:Uid="/Appearance/SidebarItems"
                                Click="SidebarCustomize_Click"
                                ExpanderStyle="Button"
                                Icon="&#xE9D5;">
             <FontIcon Glyph="&#xE00F;" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Appearance/PrivacyH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Appearance/History"
+        <uc:ExpanderControl x:Uid="/Appearance/History"
                                ExpanderStyle="Disabled"
                                Icon="&#xEADF;"
                                Margin="0,0,0,4">
             <ToggleSwitch IsOn="{x:Bind ViewModel.TrackHistory, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
+        <uc:ExpanderControl x:Uid="/Appearance/CuratedPlaylists"
                                ExpanderStyle="Disabled"
                                Icon="&#xE8FD;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.CuratedPlaylists, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
+        <uc:ExpanderControl x:Uid="/Appearance/AtAGlance"
                                ExpanderStyle="Disabled"
                                Icon="&#xECA5;">
             <FontIcon Glyph="&#xE00F;" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

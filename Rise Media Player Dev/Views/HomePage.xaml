@@ -47,7 +47,7 @@
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
-                    <uc:NavigationExpander x:Uid="/Information/AddRemove"
+                    <uc:ExpanderControl x:Uid="/Information/AddRemove"
                                            ExpanderStyle="Static"
                                            Height="77"
                                            Icon="&#xE1DA;"
@@ -55,7 +55,7 @@
                 </uc:AdaptiveItemPane.LeftPane>
 
                 <uc:AdaptiveItemPane.RightPane>
-                    <uc:NavigationExpander x:Uid="/Information/Contribute"
+                    <uc:ExpanderControl x:Uid="/Information/Contribute"
                                            ExpanderStyle="Static"
                                            Height="77"
                                            Icon="&#xEC7A;"
