@@ -8,7 +8,7 @@
 </p>
 
 
-### **PRE ALPHA 2 + OUT NOW! Download the installer from the download link below or clone the repository to build :)**
+### **Download the installer from the download link below or clone the repository to build :) Pre-Alpha 3 coming soon.**
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -73,7 +73,7 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 **If you are an Insider already, just click the Download button and you'll be taken to a page to download :)**
 
-[![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.11.0/RiseMP_v0.0.11.0.msixbundle)    ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png)    [![Contribute](https://user-images.githubusercontent.com/74561130/137586097-1f64560c-9bb1-47cc-bd44-fa87c1b09e5b.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ1pJWFRWOFA1MDk3MUtVRk5SWVlTQktPWS4u)    [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u)    [![Insider Program Settings](https://user-images.githubusercontent.com/74561130/137586189-b814375d-7786-49ba-984c-5d7868b527a4.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u)
+[![Download](https://user-images.githubusercontent.com/74561130/137598555-649c77c7-1719-4aa3-8017-8b41283de730.png)](https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.12.0/RisePA2Plus.msixbundle)    ![divide](https://user-images.githubusercontent.com/74561130/137599566-866fef7d-967e-4ad1-91da-8014d1752b93.png)    [![Contribute](https://user-images.githubusercontent.com/74561130/137586097-1f64560c-9bb1-47cc-bd44-fa87c1b09e5b.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ1pJWFRWOFA1MDk3MUtVRk5SWVlTQktPWS4u)    [![JoinInsider](https://user-images.githubusercontent.com/74561130/137585885-7f98b4de-5067-41ee-bdb4-2a04fea4b90a.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMUdKWlVSTE0yN0JKMEpXWkc5T1ZBMkpUWC4u)    [![Insider Program Settings](https://user-images.githubusercontent.com/74561130/137586189-b814375d-7786-49ba-984c-5d7868b527a4.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u)
 ## Credits
 
 **Creators**
@@ -92,7 +92,8 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 ### MSIX Install Instructions 
 **If Windows Prompts about Untrusted Application**
-* Simply right click and Go to Digital signatures Tab
+* Simply right click the MSIX and click Properties
+* Go to Digital signatures Tab
 * Select Rise Software and click Details
 * In next popup select View Certificate
 * In next popup select Install Certificate
