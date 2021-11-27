@@ -5,28 +5,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Resize"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE944;">
-            <!--ComboBox ItemsSource="{x:Bind Show}"
+            <ComboBox ItemsSource="{x:Bind Show}"
                       PlaceholderText="Don't show the sidebar"
-                      SelectedIndex="{Binding Resize, Mode=TwoWay}" /-->
+                      SelectedIndex="{x:Bind ViewModel.Resize, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
         <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Navigation/Hamburger"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE700;">
-            <!--ToggleSwitch IsOn="{Binding Hamburger, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.Hamburger, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Navigation/IconStyle"
@@ -34,7 +30,7 @@
                                Icon="&#xF354;">
             <ComboBox ItemsSource="{x:Bind IconPacks}"
                       PlaceholderText="Default"
-                      SelectedIndex="{Binding IconPack, Mode=TwoWay}" />
+                      SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
@@ -42,7 +38,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/GeneralItems"
                                Icon="&#xE71D;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllGeneral, Mode=TwoWay}" />
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
@@ -52,7 +48,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xECA5;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowAtAGlance, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -65,7 +61,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xEA37;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowNowPlaying, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowNowPlaying, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -78,7 +74,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8FD;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowPlaylists, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -91,7 +87,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE897;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowHelpCentre, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowHelpCentre, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
             </StackPanel>
@@ -100,7 +96,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/MusicItems"
                                Icon="&#xE189;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllMusic, Mode=TwoWay}" />
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
@@ -110,8 +106,8 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsEnabled="{Binding ShowAllMusic, Mode=OneWay}"
-                                  IsOn="{Binding ShowMusicHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -124,7 +120,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xEC4F;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowSongs, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -137,7 +133,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE125;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowArtists, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -150,7 +146,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE93C;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowAlbums, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -163,7 +159,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE138;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowGenres, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowGenres, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
             </StackPanel>
@@ -172,7 +168,7 @@
         <uc:NavigationExpander x:Uid="/Navigation/VideoItems"
                                Icon="&#xE173;">
             <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllVideo, Mode=TwoWay}" />
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
             </uc:NavigationExpander.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
@@ -182,8 +178,8 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsEnabled="{Binding ShowAllVideo, Mode=OneWay}"
-                                  IsOn="{Binding ShowVideoHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
 
@@ -196,7 +192,7 @@
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8B7;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowLocalVideos, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
                 </uc:NavigationExpander>
             </StackPanel>

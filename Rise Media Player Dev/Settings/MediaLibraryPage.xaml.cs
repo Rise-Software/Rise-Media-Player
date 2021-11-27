@@ -57,7 +57,6 @@ namespace Rise.App.Settings
             VFolderDialog.Closed += Dialog_Closed;
             VFolderDialog.Content = VDialog;
 
-            DataContext = ViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 

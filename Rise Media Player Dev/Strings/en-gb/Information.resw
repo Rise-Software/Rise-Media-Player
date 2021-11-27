@@ -123,6 +123,12 @@
   <data name="Added.Title" xml:space="preserve">
     <value>New media added</value>
   </data>
+  <data name="AddRemove.Description" xml:space="preserve">
+    <value>Let us find music and videos by adding folders and files on your device.</value>
+  </data>
+  <data name="AddRemove.Title" xml:space="preserve">
+    <value>Add/remove media sources</value>
+  </data>
   <data name="Album.Text" xml:space="preserve">
     <value>Album</value>
   </data>
@@ -150,11 +156,20 @@
   <data name="Check.Title" xml:space="preserve">
     <value>Checking for new media in your library...</value>
   </data>
+  <data name="ClickFeatureH.Text" xml:space="preserve">
+    <value>Click a feature to read more</value>
+  </data>
   <data name="Close.ToolTipService.ToolTip" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="Colorful.Text" xml:space="preserve">
     <value>Colourful Icons</value>
+  </data>
+  <data name="Contribute.Description" xml:space="preserve">
+    <value>Add fun new features to the app or translate to your own language.</value>
+  </data>
+  <data name="Contribute.Title" xml:space="preserve">
+    <value>Contribute to development</value>
   </data>
   <data name="Delete.Label" xml:space="preserve">
     <value>Remove...</value>
@@ -204,6 +219,9 @@
   <data name="NameOnly.Text" xml:space="preserve">
     <value>Merge albums with same title</value>
   </data>
+  <data name="NewH.Text" xml:space="preserve">
+    <value>What's new in this build:</value>
+  </data>
   <data name="NoNew.Title" xml:space="preserve">
     <value>No new media found in your library</value>
   </data>
@@ -212,6 +230,9 @@
   </data>
   <data name="PlayItem.Text" xml:space="preserve">
     <value>Play</value>
+  </data>
+  <data name="QuickH.Text" xml:space="preserve">
+    <value>Quick links</value>
   </data>
   <data name="Remove.Text" xml:space="preserve">
     <value>Remove from sidebar</value>

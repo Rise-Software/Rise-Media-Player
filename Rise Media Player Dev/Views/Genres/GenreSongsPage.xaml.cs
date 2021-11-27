@@ -43,7 +43,7 @@ namespace Rise.App.Views
         private static readonly DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(GenreSongsPage), null);
 
-        private SongViewModel SelectedSong
+        public SongViewModel SelectedSong
         {
             get => (SongViewModel)GetValue(SelectedSongProperty);
             set => SetValue(SelectedSongProperty, value);
@@ -57,7 +57,7 @@ namespace Rise.App.Views
         private SortDirection CurrentSort = SortDirection.Ascending;
 
         private RelayCommand _playCommand;
-        private RelayCommand PlayCommand
+        public RelayCommand PlayCommand
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Rise.App.Views
         }
 
         private RelayCommand _shuffleCommand;
-        private RelayCommand ShuffleCommand
+        public RelayCommand ShuffleCommand
         {
             get
             {
@@ -87,7 +87,7 @@ namespace Rise.App.Views
         }
 
         private RelayCommand _sortCommand;
-        private RelayCommand SortCommand
+        public RelayCommand SortCommand
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Rise.App.Views
         }
 
         private RelayCommand _viewCommand;
-        private RelayCommand ViewCommand
+        public RelayCommand ViewCommand
         {
             get
             {
@@ -117,7 +117,7 @@ namespace Rise.App.Views
         }
 
         private RelayCommand _editCommand;
-        private RelayCommand EditCommand
+        public RelayCommand EditCommand
         {
             get
             {

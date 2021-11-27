@@ -187,9 +187,7 @@
     <Compile Include="UserControls\FullSongListItem.xaml.cs">
       <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\HeaderControl.xaml.cs">
-      <DependentUpon>HeaderControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
     <Compile Include="ViewModels\SidebarViewModel.cs" />
@@ -483,10 +481,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\HeaderControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Artists\ArtistSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -648,10 +642,10 @@
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.2</Version>
@@ -689,10 +683,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\SampleItemData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-gb\MediaData.resw" />

@@ -4,18 +4,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/DesignUnavailable"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE946;">
-            <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <TextBlock x:Uid="/Appearance/AppearanceH" Style="{StaticResource Subheader}" />
@@ -24,14 +21,13 @@
                                Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
                       PlaceholderText="Use system setting"
-                      SelectedIndex="{Binding Theme, Mode=TwoWay}" />
+                      SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/FullArt"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE93C;">
-            <!--ToggleSwitch IsOn="{Binding SquareAlbumArt, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.SquareAlbumArt, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
 
@@ -41,20 +37,19 @@
                                Icon="&#xE7E8;">
             <ComboBox ItemsSource="{x:Bind Startup}"
                       PlaceholderText="Songs"
-                      SelectedIndex="{Binding OpenTo, Mode=TwoWay}" />
+                      SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/PickUp"
                                ExpanderStyle="Static"
                                Icon="&#xE126;">
-            <ToggleSwitch IsOn="{Binding PickUp, Mode=TwoWay}" />
+            <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE73F;">
-            <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
@@ -67,26 +62,22 @@
 
         <TextBlock x:Uid="/Appearance/PrivacyH" Style="{StaticResource Subheader}" />
         <uc:NavigationExpander x:Uid="/Appearance/History"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xEADF;"
                                Margin="0,0,0,4">
-            <!--ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.TrackHistory, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE8FD;">
-            <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
+            <ToggleSwitch IsOn="{x:Bind ViewModel.CuratedPlaylists, Mode=TwoWay}" />
         </uc:NavigationExpander>
 
         <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
-                               ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               ExpanderStyle="Disabled"
                                Icon="&#xECA5;">
-            <!--FontIcon FontSize="16"
-                      Glyph="&#xE00F;" /-->
+            <FontIcon Glyph="&#xE00F;" />
         </uc:NavigationExpander>
     </StackPanel>
 </Page>

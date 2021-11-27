@@ -26,8 +26,6 @@ namespace Rise.App.Settings
         public NavigationPage()
         {
             InitializeComponent();
-            DataContext = ViewModel;
-
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }

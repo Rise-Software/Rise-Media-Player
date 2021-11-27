@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Common;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using System.Collections.Generic;

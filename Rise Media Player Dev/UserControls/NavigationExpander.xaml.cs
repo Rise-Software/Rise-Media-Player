@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using Rise.App.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using static Rise.App.Common.Enums;
@@ -8,70 +9,124 @@ namespace Rise.App.UserControls
     [ContentProperty(Name = "Controls")]
     public sealed partial class NavigationExpander : UserControl
     {
+        private readonly ExpanderViewModel ViewModel = new ExpanderViewModel();
+
         public NavigationExpander()
         {
             InitializeComponent();
-            Loaded += ApplyExpanderStyle;
         }
 
-        private void ApplyExpanderStyle(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.Title"/>
+        /// </summary>
+        public string Title
         {
-            switch (ExpanderStyle)
-            {
-                case ExpanderStyles.Static:
-                    _ = FindName("RootBorder");
-                    break;
-
-                case ExpanderStyles.Button:
-                    _ = FindName("RootButton");
-                    break;
-
-                case ExpanderStyles.Transparent:
-                    _ = FindName("RootTransparent");
-                    break;
-
-                default:
-                    _ = FindName("RootExpander");
-                    break;
-            }
+            get => ViewModel.Title;
+            set => ViewModel.Title = value;
         }
 
-        public string Title { get; set; }
-        public string Description { get; set; }
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.Description"/>
+        /// </summary>
+        public string Description
+        {
+            get => ViewModel.Description;
+            set => ViewModel.Description = value;
+        }
 
-        public ExpanderStyles ExpanderStyle { get; set; }
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.ExpanderStyle"/>
+        /// </summary>
+        public ExpanderStyles ExpanderStyle
+        {
+            get => ViewModel.ExpanderStyle;
+            set => ViewModel.ExpanderStyle = value;
+        }
 
-        public static DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(string), typeof(NavigationExpander), null);
-
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.Icon"/>
+        /// </summary>
         public string Icon
         {
-            get => (string)GetValue(IconProperty);
-            set => SetValue(IconProperty, value);
+            get => ViewModel.Icon;
+            set => ViewModel.Icon = value;
         }
 
-        public static DependencyProperty ControlsProperty =
-            DependencyProperty.Register("Controls", typeof(object), typeof(NavigationExpander), null);
-
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.Controls"/>
+        /// </summary>
         public object Controls
         {
-            get => GetValue(ControlsProperty);
-            set => SetValue(ControlsProperty, value);
+            get => ViewModel.Controls;
+            set => ViewModel.Controls = value;
         }
 
-        public static DependencyProperty HeaderControlsProperty =
-            DependencyProperty.Register("HeaderControls", typeof(object), typeof(NavigationExpander), null);
-
+        /// <summary>
+        /// <inheritdoc cref="ExpanderViewModel.HeaderControls"/>
+        /// </summary>
         public object HeaderControls
         {
-            get => GetValue(HeaderControlsProperty);
-            set => SetValue(HeaderControlsProperty, value);
+            get => ViewModel.Controls;
+            set => ViewModel.Controls = value;
         }
 
         public event RoutedEventHandler Click;
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
             Click?.Invoke(this, e);
+        }
+    }
+
+    public class ExpanderTemplateSelector : DataTemplateSelector
+    {
+        public ExpanderStyles Style { get; set; }
+
+        public DataTemplate Default { get; set; }
+        public DataTemplate Static { get; set; }
+        public DataTemplate Button { get; set; }
+        public DataTemplate Transparent { get; set; }
+        public DataTemplate Disabled { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            switch (Style)
+            {
+                case ExpanderStyles.Static:
+                    return Static;
+
+                case ExpanderStyles.Button:
+                    return Button;
+
+                case ExpanderStyles.Transparent:
+                    return Transparent;
+
+                case ExpanderStyles.Disabled:
+                    return Disabled;
+
+                default:
+                    return Default;
+            }
+        }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            switch (Style)
+            {
+                case ExpanderStyles.Static:
+                    return Static;
+
+                case ExpanderStyles.Button:
+                    return Button;
+
+                case ExpanderStyles.Transparent:
+                    return Transparent;
+
+                case ExpanderStyles.Disabled:
+                    return Disabled;
+
+                default:
+                    return Default;
+            }
         }
     }
 }

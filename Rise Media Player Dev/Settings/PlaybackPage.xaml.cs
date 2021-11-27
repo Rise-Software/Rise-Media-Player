@@ -26,8 +26,6 @@ namespace Rise.App.Settings
         public PlaybackPage()
         {
             InitializeComponent();
-
-            DataContext = ViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }

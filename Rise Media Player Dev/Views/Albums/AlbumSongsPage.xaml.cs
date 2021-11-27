@@ -54,6 +54,7 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         #endregion
 
         public AlbumSongsPage()
@@ -88,6 +89,12 @@ namespace Rise.App.Views
                 Songs.SortDescriptions.Clear();
                 Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
                 Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+
+                Albums.Filter =
+                    a => ((AlbumViewModel)a).Artist == album.Artist;
+
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
         }
 
@@ -171,6 +178,23 @@ namespace Rise.App.Views
             }
 
             Frame.Navigate(typeof(ArtistSongsPage), Artist);
+        }
+
+        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                _ = MainPage.Current.ContentFrame.
+                    Navigate(typeof(AlbumSongsPage), album);
+            }
+        }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                SelectedAlbum = album;
+            }
         }
         #endregion
 

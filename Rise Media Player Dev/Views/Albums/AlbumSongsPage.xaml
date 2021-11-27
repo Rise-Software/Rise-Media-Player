@@ -184,6 +184,53 @@
                     <uc:AlbumSongListItem Click="PlayButton_Click" />
                 </DataTemplate>
             </ListView.ItemTemplate>
+
+            <ListView.Footer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="More from this artist" Style="{StaticResource Subheader}" />
+                    <GridView Grid.Row="1"
+                              ItemsSource="{x:Bind Albums}"
+                              RightTapped="MainGrid_RightTapped"
+                              SelectionMode="Single"
+                              Tapped="GridView_Tapped">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:AlbumViewModel">
+                                <StackPanel Margin="12"
+                                            Orientation="Vertical"
+                                            Spacing="2"
+                                            Width="134">
+                                    <Border x:Name="ItemThumbnail"
+                                            CornerRadius="4">
+                                        <Image Height="134"
+                                               Stretch="UniformToFill"
+                                               Width="134">
+                                            <Image.Source>
+                                                <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Border>
+
+                                    <TextBlock Text="{x:Bind Title}"
+                                               Padding="0,7,0,0"
+                                               MaxLines="1"
+                                               Style="{StaticResource BaseTextBlockStyle}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock FontSize="13">
+                                        <Hyperlink UnderlineStyle="None">
+                                            <Run Text="{x:Bind Artist}" />
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+            </ListView.Footer>
         </ListView>
     </Grid>
 </Page>
