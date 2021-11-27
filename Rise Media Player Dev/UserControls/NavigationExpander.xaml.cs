@@ -66,8 +66,8 @@ namespace Rise.App.UserControls
         /// </summary>
         public object HeaderControls
         {
-            get => ViewModel.Controls;
-            set => ViewModel.Controls = value;
+            get => ViewModel.HeaderControls;
+            set => ViewModel.HeaderControls = value;
         }
 
         public event RoutedEventHandler Click;
