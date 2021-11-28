@@ -300,6 +300,32 @@ namespace Rise.App.Views
 
             Breadcrumbs.Clear();
 
+            switch (tag)
+            {
+                case "HomePage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == tag);
+                    return;
+
+                case "AlbumSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "AlbumsPage");
+                    return;
+
+                case "ArtistSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "ArtistsPage");
+                    return;
+
+                case "GenreSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "GenresPage");
+                    return;
+
+                default:
+                    break;
+            }
+
             foreach (NavViewItemViewModel item in SBViewModel.Items)
             {
                 if (item.Tag == tag)

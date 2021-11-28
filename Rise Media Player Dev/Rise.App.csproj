@@ -187,6 +187,9 @@
     <Compile Include="UserControls\FullSongListItem.xaml.cs">
       <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TiledImage.xaml.cs">
+      <DependentUpon>TiledImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
@@ -418,6 +421,7 @@
     <Content Include="Assets\Unavailable\Prime.png" />
     <Content Include="Assets\Unavailable\Videos.png" />
     <Content Include="Assets\Unavailable\YouTube.png" />
+    <Content Include="Assets\Tiles\VideoBG.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />
@@ -478,6 +482,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FullSongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TiledImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

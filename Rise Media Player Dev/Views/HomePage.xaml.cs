@@ -21,15 +21,6 @@ namespace Rise.App.Views
             navigationHelper = new NavigationHelper(this);
         }
 
-        private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Feedback.LaunchAsync();
-
-        private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Changes.LaunchAsync();
-
-        private async void InsiderButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Insider.LaunchAsync();
-
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.GitHub.LaunchAsync();
 

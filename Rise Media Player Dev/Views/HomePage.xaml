@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="12">
+        <StackPanel Orientation="Vertical" Spacing="4">
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
-                    <Image Height="45"
+                    <Image Height="33"
                            Source="ms-appx:///Assets/Branding/settingsbanner.png" />
                 </uc:AdaptiveItemPane.LeftPane>
 
@@ -42,26 +42,48 @@
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
+            <GridView HorizontalAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
+                      SelectionMode="None">
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
+                               Label="Video Support"
+                               Margin="0,0,6,6" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
+                               Label="Extended Genres"
+                               Margin="0,0,6,6" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/Settings/Appearance.png"
+                               Label="More ways to personalise"
+                               Margin="0,0,6,6" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/Settings/Sidebar.png"
+                               Label="Improved Navigation"
+                               Margin="0,0,6,6" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
+                               Label="New Help Centre"
+                               Margin="0,0,6,6" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
+                               IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
+                               Label="Better Now Playing" />
+            </GridView>
+
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
 
-            <uc:AdaptiveItemPane>
-                <uc:AdaptiveItemPane.LeftPane>
-                    <uc:ExpanderControl x:Uid="/Information/AddRemove"
-                                           ExpanderStyle="Static"
-                                           Height="77"
-                                           Icon="&#xE1DA;"
-                                           Width="368" />
-                </uc:AdaptiveItemPane.LeftPane>
-
-                <uc:AdaptiveItemPane.RightPane>
-                    <uc:ExpanderControl x:Uid="/Information/Contribute"
-                                           ExpanderStyle="Static"
-                                           Height="77"
-                                           Icon="&#xEC7A;"
-                                           Width="368" />
-                </uc:AdaptiveItemPane.RightPane>
-            </uc:AdaptiveItemPane>
+            <GridView HorizontalAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
+                      SelectionMode="None">
+                <uc:ExpanderControl x:Uid="/Information/AddRemove"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xE1DA;" />
+                <uc:ExpanderControl x:Uid="/Information/Contribute"
+                                    Click="ContributeButton_Click"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xEC7A;" />
+            </GridView>
 
             <Rectangle Height="120" />
         </StackPanel>

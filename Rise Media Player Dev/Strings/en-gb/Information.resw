@@ -151,7 +151,7 @@
     <value>About this page</value>
   </data>
   <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>Search music on this device</value>
+    <value>Search all media on this device</value>
   </data>
   <data name="Check.Title" xml:space="preserve">
     <value>Checking for new media in your library...</value>
