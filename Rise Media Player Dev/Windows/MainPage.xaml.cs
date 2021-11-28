@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using static Rise.App.Common.Enums;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
 namespace Rise.App.Views
@@ -202,7 +203,7 @@ namespace Rise.App.Views
             string navTo = args.InvokedItemContainer.Tag.ToString();
             if (args.IsSettingsInvoked || navTo == "SettingsPage")
             {
-                _ = await SDialog.ShowAsync();
+                _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
                 FinishNavigation();
                 return;
             }
@@ -245,7 +246,7 @@ namespace Rise.App.Views
                         CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png")),
                     };
 
-                    _ = await dialog.ShowAsync();
+                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 case "GenresPage":
@@ -281,7 +282,7 @@ namespace Rise.App.Views
                         CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Playlists.png"))
                     };
 
-                    _ = await dialog.ShowAsync();
+                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 case "SongsPage":
@@ -379,7 +380,7 @@ namespace Rise.App.Views
         }
 
         private async void OpenSettings_Click(object sender, RoutedEventArgs e)
-            => _ = await SDialog.ShowAsync();
+            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
             => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
@@ -436,6 +437,9 @@ namespace Rise.App.Views
                 }
             }
         }
+
+        private async void KeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
     }
 
     [ContentProperty(Name = "GlyphTemplate")]

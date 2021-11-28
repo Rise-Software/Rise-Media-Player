@@ -136,6 +136,7 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\ContentDialogHelpers.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
@@ -150,6 +151,9 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
+    <Compile Include="Dialogs\FeatureDialog.xaml.cs">
+      <DependentUpon>FeatureDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
@@ -433,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\FeatureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SettingsDialogContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

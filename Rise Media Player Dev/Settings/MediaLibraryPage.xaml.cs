@@ -9,6 +9,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using static Rise.App.Common.Enums;
 
 namespace Rise.App.Settings
 {
@@ -18,23 +19,18 @@ namespace Rise.App.Settings
         private SettingsViewModel ViewModel => App.SViewModel;
 
         public static MediaLibraryPage Current;
+
         private readonly FoldersDialog Dialog = new FoldersDialog();
         private readonly VFoldersDialog VDialog = new VFoldersDialog();
 
         public ContentDialog FolderDialog = new ContentDialog
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
-            PrimaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Add"),
-            SecondaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Done"),
-            DefaultButton = ContentDialogButton.Primary,
         };
 
         public ContentDialog VFolderDialog = new ContentDialog
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
-            PrimaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Add"),
-            SecondaryButtonText = ResourceLoaders.MediaLibraryLoader.GetString("Done"),
-            DefaultButton = ContentDialogButton.Primary,
         };
 
         private readonly List<string> Deletion = new List<string>
@@ -49,54 +45,16 @@ namespace Rise.App.Settings
             InitializeComponent();
             Current = this;
 
-            FolderDialog.Closing += Dialog_Closing;
-            FolderDialog.Closed += Dialog_Closed;
             FolderDialog.Content = Dialog;
-
-            VFolderDialog.Closing += VDialog_Closing;
-            VFolderDialog.Closed += Dialog_Closed;
             VFolderDialog.Content = VDialog;
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        private async void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
-            => _ = await MainPage.Current.SDialog.ShowAsync();
-
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
-        {
-            MainPage.Current.SDialog.Hide();
-            _ = await FolderDialog.ShowAsync();
-        }
+            => _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 
         private async void VChooseFolders_Click(object sender, RoutedEventArgs e)
-        {
-            MainPage.Current.SDialog.Hide();
-            _ = await VFolderDialog.ShowAsync();
-        }
-
-        private async void Dialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-            if (args.Result == ContentDialogResult.Primary)
-            {
-                args.Cancel = true;
-                _ = await AddFolderAsync();
-            }
-        }
-
-        private async void VDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-            if (args.Result == ContentDialogResult.Primary)
-            {
-                args.Cancel = true;
-                _ = await AddVideoFolderAsync();
-            }
-        }
-
-        private async Task<StorageFolder> AddFolderAsync()
-            => await App.MusicLibrary.RequestAddFolderAsync();
-
-        private async Task<StorageFolder> AddVideoFolderAsync()
-            => await App.VideoLibrary.RequestAddFolderAsync();
+            => _ = await VFolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
     }
 }

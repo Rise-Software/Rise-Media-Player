@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
+  <data name="Add.Content" xml:space="preserve">
     <value>Add folder</value>
   </data>
   <data name="AddAccount.Description" xml:space="preserve">
@@ -147,7 +147,7 @@
   <data name="DisableOnline.Title" xml:space="preserve">
     <value>Disable all online services and networks</value>
   </data>
-  <data name="Done" xml:space="preserve">
+  <data name="Done.Content" xml:space="preserve">
     <value>Done</value>
   </data>
   <data name="FolderInfo.Text" xml:space="preserve">

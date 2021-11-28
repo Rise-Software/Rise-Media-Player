@@ -26,11 +26,12 @@
         <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}"
               Height="190"
               Width="176">
-            <Border Background="{ThemeResource NavigationViewContentBackground}"
+            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     CornerRadius="8"
                     HorizontalAlignment="Left"
                     Height="80"
                     Margin="16"
+                    Opacity="0.5"
                     VerticalAlignment="Top"
                     Width="80" />
 

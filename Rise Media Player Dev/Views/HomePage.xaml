@@ -43,28 +43,30 @@
             </uc:AdaptiveItemPane>
 
             <GridView HorizontalAlignment="Stretch"
+                      IsItemClickEnabled="True"
+                      ItemClick="GridView_ItemClick"
                       ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                       SelectionMode="None">
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                                Label="Video Support"
-                               Margin="0,0,6,6" />
+                               Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
                                Label="Extended Genres"
-                               Margin="0,0,6,6" />
+                               Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/Settings/Appearance.png"
                                Label="More ways to personalise"
-                               Margin="0,0,6,6" />
+                               Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/Settings/Sidebar.png"
                                Label="Improved Navigation"
-                               Margin="0,0,6,6" />
+                               Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
                                Label="New Help Centre"
-                               Margin="0,0,6,6" />
+                               Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
                                Label="Better Now Playing" />
