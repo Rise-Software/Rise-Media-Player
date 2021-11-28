@@ -46,6 +46,7 @@
                       IsItemClickEnabled="True"
                       ItemClick="GridView_ItemClick"
                       ItemContainerStyle="{StaticResource StretchedGridViewItem}"
+                      Margin="0,-12,0,0"
                       SelectionMode="None">
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
@@ -57,7 +58,7 @@
                                Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/Settings/Appearance.png"
-                               Label="More ways to personalise"
+                               Label="More to personalise"
                                Margin="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/VideoBG.png"
                                IconUri="ms-appx:///Assets/Settings/Sidebar.png"

@@ -11,6 +11,7 @@
 
     <Page.Resources>
         <conv:TimeSpanToString x:Key="TimeToStr" />
+        <conv:VideoToString x:Key="VidToStr" />
     </Page.Resources>
 
     <Grid>
@@ -114,7 +115,7 @@
                         <Border x:Name="ItemThumbnail"
                                 Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                                 CornerRadius="4"
-                                ToolTipService.ToolTip="{x:Bind Title}">
+                                ToolTipService.ToolTip="{x:Bind Converter={StaticResource VidToStr}}">
                             <Image Height="108"
                                    Stretch="UniformToFill"
                                    Width="192">

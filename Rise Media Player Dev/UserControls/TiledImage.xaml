@@ -7,6 +7,7 @@
     mc:Ignorable="d"
     d:DesignHeight="190"
     d:DesignWidth="176"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     Height="190"
     Width="176">
 
@@ -26,10 +27,12 @@
         <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}"
               Height="190"
               Width="176">
-            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            <Button ui:Effects.Shadow="{ThemeResource StrongShadow}"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     CornerRadius="8"
                     HorizontalAlignment="Left"
                     Height="80"
+                    IsHitTestVisible="False"
                     Margin="16"
                     Opacity="0.5"
                     VerticalAlignment="Top"
@@ -52,7 +55,7 @@
                        FontWeight="SemiBold"
                        HorizontalAlignment="Left"
                        LineHeight="25"
-                       Margin="12,0,12,20"
+                       Margin="20,0,20,20"
                        MaxLines="2"
                        Text="{x:Bind Label, Mode=OneWay}"
                        TextWrapping="Wrap"

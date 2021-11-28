@@ -10,7 +10,7 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
-            <media:AttachedCardShadow x:Key="CommonShadow" Offset="4" />
+            <media:AttachedCardShadow x:Key="StrongShadow" CornerRadius="8" BlurRadius="20" Opacity=".4" />
 
             <!--#region Styles-->
             <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
