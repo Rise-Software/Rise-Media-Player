@@ -185,7 +185,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
 
-            <ListView.Footer>
+            <!--ListView.Footer>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -225,7 +225,7 @@
                         </GridView.ItemTemplate>
                     </GridView>
                 </Grid>
-            </ListView.Footer>
+            </ListView.Footer-->
         </ListView>
     </Grid>
 </Page>
