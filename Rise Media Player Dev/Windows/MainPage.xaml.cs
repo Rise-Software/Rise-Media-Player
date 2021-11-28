@@ -248,15 +248,7 @@ namespace Rise.App.Views
                     break;
 
                 case "DiscyPage":
-                    // _ = ContentFrame.Navigate(typeof(DiscyPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Help & Tips are not available yet.",
-                        Description = "Hopefully you'll find this section helpful!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")),
-                    };
-
-                    _ = await dialog.ShowAsync();
+                    _ = ContentFrame.Navigate(typeof(DiscyPage));
                     break;
 
                 case "GenresPage":
@@ -333,6 +325,9 @@ namespace Rise.App.Views
             string tag = type.Split('.').Last();
 
             Breadcrumbs.Clear();
+
+            if (tag == "DiscyPage") return;
+
             if (tag == "AlbumSongsPage" || tag == "ArtistSongsPage")
             {
                 Breadcrumbs.Add(new Crumb
@@ -488,6 +483,7 @@ namespace Rise.App.Views
 
                 case "Help":
                     ViewModel.ShowHelpCentre = value;
+                    visibilityCheck = 3;
                     break;
 
                 case "NowPlaying":

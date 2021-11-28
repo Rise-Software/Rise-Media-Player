@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
+  </data>
   <data name="Alpha.Text" xml:space="preserve">
     <value>• These versions will be pushed from the Microsoft Store
 • Playlists
@@ -159,7 +162,7 @@ Early Access Insiders (previously Seeding Insiders) get access to the app earlie
     <value>Beta</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>Developer FAQ</value>
+    <value>The basics</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
     <value>What features are you prioritising?</value>
@@ -186,6 +189,9 @@ Good luck testing!</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
     <value>How do I join the Insider Program?</value>
+  </data>
+  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+    <value>Playing media and now playing</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
     <value>• Song, Album, Artist and Genre Indexing
@@ -216,6 +222,9 @@ In terms of other versions, we have no exact dates to give you all, but this is 
 • Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
 
 • Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+  </data>
+  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+    <value>Sorting and managing your library</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
     <value>You'll have to see ;)</value>

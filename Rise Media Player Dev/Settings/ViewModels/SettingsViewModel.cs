@@ -165,6 +165,12 @@ namespace Rise.App.Settings.ViewModels
             set => Set("Navigation", nameof(ShowVideoHeader), value);
         }
 
+        public bool ShowHelpHeader
+        {
+            get => (bool)Get("Navigation", nameof(ShowHelpHeader), false);
+            set => Set("Navigation", nameof(ShowHelpHeader), value);
+        }
+
         public bool ShowAtAGlance
         {
             get => (bool)Get("Navigation", nameof(ShowAtAGlance), true);
@@ -288,7 +294,7 @@ namespace Rise.App.Settings.ViewModels
         /// <summary>
         /// Changes the visibility of NavigationView headers.
         /// </summary>
-        /// <param name="visibilityCheck">1 checks for music, 2 checks for videos.</param>
+        /// <param name="visibilityCheck">1 checks for music, 2 checks for videos, 3 checks for help centre.</param>
         public void ChangeHeaderVisibility(int visibilityCheck)
         {
             if (visibilityCheck == 1)
@@ -313,6 +319,10 @@ namespace Rise.App.Settings.ViewModels
                 {
                     ShowVideoHeader = true;
                 }
+            }
+            else if (visibilityCheck == 3)
+            {
+                ShowHelpHeader = false;
             }
         }
         #endregion

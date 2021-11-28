@@ -380,6 +380,7 @@
     <Content Include="Assets\Default.png" />
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
+    <Content Include="Assets\HelpCentre.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\Albums.png" />
     <Content Include="Assets\NavigationView\Artists.png" />
