@@ -184,8 +184,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = MainPage.Current.ContentFrame.
-                    Navigate(typeof(AlbumSongsPage), album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
             }
         }
 
