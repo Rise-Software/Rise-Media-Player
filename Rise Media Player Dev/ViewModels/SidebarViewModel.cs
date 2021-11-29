@@ -34,6 +34,7 @@ namespace Rise.App.ViewModels
             _defaultIcons.Add("AlbumsPage", "\uE93C");
             _defaultIcons.Add("GenresPage", "\uE138");
             _defaultIcons.Add("LocalVideosPage", "\uE8B2");
+            _defaultIcons.Add("VideoPlaybackPage", "\uE1D9");
             _defaultIcons.Add("DiscyPage", "\uE9CE");
             _defaultIcons.Add("SettingsPage", "\uE115");
         }
@@ -82,23 +83,30 @@ namespace Rise.App.ViewModels
             {
                 JsonObject groupObject = groupValue.GetObject();
 
-                string label = groupObject["LabelResource"].GetString();
                 string tag = groupObject["Tag"].GetString();
-                string iconStr = groupObject["Icon"].GetString();
-                string group = groupObject["HeaderGroup"].GetString();
-
-                bool visible = groupObject["Visible"].GetBoolean();
                 bool footer = groupObject["IsFooter"].GetBoolean();
+                bool visible = groupObject["Visible"].GetBoolean();
 
                 NavViewItemViewModel item = new NavViewItemViewModel
                 {
-                    LabelResource = label,
                     Tag = tag,
-                    Icon = iconStr,
-                    HeaderGroup = group,
-                    Visible = visible,
-                    IsFooter = footer
+                    IsFooter = footer,
+                    Visible = visible
                 };
+
+                if (!tag.Equals("Separator"))
+                {
+                    string label = groupObject["LabelResource"].GetString();
+                    string group = groupObject["HeaderGroup"].GetString();
+                    item.LabelResource = label;
+                    item.HeaderGroup = group;
+
+                    if (!tag.Equals("Header"))
+                    {
+                        string iconStr = groupObject["Icon"].GetString();
+                        item.Icon = iconStr;
+                    }
+                }
 
                 if (footer)
                 {
@@ -165,7 +173,7 @@ namespace Rise.App.ViewModels
                     foreach (NavViewItemViewModel item in Items)
                     {
                         // Make sure the item isn't a header.
-                        if (!item.Tag.Equals("Header"))
+                        if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                         {
                             if (item.HeaderGroup.Equals(group))
                             {
@@ -192,7 +200,7 @@ namespace Rise.App.ViewModels
                     foreach (NavViewItemViewModel item in FooterItems)
                     {
                         // Make sure the item isn't a header.
-                        if (!item.Tag.Equals("Header"))
+                        if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                         {
                             if (item.HeaderGroup.Equals(group))
                             {
@@ -223,7 +231,7 @@ namespace Rise.App.ViewModels
                 string startingUri = "ms-appx:///Assets/NavigationView/";
                 foreach (NavViewItemViewModel item in Items)
                 {
-                    if (!item.Tag.Equals("Header"))
+                    if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                     {
                         string newUri = startingUri + item.Tag + "/" + newName + ".png";
                         item.Icon = newUri;
@@ -232,7 +240,7 @@ namespace Rise.App.ViewModels
 
                 foreach (NavViewItemViewModel item in FooterItems)
                 {
-                    if (!item.Tag.Equals("Header"))
+                    if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                     {
                         string newUri = startingUri + item.Tag + "/" + newName + ".png";
                         item.Icon = newUri;
@@ -243,7 +251,7 @@ namespace Rise.App.ViewModels
             {
                 foreach (NavViewItemViewModel item in Items)
                 {
-                    if (!item.Tag.Equals("Header"))
+                    if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                     {
                         item.Icon = _defaultIcons[item.Tag];
                     }
@@ -251,7 +259,7 @@ namespace Rise.App.ViewModels
 
                 foreach (NavViewItemViewModel item in FooterItems)
                 {
-                    if (!item.Tag.Equals("Header"))
+                    if (!item.Tag.Equals("Header") && !item.Tag.Equals("Separator"))
                     {
                         item.Icon = _defaultIcons[item.Tag];
                     }

@@ -4,12 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:uc="using:Rise.App.UserControls"
-    mc:Ignorable="d"
-    PointerEntered="Page_PointerEntered"
-    PointerExited="Page_PointerExited">
+    mc:Ignorable="d">
 
     <Grid>
         <Grid x:Name="TopGrid"
@@ -24,7 +23,7 @@
             </Grid.Transitions>
 
             <Button x:Name="BackButton"
-                    Command="{x:Bind NavigationHelper.GoBackCommand}"
+                    Command="{x:Bind _navigationHelper.GoBackCommand}"
                     CornerRadius="0"
                     Height="32"
                     Style="{StaticResource TransparentButton}"
@@ -51,6 +50,7 @@
         </Grid>
 
         <MediaPlayerElement x:Name="PlayerElement"
+                            animations:Connected.Key="Player"
                             Canvas.ZIndex="0"
                             AreTransportControlsEnabled="True"
                             Visibility="Visible">
@@ -62,8 +62,8 @@
                                         IsFastRewindEnabled="False"
                                         IsPlaybackRateButtonVisible="True"
                                         IsPlaybackRateEnabled="True"
-                                        IsFullWindowButtonVisible="False"
-                                        IsFullWindowEnabled="False"
+                                        IsFullWindowButtonVisible="True"
+                                        IsFullWindowEnabled="True"
                                         IsZoomButtonVisible="False"
                                         IsRepeatButtonVisible="True"
                                         IsRepeatEnabled="True"

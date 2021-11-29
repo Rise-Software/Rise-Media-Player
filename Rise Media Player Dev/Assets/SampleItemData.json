@@ -26,7 +26,6 @@
   {
     "LabelResource": "Music",
     "Tag": "Header",
-    "Icon": "",
     "HeaderGroup": "Music",
     "Visible": true,
     "IsFooter": false
@@ -66,7 +65,6 @@
   {
     "LabelResource": "Videos",
     "Tag": "Header",
-    "Icon": "",
     "HeaderGroup": "Videos",
     "Visible": true,
     "IsFooter": false
@@ -80,6 +78,19 @@
     "IsFooter": false
   },
   {
+    "LabelResource": "VideoPlayback",
+    "Tag": "VideoPlaybackPage",
+    "Icon": "\uE1D9",
+    "HeaderGroup": "Other",
+    "Visible": true,
+    "IsFooter": true
+  },
+  {
+    "Tag": "Separator",
+    "Visible": true,
+    "IsFooter": true
+  },
+  {
     "LabelResource": "Discy",
     "Tag": "DiscyPage",
     "Icon": "\uE9CE",
@@ -91,7 +102,7 @@
     "LabelResource": "Settings",
     "Tag": "SettingsPage",
     "Icon": "\uE115",
-    "HeaderGroup": "Settings",
+    "HeaderGroup": "Other",
     "Visible": true,
     "IsFooter": true
   }

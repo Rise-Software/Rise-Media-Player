@@ -24,11 +24,10 @@ namespace Rise.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
-        private readonly NavigationHelper navigationHelper;
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper => navigationHelper;
+        private readonly NavigationHelper _navigationHelper;
 
         private readonly static DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
@@ -50,8 +49,8 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            navigationHelper = new NavigationHelper(this);
-            navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -176,10 +175,10 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
+            => _navigationHelper.OnNavigatedTo(e);
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
+            => _navigationHelper.OnNavigatedFrom(e);
         #endregion
     }
 }

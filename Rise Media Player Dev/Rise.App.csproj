@@ -137,6 +137,7 @@
     <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ContentDialogHelpers.cs" />
+    <Compile Include="Common\DependencyPropertyWatcher.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
@@ -419,6 +420,11 @@
     <Content Include="Assets\Setup\Local.png" />
     <Content Include="Assets\Setup\Privacy.png" />
     <Content Include="Assets\Setup\Terms.png" />
+    <Content Include="Assets\Tiles\BG2.png" />
+    <Content Include="Assets\Tiles\BG3.png" />
+    <Content Include="Assets\Tiles\BG4.png" />
+    <Content Include="Assets\Tiles\BG5.png" />
+    <Content Include="Assets\Tiles\BG6.png" />
     <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
     <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
     <Content Include="Assets\Unavailable\Netflix.png" />
@@ -426,7 +432,7 @@
     <Content Include="Assets\Unavailable\Prime.png" />
     <Content Include="Assets\Unavailable\Videos.png" />
     <Content Include="Assets\Unavailable\YouTube.png" />
-    <Content Include="Assets\Tiles\VideoBG.png" />
+    <Content Include="Assets\Tiles\BG1.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />

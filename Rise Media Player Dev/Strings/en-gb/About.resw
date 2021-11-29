@@ -138,6 +138,9 @@
   <data name="Leave.Text" xml:space="preserve">
     <value>Leave the Insider program</value>
   </data>
+  <data name="More.ActionButtonContent" xml:space="preserve">
+    <value>Releases</value>
+  </data>
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copy version</value>
   </data>

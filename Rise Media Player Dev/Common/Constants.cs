@@ -151,6 +151,9 @@
         public const string License =
             "https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE";
 
+        public const string Releases =
+            "https://github.com/Rise-Software/Rise-Media-Player/releases";
+
         public const string Translations =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UNFA0WVdDTDRIMTlRVU4yT0FDOENWMVJMVC4u";
 

@@ -1,30 +1,27 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.UserControls;
-using System;
-using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Views
 {
     public sealed partial class HomePage : Page
     {
         private static readonly FeatureDialog _dialog = new FeatureDialog();
-        private readonly NavigationHelper navigationHelper;
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper => navigationHelper;
+        private readonly NavigationHelper _navigationHelper;
 
         public HomePage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            navigationHelper = new NavigationHelper(this);
+            _navigationHelper = new NavigationHelper(this);
         }
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
@@ -41,18 +38,16 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
+            => _navigationHelper.OnNavigatedTo(e);
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
+            => _navigationHelper.OnNavigatedFrom(e);
         #endregion
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as TiledImage;
-            _dialog.Title = item.Label;
-            _dialog.ImageUri = item.IconUri;
-            _ = await _dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+            await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
         }
     }
 }

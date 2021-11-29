@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
@@ -112,6 +113,12 @@
                                                        Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
                     </DataTemplate>
                 </local:MenuItemTemplateSelector.HeaderTemplate>
+
+                <local:MenuItemTemplateSelector.SeparatorTemplate>
+                    <DataTemplate>
+                        <muxc:NavigationViewItemSeparator />
+                    </DataTemplate>
+                </local:MenuItemTemplateSelector.SeparatorTemplate>
             </local:MenuItemTemplateSelector>
         </ResourceDictionary>
     </Page.Resources>
@@ -249,8 +256,8 @@
                                     ItemsSource="{x:Bind Breadcrumbs}"
                                     Margin="56,48,56,0">
                     <muxc:BreadcrumbBar.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextBlockStyle}" />
+                        <DataTemplate x:DataType="local:Crumb">
+                            <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" />
                         </DataTemplate>
                     </muxc:BreadcrumbBar.ItemTemplate>
                 </muxc:BreadcrumbBar>
@@ -268,6 +275,7 @@
                     </Frame>
 
                     <MediaPlayerElement x:Name="PlayerElement"
+                                        animations:Connected.Key="Player"
                                         AreTransportControlsEnabled="True"
                                         Height="120"
                                         Margin="44,0"

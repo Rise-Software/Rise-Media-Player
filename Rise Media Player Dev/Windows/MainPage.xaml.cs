@@ -47,18 +47,6 @@ namespace Rise.App.Views
         private int _viewId = -1;
         #endregion
 
-        #region Classes
-        public class Crumb
-        {
-            public string Title { get; set; }
-
-            public override string ToString()
-            {
-                return Title;
-            }
-        }
-        #endregion
-
         public MainPage()
         {
             InitializeComponent();
@@ -87,18 +75,21 @@ namespace Rise.App.Views
             }
 
             FinishNavigation();
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
 
             App.MViewModel.CanIndex = true;
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
 
+            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+            _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+
             Loaded -= MainPage_Loaded;
 
-            // When the page is loaded, initialize the titlebar.
+            // When the page is loaded, initialize the titlebar and setup the player.
             Loaded += (s, e) =>
+            {
+                PlayerElement.SetMediaPlayer(App.PViewModel.Player);
                 _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
-
-            _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+            };
         }
 
         private async void Indexer_Started()
@@ -201,13 +192,6 @@ namespace Rise.App.Views
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             string navTo = args.InvokedItemContainer.Tag.ToString();
-            if (args.IsSettingsInvoked || navTo == "SettingsPage")
-            {
-                _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
-                FinishNavigation();
-                return;
-            }
-
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
             {
                 FinishNavigation();
@@ -226,39 +210,10 @@ namespace Rise.App.Views
         private async Task Navigate(string navTo)
         {
             UnavailableDialog dialog;
-
             switch (navTo)
             {
-                case "AlbumsPage":
-                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
-                    break;
-
-                case "ArtistsPage":
-                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
-                    break;
-
-                case "DiscyPage":
-                    // _ = ContentFrame.Navigate(typeof(DiscyPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Help & Tips are not available yet.",
-                        Description = "Hopefully you'll find this section helpful!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png")),
-                    };
-
-                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-                    break;
-
-                case "GenresPage":
-                    _ = ContentFrame.Navigate(typeof(GenresPage));
-                    break;
-
                 case "HomePage":
                     _ = ContentFrame.Navigate(typeof(HomePage));
-                    break;
-
-                case "LocalVideosPage":
-                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
                     break;
 
                 case "NowPlayingPage":
@@ -287,6 +242,45 @@ namespace Rise.App.Views
 
                 case "SongsPage":
                     _ = ContentFrame.Navigate(typeof(SongsPage));
+                    break;
+
+                case "ArtistsPage":
+                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
+                    break;
+
+                case "AlbumsPage":
+                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
+                    break;
+
+                case "GenresPage":
+                    _ = ContentFrame.Navigate(typeof(GenresPage));
+                    break;
+
+                case "LocalVideosPage":
+                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
+                    break;
+
+                case "VideoPlaybackPage":
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    }
+                    break;
+
+                case "DiscyPage":
+                    // _ = ContentFrame.Navigate(typeof(DiscyPage));
+                    dialog = new UnavailableDialog
+                    {
+                        Header = "Help & Tips are not available yet.",
+                        Description = "Hopefully you'll find this section helpful!",
+                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png")),
+                    };
+
+                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    break;
+
+                case "SettingsPage":
+                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 default:
@@ -449,7 +443,7 @@ namespace Rise.App.Views
         public DataTemplate ImageTemplate { get; set; }
 
         public DataTemplate HeaderTemplate { get; set; }
-        // public DataTemplate SeparatorTemplate { get; set; }
+        public DataTemplate SeparatorTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
@@ -457,6 +451,11 @@ namespace Rise.App.Views
             if (itemData.Tag == "Header")
             {
                 return HeaderTemplate;
+            }
+
+            if (itemData.Tag == "Separator")
+            {
+                return SeparatorTemplate;
             }
 
             if (itemData.Icon.IsValidUri(UriKind.Absolute))
@@ -467,6 +466,16 @@ namespace Rise.App.Views
             {
                 return GlyphTemplate;
             }
+        }
+    }
+
+    public class Crumb
+    {
+        public string Title { get; set; }
+
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }

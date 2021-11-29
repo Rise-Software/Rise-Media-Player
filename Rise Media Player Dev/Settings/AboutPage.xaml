@@ -104,6 +104,7 @@
 
         <muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"
+                          ActionButtonClick="VTip_ActionButtonClick"
                           CloseButtonClick="VTip_CloseButtonClick"
                           IsLightDismissEnabled="True"
                           Target="{x:Bind Version}" />

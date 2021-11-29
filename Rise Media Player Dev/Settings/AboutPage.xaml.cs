@@ -29,7 +29,7 @@ namespace Rise.App.Settings
             switch (button.Tag.ToString())
             {
                 case "Insider":
-                    Frame.Navigate(typeof(InsiderPage));
+                    _ = Frame.Navigate(typeof(InsiderPage));
                     SettingsDialogContainer.Breadcrumbs.Add
                         (ResourceLoaders.SidebarLoader.GetString("Ins"));
                     break;
@@ -42,5 +42,8 @@ namespace Rise.App.Settings
 
         private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => Clipboard.SetContent(VersionData);
+
+        private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+            => await URLs.Releases.LaunchAsync();
     }
 }
