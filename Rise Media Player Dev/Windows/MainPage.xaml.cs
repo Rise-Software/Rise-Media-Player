@@ -410,7 +410,7 @@ namespace Rise.App.Views
         {
             var uiSettings = new UISettings();
             Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
-            byte opacity = 35;
+            byte opacity = 30;
             switch (ViewModel.Color)
             {
                 case -3:
