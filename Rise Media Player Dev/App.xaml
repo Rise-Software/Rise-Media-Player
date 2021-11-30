@@ -10,7 +10,27 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Style x:Key="Win11Image" TargetType="Image">
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Style x:Key="Win11Image" TargetType="Image">
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <Style x:Key="Win11Image" TargetType="Image">
+                        <Setter Property="Source" Value="{x:Null}"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
             <media:AttachedCardShadow x:Key="StrongShadow" CornerRadius="8" BlurRadius="20" Opacity=".4" />
+            <media:AttachedCardShadow x:Key="LightShadow" CornerRadius="8" BlurRadius="8" Opacity=".2" />
+            <media:AttachedCardShadow x:Key="LightShadowBottomOffset" CornerRadius="8" BlurRadius="8" Opacity=".075" Offset="0,4,0" />
 
             <!--#region Styles-->
             <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
