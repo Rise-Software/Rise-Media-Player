@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.UserControls
@@ -30,7 +31,7 @@ namespace Rise.App.UserControls
             SizeChanged += (s, e) => HandleSizeChanges();
         }
 
-        public static DependencyProperty IconProperty =
+        private readonly static DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), null);
 
         public string Icon
@@ -39,7 +40,7 @@ namespace Rise.App.UserControls
             set => SetValue(IconProperty, value);
         }
 
-        public static DependencyProperty TitleProperty =
+        private readonly static DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), null);
 
         public string Title

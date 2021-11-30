@@ -21,12 +21,12 @@
                     Spacing="12"
                     Width="Auto">
             <Image x:Name="AppFontIcon"
-                   x:Load="{x:Bind ShowIcon}"
+                   Height="16"
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"
                    Source="{x:Bind Icon, Mode=OneWay}" 
-                   Width="16" 
-                   Height="16" />
+                   Visibility="{x:Bind ShowIcon, Mode=OneWay}"
+                   Width="16" />
             <RichTextBlock x:Name="DefaultTitle"
                            FontSize="12"
                            IsTextSelectionEnabled="False"

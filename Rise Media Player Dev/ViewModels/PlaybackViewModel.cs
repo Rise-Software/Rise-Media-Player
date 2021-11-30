@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI.Core;
@@ -217,7 +218,7 @@ namespace Rise.App.ViewModels
             // and running on the UI thread here isn't desirable.
             Player.Play();
 
-            SetCurrentSong(0);
+            SetCurrentVideo(0);
             while (addedVideos < count)
             {
                 if (token.IsCancellationRequested)
@@ -254,6 +255,14 @@ namespace Rise.App.ViewModels
             }
         }
 
+        public void SetCurrentVideo(uint index)
+        {
+            if (index >= 0 && index < PlayingVideos.Count)
+            {
+                CurrentVideo = PlayingVideos[(int)index];
+            }
+        }
+
         public void CancelTask()
         {
             CTS.Cancel();
@@ -269,10 +278,20 @@ namespace Rise.App.ViewModels
                 return;
             }
 
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if (sender.CurrentItem != null)
             {
-                SetCurrentSong(sender.CurrentItemIndex);
-            });
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    if (sender.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
+                    {
+                        SetCurrentSong(sender.CurrentItemIndex);
+                    }
+                    else
+                    {
+                        SetCurrentVideo(sender.CurrentItemIndex);
+                    }
+                });
+            }
         }
     }
 }

@@ -6,10 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary Source="/ResourceDictionaries/SongTemplates.xaml" />
-    </Page.Resources>
-
     <Grid>
         <ListView x:Name="MainList"
                   DoubleTapped="MainList_DoubleTapped"
