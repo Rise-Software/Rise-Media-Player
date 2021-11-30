@@ -9,9 +9,9 @@
     mc:Ignorable="d">
 
     <Grid>
-        <GridView animations:Connected.ListItemElementName="ItemThumbnail"
-                  animations:Connected.ListItemKey="Art"
-                  ItemsSource="{x:Bind Artists}"
+        <GridView animations:Connected.ListItemElementName="ArtistThumb"
+                  animations:Connected.ListItemKey="ArtistArt"
+                  ItemsSource="{x:Bind Artists, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   SelectedItem="{x:Bind SelectedArtist, Mode=TwoWay}"
@@ -23,14 +23,18 @@
                                 Orientation="Horizontal"
                                 Spacing="12"
                                 Width="210">
-                        <Border x:Name="ItemThumbnail"
-                                CornerRadius="42">
-                            <Image x:Phase="1"
-                                   Height="84"
-                                   Source="{x:Bind Picture}"
-                                   Stretch="UniformToFill"
-                                   Width="84" />
-                        </Border>
+                        <Button CornerRadius="42"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                            <Border x:Name="ArtistThumb"
+                                    CornerRadius="42">
+                                <Image x:Phase="1"
+                                       Height="84"
+                                       Source="{x:Bind Picture}"
+                                       Stretch="UniformToFill"
+                                       Width="84" />
+                            </Border>
+                        </Button>
 
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="{x:Bind Name}"

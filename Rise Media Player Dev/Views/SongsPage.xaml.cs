@@ -81,10 +81,10 @@ namespace Rise.App.Views
             => await SelectedSong.StartEdit();
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(ArtistSongsPage),
-                App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedSong.Artist));
-        }
+            => _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
+
+        private void ShowAlbum_Click(object sender, RoutedEventArgs e)
+            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
             => await StartPlaybackAsync();

@@ -83,7 +83,7 @@ namespace Rise.App.Views
             }
 
             Songs.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name
-                && ((SongViewModel)s).AlbumArtist == SelectedArtist.Name;
+                || ((SongViewModel)s).AlbumArtist == SelectedArtist.Name;
 
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));

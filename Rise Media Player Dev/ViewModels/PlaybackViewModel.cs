@@ -94,20 +94,12 @@ namespace Rise.App.ViewModels
             Player.Play();
         }
 
-        public async Task StartMusicPlaybackAsync(IEnumerator<object> songs, int startIndex, int count, bool shuffle = false)
+        public async Task StartMusicPlaybackAsync(IEnumerator<SongViewModel> songs, int startIndex, int count, bool shuffle = false)
         {
             CancelTask();
             PlaybackList.ShuffleEnabled = shuffle;
 
-            List<SongViewModel> list = new List<SongViewModel>();
-            while (songs.MoveNext())
-            {
-                list.Add(new SongViewModel
-                    (await (songs.Current as StorageFile).AsSongModelAsync()));
-            }
-
-            songs.Dispose();
-            await CreatePlaybackListAsync(startIndex, count, list.GetEnumerator(), Token);
+            await CreatePlaybackListAsync(startIndex, count, songs, Token);
         }
 
         public async Task StartMusicPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)

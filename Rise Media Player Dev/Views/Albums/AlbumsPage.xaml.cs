@@ -75,7 +75,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Title);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
             }
 
             SelectedAlbum = null;

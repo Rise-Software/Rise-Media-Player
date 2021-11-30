@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -110,9 +109,9 @@
             </AppBarButton-->
         </CommandBar>
 
-        <GridView animations:Connected.ListItemElementName="ItemThumbnail"
-                  animations:Connected.ListItemKey="Art"
-                  ItemsSource="{x:Bind Genres}"
+        <GridView animations:Connected.ListItemElementName="GenreThumb"
+                  animations:Connected.ListItemKey="GenreArt"
+                  ItemsSource="{x:Bind Genres, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
@@ -127,18 +126,17 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
-                        
-                        <Button x:Name="ItemThumbnail"
-                                CornerRadius="4"
+
+                        <Button CornerRadius="4"
                                 IsHitTestVisible="False"
                                 Padding="0">
-                            <Image Height="48"
-                                   Stretch="UniformToFill"
-                                   Width="48">
-                                <Image.Source>
-                                    <BitmapImage UriSource="ms-appx:///Assets/Default.png" />
-                                </Image.Source>
-                            </Image>
+                            <Border x:Name="GenreThumb"
+                                    CornerRadius="4">
+                                <Image Height="48"
+                                       Source="ms-appx:///Assets/Default.png"
+                                       Stretch="UniformToFill"
+                                       Width="48" />
+                            </Border>
                         </Button>
 
                         <TextBlock Grid.Column="1"

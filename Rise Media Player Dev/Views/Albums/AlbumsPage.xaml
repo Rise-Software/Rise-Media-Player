@@ -110,10 +110,10 @@
         </CommandBar>
 
         <GridView x:Name="MainGrid"
-                  animations:Connected.ListItemElementName="ItemThumbnail"
-                  animations:Connected.ListItemKey="Art"
+                  animations:Connected.ListItemElementName="AlbumThumb"
+                  animations:Connected.ListItemKey="AlbumArt"
                   Grid.Row="1"
-                  ItemsSource="{x:Bind Albums}"
+                  ItemsSource="{x:Bind Albums, Mode=OneWay}"
                   ItemTemplate="{StaticResource AlbumTemplate}"
                   Margin="-56,0"
                   Padding="44,0,44,120"

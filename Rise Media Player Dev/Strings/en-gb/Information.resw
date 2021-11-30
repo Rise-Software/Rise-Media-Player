@@ -264,6 +264,9 @@
   <data name="SetupFinalise.Title" xml:space="preserve">
     <value>Applying settings</value>
   </data>
+  <data name="ShowAlbum.Text" xml:space="preserve">
+    <value>Show album</value>
+  </data>
   <data name="ShowArtist.Text" xml:space="preserve">
     <value>Show artist</value>
   </data>

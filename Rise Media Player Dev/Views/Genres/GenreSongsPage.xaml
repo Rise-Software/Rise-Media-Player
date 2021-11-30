@@ -23,7 +23,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   Header="{x:Bind SelectedGenre, Mode=OneWay}"
                   IsDoubleTapEnabled="True"
-                  ItemsSource="{x:Bind Songs}"
+                  ItemsSource="{x:Bind Songs, Mode=OneWay}"
                   ItemTemplate="{StaticResource ArtistSongListItem}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
@@ -38,17 +38,16 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button animations:Connected.Key="Art"
-                                CornerRadius="8"
+                        <Button CornerRadius="8"
                                 IsHitTestVisible="False"
                                 Padding="0">
-                            <Image Height="154"
-                                   Stretch="UniformToFill"
-                                   Width="154">
-                                <Image.Source>
-                                    <BitmapImage UriSource="ms-appx:///Assets/Default.png" />
-                                </Image.Source>
-                            </Image>
+                            <Border animations:Connected.Key="GenreArt"
+                                    CornerRadius="8">
+                                <Image Height="154"
+                                       Source="ms-appx:///Assets/Default.png"
+                                       Stretch="UniformToFill"
+                                       Width="154" />
+                            </Border>
                         </Button>
 
                         <StackPanel Grid.Column="1"
