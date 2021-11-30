@@ -170,16 +170,20 @@
                                 Orientation="Vertical"
                                 Spacing="2"
                                 Width="134">
-                        <Border x:Name="ItemThumbnail"
-                                CornerRadius="4">
-                            <Image Height="134"
-                                   Stretch="UniformToFill"
-                                   Width="134">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                                </Image.Source>
-                            </Image>
-                        </Border>
+                        <Button x:Name="ItemThumbnail"
+                                CornerRadius="4"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                            <Border CornerRadius="4">
+                                <Image Height="134"
+                                       Stretch="UniformToFill"
+                                       Width="134">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                    </Image.Source>
+                                </Image>
+                            </Border>
+                        </Button>
 
                         <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"

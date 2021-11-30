@@ -8,6 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -62,16 +63,21 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border animations:Connected.Key="Art"
-                                CornerRadius="8">
-                            <Image Height="154"
-                                   Stretch="Uniform"
-                                   Width="154">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                                </Image.Source>
-                            </Image>
-                        </Border>
+                        <Button animations:Connected.Key="Art"
+                                ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                CornerRadius="8"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                            <Border CornerRadius="8">
+                                <Image Height="154"
+                                       Stretch="Uniform"
+                                       Width="154">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                    </Image.Source>
+                                </Image>
+                            </Border>
+                        </Button>
 
                         <StackPanel Grid.Column="1"
                                     Orientation="Vertical"

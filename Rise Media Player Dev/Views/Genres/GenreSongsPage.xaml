@@ -38,8 +38,10 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border animations:Connected.Key="Art"
-                                CornerRadius="8">
+                        <Button animations:Connected.Key="Art"
+                                CornerRadius="8"
+                                IsHitTestVisible="False"
+                                Padding="0">
                             <Image Height="154"
                                    Stretch="UniformToFill"
                                    Width="154">
@@ -47,7 +49,7 @@
                                     <BitmapImage UriSource="ms-appx:///Assets/Default.png" />
                                 </Image.Source>
                             </Image>
-                        </Border>
+                        </Button>
 
                         <StackPanel Grid.Column="1"
                                     Orientation="Vertical"

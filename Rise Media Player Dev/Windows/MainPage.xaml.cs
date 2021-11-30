@@ -268,15 +268,7 @@ namespace Rise.App.Views
                     break;
 
                 case "DiscyPage":
-                    // _ = ContentFrame.Navigate(typeof(DiscyPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Help & Tips are not available yet.",
-                        Description = "Hopefully you'll find this section helpful!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png")),
-                    };
-
-                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    _ = ContentFrame.Navigate(typeof(DiscyPage));
                     break;
 
                 case "SettingsPage":

@@ -128,8 +128,10 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         
-                        <Border x:Name="ItemThumbnail"
-                                CornerRadius="42">
+                        <Button x:Name="ItemThumbnail"
+                                CornerRadius="4"
+                                IsHitTestVisible="False"
+                                Padding="0">
                             <Image Height="48"
                                    Stretch="UniformToFill"
                                    Width="48">
@@ -137,7 +139,7 @@
                                     <BitmapImage UriSource="ms-appx:///Assets/Default.png" />
                                 </Image.Source>
                             </Image>
-                        </Border>
+                        </Button>
 
                         <TextBlock Grid.Column="1"
                                    Text="{x:Bind Name}"

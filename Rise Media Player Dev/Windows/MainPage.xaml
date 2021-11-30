@@ -229,7 +229,6 @@
         </Grid>
 
         <muxc:NavigationView x:Name="NavView"
-                             x:FieldModifier="public"
                              Canvas.ZIndex="0"
                              BackRequested="NavView_BackRequested"
                              CompactModeThresholdWidth="800"
@@ -308,7 +307,7 @@
             </Grid>
 
             <muxc:NavigationView.KeyboardAccelerators>
-                <KeyboardAccelerator Key="I" Modifiers="Control" Invoked="KeyboardAccelerator_Invoked" />
+                <KeyboardAccelerator x:Name="SetAcc" Key="I" Modifiers="Control" Invoked="KeyboardAccelerator_Invoked" />
             </muxc:NavigationView.KeyboardAccelerators>
         </muxc:NavigationView>
 

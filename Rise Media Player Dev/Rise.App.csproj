@@ -717,7 +717,6 @@
     <PRIResource Include="Strings\en-gb\File.resw" />
     <PRIResource Include="Strings\en-gb\Details.resw" />
     <PRIResource Include="Strings\en-gb\Props.resw" />
-    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
     <PRIResource Include="Strings\en-gb\Finish.resw" />
     <PRIResource Include="Strings\en-gb\Privacy.resw" />
     <PRIResource Include="Strings\en-gb\Local.resw" />

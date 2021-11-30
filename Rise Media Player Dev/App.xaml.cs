@@ -206,7 +206,7 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
+            await PViewModel.StartMusicPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
         }
 
         /// <summary>

@@ -11,67 +11,61 @@
                   Padding="56,0"
                   VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Padding="0,0,0,120" Spacing="4">
-            <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+            <Border BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
+                    BorderThickness="{ThemeResource ExpanderHeaderBorderThickness}"
+                    CornerRadius="8"
+                    Height="196"
+                    Margin="0,20,0,0"
+                    VerticalAlignment="Top">
+                <Grid>
+                    <Border CornerRadius="8" Padding="{ThemeResource ExpanderHeaderBorderThickness}">
+                        <Image HorizontalAlignment="Center"
+                               Opacity="0.8"
+                               Stretch="UniformToFill"
+                               Style="{ThemeResource Win11Image}" />
+                    </Border>
 
-            <uc:ExpanderControl x:Uid="/HelpTips/ReleaseDate"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xE121;">
-                <TextBlock x:Uid="/HelpTips/ReleaseInfo"
-                           Style="{StaticResource BodyTextBlockStyle}" />
+                    <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" />
+
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="24"
+                                Orientation="Vertical"
+                                Spacing="24"
+                                VerticalAlignment="Center">
+                        <Image Height="52"
+                               Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+
+                        <TextBlock Text="Get advice, help and tips from the developers."
+                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                   HorizontalAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="0,-4,0,4"
+                                   MaxWidth="432"
+                                   Style="{StaticResource BaseTextBlockStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="The basics" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+            <uc:ExpanderControl Title="Adding your personal music and videos"
+                                ExpanderStyle="Default"
+                                Icon="&#xEA69;">
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/HelpTips/Features"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xE9D5;">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock x:Uid="/HelpTips/PreAlphaH"
-                               Margin="0,-10,0,0"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/PreAlpha"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-
-                    <TextBlock x:Uid="/HelpTips/AlphaH"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/Alpha"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-
-                    <TextBlock x:Uid="/HelpTips/BetaH"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/Beta"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-                </StackPanel>
+            <uc:ExpanderControl Title="Sorting and managing your library"
+                                ExpanderStyle="Default"
+                                Icon="&#xE174;">
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/HelpTips/InsiderProgram"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xF1AD;">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock x:Uid="/HelpTips/BenefitsH"
-                               Margin="0,-10,0,0"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/Benefits"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-
-                    <TextBlock x:Uid="/HelpTips/JoinH"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/Join"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-
-                    <TextBlock x:Uid="/HelpTips/HowTransH"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/HowTrans"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-
-                    <TextBlock x:Uid="/HelpTips/InsiderH"
-                               Style="{StaticResource Subheader}" />
-                    <TextBlock x:Uid="/HelpTips/Insider"
-                               Style="{StaticResource BodyTextBlockStyle}" />
-                </StackPanel>
+            <uc:ExpanderControl Title="Playing media and now playing"
+                                ExpanderStyle="Default"
+                                Icon="&#xE102;">
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
             </uc:ExpanderControl>
-
-            <uc:ExpanderControl x:Uid="/HelpTips/WhatDiscy"
-                                   ExpanderStyle="Static"
-                                   Icon="&#xF142;" />
         </StackPanel>
     </ScrollViewer>
 </Page>

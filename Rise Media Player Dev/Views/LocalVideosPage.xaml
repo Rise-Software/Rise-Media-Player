@@ -77,7 +77,8 @@
             </AppBarButton>
 
             <AppBarButton x:Uid="/Information/Sort"
-                          Icon="Sort">
+                          Icon="Sort"
+                          IsEnabled="False">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
