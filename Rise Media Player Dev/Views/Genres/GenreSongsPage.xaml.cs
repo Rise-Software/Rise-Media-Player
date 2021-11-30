@@ -3,6 +3,7 @@ using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,13 +40,10 @@ namespace Rise.App.Views
             set => SetValue(SelectedGenreProperty, value);
         }
 
-        private static readonly DependencyProperty SelectedSongProperty =
-            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(GenreSongsPage), null);
-
         public SongViewModel SelectedSong
         {
-            get => (SongViewModel)GetValue(SelectedSongProperty);
-            set => SetValue(SelectedSongProperty, value);
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
@@ -157,15 +155,19 @@ namespace Rise.App.Views
             if (e.NavigationParameter is GenreViewModel genre)
             {
                 SelectedGenre = genre;
-
-                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(genre.Name);
-                Songs.SortDescriptions.Clear();
-                Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
-
-                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(genre.Name);
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
             }
+            else if (e.NavigationParameter is string str)
+            {
+                SelectedGenre = App.MViewModel.Genres.First(g => g.Name == str);
+            }
+
+            Songs.Filter = s => ((SongViewModel)s).Genres.Contains(SelectedGenre.Name);
+            Songs.SortDescriptions.Clear();
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+
+            Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(SelectedGenre.Name);
+            Albums.SortDescriptions.Clear();
+            Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -191,16 +193,7 @@ namespace Rise.App.Views
             => await SelectedSong.StartEdit();
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
-                return;
-            }
-
-            await StartPlaybackAsync();
-        }
+            => await StartPlaybackAsync();
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
             => await StartPlaybackAsync(0, true);

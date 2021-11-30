@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,13 +38,10 @@ namespace Rise.App.Views
             set => SetValue(SelectedArtistProperty, value);
         }
 
-        private static readonly DependencyProperty SelectedSongProperty =
-            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(ArtistSongsPage), null);
-
-        private SongViewModel SelectedSong
+        public SongViewModel SelectedSong
         {
-            get => (SongViewModel)GetValue(SelectedSongProperty);
-            set => SetValue(SelectedSongProperty, value);
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
@@ -78,12 +76,17 @@ namespace Rise.App.Views
             if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
-                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name
-                    && ((SongViewModel)s).AlbumArtist == artist.Name;
-
-                Songs.SortDescriptions.Clear();
-                Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
             }
+            else if (e.NavigationParameter is string str)
+            {
+                SelectedArtist = App.MViewModel.Artists.First(a => a.Name == str);
+            }
+
+            Songs.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name
+                && ((SongViewModel)s).AlbumArtist == SelectedArtist.Name;
+
+            Songs.SortDescriptions.Clear();
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -109,16 +112,7 @@ namespace Rise.App.Views
             => await SelectedSong.StartEdit();
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
-                return;
-            }
-
-            await StartPlaybackAsync();
-        }
+            => await StartPlaybackAsync();
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
             => await StartPlaybackAsync(0, true);

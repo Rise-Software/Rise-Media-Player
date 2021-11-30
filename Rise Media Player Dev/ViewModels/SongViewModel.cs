@@ -2,6 +2,7 @@
 using Rise.App.Views;
 using Rise.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -314,6 +315,16 @@ namespace Rise.App.ViewModels
             set => Set(ref _isInEdit, value);
         }
 
+        private bool _isFocused;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the item is focused.
+        /// </summary>
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set => Set(ref _isFocused, value);
+        }
+
         /// <summary>
         /// Saves song data that has been edited.
         /// </summary>
@@ -456,5 +467,26 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
+
+        public readonly static RelayCommand _beginPlayback = new RelayCommand(async () =>
+        {
+            int index = 0;
+            if (App.MViewModel.SelectedSong != null)
+            {
+                index = App.MViewModel.FilteredSongs.IndexOf(App.MViewModel.SelectedSong);
+                App.MViewModel.SelectedSong = null;
+            }
+
+            IEnumerator<object> enumerator = App.MViewModel.FilteredSongs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
+        });
     }
 }

@@ -1,4 +1,5 @@
 ﻿<Page
+    x:Name="Root"
     x:Class="Rise.App.Views.ArtistSongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +8,6 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -22,6 +22,7 @@
                   Header="{x:Bind SelectedArtist, Mode=OneWay}"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
+                  ItemTemplate="{StaticResource ArtistSongListItem}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
@@ -118,7 +119,7 @@
                                 <AppBarButton x:Uid="/Information/Edit"
                                               Click="EditButton_Click"
                                               Icon="Edit"
-                                              IsEnabled="{Binding ElementName=MainList, Path=DataContext.SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
+                                              IsEnabled="{Binding ElementName=Root, Path=SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
 
                                 <AppBarSeparator />
@@ -160,12 +161,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.HeaderTemplate>
-
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <uc:ArtistSongListItem Click="PlayButton_Click" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Page>

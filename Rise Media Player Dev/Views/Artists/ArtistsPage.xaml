@@ -25,13 +25,11 @@
                                 Width="210">
                         <Border x:Name="ItemThumbnail"
                                 CornerRadius="42">
-                            <Image Height="84"
+                            <Image x:Phase="1"
+                                   Height="84"
+                                   Source="{x:Bind Picture}"
                                    Stretch="UniformToFill"
-                                   Width="84">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Picture}" />
-                                </Image.Source>
-                            </Image>
+                                   Width="84" />
                         </Border>
 
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">

@@ -171,6 +171,9 @@
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
+      <DependentUpon>SongTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
     </Compile>
@@ -183,15 +186,6 @@
     </Compile>
     <Compile Include="UserControls\AlbumGrid.xaml.cs">
       <DependentUpon>AlbumGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
-      <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ArtistSongListItem.xaml.cs">
-      <DependentUpon>ArtistSongListItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FullSongListItem.xaml.cs">
-      <DependentUpon>FullSongListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
@@ -485,18 +479,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AlbumGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AlbumSongListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ArtistSongListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\FullSongListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

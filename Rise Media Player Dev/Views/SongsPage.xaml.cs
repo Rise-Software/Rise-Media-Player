@@ -29,13 +29,10 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
-        private readonly static DependencyProperty SelectedSongProperty =
-            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
-
         private SongViewModel SelectedSong
         {
-            get => (SongViewModel)GetValue(SelectedSongProperty);
-            set => SetValue(SelectedSongProperty, value);
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
@@ -87,21 +84,10 @@ namespace Rise.App.Views
         {
             _ = Frame.Navigate(typeof(ArtistSongsPage),
                 App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedSong.Artist));
-
-            SelectedSong = null;
         }
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
-                return;
-            }
-
-            await StartPlaybackAsync();
-        }
+            => await StartPlaybackAsync();
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
             => await StartPlaybackAsync(0, true);

@@ -43,13 +43,10 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
-        private static readonly DependencyProperty SelectedSongProperty =
-            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(AlbumSongsPage), null);
-
-        private SongViewModel SelectedSong
+        public SongViewModel SelectedSong
         {
-            get => (SongViewModel)GetValue(SelectedSongProperty);
-            set => SetValue(SelectedSongProperty, value);
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
@@ -83,17 +80,22 @@ namespace Rise.App.Views
             if (e.NavigationParameter is AlbumViewModel album)
             {
                 SelectedAlbum = album;
-                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
-
-                Songs.SortDescriptions.Clear();
-                Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
-                Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
                 // TODO: Get "more album from this artist" to work.
                 /*Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
                 Albums.SortDescriptions.Clear();
                 Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));*/
             }
+            else if (e.NavigationParameter is string str)
+            {
+                SelectedAlbum = App.MViewModel.Albums.First(a => a.Title == str);
+            }
+
+            Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+
+            Songs.SortDescriptions.Clear();
+            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -120,23 +122,11 @@ namespace Rise.App.Views
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
         {
-            _ = Frame.Navigate(typeof(ArtistSongsPage),
-                App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedSong.Artist));
-
-            SelectedSong = null;
+            _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
         }
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
-                return;
-            }
-
-            await StartPlaybackAsync();
-        }
+            => await StartPlaybackAsync();
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
             => await StartPlaybackAsync(0, true);

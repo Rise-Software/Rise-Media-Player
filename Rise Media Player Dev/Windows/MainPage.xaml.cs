@@ -280,6 +280,12 @@ namespace Rise.App.Views
             }
         }
 
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            App.MViewModel.SelectedSong = null;
+            FinishNavigation();
+        }
+
         public void FinishNavigation()
         {
             string type = ContentFrame.CurrentSourcePageType.ToString();
@@ -390,9 +396,6 @@ namespace Rise.App.Views
 
         private void ToBottom_Click(object sender, RoutedEventArgs e)
             => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
-            => FinishNavigation();
 
         private void NavView_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {

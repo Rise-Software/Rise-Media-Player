@@ -6,8 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -112,6 +110,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
+                  ItemTemplate="{StaticResource FullSongListItem}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
@@ -143,12 +142,6 @@
                     </MenuFlyoutItem>
                 </MenuFlyout>
             </ListView.Resources>
-
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <uc:FullSongListItem Click="PlayButton_Click" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Page>

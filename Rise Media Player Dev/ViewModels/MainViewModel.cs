@@ -97,6 +97,16 @@ namespace Rise.App.ViewModels
             = new ObservableCollection<VideoViewModel>();
         public AdvancedCollectionView FilteredVideos { get; set; }
 
+        private SongViewModel _selectedSong;
+        /// <summary>
+        /// Gets or sets the currently selected song.
+        /// </summary>
+        public SongViewModel SelectedSong
+        {
+            get => _selectedSong;
+            set => Set(ref _selectedSong, value);
+        }
+
         private bool _isLoading = false;
         /// <summary>
         /// Gets or sets a value indicating whether the lists are currently being updated. 
