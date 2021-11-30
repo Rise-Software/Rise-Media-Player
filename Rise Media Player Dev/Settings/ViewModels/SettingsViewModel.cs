@@ -40,52 +40,52 @@ namespace Rise.App.ViewModels
         #region Appearance
         public int Theme
         {
-            get => (int)Get("Appearance", nameof(Theme), 2);
+            get => Get("Appearance", nameof(Theme), 2);
             set => Set("Appearance", nameof(Theme), value);
         }
 
         public bool SquareAlbumArt
         {
-            get => (bool)Get("Appearance", nameof(SquareAlbumArt), false);
+            get => Get("Appearance", nameof(SquareAlbumArt), false);
             set => Set("Appearance", nameof(SquareAlbumArt), value);
         }
 
         public int OpenTo
         {
-            get => (int)Get("Appearance", nameof(OpenTo), 0);
+            get => Get("Appearance", nameof(OpenTo), 0);
             set => Set("Appearance", nameof(OpenTo), value);
         }
 
         public string Open =>
-            OpenLocations[(int)Get("Appearance", nameof(OpenTo), 0)];
+            OpenLocations[Get("Appearance", nameof(OpenTo), 0)];
 
         public bool PickUp
         {
-            get => (bool)Get("Appearance", nameof(PickUp), false);
+            get => Get("Appearance", nameof(PickUp), false);
             set => Set("Appearance", nameof(PickUp), value);
         }
 
         public bool CompactMode
         {
-            get => (bool)Get("Appearance", nameof(CompactMode), true);
+            get => Get("Appearance", nameof(CompactMode), true);
             set => Set("Appearance", nameof(CompactMode), value);
         }
 
         public bool ColoredSettingsIcons
         {
-            get => (bool)Get("Appearance", nameof(ColoredSettingsIcons), true);
+            get => Get("Appearance", nameof(ColoredSettingsIcons), true);
             set => Set("Appearance", nameof(ColoredSettingsIcons), value);
         }
 
         public bool TrackHistory
         {
-            get => (bool)Get("Appearance", nameof(TrackHistory), false);
+            get => Get("Appearance", nameof(TrackHistory), false);
             set => Set("Appearance", nameof(TrackHistory), value);
         }
 
         public bool CuratedPlaylists
         {
-            get => (bool)Get("Appearance", nameof(CuratedPlaylists), false);
+            get => Get("Appearance", nameof(CuratedPlaylists), false);
             set => Set("Appearance", nameof(CuratedPlaylists), value);
         }
         #endregion
@@ -93,19 +93,19 @@ namespace Rise.App.ViewModels
         #region Media Library
         public int Deletion
         {
-            get => (int)Get("MediaLibrary", nameof(Deletion), 0);
+            get => Get("MediaLibrary", nameof(Deletion), 0);
             set => Set("MediaLibrary", nameof(Deletion), value);
         }
 
         public bool SeparateLocal
         {
-            get => (bool)Get("MediaLibrary", nameof(SeparateLocal), false);
+            get => Get("MediaLibrary", nameof(SeparateLocal), false);
             set => Set("MediaLibrary", nameof(SeparateLocal), value);
         }
 
         public bool DisableOnline
         {
-            get => (bool)Get("MediaLibrary", nameof(DisableOnline), false);
+            get => Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
         }
         #endregion
@@ -113,20 +113,20 @@ namespace Rise.App.ViewModels
         #region Navigation
         public int Resize
         {
-            get => (int)Get("Navigation", nameof(Resize), 0);
+            get => Get("Navigation", nameof(Resize), 0);
             set => Set("Navigation", nameof(Resize), value);
         }
 
         public bool Hamburger
         {
-            get => (bool)Get("Navigation", nameof(Hamburger), false);
+            get => Get("Navigation", nameof(Hamburger), false);
             set => Set("Navigation", nameof(Hamburger), value);
         }
 
         public string CurrentPack => _iconPacks[IconPack];
         public int IconPack
         {
-            get => (int)Get("Local", nameof(IconPack), 0);
+            get => Get("Local", nameof(IconPack), 0);
             set
             {
                 Set("Local", nameof(IconPack), value);
@@ -289,31 +289,31 @@ namespace Rise.App.ViewModels
         #region Playback
         public bool Gapless
         {
-            get => (bool)Get("Playback", nameof(Gapless), false);
+            get => Get("Playback", nameof(Gapless), false);
             set => Set("Playback", nameof(Gapless), value);
         }
 
         public int CrossfadeDuration
         {
-            get => (int)Get("Playback", nameof(CrossfadeDuration), 0);
+            get => Get("Playback", nameof(CrossfadeDuration), 0);
             set => Set("Playback", nameof(CrossfadeDuration), value);
         }
 
         public int ScaleToWindow
         {
-            get => (int)Get("Playback", nameof(ScaleToWindow), 0);
+            get => Get("Playback", nameof(ScaleToWindow), 0);
             set => Set("Playback", nameof(ScaleToWindow), value);
         }
 
         public bool GoDevice
         {
-            get => (bool)Get("Playback", nameof(GoDevice), false);
+            get => Get("Playback", nameof(GoDevice), false);
             set => Set("Playback", nameof(GoDevice), value);
         }
 
         public bool ReplaceFlyouts
         {
-            get => (bool)Get("Playback", nameof(ReplaceFlyouts), false);
+            get => Get("Playback", nameof(ReplaceFlyouts), false);
             set => Set("Playback", nameof(ReplaceFlyouts), value);
         }
         #endregion
@@ -321,20 +321,20 @@ namespace Rise.App.ViewModels
         #region Setup
         public bool SetupCompleted
         {
-            get => (bool)Get("Local", nameof(SetupCompleted), false);
+            get => Get("Local", nameof(SetupCompleted), false);
             set => Set("Local", nameof(SetupCompleted), value);
         }
 
         public int SetupProgress
         {
-            get => (int)Get("Local", nameof(SetupProgress), 0);
+            get => Get("Local", nameof(SetupProgress), 0);
             set => Set("Local", nameof(SetupProgress), value);
         }
         #endregion
 
         public int Language
         {
-            get => (int)Get("Local", nameof(Language), 0);
+            get => Get("Local", nameof(Language), 0);
             set => Set("Local", nameof(Language), value);
         }
     }
