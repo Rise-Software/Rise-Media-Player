@@ -45,7 +45,7 @@ namespace Rise.App.Views
             SelectedGenre = null;
             if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
             {
-                _ = Frame.Navigate(typeof(GenreSongsPage), genre.Name);
+                _ = Frame.Navigate(typeof(GenreSongsPage), genre);
             }
         }
         #endregion

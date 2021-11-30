@@ -1,9 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -24,16 +22,10 @@ namespace Rise.App.Views
         public MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
-
-        /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
-        private ArtistViewModel Artist;
         private static readonly DependencyProperty SelectedAlbumProperty =
             DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumSongsPage), null);
 
@@ -43,6 +35,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+        private SongViewModel _song;
         public SongViewModel SelectedSong
         {
             get => MViewModel.SelectedSong;
@@ -80,6 +73,7 @@ namespace Rise.App.Views
             if (e.NavigationParameter is AlbumViewModel album)
             {
                 SelectedAlbum = album;
+                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
 
                 // TODO: Get "more album from this artist" to work.
                 /*Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
@@ -89,9 +83,8 @@ namespace Rise.App.Views
             else if (e.NavigationParameter is string str)
             {
                 SelectedAlbum = App.MViewModel.Albums.First(a => a.Title == str);
+                Songs.Filter = s => ((SongViewModel)s).Album == str;
             }
-
-            Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
 
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
@@ -104,7 +97,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
+                await EventsLogic.StartPlaybackAsync(index);
             }
         }
 
@@ -121,51 +114,12 @@ namespace Rise.App.Views
             => await SelectedSong.StartEdit();
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
-        }
-
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync();
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync(0, true);
-
-        private async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
-        {
-            if (SelectedSong != null && index == 0)
-            {
-                index = MainList.Items.IndexOf(SelectedSong);
-                SelectedSong = null;
-            }
-
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
-        }
+            => _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
             await SelectedSong.StartEdit();
             SelectedSong = null;
-        }
-
-        private void Hyperlink_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-        {
-            if (Artist == null)
-            {
-                Artist = App.MViewModel.Artists.
-                    FirstOrDefault(a => a.Name == SelectedAlbum.Artist);
-            }
-
-            Frame.Navigate(typeof(ArtistSongsPage), Artist);
         }
 
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -183,6 +137,35 @@ namespace Rise.App.Views
                 SelectedAlbum = album;
             }
         }
+        #endregion
+
+        #region Common handlers
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                int index = MainList.Items.IndexOf(song);
+                await EventsLogic.StartPlaybackAsync(index);
+                return;
+            }
+
+            await EventsLogic.StartPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartPlaybackAsync(0, true);
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.FocusSong(ref _song, e);
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToAlbum(sender);
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
         #endregion
 
         #region NavigationHelper registration

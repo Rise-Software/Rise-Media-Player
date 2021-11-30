@@ -2,11 +2,10 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Navigation;
@@ -40,6 +39,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedGenreProperty, value);
         }
 
+        private SongViewModel _song;
         public SongViewModel SelectedSong
         {
             get => MViewModel.SelectedSong;
@@ -52,36 +52,6 @@ namespace Rise.App.Views
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
-
-        private RelayCommand _playCommand;
-        public RelayCommand PlayCommand
-        {
-            get
-            {
-                if (_playCommand == null)
-                {
-                    _playCommand = new RelayCommand(async () => await StartPlaybackAsync());
-                }
-
-                return _playCommand;
-            }
-            set => _playCommand = value;
-        }
-
-        private RelayCommand _shuffleCommand;
-        public RelayCommand ShuffleCommand
-        {
-            get
-            {
-                if (_shuffleCommand == null)
-                {
-                    _shuffleCommand = new RelayCommand(async () => await StartPlaybackAsync(0, true));
-                }
-
-                return _shuffleCommand;
-            }
-            set => _shuffleCommand = value;
-        }
 
         private RelayCommand _sortCommand;
         public RelayCommand SortCommand
@@ -112,21 +82,6 @@ namespace Rise.App.Views
             }
             set => _viewCommand = value;
         }
-
-        private RelayCommand _editCommand;
-        public RelayCommand EditCommand
-        {
-            get
-            {
-                if (_editCommand == null)
-                {
-                    _editCommand = new RelayCommand(async () => await SelectedSong.StartEdit());
-                }
-
-                return _editCommand;
-            }
-            set => _editCommand = value;
-        }
         #endregion
 
         public GenreSongsPage()
@@ -155,17 +110,19 @@ namespace Rise.App.Views
             if (e.NavigationParameter is GenreViewModel genre)
             {
                 SelectedGenre = genre;
+                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(genre.Name);
+                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(genre.Name);
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedGenre = App.MViewModel.Genres.First(g => g.Name == str);
+                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(str);
+                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(str);
             }
 
-            Songs.Filter = s => ((SongViewModel)s).Genres.Contains(SelectedGenre.Name);
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
 
-            Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(SelectedGenre.Name);
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
@@ -176,7 +133,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
+                await EventsLogic.StartPlaybackAsync(index);
             }
         }
 
@@ -191,32 +148,6 @@ namespace Rise.App.Views
 
         private async void Props_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();
-
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync();
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync(0, true);
-
-        private async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
-        {
-            if (SelectedSong != null && index == 0)
-            {
-                index = MainList.Items.IndexOf(SelectedSong);
-                SelectedSong = null;
-            }
-
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
-        }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -284,6 +215,35 @@ namespace Rise.App.Views
                     break;
             }
         }
+        #endregion
+
+        #region Common handlers
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                int index = MainList.Items.IndexOf(song);
+                await EventsLogic.StartPlaybackAsync(index);
+                return;
+            }
+
+            await EventsLogic.StartPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartPlaybackAsync(0, true);
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.FocusSong(ref _song, e);
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToAlbum(sender);
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
         #endregion
 
         #region NavigationHelper registration

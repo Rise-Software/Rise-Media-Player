@@ -138,6 +138,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ContentDialogHelpers.cs" />
     <Compile Include="Common\DependencyPropertyWatcher.cs" />
+    <Compile Include="Common\EventsLogic.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
@@ -183,9 +184,6 @@
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\AlbumGrid.xaml.cs">
-      <DependentUpon>AlbumGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
@@ -475,10 +473,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AdaptiveItemPane.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AlbumGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

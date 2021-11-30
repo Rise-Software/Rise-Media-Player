@@ -2,10 +2,10 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,14 +20,10 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
-
-        /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
+        private SongViewModel _song;
 
         private SongViewModel SelectedSong
         {
@@ -64,7 +60,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await StartPlaybackAsync(index);
+                await EventsLogic.StartPlaybackAsync(index);
             }
         }
 
@@ -85,32 +81,6 @@ namespace Rise.App.Views
 
         private void ShowAlbum_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
-
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync();
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await StartPlaybackAsync(0, true);
-
-        private async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
-        {
-            if (SelectedSong != null && index == 0)
-            {
-                index = MainList.Items.IndexOf(SelectedSong);
-                SelectedSong = null;
-            }
-
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
-        }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,6 +118,35 @@ namespace Rise.App.Views
             Songs.SortDescriptions.
                 Add(new SortDescription(SortProperty, CurrentSort));
         }
+        #endregion
+
+        #region Common handlers
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                int index = MainList.Items.IndexOf(song);
+                await EventsLogic.StartPlaybackAsync(index);
+                return;
+            }
+
+            await EventsLogic.StartPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartPlaybackAsync(0, true);
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.FocusSong(ref _song, e);
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToAlbum(sender);
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
         #endregion
 
         #region NavigationHelper registration

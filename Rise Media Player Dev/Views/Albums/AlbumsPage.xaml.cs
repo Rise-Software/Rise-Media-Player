@@ -4,6 +4,7 @@ using Rise.App.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -170,6 +171,9 @@ namespace Rise.App.Views
                 Add(new SortDescription(SortProperty, CurrentSort));
         }
         #endregion
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
 
         #region NavigationHelper registration
         /// <summary>

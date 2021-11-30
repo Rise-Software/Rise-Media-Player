@@ -21,8 +21,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   Header="{x:Bind SelectedArtist, Mode=OneWay}"
                   IsDoubleTapEnabled="True"
-                  ItemsSource="{x:Bind Songs, Mode=OneWay}"
-                  ItemTemplate="{StaticResource ArtistSongListItem}"
+                  ItemsSource="{x:Bind Songs}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
@@ -163,6 +162,68 @@
                     </Grid>
                 </DataTemplate>
             </ListView.HeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                    <Grid Background="Transparent"
+                          ColumnSpacing="12"
+                          Padding="12,4"
+                          PointerEntered="Grid_PointerEntered"
+                          PointerExited="Grid_PointerExited"
+                          PointerCanceled="Grid_PointerExited">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Stretch"
+                                   Text="{x:Bind Track}"
+                                   TextAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Visibility="{x:Bind IsFocused,
+                                                Converter={StaticResource BoolToVis},
+                                                ConverterParameter=Reverse,
+                                                Mode=OneWay}"
+                                   Width="24" />
+
+                        <Button x:Uid="/Information/Play"
+                                Click="PlayButton_Click"
+                                Height="32"
+                                Padding="0"
+                                Style="{StaticResource TransparentButton}"
+                                Visibility="{x:Bind IsFocused, Mode=OneWay}"
+                                Width="32">
+                            <FontIcon FontSize="16" Glyph="&#xE102;" />
+                        </Button>
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Title}"
+                                       TextTrimming="CharacterEllipsis" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock>
+                                    <Hyperlink Click="Album_Click" UnderlineStyle="None">
+                                        <Run Text="{x:Bind Album}" />
+                                    </Hyperlink>
+                                </TextBlock>
+
+                                <Rectangle Grid.Column="1" />
+                            </Grid>
+                        </StackPanel>
+
+                        <TextBlock x:Phase="1"
+                                   Grid.Column="2"
+                                   Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Page>
