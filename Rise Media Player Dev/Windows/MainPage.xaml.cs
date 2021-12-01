@@ -59,6 +59,8 @@ namespace Rise.App.Views
 
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
+
+            // ViewModel.PropertyChanged += SViewModel_PropertyChanged;
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -219,12 +221,14 @@ namespace Rise.App.Views
                     if (_nowPlayingWindow == null)
                     {
                         _nowPlayingWindow = await typeof(NowPlaying).
-                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300, false);
                     }
-                    else
+
+                    _nowPlayingWindow.Closed += (s, e) =>
                     {
-                        _ = await _nowPlayingWindow.TryShowAsync();
-                    }
+                        _nowPlayingWindow = null;
+                    };
+                    _ = await _nowPlayingWindow.TryShowAsync();
                     break;
 
                 case "PlaylistsPage":
