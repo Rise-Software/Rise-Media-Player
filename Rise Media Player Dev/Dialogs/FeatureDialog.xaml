@@ -5,9 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Style="{StaticResource DefaultContentDialogStyle}">
+    Style="{StaticResource DefaultContentDialogStyle}"
+    SizeChanged="ContentDialog_SizeChanged">
 
-    <Grid RowSpacing="12">
+    <Grid x:Name="RootGrid" RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
@@ -27,7 +28,7 @@
                     Padding="12"
                     Style="{StaticResource TransparentButton}"
                     VerticalAlignment="Bottom">
-                <FontIcon FontSize="12" Glyph="&#xE894;" />
+                <FontIcon FontSize="16" Glyph="&#xE894;" />
             </Button>
         </Grid>
 
@@ -39,7 +40,6 @@
                     </Image.Source>
                 </Image>
                 <TextBlock x:Name="Description"
-                           Height="100"
                            Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
         </ScrollViewer>
@@ -70,8 +70,7 @@
                 <Button x:Name="Left"
                         Click="Left_Click"
                         HorizontalAlignment="Stretch"
-                        Padding="12"
-                        Style="{StaticResource TransparentButton}">
+                        Padding="12">
                     <Button.Content>
                         <FontIcon Glyph="&#xEC52;" />
                     </Button.Content>
@@ -79,8 +78,7 @@
                 <Button x:Name="Right"
                         Click="Right_Click"
                         HorizontalAlignment="Stretch"
-                        Padding="12"
-                        Style="{StaticResource TransparentButton}">
+                        Padding="12">
                     <Button.Content>
                         <FontIcon Glyph="&#xEBE7;" />
                     </Button.Content>

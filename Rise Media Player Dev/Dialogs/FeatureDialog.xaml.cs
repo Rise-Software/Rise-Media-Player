@@ -110,6 +110,18 @@ namespace Rise.App.Dialogs
 
         private void Button_Click(object sender, RoutedEventArgs e)
             => Hide();
+
+        private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double windowWidth = Window.Current.Bounds.Width;
+            double windowHeight = Window.Current.Bounds.Height;
+
+            RootGrid.Width = windowWidth < 498 ? windowWidth - 68 : 498 - 68;
+
+            // The 59 is because for some reason the dialog has a 1px transparent
+            // line at the bottom. Don't shoot me, I'm just the messenger.
+            RootGrid.Height = windowHeight < 398 ? windowHeight - 59 : 398 - 59;
+        }
     }
 
     public class Feature
