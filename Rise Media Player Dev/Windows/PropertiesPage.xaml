@@ -21,7 +21,7 @@
                          Canvas.ZIndex="1"
                          AddLabelWidth="0"
                          Height="24"
-                         Margin="0,8,0,0"
+                         Margin="-8,8,0,0"
                          ShowIcon="False"
                          VerticalAlignment="Top" />
 
