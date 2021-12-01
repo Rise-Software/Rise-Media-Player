@@ -35,5 +35,12 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void Discy_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            DiscyAboutTip.IsOpen = true;
+        }
+
+        private async void LearnMoreButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e) => await URLs.Readme.LaunchAsync();
     }
 }

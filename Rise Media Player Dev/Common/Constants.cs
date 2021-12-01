@@ -136,6 +136,9 @@
         public const string Feedback =
             "https://github.com/Rise-Software/Rise-Media-Player/issues/new";
 
+        public const string Readme =
+            "https://github.com/Rise-Software/Rise-Media-Player/blob/main-(insider_bloom)/readme.md";
+
         public const string Changes =
             "https://github.com/Rise-Software/Rise-Media-Player/commits/bloom_build-(main)";
 

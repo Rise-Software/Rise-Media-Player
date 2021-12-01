@@ -5,24 +5,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Style x:Key="BackgroundImage" TargetType="Image">
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Style x:Key="BackgroundImage" TargetType="Image">
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <Style x:Key="BackgroundImage" TargetType="Image">
+                        <Setter Property="Source" Value="{x:Null}"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <ScrollViewer Margin="-56,0"
                   Padding="56,0"
                   VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Padding="0,0,0,120" Spacing="4">
-            <Border BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
-                    BorderThickness="{ThemeResource ExpanderHeaderBorderThickness}"
-                    CornerRadius="8"
-                    Height="196"
-                    Margin="0,20,0,0"
-                    VerticalAlignment="Top">
-                <Grid>
-                    <Border CornerRadius="8" Padding="{ThemeResource ExpanderHeaderBorderThickness}">
+            <Border ui:Effects.Shadow="{x:Bind DropShadow}" Margin="10,10,10,10">
+                <Border.Resources>
+                    <media:AttachedCardShadow x:Name="DropShadow" CornerRadius="8" BlurRadius="15" Opacity=".2" />
+                </Border.Resources>
+                <Grid Height="190" CornerRadius="10">
+                    <Border>
                         <Image HorizontalAlignment="Center"
                                Opacity="0.8"
                                Stretch="UniformToFill"
-                               Style="{ThemeResource Win11Image}" />
+                               Style="{ThemeResource BackgroundImage}" />
                     </Border>
 
                     <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
@@ -30,42 +53,56 @@
                                VerticalAlignment="Stretch" />
 
                     <StackPanel HorizontalAlignment="Center"
-                                Margin="24"
-                                Orientation="Vertical"
-                                Spacing="24"
-                                VerticalAlignment="Center">
-                        <Image Height="52"
-                               Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+                            Margin="24"
+                            Orientation="Vertical"
+                            Spacing="24"
+                            VerticalAlignment="Center">
+                        <Image Height="60"
+                               Source="ms-appx:///Assets/HelpCentre.png" />
 
-                        <TextBlock Text="Get advice, help and tips from the developers."
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   HorizontalAlignment="Center"
-                                   HorizontalTextAlignment="Center"
-                                   Margin="0,-4,0,4"
-                                   MaxWidth="432"
-                                   Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock FontWeight="SemiBold" Opacity="0.6" FontSize="17" Text="Get advice, help and tips from the developers." />
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <TextBlock Text="The basics" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
-            <uc:ExpanderControl Title="Adding your personal music and videos"
-                                ExpanderStyle="Default"
-                                Icon="&#xEA69;">
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
+            <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+
+            <uc:ExpanderControl x:Uid="/HelpTips/AddPersonalMusicAndVideos"
+                                   ExpanderStyle="Default"
+                                   Icon="&#xEA69;">
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl Title="Sorting and managing your library"
-                                ExpanderStyle="Default"
-                                Icon="&#xE174;">
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
+            <uc:ExpanderControl x:Uid="/HelpTips/SortingManagingLibrary"
+                                   ExpanderStyle="Default"
+                                   Icon="&#xE174;">
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl Title="Playing media and now playing"
-                                ExpanderStyle="Default"
-                                Icon="&#xE102;">
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" />
+            <uc:ExpanderControl x:Uid="/HelpTips/PlayingMediaNowPlaying"
+                                   ExpanderStyle="Default"
+                                   Icon="&#xE102;">
             </uc:ExpanderControl>
+
+            <StackPanel Orientation="Vertical" Margin="0,100,0,0">
+                <muxc:TeachingTip x:Name="DiscyAboutTip"
+                                  IsLightDismissEnabled="True"
+                                  Title="Hello, stranger!"
+                                  Target="{x:Bind Discy}"
+                                  PreferredPlacement="Top">
+                    <StackPanel Orientation="Vertical" Spacing="5">
+                        <TextBlock TextWrapping="Wrap" Text="I can't help you yet since my developer hasn't coded me fully. Also, I don't know who you are! I'll learn that, and be able to help you, in a future update." />
+                        <Button Click="LearnMoreButton_Click" HorizontalAlignment="Stretch">Learn more</Button>
+                    </StackPanel>
+                </muxc:TeachingTip>
+                <Image x:Name="Discy" Source="ms-appx:///Assets/Discy.png" Margin="-5,0,0,0" Height="80" PointerPressed="Discy_PointerPressed" />
+
+                <TextBlock Style="{StaticResource NavigationViewItemHeaderTextStyle}" FontSize="32" TextAlignment="Center" Text="Not enough?" />
+
+                <RichTextBlock FontWeight="SemiBold" IsTextSelectionEnabled="False" FontSize="16" Margin="0,12,0,0" TextAlignment="Center">
+                    <Paragraph>
+                        We’re adding extra help all of the time! You can always <Hyperlink UnderlineStyle="None" NavigateUri="https://definetly-not-super-secret-wip-rise-site.vercel.app/">get more help online</Hyperlink> if you need more support, or click on Discy!
+                    </Paragraph>
+                </RichTextBlock>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>

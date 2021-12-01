@@ -335,7 +335,7 @@ namespace Rise.App.Views
                     NavView.SelectedItem = item;
                     Breadcrumbs.Add(new Crumb
                     {
-                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
+                       Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
                     });
                     return;
                 }
@@ -346,10 +346,13 @@ namespace Rise.App.Views
                 if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Add(new Crumb
+                    if (tag != "DiscyPage")
                     {
-                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
-                    });
+                        Breadcrumbs.Add(new Crumb
+                        {
+                            Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
+                        });
+                    }
                     return;
                 }
             }
