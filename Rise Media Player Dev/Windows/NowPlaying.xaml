@@ -33,13 +33,6 @@
         <Storyboard x:Name="PlayerElementHoverAnimationOut">
             <FadeOutThemeAnimation Storyboard.TargetName="Player"></FadeOutThemeAnimation>
         </Storyboard>
-
-        <Storyboard x:Name="QueueButtonHoverAnimationIn">
-            <FadeInThemeAnimation Storyboard.TargetName="QueueButton"></FadeInThemeAnimation>
-        </Storyboard>
-        <Storyboard x:Name="QueueButtonHoverAnimationOut">
-            <FadeOutThemeAnimation Storyboard.TargetName="QueueButton"></FadeOutThemeAnimation>
-        </Storyboard>
     </Page.Resources>
 
     <Grid>
@@ -68,9 +61,11 @@
             </Grid.RowDefinitions>
 
             <Frame x:Name="PlayFrame"
+                   Navigated="PlayFrame_Navigated"
                    Padding="16,12,16,0"
                    VerticalAlignment="Stretch"
-                   VerticalContentAlignment="Stretch">
+                   VerticalContentAlignment="Stretch"
+                   Visibility="Collapsed">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition>

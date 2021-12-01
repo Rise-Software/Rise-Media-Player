@@ -1,5 +1,4 @@
 ﻿using Rise.App.Common;
-using Rise.App.Converters;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -7,17 +6,13 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Graphics.Imaging;
-using Windows.Storage.Streams;
-using Windows.UI;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
-using Windows.UI.Core.Preview;
-using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
@@ -65,7 +60,7 @@ namespace Rise.App.Views
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
 
-            ViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            // ViewModel.PropertyChanged += SViewModel_PropertyChanged;
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -226,12 +221,14 @@ namespace Rise.App.Views
                     if (_nowPlayingWindow == null)
                     {
                         _nowPlayingWindow = await typeof(NowPlaying).
-                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300, false);
                     }
-                    else
+
+                    _nowPlayingWindow.Closed += (s, e) =>
                     {
-                        _ = await _nowPlayingWindow.TryShowAsync();
-                    }
+                        _nowPlayingWindow = null;
+                    };
+                    _ = await _nowPlayingWindow.TryShowAsync();
                     break;
 
                 case "PlaylistsPage":

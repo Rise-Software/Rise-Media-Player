@@ -4,9 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
@@ -26,9 +25,9 @@
                       SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/ChooseColor"
-                               ExpanderStyle="Default"
-                               Icon="&#xE771;">
+        <uc:ExpanderControl x:Uid="/Appearance/ChooseColor"
+                            ExpanderStyle="Default"
+                            Icon="&#xE771;">
             <StackPanel Orientation="Vertical">
                 <RelativePanel>
                     <TextBlock VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">Colour theme</TextBlock>
@@ -37,8 +36,9 @@
                               x:Name="ColorThemeComboBox"
                               SelectionChanged="ColorThemeComboBox_SelectionChanged"
                               RelativePanel.AlignRightWithPanel="True"
-                              SelectedIndex="{Binding ColorTheme, Mode=TwoWay}" />
+                              SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
                 </RelativePanel>
+
                 <StackPanel Padding="0,10,0,0" Orientation="Horizontal" x:Name="RiseColorsStackPanel">
                     <muxc:RadioButtons x:Name="RiseRadioButtons" MaxColumns="5" SelectedIndex="{Binding Color, Mode=TwoWay}">
                         <Border ToolTipService.ToolTip="Rise Red" Background="IndianRed" Width="40" Height="40" CornerRadius="4" />
@@ -49,12 +49,11 @@
                     </muxc:RadioButtons>
                 </StackPanel>
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Appearance/FullArt"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE93C;">
+        <uc:ExpanderControl x:Uid="/Appearance/FullArt"
+                            ExpanderStyle="Disabled"
+                            Icon="&#xE93C;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.SquareAlbumArt, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
