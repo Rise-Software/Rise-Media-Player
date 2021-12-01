@@ -107,6 +107,16 @@ namespace Rise.App.ViewModels
             set => Set(ref _selectedSong, value);
         }
 
+        private VideoViewModel _selectedVideo;
+        /// <summary>
+        /// Gets or sets the currently selected video.
+        /// </summary>
+        public VideoViewModel SelectedVideo
+        {
+            get => _selectedVideo;
+            set => Set(ref _selectedVideo, value);
+        }
+
         private bool _isLoading = false;
         /// <summary>
         /// Gets or sets a value indicating whether the lists are currently being updated. 

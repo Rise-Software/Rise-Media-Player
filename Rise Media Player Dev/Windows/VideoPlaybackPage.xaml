@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d">
 
     <Grid>
@@ -42,9 +42,9 @@
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
                              ShowIcon="True"
-                             Title="{x:Bind ViewModel.CurrentVideo.Title, Mode=OneWay}" />
+                             Title="{x:Bind CurrentVideo.Title, Mode=OneWay}" />
         </Grid>
-        
+
         <MediaPlayerElement x:Name="PlayerElement"
                             animations:Connected.Key="Player"
                             Canvas.ZIndex="0"
@@ -74,7 +74,5 @@
                                         IsPreviousTrackButtonVisible="False" />
             </MediaPlayerElement.TransportControls>
         </MediaPlayerElement>
-
-        <TextBlock Text="{x:Bind ViewModel.CurrentVideo.Title, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Grid>
 </Page>

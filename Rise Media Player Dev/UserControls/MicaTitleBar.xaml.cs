@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.UserControls
@@ -9,30 +8,15 @@ namespace Rise.App.UserControls
         public MicaTitleBar()
         {
             InitializeComponent();
-            Icon = "ms-appx:///Assets/App/Titlebar.png";
-
-            Loaded += (s, e) => ApplyTitle();
-        }
-
-        private void ApplyTitle()
-        {
-            if (Title == null)
+            Loaded += (s, e) =>
             {
-                AppTitle.Visibility = Visibility.Collapsed;
-                DefaultTitle.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AppTitle.Visibility = Visibility.Visible;
-                DefaultTitle.Visibility = Visibility.Collapsed;
-            }
-
-            HandleSizeChanges();
-            SizeChanged += (s, e) => HandleSizeChanges();
+                HandleSizeChanges();
+                SizeChanged += (d, r) => HandleSizeChanges();
+            };
         }
 
         private readonly static DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), null);
+            DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), new PropertyMetadata("ms-appx:///Assets/App/Titlebar.png"));
 
         public string Icon
         {
@@ -41,7 +25,7 @@ namespace Rise.App.UserControls
         }
 
         private readonly static DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), null);
+            DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), new PropertyMetadata(null));
 
         public string Title
         {
@@ -49,16 +33,7 @@ namespace Rise.App.UserControls
             set
             {
                 SetValue(TitleProperty, value);
-                if (value == null)
-                {
-                    AppTitle.Visibility = Visibility.Collapsed;
-                    DefaultTitle.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    AppTitle.Visibility = Visibility.Visible;
-                    DefaultTitle.Visibility = Visibility.Collapsed;
-                }
+                HandleSizeChanges();
             }
         }
 
@@ -79,10 +54,12 @@ namespace Rise.App.UserControls
             if (Title != null)
             {
                 AppTitle.Visibility = vis;
+                DefaultTitle.Visibility = Visibility.Collapsed;
             }
             else
             {
                 DefaultTitle.Visibility = vis;
+                AppTitle.Visibility = Visibility.Collapsed;
             }
         }
     }

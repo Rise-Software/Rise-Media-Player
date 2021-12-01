@@ -4,12 +4,83 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      VerticalScrollBarVisibility="Hidden">
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="BackButton"
+                        x:Uid="/NowPlaying/Back"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="BackButton_Click"
+                        Height="32"
+                        Padding="8">
+                    <muxc:AnimatedIcon>
+                        <muxc:AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedBackVisualSource />
+                        </muxc:AnimatedIcon.Source>
+                        <muxc:AnimatedIcon.FallbackIconSource>
+                            <muxc:SymbolIconSource Symbol="Back" />
+                        </muxc:AnimatedIcon.FallbackIconSource>
+                    </muxc:AnimatedIcon>
+                </Button>
+
+                <ToggleButton x:Name="Queue"
+                              Grid.Column="1"
+                              IsChecked="True"
+                              Tag="QueueItem">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon FontSize="16" Glyph="&#xEA37;" />
+                            <TextBlock x:Uid="/NowPlaying/QueueItem" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <ToggleButton x:Name="AlbumQueue"
+                              Grid.Column="2"
+                              Tag="AlbumItem">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                            <TextBlock x:Uid="/NowPlaying/AlbumQueueItem" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </Grid>
+        </ScrollViewer>
+
         <ListView x:Name="MainList"
+                  Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
-                  ItemsSource="{x:Bind ViewModel.PlayingSongs}"
+                  ItemsSource="{x:Bind Songs}"
                   ItemTemplate="{StaticResource NowPlayingQueueItem}"
                   Margin="-16,0,-16,-124"
                   Padding="16,0,16,124" />

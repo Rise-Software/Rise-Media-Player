@@ -5,11 +5,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.Media;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.UI.Core;
 
 namespace Rise.App.ViewModels
 {
@@ -58,8 +56,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _currentVideo, value);
         }
 
-        public MediaPlayer Player { get; }
-            = new MediaPlayer();
+        public readonly MediaPlayer Player = new MediaPlayer();
 
         public MediaPlaybackList PlaybackList { get; set; }
             = new MediaPlaybackList();
@@ -73,14 +70,25 @@ namespace Rise.App.ViewModels
             = true;
         #endregion
 
+        private void ClearLists()
+        {
+            PlayingSongs.Clear();
+            PlayingVideos.Clear();
+            PlaybackList.Items.Clear();
+
+            CurrentSong = null;
+            CurrentVideo = null;
+        }
+
         public async Task PlaySongAsync(SongViewModel song)
         {
             CancelTask();
 
+            ClearLists();
             PlaybackList.ShuffleEnabled = false;
-            PlaybackList.Items.Clear();
 
             PlaybackList.Items.Add(await song.AsPlaybackItemAsync());
+            SetCurrentSong(0);
             Player.Play();
         }
 
@@ -88,11 +96,20 @@ namespace Rise.App.ViewModels
         {
             CancelTask();
 
+            ClearLists();
             PlaybackList.ShuffleEnabled = false;
-            PlaybackList.Items.Clear();
 
             PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
+            SetCurrentVideo(0);
             Player.Play();
+        }
+
+        public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)
+        {
+            CancelTask();
+            PlaybackList.ShuffleEnabled = shuffle;
+
+            await CreatePlaybackListAsync(startIndex, count, videos, Token);
         }
 
         public async Task StartMusicPlaybackAsync(IEnumerator<SongViewModel> songs, int startIndex, int count, bool shuffle = false)
@@ -128,8 +145,7 @@ namespace Rise.App.ViewModels
                 await Task.Delay(30);
             }
 
-            PlayingSongs.Clear();
-            PlaybackList.Items.Clear();
+            ClearLists();
             CanContinue = false;
             songs.MoveNext();
 
@@ -192,8 +208,7 @@ namespace Rise.App.ViewModels
                 await Task.Delay(30);
             }
 
-            PlayingSongs.Clear();
-            PlaybackList.Items.Clear();
+            ClearLists();
             CanContinue = false;
             videos.MoveNext();
 
@@ -269,28 +284,24 @@ namespace Rise.App.ViewModels
             CTS = new CancellationTokenSource();
         }
 
-        private async void PlaybackList_CurrentItemChanged(MediaPlaybackList sender, CurrentMediaPlaybackItemChangedEventArgs args)
+        private void PlaybackList_CurrentItemChanged(MediaPlaybackList sender, CurrentMediaPlaybackItemChangedEventArgs args)
         {
-            Debug.WriteLine("Item changed!");
             if (args.Reason == MediaPlaybackItemChangedReason.Error)
             {
-                Debug.WriteLine("Can't do much with this really.");
+                Debug.WriteLine("Error when going to next item.");
                 return;
             }
 
             if (sender.CurrentItem != null)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                if (sender.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
                 {
-                    if (sender.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
-                    {
-                        SetCurrentSong(sender.CurrentItemIndex);
-                    }
-                    else
-                    {
-                        SetCurrentVideo(sender.CurrentItemIndex);
-                    }
-                });
+                    SetCurrentSong(sender.CurrentItemIndex);
+                }
+                else
+                {
+                    SetCurrentVideo(sender.CurrentItemIndex);
+                }
             }
         }
     }

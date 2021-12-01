@@ -11,7 +11,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <conv:StringToBoolean x:Key="StrToBool" />
+            <conv:StringToVisibility x:Key="StrToVis" />
         </ResourceDictionary>
     </UserControl.Resources>
 

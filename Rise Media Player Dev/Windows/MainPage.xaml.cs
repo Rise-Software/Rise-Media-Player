@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -44,7 +44,7 @@ namespace Rise.App.Views
         private IDisposable VideosDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
-        private int _viewId = -1;
+        private AppWindow _nowPlayingWindow;
         #endregion
 
         public MainPage()
@@ -52,7 +52,6 @@ namespace Rise.App.Views
             InitializeComponent();
             Current = this;
             SDialog.Content = new SettingsPage();
-
             Loaded += MainPage_Loaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
@@ -217,14 +216,14 @@ namespace Rise.App.Views
                     break;
 
                 case "NowPlayingPage":
-                    if (_viewId == -1)
+                    if (_nowPlayingWindow == null)
                     {
-                        _viewId = await typeof(NowPlaying).
-                            OpenInWindowAsync(ApplicationViewMode.Default, 320, 300);
+                        _nowPlayingWindow = await typeof(NowPlaying).
+                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
                     }
                     else
                     {
-                        await ApplicationViewSwitcher.TryShowAsStandaloneAsync(_viewId);
+                        _ = await _nowPlayingWindow.TryShowAsync();
                     }
                     break;
 

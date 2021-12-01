@@ -8,21 +8,39 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
-                   FontWeight="Normal"
-                   MaxLines="1"
-                   Style="{StaticResource TitleTextBlockStyle}" />
-        <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   MaxLines="1"
-                   Style="{StaticResource BodyTextBlockStyle}" />
-        <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
-                   Margin="0,4"
-                   MaxLines="1"
-                   Style="{StaticResource BodyTextBlockStyle}"
-                   TextWrapping="NoWrap"
-                   VerticalAlignment="Center" />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button x:Uid="/NowPlaying/Queue"
+                Click="Queue_Click"
+                Style="{StaticResource TransparentButton}">
+            <Button.Content>
+                <FontIcon FontSize="16" Glyph="&#xEA37;" />
+            </Button.Content>
+        </Button>
+
+        <Rectangle Grid.Row="1" />
+
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
+                       FontWeight="Normal"
+                       MaxLines="1"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       MaxLines="1"
+                       Style="{StaticResource BodyTextBlockStyle}" />
+            <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
+                       Margin="0,4"
+                       MaxLines="1"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       VerticalAlignment="Center" />
+        </StackPanel>
+    </Grid>
 </Page>

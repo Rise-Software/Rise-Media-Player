@@ -26,6 +26,7 @@
                     Margin="-12,0">
             <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
+                          Click="Play_Click"
                           Icon="Play"
                           Style="{StaticResource AppBarCompactButton}" />
 

@@ -133,7 +133,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await EventsLogic.StartPlaybackAsync(index);
+                await EventsLogic.StartMusicPlaybackAsync(index);
             }
         }
 
@@ -223,15 +223,15 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await EventsLogic.StartPlaybackAsync(index);
+                await EventsLogic.StartMusicPlaybackAsync(index);
                 return;
             }
 
-            await EventsLogic.StartPlaybackAsync();
+            await EventsLogic.StartMusicPlaybackAsync();
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartPlaybackAsync(0, true);
+            => await EventsLogic.StartMusicPlaybackAsync(0, true);
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
             => EventsLogic.FocusSong(ref _song, e);

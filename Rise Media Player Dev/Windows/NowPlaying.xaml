@@ -5,8 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -32,105 +30,27 @@
               Padding="0,32,0,0"
               VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden"
-                          HorizontalAlignment="Left"
-                          Padding="12,0"
-                          VerticalAlignment="Center"
-                          VerticalScrollBarVisibility="Hidden">
-                <Grid ColumnSpacing="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Button x:Name="QueueButton"
-                            x:Uid="/NowPlaying/Queue"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="QueueButton_Click"
-                            Height="32">
-                        <Button.Content>
-                            <FontIcon FontSize="16" Glyph="&#xEA37;" />
-                        </Button.Content>
-                    </Button>
-
-                    <Button x:Name="BackButton"
-                            x:Uid="/NowPlaying/Back"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="BackButton_Click"
-                            Height="32"
-                            Padding="8"
-                            Visibility="Collapsed">
-                        <muxc:AnimatedIcon x:Name="BackAnimatedIcon">
-                            <muxc:AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedBackVisualSource />
-                            </muxc:AnimatedIcon.Source>
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:SymbolIconSource Symbol="Back" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
-                    </Button>
-
-                    <ToggleButton x:Name="Queue"
-                                  Grid.Column="1"
-                                  Checked="ToggleButton_Checked"
-                                  Tag="QueueItem"
-                                  Visibility="Collapsed">
-                        <ToggleButton.Content>
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon FontSize="16" Glyph="&#xEA37;" />
-                                <TextBlock x:Uid="/NowPlaying/QueueItem" Grid.Column="1" />
-                            </Grid>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-
-                    <ToggleButton x:Name="AlbumQueue"
-                                  Grid.Column="2"
-                                  Checked="ToggleButton_Checked"
-                                  IsEnabled="False"
-                                  Tag="AlbumQueueItem"
-                                  Visibility="Collapsed">
-                        <ToggleButton.Content>
-                            <Grid ColumnSpacing="6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon FontSize="16" Glyph="&#xE93C;" />
-                                <TextBlock x:Uid="/NowPlaying/AlbumQueueItem" Grid.Column="1" />
-                            </Grid>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-                </Grid>
-            </ScrollViewer>
-
             <Frame x:Name="PlayFrame"
-                   Grid.Row="1"
                    Padding="16,12,16,0"
-                   VerticalAlignment="Bottom"
-                   VerticalContentAlignment="Bottom">
+                   VerticalAlignment="Stretch"
+                   VerticalContentAlignment="Stretch">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
-                        <NavigationThemeTransition />
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <DrillInNavigationTransitionInfo />
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
                     </TransitionCollection>
                 </Frame.ContentTransitions>
             </Frame>
 
             <MediaPlayerElement x:Name="Player"
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 AreTransportControlsEnabled="True"
                                 Height="Auto"
                                 VerticalAlignment="Bottom"

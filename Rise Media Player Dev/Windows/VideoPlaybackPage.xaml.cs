@@ -14,6 +14,8 @@ namespace Rise.App.Views
         private readonly NavigationHelper _navigationHelper;
 
         private PlaybackViewModel ViewModel => App.PViewModel;
+        private VideoViewModel CurrentVideo => ViewModel.CurrentVideo;
+
         private DependencyPropertyWatcher<string> _watcher;
 
         public VideoPlaybackPage()

@@ -426,7 +426,7 @@ namespace Rise.App.ViewModels
                 };
 
                 _ = await typeof(PropertiesPage).
-                    OpenInWindowAsync(ApplicationViewMode.Default, 380, 550, props);
+                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
             }
         }
 

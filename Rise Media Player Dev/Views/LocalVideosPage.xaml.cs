@@ -40,5 +40,8 @@ namespace Rise.App.Views
                 rootFrame.Navigate(typeof(VideoPlaybackPage));
             }
         }
+
+        private async void Play_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartVideoPlaybackAsync();
     }
 }

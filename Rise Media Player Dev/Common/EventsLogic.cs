@@ -17,12 +17,20 @@ namespace Rise.App.Common
     public class EventsLogic
     {
         private static AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
+        private static AdvancedCollectionView Videos => App.MViewModel.FilteredVideos;
 
         /// <inheritdoc cref="MainViewModel.SelectedSong"/>
         private static SongViewModel SelectedSong
         {
             get => App.MViewModel.SelectedSong;
             set => App.MViewModel.SelectedSong = value;
+        }
+
+        /// <inheritdoc cref="MainViewModel.SelectedVideo"/>
+        private static VideoViewModel SelectedVideo
+        {
+            get => App.MViewModel.SelectedVideo;
+            set => App.MViewModel.SelectedVideo = value;
         }
 
         public static void FocusSong(ref SongViewModel song, PointerRoutedEventArgs e)
@@ -63,7 +71,7 @@ namespace Rise.App.Common
                 Navigate(typeof(ArtistSongsPage), run.Text);
         }
 
-        public static async Task StartPlaybackAsync(int index = 0, bool shuffle = false)
+        public static async Task StartMusicPlaybackAsync(int index = 0, bool shuffle = false)
         {
             if (SelectedSong != null && index == 0)
             {
@@ -81,6 +89,26 @@ namespace Rise.App.Common
 
             enumerator.Dispose();
             await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
+        }
+
+        public static async Task StartVideoPlaybackAsync(int index = 0, bool shuffle = false)
+        {
+            if (SelectedVideo != null && index == 0)
+            {
+                index = Videos.IndexOf(SelectedVideo);
+                SelectedVideo = null;
+            }
+
+            IEnumerator<object> enumerator = Videos.GetEnumerator();
+            List<VideoViewModel> videos = new List<VideoViewModel>();
+
+            while (enumerator.MoveNext())
+            {
+                videos.Add(enumerator.Current as VideoViewModel);
+            }
+
+            enumerator.Dispose();
+            await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
         }
     }
 }
