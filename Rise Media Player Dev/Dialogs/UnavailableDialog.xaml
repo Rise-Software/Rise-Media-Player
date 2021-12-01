@@ -11,39 +11,15 @@
         <ResourceDictionary>
             <x:Double x:Key="ContentDialogMaxWidth">632</x:Double>
             <x:Double x:Key="ContentDialogMaxHeight">368</x:Double>
-
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="{x:Null}"/>
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </ContentDialog.Resources>
 
     <Grid>
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition />
-            </TransitionCollection>
-        </Grid.Transitions>
-
         <Image HorizontalAlignment="Center"
                Margin="-24"
                MaxHeight="320"
                Stretch="UniformToFill"
-               Style="{ThemeResource BackgroundImage}" />
+               Style="{ThemeResource Win11Image}" />
         <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
                    HorizontalAlignment="Stretch"
                    Margin="-24"
@@ -63,7 +39,7 @@
                             Spacing="56">
                     <StackPanel.Transitions>
                         <TransitionCollection>
-                            <EntranceThemeTransition />
+                            <EntranceThemeTransition FromVerticalOffset="-200" />
                         </TransitionCollection>
                     </StackPanel.Transitions>
 
@@ -85,11 +61,6 @@
                 <GridView HorizontalAlignment="Center"
                           ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                           SelectionMode="None">
-                    <GridView.Transitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition />
-                        </TransitionCollection>
-                    </GridView.Transitions>
                     <Button Click="Button_Click"
                             Content="See what we're working on"
                             Margin="2"

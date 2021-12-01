@@ -154,10 +154,26 @@
         public const string License =
             "https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE";
 
+        public const string Releases =
+            "https://github.com/Rise-Software/Rise-Media-Player/releases";
+
         public const string Translations =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UNFA0WVdDTDRIMTlRVU4yT0FDOENWMVJMVC4u";
 
         public const string TranslationReports =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
+    }
+
+    /// <summary>
+    /// App resource URIs.
+    /// </summary>
+    public static class Resources
+    {
+        /// <summary>
+        /// Default thumbnail for songs that don't
+        /// contain one already.
+        /// </summary>
+        public const string MusicThumb =
+            "ms-appx:///Assets/Default.png";
     }
 }

@@ -4,80 +4,70 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Playback/EQ"
-                               ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/EQ"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE9E9;">
-            <!--FontIcon FontSize="16"
-                      Glyph="&#xE00F;" /-->
-        </uc:NavigationExpander>
+            <FontIcon FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Playback/StreamingQuality"
-                               ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/StreamingQuality"
+                               ExpanderStyle="Disabled"
                                Icon="&#xEA69;">
-            <!--FontIcon FontSize="16"
-                      Glyph="&#xE00F;" /-->
-        </uc:NavigationExpander>
+            <FontIcon FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Playback/Gapless"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/Gapless"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE101;">
-            <!--ToggleSwitch IsOn="{Binding Gapless, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.Gapless, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Playback/Crossfade"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/Crossfade"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE13C;">
-            <!--ComboBox ItemsSource="{x:Bind Crossfade}"
+            <ComboBox ItemsSource="{x:Bind Crossfade}"
                       PlaceholderText="No crossfade"
-                      SelectedIndex="{Binding CrossfadeDuration, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+                      SelectedIndex="{x:Bind ViewModel.CrossfadeDuration, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Playback/Scaling"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/Scaling"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE1D9;">
-            <!--ComboBox ItemsSource="{x:Bind VideoScale}"
+            <ComboBox ItemsSource="{x:Bind VideoScale}"
                       PlaceholderText="Scale to window size"
-                      SelectedIndex="{Binding ScaleToWindow, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+                      SelectedIndex="{x:Bind ViewModel.ScaleToWindow, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Playback/NowPlayingH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Playback/GoDevice"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/GoDevice"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE7F6;">
-            <!--ToggleSwitch IsOn="{Binding GoDevice, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.GoDevice, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Playback/NowPlaying"
-                               ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/NowPlaying"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE102;">
-            <!--FontIcon FontSize="16"
-                      Glyph="&#xE00F;" /-->
-        </uc:NavigationExpander>
+            <FontIcon FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Playback/Flyouts"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Playback/Flyouts"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE15D;">
-            <!--ToggleSwitch IsOn="{Binding ReplaceFlyouts, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.ReplaceFlyouts, Mode=TwoWay}" />
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

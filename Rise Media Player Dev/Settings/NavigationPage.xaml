@@ -4,226 +4,198 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Navigation/Resize"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Navigation/Resize"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE944;">
-            <!--ComboBox ItemsSource="{x:Bind Show}"
+            <ComboBox ItemsSource="{x:Bind Show}"
                       PlaceholderText="Don't show the sidebar"
-                      SelectedIndex="{Binding Resize, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+                      SelectedIndex="{x:Bind ViewModel.Resize, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Navigation/Hamburger"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Navigation/Hamburger"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE700;">
-            <!--ToggleSwitch IsOn="{Binding Hamburger, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.Hamburger, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Navigation/IconStyle"
+        <uc:ExpanderControl x:Uid="/Navigation/IconStyle"
                                ExpanderStyle="Static"
                                Icon="&#xF354;">
             <ComboBox ItemsSource="{x:Bind IconPacks}"
                       PlaceholderText="Default"
-                      SelectedIndex="{Binding IconPack, Mode=TwoWay}" />
-        </uc:NavigationExpander>
+                      SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/Navigation/GeneralItems"
+        <uc:ExpanderControl x:Uid="/Navigation/GeneralItems"
                                Icon="&#xE71D;">
-            <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllGeneral, Mode=TwoWay}" />
-            </uc:NavigationExpander.HeaderControls>
+            <uc:ExpanderControl.HeaderControls>
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllGeneral, Mode=TwoWay}" />
+            </uc:ExpanderControl.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
                         Orientation="Vertical"
                         Spacing="8">
-                <uc:NavigationExpander x:Uid="/Navigation/AtAGlance"
+                <uc:ExpanderControl x:Uid="/Navigation/AtAGlance"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xECA5;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowAtAGlance, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Playlists"
+                <uc:ExpanderControl x:Uid="/Navigation/NowPlaying"
+                                       ExpanderStyle="Transparent"
+                                       Icon="&#xEA37;"
+                                       Margin="0,-8">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowNowPlaying, Mode=TwoWay}"
+                                  Margin="0,2,0,0" />
+                </uc:ExpanderControl>
+
+                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
+                           Height="1"
+                           HorizontalAlignment="Stretch"
+                           Margin="-16,0" />
+
+                <uc:ExpanderControl x:Uid="/Navigation/Playlists"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8FD;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowPlaylists, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Devices"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE1C9;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowDevices, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
-                <uc:NavigationExpander x:Uid="/Navigation/HelpCentre"
+                <uc:ExpanderControl x:Uid="/Navigation/HelpCentre"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE897;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowHelpCentre, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
-                <uc:NavigationExpander x:Uid="/Navigation/NowPlaying"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE768;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowNowPlaying, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowHelpCentre, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Navigation/MusicItems"
+        <uc:ExpanderControl x:Uid="/Navigation/MusicItems"
                                Icon="&#xE189;">
-            <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllMusic, Mode=TwoWay}" />
-            </uc:NavigationExpander.HeaderControls>
+            <uc:ExpanderControl.HeaderControls>
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllMusic, Mode=TwoWay}" />
+            </uc:ExpanderControl.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
                         Orientation="Vertical"
                         Spacing="8">
-                <uc:NavigationExpander x:Uid="/Navigation/ShowHeader"
+                <uc:ExpanderControl x:Uid="/Navigation/ShowHeader"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowMusicHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{x:Bind ViewModel.ShowAllMusic, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Songs"
+                <uc:ExpanderControl x:Uid="/Navigation/Songs"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xEC4F;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowSongs, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Artists"
+                <uc:ExpanderControl x:Uid="/Navigation/Artists"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE125;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowArtists, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Albums"
+                <uc:ExpanderControl x:Uid="/Navigation/Albums"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE93C;"
                                        Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowAlbums, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Genres"
+                <uc:ExpanderControl x:Uid="/Navigation/Genres"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE138;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowGenres, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowGenres, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/Navigation/VideoItems"
+        <uc:ExpanderControl x:Uid="/Navigation/VideoItems"
                                Icon="&#xE173;">
-            <uc:NavigationExpander.HeaderControls>
-                <ToggleSwitch IsOn="{Binding ShowAllVideo, Mode=TwoWay}" />
-            </uc:NavigationExpander.HeaderControls>
+            <uc:ExpanderControl.HeaderControls>
+                <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
+            </uc:ExpanderControl.HeaderControls>
 
             <StackPanel HorizontalAlignment="Stretch"
                         Orientation="Vertical"
                         Spacing="8">
-                <uc:NavigationExpander x:Uid="/Navigation/ShowHeader"
+                <uc:ExpanderControl x:Uid="/Navigation/ShowHeader"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE185;"
                                        Margin="0,-16,0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowVideoHeader, Mode=TwoWay}"
+                    <ToggleSwitch IsEnabled="{x:Bind ViewModel.ShowAllVideo, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
 
                 <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:NavigationExpander x:Uid="/Navigation/Local"
+                <uc:ExpanderControl x:Uid="/Navigation/Local"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8B7;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{Binding ShowLocalVideos, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:NavigationExpander>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
-                <uc:NavigationExpander x:Uid="/Navigation/Streaming"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xE12B;"
                                        Margin="0,-8,0,-16">
-                    <ToggleSwitch IsOn="{Binding ShowStreaming, Mode=TwoWay}"
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}"
                                   Margin="0,2,0,0" />
-                </uc:NavigationExpander>
+                </uc:ExpanderControl>
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

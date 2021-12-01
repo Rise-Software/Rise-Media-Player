@@ -8,29 +8,40 @@ namespace Rise.App.UserControls
         public MicaTitleBar()
         {
             InitializeComponent();
-            Loaded += ApplyTitle;
+            Loaded += (s, e) =>
+            {
+                HandleSizeChanges();
+                SizeChanged += (d, r) => HandleSizeChanges();
+            };
         }
 
-        private void ApplyTitle(object sender, RoutedEventArgs e)
+        private readonly static DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), new PropertyMetadata("ms-appx:///Assets/App/Titlebar.png"));
+
+        public string Icon
         {
-            if (Title != null)
-            {
-                _ = FindName("AppTitle");
-            }
-            else
-            {
-                _ = FindName("DefaultTitle");
-            }
-
-            SizeChanged += UserControl_SizeChanged;
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
 
-        public string Title { get; set; }
+        private readonly static DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), new PropertyMetadata(null));
+
+        public string Title
+        {
+            get => (string)GetValue(TitleProperty);
+            set
+            {
+                SetValue(TitleProperty, value);
+                HandleSizeChanges();
+            }
+        }
+
         public int AddLabelWidth { get; set; }
         public bool ShowIcon { get; set; }
         public double LabelWidth => AppData.DesiredSize.Width;
 
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void HandleSizeChanges()
         {
             double width = Window.Current.Bounds.Width;
 
@@ -43,10 +54,12 @@ namespace Rise.App.UserControls
             if (Title != null)
             {
                 AppTitle.Visibility = vis;
+                DefaultTitle.Visibility = Visibility.Collapsed;
             }
             else
             {
                 DefaultTitle.Visibility = vis;
+                AppTitle.Visibility = Visibility.Collapsed;
             }
         }
     }

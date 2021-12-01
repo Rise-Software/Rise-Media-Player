@@ -1,17 +1,21 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
 using Rise.App.Views;
+using Rise.Models;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
-    public class SongViewModel : BaseViewModel
+    public class SongViewModel : ViewModel<Song>
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -21,30 +25,10 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-            IsNewSong = true;
+            IsNew = true;
 
             OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
             OnPropertyChanged(nameof(ArtistViewModel.SongCount));
-        }
-
-        private Song _model;
-
-        /// <summary>
-        /// Gets or sets the underlying Song object.
-        /// </summary>
-        public Song Model
-        {
-            get => _model;
-            set
-            {
-                if (_model != value)
-                {
-                    _model = value;
-
-                    // Raise the PropertyChanged event for all properties.
-                    OnPropertyChanged(string.Empty);
-                }
-            }
         }
 
         /// <summary>
@@ -201,7 +185,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets the song length. 
         /// </summary>
-        public string Length
+        public TimeSpan Length
         {
             get => Model.Length;
             set
@@ -276,41 +260,21 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private string _thumbnail;
-
         /// <summary>
         /// Gets the song album's thumbnail.
         /// </summary>
         public string Thumbnail
         {
-            get
+            get => Model.Thumbnail;
+            set
             {
-                if (_thumbnail == null)
+                if (value != Model.Thumbnail)
                 {
-                    _thumbnail = "ms-appx:///Assets/Default.png";
-                    try
-                    {
-                        _thumbnail = App.MViewModel.Albums.First(a => a.Model.Title == Model.Album
-                            && a.Model.Artist == Model.AlbumArtist).Thumbnail;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex.Message);
-                    }
+                    Model.Thumbnail = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Thumbnail));
                 }
-
-                return _thumbnail;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
-        /// </summary>
-        public bool Removed
-        {
-            get => Model.Removed;
-            private set => Model.Removed = value;
         }
 
         /// <summary>
@@ -322,7 +286,6 @@ namespace Rise.App.ViewModels
         public bool IsModified { get; set; }
 
         private bool _isLoading;
-
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
         /// </summary>
@@ -332,26 +295,34 @@ namespace Rise.App.ViewModels
             set => Set(ref _isLoading, value);
         }
 
-        private bool _isNewSong;
-
+        private bool _isNew;
         /// <summary>
-        /// Gets or sets a value that indicates whether this is a new song.
+        /// Gets or sets a value that indicates whether this is a new item.
         /// </summary>
-        public bool IsNewSong
+        public bool IsNew
         {
-            get => _isNewSong;
-            set => Set(ref _isNewSong, value);
+            get => _isNew;
+            set => Set(ref _isNew, value);
         }
 
         private bool _isInEdit;
-
         /// <summary>
-        /// Gets or sets a value that indicates whether the song data is being edited.
+        /// Gets or sets a value that indicates whether the item data is being edited.
         /// </summary>
         public bool IsInEdit
         {
             get => _isInEdit;
             set => Set(ref _isInEdit, value);
+        }
+
+        private bool _isFocused;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the item is focused.
+        /// </summary>
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set => Set(ref _isFocused, value);
         }
 
         /// <summary>
@@ -361,11 +332,10 @@ namespace Rise.App.ViewModels
         {
             IsInEdit = false;
             IsModified = false;
-            Removed = false;
 
-            if (IsNewSong)
+            if (IsNew)
             {
-                IsNewSong = false;
+                IsNew = false;
                 App.MViewModel.Songs.Add(this);
 
                 OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
@@ -382,9 +352,8 @@ namespace Rise.App.ViewModels
         {
             await CancelEditsAsync();
             IsModified = true;
-            Removed = true;
 
-            if (!IsNewSong)
+            if (!IsNew)
             {
                 App.MViewModel.Songs.Remove(this);
             }
@@ -418,7 +387,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            if (IsNewSong)
+            if (IsNew)
             {
                 AddNewSongCanceled?.Invoke(this, EventArgs.Empty);
             }
@@ -457,7 +426,7 @@ namespace Rise.App.ViewModels
                 };
 
                 _ = await typeof(PropertiesPage).
-                    OpenInWindowAsync(ApplicationViewMode.Default, 380, 550, props);
+                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
             }
         }
 
@@ -468,5 +437,56 @@ namespace Rise.App.ViewModels
         {
             Model = await App.Repository.Songs.GetAsync(Model.Id);
         }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
+        /// </summary>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
+        {
+            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Music;
+
+            props.MusicProperties.Title = Title;
+            props.MusicProperties.Artist = Artist;
+            props.MusicProperties.AlbumTitle = Album;
+            props.MusicProperties.AlbumArtist = AlbumArtist;
+            props.MusicProperties.TrackNumber = Track;
+
+            if (Thumbnail != null)
+            {
+                props.Thumbnail = RandomAccessStreamReference.
+                    CreateFromUri(new Uri(Thumbnail));
+            }
+
+            media.ApplyDisplayProperties(props);
+            return media;
+        }
+
+        public readonly static RelayCommand _beginPlayback = new RelayCommand(async () =>
+        {
+            int index = 0;
+            if (App.MViewModel.SelectedSong != null)
+            {
+                index = App.MViewModel.FilteredSongs.IndexOf(App.MViewModel.SelectedSong);
+                App.MViewModel.SelectedSong = null;
+            }
+
+            IEnumerator<object> enumerator = App.MViewModel.FilteredSongs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
+        });
     }
 }

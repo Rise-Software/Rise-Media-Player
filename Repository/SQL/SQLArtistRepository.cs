@@ -8,49 +8,62 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLArtistRepository : IArtistRepository
+    public class SQLArtistRepository : ISQLRepository<Artist>
     {
-        private readonly Context _db;
-        private readonly List<Artist> _artists;
+        private static Context _db;
+        private readonly DbContextOptions<Context> _dbOptions;
+        private readonly List<Artist> _upsertQueue;
+        private readonly List<Artist> _removalQueue;
 
-        public SQLArtistRepository(Context db)
+        public SQLArtistRepository(DbContextOptions<Context> options)
         {
-            _db = db;
-            _artists = new List<Artist>();
+            _dbOptions = options;
+
+            _upsertQueue = new List<Artist>();
+            _removalQueue = new List<Artist>();
         }
 
         public async Task<IEnumerable<Artist>> GetAsync()
         {
-            return await _db.Artists
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Artists
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task<Artist> GetAsync(Guid id)
         {
-            return await _db.Artists
-                .AsNoTracking()
-                .FirstOrDefaultAsync(artist => artist.Id == id);
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Artists
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(artist => artist.Id == id);
+            }
         }
 
         public async Task<IEnumerable<Artist>> GetAsync(string search)
         {
-            string[] parameters = search.Split(' ');
-            return await _db.Artists
-                .Where(artist =>
-                    parameters.Any(parameter =>
-                        artist.Name.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(artist =>
-                    parameters.Count(parameter =>
-                        artist.Name.StartsWith(parameter)))
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                string[] parameters = search.Split(' ');
+                return await _db.Artists
+                    .Where(artist =>
+                        parameters.Any(parameter =>
+                            artist.Name.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByDescending(artist =>
+                        parameters.Count(parameter =>
+                            artist.Name.StartsWith(parameter)))
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
-        public async Task QueueUpsertAsync(Artist artist)
+        public async Task QueueUpsertAsync(Artist item)
         {
-            _artists.Add(artist);
-            if (_artists.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -58,16 +71,28 @@ namespace Rise.Repository.SQL
 
         public async Task UpsertQueuedAsync()
         {
-            await _db.BulkInsertOrUpdateAsync(_artists);
-            _artists.Clear();
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
+            }
         }
 
-        public async Task DeleteAsync(Artist artist)
+        public async Task QueueDeletionAsync(Artist item)
         {
-            if (null != artist)
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
             {
-                _ = _db.Artists.Remove(artist);
-                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

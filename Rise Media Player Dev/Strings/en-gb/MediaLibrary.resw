@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
+  <data name="Add.Content" xml:space="preserve">
     <value>Add folder</value>
   </data>
   <data name="AddAccount.Description" xml:space="preserve">
@@ -130,10 +130,10 @@
     <value>Advanced</value>
   </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music &amp; video files.</value>
+    <value>Choose where we look for your music files.</value>
   </data>
   <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove library folders</value>
+    <value>Add/remove music library folders</value>
   </data>
   <data name="Deletion.Title" xml:space="preserve">
     <value>When removing local media:</value>
@@ -147,11 +147,11 @@
   <data name="DisableOnline.Title" xml:space="preserve">
     <value>Disable all online services and networks</value>
   </data>
-  <data name="Done" xml:space="preserve">
+  <data name="Done.Content" xml:space="preserve">
     <value>Done</value>
   </data>
   <data name="FolderInfo.Text" xml:space="preserve">
-    <value>We already look for your media files in your default user folders (Music &amp; Videos). You can add additional folders that we can use to populate your library.</value>
+    <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
   </data>
   <data name="Folders" xml:space="preserve">
     <value>Folders</value>
@@ -176,5 +176,11 @@
   </data>
   <data name="SeparateLocal.Title" xml:space="preserve">
     <value>Split local &amp; online library in sidebar</value>
+  </data>
+  <data name="VChooseFolders.Description" xml:space="preserve">
+    <value>Choose where we look for your video files.</value>
+  </data>
+  <data name="VChooseFolders.Title" xml:space="preserve">
+    <value>Add/remove video library folders</value>
   </data>
 </root>

@@ -7,6 +7,36 @@ namespace Rise.App.Common
     public static class VisualTreeExtensions
     {
         /// <summary>
+        /// Tries to find the specified visual child with the specified name.
+        /// </summary>
+        /// <typeparam name="ChildItem">The kind of item to find.</typeparam>
+        /// <param name="obj">Object where search will happen.</param>
+        /// <param name="name">Name of the item to find.</param>
+        /// <returns>The item if it's found, null otherwise.</returns>
+        public static ChildItem FindVisualChild<ChildItem>(this FrameworkElement obj, string name)
+            where ChildItem : FrameworkElement
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is ChildItem item && item.Name == name)
+                {
+                    return item;
+                }
+                else
+                {
+                    ChildItem childOfChild = child.FindVisualChild<ChildItem>();
+                    if (childOfChild != null)
+                    {
+                        return childOfChild;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Tries to find the specified visual child.
         /// </summary>
         /// <typeparam name="ChildItem">The kind of item to find.</typeparam>
@@ -68,6 +98,30 @@ namespace Rise.App.Common
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Tries to find the specified visual parent.
+        /// </summary>
+        /// <typeparam name="ParentItem">The kind of item to find.</typeparam>
+        /// <param name="obj">Object where search will happen.</param>
+        /// <returns>The item if it's found, null otherwise.</returns>
+        public static ParentItem FindVisualParent<ParentItem>(this DependencyObject obj)
+            where ParentItem : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            if (parent == null)
+            {
+                return null;
+            }
+            else if (parent is ParentItem)
+            {
+                return parent as ParentItem;
+            }
+            else
+            {
+                return parent.FindVisualParent<ParentItem>();
             }
         }
     }

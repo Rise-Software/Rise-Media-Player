@@ -14,11 +14,11 @@ namespace Rise.Models
         public string Album { get; set; }
         public string AlbumArtist { get; set; }
         public string Genres { get; set; }
-        public string Length { get; set; }
+        public TimeSpan Length { get; set; }
         public uint Year { get; set; }
         public string Location { get; set; }
         public uint Rating { get; set; }
-        public bool Removed { get; set; }
+        public string Thumbnail { get; set; }
 
         /// <summary>
         /// Returns the song title.

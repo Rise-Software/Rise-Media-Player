@@ -1,4 +1,6 @@
 ﻿using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.UserControls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -7,31 +9,20 @@ namespace Rise.App.Views
 {
     public sealed partial class HomePage : Page
     {
-        private readonly NavigationHelper navigationHelper;
+        private static readonly FeatureDialog _dialog = new FeatureDialog();
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        private readonly NavigationHelper _navigationHelper;
 
         public HomePage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            navigationHelper = new NavigationHelper(this);
+            _navigationHelper = new NavigationHelper(this);
         }
-
-        private async void FeedbackButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Feedback.LaunchAsync();
-
-        private async void ChangelogButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Changes.LaunchAsync();
-
-        private async void InsiderButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Insider.LaunchAsync();
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.GitHub.LaunchAsync();
@@ -47,10 +38,16 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
+            => _navigationHelper.OnNavigatedTo(e);
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
+            => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as TiledImage;
+            await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
+        }
     }
 }

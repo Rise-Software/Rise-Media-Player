@@ -184,13 +184,13 @@
     <value>Light</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>Local &amp; Purchased</value>
+    <value>All Videos</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigation</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Now Playing</value>
+    <value>Queue</value>
   </data>
   <data name="PickUp.Title" xml:space="preserve">
     <value>Pick up where you left off</value>

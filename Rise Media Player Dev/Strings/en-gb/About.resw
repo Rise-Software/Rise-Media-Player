@@ -138,12 +138,15 @@
   <data name="Leave.Text" xml:space="preserve">
     <value>Leave the Insider program</value>
   </data>
+  <data name="More.ActionButtonContent" xml:space="preserve">
+    <value>Releases</value>
+  </data>
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copy version</value>
   </data>
   <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: October 31st, 2021
-Internal Version: 0.0.11.0
+    <value>Released: November, 2021
+Internal Version: 0.0.13.0
 Edition: Bloom
 
 Created by Joseph Beattie &amp; YourOrdinaryCat</value>

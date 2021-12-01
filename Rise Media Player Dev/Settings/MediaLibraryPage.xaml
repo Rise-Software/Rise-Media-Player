@@ -4,73 +4,73 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-
         <TextBlock x:Uid="/MediaLibrary/OnlineH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/MediaLibrary/AddAccount"
-                               ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/MediaLibrary/AddAccount"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE13D;">
-            <!--FontIcon Glyph="&#xE2B4;"
-                      FontSize="16"
-                      VerticalAlignment="Center" /-->
-        </uc:NavigationExpander>
-
-
-        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
-                               Click="ChooseFolders_Click"
-                               ExpanderStyle="Button"
-                               Icon="&#xE8B7;">
             <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
                       VerticalAlignment="Center" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE74D;">
-            <!--ComboBox ItemsSource="{x:Bind Deletion}"
-                      PlaceholderText="Delete from device"
-                      SelectedIndex="{Binding Deletion, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
 
-        <uc:NavigationExpander x:Uid="/MediaLibrary/Ripping"
+        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource Subheader}" />
+        <uc:ExpanderControl x:Uid="/MediaLibrary/ChooseFolders"
+                               Click="ChooseFolders_Click"
                                ExpanderStyle="Button"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE958;">
-            <!--FontIcon VerticalAlignment="Center"
+                               Icon="&#xE93C;">
+            <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
-                      Glyph="&#xE00F;" /-->
-        </uc:NavigationExpander>
+                      VerticalAlignment="Center" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/MediaLibrary/SeparateLocal"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/MediaLibrary/VChooseFolders"
+                               Click="VChooseFolders_Click"
+                               ExpanderStyle="Button"
+                               Icon="&#xE8B2;">
+            <FontIcon Glyph="&#xE2B4;"
+                      FontSize="16"
+                      VerticalAlignment="Center" />
+        </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/MediaLibrary/Deletion"
+                               ExpanderStyle="Disabled"
+                               Icon="&#xE74D;">
+            <ComboBox ItemsSource="{x:Bind Deletion}"
+                      PlaceholderText="Delete from device"
+                      SelectedIndex="{x:Bind ViewModel.Deletion, Mode=TwoWay}" />
+        </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/MediaLibrary/Ripping"
+                               ExpanderStyle="Disabled"
+                               Icon="&#xE958;">
+            <FontIcon VerticalAlignment="Center"
+                      FontSize="16"
+                      Glyph="&#xE00F;" />
+        </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE145;">
-            <!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.SeparateLocal, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/MediaLibrary/AdvancedH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/MediaLibrary/DisableOnline"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/MediaLibrary/DisableOnline"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE701;">
-            <!--ToggleSwitch IsOn="{Binding DisableOnline, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <ToggleSwitch IsOn="{x:Bind ViewModel.DisableOnline, Mode=TwoWay}" />
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/MediaLibrary/DisableLocal"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/MediaLibrary/DisableLocal"
+                               ExpanderStyle="Disabled"
                                Icon="&#xEC50;">
-            <!--ToggleSwitch IsOn="{Binding DisableLocal, Mode=TwoWay}" /-->
-        </uc:NavigationExpander>
+            <!--ToggleSwitch IsOn="{x:Bind ViewModel.DisableLocal, Mode=TwoWay}" /-->
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

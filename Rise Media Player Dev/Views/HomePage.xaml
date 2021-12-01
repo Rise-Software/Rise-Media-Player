@@ -4,143 +4,97 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="{x:Null}"/>
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="12">
-            <Border BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
-                    BorderThickness="{ThemeResource ExpanderHeaderBorderThickness}"
-                    CornerRadius="8"
-                    Margin="0,20,0,0"
-                    MaxHeight="380"
-                    VerticalAlignment="Top">
-                <Grid>
-                    <Border CornerRadius="8" Padding="{ThemeResource ExpanderHeaderBorderThickness}">
-                        <Image HorizontalAlignment="Center"
-                               Opacity="0.8"
-                               Stretch="UniformToFill"
-                               Style="{ThemeResource BackgroundImage}" />
-                    </Border>
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <uc:AdaptiveItemPane>
+                <uc:AdaptiveItemPane.LeftPane>
+                    <Image Height="33"
+                           Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+                </uc:AdaptiveItemPane.LeftPane>
 
-                    <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch" />
-
-                    <StackPanel HorizontalAlignment="Center"
-                                Margin="24"
-                                Orientation="Vertical"
-                                Spacing="24"
+                <uc:AdaptiveItemPane.RightPane>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8"
                                 VerticalAlignment="Center">
-                        <Image Height="52"
-                               Source="ms-appx:///Assets/Branding/settingsbanner.png" />
-
-                        <TextBlock Text="Welcome to Pre-Alpha 2+!"
-                                   FontSize="24"
-                                   HorizontalAlignment="Center"
-                                   HorizontalTextAlignment="Center"
-                                   Style="{StaticResource TitleTextBlockStyle}" />
-                        <TextBlock Text="Remember this is the earliest possible look at our app. Please submit feedback and feature requests :)"
+                        <TextBlock Text="v0.0.13"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   HorizontalAlignment="Center"
-                                   HorizontalTextAlignment="Center"
-                                   Margin="0,-4,0,4"
-                                   MaxWidth="432"
+                                   Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <VariableSizedWrapGrid Orientation="Vertical"
-                                               HorizontalAlignment="Stretch"
-                                               HorizontalChildrenAlignment="Center"
-                                               ItemHeight="40"
-                                               ItemWidth="186"
-                                               Margin="-24,8,-24,0"
-                                               MaximumRowsOrColumns="2">
-                            <Button Click="ChangelogButton_Click"
-                                    HorizontalAlignment="Stretch"
-                                    Margin="4">
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xF0E3;" />
-                                    <TextBlock Grid.Column="1" Text="Changelog" />
-                                </Grid>
-                            </Button>
-
-                            <Button Click="FeedbackButton_Click"
-                                    HorizontalAlignment="Stretch"
-                                    Margin="4">
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xED15;" />
-                                    <TextBlock Grid.Column="1" Text="Submit feedback" />
-                                </Grid>
-                            </Button>
-
-                            <Button Click="InsiderButton_Click"
-                                    HorizontalAlignment="Stretch"
-                                    Margin="4">
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xECA7;" />
-                                    <TextBlock Grid.Column="1" Text="Insider Programme" />
-                                </Grid>
-                            </Button>
-
-                            <Button Click="ContributeButton_Click"
-                                    HorizontalAlignment="Stretch"
-                                    Margin="4">
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xEC7A;" />
-                                    <TextBlock Grid.Column="1" Text="Contribute" />
-                                </Grid>
-                            </Button>
-                        </VariableSizedWrapGrid>
+                        <TextBlock Text="Pre-Alpha 3"
+                                   Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
-                </Grid>
-            </Border>
+                </uc:AdaptiveItemPane.RightPane>
+            </uc:AdaptiveItemPane>
 
-            <muxc:InfoBar x:Uid="/Information/AtAGlance"
-                          IsClosable="False"
-                          IsOpen="True"
-                          Margin="0,0,0,120"
-                          Severity="Informational" />
+            <uc:AdaptiveItemPane>
+                <uc:AdaptiveItemPane.LeftPane>
+                    <TextBlock x:Uid="/Information/NewH"
+                               Style="{StaticResource Subheader}" />
+                </uc:AdaptiveItemPane.LeftPane>
+
+                <uc:AdaptiveItemPane.RightPane>
+                    <TextBlock x:Uid="/Information/ClickFeatureH"
+                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                               Style="{StaticResource Subheader}" />
+                </uc:AdaptiveItemPane.RightPane>
+            </uc:AdaptiveItemPane>
+
+            <GridView HorizontalAlignment="Stretch"
+                      IsItemClickEnabled="True"
+                      ItemClick="GridView_ItemClick"
+                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
+                      Margin="0,-12,0,0"
+                      SelectionMode="None">
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
+                               IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
+                               Label="Video Support"
+                               Margin="3"
+                               Tag="0" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG2.png"
+                               IconUri="ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
+                               Label="Extended Genres"
+                               Margin="3"
+                               Tag="1" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
+                               IconUri="ms-appx:///Assets/Settings/Appearance.png"
+                               Label="More to personalise"
+                               Margin="3"
+                               Tag="2" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG4.png"
+                               IconUri="ms-appx:///Assets/Settings/Sidebar.png"
+                               Label="Improved Navigation"
+                               Margin="3"
+                               Tag="3" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG5.png"
+                               IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
+                               Label="New Help Centre"
+                               Margin="3"
+                               Tag="4" />
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
+                               IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
+                               Label="Better Now Playing"
+                               Tag="5" />
+            </GridView>
+
+            <TextBlock x:Uid="/Information/QuickH"
+                       Style="{StaticResource Subheader}" />
+
+            <GridView HorizontalAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
+                      SelectionMode="None">
+                <uc:ExpanderControl x:Uid="/Information/AddRemove"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xE1DA;" />
+                <uc:ExpanderControl x:Uid="/Information/Contribute"
+                                    Click="ContributeButton_Click"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xEC7A;" />
+            </GridView>
+
+            <Rectangle Height="120" />
         </StackPanel>
     </ScrollViewer>
 </Page>

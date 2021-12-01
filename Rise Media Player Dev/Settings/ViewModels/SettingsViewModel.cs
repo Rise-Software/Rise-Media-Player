@@ -1,67 +1,91 @@
-﻿using Rise.App.Views;
+﻿using Rise.App.Settings;
+using Rise.App.Views;
+using System.Collections.Generic;
 
-namespace Rise.App.Settings.ViewModels
+namespace Rise.App.ViewModels
 {
     public class SettingsViewModel : SettingsManager
     {
+        private SidebarViewModel SBViewModel => App.SBViewModel;
+
         // Empty constructor.
         public SettingsViewModel() { }
 
-        public string[] OpenLocations = new string[10]
+        public string[] OpenLocations = new string[8]
         {
-            "HomePage", "PlaylistsPage", "DevicesPage", "SongsPage", "ArtistsPage",
-            "AlbumsPage", "GenresPage", "LocalVideosPage", "StreamingPage", "NowPlayingPage"
+            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
+            "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
+        };
+
+        private readonly string[] _iconPacks = new string[2]
+        {
+            "Default", "Colorful"
+        };
+
+        public List<string> GeneralTags = new List<string>
+        {
+            "HomePage", "PlaylistsPage", "DevicesPage", "NowPlayingPage"
+        };
+
+        public List<string> MusicTags = new List<string>
+        {
+            "SongsPage", "ArtistsPage", "AlbumsPage", "GenresPage"
+        };
+
+        public List<string> VideoTags = new List<string>
+        {
+            "LocalVideosPage", "StreamingPage"
         };
 
         #region Appearance
         public int Theme
         {
-            get => (int)Get("Appearance", nameof(Theme), 2);
+            get => Get("Appearance", nameof(Theme), 2);
             set => Set("Appearance", nameof(Theme), value);
         }
 
         public bool SquareAlbumArt
         {
-            get => (bool)Get("Appearance", nameof(SquareAlbumArt), false);
+            get => Get("Appearance", nameof(SquareAlbumArt), false);
             set => Set("Appearance", nameof(SquareAlbumArt), value);
         }
 
         public int OpenTo
         {
-            get => (int)Get("Appearance", nameof(OpenTo), 0);
+            get => Get("Appearance", nameof(OpenTo), 0);
             set => Set("Appearance", nameof(OpenTo), value);
         }
 
         public string Open =>
-            OpenLocations[(int)Get("Appearance", nameof(OpenTo), 0)];
+            OpenLocations[Get("Appearance", nameof(OpenTo), 0)];
 
         public bool PickUp
         {
-            get => (bool)Get("Appearance", nameof(PickUp), false);
+            get => Get("Appearance", nameof(PickUp), false);
             set => Set("Appearance", nameof(PickUp), value);
         }
 
         public bool CompactMode
         {
-            get => (bool)Get("Appearance", nameof(CompactMode), true);
+            get => Get("Appearance", nameof(CompactMode), true);
             set => Set("Appearance", nameof(CompactMode), value);
         }
 
         public bool ColoredSettingsIcons
         {
-            get => (bool)Get("Appearance", nameof(ColoredSettingsIcons), true);
+            get => Get("Appearance", nameof(ColoredSettingsIcons), true);
             set => Set("Appearance", nameof(ColoredSettingsIcons), value);
         }
 
         public bool TrackHistory
         {
-            get => (bool)Get("Appearance", nameof(TrackHistory), false);
+            get => Get("Appearance", nameof(TrackHistory), false);
             set => Set("Appearance", nameof(TrackHistory), value);
         }
 
         public bool CuratedPlaylists
         {
-            get => (bool)Get("Appearance", nameof(CuratedPlaylists), false);
+            get => Get("Appearance", nameof(CuratedPlaylists), false);
             set => Set("Appearance", nameof(CuratedPlaylists), value);
         }
         #endregion
@@ -69,69 +93,77 @@ namespace Rise.App.Settings.ViewModels
         #region Media Library
         public int Deletion
         {
-            get => (int)Get("MediaLibrary", nameof(Deletion), 0);
+            get => Get("MediaLibrary", nameof(Deletion), 0);
             set => Set("MediaLibrary", nameof(Deletion), value);
         }
 
         public bool SeparateLocal
         {
-            get => (bool)Get("MediaLibrary", nameof(SeparateLocal), false);
+            get => Get("MediaLibrary", nameof(SeparateLocal), false);
             set => Set("MediaLibrary", nameof(SeparateLocal), value);
         }
 
         public bool DisableOnline
         {
-            get => (bool)Get("MediaLibrary", nameof(DisableOnline), false);
+            get => Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
-        }
-
-        public bool FilterByNameOnly
-        {
-            get => (bool)Get("MediaLibrary", nameof(FilterByNameOnly), false);
-            set => Set("MediaLibrary", nameof(FilterByNameOnly), value);
         }
         #endregion
 
         #region Navigation
         public int Resize
         {
-            get => (int)Get("Navigation", nameof(Resize), 0);
+            get => Get("Navigation", nameof(Resize), 0);
             set => Set("Navigation", nameof(Resize), value);
         }
 
         public bool Hamburger
         {
-            get => (bool)Get("Navigation", nameof(Hamburger), false);
+            get => Get("Navigation", nameof(Hamburger), false);
             set => Set("Navigation", nameof(Hamburger), value);
         }
 
-        // TODO: Fix this terrible code to properly support icon packs.
+        public string CurrentPack => _iconPacks[IconPack];
         public int IconPack
         {
-            get => (int)Get("Local", nameof(IconPack), 0);
+            get => Get("Local", nameof(IconPack), 0);
             set
             {
                 Set("Local", nameof(IconPack), value);
-                MainPage.Current.UpdateIconColor(value);
+                MainPage.Current.ChangeIconPack(CurrentPack);
             }
         }
 
         public bool ShowAllGeneral
         {
-            get => ShowAtAGlance || ShowDevices || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
+            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
             set
             {
                 ShowAtAGlance = value;
-                ShowDevices = value;
                 ShowPlaylists = value;
                 ShowHelpCentre = value;
                 ShowNowPlaying = value;
+
+                OnPropertyChanged(nameof(ShowAtAGlance));
+                OnPropertyChanged(nameof(ShowPlaylists));
+                OnPropertyChanged(nameof(ShowHelpCentre));
+                OnPropertyChanged(nameof(ShowNowPlaying));
             }
         }
 
         public bool ShowAllMusic
         {
-            get => ShowSongs || ShowArtists || ShowAlbums || ShowGenres;
+            get
+            {
+                bool vis = ShowSongs || ShowArtists || ShowAlbums || ShowGenres;
+                if (!vis)
+                {
+                    ShowMusicHeader = false;
+                }
+
+                OnPropertyChanged(nameof(ShowMusicHeader));
+                return vis;
+            }
             set
             {
                 ShowMusicHeader = value;
@@ -139,133 +171,149 @@ namespace Rise.App.Settings.ViewModels
                 ShowArtists = value;
                 ShowAlbums = value;
                 ShowGenres = value;
+
+                OnPropertyChanged(nameof(ShowSongs));
+                OnPropertyChanged(nameof(ShowArtists));
+                OnPropertyChanged(nameof(ShowAlbums));
+                OnPropertyChanged(nameof(ShowGenres));
             }
         }
 
         public bool ShowAllVideo
         {
-            get => ShowLocalVideos || ShowStreaming;
+            get
+            {
+                bool vis = ShowLocalVideos;
+                if (!vis)
+                {
+                    ShowVideoHeader = false;
+                }
+
+                OnPropertyChanged(nameof(ShowVideoHeader));
+                return vis;
+            }
             set
             {
                 ShowVideoHeader = value;
                 ShowLocalVideos = value;
-                ShowStreaming = value;
+
+                OnPropertyChanged(nameof(ShowLocalVideos));
             }
         }
 
         public bool ShowMusicHeader
         {
-            get => (bool)Get("Navigation", nameof(ShowMusicHeader), true);
-            set => Set("Navigation", nameof(ShowMusicHeader), value);
+            get => SBViewModel.IsHeaderVisible("Music");
+            set => SBViewModel.ChangeHeaderVisibility("Music", value);
         }
 
         public bool ShowVideoHeader
         {
-            get => (bool)Get("Navigation", nameof(ShowVideoHeader), true);
-            set => Set("Navigation", nameof(ShowVideoHeader), value);
-        }
-
-        public bool ShowHelpHeader
-        {
-            get => (bool)Get("Navigation", nameof(ShowHelpHeader), false);
-            set => Set("Navigation", nameof(ShowHelpHeader), value);
+            get => SBViewModel.IsHeaderVisible("Videos");
+            set => SBViewModel.ChangeHeaderVisibility("Videos", value);
         }
 
         public bool ShowAtAGlance
         {
-            get => (bool)Get("Navigation", nameof(ShowAtAGlance), true);
-            set => Set("Navigation", nameof(ShowAtAGlance), value);
+            get => SBViewModel.IsItemVisible("HomePage");
+            set => ChangeItemVisibility("HomePage", value);
         }
 
         public bool ShowPlaylists
         {
-            get => (bool)Get("Navigation", nameof(ShowPlaylists), true);
-            set => Set("Navigation", nameof(ShowPlaylists), value);
-        }
-
-        public bool ShowDevices
-        {
-            get => (bool)Get("Navigation", nameof(ShowDevices), true);
-            set => Set("Navigation", nameof(ShowDevices), value);
+            get => SBViewModel.IsItemVisible("PlaylistsPage");
+            set => ChangeItemVisibility("PlaylistsPage", value);
         }
 
         public bool ShowSongs
         {
-            get => (bool)Get("Navigation", nameof(ShowSongs), true);
-            set => Set("Navigation", nameof(ShowSongs), value);
+            get => SBViewModel.IsItemVisible("SongsPage");
+            set => ChangeItemVisibility("SongsPage", value);
         }
 
         public bool ShowArtists
         {
-            get => (bool)Get("Navigation", nameof(ShowArtists), true);
-            set => Set("Navigation", nameof(ShowArtists), value);
+            get => SBViewModel.IsItemVisible("ArtistsPage");
+            set => ChangeItemVisibility("ArtistsPage", value);
         }
 
         public bool ShowAlbums
         {
-            get => (bool)Get("Navigation", nameof(ShowAlbums), true);
-            set => Set("Navigation", nameof(ShowAlbums), value);
+            get => SBViewModel.IsItemVisible("AlbumsPage");
+            set => ChangeItemVisibility("AlbumsPage", value);
         }
 
         public bool ShowGenres
         {
-            get => (bool)Get("Navigation", nameof(ShowGenres), true);
-            set => Set("Navigation", nameof(ShowGenres), value);
+            get => SBViewModel.IsItemVisible("GenresPage");
+            set => ChangeItemVisibility("GenresPage", value);
         }
 
         public bool ShowLocalVideos
         {
-            get => (bool)Get("Navigation", nameof(ShowLocalVideos), true);
-            set => Set("Navigation", nameof(ShowLocalVideos), value);
-        }
-
-        public bool ShowStreaming
-        {
-            get => (bool)Get("Navigation", nameof(ShowStreaming), true);
-            set => Set("Navigation", nameof(ShowStreaming), value);
+            get => SBViewModel.IsItemVisible("LocalVideosPage");
+            set => ChangeItemVisibility("LocalVideosPage", value);
         }
 
         public bool ShowHelpCentre
         {
-            get => (bool)Get("Navigation", nameof(ShowHelpCentre), true);
-            set => Set("Navigation", nameof(ShowHelpCentre), value);
+            get => SBViewModel.IsItemVisible("DiscyPage");
+            set => ChangeItemVisibility("DiscyPage", value);
         }
 
         public bool ShowNowPlaying
         {
-            get => (bool)Get("Navigation", nameof(ShowNowPlaying), true);
-            set => Set("Navigation", nameof(ShowNowPlaying), value);
+            get => SBViewModel.IsItemVisible("NowPlayingPage");
+            set => ChangeItemVisibility("NowPlayingPage", value);
+        }
+
+        private void ChangeItemVisibility(string tag, bool value)
+        {
+            SBViewModel.ChangeItemVisibility(tag, value);
+
+            if (GeneralTags.Contains(tag))
+            {
+                OnPropertyChanged(nameof(ShowAllGeneral));
+            }
+            else if (MusicTags.Contains(tag))
+            {
+                OnPropertyChanged(nameof(ShowAllMusic));
+            }
+            else
+            {
+                OnPropertyChanged(nameof(ShowAllVideo));
+            }
         }
         #endregion
 
         #region Playback
         public bool Gapless
         {
-            get => (bool)Get("Playback", nameof(Gapless), false);
+            get => Get("Playback", nameof(Gapless), false);
             set => Set("Playback", nameof(Gapless), value);
         }
 
         public int CrossfadeDuration
         {
-            get => (int)Get("Playback", nameof(CrossfadeDuration), 0);
+            get => Get("Playback", nameof(CrossfadeDuration), 0);
             set => Set("Playback", nameof(CrossfadeDuration), value);
         }
 
         public int ScaleToWindow
         {
-            get => (int)Get("Playback", nameof(ScaleToWindow), 0);
+            get => Get("Playback", nameof(ScaleToWindow), 0);
             set => Set("Playback", nameof(ScaleToWindow), value);
         }
 
         public bool GoDevice
         {
-            get => (bool)Get("Playback", nameof(GoDevice), false);
+            get => Get("Playback", nameof(GoDevice), false);
             set => Set("Playback", nameof(GoDevice), value);
         }
 
         public bool ReplaceFlyouts
         {
-            get => (bool)Get("Playback", nameof(ReplaceFlyouts), false);
+            get => Get("Playback", nameof(ReplaceFlyouts), false);
             set => Set("Playback", nameof(ReplaceFlyouts), value);
         }
         #endregion
@@ -273,58 +321,21 @@ namespace Rise.App.Settings.ViewModels
         #region Setup
         public bool SetupCompleted
         {
-            get => (bool)Get("Local", nameof(SetupCompleted), false);
+            get => Get("Local", nameof(SetupCompleted), false);
             set => Set("Local", nameof(SetupCompleted), value);
         }
 
         public int SetupProgress
         {
-            get => (int)Get("Local", nameof(SetupProgress), 0);
+            get => Get("Local", nameof(SetupProgress), 0);
             set => Set("Local", nameof(SetupProgress), value);
         }
         #endregion
 
         public int Language
         {
-            get => (int)Get("Local", nameof(Language), 0);
+            get => Get("Local", nameof(Language), 0);
             set => Set("Local", nameof(Language), value);
         }
-
-        #region Methods
-        /// <summary>
-        /// Changes the visibility of NavigationView headers.
-        /// </summary>
-        /// <param name="visibilityCheck">1 checks for music, 2 checks for videos, 3 checks for help centre.</param>
-        public void ChangeHeaderVisibility(int visibilityCheck)
-        {
-            if (visibilityCheck == 1)
-            {
-                if (!ShowSongs && !ShowArtists &&
-                    !ShowAlbums && !ShowGenres)
-                {
-                    ShowMusicHeader = false;
-                }
-                else
-                {
-                    ShowMusicHeader = true;
-                }
-            }
-            else if (visibilityCheck == 2)
-            {
-                if (!ShowLocalVideos && !ShowStreaming)
-                {
-                    ShowVideoHeader = false;
-                }
-                else
-                {
-                    ShowVideoHeader = true;
-                }
-            }
-            else if (visibilityCheck == 3)
-            {
-                ShowHelpHeader = false;
-            }
-        }
-        #endregion
     }
 }

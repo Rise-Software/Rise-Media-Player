@@ -11,7 +11,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <conv:StringToBoolean x:Key="StrToBool" />
+            <conv:StringToVisibility x:Key="StrToVis" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -21,28 +21,25 @@
                     Spacing="12"
                     Width="Auto">
             <Image x:Name="AppFontIcon"
-                   x:Load="{x:Bind ShowIcon}"
+                   Height="16"
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"
-                   Source="ms-appx:///Assets/App/Titlebar.png" 
-                   Width="16" 
-                   Height="16" />
+                   Source="{x:Bind Icon, Mode=OneWay}" 
+                   Visibility="{x:Bind ShowIcon, Mode=OneWay}"
+                   Width="16" />
             <RichTextBlock x:Name="DefaultTitle"
-                           x:Load="False"
                            FontSize="12"
+                           IsTextSelectionEnabled="False"
                            VerticalAlignment="Center"
-                           Visibility="Collapsed"
                            Width="Auto">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 2+
+                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 3
                 </Paragraph>
             </RichTextBlock>
             <TextBlock x:Name="AppTitle"
-                       x:Load="False"
                        FontSize="12"
-                       Text="{x:Bind Title}"
+                       Text="{x:Bind Title, Mode=OneWay}"
                        VerticalAlignment="Center"
-                       Visibility="Collapsed"
                        Width="Auto" />
         </StackPanel>
     </Border>

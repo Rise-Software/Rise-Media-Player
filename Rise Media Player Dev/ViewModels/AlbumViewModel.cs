@@ -1,13 +1,12 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
+using Rise.Models;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class AlbumViewModel : BaseViewModel, IEditableObject
+    public class AlbumViewModel : ViewModel<Album>
     {
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -16,29 +15,17 @@ namespace Rise.App.ViewModels
         /// </summary>
         public AlbumViewModel(Album model = null)
         {
-            Model = model ?? new Album();
-            IsNewAlbum = true;
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
-        }
-
-        private Album _model;
-
-        /// <summary>
-        /// Gets or sets the underlying Album object.
-        /// </summary>
-        public Album Model
-        {
-            get => _model;
-            set
+            if (model != null)
             {
-                if (_model != value)
-                {
-                    _model = value;
-
-                    // Raise the PropertyChanged event for all properties.
-                    OnPropertyChanged(string.Empty);
-                }
+                Model = model;
             }
+            else
+            {
+                Model = new Album();
+                IsNew = true;
+            }
+
+            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
 
         /// <summary>
@@ -120,7 +107,7 @@ namespace Rise.App.ViewModels
         /// Gets or sets the album song count.
         /// </summary>
         public int TrackCount =>
-            App.MViewModel.Songs.Count(s => s.Album == Model.Title && !s.Removed);
+            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
@@ -140,19 +127,18 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether or not the
-        /// item has to be removed.
+        /// Gets or setss the album release year.
         /// </summary>
-        public bool Removed
+        public uint Year
         {
-            get => Model.Removed;
-            private set
+            get => Model.Year;
+            set
             {
-                if (value != Model.Removed)
+                if (value != Model.Year)
                 {
-                    Model.Removed = value;
+                    Model.Year = value;
                     IsModified = true;
-                    OnPropertyChanged(string.Empty);
+                    OnPropertyChanged(nameof(Year));
                 }
             }
         }
@@ -164,8 +150,8 @@ namespace Rise.App.ViewModels
         /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        private bool _isLoading;
 
+        private bool _isLoading;
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
         /// </summary>
@@ -175,15 +161,14 @@ namespace Rise.App.ViewModels
             set => Set(ref _isLoading, value);
         }
 
-        private bool _isNewAlbum;
-
+        private bool _isNew;
         /// <summary>
-        /// Gets or sets a value that indicates whether this is a new album.
+        /// Gets or sets a value that indicates whether this is a new item.
         /// </summary>
-        public bool IsNewAlbum
+        public bool IsNew
         {
-            get => _isNewAlbum;
-            set => Set(ref _isNewAlbum, value);
+            get => _isNew;
+            set => Set(ref _isNew, value);
         }
 
         private bool _isInEdit = false;
@@ -200,19 +185,18 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves album data that has been edited.
         /// </summary>
-        public void Save()
+        public async Task SaveAsync()
         {
             IsInEdit = false;
             IsModified = false;
-            Removed = false;
 
-            if (IsNewAlbum)
+            if (IsNew)
             {
-                IsNewAlbum = false;
+                IsNew = false;
                 App.MViewModel.Albums.Add(this);
             }
 
-            App.Repository.Albums.QueueUpsertAsync(Model);
+            await App.Repository.Albums.QueueUpsertAsync(Model);
         }
 
         /// <summary>
@@ -226,7 +210,6 @@ namespace Rise.App.ViewModels
                 await DeleteAsync();
                 return;
             }
-            Removed = false;
         }
 
         /// <summary>
@@ -235,10 +218,9 @@ namespace Rise.App.ViewModels
         public async Task DeleteAsync()
         {
             IsModified = true;
-            Removed = true;
 
             App.MViewModel.Albums.Remove(this);
-            await App.Repository.Albums.QueueUpsertAsync(Model);
+            await App.Repository.Albums.QueueDeletionAsync(Model);
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
@@ -259,7 +241,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            if (IsNewAlbum)
+            if (IsNew)
             {
                 AddNewAlbumCanceled?.Invoke(this, EventArgs.Empty);
             }
@@ -283,34 +265,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public void StartEdit() => IsInEdit = true;
-
-        /// <summary>
         /// Reloads all of the album data.
         /// </summary>
         public async Task RefreshAlbumsAsync()
         {
             Model = await App.Repository.Albums.GetAsync(Model.Id);
         }
-
-        /// <summary>
-        /// Called when a bound DataGrid control causes the album to enter edit mode.
-        /// </summary>
-        public void BeginEdit()
-        {
-            // Not used.
-        }
-
-        /// <summary>
-        /// Called when a bound DataGrid control cancels the edits that have been made to an album.
-        /// </summary>
-        public async void CancelEdit() => await CancelEditsAsync();
-
-        /// <summary>
-        /// Called when a bound DataGrid control commits the edits that have been made to an album.
-        /// </summary>
-        public void EndEdit() => Save();
     }
 }

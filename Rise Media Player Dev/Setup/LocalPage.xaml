@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
@@ -12,29 +12,29 @@
     <StackPanel Spacing="20">
         <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:NavigationExpander x:Uid="/MediaLibrary/ChooseFolders"
+            <uc:ExpanderControl x:Uid="/MediaLibrary/ChooseFolders"
                                    ExpanderStyle="Button"
                                    Icon="&#xE8B7;">
                 <FontIcon Glyph="&#xE2B4;"
                           FontSize="16"
                           VerticalAlignment="Center" />
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/MediaLibrary/Deletion"
+            <uc:ExpanderControl x:Uid="/MediaLibrary/Deletion"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE74D;">
                 <!--ComboBox ItemsSource="{x:Bind Deletion}"
                           PlaceholderText="Delete from device"
                           SelectedIndex="{Binding Deletion, Mode=TwoWay}" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/MediaLibrary/SeparateLocal"
+            <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE145;">
                 <!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
         </StackPanel>
 
         <TextBlock x:Uid="/Local/Tip"

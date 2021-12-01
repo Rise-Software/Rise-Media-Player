@@ -134,7 +134,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\ContentDialogHelpers.cs" />
+    <Compile Include="Common\DependencyPropertyWatcher.cs" />
+    <Compile Include="Common\EventsLogic.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
@@ -143,12 +147,21 @@
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Converters\ResourceToString.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
+    <Compile Include="Converters\TimeSpanToString.cs" />
+    <Compile Include="Converters\VideoToString.cs" />
+    <Compile Include="Dialogs\FeatureDialog.xaml.cs">
+      <DependentUpon>FeatureDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\VFoldersDialog.xaml.cs">
+      <DependentUpon>VFoldersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Props\FilePage.xaml.cs">
@@ -159,6 +172,9 @@
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
+      <DependentUpon>SongTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
     </Compile>
@@ -169,18 +185,16 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AlbumSongListItem.xaml.cs">
-      <DependentUpon>AlbumSongListItem.xaml</DependentUpon>
+    <Compile Include="UserControls\TiledImage.xaml.cs">
+      <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ArtistSongListItem.xaml.cs">
-      <DependentUpon>ArtistSongListItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FullSongListItem.xaml.cs">
-      <DependentUpon>FullSongListItem.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
+    <Compile Include="ViewModels\NavViewItemViewModel.cs" />
+    <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
-    <Compile Include="Views\ArtistSongsPage.xaml.cs">
+    <Compile Include="ViewModels\VideoViewModel.cs" />
+    <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\ClassicSettings.xaml.cs">
@@ -188,6 +202,9 @@
     </Compile>
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
+      <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -217,7 +234,7 @@
     <Compile Include="Setup\TermsPage.xaml.cs">
       <DependentUpon>TermsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Indexing\Indexer.cs" />
+    <Compile Include="Indexing\IndexingHelper.cs" />
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
@@ -232,30 +249,27 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="ViewModels\PlaybackViewModel.cs" />
-    <Compile Include="Views\AlbumSongsPage.xaml.cs">
+    <Compile Include="Views\Albums\AlbumSongsPage.xaml.cs">
       <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GenresPage.xaml.cs">
+    <Compile Include="Views\Genres\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NavigationExpander.xaml.cs">
-      <DependentUpon>NavigationExpander.xaml</DependentUpon>
+    <Compile Include="UserControls\ExpanderControl.xaml.cs">
+      <DependentUpon>ExpanderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibility.cs" />
     <Compile Include="Dialogs\FoldersDialog.xaml.cs">
       <DependentUpon>FoldersDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AlbumsPage.xaml.cs">
+    <Compile Include="Views\Albums\AlbumsPage.xaml.cs">
       <DependentUpon>AlbumsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArtistsPage.xaml.cs">
+    <Compile Include="Views\Artists\ArtistsPage.xaml.cs">
       <DependentUpon>ArtistsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DevicesPage.xaml.cs">
-      <DependentUpon>DevicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiscyPage.xaml.cs">
       <DependentUpon>DiscyPage.xaml</DependentUpon>
@@ -278,11 +292,8 @@
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SetupPage.xaml.cs">
+    <Compile Include="Windows\SetupPage.xaml.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StreamingPage.xaml.cs">
-      <DependentUpon>StreamingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\AboutPage.xaml.cs">
@@ -301,18 +312,14 @@
     <Compile Include="Settings\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SongHub\BaseSong.cs" />
-    <Compile Include="SongHub\LocalSongsView.xaml.cs">
-      <DependentUpon>LocalSongsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SongHub\OfflineSong.cs" />
-    <Compile Include="SongHub\OnlineSong.cs" />
-    <Compile Include="SongHub\SongFactory.cs" />
     <Compile Include="Views\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />
+    <Compile Include="Windows\VideoPlaybackPage.xaml.cs">
+      <DependentUpon>VideoPlaybackPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -382,18 +389,18 @@
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
     <Content Include="Assets\Settings\Feedback.png" />
-    <Content Include="Assets\NavigationView\Albums.png" />
-    <Content Include="Assets\NavigationView\Artists.png" />
-    <Content Include="Assets\NavigationView\At a glance.png" />
+    <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\HomePage\Colorful.png" />
     <Content Include="Assets\NavigationView\Devices.png" />
-    <Content Include="Assets\NavigationView\DiscyHelp.png" />
-    <Content Include="Assets\NavigationView\Genres.png" />
-    <Content Include="Assets\NavigationView\Local Videos.png" />
-    <Content Include="Assets\NavigationView\Now Playing.png" />
+    <Content Include="Assets\NavigationView\DiscyPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\GenresPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\LocalVideosPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\NowPlayingPage\Colorful.png" />
     <Content Include="Assets\NavigationView\Online Videos.png" />
-    <Content Include="Assets\NavigationView\Playlists.png" />
-    <Content Include="Assets\NavigationView\Settings.png" />
-    <Content Include="Assets\NavigationView\Songs.png" />
+    <Content Include="Assets\NavigationView\PlaylistsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\SettingsPage\Colorful.png" />
+    <Content Include="Assets\NavigationView\SongsPage\Colorful.png" />
     <Content Include="Assets\Settings\Library.png" />
     <Content Include="Assets\Settings\About.png" />
     <Content Include="Assets\Settings\Language.png" />
@@ -406,6 +413,11 @@
     <Content Include="Assets\Setup\Local.png" />
     <Content Include="Assets\Setup\Privacy.png" />
     <Content Include="Assets\Setup\Terms.png" />
+    <Content Include="Assets\Tiles\BG2.png" />
+    <Content Include="Assets\Tiles\BG3.png" />
+    <Content Include="Assets\Tiles\BG4.png" />
+    <Content Include="Assets\Tiles\BG5.png" />
+    <Content Include="Assets\Tiles\BG6.png" />
     <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
     <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
     <Content Include="Assets\Unavailable\Netflix.png" />
@@ -413,18 +425,28 @@
     <Content Include="Assets\Unavailable\Prime.png" />
     <Content Include="Assets\Unavailable\Videos.png" />
     <Content Include="Assets\Unavailable\YouTube.png" />
+    <Content Include="Assets\Tiles\BG1.png" />
     <Content Include="Assets\Wallpapers\DarkBlue.png" />
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\FeatureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SettingsDialogContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\VFoldersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -456,19 +478,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AlbumSongListItem.xaml">
+    <Page Include="UserControls\TiledImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ArtistSongListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\FullSongListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ArtistSongsPage.xaml">
+    <Page Include="Views\Artists\ArtistSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -477,6 +491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CurrentlyPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Genres\GenreSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -524,11 +542,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AlbumSongsPage.xaml">
+    <Page Include="Views\Albums\AlbumSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GenresPage.xaml">
+    <Page Include="Views\Genres\GenresPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -536,7 +554,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\NavigationExpander.xaml">
+    <Page Include="UserControls\ExpanderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -544,15 +562,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AlbumsPage.xaml">
+    <Page Include="Views\Albums\AlbumsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArtistsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DevicesPage.xaml">
+    <Page Include="Views\Artists\ArtistsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -584,11 +598,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SetupPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StreamingPage.xaml">
+    <Page Include="Windows\SetupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -612,15 +622,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SongHub\LocalSongsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\QueuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\VideoPlaybackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -633,10 +643,10 @@
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.6.2</Version>
@@ -673,13 +683,18 @@
     <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\MediaPlayerIcons.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SampleItemData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\en-gb\MediaData.resw" />
     <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
     <PRIResource Include="Strings\en-gb\File.resw" />
     <PRIResource Include="Strings\en-gb\Details.resw" />
     <PRIResource Include="Strings\en-gb\Props.resw" />
-    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
     <PRIResource Include="Strings\en-gb\Finish.resw" />
     <PRIResource Include="Strings\en-gb\Privacy.resw" />
     <PRIResource Include="Strings\en-gb\Local.resw" />

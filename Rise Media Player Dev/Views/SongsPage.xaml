@@ -4,10 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:Rise.App.Converters"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:converters="using:Rise.App.Converters" xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -67,7 +66,8 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+            <AppBarButton x:Uid="/Information/Sort"
+                          Icon="Sort">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Track"
@@ -107,6 +107,8 @@
         </CommandBar>
 
         <ListView x:Name="MainList"
+                  animations:Connected.ListItemElementName="AlbumThumb"
+                  animations:Connected.ListItemKey="AlbumArt"
                   Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
@@ -132,6 +134,13 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+                    <MenuFlyoutItem x:Uid="/Information/ShowAlbum"
+                                    Click="ShowAlbum_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE93C;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem x:Uid="/MediaData/Properties"
@@ -145,7 +154,91 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <uc:FullSongListItem Click="PlayButton_Click" />
+                    <Grid Background="Transparent"
+                          ColumnSpacing="12"
+                          Padding="12,4"
+                          PointerEntered="Grid_PointerEntered"
+                          PointerExited="Grid_PointerExited"
+                          PointerCanceled="Grid_PointerExited">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Stretch"
+                                   Text="{x:Bind Track}"
+                                   TextAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   Visibility="{x:Bind IsFocused,
+                                                Converter={StaticResource BoolToVis},
+                                                ConverterParameter=Reverse,
+                                                Mode=OneWay}"
+                                   Width="24" />
+
+                        <Button x:Uid="/Information/Play"
+                                Click="PlayButton_Click"
+                                Height="32"
+                                Padding="0"
+                                Style="{StaticResource TransparentButton}"
+                                Visibility="{x:Bind IsFocused, Mode=OneWay}"
+                                Width="32">
+                            <FontIcon FontSize="16" Glyph="&#xE102;" />
+                        </Button>
+
+                        <Button Grid.Column="1"
+                                CornerRadius="4"
+                                Height="32"
+                                IsHitTestVisible="False"
+                                Padding="0"
+                                Width="32">
+                            <Border x:Name="AlbumThumb"
+                                    CornerRadius="4"
+                                    Height="32"
+                                    Width="32">
+                                <Image x:Phase="2"
+                                       Height="32"
+                                       Source="{x:Bind Thumbnail}"
+                                       Width="32" />
+                            </Border>
+                        </Button>
+
+                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Title}"
+                                       TextTrimming="CharacterEllipsis" />
+                            <Grid ColumnSpacing="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock>
+                                    <Hyperlink Click="Artist_Click" UnderlineStyle="None">
+                                        <Run Text="{x:Bind Artist}" />
+                                    </Hyperlink>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="1"
+                                           Text="•" />
+
+                                <TextBlock Grid.Column="2">
+                                    <Hyperlink Click="Album_Click" UnderlineStyle="None">
+                                        <Run Text="{x:Bind Album}" />
+                                    </Hyperlink>
+                                </TextBlock>
+
+                                <Rectangle Grid.Column="3" />
+                            </Grid>
+                        </StackPanel>
+
+                        <TextBlock x:Phase="1"
+                                   Grid.Column="3"
+                                   Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
+                                   VerticalAlignment="Center" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

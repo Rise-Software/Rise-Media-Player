@@ -8,49 +8,62 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLGenreRepository : IGenreRepository
+    public class SQLGenreRepository : ISQLRepository<Genre>
     {
-        private readonly Context _db;
-        private readonly List<Genre> _genres;
+        private static Context _db;
+        private readonly DbContextOptions<Context> _dbOptions;
+        private readonly List<Genre> _upsertQueue;
+        private readonly List<Genre> _removalQueue;
 
-        public SQLGenreRepository(Context db)
+        public SQLGenreRepository(DbContextOptions<Context> options)
         {
-            _db = db;
-            _genres = new List<Genre>();
+            _dbOptions = options;
+
+            _upsertQueue = new List<Genre>();
+            _removalQueue = new List<Genre>();
         }
 
         public async Task<IEnumerable<Genre>> GetAsync()
         {
-            return await _db.Genres
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Genres
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task<Genre> GetAsync(Guid id)
         {
-            return await _db.Genres
-                .AsNoTracking()
-                .FirstOrDefaultAsync(g => g.Id == id);
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Genres
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(g => g.Id == id);
+            }
         }
 
         public async Task<IEnumerable<Genre>> GetAsync(string search)
         {
-            string[] parameters = search.Split(' ');
-            return await _db.Genres
-                .Where(genre =>
-                    parameters.Any(parameter =>
-                        genre.Name.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(genre =>
-                    parameters.Count(parameter =>
-                        genre.Name.StartsWith(parameter)))
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                string[] parameters = search.Split(' ');
+                return await _db.Genres
+                    .Where(genre =>
+                        parameters.Any(parameter =>
+                            genre.Name.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByDescending(genre =>
+                        parameters.Count(parameter =>
+                            genre.Name.StartsWith(parameter)))
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
-        public async Task QueueUpsertAsync(Genre genre)
+        public async Task QueueUpsertAsync(Genre item)
         {
-            _genres.Add(genre);
-            if (_genres.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -58,16 +71,28 @@ namespace Rise.Repository.SQL
 
         public async Task UpsertQueuedAsync()
         {
-            await _db.BulkInsertOrUpdateAsync(_genres);
-            _genres.Clear();
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
+            }
         }
 
-        public async Task DeleteAsync(Genre genre)
+        public async Task QueueDeletionAsync(Genre item)
         {
-            if (null != genre)
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
             {
-                _ = _db.Genres.Remove(genre);
-                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

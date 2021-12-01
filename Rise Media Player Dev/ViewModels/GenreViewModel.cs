@@ -1,10 +1,10 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
+using Rise.Models;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
-    public class GenreViewModel : BaseViewModel
+    public class GenreViewModel : ViewModel<Genre>
     {
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
@@ -12,27 +12,7 @@ namespace Rise.App.ViewModels
         public GenreViewModel(Genre model = null)
         {
             Model = model ?? new Genre();
-            IsNewGenre = true;
-        }
-
-        private Genre _model;
-
-        /// <summary>
-        /// Gets or sets the underlying Album object.
-        /// </summary>
-        public Genre Model
-        {
-            get => _model;
-            set
-            {
-                if (_model != value)
-                {
-                    _model = value;
-
-                    // Raise the PropertyChanged event for all properties.
-                    OnPropertyChanged(string.Empty);
-                }
-            }
+            IsNew = true;
         }
 
         /// <summary>
@@ -61,37 +41,21 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the item has to be deleted.
-        /// </summary>
-        public bool WillRemove { get; set; }
-
-        /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
         /// <remarks>
         /// Used to reduce load and only upsert the models that have changed.
         /// </remarks>
         public bool IsModified { get; set; }
-        private bool _isLoading;
 
+        private bool _isNew;
         /// <summary>
-        /// Gets or sets a value that indicates whether to show a progress bar. 
+        /// Gets or sets a value that indicates whether this is a new item.
         /// </summary>
-        public bool IsLoading
+        public bool IsNew
         {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
-
-        private bool _isNewGenre;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new genre.
-        /// </summary>
-        public bool IsNewGenre
-        {
-            get => _isNewGenre;
-            set => Set(ref _isNewGenre, value);
+            get => _isNew;
+            set => Set(ref _isNew, value);
         }
 
         /// <summary>
@@ -100,9 +64,9 @@ namespace Rise.App.ViewModels
         public async Task SaveAsync()
         {
             IsModified = false;
-            if (IsNewGenre)
+            if (IsNew)
             {
-                IsNewGenre = false;
+                IsNew = false;
                 App.MViewModel.Genres.Add(this);
             }
 

@@ -67,20 +67,20 @@
 
             <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
 
-            <uc:NavigationExpander x:Uid="/HelpTips/AddPersonalMusicAndVideos"
+            <uc:ExpanderControl x:Uid="/HelpTips/AddPersonalMusicAndVideos"
                                    ExpanderStyle="Default"
                                    Icon="&#xEA69;">
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/HelpTips/SortingManagingLibrary"
+            <uc:ExpanderControl x:Uid="/HelpTips/SortingManagingLibrary"
                                    ExpanderStyle="Default"
                                    Icon="&#xE174;">
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/HelpTips/PlayingMediaNowPlaying"
+            <uc:ExpanderControl x:Uid="/HelpTips/PlayingMediaNowPlaying"
                                    ExpanderStyle="Default"
                                    Icon="&#xE102;">
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
             <StackPanel Orientation="Vertical" Margin="0,100,0,0">
                 <muxc:TeachingTip x:Name="DiscyAboutTip"

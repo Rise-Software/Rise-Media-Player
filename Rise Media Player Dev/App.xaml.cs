@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Rise.Repository;
-using Rise.Repository.SQL;
+using Rise.App.ChangeTrackers;
 using Rise.App.Common;
 using Rise.App.Indexing;
-using Rise.App.Settings.ViewModels;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Repository;
+using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,19 +28,24 @@ namespace Rise.App
     {
         #region Variables
         /// <summary>
-        /// Gets the app-wide MainViewModel singleton instance.
+        /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
         /// </summary>
         public static MainViewModel MViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide NowPlayingViewModel singleton instance.
+        /// Gets the app-wide <see cref="PlaybackViewModel"/> singleton instance.
         /// </summary>
         public static PlaybackViewModel PViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide SettingsViewModel singleton instance.
+        /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
         /// </summary>
         public static SettingsViewModel SViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
+        /// </summary>
+        public static SidebarViewModel SBViewModel { get; private set; }
 
         /// <summary>
         /// Pipeline for interacting with backend service or database.
@@ -70,8 +75,8 @@ namespace Rise.App
         private static List<StorageLibraryChange> Changes { get; set; }
             = new List<StorageLibraryChange>();
 
-        public static Indexer Indexer { get; private set; }
-            = new Indexer();
+        public static IndexingHelper Indexer { get; private set; }
+            = new IndexingHelper();
         #endregion
 
         /// <summary>
@@ -94,14 +99,12 @@ namespace Rise.App
 
             InitializeComponent();
             Suspending += OnSuspending;
-
-            InitDatabase();
         }
 
         /// <summary>
         /// Initializes the app's database and ViewModels.
         /// </summary>
-        private async void InitDatabase()
+        private async Task InitDatabase()
         {
             _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
             string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
@@ -111,9 +114,11 @@ namespace Rise.App
             Repository = new SQLRepository(dbOptions);
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
+            VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
+            SBViewModel = new SidebarViewModel();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
@@ -169,6 +174,7 @@ namespace Rise.App
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
+            await SBViewModel.SerializeItemsAsync();
             try
             {
                 await SuspensionManager.SaveAsync();
@@ -177,6 +183,7 @@ namespace Rise.App
             {
 
             }
+
             deferral.Complete();
         }
 
@@ -197,9 +204,9 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartPlayback(args.Files.GetEnumerator(), 0, args.Files.Count);
+            await PViewModel.StartMusicPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
         }
 
         /// <summary>
@@ -213,7 +220,7 @@ namespace Rise.App
 #if DEBUG
             if (Debugger.IsAttached)
             {
-                DebugSettings.EnableFrameRateCounter = true;
+                // DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -221,9 +228,15 @@ namespace Rise.App
             // just ensure that the window is active
             if (!(Window.Current.Content is Frame rootFrame))
             {
+                await InitDatabase();
+                await MViewModel.GetListsAsync();
+
+                LeavingBackground += async (s, e) =>
+                    await MViewModel.StartFullCrawlAsync();
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-                rootFrame.CacheSize = 0;
+                rootFrame.CacheSize = 1;
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Associate the frame with a SuspensionManager key.
@@ -244,6 +257,15 @@ namespace Rise.App
                         // Assume there is no state and continue.
                     }
                 }
+
+                _ = await KnownFolders.MusicLibrary.
+                    TrackForegroundAsync(QueryPresets.SongQueryOptions,
+                    SongsTracker.MusicQueryResultChanged);
+                _ = await KnownFolders.VideosLibrary.
+                    TrackForegroundAsync(QueryPresets.VideoQueryOptions,
+                    SongsTracker.MusicQueryResultChanged);
+
+                // await MViewModel.StartFullCrawlAsync();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;

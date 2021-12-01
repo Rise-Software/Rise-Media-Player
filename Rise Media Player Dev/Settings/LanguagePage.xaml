@@ -5,9 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
@@ -64,19 +62,15 @@
                       Severity="Informational"
                       Title="English is currently the only available language"
                       Message="Other languages and regions will be available soon." />
-        <uc:NavigationExpander x:Uid="/Language/Match"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                               Icon="&#xE923;">
-            <!--ToggleSwitch /-->
-        </uc:NavigationExpander>
+        <uc:ExpanderControl x:Uid="/Language/Match"
+                               ExpanderStyle="Disabled"
+                               Icon="&#xE923;" />
 
-        <uc:NavigationExpander x:Uid="/Language/Select"
-                               ExpanderStyle="Static"
-                               Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <uc:ExpanderControl x:Uid="/Language/Select"
+                               ExpanderStyle="Disabled"
                                Icon="&#xE12B;">
-            <!--ComboBox PlaceholderText="Use system language"
-                      SelectedIndex="{Binding Language, Mode=TwoWay}"
+            <ComboBox PlaceholderText="Use system language"
+                      SelectedIndex="{x:Bind ViewModel.Language, Mode=TwoWay}"
                       VerticalAlignment="Center">
                 <x:String>Use system setting</x:String>
                 <x:String>中国人</x:String>
@@ -95,7 +89,7 @@
                 <x:String>Português (Brasil)</x:String>
                 <x:String>Português (Portugal)</x:String>
                 <x:String>Română</x:String>
-            </ComboBox-->
-        </uc:NavigationExpander>
+            </ComboBox>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

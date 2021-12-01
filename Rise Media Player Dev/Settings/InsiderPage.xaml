@@ -44,11 +44,11 @@
         </uc:AdaptiveItemPane>
 
         <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" />
-        <uc:NavigationExpander x:Uid="/About/Walls"
-                               Click="NavigationExpander_Click"
+        <uc:ExpanderControl x:Uid="/About/Walls"
+                               Click="ExpanderControl_Click"
                                ExpanderStyle="Button"
                                Icon="&#xE8B9;">
             <FontIcon Glyph="&#xE00F;" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

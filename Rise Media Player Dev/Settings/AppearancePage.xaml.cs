@@ -1,6 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
-using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,22 +22,18 @@ namespace Rise.App.Settings
         private readonly List<string> Startup = new List<string>
         {
             ResourceLoaders.AppearanceLoader.GetString("Home"),
+            ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),
             ResourceLoaders.AppearanceLoader.GetString("Playlists"),
-            ResourceLoaders.AppearanceLoader.GetString("Devices"),
             ResourceLoaders.AppearanceLoader.GetString("Songs"),
             ResourceLoaders.AppearanceLoader.GetString("Artists"),
             ResourceLoaders.AppearanceLoader.GetString("Albums"),
             ResourceLoaders.AppearanceLoader.GetString("Genres"),
             ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
-            ResourceLoaders.AppearanceLoader.GetString("Streaming"),
-            ResourceLoaders.AppearanceLoader.GetString("NowPlaying")
         };
 
         public AppearancePage()
         {
             InitializeComponent();
-
-            DataContext = ViewModel;
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 

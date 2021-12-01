@@ -8,53 +8,66 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLSongRepository : ISongRepository
+    public class SQLSongRepository : ISQLRepository<Song>
     {
-        private readonly Context _db;
-        private readonly List<Song> _songs;
+        private static Context _db;
+        private readonly DbContextOptions<Context> _dbOptions;
+        private readonly List<Song> _upsertQueue;
+        private readonly List<Song> _removalQueue;
 
-        public SQLSongRepository(Context db)
+        public SQLSongRepository(DbContextOptions<Context> options)
         {
-            _db = db;
-            _songs = new List<Song>();
+            _dbOptions = options;
+
+            _upsertQueue = new List<Song>();
+            _removalQueue = new List<Song>();
         }
 
         public async Task<IEnumerable<Song>> GetAsync()
         {
-            return await _db.Songs
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Songs
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task<Song> GetAsync(Guid id)
         {
-            return await _db.Songs
-                .AsNoTracking()
-                .FirstOrDefaultAsync(song => song.Id == id);
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Songs
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(song => song.Id == id);
+            }
         }
 
         public async Task<IEnumerable<Song>> GetAsync(string search)
         {
-            string[] parameters = search.Split(' ');
-            return await _db.Songs
-                .Where(song =>
-                    parameters.Any(parameter =>
-                        song.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        song.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        song.Location.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(song =>
-                    parameters.Count(parameter =>
-                        song.Title.StartsWith(parameter) ||
-                        song.Artist.StartsWith(parameter) ||
-                        song.Location.StartsWith(parameter)))
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                string[] parameters = search.Split(' ');
+                return await _db.Songs
+                    .Where(song =>
+                        parameters.Any(parameter =>
+                            song.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
+                            song.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
+                            song.Location.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByDescending(song =>
+                        parameters.Count(parameter =>
+                            song.Title.StartsWith(parameter) ||
+                            song.Artist.StartsWith(parameter) ||
+                            song.Location.StartsWith(parameter)))
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
-        public async Task QueueUpsertAsync(Song song)
+        public async Task QueueUpsertAsync(Song item)
         {
-            _songs.Add(song);
-            if (_songs.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -62,16 +75,28 @@ namespace Rise.Repository.SQL
 
         public async Task UpsertQueuedAsync()
         {
-            await _db.BulkInsertOrUpdateAsync(_songs);
-            _songs.Clear();
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
+            }
         }
 
-        public async Task DeleteAsync(Song song)
+        public async Task QueueDeletionAsync(Song item)
         {
-            if (null != song)
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
             {
-                _ = _db.Songs.Remove(song);
-                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

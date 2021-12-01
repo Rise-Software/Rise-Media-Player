@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
@@ -13,28 +13,28 @@
         <TextBlock x:Uid="/Privacy/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:NavigationExpander x:Uid="/Appearance/History"
+            <uc:ExpanderControl x:Uid="/Appearance/History"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xEADF;"
                                    Margin="0,0,0,4">
                 <!--ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/Appearance/CuratedPlaylists"
+            <uc:ExpanderControl x:Uid="/Appearance/CuratedPlaylists"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE8FD;">
                 <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/Appearance/AtAGlance"
+            <uc:ExpanderControl x:Uid="/Appearance/AtAGlance"
                                    ExpanderStyle="Button"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xECA5;">
                 <!--FontIcon FontSize="16"
                           Glyph="&#xE00F;" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
         </StackPanel>
     </StackPanel>
 </Page>

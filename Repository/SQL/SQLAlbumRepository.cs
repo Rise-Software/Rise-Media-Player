@@ -8,51 +8,64 @@ using System.Threading.Tasks;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLAlbumRepository : IAlbumRepository
+    public class SQLAlbumRepository : ISQLRepository<Album>
     {
-        private readonly Context _db;
-        private readonly List<Album> _albums;
+        private static Context _db;
+        private readonly DbContextOptions<Context> _dbOptions;
+        private readonly List<Album> _upsertQueue;
+        private readonly List<Album> _removalQueue;
 
-        public SQLAlbumRepository(Context db)
+        public SQLAlbumRepository(DbContextOptions<Context> options)
         {
-            _db = db;
-            _albums = new List<Album>();
+            _dbOptions = options;
+
+            _upsertQueue = new List<Album>();
+            _removalQueue = new List<Album>();
         }
 
         public async Task<IEnumerable<Album>> GetAsync()
         {
-            return await _db.Albums
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Albums
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
         public async Task<Album> GetAsync(Guid id)
         {
-            return await _db.Albums
-                .AsNoTracking()
-                .FirstOrDefaultAsync(album => album.Id == id);
+            using (_db = new Context(_dbOptions))
+            {
+                return await _db.Albums
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(album => album.Id == id);
+            }
         }
 
         public async Task<IEnumerable<Album>> GetAsync(string search)
         {
-            string[] parameters = search.Split(' ');
-            return await _db.Albums
-                .Where(album =>
-                    parameters.Any(parameter =>
-                        album.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
-                        album.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
-                .OrderByDescending(album =>
-                    parameters.Count(parameter =>
-                        album.Title.StartsWith(parameter) ||
-                        album.Artist.StartsWith(parameter)))
-                .AsNoTracking()
-                .ToListAsync();
+            using (_db = new Context(_dbOptions))
+            {
+                string[] parameters = search.Split(' ');
+                return await _db.Albums
+                    .Where(album =>
+                        parameters.Any(parameter =>
+                            album.Title.StartsWith(parameter, StringComparison.OrdinalIgnoreCase) ||
+                            album.Artist.StartsWith(parameter, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByDescending(album =>
+                        parameters.Count(parameter =>
+                            album.Title.StartsWith(parameter) ||
+                            album.Artist.StartsWith(parameter)))
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
         }
 
-        public async Task QueueUpsertAsync(Album album)
+        public async Task QueueUpsertAsync(Album item)
         {
-            _albums.Add(album);
-            if (_albums.Count >= 200)
+            _upsertQueue.Add(item);
+            if (_upsertQueue.Count >= 200)
             {
                 await UpsertQueuedAsync();
             }
@@ -60,16 +73,28 @@ namespace Rise.Repository.SQL
 
         public async Task UpsertQueuedAsync()
         {
-            await _db.BulkInsertOrUpdateAsync(_albums);
-            _albums.Clear();
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkInsertOrUpdateAsync(_upsertQueue);
+                _upsertQueue.Clear();
+            }
         }
 
-        public async Task DeleteAsync(Album album)
+        public async Task QueueDeletionAsync(Album item)
         {
-            if (null != album)
+            _removalQueue.Add(item);
+            if (_removalQueue.Count >= 200)
             {
-                _ = _db.Albums.Remove(album);
-                _ = await _db.SaveChangesAsync().ConfigureAwait(false);
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteQueuedAsync()
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.BulkDeleteAsync(_removalQueue);
+                _removalQueue.Clear();
             }
         }
     }

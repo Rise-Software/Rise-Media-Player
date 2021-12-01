@@ -1,22 +1,22 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Rise.App.Common;
+﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
-using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
-using Windows.UI.Core.Preview;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using static Rise.App.Common.Enums;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
-using NavigationViewItemBase = Microsoft.UI.Xaml.Controls.NavigationViewItemBase;
 
 namespace Rise.App.Views
 {
@@ -26,13 +26,13 @@ namespace Rise.App.Views
     public sealed partial class MainPage : Page
     {
         #region Variables
-        private SettingsViewModel ViewModel => App.SViewModel;
+        private SettingsViewModel SViewModel => App.SViewModel;
+        private SidebarViewModel SBViewModel => App.SBViewModel;
+
         public static MainPage Current;
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
             = new ObservableCollection<Crumb>();
-
-        private MainTitleBar MainTitleBarHandle { get; set; }
 
         public SettingsDialogContainer SDialog { get; }
             = new SettingsDialogContainer();
@@ -41,120 +41,68 @@ namespace Rise.App.Views
         private IDisposable AlbumsDefer { get; set; }
         private IDisposable ArtistsDefer { get; set; }
         private IDisposable GenresDefer { get; set; }
-        #endregion
+        private IDisposable VideosDefer { get; set; }
 
-        #region Classes
-        public class Crumb
-        {
-            public string Title { get; set; }
-
-            public override string ToString()
-            {
-                return Title;
-            }
-        }
-        #endregion
-
-        #region NavView Icons (TODO: FIX THIS TERRIBLE CODE)
-        private readonly ImageIcon homeIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/At a glance.png")) };
-
-        private readonly FontIcon homeIconMono =
-            new FontIcon() { Glyph = "\uECA5" };
-
-        private readonly ImageIcon playlistsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Playlists.png")) };
-
-        private readonly FontIcon playlistsIconMono =
-            new FontIcon() { Glyph = "\uE8FD" };
-
-        private readonly ImageIcon devicesIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Devices.png")) };
-
-        private readonly FontIcon devicesIconMono =
-            new FontIcon() { Glyph = "\uE1C9" };
-
-        private readonly ImageIcon songsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Songs.png")) };
-
-        private readonly FontIcon songsIconMono =
-            new FontIcon() { Glyph = "\uEC4F" };
-
-        private readonly ImageIcon artistsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Artists.png")) };
-
-        private readonly FontIcon artistsIconMono =
-            new FontIcon() { Glyph = "\uE125" };
-
-        private readonly ImageIcon albumsIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Albums.png")) };
-
-        private readonly FontIcon albumsIconMono =
-            new FontIcon() { Glyph = "\uE93C" };
-
-        private readonly ImageIcon genresIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Genres.png")) };
-
-        private readonly FontIcon genresIconMono =
-            new FontIcon() { Glyph = "\uE138" };
-
-        private readonly ImageIcon videosIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Local Videos.png")) };
-
-        private readonly FontIcon videosIconMono =
-            new FontIcon() { Glyph = "\uE8B7" };
-
-        private readonly ImageIcon streamingIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Online Videos.png")) };
-
-        private readonly FontIcon streamingIconMono =
-            new FontIcon() { Glyph = "\uE12B" };
-
-        private readonly ImageIcon helpIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/DiscyHelp.png")) };
-
-        private readonly FontIcon helpIconMono =
-            new FontIcon() { Glyph = "\uE9CE" };
-
-        private readonly ImageIcon playingIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Now Playing.png")) };
-
-        private readonly FontIcon playingIconMono =
-            new FontIcon() { Glyph = "\uE768" };
+        private NavigationViewItem RightClickedItem { get; set; }
+        private AppWindow _nowPlayingWindow;
         #endregion
 
         public MainPage()
         {
             InitializeComponent();
             Current = this;
-
-            MainTitleBarHandle = new MainTitleBar();
-
-            Loaded += async (s, e) => await ApplyStartupSettings();
-            DataContext = ViewModel;
+            SDialog.Content = new SettingsPage();
+            Loaded += MainPage_Loaded;
 
             NavigationCacheMode = NavigationCacheMode.Required;
-            SDialog.Content = new SettingsPage();
-
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
-
-            SystemNavigationManagerPreview.GetForCurrentView().
-                CloseRequested += MainPage_CloseRequested;
 
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
+        {
+            // Sidebar icons
+            await SBViewModel.LoadItemsAsync();
+            ChangeIconPack(SViewModel.CurrentPack);
+
+            // Startup setting
+            if (ContentFrame.Content == null)
+            {
+                await Navigate(SViewModel.Open);
+            }
+
+            FinishNavigation();
+
+            App.MViewModel.CanIndex = true;
+            _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+
+            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+            _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+
+            Loaded -= MainPage_Loaded;
+
+            // When the page is loaded, initialize the titlebar and setup the player.
+            Loaded += (s, e) =>
+            {
+                PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+                _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+            };
         }
 
         private async void Indexer_Started()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                AddedTip.IsOpen = false;
                 CheckTip.IsOpen = true;
 
                 SongsDefer = App.MViewModel.FilteredSongs.DeferRefresh();
                 AlbumsDefer = App.MViewModel.FilteredAlbums.DeferRefresh();
                 ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
                 GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
+                VideosDefer = App.MViewModel.FilteredVideos.DeferRefresh();
             });
         }
 
@@ -162,50 +110,87 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
 
                 SongsDefer.Dispose();
                 AlbumsDefer.Dispose();
                 ArtistsDefer.Dispose();
                 GenresDefer.Dispose();
+                VideosDefer.Dispose();
 
                 App.MViewModel.FilteredSongs.Refresh();
                 App.MViewModel.FilteredAlbums.Refresh();
                 App.MViewModel.FilteredArtists.Refresh();
                 App.MViewModel.FilteredGenres.Refresh();
+                App.MViewModel.FilteredVideos.Refresh();
             });
         }
 
-        private async void MainPage_CloseRequested(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
-        {
-            if (ViewModel.PickUp)
-            {
-                try
-                {
-                    await SuspensionManager.SaveAsync();
-                }
-                catch (SuspensionManagerException)
-                {
+        #region TitleBar
+        // Update the TitleBar content layout.
+        private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
+            => UpdateTitleBarItems(sender);
 
-                }
-            }
+        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+            => UpdateTitleBarLayout(sender);
+
+        /// <summary>
+        /// Update the TitleBar layout.
+        /// </summary>
+        private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
+        {
+            // Update title bar control size as needed to account for system size changes.
+            AppTitleBar.Height = coreTitleBar.Height;
+
+            // Ensure the custom title bar does not overlap window caption controls
+            Thickness currMargin = AppTitleBar.Margin;
+            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
+            ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+
+            UpdateTitleBarItems(NavView);
         }
 
-        // Update the TitleBar content layout depending on NavigationView DisplayMode
-        private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
-            => MainTitleBarHandle.UpdateTitleBarItems(sender);
+        /// <summary>
+        /// Update the TitleBar content layout depending on NavigationView DisplayMode.
+        /// </summary>
+        public void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
+        {
+            const int topIndent = 16;
+            const int expandedIndent = 48;
+            int minimalIndent = 104;
+
+            // If the back button is not visible, reduce the TitleBar content indent.
+            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
+            {
+                minimalIndent = 48;
+            }
+
+            Thickness currMargin = AppTitleBar.Margin;
+
+            // Set the TitleBar margin dependent on NavigationView display mode
+            if (navView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
+            {
+                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(topIndent + AppTitleBar.LabelWidth + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+            }
+            else if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
+            {
+                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+            }
+            else
+            {
+                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Top, expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+            }
+        }
+        #endregion
 
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             string navTo = args.InvokedItemContainer.Tag.ToString();
-            if (args.IsSettingsInvoked || navTo == "SettingsPage")
-            {
-                _ = await SDialog.ShowAsync();
-                FinishNavigation();
-                return;
-            }
-
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
             {
                 FinishNavigation();
@@ -224,64 +209,22 @@ namespace Rise.App.Views
         private async Task Navigate(string navTo)
         {
             UnavailableDialog dialog;
-
             switch (navTo)
             {
-                case "AlbumsPage":
-                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
-                    break;
-
-                case "ArtistsPage":
-                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
-                    break;
-
-                case "DevicesPage":
-                    // _ = ContentFrame.Navigate(typeof(DevicesPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Device view and sync is not available yet.",
-                        Description = "This will be coming in a future update.",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Devices.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
-                    break;
-
-                case "DiscyPage":
-                    _ = ContentFrame.Navigate(typeof(DiscyPage));
-                    break;
-
-                case "GenresPage":
-                    // _ = ContentFrame.Navigate(typeof(GenresPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "You can't check out the genres yet.",
-                        Description = "Hopefully you can start soon!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/NavigationView/Genres.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
-                    break;
-
                 case "HomePage":
                     _ = ContentFrame.Navigate(typeof(HomePage));
                     break;
 
-                case "LocalVideosPage":
-                    // _ = ContentFrame.Navigate(typeof(LocalVideosPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Sadly, local video is not available but is coming very soon.",
-                        Description = "We can't wait for you to relive old memories.",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Videos.png"))
-                    };
-
-                    _ = await dialog.ShowAsync();
-                    break;
-
                 case "NowPlayingPage":
-                    _ = await typeof(NowPlaying).
-                        OpenInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                    if (_nowPlayingWindow == null)
+                    {
+                        _nowPlayingWindow = await typeof(NowPlaying).
+                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                    }
+                    else
+                    {
+                        _ = await _nowPlayingWindow.TryShowAsync();
+                    }
                     break;
 
                 case "PlaylistsPage":
@@ -293,30 +236,53 @@ namespace Rise.App.Views
                         CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Playlists.png"))
                     };
 
-                    _ = await dialog.ShowAsync();
+                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 case "SongsPage":
                     _ = ContentFrame.Navigate(typeof(SongsPage));
                     break;
 
-                case "StreamingPage":
-                    // _ = ContentFrame.Navigate(typeof(StreamingPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Streaming services for videos, films and TV are not available yet.",
-                        Description = "We are prioritising other features first, including local playback.",
-                        LeftHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Netflix.png")),
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Prime.png")),
-                        RightHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/YouTube.png"))
-                    };
+                case "ArtistsPage":
+                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
+                    break;
 
-                    _ = await dialog.ShowAsync();
+                case "AlbumsPage":
+                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
+                    break;
+
+                case "GenresPage":
+                    _ = ContentFrame.Navigate(typeof(GenresPage));
+                    break;
+
+                case "LocalVideosPage":
+                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
+                    break;
+
+                case "VideoPlaybackPage":
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    }
+                    break;
+
+                case "DiscyPage":
+                    _ = ContentFrame.Navigate(typeof(DiscyPage));
+                    break;
+
+                case "SettingsPage":
+                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 default:
                     break;
             }
+        }
+
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            App.MViewModel.SelectedSong = null;
+            FinishNavigation();
         }
 
         public void FinishNavigation()
@@ -326,181 +292,187 @@ namespace Rise.App.Views
 
             Breadcrumbs.Clear();
 
-            if (tag == "DiscyPage") return;
-
-            if (tag == "AlbumSongsPage" || tag == "ArtistSongsPage")
+            switch (tag)
             {
-                Breadcrumbs.Add(new Crumb
-                {
-                    Title = ""
-                });
-                return;
+                case "HomePage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == tag);
+                    return;
+
+                case "AlbumSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "AlbumsPage");
+                    return;
+
+                case "ArtistSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "ArtistsPage");
+                    return;
+
+                case "GenreSongsPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == "GenresPage");
+                    return;
+
+                default:
+                    break;
             }
 
-            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            foreach (NavViewItemViewModel item in SBViewModel.Items)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
                     Breadcrumbs.Add(new Crumb
                     {
-                        Title = item.Content.ToString()
+                       Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
                     });
                     return;
                 }
             }
 
-            foreach (NavigationViewItemBase item in NavView.FooterMenuItems)
+            foreach (NavViewItemViewModel item in SBViewModel.FooterItems)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == tag)
+                if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
-                    Breadcrumbs.Add(new Crumb
+                    if (tag != "DiscyPage")
                     {
-                        Title = item.Content.ToString()
-                    });
+                        Breadcrumbs.Add(new Crumb
+                        {
+                            Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
+                        });
+                    }
                     return;
                 }
             }
         }
+
         #endregion
 
         #region Settings
-        private async Task ApplyStartupSettings()
+        public void ChangeIconPack(string newIcons)
         {
-            // Sidebar icon colors
-            UpdateIconColor(ViewModel.IconPack);
+            SBViewModel.ChangeIconPack(newIcons);
 
-            // Startup setting
-            if (ContentFrame.Content == null)
-            {
-                await Navigate(ViewModel.Open);
-            }
+            // Refresh item templates.
+            NavView.MenuItemsSource = null;
+            NavView.FooterMenuItemsSource = null;
 
-            FinishNavigation();
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
-
-            App.MViewModel.CanIndex = true;
-        }
-
-        /// <summary>
-        /// TERRIBLE FUNCTION, REMOVE ASAP!!!
-        /// </summary>
-        /// <param name="icons">WHY WOULD YOU WANT TO KNOW WHAT THIS DOES???</param>
-        public void UpdateIconColor(int icons)
-        {
-            if (icons == 1)
-            {
-                SettingsPageItem.Visibility = Visibility.Visible;
-                NavView.IsSettingsVisible = false;
-
-                HomePageItem.Icon = homeIconColor;
-                PlaylistsPageItem.Icon = playlistsIconColor;
-                DevicesPageItem.Icon = devicesIconColor;
-                SongsPageItem.Icon = songsIconColor;
-                ArtistsPageItem.Icon = artistsIconColor;
-                AlbumsPageItem.Icon = albumsIconColor;
-                GenresPageItem.Icon = genresIconColor;
-                LocalVideosPageItem.Icon = videosIconColor;
-                StreamingPageItem.Icon = streamingIconColor;
-                DiscyPageItem.Icon = helpIconColor;
-                NowPlayingPageItem.Icon = playingIconColor;
-                return;
-            }
-
-            SettingsPageItem.Visibility = Visibility.Collapsed;
-            NavView.IsSettingsVisible = true;
-
-            HomePageItem.Icon = homeIconMono;
-            PlaylistsPageItem.Icon = playlistsIconMono;
-            DevicesPageItem.Icon = devicesIconMono;
-            SongsPageItem.Icon = songsIconMono;
-            ArtistsPageItem.Icon = artistsIconMono;
-            AlbumsPageItem.Icon = albumsIconMono;
-            GenresPageItem.Icon = genresIconMono;
-            LocalVideosPageItem.Icon = videosIconMono;
-            StreamingPageItem.Icon = streamingIconMono;
-            DiscyPageItem.Icon = helpIconMono;
-            NowPlayingPageItem.Icon = playingIconMono;
+            NavView.MenuItemsSource = SBViewModel.Items;
+            NavView.FooterMenuItemsSource = SBViewModel.FooterItems;
         }
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Feedback.LaunchAsync();
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFlyoutItem click = (MenuFlyoutItem)sender;
-            HideItem(click.Tag.ToString(), false);
-        }
-
-        private void HideItem(string item, bool value)
-        {
-            int visibilityCheck = 0;
-            switch (item)
-            {
-                case "Home":
-                    ViewModel.ShowAtAGlance = value;
-                    break;
-
-                case "Playlists":
-                    ViewModel.ShowPlaylists = value;
-                    break;
-
-                case "Devices":
-                    ViewModel.ShowDevices = value;
-                    break;
-
-                case "Songs":
-                    ViewModel.ShowSongs = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Artists":
-                    ViewModel.ShowArtists = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Albums":
-                    ViewModel.ShowAlbums = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "Genres":
-                    ViewModel.ShowGenres = value;
-                    visibilityCheck = 1;
-                    break;
-
-                case "LocalVideos":
-                    ViewModel.ShowLocalVideos = value;
-                    visibilityCheck = 2;
-                    break;
-
-                case "Streaming":
-                    ViewModel.ShowStreaming = value;
-                    visibilityCheck = 2;
-                    break;
-
-                case "Help":
-                    ViewModel.ShowHelpCentre = value;
-                    visibilityCheck = 3;
-                    break;
-
-                case "NowPlaying":
-                    ViewModel.ShowNowPlaying = value;
-                    break;
-            }
-
-            ViewModel.ChangeHeaderVisibility(visibilityCheck);
-        }
-
-        private async void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             await App.MViewModel.StartFullCrawlAsync();
-            App.MViewModel.Sync();
+            await App.MViewModel.SyncAsync();
         }
 
-        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
-            => FinishNavigation();
+        private async void OpenSettings_Click(object sender, RoutedEventArgs e)
+            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+
+        private void HideItem_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+
+        private void HideSection_Click(object sender, RoutedEventArgs e)
+        {
+            NavViewItemViewModel item = SBViewModel.
+                ItemFromTag(RightClickedItem.Tag.ToString());
+
+            SBViewModel.HideGroup(item.HeaderGroup);
+        }
+
+        private void MoveUp_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveUp(RightClickedItem.Tag.ToString());
+
+        private void MoveDown_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveDown(RightClickedItem.Tag.ToString());
+
+        private void ToTop_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveToTop(RightClickedItem.Tag.ToString());
+
+        private void ToBottom_Click(object sender, RoutedEventArgs e)
+            => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
+
+        private void NavView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            DependencyObject source = e.OriginalSource as DependencyObject;
+
+            if (source.FindVisualParent<NavigationViewItem>()
+                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            {
+                RightClickedItem = item;
+                string tag = item.Tag.ToString();
+
+                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                {
+                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                }
+                else
+                {
+                    bool up = SBViewModel.CanMoveUp(tag);
+                    bool down = SBViewModel.CanMoveDown(tag);
+
+                    TopOption.IsEnabled = up;
+                    UpOption.IsEnabled = up;
+
+                    DownOption.IsEnabled = down;
+                    BottomOption.IsEnabled = down;
+
+                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                }
+            }
+        }
+
+        private async void KeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+    }
+
+    [ContentProperty(Name = "GlyphTemplate")]
+    public class MenuItemTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate GlyphTemplate { get; set; }
+        public DataTemplate ImageTemplate { get; set; }
+
+        public DataTemplate HeaderTemplate { get; set; }
+        public DataTemplate SeparatorTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            NavViewItemViewModel itemData = item as NavViewItemViewModel;
+            if (itemData.Tag == "Header")
+            {
+                return HeaderTemplate;
+            }
+
+            if (itemData.Tag == "Separator")
+            {
+                return SeparatorTemplate;
+            }
+
+            if (itemData.Icon.IsValidUri(UriKind.Absolute))
+            {
+                return ImageTemplate;
+            }
+            else
+            {
+                return GlyphTemplate;
+            }
+        }
+    }
+
+    public class Crumb
+    {
+        public string Title { get; set; }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }

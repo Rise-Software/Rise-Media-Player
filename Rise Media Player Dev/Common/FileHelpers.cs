@@ -1,5 +1,5 @@
-﻿using Rise.Models;
-using Rise.App.Props;
+﻿using Rise.App.Props;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
@@ -113,7 +116,14 @@ namespace Rise.App.Common
         /// <param name="str">The <see cref="Uri"/> <see cref="string"/>.</param>
         /// <returns>Whether or not the launch was successful.</returns>
         public static async Task<bool> LaunchAsync(this string str)
-            => await Launcher.LaunchUriAsync(new Uri(str));
+        {
+            if (str.IsValidUri())
+            {
+                return await Launcher.LaunchUriAsync(new Uri(str));
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Launchs an <see cref="Uri"/>.
@@ -122,6 +132,19 @@ namespace Rise.App.Common
         /// <returns>Whether or not the launch was successful.</returns>
         public static async Task<bool> LaunchAsync(this Uri uri)
             => await Launcher.LaunchUriAsync(uri);
+
+        /// <summary>
+        /// Checks whether or not the provided <see cref="string"/> is
+        /// a valid <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="str"><see cref="string"/> to check.</param>
+        /// <param name="kind">The kind of <see cref="Uri"/> to check.
+        /// Won't check for a specific type by default.</param>
+        /// <returns>Whether or not the <see cref="string"/> is
+        /// a valid <see cref="Uri"/>.</returns>
+        public static bool IsValidUri(this string str,
+            UriKind kind = UriKind.RelativeOrAbsolute)
+            => Uri.TryCreate(str, kind, out _);
 
         /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 
@@ -201,7 +224,7 @@ namespace Rise.App.Common
 
             // Valid song metadata is needed.
             string title = musicProperties.Title.Length > 0
-                ? musicProperties.Title : file.DisplayName;
+                ? musicProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
 
             string artist = musicProperties.Artist.Length > 0
                 ? musicProperties.Artist : "UnknownArtistResource";
@@ -215,7 +238,7 @@ namespace Rise.App.Common
             string genre = musicProperties.Genre.FirstOrDefault() != null
                 ? musicProperties.Genre.First() : "UnknownGenreResource";
 
-            string length = musicProperties.Duration.ToString("mm\\:ss");
+            TimeSpan length = musicProperties.Duration;
 
             return new Song
             {
@@ -231,6 +254,67 @@ namespace Rise.App.Common
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Video"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Video file.</param>
+        /// <returns>A video based on the file.</returns>
+        public static async Task<Video> AsVideoModelAsync(this StorageFile file)
+        {
+            // Put the value into memory to make sure that the system
+            // really fetches the property.
+            VideoProperties videoProperties =
+                await file.Properties.GetVideoPropertiesAsync();
+
+            // Valid song metadata is needed.
+            string title = videoProperties.Title.Length > 0
+                ? videoProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
+
+            string directors = videoProperties.Directors.Count > 0
+                ? string.Join(";", videoProperties.Directors) : "UnknownArtistResource";
+
+            return new Video
+            {
+                Title = title,
+                Directors = directors,
+                Length = videoProperties.Duration,
+                Year = videoProperties.Year,
+                Location = file.Path,
+                Rating = videoProperties.Rating
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">File to convert.</param>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the file.</returns>
+        public static async Task<MediaPlaybackItem> AsSongPlaybackItemAsync(this StorageFile file)
+        {
+            MediaSource source = MediaSource.CreateFromStorageFile(file);
+            MediaPlaybackItem media = new MediaPlaybackItem(source);
+
+            Song song = await file.AsSongModelAsync();
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Music;
+
+            props.MusicProperties.Title = song.Title;
+            props.MusicProperties.Artist = song.Artist;
+            props.MusicProperties.AlbumTitle = song.Album;
+            props.MusicProperties.AlbumArtist = song.AlbumArtist;
+            props.MusicProperties.TrackNumber = song.Track;
+
+            StorageItemThumbnail thumb =
+                await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
+
+            props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            thumb.Dispose();
+
+            media.ApplyDisplayProperties(props);
+            return media;
         }
     }
 }

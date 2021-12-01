@@ -1,9 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
-using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -18,23 +20,15 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
-
-        private readonly NavigationHelper navigationHelper;
-        /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper => navigationHelper;
-
-        private readonly static DependencyProperty SelectedSongProperty =
-            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(SongsPage), null);
+        private readonly NavigationHelper _navigationHelper;
+        private SongViewModel _song;
 
         private SongViewModel SelectedSong
         {
-            get => (SongViewModel)GetValue(SelectedSongProperty);
-            set => SetValue(SelectedSongProperty, value);
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
@@ -48,8 +42,8 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            navigationHelper = new NavigationHelper(this);
-            navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -63,21 +57,10 @@ namespace Rise.App.Views
         #region Event handlers
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel)
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int itemIndex = MainList.SelectedIndex;
-                if (itemIndex < 0)
-                {
-                    return;
-                }
-
-                SelectedSong = null;
-                using (Songs.DeferRefresh())
-                {
-                    await PViewModel.StartPlayback
-                        (Songs.GetEnumerator(), itemIndex, Songs.Count);
-                }
-                Songs.Refresh();
+                int index = MainList.Items.IndexOf(song);
+                await EventsLogic.StartMusicPlaybackAsync(index);
             }
         }
 
@@ -94,42 +77,10 @@ namespace Rise.App.Views
             => await SelectedSong.StartEdit();
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(ArtistSongsPage),
-                App.MViewModel.Artists.FirstOrDefault(a => a.Name == SelectedSong.Artist));
+            => _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
 
-            SelectedSong = null;
-        }
-
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            int index = 0;
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                index = MainList.Items.IndexOf(song);
-            }
-            else if (SelectedSong != null)
-            {
-                index = MainList.Items.IndexOf(SelectedSong);
-                SelectedSong = null;
-            }
-
-            using (Songs.DeferRefresh())
-            {
-                await PViewModel.StartPlayback(Songs.GetEnumerator(), index, Songs.Count);
-            }
-            Songs.Refresh();
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedSong = null;
-            using (Songs.DeferRefresh())
-            {
-                await PViewModel.StartShuffle(Songs.GetEnumerator(), Songs.Count);
-            }
-            Songs.Refresh();
-        }
+        private void ShowAlbum_Click(object sender, RoutedEventArgs e)
+            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -169,6 +120,35 @@ namespace Rise.App.Views
         }
         #endregion
 
+        #region Common handlers
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                int index = MainList.Items.IndexOf(song);
+                await EventsLogic.StartMusicPlaybackAsync(index);
+                return;
+            }
+
+            await EventsLogic.StartMusicPlaybackAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.FocusSong(ref _song, e);
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToAlbum(sender);
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
+        #endregion
+
         #region NavigationHelper registration
         /// <summary>
         /// The methods provided in this section are simply used to allow
@@ -180,10 +160,10 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
+            => _navigationHelper.OnNavigatedTo(e);
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
+            => _navigationHelper.OnNavigatedFrom(e);
         #endregion
     }
 }

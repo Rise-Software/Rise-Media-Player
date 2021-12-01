@@ -13,6 +13,8 @@ namespace Rise.App.Common
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
+        private readonly Action<object> _executeParam;
+
         private readonly Func<bool> _canExecute;
 
         /// <summary>
@@ -30,6 +32,16 @@ namespace Rise.App.Common
         }
 
         /// <summary>
+        /// Creates a new command that can always execute and
+        /// allows for a parameter.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        public RelayCommand(Action<object> execute)
+            : this(execute, null)
+        {
+        }
+
+        /// <summary>
         /// Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
@@ -37,6 +49,17 @@ namespace Rise.App.Common
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
             _execute = execute ?? throw new ArgumentNullException("execute");
+            _canExecute = canExecute;
+        }
+
+        /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        /// <param name="canExecute">The execution status logic.</param>
+        public RelayCommand(Action<object> execute, Func<bool> canExecute)
+        {
+            _executeParam = execute ?? throw new ArgumentNullException("execute");
             _canExecute = canExecute;
         }
 
@@ -60,7 +83,14 @@ namespace Rise.App.Common
         /// </param>
         public void Execute(object parameter)
         {
-            _execute();
+            if (parameter == null)
+            {
+                _execute();
+            }
+            else
+            {
+                _executeParam(parameter);
+            }
         }
 
         /// <summary>

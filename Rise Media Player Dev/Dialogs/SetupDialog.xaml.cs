@@ -1,6 +1,6 @@
 ﻿using Rise.App.Common;
-using Rise.App.Settings.ViewModels;
 using Rise.App.Setup;
+using Rise.App.ViewModels;
 using Rise.App.Views;
 using System;
 using System.Threading.Tasks;

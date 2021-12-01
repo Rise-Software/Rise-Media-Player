@@ -175,7 +175,7 @@
     <value>Don't show the sidebar</value>
   </data>
   <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Now Playing</value>
+    <value>Queue</value>
   </data>
   <data name="OnlyIcons" xml:space="preserve">
     <value>Only show icons</value>

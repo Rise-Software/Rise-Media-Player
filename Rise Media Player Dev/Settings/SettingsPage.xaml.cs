@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
 using Rise.App.Dialogs;
-using Rise.App.Settings.ViewModels;
+using Rise.App.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;

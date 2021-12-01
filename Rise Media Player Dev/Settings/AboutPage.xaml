@@ -29,7 +29,7 @@
                                         VerticalAlignment="Center">
                                 <TextBlock x:Uid="/About/Version"
                                            FontWeight="SemiBold" />
-                                <TextBlock Text="Pre-Alpha 2+" FontSize="12"
+                                <TextBlock Text="Pre-Alpha 3" FontSize="12"
                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                             </StackPanel>
                         </StackPanel>
@@ -71,13 +71,13 @@
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>
 
-        <uc:NavigationExpander x:Uid="/About/Recent"
+        <uc:ExpanderControl x:Uid="/About/Recent"
                                ExpanderStyle="Default"
                                Icon="&#xE121;" />
 
 
         <TextBlock x:Uid="/About/MoreH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
-        <uc:NavigationExpander x:Uid="/About/Social"
+        <uc:ExpanderControl x:Uid="/About/Social"
                                ExpanderStyle="Static"
                                Icon="&#xE15F;">
             <StackPanel Orientation="Horizontal">
@@ -91,19 +91,20 @@
                                  NavigateUri="http://www.twitter.com/appsbyrise/"
                                  Padding="10" />
             </StackPanel>
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
-        <uc:NavigationExpander x:Uid="/About/TermsAndConditions"
-                               Click="NavigationExpander_Click"
+        <uc:ExpanderControl x:Uid="/About/TermsAndConditions"
+                               Click="ExpanderControl_Click"
                                ExpanderStyle="Button"
                                Icon="&#xF28B;">
             <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
                       VerticalAlignment="Center" />
-        </uc:NavigationExpander>
+        </uc:ExpanderControl>
 
         <muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"
+                          ActionButtonClick="VTip_ActionButtonClick"
                           CloseButtonClick="VTip_CloseButtonClick"
                           IsLightDismissEnabled="True"
                           Target="{x:Bind Version}" />

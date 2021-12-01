@@ -1,9 +1,10 @@
 ﻿using Rise.App.ViewModels;
+using System;
 using Windows.Storage;
 
 namespace Rise.App.Settings
 {
-    public class SettingsManager : BaseViewModel
+    public abstract class SettingsManager : ViewModel
     {
         /// <summary>
         /// Gets an app setting.
@@ -13,7 +14,7 @@ namespace Rise.App.Settings
         /// <param name="defaultValue">Default setting value.</param>
         /// <returns>App setting value.</returns>
         /// <remarks>If the store parameter is "Local", a local setting will be returned.</remarks>
-        public object Get(string store, string setting, object defaultValue)
+        protected T Get<T>(string store, string setting, T defaultValue)
         {
             // If store == "Local", get a local setting
             if (store == "Local")
@@ -27,8 +28,14 @@ namespace Rise.App.Settings
                     localSettings.Values[setting] = defaultValue;
                 }
 
-                // Set the setting to the desired value and return it
-                return localSettings.Values[setting];
+                object val = localSettings.Values[setting];
+
+                // Return the setting if type matches
+                if (!(val is T))
+                {
+                    throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
+                }
+                return (T)val;
             }
 
             // Get desired composite value
@@ -47,8 +54,14 @@ namespace Rise.App.Settings
                 roamingSettings.Values[store] = composite;
             }
 
-            // Set the setting to the desired value and return it
-            return composite[setting];
+            object value = composite[setting];
+
+            // Return the setting if type matches
+            if (!(value is T))
+            {
+                throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
+            }
+            return (T)value;
         }
 
         /// <summary>
@@ -58,8 +71,11 @@ namespace Rise.App.Settings
         /// <param name="setting">Setting name.</param>
         /// <param name="newValue">New setting value.</param>
         /// <remarks>If the store parameter is "Local", a local setting will be set.</remarks>
-        public void Set(string store, string setting, object newValue)
+        protected void Set<T>(string store, string setting, T newValue)
         {
+            // Try to get the setting, if types don't match, it'll throw an exception
+            _ = Get(store, setting, newValue);
+
             // If store == "Local", set a local setting
             if (store == "Local")
             {

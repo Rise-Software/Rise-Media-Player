@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.Settings.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
@@ -13,27 +13,27 @@
         <TextBlock x:Uid="/Appearance/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:NavigationExpander x:Uid="/Appearance/ChooseTheme"
+            <uc:ExpanderControl x:Uid="/Appearance/ChooseTheme"
                                    ExpanderStyle="Static"
                                    Icon="&#xE790;">
                 <ComboBox ItemsSource="{x:Bind Themes}"
                           PlaceholderText="Use system setting"
                           SelectedIndex="{Binding Theme, Mode=TwoWay}" />
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/Appearance/CompactMode"
+            <uc:ExpanderControl x:Uid="/Appearance/CompactMode"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE73F;">
                 <!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /-->
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
 
-            <uc:NavigationExpander x:Uid="/Appearance/SidebarItems"
+            <uc:ExpanderControl x:Uid="/Appearance/SidebarItems"
                                    ExpanderStyle="Button"
                                    Icon="&#xE9D5;">
                 <FontIcon Glyph="&#xE00F;"
                           FontSize="16" />
-            </uc:NavigationExpander>
+            </uc:ExpanderControl>
         </StackPanel>
 
         <TextBlock x:Uid="/Appearance/Tip"

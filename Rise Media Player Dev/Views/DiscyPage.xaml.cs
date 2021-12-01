@@ -6,20 +6,17 @@ namespace Rise.App.Views
 {
     public sealed partial class DiscyPage : Page
     {
-        private readonly NavigationHelper navigationHelper;
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return navigationHelper; }
-        }
+        private readonly NavigationHelper _navigationHelper;
 
         public DiscyPage()
         {
             InitializeComponent();
-            navigationHelper = new NavigationHelper(this);
-            DiscyAboutTip.IsOpen = false;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            _navigationHelper = new NavigationHelper(this);
         }
 
         #region NavigationHelper registration
@@ -33,10 +30,10 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedTo(e);
+            => _navigationHelper.OnNavigatedTo(e);
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => navigationHelper.OnNavigatedFrom(e);
+            => _navigationHelper.OnNavigatedFrom(e);
         #endregion
 
         private void Discy_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
