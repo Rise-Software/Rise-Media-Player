@@ -7,12 +7,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Graphics.Imaging;
+using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
@@ -60,7 +65,7 @@ namespace Rise.App.Views
             App.Indexer.Started += Indexer_Started;
             App.Indexer.Finished += Indexer_Finished;
 
-            // ViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            SViewModel.PropertyChanged += SViewModel_PropertyChanged;
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -82,6 +87,7 @@ namespace Rise.App.Views
 
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
+            await HandleViewModelColorSettingAsync();
 
             Loaded -= MainPage_Loaded;
 
@@ -351,7 +357,6 @@ namespace Rise.App.Views
                 }
             }
         }
-
         #endregion
 
         #region Settings
@@ -365,6 +370,72 @@ namespace Rise.App.Views
 
             NavView.MenuItemsSource = SBViewModel.Items;
             NavView.FooterMenuItemsSource = SBViewModel.FooterItems;
+        }
+
+        private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Color")
+            {
+                await HandleViewModelColorSettingAsync();
+            }
+        }
+
+        public async Task HandleViewModelColorSettingAsync()
+        {
+            var uiSettings = new UISettings();
+            Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
+
+            byte opacity = 30;
+            switch (SViewModel.Color)
+            {
+                case -3:
+                    if (App.PViewModel.CurrentSong != null)
+                    {
+                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                        _Grid.Background = new SolidColorBrush(Colors.Transparent);
+                        if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
+                        {
+                            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                            using (IRandomAccessStream stream = await random.OpenReadAsync())
+                            {
+                                var decoder = await BitmapDecoder.CreateAsync(stream);
+                                var colorThief = new ColorThiefDotNet.ColorThief();
+
+                                var color = await colorThief.GetColor(decoder);
+                                _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, color.Color.R, color.Color.G, color.Color.B));
+                            }
+                        }
+                    }
+                    break;
+
+                case -2:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, accentColor.R, accentColor.G, accentColor.B));
+                    break;
+
+                case -1:
+                    _Grid.Background = new SolidColorBrush(Colors.Transparent);
+                    break;
+
+                case 0:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 205, 92, 92));
+                    break;
+
+                case 1:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 138, 43, 226));
+                    break;
+
+                case 2:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 143, 188, 143));
+                    break;
+
+                case 3:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 149, 237));
+                    break;
+
+                case 4:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 184, 135, 11));
+                    break;
+            }
         }
         #endregion
 

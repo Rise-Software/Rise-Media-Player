@@ -61,10 +61,12 @@ namespace Rise.App.Settings
                     RiseColorsStackPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -1;
                     break;
+
                 case 1:
                     RiseColorsStackPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -2;
                     break;
+
                 case 2:
                     RiseColorsStackPanel.Visibility = Visibility.Visible;
                     if (ViewModel.Color < 0)
@@ -72,6 +74,7 @@ namespace Rise.App.Settings
                         ViewModel.Color = 0;
                     }
                     break;
+
                 case 3:
                     RiseColorsStackPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -3;
