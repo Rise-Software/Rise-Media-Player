@@ -5,11 +5,108 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
-        <GridView animations:Connected.ListItemElementName="ArtistThumb"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <CommandBar Background="Transparent"
+                    DefaultLabelPosition="Right"
+                    HorizontalAlignment="Left"
+                    Margin="-12,0">
+            <AppBarButton x:Name="PlayItem"
+                          x:Uid="/Information/Play"
+                          Icon="Play"
+                          IsEnabled="False"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Name="ShuffleItem"
+                          x:Uid="/Information/Shuffle"
+                          Icon="Shuffle"
+                          IsEnabled="False" />
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECC8;" />
+                </AppBarButton.Icon>
+
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Playlist">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE142;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/Delete"
+                          Icon="Delete"
+                          IsEnabled="False"
+                          Style="{StaticResource AppBarCompactButton}" />
+            <AppBarButton x:Uid="/Information/Edit"
+                          Icon="Edit"
+                          IsEnabled="False"
+                          Style="{StaticResource AppBarCompactButton}" />
+
+            <AppBarSeparator />
+
+            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECAA;" />
+                </AppBarButton.Icon>
+
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Default">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xF0E2;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
+            <AppBarButton x:Uid="/Information/Sort"
+                          Icon="Sort"
+                          IsEnabled="False">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                                                  IsChecked="True"
+                                                  Tag="Title" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
+                                                  Tag="Artist" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
+                                                  Tag="Genres" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
+                                                  Tag="Year" />
+
+                        <MenuFlyoutSeparator />
+
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
+                                                  GroupName="Descending"
+                                                  IsChecked="True"
+                                                  Tag="Ascending" />
+                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
+                                                  GroupName="Descending"
+                                                  Tag="Descending" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+        </CommandBar>
+
+        <GridView Grid.Row="1"
+                  animations:Connected.ListItemElementName="ArtistThumb"
                   animations:Connected.ListItemKey="ArtistArt"
                   ItemsSource="{x:Bind Artists, Mode=OneWay}"
                   Margin="-56,0"
@@ -19,10 +116,14 @@
                   Tapped="GridView_Tapped">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
-                    <StackPanel Margin="12"
-                                Orientation="Horizontal"
-                                Spacing="12"
-                                Width="210">
+                    <Grid ColumnSpacing="12"
+                          Margin="12"
+                          Width="210">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="84" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
                         <Button CornerRadius="42"
                                 IsHitTestVisible="False"
                                 Padding="0">
@@ -36,9 +137,9 @@
                             </Border>
                         </Button>
 
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="{x:Bind Name}"
-                                       MaxLines="2"
+                                       MaxLines="1"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        TextWrapping="Wrap" />
                             <TextBlock Text="{x:Bind Songs}"
@@ -48,7 +149,7 @@
                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                        Style="{StaticResource CaptionTextBlockStyle}" />
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>

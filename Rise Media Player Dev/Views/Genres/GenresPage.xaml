@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -18,18 +19,18 @@
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
                     Margin="-12,0">
-            <!--AppBarButton x:Name="PlayItem"
+            <AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
-                          Click="PlayButton_Click"
                           Icon="Play"
+                          IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
 
             <AppBarSeparator />
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Click="ShuffleButton_Click"
-                          Icon="Shuffle" />
+                          Icon="Shuffle"
+                          IsEnabled="False" />
             <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
@@ -76,40 +77,36 @@
             </AppBarButton>
 
             <AppBarButton x:Uid="/Information/Sort"
-                          Icon="Sort">
+                          Icon="Sort"
+                          IsEnabled="False">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  Click="SortFlyoutItem_Click"
                                                   IsChecked="True"
                                                   Tag="Title" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Artist" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Genres" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
-                                                  Click="SortFlyoutItem_Click"
                                                   Tag="Year" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
-                                                  Click="SortFlyoutItem_Click"
                                                   GroupName="Descending"
                                                   IsChecked="True"
                                                   Tag="Ascending" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
-                                                  Click="SortFlyoutItem_Click"
                                                   GroupName="Descending"
                                                   Tag="Descending" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
-            </AppBarButton-->
+            </AppBarButton>
         </CommandBar>
 
-        <GridView animations:Connected.ListItemElementName="GenreThumb"
+        <GridView Grid.Row="1"
+                  animations:Connected.ListItemElementName="GenreThumb"
                   animations:Connected.ListItemKey="GenreArt"
                   ItemsSource="{x:Bind Genres, Mode=OneWay}"
                   Margin="-56,0"
