@@ -10,28 +10,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <Style x:Key="BackgroundImage" TargetType="Image">
-                        <Setter Property="Source" Value="{x:Null}"/>
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <ScrollViewer Margin="-56,0"
                   Padding="56,0"
                   VerticalScrollBarVisibility="Auto">
@@ -45,7 +23,7 @@
                         <Image HorizontalAlignment="Center"
                                Opacity="0.8"
                                Stretch="UniformToFill"
-                               Style="{ThemeResource BackgroundImage}" />
+                               Style="{ThemeResource Win11Image}" />
                     </Border>
 
                     <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
@@ -53,10 +31,10 @@
                                VerticalAlignment="Stretch" />
 
                     <StackPanel HorizontalAlignment="Center"
-                            Margin="24"
-                            Orientation="Vertical"
-                            Spacing="24"
-                            VerticalAlignment="Center">
+                                Margin="24"
+                                Orientation="Vertical"
+                                Spacing="24"
+                                VerticalAlignment="Center">
                         <Image Height="60"
                                Source="ms-appx:///Assets/HelpCentre.png" />
 
@@ -68,18 +46,18 @@
             <TextBlock x:Uid="/HelpTips/FAQH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
 
             <uc:ExpanderControl x:Uid="/HelpTips/AddPersonalMusicAndVideos"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xEA69;">
+                                ExpanderStyle="Default"
+                                Icon="&#xEA69;">
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/HelpTips/SortingManagingLibrary"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xE174;">
+                                ExpanderStyle="Default"
+                                Icon="&#xE174;">
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/HelpTips/PlayingMediaNowPlaying"
-                                   ExpanderStyle="Default"
-                                   Icon="&#xE102;">
+                                ExpanderStyle="Default"
+                                Icon="&#xE102;">
             </uc:ExpanderControl>
 
             <StackPanel Orientation="Vertical" Margin="0,100,0,0">
