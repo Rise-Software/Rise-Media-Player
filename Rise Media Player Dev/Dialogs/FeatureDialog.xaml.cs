@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static Rise.App.Common.Enums;
 
@@ -11,6 +12,34 @@ namespace Rise.App.Dialogs
     {
         private readonly ObservableCollection<Feature> _features =
             new ObservableCollection<Feature>();
+
+        private int _index;
+        private int Index
+        {
+            get => _index;
+            set
+            {
+                _index = value;
+                if (_index == 0)
+                {
+                    Left.IsEnabled = false;
+                }
+                else
+                {
+                    Left.IsEnabled = true;
+                    if (_index == _features.Count - 1)
+                    {
+                        Right.IsEnabled = false;
+                    }
+                    else
+                    {
+                        Right.IsEnabled = true;
+                    }
+                }
+
+                RefreshData();
+            }
+        }
 
         public FeatureDialog()
         {
@@ -60,12 +89,27 @@ namespace Rise.App.Dialogs
 
         public async Task OpenFeatureAsync(int index)
         {
-            Title = _features[index].Name;
-            Description.Text = _features[index].Description;
-            Screenshot.UriSource = new Uri(_features[index].ImageUri);
-
+            Index = index;
             _ = await this.ShowAsync(ExistingDialogOptions.CloseExisting);
         }
+
+        private void RefreshData()
+        {
+            FeatureName.Text = _features[Index].Name;
+            Description.Text = _features[Index].Description;
+            Screenshot.UriSource = new Uri(_features[Index].ImageUri);
+
+            CurrentIndex.Text = (Index + 1).ToString();
+        }
+
+        private void Left_Click(object sender, RoutedEventArgs e)
+            => Index--;
+
+        private void Right_Click(object sender, RoutedEventArgs e)
+            => Index++;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+            => Hide();
     }
 
     public class Feature
