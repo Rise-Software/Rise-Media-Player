@@ -44,6 +44,18 @@ namespace Rise.App.ViewModels
             set => Set("Appearance", nameof(Theme), value);
         }
 
+        public int ColorTheme
+        {
+            get => (int)Get("ColorTheme", nameof(ColorTheme), 0);
+            set => Set("ColorTheme", nameof(ColorTheme), value);
+        }
+
+        public int Color
+        {
+            get => (int)Get("Color", nameof(Color), -1);
+            set => Set("Color", nameof(Color), value);
+        }
+
         public bool SquareAlbumArt
         {
             get => Get("Appearance", nameof(SquareAlbumArt), false);

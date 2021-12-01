@@ -132,6 +132,9 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>Customise your at a glance page</value>
   </data>
+  <data name="ChooseColor.Title" xml:space="preserve">
+    <value>Choose your colour theme</value>
+  </data>
   <data name="ChooseTheme.Title" xml:space="preserve">
     <value>Choose your colour</value>
   </data>

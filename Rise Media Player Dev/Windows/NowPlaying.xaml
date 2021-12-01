@@ -8,11 +8,43 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited">
+
+    <Page.Resources>
+        <Storyboard x:Name="PlayFrameHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="PlayFrame"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="PlayFrameHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="PlayFrame"></FadeOutThemeAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="BlurBrushBorderAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="BlurBrushBorderAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeOutThemeAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="PlayerElementHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="Player"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="PlayerElementHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="Player"></FadeOutThemeAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="QueueButtonHoverAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="QueueButton"></FadeInThemeAnimation>
+        </Storyboard>
+        <Storyboard x:Name="QueueButtonHoverAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="QueueButton"></FadeOutThemeAnimation>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid>
         <Grid.Background>
-            <ImageBrush Opacity="0.25" Stretch="UniformToFill">
+            <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill">
                 <ImageBrush.ImageSource>
                     <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
                 </ImageBrush.ImageSource>
@@ -20,9 +52,10 @@
         </Grid.Background>
 
         <Border HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                x:Name="BlurBrushBorder">
             <Border.Background>
-                <media:BackdropBlurBrush Amount="10.0" />
+                <media:BackdropBlurBrush x:Name="BlurBrush" />
             </Border.Background>
         </Border>
 
@@ -54,7 +87,7 @@
                                 AreTransportControlsEnabled="True"
                                 Height="Auto"
                                 VerticalAlignment="Bottom"
-                                Visibility="Visible">
+                                Visibility="Collapsed">
                 <MediaPlayerElement.TransportControls>
                     <MediaTransportControls x:Name="MediaControls"
                                             IsFastForwardButtonVisible="False"
