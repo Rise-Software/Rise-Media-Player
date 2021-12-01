@@ -46,14 +46,14 @@ namespace Rise.App.ViewModels
 
         public int ColorTheme
         {
-            get => (int)Get("ColorTheme", nameof(ColorTheme), 0);
-            set => Set("ColorTheme", nameof(ColorTheme), value);
+            get => Get("Appearance", nameof(ColorTheme), 0);
+            set => Set("Appearance", nameof(ColorTheme), value);
         }
 
         public int Color
         {
-            get => (int)Get("Color", nameof(Color), -1);
-            set => Set("Color", nameof(Color), value);
+            get => Get("Appearance", nameof(Color), -1);
+            set => Set("Appearance", nameof(Color), value);
         }
 
         public bool SquareAlbumArt
@@ -68,8 +68,7 @@ namespace Rise.App.ViewModels
             set => Set("Appearance", nameof(OpenTo), value);
         }
 
-        public string Open =>
-            OpenLocations[Get("Appearance", nameof(OpenTo), 0)];
+        public string Open => OpenLocations[OpenTo];
 
         public bool PickUp
         {

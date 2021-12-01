@@ -268,6 +268,12 @@ namespace Rise.App.ViewModels
             {
                 CurrentSong = PlayingSongs[(int)index];
             }
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
         }
 
         public void SetCurrentVideo(uint index)
