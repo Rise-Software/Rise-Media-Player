@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
@@ -135,15 +135,8 @@ namespace Rise.App.ViewModels
             StorageFile file = await ApplicationData.Current.LocalFolder.
                 CreateFileAsync(Filename, CreationCollisionOption.ReplaceExisting);
 
-            using (Stream stream = await file.OpenStreamForWriteAsync())
-            {
-                JsonSerializerOptions options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-
-                await JsonSerializer.SerializeAsync(stream, items, options);
-            }
+            string json = JsonConvert.SerializeObject(items);
+            await FileIO.WriteTextAsync(file, json);
         }
 
         /// <summary>
