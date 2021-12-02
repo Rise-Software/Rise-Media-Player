@@ -4,6 +4,7 @@
     "Tag": "HomePage",
     "Icon": "\uECA5",
     "HeaderGroup": "General",
+    "AccKey": "H",
     "Visible": true,
     "IsFooter": false
   },
@@ -12,6 +13,7 @@
     "Tag": "NowPlayingPage",
     "Icon": "\uEA37",
     "HeaderGroup": "General",
+    "AccKey": "Q",
     "Visible": true,
     "IsFooter": false
   },
@@ -20,6 +22,7 @@
     "Tag": "PlaylistsPage",
     "Icon": "\uE8FD",
     "HeaderGroup": "General",
+    "AccKey": "P",
     "Visible": true,
     "IsFooter": false
   },
@@ -35,6 +38,8 @@
     "Tag": "SongsPage",
     "Icon": "\uEC4F",
     "HeaderGroup": "Music",
+    "AccKey": "N",
+    "AccMod": 1,
     "Visible": true,
     "IsFooter": false
   },
@@ -43,6 +48,7 @@
     "Tag": "ArtistsPage",
     "Icon": "\uE125",
     "HeaderGroup": "Music",
+    "AccKey": "T",
     "Visible": true,
     "IsFooter": false
   },
@@ -51,6 +57,7 @@
     "Tag": "AlbumsPage",
     "Icon": "\uE93C",
     "HeaderGroup": "Music",
+    "AccKey": "A",
     "Visible": true,
     "IsFooter": false
   },
@@ -59,6 +66,7 @@
     "Tag": "GenresPage",
     "Icon": "\uE138",
     "HeaderGroup": "Music",
+    "AccKey": "G",
     "Visible": true,
     "IsFooter": false
   },
@@ -74,6 +82,7 @@
     "Tag": "LocalVideosPage",
     "Icon": "\uE8B2",
     "HeaderGroup": "Videos",
+    "AccKey": "V",
     "Visible": true,
     "IsFooter": false
   },
@@ -82,6 +91,7 @@
     "Tag": "VideoPlaybackPage",
     "Icon": "\uE1D9",
     "HeaderGroup": "Other",
+    "AccKey": "R",
     "Visible": true,
     "IsFooter": true
   },
@@ -95,6 +105,7 @@
     "Tag": "DiscyPage",
     "Icon": "\uE9CE",
     "HeaderGroup": "General",
+    "AccKey": "C",
     "Visible": true,
     "IsFooter": true
   },
@@ -103,6 +114,7 @@
     "Tag": "SettingsPage",
     "Icon": "\uE115",
     "HeaderGroup": "Other",
+    "AccKey": "S",
     "Visible": true,
     "IsFooter": true
   }

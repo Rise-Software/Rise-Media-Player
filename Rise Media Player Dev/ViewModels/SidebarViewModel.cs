@@ -104,7 +104,9 @@ namespace Rise.App.ViewModels
                     if (!tag.Equals("Header"))
                     {
                         string iconStr = groupObject["Icon"].GetString();
+                        string accKey = groupObject["AccKey"].GetString();
                         item.Icon = iconStr;
+                        item.AccKey = accKey;
                     }
                 }
 

@@ -211,6 +211,23 @@ namespace Rise.App.Views
             }
         }
 
+        private async void NavViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
+        {
+            var item = sender as NavigationViewItem;
+            string navTo = item.Tag.ToString();
+
+            if (navTo == ContentFrame.CurrentSourcePageType.ToString())
+            {
+                FinishNavigation();
+                return;
+            }
+
+            if (navTo != null)
+            {
+                await Navigate(navTo);
+            }
+        }
+
         private void NavView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
             => ContentFrame.GoBack();
 
@@ -324,6 +341,11 @@ namespace Rise.App.Views
                         Items.First(i => i.Tag == "GenresPage");
                     return;
 
+                case "DiscyPage":
+                    NavView.SelectedItem = SBViewModel.
+                        Items.First(i => i.Tag == tag);
+                    return;
+
                 default:
                     break;
             }
@@ -335,7 +357,7 @@ namespace Rise.App.Views
                     NavView.SelectedItem = item;
                     Breadcrumbs.Add(new Crumb
                     {
-                       Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
+                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
                     });
                     return;
                 }
@@ -346,13 +368,10 @@ namespace Rise.App.Views
                 if (item.Tag == tag)
                 {
                     NavView.SelectedItem = item;
-                    if (tag != "DiscyPage")
+                    Breadcrumbs.Add(new Crumb
                     {
-                        Breadcrumbs.Add(new Crumb
-                        {
-                            Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
-                        });
-                    }
+                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
+                    });
                     return;
                 }
             }
@@ -503,9 +522,6 @@ namespace Rise.App.Views
                 }
             }
         }
-
-        private async void KeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
     }
 
     [ContentProperty(Name = "GlyphTemplate")]

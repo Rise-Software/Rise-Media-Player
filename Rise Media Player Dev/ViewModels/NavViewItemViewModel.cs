@@ -49,6 +49,13 @@ namespace Rise.App.ViewModels
             set => Set(ref _isFooter, value);
         }
 
+        private string _accKey;
+        public string AccKey
+        {
+            get => _accKey;
+            set => Set(ref _accKey, value);
+        }
+
         public bool Equals(NavViewItemViewModel other)
             => other.Tag == Tag;
     }

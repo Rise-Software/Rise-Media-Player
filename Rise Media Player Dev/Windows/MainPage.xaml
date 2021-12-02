@@ -85,11 +85,14 @@
             <local:MenuItemTemplateSelector x:Key="NavViewItem">
                 <local:MenuItemTemplateSelector.GlyphTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        <muxc:NavigationViewItem x:Phase="1"
+                                                 AccessKey="{x:Bind AccKey}"
+                                                 AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
+                                                 Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
                                                  Tag="{x:Bind Tag}"
                                                  Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
                             <muxc:NavigationViewItem.Icon>
-                                <FontIcon Glyph="{x:Bind Icon, Mode=OneWay}" />
+                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon, Mode=OneWay}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
@@ -97,11 +100,14 @@
 
                 <local:MenuItemTemplateSelector.ImageTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        <muxc:NavigationViewItem x:Phase="1"
+                                                 AccessKey="{x:Bind AccKey}"
+                                                 AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
+                                                 Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
                                                  Tag="{x:Bind Tag}"
                                                  Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
                             <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon Source="{x:Bind Icon, Mode=OneWay}" />
+                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon, Mode=OneWay}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
@@ -109,7 +115,8 @@
 
                 <local:MenuItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItemHeader Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        <muxc:NavigationViewItemHeader x:Phase="1"
+                                                       Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
                                                        Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
                     </DataTemplate>
                 </local:MenuItemTemplateSelector.HeaderTemplate>
@@ -305,10 +312,6 @@
                     </MediaPlayerElement>
                 </Grid>
             </Grid>
-
-            <muxc:NavigationView.KeyboardAccelerators>
-                <KeyboardAccelerator x:Name="SetAcc" Key="I" Modifiers="Control" Invoked="KeyboardAccelerator_Invoked" />
-            </muxc:NavigationView.KeyboardAccelerators>
         </muxc:NavigationView>
 
         <muxc:TeachingTip x:Name="IndexingTip"
