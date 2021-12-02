@@ -70,14 +70,9 @@ namespace Rise.App.ViewModels
                     GetFileAsync(Filename);
             }
 
-            object jsonText;
-            using (Stream stream = await file.OpenStreamForWriteAsync())
-            {
-                jsonText = await JsonSerializer.DeserializeAsync<object>(stream);
-            }
-
+            string jsonText = await FileIO.ReadTextAsync(file);
             _ = JsonArray.
-                TryParse(jsonText.ToString(), out JsonArray jsonArray);
+                TryParse(jsonText, out JsonArray jsonArray);
 
             foreach (JsonValue groupValue in jsonArray)
             {
