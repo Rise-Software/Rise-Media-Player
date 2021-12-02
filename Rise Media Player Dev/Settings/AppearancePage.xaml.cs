@@ -21,9 +21,9 @@ namespace Rise.App.Settings
 
         private readonly List<string> ColorThemes = new List<string>
         {
-            "No tint",
+            "No glaze",
             "Use system accent colour",
-            "Use custom accent colour",
+            "Use custom colour",
             "Use album art"
         };
 

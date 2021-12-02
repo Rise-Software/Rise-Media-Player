@@ -342,8 +342,6 @@ namespace Rise.App.Views
                     return;
 
                 case "DiscyPage":
-                    NavView.SelectedItem = SBViewModel.
-                        Items.First(i => i.Tag == tag);
                     return;
 
                 default:
