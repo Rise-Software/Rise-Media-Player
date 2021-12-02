@@ -8,7 +8,7 @@
 </p>
 
 
-### **Download the installer from the download link below or clone the repository to build :) Pre-Alpha 3 coming soon.**
+### **Download the installer from the download link below or clone the repository to build :) Pre-Alpha 3 is out!**
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -65,7 +65,7 @@ We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
 ## Downloads, Contribute and the Insider Program
 
-MSIX packages are available now for the Pre-Alpha 2+ build. We aren't going to be available in the Microsoft Store for a while as we will be releasing many builds over the next few months. Trying to approve each build on a regular basis is just not feasible. 
+MSIX packages are available now for the Pre-Alpha 3 build. We aren't going to be available in the Microsoft Store for a while as we will be releasing many builds over the next few months. Trying to approve each build on a regular basis is just not feasible. 
 
 Currently, all users can try out the MSIX packages. When we move to the store, you must be signed up to the insider program to be able to install. You can do this from the button below.
 
