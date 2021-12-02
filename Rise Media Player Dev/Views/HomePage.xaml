@@ -86,6 +86,7 @@
                       ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                       SelectionMode="None">
                 <uc:ExpanderControl x:Uid="/Information/AddRemove"
+                                    Click="FoldersButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xE1DA;" />
                 <uc:ExpanderControl x:Uid="/Information/Contribute"

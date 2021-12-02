@@ -4,6 +4,7 @@ using Rise.App.UserControls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using static Rise.App.Common.Enums;
 
 namespace Rise.App.Views
 {
@@ -26,6 +27,9 @@ namespace Rise.App.Views
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.GitHub.LaunchAsync();
+
+        private async void FoldersButton_Click(object sender, RoutedEventArgs e)
+            => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 
         #region NavigationHelper registration
         /// <summary>
