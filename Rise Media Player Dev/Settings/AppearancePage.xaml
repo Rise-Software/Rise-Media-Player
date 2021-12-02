@@ -30,7 +30,7 @@
                             Icon="&#xE771;">
             <StackPanel Orientation="Vertical">
                 <RelativePanel>
-                    <TextBlock VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">Colour theme</TextBlock>
+                    <TextBlock VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">Window glaze</TextBlock>
                     <ComboBox ItemsSource="{x:Bind ColorThemes}"
                               PlaceholderText="Accent"
                               x:Name="ColorThemeComboBox"
