@@ -79,7 +79,7 @@ Currently, all users can try out the MSIX packages. When we move to the Store, y
 
 ### Notes
 *Any Windows device running Windows 10 1903 or newer. Windows Mobile is not supported.
-*The licence can also be reffered to as Terms and Conditions, or Terms of Service.
+*The licence can also be referred to as Terms and Conditions, or Terms of Service.
 
 ### MSIX install instructions 
 **If Windows prompts about Untrusted Application**
