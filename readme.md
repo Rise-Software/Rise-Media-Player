@@ -88,7 +88,7 @@ Currently, all users can try out the MSIX packages. When we move to the Store, y
 * Select Rise Software and click Details;
 * In next pop-up select View Certificate;
 * In next pop-up select Install Certificate;
-* In next step select Local machine (An UAC prompt may appear. Click Yes to continue);
+* In next step select Local machine (A UAC prompt may appear. Click Yes to continue);
 * Select Place all certificates in Following store and click browse select Trusted People and click OK and Next;
 * Click Finish;
 * Confirmation windows will appear. Now, try installing the .msixbundle!
