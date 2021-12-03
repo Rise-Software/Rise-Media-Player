@@ -16,11 +16,12 @@
 ## Appearance & design
 
 Created with **WinUI and the latest design ideologies**, **Rise Media Player** is modern while keeping all of the classic features people need. We use **WinUI 2.6/2.7** to keep our user interface, clean, modern and consistent while keeping the **Windows 11 experience**. Although, this app does work on Windows 10* too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, you can use it on any Windows device!* More details below.
+
 ![Pre-Alpha 1 Render](https://user-images.githubusercontent.com/74561130/137600141-38c3a80a-519a-4e4f-9cae-7486b224e685.png)
 
-**Note**: The actual product may not include all the functions featured in this mock-up. Some of them are being tested internally or planned to release later.
+**Disclaimer**: The actual product may not include all the functions featured in this mock-up. Some of them are being tested internally or planned to release later.
 
-## Features available in current commit
+## Features available in the latest release
 
 **All Users, GitHub or Insiders**
 * Song & album indexing (new system made for speed and stability)
@@ -46,11 +47,10 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 
 Check the [GitHub Issues Page](https://github.com/Rise-Software/Rise-Media-Player/issues) for information regarding this subject.
 
-## Licensing
+## Licencing
 
 This is free software with no warranty of any kind.
-
-We use the GPL License V3 - view our licence* below.
+We use the GPL License V3; view our licence* below!
 
 [![OurTerms](https://user-images.githubusercontent.com/74561130/137586737-d792a57b-b2b0-410b-bb2a-a06a4da2ab52.png)](https://github.com/Rise-Software/Rise-Media-Player/blob/main/LICENSE)
 
