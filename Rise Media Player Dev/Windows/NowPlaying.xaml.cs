@@ -20,7 +20,7 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            Player.SetMediaPlayer(ViewModel.Player);
+            //Player.SetMediaPlayer(ViewModel.Player);
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 

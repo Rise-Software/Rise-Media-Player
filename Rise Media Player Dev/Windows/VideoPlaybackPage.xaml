@@ -7,8 +7,13 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:conv="using:Rise.App.Converters"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <conv:VideoToString x:Key="VidToStr" />
+    </Page.Resources>
 
     <Grid>
         <Grid x:Name="TopGrid"
@@ -41,38 +46,15 @@
                              Height="32"
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
-                             ShowIcon="True"
-                             Title="{x:Bind CurrentVideo.Title, Mode=OneWay}" />
+                             ShowIcon="True" />
         </Grid>
 
+        <uc:NowPlayingBar BackgroundStyle="Acrylic"
+                          IsArtistShown="False"
+                          VerticalAlignment="Bottom"
+                          Margin="20"
+                          Canvas.ZIndex="1" />
         <MediaPlayerElement x:Name="PlayerElement"
-                            animations:Connected.Key="Player"
-                            Canvas.ZIndex="0"
-                            AreTransportControlsEnabled="True"
-                            Visibility="Visible">
-            <MediaPlayerElement.TransportControls>
-                <MediaTransportControls x:Name="MediaControls"
-                                        IsFastForwardButtonVisible="False"
-                                        IsFastForwardEnabled="False"
-                                        IsFastRewindButtonVisible="False"
-                                        IsFastRewindEnabled="False"
-                                        IsPlaybackRateButtonVisible="True"
-                                        IsPlaybackRateEnabled="True"
-                                        IsFullWindowButtonVisible="True"
-                                        IsFullWindowEnabled="True"
-                                        IsZoomButtonVisible="False"
-                                        IsRepeatButtonVisible="True"
-                                        IsRepeatEnabled="True"
-                                        IsSkipBackwardButtonVisible="True"
-                                        IsSkipForwardButtonVisible="True"
-                                        IsSkipBackwardEnabled="True"
-                                        IsSkipForwardEnabled="True"
-                                        IsCompact="False"
-                                        IsSeekBarVisible="True"
-                                        IsSeekEnabled="True"
-                                        IsNextTrackButtonVisible="False"
-                                        IsPreviousTrackButtonVisible="False" />
-            </MediaPlayerElement.TransportControls>
-        </MediaPlayerElement>
+                            Canvas.ZIndex="0" />
     </Grid>
 </Page>

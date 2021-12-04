@@ -35,6 +35,28 @@ namespace Rise.App.Converters
         }
     }
 
+    public class BooleanToArtistColumnVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            // Reversed result
+            if (parameter is string param)
+            {
+                if (param == "Reverse")
+                {
+                    return (value is bool val && val) ? new GridLength(0, GridUnitType.Star) : new GridLength(0.6, GridUnitType.Star);
+                }
+            }
+
+            return (value is bool boolean && boolean) ? new GridLength(0.6, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException("Not implemented.");
+        }
+    }
+
     public static class BindlessBooleanToVisibility
     {
         public static Visibility AsVisibility(this bool value)

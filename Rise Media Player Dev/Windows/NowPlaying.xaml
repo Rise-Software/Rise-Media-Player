@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
@@ -77,7 +78,13 @@
                 </Frame.ContentTransitions>
             </Frame>
 
-            <MediaPlayerElement x:Name="Player"
+            <uc:NowPlayingBar x:Name="Player"
+                              BackgroundStyle="Transparent"
+                              IsArtistShown="False" 
+                              Grid.Row="1"
+                              Margin="8" />
+
+            <!--<MediaPlayerElement x:Name="Player"
                                 Grid.Row="1"
                                 AreTransportControlsEnabled="True"
                                 Height="Auto"
@@ -104,7 +111,7 @@
                                             IsNextTrackButtonVisible="True"
                                             IsPreviousTrackButtonVisible="True" />
                 </MediaPlayerElement.TransportControls>
-            </MediaPlayerElement>
+            </MediaPlayerElement>-->
         </Grid>
     </Grid>
 </Page>

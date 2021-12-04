@@ -85,7 +85,7 @@ namespace Rise.App.Views
             App.MViewModel.CanIndex = true;
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
 
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+            //PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             await HandleViewModelColorSettingAsync();
 
@@ -94,7 +94,7 @@ namespace Rise.App.Views
             // When the page is loaded, initialize the titlebar and setup the player.
             Loaded += (s, e) =>
             {
-                PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+                //PlayerElement.SetMediaPlayer(App.PViewModel.Player);
                 _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             };
         }
