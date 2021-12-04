@@ -9,7 +9,22 @@ namespace Rise.App.Converters
         {
             if (param == null)
             {
-                return value.ToString("mm\\:ss");
+                if (value.TotalHours >= 1 && value.TotalHours <= 9)
+                {
+                    return value.ToString("h\\:mm\\:ss");
+                }
+                else if (value.TotalHours >= 10)
+                {
+                    return value.ToString("hh\\:mm\\:ss");
+                }
+                else if (value.TotalMinutes >= 10)
+                {
+                    return value.ToString("mm\\:ss");
+                }
+                else
+                {
+                    return value.ToString("m\\:ss");
+                }
             }
 
             string time = "";
@@ -75,7 +90,23 @@ namespace Rise.App.Converters
             TimeSpan span = (TimeSpan)value;
             if (parameter == null)
             {
-                return span.ToString("mm\\:ss");
+                if (span.TotalHours >= 1 && span.TotalHours <= 9)
+                {
+                    return span.ToString("h\\:mm\\:ss");
+                }
+                else if (span.TotalHours >= 10)
+                {
+                    return span.ToString("hh\\:mm\\:ss");
+                }
+                else if(span.TotalMinutes >= 10)
+                {
+                    return span.ToString("mm\\:ss");
+                }
+                else
+                {
+                    return span.ToString("m\\:ss");
+                }
+                
             }
 
             return Convert(span, parameter.ToString());
