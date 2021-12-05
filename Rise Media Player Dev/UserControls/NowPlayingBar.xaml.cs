@@ -38,6 +38,8 @@ namespace Rise.App.UserControls
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
+
+        private string PlayButtonText;
         #endregion
 
         #region Properties
@@ -90,7 +92,6 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_Loaded(object sender, RoutedEventArgs e)
         {
-            App.PViewModel.PropertyChanged += PViewModel_PropertyChanged;
             _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
             _player.PlaybackSession.PlaybackStateChanged += PlaybackSession_PlaybackStateChanged;
             _backgroundStylesPropertyToken = RegisterPropertyChangedCallback(BackgroundStylesProperty, (sender1, dependencyObject) =>
@@ -114,26 +115,6 @@ namespace Rise.App.UserControls
             });
         }
 
-        private async void PViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentSong")
-            {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                {
-                    if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
-                    {
-                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                        IRandomAccessStream stream = await random.OpenReadAsync();
-                        BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                        ColorThief colorThief = new ColorThief();
-                        var color = await colorThief.GetColor(decoder);
-                        Grid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B));
-                    }
-                });
-            }
-        }
-
         private async void PlaybackSession_PlaybackStateChanged(MediaPlaybackSession sender, object args)
         {
             if (sender.PlaybackState == MediaPlaybackState.Playing)
@@ -141,14 +122,19 @@ namespace Rise.App.UserControls
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uE62E";
+                    ToolTipService.SetToolTip(PlayButton, "Pause");
                 });
             }
-            else
+            else if (sender.PlaybackState == MediaPlaybackState.Paused)
             {
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uF5B0";
+                    ToolTipService.SetToolTip(PlayButton, "Play");
                 });
+            } else if (sender.PlaybackState == MediaPlaybackState.Buffering)
+            {
+                ToolTipService.SetToolTip(PlayButton, "Buffering...");
             }
         }
 
@@ -169,6 +155,20 @@ namespace Rise.App.UserControls
                 int minutes = (int)sender.Position.TotalMinutes;
                 MediaPlayingDurationLeft.Text = TimeSpanToString.Convert(TimeSpan.FromSeconds(seconds));
             });
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
+                {
+                    Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                    IRandomAccessStream stream = await random.OpenReadAsync();
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                    ColorThief colorThief = new ColorThief();
+                    var color = await colorThief.GetColor(decoder);
+                    Grid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B));
+                }
+            });
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
@@ -178,21 +178,20 @@ namespace Rise.App.UserControls
 
         private async void OverlayButton_Click(object sender, RoutedEventArgs e)
         {
+            FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
                 var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
-                bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                GoToOverlayIcon.Visibility = Visibility.Collapsed;
-                ExitOverlayIcon.Visibility = Visibility.Visible;
+                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
+                fontIcon.Glyph = "\uEE47";
             }
             else
             {
                 var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
-                bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
-                ExitOverlayIcon.Visibility = Visibility.Collapsed;
-                GoToOverlayIcon.Visibility = Visibility.Visible;
+                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
+                fontIcon.Glyph = "\uEE49";
             }
         }
 
@@ -261,6 +260,20 @@ namespace Rise.App.UserControls
             Transparent,
             Acrylic,
             UseAlbumArt
+        }
+
+        private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Border border = button.Parent as Border;
+            border.BorderBrush = PlayBorderBrush;
+        }
+
+        private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Border border = button.Parent as Border;
+            border.BorderBrush = new SolidColorBrush();
         }
     }
 }
