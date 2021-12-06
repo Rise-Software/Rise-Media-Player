@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -13,36 +14,25 @@
     PointerExited="Page_PointerExited">
 
     <Page.Resources>
-        <Storyboard x:Name="PlayFrameHoverAnimationIn">
-            <FadeInThemeAnimation Storyboard.TargetName="PlayFrame"></FadeInThemeAnimation>
-        </Storyboard>
-        <Storyboard x:Name="PlayFrameHoverAnimationOut">
-            <FadeOutThemeAnimation Storyboard.TargetName="PlayFrame"></FadeOutThemeAnimation>
-        </Storyboard>
-
-        <Storyboard x:Name="BlurBrushBorderAnimationIn">
-            <FadeInThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeInThemeAnimation>
-        </Storyboard>
-        <Storyboard x:Name="BlurBrushBorderAnimationOut">
-            <FadeOutThemeAnimation Storyboard.TargetProperty="(UIElement Background)" Storyboard.TargetName="BlurBrushBorder"></FadeOutThemeAnimation>
+        <Storyboard x:Name="PlayingAnimationIn">
+            <FadeInThemeAnimation Storyboard.TargetName="Thumb" />
+            <FadeInThemeAnimation Storyboard.TargetName="BlurBrushBorder" />
+            <FadeInThemeAnimation Storyboard.TargetName="PlayFrame" />
+            <FadeInThemeAnimation Storyboard.TargetName="Player" />
         </Storyboard>
 
-        <Storyboard x:Name="PlayerElementHoverAnimationIn">
-            <FadeInThemeAnimation Storyboard.TargetName="Player"></FadeInThemeAnimation>
-        </Storyboard>
-        <Storyboard x:Name="PlayerElementHoverAnimationOut">
-            <FadeOutThemeAnimation Storyboard.TargetName="Player"></FadeOutThemeAnimation>
+        <Storyboard x:Name="PlayingAnimationOut">
+            <FadeOutThemeAnimation Storyboard.TargetName="BlurBrushBorder" />
+            <FadeOutThemeAnimation Storyboard.TargetName="PlayFrame" />
+            <FadeOutThemeAnimation Storyboard.TargetName="Player" />
         </Storyboard>
     </Page.Resources>
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill">
-                <ImageBrush.ImageSource>
-                    <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
-                </ImageBrush.ImageSource>
-            </ImageBrush>
-        </Grid.Background>
+        <uc:ImageDataHost x:Name="Thumb"
+                          Data="{Binding CurrentSong.Thumbnail, Mode=OneWay}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch" />
 
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"

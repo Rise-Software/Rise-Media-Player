@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

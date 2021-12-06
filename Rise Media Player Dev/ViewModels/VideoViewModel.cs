@@ -1,6 +1,8 @@
-﻿using Rise.Models;
+﻿using Rise.App.Helpers;
+using Rise.Models;
 using System;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -85,19 +87,26 @@ namespace Rise.App.ViewModels
             }
         }
 
+        private SoftwareBitmap _thumbnail;
         /// <summary>
-        /// Gets or sets the video thumbnail.
+        /// The video thumbnail as a <see cref="SoftwareBitmap"/>.
         /// </summary>
-        public string Thumbnail
+        public SoftwareBitmap Thumbnail
         {
-            get => Model.Thumbnail;
-            set
+            get
             {
-                if (Model.Thumbnail != value)
+                if (_thumbnail == null)
                 {
-                    Model.Thumbnail = value;
-                    OnPropertyChanged(nameof(Thumbnail));
+                    bool res = App.MViewModel.VideoThumbnailDictionary.
+                        TryGetValue(Model.Id.ToString(), out var thumbnail);
+
+                    if (res)
+                    {
+                        _thumbnail = thumbnail;
+                    }
                 }
+
+                return _thumbnail;
             }
         }
 
@@ -187,7 +196,7 @@ namespace Rise.App.ViewModels
             if (Thumbnail != null)
             {
                 props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
+                    CreateFromStream(await Thumbnail.GetStreamAsync());
             }
 
             media.ApplyDisplayProperties(props);

@@ -1,4 +1,5 @@
 ﻿using Rise.App.Common;
+using Rise.App.Helpers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;

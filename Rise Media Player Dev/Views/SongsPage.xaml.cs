@@ -1,8 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;

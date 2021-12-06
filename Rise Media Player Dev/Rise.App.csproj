@@ -23,11 +23,12 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>7920495CF4FE5E2474764EA323E20667137325E1</PackageCertificateThumbprint>
-    <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 2\</AppxPackageDir>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
+    <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 3\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -136,14 +137,15 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\Constants.cs" />
-    <Compile Include="Common\ContentDialogHelpers.cs" />
+    <Compile Include="Helpers\ContentDialogHelpers.cs" />
     <Compile Include="Common\DependencyPropertyWatcher.cs" />
     <Compile Include="Common\EventsLogic.cs" />
-    <Compile Include="Common\FileHelpers.cs" />
+    <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Common\Interfaces.cs" />
-    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Helpers\ImageHelpers.cs" />
+    <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Common\VisualTreeHelpers.cs" />
+    <Compile Include="Helpers\VisualTreeHelpers.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Common\Enums.cs" />
@@ -151,7 +153,7 @@
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
-    <Compile Include="Common\WebHelpers.cs" />
+    <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
     <Compile Include="Dialogs\FeatureDialog.xaml.cs">
@@ -184,6 +186,9 @@
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImageDataHost.xaml.cs">
+      <DependentUpon>ImageDataHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
@@ -241,7 +246,7 @@
     <Compile Include="Views\QueuePage.xaml.cs">
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\WindowHelpers.cs" />
+    <Compile Include="Helpers\WindowHelpers.cs" />
     <Compile Include="UserControls\MicaTitleBar.xaml.cs">
       <DependentUpon>MicaTitleBar.xaml</DependentUpon>
     </Compile>
@@ -475,6 +480,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AdaptiveItemPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ImageDataHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
