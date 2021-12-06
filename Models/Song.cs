@@ -18,7 +18,6 @@ namespace Rise.Models
         public uint Year { get; set; }
         public string Location { get; set; }
         public uint Rating { get; set; }
-        public string Thumbnail { get; set; }
 
         /// <summary>
         /// Returns the song title.
@@ -34,7 +33,6 @@ namespace Rise.Models
                    Album == other.Album &&
                    AlbumArtist == other.AlbumArtist &&
                    Genres == other.Genres &&
-                   Length == other.Length &&
                    Year == other.Year;
         }
     }

@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -118,19 +119,17 @@
                                 Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                                 CornerRadius="4"
                                 ToolTipService.ToolTip="{x:Bind Converter={StaticResource VidToStr}}">
-                            <Image Height="108"
-                                   Stretch="UniformToFill"
-                                   Width="192">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
-                                </Image.Source>
-                            </Image>
+                            <uc:ImageDataHost x:Phase="2"
+                                              Data="{x:Bind Thumbnail}"
+                                              Height="108"
+                                              Width="192" />
                         </Border>
 
                         <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind Length, Converter={StaticResource TimeToStr}, ConverterParameter=D-S}"
+                        <TextBlock x:Phase="1"
+                                   Text="{x:Bind Length, Converter={StaticResource TimeToStr}, ConverterParameter=D-S}"
                                    FontSize="13"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>

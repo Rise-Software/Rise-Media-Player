@@ -204,17 +204,17 @@ namespace Rise.App.UserControls
                 AlbumArtContainer.Visibility = Visibility.Visible;
                 if (IsArtistShown)
                 {
-                    Grid.ColumnDefinitions[0].Width = new GridLength(0.6, GridUnitType.Star);
+                    Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 }
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.45, GridUnitType.Star);
+                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
             }
             else if (e.NewSize.Width >= 600)
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
-                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.6, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.45, GridUnitType.Star);
+                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
             }
             else if (e.NewSize.Width >= 400)
             {
@@ -222,7 +222,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.45, GridUnitType.Star);
+                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
             }
             else
             {

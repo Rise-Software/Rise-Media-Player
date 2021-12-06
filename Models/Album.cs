@@ -11,7 +11,6 @@ namespace Rise.Models
         public string Artist { get; set; }
         public string Genres { get; set; }
         public uint TrackCount { get; set; }
-        public string Thumbnail { get; set; }
         public uint Year { get; set; }
 
         /// <summary>

@@ -150,11 +150,6 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="600" />
                     </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="MediaControls.IsCompact" Value="False" />
-                        <Setter Target="PlayerElement.Height" Value="120" />
-                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

@@ -3,6 +3,7 @@ using Rise.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 
 namespace Rise.App.ViewModels
 {
@@ -109,20 +110,26 @@ namespace Rise.App.ViewModels
         public int TrackCount =>
             App.MViewModel.Songs.Count(s => s.Album == Model.Title);
 
+        private SoftwareBitmap _thumbnail;
         /// <summary>
-        /// Gets or sets the album thumbnail.
+        /// The video thumbnail as a <see cref="SoftwareBitmap"/>.
         /// </summary>
-        public string Thumbnail
+        public SoftwareBitmap Thumbnail
         {
-            get => Model.Thumbnail;
-            set
+            get
             {
-                if (value != Model.Thumbnail)
+                if (_thumbnail == null)
                 {
-                    Model.Thumbnail = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Thumbnail));
+                    bool res = App.MViewModel.AlbumThumbnailDictionary.
+                        TryGetValue(Title, out var thumbnail);
+
+                    if (res)
+                    {
+                        _thumbnail = thumbnail;
+                    }
                 }
+
+                return _thumbnail;
             }
         }
 

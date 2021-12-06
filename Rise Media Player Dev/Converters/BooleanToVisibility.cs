@@ -44,11 +44,11 @@ namespace Rise.App.Converters
             {
                 if (param == "Reverse")
                 {
-                    return (value is bool val && val) ? new GridLength(0, GridUnitType.Star) : new GridLength(0.6, GridUnitType.Star);
+                    return (value is bool val && val) ? new GridLength(0, GridUnitType.Star) : new GridLength(0.3, GridUnitType.Star);
                 }
             }
 
-            return (value is bool boolean && boolean) ? new GridLength(0.6, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
+            return (value is bool boolean && boolean) ? new GridLength(0.3, GridUnitType.Star) : new GridLength(0, GridUnitType.Star);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
