@@ -31,6 +31,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.ComponentModel;
 using Rise.App.Converters;
 using System.Diagnostics;
+using Rise.App.Helpers;
 
 namespace Rise.App.UserControls
 {
@@ -38,6 +39,8 @@ namespace Rise.App.UserControls
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
+
+        private ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
 
         private string PlayButtonText;
         #endregion
@@ -160,9 +163,7 @@ namespace Rise.App.UserControls
             {
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
-                    Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                    IRandomAccessStream stream = await random.OpenReadAsync();
+                    IRandomAccessStream stream = await App.PViewModel.CurrentSong.Thumbnail.GetStreamAsync();
                     BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
                     ColorThief colorThief = new ColorThief();
                     var color = await colorThief.GetColor(decoder);

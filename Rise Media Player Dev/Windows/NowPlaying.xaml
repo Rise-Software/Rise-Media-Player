@@ -7,7 +7,6 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:uc="using:Rise.App.UserControls"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
