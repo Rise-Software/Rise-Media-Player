@@ -1,7 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
-using Rise.App.Helpers;
 using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
@@ -11,10 +10,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
+using Windows.UI.Xaml;
 
 namespace Rise.App.ViewModels
 {
@@ -35,7 +34,7 @@ namespace Rise.App.ViewModels
 
         /// <summary>
         /// Whether or not is there a recrawl queued. If true,
-        /// <see cref="StartFullCrawlAsync"/> will call itself when necessary.
+        /// <see cref="IndexLibrariesAsync"/> will call itself when necessary.
         /// </summary>
         public bool QueuedReindex = false;
 
@@ -45,12 +44,6 @@ namespace Rise.App.ViewModels
         /// UI thread is possible.
         /// </summary>
         public bool CanIndex = false;
-
-        public Dictionary<string, SoftwareBitmap> AlbumThumbnailDictionary =
-            new Dictionary<string, SoftwareBitmap>();
-
-        public Dictionary<string, SoftwareBitmap> VideoThumbnailDictionary =
-            new Dictionary<string, SoftwareBitmap>();
 
         /// <summary>
         /// Creates a new MainViewModel.
@@ -64,10 +57,10 @@ namespace Rise.App.ViewModels
             FilteredVideos = new AdvancedCollectionView(Videos);
 
             QueryPresets.SongQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.MusicView, 1024, ThumbnailOptions.UseCurrentScale);
+                SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
 
             QueryPresets.VideoQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.VideosView, 256, ThumbnailOptions.UseCurrentScale);
+                SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
         }
 
         /// <summary>
@@ -203,12 +196,6 @@ namespace Rise.App.ViewModels
             await SongsTracker.HandleMusicFolderChanges();
             await IndexLibrariesAsync();
             await UpdateItemsAsync();
-
-            if (QueuedReindex)
-            {
-                QueuedReindex = false;
-                await StartFullCrawlAsync();
-            }
         }
 
         public async Task IndexLibrariesAsync()
@@ -242,6 +229,12 @@ namespace Rise.App.ViewModels
                 IndexerOption.UseIndexerWhenAvailable,
                 PropertyPrefetchOptions.VideoProperties);
 
+            if (QueuedReindex)
+            {
+                QueuedReindex = false;
+                await IndexLibrariesAsync();
+            }
+
             IsIndexing = false;
         }
 
@@ -253,58 +246,57 @@ namespace Rise.App.ViewModels
         {
             Song song = await file.AsSongModelAsync();
 
-            // Check if song exists
+            // Check if song exists.
             bool songExists = Songs.
                 Any(s => s.Model.Equals(song));
 
-            // Check if album exists
+            // Check if album exists.
             bool albumExists = Albums.
                 Any(a => a.Model.Title == song.Album);
 
-            // Check if artist exists
+            // Check if artist exists.
             bool artistExists = Artists.
                 Any(a => a.Model.Name == song.Artist);
 
-            // Check if genre exists
+            // Check if genre exists.
             bool genreExists = Genres.
                 Any(g => g.Model.Name == song.Genres);
 
-
-            if (!AlbumThumbnailDictionary.TryGetValue(song.Album, out _))
-            {
-                // Get song thumbnail to later make a SoftwareBitmap out of it
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView);
-
-                SoftwareBitmap bitmap;
-                if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
-                {
-                    bitmap = await thumbnail.AsSoftwareBitmapAsync();
-                }
-                else
-                {
-                    StorageFile thumb = await StorageFile.
-                        GetFileFromApplicationUriAsync(new Uri(Resources.MusicThumb));
-
-                    bitmap = await thumb.GetBitmapAsync();
-                }
-
-                _ = AlbumThumbnailDictionary.TryAdd(song.Album, bitmap);
-                thumbnail.Dispose();
-            }
-
-            // If album isn't there already, add it to the database
+            // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                // Set AlbumViewModel data
+                string thumb = Resources.MusicThumb;
+
+                // If the album is unknown, no need to get a thumbnail.
+                if (song.Album != "UnknownAlbumResource")
+                {
+                    // Get song thumbnail and make a PNG out of it.
+                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+
+                    string filename = song.Album.AsValidFileName();
+                    filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+
+                    if (filename != "/")
+                    {
+                        thumb = $@"ms-appdata:///local/{filename}.png";
+                    }
+
+                    thumbnail.Dispose();
+                }
+
+                // Set AlbumViewModel data.
                 AlbumViewModel alvm = new AlbumViewModel
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
                     Genres = song.Genres,
+                    Thumbnail = thumb,
                     Year = song.Year
                 };
 
-                // Add new data to the MViewModel
+                song.Thumbnail = thumb;
+
+                // Add new data to the MViewModel.
                 await alvm.SaveAsync();
             }
             else
@@ -323,6 +315,23 @@ namespace Rise.App.ViewModels
                         save = true;
                     }
 
+                    if (alvm.Thumbnail == Resources.MusicThumb)
+                    {
+                        // Get song thumbnail and make a PNG out of it.
+                        StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
+
+                        string filename = song.Album.AsValidFileName();
+                        filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+
+                        if (filename != "/")
+                        {
+                            alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
+                            save = true;
+                        }
+
+                        thumbnail.Dispose();
+                    }
+
                     if (alvm.Year == 0)
                     {
                         alvm.Year = song.Year;
@@ -334,6 +343,8 @@ namespace Rise.App.ViewModels
                         await alvm.SaveAsync();
                     }
                 }
+
+                song.Thumbnail = alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
@@ -394,29 +405,26 @@ namespace Rise.App.ViewModels
             bool videoExists = Videos.
                 Any(v => v.Model.Equals(video));
 
-            // Get video thumbnail
-            StorageItemThumbnail thumbnail = await file.
-                GetThumbnailAsync(ThumbnailMode.VideosView);
-
-            SoftwareBitmap bitmap;
-            if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
-            {
-                bitmap = await thumbnail.AsSoftwareBitmapAsync();
-            }
-            else
-            {
-                StorageFile thumb = await StorageFile.
-                    GetFileFromApplicationUriAsync(new Uri(Resources.MusicThumb));
-
-                bitmap = await thumb.GetBitmapAsync();
-            }
-
-            _ = VideoThumbnailDictionary.TryAdd(video.Id.ToString(), bitmap);
-            thumbnail.Dispose();
-
             if (!videoExists)
             {
                 VideoViewModel vid = new VideoViewModel(video);
+
+                // Get song thumbnail and make a PNG out of it.
+                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
+
+                string filename = vid.Title.AsValidFileName();
+                filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+
+                if (filename != "/")
+                {
+                    vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
+                }
+                else
+                {
+                    vid.Thumbnail = Resources.MusicThumb;
+                }
+
+                thumbnail.Dispose();
                 await vid.SaveAsync();
             }
         }

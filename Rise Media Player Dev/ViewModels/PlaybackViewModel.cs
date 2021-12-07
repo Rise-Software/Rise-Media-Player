@@ -1,5 +1,4 @@
 ﻿using Rise.App.Common;
-using Rise.App.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

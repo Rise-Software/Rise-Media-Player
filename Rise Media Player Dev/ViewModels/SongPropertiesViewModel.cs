@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 
@@ -73,7 +72,7 @@ namespace Rise.App.ViewModels
             set => Model.Rating = value * 20;
         }
 
-        public SoftwareBitmap Thumbnail => Model.Thumbnail;
+        public string Thumbnail => Model.Thumbnail;
 
         public string Location => Model.Location;
 
@@ -118,7 +117,7 @@ namespace Rise.App.ViewModels
                 musicProps.AlbumArtist = AlbumArtist;
                 musicProps.Year = Year;
                 musicProps.Rating = Rating * 20;
-
+                
                 /*var props = await songFile.Properties.RetrievePropertiesAsync(Properties.ViewModelProperties);
 
                 // Apply properties.

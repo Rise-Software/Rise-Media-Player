@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using static Rise.App.Common.Enums;
 
-namespace Rise.App.Helpers
+namespace Rise.App.Common
 {
     /// <summary>
     /// Some helpers to better manage ContentDialogs.
@@ -19,14 +19,12 @@ namespace Rise.App.Helpers
         /// <param name="dialog">Dialog to open.</param>
         /// <param name="option">What to do with the previously open dialog.</param>
         public static async Task<ContentDialogResult> ShowAsync(this ContentDialog dialog, ExistingDialogOptions option)
-        {
-            return await Show(dialog, option);
-        }
+            => await Show(dialog, option);
 
         // Huge thanks to Notepads:
         // https://github.com/JasonStein/Notepads/blob/f127d170c16cbf0831c2cddb480a3ea05e202930/src/Notepads/Utilities/DialogManager.cs
         // Relevant thread: https://github.com/microsoft/microsoft-ui-xaml/issues/1679
-        private static async Task<ContentDialogResult> Show(ContentDialog dialog, ExistingDialogOptions option)
+        private static async Task<ContentDialogResult> Show(this ContentDialog dialog, ExistingDialogOptions option)
         {
             TaskCompletionSource<bool> currentAwaiter = _dialogAwaiter;
             TaskCompletionSource<bool> nextAwaiter = new TaskCompletionSource<bool>();
