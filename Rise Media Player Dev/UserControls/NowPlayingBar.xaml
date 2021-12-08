@@ -30,10 +30,12 @@
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
         <Grid x:Name="Grid" Padding="10,0"
-              Background="{ThemeResource SystemControlAcrylicElementBrush}"
               BorderThickness="1"
               CornerRadius="8"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <Grid.Background>
+                <AcrylicBrush x:Name="BackgroundAcrylicBrush" TintOpacity="0.7" TintColor="{StaticResource SystemColorBackgroundColor}" />
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{x:Bind IsArtistShown, Converter={StaticResource BoolToVis}, Mode=OneWay}" x:Name="ArtistColumn" />
                 <ColumnDefinition Width="*" />

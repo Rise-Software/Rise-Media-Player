@@ -40,8 +40,6 @@ namespace Rise.App.UserControls
         private MediaPlayer _player = App.PViewModel.Player;
 
         private ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
-
-        private string PlayButtonText;
         #endregion
 
         #region Properties
@@ -109,7 +107,7 @@ namespace Rise.App.UserControls
                             break;
                         case NowPlayingBarBackgroundStyles.Acrylic:
                         case NowPlayingBarBackgroundStyles.UseAlbumArt:
-                            Grid.Background = (Brush)Resources["SystemControlAcrylicElementBrush"];
+                            Grid.Background = BackgroundAcrylicBrush;
                             Effects.SetShadow(Parent1, DropShadow);
                             break;
                     }
@@ -171,7 +169,7 @@ namespace Rise.App.UserControls
                             var decoder = await BitmapDecoder.CreateAsync(stream);
                             var colorThief = new ColorThief();
                             var color = await colorThief.GetColor(decoder);
-                            Grid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B));
+                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B);
                         }
                     }
                 }
