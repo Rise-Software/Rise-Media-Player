@@ -132,7 +132,8 @@ namespace Rise.App.UserControls
                     PlayButtonIcon.Glyph = "\uF5B0";
                     ToolTipService.SetToolTip(PlayButton, "Play");
                 });
-            } else if (sender.PlaybackState == MediaPlaybackState.Buffering)
+            }
+            else if (sender.PlaybackState == MediaPlaybackState.Buffering)
             {
                 ToolTipService.SetToolTip(PlayButton, "Buffering...");
             }
@@ -160,17 +161,14 @@ namespace Rise.App.UserControls
             {
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
-                    if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
+                    Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                    using (IRandomAccessStream stream = await random.OpenReadAsync())
                     {
-                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                        using (IRandomAccessStream stream = await random.OpenReadAsync())
-                        {
-                            var decoder = await BitmapDecoder.CreateAsync(stream);
-                            var colorThief = new ColorThief();
-                            var color = await colorThief.GetColor(decoder);
-                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B);
-                        }
+                        var decoder = await BitmapDecoder.CreateAsync(stream);
+                        var colorThief = new ColorThief();
+                        var color = await colorThief.GetColor(decoder);
+                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B);
                     }
                 }
             });

@@ -82,7 +82,8 @@ namespace Rise.App.UserControls
                     PlayButtonIcon.Glyph = "\uF5B0";
                     ToolTipService.SetToolTip(PlayButton, "Play");
                 });
-            } else if (sender.PlaybackState == MediaPlaybackState.Buffering)
+            }
+            else if (sender.PlaybackState == MediaPlaybackState.Buffering)
             {
                 ToolTipService.SetToolTip(PlayButton, "Buffering...");
             }

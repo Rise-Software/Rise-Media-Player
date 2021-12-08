@@ -98,7 +98,7 @@ namespace Rise.App.Converters
                 {
                     return span.ToString("hh\\:mm\\:ss");
                 }
-                else if(span.TotalMinutes >= 10)
+                else if (span.TotalMinutes >= 10)
                 {
                     return span.ToString("mm\\:ss");
                 }
@@ -106,7 +106,7 @@ namespace Rise.App.Converters
                 {
                     return span.ToString("m\\:ss");
                 }
-                
+
             }
 
             return Convert(span, parameter.ToString());
