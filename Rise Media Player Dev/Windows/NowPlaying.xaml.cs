@@ -32,9 +32,7 @@ namespace Rise.App.Views
         {
             if (IsInCurrentlyPlayingPage)
             {
-                PlayFrameHoverAnimationIn.Begin();
-                BlurBrushBorderAnimationIn.Begin();
-                PlayerElementHoverAnimationIn.Begin();
+                PlayingAnimationIn.Begin();
                 PlayFrame.Visibility = Visibility.Visible;
                 Player.Visibility = Visibility.Visible;
                 ImageBrushAlbumCover.Opacity = 0.25;
@@ -46,9 +44,7 @@ namespace Rise.App.Views
         {
             if (IsInCurrentlyPlayingPage)
             {
-                PlayFrameHoverAnimationOut.Begin();
-                BlurBrushBorderAnimationOut.Begin();
-                PlayerElementHoverAnimationOut.Begin();
+                PlayingAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Collapsed;
                 ImageBrushAlbumCover.Opacity = 1;

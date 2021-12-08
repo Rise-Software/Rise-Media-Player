@@ -31,7 +31,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.ComponentModel;
 using Rise.App.Converters;
 using System.Diagnostics;
-using Rise.App.Helpers;
 
 namespace Rise.App.UserControls
 {
@@ -163,11 +162,18 @@ namespace Rise.App.UserControls
             {
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
-                    IRandomAccessStream stream = await App.PViewModel.CurrentSong.Thumbnail.GetStreamAsync();
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    ColorThief colorThief = new ColorThief();
-                    var color = await colorThief.GetColor(decoder);
-                    Grid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B));
+                    if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
+                    {
+                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                        using (IRandomAccessStream stream = await random.OpenReadAsync())
+                        {
+                            var decoder = await BitmapDecoder.CreateAsync(stream);
+                            var colorThief = new ColorThief();
+                            var color = await colorThief.GetColor(decoder);
+                            Grid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B));
+                        }
+                    }
                 }
             });
         }
