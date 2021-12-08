@@ -6,9 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:Rise.App.Converters"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:converters="using:Rise.App.Converters" xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -199,10 +197,10 @@
                                     CornerRadius="4"
                                     Height="32"
                                     Width="32">
-                                <uc:ImageDataHost x:Phase="2"
-                                                  Data="{x:Bind Thumbnail}"
-                                                  Height="32"
-                                                  Width="32" />
+                                <Image x:Phase="2"
+                                       Height="32"
+                                       Source="{x:Bind Thumbnail}"
+                                       Width="32" />
                             </Border>
                         </Button>
 

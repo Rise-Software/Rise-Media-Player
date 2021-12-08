@@ -1,5 +1,4 @@
-﻿using Rise.App.Common;
-using Rise.App.Props;
+﻿using Rise.App.Props;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ using Windows.Storage.Streams;
 using Windows.System;
 using Buffer = Windows.Storage.Streams.Buffer;
 
-namespace Rise.App.Helpers
+namespace Rise.App.Common
 {
     public class FileHelpers
     {
@@ -29,7 +28,7 @@ namespace Rise.App.Helpers
         /// <param name="outputFile"><see cref="StorageFile"/> where the <see cref="SoftwareBitmap"/>
         /// should be stored.</param>
         /// <returns>Whether or not the operation was successful.</returns>
-        public static async Task<bool> SaveSoftwareBitmapToFileAsync(SoftwareBitmap softwareBitmap, StorageFile outputFile)
+        public static async Task<bool> SaveSoftwareBitmapToFile(SoftwareBitmap softwareBitmap, StorageFile outputFile)
         {
             using (IRandomAccessStream stream = await outputFile.OpenAsync(FileAccessMode.ReadWrite))
             {
@@ -76,12 +75,14 @@ namespace Rise.App.Helpers
         /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
         public static async Task<string> SaveBitmapFromThumbnailAsync(StorageItemThumbnail thumbnail, string filename)
         {
-            if (thumbnail != null)
+            if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                     CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 
-                IBuffer iBuf = await thumbnail.AsBufferAsync();
+                Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
+                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                    buffer.Capacity, InputStreamOptions.None);
 
                 using (IRandomAccessStream strm = await
                     destinationFile.OpenAsync(FileAccessMode.ReadWrite))
@@ -144,54 +145,6 @@ namespace Rise.App.Helpers
         public static bool IsValidUri(this string str,
             UriKind kind = UriKind.RelativeOrAbsolute)
             => Uri.TryCreate(str, kind, out _);
-
-        /// <summary>
-        /// Converts a <see cref="StorageItemThumbnail"/> to an <see cref="IBuffer"/>.
-        /// </summary>
-        /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
-        /// <returns>The IBuffer. If the item has no thumbnail, returns null.</returns>
-        public static async Task<IBuffer> AsBufferAsync(this StorageItemThumbnail thumbnail)
-        {
-            return await AsBuffer(thumbnail);
-        }
-
-        private static async Task<IBuffer> AsBuffer(StorageItemThumbnail thumbnail)
-        {
-            if (thumbnail != null)
-            {
-                Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
-                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
-                    buffer.Capacity, InputStreamOptions.None);
-
-                return iBuf;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Reads a file and creates a <see cref="SoftwareBitmap"/> out of it.
-        /// </summary>
-        /// <param name="file">File to read.</param>
-        public static async Task<SoftwareBitmap> GetBitmapAsync(this StorageFile file)
-        {
-            return await GetBitmap(file);
-        }
-
-        private static async Task<SoftwareBitmap> GetBitmap(StorageFile file)
-        {
-            SoftwareBitmap softwareBitmap;
-            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read))
-            {
-                // Create the decoder from the stream
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-
-                // Get the SoftwareBitmap representation of the file
-                softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            }
-
-            return softwareBitmap;
-        }
 
         /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 

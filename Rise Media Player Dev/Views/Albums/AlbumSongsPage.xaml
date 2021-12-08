@@ -9,7 +9,6 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
@@ -70,10 +69,11 @@
                                 Padding="0">
                             <Border animations:Connected.Key="AlbumArt"
                                     CornerRadius="8">
-                                <uc:ImageDataHost x:Phase="1"
-                                                  Data="{x:Bind Thumbnail}"
-                                                  Height="154"
-                                                  Width="154" />
+                                <Image x:Phase="1"
+                                       Height="154"
+                                       Source="{x:Bind Thumbnail}"
+                                       Stretch="Uniform"
+                                       Width="154" />
                             </Border>
                         </Button>
 

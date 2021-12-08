@@ -13,6 +13,7 @@ namespace Rise.Models
         public uint Rating { get; set; }
         public string Title { get; set; }
         public uint Year { get; set; }
+        public string Thumbnail { get; set; }
 
         /// <summary>
         /// Returns the video title.

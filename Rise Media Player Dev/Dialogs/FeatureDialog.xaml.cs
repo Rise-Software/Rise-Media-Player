@@ -1,4 +1,4 @@
-﻿using Rise.App.Helpers;
+﻿using Rise.App.Common;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

@@ -32,12 +32,12 @@ namespace Rise.App.Views
         {
             if (IsInCurrentlyPlayingPage)
             {
-                PlayingAnimationIn.Begin();
-
+                PlayFrameHoverAnimationIn.Begin();
+                BlurBrushBorderAnimationIn.Begin();
+                PlayerElementHoverAnimationIn.Begin();
                 PlayFrame.Visibility = Visibility.Visible;
                 Player.Visibility = Visibility.Visible;
-
-                Thumb.Opacity = 0.25;
+                ImageBrushAlbumCover.Opacity = 0.25;
                 BlurBrush.Amount = 10;
             }
         }
@@ -46,12 +46,12 @@ namespace Rise.App.Views
         {
             if (IsInCurrentlyPlayingPage)
             {
-                PlayingAnimationOut.Begin();
-
+                PlayFrameHoverAnimationOut.Begin();
+                BlurBrushBorderAnimationOut.Begin();
+                PlayerElementHoverAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Collapsed;
-
-                Thumb.Opacity = 1;
+                ImageBrushAlbumCover.Opacity = 1;
                 BlurBrush.Amount = 0;
             }
         }

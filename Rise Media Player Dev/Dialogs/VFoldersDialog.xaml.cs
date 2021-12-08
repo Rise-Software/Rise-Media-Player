@@ -1,4 +1,4 @@
-﻿using Rise.App.Helpers;
+﻿using Rise.App.Common;
 using Rise.App.Views;
 using System;
 using Windows.Storage;

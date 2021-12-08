@@ -1,6 +1,5 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using System;
@@ -409,11 +408,12 @@ namespace Rise.App.Views
                 case -3:
                     if (App.PViewModel.CurrentSong != null)
                     {
+                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
                         _Grid.Background = new SolidColorBrush(Colors.Transparent);
-                        if (App.PViewModel.CurrentSong.Thumbnail != null)
+                        if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
                         {
-                            using (IRandomAccessStream stream = await App.PViewModel.
-                                CurrentSong.Thumbnail.GetStreamAsync())
+                            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                            using (IRandomAccessStream stream = await random.OpenReadAsync())
                             {
                                 var decoder = await BitmapDecoder.CreateAsync(stream);
                                 var colorThief = new ColorThiefDotNet.ColorThief();

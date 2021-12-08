@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
@@ -46,9 +45,13 @@
                     </Grid.ColumnDefinitions>
 
                     <Border CornerRadius="5">
-                        <uc:ImageDataHost Data="{x:Bind Props.Thumbnail}"
-                                               Height="96"
-                                               Width="96" />
+                        <Image Height="96"
+                               Stretch="UniformToFill"
+                               Width="96">
+                            <Image.Source>
+                                <BitmapImage UriSource="{x:Bind Props.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
                     </Border>
 
                     <StackPanel Grid.Column="1"
