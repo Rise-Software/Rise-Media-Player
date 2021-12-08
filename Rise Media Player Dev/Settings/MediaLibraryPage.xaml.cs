@@ -1,11 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using Rise.App.Views;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
