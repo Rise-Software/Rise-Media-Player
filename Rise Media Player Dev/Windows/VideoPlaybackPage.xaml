@@ -49,11 +49,9 @@
                              ShowIcon="True" />
         </Grid>
 
-        <uc:NowPlayingBar BackgroundStyle="Acrylic"
-                          IsArtistShown="False"
-                          VerticalAlignment="Bottom"
-                          Margin="20"
-                          Canvas.ZIndex="1" />
+        <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
+                               Margin="20"
+                               Canvas.ZIndex="1" />
         <MediaPlayerElement x:Name="PlayerElement"
                             Canvas.ZIndex="0" />
     </Grid>

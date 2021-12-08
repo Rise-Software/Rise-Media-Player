@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Rise.App.UserControls.VideoNowPlayingBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="700"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Rise.App.Converters">
+
+    <UserControl.Resources>
+        <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
+        <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
+        <converters:BooleanToArtistColumnVisibility x:Key="BoolToVis" />
+        <LinearGradientBrush x:Name="PlayBorderBrush">
+            <GradientStop Color="#F98253" Offset="0.1"/>
+            <GradientStop Color="#F98253"/>
+            <GradientStop Color="#B61F9C" Offset="0.8"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
+        <Grid x:Name="Grid" Padding="5"
+              Background="{ThemeResource SystemControlAcrylicElementBrush}"
+              BorderThickness="1"
+              CornerRadius="8"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+
+            <RelativePanel VerticalAlignment="Center">
+                <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="ButtonsContainer" RelativePanel.AlignLeftWithPanel="True" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Height="45" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
+                    </Button>
+
+                </StackPanel>
+                <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
+                    <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
+                    
+                    <Slider RelativePanel.AlignVerticalCenterWithPanel="True"
+                            PointerCaptureLost="SliderProgress_PointerCaptureLost"
+                            x:Name="SliderProgress"
+                            Padding="15,0"
+                            RelativePanel.RightOf="MediaPlayingDurationLeft"
+                            RelativePanel.LeftOf="MediaPlayingDurationRight"
+                            IsThumbToolTipEnabled="False" />
+                    
+                    <TextBlock Text="0:00" x:Name="MediaPlayingDurationRight" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
+                </RelativePanel>
+                <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
+                    <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                        <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                            <FontIcon Glyph="&#xE767;" />
+                        </Button>
+
+                        <Button x:Name="OverlayButton"
+                            Click="OverlayButton_Click"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                            <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                        </Button>
+                        <Button BorderBrush="Transparent" Background="Transparent">
+                            <Viewbox Width="18" Height="18">
+                                <SymbolIcon Symbol="More" />
+                            </Viewbox>
+                        </Button>
+                    </controls:WrapPanel>
+                </StackPanel>
+
+            </RelativePanel>
+        </Grid>
+    </Border>
+</UserControl>
