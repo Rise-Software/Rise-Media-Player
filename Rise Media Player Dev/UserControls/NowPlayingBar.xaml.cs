@@ -257,6 +257,13 @@ namespace Rise.App.UserControls
                 }
                 else fontIcon.Glyph = "\uEE49";
             }
+
+            FontIcon fontIcon1 = OverlayButton.FindChildren().First() as FontIcon;
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                fontIcon1.Glyph = "\uEE47";
+            }
+            else fontIcon1.Glyph = "\uEE49";
         }
 
         private void VolumeSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
