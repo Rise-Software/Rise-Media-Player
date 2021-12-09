@@ -131,10 +131,15 @@
                 </RelativePanel>
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Padding="10,5,0,0">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Padding="10,0,0,0">
                 <controls:WrapPanel Margin="0,4,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Button Height="35" HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                    <Button Height="35"
+                            HorizontalAlignment="Right"
+                            x:Name="VolumeFlyoutButton"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Background="Transparent">
                         <Button.Flyout>
                             <Flyout>
                                 <RelativePanel Width="200">
@@ -154,17 +159,21 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderBrush="Transparent"
+                            BorderThickness="0"
                             Height="35">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
                     
-                    <Button BorderBrush="Transparent" Background="Transparent" Height="35">
+                    <Button BorderBrush="Transparent"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Height="35">
                         <Viewbox Width="18" Height="18">
                             <SymbolIcon Symbol="More" />
                         </Viewbox>
                     </Button>
                 </controls:WrapPanel>
-                <RelativePanel Margin="0,5,0,0" x:Name="DefaultVolumeControl">
+                <RelativePanel Margin="0,10,0,0" x:Name="DefaultVolumeControl">
                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
