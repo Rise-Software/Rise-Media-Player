@@ -141,7 +141,7 @@
                                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
                                         <SymbolIcon Symbol="Volume" />
                                     </Viewbox>
-                                    <Slider ValueChanged="VolumeSlider1_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
+                                    <Slider IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
                                     <TextBlock Text="{x:Bind VolumeSlider1.Value, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
                                 </RelativePanel>
                             </Flyout>
@@ -168,7 +168,7 @@
                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
-                    <Slider ValueChanged="VolumeSlider_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
+                    <Slider IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
                     <TextBlock Text="{x:Bind VolumeSlider.Value, Mode=OneWay}" x:Name="VolumeProgressText" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,-2,10,0" />
                 </RelativePanel>
             </StackPanel>

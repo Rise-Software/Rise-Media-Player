@@ -266,16 +266,6 @@ namespace Rise.App.UserControls
             else fontIcon1.Glyph = "\uEE49";
         }
 
-        private void VolumeSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            _player.Volume = VolumeSlider.Value;
-        }
-
-        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            _player.Volume = VolumeSlider.Value;
-        }
-
         private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             Button button = sender as Button;
