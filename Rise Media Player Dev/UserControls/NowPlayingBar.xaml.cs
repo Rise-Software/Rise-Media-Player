@@ -18,6 +18,7 @@ using ColorThiefDotNet;
 using Rise.App.Converters;
 using Rise.App.ViewModels;
 using Rise.App.Common;
+using Rise.App.Views;
 
 namespace Rise.App.UserControls
 {
@@ -185,6 +186,25 @@ namespace Rise.App.UserControls
             }
         }
 
+        private async void OverlayButton1_Click(object sender, RoutedEventArgs e)
+        {
+            FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
+            if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
+            {
+                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                preferences.CustomSize = new Size(400, 400);
+                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
+                fontIcon.Glyph = "\uEE49";
+            }
+            else
+            {
+                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                preferences.CustomSize = new Size(600, 700);
+                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
+                fontIcon.Glyph = "\uEE47";
+            }
+        }
+
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Width >= 900)
@@ -198,6 +218,7 @@ namespace Rise.App.UserControls
                 }
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                OverlayButton1.Visibility = Visibility.Collapsed;
             }
             else if (e.NewSize.Width >= 600)
             {
@@ -207,6 +228,7 @@ namespace Rise.App.UserControls
                 if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                OverlayButton1.Visibility = Visibility.Collapsed;
             }
             else if (e.NewSize.Width >= 400)
             {
@@ -216,6 +238,7 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                OverlayButton1.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -225,6 +248,14 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+
+                OverlayButton1.Visibility = Visibility.Visible;
+                FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
+                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                {
+                    fontIcon.Glyph = "\uEE47";
+                }
+                else fontIcon.Glyph = "\uEE49";
             }
         }
 
@@ -266,6 +297,10 @@ namespace Rise.App.UserControls
             {
                 App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
             }
+        }
+        private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album));
         }
 
         #endregion

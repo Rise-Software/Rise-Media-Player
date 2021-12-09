@@ -43,7 +43,7 @@
             </Grid.ColumnDefinitions>
 
             <RelativePanel>
-                <Border x:Name="AlbumArtContainer" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="2,0,0,0" Width="75" Height="75" CornerRadius="5">
+                <Border PointerReleased="AlbumArtContainer_PointerReleased" x:Name="AlbumArtContainer" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="2,0,0,0" Width="75" Height="75" CornerRadius="5">
                     <Image x:Name="AlbumArt">
                         <Image.Source>
                             <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
@@ -116,6 +116,13 @@
                         <FontIcon Glyph="&#xE623;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
+
+                    <Button x:Name="OverlayButton1"
+                            Click="OverlayButton1_Click"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                        <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                    </Button>
                 </StackPanel>
                 <RelativePanel MaxWidth="400">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
@@ -127,7 +134,7 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Padding="10,5,0,0">
                 <controls:WrapPanel Margin="0,4,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                    <Button Height="35" HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
                         <Button.Flyout>
                             <Flyout>
                                 <RelativePanel Width="200">
@@ -146,23 +153,23 @@
                             Click="OverlayButton_Click"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
-                            BorderBrush="Transparent">
+                            BorderBrush="Transparent"
+                            Height="35">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
                     
-                    <Button BorderBrush="Transparent" Background="Transparent">
+                    <Button BorderBrush="Transparent" Background="Transparent" Height="35">
                         <Viewbox Width="18" Height="18">
                             <SymbolIcon Symbol="More" />
                         </Viewbox>
                     </Button>
                 </controls:WrapPanel>
-                <RelativePanel Margin="0,8,0,0" x:Name="DefaultVolumeControl">
+                <RelativePanel Margin="0,5,0,0" x:Name="DefaultVolumeControl">
                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
                     <Slider ValueChanged="VolumeSlider_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
                     <TextBlock Text="{x:Bind VolumeSlider.Value, Mode=OneWay}" x:Name="VolumeProgressText" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,-2,10,0" />
-
                 </RelativePanel>
             </StackPanel>
         </Grid>
