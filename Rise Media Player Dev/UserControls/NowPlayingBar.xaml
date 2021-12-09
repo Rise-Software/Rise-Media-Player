@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="700"
+    d:DesignWidth="1000"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
@@ -37,7 +37,7 @@
                 <AcrylicBrush x:Name="BackgroundAcrylicBrush" TintOpacity="0.7" TintColor="{StaticResource SystemColorBackgroundColor}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{x:Bind IsArtistShown, Converter={StaticResource BoolToVis}, Mode=OneWay}" x:Name="ArtistColumn" />
+                <ColumnDefinition Width="{x:Bind IsArtistShown, Converter={StaticResource BoolToVis}, Mode=OneWay}" MaxWidth="205" x:Name="ArtistColumn" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
