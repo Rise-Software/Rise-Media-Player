@@ -58,10 +58,27 @@
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Padding="3,0,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button ToolTipService.ToolTip="Previous"
+
+                    <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Background="Transparent">
+                        <Button.Flyout>
+                            <Flyout>
+                                <RelativePanel Width="200">
+                                    <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl2">
+                                        <SymbolIcon Symbol="Volume" />
+                                    </Viewbox>
+                                    <Slider IsThumbToolTipEnabled="False" x:Name="VolumeSlider2" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText2" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl2" />
+                                    <TextBlock Text="{x:Bind VolumeSlider2.Value, Mode=OneWay}" x:Name="VolumeProgressText2" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                </RelativePanel>
+                            </Flyout>
+                        </Button.Flyout>
+                        <FontIcon Glyph="&#xE767;" />
+                    </Button>
+
+                    <Button ToolTipService.ToolTip="Back"
                             BorderBrush="Transparent"
                             Background="Transparent"
-                            x:Name="PreviousButton">
+                            x:Name="PreviousButton"
+                            Click="PreviousButton_Click">
                         <FontIcon Glyph="&#xE622;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
@@ -91,7 +108,11 @@
                         </Button>
                     </Border>
 
-                    <Button ToolTipService.ToolTip="Next" BorderBrush="Transparent" Background="Transparent" x:Name="NextButton">
+                    <Button Click="NextButton_Click"
+                            ToolTipService.ToolTip="Next"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            x:Name="NextButton">
                         <FontIcon Glyph="&#xE623;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
@@ -107,6 +128,17 @@
                 <controls:WrapPanel Margin="0,4,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
 
                     <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                        <Button.Flyout>
+                            <Flyout>
+                                <RelativePanel Width="200">
+                                    <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
+                                        <SymbolIcon Symbol="Volume" />
+                                    </Viewbox>
+                                    <Slider ValueChanged="VolumeSlider1_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
+                                    <TextBlock Text="{x:Bind VolumeSlider1.Value, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                </RelativePanel>
+                            </Flyout>
+                        </Button.Flyout>
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
@@ -117,6 +149,7 @@
                             BorderBrush="Transparent">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
+                    
                     <Button BorderBrush="Transparent" Background="Transparent">
                         <Viewbox Width="18" Height="18">
                             <SymbolIcon Symbol="More" />
@@ -127,7 +160,7 @@
                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
-                    <Slider ValueChanged="VolumeSlider_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="33" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
+                    <Slider ValueChanged="VolumeSlider_ValueChanged" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
                     <TextBlock Text="{x:Bind VolumeSlider.Value, Mode=OneWay}" x:Name="VolumeProgressText" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,-2,10,0" />
 
                 </RelativePanel>

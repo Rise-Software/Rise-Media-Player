@@ -16,6 +16,8 @@ using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using ColorThiefDotNet;
 using Rise.App.Converters;
+using Rise.App.ViewModels;
+using Rise.App.Common;
 
 namespace Rise.App.UserControls
 {
@@ -24,7 +26,7 @@ namespace Rise.App.UserControls
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
 
-        private ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
+        private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
         #endregion
 
         #region Properties
@@ -195,6 +197,7 @@ namespace Rise.App.UserControls
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 }
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
             }
             else if (e.NewSize.Width >= 600)
             {
@@ -203,6 +206,7 @@ namespace Rise.App.UserControls
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
             }
             else if (e.NewSize.Width >= 400)
             {
@@ -211,6 +215,7 @@ namespace Rise.App.UserControls
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -219,12 +224,48 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
+                VolumeFlyoutButton1.Visibility = Visibility.Visible;
             }
+        }
+
+        private void VolumeSlider1_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            _player.Volume = VolumeSlider.Value;
         }
 
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             _player.Volume = VolumeSlider.Value;
+        }
+
+        private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Border border = button.Parent as Border;
+            border.BorderBrush = PlayBorderBrush;
+        }
+
+        private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Border border = button.Parent as Border;
+            border.BorderBrush = new SolidColorBrush();
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
+            {
+                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
+            }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
+            {
+                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
+            }
         }
 
         #endregion
@@ -248,20 +289,6 @@ namespace Rise.App.UserControls
             Transparent,
             Acrylic,
             UseAlbumArt
-        }
-
-        private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            Border border = button.Parent as Border;
-            border.BorderBrush = PlayBorderBrush;
-        }
-
-        private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            Border border = button.Parent as Border;
-            border.BorderBrush = new SolidColorBrush();
         }
     }
 }

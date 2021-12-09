@@ -262,11 +262,11 @@ namespace Rise.App.ViewModels
             CanContinue = true;
         }
 
-        public void SetCurrentSong(uint index)
+        public void SetCurrentSong(int index)
         {
             if (index >= 0 && index < PlayingSongs.Count)
             {
-                CurrentSong = PlayingSongs[(int)index];
+                CurrentSong = PlayingSongs[index];
             }
 
             if (App.SViewModel.Color == -3)
@@ -276,7 +276,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public void SetCurrentVideo(uint index)
+        public void SetCurrentVideo(int index)
         {
             if (index >= 0 && index < PlayingVideos.Count)
             {
@@ -302,11 +302,11 @@ namespace Rise.App.ViewModels
             {
                 if (sender.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
                 {
-                    SetCurrentSong(sender.CurrentItemIndex);
+                    SetCurrentSong((int)sender.CurrentItemIndex);
                 }
                 else
                 {
-                    SetCurrentVideo(sender.CurrentItemIndex);
+                    SetCurrentVideo((int)sender.CurrentItemIndex);
                 }
             }
         }
