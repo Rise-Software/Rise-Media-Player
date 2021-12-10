@@ -148,6 +148,7 @@
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\ResourceToString.cs" />
+    <Compile Include="Converters\MathConverters.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />

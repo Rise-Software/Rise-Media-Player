@@ -110,6 +110,15 @@ namespace Rise.App.UserControls
                 fontIcon.Glyph = "\uEE49";
             }
         }
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                fontIcon.Glyph = "\uEE47";
+            }
+            else fontIcon.Glyph = "\uEE49";
+        }
 
         #endregion
 

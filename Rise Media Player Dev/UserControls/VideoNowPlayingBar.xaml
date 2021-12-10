@@ -6,14 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="50"
     d:DesignWidth="700"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Rise.App.Converters">
+    xmlns:converters="using:Rise.App.Converters"
+    SizeChanged="UserControl_SizeChanged">
 
     <UserControl.Resources>
         <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
@@ -24,6 +25,7 @@
             <GradientStop Color="#F98253"/>
             <GradientStop Color="#B61F9C" Offset="0.8"/>
         </LinearGradientBrush>
+        <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
     </UserControl.Resources>
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
@@ -58,7 +60,6 @@
                         </Button.Resources>
                         <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
                     </Button>
-
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
@@ -77,6 +78,25 @@
                     <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
                         <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <RelativePanel Width="200">
+                                        <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBox3">
+                                            <SymbolIcon Symbol="Volume" />
+                                        </Viewbox>
+                                        <Slider StepFrequency=".01"
+                                                Maximum="1"
+                                                IsThumbToolTipEnabled="False"
+                                                x:Name="VolumeSlider3"
+                                                Value="{x:Bind _player.Volume, Mode=TwoWay}"
+                                                RelativePanel.LeftOf="VolumeProgressText3"
+                                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                Margin="10,0"
+                                                RelativePanel.RightOf="VolumeIconViewBox3" />
+                                        <TextBlock Text="{x:Bind VolumeSlider3.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText3" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                    </RelativePanel>
+                                </Flyout>
+                            </Button.Flyout>
                             <FontIcon Glyph="&#xE767;" />
                         </Button>
 

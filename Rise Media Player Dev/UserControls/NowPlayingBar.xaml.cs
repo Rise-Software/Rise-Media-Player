@@ -28,6 +28,7 @@ namespace Rise.App.UserControls
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
+        private string _sliderStatus;
         #endregion
 
         #region Properties
@@ -348,6 +349,11 @@ namespace Rise.App.UserControls
             Transparent,
             Acrylic,
             UseAlbumArt
+        }
+
+        private void SliderProgress_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(SliderProgress.Value);
         }
     }
 }
