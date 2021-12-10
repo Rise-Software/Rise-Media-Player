@@ -8,13 +8,11 @@ namespace Rise.App.Views
 {
     public sealed partial class CrashDetailsPage : Page
     {
-        public static CrashDetailsPage Current;
         private string Text = "";
 
         public CrashDetailsPage()
         {
             InitializeComponent();
-            Current = this;
             Loaded += CrashDetailsPage_Loaded;
         }
 

@@ -19,6 +19,7 @@ using Rise.App.Converters;
 using Rise.App.ViewModels;
 using Rise.App.Common;
 using Rise.App.Views;
+using System.Diagnostics;
 
 namespace Rise.App.UserControls
 {
@@ -26,8 +27,7 @@ namespace Rise.App.UserControls
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
-
-        private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
+        private byte _tintOpacity = 100;
         #endregion
 
         #region Properties
@@ -64,6 +64,13 @@ namespace Rise.App.UserControls
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
             Unloaded += NowPlayingBar_Unloaded;
+            UISettings uiSettings = new UISettings();
+            uiSettings.ColorValuesChanged += UISettings_ColorValuesChanged;
+        }
+
+        private void UISettings_ColorValuesChanged(UISettings sender, object args)
+        {
+            HandleColorStyles();
         }
 
         #region Listeners
@@ -80,6 +87,7 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_Loaded(object sender, RoutedEventArgs e)
         {
+            HandleColorStyles();
             _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
             _player.PlaybackSession.PlaybackStateChanged += PlaybackSession_PlaybackStateChanged;
             _backgroundStylesPropertyToken = RegisterPropertyChangedCallback(BackgroundStylesProperty, (sender1, dependencyObject) =>
@@ -102,6 +110,12 @@ namespace Rise.App.UserControls
                 }
             });
         }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e) => 
+                        await EventsLogic.StartMusicPlaybackAsync(0, true);
+
+        private void RepeatButton_Click(object sender, RoutedEventArgs e) =>
+                        _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong));
 
         private async void PlaybackSession_PlaybackStateChanged(MediaPlaybackSession sender, object args)
         {
@@ -156,7 +170,8 @@ namespace Rise.App.UserControls
                         var decoder = await BitmapDecoder.CreateAsync(stream);
                         var colorThief = new ColorThief();
                         var color = await colorThief.GetColor(decoder);
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(30, color.Color.R, color.Color.G, color.Color.B);
+                        BackgroundAcrylicBrush.TintOpacity = 1;
+                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
                     }
                 }
             });
@@ -313,6 +328,18 @@ namespace Rise.App.UserControls
             {
                 _player.Pause();
                 PlayButtonIcon.Glyph = "\uF5B0";
+            }
+        }
+
+        private void HandleColorStyles()
+        {
+            if (Application.Current.RequestedTheme == ApplicationTheme.Light)
+            {
+                _tintOpacity = 100;
+            }
+            else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                _tintOpacity = 30;
             }
         }
 

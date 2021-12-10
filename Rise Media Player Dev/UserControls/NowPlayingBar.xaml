@@ -34,10 +34,13 @@
               CornerRadius="8"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <Grid.Background>
-                <AcrylicBrush x:Name="BackgroundAcrylicBrush" TintOpacity="0.7" TintColor="{StaticResource SystemColorBackgroundColor}" />
+                <AcrylicBrush BackgroundSource="Backdrop"
+                              x:Name="BackgroundAcrylicBrush"
+                              TintOpacity="0.1"
+                              TintColor="{StaticResource SystemColorBackgroundColor}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{x:Bind IsArtistShown, Converter={StaticResource BoolToVis}, Mode=OneWay}" MaxWidth="205" x:Name="ArtistColumn" />
+                <ColumnDefinition Width="{x:Bind IsArtistShown, Converter={StaticResource BoolToVis}, Mode=OneWay}" MaxWidth="230" x:Name="ArtistColumn" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
@@ -81,6 +84,13 @@
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
+                    <Button x:Name="ShuffleButton"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Click="ShuffleButton_Click">
+                        <FontIcon Glyph="&#xE8B1;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                    </Button>
+
                     <Button ToolTipService.ToolTip="Back"
                             BorderBrush="Transparent"
                             Background="Transparent"
@@ -122,6 +132,13 @@
                             x:Name="NextButton">
                         <FontIcon Glyph="&#xE623;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                    </Button>
+
+                    <Button x:Name="RepeatButton"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Click="RepeatButton_Click">
+                        <FontIcon Glyph="&#xE8EE;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
                     <Button x:Name="OverlayButton1"
@@ -184,7 +201,7 @@
                     <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
-                    <Slider IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
+                    <Slider Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
                     <TextBlock Text="{x:Bind VolumeSlider.Value, Mode=OneWay}" x:Name="VolumeProgressText" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,-2,10,0" />
                 </RelativePanel>
             </StackPanel>
