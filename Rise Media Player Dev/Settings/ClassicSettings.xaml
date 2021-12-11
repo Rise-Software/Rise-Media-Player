@@ -89,20 +89,6 @@
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem x:Name="FeedbackPageItem"
-                                         x:Uid="/Sidebar/Feedback"
-                                         Tag="FeedbackPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Feedback.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Name="LanguagePageItem"
-                                         x:Uid="/Sidebar/Language"
-                                         Tag="LanguagePage">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="ms-appx:///Assets/Settings/Language.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Name="AboutPageItem"
                                          x:Uid="/Sidebar/About"
                                          Tag="AboutPage">

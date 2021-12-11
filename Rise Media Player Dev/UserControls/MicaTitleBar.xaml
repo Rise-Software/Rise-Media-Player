@@ -33,7 +33,7 @@
                            VerticalAlignment="Center"
                            Width="Auto">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">RiseMP</Bold> Pre-Alpha 3
+                    <Bold FontWeight="SemiBold">Rise</Bold>MP PA4 InDev
                 </Paragraph>
             </RichTextBlock>
             <TextBlock x:Name="AppTitle"

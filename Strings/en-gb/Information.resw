@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accounts.Text" xml:space="preserve">
-    <value>Add an account</value>
-  </data>
   <data name="Add.Label" xml:space="preserve">
     <value>Add to</value>
   </data>
@@ -227,9 +224,6 @@
   </data>
   <data name="NoNew.Title" xml:space="preserve">
     <value>No new media found in your library</value>
-  </data>
-  <data name="Notif.Text" xml:space="preserve">
-    <value>Notifications</value>
   </data>
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
     <value>Play</value>

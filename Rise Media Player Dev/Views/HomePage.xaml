@@ -4,12 +4,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:AdaptiveItemPane>
+            <uc:AdaptiveItemPane Loaded="AdaptiveItemPane_Loaded_1">
                 <uc:AdaptiveItemPane.LeftPane>
                     <Image Height="33"
                            Source="ms-appx:///Assets/Branding/settingsbanner.png" />
@@ -19,11 +19,17 @@
                     <StackPanel Orientation="Horizontal"
                                 Spacing="8"
                                 VerticalAlignment="Center">
+                        <Button x:Name="Version"
+                            Click="CommandBarButton_Click"
+                            Style="{StaticResource TransparentButton}"
+                            Tag="Version">
+                            <FontIcon Glyph="&#xE946;" VerticalAlignment="Center" />
+                        </Button>
                         <TextBlock Text="v0.0.13"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="Pre-Alpha 3"
+                        <TextBlock Text="PA4 InDev"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
@@ -34,6 +40,7 @@
                     <TextBlock x:Uid="/Information/NewH"
                                Style="{StaticResource Subheader}" />
                 </uc:AdaptiveItemPane.LeftPane>
+                
 
                 <uc:AdaptiveItemPane.RightPane>
                     <TextBlock x:Uid="/Information/ClickFeatureH"
@@ -96,6 +103,13 @@
             </GridView>
 
             <Rectangle Height="120" />
+
+            <muxc:TeachingTip x:Name="vTip"
+                          x:Uid="/About/More"
+                          ActionButtonClick="VTip_ActionButtonClick"
+                          CloseButtonClick="VTip_CloseButtonClick"
+                          IsLightDismissEnabled="True"
+                          Target="{x:Bind Version}" />
         </StackPanel>
     </ScrollViewer>
 </Page>

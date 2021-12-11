@@ -117,80 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="AsFile.Title" xml:space="preserve">
+    <value>This song is stored as a file on your device.</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="Disc.Text" xml:space="preserve">
+    <value>Disc</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="EditAlbum.Text" xml:space="preserve">
+    <value>Edit album art</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="Genre.Text" xml:space="preserve">
+    <value>Genre</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="Local.Subtitle" xml:space="preserve">
+    <value>This song is local, meaning it is stored directly on to your device's storage, rather than the cloud or online. Changing properties here will change them for the file itself, meaning it will affect other media players.</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="Local.Title" xml:space="preserve">
+    <value>Local Music</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="Rating.Text" xml:space="preserve">
+    <value>Rating</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="SongAlbum.Text" xml:space="preserve">
+    <value>Album</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="SongAlbumArtist.Text" xml:space="preserve">
+    <value>Album artist</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="SongArtist.Text" xml:space="preserve">
+    <value>Artist(s)</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="SongTitle.Text" xml:space="preserve">
+    <value>Song title</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="Track.Text" xml:space="preserve">
+    <value>Track number</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
-  </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
-  </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
-  </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
-  </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
-  </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
-  </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
-  </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
-  </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
-  </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
-  </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="Year.Text" xml:space="preserve">
+    <value>Release year</value>
   </data>
 </root>

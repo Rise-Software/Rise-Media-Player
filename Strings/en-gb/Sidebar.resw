@@ -117,80 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="Abt" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="Account.Content" xml:space="preserve">
+    <value>Account</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="Albums" xml:space="preserve">
+    <value>Albums</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="Appearance.Text" xml:space="preserve">
+    <value>Personalise</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Personalise</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="Artists" xml:space="preserve">
+    <value>Artists</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="Discy" xml:space="preserve">
+    <value>Help Centre</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="Feedback.Content" xml:space="preserve">
+    <value>Feedback</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="Genres" xml:space="preserve">
+    <value>Genres</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="Home" xml:space="preserve">
+    <value>At a glance</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+  <data name="Ins" xml:space="preserve">
+    <value>Insider</value>
   </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>Insider Hub</value>
   </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+  <data name="Lang.Text" xml:space="preserve">
+    <value>Language</value>
   </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+  <data name="Langs" xml:space="preserve">
+    <value>Language</value>
   </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+  <data name="Language.Content" xml:space="preserve">
+    <value>Language</value>
   </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+  <data name="Lib" xml:space="preserve">
+    <value>Library</value>
   </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+  <data name="Library.Text" xml:space="preserve">
+    <value>Library</value>
   </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Library</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>All Videos</value>
   </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+  <data name="Music" xml:space="preserve">
+    <value>Music</value>
   </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  <data name="Navigation.Content" xml:space="preserve">
+    <value>Navigation</value>
   </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Queue</value>
+  </data>
+  <data name="Pers" xml:space="preserve">
+    <value>Personalise</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playback.Text" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streaming Services</value>
+  </data>
+  <data name="VideoPlayback" xml:space="preserve">
+    <value>Restore video</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Walls" xml:space="preserve">
+    <value>Wallpapers</value>
   </data>
 </root>

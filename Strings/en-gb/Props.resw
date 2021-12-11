@@ -117,80 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="Cancel.Content" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="DetailItem.Text" xml:space="preserve">
+    <value>Details</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Coming soon</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="Error.CloseButtonContent" xml:space="preserve">
+    <value>Got it</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="Error.Subtitle" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Something went wrong</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="FileItem.Text" xml:space="preserve">
+    <value>File</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="LyricsItem.Text" xml:space="preserve">
+    <value>Lyrics</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="ProfileItem.Text" xml:space="preserve">
+    <value>Profile</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="Save.Content" xml:space="preserve">
+    <value>Save changes</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
-  </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
-  </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
-  </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
-  </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
-  </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
-  </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
-  </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
-  </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
-  </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
-  </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
-  </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
-  </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="WindowTitle.Title" xml:space="preserve">
+    <value>Song Info</value>
   </data>
 </root>

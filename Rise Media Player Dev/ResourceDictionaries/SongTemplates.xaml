@@ -10,7 +10,7 @@
     <conv:TimeSpanToString x:Key="TimeToStr" />
 
     <DataTemplate x:Key="NowPlayingQueueItem" x:DataType="viewmodels:SongViewModel">
-        <Grid ColumnSpacing="12" Padding="12,4">
+        <Grid Padding="12,4" ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="Auto" />
@@ -18,15 +18,15 @@
 
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{x:Bind Title}" />
-                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                           Text="{x:Bind Artist}" />
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Artist}" />
             </StackPanel>
 
-            <TextBlock x:Phase="1"
-                       Grid.Column="1"
-                       Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                       Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                       VerticalAlignment="Center" />
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                x:Phase="1"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

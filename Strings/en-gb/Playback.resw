@@ -117,80 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="Crossfade.Description" xml:space="preserve">
+    <value>Blend the end &amp; beginning of your music tracks.</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="Crossfade.Title" xml:space="preserve">
+    <value>Crossfade</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="Duration0" xml:space="preserve">
+    <value>No crossfade</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="Duration10s" xml:space="preserve">
+    <value>10 seconds</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="Duration3s" xml:space="preserve">
+    <value>3 seconds</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="Duration5s" xml:space="preserve">
+    <value>5 seconds</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="EQ.Description" xml:space="preserve">
+    <value>Choose different sound profiles depending on your media type.</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="EQ.Title" xml:space="preserve">
+    <value>Equalizer</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="Flyouts.Title" xml:space="preserve">
+    <value>Replace system volume and playback flyouts</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="Gapless.Description" xml:space="preserve">
+    <value>We will instantly move to your next track without waiting.</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="Gapless.Title" xml:space="preserve">
+    <value>Gapless playback</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="GeneralH.Text" xml:space="preserve">
+    <value>General</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+  <data name="GoDevice.Title" xml:space="preserve">
+    <value>Go to now playing when you connect an audio device</value>
   </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+  <data name="MatchRes" xml:space="preserve">
+    <value>Always match resolution</value>
   </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+  <data name="MusicH.Text" xml:space="preserve">
+    <value>Music</value>
   </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+  <data name="NowPlaying.Description" xml:space="preserve">
+    <value>Choose what to show on your Now Playing UI.</value>
   </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+  <data name="NowPlaying.Title" xml:space="preserve">
+    <value>Customise Now Playing</value>
   </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+  <data name="NowPlayingH.Text" xml:space="preserve">
+    <value>Now Playing &amp; System Flyouts</value>
   </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+  <data name="Scaling.Description" xml:space="preserve">
+    <value>Adjust how your video scales depending on window size.</value>
   </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+  <data name="Scaling.Title" xml:space="preserve">
+    <value>Scaling</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+  <data name="StreamingQuality.Description" xml:space="preserve">
+    <value>Change video resolution and music bitrate.</value>
   </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+  <data name="StreamingQuality.Title" xml:space="preserve">
+    <value>Manage streaming quality</value>
   </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  <data name="VideoH.Text" xml:space="preserve">
+    <value>Video</value>
   </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="WindowSize" xml:space="preserve">
+    <value>Scale to window size</value>
   </data>
 </root>

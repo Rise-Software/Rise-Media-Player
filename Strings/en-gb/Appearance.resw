@@ -117,80 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="Albums" xml:space="preserve">
+    <value>Albums</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="AppearanceH.Text" xml:space="preserve">
+    <value>App appearance</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="Artists" xml:space="preserve">
+    <value>Artists</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="AtAGlance.Description" xml:space="preserve">
+    <value>Add widgets to make your experience more personal.</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="AtAGlance.Title" xml:space="preserve">
+    <value>Customise your at a glance page</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="ChooseColor.Title" xml:space="preserve">
+    <value>Choose your window glaze</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="ChooseTheme.Title" xml:space="preserve">
+    <value>Choose your colour</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="CompactMode.Description" xml:space="preserve">
+    <value>Decreases overall margins and padding to show more content. Makes sidebar groups collapsible.</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="CompactMode.Title" xml:space="preserve">
+    <value>Compact mode</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="CuratedPlaylists.Description" xml:space="preserve">
+    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="CuratedPlaylists.Title" xml:space="preserve">
+    <value>Make curated playlists</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+  <data name="DesignPresetsH.Text" xml:space="preserve">
+    <value>Design and layout presets</value>
   </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+  <data name="DesignUnavailable.Description" xml:space="preserve">
+    <value>Layout presets and custom themes are coming soon.</value>
   </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+  <data name="DesignUnavailable.Title" xml:space="preserve">
+    <value>This feature is unavailable</value>
   </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
   </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+  <data name="FullArt.Description" xml:space="preserve">
+    <value>Corners will no longer be rounded on these elements.</value>
   </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+  <data name="FullArt.Title" xml:space="preserve">
+    <value>Show full album art &amp; thumbnails</value>
   </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+  <data name="Genres" xml:space="preserve">
+    <value>Genres</value>
   </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+  <data name="History.Title" xml:space="preserve">
+    <value>Track media history and habits</value>
   </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+  <data name="Home" xml:space="preserve">
+    <value>At a glance</value>
   </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
   </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>All Videos</value>
+  </data>
+  <data name="NavigationH.Text" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Queue</value>
+  </data>
+  <data name="PickUp.Title" xml:space="preserve">
+    <value>Pick up where you left off</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="PrivacyH.Text" xml:space="preserve">
+    <value>Privacy &amp; recommendations</value>
+  </data>
+  <data name="Sidebar" xml:space="preserve">
+    <value>Sidebar</value>
+  </data>
+  <data name="SidebarItems.Description" xml:space="preserve">
+    <value>Add/remove sidebar items, change icon style and general behaviours.</value>
+  </data>
+  <data name="SidebarItems.Title" xml:space="preserve">
+    <value>Customise your sidebar</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="Startup.Description" xml:space="preserve">
+    <value>Select what page to go to when you start the app.</value>
+  </data>
+  <data name="Startup.Title" xml:space="preserve">
+    <value>On startup</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streaming Services</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Use system setting</value>
+  </data>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>*Compact mode changes won't take effect until after setup has completed.</value>
   </data>
 </root>

@@ -158,8 +158,6 @@ namespace Rise.App.Settings
                 MediaLibraryPageItem.Icon = libraryIconColor;
                 PlaybackPageItem.Icon = playbackIconColor;
                 AppearancePageItem.Icon = appearanceIconColor;
-                FeedbackPageItem.Icon = feedbackIconColor;
-                LanguagePageItem.Icon = languageIconColor;
                 AboutPageItem.Icon = aboutIconColor;
                 return;
             }
@@ -167,8 +165,6 @@ namespace Rise.App.Settings
             MediaLibraryPageItem.Icon = libraryIconMono;
             PlaybackPageItem.Icon = playbackIconMono;
             AppearancePageItem.Icon = appearanceIconMono;
-            FeedbackPageItem.Icon = feedbackIconMono;
-            LanguagePageItem.Icon = languageIconMono;
             AboutPageItem.Icon = aboutIconMono;
         }
         #endregion

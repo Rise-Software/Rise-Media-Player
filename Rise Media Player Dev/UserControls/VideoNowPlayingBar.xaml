@@ -60,6 +60,53 @@
                         </Button.Resources>
                         <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
                     </Button>
+
+                    <Button Margin="5,0,0,0" Height="45" BorderBrush="Transparent" Background="Transparent" x:Name="Back10">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <FontIcon Glyph="&#xED3C;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="Back10Icon" />
+                    </Button>
+                    <Button Margin="0,0,5,0" Height="45" BorderBrush="Transparent" Background="Transparent" x:Name="Forward30">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="#F98253" Offset="0.1"/>
+                                            <GradientStop Color="#F98253"/>
+                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <FontIcon Glyph="&#xED3D;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="Forward30Icon" />
+                    </Button>
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
@@ -77,7 +124,7 @@
                 <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
                     <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                        <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                        <Button Height="45" HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
                             <Button.Flyout>
                                 <Flyout>
                                     <RelativePanel Width="200">
@@ -107,7 +154,7 @@
                             BorderBrush="Transparent">
                             <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                         </Button>
-                        <Button BorderBrush="Transparent" Background="Transparent">
+                        <Button Height="45" BorderBrush="Transparent" Background="Transparent">
                             <Viewbox Width="18" Height="18">
                                 <SymbolIcon Symbol="More" />
                             </Viewbox>

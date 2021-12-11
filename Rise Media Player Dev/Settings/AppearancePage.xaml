@@ -28,16 +28,14 @@
         <uc:ExpanderControl x:Uid="/Appearance/ChooseColor"
                             ExpanderStyle="Default"
                             Icon="&#xE771;">
+            
             <StackPanel Orientation="Vertical">
-                <RelativePanel>
-                    <TextBlock VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">Window glaze</TextBlock>
-                    <ComboBox ItemsSource="{x:Bind ColorThemes}"
+                <ComboBox ItemsSource="{x:Bind ColorThemes}"
                               PlaceholderText="Accent"
                               x:Name="ColorThemeComboBox"
                               SelectionChanged="ColorThemeComboBox_SelectionChanged"
                               RelativePanel.AlignRightWithPanel="True"
                               SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
-                </RelativePanel>
 
                 <StackPanel Padding="0,10,0,0" Orientation="Horizontal" x:Name="RiseColorsStackPanel">
                     <muxc:RadioButtons x:Name="RiseRadioButtons" MaxColumns="5" SelectedIndex="{x:Bind ViewModel.Color, Mode=TwoWay}">

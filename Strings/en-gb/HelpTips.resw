@@ -117,80 +117,119 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+    <value>Adding your personal music and videos</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="Alpha.Text" xml:space="preserve">
+    <value>• These versions will be pushed from the Microsoft Store
+• Playlists
+• Devices support
+• Disc Burning
+• Multi-language support for 12 languages at start (not complete)
+• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
+• Views and sorting for music added
+• Video indexing and playback
+• Improved Now Playing experience and queue
+• Overhauled Settings UI brought to all builds
+• Local recommendations and recently played
+• Discy in the majority of the app</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="AlphaH.Text" xml:space="preserve">
+    <value>Late Pre-Alpha - Alpha</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
-  </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
-  </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
-  </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
-  </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
-  </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
-  </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
+  <data name="Benefits.Text" xml:space="preserve">
+    <value>First, the app early.
 
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+
+Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+
+*Features tagged as Experimental in the Settings interface</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="BenefitsH.Text" xml:space="preserve">
+    <value>What benefits do I get from joining the Insider Program?</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="Beta.Text" xml:space="preserve">
+    <value>• Streaming services and reccommendations in some form
+• Equaliser
+• Visualiser
+• Find album info
+• Disc ripping
+• Networks support
+• More stuff</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+  <data name="BetaH.Text" xml:space="preserve">
+    <value>Beta</value>
   </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+  <data name="FAQH.Text" xml:space="preserve">
+    <value>The basics</value>
   </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+  <data name="Features.Title" xml:space="preserve">
+    <value>What features are you prioritising?</value>
   </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+  <data name="HowTrans.Text" xml:space="preserve">
+    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
   </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+  <data name="HowTransH.Text" xml:space="preserve">
+    <value>How can I become a contributor or a translator?</value>
   </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
   </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+  <data name="InsiderH.Text" xml:space="preserve">
+    <value>Hey, I'm an Insider. How do I get builds?</value>
   </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+  <data name="InsiderProgram.Title" xml:space="preserve">
+    <value>Insider Program, Translations &amp; Contribution</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+  <data name="Join.Text" xml:space="preserve">
+    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+
+Good luck testing!</value>
   </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+  <data name="JoinH.Text" xml:space="preserve">
+    <value>How do I join the Insider Program?</value>
   </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+    <value>Playing media and now playing</value>
   </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="PreAlpha.Text" xml:space="preserve">
+    <value>• Song, Album, Artist and Genre Indexing
+• Album, Artist, Genre and Songs Views (static for now)
+• Media Playback
+• Command Bar (BASIC)
+• User Controlled Media Locations
+• UI Manipulation through Settings
+• Basic Metadata control for Music
+• Basic Now Playing UI
+• Basic Properties Window
+• FAQ Help Section
+• Discy in small areas</value>
+  </data>
+  <data name="PreAlphaH.Text" xml:space="preserve">
+    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+  </data>
+  <data name="ReleaseDate.Title" xml:space="preserve">
+    <value>When will Rise Media Player be released?</value>
+  </data>
+  <data name="ReleaseInfo.Text" xml:space="preserve">
+    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+
+In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+
+• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+
+• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+
+• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+  </data>
+  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+    <value>Sorting and managing your library</value>
+  </data>
+  <data name="WhatDiscy.Description" xml:space="preserve">
+    <value>You'll have to see ;)</value>
+  </data>
+  <data name="WhatDiscy.Title" xml:space="preserve">
+    <value>What's Discy?</value>
   </data>
 </root>

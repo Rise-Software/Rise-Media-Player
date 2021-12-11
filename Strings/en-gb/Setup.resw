@@ -117,80 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
   </data>
-  <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+  <data name="AppearanceH" xml:space="preserve">
+    <value>Make it yours</value>
   </data>
-  <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+  <data name="ConnectH" xml:space="preserve">
+    <value>Connect an internet account</value>
   </data>
-  <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
-  <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+  <data name="Decide" xml:space="preserve">
+    <value>Decide for me</value>
   </data>
-  <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
   </data>
-  <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+  <data name="DoneH" xml:space="preserve">
+    <value>You're done!</value>
   </data>
-  <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+  <data name="Intro.Text" xml:space="preserve">
+    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
   </data>
-  <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+  <data name="LicenseH" xml:space="preserve">
+    <value>License Agreement &amp; Terms</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
-Edition: Bloom
-
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+  <data name="LocalH" xml:space="preserve">
+    <value>Your own media</value>
   </data>
-  <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+  <data name="NotNow" xml:space="preserve">
+    <value>Not now (Exit app)</value>
   </data>
-  <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Use local media files only</value>
   </data>
-  <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Use streaming services only</value>
   </data>
-  <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+  <data name="PreSetup" xml:space="preserve">
+    <value>Pre-setup</value>
   </data>
-  <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+  <data name="PrivacyH" xml:space="preserve">
+    <value>Privacy &amp; recommendations</value>
   </data>
-  <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+  <data name="Start.Content" xml:space="preserve">
+    <value>Start setup</value>
   </data>
-  <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+  <data name="Step1" xml:space="preserve">
+    <value>Step 1 of 5</value>
   </data>
-  <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+  <data name="Step2" xml:space="preserve">
+    <value>Step 2 of 5</value>
   </data>
-  <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+  <data name="Step3" xml:space="preserve">
+    <value>Step 3 of 5</value>
   </data>
-  <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+  <data name="Step4" xml:space="preserve">
+    <value>Step 4 of 5</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+  <data name="Step5" xml:space="preserve">
+    <value>Step 5 of 5</value>
   </data>
-  <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
-  </data>
-  <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
-  </data>
-  <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+  <data name="Welcome.Text" xml:space="preserve">
+    <value>Welcome to</value>
   </data>
 </root>
