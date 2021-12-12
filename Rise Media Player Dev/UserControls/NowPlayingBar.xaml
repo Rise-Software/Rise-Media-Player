@@ -98,7 +98,9 @@
                             Background="Transparent"
                             x:Name="PreviousButton"
                             Click="PreviousButton_Click">
-                        <FontIcon Glyph="&#xE622;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                        <FontIcon Glyph="&#xE622;"
+                                  FontSize="15"
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
                     <Border Margin="5,0" CornerRadius="50" Height="50" Width="50" BorderThickness="4">
@@ -123,7 +125,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
+                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="18" x:Name="PlayButtonIcon" />
                         </Button>
                     </Border>
 
@@ -133,7 +135,8 @@
                             Background="Transparent"
                             x:Name="NextButton">
                         <FontIcon Glyph="&#xE623;"
-                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
+                                  FontSize="15"/>
                     </Button>
 
                     <ToggleButton x:Name="RepeatButton"
