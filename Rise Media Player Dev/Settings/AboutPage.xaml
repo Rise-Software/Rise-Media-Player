@@ -96,7 +96,7 @@
         <uc:ExpanderControl x:Uid="/About/TermsAndConditions"
                                Click="ExpanderControl_Click"
                                ExpanderStyle="Button"
-                               Icon="&#xF28B;">
+                               Icon="&#xEA18;">
             <FontIcon Glyph="&#xE2B4;"
                       FontSize="16"
                       VerticalAlignment="Center" />
