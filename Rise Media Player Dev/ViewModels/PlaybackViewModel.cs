@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,6 +69,8 @@ namespace Rise.App.ViewModels
 
         public bool CanContinue { get; set; }
             = true;
+
+        public event EventHandler CurrentMediaChanged, CurrentSongChanged, CurrentVideoChanged;
         #endregion
 
         private void ClearLists()
@@ -274,14 +277,18 @@ namespace Rise.App.ViewModels
                 App.SViewModel.Color = -1;
                 App.SViewModel.Color = -3;
             }
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentSongChanged?.Invoke(this, new EventArgs());
         }
 
         public void SetCurrentVideo(int index)
         {
             if (index >= 0 && index < PlayingVideos.Count)
             {
-                CurrentVideo = PlayingVideos[(int)index];
+                CurrentVideo = PlayingVideos[index];
             }
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentVideoChanged?.Invoke(this, new EventArgs());
         }
 
         public void CancelTask()

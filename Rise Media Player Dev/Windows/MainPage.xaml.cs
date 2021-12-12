@@ -286,13 +286,6 @@ namespace Rise.App.Views
                     _ = ContentFrame.Navigate(typeof(LocalVideosPage));
                     break;
 
-                case "VideoPlaybackPage":
-                    if (Window.Current.Content is Frame rootFrame)
-                    {
-                        _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
-                    }
-                    break;
-
                 case "DiscyPage":
                     _ = ContentFrame.Navigate(typeof(DiscyPage));
                     break;

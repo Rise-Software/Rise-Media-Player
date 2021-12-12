@@ -87,15 +87,6 @@
     "IsFooter": false
   },
   {
-    "LabelResource": "VideoPlayback",
-    "Tag": "VideoPlaybackPage",
-    "Icon": "\uE1D9",
-    "HeaderGroup": "Other",
-    "AccKey": "R",
-    "Visible": true,
-    "IsFooter": true
-  },
-  {
     "Tag": "Separator",
     "Visible": true,
     "IsFooter": true

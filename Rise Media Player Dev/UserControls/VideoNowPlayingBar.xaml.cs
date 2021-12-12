@@ -120,6 +120,16 @@ namespace Rise.App.UserControls
             else fontIcon.Glyph = "\uEE49";
         }
 
+        private void Back10_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
+        }
+
+        private void Forward30_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
+        }
+
         #endregion
 
         public void TogglePlayPause()

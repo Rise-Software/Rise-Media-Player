@@ -85,12 +85,13 @@
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
-                    <Button x:Name="ShuffleButton"
+                    <ToggleButton x:Name="ShuffleButton"
                             Background="Transparent"
                             BorderBrush="Transparent"
-                            Click="ShuffleButton_Click">
+                            Click="ShuffleButton_Click"
+                            ToolTipService.ToolTip="Shuffle list">
                         <FontIcon Glyph="&#xE8B1;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                    </Button>
+                    </ToggleButton>
 
                     <Button ToolTipService.ToolTip="Back"
                             BorderBrush="Transparent"
@@ -135,12 +136,13 @@
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
-                    <Button x:Name="RepeatButton"
+                    <ToggleButton x:Name="RepeatButton"
                             Background="Transparent"
                             BorderBrush="Transparent"
-                            Click="RepeatButton_Click">
+                            Click="RepeatButton_Click"
+                            ToolTipService.ToolTip="Toggle repeat">
                         <FontIcon Glyph="&#xE8EE;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                    </Button>
+                    </ToggleButton>
 
                     <Button x:Name="OverlayButton1"
                             Click="OverlayButton1_Click"
@@ -151,7 +153,7 @@
                 </StackPanel>
                 <RelativePanel MaxWidth="400">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
-                    <Slider ManipulationMode="All" ManipulationCompleted="SliderProgress_ManipulationCompleted" x:Name="SliderProgress" Padding="8,0,8,0" RelativePanel.RightOf="MediaPlayingDurationLeft" RelativePanel.LeftOf="MediaPlayingDurationRight" IsThumbToolTipEnabled="False" />
+                    <Slider PointerCaptureLost="SliderProgress_PointerCaptureLost" x:Name="SliderProgress" Padding="8,0,8,0" RelativePanel.RightOf="MediaPlayingDurationLeft" RelativePanel.LeftOf="MediaPlayingDurationRight" IsThumbToolTipEnabled="False" />
                     <TextBlock Text="0:00" x:Name="MediaPlayingDurationRight" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
                 </RelativePanel>
             </StackPanel>
@@ -164,7 +166,8 @@
                             x:Name="VolumeFlyoutButton"
                             BorderBrush="Transparent"
                             BorderThickness="0"
-                            Background="Transparent">
+                            Background="Transparent"
+                            ToolTipService.ToolTip="Change volume">
                         <Button.Flyout>
                             <Flyout>
                                 <RelativePanel Width="200">
@@ -188,7 +191,19 @@
                             Height="35">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
-                    
+
+                    <Button x:Name="RestoreVideoButton"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Height="35"
+                            ToolTipService.ToolTip="Restore video"
+                            Click="RestoreVideoButton_Click"
+                            Visibility="Collapsed">
+                        <FontIcon Glyph="&#xE740;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                    </Button>
+
                     <Button BorderBrush="Transparent"
                             Background="Transparent"
                             BorderThickness="0"
