@@ -296,9 +296,6 @@
     <Compile Include="Windows\NowPlaying.xaml.cs">
       <DependentUpon>NowPlaying.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaylistsPage.xaml.cs">
-      <DependentUpon>PlaylistsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -612,10 +609,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NowPlaying.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlaylistsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
