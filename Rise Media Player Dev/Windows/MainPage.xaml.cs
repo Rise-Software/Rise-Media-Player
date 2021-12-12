@@ -255,15 +255,7 @@ namespace Rise.App.Views
                     break;
 
                 case "PlaylistsPage":
-                    // _ = ContentFrame.Navigate(typeof(PlaylistsPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Unfortunately, playlists aren't available yet. Go to your music library instead.",
-                        Description = "Hopefully we won't be long adding them!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Playlists.png"))
-                    };
-
-                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    _ = ContentFrame.Navigate(typeof(PlaylistsPage));
                     break;
 
                 case "SongsPage":
