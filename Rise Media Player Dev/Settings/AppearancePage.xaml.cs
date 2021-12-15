@@ -47,11 +47,6 @@ namespace Rise.App.Settings
 
             foreach (Border border in RiseColorsPanel.Children)
             {
-                if (ViewModel.Color == RiseColorsPanel.Children.IndexOf(border))
-                {
-                    border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
-                    border.BorderThickness = new Thickness(3);
-                }
                 border.PointerPressed += ColorBorder_PointerPressed;
             }
         }
@@ -98,14 +93,16 @@ namespace Rise.App.Settings
                     {
                         ViewModel.Color = 0;
                     }
-                    foreach (Border border1 in RiseColorsPanel.Children)
+                    foreach (Border border in RiseColorsPanel.Children)
                     {
-                        border1.BorderBrush = new SolidColorBrush();
-                        border1.BorderThickness = new Thickness(0);
+                        border.BorderBrush = new SolidColorBrush();
+                        border.BorderThickness = new Thickness(0);
+                        if (ViewModel.Color == RiseColorsPanel.Children.IndexOf(border))
+                        {
+                            border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
+                            border.BorderThickness = new Thickness(3);
+                        }
                     }
-                    Border border = (Border)RiseColorsPanel.Children[0];
-                    border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
-                    border.BorderThickness = new Thickness(3);
                     break;
 
                 case 3:
