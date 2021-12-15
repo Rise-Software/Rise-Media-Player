@@ -49,6 +49,7 @@ namespace Rise.App.Views
         private IDisposable VideosDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
+
         private AppWindow _nowPlayingWindow;
         #endregion
 
@@ -58,6 +59,7 @@ namespace Rise.App.Views
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
@@ -66,6 +68,25 @@ namespace Rise.App.Views
             App.Indexer.Finished += Indexer_Finished;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Visible;
+                AppTitleBar.Visibility = Visibility.Collapsed;
+                BigSearch.Visibility = Visibility.Collapsed;
+                MoreButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
+                AppTitleBar.Visibility = Visibility.Visible;
+                BigSearch.Visibility = Visibility.Visible;
+                MoreButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)

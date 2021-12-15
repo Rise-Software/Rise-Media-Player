@@ -14,7 +14,8 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    SizeChanged="UserControl_SizeChanged">
+    SizeChanged="UserControl_SizeChanged"
+    MaxWidth="1500">
 
     <UserControl.Resources>
         <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />

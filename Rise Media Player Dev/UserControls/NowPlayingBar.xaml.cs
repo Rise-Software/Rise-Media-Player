@@ -275,6 +275,15 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
+                AlbumArtContainer.Visibility = Visibility.Visible;
+                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                OverlayButton1.Visibility = Visibility.Collapsed;
+            } else if (e.NewSize.Width >= 480)
+            {
+                DefaultVolumeControl.Visibility = Visibility.Collapsed;
+                VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
