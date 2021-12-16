@@ -49,6 +49,7 @@ namespace Rise.App.Views
         private IDisposable VideosDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
+
         private AppWindow _nowPlayingWindow;
         #endregion
 
@@ -58,6 +59,7 @@ namespace Rise.App.Views
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
@@ -66,6 +68,23 @@ namespace Rise.App.Views
             App.Indexer.Finished += Indexer_Finished;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Visible;
+                AppTitleBar.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
+                AppTitleBar.Visibility = Visibility.Visible;
+                ControlsPanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -436,6 +455,46 @@ namespace Rise.App.Views
 
                 case 4:
                     _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 184, 135, 11));
+                    break;
+
+                case 5:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 183, 195));
+                    break;
+
+                case 6:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 191, 0, 119));
+                    break;
+
+                case 7:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 204, 106));
+                    break;
+
+                case 8:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 107, 105, 214));
+                    break;
+
+                case 9:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 73, 130, 5));
+                    break;
+
+                case 10:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 231, 72, 86));
+                    break;
+
+                case 11:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 1, 133, 116));
+                    break;
+
+                case 12:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 232, 17, 35));
+                    break;
+
+                case 13:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 104, 118, 138));
+                    break;
+
+                case 14:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 116, 77, 169));
                     break;
             }
         }

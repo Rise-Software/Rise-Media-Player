@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
@@ -26,27 +27,35 @@
         </uc:ExpanderControl>
 
         <uc:ExpanderControl x:Uid="/Appearance/ChooseColor"
-                            ExpanderStyle="Default"
-                            Icon="&#xE771;">
-            
-            <StackPanel Orientation="Vertical">
-                <ComboBox ItemsSource="{x:Bind ColorThemes}"
-                              PlaceholderText="Accent"
-                              x:Name="ColorThemeComboBox"
-                              SelectionChanged="ColorThemeComboBox_SelectionChanged"
-                              RelativePanel.AlignRightWithPanel="True"
-                              SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
+                            Icon="&#xE771;"
+                            x:Name="ChooseColorExpander">
 
-                <StackPanel Padding="0,10,0,0" Orientation="Horizontal" x:Name="RiseColorsStackPanel">
-                    <muxc:RadioButtons x:Name="RiseRadioButtons" MaxColumns="5" SelectedIndex="{x:Bind ViewModel.Color, Mode=TwoWay}">
-                        <Border ToolTipService.ToolTip="Rise Red" Background="IndianRed" Width="40" Height="40" CornerRadius="4" />
-                        <Border ToolTipService.ToolTip="Rise Violet" Background="BlueViolet" Width="40" Height="40" CornerRadius="4" />
-                        <Border ToolTipService.ToolTip="Rise Green" Background="DarkSeaGreen" Width="40" Height="40" CornerRadius="4" />
-                        <Border ToolTipService.ToolTip="Rise Blue" Background="CornflowerBlue" Width="40" Height="40" CornerRadius="4" />
-                        <Border ToolTipService.ToolTip="Rise Gold" Background="Goldenrod" Width="40" Height="40" CornerRadius="4" />
-                    </muxc:RadioButtons>
-                </StackPanel>
-            </StackPanel>
+            <uc:ExpanderControl.HeaderControls>
+                <ComboBox ItemsSource="{x:Bind ColorThemes}"
+                          PlaceholderText="No tint"
+                          x:Name="ColorThemeComboBox"
+                          SelectionChanged="ColorThemeComboBox_SelectionChanged"
+                          RelativePanel.AlignRightWithPanel="True"
+                          SelectedIndex="{x:Bind ViewModel.ColorTheme, Mode=TwoWay}" />
+            </uc:ExpanderControl.HeaderControls>
+
+            <controls:WrapPanel x:Name="RiseColorsPanel" HorizontalSpacing="8" VerticalSpacing="8">
+                <Border ToolTipService.ToolTip="Rise Red" Background="IndianRed" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Rise Violet" Background="BlueViolet" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Rise Green" Background="DarkSeaGreen" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Rise Blue" Background="CornflowerBlue" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Rise Gold" Background="Goldenrod" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Cyan" Background="#00B7C3" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Plum light" Background="#BF0077" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Turf green" Background="#00CC6A" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Purple shadow dark" Background="#6B69D6" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Meadow green" Background="#498205" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Pale red" Background="#E74856" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Mint dark" Background="#018574" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Red" Background="#E81123" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Steel blue" Background="#68768A" Width="40" Height="40" CornerRadius="4" />
+                <Border ToolTipService.ToolTip="Iris Spring" Background="#744DA9" Width="40" Height="40" CornerRadius="4" />
+            </controls:WrapPanel>
         </uc:ExpanderControl>
 
         <uc:ExpanderControl x:Uid="/Appearance/FullArt"

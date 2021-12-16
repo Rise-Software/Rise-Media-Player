@@ -9,7 +9,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:local="using:Rise.App.Views"
+    xmlns:local="using:Rise.App.Views" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -163,6 +163,11 @@
                              ShowIcon="True"
                              VerticalAlignment="Top" />
 
+            <Grid x:Name="OverlayModeContentPanel" 
+                  Visibility="Collapsed"
+                  Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+                <Frame x:Name="NowPlayingFrame" />
+            </Grid>
             <Grid x:Name="ControlsPanel"
                   x:FieldModifier="public"
                   Canvas.ZIndex="2"
@@ -195,7 +200,8 @@
                         Grid.Column="1"
                         Height="32"
                         Style="{StaticResource TransparentButton}"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        x:Name="MoreButton">
                     <Button.Content>
                         <FontIcon Glyph="&#xE10C;" />
                     </Button.Content>
@@ -291,7 +297,7 @@
                     <Frame x:Name="ContentFrame"
                            x:FieldModifier="public"
                            Navigated="ContentFrame_Navigated"
-                           Padding="56,0">
+                           Padding="56,0,56,10">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition />
@@ -302,7 +308,7 @@
                     <uc:NowPlayingBar BackgroundStyle="UseAlbumArt"
                                       IsArtistShown="True" 
                                       VerticalAlignment="Bottom"
-                                      Margin="20" />
+                                      Margin="15" />
 
                     <!--<MediaPlayerElement x:Name="PlayerElement"
                                         animations:Connected.Key="Player"

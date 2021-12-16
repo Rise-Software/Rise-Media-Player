@@ -15,6 +15,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters"
     Height="102"
+    MaxWidth="1500"
     SizeChanged="UserControl_SizeChanged">
 
     <UserControl.Resources>
@@ -30,7 +31,7 @@
     </UserControl.Resources>
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
-        <Grid x:Name="Grid" Padding="10,0"
+        <Grid x:Name="Grid" Padding="12,0"
               BorderThickness="1"
               CornerRadius="8"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
@@ -50,7 +51,6 @@
                 <Border PointerReleased="AlbumArtContainer_PointerReleased"
                         x:Name="AlbumArtContainer"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
-                        Margin="2,0,0,0"
                         Width="75"
                         Height="75"
                         CornerRadius="5"
@@ -61,15 +61,14 @@
                         </Image.Source>
                     </Image>
                 </Border>
-                <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Margin="10,0,0,0">
+                <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
                     <TextBlock MaxLines="1" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding CurrentSong.Title, Mode=OneWay}" Text="{Binding CurrentSong.Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" FontSize="17" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold" x:Name="SongTitle" />
-                    <TextBlock Margin="0,3,0,0" ToolTipService.ToolTip="{Binding CurrentSong.Artist, Mode=OneWay}" Text="{Binding CurrentSong.Artist, Mode=OneWay}" FontSize="15" x:Name="SongArtist" />
+                    <TextBlock ToolTipService.ToolTip="{Binding CurrentSong.Artist, Mode=OneWay}" Text="{Binding CurrentSong.Artist, Mode=OneWay}" FontSize="15" TextTrimming="CharacterEllipsis" x:Name="SongArtist" />
                 </StackPanel>
             </RelativePanel>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Padding="3,0,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-
                     <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Background="Transparent">
                         <Button.Flyout>
                             <Flyout>
@@ -98,7 +97,9 @@
                             Background="Transparent"
                             x:Name="PreviousButton"
                             Click="PreviousButton_Click">
-                        <FontIcon Glyph="&#xE622;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                        <FontIcon Glyph="&#xE622;"
+                                  FontSize="15"
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
                     <Border Margin="5,0" CornerRadius="50" Height="50" Width="50" BorderThickness="4">
@@ -123,7 +124,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
+                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="18" x:Name="PlayButtonIcon" />
                         </Button>
                     </Border>
 
@@ -133,7 +134,8 @@
                             Background="Transparent"
                             x:Name="NextButton">
                         <FontIcon Glyph="&#xE623;"
-                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
+                                  FontSize="15"/>
                     </Button>
 
                     <ToggleButton x:Name="RepeatButton"
