@@ -97,6 +97,13 @@ namespace Rise.App.ViewModels
             = new ObservableCollection<VideoViewModel>();
         public AdvancedCollectionView FilteredVideos { get; set; }
 
+        /// <summary>
+        /// The collection of videos in the list. 
+        /// </summary>
+        public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
+            = new ObservableCollection<PlaylistViewModel>();
+        public AdvancedCollectionView FilteredPlaylists { get; set; }
+
         private SongViewModel _selectedSong;
         /// <summary>
         /// Gets or sets the currently selected song.
@@ -143,6 +150,7 @@ namespace Rise.App.ViewModels
                 IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
                 IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
                 IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
+                IEnumerable<Playlist> playlists = await App.Repository.Playlists.GetAsync();
 
                 Songs.Clear();
                 foreach (Song s in songs)
@@ -183,6 +191,15 @@ namespace Rise.App.ViewModels
                     foreach (Video v in videos)
                     {
                         Videos.Add(new VideoViewModel(v));
+                    }
+                }
+
+                Playlists.Clear();
+                if (playlists != null)
+                {
+                    foreach (Playlist p in playlists)
+                    {
+                        Playlists.Add(new PlaylistViewModel(p));
                     }
                 }
 

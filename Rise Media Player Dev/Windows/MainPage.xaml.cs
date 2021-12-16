@@ -77,15 +77,13 @@ namespace Rise.App.Views
             {
                 OverlayModeContentPanel.Visibility = Visibility.Visible;
                 AppTitleBar.Visibility = Visibility.Collapsed;
-                BigSearch.Visibility = Visibility.Collapsed;
-                MoreButton.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Collapsed;
             }
             else
             {
                 OverlayModeContentPanel.Visibility = Visibility.Collapsed;
                 AppTitleBar.Visibility = Visibility.Visible;
-                BigSearch.Visibility = Visibility.Visible;
-                MoreButton.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Collapsed;
             }
         }
 

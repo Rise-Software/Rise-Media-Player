@@ -297,7 +297,7 @@
                     <Frame x:Name="ContentFrame"
                            x:FieldModifier="public"
                            Navigated="ContentFrame_Navigated"
-                           Padding="56,0">
+                           Padding="56,0,56,10">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition />
@@ -308,7 +308,7 @@
                     <uc:NowPlayingBar BackgroundStyle="UseAlbumArt"
                                       IsArtistShown="True" 
                                       VerticalAlignment="Bottom"
-                                      Margin="20" />
+                                      Margin="15" />
 
                     <!--<MediaPlayerElement x:Name="PlayerElement"
                                         animations:Connected.Key="Player"
