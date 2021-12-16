@@ -49,6 +49,7 @@ namespace Rise.App.Views
         private IDisposable VideosDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
+
         private AppWindow _nowPlayingWindow;
         #endregion
 
@@ -58,6 +59,7 @@ namespace Rise.App.Views
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
@@ -66,6 +68,23 @@ namespace Rise.App.Views
             App.Indexer.Finished += Indexer_Finished;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Visible;
+                AppTitleBar.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
+                AppTitleBar.Visibility = Visibility.Visible;
+                ControlsPanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -255,15 +274,7 @@ namespace Rise.App.Views
                     break;
 
                 case "PlaylistsPage":
-                    // _ = ContentFrame.Navigate(typeof(PlaylistsPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Unfortunately, playlists aren't available yet. Go to your music library instead.",
-                        Description = "Hopefully we won't be long adding them!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Playlists.png"))
-                    };
-
-                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    _ = ContentFrame.Navigate(typeof(PlaylistsPage));
                     break;
 
                 case "SongsPage":
@@ -284,13 +295,6 @@ namespace Rise.App.Views
 
                 case "LocalVideosPage":
                     _ = ContentFrame.Navigate(typeof(LocalVideosPage));
-                    break;
-
-                case "VideoPlaybackPage":
-                    if (Window.Current.Content is Frame rootFrame)
-                    {
-                        _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
-                    }
                     break;
 
                 case "DiscyPage":
@@ -402,7 +406,7 @@ namespace Rise.App.Views
             var uiSettings = new UISettings();
             Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
 
-            byte opacity = 30;
+            byte opacity = 25;
             switch (SViewModel.Color)
             {
                 case -3:
@@ -434,23 +438,63 @@ namespace Rise.App.Views
                     break;
 
                 case 0:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 205, 92, 92));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 185, 0));
                     break;
 
                 case 1:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 138, 43, 226));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 140, 0));
                     break;
 
                 case 2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 143, 188, 143));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 247, 99, 12));
                     break;
 
                 case 3:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 149, 237));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 202, 80, 16));
                     break;
 
                 case 4:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 184, 135, 11));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 218, 59, 1));
+                    break;
+
+                case 5:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 183, 195));
+                    break;
+
+                case 6:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 191, 0, 119));
+                    break;
+
+                case 7:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 204, 106));
+                    break;
+
+                case 8:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 107, 105, 214));
+                    break;
+
+                case 9:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 73, 130, 5));
+                    break;
+
+                case 10:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 231, 72, 86));
+                    break;
+
+                case 11:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 1, 133, 116));
+                    break;
+
+                case 12:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 232, 17, 35));
+                    break;
+
+                case 13:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 104, 118, 138));
+                    break;
+
+                case 14:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 116, 77, 169));
                     break;
             }
         }
@@ -519,6 +563,11 @@ namespace Rise.App.Views
                     NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
                 }
             }
+        }
+
+        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

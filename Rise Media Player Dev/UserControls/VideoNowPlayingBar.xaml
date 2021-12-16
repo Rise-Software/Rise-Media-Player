@@ -14,7 +14,8 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    SizeChanged="UserControl_SizeChanged">
+    SizeChanged="UserControl_SizeChanged"
+    MaxWidth="1500">
 
     <UserControl.Resources>
         <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
@@ -37,7 +38,11 @@
 
             <RelativePanel VerticalAlignment="Center">
                 <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="ButtonsContainer" RelativePanel.AlignLeftWithPanel="True" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Height="45" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton">
+                    <Button Height="45"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Click="PlayButton_Click"
+                            x:Name="PlayButton">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -58,10 +63,15 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="PlayButtonIcon" />
+                        <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" x:Name="PlayButtonIcon" />
                     </Button>
 
-                    <Button Margin="5,0,0,0" Height="45" BorderBrush="Transparent" Background="Transparent" x:Name="Back10">
+                    <Button Click="Back10_Click"
+                            Margin="5,0,0,0"
+                            Height="45"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            x:Name="Back10">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -82,9 +92,14 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3C;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="Back10Icon" />
+                        <FontIcon Glyph="&#xED3C;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" x:Name="Back10Icon" />
                     </Button>
-                    <Button Margin="0,0,5,0" Height="45" BorderBrush="Transparent" Background="Transparent" x:Name="Forward30">
+                    <Button Margin="0,0,5,0"
+                            Height="45"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            x:Name="Forward30"
+                            Click="Forward30_Click">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
@@ -105,7 +120,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3D;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" Margin="-1,0,0,0" x:Name="Forward30Icon" />
+                        <FontIcon Glyph="&#xED3D;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" x:Name="Forward30Icon" />
                     </Button>
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
@@ -124,7 +139,12 @@
                 <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
                     <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                        <Button Height="45" HorizontalAlignment="Right" x:Name="VolumeFlyoutButton" BorderBrush="Transparent" Background="Transparent">
+                        <Button Height="45"
+                                HorizontalAlignment="Right"
+                                x:Name="VolumeFlyoutButton"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="Transparent">
                             <Button.Flyout>
                                 <Flyout>
                                     <RelativePanel Width="200">
@@ -151,10 +171,14 @@
                             Click="OverlayButton_Click"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
+                            BorderThickness="0"
                             BorderBrush="Transparent">
                             <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                         </Button>
-                        <Button Height="45" BorderBrush="Transparent" Background="Transparent">
+                        <Button Height="45"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="Transparent">
                             <Viewbox Width="18" Height="18">
                                 <SymbolIcon Symbol="More" />
                             </Viewbox>

@@ -36,8 +36,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}"
-                           FontWeight="SemiBold"
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                            Text="Crash Details" />
 
                 <TextBlock Margin="0,10,0,0"

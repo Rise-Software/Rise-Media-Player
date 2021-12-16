@@ -195,6 +195,7 @@
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
@@ -212,6 +213,9 @@
     </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
+      <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -292,9 +296,6 @@
     </Compile>
     <Compile Include="Windows\NowPlaying.xaml.cs">
       <DependentUpon>NowPlaying.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlaylistsPage.xaml.cs">
-      <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -516,6 +517,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Playlists\PlaylistsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -605,10 +610,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NowPlaying.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlaylistsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

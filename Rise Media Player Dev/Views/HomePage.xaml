@@ -19,7 +19,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Spacing="8"
                                 VerticalAlignment="Center">
-                        <Button x:Name="Version"
+                        <Button x:Name="Version" Padding="5,5,5,5"
                             Click="CommandBarButton_Click"
                             Style="{StaticResource TransparentButton}"
                             Tag="Version">
@@ -57,33 +57,28 @@
                       SelectionMode="None">
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
                                IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
-                               Label="Video Support"
+                               Label="Playlist Support"
                                Margin="3"
                                Tag="0" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG2.png"
-                               IconUri="ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
-                               Label="Extended Genres"
-                               Margin="3"
-                               Tag="1" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
                                IconUri="ms-appx:///Assets/Settings/Appearance.png"
-                               Label="More to personalise"
+                               Label="Artists &amp; Albums"
                                Margin="3"
-                               Tag="2" />
+                               Tag="1" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG4.png"
                                IconUri="ms-appx:///Assets/Settings/Sidebar.png"
-                               Label="Improved Navigation"
+                               Label="Now Playing Bar"
                                Margin="3"
-                               Tag="3" />
+                               Tag="2" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG5.png"
                                IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
-                               Label="New Help Centre"
+                               Label="Contextual Help"
                                Margin="3"
-                               Tag="4" />
+                               Tag="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
                                IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
-                               Label="Better Now Playing"
-                               Tag="5" />
+                               Label="Messages &amp; reports"
+                               Tag="4" />
             </GridView>
 
             <TextBlock x:Uid="/Information/QuickH"

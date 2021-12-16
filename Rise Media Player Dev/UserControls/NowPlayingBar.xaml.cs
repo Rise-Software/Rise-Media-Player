@@ -29,6 +29,9 @@ namespace Rise.App.UserControls
         private MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
         private string _sliderStatus;
+
+        private AlbumViewModel CurrentSongAlbum;
+        private bool _AutoRepeat;
         #endregion
 
         #region Properties
@@ -91,6 +94,8 @@ namespace Rise.App.UserControls
             HandleColorStyles();
             _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
             _player.PlaybackSession.PlaybackStateChanged += PlaybackSession_PlaybackStateChanged;
+            App.PViewModel.CurrentVideoChanged += PViewModel_CurrentVideoChanged;
+            App.PViewModel.CurrentSongChanged += PViewModel_CurrentSongChanged;
             _backgroundStylesPropertyToken = RegisterPropertyChangedCallback(BackgroundStylesProperty, (sender1, dependencyObject) =>
             {
                 if (dependencyObject == BackgroundStylesProperty)
@@ -112,17 +117,64 @@ namespace Rise.App.UserControls
             });
         }
 
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e) => 
-                        await EventsLogic.StartMusicPlaybackAsync(0, true);
+        private async void PViewModel_CurrentSongChanged(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
+                {
+                    CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
+                    Uri imageUri = new Uri(CurrentSongAlbum.Thumbnail);
+                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                    using (IRandomAccessStream stream = await random.OpenReadAsync())
+                    {
+                        var decoder = await BitmapDecoder.CreateAsync(stream);
+                        var colorThief = new ColorThief();
+                        var color = await colorThief.GetColor(decoder);
+                        BackgroundAcrylicBrush.TintOpacity = 1;
+                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
+                    }
+                }
+                RestoreVideoButton.Visibility = Visibility.Collapsed;
+            });
+        }
 
-        private void RepeatButton_Click(object sender, RoutedEventArgs e) =>
-                        _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong));
+        private async void PViewModel_CurrentVideoChanged(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                RestoreVideoButton.Visibility = Visibility.Visible;
+            });
+        }
+
+        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)ShuffleButton.IsChecked)
+            {
+                App.PViewModel.PlaybackList.ShuffleEnabled = true;
+            } else
+            {
+                App.PViewModel.PlaybackList.ShuffleEnabled = false;
+            }
+        }
+
+        private void RepeatButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)RepeatButton.IsChecked)
+            {
+                App.PViewModel.PlaybackList.AutoRepeatEnabled = true;
+            }
+            else
+            {
+                App.PViewModel.PlaybackList.AutoRepeatEnabled = false;
+            }
+        }
 
         private async void PlaybackSession_PlaybackStateChanged(MediaPlaybackSession sender, object args)
         {
             if (sender.PlaybackState == MediaPlaybackState.Playing)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uE62E";
                     ToolTipService.SetToolTip(PlayButton, "Pause");
@@ -130,7 +182,7 @@ namespace Rise.App.UserControls
             }
             else if (sender.PlaybackState == MediaPlaybackState.Paused)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uF5B0";
                     ToolTipService.SetToolTip(PlayButton, "Play");
@@ -144,7 +196,7 @@ namespace Rise.App.UserControls
 
         private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 int seconds = (int)sender.NaturalDuration.TotalSeconds;
                 int minutes = (int)sender.NaturalDuration.TotalMinutes;
@@ -152,29 +204,12 @@ namespace Rise.App.UserControls
                 MediaPlayingDurationRight.Text = TimeSpanToString.Convert(TimeSpan.FromSeconds(seconds));
             });
 
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 SliderProgress.Value = sender.Position.TotalSeconds;
                 int seconds = (int)sender.Position.TotalSeconds;
                 int minutes = (int)sender.Position.TotalMinutes;
                 MediaPlayingDurationLeft.Text = TimeSpanToString.Convert(TimeSpan.FromSeconds(seconds));
-            });
-
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-            {
-                if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
-                {
-                    Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                    using (IRandomAccessStream stream = await random.OpenReadAsync())
-                    {
-                        var decoder = await BitmapDecoder.CreateAsync(stream);
-                        var colorThief = new ColorThief();
-                        var color = await colorThief.GetColor(decoder);
-                        BackgroundAcrylicBrush.TintOpacity = 1;
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
-                    }
-                }
             });
         }
 
@@ -237,6 +272,15 @@ namespace Rise.App.UserControls
                 OverlayButton1.Visibility = Visibility.Collapsed;
             }
             else if (e.NewSize.Width >= 600)
+            {
+                DefaultVolumeControl.Visibility = Visibility.Collapsed;
+                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                AlbumArtContainer.Visibility = Visibility.Visible;
+                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                OverlayButton1.Visibility = Visibility.Collapsed;
+            } else if (e.NewSize.Width >= 480)
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
@@ -313,7 +357,15 @@ namespace Rise.App.UserControls
         }
         private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album));
+            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+        }
+
+        private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+            }
         }
 
         #endregion
@@ -349,11 +401,6 @@ namespace Rise.App.UserControls
             Transparent,
             Acrylic,
             UseAlbumArt
-        }
-
-        private void SliderProgress_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            _player.PlaybackSession.Position = TimeSpan.FromSeconds(SliderProgress.Value);
         }
     }
 }
