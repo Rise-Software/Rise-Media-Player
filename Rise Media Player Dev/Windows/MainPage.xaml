@@ -141,8 +141,7 @@
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
-                        <Setter Target="BigSearch.Visibility" Value="Visible" />
-                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchBox.Uid" Value="/Information/SmallSearch" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -180,20 +179,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <AutoSuggestBox x:Name="BigSearch"
+                <AutoSuggestBox x:Name="SearchBox"
                                 x:Uid="/Information/BigSearch"
                                 AutomationProperties.Name="Search"
                                 Height="32"
                                 HorizontalAlignment="Stretch"
                                 MaxWidth="530"
-                                QueryIcon="Find"
-                                VerticalAlignment="Top"
-                                Visibility="Collapsed" />
-                <AutoSuggestBox x:Name="SmallSearch"
-                                x:Uid="/Information/SmallSearch"
-                                AutomationProperties.Name="Search"
-                                Height="32"
-                                HorizontalAlignment="Stretch"
                                 QueryIcon="Find"
                                 VerticalAlignment="Top" />
                 <Button x:Uid="/Information/More"

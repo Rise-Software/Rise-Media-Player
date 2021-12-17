@@ -83,7 +83,7 @@ namespace Rise.App.Views
             {
                 OverlayModeContentPanel.Visibility = Visibility.Collapsed;
                 AppTitleBar.Visibility = Visibility.Visible;
-                ControlsPanel.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Visible;
             }
         }
 
