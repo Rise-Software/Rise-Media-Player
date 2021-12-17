@@ -161,7 +161,7 @@
                              Height="40"
                              Margin="48,8,0,0"
                              ShowIcon="True"
-                             VerticalAlignment="Top" />
+                             VerticalAlignment="Top" Loaded="AppTitleBar_Loaded" />
 
             <Grid x:Name="OverlayModeContentPanel" 
                   Visibility="Collapsed"

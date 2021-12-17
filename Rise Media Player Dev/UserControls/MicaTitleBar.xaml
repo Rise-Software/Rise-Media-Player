@@ -1,13 +1,13 @@
 ﻿<UserControl
     x:Class="Rise.App.UserControls.MicaTitleBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:conv="using:Rise.App.Converters"
-    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -16,31 +16,35 @@
     </UserControl.Resources>
 
     <Border Background="Transparent" IsHitTestVisible="True">
-        <StackPanel x:Name="AppData"
-                    Orientation="Horizontal"
-                    Spacing="12"
-                    Width="Auto">
-            <Image x:Name="AppFontIcon"
-                   Height="16"
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Center"
-                   Source="{x:Bind Icon, Mode=OneWay}" 
-                   Visibility="{x:Bind ShowIcon, Mode=OneWay}"
-                   Width="16" />
-            <RichTextBlock x:Name="DefaultTitle"
-                           FontSize="12"
-                           IsTextSelectionEnabled="False"
-                           VerticalAlignment="Center"
-                           Width="Auto">
+        <StackPanel
+            x:Name="AppData"
+            Width="Auto"
+            Orientation="Horizontal"
+            Spacing="12">
+            <Image
+                x:Name="AppFontIcon"
+                Width="16"
+                Height="16"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Source="{x:Bind Icon, Mode=OneWay}"
+                Visibility="{x:Bind ShowIcon, Mode=OneWay}" />
+            <RichTextBlock
+                x:Name="DefaultTitle"
+                Width="Auto"
+                VerticalAlignment="Center"
+                FontSize="12"
+                IsTextSelectionEnabled="False">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">Rise</Bold>MP PA4 InDev
-                </Paragraph>
+                    <Bold FontWeight="SemiBold">Rise</Bold>
+                    MP PA4 InDev</Paragraph>
             </RichTextBlock>
-            <TextBlock x:Name="AppTitle"
-                       FontSize="12"
-                       Text="{x:Bind Title, Mode=OneWay}"
-                       VerticalAlignment="Center"
-                       Width="Auto" />
+            <TextBlock
+                x:Name="AppTitle"
+                Width="Auto"
+                VerticalAlignment="Center"
+                FontSize="12"
+                Text="{x:Bind Title, Mode=OneWay}" />
         </StackPanel>
     </Border>
 </UserControl>
