@@ -46,7 +46,7 @@ namespace Rise.App.Dialogs
             _features.Add(new Feature
             {
                 Name = "Playlist Support",
-                Description = "We’ve finally added full fledged video to Rise Media Player. Watch videos from your device by adding them to your media sources from settings. We already look in the default videos folder. This support is basic for now and more features will be coming soon.",
+                Description = "We’ve finally added support for playlists to Rise Media Player. Add a song to your playlist by hovering on it. You can also import and export playlists, sort them by date created, and more!",
                 ImageUri = "ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
             });
 
@@ -60,21 +60,21 @@ namespace Rise.App.Dialogs
             _features.Add(new Feature
             {
                 Name = "Now Playing Bar",
-                Description = "You can now add more colour to our app with a new feature we’re calling Window Glaze! Choose to match your system accent colour or select your own colour from our list. We’re bringing a colour picker in soon you can have exact control. This colour will ‘glaze’ or tint the app window, while still retaining the mica material. Note: This will work on Windows 10, but of course, no Mica. Also, you can make this match the album art of the currently playing song, meaning it’s always changing!",
-                ImageUri = "ms-appx:///Assets/Settings/Appearance.png"
+                Description = "The now playing bar is back with a new design! You can now view the song title, artist and thumbnail from the now playing bar and view a song's album in one click!",
+                ImageUri = "ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Contextual help",
-                Description = "In the previous release, we added the option to remove entire sections from the sidebar. This is now possible from the right click context menu on the sidebar itself. Additionally, you can now move around items in your sidebar, moving them up and down, meaning stuff that is more important to you stays close.",
+                Description = "Now you can experience Discy in context menus!",
                 ImageUri = "ms-appx:///Assets/Settings/Sidebar.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Messages & reports",
-                Description = "Help & Tips is back in the form of the help centre! Access basic written help and support and there may even be a certain round friend popping their head in from time to time!",
+                Description = "If the app is crashing or something unexpected happened, there's now more details on what happened, like stack trace, the exception name etc...",
                 ImageUri = "ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
             });
             InitializeComponent();
