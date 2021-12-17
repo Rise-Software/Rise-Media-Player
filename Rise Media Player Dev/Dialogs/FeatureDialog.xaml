@@ -22,14 +22,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="FeatureName" Style="{StaticResource TitleTextBlockStyle}" />
-            <Button Grid.Column="1"
-                    Click="Button_Click"
-                    Padding="12"
-                    Style="{StaticResource TransparentButton}"
-                    VerticalAlignment="Bottom">
-                <FontIcon FontSize="16" Glyph="&#xE894;" />
-            </Button>
+            <TextBlock x:Name="FeatureName" FontSize="24" FontWeight="SemiBold"/>
+            <Grid HorizontalAlignment="Right" Padding="0">
+                
+                <TextBlock x:Name="CurrentIndex" Padding="0,8,0,0"
+                           FontWeight="SemiBold" />
+                <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" Padding="12,8,0,0" />
+                <TextBlock Text="{x:Bind _features.Count}" Padding="30,8,5,0" FontWeight="SemiBold" />
+
+
+            </Grid>
+            
+
+
         </Grid>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
@@ -60,27 +65,43 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Padding="0,10,0,0" Spacing="4">
-                <TextBlock x:Name="CurrentIndex"
-                           FontWeight="SemiBold" />
-                <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" />
-                <TextBlock Text="{x:Bind _features.Count}" FontWeight="SemiBold" />
+            
+            <StackPanel Orientation="Horizontal" Padding="0,0,0,0" Spacing="4">
+                <Button Grid.Column="1"
+                    Click="Button_Click"
+                    Padding="10"
+                    VerticalAlignment="Bottom">
+                    <Button.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon FontSize="16" Glyph="&#xECA5;" />
+                            <TextBlock Text="At a glance" Grid.Column="1" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                
                 <Button x:Name="Left"
                         Click="Left_Click"
                         HorizontalAlignment="Stretch"
-                        Padding="12">
+                        Padding="10">
                     <Button.Content>
-                        <FontIcon Glyph="&#xEC52;" />
+                        <FontIcon Glyph="&#xE00E;" />
                     </Button.Content>
                 </Button>
                 <Button x:Name="Right"
                         Click="Right_Click"
                         HorizontalAlignment="Stretch"
-                        Padding="12">
+                        Padding="10">
                     <Button.Content>
-                        <FontIcon Glyph="&#xEBE7;" />
+                        <FontIcon Glyph="&#xE00F;" />
                     </Button.Content>
                 </Button>
             </StackPanel>
