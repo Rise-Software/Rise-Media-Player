@@ -44,7 +44,7 @@
                            Source="ms-appx:///Assets/DefaultPlaylistIcon.png" />
                     <Button HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            Margin="10"
+                            Margin="10,-20,10,10"
                             Content="Use custom image" />
                 </StackPanel>
             </StackPanel>
