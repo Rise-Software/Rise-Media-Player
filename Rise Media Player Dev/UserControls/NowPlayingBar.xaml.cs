@@ -131,7 +131,7 @@ namespace Rise.App.UserControls
                         var decoder = await BitmapDecoder.CreateAsync(stream);
                         var colorThief = new ColorThief();
                         var color = await colorThief.GetColor(decoder);
-                        BackgroundAcrylicBrush.TintOpacity = 1;
+                        BackgroundAcrylicBrush.TintOpacity = 100;
                         BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
                     }
                 }
@@ -388,11 +388,11 @@ namespace Rise.App.UserControls
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
-                _tintOpacity = 100;
+                _tintOpacity = 0;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                _tintOpacity = 30;
+                _tintOpacity = 70;
             }
         }
 
