@@ -8,6 +8,8 @@ namespace Rise.Models
     public class Playlist : DbObject, IEquatable<Playlist>
     {
         public string Title { get; set; }
+        public string Icon { get; set; }
+        public string Description { get; set; }
         public string Duration { get; set; }
 
         /// <summary>
@@ -18,7 +20,9 @@ namespace Rise.Models
         public bool Equals(Playlist other)
         {
             return Title == other.Title &&
-                   Duration == other.Duration;
+                   Duration == other.Duration &&
+                   Icon == other.Icon &&
+                   Description == other.Description;
         }
     }
 }

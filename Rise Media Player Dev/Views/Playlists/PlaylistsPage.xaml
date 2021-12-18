@@ -12,30 +12,11 @@
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left">
-            <AppBarButton x:Name="PlayItem"
-                          x:Uid="/Information/Play"
-                          Icon="Play"
-                          Style="{StaticResource AppBarCompactButton}" />
-
-            <AppBarSeparator />
-
-            <AppBarButton x:Name="ShuffleItem"
-                          x:Uid="/Information/Shuffle"
-                          Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+            
+            <AppBarButton Content="New playlist" IsCompact="True" Click="CreatePlaylistButton_Click">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
-
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Playlist">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE142;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
             </AppBarButton>
 
             <AppBarSeparator />

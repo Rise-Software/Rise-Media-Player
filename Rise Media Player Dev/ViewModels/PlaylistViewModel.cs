@@ -11,7 +11,7 @@ namespace Rise.App.ViewModels
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
-        /// Initializes a new instance of the AlbumViewModel class that wraps an Playlist object.
+        /// Initializes a new instance of the PlaylistViewModel class that wraps an Playlist object.
         /// </summary>
         public PlaylistViewModel(Playlist model = null)
         {
