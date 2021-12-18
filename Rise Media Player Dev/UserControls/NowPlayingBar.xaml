@@ -56,9 +56,9 @@
             </MenuFlyoutItem>
 
             <MenuFlyoutSubItem Text="Playback speed">
-                <MenuFlyoutItem.Icon>
+                <MenuFlyoutSubItem.Icon>
                     <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC4A;" />
-                </MenuFlyoutItem.Icon>
+                </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Text="0.5x" />
                 <muxc:RadioMenuFlyoutItem Text="1x (Normal)" />
                 <muxc:RadioMenuFlyoutItem Text="1.5x" />
@@ -96,7 +96,7 @@
 
             <MenuFlyoutSubItem Text="Visualizer">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon Glyph="&#xF159;" />
+                    <FontIcon Glyph="&#xF4A5;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Text="None" />
                 <muxc:RadioMenuFlyoutItem Text="Color shift" />
