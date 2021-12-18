@@ -73,7 +73,8 @@
                               BackgroundStyle="Transparent"
                               IsArtistShown="False" 
                               Grid.Row="1"
-                              Margin="8" />
+                              Margin="8"
+                              IsInNowPlayingPage="True" />
 
             <!--<MediaPlayerElement x:Name="Player"
                                 Grid.Row="1"

@@ -27,11 +27,9 @@ namespace Rise.App.UserControls
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
-        private byte _tintOpacity = 100;
-        private string _sliderStatus;
+        private byte _tintOpacity = 180;
 
         private AlbumViewModel CurrentSongAlbum;
-        private bool _AutoRepeat;
         #endregion
 
         #region Properties
@@ -48,14 +46,38 @@ namespace Rise.App.UserControls
 
         private long _backgroundStylesPropertyToken;
 
-        private NowPlayingBarBackgroundStyles _backgroundStyle = NowPlayingBarBackgroundStyles.Acrylic;
-
         public NowPlayingBarBackgroundStyles BackgroundStyle
         {
             get => (NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty);
             set
             {
                 SetValue(BackgroundStylesProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty IsInNowPlayingPageProperty = DependencyProperty.Register("IsInNowPlayingPage", typeof(bool), typeof(NowPlayingBar), new PropertyMetadata(null));
+
+        private long _isInNowPlayingPageToken;
+
+        public bool IsInNowPlayingPage
+        {
+            get => (bool)GetValue(IsInNowPlayingPageProperty);
+            set
+            {
+                SetValue(IsInNowPlayingPageProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty OverlayBtnVisibilityProperty = DependencyProperty.Register("OverlayBtnVisibility", typeof(Visibility), typeof(NowPlayingBar), new PropertyMetadata(null));
+
+        private long _overlayBtnVisibilityPropertyToken;
+
+        public Visibility OverlayBtnVisibility
+        {
+            get => (Visibility)GetValue(OverlayBtnVisibilityProperty);
+            set
+            {
+                SetValue(OverlayBtnVisibilityProperty, value);
             }
         }
 
@@ -87,6 +109,8 @@ namespace Rise.App.UserControls
         private void NowPlayingBar_Unloaded(object sender, RoutedEventArgs e)
         {
             UnregisterPropertyChangedCallback(BackgroundStylesProperty, _backgroundStylesPropertyToken);
+            UnregisterPropertyChangedCallback(IsInNowPlayingPageProperty, _isInNowPlayingPageToken);
+            UnregisterPropertyChangedCallback(OverlayBtnVisibilityProperty, _overlayBtnVisibilityPropertyToken);
         }
 
         private void NowPlayingBar_Loaded(object sender, RoutedEventArgs e)
@@ -100,7 +124,6 @@ namespace Rise.App.UserControls
             {
                 if (dependencyObject == BackgroundStylesProperty)
                 {
-                    _backgroundStyle = (NowPlayingBarBackgroundStyles)sender1.GetValue(BackgroundStylesProperty);
                     switch ((NowPlayingBarBackgroundStyles)sender1.GetValue(BackgroundStylesProperty))
                     {
                         case NowPlayingBarBackgroundStyles.Transparent:
@@ -112,6 +135,32 @@ namespace Rise.App.UserControls
                             Grid.Background = BackgroundAcrylicBrush;
                             Effects.SetShadow(Parent1, DropShadow);
                             break;
+                    }
+                }
+            });
+            _isInNowPlayingPageToken = RegisterPropertyChangedCallback(IsInNowPlayingPageProperty, (sender1, dependencyObject) =>
+            {
+                if (dependencyObject == IsInNowPlayingPageProperty)
+                {
+                    if (IsInNowPlayingPage)
+                    {
+                        ShuffleButton.Margin = new Thickness(0, 10, 0, 10);
+                        RepeatButton.Margin = new Thickness(0, 10, 0, 10);
+                    } else
+                    {
+                        ShuffleButton.Margin = new Thickness(10);
+                        RepeatButton.Margin = new Thickness(10);
+                    }
+                }
+            });
+            _overlayBtnVisibilityPropertyToken = RegisterPropertyChangedCallback(OverlayBtnVisibilityProperty, (sender1, dependencyObject) =>
+            {
+                if (dependencyObject == OverlayBtnVisibilityProperty)
+                {
+                    if (OverlayBtnVisibility == Visibility.Collapsed)
+                    {
+                        OverlayButton.Visibility = Visibility.Collapsed;
+                        OverlayButton1.Visibility = Visibility.Collapsed;
                     }
                 }
             });
@@ -388,11 +437,11 @@ namespace Rise.App.UserControls
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
-                _tintOpacity = 0;
+                _tintOpacity = 180;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                _tintOpacity = 70;
+                _tintOpacity = 130;
             }
         }
 
