@@ -206,20 +206,33 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutSubItem x:Uid="/Information/Notif">
-                                <MenuFlyoutSubItem.Icon>
+                            
+
+                            <MenuFlyoutItem x:Uid="/Information/Notif">
+                                <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
-                                </MenuFlyoutSubItem.Icon>
-                                <MenuFlyoutItem Text="Coming soon" />
-                                <MenuFlyoutItem x:Uid="/Information/Fdb"
-                                            Click="Button_Click">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xED15;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                            </MenuFlyoutSubItem>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutItem x:Uid="/Information/Settings"
+                                            Click="OpenSettings_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE115;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
                             <MenuFlyoutSeparator />
+
+                            
+
+                            <MenuFlyoutItem x:Uid="/Information/Fdb"
+                                            Click="Button_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xED15;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            
 
                             <MenuFlyoutItem x:Uid="/Information/Scan"
                                             Click="StartScan_Click">
@@ -230,21 +243,16 @@
 
                             
 
-                            <!--<MenuFlyoutItem x:Uid="/Information/Settings"
-                                            Click="OpenSettings_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE115;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
+                            
 
-                            <MenuFlyoutItem x:Uid="/Information/Fdb"
+                            <!--<MenuFlyoutItem x:Uid="/Information/Fdb"
                                             Click="Button_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>-->
 
-                            
+
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
