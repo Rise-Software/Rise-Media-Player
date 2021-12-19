@@ -13,7 +13,7 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Rise.App.Converters"
+    xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Height="102"
     MaxWidth="1500"
     SizeChanged="UserControl_SizeChanged">
@@ -28,6 +28,103 @@
             <GradientStop Color="#B61F9C" Offset="0.8"/>
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
+        <MenuFlyout x:Key="MoreMenuFlyout">
+            <MenuFlyoutItem Text="Info &amp; Properties">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE70F;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Queue">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEA37;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Full screen">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE740;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutItem Text="Cast to device">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC15;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutSubItem Text="Playback speed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC4A;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="0.5x" />
+                <muxc:RadioMenuFlyoutItem Text="1x (Normal)" />
+                <muxc:RadioMenuFlyoutItem Text="1.5x" />
+                <muxc:RadioMenuFlyoutItem Text="2x" />
+                <muxc:RadioMenuFlyoutItem Text="2.5x" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSubItem Text="Sound profile">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93D;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="None" />
+                <muxc:RadioMenuFlyoutItem Text="Treble" />
+                <muxc:RadioMenuFlyoutItem Text="Bass boost" />
+                <muxc:RadioMenuFlyoutItem Text="Headphones" />
+                <muxc:RadioMenuFlyoutItem Text="Laptop" />
+                <muxc:RadioMenuFlyoutItem Text="Portable speakers" />
+                <muxc:RadioMenuFlyoutItem Text="Home stereo" />
+                <muxc:RadioMenuFlyoutItem Text="TV" />
+                <muxc:RadioMenuFlyoutItem Text="Car" />
+                <muxc:RadioMenuFlyoutItem Text="Color shift" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="More options" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutSubItem Text="Pinned">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xE141;" />
+                </MenuFlyoutSubItem.Icon>
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutSubItem Text="Visualizer">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xF4A5;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="None" />
+                <muxc:RadioMenuFlyoutItem Text="Color shift" />
+                <ToggleMenuFlyoutItem Text="Picture slideshow" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSubItem Text="Settings">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE713;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="Default" />
+                <muxc:RadioMenuFlyoutItem Text="Compact mode" />
+                <MenuFlyoutSeparator />
+                <ToggleMenuFlyoutItem Text="Tint to album art" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Additional settings" />
+            </MenuFlyoutSubItem>
+        </MenuFlyout>
+
+        <Flyout x:Key="VolumeFlyout">
+            <RelativePanel Width="200">
+                <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
+                    <SymbolIcon Symbol="Volume" />
+                </Viewbox>
+                <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
+                <TextBlock Text="{x:Bind VolumeSlider1.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+            </RelativePanel>
+        </Flyout>
     </UserControl.Resources>
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
@@ -38,7 +135,7 @@
             <Grid.Background>
                 <AcrylicBrush BackgroundSource="Backdrop"
                               x:Name="BackgroundAcrylicBrush"
-                              TintOpacity="0.1"
+                              TintOpacity="0.0"
                               TintColor="{StaticResource SystemColorBackgroundColor}" />
             </Grid.Background>
             <Grid.ColumnDefinitions>
@@ -69,41 +166,36 @@
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Padding="3,0,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button HorizontalAlignment="Right" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Background="Transparent">
-                        <Button.Flyout>
-                            <Flyout>
-                                <RelativePanel Width="200">
-                                    <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl2">
-                                        <SymbolIcon Symbol="Volume" />
-                                    </Viewbox>
-                                    <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider2" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText2" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl2" />
-                                    <TextBlock Text="{x:Bind VolumeSlider2.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText2" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
-                                </RelativePanel>
-                            </Flyout>
-                        </Button.Flyout>
+                    <Button HorizontalAlignment="Right" Padding="10" Margin="5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Flyout="{StaticResource VolumeFlyout}" BorderThickness="0" Background="Transparent">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
                     <ToggleButton x:Name="ShuffleButton"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Click="ShuffleButton_Click"
-                            ToolTipService.ToolTip="Shuffle list">
+                                  Padding="10"
+                                  Margin="10"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  BorderBrush="Transparent"
+                                  Click="ShuffleButton_Click"
+                                  ToolTipService.ToolTip="Shuffle">
                         <FontIcon Glyph="&#xE8B1;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </ToggleButton>
 
-                    <Button ToolTipService.ToolTip="Back"
+                    <Button ToolTipService.ToolTip="Previous"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             x:Name="PreviousButton"
+                            Padding="10"
+                            BorderThickness="0"
+                            Margin="-2"
                             Click="PreviousButton_Click">
                         <FontIcon Glyph="&#xE622;"
-                                  FontSize="15"
+                                  FontSize="16"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
 
                     <Border Margin="5,0" CornerRadius="50" Height="50" Width="50" BorderThickness="4">
-                        <Button PointerEntered="PlayButton_PointerEntered" PointerExited="PlayButton_PointerExited" Height="50" CornerRadius="50" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton">
+                        <Button PointerEntered="PlayButton_PointerEntered" Padding="10" PointerExited="PlayButton_PointerExited" Height="50" CornerRadius="50" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton" Width="50" HorizontalAlignment="Center">
                             <Button.Resources>
                                 <ResourceDictionary>
                                     <ResourceDictionary.ThemeDictionaries>
@@ -124,31 +216,40 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="18" x:Name="PlayButtonIcon" />
+                            <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" x:Name="PlayButtonIcon" />
                         </Button>
                     </Border>
 
                     <Button Click="NextButton_Click"
+                            Padding="10"
+                            Margin="-2"
                             ToolTipService.ToolTip="Next"
                             BorderBrush="Transparent"
+                            BorderThickness="0"
                             Background="Transparent"
                             x:Name="NextButton">
                         <FontIcon Glyph="&#xE623;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
-                                  FontSize="15"/>
+                                  FontSize="16"/>
                     </Button>
 
                     <ToggleButton x:Name="RepeatButton"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Click="RepeatButton_Click"
-                            ToolTipService.ToolTip="Toggle repeat">
+                                  Background="Transparent"
+                                  Padding="10"
+                                  Margin="10"
+                                  BorderBrush="Transparent"
+                                  BorderThickness="0"
+                                  Click="RepeatButton_Click"
+                                  ToolTipService.ToolTip="Repeat">
                         <FontIcon Glyph="&#xE8EE;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </ToggleButton>
 
                     <Button x:Name="OverlayButton1"
+                            Padding="10"
+                            Margin="5"
                             Click="OverlayButton1_Click"
                             Background="Transparent"
+                            BorderThickness="0"
                             BorderBrush="Transparent">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
@@ -164,23 +265,14 @@
                 <controls:WrapPanel Margin="0,4,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
 
                     <Button Height="35"
+                            Padding="10"
                             HorizontalAlignment="Right"
                             x:Name="VolumeFlyoutButton"
                             BorderBrush="Transparent"
                             BorderThickness="0"
                             Background="Transparent"
-                            ToolTipService.ToolTip="Change volume">
-                        <Button.Flyout>
-                            <Flyout>
-                                <RelativePanel Width="200">
-                                    <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
-                                        <SymbolIcon Symbol="Volume" />
-                                    </Viewbox>
-                                    <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
-                                    <TextBlock Text="{x:Bind VolumeSlider1.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
-                                </RelativePanel>
-                            </Flyout>
-                        </Button.Flyout>
+                            ToolTipService.ToolTip="Change volume"
+                            Flyout="{StaticResource VolumeFlyout}">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
@@ -188,10 +280,13 @@
                             Click="OverlayButton_Click"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
+                            Padding="10,10,10,10"
                             BorderBrush="Transparent"
                             BorderThickness="0"
                             Height="35">
-                        <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                        <FontIcon Glyph="&#xEE49;"
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
+                                  FontSize="16"/>
                     </Button>
 
                     <Button x:Name="RestoreVideoButton"
@@ -209,10 +304,12 @@
                     <Button BorderBrush="Transparent"
                             Background="Transparent"
                             BorderThickness="0"
-                            Height="35">
-                        <Viewbox Width="18" Height="18">
-                            <SymbolIcon Symbol="More" />
-                        </Viewbox>
+                            Padding="10"
+                            Height="35"
+                            Flyout="{StaticResource MoreMenuFlyout}">
+                        <FontIcon Glyph="&#xE712;"
+                                  FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
+                                  FontSize="16"/>
                     </Button>
                 </controls:WrapPanel>
                 <RelativePanel Margin="0,10,0,0" x:Name="DefaultVolumeControl">
