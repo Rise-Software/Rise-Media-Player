@@ -40,7 +40,7 @@
                             PointerEntered="Image_PointerEntered"
                             PointerExited="Image_PointerExited"
                             VerticalAlignment="Center">
-                    <Image Height="150"
+                    <Image Height="180"
                            Stretch="None"
                            Source="ms-appx:///Assets/DefaultPlaylistIcon.png"
                            x:Name="PreviewImage" />
@@ -49,7 +49,8 @@
                             Margin="10,-35,10,0"
                             Content="Use custom image"
                             x:Name="UseCustomImageButton"
-                            Click="UseCustomImageButton_Click" />
+                            Click="UseCustomImageButton_Click"
+                            Visibility="Collapsed" />
                 </StackPanel>
             </Grid>
 

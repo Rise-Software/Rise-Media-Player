@@ -23,18 +23,21 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            string title = string.IsNullOrWhiteSpace(TitleTextBox.Text) ? "Untitled" : TitleTextBox.Text;
             string description = string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ? "No description." : DescriptionTextBox.Text;
             
             Playlist playlist = new Playlist
             {
-                Title = TitleTextBox.Text,
+                Title = title,
                 Description = description,
                 Icon = _imagePath.OriginalString,
                 Duration = "0"
             };
 
-            App.MViewModel.Playlists.Add(new ViewModels.PlaylistViewModel(playlist));
-            await App.Repository.Playlists.QueueUpsertAsync(playlist);
+            ViewModels.PlaylistViewModel plViewModel = new ViewModels.PlaylistViewModel(playlist);
+            plViewModel.IsNew = true;
+            await plViewModel.SaveAsync();
+            
             Hide();
         }
 
