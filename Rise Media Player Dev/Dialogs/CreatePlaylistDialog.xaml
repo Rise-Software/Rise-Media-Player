@@ -8,14 +8,12 @@
     mc:Ignorable="d"
     PrimaryButtonText="Create"
     CloseButtonText="Cancel"
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     CloseButtonClick="ContentDialog_CloseButtonClick"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    CloseButtonStyle="{StaticResource DefaultButtonStyle}"
-    CornerRadius="8"
     Style="{StaticResource DefaultContentDialogStyle}">
 
-    <StackPanel>
+    <StackPanel Width="500">
         <RelativePanel>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Create a new playlist" />
             <Button Style="{StaticResource TransparentButton}" RelativePanel.AlignRightWithPanel="True">
@@ -27,33 +25,43 @@
                 </Button.Content>
             </Button>
         </RelativePanel>
-        <Grid>
+        <Grid ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition MinWidth="300" />
+                <ColumnDefinition MinWidth="270" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel VerticalAlignment="Center">
+            <Grid>
                 <StackPanel BorderThickness="1"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             Background="{StaticResource LayerFillColorDefaultBrush}"
                             CornerRadius="8"
-                            Margin="0,10,0,0">
+                            Padding="0,0,0,10"
+                            PointerEntered="Image_PointerEntered"
+                            PointerExited="Image_PointerExited"
+                            VerticalAlignment="Center">
                     <Image Height="150"
                            Stretch="None"
-                           Source="ms-appx:///Assets/DefaultPlaylistIcon.png" />
+                           Source="ms-appx:///Assets/DefaultPlaylistIcon.png"
+                           x:Name="PreviewImage" />
                     <Button HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            Margin="10,-20,10,10"
-                            Content="Use custom image" />
+                            Margin="10,-35,10,0"
+                            Content="Use custom image"
+                            x:Name="UseCustomImageButton"
+                            Click="UseCustomImageButton_Click" />
                 </StackPanel>
-            </StackPanel>
+            </Grid>
 
-            <ScrollViewer Padding="10" Grid.Column="1" VerticalAlignment="Center">
-                <StackPanel Spacing="10">
-                    <TextBox Header="Title" />
+            <ScrollViewer Width="270" MaxHeight="200" Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Margin="0,10,0,0" Spacing="10">
+                    <TextBox Header="Title" x:Name="TitleTextBox" />
 
-                    <TextBox Header="Description" Height="95" />
+                    <TextBox Header="Description"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             x:Name="DescriptionTextBox"
+                             MinHeight="95" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

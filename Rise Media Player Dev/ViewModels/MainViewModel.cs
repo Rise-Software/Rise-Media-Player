@@ -50,6 +50,7 @@ namespace Rise.App.ViewModels
         public MainViewModel()
         {
             FilteredSongs = new AdvancedCollectionView(Songs);
+            FilteredPlaylists = new AdvancedCollectionView(Playlists);
             FilteredAlbums = new AdvancedCollectionView(Albums);
             FilteredArtists = new AdvancedCollectionView(Artists);
             FilteredGenres = new AdvancedCollectionView(Genres);
@@ -98,7 +99,7 @@ namespace Rise.App.ViewModels
         public AdvancedCollectionView FilteredVideos { get; set; }
 
         /// <summary>
-        /// The collection of videos in the list. 
+        /// The collection of playlists in the list. 
         /// </summary>
         public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
             = new ObservableCollection<PlaylistViewModel>();

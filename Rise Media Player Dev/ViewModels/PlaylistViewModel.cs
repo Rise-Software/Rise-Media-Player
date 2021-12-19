@@ -1,6 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,6 +46,93 @@ namespace Rise.App.ViewModels
                     IsModified = true;
                     OnPropertyChanged(nameof(Title));
                 }
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return Model.Description;
+            }
+            set
+            {
+                if (value != Model.Description)
+                {
+                    Model.Description = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        public string Icon
+        {
+            get
+            {
+                return Model.Icon;
+            }
+            set
+            {
+                if (value != Model.Icon)
+                {
+                    Model.Icon = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Icon));
+                }
+            }
+        }
+
+        public string Duration
+        {
+            get
+            {
+                return Model.Duration;
+            }
+            set
+            {
+                if (value != Model.Duration)
+                {
+                    Model.Duration = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Duration));
+                }
+            }
+        }
+
+        public ICollection<Song> SongsCollection
+        {
+            get
+            {
+                return Model.SongsCollection;
+            }
+            set
+            {
+                if (value != Model.SongsCollection)
+                {
+                    Model.SongsCollection = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(SongsCollection));
+                }
+                SongsCount = Model.SongsCollection.Count;
+            }
+        }
+
+        public int SongsCount
+        {
+            get
+            {
+                if (Model.SongsCollection != null)
+                {
+                    return Model.SongsCollection.Count + 1;
+                } else
+                {
+                    return 0;
+                }
+            }
+            private set
+            {
+
             }
         }
 

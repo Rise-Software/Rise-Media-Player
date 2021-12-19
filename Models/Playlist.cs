@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Rise.Models
 {
@@ -11,6 +12,7 @@ namespace Rise.Models
         public string Icon { get; set; }
         public string Description { get; set; }
         public string Duration { get; set; }
+        public ICollection<Song> SongsCollection;
 
         /// <summary>
         /// Returns the playlist title.
@@ -22,7 +24,8 @@ namespace Rise.Models
             return Title == other.Title &&
                    Duration == other.Duration &&
                    Icon == other.Icon &&
-                   Description == other.Description;
+                   Description == other.Description &&
+                   SongsCollection == other.SongsCollection;
         }
     }
 }
