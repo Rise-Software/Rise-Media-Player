@@ -31,19 +31,19 @@
         <MenuFlyout x:Key="MoreMenuFlyout">
             <MenuFlyoutItem Text="Info &amp; Properties">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE70F;" />
+                    <FontIcon Glyph="&#xE70F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
             <MenuFlyoutItem Text="Queue">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEA37;" />
+                    <FontIcon Glyph="&#xEA37;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
             <MenuFlyoutItem Text="Full screen">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE740;" />
+                    <FontIcon Glyph="&#xE740;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
@@ -51,13 +51,13 @@
 
             <MenuFlyoutItem Text="Cast to device">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC15;" />
+                    <FontIcon Glyph="&#xEC15;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
             <MenuFlyoutSubItem Text="Playback speed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC4A;" />
+                    <FontIcon Glyph="&#xEC4A;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.75x" />
@@ -106,7 +106,7 @@
 
             <MenuFlyoutSubItem Text="Settings">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE713;" />
+                    <FontIcon Glyph="&#xE713;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Text="Default" />
                 <muxc:RadioMenuFlyoutItem Text="Compact mode" />
@@ -119,7 +119,7 @@
 
         <Flyout x:Key="VolumeFlyout">
             <RelativePanel Width="200">
-                <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
+                <Viewbox Width="20" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
                     <SymbolIcon Symbol="Volume" />
                 </Viewbox>
                 <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
@@ -251,7 +251,8 @@
                             Click="OverlayButton1_Click"
                             Background="Transparent"
                             BorderThickness="0"
-                            BorderBrush="Transparent">
+                            BorderBrush="Transparent"
+                            ToolTipService.ToolTip="Mini player">
                         <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                     </Button>
                 </StackPanel>
@@ -272,7 +273,7 @@
                             BorderBrush="Transparent"
                             BorderThickness="0"
                             Background="Transparent"
-                            ToolTipService.ToolTip="Change volume"
+                            ToolTipService.ToolTip="Volume"
                             Flyout="{StaticResource VolumeFlyout}">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
@@ -284,7 +285,8 @@
                             Padding="10,10,10,10"
                             BorderBrush="Transparent"
                             BorderThickness="0"
-                            Height="35">
+                            Height="35"
+                            ToolTipService.ToolTip="Mini player">
                         <FontIcon Glyph="&#xEE49;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
                                   FontSize="16"/>
@@ -307,7 +309,8 @@
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
-                            Flyout="{StaticResource MoreMenuFlyout}">
+                            Flyout="{StaticResource MoreMenuFlyout}"
+                            ToolTipService.ToolTip="More">
                         <FontIcon Glyph="&#xE712;"
                                   FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
                                   FontSize="16"/>

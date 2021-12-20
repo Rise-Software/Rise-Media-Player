@@ -52,6 +52,11 @@ namespace Rise.App.Views
             Songs.Refresh();
         }
 
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
+        }
+
         #region Event handlers
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {

@@ -93,6 +93,11 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
         }
 
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
+        }
+
         #region Event handlers
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {

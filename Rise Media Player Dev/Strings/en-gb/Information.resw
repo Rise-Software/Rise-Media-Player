@@ -162,6 +162,9 @@
   <data name="BigSearch.PlaceholderText" xml:space="preserve">
     <value>Search all media on this device</value>
   </data>
+  <data name="ChangeArtImg.Text" xml:space="preserve">
+    <value>Change artist image</value>
+  </data>
   <data name="Check.Title" xml:space="preserve">
     <value>Looking for new media in your library...</value>
   </data>
@@ -276,7 +279,7 @@
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
     <value>Select</value>
   </data>
-  <data name="SelectAlbum.Text" xml:space="preserve">
+  <data name="SelectAlbumorSong.Text" xml:space="preserve">
     <value>Select</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
@@ -302,6 +305,9 @@
   </data>
   <data name="ShuffleAlbum.Text" xml:space="preserve">
     <value>Shuffle album</value>
+  </data>
+  <data name="ShuffleArtist.Text" xml:space="preserve">
+    <value>Shuffle artist</value>
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>

@@ -49,6 +49,20 @@ namespace Rise.App.Views
 
             SelectedArtist = null;
         }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                ArtistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnArtist.IsOpen = true;
+        }
+
         #endregion
 
         #region NavigationHelper registration
@@ -66,6 +80,8 @@ namespace Rise.App.Views
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
+
+
         #endregion
     }
 }
