@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Media;
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Linq;
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -189,5 +191,15 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            // Check if the list view height is larger than this page's height, if this is true,
+            // try to handle scrolling
+            if (MainList.Height > Height)
+            {
+                (MainList.HeaderTemplate.GetChildren<Border>().First().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
+            }
+        }
     }
 }

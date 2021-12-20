@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -177,6 +178,16 @@ namespace Rise.App.Views
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
             => EventsLogic.GoToArtist(sender);
+
+        private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            // Check if the list view height is larger than this page's height, if this is true,
+            // try to handle scrolling
+            if (MainList.Height > Height)
+            {
+                (MainList.HeaderTemplate.GetChildren<Border>().First().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
+            }
+        }
         #endregion
 
         #region NavigationHelper registration

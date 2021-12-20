@@ -27,12 +27,13 @@
 
         <StackPanel Grid.Row="2" Orientation="Vertical">
             <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
-                       FontWeight="Normal"
+                       FontWeight="SemiBold"
                        MaxLines="1"
+                       HorizontalTextAlignment="Center"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
                        FontSize="22"
-                       FontWeight="Bold"
+                       HorizontalTextAlignment="Center"
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}" />
             <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
@@ -40,6 +41,7 @@
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="NoWrap"
+                       HorizontalTextAlignment="Center"
                        VerticalAlignment="Center" />
         </StackPanel>
     </Grid>

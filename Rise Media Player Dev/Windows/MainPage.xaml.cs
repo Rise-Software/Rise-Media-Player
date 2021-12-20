@@ -321,6 +321,7 @@ namespace Rise.App.Views
             string tag = type.Split('.').Last();
 
             Breadcrumbs.Clear();
+            CrumbsHeader.Visibility = Visibility.Visible;
 
             switch (tag)
             {
@@ -330,11 +331,13 @@ namespace Rise.App.Views
                     return;
 
                 case "AlbumSongsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "AlbumsPage");
                     return;
 
                 case "ArtistSongsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "ArtistsPage");
                     return;
