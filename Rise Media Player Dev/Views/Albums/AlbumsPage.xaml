@@ -75,18 +75,30 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
+            <AppBarButton x:Uid="/Information/View">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Default">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xF0E2;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
+                        <muxc:RadioMenuFlyoutItem Text="Tiles (Vertical)" IsChecked="True" />
+                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" />
+                        <muxc:RadioMenuFlyoutItem Text="List" />
+                        <MenuFlyoutSeparator/>
+                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" />
+                        <MenuFlyoutSeparator/>
+                        <ToggleMenuFlyoutItem Text="Card background" />
+                        <ToggleMenuFlyoutItem Text="Rounded album art" />
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="Additional settings"/>
+                        <MenuFlyoutSubItem Text="Show">
+                            <ToggleMenuFlyoutItem Text="Album art"/>
+                            <ToggleMenuFlyoutItem Text="Artist name"/>
+                            <ToggleMenuFlyoutItem Text="Genre"/>
+                            <ToggleMenuFlyoutItem Text="Release year"/>
+                            <ToggleMenuFlyoutItem Text="Rating"/>
+                        </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -223,7 +235,7 @@
                     </MenuFlyoutItem>
                     
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbum">
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>

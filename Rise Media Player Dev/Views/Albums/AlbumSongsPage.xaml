@@ -17,6 +17,21 @@
     </Page.Resources>
 
     <Grid>
+        <muxc:TeachingTip x:Name="DiscyOnSong"
+	        Title="Taking action on songs"
+	        Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!"
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+        
         <ListView x:Name="MainList"
                   Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
@@ -46,12 +61,65 @@
 
                     <MenuFlyoutSeparator />
 
+                    <MenuFlyoutSubItem x:Name="AddTo"
+                                    x:Uid="/Information/AddTo"
+                                    IsEnabled="True">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyoutSubItem>
+
+                    <MenuFlyoutItem x:Name="Share"
+                                    x:Uid="/Information/Share"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE72D;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="AskDiscy"
+                                    Click="AskDiscy_Click"
+                                    x:Uid="/Information/AskDiscy"
+                                    IsEnabled="True">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE11B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove"
+                                    x:Uid="/Information/RemoveThing"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
                     <MenuFlyoutItem x:Uid="/MediaData/Properties"
                                     Click="Props_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+
+
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
                 </MenuFlyout>
             </ListView.Resources>
 
