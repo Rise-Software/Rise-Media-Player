@@ -73,6 +73,9 @@ namespace Rise.App.Views
                 case "Version":
                     vTip.IsOpen = true;
                     break;
+                case "Discy":
+                    DiscyOnHome.IsOpen = true;
+                    break;
 
             }
         }

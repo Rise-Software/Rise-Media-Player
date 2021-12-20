@@ -41,7 +41,23 @@ namespace Rise.App.Views
             }
         }
 
+        
+
         private async void Play_Click(object sender, RoutedEventArgs e)
             => await EventsLogic.StartVideoPlaybackAsync();
+
+
+        private void GridView_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void MainGrid_RightTapped_1(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
+            {
+                VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
     }
 }

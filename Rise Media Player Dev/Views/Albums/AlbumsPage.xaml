@@ -251,6 +251,7 @@
                                 Width="134">
                         <Button CornerRadius="4"
                                 IsHitTestVisible="False"
+                                ToolTipService.ToolTip="{x:Bind Title}"
                                 Padding="0">
                             <Border x:Name="AlbumThumb"
                                     CornerRadius="4">
@@ -265,10 +266,11 @@
                         <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    MaxLines="1"
+                                   ToolTipService.ToolTip="{x:Bind Title}"
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap" />
                         <TextBlock FontSize="13">
-                            <Hyperlink Click="Artist_Click" UnderlineStyle="None">
+                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
                                 <Run Text="{x:Bind Artist}" />
                             </Hyperlink>
                         </TextBlock>

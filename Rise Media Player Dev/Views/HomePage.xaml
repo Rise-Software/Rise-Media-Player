@@ -9,6 +9,24 @@
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
+
+
+            <muxc:TeachingTip x:Name="DiscyOnHome"
+	        Title="About at a glance"
+	        Subtitle="At a glance will soon contain your recommendations, recently played and more. Currently though, you can see what is new in this Pre-Alpha build. Clicking on a card will give you more information. There are also some quick links to add media and contribute. "
+	        PreferredPlacement="Bottom"
+	        PlacementMargin="20"
+            Target="{x:Bind Discy}"
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+                <muxc:TeachingTip.HeroContent>
+                    <Image Source="/Assets/Branding/discygraphic.png" />
+                </muxc:TeachingTip.HeroContent>
+            </muxc:TeachingTip>
+
+
             <uc:AdaptiveItemPane Loaded="AdaptiveItemPane_Loaded_1">
                 <uc:AdaptiveItemPane.LeftPane>
                     <Image Height="33"
@@ -19,12 +37,21 @@
                     <StackPanel Orientation="Horizontal"
                                 Spacing="8"
                                 VerticalAlignment="Center">
-                        <Button x:Name="Version" Padding="5,5,5,5"
+
+                        <Button x:Name="Discy" Padding="5"
+                            Click="CommandBarButton_Click"
+                            Style="{StaticResource TransparentButton}"
+                            Tag="Discy">
+                            <FontIcon Glyph="&#xE11B;" FontSize="16" VerticalAlignment="Center" />
+                        </Button>
+
+                        <Button x:Name="Version" Margin="5" Padding="5"
                             Click="CommandBarButton_Click"
                             Style="{StaticResource TransparentButton}"
                             Tag="Version">
-                            <FontIcon Glyph="&#xE946;" VerticalAlignment="Center" />
+                            <FontIcon Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
                         </Button>
+                        
                         <TextBlock Text="v0.0.13"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
