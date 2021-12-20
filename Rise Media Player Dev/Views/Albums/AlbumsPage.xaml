@@ -15,6 +15,21 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <muxc:TeachingTip x:Name="DiscyOnAlbum"
+	        Title="Managing and organising your albums"
+	        Subtitle="Use the command bar to sort your albums into different types. Click on an album to see what's in store. You can add a whole album to a playlist, shuffle or share with friends."
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
@@ -146,6 +161,59 @@
 
                     <MenuFlyoutSeparator />
 
+                    <MenuFlyoutSubItem x:Name="AddTo"
+                                    x:Uid="/Information/AddTo"
+                                    IsEnabled="True">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStart"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyoutSubItem>
+                    
+                    <MenuFlyoutItem x:Name="Share"
+                                    x:Uid="/Information/Share"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE72D;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="AskDiscy"
+                                    Click="AskDiscy_Click"
+                                    x:Uid="/Information/AskDiscy"
+                                    IsEnabled="True">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE11B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove"
+                                    x:Uid="/Information/RemoveThing"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
                     <MenuFlyoutItem x:Name="Props"
                                     x:Uid="/MediaData/Properties"
                                     IsEnabled="False">
@@ -153,6 +221,7 @@
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+                    
 
                     <MenuFlyoutItem x:Uid="/Information/SelectAlbum">
                         <MenuFlyoutItem.Icon>
@@ -195,5 +264,7 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+        
     </Grid>
 </Page>
