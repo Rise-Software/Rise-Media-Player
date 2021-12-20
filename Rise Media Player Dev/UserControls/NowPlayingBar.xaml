@@ -59,11 +59,12 @@
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xEC4A;" />
                 </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Text="0.5x" />
-                <muxc:RadioMenuFlyoutItem Text="1x (Normal)" />
-                <muxc:RadioMenuFlyoutItem Text="1.5x" />
-                <muxc:RadioMenuFlyoutItem Text="2x" />
-                <muxc:RadioMenuFlyoutItem Text="2.5x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.75x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" IsChecked="True" Text="1x (Normal)" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="1.5x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
             </MenuFlyoutSubItem>
 
             <MenuFlyoutSubItem Text="Sound profile">

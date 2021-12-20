@@ -9,7 +9,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:converters="using:Rise.App.Converters"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -27,7 +27,8 @@
                   Padding="44,0,44,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
-                  SelectionMode="Single">
+                  SelectionMode="Single"
+                  PointerWheelChanged="MainList_PointerWheelChanged">
             <ListView.Resources>
                 <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
                     <MenuFlyoutItem x:Uid="/Information/PlayItem"
@@ -57,44 +58,51 @@
 
             <ListView.HeaderTemplate>
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel">
-                    <Grid ColumnSpacing="24" Padding="12,0,12,32">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="154" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
+                    <Border Margin="-56,0,-56,10">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{x:Bind Thumbnail}" Opacity="0.6" />
+                        </Border.Background>
+                            <Grid ColumnSpacing="24" Padding="56,12,56,12">
+                                <Grid.Background>
+                                    <media:BackdropBlurBrush Amount="70" />
+                                </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="154" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
 
-                        <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                 CornerRadius="8"
                                 IsHitTestVisible="False"
                                 Padding="0">
-                            <Border animations:Connected.Key="AlbumArt"
+                                    <Border animations:Connected.Key="AlbumArt"
                                     CornerRadius="8">
-                                <Image x:Phase="1"
+                                        <Image x:Phase="1"
                                        Height="154"
                                        Source="{x:Bind Thumbnail}"
                                        Stretch="Uniform"
                                        Width="154" />
-                            </Border>
-                        </Button>
+                                    </Border>
+                                </Button>
 
-                        <StackPanel Grid.Column="1"
+                                <StackPanel Grid.Column="1"
                                     Orientation="Vertical"
                                     Spacing="8"
                                     VerticalAlignment="Center">
-                            <Grid ColumnSpacing="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                                    <Grid ColumnSpacing="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{x:Bind Title}"
+                                        <TextBlock Text="{x:Bind Title}"
                                            MaxLines="1"
                                            Style="{StaticResource TitleTextBlockStyle}"
                                            VerticalAlignment="Center"
                                            TextTrimming="CharacterEllipsis" />
 
-                                <FontIcon x:Name="Folder"
+                                        <FontIcon x:Name="Folder"
                                           Grid.Column="1"
                                           FontSize="20"
                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -102,10 +110,10 @@
                                           Margin="0,6,0,0"
                                           VerticalAlignment="Center" />
 
-                                <muxc:TeachingTip x:Name="AlbumTip"
+                                        <muxc:TeachingTip x:Name="AlbumTip"
                                                   />
 
-                                <!--ToggleButton Grid.Column="1"
+                                        <!--ToggleButton Grid.Column="1"
                                               Background="Transparent"
                                               BorderThickness="0"
                                               Height="32"
@@ -122,64 +130,66 @@
                                               Width="32">
                                     <FontIcon FontSize="16" Glyph="&#xE19E;" />
                                 </ToggleButton-->
-                            </Grid>
+                                    </Grid>
 
-                            <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
+                                    <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
                                 <Hyperlink Click="Artist_Click" UnderlineStyle="None">
                                     <Run Text="{x:Bind Artist}" />
                                 </Hyperlink>
-                            </TextBlock>
+                                    </TextBlock>
 
-                            <TextBlock Text="{x:Bind Genres}"
+                                    <TextBlock Text="{x:Bind Genres}"
                                        MaxLines="1"
                                        Style="{StaticResource BodyTextBlockStyle}" />
 
-                            <CommandBar Background="Transparent"
+                                    <CommandBar Background="Transparent"
                                         DefaultLabelPosition="Right"
                                         HorizontalAlignment="Left"
                                         Margin="-12,0">
-                                <AppBarButton x:Name="PlayItem"
+                                        <AppBarButton x:Name="PlayItem"
                                               x:Uid="/Information/Play"
                                               Click="PlayButton_Click"
                                               Icon="Play"
                                               Style="{StaticResource AppBarCompactButton}" />
 
-                                <AppBarSeparator />
+                                        <AppBarSeparator />
 
-                                <AppBarButton x:Name="ShuffleItem"
+                                        <AppBarButton x:Name="ShuffleItem"
                                               x:Uid="/Information/Shuffle"
                                               Click="ShuffleButton_Click"
-                                              Icon="Shuffle" />
-                                <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xECC8;" />
-                                    </AppBarButton.Icon>
+                                              Icon="Shuffle"
+                                                      Label="Shuffle all" />
+                                        <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+                                            <AppBarButton.Icon>
+                                                <FontIcon Glyph="&#xECC8;" />
+                                            </AppBarButton.Icon>
 
-                                    <AppBarButton.Flyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem Text="Playlist">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE142;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                        </MenuFlyout>
-                                    </AppBarButton.Flyout>
-                                </AppBarButton>
+                                            <AppBarButton.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Text="Playlist">
+                                                        <MenuFlyoutItem.Icon>
+                                                            <FontIcon Glyph="&#xE142;" />
+                                                        </MenuFlyoutItem.Icon>
+                                                    </MenuFlyoutItem>
+                                                </MenuFlyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
 
-                                <AppBarSeparator />
+                                        <AppBarSeparator />
 
-                                <AppBarButton x:Uid="/Information/Delete"
+                                        <AppBarButton x:Uid="/Information/Delete"
                                               Icon="Delete"
                                               IsEnabled="False"
                                               Style="{StaticResource AppBarCompactButton}" />
-                                <AppBarButton x:Uid="/Information/Edit"
+                                        <AppBarButton x:Uid="/Information/Edit"
                                               Click="EditButton_Click"
                                               Icon="Edit"
                                               IsEnabled="{Binding ElementName=Root, Path=SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
                                               Style="{StaticResource AppBarCompactButton}" />
-                            </CommandBar>
-                        </StackPanel>
-                    </Grid>
+                                    </CommandBar>
+                                </StackPanel>
+                            </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.HeaderTemplate>
 

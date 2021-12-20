@@ -99,7 +99,7 @@ namespace Rise.App.UserControls
             HandleColorStyles();
         }
 
-        #region Listeners
+        #region Events
 
         private void SliderProgress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
@@ -417,9 +417,34 @@ namespace Rise.App.UserControls
             }
         }
 
+        private void RadioMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as MenuFlyoutItem).Text)
+            {
+                case "0.5x":
+                    _player.PlaybackSession.PlaybackRate = 0.5;
+                    break;
+                case "0.75":
+                    _player.PlaybackSession.PlaybackRate = 0.75;
+                    break;
+                case "1x (Normal)":
+                    _player.PlaybackSession.PlaybackRate = 1;
+                    break;
+                case "1.5x":
+                    _player.PlaybackSession.PlaybackRate = 1.5;
+                    break;
+                case "2x":
+                    _player.PlaybackSession.PlaybackRate = 2;
+                    break;
+                case "2.5x":
+                    _player.PlaybackSession.PlaybackRate = 2.5;
+                    break;
+            }
+        }
+
         #endregion
 
-        public void TogglePlayPause()
+        private void TogglePlayPause()
         {
             if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
             {
