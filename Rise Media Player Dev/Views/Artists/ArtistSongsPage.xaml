@@ -79,7 +79,8 @@
 
                             <StackPanel Grid.Column="1"
                                     Orientation="Vertical"
-                                    Spacing="8">
+                                    Spacing="8"
+                                        Padding="0,10,0,0">
                                 <TextBlock Text="{x:Bind Name}"
                                        MaxLines="1"
                                        Style="{StaticResource TitleTextBlockStyle}" />
