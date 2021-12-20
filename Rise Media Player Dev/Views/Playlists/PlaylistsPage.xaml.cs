@@ -1,30 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Common;
+using Rise.App.Dialogs;
+using Rise.App.ViewModels;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Rise.App.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class PlaylistsPage : Page
     {
+        private AdvancedCollectionView Playlists => App.MViewModel.FilteredPlaylists;
+
+        private static readonly DependencyProperty SelectedPlaylistProperty =
+                DependencyProperty.Register("SelectedPlaylist", typeof(PlaylistViewModel), typeof(AlbumsPage), null);
+
+        private PlaylistViewModel SelectedPlaylist
+        {
+            get => (PlaylistViewModel)GetValue(SelectedPlaylistProperty);
+            set => SetValue(SelectedPlaylistProperty, value);
+        }
+
+
         public PlaylistsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private async void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            await new CreatePlaylistDialog().ShowAsync();
+        }
+
+        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedPlaylist.DeleteAsync();
+        }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+            {
+                SelectedPlaylist = playlist;
+                PlaylistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
+        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+            {
+                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist);
+            }
+
+            SelectedPlaylist = null;
         }
     }
 }

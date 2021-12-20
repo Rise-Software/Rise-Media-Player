@@ -322,8 +322,8 @@ namespace Rise.App.UserControls
             }
             else if (e.NewSize.Width >= 600)
             {
-                DefaultVolumeControl.Visibility = Visibility.Collapsed;
-                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                DefaultVolumeControl.Visibility = Visibility.Visible;
+                VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
                 if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
@@ -331,8 +331,8 @@ namespace Rise.App.UserControls
                 OverlayButton1.Visibility = Visibility.Collapsed;
             } else if (e.NewSize.Width >= 480)
             {
-                DefaultVolumeControl.Visibility = Visibility.Collapsed;
-                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                DefaultVolumeControl.Visibility = Visibility.Visible;
+                VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
@@ -341,8 +341,8 @@ namespace Rise.App.UserControls
             }
             else if (e.NewSize.Width >= 400)
             {
-                DefaultVolumeControl.Visibility = Visibility.Collapsed;
-                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                DefaultVolumeControl.Visibility = Visibility.Visible;
+                VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);

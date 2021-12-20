@@ -97,6 +97,11 @@ namespace Rise.App.Views
             SelectedAlbum = null;
         }
 
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnAlbum.IsOpen = true;
+        }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             Songs.Filter = null;
@@ -191,5 +196,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
     }
 }

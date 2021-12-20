@@ -155,6 +155,9 @@
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
+    <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
+      <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\FeatureDialog.xaml.cs">
       <DependentUpon>FeatureDialog.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,9 @@
     </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
+      <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
@@ -394,8 +400,10 @@
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Branding\discygraphic.png" />
     <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\Default.png" />
+    <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
@@ -449,6 +457,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\CreatePlaylistDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -514,6 +526,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Genres\GenreSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\PlaylistDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.Models;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace Rise.App.ViewModels
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
-        /// Initializes a new instance of the AlbumViewModel class that wraps an Playlist object.
+        /// Initializes a new instance of the PlaylistViewModel class that wraps an Playlist object.
         /// </summary>
         public PlaylistViewModel(Playlist model = null)
         {
@@ -24,8 +26,6 @@ namespace Rise.App.ViewModels
                 Model = new Playlist();
                 IsNew = true;
             }
-
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
 
         /// <summary>
@@ -45,6 +45,95 @@ namespace Rise.App.ViewModels
                     IsModified = true;
                     OnPropertyChanged(nameof(Title));
                 }
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return Model.Description;
+            }
+            set
+            {
+                if (value != Model.Description)
+                {
+                    Model.Description = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        public string Icon
+        {
+            get
+            {
+                return Model.Icon;
+            }
+            set
+            {
+                if (value != Model.Icon)
+                {
+                    Model.Icon = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Icon));
+                }
+            }
+        }
+
+        public string Duration
+        {
+            get
+            {
+                return Model.Duration;
+            }
+            set
+            {
+                if (value != Model.Duration)
+                {
+                    Model.Duration = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Duration));
+                }
+            }
+        }
+
+        private ObservableCollection<SongViewModel> songsCollection;
+
+        public ObservableCollection<SongViewModel> SongsCollection
+        {
+            get
+            {
+                return songsCollection;
+            }
+            set
+            {
+                if (value != songsCollection)
+                {
+                    songsCollection = value;
+                    IsModified = true;
+                    OnPropertyChanged(nameof(SongsCollection));
+                }
+                SongsCount = songsCollection.Count;
+            }
+        }
+
+        public int SongsCount
+        {
+            get
+            {
+                if (songsCollection != null)
+                {
+                    return songsCollection.Count;
+                } else
+                {
+                    return 0;
+                }
+            }
+            private set
+            {
+
             }
         }
 
