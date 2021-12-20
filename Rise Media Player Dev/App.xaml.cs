@@ -112,7 +112,9 @@ namespace Rise.App
                 {
                      { "stackTrace", e.Exception.StackTrace },
                      { "message", e.Exception.Message },
-                     { "exceptionName", e.Exception.GetType().ToString() }
+                     { "exceptionName", e.Exception.GetType().ToString() },
+                     { "source", e.Exception.Source },
+                     { "hresult", $"{e.Exception.HResult}" }
                 }.ToString(), ToastActivationType.Foreground)
                 .AddText("An error occured!")
                 .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
@@ -128,7 +130,7 @@ namespace Rise.App
             {
                 QueryString args = QueryString.Parse(toastActivationArgs.Argument);
 
-                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}";
+                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
 
                 Frame rootFrame = await InitializeWindowAsync(e);
                 if (rootFrame.Content == null)

@@ -252,7 +252,6 @@ namespace Rise.App.Views
 
         private async Task Navigate(string navTo)
         {
-            UnavailableDialog dialog;
             switch (navTo)
             {
                 case "HomePage":

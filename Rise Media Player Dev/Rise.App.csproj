@@ -217,6 +217,9 @@
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
+      <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
@@ -522,6 +525,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Genres\GenreSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\PlaylistDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

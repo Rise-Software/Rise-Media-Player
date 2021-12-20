@@ -1,6 +1,9 @@
 ﻿using Rise.App.Common;
+using Rise.App.ViewModels;
 using Rise.Models;
 using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
@@ -25,17 +28,16 @@ namespace Rise.App.Dialogs
         {
             string title = string.IsNullOrWhiteSpace(TitleTextBox.Text) ? "Untitled" : TitleTextBox.Text;
             string description = string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ? "No description." : DescriptionTextBox.Text;
-            
-            Playlist playlist = new Playlist
+
+            PlaylistViewModel plViewModel = new PlaylistViewModel
             {
                 Title = title,
                 Description = description,
                 Icon = _imagePath.OriginalString,
-                Duration = "0"
+                Duration = "0",
+                SongsCollection = new ObservableCollection<SongViewModel>()
             };
 
-            ViewModels.PlaylistViewModel plViewModel = new ViewModels.PlaylistViewModel(playlist);
-            plViewModel.IsNew = true;
             await plViewModel.SaveAsync();
             
             Hide();

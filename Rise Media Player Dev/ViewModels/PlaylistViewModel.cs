@@ -2,6 +2,7 @@
 using Rise.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,8 +26,6 @@ namespace Rise.App.ViewModels
                 Model = new Playlist();
                 IsNew = true;
             }
-
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
 
         /// <summary>
@@ -100,21 +99,23 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public ICollection<Song> SongsCollection
+        private ObservableCollection<SongViewModel> songsCollection;
+
+        public ObservableCollection<SongViewModel> SongsCollection
         {
             get
             {
-                return Model.SongsCollection;
+                return songsCollection;
             }
             set
             {
-                if (value != Model.SongsCollection)
+                if (value != songsCollection)
                 {
-                    Model.SongsCollection = value;
+                    songsCollection = value;
                     IsModified = true;
                     OnPropertyChanged(nameof(SongsCollection));
                 }
-                SongsCount = Model.SongsCollection.Count;
+                SongsCount = songsCollection.Count;
             }
         }
 
@@ -122,9 +123,9 @@ namespace Rise.App.ViewModels
         {
             get
             {
-                if (Model.SongsCollection != null)
+                if (songsCollection != null)
                 {
-                    return Model.SongsCollection.Count + 1;
+                    return songsCollection.Count;
                 } else
                 {
                     return 0;

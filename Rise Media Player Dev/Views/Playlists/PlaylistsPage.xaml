@@ -87,7 +87,8 @@
                   Padding="44,0,44,120"
                   SelectionMode="Single"
                   SelectedItem="{x:Bind SelectedPlaylist, Mode=TwoWay}"
-                  RightTapped="MainGrid_RightTapped">
+                  RightTapped="MainGrid_RightTapped"
+                  Tapped="GridView_Tapped">
             <GridView.Resources>
                 <MenuFlyout x:Key="PlaylistFlyout" x:Name="PlaylistFlyout">
                     <MenuFlyoutItem Text="Remove playlist"

@@ -46,5 +46,15 @@ namespace Rise.App.Views
                 PlaylistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
         }
+
+        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+            {
+                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist);
+            }
+
+            SelectedPlaylist = null;
+        }
     }
 }

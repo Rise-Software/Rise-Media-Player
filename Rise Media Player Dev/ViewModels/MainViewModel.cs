@@ -144,7 +144,6 @@ namespace Rise.App.ViewModels
 
             IEnumerable<Song> songs = await App.Repository.Songs.GetAsync();
 
-            // If there are no songs, don't bother loading lists
             if (songs != null)
             {
                 IEnumerable<Album> albums = await App.Repository.Albums.GetAsync();
@@ -203,11 +202,8 @@ namespace Rise.App.ViewModels
                         Playlists.Add(new PlaylistViewModel(p));
                     }
                 }
-
-                IsLoading = false;
             }
         }
-
         public async Task StartFullCrawlAsync()
         {
             await SongsTracker.HandleMusicFolderChanges();
@@ -463,7 +459,7 @@ namespace Rise.App.ViewModels
             await App.Repository.Artists.DeleteQueuedAsync();
             await App.Repository.Genres.DeleteQueuedAsync();
             await App.Repository.Videos.DeleteQueuedAsync();
-            await App.Repository.Playlists.UpsertQueuedAsync();
+            await App.Repository.Playlists.DeleteQueuedAsync();
         }
 
         /// <summary>
