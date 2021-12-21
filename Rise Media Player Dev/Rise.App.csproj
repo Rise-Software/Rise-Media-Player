@@ -407,6 +407,7 @@
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
+    <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />

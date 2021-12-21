@@ -40,69 +40,72 @@
             </uc:ExpanderControl.HeaderControls>
 
             <StackPanel>
-                <TextBlock FontSize="14" FontWeight="Normal" Text="Recent colours" Padding="30,0,150,0"/>
-                <TextBlock FontSize="14" FontWeight="SemiBold" Text="Coming soon" Padding="30,0,150,0"/>
-                <TextBlock FontSize="14" FontWeight="Normal" Text="Windows colours" Padding="30,20,150,0"/>
+                <TextBlock FontSize="14" FontWeight="Normal" Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown." x:Name="Nothing" Padding="30,0,0,0" TextWrapping="WrapWholeWords"/>
+                <StackPanel x:Name="TextforGlaze">
+                    <TextBlock FontSize="14" FontWeight="Normal" Text="Recent colours" Padding="30,0,150,0"/>
+                    <TextBlock FontSize="14" FontWeight="SemiBold" Text="Coming soon" Padding="30,0,150,0"/>
+                    <TextBlock FontSize="14" FontWeight="Normal" Text="Windows colours" Padding="30,20,150,0"/>
+                </StackPanel>
+                
                 <controls:WrapPanel x:Name="RiseColorsPanel" HorizontalSpacing="3" VerticalSpacing="3" Padding="30,5,150,5">
-                    <Border ToolTipService.ToolTip="Rise Red" Background="#FFB900" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Rise Violet" Background="#FF8C00" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Rise Green" Background="#F7630C" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Rise Blue" Background="#CA5010" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Rise Gold" Background="#DA3B01" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Cyan" Background="#EF6950" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Plum light" Background="#D13438" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Turf green" Background="#FF4343" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Purple shadow dark" Background="#E74856" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Meadow green" Background="#E81123" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Pale red" Background="#EA005E" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Mint dark" Background="#C30052" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Red" Background="#E3008C" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Steel blue" Background="#BF0077" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#C239B3" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#9A0089" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#0078D4" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#0063B1" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#8E8CD8" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#6B69D6" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#8764B8" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Yellow gold" Background="#FFB900" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Gold" Background="#FF8C00" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Orange bright" Background="#F7630C" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Orange dark" Background="#CA5010" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Rust" Background="#DA3B01" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Pale rust" Background="#EF6950" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Brick red" Background="#D13438" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Mod red" Background="#FF4343" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Pale red" Background="#E74856" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Red" Background="#E81123" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Rose bright" Background="#EA005E" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Rose" Background="#C30052" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Plum light" Background="#E3008C" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Plum" Background="#BF0077" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Orchid light" Background="#C239B3" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Orchid" Background="#9A0089" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Blue" Background="#0078D4" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Navy blue" Background="#0063B1" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Purple shadow" Background="#8E8CD8" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Purple shadow dark" Background="#6B69D6" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Iris pastel" Background="#8764B8" Width="50" Height="50" CornerRadius="5" />
                     <Border ToolTipService.ToolTip="Iris Spring" Background="#744DA9" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#B146C2" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#881798" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#0099BC" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#2D7D9A" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#00B7C3" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#038387" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#00B294" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#018574" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#00CC6A" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#10893E" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#7A7574" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#5D5A58" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#68768A" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#515C6B" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#567C73" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#486860" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#498205" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#107C10" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#767676" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#4C4A48" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#69797E" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#4A5459" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#647C64" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#525E54" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#847545" Width="50" Height="50" CornerRadius="5" />
-                    <Border ToolTipService.ToolTip="Iris Spring" Background="#7E735F" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Violet red light" Background="#B146C2" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Violet red" Background="#881798" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Cool blue bright" Background="#0099BC" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Cool blue" Background="#2D7D9A" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Seafoam" Background="#00B7C3" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Seafoam teal" Background="#038387" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Mint light" Background="#00B294" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Mint dark" Background="#018574" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Turf green" Background="#00CC6A" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Sport green" Background="#10893E" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Grey" Background="#7A7574" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Grey brown" Background="#5D5A58" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Steel blue" Background="#68768A" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Metal blue" Background="#515C6B" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Pale moss" Background="#567C73" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Moss" Background="#486860" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Meadow green" Background="#498205" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Green" Background="#107C10" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Overcast" Background="#767676" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Storm" Background="#4C4A48" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Blue grey" Background="#69797E" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Grey dark" Background="#4A5459" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Liddy green" Background="#647C64" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Sage" Background="#525E54" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Camouflage desert" Background="#847545" Width="50" Height="50" CornerRadius="5" />
+                    <Border ToolTipService.ToolTip="Camouflage" Background="#7E735F" Width="50" Height="50" CornerRadius="5" />
                 </controls:WrapPanel>
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
+                <StackPanel x:Name="Therest">
+                    <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,20,-16,0" />
-                <TextBlock FontSize="14" FontWeight="Normal" Text="Customised colours" Padding="30,16,150,0"/>
-                <Button HorizontalAlignment="right" Margin="0,-25,0,0"  Content="View colours"/>
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,10,-16,0" />
+                    <TextBlock FontSize="14" FontWeight="Normal" Text="Customised colours" Padding="30,16,150,0"/>
+                    <Button HorizontalAlignment="right" Margin="0,-25,0,0"  Content="View colours"/>
+                </StackPanel>
+                
             </StackPanel>
 
 

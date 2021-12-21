@@ -133,7 +133,7 @@
                         </Border.Background>
                             <Grid ColumnSpacing="24" Padding="60,24,56,24">
                                 <Grid.Background>
-                                    <media:BackdropBlurBrush Amount="40" />
+                                    <media:BackdropBlurBrush Amount="60" />
                                 </Grid.Background>
                             <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="154" />
