@@ -13,8 +13,9 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Rise.App.Converters"
+    xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     SizeChanged="UserControl_SizeChanged"
+    xmlns:uc="using:Rise.App.UserControls"
     MaxWidth="1500">
 
     <UserControl.Resources>
@@ -63,7 +64,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xF5B0;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="16" x:Name="PlayButtonIcon" />
+                        <FontIcon Glyph="&#xF5B0;" FontSize="16" x:Name="PlayButtonIcon" />
                     </Button>
 
                     <Button Click="Back10_Click"
@@ -92,7 +93,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3C;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="16" x:Name="Back10Icon" />
+                        <FontIcon Glyph="&#xED3C;" FontSize="16" x:Name="Back10Icon" />
                     </Button>
                     <Button Margin="0,0,5,0"
                             Height="45"
@@ -120,7 +121,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3D;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="16" x:Name="Forward30Icon" />
+                        <FontIcon Glyph="&#xED3D;" FontSize="16" x:Name="Forward30Icon" />
                     </Button>
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
@@ -138,8 +139,16 @@
                 </RelativePanel>
                 <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
                     <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
-
+                        <ToggleButton
+                                Height="45"
+                                Margin="5,0,0,0"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Background="Transparent">
+                            <FontIcon Glyph="&#xE1CD;"/>
+                        </ToggleButton>
                         <Button Height="45"
+                                Margin="5,0,0,0"
                                 HorizontalAlignment="Right"
                                 x:Name="VolumeFlyoutButton"
                                 BorderBrush="Transparent"
@@ -148,7 +157,7 @@
                             <Button.Flyout>
                                 <Flyout>
                                     <RelativePanel Width="200">
-                                        <Viewbox Width="14" Height="14" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBox3">
+                                        <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBox3">
                                             <SymbolIcon Symbol="Volume" />
                                         </Viewbox>
                                         <Slider StepFrequency=".01"
@@ -173,14 +182,77 @@
                             Background="Transparent"
                             BorderThickness="0"
                             BorderBrush="Transparent">
-                            <FontIcon Glyph="&#xEE49;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                            <FontIcon Glyph="&#xEE49;"  />
                         </Button>
+                        
+                            
+                            
                         <Button Height="45"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
                                 Background="Transparent">
-                            <FontIcon Glyph="&#xE712;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                            
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE712;"  />
+                            </Button.Content>
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Info &amp; Properties">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE70F;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+
+                                    <MenuFlyoutItem Text="Queue">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xEA37;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+
+                                    <MenuFlyoutItem Text="Full screen">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE740;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+
+                                    <MenuFlyoutSeparator />
+
+                                    <MenuFlyoutItem Text="Cast to device">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xEC15;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+
+                                    <MenuFlyoutSubItem Text="Playback speed">
+                                        <MenuFlyoutSubItem.Icon>
+                                            <FontIcon Glyph="&#xEC4A;" />
+                                        </MenuFlyoutSubItem.Icon>
+                                        <muxc:RadioMenuFlyoutItem Text="0.5x" />
+                                        <muxc:RadioMenuFlyoutItem IsChecked="True" Text="1x (Normal)" />
+                                        <muxc:RadioMenuFlyoutItem Text="1.5x" />
+                                        <muxc:RadioMenuFlyoutItem Text="2x" />
+                                        <muxc:RadioMenuFlyoutItem Text="2.5x" />
+                                    </MenuFlyoutSubItem>
+
+                                    <MenuFlyoutSubItem Text="Sound profile">
+                                        <MenuFlyoutSubItem.Icon>
+                                            <FontIcon Glyph="&#xF4C3;" />
+                                        </MenuFlyoutSubItem.Icon>
+                                        <muxc:RadioMenuFlyoutItem Text="None" />
+                                        <muxc:RadioMenuFlyoutItem Text="Treble" />
+                                        <muxc:RadioMenuFlyoutItem Text="Bass boost" />
+                                        <muxc:RadioMenuFlyoutItem Text="Headphones" />
+                                        <muxc:RadioMenuFlyoutItem Text="Laptop" />
+                                        <muxc:RadioMenuFlyoutItem Text="Portable speakers" />
+                                        <muxc:RadioMenuFlyoutItem Text="Home stereo" />
+                                        <muxc:RadioMenuFlyoutItem Text="TV" />
+                                        <muxc:RadioMenuFlyoutItem Text="Car" />
+                                        <muxc:RadioMenuFlyoutItem Text="Color shift" />
+                                        <MenuFlyoutSeparator />
+                                        <MenuFlyoutItem Text="More options" />
+                                    </MenuFlyoutSubItem>
+                                </MenuFlyout>
+                                
+                            </Button.Flyout>
                         </Button>
                     </controls:WrapPanel>
                 </StackPanel>

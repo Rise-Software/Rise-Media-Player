@@ -107,6 +107,7 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+
                     <MenuFlyoutItem x:Uid="/MediaData/Properties"
                                     Click="Props_Click">
                         <MenuFlyoutItem.Icon>
@@ -128,11 +129,11 @@
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel">
                     <Border Margin="-56,0,-56,10">
                         <Border.Background>
-                            <ImageBrush ImageSource="{x:Bind Thumbnail}" Opacity="0.6" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Thumbnail}" Opacity="0.6"  />
                         </Border.Background>
-                            <Grid ColumnSpacing="24" Padding="56,12,56,12">
+                            <Grid ColumnSpacing="24" Padding="60,24,56,24">
                                 <Grid.Background>
-                                    <media:BackdropBlurBrush Amount="70" />
+                                    <media:BackdropBlurBrush Amount="40" />
                                 </Grid.Background>
                             <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="154" />
@@ -170,43 +171,65 @@
                                            VerticalAlignment="Center"
                                            TextTrimming="CharacterEllipsis" />
 
-                                        <FontIcon x:Name="Folder"
+                                        <!--<FontIcon x:Name="Folder"
                                           Grid.Column="1"
                                           FontSize="20"
                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                           Glyph="&#xF12B;"
-                                          Margin="0,6,0,0"
-                                          VerticalAlignment="Center" />
+                                          Margin="5,0,0,0"
+                                          VerticalAlignment="Center" 
+                                          HorizontalAlignment="left"/>-->
 
                                         <muxc:TeachingTip x:Name="AlbumTip"
                                                   />
 
-                                        <!--ToggleButton Grid.Column="1"
+                                    <ToggleButton Grid.Column="1"
                                               Background="Transparent"
                                               BorderThickness="0"
-                                              Height="32"
-                                              Padding="0"
-                                              Width="32">
-                                    <FontIcon FontSize="16" Glyph="&#xE19F;" />
-                                </ToggleButton>
+                                              Padding="8">
+                                        <FontIcon FontSize="18" Glyph="&#xE19F;" />
+                                    </ToggleButton>
 
-                                <ToggleButton Grid.Column="2"
+                                    <ToggleButton Grid.Column="2"
                                               Background="Transparent"
                                               BorderThickness="0"
-                                              Height="32"
-                                              Padding="0"
-                                              Width="32">
-                                    <FontIcon FontSize="16" Glyph="&#xE19E;" />
-                                </ToggleButton-->
+                                              Margin="3,0"
+                                              Padding="8">
+                                    <FontIcon FontSize="18" Glyph="&#xE19E;" />
+                                </ToggleButton>
                                     </Grid>
 
-                                    <TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
+                                    <!--<TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
+                                        
+                                        
+
                                 <Hyperlink Click="Artist_Click" UnderlineStyle="None">
                                     <Run Text="{x:Bind Artist}" />
                                 </Hyperlink>
-                                    </TextBlock>
+                                        
+                                        
+                                        
+                                    </TextBlock>-->
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
 
-                                    <TextBlock Text="{x:Bind Genres}"
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock>
+                                    <Hyperlink Click="Artist_Click" UnderlineStyle="None" FontWeight="SemiBold">
+                                        <Run Text="{x:Bind Artist}" />
+                                    </Hyperlink>
+                                        </TextBlock>
+
+                                        <Rectangle Grid.Column="1" />
+                                    </Grid>
+                                </StackPanel>
+
+
+                                <TextBlock Text="{x:Bind Genres}"
                                        MaxLines="1"
                                        Style="{StaticResource BodyTextBlockStyle}" />
 
@@ -262,7 +285,7 @@
             </ListView.HeaderTemplate>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                <DataTemplate x:DataType="viewmodels:SongViewModel" >
                     <Grid Background="Transparent"
                           ColumnSpacing="12"
                           Padding="12,4"
