@@ -41,8 +41,10 @@
                             PointerExited="Image_PointerExited"
                             VerticalAlignment="Center">
                     <Image Height="180"
-                           Stretch="None"
-                           Source="ms-appx:///Assets/DefaultPlaylistIcon.png"
+                           Width="180"
+                           Stretch="Uniform"
+                           VerticalAlignment="Center"
+                           Source="ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
                            x:Name="PreviewImage" />
                     <Button HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"

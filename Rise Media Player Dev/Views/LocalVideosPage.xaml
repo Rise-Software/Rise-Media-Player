@@ -105,12 +105,84 @@
         </CommandBar>
 
         <GridView Grid.Row="1"
-                  IsItemClickEnabled="True"
-                  ItemClick="GridView_ItemClick"
+                  x:Name="MainGrid"
                   ItemsSource="{x:Bind MViewModel.FilteredVideos}"
                   Margin="-56,0"
                   Padding="48,0,48,120"
+                  IsItemClickEnabled="True"
+                  ItemClick="GridView_ItemClick"
+                  RightTapped="MainGrid_RightTapped_1"
                   SelectionMode="None">
+            <GridView.Resources>
+                <MenuFlyout x:Key="VideosFlyout" x:Name="VideosFlyout">
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    IsEnabled="True"
+                                    Click="Play_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE102;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutSubItem x:Name="AddTo"
+                                    x:Uid="/Information/AddTo"
+                                    IsEnabled="True">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStart"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyoutSubItem>
+
+                    <MenuFlyoutItem x:Name="Share"
+                                    x:Uid="/Information/Share"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE72D;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="AskDiscy"
+                                    x:Uid="/Information/AskDiscy"
+                                    IsEnabled="True">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE11B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove"
+                                    x:Uid="/Information/RemoveThing"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </GridView.Resources>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel">
                     <StackPanel Orientation="Vertical" Margin="8" Spacing="2">

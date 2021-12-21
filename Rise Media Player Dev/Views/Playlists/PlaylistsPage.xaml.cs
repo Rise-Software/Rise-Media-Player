@@ -38,6 +38,11 @@ namespace Rise.App.Views
             await SelectedPlaylist.DeleteAsync();
         }
 
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnPlaylist.IsOpen = true;
+        }
+
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)

@@ -113,6 +113,9 @@ namespace Rise.App.Views
         private async void Props_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();
 
+        private void ShowAlbum_Click(object sender, RoutedEventArgs e)
+            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
+
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
             await SelectedSong.StartEdit();

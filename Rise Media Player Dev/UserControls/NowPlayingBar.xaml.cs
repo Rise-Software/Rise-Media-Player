@@ -27,7 +27,7 @@ namespace Rise.App.UserControls
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
-        private byte _tintOpacity = 180;
+        private byte _tintOpacity = 100;
 
         private AlbumViewModel CurrentSongAlbum;
         #endregion
@@ -462,11 +462,11 @@ namespace Rise.App.UserControls
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
-                _tintOpacity = 180;
+                _tintOpacity = 130;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                _tintOpacity = 130;
+                _tintOpacity = 100;
             }
         }
 

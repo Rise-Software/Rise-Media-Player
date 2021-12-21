@@ -38,7 +38,7 @@
                         <Image Height="60"
                                Source="ms-appx:///Assets/HelpCentre.png" />
 
-                        <TextBlock FontWeight="SemiBold" Opacity="0.6" FontSize="17" Text="Get advice, help and tips from the developers." />
+                        <TextBlock FontWeight="SemiBold" Opacity="0.6" FontSize="17" Text="Get advice, help and tips from many sources." />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -89,13 +89,12 @@
             <StackPanel Orientation="Vertical" Margin="0,100,0,0">
                 <muxc:TeachingTip x:Name="DiscyAboutTip"
                                   IsLightDismissEnabled="True"
-                                  Title="Hello, stranger!"
+                                  Title="Hey! I'm Discy."
                                   Target="{x:Bind Discy}"
-                                  PreferredPlacement="Top">
-                    <StackPanel Orientation="Vertical" Spacing="5">
-                        <TextBlock TextWrapping="Wrap" Text="I can't help you yet since my developer hasn't coded me fully. Also, I don't know who you are! I'll learn that, and be able to help you, in a future update." />
-                        <Button Click="LearnMoreButton_Click" HorizontalAlignment="Stretch">Learn more</Button>
-                    </StackPanel>
+                                  PreferredPlacement="Top"
+                                  Subtitle="You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!"
+                                  PlacementMargin="20"
+	                              ActionButtonContent="Learn more">
                 </muxc:TeachingTip>
                 <Image x:Name="Discy" Source="ms-appx:///Assets/Discy.png" Margin="-5,0,0,0" Height="80" PointerPressed="Discy_PointerPressed" />
 

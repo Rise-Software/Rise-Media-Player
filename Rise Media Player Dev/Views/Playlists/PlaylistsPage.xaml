@@ -10,9 +10,25 @@
 
     <Grid Margin="-10,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="58" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+
+        <muxc:TeachingTip x:Name="DiscyOnPlaylist"
+	        Title="Group with playlists"
+	        Subtitle="Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!"
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left">
@@ -143,6 +159,7 @@
 
                     <MenuFlyoutItem x:Name="AskDiscy"
                                     x:Uid="/Information/AskDiscy"
+                                    Click="AskDiscy_Click"
                                     IsEnabled="True">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE11B;"/>
@@ -159,7 +176,8 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Text="Info &amp; Properties">
+                    <MenuFlyoutItem Text="Info &amp; Properties"
+                                    IsEnabled="False" >
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;"/>
                         </MenuFlyoutItem.Icon>
@@ -187,18 +205,17 @@
                                 IsHitTestVisible="False"
                                 Padding="0">
                             <Border x:Name="AlbumThumb"
-                                    CornerRadius="4"
-                                    Width="134">
+                                    CornerRadius="4">
                                 <Image x:Phase="1"
-                                       Height="120"
+                                       Height="134"
                                        Source="{x:Bind Icon}"
-                                       Stretch="Uniform"
-                                       Width="100"
-                                       Margin="10"/>
+                                       Stretch="UniformtoFill"
+                                       Width="134"/>
                             </Border>
                         </Button>
 
                         <TextBlock Text="{x:Bind Title}"
+                                   ToolTipService.ToolTip="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    MaxLines="1"
                                    Style="{StaticResource BaseTextBlockStyle}"

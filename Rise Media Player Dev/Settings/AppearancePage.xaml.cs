@@ -78,16 +78,25 @@ namespace Rise.App.Settings
             switch (ColorThemeComboBox.SelectedIndex)
             {
                 case 0:
+                    Nothing.Visibility = Visibility.Visible;
+                    Therest.Visibility = Visibility.Collapsed;
+                    TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -1;
                     break;
 
                 case 1:
+                    Nothing.Visibility = Visibility.Visible;
+                    Therest.Visibility = Visibility.Collapsed;
+                    TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -2;
                     break;
 
                 case 2:
+                    Nothing.Visibility = Visibility.Collapsed;
+                    Therest.Visibility = Visibility.Visible;
+                    TextforGlaze.Visibility = Visibility.Visible;
                     RiseColorsPanel.Visibility = Visibility.Visible;
                     if (ViewModel.Color < 0)
                     {
@@ -106,6 +115,9 @@ namespace Rise.App.Settings
                     break;
 
                 case 3:
+                    Nothing.Visibility = Visibility.Visible;
+                    Therest.Visibility = Visibility.Collapsed;
+                    TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
                     ViewModel.Color = -3;
                     break;

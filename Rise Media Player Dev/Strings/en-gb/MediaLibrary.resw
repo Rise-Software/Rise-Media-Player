@@ -186,7 +186,7 @@
   <data name="SeparateLocal.Title" xml:space="preserve">
     <value>Split local &amp; online library in sidebar</value>
   </data>
-  <data name="ShufflePlaylist" xml:space="preserve">
+  <data name="ShufflePlaylist.Text" xml:space="preserve">
     <value>Shuffle playlist</value>
   </data>
   <data name="Streaming.Text" xml:space="preserve">
