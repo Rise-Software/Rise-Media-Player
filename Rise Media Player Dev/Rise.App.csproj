@@ -161,6 +161,9 @@
     <Compile Include="Dialogs\FeatureDialog.xaml.cs">
       <DependentUpon>FeatureDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MessagesDialog.xaml.cs">
+      <DependentUpon>MessagesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
@@ -344,6 +347,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\addednewmedia.png" />
     <Content Include="Assets\App\BadgeLogo.scale-100.png" />
     <Content Include="Assets\App\BadgeLogo.scale-125.png" />
     <Content Include="Assets\App\BadgeLogo.scale-150.png" />
@@ -407,6 +411,7 @@
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
+    <Content Include="Assets\lookingformedia.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
@@ -463,6 +468,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

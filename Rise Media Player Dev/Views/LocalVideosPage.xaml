@@ -20,6 +20,21 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <muxc:TeachingTip x:Name="DiscyOnVideo"
+	        Title="Playing videos"
+	        Subtitle="Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more."
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
@@ -55,9 +70,12 @@
                           IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
             <AppBarButton x:Uid="/Information/Edit"
-                          Icon="Edit"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButton}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE13E;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
 
             <AppBarSeparator />
 
@@ -79,16 +97,16 @@
 
             <AppBarButton x:Uid="/Information/Sort"
                           Icon="Sort"
-                          IsEnabled="False">
+                          IsEnabled="True">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
+                        <muxc:RadioMenuFlyoutItem Text="Name"
                                                   IsChecked="True"
-                                                  Tag="Title" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Tag="Artist" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                  Tag="Genres" />
+                                                  Tag="Name" />
+                        <muxc:RadioMenuFlyoutItem Text="Date"
+                                                  Tag="Date" />
+                        <muxc:RadioMenuFlyoutItem Text="Length"
+                                                  Tag="Length" />
 
                         <MenuFlyoutSeparator />
 
@@ -138,14 +156,6 @@
                                 <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="PinToStart"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE141;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem x:Name="Share"
@@ -160,6 +170,7 @@
 
                     <MenuFlyoutItem x:Name="AskDiscy"
                                     x:Uid="/Information/AskDiscy"
+                                    Click="AskDiscy_Click"
                                     IsEnabled="True">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE11B;"/>
@@ -173,6 +184,14 @@
                                     IsEnabled="False">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="Rename"
+                                    Text="Rename"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE13E;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 

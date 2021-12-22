@@ -29,21 +29,27 @@
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
         <MenuFlyout x:Key="MoreMenuFlyout">
-            <MenuFlyoutItem Text="Info &amp; Properties">
+            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Queue">
+            <MenuFlyoutItem Text="Queue" IsEnabled="False">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEA37;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Full screen">
+            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xE740;" />
+                    <FontIcon Glyph="&#xEE49;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Full screen" x:Name="FullScreenButton" Click="FullScreen_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
@@ -66,7 +72,7 @@
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Sound profile">
+            <MenuFlyoutSubItem Text="Sound profile" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xF4C3;" />
                 </MenuFlyoutSubItem.Icon>
@@ -86,7 +92,7 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutSubItem Text="Pinned">
+            <MenuFlyoutSubItem Text="Pinned" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE141;" />
                 </MenuFlyoutSubItem.Icon>
@@ -94,7 +100,7 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutSubItem Text="Visualizer">
+            <MenuFlyoutSubItem Text="Visualizer" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xF4A5;" />
                 </MenuFlyoutSubItem.Icon>
@@ -103,7 +109,7 @@
                 <ToggleMenuFlyoutItem Text="Picture slideshow" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Settings">
+            <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE713;" />
                 </MenuFlyoutSubItem.Icon>
@@ -276,6 +282,7 @@
                     </Button>
 
                     <Button x:Name="OverlayButton"
+                            RightTapped="OverlayButton_RightTapped"
                             Click="OverlayButton_Click"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
@@ -286,6 +293,11 @@
                             ToolTipService.ToolTip="Mini player">
                         <FontIcon Glyph="&#xEE49;"
                                   FontSize="16"/>
+                        <Button.Resources>
+                            <MenuFlyout x:Name="OverlayFlyout">
+                                <MenuFlyoutItem Text="Unpin from bar" Icon="Unpin" IsEnabled="True"/>
+                            </MenuFlyout>
+                        </Button.Resources>
                     </Button>
 
                     <Button x:Name="RestoreVideoButton"
@@ -297,7 +309,7 @@
                             ToolTipService.ToolTip="Restore video"
                             Click="RestoreVideoButton_Click"
                             Visibility="Collapsed">
-                        <FontIcon Glyph="&#xE740;" />
+                        <FontIcon Glyph="&#xE010;" />
                     </Button>
 
                     <Button BorderBrush="Transparent"

@@ -705,6 +705,17 @@ namespace Rise.App.Views
         {
 
         }
+
+        private async void Messages_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Messages & reports";
+            dialog.CloseButtonText = "Close";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = new MessagesDialog();
+
+            var result = await dialog.ShowAsync();
+        }
     }
 
     [ContentProperty(Name = "GlyphTemplate")]
@@ -749,4 +760,7 @@ namespace Rise.App.Views
             return Title;
         }
     }
+
+    
+
 }

@@ -146,7 +146,8 @@ namespace Rise.App.UserControls
                     {
                         ShuffleButton.Margin = new Thickness(0, 10, 0, 10);
                         RepeatButton.Margin = new Thickness(0, 10, 0, 10);
-                    } else
+                    }
+                    else
                     {
                         ShuffleButton.Margin = new Thickness(10);
                         RepeatButton.Margin = new Thickness(10);
@@ -201,7 +202,8 @@ namespace Rise.App.UserControls
             if ((bool)ShuffleButton.IsChecked)
             {
                 App.PViewModel.PlaybackList.ShuffleEnabled = true;
-            } else
+            }
+            else
             {
                 App.PViewModel.PlaybackList.ShuffleEnabled = false;
             }
@@ -329,7 +331,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
-            } else if (e.NewSize.Width >= 480)
+            }
+            else if (e.NewSize.Width >= 480)
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
@@ -475,6 +478,36 @@ namespace Rise.App.UserControls
             Transparent,
             Acrylic,
             UseAlbumArt
+        }
+
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+            {
+                view.ExitFullScreenMode();
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                FullScreenButton.Text = "Full screen";
+                FullScreenIcon.Glyph = "\uE740";
+                // The SizeChanged event will be raised when the exi`1t from full-screen mode is complete.
+            }
+            else
+            {
+                if (view.TryEnterFullScreenMode())
+                {
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+                    FullScreenButton.Text = "Exit full screen";
+                    FullScreenIcon.Glyph = "\uE73F";
+                    // The SizeChanged event will be raised when the entry to full-screen mode is complete.
+                }
+            }
+
+        }
+
+        private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
+            OverlayMenu.Visibility = Visibility.Visible;
         }
     }
 }

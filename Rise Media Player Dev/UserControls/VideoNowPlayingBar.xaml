@@ -72,6 +72,7 @@
                             Height="45"
                             BorderBrush="Transparent"
                             Background="Transparent"
+                            ToolTipService.ToolTip="Move back 10 seconds"
                             x:Name="Back10">
                         <Button.Resources>
                             <ResourceDictionary>
@@ -100,6 +101,7 @@
                             BorderBrush="Transparent"
                             Background="Transparent"
                             x:Name="Forward30"
+                            ToolTipService.ToolTip="Move forward 30 seconds"
                             Click="Forward30_Click">
                         <Button.Resources>
                             <ResourceDictionary>
@@ -144,6 +146,7 @@
                                 Margin="5,0,0,0"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
+                                ToolTipService.ToolTip="Repeat"
                                 Background="Transparent">
                             <FontIcon Glyph="&#xE1CD;"/>
                         </ToggleButton>
@@ -152,6 +155,7 @@
                                 HorizontalAlignment="Right"
                                 x:Name="VolumeFlyoutButton"
                                 BorderBrush="Transparent"
+                                ToolTipService.ToolTip="Volume"
                                 BorderThickness="0"
                                 Background="Transparent">
                             <Button.Flyout>
@@ -181,6 +185,7 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
+                            ToolTipService.ToolTip="Mini player"
                             BorderBrush="Transparent">
                             <FontIcon Glyph="&#xEE49;"  />
                         </Button>
@@ -190,27 +195,28 @@
                         <Button Height="45"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
+                                ToolTipService.ToolTip="More"
                                 Background="Transparent">
                             <Button.Content>
                                 <FontIcon Glyph="&#xE712;"  />
                             </Button.Content>
                             <Button.Flyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Text="Info &amp; Properties">
+                                    <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="false">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE70F;" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
 
-                                    <MenuFlyoutItem Text="Queue">
+                                    <MenuFlyoutItem Text="Queue" IsEnabled="false">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xEA37;" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
 
-                                    <MenuFlyoutItem Text="Full screen">
+                                    <MenuFlyoutItem x:Name="FullScreenButton" Text="Full screen" IsEnabled="True" Click="VideoFullScreen_Click">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE740;" />
+                                            <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
 
@@ -233,7 +239,7 @@
                                         <muxc:RadioMenuFlyoutItem Text="2.5x" />
                                     </MenuFlyoutSubItem>
 
-                                    <MenuFlyoutSubItem Text="Sound profile">
+                                    <MenuFlyoutSubItem Text="Sound profile" IsEnabled="false">
                                         <MenuFlyoutSubItem.Icon>
                                             <FontIcon Glyph="&#xF4C3;" />
                                         </MenuFlyoutSubItem.Icon>

@@ -64,6 +64,11 @@ namespace Rise.App.Views
 
         }
 
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnVideo.IsOpen = true;
+        }
+
         private void MainGrid_RightTapped_1(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)

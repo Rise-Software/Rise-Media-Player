@@ -46,6 +46,7 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
@@ -74,18 +75,40 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
+            if (e.NavigationParameter is AlbumViewModel album)
+            {
+                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
+
+                // TODO: Get "more album from this artist" to work.
+                Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+            }
+            else
+            {
+
+                // TODO: Get "more album from this artist" to work.
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+            }
+
             if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
-                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name
-                    || ((SongViewModel)s).AlbumArtist == artist.Name;
+                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name;
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedArtist = App.MViewModel.Artists.First(a => a.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Artist == str
                     || ((SongViewModel)s).AlbumArtist == str;
+            
             }
+
+            
 
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
@@ -99,6 +122,11 @@ namespace Rise.App.Views
                 int index = MainList.Items.IndexOf(song);
                 await EventsLogic.StartMusicPlaybackAsync(index);
             }
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
         }
 
         private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)

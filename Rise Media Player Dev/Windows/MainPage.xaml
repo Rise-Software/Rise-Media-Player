@@ -217,7 +217,7 @@
 
                             
 
-                            <MenuFlyoutItem x:Uid="/Information/Notif">
+                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
@@ -360,26 +360,30 @@
             <muxc:TeachingTip.IconSource>
                 <muxc:FontIconSource Glyph="&#xEA69;" />
             </muxc:TeachingTip.IconSource>
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="AddedTip"
-                          x:Uid="/Information/Added"
                           x:FieldModifier="public"
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight">
             <muxc:TeachingTip.IconSource>
                 <muxc:FontIconSource Glyph="&#xE73E;" />
             </muxc:TeachingTip.IconSource>
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/addednewmedia.png" />
+            </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="CheckTip"
-                          x:Uid="/Information/Check"
                           x:FieldModifier="public"
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xF16A;" />
-            </muxc:TeachingTip.IconSource>
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/lookingformedia.png" />
+            </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="NoNewTip"
