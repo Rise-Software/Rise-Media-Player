@@ -489,7 +489,7 @@ namespace Rise.App.UserControls
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 FullScreenButton.Text = "Full screen";
                 FullScreenIcon.Glyph = "\uE740";
-                // The SizeChanged event will be raised when the exi`1t from full-screen mode is complete.
+                // The SizeChanged event will be raised when the exit from full-screen mode is complete.
             }
             else
             {
@@ -507,7 +507,41 @@ namespace Rise.App.UserControls
         private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
-            OverlayMenu.Visibility = Visibility.Visible;
         }
+
+        private void UnpinOverlay_Click(object sender, RoutedEventArgs e)
+        {
+            OverlayMenu.Visibility = Visibility.Visible;
+            OverlayButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void MiniMenu_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            MiniMenuFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
+        }
+
+        private void MiniMenuFlyout_Click(object sender, RoutedEventArgs e)
+        {
+            OverlayMenu.Visibility = Visibility.Collapsed;
+            OverlayButton.Visibility = Visibility.Visible;
+        }
+
+        private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (PinMiniPlayer.IsChecked == false)
+            {
+                OverlayMenu.Visibility = Visibility.Collapsed;
+                OverlayButton.Visibility = Visibility.Visible;
+            }
+                
+            else
+            {
+                OverlayMenu.Visibility = Visibility.Collapsed;
+                OverlayButton.Visibility = Visibility.Visible;
+            }
+
+
+        }
+
     }
 }

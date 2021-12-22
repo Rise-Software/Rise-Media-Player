@@ -28,6 +28,15 @@
             <GradientStop Color="#B61F9C" Offset="0.8"/>
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
+
+        <MenuFlyout x:Name="MiniMenuFlyout">
+            <MenuFlyoutItem Text="Pin" IsEnabled="True" Click="MiniMenuFlyout_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE141;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+        
         <MenuFlyout x:Key="MoreMenuFlyout">
             <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
                 <MenuFlyoutItem.Icon>
@@ -41,7 +50,7 @@
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu">
+            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click" RightTapped="MiniMenu_RightTapped">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEE49;"/>
                 </MenuFlyoutItem.Icon>
@@ -96,6 +105,11 @@
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE141;" />
                 </MenuFlyoutSubItem.Icon>
+                <ToggleMenuFlyoutItem Text="Mini player" x:Name="PinMiniPlayer" Click="PinMiniPlayer_Click"/>
+                <ToggleMenuFlyoutItem Text="Queue" />
+                <ToggleMenuFlyoutItem Text="Full screen" />
+                <ToggleMenuFlyoutItem Text="Cast to device" />
+                <ToggleMenuFlyoutItem Text="Playback speed" />
             </MenuFlyoutSubItem>
 
             <MenuFlyoutSeparator />
@@ -295,7 +309,7 @@
                                   FontSize="16"/>
                         <Button.Resources>
                             <MenuFlyout x:Name="OverlayFlyout">
-                                <MenuFlyoutItem Text="Unpin from bar" Icon="Unpin" IsEnabled="True"/>
+                                <MenuFlyoutItem Text="Unpin from bar" Icon="Unpin" IsEnabled="True" x:Name="UnpinOverlay" Click="UnpinOverlay_Click"/>
                             </MenuFlyout>
                         </Button.Resources>
                     </Button>
