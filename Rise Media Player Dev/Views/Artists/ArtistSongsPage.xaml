@@ -125,10 +125,15 @@
 
                 </MenuFlyout>
             </ListView.Resources>
+            
+            
 
             <ListView.HeaderTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
+                    
+                    
                     <Border Margin="-56,0,-56,10">
+                        
                         <Border.Background>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Picture}" Opacity="0.6" />
                         </Border.Background>
@@ -141,18 +146,22 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
+
+
                             <Button CornerRadius="100" 
                                 IsHitTestVisible="False"
                                 Padding="0">
                                 <Border animations:Connected.Key="ArtistArt"
                                     CornerRadius="77">
-                                    <Image x:Phase="1"
+                                    <Image
                                        Height="154"
-                                       Source="{x:Bind Picture}"
+                                       Source="/Assets/BlankArtist.png"
                                        Stretch="UniformToFill"
                                        Width="154" />
                                 </Border>
                             </Button>
+
+
 
                             <StackPanel Grid.Column="1"
                                     Orientation="Vertical"
@@ -244,10 +253,21 @@
                                         </AppBarButton.Flyout>
                                     </AppBarButton>
                                 </CommandBar>
+
+                                <muxc:InfoBar
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
                             </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
+                
+                
+                
             </ListView.HeaderTemplate>
 
             <ListView.ItemTemplate>

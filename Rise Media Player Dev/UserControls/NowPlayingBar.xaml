@@ -30,7 +30,7 @@
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
 
         <MenuFlyout x:Name="MiniMenuFlyout">
-            <MenuFlyoutItem Text="Pin" IsEnabled="True" Click="MiniMenuFlyout_Click">
+            <MenuFlyoutItem Text="Add to pinned" IsEnabled="True" Click="MiniMenuFlyout_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE141;" />
                 </MenuFlyoutItem.Icon>
@@ -75,7 +75,7 @@
                     <FontIcon Glyph="&#xEC4A;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
-                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" IsChecked="True" Text="1x (Normal)" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" x:Name="Set1" Text="1x (Normal)" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="1.5x" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2x" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
@@ -309,7 +309,7 @@
                                   FontSize="16"/>
                         <Button.Resources>
                             <MenuFlyout x:Name="OverlayFlyout">
-                                <MenuFlyoutItem Text="Unpin from bar" Icon="Unpin" IsEnabled="True" x:Name="UnpinOverlay" Click="UnpinOverlay_Click"/>
+                                <MenuFlyoutItem Text="Remove from pinned" Icon="Unpin" IsEnabled="True" x:Name="UnpinOverlay" Click="UnpinOverlay_Click"/>
                             </MenuFlyout>
                         </Button.Resources>
                     </Button>

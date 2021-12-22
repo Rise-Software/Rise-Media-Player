@@ -232,11 +232,11 @@
                                         <MenuFlyoutSubItem.Icon>
                                             <FontIcon Glyph="&#xEC4A;" />
                                         </MenuFlyoutSubItem.Icon>
-                                        <muxc:RadioMenuFlyoutItem Text="0.5x" />
-                                        <muxc:RadioMenuFlyoutItem IsChecked="True" Text="1x (Normal)" />
-                                        <muxc:RadioMenuFlyoutItem Text="1.5x" />
-                                        <muxc:RadioMenuFlyoutItem Text="2x" />
-                                        <muxc:RadioMenuFlyoutItem Text="2.5x" />
+                                        <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
+                                        <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" x:Name="Set1" IsChecked="True" Text="1x (Normal)" />
+                                        <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="1.5x" />
+                                        <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2x" />
+                                        <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
                                     </MenuFlyoutSubItem>
 
                                     <MenuFlyoutSubItem Text="Sound profile" IsEnabled="false">
