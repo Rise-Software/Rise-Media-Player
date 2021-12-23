@@ -91,6 +91,8 @@ namespace Rise.App.UserControls
 
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
+            _player.PlaybackSession.PlaybackRate = 1;
+            Set1.IsChecked = true;
             Unloaded += NowPlayingBar_Unloaded;
             UISettings uiSettings = new UISettings();
             uiSettings.ColorValuesChanged += UISettings_ColorValuesChanged;

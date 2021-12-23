@@ -407,6 +407,9 @@
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\BlankAlbum.png" />
+    <Content Include="Assets\BlankArtist.png" />
+    <Content Include="Assets\BlankGenre.png" />
     <Content Include="Assets\Branding\discygraphic.png" />
     <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\Default.png" />

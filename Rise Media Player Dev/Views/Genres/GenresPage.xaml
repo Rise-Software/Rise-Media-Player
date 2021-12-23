@@ -15,6 +15,14 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <muxc:InfoBar
+            Margin="0,50,20,0"
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
@@ -130,7 +138,7 @@
                             <Border x:Name="GenreThumb"
                                     CornerRadius="4">
                                 <Image Height="48"
-                                       Source="ms-appx:///Assets/Default.png"
+                                       Source="ms-appx:///Assets/BlankGenre.png"
                                        Stretch="UniformToFill"
                                        Width="48" />
                             </Border>

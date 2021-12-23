@@ -8,6 +8,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
+
+        
         <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:ExpanderControl x:Uid="/Playback/EQ"
                                ExpanderStyle="Disabled"

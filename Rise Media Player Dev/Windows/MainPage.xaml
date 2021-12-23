@@ -367,22 +367,31 @@
 
         <muxc:TeachingTip x:Name="AddedTip"
                           x:FieldModifier="public"
+                          Title="Updated your library."
+                          Subtitle="Click anywhere to dismiss this notification."
                           PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xE73E;" />
-            </muxc:TeachingTip.IconSource>
-            <muxc:TeachingTip.HeroContent>
+                          PreferredPlacement="TopRight"
+                          IsLightDismissEnabled="True">
+            <!--<muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/addednewmedia.png" />
-            </muxc:TeachingTip.HeroContent>
+            </muxc:TeachingTip.HeroContent>-->
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="CheckTip"
                           x:FieldModifier="public"
+                          Title="Looking for new media on your device."
                           PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
+                          PreferredPlacement="TopRight"
+                          HorizontalAlignment="Center"
+                          IsLightDismissEnabled="True"
+                          HeroContentPlacement="Bottom">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/lookingformedia.png" />
+                <StackPanel>
+                    
+                    <!--<Image Source="/Assets/lookingformedia.png" />-->
+                    <muxc:ProgressBar Width="270" CornerRadius="7" Margin="2,0,10,10" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+                </StackPanel>
+                
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 

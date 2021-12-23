@@ -62,6 +62,13 @@
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
+            <muxc:InfoBar
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <TextBlock x:Uid="/Information/NewH"
@@ -75,6 +82,8 @@
                                Style="{StaticResource Subheader}" />
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
+
+            
 
             <GridView HorizontalAlignment="Stretch"
                       IsItemClickEnabled="True"
