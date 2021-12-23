@@ -22,6 +22,7 @@ using Rise.App.Views;
 using System.Diagnostics;
 using Windows.Media.Casting;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.System;
 
 namespace Rise.App.UserControls
 {
@@ -102,7 +103,31 @@ namespace Rise.App.UserControls
             castingPicker.Filter.SupportsVideo = true;
             castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
 
+            CoreWindow.GetForCurrentThread().KeyDown += NowPlayingBar_KeyDown;
+
             Visibility = Visibility.Collapsed;
+        }
+
+        private void NowPlayingBar_KeyDown(CoreWindow sender, KeyEventArgs args)
+        {
+            if (isCtrlPressed() && args.VirtualKey == VirtualKey.Right)
+            {
+                if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
+                {
+                    App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
+                }
+            }
+            else if (isCtrlPressed() && args.VirtualKey == VirtualKey.Space)
+            {
+                TogglePlayPause();
+            }
+            else if (isCtrlPressed() && args.VirtualKey == VirtualKey.Left)
+            {
+                if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
+                {
+                    App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
+                }
+            }
         }
 
         #region Events
@@ -567,6 +592,12 @@ namespace Rise.App.UserControls
             {
                 _tintOpacity = 100;
             }
+        }
+
+        private bool isCtrlPressed()
+        {
+            var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
+            return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
         }
 
         public enum NowPlayingBarBackgroundStyles

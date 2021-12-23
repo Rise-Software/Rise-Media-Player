@@ -381,5 +381,24 @@ namespace Rise.App.Views
                 SViewModel.ShowThumbnailInAlbums = true;
             }
         }
+
+        private void ShowReleaseYear_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = false;
+                }
+            }
+        }
     }
 }
