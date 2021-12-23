@@ -101,6 +101,8 @@ namespace Rise.App.UserControls
             castingPicker = new CastingDevicePicker();
             castingPicker.Filter.SupportsVideo = true;
             castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
+
+            Visibility = Visibility.Collapsed;
         }
 
         #region Events
@@ -255,6 +257,7 @@ namespace Rise.App.UserControls
                     }
                 }
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
+                Visibility = Visibility.Visible;
             });
         }
 
@@ -263,6 +266,7 @@ namespace Rise.App.UserControls
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 RestoreVideoButton.Visibility = Visibility.Visible;
+                Visibility = Visibility.Visible;
             });
         }
 
