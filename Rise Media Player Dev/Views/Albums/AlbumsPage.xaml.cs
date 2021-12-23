@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,6 +23,11 @@ namespace Rise.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
+
+        /// <summary>
+        /// Gets the app-wide SViewModel instance.
+        /// </summary>
+        private SettingsViewModel SViewModel => App.SViewModel;
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -51,6 +57,8 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+
+            ApplySettingsToView();
         }
 
         /// <summary>
@@ -196,6 +204,54 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void ApplySettingsToView()
+        {
+            if (SViewModel.ShowGenreInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowArtistInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowThumbnailInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = false;
+                }
+            }
+        }
 
         private void ShowArtistName_Click(object sender, RoutedEventArgs e)
         {

@@ -101,9 +101,9 @@
                         <MenuFlyoutSeparator/>
                         <MenuFlyoutItem Text="Additional settings"/>
                         <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="True" />
-                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="True" />
-                            <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" />
+                            <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" />
+                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" />
+                            <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Release year"/>
                             <ToggleMenuFlyoutItem Text="Rating"/>
                         </MenuFlyoutSubItem>
