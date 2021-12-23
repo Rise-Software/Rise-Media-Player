@@ -304,44 +304,47 @@ namespace Rise.App.Common
 
             // Get details
             var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-            foreach (var line in lines)
+            foreach (string line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
-                    if (line.StartsWith("#EXTDESC"))
+                    if (line.StartsWith("#"))
                     {
-                        description = line.Split(":")[1].Trim();
+                        if (line.StartsWith("#EXTDESC"))
+                        {
+                            description = line.Split(":")[1].Trim();
+                        }
+
+                        if (line.StartsWith("#EXTIMG"))
+                        {
+                            icon = line.Split(":")[1].Trim();
+                        }
+
+                        if (line.StartsWith("#EXTDURATION"))
+                        {
+                            duration = line.Split(":")[1].Trim();
+                        }
+
+                        /*if (line.StartsWith("#EXTINF"))
+                        {
+                            // Get song duration (in seconds) and title
+                            // line.Split(":");
+                            // Get song title
+                            // line.Split(", ")[1].Trim();
+                        }*/
+
+                        // Otherwise, we skip this line because we don't want anything from it
+                        // or it's a whitespace
                     }
-
-                    if (line.StartsWith("#EXTIMG"))
+                    else
                     {
-                        icon = line.Split(":")[1].Trim();
+                        /*StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+                        if (songFile != null)
+                        {
+                            Song song = await songFile.AsSongModelAsync();
+                            playlist.Songs.Add(song);
+                        }*/
                     }
-
-                    if (line.StartsWith("#EXTDURATION"))
-                    {
-                        duration = line.Split(":")[1].Trim();
-                    }
-
-                    /*if (line.StartsWith("#EXTINF"))
-                    {
-                        // Get song duration (in seconds) and title
-                        // line.Split(":");
-                        // Get song title
-                        // line.Split(", ")[1].Trim();
-                    }*/
-
-                    // Otherwise, we skip this line because we don't want anything from it
-                    // or it's a whitespace
-                }
-                else
-                {
-                    /*StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
-                    if (songFile != null)
-                    {
-                        Song song = await songFile.AsSongModelAsync();
-                        playlist.Songs.Add(song);
-                    }*/
                 }
             }
 
