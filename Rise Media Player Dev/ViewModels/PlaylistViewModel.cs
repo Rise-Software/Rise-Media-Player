@@ -14,7 +14,7 @@ namespace Rise.App.ViewModels
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
-        /// Initializes a new instance of the PlaylistViewModel class that wraps an Playlist object.
+        /// Initializes a new instance of the PlaylistViewModel class that wraps a Playlist object.
         /// </summary>
         public PlaylistViewModel(Playlist model = null)
         {
@@ -49,6 +49,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist description.
+        /// </summary>
         public string Description
         {
             get
@@ -66,6 +69,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist icon.
+        /// </summary>
         public string Icon
         {
             get
@@ -83,6 +89,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist duration.
+        /// </summary>
         public string Duration
         {
             get
