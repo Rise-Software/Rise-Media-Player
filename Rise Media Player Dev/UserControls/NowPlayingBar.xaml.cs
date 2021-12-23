@@ -20,6 +20,7 @@ using Rise.App.ViewModels;
 using Rise.App.Common;
 using Rise.App.Views;
 using System.Diagnostics;
+using Windows.Media.Casting;
 
 namespace Rise.App.UserControls
 {
@@ -30,6 +31,7 @@ namespace Rise.App.UserControls
         private byte _tintOpacity = 100;
 
         private AlbumViewModel CurrentSongAlbum;
+        private CastingDevicePicker castingPicker;
         #endregion
 
         #region Properties
@@ -92,6 +94,35 @@ namespace Rise.App.UserControls
             Unloaded += NowPlayingBar_Unloaded;
             UISettings uiSettings = new UISettings();
             uiSettings.ColorValuesChanged += UISettings_ColorValuesChanged;
+
+            castingPicker = new CastingDevicePicker();
+            castingPicker.Filter.SupportsVideo = true;
+            castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
+        }
+
+        #region Events
+
+        private void CastToDevice_Click(object sender, RoutedEventArgs e)
+        {
+            //Retrieve the location of the casting button
+            GeneralTransform transform = CastButton.TransformToVisual(Window.Current.Content);
+            Point pt = transform.TransformPoint(new Point(0, 0));
+
+            //Show the picker above our casting button
+            castingPicker.Show(new Rect(pt.X - 30, pt.Y - 100, CastButton.ActualWidth, CastButton.ActualHeight),
+                Windows.UI.Popups.Placement.Above);
+        }
+
+        private async void CastingPicker_CastingDeviceSelected(CastingDevicePicker sender, CastingDeviceSelectedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                // Create a casting conneciton from our selected casting device
+                CastingConnection connection = args.SelectedCastingDevice.CreateCastingConnection();
+
+                // Cast the content loaded in the media element to the selected casting device
+                await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
+            });
         }
 
         private void UISettings_ColorValuesChanged(UISettings sender, object args)
@@ -99,7 +130,42 @@ namespace Rise.App.UserControls
             HandleColorStyles();
         }
 
-        #region Events
+        private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
+        }
+
+        private void UnpinOverlay_Click(object sender, RoutedEventArgs e)
+        {
+            OverlayMenu.Visibility = Visibility.Visible;
+            OverlayButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void MiniMenu_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            MiniMenuFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
+        }
+
+        private void MiniMenuFlyout_Click(object sender, RoutedEventArgs e)
+        {
+            OverlayMenu.Visibility = Visibility.Collapsed;
+            OverlayButton.Visibility = Visibility.Visible;
+        }
+
+        private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (PinMiniPlayer.IsChecked == false)
+            {
+                OverlayMenu.Visibility = Visibility.Collapsed;
+                OverlayButton.Visibility = Visibility.Visible;
+            }
+
+            else
+            {
+                OverlayMenu.Visibility = Visibility.Collapsed;
+                OverlayButton.Visibility = Visibility.Visible;
+            }
+        }
 
         private void SliderProgress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
@@ -503,45 +569,5 @@ namespace Rise.App.UserControls
             }
 
         }
-
-        private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
-        }
-
-        private void UnpinOverlay_Click(object sender, RoutedEventArgs e)
-        {
-            OverlayMenu.Visibility = Visibility.Visible;
-            OverlayButton.Visibility = Visibility.Collapsed;
-        }
-
-        private void MiniMenu_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            MiniMenuFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
-        }
-
-        private void MiniMenuFlyout_Click(object sender, RoutedEventArgs e)
-        {
-            OverlayMenu.Visibility = Visibility.Collapsed;
-            OverlayButton.Visibility = Visibility.Visible;
-        }
-
-        private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
-        {
-            if (PinMiniPlayer.IsChecked == false)
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
-                
-            else
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
-
-
-        }
-
     }
 }

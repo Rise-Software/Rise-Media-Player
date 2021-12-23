@@ -64,7 +64,7 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutItem Text="Cast to device">
+            <MenuFlyoutItem Click="CastToDevice_Click" x:Name="CastButton" Text="Cast to device">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEC15;" />
                 </MenuFlyoutItem.Icon>
