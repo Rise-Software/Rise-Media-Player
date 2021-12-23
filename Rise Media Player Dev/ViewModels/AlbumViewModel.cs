@@ -194,6 +194,28 @@ namespace Rise.App.ViewModels
             set => Set(ref _isArtistVisible, value);
         }
 
+        private bool _isThumbnailVisible = true;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album art is displayed or not.
+        /// </summary>
+        public bool IsThumbnailVisible
+        {
+            get => _isThumbnailVisible;
+            set => Set(ref _isThumbnailVisible, value);
+        }
+
+        private bool _isGenresVisible = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album art is displayed or not.
+        /// </summary>
+        public bool IsGenresVisible
+        {
+            get => _isGenresVisible;
+            set => Set(ref _isGenresVisible, value);
+        }
+
         /// <summary>
         /// Saves album data that has been edited.
         /// </summary>
