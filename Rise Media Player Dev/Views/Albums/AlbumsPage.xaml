@@ -7,7 +7,12 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:converters="using:Rise.App.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BoolToRoundedCorners x:Key="BoolToRounded" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -97,11 +102,12 @@
                         <ToggleMenuFlyoutItem Text="Split online &amp; local media" />
                         <MenuFlyoutSeparator/>
                         <ToggleMenuFlyoutItem Text="Card background" />
-                        <ToggleMenuFlyoutItem Text="Rounded album art" />
+                        <ToggleMenuFlyoutItem Text="Rounded album art" Click="RoundedAlbumArtOption_Click" IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" />
                         <MenuFlyoutSeparator/>
                         <MenuFlyoutItem Text="Additional settings"/>
                         <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" />
+                            <ToggleMenuFlyoutItem Text="Album title" Click="ShowAlbumTitle_Click" IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" x:Name="TitleViewOption" />
+                            <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" x:Name="ThumbnailViewOption" />
                             <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Release year"/>
@@ -257,13 +263,12 @@
                                 Orientation="Vertical"
                                 Spacing="2"
                                 Width="134">
-                        <Button CornerRadius="4"
+                        <Button CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
                                 IsHitTestVisible="False"
                                 ToolTipService.ToolTip="{x:Bind Title}"
                                 Padding="0"
                                 Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}">
-                            <Border x:Name="AlbumThumb"
-                                    CornerRadius="4">
+                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
                                 <Image x:Phase="1"
                                        Height="134"
                                        Source="{x:Bind Thumbnail}"
@@ -277,18 +282,20 @@
                                    MaxLines="1"
                                    ToolTipService.ToolTip="{x:Bind Title}"
                                    Style="{StaticResource BaseTextBlockStyle}"
-                                   TextWrapping="Wrap" />
-                        <TextBlock Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
-                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
-                                <Run Text="{x:Bind Artist}" />
-                            </Hyperlink>
-                        </TextBlock>
+                                   TextWrapping="Wrap"
+                                   Visibility="{x:Bind IsTitleVisible, Mode=OneWay}"/>
 
                         <TextBlock Text="{x:Bind Genres}"
                                    MaxLines="1"
                                    ToolTipService.ToolTip="{x:Bind Title}"
                                    Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}"
                                    TextWrapping="Wrap" />
+
+                        <TextBlock Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
+                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
+                                <Run Text="{x:Bind Artist}" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

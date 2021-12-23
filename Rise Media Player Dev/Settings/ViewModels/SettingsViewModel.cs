@@ -138,6 +138,18 @@ namespace Rise.App.ViewModels
             set => Set("MediaLibrary", nameof(ShowGenreInAlbums), value);
         }
 
+        public bool ShowTitleInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowTitleInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowTitleInAlbums), value);
+        }
+
+        public bool RoundedAlbumArt
+        {
+            get => Get("MediaLibrary", nameof(RoundedAlbumArt), true);
+            set => Set("MediaLibrary", nameof(RoundedAlbumArt), value);
+        }
+
         #endregion
 
         #region Navigation

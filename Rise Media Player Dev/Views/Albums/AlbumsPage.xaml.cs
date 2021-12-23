@@ -207,6 +207,20 @@ namespace Rise.App.Views
 
         private void ApplySettingsToView()
         {
+            if (SViewModel.ShowTitleInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = true;
+                }
+            } else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = false;
+                }
+            }
+
             if (SViewModel.ShowGenreInAlbums)
             {
                 foreach (AlbumViewModel album in Albums)
@@ -251,6 +265,21 @@ namespace Rise.App.Views
                     album.IsThumbnailVisible = false;
                 }
             }
+
+            if (SViewModel.RoundedAlbumArt)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = false;
+                }
+            }
         }
 
         private void ShowArtistName_Click(object sender, RoutedEventArgs e)
@@ -280,6 +309,7 @@ namespace Rise.App.Views
                 {
                     album.IsThumbnailVisible = true;
                 }
+                TitleViewOption.IsEnabled = true;
             }
             else
             {
@@ -287,6 +317,8 @@ namespace Rise.App.Views
                 {
                     album.IsThumbnailVisible = false;
                 }
+                TitleViewOption.IsEnabled = false;
+                SViewModel.ShowTitleInAlbums = true;
             }
         }
 
@@ -306,6 +338,47 @@ namespace Rise.App.Views
                 {
                     album.IsGenresVisible = false;
                 }
+            }
+        }
+
+        private void RoundedAlbumArtOption_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = false;
+                }
+            }
+        }
+
+        private void ShowAlbumTitle_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = true;
+                }
+                ThumbnailViewOption.IsEnabled = true;
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = false;
+                }
+                ThumbnailViewOption.IsEnabled = false;
+                SViewModel.ShowThumbnailInAlbums = true;
             }
         }
     }
