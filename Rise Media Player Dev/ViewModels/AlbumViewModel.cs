@@ -208,12 +208,34 @@ namespace Rise.App.ViewModels
         private bool _isGenresVisible = false;
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the album art is displayed or not.
+        /// Gets or sets a value that indicates whether the album genre is displayed or not.
         /// </summary>
         public bool IsGenresVisible
         {
             get => _isGenresVisible;
             set => Set(ref _isGenresVisible, value);
+        }
+
+        private bool _isTitleVisible = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album title is displayed or not.
+        /// </summary>
+        public bool IsTitleVisible
+        {
+            get => _isTitleVisible;
+            set => Set(ref _isTitleVisible, value);
+        }
+
+        private bool _hasRoundedAlbumArt = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album art is rounded or not.
+        /// </summary>
+        public bool HasRoundedAlbumArt
+        {
+            get => _hasRoundedAlbumArt;
+            set => Set(ref _hasRoundedAlbumArt, value);
         }
 
         /// <summary>

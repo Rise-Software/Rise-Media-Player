@@ -119,6 +119,37 @@ namespace Rise.App.ViewModels
             get => Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
         }
+
+        public bool ShowArtistInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowArtistInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowArtistInAlbums), value);
+        }
+
+        public bool ShowThumbnailInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowThumbnailInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowThumbnailInAlbums), value);
+        }
+
+        public bool ShowGenreInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowGenreInAlbums), false);
+            set => Set("MediaLibrary", nameof(ShowGenreInAlbums), value);
+        }
+
+        public bool ShowTitleInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowTitleInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowTitleInAlbums), value);
+        }
+
+        public bool RoundedAlbumArt
+        {
+            get => Get("MediaLibrary", nameof(RoundedAlbumArt), true);
+            set => Set("MediaLibrary", nameof(RoundedAlbumArt), value);
+        }
+
         #endregion
 
         #region Navigation
