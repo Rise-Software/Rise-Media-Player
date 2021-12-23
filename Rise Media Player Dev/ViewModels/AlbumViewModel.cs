@@ -152,6 +152,7 @@ namespace Rise.App.ViewModels
         public bool IsModified { get; set; }
 
         private bool _isLoading;
+
         /// <summary>
         /// Gets or sets a value that indicates whether to show a progress bar. 
         /// </summary>
@@ -180,6 +181,17 @@ namespace Rise.App.ViewModels
         {
             get => _isInEdit;
             set => Set(ref _isInEdit, value);
+        }
+
+        private bool _isArtistVisible = true;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album title is displayed or not.
+        /// </summary>
+        public bool IsArtistVisible
+        {
+            get => _isArtistVisible;
+            set => Set(ref _isArtistVisible, value);
         }
 
         /// <summary>

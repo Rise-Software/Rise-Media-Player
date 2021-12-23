@@ -42,7 +42,7 @@
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click" RightTapped="MiniMenu_RightTapped">
+            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEE49;"/>
                 </MenuFlyoutItem.Icon>
@@ -97,7 +97,7 @@
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE141;" />
                 </MenuFlyoutSubItem.Icon>
-                <ToggleMenuFlyoutItem Text="Mini player" x:Name="PinMiniPlayer" Click="PinMiniPlayer_Click"/>
+                <ToggleMenuFlyoutItem Text="Mini player" />
                 <ToggleMenuFlyoutItem Text="Queue" />
                 <ToggleMenuFlyoutItem Text="Full screen" />
                 <ToggleMenuFlyoutItem Text="Cast to device" />

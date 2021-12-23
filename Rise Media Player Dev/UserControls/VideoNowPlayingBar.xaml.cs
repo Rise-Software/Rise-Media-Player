@@ -201,7 +201,7 @@ namespace Rise.App.UserControls
             }
         }
 
-        private void VideoFullScreen_Click(object sender, RoutedEventArgs e)
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
@@ -222,11 +222,6 @@ namespace Rise.App.UserControls
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.
                 }
             }
-        }
-
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

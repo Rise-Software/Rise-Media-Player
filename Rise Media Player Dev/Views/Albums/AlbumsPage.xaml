@@ -102,7 +102,7 @@
                         <MenuFlyoutItem Text="Additional settings"/>
                         <MenuFlyoutSubItem Text="Show">
                             <ToggleMenuFlyoutItem Text="Album art"/>
-                            <ToggleMenuFlyoutItem Text="Artist name"/>
+                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click"/>
                             <ToggleMenuFlyoutItem Text="Genre"/>
                             <ToggleMenuFlyoutItem Text="Release year"/>
                             <ToggleMenuFlyoutItem Text="Rating"/>
@@ -277,7 +277,7 @@
                                    ToolTipService.ToolTip="{x:Bind Title}"
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap" />
-                        <TextBlock FontSize="13">
+                        <TextBlock Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
                             <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
                                 <Run Text="{x:Bind Artist}" />
                             </Hyperlink>

@@ -513,6 +513,29 @@ namespace Rise.App.UserControls
             }
         }
 
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+            {
+                view.ExitFullScreenMode();
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                FullScreenButton.Text = "Full screen";
+                FullScreenIcon.Glyph = "\uE740";
+                // The SizeChanged event will be raised when the exit from full-screen mode is complete.
+            }
+            else
+            {
+                if (view.TryEnterFullScreenMode())
+                {
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+                    FullScreenButton.Text = "Exit full screen";
+                    FullScreenIcon.Glyph = "\uE73F";
+                    // The SizeChanged event will be raised when the entry to full-screen mode is complete.
+                }
+            }
+        }
+
         #endregion
 
         private void TogglePlayPause()
@@ -548,28 +571,5 @@ namespace Rise.App.UserControls
             UseAlbumArt
         }
 
-        private void FullScreen_Click(object sender, RoutedEventArgs e)
-        {
-            var view = ApplicationView.GetForCurrentView();
-            if (view.IsFullScreenMode)
-            {
-                view.ExitFullScreenMode();
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
-                FullScreenButton.Text = "Full screen";
-                FullScreenIcon.Glyph = "\uE740";
-                // The SizeChanged event will be raised when the exit from full-screen mode is complete.
-            }
-            else
-            {
-                if (view.TryEnterFullScreenMode())
-                {
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
-                    FullScreenButton.Text = "Exit full screen";
-                    FullScreenIcon.Glyph = "\uE73F";
-                    // The SizeChanged event will be raised when the entry to full-screen mode is complete.
-                }
-            }
-
-        }
     }
 }
