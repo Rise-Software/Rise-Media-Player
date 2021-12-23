@@ -62,6 +62,15 @@ namespace Rise.App.Views
             _navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
+        private static readonly DependencyProperty SelectedAlbumProperty =
+            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumSongsPage), null);
+
+        private AlbumViewModel SelectedAlbum
+        {
+            get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
+            set => SetValue(SelectedAlbumProperty, value);
+        }
+
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -180,6 +189,23 @@ namespace Rise.App.Views
             Songs.SortDescriptions.
                 Add(new SortDescription(SortProperty, CurrentSort));
         }
+
+        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+            }
+        }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                SelectedAlbum = album;
+            }
+        }
+
         #endregion
 
         #region Common handlers

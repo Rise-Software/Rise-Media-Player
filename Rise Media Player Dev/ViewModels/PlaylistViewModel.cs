@@ -199,8 +199,8 @@ namespace Rise.App.ViewModels
             }
 
             await App.Repository.Playlists.QueueUpsertAsync(Model);
-            StorageFile file = await App.PlaylistsFolder.CreateFileAsync($"{Title}.m3u", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, $"#EXTM3U\n\n#EXTDESC: {Description}\n#EXTIMG: {Icon}\n#EXTDURATION: {Duration}");
+            /*StorageFile file = await App.PlaylistsFolder.CreateFileAsync($"{Title}.m3u", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, $"#EXTM3U\n\n#EXTDESC: {Description}\n#EXTIMG: {Icon}\n#EXTDURATION: {Duration}");*/
         }
 
         /// <summary>

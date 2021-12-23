@@ -91,21 +91,21 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem Text="Tiles (Vertical)" IsChecked="True" />
-                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" IsEnabled="False" />
-                        <muxc:RadioMenuFlyoutItem Text="List" IsEnabled="false" />
+                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" />
+                        <muxc:RadioMenuFlyoutItem Text="List" />
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" IsEnabled="false"/>
+                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" />
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Card background" IsEnabled="False"/>
-                        <ToggleMenuFlyoutItem Text="Rounded album art" IsChecked="True" />
+                        <ToggleMenuFlyoutItem Text="Card background" />
+                        <ToggleMenuFlyoutItem Text="Rounded album art" />
                         <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="Additional settings" IsEnabled="false"/>
+                        <MenuFlyoutItem Text="Additional settings"/>
                         <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem Text="Album art" IsChecked="True" Click="ShowAlbumArt_Click"/>
-                            <ToggleMenuFlyoutItem Text="Artist name" IsChecked="True" Click="ShowArtistName_Click"/>
-                            <ToggleMenuFlyoutItem Text="Genre" IsChecked="False"/>
-                            <ToggleMenuFlyoutItem Text="Release year" IsChecked="False"/>
-                            <ToggleMenuFlyoutItem Text="Rating" IsChecked="false"/>
+                            <ToggleMenuFlyoutItem Text="Album art"/>
+                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click"/>
+                            <ToggleMenuFlyoutItem Text="Genre"/>
+                            <ToggleMenuFlyoutItem Text="Release year"/>
+                            <ToggleMenuFlyoutItem Text="Rating"/>
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
@@ -117,7 +117,7 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
                                                   Click="SortFlyoutItem_Click"
-                                                  IsChecked="True"
+                                                  IsChecked="true"
                                                   Tag="Title" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
                                                   Click="SortFlyoutItem_Click"

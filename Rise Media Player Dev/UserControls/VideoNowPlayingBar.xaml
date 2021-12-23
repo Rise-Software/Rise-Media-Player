@@ -163,7 +163,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xF5B0;" FontSize="16" FontFamily="Media Player Fluent Icons" x:Name="PlayButtonIcon" />
+                        <FontIcon Glyph="&#xF5B0;" FontSize="16" x:Name="PlayButtonIcon" />
                     </Button>
 
                     <Button Click="Back10_Click"
