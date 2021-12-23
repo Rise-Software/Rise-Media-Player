@@ -123,7 +123,7 @@
                             <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Release year" Click="ShowReleaseYear_Click" IsChecked="{x:Bind SViewModel.ShowReleaseYearInAlbums, Mode=TwoWay}" />
-                            <ToggleMenuFlyoutItem Text="Rating"/>
+                            <ToggleMenuFlyoutItem Text="Rating" IsEnabled="False"/>
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
