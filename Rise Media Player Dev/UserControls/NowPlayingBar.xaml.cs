@@ -21,6 +21,7 @@ using Rise.App.Common;
 using Rise.App.Views;
 using System.Diagnostics;
 using Windows.Media.Casting;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Rise.App.UserControls
 {
@@ -87,7 +88,7 @@ namespace Rise.App.UserControls
 
         public NowPlayingBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
@@ -156,7 +157,7 @@ namespace Rise.App.UserControls
 
         private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
         {
-            if (PinMiniPlayer.IsChecked == false)
+            if (!PinMiniPlayer.IsChecked)
             {
                 OverlayMenu.Visibility = Visibility.Collapsed;
                 OverlayButton.Visibility = Visibility.Visible;

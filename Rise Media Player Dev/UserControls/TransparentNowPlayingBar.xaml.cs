@@ -35,7 +35,7 @@ namespace Rise.App.UserControls
 
         public TransparentNowPlayingBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;

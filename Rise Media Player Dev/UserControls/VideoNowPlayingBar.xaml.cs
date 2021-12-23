@@ -28,7 +28,7 @@ namespace Rise.App.UserControls
 
         public VideoNowPlayingBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             _player.PlaybackSession.PlaybackRate = 1;
 
             DataContext = App.PViewModel;
