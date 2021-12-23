@@ -214,5 +214,43 @@ namespace Rise.App.Views
                 }
             }
         }
+
+        private void ShowThumbnail_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = false;
+                }
+            }
+        }
+
+        private void ShowGenres_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = false;
+                }
+            }
+        }
     }
 }

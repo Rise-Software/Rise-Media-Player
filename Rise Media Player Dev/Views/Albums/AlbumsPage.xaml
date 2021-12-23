@@ -31,7 +31,7 @@
         </muxc:TeachingTip>
 
         <muxc:InfoBar
-            Margin="0,50,20,0"
+            Margin="0,50,0,0"
             IsOpen="True"
             Severity="Warning"
             Title="Notice"
@@ -101,9 +101,9 @@
                         <MenuFlyoutSeparator/>
                         <MenuFlyoutItem Text="Additional settings"/>
                         <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem Text="Album art"/>
-                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click"/>
-                            <ToggleMenuFlyoutItem Text="Genre"/>
+                            <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="True" />
+                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="True" />
+                            <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" />
                             <ToggleMenuFlyoutItem Text="Release year"/>
                             <ToggleMenuFlyoutItem Text="Rating"/>
                         </MenuFlyoutSubItem>
@@ -117,7 +117,7 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
                                                   Click="SortFlyoutItem_Click"
-                                                  IsChecked="True"
+                                                  IsChecked="true"
                                                   Tag="Title" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
                                                   Click="SortFlyoutItem_Click"
@@ -191,7 +191,7 @@
                                     x:Uid="/Information/NewPlaylist"
                                     IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator/>
@@ -260,7 +260,8 @@
                         <Button CornerRadius="4"
                                 IsHitTestVisible="False"
                                 ToolTipService.ToolTip="{x:Bind Title}"
-                                Padding="0">
+                                Padding="0"
+                                Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}">
                             <Border x:Name="AlbumThumb"
                                     CornerRadius="4">
                                 <Image x:Phase="1"
@@ -282,6 +283,12 @@
                                 <Run Text="{x:Bind Artist}" />
                             </Hyperlink>
                         </TextBlock>
+
+                        <TextBlock Text="{x:Bind Genres}"
+                                   MaxLines="1"
+                                   ToolTipService.ToolTip="{x:Bind Title}"
+                                   Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
