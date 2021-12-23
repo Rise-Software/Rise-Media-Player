@@ -79,6 +79,17 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Gets the album title + artist together.
+        /// </summary>
+        public string TitleWithArtist
+        {
+            get
+            {
+                return $"{Title} - {Artist}";
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the album genre.
         /// </summary>
         public string Genres
@@ -236,6 +247,17 @@ namespace Rise.App.ViewModels
         {
             get => _hasRoundedAlbumArt;
             set => Set(ref _hasRoundedAlbumArt, value);
+        }
+
+        private bool _isReleaseYearVisible = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the album release year is rounded or not.
+        /// </summary>
+        public bool IsReleaseYearVisible
+        {
+            get => _isReleaseYearVisible;
+            set => Set(ref _isReleaseYearVisible, value);
         }
 
         /// <summary>
