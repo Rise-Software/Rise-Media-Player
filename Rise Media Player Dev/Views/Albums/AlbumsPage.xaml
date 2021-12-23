@@ -91,21 +91,21 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem Text="Tiles (Vertical)" IsChecked="True" />
-                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" />
-                        <muxc:RadioMenuFlyoutItem Text="List" />
+                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" IsEnabled="False" />
+                        <muxc:RadioMenuFlyoutItem Text="List" IsEnabled="false" />
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" />
+                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" IsEnabled="false"/>
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Card background" />
-                        <ToggleMenuFlyoutItem Text="Rounded album art" />
+                        <ToggleMenuFlyoutItem Text="Card background" IsEnabled="False"/>
+                        <ToggleMenuFlyoutItem Text="Rounded album art" IsChecked="True" />
                         <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="Additional settings"/>
+                        <MenuFlyoutItem Text="Additional settings" IsEnabled="false"/>
                         <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem Text="Album art"/>
-                            <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click"/>
-                            <ToggleMenuFlyoutItem Text="Genre"/>
-                            <ToggleMenuFlyoutItem Text="Release year"/>
-                            <ToggleMenuFlyoutItem Text="Rating"/>
+                            <ToggleMenuFlyoutItem Text="Album art" IsChecked="True" Click="ShowAlbumArt_Click"/>
+                            <ToggleMenuFlyoutItem Text="Artist name" IsChecked="True" Click="ShowArtistName_Click"/>
+                            <ToggleMenuFlyoutItem Text="Genre" IsChecked="False"/>
+                            <ToggleMenuFlyoutItem Text="Release year" IsChecked="False"/>
+                            <ToggleMenuFlyoutItem Text="Rating" IsChecked="false"/>
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>

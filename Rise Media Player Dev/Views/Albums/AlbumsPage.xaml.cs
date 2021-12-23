@@ -214,5 +214,11 @@ namespace Rise.App.Views
                 }
             }
         }
+
+        private void ShowAlbumArt_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
