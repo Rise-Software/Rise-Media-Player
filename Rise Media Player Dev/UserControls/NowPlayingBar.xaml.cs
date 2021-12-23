@@ -84,12 +84,6 @@ namespace Rise.App.UserControls
             }
         }
 
-        //public bool NowPlayingBarVisibility
-        //{
-        //    get => false;
-        //    set => SetValue(VisibilityProperty, value);
-        //}
-
         #endregion
 
         public NowPlayingBar()
