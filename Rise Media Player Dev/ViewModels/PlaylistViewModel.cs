@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
@@ -13,7 +14,7 @@ namespace Rise.App.ViewModels
         // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
         /// <summary>
-        /// Initializes a new instance of the PlaylistViewModel class that wraps an Playlist object.
+        /// Initializes a new instance of the PlaylistViewModel class that wraps a Playlist object.
         /// </summary>
         public PlaylistViewModel(Playlist model = null)
         {
@@ -48,6 +49,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist description.
+        /// </summary>
         public string Description
         {
             get
@@ -65,6 +69,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist icon.
+        /// </summary>
         public string Icon
         {
             get
@@ -82,6 +89,9 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the playlist duration.
+        /// </summary>
         public string Duration
         {
             get
@@ -99,23 +109,21 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private ObservableCollection<SongViewModel> songsCollection;
-
-        public ObservableCollection<SongViewModel> SongsCollection
+        /*public ObservableCollection<Song> Songs
         {
             get
             {
-                return songsCollection;
+                return Model.Songs;
             }
             set
             {
-                if (value != songsCollection)
+                if (value != Model.Songs)
                 {
-                    songsCollection = value;
+                    Model.Songs = value;
                     IsModified = true;
-                    OnPropertyChanged(nameof(SongsCollection));
+                    OnPropertyChanged(nameof(Songs));
                 }
-                SongsCount = songsCollection.Count;
+                SongsCount = Model.Songs.Count;
             }
         }
 
@@ -123,9 +131,9 @@ namespace Rise.App.ViewModels
         {
             get
             {
-                if (songsCollection != null)
+                if (Songs != null)
                 {
-                    return songsCollection.Count;
+                    return Songs.Count;
                 } else
                 {
                     return 0;
@@ -135,7 +143,7 @@ namespace Rise.App.ViewModels
             {
 
             }
-        }
+        }*/
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
@@ -191,6 +199,8 @@ namespace Rise.App.ViewModels
             }
 
             await App.Repository.Playlists.QueueUpsertAsync(Model);
+            StorageFile file = await App.PlaylistsFolder.CreateFileAsync($"{Title}.m3u", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, $"#EXTM3U\n\n#EXTDESC: {Description}\n#EXTIMG: {Icon}\n#EXTDURATION: {Duration}");
         }
 
         /// <summary>

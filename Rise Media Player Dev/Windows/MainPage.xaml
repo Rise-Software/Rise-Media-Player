@@ -217,7 +217,7 @@
 
                             
 
-                            <MenuFlyoutItem x:Uid="/Information/Notif">
+                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
@@ -360,26 +360,39 @@
             <muxc:TeachingTip.IconSource>
                 <muxc:FontIconSource Glyph="&#xEA69;" />
             </muxc:TeachingTip.IconSource>
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="AddedTip"
-                          x:Uid="/Information/Added"
                           x:FieldModifier="public"
+                          Title="Updated your library."
+                          Subtitle="Click anywhere to dismiss this notification."
                           PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xE73E;" />
-            </muxc:TeachingTip.IconSource>
+                          PreferredPlacement="TopRight"
+                          IsLightDismissEnabled="True">
+            <!--<muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/addednewmedia.png" />
+            </muxc:TeachingTip.HeroContent>-->
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="CheckTip"
-                          x:Uid="/Information/Check"
                           x:FieldModifier="public"
+                          Title="Looking for new media on your device."
                           PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xF16A;" />
-            </muxc:TeachingTip.IconSource>
+                          PreferredPlacement="TopRight"
+                          HorizontalAlignment="Center"
+                          IsLightDismissEnabled="True"
+                          HeroContentPlacement="Bottom">
+            <muxc:TeachingTip.HeroContent>
+                <StackPanel>
+                    
+                    <!--<Image Source="/Assets/lookingformedia.png" />-->
+                    <muxc:ProgressBar Width="270" CornerRadius="7" Margin="2,0,10,10" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+                </StackPanel>
+                
+            </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip x:Name="NoNewTip"

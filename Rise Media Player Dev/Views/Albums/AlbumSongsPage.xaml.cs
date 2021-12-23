@@ -37,6 +37,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+
         private SongViewModel _song;
         public SongViewModel SelectedSong
         {
@@ -45,7 +46,7 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
-        // private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         #endregion
 
         public AlbumSongsPage()
@@ -78,9 +79,9 @@ namespace Rise.App.Views
                 Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
 
                 // TODO: Get "more album from this artist" to work.
-                /*Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
+                Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
                 Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));*/
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
             else if (e.NavigationParameter is string str)
             {

@@ -21,82 +21,24 @@ using Rise.App.Common;
 using Rise.App.Views;
 using System.Diagnostics;
 using Windows.Media.Casting;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Rise.App.UserControls
 {
-    public sealed partial class NowPlayingBar : UserControl
+    public sealed partial class TransparentNowPlayingBar : UserControl
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
-        private byte _tintOpacity = 100;
 
         private AlbumViewModel CurrentSongAlbum;
         private CastingDevicePicker castingPicker;
         #endregion
 
-        #region Properties
-
-        public static readonly DependencyProperty ShowArtist = DependencyProperty.Register("IsArtistShown", typeof(bool), typeof(NowPlayingBar), new PropertyMetadata(null));
-
-        public bool IsArtistShown
-        {
-            get => (bool)GetValue(ShowArtist);
-            set => SetValue(ShowArtist, value);
-        }
-
-        public static readonly DependencyProperty BackgroundStylesProperty = DependencyProperty.Register("BackgroundStyle", typeof(NowPlayingBarBackgroundStyles), typeof(NowPlayingBar), new PropertyMetadata(null));
-
-        private long _backgroundStylesPropertyToken;
-
-        public NowPlayingBarBackgroundStyles BackgroundStyle
-        {
-            get => (NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty);
-            set
-            {
-                SetValue(BackgroundStylesProperty, value);
-            }
-        }
-
-        public static readonly DependencyProperty IsInNowPlayingPageProperty = DependencyProperty.Register("IsInNowPlayingPage", typeof(bool), typeof(NowPlayingBar), new PropertyMetadata(null));
-
-        private long _isInNowPlayingPageToken;
-
-        public bool IsInNowPlayingPage
-        {
-            get => (bool)GetValue(IsInNowPlayingPageProperty);
-            set
-            {
-                SetValue(IsInNowPlayingPageProperty, value);
-            }
-        }
-
-        public static readonly DependencyProperty OverlayBtnVisibilityProperty = DependencyProperty.Register("OverlayBtnVisibility", typeof(Visibility), typeof(NowPlayingBar), new PropertyMetadata(null));
-
-        private long _overlayBtnVisibilityPropertyToken;
-
-        public Visibility OverlayBtnVisibility
-        {
-            get => (Visibility)GetValue(OverlayBtnVisibilityProperty);
-            set
-            {
-                SetValue(OverlayBtnVisibilityProperty, value);
-            }
-        }
-
-        #endregion
-
-        public NowPlayingBar()
+        public TransparentNowPlayingBar()
         {
             InitializeComponent();
 
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
-            _player.PlaybackSession.PlaybackRate = 1;
-            Set1.IsChecked = true;
-            Unloaded += NowPlayingBar_Unloaded;
-            UISettings uiSettings = new UISettings();
-            uiSettings.ColorValuesChanged += UISettings_ColorValuesChanged;
 
             castingPicker = new CastingDevicePicker();
             castingPicker.Filter.SupportsVideo = true;
@@ -127,12 +69,6 @@ namespace Rise.App.UserControls
                 await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
             });
         }
-
-        private void UISettings_ColorValuesChanged(UISettings sender, object args)
-        {
-            HandleColorStyles();
-        }
-
         private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
@@ -157,7 +93,7 @@ namespace Rise.App.UserControls
 
         private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
         {
-            if (!PinMiniPlayer.IsChecked)
+            if (PinMiniPlayer.IsChecked == false)
             {
                 OverlayMenu.Visibility = Visibility.Collapsed;
                 OverlayButton.Visibility = Visibility.Visible;
@@ -175,95 +111,10 @@ namespace Rise.App.UserControls
             _player.PlaybackSession.Position = TimeSpan.FromSeconds(SliderProgress.Value);
         }
 
-        private void NowPlayingBar_Unloaded(object sender, RoutedEventArgs e)
-        {
-            UnregisterPropertyChangedCallback(BackgroundStylesProperty, _backgroundStylesPropertyToken);
-            UnregisterPropertyChangedCallback(IsInNowPlayingPageProperty, _isInNowPlayingPageToken);
-            UnregisterPropertyChangedCallback(OverlayBtnVisibilityProperty, _overlayBtnVisibilityPropertyToken);
-        }
-
         private void NowPlayingBar_Loaded(object sender, RoutedEventArgs e)
         {
-            HandleColorStyles();
             _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
             _player.PlaybackSession.PlaybackStateChanged += PlaybackSession_PlaybackStateChanged;
-            App.PViewModel.CurrentVideoChanged += PViewModel_CurrentVideoChanged;
-            App.PViewModel.CurrentSongChanged += PViewModel_CurrentSongChanged;
-            _backgroundStylesPropertyToken = RegisterPropertyChangedCallback(BackgroundStylesProperty, (sender1, dependencyObject) =>
-            {
-                if (dependencyObject == BackgroundStylesProperty)
-                {
-                    switch ((NowPlayingBarBackgroundStyles)sender1.GetValue(BackgroundStylesProperty))
-                    {
-                        case NowPlayingBarBackgroundStyles.Transparent:
-                            Grid.Background = new SolidColorBrush(Colors.Transparent);
-                            Effects.SetShadow(Parent1, EmptyDropShadow);
-                            break;
-                        case NowPlayingBarBackgroundStyles.Acrylic:
-                        case NowPlayingBarBackgroundStyles.UseAlbumArt:
-                            Grid.Background = BackgroundAcrylicBrush;
-                            Effects.SetShadow(Parent1, DropShadow);
-                            break;
-                    }
-                }
-            });
-            _isInNowPlayingPageToken = RegisterPropertyChangedCallback(IsInNowPlayingPageProperty, (sender1, dependencyObject) =>
-            {
-                if (dependencyObject == IsInNowPlayingPageProperty)
-                {
-                    if (IsInNowPlayingPage)
-                    {
-                        ShuffleButton.Margin = new Thickness(0, 10, 0, 10);
-                        RepeatButton.Margin = new Thickness(0, 10, 0, 10);
-                    }
-                    else
-                    {
-                        ShuffleButton.Margin = new Thickness(10);
-                        RepeatButton.Margin = new Thickness(10);
-                    }
-                }
-            });
-            _overlayBtnVisibilityPropertyToken = RegisterPropertyChangedCallback(OverlayBtnVisibilityProperty, (sender1, dependencyObject) =>
-            {
-                if (dependencyObject == OverlayBtnVisibilityProperty)
-                {
-                    if (OverlayBtnVisibility == Visibility.Collapsed)
-                    {
-                        OverlayButton.Visibility = Visibility.Collapsed;
-                        OverlayButton1.Visibility = Visibility.Collapsed;
-                    }
-                }
-            });
-        }
-
-        private async void PViewModel_CurrentSongChanged(object sender, EventArgs e)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-            {
-                if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
-                {
-                    CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
-                    Uri imageUri = new Uri(CurrentSongAlbum.Thumbnail);
-                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                    using (IRandomAccessStream stream = await random.OpenReadAsync())
-                    {
-                        var decoder = await BitmapDecoder.CreateAsync(stream);
-                        var colorThief = new ColorThief();
-                        var color = await colorThief.GetColor(decoder);
-                        BackgroundAcrylicBrush.TintOpacity = 100;
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
-                    }
-                }
-                RestoreVideoButton.Visibility = Visibility.Collapsed;
-            });
-        }
-
-        private async void PViewModel_CurrentVideoChanged(object sender, EventArgs e)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                RestoreVideoButton.Visibility = Visibility.Visible;
-            });
         }
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -382,12 +233,7 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                AlbumArtContainer.Visibility = Visibility.Visible;
-                if (IsArtistShown)
-                {
-                    Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
-                }
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
             }
@@ -395,9 +241,7 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                AlbumArtContainer.Visibility = Visibility.Visible;
-                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
             }
@@ -405,9 +249,7 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                AlbumArtContainer.Visibility = Visibility.Collapsed;
-                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
             }
@@ -415,9 +257,7 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                AlbumArtContainer.Visibility = Visibility.Collapsed;
-                Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
+                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
             }
@@ -425,9 +265,7 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
-                Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
-                Grid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
-                AlbumArtContainer.Visibility = Visibility.Collapsed;
+                Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
 
                 OverlayButton1.Visibility = Visibility.Visible;
@@ -514,6 +352,29 @@ namespace Rise.App.UserControls
             }
         }
 
+        #endregion
+
+        private void TogglePlayPause()
+        {
+            if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+            {
+                _player.Play();
+                PlayButtonIcon.Glyph = "\uF8AE";
+            }
+            else if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
+            {
+                _player.Pause();
+                PlayButtonIcon.Glyph = "\uF5B0";
+            }
+        }
+
+        public enum NowPlayingBarBackgroundStyles
+        {
+            Transparent,
+            Acrylic,
+            UseAlbumArt
+        }
+
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
@@ -536,41 +397,5 @@ namespace Rise.App.UserControls
                 }
             }
         }
-
-        #endregion
-
-        private void TogglePlayPause()
-        {
-            if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
-            {
-                _player.Play();
-                PlayButtonIcon.Glyph = "\uF8AE";
-            }
-            else if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
-            {
-                _player.Pause();
-                PlayButtonIcon.Glyph = "\uF5B0";
-            }
-        }
-
-        private void HandleColorStyles()
-        {
-            if (Application.Current.RequestedTheme == ApplicationTheme.Light)
-            {
-                _tintOpacity = 130;
-            }
-            else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
-            {
-                _tintOpacity = 100;
-            }
-        }
-
-        public enum NowPlayingBarBackgroundStyles
-        {
-            Transparent,
-            Acrylic,
-            UseAlbumArt
-        }
-
     }
 }

@@ -241,7 +241,7 @@
     <value>No new media found in your library</value>
   </data>
   <data name="Notif.Text" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Messages &amp; reports</value>
   </data>
   <data name="OpenFileLocation.Text" xml:space="preserve">
     <value>Show in File Explorer</value>

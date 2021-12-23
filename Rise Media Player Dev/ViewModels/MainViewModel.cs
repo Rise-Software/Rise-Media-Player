@@ -61,6 +61,8 @@ namespace Rise.App.ViewModels
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
+
+            _ = LoadPlaylists();
         }
 
         /// <summary>
@@ -133,6 +135,19 @@ namespace Rise.App.ViewModels
         {
             get => _isLoading;
             set => Set(ref _isLoading, value);
+        }
+
+        /// <summary>
+        /// Loads playlists from a list of playlist files
+        /// </summary>
+        private async Task LoadPlaylists()
+        {
+            App.PlaylistsFolder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("Playlists", CreationCollisionOption.OpenIfExists);
+            foreach (StorageFile playlistFile in await App.PlaylistsFolder.GetFilesAsync())
+            {
+                PlaylistViewModel playlistViewModel = new PlaylistViewModel(await playlistFile.AsPlaylistModelAsync());
+                await playlistViewModel.SaveAsync();
+            }
         }
 
         /// <summary>

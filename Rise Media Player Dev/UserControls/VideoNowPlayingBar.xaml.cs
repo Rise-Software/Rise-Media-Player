@@ -10,6 +10,8 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Converters;
+using Windows.UI.Xaml.Media;
+using Windows.Media.Casting;
 
 namespace Rise.App.UserControls
 {
@@ -19,19 +21,47 @@ namespace Rise.App.UserControls
         private MediaPlayer _player = App.PViewModel.Player;
 
         private ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
+        private CastingDevicePicker castingPicker;
 
         private string PlayButtonText;
         #endregion
 
         public VideoNowPlayingBar()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            _player.PlaybackSession.PlaybackRate = 1;
 
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
+            castingPicker = new CastingDevicePicker();
+            castingPicker.Filter.SupportsVideo = true;
+            castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
         }
 
-        #region Listeners
+        #region Events
+
+        private void CastToDevice_Click(object sender, RoutedEventArgs e)
+        {
+            //Retrieve the location of the casting button
+            GeneralTransform transform = CastButton.TransformToVisual(Window.Current.Content);
+            Point pt = transform.TransformPoint(new Point(0, 0));
+
+            //Show the picker above our casting button
+            castingPicker.Show(new Rect(pt.X - 30, pt.Y - 100, CastButton.ActualWidth, CastButton.ActualHeight),
+                Windows.UI.Popups.Placement.Above);
+        }
+
+        private async void CastingPicker_CastingDeviceSelected(CastingDevicePicker sender, CastingDeviceSelectedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                // Create a casting conneciton from our selected casting device
+                CastingConnection connection = args.SelectedCastingDevice.CreateCastingConnection();
+
+                // Cast the content loaded in the media element to the selected casting device
+                await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
+            });
+        }
 
         private void SliderProgress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
@@ -143,6 +173,54 @@ namespace Rise.App.UserControls
             {
                 _player.Pause();
                 PlayButtonIcon.Glyph = "\uF5B0";
+            }
+        }
+
+        private void RadioMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as MenuFlyoutItem).Text)
+            {
+                case "0.5x":
+                    _player.PlaybackSession.PlaybackRate = 0.5;
+                    break;
+                case "0.75":
+                    _player.PlaybackSession.PlaybackRate = 0.75;
+                    break;
+                case "1x (Normal)":
+                    _player.PlaybackSession.PlaybackRate = 1;
+                    break;
+                case "1.5x":
+                    _player.PlaybackSession.PlaybackRate = 1.5;
+                    break;
+                case "2x":
+                    _player.PlaybackSession.PlaybackRate = 2;
+                    break;
+                case "2.5x":
+                    _player.PlaybackSession.PlaybackRate = 2.5;
+                    break;
+            }
+        }
+
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+            {
+                view.ExitFullScreenMode();
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                FullScreenButton.Text = "Full screen";
+                FullScreenIcon.Glyph = "\uE740";
+                // The SizeChanged event will be raised when the exi`1t from full-screen mode is complete.
+            }
+            else
+            {
+                if (view.TryEnterFullScreenMode())
+                {
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+                    FullScreenButton.Text = "Exit full screen";
+                    FullScreenIcon.Glyph = "\uE73F";
+                    // The SizeChanged event will be raised when the entry to full-screen mode is complete.
+                }
             }
         }
     }

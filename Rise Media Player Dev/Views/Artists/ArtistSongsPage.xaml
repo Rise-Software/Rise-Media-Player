@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d">
@@ -16,6 +17,22 @@
     </Page.Resources>
 
     <Grid>
+        <muxc:TeachingTip x:Name="DiscyOnSong"
+	        Title="Taking action on songs"
+	        Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!"
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+        
+        
         <ListView x:Name="MainList"
                   Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
@@ -74,6 +91,7 @@
 
                     <MenuFlyoutItem x:Name="AskDiscy"
                                     x:Uid="/Information/AskDiscy"
+                                    Click="AskDiscy_Click"
                                     IsEnabled="True">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE11B;"/>
@@ -107,10 +125,15 @@
 
                 </MenuFlyout>
             </ListView.Resources>
+            
+            
 
             <ListView.HeaderTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
+                    
+                    
                     <Border Margin="-56,0,-56,10">
+                        
                         <Border.Background>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Picture}" Opacity="0.6" />
                         </Border.Background>
@@ -123,18 +146,22 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Button CornerRadius="100"
+
+
+                            <Button CornerRadius="100" 
                                 IsHitTestVisible="False"
                                 Padding="0">
                                 <Border animations:Connected.Key="ArtistArt"
                                     CornerRadius="77">
-                                    <Image x:Phase="1"
+                                    <Image
                                        Height="154"
-                                       Source="{x:Bind Picture}"
+                                       Source="/Assets/BlankArtist.png"
                                        Stretch="UniformToFill"
                                        Width="154" />
                                 </Border>
                             </Button>
+
+
 
                             <StackPanel Grid.Column="1"
                                     Orientation="Vertical"
@@ -226,10 +253,21 @@
                                         </AppBarButton.Flyout>
                                     </AppBarButton>
                                 </CommandBar>
+
+                                <muxc:InfoBar
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
                             </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
+                
+                
+                
             </ListView.HeaderTemplate>
 
             <ListView.ItemTemplate>

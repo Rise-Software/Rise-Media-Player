@@ -28,6 +28,105 @@
             <GradientStop Color="#B61F9C" Offset="0.8"/>
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
+
+        <MenuFlyout x:Key="MoreMenuFlyout">
+            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE70F;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Queue" IsEnabled="False">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xEA37;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xEE49;"/>
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Full screen" x:Name="FullScreenButton" Click="FullScreen_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutItem Click="CastToDevice_Click" x:Name="CastButton" Text="Cast to device">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xEC15;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutSubItem Text="Playback speed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xEC4A;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" IsChecked="True" Text="1x (Normal)" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="1.5x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2x" />
+                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSubItem Text="Sound profile" IsEnabled="False">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xF4C3;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="None" />
+                <muxc:RadioMenuFlyoutItem Text="Treble" />
+                <muxc:RadioMenuFlyoutItem Text="Bass boost" />
+                <muxc:RadioMenuFlyoutItem Text="Headphones" />
+                <muxc:RadioMenuFlyoutItem Text="Laptop" />
+                <muxc:RadioMenuFlyoutItem Text="Portable speakers" />
+                <muxc:RadioMenuFlyoutItem Text="Home stereo" />
+                <muxc:RadioMenuFlyoutItem Text="TV" />
+                <muxc:RadioMenuFlyoutItem Text="Car" />
+                <muxc:RadioMenuFlyoutItem Text="Color shift" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="More options" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutSubItem Text="Pinned" IsEnabled="False">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xE141;" />
+                </MenuFlyoutSubItem.Icon>
+                <ToggleMenuFlyoutItem Text="Mini player" />
+                <ToggleMenuFlyoutItem Text="Queue" />
+                <ToggleMenuFlyoutItem Text="Full screen" />
+                <ToggleMenuFlyoutItem Text="Cast to device" />
+                <ToggleMenuFlyoutItem Text="Playback speed" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutSubItem Text="Visualizer" IsEnabled="False">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xF4A5;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="None" />
+                <muxc:RadioMenuFlyoutItem Text="Color shift" />
+                <ToggleMenuFlyoutItem Text="Picture slideshow" />
+            </MenuFlyoutSubItem>
+
+            <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon Glyph="&#xE713;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Text="Default" />
+                <muxc:RadioMenuFlyoutItem Text="Compact mode" />
+                <MenuFlyoutSeparator />
+                <ToggleMenuFlyoutItem Text="Tint to album art" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Additional settings" />
+            </MenuFlyoutSubItem>
+        </MenuFlyout>
     </UserControl.Resources>
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
@@ -72,6 +171,7 @@
                             Height="45"
                             BorderBrush="Transparent"
                             Background="Transparent"
+                            ToolTipService.ToolTip="Move back 10 seconds"
                             x:Name="Back10">
                         <Button.Resources>
                             <ResourceDictionary>
@@ -100,6 +200,7 @@
                             BorderBrush="Transparent"
                             Background="Transparent"
                             x:Name="Forward30"
+                            ToolTipService.ToolTip="Move forward 30 seconds"
                             Click="Forward30_Click">
                         <Button.Resources>
                             <ResourceDictionary>
@@ -144,6 +245,7 @@
                                 Margin="5,0,0,0"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
+                                ToolTipService.ToolTip="Repeat"
                                 Background="Transparent">
                             <FontIcon Glyph="&#xE1CD;"/>
                         </ToggleButton>
@@ -152,6 +254,7 @@
                                 HorizontalAlignment="Right"
                                 x:Name="VolumeFlyoutButton"
                                 BorderBrush="Transparent"
+                                ToolTipService.ToolTip="Volume"
                                 BorderThickness="0"
                                 Background="Transparent">
                             <Button.Flyout>
@@ -181,6 +284,7 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
+                            ToolTipService.ToolTip="Mini player"
                             BorderBrush="Transparent">
                             <FontIcon Glyph="&#xEE49;"  />
                         </Button>
@@ -190,69 +294,12 @@
                         <Button Height="45"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
-                                Background="Transparent">
+                                ToolTipService.ToolTip="More"
+                                Background="Transparent"
+                                Flyout="{StaticResource MoreMenuFlyout}">
                             <Button.Content>
                                 <FontIcon Glyph="&#xE712;"  />
                             </Button.Content>
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="Info &amp; Properties">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE70F;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutItem Text="Queue">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xEA37;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutItem Text="Full screen">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE740;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutSeparator />
-
-                                    <MenuFlyoutItem Text="Cast to device">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xEC15;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
-                                    <MenuFlyoutSubItem Text="Playback speed">
-                                        <MenuFlyoutSubItem.Icon>
-                                            <FontIcon Glyph="&#xEC4A;" />
-                                        </MenuFlyoutSubItem.Icon>
-                                        <muxc:RadioMenuFlyoutItem Text="0.5x" />
-                                        <muxc:RadioMenuFlyoutItem IsChecked="True" Text="1x (Normal)" />
-                                        <muxc:RadioMenuFlyoutItem Text="1.5x" />
-                                        <muxc:RadioMenuFlyoutItem Text="2x" />
-                                        <muxc:RadioMenuFlyoutItem Text="2.5x" />
-                                    </MenuFlyoutSubItem>
-
-                                    <MenuFlyoutSubItem Text="Sound profile">
-                                        <MenuFlyoutSubItem.Icon>
-                                            <FontIcon Glyph="&#xF4C3;" />
-                                        </MenuFlyoutSubItem.Icon>
-                                        <muxc:RadioMenuFlyoutItem Text="None" />
-                                        <muxc:RadioMenuFlyoutItem Text="Treble" />
-                                        <muxc:RadioMenuFlyoutItem Text="Bass boost" />
-                                        <muxc:RadioMenuFlyoutItem Text="Headphones" />
-                                        <muxc:RadioMenuFlyoutItem Text="Laptop" />
-                                        <muxc:RadioMenuFlyoutItem Text="Portable speakers" />
-                                        <muxc:RadioMenuFlyoutItem Text="Home stereo" />
-                                        <muxc:RadioMenuFlyoutItem Text="TV" />
-                                        <muxc:RadioMenuFlyoutItem Text="Car" />
-                                        <muxc:RadioMenuFlyoutItem Text="Color shift" />
-                                        <MenuFlyoutSeparator />
-                                        <MenuFlyoutItem Text="More options" />
-                                    </MenuFlyoutSubItem>
-                                </MenuFlyout>
-                                
-                            </Button.Flyout>
                         </Button>
                     </controls:WrapPanel>
                 </StackPanel>

@@ -5,44 +5,75 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <Grid x:Name="TopGrid"
+              Canvas.ZIndex="1"
+              Height="32"
+              CornerRadius="0"
+              VerticalAlignment="Top">
+            <Grid.Transitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Grid.Transitions>
 
-        <Button x:Uid="/NowPlaying/Queue"
+            <Button x:Uid="/NowPlaying/Queue"
+                    Click="Queue_Click"
+                    CornerRadius="5"
+                    Height="36"
+                    Margin="2,0"
+                    Style="{StaticResource TransparentButton}"
+                    Width="36"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <FontIcon FontSize="14" Glyph="&#xEA37;" />
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--<Button x:Uid="/NowPlaying/Queue"
                 Click="Queue_Click"
                 Style="{StaticResource TransparentButton}">
-            <Button.Content>
-                <FontIcon FontSize="16" Glyph="&#xEA37;" />
-            </Button.Content>
-        </Button>
+                <Button.Content>
+                    <FontIcon FontSize="16" Glyph="&#xEA37;" />
+                </Button.Content>
+            </Button>-->
 
-        <Rectangle Grid.Row="1" />
+            <Rectangle Grid.Row="1" />
 
-        <StackPanel Grid.Row="2" Orientation="Vertical">
-            <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
+            <StackPanel Grid.Row="2" Orientation="Vertical">
+                <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
                        FontWeight="SemiBold"
                        MaxLines="1"
                        HorizontalTextAlignment="Center"
                        Style="{StaticResource TitleTextBlockStyle}" />
-            <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
+                <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
                        FontSize="22"
                        HorizontalTextAlignment="Center"
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}" />
-            <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
+                <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
                        Margin="0,4"
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="NoWrap"
                        HorizontalTextAlignment="Center"
                        VerticalAlignment="Center" />
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+        </Grid>
+   </Grid>
 </Page>

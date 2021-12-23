@@ -34,8 +34,7 @@ namespace Rise.App.Dialogs
                 Title = title,
                 Description = description,
                 Icon = _imagePath.OriginalString,
-                Duration = "0",
-                SongsCollection = new ObservableCollection<SongViewModel>()
+                Duration = "0"
             };
 
             await plViewModel.SaveAsync();

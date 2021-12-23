@@ -197,5 +197,22 @@ namespace Rise.App.Views
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
 
+        private void ShowArtistName_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = true;
+                }
+            } else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = false;
+                }
+            }
+        }
     }
 }
