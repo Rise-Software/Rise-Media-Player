@@ -69,12 +69,9 @@
                 </Frame.ContentTransitions>
             </Frame>
 
-            <uc:NowPlayingBar x:Name="Player"
-                              BackgroundStyle="Transparent"
-                              IsArtistShown="False" 
+            <uc:TransparentNowPlayingBar x:Name="Player"
                               Grid.Row="1"
-                              Margin="8"
-                              IsInNowPlayingPage="True" />
+                              Margin="8" />
 
             <!--<MediaPlayerElement x:Name="Player"
                                 Grid.Row="1"

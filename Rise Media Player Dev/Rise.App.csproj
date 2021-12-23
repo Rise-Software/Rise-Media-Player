@@ -192,6 +192,9 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TransparentNowPlayingBar.xaml.cs">
+      <DependentUpon>TransparentNowPlayingBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\VideoNowPlayingBar.xaml.cs">
       <DependentUpon>VideoNowPlayingBar.xaml</DependentUpon>
     </Compile>
@@ -510,6 +513,10 @@
     <Page Include="UserControls\AdaptiveItemPane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TransparentNowPlayingBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\VideoNowPlayingBar.xaml">
       <Generator>MSBuild:Compile</Generator>
