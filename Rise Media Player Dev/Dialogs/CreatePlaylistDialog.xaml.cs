@@ -4,7 +4,6 @@ using Rise.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
@@ -38,7 +37,7 @@ namespace Rise.App.Dialogs
                 Duration = "0"
             };
 
-            await Task.Run(async () => await plViewModel.SaveAsync());
+            await plViewModel.SaveAsync();
             
             Hide();
         }
