@@ -31,7 +31,7 @@
         </muxc:TeachingTip>
 
         <muxc:InfoBar
-            Margin="0,50,20,0"
+            Margin="0,50,0,0"
             IsOpen="True"
             Severity="Warning"
             Title="Notice"
