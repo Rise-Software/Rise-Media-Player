@@ -85,27 +85,12 @@ namespace Rise.App.Views
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
 
-            if (e.NavigationParameter is AlbumViewModel album)
-            {
-                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
-
-                // TODO: Get "more album from this artist" to work.
-                Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
-            }
-            else
-            {
-
-                // TODO: Get "more album from this artist" to work.
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
-            }
-
             if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
                 Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name;
+
+                Albums.Filter = a => ((AlbumViewModel)a).Artist == artist.Name;
                 Albums.SortDescriptions.Clear();
                 Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
@@ -114,13 +99,11 @@ namespace Rise.App.Views
                 SelectedArtist = App.MViewModel.Artists.First(a => a.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Artist == str
                     || ((SongViewModel)s).AlbumArtist == str;
-            
+
             }
 
-            
-
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
         }
 
         #region Event handlers
