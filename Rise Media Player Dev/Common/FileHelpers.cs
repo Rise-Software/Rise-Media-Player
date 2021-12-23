@@ -287,6 +287,68 @@ namespace Rise.App.Common
         }
 
         /// <summary>
+        /// Creates a <see cref="Playlist"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Playlist file.</param>
+        /// <returns>A playlist based on the file.</returns>
+        public static async Task<Playlist> AsPlaylistModelAsync(this StorageFile file)
+        {
+            string icon = "", duration = "", description = "";
+            Playlist playlist = new Playlist
+            {
+                Title = file.DisplayName,
+                Description = description,
+                Duration = duration,
+                Icon = string.IsNullOrWhiteSpace(icon) ? "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png" : icon
+            };
+
+            // Get details
+            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
+                {
+                    if (line.StartsWith("#EXTDESC"))
+                    {
+                        description = line.Split(":")[1].Trim();
+                    }
+
+                    if (line.StartsWith("#EXTIMG"))
+                    {
+                        icon = line.Split(":")[1].Trim();
+                    }
+
+                    if (line.StartsWith("#EXTDURATION"))
+                    {
+                        duration = line.Split(":")[1].Trim();
+                    }
+
+                    /*if (line.StartsWith("#EXTINF"))
+                    {
+                        // Get song duration (in seconds) and title
+                        // line.Split(":");
+                        // Get song title
+                        // line.Split(", ")[1].Trim();
+                    }*/
+
+                    // Otherwise, we skip this line because we don't want anything from it
+                    // or it's a whitespace
+                }
+                else
+                {
+                    /*StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+                    if (songFile != null)
+                    {
+                        Song song = await songFile.AsSongModelAsync();
+                        playlist.Songs.Add(song);
+                    }*/
+                }
+            }
+
+            return playlist;
+        }
+
+        /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> from a <see cref="StorageFile"/>.
         /// </summary>
         /// <param name="file">File to convert.</param>

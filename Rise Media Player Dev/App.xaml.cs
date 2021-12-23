@@ -30,6 +30,9 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+
+        public static StorageFolder PlaylistsFolder { get; set; }
+
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
         /// </summary>
