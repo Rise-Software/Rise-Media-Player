@@ -251,23 +251,33 @@
                                               Click="ShuffleButton_Click"
                                               Icon="Shuffle"
                                                       Label="Shuffle all" />
-                                        <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
-                                            <AppBarButton.Icon>
-                                                <FontIcon Glyph="&#xECC8;" />
-                                            </AppBarButton.Icon>
+                                    <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xECC8;" />
+                                        </AppBarButton.Icon>
 
-                                            <AppBarButton.Flyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem Text="Playlist">
-                                                        <MenuFlyoutItem.Icon>
-                                                            <FontIcon Glyph="&#xE142;" />
-                                                        </MenuFlyoutItem.Icon>
-                                                    </MenuFlyoutItem>
-                                                </MenuFlyout>
-                                            </AppBarButton.Flyout>
-                                        </AppBarButton>
+                                        <AppBarButton.Flyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem x:Name="PinToStart"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE141;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </AppBarButton.Flyout>
+                                    </AppBarButton>
 
-                                        <AppBarSeparator />
+                                    <AppBarSeparator />
 
                                         <AppBarButton x:Uid="/Information/Delete"
                                               Icon="Delete"

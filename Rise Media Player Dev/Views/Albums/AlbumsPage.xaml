@@ -59,16 +59,27 @@
                           x:Uid="/Information/Shuffle"
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+            
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Playlist">
+                        <MenuFlyoutItem x:Name="NewPlaylistMenu"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE142;" />
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStartMenu"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -96,22 +107,22 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem Text="Tiles (Vertical)" IsChecked="True" />
-                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" />
-                        <muxc:RadioMenuFlyoutItem Text="List" />
+                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" IsEnabled="False" />
+                        <muxc:RadioMenuFlyoutItem Text="List" IsEnabled="False"/>
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" />
+                        <ToggleMenuFlyoutItem Text="Split online &amp; local media" IsEnabled="false" />
                         <MenuFlyoutSeparator/>
-                        <ToggleMenuFlyoutItem Text="Card background" />
+                        <ToggleMenuFlyoutItem Text="Card background" IsEnabled="False"/>
                         <ToggleMenuFlyoutItem Text="Rounded album art" Click="RoundedAlbumArtOption_Click" IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" />
                         <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="Additional settings"/>
+                        <MenuFlyoutItem Text="Additional settings" IsEnabled="False"/>
                         <MenuFlyoutSubItem Text="Show">
                             <ToggleMenuFlyoutItem Text="Album title" Click="ShowAlbumTitle_Click" IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" x:Name="TitleViewOption" />
                             <ToggleMenuFlyoutItem Text="Album art" Click="ShowThumbnail_Click" IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" x:Name="ThumbnailViewOption" />
                             <ToggleMenuFlyoutItem Text="Artist name" Click="ShowArtistName_Click" IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" />
                             <ToggleMenuFlyoutItem Text="Genre" Click="ShowGenres_Click" IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" />
-                            <ToggleMenuFlyoutItem Text="Release year"/>
-                            <ToggleMenuFlyoutItem Text="Rating"/>
+                            <ToggleMenuFlyoutItem Text="Release year" IsChecked="False" />
+                            <ToggleMenuFlyoutItem Text="Rating" IsEnabled="false" IsChecked="False"/>
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
