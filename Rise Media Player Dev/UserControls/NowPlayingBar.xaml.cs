@@ -84,6 +84,12 @@ namespace Rise.App.UserControls
             }
         }
 
+        //public bool NowPlayingBarVisibility
+        //{
+        //    get => false;
+        //    set => SetValue(VisibilityProperty, value);
+        //}
+
         #endregion
 
         public NowPlayingBar()
@@ -101,6 +107,8 @@ namespace Rise.App.UserControls
             castingPicker = new CastingDevicePicker();
             castingPicker.Filter.SupportsVideo = true;
             castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
+
+            this.Visibility = Visibility.Collapsed;
         }
 
         #region Events
@@ -255,6 +263,7 @@ namespace Rise.App.UserControls
                     }
                 }
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Visible;
             });
         }
 
