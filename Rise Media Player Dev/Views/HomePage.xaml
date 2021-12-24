@@ -52,7 +52,7 @@
                             <FontIcon Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
                         </Button>
                         
-                        <TextBlock Text="v0.0.13"
+                        <TextBlock Text="v0.0.135.0"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
@@ -92,28 +92,28 @@
                       Margin="0,-12,0,0"
                       SelectionMode="None">
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
-                               IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/playlists.png"
                                Label="Playlist Support"
                                Margin="3"
                                Tag="0" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
-                               IconUri="ms-appx:///Assets/Settings/Appearance.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/albumartists.png"
                                Label="Artists &amp; Albums"
                                Margin="3"
                                Tag="1" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG4.png"
-                               IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/NPBar.png"
                                Label="Now Playing Bar"
                                Margin="3"
                                Tag="2" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG5.png"
-                               IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/Discy.png"
                                Label="Contextual Help"
                                Margin="3"
                                Tag="3" />
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
                                IconUri="ms-appx:///Assets/Settings/Sidebar.png"
-                               Label="Messages &amp; reports"
+                               Label="View options"
                                Tag="4" />
             </GridView>
 

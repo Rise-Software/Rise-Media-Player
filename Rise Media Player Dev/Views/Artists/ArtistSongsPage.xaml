@@ -53,7 +53,7 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Padding="10,60,20,10" Text="Discography" Style="{StaticResource Subheader}" />
+                    <TextBlock Padding="10,60,20,10" Text="Discography" FontSize="16" Style="{StaticResource Subheader}" />
                     <GridView Grid.Row="1"
                               ItemsSource="{x:Bind Albums}"
                               RightTapped="MainGrid_RightTapped"
