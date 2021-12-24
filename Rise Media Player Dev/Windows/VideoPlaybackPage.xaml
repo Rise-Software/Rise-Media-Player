@@ -12,7 +12,9 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited">
 
     <Page.Resources>
         <conv:VideoToString x:Key="VidToStr" />
@@ -64,7 +66,8 @@
 
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
                                Margin="20"
-                               Canvas.ZIndex="1" />
+                               Canvas.ZIndex="1"
+                               x:Name="Player" />
         <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
         <MediaPlayerElement x:Name="PlayerElement"
                             Canvas.ZIndex="0" />
