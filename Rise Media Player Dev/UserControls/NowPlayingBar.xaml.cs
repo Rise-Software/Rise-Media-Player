@@ -587,10 +587,12 @@ namespace Rise.App.UserControls
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
                 _tintOpacity = 130;
+                BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 _tintOpacity = 100;
+                BackgroundAcrylicBrush.TintLuminosityOpacity = 0;
             }
         }
 

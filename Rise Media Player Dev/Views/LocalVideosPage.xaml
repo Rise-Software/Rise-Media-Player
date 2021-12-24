@@ -112,21 +112,25 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem Text="Name"
                                                   IsChecked="True"
-                                                  Tag="Name" />
+                                                  Tag="Name"
+                                                  Click="SortByName_Click"/>
                         <muxc:RadioMenuFlyoutItem Text="Date"
                                                   Tag="Date" />
                         <muxc:RadioMenuFlyoutItem Text="Length"
-                                                  Tag="Length" />
+                                                  Tag="Length"
+                                                  Click="SortByLength_Click" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
                                                   GroupName="Descending"
                                                   IsChecked="True"
-                                                  Tag="Ascending" />
+                                                  Tag="Ascending"
+                                                  Click="AscendingOrDescending_Click" />
                         <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
                                                   GroupName="Descending"
-                                                  Tag="Descending" />
+                                                  Tag="Descending"
+                                                  Click="AscendingOrDescending_Click" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>

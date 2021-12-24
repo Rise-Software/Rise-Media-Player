@@ -314,13 +314,11 @@ namespace Rise.App.Common
                         {
                             description = line.Split(":")[1].Trim();
                         }
-
-                        if (line.StartsWith("#EXTIMG"))
+                        else if (line.StartsWith("#EXTIMG"))
                         {
                             icon = line.Split(":")[1].Trim();
                         }
-
-                        if (line.StartsWith("#EXTDURATION"))
+                        else if (line.StartsWith("#EXTDURATION"))
                         {
                             duration = line.Split(":")[1].Trim();
                         }
