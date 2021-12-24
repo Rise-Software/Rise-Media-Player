@@ -1,29 +1,29 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Converters;
+using System;
 using System.Linq;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using Windows.Media.Casting;
+using Windows.Media.Playback;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.Media.Playback;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Converters;
 using Windows.UI.Xaml.Media;
-using Windows.Media.Casting;
 
 namespace Rise.App.UserControls
 {
     public sealed partial class VideoNowPlayingBar : UserControl
     {
         #region Variables
-        private MediaPlayer _player = App.PViewModel.Player;
+        private readonly MediaPlayer _player = App.PViewModel.Player;
 
-        private ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
-        private CastingDevicePicker castingPicker;
+        private readonly ViewModels.SongViewModel CurrentSong = App.PViewModel.CurrentSong;
+        private readonly CastingDevicePicker castingPicker;
 
-        private string PlayButtonText;
+        private readonly string PlayButtonText;
         #endregion
 
         public VideoNowPlayingBar()
@@ -127,14 +127,14 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
                 fontIcon.Glyph = "\uEE47";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
@@ -147,7 +147,10 @@ namespace Rise.App.UserControls
             {
                 fontIcon.Glyph = "\uEE47";
             }
-            else fontIcon.Glyph = "\uEE49";
+            else
+            {
+                fontIcon.Glyph = "\uEE49";
+            }
         }
 
         private void Back10_Click(object sender, RoutedEventArgs e)
@@ -203,7 +206,7 @@ namespace Rise.App.UserControls
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
-            var view = ApplicationView.GetForCurrentView();
+            ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();

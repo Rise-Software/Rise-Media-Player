@@ -48,7 +48,9 @@ namespace Rise.App.UserControls
         }
 
         private void Pane_SizeChanged(object sender, SizeChangedEventArgs e)
-            => PerformResize(e.NewSize.Width);
+        {
+            PerformResize(e.NewSize.Width);
+        }
 
         private void PerformResize(double width)
         {

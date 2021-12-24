@@ -12,7 +12,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the genre.
         /// </summary>
-        public override string ToString() => Name;
+        public override string ToString()
+        {
+            return Name;
+        }
 
         public bool Equals(Genre other)
         {

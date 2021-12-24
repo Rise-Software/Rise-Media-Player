@@ -1,11 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
-using Rise.Models;
 using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -38,11 +34,14 @@ namespace Rise.App.Dialogs
             };
 
             await plViewModel.SaveAsync();
-            
+
             Hide();
         }
 
-        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) => Hide();
+        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            Hide();
+        }
 
         private void Image_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
@@ -56,9 +55,11 @@ namespace Rise.App.Dialogs
 
         private async void UseCustomImageButton_Click(object sender, RoutedEventArgs e)
         {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            Windows.Storage.Pickers.FileOpenPicker picker = new Windows.Storage.Pickers.FileOpenPicker
+            {
+                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+            };
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");

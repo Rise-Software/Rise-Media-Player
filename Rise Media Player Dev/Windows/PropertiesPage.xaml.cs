@@ -64,7 +64,9 @@ namespace Rise.App.Views
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
-            => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        {
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {

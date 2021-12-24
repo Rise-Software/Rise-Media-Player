@@ -48,10 +48,14 @@ namespace Rise.App.Settings
         }
 
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
-            => _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        }
 
         private async void VChooseFolders_Click(object sender, RoutedEventArgs e)
-            => _ = await VFolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            _ = await VFolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        }
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
         {

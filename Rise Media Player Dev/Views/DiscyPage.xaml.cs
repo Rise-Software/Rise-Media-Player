@@ -31,10 +31,14 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+        }
         #endregion
 
         private void Discy_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -42,8 +46,14 @@ namespace Rise.App.Views
             DiscyAboutTip.IsOpen = true;
         }
 
-        private async void LearnMoreButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e) => await URLs.Readme.LaunchAsync();
+        private async void LearnMoreButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            await URLs.Readme.LaunchAsync();
+        }
 
-        private async void AppSettingsHyperlink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args) => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        private async void AppSettingsHyperlink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
+        {
+            _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        }
     }
 }

@@ -96,13 +96,19 @@ namespace Rise.App.Dialogs
         }
 
         private void Left_Click(object sender, RoutedEventArgs e)
-            => Index--;
+        {
+            Index--;
+        }
 
         private void Right_Click(object sender, RoutedEventArgs e)
-            => Index++;
+        {
+            Index++;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-            => Hide();
+        {
+            Hide();
+        }
 
         private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
         {

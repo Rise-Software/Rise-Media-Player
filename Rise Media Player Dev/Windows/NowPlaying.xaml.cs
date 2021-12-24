@@ -53,6 +53,8 @@ namespace Rise.App.Views
         }
 
         private void PlayFrame_Navigated(object sender, NavigationEventArgs e)
-            => IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
+        {
+            IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
+        }
     }
 }

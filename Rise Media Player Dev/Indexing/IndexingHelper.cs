@@ -39,7 +39,9 @@ namespace Rise.App.Indexing
         }
 
         protected virtual void OnFileIndexed(StorageFile file)
-            => FileIndexed?.Invoke(this, file);
+        {
+            FileIndexed?.Invoke(this, file);
+        }
 
         protected virtual void OnFinished(int files)
         {
@@ -272,7 +274,7 @@ namespace Rise.App.Indexing
             string taskName, string entryPoint = null)
         {
             // Check if there's access to the background.
-            var requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            BackgroundAccessStatus requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
 
             if (!(requestStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
                 requestStatus == BackgroundAccessStatus.AlwaysAllowed))
@@ -281,7 +283,7 @@ namespace Rise.App.Indexing
             }
 
             // Build up the trigger to fire when something changes in the library.
-            var builder = new BackgroundTaskBuilder
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder
             {
                 Name = taskName
             };
@@ -291,7 +293,7 @@ namespace Rise.App.Indexing
                 builder.TaskEntryPoint = entryPoint;
             }
 
-            var libraryTrigger = StorageLibraryContentChangedTrigger.Create(library);
+            StorageLibraryContentChangedTrigger libraryTrigger = StorageLibraryContentChangedTrigger.Create(library);
 
             builder.SetTrigger(libraryTrigger);
             _ = builder.Register();

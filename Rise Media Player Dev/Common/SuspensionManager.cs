@@ -30,20 +30,14 @@ namespace Rise.App.Common
         /// <see cref="DataContractSerializer"/> and should be as compact as possible.  Strings
         /// and other self-contained data types are strongly recommended.
         /// </summary>
-        public static Dictionary<string, object> SessionState
-        {
-            get { return _sessionState; }
-        }
+        public static Dictionary<string, object> SessionState => _sessionState;
 
         /// <summary>
         /// List of custom types provided to the <see cref="DataContractSerializer"/> when
         /// reading and writing session state.  Initially empty, additional types may be
         /// added to customize the serialization process.
         /// </summary>
-        public static List<Type> KnownTypes
-        {
-            get { return _knownTypes; }
-        }
+        public static List<Type> KnownTypes => _knownTypes;
 
         /// <summary>
         /// Save the current <see cref="SessionState"/>.  Any <see cref="Frame"/> instances
@@ -57,7 +51,7 @@ namespace Rise.App.Common
             try
             {
                 // Save the navigation state for all registered frames
-                foreach (var weakFrameReference in _registeredFrames)
+                foreach (WeakReference<Frame> weakFrameReference in _registeredFrames)
                 {
                     if (weakFrameReference.TryGetTarget(out Frame frame))
                     {
@@ -112,7 +106,7 @@ namespace Rise.App.Common
                 }
 
                 // Restore any registered frames to their saved state
-                foreach (var weakFrameReference in _registeredFrames)
+                foreach (WeakReference<Frame> weakFrameReference in _registeredFrames)
                 {
                     if (weakFrameReference.TryGetTarget(out Frame frame) && (string)frame.GetValue(FrameSessionBaseKeyProperty) == sessionBaseKey)
                     {
@@ -209,11 +203,11 @@ namespace Rise.App.Common
         /// <see cref="SessionState"/>.</returns>
         public static Dictionary<string, object> SessionStateForFrame(Frame frame)
         {
-            var frameState = (Dictionary<string, object>)frame.GetValue(FrameSessionStateProperty);
+            Dictionary<string, object> frameState = (Dictionary<string, object>)frame.GetValue(FrameSessionStateProperty);
 
             if (frameState == null)
             {
-                var frameSessionKey = (string)frame.GetValue(FrameSessionStateKeyProperty);
+                string frameSessionKey = (string)frame.GetValue(FrameSessionStateKeyProperty);
                 if (frameSessionKey != null)
                 {
                     // Registered frames reflect the corresponding session state
@@ -235,7 +229,7 @@ namespace Rise.App.Common
 
         private static void RestoreFrameNavigationState(Frame frame)
         {
-            var frameState = SessionStateForFrame(frame);
+            Dictionary<string, object> frameState = SessionStateForFrame(frame);
             if (frameState.ContainsKey("Navigation"))
             {
                 frame.SetNavigationState((string)frameState["Navigation"]);
@@ -244,7 +238,7 @@ namespace Rise.App.Common
 
         private static void SaveFrameNavigationState(Frame frame)
         {
-            var frameState = SessionStateForFrame(frame);
+            Dictionary<string, object> frameState = SessionStateForFrame(frame);
             frameState["Navigation"] = frame.GetNavigationState();
         }
     }

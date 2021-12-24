@@ -170,8 +170,10 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    if(!songs.Contains(s))
+                    if (!songs.Contains(s))
+                    {
                         Songs.Add(new SongViewModel(s));
+                    }
                 }
 
                 Albums.Clear();
@@ -179,8 +181,10 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        if(!albums.Contains(a))
+                        if (!albums.Contains(a))
+                        {
                             Albums.Add(new AlbumViewModel(a));
+                        }
                     }
                 }
 
@@ -189,8 +193,10 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        if(!artists.Contains(a))
+                        if (!artists.Contains(a))
+                        {
                             Artists.Add(new ArtistViewModel(a));
+                        }
                     }
                 }
 
@@ -199,8 +205,10 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Genre g in genres)
                     {
-                        if(!genres.Contains(g))
+                        if (!genres.Contains(g))
+                        {
                             Genres.Add(new GenreViewModel(g));
+                        }
                     }
                 }
 
@@ -209,8 +217,10 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Video v in videos)
                     {
-                        if(!videos.Contains(v))
+                        if (!videos.Contains(v))
+                        {
                             Videos.Add(new VideoViewModel(v));
+                        }
                     }
                 }
 
@@ -219,8 +229,10 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Playlist p in playlists)
                     {
-                        if(!playlists.Contains(p))
+                        if (!playlists.Contains(p))
+                        {
                             Playlists.Add(new PlaylistViewModel(p));
+                        }
                     }
                 }
             }

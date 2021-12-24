@@ -100,8 +100,8 @@ namespace Rise.App.Common
 
         #region Navigation support
 
-        RelayCommand _goBackCommand;
-        RelayCommand _goForwardCommand;
+        private RelayCommand _goBackCommand;
+        private RelayCommand _goForwardCommand;
 
         /// <summary>
         /// <see cref="RelayCommand"/> used to bind to the back Button's Command property
@@ -123,10 +123,7 @@ namespace Rise.App.Common
                 }
                 return _goBackCommand;
             }
-            set
-            {
-                _goBackCommand = value;
-            }
+            set => _goBackCommand = value;
         }
         /// <summary>
         /// <see cref="RelayCommand"/> used for navigating to the most recent item in 
@@ -180,7 +177,10 @@ namespace Rise.App.Common
         /// </summary>
         public virtual void GoBack()
         {
-            if (Frame != null && Frame.CanGoBack) Frame.GoBack();
+            if (Frame != null && Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
         }
         /// <summary>
         /// Virtual method used by the <see cref="GoForwardCommand"/> property
@@ -188,7 +188,10 @@ namespace Rise.App.Common
         /// </summary>
         public virtual void GoForward()
         {
-            if (Frame != null && Frame.CanGoForward) Frame.GoForward();
+            if (Frame != null && Frame.CanGoForward)
+            {
+                Frame.GoForward();
+            }
         }
 
 #if WINDOWS_PHONE_APP
@@ -216,7 +219,7 @@ namespace Rise.App.Common
         private void CoreDispatcher_AcceleratorKeyActivated(CoreDispatcher sender,
             AcceleratorKeyEventArgs e)
         {
-            var virtualKey = e.VirtualKey;
+            VirtualKey virtualKey = e.VirtualKey;
 
             // Only investigate further when Left, Right, or the dedicated Previous or Next keys
             // are pressed
@@ -225,8 +228,8 @@ namespace Rise.App.Common
                 (virtualKey == VirtualKey.Left || virtualKey == VirtualKey.Right ||
                 (int)virtualKey == 166 || (int)virtualKey == 167))
             {
-                var coreWindow = Window.Current.CoreWindow;
-                var downState = CoreVirtualKeyStates.Down;
+                CoreWindow coreWindow = Window.Current.CoreWindow;
+                CoreVirtualKeyStates downState = CoreVirtualKeyStates.Down;
                 bool menuKey = (coreWindow.GetKeyState(VirtualKey.Menu) & downState) == downState;
                 bool controlKey = (coreWindow.GetKeyState(VirtualKey.Control) & downState) == downState;
                 bool shiftKey = (coreWindow.GetKeyState(VirtualKey.Shift) & downState) == downState;
@@ -260,11 +263,14 @@ namespace Rise.App.Common
         private void CoreWindow_PointerPressed(CoreWindow sender,
             PointerEventArgs e)
         {
-            var properties = e.CurrentPoint.Properties;
+            Windows.UI.Input.PointerPointProperties properties = e.CurrentPoint.Properties;
 
             // Ignore button chords with the left, right, and middle buttons
             if (properties.IsLeftButtonPressed || properties.IsRightButtonPressed ||
-                properties.IsMiddleButtonPressed) return;
+                properties.IsMiddleButtonPressed)
+            {
+                return;
+            }
 
             // If back or foward are pressed (but not both) navigate appropriately
             bool backPressed = properties.IsXButton1Pressed;
@@ -272,8 +278,15 @@ namespace Rise.App.Common
             if (backPressed ^ forwardPressed)
             {
                 e.Handled = true;
-                if (backPressed) GoBackCommand.Execute(null);
-                if (forwardPressed) GoForwardCommand.Execute(null);
+                if (backPressed)
+                {
+                    GoBackCommand.Execute(null);
+                }
+
+                if (forwardPressed)
+                {
+                    GoForwardCommand.Execute(null);
+                }
             }
         }
 #endif
@@ -307,14 +320,14 @@ namespace Rise.App.Common
         /// property provides the group to be displayed.</param>
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            var frameState = SuspensionManager.SessionStateForFrame(Frame);
+            Dictionary<string, object> frameState = SuspensionManager.SessionStateForFrame(Frame);
             _pageKey = "Page-" + Frame.BackStackDepth;
 
             if (e.NavigationMode == NavigationMode.New)
             {
                 // Clear existing state for forward navigation when adding a new page to the
                 // navigation stack
-                var nextPageKey = _pageKey;
+                string nextPageKey = _pageKey;
                 int nextPageIndex = Frame.BackStackDepth;
                 while (frameState.Remove(nextPageKey))
                 {
@@ -343,8 +356,8 @@ namespace Rise.App.Common
         /// property provides the group to be displayed.</param>
         public void OnNavigatedFrom(NavigationEventArgs e)
         {
-            var frameState = SuspensionManager.SessionStateForFrame(Frame);
-            var pageState = new Dictionary<string, object>();
+            Dictionary<string, object> frameState = SuspensionManager.SessionStateForFrame(Frame);
+            Dictionary<string, object> pageState = new Dictionary<string, object>();
             SaveState?.Invoke(this, new SaveStateEventArgs(pageState));
             frameState[_pageKey] = pageState;
         }

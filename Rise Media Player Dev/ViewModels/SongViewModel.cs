@@ -488,7 +488,7 @@ namespace Rise.App.ViewModels
             return media;
         }
 
-        public readonly static RelayCommand _beginPlayback = new RelayCommand(async () =>
+        public static readonly RelayCommand _beginPlayback = new RelayCommand(async () =>
         {
             int index = 0;
             if (App.MViewModel.SelectedSong != null)

@@ -57,6 +57,8 @@ namespace Rise.App.ViewModels
         }
 
         public bool Equals(NavViewItemViewModel other)
-            => other.Tag == Tag;
+        {
+            return other.Tag == Tag;
+        }
     }
 }

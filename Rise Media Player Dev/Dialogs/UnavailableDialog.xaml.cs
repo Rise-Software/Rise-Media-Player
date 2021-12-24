@@ -20,9 +20,13 @@ namespace Rise.App.Dialogs
         public string Description { get; set; }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
-            => Hide();
+        {
+            Hide();
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.GitHub.LaunchAsync();
+        {
+            _ = await URLs.GitHub.LaunchAsync();
+        }
     }
 }

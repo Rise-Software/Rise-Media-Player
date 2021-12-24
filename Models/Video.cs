@@ -18,9 +18,14 @@ namespace Rise.Models
         /// <summary>
         /// Returns the video title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Video other)
-            => Location == other.Location;
+        {
+            return Location == other.Location;
+        }
     }
 }

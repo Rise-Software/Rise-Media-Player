@@ -127,7 +127,7 @@ namespace Rise.App
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
-        protected async override void OnActivated(IActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs e)
         {
             if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
             {
@@ -282,8 +282,10 @@ namespace Rise.App
                     await MViewModel.StartFullCrawlAsync();
 
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-                rootFrame.CacheSize = 1;
+                rootFrame = new Frame
+                {
+                    CacheSize = 1
+                };
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Associate the frame with a SuspensionManager key.

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Rise.Models
 {
@@ -17,7 +15,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the playlist title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Playlist other)
         {

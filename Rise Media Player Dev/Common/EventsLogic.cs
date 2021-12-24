@@ -57,7 +57,7 @@ namespace Rise.App.Common
 
         public static void GoToAlbum(Hyperlink sender)
         {
-            var run = sender.Inlines.FirstOrDefault() as Run;
+            Run run = sender.Inlines.FirstOrDefault() as Run;
 
             _ = MainPage.Current.ContentFrame.
                 Navigate(typeof(AlbumSongsPage), run.Text);
@@ -65,7 +65,7 @@ namespace Rise.App.Common
 
         public static void GoToArtist(Hyperlink sender)
         {
-            var run = sender.Inlines.FirstOrDefault() as Run;
+            Run run = sender.Inlines.FirstOrDefault() as Run;
 
             _ = MainPage.Current.ContentFrame.
                 Navigate(typeof(ArtistSongsPage), run.Text);

@@ -19,7 +19,9 @@ namespace Rise.App.Common
         /// <param name="dialog">Dialog to open.</param>
         /// <param name="option">What to do with the previously open dialog.</param>
         public static async Task<ContentDialogResult> ShowAsync(this ContentDialog dialog, ExistingDialogOptions option)
-            => await Show(dialog, option);
+        {
+            return await Show(dialog, option);
+        }
 
         // Huge thanks to Notepads:
         // https://github.com/JasonStein/Notepads/blob/f127d170c16cbf0831c2cddb480a3ea05e202930/src/Notepads/Utilities/DialogManager.cs

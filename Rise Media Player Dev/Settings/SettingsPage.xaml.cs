@@ -88,7 +88,9 @@ namespace Rise.App.Settings
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
-            => SettingsDialogContainer.Current.Hide();
+        {
+            SettingsDialogContainer.Current.Hide();
+        }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -129,7 +131,9 @@ namespace Rise.App.Settings
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Feedback.LaunchAsync();
+        {
+            _ = await URLs.Feedback.LaunchAsync();
+        }
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {

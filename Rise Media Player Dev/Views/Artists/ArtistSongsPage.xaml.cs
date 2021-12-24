@@ -103,7 +103,7 @@ namespace Rise.App.Views
             }
 
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -131,10 +131,14 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+        {
+            await SelectedSong.StartEdit();
+        }
 
         private void ShowAlbum_Click(object sender, RoutedEventArgs e)
-            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
+        {
+            _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
+        }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -205,19 +209,29 @@ namespace Rise.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+        {
+            await EventsLogic.StartMusicPlaybackAsync(0, true);
+        }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
+        {
+            EventsLogic.FocusSong(ref _song, e);
+        }
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
+        {
+            EventsLogic.UnfocusSong(ref _song, e);
+        }
 
         private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToAlbum(sender);
+        {
+            EventsLogic.GoToAlbum(sender);
+        }
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
+        {
+            EventsLogic.GoToArtist(sender);
+        }
 
         private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
@@ -241,10 +255,14 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+        }
         #endregion
     }
 }

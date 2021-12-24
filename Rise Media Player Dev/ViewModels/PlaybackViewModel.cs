@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -163,7 +162,7 @@ namespace Rise.App.ViewModels
 
             // Add initial item to avoid delays when starting playback
             SongViewModel song = songs.Current;
-            var item = await song.AsPlaybackItemAsync();
+            MediaPlaybackItem item = await song.AsPlaybackItemAsync();
 
             PlaybackList.Items.Add(item);
             PlayingSongs.Add(songs.Current);
@@ -226,7 +225,7 @@ namespace Rise.App.ViewModels
 
             // Add initial item to avoid delays when starting playback
             VideoViewModel video = videos.Current;
-            var item = await video.AsPlaybackItemAsync();
+            MediaPlaybackItem item = await video.AsPlaybackItemAsync();
 
             PlaybackList.Items.Add(item);
             PlayingVideos.Add(videos.Current);

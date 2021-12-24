@@ -36,7 +36,10 @@ namespace Rise.App.Converters
             {
                 str = "Unknown";
             }
-            else str = actualValue.ToString();
+            else
+            {
+                str = actualValue.ToString();
+            }
 
             return str;
         }

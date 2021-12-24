@@ -124,6 +124,6 @@ namespace Rise.App.Settings
             }
         }
 
-        
+
     }
 }

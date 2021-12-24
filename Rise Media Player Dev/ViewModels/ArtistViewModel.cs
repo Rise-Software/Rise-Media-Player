@@ -1,5 +1,5 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
+using Rise.Models;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -253,7 +253,10 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Enables edit mode.
         /// </summary>
-        public void StartEdit() => IsInEdit = true;
+        public void StartEdit()
+        {
+            IsInEdit = true;
+        }
 
         /// <summary>
         /// Reloads all of the artist data.

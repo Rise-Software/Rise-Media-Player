@@ -81,13 +81,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets the album title + artist together.
         /// </summary>
-        public string TitleWithArtist
-        {
-            get
-            {
-                return $"{Title} - {Artist}";
-            }
-        }
+        public string TitleWithArtist => $"{Title} - {Artist}";
 
         /// <summary>
         /// Gets or sets the album genre.

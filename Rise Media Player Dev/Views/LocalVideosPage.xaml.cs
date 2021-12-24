@@ -47,7 +47,7 @@ namespace Rise.App.Views
             }
         }
 
-        
+
 
         private async void Play_Click(object sender, RoutedEventArgs e)
         {
@@ -56,10 +56,10 @@ namespace Rise.App.Views
                 int index = MainGrid.Items.IndexOf(video);
                 await EventsLogic.StartVideoPlaybackAsync(index);
                 if (Window.Current.Content is Frame rootFrame)
-            {
-                rootFrame.Navigate(typeof(VideoPlaybackPage));
-            }
-                
+                {
+                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+
             }
         }
 

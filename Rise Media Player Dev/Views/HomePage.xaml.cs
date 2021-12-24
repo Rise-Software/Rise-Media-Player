@@ -26,10 +26,14 @@ namespace Rise.App.Views
         }
 
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.GitHub.LaunchAsync();
+        {
+            _ = await URLs.GitHub.LaunchAsync();
+        }
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
-            => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        }
 
         #region NavigationHelper registration
         /// <summary>
@@ -42,15 +46,19 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+        }
         #endregion
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as TiledImage;
+            TiledImage item = e.ClickedItem as TiledImage;
             await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
         }
 
@@ -86,7 +94,8 @@ namespace Rise.App.Views
         }
 
         private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-            => await URLs.Releases.LaunchAsync();
-
+        {
+            await URLs.Releases.LaunchAsync();
+        }
     }
 }

@@ -23,10 +23,12 @@ namespace Rise.App.Views
 
         private void CurrentlyPlayingPage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Queue_Click(object sender, RoutedEventArgs e)
-            => _ = Frame.Navigate(typeof(QueuePage));
+        {
+            _ = Frame.Navigate(typeof(QueuePage));
+        }
     }
 }

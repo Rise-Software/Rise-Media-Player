@@ -45,7 +45,7 @@ namespace Rise.App.Views
                 {
                     using (Songs.DeferRefresh())
                     {
-                        var props = sender.CurrentItem.GetDisplayProperties();
+                        MediaItemDisplayProperties props = sender.CurrentItem.GetDisplayProperties();
                         Songs.Filter = s =>
                             ((SongViewModel)s).Album == props.MusicProperties.AlbumTitle;
                     }
@@ -70,11 +70,13 @@ namespace Rise.App.Views
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-            => Frame.GoBack();
+        {
+            Frame.GoBack();
+        }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            var btn = sender as ToggleButton;
+            ToggleButton btn = sender as ToggleButton;
             switch (btn.Tag.ToString())
             {
                 case "QueueItem":
@@ -95,7 +97,7 @@ namespace Rise.App.Views
                     {
                         if (ViewModel.PlaybackList.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
                         {
-                            var props = ViewModel.PlaybackList.CurrentItem.GetDisplayProperties();
+                            MediaItemDisplayProperties props = ViewModel.PlaybackList.CurrentItem.GetDisplayProperties();
                             Songs.Filter = s =>
                                 ((SongViewModel)s).Album == props.MusicProperties.AlbumTitle;
                         }

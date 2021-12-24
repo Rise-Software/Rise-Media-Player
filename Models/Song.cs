@@ -23,7 +23,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the song title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Song other)
         {

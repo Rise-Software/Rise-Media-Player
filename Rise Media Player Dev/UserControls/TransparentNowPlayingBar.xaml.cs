@@ -1,36 +1,28 @@
-﻿using System;
-using System.Linq;
-using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
-using Windows.Media.Playback;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
-using Windows.Storage.Streams;
-using Windows.Graphics.Imaging;
-using ColorThiefDotNet;
+﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Converters;
 using Rise.App.ViewModels;
-using Rise.App.Common;
 using Rise.App.Views;
-using System.Diagnostics;
+using System;
+using System.Linq;
+using Windows.Foundation;
 using Windows.Media.Casting;
+using Windows.Media.Playback;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.UserControls
 {
     public sealed partial class TransparentNowPlayingBar : UserControl
     {
         #region Variables
-        private MediaPlayer _player = App.PViewModel.Player;
+        private readonly MediaPlayer _player = App.PViewModel.Player;
 
-        private AlbumViewModel CurrentSongAlbum;
-        private CastingDevicePicker castingPicker;
+        private readonly AlbumViewModel CurrentSongAlbum;
+        private readonly CastingDevicePicker castingPicker;
         #endregion
 
         public TransparentNowPlayingBar()
@@ -194,14 +186,14 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
                 fontIcon.Glyph = "\uEE47";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
@@ -213,14 +205,14 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
                 fontIcon.Glyph = "\uEE49";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE47";
@@ -274,7 +266,10 @@ namespace Rise.App.UserControls
                 {
                     fontIcon.Glyph = "\uEE47";
                 }
-                else fontIcon.Glyph = "\uEE49";
+                else
+                {
+                    fontIcon.Glyph = "\uEE49";
+                }
             }
 
             FontIcon fontIcon1 = OverlayButton.FindChildren().First() as FontIcon;
@@ -282,7 +277,10 @@ namespace Rise.App.UserControls
             {
                 fontIcon1.Glyph = "\uEE47";
             }
-            else fontIcon1.Glyph = "\uEE49";
+            else
+            {
+                fontIcon1.Glyph = "\uEE49";
+            }
         }
 
         private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -377,7 +375,7 @@ namespace Rise.App.UserControls
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
-            var view = ApplicationView.GetForCurrentView();
+            ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();

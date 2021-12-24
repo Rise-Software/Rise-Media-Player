@@ -185,7 +185,9 @@ namespace Rise.App.Views
         #endregion
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
+        {
+            EventsLogic.GoToArtist(sender);
+        }
 
         #region NavigationHelper registration
         /// <summary>
@@ -198,10 +200,14 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+        }
         #endregion
 
         private void ApplySettingsToView()
@@ -212,7 +218,8 @@ namespace Rise.App.Views
                 {
                     album.IsTitleVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {
@@ -305,7 +312,8 @@ namespace Rise.App.Views
                 {
                     album.IsArtistVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {

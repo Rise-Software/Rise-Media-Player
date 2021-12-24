@@ -17,7 +17,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the Album title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Album other)
         {

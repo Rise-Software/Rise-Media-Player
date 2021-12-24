@@ -1,9 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.Models;
+﻿using Rise.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -34,10 +30,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Title
         {
-            get
-            {
-                return Model.Title;
-            }
+            get => Model.Title;
             set
             {
                 if (value != Model.Title)
@@ -54,10 +47,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Description
         {
-            get
-            {
-                return Model.Description;
-            }
+            get => Model.Description;
             set
             {
                 if (value != Model.Description)
@@ -74,10 +64,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Icon
         {
-            get
-            {
-                return Model.Icon;
-            }
+            get => Model.Icon;
             set
             {
                 if (value != Model.Icon)
@@ -94,10 +81,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Duration
         {
-            get
-            {
-                return Model.Duration;
-            }
+            get => Model.Duration;
             set
             {
                 if (value != Model.Duration)

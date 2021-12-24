@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Media;
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Linq;
@@ -7,7 +6,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -47,7 +45,7 @@ namespace Rise.App.Views
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
-        private AdvancedCollectionView AlbumsByArtist = new AdvancedCollectionView();
+        private readonly AdvancedCollectionView AlbumsByArtist = new AdvancedCollectionView();
 
         #endregion
 
@@ -134,10 +132,14 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+        {
+            await SelectedSong.StartEdit();
+        }
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
-            => _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
+        {
+            _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
+        }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -176,19 +178,29 @@ namespace Rise.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+        {
+            await EventsLogic.StartMusicPlaybackAsync(0, true);
+        }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
+        {
+            EventsLogic.FocusSong(ref _song, e);
+        }
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
+        {
+            EventsLogic.UnfocusSong(ref _song, e);
+        }
 
         private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToAlbum(sender);
+        {
+            EventsLogic.GoToAlbum(sender);
+        }
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
+        {
+            EventsLogic.GoToArtist(sender);
+        }
         #endregion
 
         #region NavigationHelper registration
@@ -202,10 +214,14 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+        }
         #endregion
     }
 }

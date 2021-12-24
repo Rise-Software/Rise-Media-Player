@@ -18,7 +18,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
@@ -91,11 +90,11 @@ namespace Rise.App.Views
             if (e.NewSize.Width < 800 && IsInPageWithoutHeader)
             {
                 ContentFrame.Margin = new Thickness(0, 48, 0, 0);
-            } 
+            }
             else if (e.NewSize.Width < 800 && !IsInPageWithoutHeader)
             {
                 ContentFrame.Margin = new Thickness(0);
-            } 
+            }
             else if (e.NewSize.Width >= 800)
             {
                 ContentFrame.Margin = new Thickness(0);
@@ -173,10 +172,14 @@ namespace Rise.App.Views
         #region TitleBar
         // Update the TitleBar content layout.
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
-            => UpdateTitleBarItems(sender);
+        {
+            UpdateTitleBarItems(sender);
+        }
 
         private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-            => UpdateTitleBarLayout(sender);
+        {
+            UpdateTitleBarLayout(sender);
+        }
 
         /// <summary>
         /// Update the TitleBar layout.
@@ -248,7 +251,7 @@ namespace Rise.App.Views
 
         private async void NavViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
-            var item = sender as NavigationViewItem;
+            NavigationViewItem item = sender as NavigationViewItem;
             string navTo = item.Tag.ToString();
 
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
@@ -264,7 +267,9 @@ namespace Rise.App.Views
         }
 
         private void NavView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
-            => ContentFrame.GoBack();
+        {
+            ContentFrame.GoBack();
+        }
 
         private async Task Navigate(string navTo)
         {
@@ -427,7 +432,7 @@ namespace Rise.App.Views
 
         public async Task HandleViewModelColorSettingAsync()
         {
-            var uiSettings = new UISettings();
+            UISettings uiSettings = new UISettings();
             Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
 
             byte opacity = 25;
@@ -443,10 +448,10 @@ namespace Rise.App.Views
                             RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
                             using (IRandomAccessStream stream = await random.OpenReadAsync())
                             {
-                                var decoder = await BitmapDecoder.CreateAsync(stream);
-                                var colorThief = new ColorThiefDotNet.ColorThief();
+                                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                                ColorThiefDotNet.ColorThief colorThief = new ColorThiefDotNet.ColorThief();
 
-                                var color = await colorThief.GetColor(decoder);
+                                ColorThiefDotNet.QuantizedColor color = await colorThief.GetColor(decoder);
                                 _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, color.Color.R, color.Color.G, color.Color.B));
                             }
                         }
@@ -659,7 +664,9 @@ namespace Rise.App.Views
         #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Feedback.LaunchAsync();
+        {
+            _ = await URLs.Feedback.LaunchAsync();
+        }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
@@ -668,10 +675,14 @@ namespace Rise.App.Views
         }
 
         private async void OpenSettings_Click(object sender, RoutedEventArgs e)
-            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+        {
+            _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+        }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+        {
+            SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+        }
 
         private void HideSection_Click(object sender, RoutedEventArgs e)
         {
@@ -682,16 +693,24 @@ namespace Rise.App.Views
         }
 
         private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveUp(RightClickedItem.Tag.ToString());
+        {
+            SBViewModel.MoveUp(RightClickedItem.Tag.ToString());
+        }
 
         private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveDown(RightClickedItem.Tag.ToString());
+        {
+            SBViewModel.MoveDown(RightClickedItem.Tag.ToString());
+        }
 
         private void ToTop_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveToTop(RightClickedItem.Tag.ToString());
+        {
+            SBViewModel.MoveToTop(RightClickedItem.Tag.ToString());
+        }
 
         private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
+        {
+            SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
+        }
 
         private void NavView_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -730,13 +749,15 @@ namespace Rise.App.Views
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Messages & reports";
-            dialog.CloseButtonText = "Close";
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = new MessagesDialog();
+            ContentDialog dialog = new ContentDialog
+            {
+                Title = "Messages & reports",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new MessagesDialog()
+            };
 
-            var result = await dialog.ShowAsync();
+            ContentDialogResult result = await dialog.ShowAsync();
         }
     }
 
@@ -783,6 +804,6 @@ namespace Rise.App.Views
         }
     }
 
-    
+
 
 }

@@ -91,7 +91,7 @@ namespace Rise.App.Common
 
                         if (recurse)
                         {
-                            foreach (var grandChild in child.GetChildren<ChildItem>(true))
+                            foreach (ChildItem grandChild in child.GetChildren<ChildItem>(true))
                             {
                                 yield return grandChild;
                             }

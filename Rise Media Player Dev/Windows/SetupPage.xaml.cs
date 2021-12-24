@@ -20,6 +20,8 @@ namespace Rise.App.Views
         }
 
         private async void SetupButton_Click(object sender, RoutedEventArgs e)
-            => _ = await Dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            _ = await Dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        }
     }
 }

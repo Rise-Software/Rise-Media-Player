@@ -131,7 +131,9 @@ namespace Rise.App.Common
         /// <param name="uri">The <see cref="Uri"/> to launch.</param>
         /// <returns>Whether or not the launch was successful.</returns>
         public static async Task<bool> LaunchAsync(this Uri uri)
-            => await Launcher.LaunchUriAsync(uri);
+        {
+            return await Launcher.LaunchUriAsync(uri);
+        }
 
         /// <summary>
         /// Checks whether or not the provided <see cref="string"/> is
@@ -144,7 +146,9 @@ namespace Rise.App.Common
         /// a valid <see cref="Uri"/>.</returns>
         public static bool IsValidUri(this string str,
             UriKind kind = UriKind.RelativeOrAbsolute)
-            => Uri.TryCreate(str, kind, out _);
+        {
+            return Uri.TryCreate(str, kind, out _);
+        }
 
         /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 
@@ -303,7 +307,7 @@ namespace Rise.App.Common
             };
 
             // Get details
-            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            IList<string> lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
             foreach (string line in lines)
             {
                 if (!string.IsNullOrWhiteSpace(line))

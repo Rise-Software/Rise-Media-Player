@@ -322,7 +322,9 @@ namespace Rise.App.ViewModels
         /// <param name="groupName">Group name of the header to change.</param>
         /// <param name="vis">Whether or not the header should be visible.</param>
         public void ChangeHeaderVisibility(string groupName, bool vis)
-            => HeaderFromGroupName(groupName).Visible = vis;
+        {
+            HeaderFromGroupName(groupName).Visible = vis;
+        }
 
         /// <summary>
         /// Whether or not is an item visible.
@@ -330,7 +332,9 @@ namespace Rise.App.ViewModels
         /// <param name="tag">Tag of the item to check.</param>
         /// <returns>Whether or not is the item visible.</returns>
         public bool IsItemVisible(string tag)
-            => ItemFromTag(tag).Visible;
+        {
+            return ItemFromTag(tag).Visible;
+        }
 
         /// <summary>
         /// Whether or not is a header visible.
@@ -338,7 +342,9 @@ namespace Rise.App.ViewModels
         /// <param name="groupName">Group name of the header to check.</param>
         /// <returns>Whether or not is the item visible.</returns>
         public bool IsHeaderVisible(string groupName)
-            => HeaderFromGroupName(groupName).Visible;
+        {
+            return HeaderFromGroupName(groupName).Visible;
+        }
 
         #region Moving
         /// <summary>

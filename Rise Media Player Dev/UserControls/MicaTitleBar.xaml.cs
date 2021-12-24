@@ -15,7 +15,7 @@ namespace Rise.App.UserControls
             };
         }
 
-        private readonly static DependencyProperty IconProperty =
+        private static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(string), typeof(MicaTitleBar), new PropertyMetadata("ms-appx:///Assets/App/Titlebar.png"));
 
         public string Icon
@@ -24,7 +24,7 @@ namespace Rise.App.UserControls
             set => SetValue(IconProperty, value);
         }
 
-        private readonly static DependencyProperty TitleProperty =
+        private static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(MicaTitleBar), new PropertyMetadata(null));
 
         public string Title

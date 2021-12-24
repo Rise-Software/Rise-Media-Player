@@ -108,7 +108,7 @@ namespace Rise.App.ViewModels
             if (songFile != null)
             {
                 // Get song properties.
-                var musicProps = await songFile.Properties.GetMusicPropertiesAsync();
+                MusicProperties musicProps = await songFile.Properties.GetMusicPropertiesAsync();
 
                 musicProps.Title = Title;
                 musicProps.Artist = Artist;

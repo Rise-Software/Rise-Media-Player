@@ -23,9 +23,13 @@ namespace Rise.App.Settings
         }
 
         private async void TranslateButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Translations.LaunchAsync();
+        {
+            _ = await URLs.Translations.LaunchAsync();
+        }
 
         private async void ReportButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.TranslationReports.LaunchAsync();
+        {
+            _ = await URLs.TranslationReports.LaunchAsync();
+        }
     }
 }
