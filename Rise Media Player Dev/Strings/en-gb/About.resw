@@ -145,8 +145,9 @@
     <value>Copy version</value>
   </data>
   <data name="More.Subtitle" xml:space="preserve">
-    <value>Released: December (Holiday) 2021
-Internal Version: 0.0.13.0
+    <value>InDev Release Date: December 24th, 2021
+Final release date: January 1st, 2022
+Internal Version: 0.0.135.0
 Edition: Bloom
 
 Created by Joseph Beattie &amp; YourOrdinaryCat</value>
@@ -161,7 +162,7 @@ Created by Joseph Beattie &amp; YourOrdinaryCat</value>
     <value>of</value>
   </data>
   <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: Sorting, stability, sidebar, settings.</value>
+    <value>Most recent changes: New media playback controls, Discography, Discy, View Options</value>
   </data>
   <data name="Recent.Title" xml:space="preserve">
     <value>Recent changes</value>

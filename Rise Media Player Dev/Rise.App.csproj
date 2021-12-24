@@ -408,6 +408,10 @@
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\albumartists.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
@@ -737,7 +741,9 @@
     <PRIResource Include="Strings\en-gb\Information.resw" />
     <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\AtAGlance\WidgetService\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Rise.Models.csproj">
       <Project>{e004f435-7a57-4421-b0b2-9f52ca67e908}</Project>

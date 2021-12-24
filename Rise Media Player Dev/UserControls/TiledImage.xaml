@@ -44,6 +44,7 @@
             <Border
                 Width="80"
                 Height="80"
+                CornerRadius="8"
                 Margin="16"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top">

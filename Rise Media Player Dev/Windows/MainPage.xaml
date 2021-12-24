@@ -368,6 +368,8 @@
         <muxc:TeachingTip x:Name="AddedTip"
                           x:FieldModifier="public"
                           Title="Updated your library."
+                          Subtitle="Click anywhere to hide this notification."
+                          IsLightDismissEnabled="True"
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight">
             <!--<muxc:TeachingTip.HeroContent>
@@ -380,6 +382,7 @@
                           Title="Looking for new media on your device."
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight"
+                          IsLightDismissEnabled="True"
                           HorizontalAlignment="Center"
                           HeroContentPlacement="Bottom">
             <muxc:TeachingTip.HeroContent>
