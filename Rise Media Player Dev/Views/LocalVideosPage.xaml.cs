@@ -47,23 +47,19 @@ namespace Rise.App.Views
             }
         }
 
-        
-
         private async void Play_Click(object sender, RoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
             {
                 int index = MainGrid.Items.IndexOf(video);
                 await EventsLogic.StartVideoPlaybackAsync(index);
+
                 if (Window.Current.Content is Frame rootFrame)
-            {
-                rootFrame.Navigate(typeof(VideoPlaybackPage));
-            }
-                
+                {
+                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
             }
         }
-
-
 
         private void GridView_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
@@ -116,6 +112,15 @@ namespace Rise.App.Views
             Videos.SortDescriptions.Add(new SortDescription("Length", CurrentSort));
             CurrentSortProperty = "Length";
             Videos.Refresh();
+        }
+
+        private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
+        {
+            await EventsLogic.StartVideoPlaybackAsync(new Random().Next(0, Videos.Count), true);
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+            }
         }
     }
 }

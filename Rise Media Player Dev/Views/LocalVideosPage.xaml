@@ -53,6 +53,11 @@
                           Icon="Play"
                           Style="{StaticResource AppBarCompactButton}" />
 
+            <AppBarButton x:Name="ShuffleItem"
+                          x:Uid="/Information/Shuffle"
+                          Click="ShuffleItem_Click"
+                          Icon="Shuffle" />
+
             <AppBarSeparator />
 
             <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">

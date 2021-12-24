@@ -104,8 +104,17 @@ namespace Rise.App.UserControls
             castingPicker.CastingDeviceSelected += CastingPicker_CastingDeviceSelected;
 
             CoreWindow.GetForCurrentThread().KeyDown += NowPlayingBar_KeyDown;
+            CoreWindow.GetForCurrentThread().KeyUp += NowPlayingBar_KeyUp;
 
             Visibility = Visibility.Collapsed;
+        }
+
+        private void NowPlayingBar_KeyUp(CoreWindow sender, KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.Space)
+            {
+                TogglePlayPause();
+            }
         }
 
         private void NowPlayingBar_KeyDown(CoreWindow sender, KeyEventArgs args)
@@ -116,10 +125,6 @@ namespace Rise.App.UserControls
                 {
                     App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
                 }
-            }
-            else if (isCtrlPressed() && args.VirtualKey == VirtualKey.Space)
-            {
-                TogglePlayPause();
             }
             else if (isCtrlPressed() && args.VirtualKey == VirtualKey.Left)
             {

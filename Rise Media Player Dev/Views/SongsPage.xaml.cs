@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -143,7 +144,7 @@ namespace Rise.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+            => await EventsLogic.StartMusicPlaybackAsync(new Random().Next(0, Songs.Count), true);
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
             => EventsLogic.FocusSong(ref _song, e);
