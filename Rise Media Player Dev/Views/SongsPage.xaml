@@ -59,16 +59,18 @@
                           x:Uid="/Information/Shuffle"
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Playlist">
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE142;" />
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -172,7 +174,7 @@
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem x:Name="NewPlaylist"
+                        <MenuFlyoutItem x:Name="NewPlaylistMenu"
                                     x:Uid="/Information/NewPlaylist"
                                     IsEnabled="False">
                             <MenuFlyoutItem.Icon>
