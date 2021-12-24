@@ -170,7 +170,8 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    Songs.Add(new SongViewModel(s));
+                    if(!songs.Contains(s))
+                        Songs.Add(new SongViewModel(s));
                 }
 
                 Albums.Clear();
@@ -178,7 +179,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        Albums.Add(new AlbumViewModel(a));
+                        if(!albums.Contains(a))
+                            Albums.Add(new AlbumViewModel(a));
                     }
                 }
 
@@ -187,7 +189,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        Artists.Add(new ArtistViewModel(a));
+                        if(!artists.Contains(a))
+                            Artists.Add(new ArtistViewModel(a));
                     }
                 }
 
@@ -196,7 +199,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Genre g in genres)
                     {
-                        Genres.Add(new GenreViewModel(g));
+                        if(!genres.Contains(g))
+                            Genres.Add(new GenreViewModel(g));
                     }
                 }
 
@@ -205,7 +209,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Video v in videos)
                     {
-                        Videos.Add(new VideoViewModel(v));
+                        if(!videos.Contains(v))
+                            Videos.Add(new VideoViewModel(v));
                     }
                 }
 
@@ -214,7 +219,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Playlist p in playlists)
                     {
-                        Playlists.Add(new PlaylistViewModel(p));
+                        if(!playlists.Contains(p))
+                            Playlists.Add(new PlaylistViewModel(p));
                     }
                 }
             }
