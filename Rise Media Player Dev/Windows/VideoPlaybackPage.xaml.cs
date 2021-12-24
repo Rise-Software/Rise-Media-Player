@@ -29,7 +29,7 @@ namespace Rise.App.Views
             Loaded += VideoPlaybackPage_Loaded;
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             DataContext = ViewModel;
-        }
+    }
 
         private void VideoPlaybackPage_Loaded(object sender, RoutedEventArgs e)
         {
