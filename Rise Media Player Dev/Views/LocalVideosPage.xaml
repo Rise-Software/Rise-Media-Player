@@ -153,7 +153,6 @@
             <GridView.Resources>
                 <MenuFlyout x:Key="VideosFlyout" x:Name="VideosFlyout">
                     <MenuFlyoutItem x:Uid="/Information/PlayItem"
-                                    IsEnabled="True"
                                     Click="Play_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE102;" />
