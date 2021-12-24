@@ -146,8 +146,7 @@ namespace Rise.App.ViewModels
             foreach (StorageFile playlistFile in await App.PlaylistsFolder.GetFilesAsync())
             {
                 PlaylistViewModel playlistViewModel = new PlaylistViewModel(await playlistFile.AsPlaylistModelAsync());
-                if (!Playlists.Contains(playlistViewModel))
-                    await playlistViewModel.SaveAsync();
+                await playlistViewModel.SaveAsync();
             }
         }
 

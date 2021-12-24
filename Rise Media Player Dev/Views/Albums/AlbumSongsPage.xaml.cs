@@ -47,6 +47,8 @@ namespace Rise.App.Views
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView AlbumsByArtist = new AdvancedCollectionView();
+
         #endregion
 
         public AlbumSongsPage()
@@ -79,9 +81,7 @@ namespace Rise.App.Views
                 Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
 
                 // TODO: Get "more album from this artist" to work.
-                Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+                findAlbumsByArtist(album.Artist);
             }
             else if (e.NavigationParameter is string str)
             {
@@ -97,6 +97,21 @@ namespace Rise.App.Views
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {
             DiscyOnSong.IsOpen = true;
+        }
+
+        private void findAlbumsByArtist(string artist)
+        {
+            AlbumsByArtist.Clear();
+            foreach (AlbumViewModel album in Albums)
+            {
+                if (album.Artist == artist && !album.Equals(SelectedAlbum))
+                {
+                    AlbumsByArtist.Add(album);
+                }
+            }
+            AlbumsByArtist.SortDescriptions.Clear();
+            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+            AlbumsByArtist.Refresh();
         }
 
         #region Event handlers
@@ -192,15 +207,5 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
-
-        private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
-        {
-            // Check if the list view height is larger than this page's height, if this is true,
-            // try to handle scrolling
-            if (MainList.Height > Height)
-            {
-                (MainList.HeaderTemplate.GetChildren<Border>().First().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
-            }
-        }
     }
 }

@@ -34,6 +34,8 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private SidebarViewModel SBViewModel => App.SBViewModel;
 
+        private bool IsInPageWithoutHeader = false;
+
         public static MainPage Current;
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
@@ -84,6 +86,19 @@ namespace Rise.App.Views
                 OverlayModeContentPanel.Visibility = Visibility.Collapsed;
                 AppTitleBar.Visibility = Visibility.Visible;
                 ControlsPanel.Visibility = Visibility.Visible;
+            }
+
+            if (e.NewSize.Width < 800 && IsInPageWithoutHeader)
+            {
+                ContentFrame.Margin = new Thickness(0, 48, 0, 0);
+            } 
+            else if (e.NewSize.Width < 800 && !IsInPageWithoutHeader)
+            {
+                ContentFrame.Margin = new Thickness(0);
+            } 
+            else if (e.NewSize.Width >= 800)
+            {
+                ContentFrame.Margin = new Thickness(0);
             }
         }
 
@@ -151,6 +166,7 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredArtists.Refresh();
                 App.MViewModel.FilteredGenres.Refresh();
                 App.MViewModel.FilteredVideos.Refresh();
+                App.MViewModel.FilteredPlaylists.Refresh();
             });
         }
 
@@ -328,26 +344,31 @@ namespace Rise.App.Views
                 case "HomePage":
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == tag);
+                    IsInPageWithoutHeader = true;
                     return;
 
                 case "AlbumSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "AlbumsPage");
                     return;
 
                 case "ArtistSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "ArtistsPage");
                     return;
 
                 case "GenreSongsPage":
+                    IsInPageWithoutHeader = false;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "GenresPage");
                     return;
 
                 case "DiscyPage":
+                    IsInPageWithoutHeader = false;
                     return;
 
                 default:
