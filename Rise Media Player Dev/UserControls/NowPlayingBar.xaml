@@ -235,7 +235,7 @@
                                     </ResourceDictionary.ThemeDictionaries>
                                 </ResourceDictionary>
                             </Button.Resources>
-                            <FontIcon Glyph="&#xF5B0;" FontSize="20" x:Name="PlayButtonIcon" />
+                            <FontIcon Glyph="&#xF5B0;" FontSize="20" FontFamily="Segoe Fluent Icons" x:Name="PlayButtonIcon" />
                         </Button>
                     </Border>
 
