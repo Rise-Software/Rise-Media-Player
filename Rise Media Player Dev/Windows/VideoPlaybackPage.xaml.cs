@@ -1,5 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,6 +34,23 @@ namespace Rise.App.Views
         private void VideoPlaybackPage_Loaded(object sender, RoutedEventArgs e)
         {
             _ = new ApplicationTitleBar(AppTitleBar);
+        }
+
+        private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            Player.Visibility = Visibility.Visible;
+        }
+
+        private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            await Task.Run(async () =>
+            {
+                Thread.Sleep(3500);
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    Player.Visibility = Visibility.Collapsed;
+                });
+            });
         }
     }
 }

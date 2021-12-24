@@ -12,6 +12,7 @@ using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Converters;
 using Windows.UI.Xaml.Media;
 using Windows.Media.Casting;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.UserControls
 {
@@ -158,6 +159,18 @@ namespace Rise.App.UserControls
         private void Forward30_Click(object sender, RoutedEventArgs e)
         {
             _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
+        }
+
+        private void RepeatButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleButton toggleButton = sender as ToggleButton;
+            if ((bool)toggleButton.IsChecked)
+            {
+                App.PViewModel.PlaybackList.AutoRepeatEnabled = true;
+            } else
+            {
+                App.PViewModel.PlaybackList.AutoRepeatEnabled = false;
+            }
         }
 
         #endregion

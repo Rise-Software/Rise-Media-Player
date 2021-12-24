@@ -246,7 +246,8 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
                                 ToolTipService.ToolTip="Repeat"
-                                Background="Transparent">
+                                Background="Transparent"
+                                Click="RepeatButton_Click">
                             <FontIcon Glyph="&#xE1CD;"/>
                         </ToggleButton>
                         <Button Height="45"
