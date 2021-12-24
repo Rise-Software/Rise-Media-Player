@@ -372,6 +372,7 @@ namespace Rise.App.Views
                     return;
 
                 default:
+                    IsInPageWithoutHeader = false;
                     break;
             }
 
