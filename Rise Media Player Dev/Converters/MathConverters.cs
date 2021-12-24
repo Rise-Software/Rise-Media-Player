@@ -24,4 +24,26 @@ namespace Rise.App.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class UintToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            uint actualValue = (uint)value;
+            string str;
+
+            if (actualValue == 0)
+            {
+                str = "Unknown";
+            }
+            else str = actualValue.ToString();
+
+            return str;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
