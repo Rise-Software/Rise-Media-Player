@@ -91,6 +91,19 @@
 
             <AppBarSeparator />
 
+            <AppBarButton x:Uid="/Information/View">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xECAA;" />
+                </AppBarButton.Icon>
+
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <ToggleMenuFlyoutItem Text="Track number" Click="ShowTrackNumber_Click" IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" />
+                        <ToggleMenuFlyoutItem Text="Duration" Click="ShowDuration_Click" IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
             <AppBarButton x:Uid="/Information/Sort"
                           Icon="Sort">
                 <AppBarButton.Flyout>
@@ -246,25 +259,26 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock HorizontalAlignment="Stretch"
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Stretch"
                                    Text="{x:Bind Track}"
-                                   TextAlignment="Right"
+                                   TextAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Visibility="{x:Bind IsFocused,
+                                   Visibility="{x:Bind IsTrackNumberVisible,
                                                 Converter={StaticResource BoolToVis},
-                                                ConverterParameter=Reverse,
                                                 Mode=OneWay}"
                                    Width="24" />
-
-                        <Button x:Uid="/Information/Play"
-                                Click="PlayButton_Click"
-                                Height="32"
-                                Padding="0"
-                                Style="{StaticResource TransparentButton}"
-                                Visibility="{x:Bind IsFocused, Mode=OneWay}"
-                                Width="32">
-                            <FontIcon FontSize="16" Glyph="&#xE102;" />
-                        </Button>
+                            <Button x:Uid="/Information/Play"
+                                    Click="PlayButton_Click"
+                                    Height="32"
+                                    Padding="0"
+                                    Style="{StaticResource TransparentButton}"
+                                    Visibility="{x:Bind IsFocused, Mode=OneWay}"
+                                    Width="32"
+                                    Margin="5,0,0,0">
+                                <FontIcon FontSize="16" Glyph="&#xE102;" />
+                            </Button>
+                        </StackPanel>
 
                         <Button Grid.Column="1"
                                 CornerRadius="4"
@@ -316,6 +330,7 @@
                         <TextBlock x:Phase="1"
                                    Grid.Column="3"
                                    Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
+                                   Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"
                                    VerticalAlignment="Center" />
                     </Grid>
                 </DataTemplate>

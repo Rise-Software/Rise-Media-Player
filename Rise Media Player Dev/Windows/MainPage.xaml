@@ -368,10 +368,8 @@
         <muxc:TeachingTip x:Name="AddedTip"
                           x:FieldModifier="public"
                           Title="Updated your library."
-                          Subtitle="Click anywhere to dismiss this notification."
                           PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight"
-                          IsLightDismissEnabled="True">
+                          PreferredPlacement="TopRight">
             <!--<muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/addednewmedia.png" />
             </muxc:TeachingTip.HeroContent>-->
@@ -383,7 +381,6 @@
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight"
                           HorizontalAlignment="Center"
-                          IsLightDismissEnabled="True"
                           HeroContentPlacement="Bottom">
             <muxc:TeachingTip.HeroContent>
                 <StackPanel>

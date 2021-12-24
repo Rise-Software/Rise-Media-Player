@@ -1,4 +1,5 @@
-﻿using Rise.App.Common;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
 using Windows.UI.Xaml;
@@ -14,6 +15,8 @@ namespace Rise.App.Views
         /// </summary>
         private MainViewModel MViewModel => App.MViewModel;
 
+        private AdvancedCollectionView Videos => App.MViewModel.FilteredVideos;
+
         /// <summary>
         /// Gets the app-wide PViewModel instance.
         /// </summary>
@@ -23,6 +26,9 @@ namespace Rise.App.Views
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
+
+        private SortDirection CurrentSort = SortDirection.Ascending;
+        private string CurrentSortProperty = "Title";
 
         public LocalVideosPage()
         {
@@ -75,6 +81,41 @@ namespace Rise.App.Views
             {
                 VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
+        }
+
+        private void SortByName_Click(object sender, RoutedEventArgs e)
+        {
+            Videos.SortDescriptions.Clear();
+            Videos.SortDescriptions.Add(new SortDescription("Title", CurrentSort));
+            CurrentSortProperty = "Title";
+            Videos.Refresh();
+        }
+
+        private void AscendingOrDescending_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem item = sender as MenuFlyoutItem;
+            Videos.SortDescriptions.Clear();
+
+            string tag = item.Tag.ToString();
+            switch (tag)
+            {
+                case "Ascending":
+                    CurrentSort = SortDirection.Ascending;
+                    break;
+                case "Descending":
+                    CurrentSort = SortDirection.Descending;
+                    break;
+            }
+            Videos.SortDescriptions.Add(new SortDescription(CurrentSortProperty, CurrentSort));
+            Videos.Refresh();
+        }
+
+        private void SortByLength_Click(object sender, RoutedEventArgs e)
+        {
+            Videos.SortDescriptions.Clear();
+            Videos.SortDescriptions.Add(new SortDescription("Length", CurrentSort));
+            CurrentSortProperty = "Length";
+            Videos.Refresh();
         }
     }
 }

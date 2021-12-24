@@ -57,8 +57,6 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
-
-            ApplySettingsToView();
         }
 
         /// <summary>
@@ -74,6 +72,7 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            ApplySettingsToView();
             Albums.Filter = null;
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
@@ -278,6 +277,21 @@ namespace Rise.App.Views
                 foreach (AlbumViewModel album in Albums)
                 {
                     album.HasRoundedAlbumArt = false;
+                }
+            }
+
+            if (SViewModel.ShowReleaseYearInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = false;
                 }
             }
         }
