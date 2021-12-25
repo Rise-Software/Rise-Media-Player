@@ -771,6 +771,26 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\tr-TR\Terms.resw" />
+    <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
+    <PRIResource Include="Strings\tr-TR\Setup.resw" />
+    <PRIResource Include="Strings\tr-TR\Props.resw" />
+    <PRIResource Include="Strings\tr-TR\Privacy.resw" />
+    <PRIResource Include="Strings\tr-TR\Playback.resw" />
+    <PRIResource Include="Strings\tr-TR\NowPlaying.resw" />
+    <PRIResource Include="Strings\tr-TR\Navigation.resw" />
+    <PRIResource Include="Strings\tr-TR\MediaLibrary.resw" />
+    <PRIResource Include="Strings\tr-TR\MediaData.resw" />
+    <PRIResource Include="Strings\tr-TR\Local.resw" />
+    <PRIResource Include="Strings\tr-TR\Language.resw" />
+    <PRIResource Include="Strings\tr-TR\Information.resw" />
+    <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
+    <PRIResource Include="Strings\tr-TR\Finish.resw" />
+    <PRIResource Include="Strings\tr-TR\File.resw" />
+    <PRIResource Include="Strings\tr-TR\Details.resw" />
+    <PRIResource Include="Strings\tr-TR\Connect.resw" />
+    <PRIResource Include="Strings\tr-TR\Appearance.resw" />
+    <PRIResource Include="Strings\tr-TR\About.resw" />
     <PRIResource Include="Strings\en-gb\MediaData.resw" />
     <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
     <PRIResource Include="Strings\en-gb\File.resw" />
