@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Created.Text" xml:space="preserve">
-    <value>Oluşturulmuş</value>
+    <value>Oluşturulma</value>
   </data>
   <data name="DefaultApp.Text" xml:space="preserve">
     <value>Birlikte açılır</value>
@@ -133,7 +133,7 @@
     <value>Konum</value>
   </data>
   <data name="Modified.Text" xml:space="preserve">
-    <value>Değiştirilmiş</value>
+    <value>Değiştirilme</value>
   </data>
   <data name="Size.Text" xml:space="preserve">
     <value>Dosya boyutu</value>
