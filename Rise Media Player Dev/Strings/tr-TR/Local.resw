@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header.Text" xml:space="preserve">
-    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
+    <value>İster CD'lerden ve DVD'lerden kopyaladığınız, ister internetten satın aldığınız veya indirdiğiniz medya olsun, onunla ne yapacağımızı özelleştirin.</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
+    <value>Video kitaplığınız zaten 'Yerel ve Satın Alınanlar' ve yayınakışı hizmetleriniz için bölümlere ayrılmıştır.</value>
   </data>
 </root>

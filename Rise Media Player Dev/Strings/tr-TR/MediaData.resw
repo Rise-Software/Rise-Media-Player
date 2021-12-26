@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>Albümler</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Sanatçılar</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
     <value>Properties &amp; Info</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Müzikler</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>Unknown Album</value>
+    <value>Bilinmeyen Albüm</value>
   </data>
   <data name="UnknownArtistResource" xml:space="preserve">
-    <value>Unknown Artist</value>
+    <value>Bilinmeyen Sanatçı</value>
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
-    <value>Unknown Genre</value>
+    <value>Bilinmeyen Tür</value>
   </data>
 </root>

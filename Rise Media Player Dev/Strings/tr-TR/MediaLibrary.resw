@@ -118,87 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add.Content" xml:space="preserve">
-    <value>Add folder</value>
+    <value>Klasör ekle</value>
   </data>
   <data name="AddAccount.Description" xml:space="preserve">
-    <value>Login to your services securely</value>
+    <value>Hizmetlerinize güvenli bir şekilde giriş yapın</value>
   </data>
   <data name="AddAccount.Title" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Bir hesap ekle</value>
   </data>
   <data name="AdditionalH.Text" xml:space="preserve">
-    <value>Additional settings</value>
+    <value>Ek ayarlar</value>
   </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music files.</value>
+    <value>Müzik dosyalarınızı nerede arayacağımızı seçin.</value>
   </data>
   <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove music library folders</value>
+    <value>Müzik kitaplığı klasörleri ekle/kaldır</value>
   </data>
   <data name="Deletion.Title" xml:space="preserve">
-    <value>When removing local media:</value>
+    <value>Yerel medyayı kaldırırken:</value>
   </data>
   <data name="Device" xml:space="preserve">
-    <value>Delete from device</value>
+    <value>Cihazdan sil</value>
   </data>
   <data name="Devices.Text" xml:space="preserve">
-    <value>Devices</value>
+    <value>Cihazlar</value>
   </data>
   <data name="DisableLocal.Title" xml:space="preserve">
-    <value>Disable all local files and devices</value>
+    <value>Tüm yerel dosyaları ve cihazları devre dışı bırakın</value>
   </data>
   <data name="DisableOnline.Title" xml:space="preserve">
-    <value>Disable all online services and networks</value>
+    <value>Tüm çevrimiçi hizmetleri ve ağları devre dışı bırakın</value>
   </data>
   <data name="Done.Content" xml:space="preserve">
-    <value>Done</value>
+    <value>Bitti</value>
   </data>
   <data name="FolderInfo.Text" xml:space="preserve">
-    <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
+    <value>Medya dosyalarınızı zaten varsayılan kullanıcı klasörlerinizde arıyoruz. Kitaplığınızı doldurmak için kullanabileceğimiz ek klasörler ekleyebilirsiniz.</value>
   </data>
   <data name="Folders" xml:space="preserve">
-    <value>Media sources</value>
+    <value>Medya kaynakları</value>
   </data>
   <data name="LastFM.Text" xml:space="preserve">
     <value>Last.fm</value>
   </data>
   <data name="OnlineH.Text" xml:space="preserve">
-    <value>Online media &amp; services</value>
+    <value>Çevrimiçi medya &amp; hizmetler</value>
   </data>
   <data name="OnlineServices.Text" xml:space="preserve">
-    <value>Online services</value>
+    <value>Çevrimiçi hizmetler</value>
   </data>
   <data name="OnlyApp" xml:space="preserve">
-    <value>Only remove from app</value>
+    <value>Yalnızca uygulamadan kaldır</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
-    <value>Local media &amp; devices</value>
+    <value>Yerel medya &amp; cihazlar</value>
   </data>
   <data name="Ripping.Description" xml:space="preserve">
-    <value>Choose what you want to happen when you rip a disc.</value>
+    <value>Bir diski kopyaladığınızda ne olmasını istediğinizi seçin.</value>
   </data>
   <data name="Ripping.Title" xml:space="preserve">
-    <value>Disc ripping options</value>
+    <value>Disk kopyalama seçenekleri</value>
   </data>
   <data name="SeparateLocal.Description" xml:space="preserve">
-    <value>Create a seperate sidebar entry for your local music, rather than merging online and local music together in one place.</value>
+    <value>Çevrimiçi ve yerel müziği tek bir yerde birleştirmek yerine, yerel müziğiniz için ayrı bir kenar çubuğu girişi oluşturun.</value>
   </data>
   <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Split local &amp; online library in sidebar</value>
+    <value>Yerel &amp; çevrimiçi kitaplığı kenar çubuğuna bölme</value>
   </data>
   <data name="ShufflePlaylist.Text" xml:space="preserve">
-    <value>Shuffle playlist</value>
+    <value>Çalma listesini karıştır</value>
   </data>
   <data name="Streaming.Text" xml:space="preserve">
-    <value>Streaming Service</value>
+    <value>Yayınakışı Hizmeti</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
   </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your video files.</value>
+    <value>Video dosyalarınızı nerede arayacağımızı seçin.</value>
   </data>
   <data name="VChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove video library folders</value>
+    <value>Video kitaplığı klasörleri ekle/kaldır</value>
   </data>
 </root>
