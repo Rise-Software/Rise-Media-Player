@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header.Text" xml:space="preserve">
-    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
+    <value>Yayınakışı hizmetleri burada! Medya akışı için kullandığınız tüm hesapları bağlayın*. Bunları önerilerde bulunmak ve oynatma listeleri için kullanıyoruz.</value>
   </data>
   <data name="Soon.Title" xml:space="preserve">
-    <value>Internet accounts &amp; services are coming soon.</value>
+    <value>İnternet hesapları &amp; hizmetleri yakında geliyor.</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>*Music streaming requires a premium level account to function. Only one music streaming service can be enabled at a time.</value>
+    <value>*Müzik yayınakışının çalışması için birinci sınıf bir hesap gerektirir. Aynı anda yalnızca bir müzik akışı hizmeti etkinleştirilebilir.</value>
   </data>
 </root>

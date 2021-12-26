@@ -118,117 +118,117 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>Albümler</value>
   </data>
   <data name="AppearanceH.Text" xml:space="preserve">
-    <value>App appearance</value>
+    <value>Uygulama görünümü</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Sanatçılar</value>
   </data>
   <data name="AtAGlance.Description" xml:space="preserve">
-    <value>Add widgets to make your experience more personal.</value>
+    <value>Deneyiminizi daha kişisel hale getirmek için widget'lar ekleyin.</value>
   </data>
   <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Customise your at a glance page</value>
+    <value>Genel bakış sayfanızı özelleştirin</value>
   </data>
   <data name="ChooseColor.Title" xml:space="preserve">
-    <value>Choose your window glaze</value>
+    <value>Pencere camınızı seçin</value>
   </data>
   <data name="ChooseTheme.Title" xml:space="preserve">
-    <value>Choose your colour</value>
+    <value>Renginizi seçin</value>
   </data>
   <data name="CompactMode.Description" xml:space="preserve">
-    <value>Decreases overall margins and padding to show more content. Makes sidebar groups collapsible.</value>
+    <value>Daha fazla içerik göstermek için genel kenar boşluklarını ve dolguyu azaltır. Kenar çubuğu gruplarını daraltılabilir hale getirir.</value>
   </data>
   <data name="CompactMode.Title" xml:space="preserve">
-    <value>Compact mode</value>
+    <value>Kompakt mod</value>
   </data>
   <data name="CuratedPlaylists.Description" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+    <value>Çalma listeleri, beğendiğiniz şarkılar da dahil olmak üzere alışkanlıklarınıza ve favorilerinize göre sizin için yapılır.</value>
   </data>
   <data name="CuratedPlaylists.Title" xml:space="preserve">
-    <value>Make curated playlists</value>
+    <value>Seçilmiş çalma listeleri oluşturun</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Karanlık</value>
   </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
-    <value>Design and layout presets</value>
+    <value>Tasarım ve düzen ön ayarları</value>
   </data>
   <data name="DesignUnavailable.Description" xml:space="preserve">
-    <value>Layout presets and custom themes are coming soon.</value>
+    <value>Düzen ön ayarları ve özel temalar yakında geliyor.</value>
   </data>
   <data name="DesignUnavailable.Title" xml:space="preserve">
-    <value>This feature is unavailable</value>
+    <value>Bu özellik kullanılamıyor</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>Cihazlar</value>
   </data>
   <data name="FullArt.Description" xml:space="preserve">
-    <value>Corners will no longer be rounded on these elements.</value>
+    <value>Köşeler artık bu öğeler üzerinde yuvarlanmayacak.</value>
   </data>
   <data name="FullArt.Title" xml:space="preserve">
-    <value>Show full album art &amp; thumbnails</value>
+    <value>Tam albüm resmini &amp; küçük resimleri göster</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>Türler</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
-    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
+    <value>Sadece deneyiminizi daha kişisel değil, aynı zamanda daha kullanıcı dostu hale getiren simge stilleri, renkler, modlar ve daha fazlası ile kişiselleştirin.</value>
   </data>
   <data name="History.Title" xml:space="preserve">
-    <value>Track media history and habits</value>
+    <value>Medya geçmişini ve alışkanlıklarını izleme</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>Genel bakış</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Aydınlık</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>Tüm Videolar</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
-    <value>Navigation</value>
+    <value>Navigasyon</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Queue</value>
+    <value>Kuyruk</value>
   </data>
   <data name="PickUp.Title" xml:space="preserve">
-    <value>Pick up where you left off</value>
+    <value>Kaldığınız yerden devam edin</value>
   </data>
   <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
+    <value>Çalma listeleri</value>
   </data>
   <data name="PrivacyH.Text" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Gizlilik &amp; öneriler</value>
   </data>
   <data name="Sidebar" xml:space="preserve">
-    <value>Sidebar</value>
+    <value>Kenar çubuğu</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
-    <value>Add/remove sidebar items, change icon style and general behaviours.</value>
+    <value>Kenar çubuğu öğelerini ekleyin/kaldırın, simge stilini ve genel davranışları değiştirin.</value>
   </data>
   <data name="SidebarItems.Title" xml:space="preserve">
-    <value>Customise your sidebar</value>
+    <value>Kenar çubuğunuzu özelleştirin</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Müzikler</value>
   </data>
   <data name="Startup.Description" xml:space="preserve">
-    <value>Select what page to go to when you start the app.</value>
+    <value>Uygulamayı başlattığınızda hangi sayfaya gideceğinizi seçin.</value>
   </data>
   <data name="Startup.Title" xml:space="preserve">
-    <value>On startup</value>
+    <value>Karşılama</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Streaming Services</value>
+    <value>Yayınakışı Hizmetleri</value>
   </data>
   <data name="System" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>Sistem ayarını kullan</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+    <value>*Kompakt mod değişiklikleri, kurulum tamamlanana kadar geçerli olmayacaktır.</value>
   </data>
 </root>

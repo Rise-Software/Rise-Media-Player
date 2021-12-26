@@ -148,7 +148,7 @@
     <value>Kendi medyanız</value>
   </data>
   <data name="NotNow" xml:space="preserve">
-    <value>Şimdi değil (Uygulamadan çık)</value>
+    <value>Şimdi Değil (Uygulamadan çık)</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Yalnızca yerel medya dosyalarını kullan</value>
