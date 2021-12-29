@@ -99,3 +99,9 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 * Select Place all certificates in Following store and click browse select Trusted People and click OK and Next
 * Click Finish
 * Confirmation windows will appear After that Try Installing the MSIXBUNDLE
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74561130/147693738-ae2d5301-f0b3-46ce-928a-61b085c745a6.png" />
+</p>
+
+
