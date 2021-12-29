@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Media;
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Linq;
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -35,6 +37,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+
         private SongViewModel _song;
         public SongViewModel SelectedSong
         {
@@ -43,7 +46,9 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
-        // private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
+        private AdvancedCollectionView AlbumsByArtist = new AdvancedCollectionView();
+
         #endregion
 
         public AlbumSongsPage()
@@ -76,9 +81,7 @@ namespace Rise.App.Views
                 Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
 
                 // TODO: Get "more album from this artist" to work.
-                /*Albums.Filter = a => ((AlbumViewModel)a).Artist == album.Artist;
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));*/
+                findAlbumsByArtist(album.Artist);
             }
             else if (e.NavigationParameter is string str)
             {
@@ -89,6 +92,26 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
+        }
+
+        private void findAlbumsByArtist(string artist)
+        {
+            AlbumsByArtist.Clear();
+            foreach (AlbumViewModel album in Albums)
+            {
+                if (album.Artist == artist && !album.Equals(SelectedAlbum))
+                {
+                    AlbumsByArtist.Add(album);
+                }
+            }
+            AlbumsByArtist.SortDescriptions.Clear();
+            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+            AlbumsByArtist.Refresh();
         }
 
         #region Event handlers

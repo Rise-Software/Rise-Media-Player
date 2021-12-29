@@ -1,11 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using Rise.App.Views;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -56,5 +52,28 @@ namespace Rise.App.Settings
 
         private async void VChooseFolders_Click(object sender, RoutedEventArgs e)
             => _ = await VFolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+
+        private void CommandBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            switch (button.Tag.ToString())
+            {
+                case "Insider":
+                    _ = Frame.Navigate(typeof(InsiderPage));
+                    SettingsDialogContainer.Breadcrumbs.Add
+                        (ResourceLoaders.SidebarLoader.GetString("Ins"));
+                    break;
+
+                case "OnlineServices":
+                    break;
+
+            }
+        }
+
+        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

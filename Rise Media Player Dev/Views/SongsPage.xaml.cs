@@ -1,8 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -18,6 +17,11 @@ namespace Rise.App.Views
         /// Gets the app-wide MViewModel instance.
         /// </summary>
         private MainViewModel MViewModel => App.MViewModel;
+
+        /// <summary>
+        /// Gets the app-wide SViewModel instance.
+        /// </summary>
+        private SettingsViewModel SViewModel => App.SViewModel;
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -44,6 +48,7 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            ApplySettings();
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -52,6 +57,11 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
             Songs.Refresh();
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
         }
 
         #region Event handlers
@@ -134,7 +144,7 @@ namespace Rise.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+            => await EventsLogic.StartMusicPlaybackAsync(new Random().Next(0, Songs.Count), true);
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
             => EventsLogic.FocusSong(ref _song, e);
@@ -165,5 +175,75 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void ApplySettings()
+        {
+            if (SViewModel.ShowDurationInSongs)
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsDurationVisible = true;
+                }
+            } else
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsDurationVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowTrackNumberInSongs)
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsTrackNumberVisible = true;
+                }
+            }
+            else
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsTrackNumberVisible = false;
+                }
+            }
+        }
+
+        private void ShowTrackNumber_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsTrackNumberVisible = true;
+                }
+            }
+            else
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsTrackNumberVisible = false;
+                }
+            }
+        }
+
+        private void ShowDuration_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsDurationVisible = true;
+                }
+            }
+            else
+            {
+                foreach (SongViewModel song in Songs)
+                {
+                    song.IsDurationVisible = false;
+                }
+            }
+        }
     }
 }

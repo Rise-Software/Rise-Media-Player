@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -45,6 +46,7 @@ namespace Rise.App.Views
         }
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
+        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
@@ -60,6 +62,15 @@ namespace Rise.App.Views
             _navigationHelper.LoadState += NavigationHelper_LoadState;
         }
 
+        private static readonly DependencyProperty SelectedAlbumProperty =
+            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumSongsPage), null);
+
+        private AlbumViewModel SelectedAlbum
+        {
+            get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
+            set => SetValue(SelectedAlbumProperty, value);
+        }
+
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -73,21 +84,26 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+
             if (e.NavigationParameter is ArtistViewModel artist)
             {
                 SelectedArtist = artist;
-                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name
-                    || ((SongViewModel)s).AlbumArtist == artist.Name;
+                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name;
+
+                Albums.Filter = a => ((AlbumViewModel)a).Artist == artist.Name;
+                Albums.SortDescriptions.Clear();
+                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedArtist = App.MViewModel.Artists.First(a => a.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Artist == str
                     || ((SongViewModel)s).AlbumArtist == str;
+
             }
 
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
         }
 
         #region Event handlers
@@ -98,6 +114,11 @@ namespace Rise.App.Views
                 int index = MainList.Items.IndexOf(song);
                 await EventsLogic.StartMusicPlaybackAsync(index);
             }
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
         }
 
         private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -111,6 +132,9 @@ namespace Rise.App.Views
 
         private async void Props_Click(object sender, RoutedEventArgs e)
             => await SelectedSong.StartEdit();
+
+        private void ShowAlbum_Click(object sender, RoutedEventArgs e)
+            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,6 +172,23 @@ namespace Rise.App.Views
             Songs.SortDescriptions.
                 Add(new SortDescription(SortProperty, CurrentSort));
         }
+
+        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+            }
+        }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                SelectedAlbum = album;
+            }
+        }
+
         #endregion
 
         #region Common handlers
@@ -177,6 +218,16 @@ namespace Rise.App.Views
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
             => EventsLogic.GoToArtist(sender);
+
+        private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            // Check if the list view height is larger than this page's height, if this is true,
+            // try to handle scrolling
+            if (MainList.Height > Height)
+            {
+                (MainList.HeaderTemplate.GetChildren<Border>().First().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
+            }
+        }
         #endregion
 
         #region NavigationHelper registration

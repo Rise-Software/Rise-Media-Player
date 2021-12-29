@@ -126,8 +126,8 @@
   <data name="AddAccount.Title" xml:space="preserve">
     <value>Add an account</value>
   </data>
-  <data name="AdvancedH.Text" xml:space="preserve">
-    <value>Advanced</value>
+  <data name="AdditionalH.Text" xml:space="preserve">
+    <value>Additional settings</value>
   </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
     <value>Choose where we look for your music files.</value>
@@ -140,6 +140,9 @@
   </data>
   <data name="Device" xml:space="preserve">
     <value>Delete from device</value>
+  </data>
+  <data name="Devices.Text" xml:space="preserve">
+    <value>Devices</value>
   </data>
   <data name="DisableLocal.Title" xml:space="preserve">
     <value>Disable all local files and devices</value>
@@ -154,16 +157,22 @@
     <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
   </data>
   <data name="Folders" xml:space="preserve">
-    <value>Folders</value>
+    <value>Media sources</value>
+  </data>
+  <data name="LastFM.Text" xml:space="preserve">
+    <value>Last.fm</value>
   </data>
   <data name="OnlineH.Text" xml:space="preserve">
     <value>Online media &amp; services</value>
+  </data>
+  <data name="OnlineServices.Text" xml:space="preserve">
+    <value>Online services</value>
   </data>
   <data name="OnlyApp" xml:space="preserve">
     <value>Only remove from app</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
-    <value>Your own media &amp; devices</value>
+    <value>Local media &amp; devices</value>
   </data>
   <data name="Ripping.Description" xml:space="preserve">
     <value>Choose what you want to happen when you rip a disc.</value>
@@ -176,6 +185,15 @@
   </data>
   <data name="SeparateLocal.Title" xml:space="preserve">
     <value>Split local &amp; online library in sidebar</value>
+  </data>
+  <data name="ShufflePlaylist.Text" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="Streaming.Text" xml:space="preserve">
+    <value>Streaming Service</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Choose where we look for your video files.</value>

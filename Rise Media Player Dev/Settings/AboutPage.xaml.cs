@@ -37,13 +37,20 @@ namespace Rise.App.Settings
                 case "Version":
                     vTip.IsOpen = true;
                     break;
+
             }
         }
+
 
         private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => Clipboard.SetContent(VersionData);
 
         private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => await URLs.Releases.LaunchAsync();
+
+        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

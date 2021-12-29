@@ -117,17 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accounts.Text" xml:space="preserve">
+    <value>Add an account</value>
+  </data>
   <data name="Add.Label" xml:space="preserve">
     <value>Add to</value>
   </data>
   <data name="Added.Title" xml:space="preserve">
-    <value>New media added</value>
+    <value>Added new media</value>
   </data>
   <data name="AddRemove.Description" xml:space="preserve">
     <value>Let us find music and videos by adding folders and files on your device.</value>
   </data>
   <data name="AddRemove.Title" xml:space="preserve">
     <value>Add/remove media sources</value>
+  </data>
+  <data name="AddTo.Text" xml:space="preserve">
+    <value>Add to</value>
   </data>
   <data name="Album.Text" xml:space="preserve">
     <value>Album</value>
@@ -144,6 +150,9 @@
   <data name="Ascending.Text" xml:space="preserve">
     <value>Ascending</value>
   </data>
+  <data name="AskDiscy.Text" xml:space="preserve">
+    <value>Ask Discy about this</value>
+  </data>
   <data name="AtAGlance.Message" xml:space="preserve">
     <value>This page will soon be home to your recommendations, recently played and more. We hope to introduce this feature soon, although it will not likely be seen in Pre-Alpha.</value>
   </data>
@@ -153,8 +162,11 @@
   <data name="BigSearch.PlaceholderText" xml:space="preserve">
     <value>Search all media on this device</value>
   </data>
+  <data name="ChangeArtImg.Text" xml:space="preserve">
+    <value>Change artist image</value>
+  </data>
   <data name="Check.Title" xml:space="preserve">
-    <value>Checking for new media in your library...</value>
+    <value>Looking for new media in your library...</value>
   </data>
   <data name="ClickFeatureH.Text" xml:space="preserve">
     <value>Click a feature to read more</value>
@@ -222,8 +234,20 @@
   <data name="NewH.Text" xml:space="preserve">
     <value>What's new in this build:</value>
   </data>
+  <data name="NewPlaylist.Text" xml:space="preserve">
+    <value>New playlist</value>
+  </data>
   <data name="NoNew.Title" xml:space="preserve">
     <value>No new media found in your library</value>
+  </data>
+  <data name="Notif.Text" xml:space="preserve">
+    <value>Messages &amp; reports</value>
+  </data>
+  <data name="OpenFileLocation.Text" xml:space="preserve">
+    <value>Show in File Explorer</value>
+  </data>
+  <data name="PinToStart.Text" xml:space="preserve">
+    <value>Pin to Start</value>
   </data>
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
     <value>Play</value>
@@ -243,6 +267,9 @@
   <data name="RemoveSection.Text" xml:space="preserve">
     <value>Remove whole section</value>
   </data>
+  <data name="RemoveThing.Text" xml:space="preserve">
+    <value>Remove...</value>
+  </data>
   <data name="Scan.Text" xml:space="preserve">
     <value>Scan for new media</value>
   </data>
@@ -252,17 +279,20 @@
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
     <value>Select</value>
   </data>
-  <data name="SelectAlbum.Text" xml:space="preserve">
+  <data name="SelectAlbumorSong.Text" xml:space="preserve">
     <value>Select</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
     <value>App settings</value>
   </data>
   <data name="SetupFinalise.Text" xml:space="preserve">
-    <value>We’re just making sure all of your changes are saved.</value>
+    <value>We’re making sure all of your changes are saved.</value>
   </data>
   <data name="SetupFinalise.Title" xml:space="preserve">
     <value>Applying settings</value>
+  </data>
+  <data name="Share.Text" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="ShowAlbum.Text" xml:space="preserve">
     <value>Show album</value>
@@ -275,6 +305,9 @@
   </data>
   <data name="ShuffleAlbum.Text" xml:space="preserve">
     <value>Shuffle album</value>
+  </data>
+  <data name="ShuffleArtist.Text" xml:space="preserve">
+    <value>Shuffle artist</value>
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -49,6 +50,20 @@ namespace Rise.App.Views
 
             SelectedArtist = null;
         }
+
+        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                ArtistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnArtist.IsOpen = true;
+        }
+
         #endregion
 
         #region NavigationHelper registration
@@ -66,6 +81,26 @@ namespace Rise.App.Views
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
+
+
         #endregion
+
+        private async void PlayItem_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == artist.Name);
+                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+            }
+        }
+
+        private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == artist.Name);
+                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), true);
+            }
+        }
     }
 }

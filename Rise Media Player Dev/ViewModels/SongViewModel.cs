@@ -325,6 +325,26 @@ namespace Rise.App.ViewModels
             set => Set(ref _isFocused, value);
         }
 
+        private bool _isTrackNumberVisible = true;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the ite's track number is visible.
+        /// </summary>
+        public bool IsTrackNumberVisible
+        {
+            get => _isTrackNumberVisible;
+            set => Set(ref _isTrackNumberVisible, value);
+        }
+
+        private bool _isDurationVisible = true;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the ite's track number is visible.
+        /// </summary>
+        public bool IsDurationVisible
+        {
+            get => _isDurationVisible;
+            set => Set(ref _isDurationVisible, value);
+        }
+
         /// <summary>
         /// Saves song data that has been edited.
         /// </summary>

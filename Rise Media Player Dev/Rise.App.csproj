@@ -26,7 +26,7 @@
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>1E41558D10681719D61D85785AC6E05BD21E1621</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>7920495CF4FE5E2474764EA323E20667137325E1</PackageCertificateThumbprint>
     <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 2\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -145,17 +145,25 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\VisualTreeHelpers.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
+    <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Converters\ResourceToString.cs" />
+    <Compile Include="Converters\MathConverters.cs" />
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
+    <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
+      <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\FeatureDialog.xaml.cs">
       <DependentUpon>FeatureDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MessagesDialog.xaml.cs">
+      <DependentUpon>MessagesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
@@ -185,9 +193,19 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TransparentNowPlayingBar.xaml.cs">
+      <DependentUpon>TransparentNowPlayingBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VideoNowPlayingBar.xaml.cs">
+      <DependentUpon>VideoNowPlayingBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NowPlayingBar.xaml.cs">
+      <DependentUpon>NowPlayingBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
@@ -205,6 +223,12 @@
     </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
+      <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
+      <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -286,9 +310,6 @@
     <Compile Include="Windows\NowPlaying.xaml.cs">
       <DependentUpon>NowPlaying.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaylistsPage.xaml.cs">
-      <DependentUpon>PlaylistsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -317,6 +338,9 @@
     </Compile>
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />
+    <Compile Include="Windows\CrashDetailsPage.xaml.cs">
+      <DependentUpon>CrashDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\VideoPlaybackPage.xaml.cs">
       <DependentUpon>VideoPlaybackPage.xaml</DependentUpon>
     </Compile>
@@ -327,6 +351,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\addednewmedia.png" />
     <Content Include="Assets\App\BadgeLogo.scale-100.png" />
     <Content Include="Assets\App\BadgeLogo.scale-125.png" />
     <Content Include="Assets\App\BadgeLogo.scale-150.png" />
@@ -383,11 +408,22 @@
     <Content Include="Assets\App\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\App\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\albumartists.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
+    <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
+    <Content Include="Assets\BlankAlbum.png" />
+    <Content Include="Assets\BlankArtist.png" />
+    <Content Include="Assets\BlankGenre.png" />
+    <Content Include="Assets\Branding\discygraphic.png" />
     <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\Default.png" />
+    <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
+    <Content Include="Assets\lookingformedia.png" />
+    <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
@@ -438,7 +474,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\CreatePlaylistDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -478,6 +522,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TransparentNowPlayingBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\VideoNowPlayingBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\NowPlayingBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TiledImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -495,6 +551,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Genres\GenreSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\PlaylistDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\PlaylistsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -590,10 +654,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PlaylistsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -630,6 +690,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\CrashDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\VideoPlaybackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -648,14 +712,23 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.2</Version>
+      <Version>2.7.0</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="QueryString.NET">
+      <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -668,7 +741,9 @@
     <PRIResource Include="Strings\en-gb\Information.resw" />
     <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\AtAGlance\WidgetService\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Rise.Models.csproj">
       <Project>{e004f435-7a57-4421-b0b2-9f52ca67e908}</Project>

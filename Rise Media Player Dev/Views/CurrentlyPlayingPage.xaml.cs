@@ -15,9 +15,15 @@ namespace Rise.App.Views
         public CurrentlyPlayingPage()
         {
             InitializeComponent();
+            Loaded += CurrentlyPlayingPage_Loaded;
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = ViewModel;
+        }
+
+        private void CurrentlyPlayingPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void Queue_Click(object sender, RoutedEventArgs e)

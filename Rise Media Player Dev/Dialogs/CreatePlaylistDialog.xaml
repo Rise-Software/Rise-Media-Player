@@ -1,0 +1,72 @@
+﻿<ContentDialog
+    x:Class="Rise.App.Dialogs.CreatePlaylistDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    PrimaryButtonText="Create"
+    CloseButtonText="Cancel"
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    CloseButtonClick="ContentDialog_CloseButtonClick"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <StackPanel Width="500">
+        <RelativePanel>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Create a new playlist" />
+            <Button Style="{StaticResource TransparentButton}" RelativePanel.AlignRightWithPanel="True">
+                <Button.Content>
+                    <StackPanel Spacing="7" Orientation="Horizontal">
+                        <FontIcon Foreground="{StaticResource SystemAccentColorLight1}" Glyph="&#xE710;" />
+                        <TextBlock Foreground="{StaticResource SystemAccentColorLight1}" Text="Add media" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </RelativePanel>
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition MinWidth="270" />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <StackPanel BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            Background="{StaticResource LayerFillColorDefaultBrush}"
+                            CornerRadius="8"
+                            Padding="0,0,0,10"
+                            PointerEntered="Image_PointerEntered"
+                            PointerExited="Image_PointerExited"
+                            VerticalAlignment="Center">
+                    <Image Height="180"
+                           Width="180"
+                           Stretch="Uniform"
+                           VerticalAlignment="Center"
+                           Source="ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
+                           x:Name="PreviewImage" />
+                    <Button HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Margin="10,-35,10,0"
+                            Content="Use custom image"
+                            x:Name="UseCustomImageButton"
+                            Click="UseCustomImageButton_Click"
+                            Visibility="Collapsed" />
+                </StackPanel>
+            </Grid>
+
+            <ScrollViewer Width="270" MaxHeight="200" Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Margin="0,10,0,0" Spacing="10">
+                    <TextBox Header="Title" x:Name="TitleTextBox" />
+
+                    <TextBox Header="Description"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             x:Name="DescriptionTextBox"
+                             MinHeight="95" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </StackPanel>
+</ContentDialog>

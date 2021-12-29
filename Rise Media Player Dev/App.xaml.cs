@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.QueryStringDotNET;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
 using Rise.App.Indexing;
@@ -14,6 +16,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
+using Windows.UI.Notifications;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,6 +30,9 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+
+        public static StorageFolder PlaylistsFolder { get; set; }
+
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
         /// </summary>
@@ -99,6 +105,47 @@ namespace Rise.App
 
             InitializeComponent();
             Suspending += OnSuspending;
+            UnhandledException += App_UnhandledException;
+        }
+
+        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            ToastContent content = new ToastContentBuilder()
+                .AddToastActivationInfo(new QueryString()
+                {
+                     { "stackTrace", e.Exception.StackTrace },
+                     { "message", e.Exception.Message },
+                     { "exceptionName", e.Exception.GetType().ToString() },
+                     { "source", e.Exception.Source },
+                     { "hresult", $"{e.Exception.HResult}" }
+                }.ToString(), ToastActivationType.Foreground)
+                .AddText("An error occured!")
+                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
+                .GetToastContent();
+
+            ToastNotification notification = new ToastNotification(content.GetXml());
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
+
+        protected async override void OnActivated(IActivatedEventArgs e)
+        {
+            if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
+            {
+                QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+
+                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
+
+                Frame rootFrame = await InitializeWindowAsync(e);
+                if (rootFrame.Content == null)
+                {
+                    _ = !SViewModel.SetupCompleted
+                        ? rootFrame.Navigate(typeof(SetupPage))
+                        : rootFrame.Navigate(typeof(MainPage));
+                }
+
+                Window.Current.Activate();
+                _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+            }
         }
 
         /// <summary>

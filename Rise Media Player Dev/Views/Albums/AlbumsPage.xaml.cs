@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,6 +23,11 @@ namespace Rise.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
+
+        /// <summary>
+        /// Gets the app-wide SViewModel instance.
+        /// </summary>
+        private SettingsViewModel SViewModel => App.SViewModel;
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -66,6 +72,7 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            ApplySettingsToView();
             Albums.Filter = null;
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
@@ -95,6 +102,11 @@ namespace Rise.App.Views
         {
             _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedAlbum.Artist);
             SelectedAlbum = null;
+        }
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnAlbum.IsOpen = true;
         }
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
@@ -191,5 +203,216 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void ApplySettingsToView()
+        {
+            if (SViewModel.ShowTitleInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = true;
+                }
+            } else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowGenreInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowArtistInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = false;
+                }
+            }
+
+            if (SViewModel.ShowThumbnailInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = false;
+                }
+            }
+
+            if (SViewModel.RoundedAlbumArt)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = false;
+                }
+            }
+
+            if (SViewModel.ShowReleaseYearInAlbums)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = false;
+                }
+            }
+        }
+
+        private void ShowArtistName_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = true;
+                }
+            } else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsArtistVisible = false;
+                }
+            }
+        }
+
+        private void ShowThumbnail_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = true;
+                }
+                TitleViewOption.IsEnabled = true;
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsThumbnailVisible = false;
+                }
+                TitleViewOption.IsEnabled = false;
+                SViewModel.ShowTitleInAlbums = true;
+            }
+        }
+
+        private void ShowGenres_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsGenresVisible = false;
+                }
+            }
+        }
+
+        private void RoundedAlbumArtOption_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.HasRoundedAlbumArt = false;
+                }
+            }
+        }
+
+        private void ShowAlbumTitle_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = true;
+                }
+                ThumbnailViewOption.IsEnabled = true;
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsTitleVisible = false;
+                }
+                ThumbnailViewOption.IsEnabled = false;
+                SViewModel.ShowThumbnailInAlbums = true;
+            }
+        }
+
+        private void ShowReleaseYear_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
+            if (item.IsChecked)
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = true;
+                }
+            }
+            else
+            {
+                foreach (AlbumViewModel album in Albums)
+                {
+                    album.IsReleaseYearVisible = false;
+                }
+            }
+        }
     }
 }

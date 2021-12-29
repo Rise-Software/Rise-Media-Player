@@ -15,6 +15,14 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <muxc:InfoBar
+            Margin="0,50,0,0"
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
@@ -31,16 +39,26 @@
                           x:Uid="/Information/Shuffle"
                           Icon="Shuffle"
                           IsEnabled="False" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Playlist">
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE142;" />
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStart"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -130,7 +148,7 @@
                             <Border x:Name="GenreThumb"
                                     CornerRadius="4">
                                 <Image Height="48"
-                                       Source="ms-appx:///Assets/Default.png"
+                                       Source="ms-appx:///Assets/BlankGenre.png"
                                        Stretch="UniformToFill"
                                        Width="48" />
                             </Border>

@@ -119,6 +119,55 @@ namespace Rise.App.ViewModels
             get => Get("MediaLibrary", nameof(DisableOnline), false);
             set => Set("MediaLibrary", nameof(DisableOnline), value);
         }
+
+        public bool ShowArtistInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowArtistInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowArtistInAlbums), value);
+        }
+
+        public bool ShowThumbnailInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowThumbnailInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowThumbnailInAlbums), value);
+        }
+
+        public bool ShowGenreInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowGenreInAlbums), false);
+            set => Set("MediaLibrary", nameof(ShowGenreInAlbums), value);
+        }
+
+        public bool ShowTitleInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowTitleInAlbums), true);
+            set => Set("MediaLibrary", nameof(ShowTitleInAlbums), value);
+        }
+
+        public bool ShowReleaseYearInAlbums
+        {
+            get => Get("MediaLibrary", nameof(ShowReleaseYearInAlbums), false);
+            set => Set("MediaLibrary", nameof(ShowReleaseYearInAlbums), value);
+        }
+
+        public bool RoundedAlbumArt
+        {
+            get => Get("MediaLibrary", nameof(RoundedAlbumArt), true);
+            set => Set("MediaLibrary", nameof(RoundedAlbumArt), value);
+        }
+
+        public bool ShowTrackNumberInSongs
+        {
+            get => Get("MediaLibrary", nameof(ShowTrackNumberInSongs), true);
+            set => Set("MediaLibrary", nameof(ShowTrackNumberInSongs), value);
+        }
+
+        public bool ShowDurationInSongs
+        {
+            get => Get("MediaLibrary", nameof(ShowDurationInSongs), true);
+            set => Set("MediaLibrary", nameof(ShowDurationInSongs), value);
+        }
+
         #endregion
 
         #region Navigation

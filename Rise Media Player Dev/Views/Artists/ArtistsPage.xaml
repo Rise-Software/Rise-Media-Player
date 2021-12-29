@@ -15,6 +15,29 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <muxc:TeachingTip x:Name="DiscyOnArtist"
+	        Title="Artists"
+	        Subtitle="Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist."
+	        PreferredPlacement="Auto"
+	        PlacementMargin="20"
+             
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+            <muxc:TeachingTip.HeroContent>
+                <Image Source="/Assets/Branding/discygraphic.png" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>
+
+        <muxc:InfoBar
+            Margin="0,50,0,0"
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
+
         <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
@@ -31,16 +54,26 @@
                           x:Uid="/Information/Shuffle"
                           Icon="Shuffle"
                           IsEnabled="False" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Playlist">
+                        <MenuFlyoutItem x:Name="NewPlaylist"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE142;" />
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStart"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -106,6 +139,7 @@
         </CommandBar>
 
         <GridView Grid.Row="1"
+                  x:Name="MainGrid"
                   animations:Connected.ListItemElementName="ArtistThumb"
                   animations:Connected.ListItemKey="ArtistArt"
                   ItemsSource="{x:Bind Artists, Mode=OneWay}"
@@ -113,7 +147,95 @@
                   Padding="44,0,44,120"
                   SelectedItem="{x:Bind SelectedArtist, Mode=TwoWay}"
                   SelectionMode="Single"
+                  RightTapped="MainGrid_RightTapped"
                   Tapped="GridView_Tapped">
+            <GridView.Resources>
+                <MenuFlyout x:Key="ArtistFlyout" x:Name="ArtistFlyout">
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    Click="PlayItem_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE102;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShuffleArtist"
+                                    Click="ShuffleItem_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE14B;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutSubItem x:Name="AddTo"
+                                    x:Uid="/Information/AddTo"
+                                    IsEnabled="True">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                        <MenuFlyoutItem x:Name="NewPlaylistMenu"
+                                    x:Uid="/Information/NewPlaylist"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem x:Name="PinToStartMenu"
+                                    x:Uid="/Information/PinToStart"
+                                    IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE141;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyoutSubItem>
+
+                    <MenuFlyoutItem x:Name="Share"
+                                    x:Uid="/Information/Share"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE72D;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="AskDiscy"
+                                    x:Uid="/Information/AskDiscy"
+                                    IsEnabled="True"
+                                    Click="AskDiscy_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE11B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove"
+                                    x:Uid="/Information/RemoveThing"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
+                    <MenuFlyoutItem x:Name="ChngArtImg"
+                                    x:Uid="/Information/ChangeArtImg"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xEF1F;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </GridView.Resources>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
                     <Grid ColumnSpacing="12"
@@ -129,9 +251,9 @@
                                 Padding="0">
                             <Border x:Name="ArtistThumb"
                                     CornerRadius="42">
-                                <Image x:Phase="1"
+                                <Image
                                        Height="84"
-                                       Source="{x:Bind Picture}"
+                                       Source="/Assets/BlankArtist.png"
                                        Stretch="UniformToFill"
                                        Width="84" />
                             </Border>

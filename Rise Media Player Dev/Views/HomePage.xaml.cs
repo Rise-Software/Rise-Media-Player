@@ -53,5 +53,40 @@ namespace Rise.App.Views
             var item = e.ClickedItem as TiledImage;
             await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
         }
+
+        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AdaptiveItemPane_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CommandBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            switch (button.Tag.ToString())
+            {
+
+                case "Version":
+                    vTip.IsOpen = true;
+                    break;
+                case "Discy":
+                    DiscyOnHome.IsOpen = true;
+                    break;
+
+            }
+        }
+
+        private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+
+        }
+
+        private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+            => await URLs.Releases.LaunchAsync();
+
     }
 }

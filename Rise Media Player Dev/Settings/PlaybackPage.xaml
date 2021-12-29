@@ -8,6 +8,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
+
+        
         <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:ExpanderControl x:Uid="/Playback/EQ"
                                ExpanderStyle="Disabled"
@@ -49,25 +51,5 @@
                       SelectedIndex="{x:Bind ViewModel.ScaleToWindow, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
-
-        <TextBlock x:Uid="/Playback/NowPlayingH" Style="{StaticResource Subheader}" />
-        <uc:ExpanderControl x:Uid="/Playback/GoDevice"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE7F6;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.GoDevice, Mode=TwoWay}" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Playback/NowPlaying"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE102;">
-            <FontIcon FontSize="16"
-                      Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Playback/Flyouts"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE15D;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.ReplaceFlyouts, Mode=TwoWay}" />
-        </uc:ExpanderControl>
     </StackPanel>
 </Page>

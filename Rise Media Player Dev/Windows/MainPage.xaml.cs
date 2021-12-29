@@ -34,6 +34,8 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private SidebarViewModel SBViewModel => App.SBViewModel;
 
+        private bool IsInPageWithoutHeader = false;
+
         public static MainPage Current;
 
         public ObservableCollection<Crumb> Breadcrumbs { get; set; }
@@ -49,6 +51,7 @@ namespace Rise.App.Views
         private IDisposable VideosDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
+
         private AppWindow _nowPlayingWindow;
         #endregion
 
@@ -58,6 +61,7 @@ namespace Rise.App.Views
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
+            SizeChanged += MainPage_SizeChanged;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
@@ -66,6 +70,36 @@ namespace Rise.App.Views
             App.Indexer.Finished += Indexer_Finished;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Visible;
+                AppTitleBar.Visibility = Visibility.Collapsed;
+                ControlsPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
+                AppTitleBar.Visibility = Visibility.Visible;
+                ControlsPanel.Visibility = Visibility.Visible;
+            }
+
+            if (e.NewSize.Width < 800 && IsInPageWithoutHeader)
+            {
+                ContentFrame.Margin = new Thickness(0, 48, 0, 0);
+            } 
+            else if (e.NewSize.Width < 800 && !IsInPageWithoutHeader)
+            {
+                ContentFrame.Margin = new Thickness(0);
+            } 
+            else if (e.NewSize.Width >= 800)
+            {
+                ContentFrame.Margin = new Thickness(0);
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
@@ -85,7 +119,7 @@ namespace Rise.App.Views
             App.MViewModel.CanIndex = true;
             _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
 
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+            //PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             await HandleViewModelColorSettingAsync();
 
@@ -94,7 +128,7 @@ namespace Rise.App.Views
             // When the page is loaded, initialize the titlebar and setup the player.
             Loaded += (s, e) =>
             {
-                PlayerElement.SetMediaPlayer(App.PViewModel.Player);
+                //PlayerElement.SetMediaPlayer(App.PViewModel.Player);
                 _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             };
         }
@@ -132,6 +166,7 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredArtists.Refresh();
                 App.MViewModel.FilteredGenres.Refresh();
                 App.MViewModel.FilteredVideos.Refresh();
+                App.MViewModel.FilteredPlaylists.Refresh();
             });
         }
 
@@ -233,7 +268,6 @@ namespace Rise.App.Views
 
         private async Task Navigate(string navTo)
         {
-            UnavailableDialog dialog;
             switch (navTo)
             {
                 case "HomePage":
@@ -255,15 +289,7 @@ namespace Rise.App.Views
                     break;
 
                 case "PlaylistsPage":
-                    // _ = ContentFrame.Navigate(typeof(PlaylistsPage));
-                    dialog = new UnavailableDialog
-                    {
-                        Header = "Unfortunately, playlists aren't available yet. Go to your music library instead.",
-                        Description = "Hopefully we won't be long adding them!",
-                        CenterHero = new BitmapImage(new Uri("ms-appx:///Assets/Unavailable/Playlists.png"))
-                    };
-
-                    _ = await dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    _ = ContentFrame.Navigate(typeof(PlaylistsPage));
                     break;
 
                 case "SongsPage":
@@ -284,13 +310,6 @@ namespace Rise.App.Views
 
                 case "LocalVideosPage":
                     _ = ContentFrame.Navigate(typeof(LocalVideosPage));
-                    break;
-
-                case "VideoPlaybackPage":
-                    if (Window.Current.Content is Frame rootFrame)
-                    {
-                        _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
-                    }
                     break;
 
                 case "DiscyPage":
@@ -318,33 +337,42 @@ namespace Rise.App.Views
             string tag = type.Split('.').Last();
 
             Breadcrumbs.Clear();
+            CrumbsHeader.Visibility = Visibility.Visible;
 
             switch (tag)
             {
                 case "HomePage":
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == tag);
+                    IsInPageWithoutHeader = true;
                     return;
 
                 case "AlbumSongsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "AlbumsPage");
                     return;
 
                 case "ArtistSongsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "ArtistsPage");
                     return;
 
                 case "GenreSongsPage":
+                    IsInPageWithoutHeader = false;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "GenresPage");
                     return;
 
                 case "DiscyPage":
+                    IsInPageWithoutHeader = false;
                     return;
 
                 default:
+                    IsInPageWithoutHeader = false;
                     break;
             }
 
@@ -402,7 +430,7 @@ namespace Rise.App.Views
             var uiSettings = new UISettings();
             Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
 
-            byte opacity = 30;
+            byte opacity = 25;
             switch (SViewModel.Color)
             {
                 case -3:
@@ -434,24 +462,198 @@ namespace Rise.App.Views
                     break;
 
                 case 0:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 205, 92, 92));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 185, 0));
                     break;
 
                 case 1:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 138, 43, 226));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 140, 0));
                     break;
 
                 case 2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 143, 188, 143));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 247, 99, 12));
                     break;
 
                 case 3:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 149, 237));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 202, 80, 16));
                     break;
 
                 case 4:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 184, 135, 11));
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 218, 59, 1));
                     break;
+
+                case 5:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 239, 105, 80));
+                    break;
+
+                case 6:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 209, 52, 56));
+                    break;
+
+                case 7:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 67, 67));
+                    break;
+
+                case 8:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 231, 72, 86));
+                    break;
+
+                case 9:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 232, 17, 35));
+                    break;
+
+                case 10:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 234, 0, 94));
+                    break;
+
+                case 11:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 195, 0, 82));
+                    break;
+
+                case 12:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 227, 0, 140));
+                    break;
+
+                case 13:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 191, 0, 119));
+                    break;
+
+                case 14:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 194, 57, 179));
+                    break;
+
+                case 15:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 154, 0, 137));
+                    break;
+
+                case 16:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 120, 212));
+                    break;
+
+                case 17:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 99, 177));
+                    break;
+
+                case 18:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 142, 140, 216));
+                    break;
+
+                case 19:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 107, 105, 214));
+                    break;
+
+                case 20:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 135, 100, 184));
+                    break;
+
+                case 21:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 116, 77, 169));
+                    break;
+
+                case 22:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 177, 70, 194));
+                    break;
+
+                case 23:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 136, 23, 152));
+                    break;
+
+                case 24:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 153, 188));
+                    break;
+
+                case 25:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 45, 125, 154));
+                    break;
+
+                case 26:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 183, 195));
+                    break;
+
+                case 27:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 3, 131, 135));
+                    break;
+
+                case 28:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 178, 148));
+                    break;
+
+
+                case 29:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 1, 133, 116));
+                    break;
+
+                case 30:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 204, 106));
+                    break;
+
+                case 31:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 16, 137, 62));
+                    break;
+
+                case 32:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 122, 117, 116));
+                    break;
+
+                case 33:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 93, 90, 88));
+                    break;
+
+                case 34:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 104, 118, 138));
+                    break;
+
+                case 35:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 81, 92, 107));
+                    break;
+
+                case 36:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 86, 124, 115));
+                    break;
+
+                case 37:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 72, 104, 96));
+                    break;
+
+                case 38:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 73, 130, 5));
+                    break;
+
+                case 39:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 16, 124, 16));
+                    break;
+
+                case 40:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 118, 118, 118));
+                    break;
+
+                case 41:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 76, 74, 72));
+                    break;
+
+                case 42:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 105, 121, 126));
+                    break;
+
+                case 43:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 74, 84, 89));
+                    break;
+
+                case 44:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 124, 100));
+                    break;
+
+                case 45:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 82, 94, 84));
+                    break;
+
+                case 46:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 132, 117, 69));
+                    break;
+
+                case 47:
+                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 126, 115, 95));
+                    break;
+
             }
         }
         #endregion
@@ -520,6 +722,22 @@ namespace Rise.App.Views
                 }
             }
         }
+
+        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void Messages_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Messages & reports";
+            dialog.CloseButtonText = "Close";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = new MessagesDialog();
+
+            var result = await dialog.ShowAsync();
+        }
     }
 
     [ContentProperty(Name = "GlyphTemplate")]
@@ -564,4 +782,7 @@ namespace Rise.App.Views
             return Title;
         }
     }
+
+    
+
 }

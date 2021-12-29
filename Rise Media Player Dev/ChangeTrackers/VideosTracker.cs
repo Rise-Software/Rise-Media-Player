@@ -1,14 +1,4 @@
-﻿using Rise.App.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.Storage.Search;
-
-namespace Rise.App.ChangeTrackers
+﻿namespace Rise.App.ChangeTrackers
 {
     /* public class VideosTracker
     {

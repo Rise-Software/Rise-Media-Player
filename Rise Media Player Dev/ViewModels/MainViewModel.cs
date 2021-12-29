@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
-using Windows.UI.Xaml;
 
 namespace Rise.App.ViewModels
 {
@@ -51,6 +50,7 @@ namespace Rise.App.ViewModels
         public MainViewModel()
         {
             FilteredSongs = new AdvancedCollectionView(Songs);
+            FilteredPlaylists = new AdvancedCollectionView(Playlists);
             FilteredAlbums = new AdvancedCollectionView(Albums);
             FilteredArtists = new AdvancedCollectionView(Artists);
             FilteredGenres = new AdvancedCollectionView(Genres);
@@ -61,6 +61,8 @@ namespace Rise.App.ViewModels
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
+
+            _ = LoadPlaylists();
         }
 
         /// <summary>
@@ -98,6 +100,13 @@ namespace Rise.App.ViewModels
             = new ObservableCollection<VideoViewModel>();
         public AdvancedCollectionView FilteredVideos { get; set; }
 
+        /// <summary>
+        /// The collection of playlists in the list. 
+        /// </summary>
+        public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
+            = new ObservableCollection<PlaylistViewModel>();
+        public AdvancedCollectionView FilteredPlaylists { get; set; }
+
         private SongViewModel _selectedSong;
         /// <summary>
         /// Gets or sets the currently selected song.
@@ -129,6 +138,19 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Loads playlists from a list of playlist files
+        /// </summary>
+        private async Task LoadPlaylists()
+        {
+            App.PlaylistsFolder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("Playlists", CreationCollisionOption.OpenIfExists);
+            foreach (StorageFile playlistFile in await App.PlaylistsFolder.GetFilesAsync())
+            {
+                PlaylistViewModel playlistViewModel = new PlaylistViewModel(await playlistFile.AsPlaylistModelAsync());
+                await playlistViewModel.SaveAsync();
+            }
+        }
+
+        /// <summary>
         /// Gets the complete list of data from the database.
         /// </summary>
         public async Task GetListsAsync()
@@ -137,18 +159,19 @@ namespace Rise.App.ViewModels
 
             IEnumerable<Song> songs = await App.Repository.Songs.GetAsync();
 
-            // If there are no songs, don't bother loading lists
             if (songs != null)
             {
                 IEnumerable<Album> albums = await App.Repository.Albums.GetAsync();
                 IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
                 IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
                 IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
+                IEnumerable<Playlist> playlists = await App.Repository.Playlists.GetAsync();
 
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    Songs.Add(new SongViewModel(s));
+                    if(!songs.Contains(s))
+                        Songs.Add(new SongViewModel(s));
                 }
 
                 Albums.Clear();
@@ -156,7 +179,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        Albums.Add(new AlbumViewModel(a));
+                        if(!albums.Contains(a))
+                            Albums.Add(new AlbumViewModel(a));
                     }
                 }
 
@@ -165,7 +189,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        Artists.Add(new ArtistViewModel(a));
+                        if(!artists.Contains(a))
+                            Artists.Add(new ArtistViewModel(a));
                     }
                 }
 
@@ -174,7 +199,8 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Genre g in genres)
                     {
-                        Genres.Add(new GenreViewModel(g));
+                        if(!genres.Contains(g))
+                            Genres.Add(new GenreViewModel(g));
                     }
                 }
 
@@ -183,14 +209,22 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Video v in videos)
                     {
-                        Videos.Add(new VideoViewModel(v));
+                        if(!videos.Contains(v))
+                            Videos.Add(new VideoViewModel(v));
                     }
                 }
 
-                IsLoading = false;
+                Playlists.Clear();
+                if (playlists != null)
+                {
+                    foreach (Playlist p in playlists)
+                    {
+                        if(!playlists.Contains(p))
+                            Playlists.Add(new PlaylistViewModel(p));
+                    }
+                }
             }
         }
-
         public async Task StartFullCrawlAsync()
         {
             await SongsTracker.HandleMusicFolderChanges();
@@ -439,12 +473,14 @@ namespace Rise.App.ViewModels
             await App.Repository.Artists.UpsertQueuedAsync();
             await App.Repository.Genres.UpsertQueuedAsync();
             await App.Repository.Videos.UpsertQueuedAsync();
+            await App.Repository.Playlists.UpsertQueuedAsync();
 
             await App.Repository.Songs.DeleteQueuedAsync();
             await App.Repository.Albums.DeleteQueuedAsync();
             await App.Repository.Artists.DeleteQueuedAsync();
             await App.Repository.Genres.DeleteQueuedAsync();
             await App.Repository.Videos.DeleteQueuedAsync();
+            await App.Repository.Playlists.DeleteQueuedAsync();
         }
 
         /// <summary>

@@ -7,14 +7,25 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:conv="using:Rise.App.Converters"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited">
+
+    <Page.Resources>
+        <conv:VideoToString x:Key="VidToStr" />
+    </Page.Resources>
 
     <Grid>
         <Grid x:Name="TopGrid"
               Canvas.ZIndex="1"
               Background="{ThemeResource SystemControlAcrylicElementBrush}"
               Height="32"
+              CornerRadius="0"
               VerticalAlignment="Top">
             <Grid.Transitions>
                 <TransitionCollection>
@@ -24,15 +35,24 @@
 
             <Button x:Name="BackButton"
                     Command="{x:Bind _navigationHelper.GoBackCommand}"
-                    CornerRadius="0"
-                    Height="32"
+                    CornerRadius="5"
+                    Height="28"
+                    Margin="2,0"
                     Style="{StaticResource TransparentButton}"
                     Width="40"
                     VerticalAlignment="Center"
                     AutomationProperties.Name="Back"
                     AutomationProperties.AutomationId="BackButton"
                     AutomationProperties.ItemType="Navigation Button">
-                <FontIcon FontSize="14" Glyph="&#xE112;" />
+                <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
+                    <muxc:AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource/>
+                    </muxc:AnimatedIcon.Source>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back"/>
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+
             </Button>
 
             <uc:MicaTitleBar x:Name="AppTitleBar"
@@ -41,38 +61,16 @@
                              Height="32"
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
-                             ShowIcon="True"
-                             Title="{x:Bind CurrentVideo.Title, Mode=OneWay}" />
+                             ShowIcon="True" />
         </Grid>
 
+        <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
+                               Margin="20"
+                               Canvas.ZIndex="1"
+                               x:Name="Player" />
+        <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
         <MediaPlayerElement x:Name="PlayerElement"
-                            animations:Connected.Key="Player"
-                            Canvas.ZIndex="0"
-                            AreTransportControlsEnabled="True"
-                            Visibility="Visible">
-            <MediaPlayerElement.TransportControls>
-                <MediaTransportControls x:Name="MediaControls"
-                                        IsFastForwardButtonVisible="False"
-                                        IsFastForwardEnabled="False"
-                                        IsFastRewindButtonVisible="False"
-                                        IsFastRewindEnabled="False"
-                                        IsPlaybackRateButtonVisible="True"
-                                        IsPlaybackRateEnabled="True"
-                                        IsFullWindowButtonVisible="True"
-                                        IsFullWindowEnabled="True"
-                                        IsZoomButtonVisible="False"
-                                        IsRepeatButtonVisible="True"
-                                        IsRepeatEnabled="True"
-                                        IsSkipBackwardButtonVisible="True"
-                                        IsSkipForwardButtonVisible="True"
-                                        IsSkipBackwardEnabled="True"
-                                        IsSkipForwardEnabled="True"
-                                        IsCompact="False"
-                                        IsSeekBarVisible="True"
-                                        IsSeekEnabled="True"
-                                        IsNextTrackButtonVisible="False"
-                                        IsPreviousTrackButtonVisible="False" />
-            </MediaPlayerElement.TransportControls>
-        </MediaPlayerElement>
+                            Canvas.ZIndex="0" />
+        
     </Grid>
 </Page>

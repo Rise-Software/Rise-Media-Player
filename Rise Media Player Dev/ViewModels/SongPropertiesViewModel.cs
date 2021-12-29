@@ -117,7 +117,7 @@ namespace Rise.App.ViewModels
                 musicProps.AlbumArtist = AlbumArtist;
                 musicProps.Year = Year;
                 musicProps.Rating = Rating * 20;
-                
+
                 /*var props = await songFile.Properties.RetrievePropertiesAsync(Properties.ViewModelProperties);
 
                 // Apply properties.

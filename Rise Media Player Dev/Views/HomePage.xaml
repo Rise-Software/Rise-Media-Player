@@ -4,12 +4,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:AdaptiveItemPane>
+
+
+            <muxc:TeachingTip x:Name="DiscyOnHome"
+	        Title="About at a glance"
+	        Subtitle="At a glance will soon contain your recommendations, recently played and more. Currently though, you can see what is new in this Pre-Alpha build. Clicking on a card will give you more information. There are also some quick links to add media and contribute. "
+	        PreferredPlacement="Bottom"
+	        PlacementMargin="20"
+            Target="{x:Bind Discy}"
+	        IsLightDismissEnabled="True"
+	        ActionButtonContent="Learn more"
+                          
+	        CloseButtonContent="Got it!">
+                <muxc:TeachingTip.HeroContent>
+                    <Image Source="/Assets/Branding/discygraphic.png" />
+                </muxc:TeachingTip.HeroContent>
+            </muxc:TeachingTip>
+
+
+            <uc:AdaptiveItemPane Loaded="AdaptiveItemPane_Loaded_1">
                 <uc:AdaptiveItemPane.LeftPane>
                     <Image Height="33"
                            Source="ms-appx:///Assets/Branding/settingsbanner.png" />
@@ -19,21 +37,44 @@
                     <StackPanel Orientation="Horizontal"
                                 Spacing="8"
                                 VerticalAlignment="Center">
-                        <TextBlock Text="v0.0.13"
+
+                        <Button x:Name="Discy" Padding="5"
+                            Click="CommandBarButton_Click"
+                            Style="{StaticResource TransparentButton}"
+                            Tag="Discy">
+                            <FontIcon Glyph="&#xE11B;" FontSize="16" VerticalAlignment="Center" />
+                        </Button>
+
+                        <Button x:Name="Version" Margin="5" Padding="5"
+                            Click="CommandBarButton_Click"
+                            Style="{StaticResource TransparentButton}"
+                            Tag="Version">
+                            <FontIcon Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
+                        </Button>
+                        
+                        <TextBlock Text="v0.0.135.0"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="Pre-Alpha 3"
+                        <TextBlock Text="PA4 InDev"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
+
+            <muxc:InfoBar
+            IsOpen="True"
+            Severity="Warning"
+            Title="Notice"
+            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
+                />
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <TextBlock x:Uid="/Information/NewH"
                                Style="{StaticResource Subheader}" />
                 </uc:AdaptiveItemPane.LeftPane>
+                
 
                 <uc:AdaptiveItemPane.RightPane>
                     <TextBlock x:Uid="/Information/ClickFeatureH"
@@ -42,41 +83,39 @@
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
+            
+
             <GridView HorizontalAlignment="Stretch"
                       IsItemClickEnabled="True"
                       ItemClick="GridView_ItemClick"
                       ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                       Margin="0,-12,0,0"
                       SelectionMode="None">
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
-                               IconUri="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
-                               Label="Video Support"
+                <!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
+                               IconUri="ms-appx:///Assets/Settings/Sidebar.png"
+                               Label="View options"
+                               Margin="3"
+                               Tag="0" />-->
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/albumartists.png"
+                               Label="Artists &amp; Albums"
                                Margin="3"
                                Tag="0" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG2.png"
-                               IconUri="ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
-                               Label="Extended Genres"
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG4.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/NPBar.png"
+                               Label="Now Playing Bar"
                                Margin="3"
                                Tag="1" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
-                               IconUri="ms-appx:///Assets/Settings/Appearance.png"
-                               Label="More to personalise"
+                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG5.png"
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/Discy.png"
+                               Label="Contextual Help"
                                Margin="3"
                                Tag="2" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG4.png"
-                               IconUri="ms-appx:///Assets/Settings/Sidebar.png"
-                               Label="Improved Navigation"
-                               Margin="3"
-                               Tag="3" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG5.png"
-                               IconUri="ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
-                               Label="New Help Centre"
-                               Margin="3"
-                               Tag="4" />
-                <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
-                               IconUri="ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
-                               Label="Better Now Playing"
-                               Tag="5" />
+                <!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
+                               
+                               IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/playlists.png"
+                               Label="More to come..."
+                               Tag="3" />-->
             </GridView>
 
             <TextBlock x:Uid="/Information/QuickH"
@@ -96,6 +135,13 @@
             </GridView>
 
             <Rectangle Height="120" />
+
+            <muxc:TeachingTip x:Name="vTip"
+                          x:Uid="/About/More"
+                          ActionButtonClick="VTip_ActionButtonClick"
+                          CloseButtonClick="VTip_CloseButtonClick"
+                          IsLightDismissEnabled="True"
+                          Target="{x:Bind Version}" />
         </StackPanel>
     </ScrollViewer>
 </Page>

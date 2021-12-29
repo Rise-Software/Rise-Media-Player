@@ -15,33 +15,49 @@
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <Style x:Key="Win11Image" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp"/>
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp" />
                     </Style>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <Style x:Key="Win11Image" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp"/>
+                        <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp" />
                     </Style>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="HighContrast">
                     <Style x:Key="Win11Image" TargetType="Image">
-                        <Setter Property="Source" Value="{x:Null}"/>
+                        <Setter Property="Source" Value="{x:Null}" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 
-            <media:AttachedCardShadow x:Key="StrongShadow" CornerRadius="8" BlurRadius="20" Opacity=".4" />
-            <media:AttachedCardShadow x:Key="LightShadow" CornerRadius="8" BlurRadius="8" Opacity=".2" />
-            <media:AttachedCardShadow x:Key="LightShadowBottomOffset" CornerRadius="8" BlurRadius="8" Opacity=".075" Offset="0,4,0" />
+            <media:AttachedCardShadow
+                x:Key="StrongShadow"
+                BlurRadius="20"
+                CornerRadius="8"
+                Opacity=".4" />
+            <media:AttachedCardShadow
+                x:Key="LightShadow"
+                BlurRadius="8"
+                CornerRadius="8"
+                Opacity=".2" />
+            <media:AttachedCardShadow
+                x:Key="LightShadowBottomOffset"
+                BlurRadius="8"
+                CornerRadius="8"
+                Opacity=".075"
+                Offset="0,4,0" />
 
             <!--#region Styles-->
-            <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                 <Setter Property="MinHeight" Value="0" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="0" />
             </Style>
 
-            <Style x:Key="StretchedGridViewItem" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
+            <Style
+                x:Key="StretchedGridViewItem"
+                BasedOn="{StaticResource DefaultGridViewItemStyle}"
+                TargetType="GridViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
@@ -76,7 +92,10 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
 
-            <Style x:Key="ActionCard" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+            <Style
+                x:Key="ActionCard"
+                BasedOn="{StaticResource DefaultButtonStyle}"
+                TargetType="Button">
                 <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
                 <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
@@ -94,14 +113,20 @@
                 <Setter Property="Padding" Value="0,16,0,5" />
             </Style>
 
-            <Style x:Key="AppBarCompactButton" TargetType="AppBarButton" BasedOn="{StaticResource CommandBarFlyoutAppBarButtonStyleBase}">
+            <Style
+                x:Key="AppBarCompactButton"
+                BasedOn="{StaticResource CommandBarFlyoutAppBarButtonStyleBase}"
+                TargetType="AppBarButton">
                 <Setter Property="LabelPosition" Value="Collapsed" />
                 <Setter Property="Margin" Value="2,0" />
                 <Setter Property="MinWidth" Value="40" />
                 <Setter Property="Width" Value="Auto" />
             </Style>
 
-            <Style x:Key="TransparentButton" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+            <Style
+                x:Key="TransparentButton"
+                BasedOn="{StaticResource DefaultButtonStyle}"
+                TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
