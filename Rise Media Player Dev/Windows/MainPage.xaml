@@ -188,7 +188,31 @@
                                 MaxWidth="530"
                                 QueryIcon="Find"
                                 VerticalAlignment="Top"
-                                Visibility="Collapsed" />
+                                Visibility="Collapsed"
+                                SuggestionChosen="BigSearch_SuggestionChosen"
+                                TextChanged="BigSearch_TextChanged"
+                                QuerySubmitted="BigSearch_QuerySubmitted">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel">
+                            <Grid Padding="2,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Width="40" Height="40" CornerRadius="3">
+                                    <Image Source="{x:Bind Thumbnail}" />
+                                </Border>
+                                
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{x:Bind Title}" />
+                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.isStringEmpty(Subtitle)}" />
+                                    <TextBlock Text="{x:Bind ItemType}" FontSize="13" Margin="0,3,0,0" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
                 <AutoSuggestBox x:Name="SmallSearch"
                                 x:Uid="/Information/SmallSearch"
                                 AutomationProperties.Name="Search"
@@ -368,8 +392,6 @@
         <muxc:TeachingTip x:Name="AddedTip"
                           x:FieldModifier="public"
                           Title="Updated your library."
-                          Subtitle="Click anywhere to hide this notification."
-                          IsLightDismissEnabled="True"
                           PlacementMargin="0,24,-26,0"
                           PreferredPlacement="TopRight">
             <!--<muxc:TeachingTip.HeroContent>
