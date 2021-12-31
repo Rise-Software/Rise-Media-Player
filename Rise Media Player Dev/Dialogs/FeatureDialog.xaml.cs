@@ -45,37 +45,30 @@ namespace Rise.App.Dialogs
         {
             _features.Add(new Feature
             {
-                Name = "Playlist Support",
-                Description = "We’ve finally added support for playlists to Rise Media Player. Add a song to your playlist by hovering on it. You can also import and export playlists, sort them by date created, and more!",
-                ImageUri = "ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
-            });
-
-            _features.Add(new Feature
-            {
-                Name = "Artists & Albums",
-                Description = "The genre page now works, and you can browse your music by genre. This is very basic currently and we’ll be adding more features to it soon.",
-                ImageUri = "ms-appx:///Assets/NavigationView/GenresPage/Colorful.png"
+                Name = "Albums and Artists",
+                Description = "Now you can see 'More albums by this artist' below an album. Quick switching! Albums are now shown on artist pages, meaning no messy song lists!",
+                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Now Playing Bar",
                 Description = "The now playing bar is back with a new design! You can now view the song title, artist and thumbnail from the now playing bar and view a song's album in one click!",
-                ImageUri = "ms-appx:///Assets/NavigationView/NowPlayingPage/Colorful.png"
+                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
             });
 
             _features.Add(new Feature
             {
                 Name = "Contextual help",
                 Description = "Now you can experience Discy in context menus!",
-                ImageUri = "ms-appx:///Assets/Settings/Sidebar.png"
+                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
             });
 
             _features.Add(new Feature
             {
-                Name = "Messages & reports",
-                Description = "If the app is crashing or something unexpected happened, there's now more details on what happened, like stack trace, the exception name etc...",
-                ImageUri = "ms-appx:///Assets/NavigationView/DiscyPage/Colorful.png"
+                Name = "More to come!",
+                Description = "Watch this space",
+                ImageUri = "ms-appx:///Assets/Branding/settingsbanner.png"
             });
             InitializeComponent();
         }
