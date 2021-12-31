@@ -189,7 +189,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
-            Picture = Resources.MusicThumb;
+            if (Picture == null) Picture = Resources.ArtistThumb;
             await App.Repository.Artists.QueueUpsertAsync(Model);
         }
 

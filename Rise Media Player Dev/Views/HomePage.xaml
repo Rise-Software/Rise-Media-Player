@@ -56,7 +56,7 @@
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="PA4 InDev"
+                        <TextBlock Text="Pre-Alpha 4"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>

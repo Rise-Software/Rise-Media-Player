@@ -1,7 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Linq;
+using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -87,20 +89,47 @@ namespace Rise.App.Views
 
         private async void PlayItem_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == artist.Name);
-                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
-            }
+            SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
+            await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
         }
 
         private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
+            await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), true);
+        }
+
+        private async void ChngArtImg_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker
             {
-                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == artist.Name);
-                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), true);
+                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+            };
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                // Get file thumbnail and make a PNG out of it.
+                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"modified-artist-{file.Name}.png");
+
+                thumbnail.Dispose();
+                if (SelectedArtist != null)
+                {
+                    SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{file.Name}.png";
+                    await SelectedArtist.SaveAsync();
+                }
             }
+        }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            SelectedArtist = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
         }
     }
 }
