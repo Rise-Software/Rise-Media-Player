@@ -28,6 +28,9 @@ namespace Rise.App.Views
         private async void ContributeButton_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.GitHub.LaunchAsync();
 
+        private async void SupportButton_Click(object sender, RoutedEventArgs e)
+            => _ = await URLs.Support.LaunchAsync();
+
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 

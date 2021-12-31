@@ -121,20 +121,22 @@
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
 
-            <GridView HorizontalAlignment="Stretch"
-                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
-                      SelectionMode="None">
-                <uc:ExpanderControl x:Uid="/Information/AddRemove"
+            <uc:ExpanderControl x:Uid="/Information/AddRemove"
                                     Click="FoldersButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xE1DA;" />
-                <uc:ExpanderControl x:Uid="/Information/Contribute"
+
+            <uc:ExpanderControl x:Uid="/Information/Support"
+                                    Click="SupportButton_Click"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xE822;" />
+
+            <uc:ExpanderControl x:Uid="/Information/Contribute"
                                     Click="ContributeButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xEC7A;" />
-            </GridView>
 
-            <Rectangle Height="120" />
+            
 
             <muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"

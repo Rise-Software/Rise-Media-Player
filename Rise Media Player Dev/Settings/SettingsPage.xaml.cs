@@ -87,6 +87,9 @@ namespace Rise.App.Settings
             }
         }
 
+        private async void Support_Click(object sender, RoutedEventArgs e)
+            => _ = await URLs.Support.LaunchAsync();
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
             => SettingsDialogContainer.Current.Hide();
 
