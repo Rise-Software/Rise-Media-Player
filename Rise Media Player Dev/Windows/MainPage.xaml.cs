@@ -1,8 +1,10 @@
-﻿using Rise.App.Common;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +36,10 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private SidebarViewModel SBViewModel => App.SBViewModel;
 
+        private AdvancedCollectionView Albums = App.MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Songs = App.MViewModel.FilteredSongs;
+        private AdvancedCollectionView Artists = App.MViewModel.FilteredArtists;
+
         private bool IsInPageWithoutHeader = false;
 
         public static MainPage Current;
@@ -49,6 +55,7 @@ namespace Rise.App.Views
         private IDisposable ArtistsDefer { get; set; }
         private IDisposable GenresDefer { get; set; }
         private IDisposable VideosDefer { get; set; }
+        private IDisposable PlaylistsDefer { get; set; }
 
         private NavigationViewItem RightClickedItem { get; set; }
 
@@ -145,6 +152,7 @@ namespace Rise.App.Views
                 ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
                 GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
                 VideosDefer = App.MViewModel.FilteredVideos.DeferRefresh();
+                PlaylistsDefer = App.MViewModel.FilteredPlaylists.DeferRefresh();
             });
         }
 
@@ -160,6 +168,7 @@ namespace Rise.App.Views
                 ArtistsDefer.Dispose();
                 GenresDefer.Dispose();
                 VideosDefer.Dispose();
+                PlaylistsDefer.Dispose();
 
                 App.MViewModel.FilteredSongs.Refresh();
                 App.MViewModel.FilteredAlbums.Refresh();
@@ -365,6 +374,11 @@ namespace Rise.App.Views
                     IsInPageWithoutHeader = false;
                     NavView.SelectedItem = SBViewModel.
                         Items.First(i => i.Tag == "GenresPage");
+                    return;
+
+                case "SearchResultsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     return;
 
                 case "DiscyPage":
@@ -730,13 +744,131 @@ namespace Rise.App.Views
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Messages & reports";
-            dialog.CloseButtonText = "Close";
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = new MessagesDialog();
+            ContentDialog dialog = new ContentDialog
+            {
+                Title = "Messages & reports",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new MessagesDialog()
+            };
 
             var result = await dialog.ShowAsync();
+        }
+
+        private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            SearchItemViewModel searchItem = args.SelectedItem as SearchItemViewModel;
+            sender.Text = searchItem.Title;
+            sender.IsSuggestionListOpen = false;
+
+            switch (searchItem.ItemType)
+            {
+                case "Album":
+                    AlbumViewModel album = App.MViewModel.Albums.FirstOrDefault(a => a.Title.Equals(searchItem.Title));
+                    ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                    break;
+                case "Song":
+                    SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Title.Equals(searchItem.Title));
+                    await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+                    break;
+                case "Artist":
+                    ArtistViewModel artist = App.MViewModel.Artists.FirstOrDefault(a => a.Name.Equals(searchItem.Title));
+                    ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+                    break;
+            }
+        }
+
+        private void BigSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                List<SearchItemViewModel> suitableItems = new List<SearchItemViewModel>();
+                List<ArtistViewModel> suitableArtists = new List<ArtistViewModel>();
+                List<SongViewModel> suitableSongs = new List<SongViewModel>();
+                List<AlbumViewModel> suitableAlbums = new List<AlbumViewModel>();
+
+                int maxCount = 4;
+
+                string[] splitText = sender.Text.ToLower().Split(" ");
+
+                foreach (AlbumViewModel album in Albums)
+                {
+                    bool found = splitText.All((key) =>
+                    {
+                        return album.Title.ToLower().Contains(key);
+                    });
+
+                    if (found && suitableAlbums.Count < maxCount)
+                    {
+                        suitableItems.Add(new SearchItemViewModel
+                        {
+                            Title = album.Title,
+                            Subtitle = $"{album.Artist} - {album.Genres}",
+                            ItemType = "Album",
+                            Thumbnail = album.Thumbnail
+                        });
+                        suitableAlbums.Add(album);
+                    }
+                }
+
+                foreach (SongViewModel song in Songs)
+                {
+                    bool found = splitText.All((key) =>
+                    {
+                        return song.Title.ToLower().Contains(key);
+                    });
+
+                    if (found && suitableSongs.Count < maxCount)
+                    {
+                        suitableItems.Add(new SearchItemViewModel
+                        {
+                            Title = song.Title,
+                            Subtitle = $"{song.Artist} - {song.Genres}",
+                            ItemType = "Song",
+                            Thumbnail = song.Thumbnail
+                        });
+                        suitableSongs.Add(song);
+                    }
+                }
+
+                foreach (ArtistViewModel artist in Artists)
+                {
+                    bool found = splitText.All((key) =>
+                    {
+                        return artist.Name.ToLower().Contains(key);
+                    });
+
+                    if (found && suitableArtists.Count < maxCount)
+                    {
+                        suitableItems.Add(new SearchItemViewModel
+                        {
+                            Title = artist.Name,
+                            ItemType = "Artist",
+                            Thumbnail = artist.Picture
+                        });
+                        suitableArtists.Add(artist);
+                    }
+                }
+
+                sender.ItemsSource = suitableItems;
+            }
+        }
+
+        private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+        }
+
+        public static Visibility isStringEmpty(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return Visibility.Collapsed;
+            } 
+            else
+            {
+                return Visibility.Visible;
+            }
         }
     }
 

@@ -22,6 +22,15 @@ namespace Rise.App.Views
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
 
+        private static readonly DependencyProperty SelectedVideoProperty =
+            DependencyProperty.Register("SelectedVideo", typeof(VideoViewModel), typeof(LocalVideosPage), null);
+
+        private VideoViewModel SelectedVideo
+        {
+            get => (VideoViewModel)GetValue(SelectedVideoProperty);
+            set => SetValue(SelectedVideoProperty, value);
+        }
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -49,11 +58,16 @@ namespace Rise.App.Views
 
         private async void Play_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
+            if (MainGrid.Items.Count > 0)
             {
-                int index = MainGrid.Items.IndexOf(video);
-                await EventsLogic.StartVideoPlaybackAsync(index);
-
+                if (SelectedVideo != null)
+                {
+                    await EventsLogic.StartVideoPlaybackAsync(MainGrid.Items.IndexOf(SelectedVideo));
+                }
+                else
+                {
+                    await EventsLogic.StartVideoPlaybackAsync(0);
+                }
                 if (Window.Current.Content is Frame rootFrame)
                 {
                     rootFrame.Navigate(typeof(VideoPlaybackPage));
@@ -76,6 +90,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
             {
                 VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+                SelectedVideo = video;
             }
         }
 
@@ -111,6 +126,14 @@ namespace Rise.App.Views
             Videos.SortDescriptions.Clear();
             Videos.SortDescriptions.Add(new SortDescription("Length", CurrentSort));
             CurrentSortProperty = "Length";
+            Videos.Refresh();
+        }
+
+        private void SortByYear_Click(object sender, RoutedEventArgs e)
+        {
+            Videos.SortDescriptions.Clear();
+            Videos.SortDescriptions.Add(new SortDescription("Year", CurrentSort));
+            CurrentSortProperty = "Year";
             Videos.Refresh();
         }
 

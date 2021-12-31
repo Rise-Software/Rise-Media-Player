@@ -222,7 +222,7 @@
 
                     <MenuFlyoutItem x:Name="ChngArtImg"
                                     x:Uid="/Information/ChangeArtImg"
-                                    IsEnabled="False">
+                                    Click="ChngArtImg_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEF1F;" />
                         </MenuFlyoutItem.Icon>
@@ -240,7 +240,8 @@
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
                     <Grid ColumnSpacing="12"
                           Margin="12"
-                          Width="210">
+                          Width="210"
+                          RightTapped="Grid_RightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="84" />
                             <ColumnDefinition Width="1*" />
@@ -253,7 +254,7 @@
                                     CornerRadius="42">
                                 <Image
                                        Height="84"
-                                       Source="/Assets/BlankArtist.png"
+                                       Source="{x:Bind Picture, Mode=OneWay}"
                                        Stretch="UniformToFill"
                                        Width="84" />
                             </Border>

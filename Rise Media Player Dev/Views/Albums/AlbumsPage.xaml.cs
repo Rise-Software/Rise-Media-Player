@@ -57,6 +57,7 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            ApplySettingsToView();
         }
 
         /// <summary>

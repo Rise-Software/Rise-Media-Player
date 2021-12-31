@@ -17,7 +17,7 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             VersionData.RequestedOperation = DataPackageOperation.Copy;
-            VersionData.SetText("Pre-Alpha 3 - v0.0.13.0");
+            VersionData.SetText("Pre-Alpha 4 - v0.0.14.0");
         }
 
         private async void ExpanderControl_Click(object sender, RoutedEventArgs e)
@@ -41,16 +41,10 @@ namespace Rise.App.Settings
             }
         }
 
-
         private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => Clipboard.SetContent(VersionData);
 
         private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => await URLs.Releases.LaunchAsync();
-
-        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

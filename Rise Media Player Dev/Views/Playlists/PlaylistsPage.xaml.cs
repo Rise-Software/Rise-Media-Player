@@ -22,7 +22,6 @@ namespace Rise.App.Views
             set => SetValue(SelectedPlaylistProperty, value);
         }
 
-
         public PlaylistsPage()
         {
             InitializeComponent();

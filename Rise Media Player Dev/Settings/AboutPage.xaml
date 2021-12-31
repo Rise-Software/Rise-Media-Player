@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <uc:AdaptiveItemPane Margin="0,10,0,0" Loaded="AdaptiveItemPane_Loaded">
+        <uc:AdaptiveItemPane Margin="0,10,0,0">
             <uc:AdaptiveItemPane.LeftPane>
                 <Image Height="45"
                        Source="ms-appx:///Assets/Branding/settingsbanner.png" />
