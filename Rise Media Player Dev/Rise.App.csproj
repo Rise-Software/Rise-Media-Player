@@ -209,6 +209,7 @@
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
+    <Compile Include="ViewModels\SearchItemViewModel.cs" />
     <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
@@ -229,6 +230,9 @@
     </Compile>
     <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchResultsPage.xaml.cs">
+      <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -467,7 +471,7 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <PRIResource Include="Strings\en-GB\HelpTips.resw" />
+    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -559,6 +563,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Playlists\PlaylistsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchResultsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -732,14 +740,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Language.resw" />
-    <PRIResource Include="Strings\en-GB\About.resw" />
-    <PRIResource Include="Strings\en-GB\Playback.resw" />
-    <PRIResource Include="Strings\en-GB\Navigation.resw" />
-    <PRIResource Include="Strings\en-GB\Appearance.resw" />
-    <PRIResource Include="Strings\en-GB\MediaLibrary.resw" />
-    <PRIResource Include="Strings\en-GB\Information.resw" />
-    <PRIResource Include="Strings\en-GB\Sidebar.resw" />
+    <PRIResource Include="Strings\en-gb\Language.resw" />
+    <PRIResource Include="Strings\en-gb\About.resw" />
+    <PRIResource Include="Strings\en-gb\Playback.resw" />
+    <PRIResource Include="Strings\en-gb\Navigation.resw" />
+    <PRIResource Include="Strings\en-gb\Appearance.resw" />
+    <PRIResource Include="Strings\en-gb\MediaLibrary.resw" />
+    <PRIResource Include="Strings\en-gb\Information.resw" />
+    <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
@@ -755,13 +763,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Setup.resw" />
+    <PRIResource Include="Strings\en-gb\Setup.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Terms.resw" />
+    <PRIResource Include="Strings\en-gb\Terms.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Connect.resw" />
+    <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
@@ -771,34 +779,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
-	<PRIResource Include="Strings\hi-IN\Terms.resw" />
-    <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
-    <PRIResource Include="Strings\hi-IN\Setup.resw" />
-    <PRIResource Include="Strings\hi-IN\Props.resw" />
-    <PRIResource Include="Strings\hi-IN\Privacy.resw" />
-    <PRIResource Include="Strings\hi-IN\Playback.resw" />
-    <PRIResource Include="Strings\hi-IN\NowPlaying.resw" />
-    <PRIResource Include="Strings\hi-IN\Navigation.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaLibrary.resw" />
-    <PRIResource Include="Strings\hi-IN\MediaData.resw" />
-    <PRIResource Include="Strings\hi-IN\Local.resw" />
-    <PRIResource Include="Strings\hi-IN\Language.resw" />
-    <PRIResource Include="Strings\hi-IN\Information.resw" />
-    <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
-    <PRIResource Include="Strings\hi-IN\Finish.resw" />
-    <PRIResource Include="Strings\hi-IN\File.resw" />
-    <PRIResource Include="Strings\hi-IN\Details.resw" />
-    <PRIResource Include="Strings\hi-IN\Connect.resw" />
-    <PRIResource Include="Strings\hi-IN\Appearance.resw" />
-    <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\en-GB\MediaData.resw" />
-    <PRIResource Include="Strings\en-GB\NowPlaying.resw" />
-    <PRIResource Include="Strings\en-GB\File.resw" />
-    <PRIResource Include="Strings\en-GB\Details.resw" />
-    <PRIResource Include="Strings\en-GB\Props.resw" />
-    <PRIResource Include="Strings\en-GB\Finish.resw" />
-    <PRIResource Include="Strings\en-GB\Privacy.resw" />
-    <PRIResource Include="Strings\en-GB\Local.resw" />
+    <PRIResource Include="Strings\en-gb\MediaData.resw" />
+    <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
+    <PRIResource Include="Strings\en-gb\File.resw" />
+    <PRIResource Include="Strings\en-gb\Details.resw" />
+    <PRIResource Include="Strings\en-gb\Props.resw" />
+    <PRIResource Include="Strings\en-gb\Finish.resw" />
+    <PRIResource Include="Strings\en-gb\Privacy.resw" />
+    <PRIResource Include="Strings\en-gb\Local.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
