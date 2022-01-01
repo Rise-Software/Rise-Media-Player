@@ -754,6 +754,13 @@ namespace Rise.App.Views
 
             var result = await dialog.ShowAsync();
         }
+        
+
+
+        private async void Support_Click(object sender, RoutedEventArgs e)
+            => _ = await URLs.Support.LaunchAsync();
+
+
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

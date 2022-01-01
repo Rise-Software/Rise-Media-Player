@@ -159,6 +159,13 @@
                                     <FontIcon Glyph="&#xECA7;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
+
+                            <MenuFlyoutItem Text="Support this project"
+                                            Click="Support_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE822;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
