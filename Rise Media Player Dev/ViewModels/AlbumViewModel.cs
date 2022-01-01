@@ -227,7 +227,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _isGenresVisible, value);
         }
 
-        private bool _isTitleVisible = false;
+        private bool _isTitleVisible = true;
 
         /// <summary>
         /// Gets or sets a value that indicates whether the album title is displayed or not.
