@@ -117,118 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+  <data name="Accept" xml:space="preserve">
+    <value>Kabul Et</value>
   </data>
-  <data name="AppearanceH.Text" xml:space="preserve">
-    <value>App appearance</value>
+  <data name="AppearanceH" xml:space="preserve">
+    <value>Kendin yap</value>
   </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+  <data name="ConnectH" xml:space="preserve">
+    <value>Bir internet hesabı bağlayın</value>
   </data>
-  <data name="AtAGlance.Description" xml:space="preserve">
-    <value>Add widgets to make your experience more personal.</value>
+  <data name="Continue" xml:space="preserve">
+    <value>Devam</value>
   </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Customise your at a glance page</value>
+  <data name="Decide" xml:space="preserve">
+    <value>Benim adıma karar ver</value>
   </data>
-  <data name="ChooseColor.Title" xml:space="preserve">
-    <value>Choose your window glaze</value>
+  <data name="Decline" xml:space="preserve">
+    <value>Reddet</value>
   </data>
-  <data name="ChooseTheme.Title" xml:space="preserve">
-    <value>Choose your colour</value>
+  <data name="DoneH" xml:space="preserve">
+    <value>İşte bu kadar!</value>
   </data>
-  <data name="CompactMode.Description" xml:space="preserve">
-    <value>Decreases overall margins and padding to show more content. Makes sidebar groups collapsible.</value>
+  <data name="Intro.Text" xml:space="preserve">
+    <value>Burada olmandan memnunuz. Sadece birkaç basit adımdan geçmeniz gerekiyor. Bundan sonrası için her şey hazır ve çalışıyor olacak!</value>
   </data>
-  <data name="CompactMode.Title" xml:space="preserve">
-    <value>Compact mode</value>
+  <data name="LicenseH" xml:space="preserve">
+    <value>Lisans Sözleşmesi &amp; Koşulları</value>
   </data>
-  <data name="CuratedPlaylists.Description" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+  <data name="LocalH" xml:space="preserve">
+    <value>Kendi medyanız</value>
   </data>
-  <data name="CuratedPlaylists.Title" xml:space="preserve">
-    <value>Make curated playlists</value>
+  <data name="NotNow" xml:space="preserve">
+    <value>Şimdi Değil (Uygulamadan çık)</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Yalnızca yerel medya dosyalarını kullan</value>
   </data>
-  <data name="DesignPresetsH.Text" xml:space="preserve">
-    <value>Design and layout presets</value>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Yalnızca yayınakışı hizmetlerini kullan</value>
   </data>
-  <data name="DesignUnavailable.Description" xml:space="preserve">
-    <value>Layout presets and custom themes are coming soon.</value>
+  <data name="PreSetup" xml:space="preserve">
+    <value>Ön kurulum</value>
   </data>
-  <data name="DesignUnavailable.Title" xml:space="preserve">
-    <value>This feature is unavailable</value>
+  <data name="PrivacyH" xml:space="preserve">
+    <value>Gizlilik &amp; Öneriler</value>
   </data>
-  <data name="Devices" xml:space="preserve">
-    <value>Devices</value>
+  <data name="Start.Content" xml:space="preserve">
+    <value>Kurulumu başlat</value>
   </data>
-  <data name="FullArt.Description" xml:space="preserve">
-    <value>Corners will no longer be rounded on these elements.</value>
+  <data name="Step1" xml:space="preserve">
+    <value>Adım 1/5</value>
   </data>
-  <data name="FullArt.Title" xml:space="preserve">
-    <value>Show full album art &amp; thumbnails</value>
+  <data name="Step2" xml:space="preserve">
+    <value>Adım 2/5</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+  <data name="Step3" xml:space="preserve">
+    <value>Adım 3/5</value>
   </data>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
+  <data name="Step4" xml:space="preserve">
+    <value>Adım 4/5</value>
   </data>
-  <data name="History.Title" xml:space="preserve">
-    <value>Track media history and habits</value>
+  <data name="Step5" xml:space="preserve">
+    <value>Adım 5/5</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Light</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
-  </data>
-  <data name="NavigationH.Text" xml:space="preserve">
-    <value>Navigation</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Queue</value>
-  </data>
-  <data name="PickUp.Title" xml:space="preserve">
-    <value>Pick up where you left off</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
-  </data>
-  <data name="PrivacyH.Text" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
-  </data>
-  <data name="Sidebar" xml:space="preserve">
-    <value>Sidebar</value>
-  </data>
-  <data name="SidebarItems.Description" xml:space="preserve">
-    <value>Add/remove sidebar items, change icon style and general behaviours.</value>
-  </data>
-  <data name="SidebarItems.Title" xml:space="preserve">
-    <value>Customise your sidebar</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
-  </data>
-  <data name="Startup.Description" xml:space="preserve">
-    <value>Select what page to go to when you start the app.</value>
-  </data>
-  <data name="Startup.Title" xml:space="preserve">
-    <value>On startup</value>
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>Streaming Services</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Use system setting</value>
-  </data>
-  <data name="Tip.Text" xml:space="preserve">
-    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+  <data name="Welcome.Text" xml:space="preserve">
+    <value>Hoşgeldiniz</value>
   </data>
 </root>

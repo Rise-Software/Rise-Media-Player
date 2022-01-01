@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BodyPart1.Text" xml:space="preserve">
-    <value>Depending on how much you have added and changed, this process can take several minutes. If you want to continue this process later, just click not now. This will exit the app.</value>
+    <value>Ne kadar eklediğinize ve değiştirdiğinize bağlı olarak bu işlem birkaç dakika sürebilir. Bu işleme daha sonra devam etmek istiyorsanız, Şimdi Değil'i tıklamanız yeterlidir. Bu uygulamadan çıkacaktır.</value>
   </data>
   <data name="BodyPart2.Text" xml:space="preserve">
-    <value>If you want to start this process now, select continue. The whole process is automatic and doesn't require any user input.</value>
+    <value>Bu işlemi şimdi başlatmak istiyorsanız, Devam'ı seçin. Tüm işlem otomatiktir ve herhangi bir kullanıcı girişi gerektirmez.</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
-    <value>Your part is finished. We just need to add your local media files and make sure all of your settings have been applied.</value>
+    <value>Senin rolün bitti. Sadece yerel medya dosyalarınızı eklememiz ve tüm ayarlarınızın uygulandığından emin olmamız gerekiyor.</value>
   </data>
 </root>

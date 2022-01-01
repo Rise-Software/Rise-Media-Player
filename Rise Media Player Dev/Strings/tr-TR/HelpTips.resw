@@ -118,118 +118,118 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adding your personal music and videos</value>
+    <value>Kişisel müziklerinizi ve videolarınızı ekleme</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• These versions will be pushed from the Microsoft Store
-• Playlists
-• Devices support
-• Disc Burning
-• Multi-language support for 12 languages at start (not complete)
-• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
-• Views and sorting for music added
-• Video indexing and playback
-• Improved Now Playing experience and queue
-• Overhauled Settings UI brought to all builds
-• Local recommendations and recently played
-• Discy in the majority of the app</value>
+    <value>• Bu sürümler Microsoft Store'dan aktarılacaktır
+• Oynatma listeleri
+• Cihaz desteği
+• Diske Yazma
+• Başlangıçta 12 dil için çoklu dil desteği (tamamlanmadı)
+• Arka planda bazı çevrimiçi hizmetler - Discord Rich Presence &amp; Last.fm Scrobbling
+• Eklenen müzikler için görünümler ve sıralama
+• Video indeksleme ve oynatma
+• İyileştirilmiş Şu An Çalınan deneyimi ve sırası
+• Tüm yapılara getirilen, elden geçirilmiş Ayarlar Kullanıcı Arayüzü
+• Yerel öneriler ve yakın zamanda oynananlar
+• Uygulamanın çoğunda Disky</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Late Pre-Alpha - Alpha</value>
+    <value>Geç Ön-Alfa - Alfa</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
-    <value>First, the app early.
+    <value>İlk olarak, uygulama erken.
 
-Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+Bloom Channel'daki kişiler, mümkün olan en erken yapılara erişebilir. Bu size gerçekten ne üzerinde çalıştığımızı görme ve uygulamanın bazı bölümlerinde aktif olarak çalışırken geri bildirimde bulunma şansı verir, bu da geri bildiriminizin çok şey ifade ettiği anlamına gelir! Tabii ki, dezavantajları olmadan değil. Bloom Channel çalışanları, diğer kullanıcılardan daha fazla hata ve sorunla karşı karşıyadır. Bloom Insider'lar ayrıca 'Deneysel' olarak etiketlenen özelliklere de erişebilir, yani o noktada üzerlerine çok az iş koyduk veya çok kararsızlar, ancak yine de denemek ilginç. Bu özellikler hiçbir zaman varsayılan olarak etkinleştirilmez.
 
-Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+Early Access Insider'lar (önceden Seeding Insider'lar) uygulamaya daha erken erişim sağlar, ancak çok daha kararlıdır. Deneysel özellikler bu kanalda Insider kullanıcılarına sunulmayacaktır.*
 
-*Features tagged as Experimental in the Settings interface</value>
+*Ayarlar arayüzünde Deneysel olarak etiketlenen özellikler</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>What benefits do I get from joining the Insider Program?</value>
+    <value>Insider Programına katılmaktan ne gibi faydalar elde ederim?</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Streaming services and reccommendations in some form
-• Equaliser
-• Visualiser
-• Find album info
-• Disc ripping
-• Networks support
-• More stuff</value>
+    <value>• Bir şekilde yayınakışı hizmetleri ve öneriler
+• Ekolayzer
+• Görselleştirici
+• Albüm bilgilerini bulun
+• Disk kopyalama
+• Ağ desteği
+• Daha fazla şey</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>The basics</value>
+    <value>Temeller</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>Hangi özelliklere öncelik veriyorsunuz?</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>Katkıda bulunmak veya çeviri yapmak istiyorsanız Discord sunucumuza katılın! Burada: https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>Nasıl katkıda bulunabilirim veya çevirmen olabilirim?</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
+    <value>Formunuzu gönderdiğinizde. Yapmanız gereken başka bir şey yok, sadece bekleyin. Bir sonraki derleme yayınlandığında, yeni derleme için MSIX paketini indirebileceğiniz Insider Portalımıza bir e-posta alacaksınız. Not: Alfa derlemeleri ve sonraki sürümler, dağıtım için Microsoft Store'u kullanır, ancak birçok derleme olacağından, Alfa Öncesi için MSIX'i kullanmayı seçtik. Bazı haftalar, her iki kanaldan da Insider'lar aynı yapıları alabilir. Bu normaldir, merak etmeyin!</value>
   </data>
   <data name="InsiderH.Text" xml:space="preserve">
-    <value>Hey, I'm an Insider. How do I get builds?</value>
+    <value>Hey, ben bir Insider'ım. Yapıları nasıl alabilirim?</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Insider Program, Translations &amp; Contribution</value>
+    <value>Insider Programı, Çeviriler &amp; Katkı</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
-    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+    <value>Sadece aşağıdaki forma gidin ve soruları cevaplayın. Kanalınızı seçin, e-posta adresinizi ve diğer birkaç şeyi girin. https://bit.ly/rise-insider
 
-Good luck testing!</value>
+İyi şanslar testi!</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
-    <value>How do I join the Insider Program?</value>
+    <value>Insider Programına nasıl katılabilirim?</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+    <value>Medya oynatılıyor ve şimdi oynatılıyor</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• Şarkı, Albüm, Sanatçı ve Tür İndeksleme
+• Albüm, Sanatçı, Tür ve Şarkı Görünümleri (şimdilik sabit)
+• Medya Oynatma
+• Komut Çubuğu (TEMEL)
+• Kullanıcı Kontrollü Medya Konumları
+• Ayarlar aracılığıyla Kullanıcı Arayüzü Manipülasyonu
+• Müzik için Temel Meta Veri kontrolü
+• Temel Şu An Çalınan Kullanıcı Arayüzü
+• Temel Özellikler Penceresi
+• SSS Yardım Bölümü
+• Küçük alanlarda diski</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
-    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+    <value>Alfa Öncesi (birçok alfa öncesi sürüm olacaktır)</value>
   </data>
   <data name="ReleaseDate.Title" xml:space="preserve">
-    <value>When will Rise Media Player be released?</value>
+    <value>Rise Media Player ne zaman yayınlanacak?</value>
   </data>
   <data name="ReleaseInfo.Text" xml:space="preserve">
-    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+    <value>Resmi bir çıkış tarihi yok. Pre-Alpha 1, 21 Ekim'de (Rise Notes ile birlikte) piyasaya çıkıyor ve sonunda kullanıcıların test etmesini sağlamaktan çok mutluyuz! :)
 
-In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+Diğer sürümler açısından, size hepsini vermek için kesin bir tarih veremiyoruz, ancak hedeflediğimiz şey bu (sürümler, özelliklere bağlı olarak daha erken veya daha sonra yayınlanabilir:
 
-• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+• Alfa Öncesi Süreç - Ekim - Aralık 2021 (Alfa 1 Öncesi ilk sürümdür)
 
-• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+• Alpha Builds - Mart 2022'ye kadar Yeni Yıl (2022). Not: Alfa süreci sırasında, uygulamanın demo sürümleri, kullanıcı arayüzü amacıyla test edilmek üzere herkese açık olacaktır.
 
-• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+• Beta - Nisan -TBD (Bu sürüm Microsoft Store'dan tüm genel kullanıcılara sunulacaktır. Özellikleri kaçıracak olsanız da Insider programının bir parçası olmanız gerekmeyecek)</value>
   </data>
   <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sorting and managing your library</value>
+    <value>Kitaplığınızı sıralama ve yönetme</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>You'll have to see ;)</value>
+    <value>Görmek zorundasın ;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>What's Discy?</value>
+    <value>Disky Nedir?</value>
   </data>
 </root>

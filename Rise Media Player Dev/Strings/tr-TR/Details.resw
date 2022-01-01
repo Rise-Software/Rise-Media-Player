@@ -117,19 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumQueueItem.Text" xml:space="preserve">
-    <value>Album</value>
+  <data name="AsFile.Title" xml:space="preserve">
+    <value>Bu şarkı cihazınızda bir dosya olarak saklanır.</value>
   </data>
-  <data name="Back.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Back</value>
+  <data name="Disc.Text" xml:space="preserve">
+    <value>Plak</value>
   </data>
-  <data name="PlayingItem.Text" xml:space="preserve">
-    <value>Playing</value>
+  <data name="EditAlbum.Text" xml:space="preserve">
+    <value>Albüm resmini düzenle</value>
   </data>
-  <data name="Queue.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Queue</value>
+  <data name="Genre.Text" xml:space="preserve">
+    <value>Tür</value>
   </data>
-  <data name="QueueItem.Text" xml:space="preserve">
-    <value>Queue</value>
+  <data name="Local.Subtitle" xml:space="preserve">
+    <value>Bu şarkı yereldir, yani bulut veya çevrimiçi yerine doğrudan cihazınızın deposunda depolanır. Buradaki özelliklerin değiştirilmesi, onları dosyanın kendisi için değiştirecektir, yani diğer medya oynatıcıları etkileyecektir.</value>
+  </data>
+  <data name="Local.Title" xml:space="preserve">
+    <value>Yerel Müzik</value>
+  </data>
+  <data name="Rating.Text" xml:space="preserve">
+    <value>Değerlendirme</value>
+  </data>
+  <data name="SongAlbum.Text" xml:space="preserve">
+    <value>Albüm</value>
+  </data>
+  <data name="SongAlbumArtist.Text" xml:space="preserve">
+    <value>Albüm sanatçısı</value>
+  </data>
+  <data name="SongArtist.Text" xml:space="preserve">
+    <value>Sanatçı(lar)</value>
+  </data>
+  <data name="SongTitle.Text" xml:space="preserve">
+    <value>Müzik adı</value>
+  </data>
+  <data name="Track.Text" xml:space="preserve">
+    <value>Parça numarası</value>
+  </data>
+  <data name="Year.Text" xml:space="preserve">
+    <value>Çıkış tarihi</value>
   </data>
 </root>

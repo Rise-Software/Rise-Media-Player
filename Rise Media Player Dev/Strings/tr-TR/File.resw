@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
+  <data name="Created.Text" xml:space="preserve">
+    <value>Oluşturulma</value>
+  </data>
+  <data name="DefaultApp.Text" xml:space="preserve">
+    <value>Birlikte açılır</value>
+  </data>
+  <data name="Filename.Text" xml:space="preserve">
+    <value>Dosya adı</value>
+  </data>
+  <data name="FileType.Text" xml:space="preserve">
+    <value>Dosya tipi</value>
+  </data>
+  <data name="Location.Text" xml:space="preserve">
+    <value>Konum</value>
+  </data>
+  <data name="Modified.Text" xml:space="preserve">
+    <value>Değiştirilme</value>
+  </data>
+  <data name="Size.Text" xml:space="preserve">
+    <value>Dosya boyutu</value>
   </data>
 </root>

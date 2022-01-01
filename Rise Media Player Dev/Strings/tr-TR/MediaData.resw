@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Created.Text" xml:space="preserve">
-    <value>Created</value>
+  <data name="Albums" xml:space="preserve">
+    <value>Albümler</value>
   </data>
-  <data name="DefaultApp.Text" xml:space="preserve">
-    <value>Opens with</value>
+  <data name="Artists" xml:space="preserve">
+    <value>Sanatçılar</value>
   </data>
-  <data name="Filename.Text" xml:space="preserve">
-    <value>Filename</value>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Properties &amp; Info</value>
   </data>
-  <data name="FileType.Text" xml:space="preserve">
-    <value>File type</value>
+  <data name="Songs" xml:space="preserve">
+    <value>Müzikler</value>
   </data>
-  <data name="Location.Text" xml:space="preserve">
-    <value>Location</value>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Bilinmeyen Albüm</value>
   </data>
-  <data name="Modified.Text" xml:space="preserve">
-    <value>Modified</value>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Bilinmeyen Sanatçı</value>
   </data>
-  <data name="Size.Text" xml:space="preserve">
-    <value>File size</value>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Bilinmeyen Tür</value>
   </data>
 </root>

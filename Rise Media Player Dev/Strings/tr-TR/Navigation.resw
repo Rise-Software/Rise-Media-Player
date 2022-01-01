@@ -117,70 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+  <data name="AddRemoveH.Text" xml:space="preserve">
+    <value>Kenar çubuğu öğelerini ekle/kaldır</value>
   </data>
-  <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+  <data name="Albums.Title" xml:space="preserve">
+    <value>Albümler</value>
   </data>
-  <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+  <data name="AppearanceH.Text" xml:space="preserve">
+    <value>Görünüm</value>
   </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+  <data name="Artists.Title" xml:space="preserve">
+    <value>Sanatçılar</value>
   </data>
-  <data name="Decide" xml:space="preserve">
-    <value>Decide for me</value>
+  <data name="AtAGlance.Title" xml:space="preserve">
+    <value>Genel bakış</value>
   </data>
-  <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
+  <data name="Colorful" xml:space="preserve">
+    <value>Renkli</value>
   </data>
-  <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
   </data>
-  <data name="Intro.Text" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+  <data name="Devices.Title" xml:space="preserve">
+    <value>Cihazlar</value>
   </data>
-  <data name="LicenseH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+  <data name="Everything" xml:space="preserve">
+    <value>Her şeyi göster</value>
   </data>
-  <data name="LocalH" xml:space="preserve">
-    <value>Your own media</value>
+  <data name="GeneralH.Text" xml:space="preserve">
+    <value>Genel</value>
   </data>
-  <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
+  <data name="GeneralItems.Title" xml:space="preserve">
+    <value>Genel öğeler</value>
   </data>
-  <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
+  <data name="Genres.Title" xml:space="preserve">
+    <value>Türler</value>
   </data>
-  <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
+  <data name="Hamburger.Title" xml:space="preserve">
+    <value>Hamburger düğmesini göster</value>
   </data>
-  <data name="PreSetup" xml:space="preserve">
-    <value>Pre-setup</value>
+  <data name="HelpCentre.Title" xml:space="preserve">
+    <value>Yardım Merkezi</value>
   </data>
-  <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+  <data name="IconStyle.Description" xml:space="preserve">
+    <value>Kenar çubuğunuz için çeşitli güzel simge kümeleri arasından seçim yaptınız.</value>
   </data>
-  <data name="Start.Content" xml:space="preserve">
-    <value>Start setup</value>
+  <data name="IconStyle.Title" xml:space="preserve">
+    <value>Simge stili</value>
   </data>
-  <data name="Step1" xml:space="preserve">
-    <value>Step 1 of 5</value>
+  <data name="Local.Title" xml:space="preserve">
+    <value>Tüm Videolar</value>
   </data>
-  <data name="Step2" xml:space="preserve">
-    <value>Step 2 of 5</value>
+  <data name="MusicItems.Title" xml:space="preserve">
+    <value>Müzik</value>
   </data>
-  <data name="Step3" xml:space="preserve">
-    <value>Step 3 of 5</value>
+  <data name="NoIcons" xml:space="preserve">
+    <value>Kenar çubuğunu gösterme</value>
   </data>
-  <data name="Step4" xml:space="preserve">
-    <value>Step 4 of 5</value>
+  <data name="NowPlaying.Title" xml:space="preserve">
+    <value>Kuyruk</value>
   </data>
-  <data name="Step5" xml:space="preserve">
-    <value>Step 5 of 5</value>
+  <data name="OnlyIcons" xml:space="preserve">
+    <value>Yalnızca simgeleri göster</value>
   </data>
-  <data name="Welcome.Text" xml:space="preserve">
-    <value>Welcome to</value>
+  <data name="Playlists.Title" xml:space="preserve">
+    <value>Çalma listeleri</value>
+  </data>
+  <data name="Resize.Description" xml:space="preserve">
+    <value>Pencere küçültüldüğünde kenar çubuğuyla ne yapacağınızı seçin.</value>
+  </data>
+  <data name="Resize.Title" xml:space="preserve">
+    <value>Pencere yeniden boyutlandırma değişiklikleri</value>
+  </data>
+  <data name="ShowHeader.Title" xml:space="preserve">
+    <value>Başlığı göster</value>
+  </data>
+  <data name="Songs.Title" xml:space="preserve">
+    <value>Müzikler</value>
+  </data>
+  <data name="Streaming.Title" xml:space="preserve">
+    <value>Yayınakışı Hizmetleri</value>
+  </data>
+  <data name="VideoItems.Title" xml:space="preserve">
+    <value>Video</value>
   </data>
 </root>
