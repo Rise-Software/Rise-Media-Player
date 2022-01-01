@@ -242,7 +242,7 @@ namespace Rise.App.Views
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            string navTo = args.InvokedItemContainer.Tag.ToString();
+            string navTo = args?.InvokedItemContainer?.Tag?.ToString();
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
             {
                 FinishNavigation();

@@ -273,7 +273,7 @@ namespace Rise.App.ViewModels
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
-                if (item.HeaderGroup.Equals(group))
+                if (item?.HeaderGroup?.Equals(group) ?? false)
                 {
                     item.Visible = false;
                 }
@@ -395,7 +395,7 @@ namespace Rise.App.ViewModels
             if (!item.IsFooter)
             {
                 index = Items.IndexOf(item);
-                Items.Move(index, index + 1);
+                MoveItem(Items, item, index + 1);
             }
             else
             {
@@ -492,13 +492,20 @@ namespace Rise.App.ViewModels
             if (!item.IsFooter)
             {
                 index = Items.IndexOf(item);
-                Items.Move(index, index - 1);
+                MoveItem(Items, item, index - 1);
             }
             else
             {
                 index = FooterItems.IndexOf(item);
                 FooterItems.Move(index, index - 1);
             }
+        }
+
+        private void MoveItem(ObservableCollection<NavViewItemViewModel> collection, NavViewItemViewModel item, int newIndex)
+        {
+            int oldIndex = collection.IndexOf(item);
+            collection.RemoveAt(oldIndex);
+            collection.Insert(newIndex, item);
         }
 
         /// <summary>
