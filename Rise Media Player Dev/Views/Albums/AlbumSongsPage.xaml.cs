@@ -176,7 +176,7 @@ namespace Rise.App.Views
         }
 
         private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+            => await EventsLogic.StartMusicPlaybackAsync(new System.Random().Next(MainList.Items.Count), true);
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
             => EventsLogic.FocusSong(ref _song, e);
