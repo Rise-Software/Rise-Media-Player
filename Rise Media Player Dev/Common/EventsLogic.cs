@@ -1,7 +1,8 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Extensions;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -79,15 +80,13 @@ namespace Rise.App.Common
                 SelectedSong = null;
             }
 
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
-
-            while (enumerator.MoveNext())
+            var songs = Songs.CloneList<object, SongViewModel>();
+            if (shuffle)
             {
-                songs.Add(enumerator.Current as SongViewModel);
+                Random rnd = new();
+                index = rnd.Next(0, Songs.Count);
             }
 
-            enumerator.Dispose();
             await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
         }
 
@@ -99,15 +98,13 @@ namespace Rise.App.Common
                 SelectedVideo = null;
             }
 
-            IEnumerator<object> enumerator = Videos.GetEnumerator();
-            List<VideoViewModel> videos = new List<VideoViewModel>();
-
-            while (enumerator.MoveNext())
+            var videos = Videos.CloneList<object, VideoViewModel>();
+            if (shuffle)
             {
-                videos.Add(enumerator.Current as VideoViewModel);
+                Random rnd = new();
+                index = rnd.Next(0, Songs.Count);
             }
 
-            enumerator.Dispose();
             await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
         }
     }
