@@ -324,6 +324,12 @@
   <data name="Style.Text" xml:space="preserve">
     <value>Settings style</value>
   </data>
+  <data name="Support.Description" xml:space="preserve">
+    <value>Become a patreon and enjoy exclusive benefits and merch, while helping this project move forward.</value>
+  </data>
+  <data name="Support.Title" xml:space="preserve">
+    <value>Support development</value>
+  </data>
   <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
   </data>

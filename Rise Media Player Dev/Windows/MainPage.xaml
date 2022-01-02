@@ -233,7 +233,7 @@
                     <Button.Flyout>
                         <MenuFlyout>
 
-                            <MenuFlyoutItem x:Uid="/Information/Accounts">
+                            <MenuFlyoutItem x:Uid="/Information/Accounts" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
@@ -241,7 +241,7 @@
 
                             
 
-                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
+                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
@@ -265,7 +265,14 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            
+                            <MenuFlyoutItem Text="Support this project"
+                                            Click="Support_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE822;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+
 
                             <MenuFlyoutItem x:Uid="/Information/Scan"
                                             Click="StartScan_Click">
