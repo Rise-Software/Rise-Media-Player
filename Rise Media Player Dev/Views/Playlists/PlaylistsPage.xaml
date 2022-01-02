@@ -14,14 +14,6 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <muxc:InfoBar
-            Margin="0,50,0,0"
-            IsOpen="True"
-            Severity="Warning"
-            Title="Notice"
-            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
-                />
-
         <muxc:TeachingTip x:Name="DiscyOnPlaylist"
 	        Title="Group with playlists"
 	        Subtitle="Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!"

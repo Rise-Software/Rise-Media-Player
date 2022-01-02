@@ -145,6 +145,9 @@
         public const string GitHub =
             "https://github.com/Rise-Software/Rise-Media-Player";
 
+        public const string Support =
+            "https://www.patreon.com/risesoftware";
+
         public const string Insider =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u";
 

@@ -242,7 +242,7 @@ namespace Rise.App.Views
         #region Navigation
         private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            string navTo = args.InvokedItemContainer.Tag.ToString();
+            string navTo = args?.InvokedItemContainer?.Tag?.ToString();
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
             {
                 FinishNavigation();
@@ -754,6 +754,13 @@ namespace Rise.App.Views
 
             var result = await dialog.ShowAsync();
         }
+        
+
+
+        private async void Support_Click(object sender, RoutedEventArgs e)
+            => _ = await URLs.Support.LaunchAsync();
+
+
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

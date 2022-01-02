@@ -163,6 +163,15 @@ namespace Rise.App.ViewModels
 
             // Add initial item to avoid delays when starting playback
             SongViewModel song = songs.Current;
+
+            // Make sure the song instance isn't null in case there are no songs
+            if (song == null)
+            {
+                songs.Dispose();
+                CanContinue = true;
+                return;
+            }
+
             var item = await song.AsPlaybackItemAsync();
 
             PlaybackList.Items.Add(item);

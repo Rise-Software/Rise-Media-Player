@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Rise.App.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -273,7 +274,7 @@ namespace Rise.App.ViewModels
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
-                if (item.HeaderGroup.Equals(group))
+                if (item?.HeaderGroup?.Equals(group) ?? false)
                 {
                     item.Visible = false;
                 }
@@ -395,12 +396,12 @@ namespace Rise.App.ViewModels
             if (!item.IsFooter)
             {
                 index = Items.IndexOf(item);
-                Items.Move(index, index + 1);
+                Items.MoveItemInCollection(item, index + 1);
             }
             else
             {
                 index = FooterItems.IndexOf(item);
-                FooterItems.Move(index, index + 1);
+                FooterItems.MoveItemInCollection(item, index + 1);
             }
         }
 
@@ -492,12 +493,12 @@ namespace Rise.App.ViewModels
             if (!item.IsFooter)
             {
                 index = Items.IndexOf(item);
-                Items.Move(index, index - 1);
+                Items.MoveItemInCollection(item, index - 1);
             }
             else
             {
                 index = FooterItems.IndexOf(item);
-                FooterItems.Move(index, index - 1);
+                FooterItems.MoveItemInCollection(item, index - 1);
             }
         }
 
@@ -508,25 +509,21 @@ namespace Rise.App.ViewModels
         public void MoveToTop(string tag)
         {
             NavViewItemViewModel item = ItemFromTag(tag);
-            int index;
 
             if (item.HeaderGroup == "General")
             {
-                index = Items.IndexOf(item);
-                Items.Move(index, 0);
+                Items.MoveItemInCollection(item, 0);
             }
             else
             {
                 NavViewItemViewModel header = HeaderFromGroupName(item.HeaderGroup);
                 if (!item.IsFooter)
                 {
-                    index = Items.IndexOf(item);
-                    Items.Move(index, Items.IndexOf(header) + 1);
+                    Items.MoveItemInCollection(item, Items.IndexOf(header) + 1);
                 }
                 else
                 {
-                    index = FooterItems.IndexOf(item);
-                    FooterItems.Move(index, FooterItems.IndexOf(header) + 1);
+                    FooterItems.MoveItemInCollection(item, FooterItems.IndexOf(header) + 1);
                 }
             }
         }
