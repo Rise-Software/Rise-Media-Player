@@ -352,7 +352,7 @@ namespace Rise.App.Views
             {
                 case "HomePage":
                     NavView.SelectedItem = SBViewModel.
-                        Items.First(i => i.Tag == tag);
+                        Items.FirstOrDefault(i => i.Tag == tag);
                     IsInPageWithoutHeader = true;
                     return;
 
@@ -360,20 +360,20 @@ namespace Rise.App.Views
                     CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
-                        Items.First(i => i.Tag == "AlbumsPage");
+                        Items.FirstOrDefault(i => i.Tag == "AlbumsPage");
                     return;
 
                 case "ArtistSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
-                        Items.First(i => i.Tag == "ArtistsPage");
+                        Items.FirstOrDefault(i => i.Tag == "ArtistsPage");
                     return;
 
                 case "GenreSongsPage":
                     IsInPageWithoutHeader = false;
                     NavView.SelectedItem = SBViewModel.
-                        Items.First(i => i.Tag == "GenresPage");
+                        Items.FirstOrDefault(i => i.Tag == "GenresPage");
                     return;
 
                 case "SearchResultsPage":
