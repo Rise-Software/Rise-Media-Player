@@ -238,7 +238,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _isTitleVisible, value);
         }
 
-        private bool _hasRoundedAlbumArt = false;
+        private bool _hasRoundedAlbumArt = true;
 
         /// <summary>
         /// Gets or sets a value that indicates whether the album art is rounded or not.

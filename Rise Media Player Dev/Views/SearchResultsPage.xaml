@@ -14,15 +14,15 @@
     <ScrollViewer Padding="56,0,56,100" Margin="-50,0,-50,0">
         <StackPanel Padding="0,48,0,0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Spacing="10">
-                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Search Results" />
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Search results" />
                 <TextBlock Height="20" VerticalAlignment="Bottom" Margin="0,0,0,3">
                     for <Run FontWeight="SemiBold" Text="{x:Bind _searchText, Mode=OneWay}" />
                 </TextBlock>
             </StackPanel>
 
-            <StackPanel>
-                <TextBlock Text="Artists" FontWeight="SemiBold" Padding="0,20,0,5" />
-                <TextBlock x:Name="ArtistNoResult" Visibility="{x:Bind artistFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}" Text="There are no artists matching your search query." />
+            <StackPanel Visibility="{x:Bind artistFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}">
+                <TextBlock Text="Artists" Style="{StaticResource Subheader}" FontSize="16" Padding="0,20,0,5" />
+                <TextBlock x:Name="ArtistNoResult" Text="There are no artists matching your search query." />
                 <GridView x:Name="ArtistsGrid"
                   Grid.Row="1"
                   ItemsSource="{x:Bind suitableArtists}"
@@ -71,8 +71,8 @@
                 </GridView>
             </StackPanel>
 
-            <StackPanel Margin="0,5">
-                <TextBlock Text="Albums" FontWeight="SemiBold" Margin="0,0,0,5" />
+            <StackPanel Visibility="{x:Bind albumFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}" Margin="0,5">
+                <TextBlock Text="Albums" Style="{StaticResource Subheader}" FontSize="16" Margin="0,-10,0,5" />
                 <TextBlock x:Name="AlbumNoResult" Visibility="{x:Bind albumFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}" Text="There are no albums matching your search query." />
                 <GridView x:Name="AlbumsGrid"
                           Grid.Row="1"
@@ -108,8 +108,8 @@
                 </GridView>
             </StackPanel>
 
-            <StackPanel>
-                <TextBlock Text="Songs" FontWeight="SemiBold" Margin="0,0,0,5" />
+            <StackPanel Visibility="{x:Bind songFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}">
+                <TextBlock Text="Songs" Style="{StaticResource Subheader}" FontSize="16" Margin="0,-10,0,5" />
                 <TextBlock x:Name="SongNoResult" Visibility="{x:Bind songFound, Mode=OneWay, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse}" Text="There are no songs matching your search query." />
                 <GridView x:Name="SongsGrid"
                           Grid.Row="1"
