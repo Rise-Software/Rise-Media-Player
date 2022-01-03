@@ -167,7 +167,7 @@
                 
                 <StackPanel Padding="56,0">
                     <TextBlock Padding="10,60,20,10" Text="Discography" FontSize="16" Style="{StaticResource Subheader}" />
-                    <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" SelectedItem="{x:Bind AlbumsItem}" Margin="0,0,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
+                    <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False"  SelectedItem="{x:Bind AlbumsItem}" Margin="0,0,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem x:Name="AlbumsItem" Content="Songs" />
                             <muxc:NavigationViewItem x:Name="SongsItem" Content="Albums" />
