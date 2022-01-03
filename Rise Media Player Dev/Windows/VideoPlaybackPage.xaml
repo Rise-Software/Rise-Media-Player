@@ -13,8 +13,8 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d"
-    PointerEntered="Page_PointerEntered"
-    PointerExited="Page_PointerExited">
+    PointerExited="Page_PointerExited"
+    PointerMoved="Page_PointerMoved">
 
     <Page.Resources>
         <conv:VideoToString x:Key="VidToStr" />
@@ -61,7 +61,8 @@
                              Height="32"
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
-                             ShowIcon="True" />
+                             ShowIcon="True"
+                             Title="{x:Bind CurrentVideo.Title, Mode=OneWay}" />
         </Grid>
 
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"

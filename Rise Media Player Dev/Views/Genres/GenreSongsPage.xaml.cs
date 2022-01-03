@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,6 +50,8 @@ namespace Rise.App.Views
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
+        private AdvancedCollectionView AllArtistsInGenre = new();
+        private AdvancedCollectionView AllAlbumsInGenre = new();
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
@@ -125,6 +128,16 @@ namespace Rise.App.Views
 
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+
+            foreach (ArtistViewModel artist in Artists)
+            {
+                AllArtistsInGenre.Add(artist);
+            }
+
+            foreach (AlbumViewModel album in Albums)
+            {
+                AllArtistsInGenre.Filter = a => album.Artist == ((ArtistViewModel)a).Name;
+            }
         }
 
         #region Event handlers
@@ -262,6 +275,54 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void AlbumGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                AlbumFlyout.ShowAt(AlbumGrid, e.GetPosition(AlbumGrid));
+            }
+        }
+
+        private void ArtistGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                ArtistFlyout.ShowAt(ArtistGrid, e.GetPosition(ArtistGrid));
+            }
+        }
+
+        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItem)
+            {
+                case "Songs":
+                    MainList.Visibility = Visibility.Visible;
+                    AlbumGrid.Visibility = Visibility.Collapsed;
+                    ArtistGrid.Visibility = Visibility.Collapsed;
+                    break;
+                case "Albums":
+                    MainList.Visibility = Visibility.Collapsed;
+                    AlbumGrid.Visibility = Visibility.Visible;
+                    ArtistGrid.Visibility = Visibility.Collapsed;
+                    break;
+                case "Artists":
+                    MainList.Visibility = Visibility.Collapsed;
+                    AlbumGrid.Visibility = Visibility.Collapsed;
+                    ArtistGrid.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void AlbumGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), AlbumGrid.SelectedItem);
+        }
+
+        private void ArtistGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), ArtistGrid.SelectedItem);
+        }
     }
 
     [ContentProperty(Name = "GenreTemplate")]

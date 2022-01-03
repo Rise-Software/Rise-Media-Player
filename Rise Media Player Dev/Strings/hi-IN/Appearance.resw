@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Albums" xml:space="preserve">
+    <value>एल्बम</value>
+  </data>
+  <data name="AppearanceH.Text" xml:space="preserve">
+    <value>ऐप दिखावट</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>रचनाकार</value>
+  </data>
+  <data name="AtAGlance.Description" xml:space="preserve">
+    <value>अपने अनुभव को विजेट्स द्वारा और निजी बनाएँ।</value>
+  </data>
+  <data name="AtAGlance.Title" xml:space="preserve">
+    <value>अपने ऐट ए ग्लान्स पृष्ठ को अपने अनुकूल करें</value>
+  </data>
+  <data name="ChooseColor.Title" xml:space="preserve">
+    <value>अपना विंडो ग्लेज़ चुनें</value>
+  </data>
+  <data name="ChooseTheme.Title" xml:space="preserve">
+    <value>अपना रंग चुनें</value>
+  </data>
+  <data name="CompactMode.Description" xml:space="preserve">
+    <value>संपूर्ण सीमाओं और भराई को कम करके ज़्यादा विषय दिखाता है। साइडबार समूहों को संक्षिप्त करता है।</value>
+  </data>
+  <data name="CompactMode.Title" xml:space="preserve">
+    <value>संक्षिप्त मोड</value>
+  </data>
+  <data name="CuratedPlaylists.Description" xml:space="preserve">
+    <value>प्लेलिस्ट्स आपकी आदतों और पसंदीदा मीडिया के आधार पर बनाई गईं है, जिसमें आपके पसंदीदा गाने भी शामिल हैं।</value>
+  </data>
+  <data name="CuratedPlaylists.Title" xml:space="preserve">
+    <value>क्यूरेटेड प्लेलिस्ट्स बनाएँ</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>डार्क</value>
+  </data>
+  <data name="DesignPresetsH.Text" xml:space="preserve">
+    <value>डिज़ाइन और लेआउट प्रीसेट्स</value>
+  </data>
+  <data name="DesignUnavailable.Description" xml:space="preserve">
+    <value>लेआउट प्रीसेट्स और अनुकूल थीम जल्द आने वाले हैं।</value>
+  </data>
+  <data name="DesignUnavailable.Title" xml:space="preserve">
+    <value>यह फीचर उपलब्ध नहीं है</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>उपकरण</value>
+  </data>
+  <data name="FullArt.Description" xml:space="preserve">
+    <value>इन तत्वों के कोने अब गोल नहीं होंगें।</value>
+  </data>
+  <data name="FullArt.Title" xml:space="preserve">
+    <value>पूरी एल्बम कला और थंबनेल दिखाएँ</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>शैली</value>
+  </data>
+  <data name="Header.Text" xml:space="preserve">
+    <value>आइकन स्टाइल, रंग, मोड और बहुत कुछ के साथ निजीकृत करें जो न सिर्फ़ आपके अनुभव को और निजी कर सकता है, बल्कि उसे और यूज़र फ्रेंडली भी बनाता है।</value>
+  </data>
+  <data name="History.Title" xml:space="preserve">
+    <value>मीडिया इतिहास और आदतें ट्रैक करें</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>ऐट ए ग्लान्स</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>लाइट</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>सभी वीडियो</value>
+  </data>
+  <data name="NavigationH.Text" xml:space="preserve">
+    <value>नेविगेशन</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>कतार</value>
+  </data>
+  <data name="PickUp.Title" xml:space="preserve">
+    <value>जहां से छोड़ा गया, वहीं से शुरू करें</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>प्लेलिस्ट्स</value>
+  </data>
+  <data name="PrivacyH.Text" xml:space="preserve">
+    <value>गोपनीयता और सिफारिशें</value>
+  </data>
+  <data name="Sidebar" xml:space="preserve">
+    <value>साइडबार</value>
+  </data>
+  <data name="SidebarItems.Description" xml:space="preserve">
+    <value>साइडबार आइटम जोड़ें/निकालें, आइकन स्टाइल और आम व्यवहार बदलें।</value>
+  </data>
+  <data name="SidebarItems.Title" xml:space="preserve">
+    <value>अपना साइडबार अनुकूलित करें</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>गाने</value>
+  </data>
+  <data name="Startup.Description" xml:space="preserve">
+    <value>ऐप शुरू करने पर किस पृष्ठ पर जाने का चयन करें।</value>
+  </data>
+  <data name="Startup.Title" xml:space="preserve">
+    <value>शुरूआत होने पर</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>स्ट्रीमिंग सुविधाएँ</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>सिस्टम सेटिंग का उपयोग करें</value>
+  </data>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>*संक्षिप्त मोड के बदलाव सेटअप के बाद तक प्रभावी नहीं होंगे</value>
+  </data>
+</root>
