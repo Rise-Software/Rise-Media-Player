@@ -275,7 +275,7 @@
                           x:Name="ArtistGrid"
                           animations:Connected.ListItemElementName="ArtistThumb"
                           animations:Connected.ListItemKey="ArtistArt"
-                          ItemsSource="{x:Bind Artists}"
+                          ItemsSource="{x:Bind AllArtistsInGenre}"
                           Margin="-56,0"
                           Padding="44,0,44,120"
                           SelectionMode="Single"

@@ -129,9 +129,14 @@ namespace Rise.App.Views
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
 
+            foreach (ArtistViewModel artist in Artists)
+            {
+                AllArtistsInGenre.Add(artist);
+            }
+
             foreach (AlbumViewModel album in Albums)
             {
-                Artists.Filter = a => album.Artist == ((ArtistViewModel)a).Name;
+                AllArtistsInGenre.Filter = a => album.Artist == ((ArtistViewModel)a).Name;
             }
         }
 
