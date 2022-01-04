@@ -237,6 +237,9 @@
     <Compile Include="Views\SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Web\FeedbackPage.xaml.cs">
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
     </Compile>
@@ -570,6 +573,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SearchResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Web\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
