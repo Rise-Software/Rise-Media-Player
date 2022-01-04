@@ -174,6 +174,8 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
+                    GotFocus="BigSearch_GotFocus"
+                    LostFocus="BigSearch_LostFocus"
                     QueryIcon="Find"
                     QuerySubmitted="BigSearch_QuerySubmitted"
                     SuggestionChosen="BigSearch_SuggestionChosen"
@@ -196,7 +198,7 @@
 
                                 <StackPanel Grid.Column="1">
                                     <TextBlock Text="{x:Bind Title}" />
-                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.isStringEmpty(Subtitle)}" />
+                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
                                     <TextBlock
                                         Margin="0,3,0,0"
                                         FontSize="13"

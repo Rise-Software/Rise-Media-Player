@@ -111,7 +111,7 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.Space)
+            if (args.VirtualKey == VirtualKey.Space && !App.MViewModel.IsSearchActive)
             {
                 TogglePlayPause();
             }
