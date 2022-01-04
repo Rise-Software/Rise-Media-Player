@@ -1,0 +1,52 @@
+name: Bug Report
+description: Create a bug report to help improve Rise Media Player
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '....'
+        2. Click on '....'
+        3. See the error
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+  - type: input
+    id: risemp-version
+    attributes:
+      label: Rise Media Player Version
+      description: Which version of Rise Media Player are you using? The version number can be found by going to Rise Media Player' Settings > About > Version
+      placeholder: "e.g. Pre-Alpha 4 - v0.0.14.0"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Windows Version
+      description: Which version of Windows are you using? Press <kbd>Win</kbd> + <kbd>Pause/Break</kbd> and copy.
+      placeholder: e.g. Windows 11 21H2 22000.194
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant Assets/Logs
+      description: |
+        A list of assets (logs, screenshots, etc) relevant to this bug.
+        Tip: You can attach image(s) or logs by clicking this area to highlight it and then dragging files in.
+      placeholder: |
+        To upload the log, copy from crash window; Or
+        - Drag and drop them into this text area.
+    validations:
+      required: true
