@@ -1,0 +1,35 @@
+name: Feature Request
+description: This project thrives from differentiation from competing apps. Suggest an idea for Rise Media Player
+labels: [feature request]
+body:
+  - type: textarea
+    attributes:
+      label: What's the Problem?
+      description: If your feature request is related to a problem, describe it clearly.
+  - type: textarea
+    attributes:
+      label: Solution/Idea
+      description: Describe your solution/idea.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives
+      description: Describe alternatives you've considered
+    validations:
+      required: true
+  - type: input
+    id: risemp-version
+    attributes:
+      label: Rise Media Player Version
+      description: Which version of Rise Media Player are you using?
+      placeholder: 'Pre-Alpha 4 - v0.0.14.0'
+  - type: input
+    attributes:
+      label: Windows Version
+      description: Which version of Windows are you using? Press <kbd>Win</kbd> + <kbd>Pause/Break</kbd> and copy.
+      placeholder: e.g. Windows 11 21H2 22000.194
+  - type: textarea
+    attributes:
+      label: Comments
+      description: Additional information, comments or screenshots about the feature request.
