@@ -866,7 +866,17 @@ namespace Rise.App.Views
             ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
         }
 
-        public static Visibility isStringEmpty(string str)
+        private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            App.MViewModel.IsSearchActive = true;
+        }
+
+        private void BigSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            App.MViewModel.IsSearchActive = false;
+        }
+
+        public static Visibility IsStringEmpty(string str)
         {
             if (string.IsNullOrWhiteSpace(str))
             {

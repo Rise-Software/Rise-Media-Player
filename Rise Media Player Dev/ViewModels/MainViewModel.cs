@@ -45,6 +45,11 @@ namespace Rise.App.ViewModels
         public bool CanIndex = false;
 
         /// <summary>
+        /// Whether or not the search bar is focused.
+        /// </summary>
+        public bool IsSearchActive = false;
+
+        /// <summary>
         /// Creates a new MainViewModel.
         /// </summary>
         public MainViewModel()
