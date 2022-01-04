@@ -22,8 +22,8 @@ body:
     id: risemp-version
     attributes:
       label: Rise Media Player Version
-      description: Which version of Rise Media Player are you using?
-      placeholder: 'Pre-Alpha 4 - v0.0.14.0'
+      description: Which version of Rise Media Player are you using? The version number can be found by going to Rise Media Player' Settings > About > Version
+      placeholder: e.g. Pre-Alpha 4 - v0.0.14.0
   - type: input
     attributes:
       label: Windows Version
@@ -32,4 +32,4 @@ body:
   - type: textarea
     attributes:
       label: Comments
-      description: Additional information, comments or screenshots about the feature request.
+      description: Additional information, comments, screenshots or videos about the feature request.
