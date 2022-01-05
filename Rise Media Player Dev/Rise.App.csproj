@@ -157,6 +157,8 @@
     <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
+    <Compile Include="DbControllers\BaseBackendController.cs" />
+    <Compile Include="DbControllers\PlaylistsBackendController.cs" />
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>

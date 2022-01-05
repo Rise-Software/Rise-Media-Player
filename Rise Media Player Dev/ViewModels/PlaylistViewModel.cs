@@ -1,9 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.Models;
+﻿using Rise.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -196,11 +192,10 @@ namespace Rise.App.ViewModels
             {
                 IsNew = false;
                 App.MViewModel.Playlists.Add(this);
+                await App.PBackendController.InsertAsync(this);
             }
 
-            await App.Repository.Playlists.QueueUpsertAsync(Model);
-            StorageFile file = await App.PlaylistsFolder.CreateFileAsync($"{Title}.m3u", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, $"#EXTM3U\n\n#EXTDESC: {Description}\n#EXTIMG: {Icon}\n#EXTDURATION: {Duration}");
+            await App.PBackendController.UpdateAsync(this, App.MViewModel.Playlists.IndexOf(this));
         }
 
         /// <summary>
@@ -224,7 +219,7 @@ namespace Rise.App.ViewModels
             IsModified = true;
 
             App.MViewModel.Playlists.Remove(this);
-            await App.Repository.Playlists.QueueDeletionAsync(Model);
+            await App.PBackendController.DeleteAsync(this);
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
+using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
@@ -32,6 +33,11 @@ namespace Rise.App
         #region Variables
 
         public static StorageFolder PlaylistsFolder { get; set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
+        /// </summary>
+        public static PlaylistsBackendController PBackendController { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
@@ -163,6 +169,7 @@ namespace Rise.App
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
+            PBackendController = new PlaylistsBackendController();
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
             SBViewModel = new SidebarViewModel();

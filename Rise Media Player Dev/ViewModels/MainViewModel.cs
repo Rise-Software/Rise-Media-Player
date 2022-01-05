@@ -66,8 +66,6 @@ namespace Rise.App.ViewModels
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
-
-            Task.Run(async () => await LoadPlaylists());
         }
 
         /// <summary>
@@ -143,19 +141,6 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Loads playlists from a list of playlist files
-        /// </summary>
-        private async Task LoadPlaylists()
-        {
-            App.PlaylistsFolder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("Playlists", CreationCollisionOption.OpenIfExists);
-            foreach (StorageFile playlistFile in await App.PlaylistsFolder.GetFilesAsync())
-            {
-                PlaylistViewModel playlistViewModel = new PlaylistViewModel(await playlistFile.AsPlaylistModelAsync());
-                await playlistViewModel.SaveAsync();
-            }
-        }
-
-        /// <summary>
         /// Gets the complete list of data from the database.
         /// </summary>
         public async Task GetListsAsync()
@@ -170,7 +155,7 @@ namespace Rise.App.ViewModels
                 IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
                 IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
                 IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
-                IEnumerable<Playlist> playlists = await App.Repository.Playlists.GetAsync();
+                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
 
                 Songs.Clear();
                 foreach (Song s in songs)
@@ -222,10 +207,9 @@ namespace Rise.App.ViewModels
                 Playlists.Clear();
                 if (playlists != null)
                 {
-                    foreach (Playlist p in playlists)
+                    foreach (PlaylistViewModel p in playlists)
                     {
-                        if (!playlists.Contains(p))
-                            Playlists.Add(new PlaylistViewModel(p));
+                        Playlists.Add(p);
                     }
                 }
             }

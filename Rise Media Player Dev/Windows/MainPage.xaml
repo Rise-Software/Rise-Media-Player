@@ -414,7 +414,6 @@
             HorizontalAlignment="Center"
             x:FieldModifier="public"
             HeroContentPlacement="Bottom"
-            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>
