@@ -1,15 +1,16 @@
 ﻿<Page
     x:Class="Rise.App.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:local="using:Rise.App.Views" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -19,38 +20,42 @@
             <conv:BooleanToVisibility x:Key="BoolToVis" />
             <conv:ResourceToString x:Key="StrToRes" />
 
-            <!-- This top margin is the height of the custom TitleBar -->
+            <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
             <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
-                <MenuFlyoutItem x:Name="TopOption"
-                                x:Uid="/Information/ToTop"
-                                Click="ToTop_Click">
+                <MenuFlyoutItem
+                    x:Name="TopOption"
+                    x:Uid="/Information/ToTop"
+                    Click="ToTop_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE11C;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Name="UpOption"
-                                x:Uid="/Information/MoveUp"
-                                Click="MoveUp_Click">
+                <MenuFlyoutItem
+                    x:Name="UpOption"
+                    x:Uid="/Information/MoveUp"
+                    Click="MoveUp_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Name="DownOption"
-                                x:Uid="/Information/MoveDown"
-                                Click="MoveDown_Click">
+                <MenuFlyoutItem
+                    x:Name="DownOption"
+                    x:Uid="/Information/MoveDown"
+                    Click="MoveDown_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Name="BottomOption"
-                                x:Uid="/Information/ToBottom"
-                                Click="ToBottom_Click">
+                <MenuFlyoutItem
+                    x:Name="BottomOption"
+                    x:Uid="/Information/ToBottom"
+                    Click="ToBottom_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE118;" />
                     </MenuFlyoutItem.Icon>
@@ -58,15 +63,13 @@
 
                 <MenuFlyoutSeparator />
 
-                <MenuFlyoutItem x:Uid="/Information/Remove"
-                                Click="HideItem_Click">
+                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE77A;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
-                <MenuFlyoutItem x:Uid="/Information/RemoveSection"
-                                Click="HideSection_Click">
+                <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
@@ -74,8 +77,7 @@
             </MenuFlyout>
 
             <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/Remove"
-                                Click="HideItem_Click">
+                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE77A;" />
                     </MenuFlyoutItem.Icon>
@@ -85,12 +87,13 @@
             <local:MenuItemTemplateSelector x:Key="NavViewItem">
                 <local:MenuItemTemplateSelector.GlyphTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem x:Phase="1"
-                                                 AccessKey="{x:Bind AccKey}"
-                                                 AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
-                                                 Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                                                 Tag="{x:Bind Tag}"
-                                                 Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccKey}"
+                            AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
+                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Tag="{x:Bind Tag}"
+                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon x:Phase="2" Glyph="{x:Bind Icon, Mode=OneWay}" />
                             </muxc:NavigationViewItem.Icon>
@@ -100,12 +103,13 @@
 
                 <local:MenuItemTemplateSelector.ImageTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem x:Phase="1"
-                                                 AccessKey="{x:Bind AccKey}"
-                                                 AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
-                                                 Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                                                 Tag="{x:Bind Tag}"
-                                                 Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccKey}"
+                            AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
+                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Tag="{x:Bind Tag}"
+                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
                             <muxc:NavigationViewItem.Icon>
                                 <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon, Mode=OneWay}" />
                             </muxc:NavigationViewItem.Icon>
@@ -115,9 +119,10 @@
 
                 <local:MenuItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItemHeader x:Phase="1"
-                                                       Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                                                       Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
+                        <muxc:NavigationViewItemHeader
+                            x:Phase="1"
+                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
                     </DataTemplate>
                 </local:MenuItemTemplateSelector.HeaderTemplate>
 
@@ -131,77 +136,93 @@
     </Page.Resources>
 
     <Grid x:Name="_Grid">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-                        <Setter Target="NavView.PaneDisplayMode" Value="Left" />
-                        <Setter Target="BigSearch.Visibility" Value="Visible" />
-                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="SmallHeight">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="600" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <Grid Canvas.ZIndex="1">
-            <uc:MicaTitleBar x:Name="AppTitleBar"
-                             Canvas.ZIndex="1"
-                             AddLabelWidth="800"
-                             Height="40"
-                             Margin="48,8,0,0"
-                             ShowIcon="True"
-                             VerticalAlignment="Top" Loaded="AppTitleBar_Loaded" />
+            <uc:MicaTitleBar
+                x:Name="AppTitleBar"
+                Height="40"
+                Margin="48,8,0,0"
+                VerticalAlignment="Top"
+                AddLabelWidth="800"
+                Canvas.ZIndex="1"
+                Loaded="AppTitleBar_Loaded"
+                ShowIcon="True" />
 
-            <Grid x:Name="OverlayModeContentPanel" 
-                  Visibility="Collapsed"
-                  Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <Grid
+                x:Name="OverlayModeContentPanel"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                Visibility="Collapsed">
                 <Frame x:Name="NowPlayingFrame" />
             </Grid>
-            <Grid x:Name="ControlsPanel"
-                  x:FieldModifier="public"
-                  Canvas.ZIndex="2"
-                  ColumnSpacing="8"
-                  Height="32"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top">
+            <Grid
+                x:Name="ControlsPanel"
+                Height="32"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                x:FieldModifier="public"
+                Canvas.ZIndex="2"
+                ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <AutoSuggestBox x:Name="BigSearch"
-                                x:Uid="/Information/BigSearch"
-                                AutomationProperties.Name="Search"
-                                Height="32"
-                                HorizontalAlignment="Stretch"
-                                MaxWidth="530"
-                                QueryIcon="Find"
-                                VerticalAlignment="Top"
-                                Visibility="Collapsed" />
-                <AutoSuggestBox x:Name="SmallSearch"
-                                x:Uid="/Information/SmallSearch"
-                                AutomationProperties.Name="Search"
-                                Height="32"
-                                HorizontalAlignment="Stretch"
-                                QueryIcon="Find"
-                                VerticalAlignment="Top" />
-                <Button x:Uid="/Information/More"
-                        Grid.Column="1"
-                        Height="32"
-                        Style="{StaticResource TransparentButton}"
-                        VerticalAlignment="Center"
-                        x:Name="MoreButton">
+                <AutoSuggestBox
+                    x:Name="BigSearch"
+                    x:Uid="/Information/BigSearch"
+                    Height="32"
+                    MaxWidth="530"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AutomationProperties.Name="Search"
+                    GotFocus="BigSearch_GotFocus"
+                    LostFocus="BigSearch_LostFocus"
+                    QueryIcon="Find"
+                    QuerySubmitted="BigSearch_QuerySubmitted"
+                    SuggestionChosen="BigSearch_SuggestionChosen"
+                    TextChanged="BigSearch_TextChanged"
+                    Visibility="Collapsed">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel">
+                            <Grid Padding="2,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Border
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="3">
+                                    <Image Source="{x:Bind Thumbnail}" />
+                                </Border>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{x:Bind Title}" />
+                                    <TextBlock Text="{x:Bind Subtitle}" Visibility="{x:Bind local:MainPage.IsStringEmpty(Subtitle)}" />
+                                    <TextBlock
+                                        Margin="0,3,0,0"
+                                        FontSize="13"
+                                        Text="{x:Bind ItemType}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+                <AutoSuggestBox
+                    x:Name="SmallSearch"
+                    x:Uid="/Information/SmallSearch"
+                    Height="32"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AutomationProperties.Name="Search"
+                    QueryIcon="Find" />
+                <Button
+                    x:Name="MoreButton"
+                    x:Uid="/Information/More"
+                    Grid.Column="1"
+                    Height="32"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TransparentButton}">
                     <Button.Content>
                         <FontIcon Glyph="&#xE10C;" />
                     </Button.Content>
@@ -209,22 +230,24 @@
                     <Button.Flyout>
                         <MenuFlyout>
 
-                            <MenuFlyoutItem x:Uid="/Information/Accounts">
+                            <MenuFlyoutItem x:Uid="/Information/Accounts" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            
 
-                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
+
+                            <MenuFlyoutItem
+                                x:Uid="/Information/Notif"
+                                Click="Messages_Click"
+                                IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Uid="/Information/Settings"
-                                            Click="OpenSettings_Click">
+                            <MenuFlyoutItem x:Uid="/Information/Settings" Click="OpenSettings_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
@@ -232,27 +255,31 @@
 
                             <MenuFlyoutSeparator />
 
-                            
 
-                            <MenuFlyoutItem x:Uid="/Information/Fdb"
-                                            Click="Button_Click">
+
+                            <MenuFlyoutItem x:Uid="/Information/Fdb" Click="Button_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            
+                            <MenuFlyoutItem Click="Support_Click" Text="Support this project">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE822;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Uid="/Information/Scan"
-                                            Click="StartScan_Click">
+
+
+                            <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            
 
-                            
+
+
 
                             <!--<MenuFlyoutItem x:Uid="/Information/Fdb"
                                             Click="Button_Click">
@@ -268,44 +295,47 @@
             </Grid>
         </Grid>
 
-        <muxc:NavigationView x:Name="NavView"
-                             Canvas.ZIndex="0"
-                             BackRequested="NavView_BackRequested"
-                             CompactModeThresholdWidth="800"
-                             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-                             ExpandedModeThresholdWidth="800"
-                             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
-                             IsPaneToggleButtonVisible="True"
-                             IsSettingsVisible="False"
-                             IsTitleBarAutoPaddingEnabled="False"
-                             ItemInvoked="NavView_ItemInvoked"
-                             MenuItemTemplateSelector="{StaticResource NavViewItem}"
-                             OpenPaneLength="260"
-                             PaneDisplayMode="LeftMinimal"
-                             RightTapped="NavView_RightTapped">
+        <muxc:NavigationView
+            x:Name="NavView"
+            BackRequested="NavView_BackRequested"
+            Canvas.ZIndex="0"
+            CompactModeThresholdWidth="800"
+            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+            ExpandedModeThresholdWidth="800"
+            IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
+            IsPaneToggleButtonVisible="True"
+            IsSettingsVisible="False"
+            IsTitleBarAutoPaddingEnabled="False"
+            ItemInvoked="NavView_ItemInvoked"
+            MenuItemTemplateSelector="{StaticResource NavViewItem}"
+            OpenPaneLength="260"
+            PaneDisplayMode="LeftMinimal"
+            RightTapped="NavView_RightTapped">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <muxc:BreadcrumbBar x:Name="CrumbsHeader"
-                                    x:FieldModifier="public"
-                                    Grid.Row="0"
-                                    ItemsSource="{x:Bind Breadcrumbs}"
-                                    Margin="56,48,56,0">
+                <muxc:BreadcrumbBar
+                    x:Name="CrumbsHeader"
+                    Grid.Row="0"
+                    Margin="56,48,56,0"
+                    x:FieldModifier="public"
+                    ItemsSource="{x:Bind Breadcrumbs}">
                     <muxc:BreadcrumbBar.ItemTemplate>
                         <DataTemplate x:DataType="local:Crumb">
-                            <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" />
+                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Title}" />
                         </DataTemplate>
                     </muxc:BreadcrumbBar.ItemTemplate>
                 </muxc:BreadcrumbBar>
 
                 <Grid Grid.Row="1">
-                    <Frame x:Name="ContentFrame"
-                           x:FieldModifier="public"
-                           Navigated="ContentFrame_Navigated"
-                           Padding="56,0,56,10">
+                    <Frame
+                        x:Name="ContentFrame"
+                        Padding="56,0,56,10"
+                        x:FieldModifier="public"
+                        Navigated="ContentFrame_Navigated">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
                                 <NavigationThemeTransition />
@@ -313,10 +343,11 @@
                         </Frame.ContentTransitions>
                     </Frame>
 
-                    <uc:NowPlayingBar BackgroundStyle="UseAlbumArt"
-                                      IsArtistShown="True" 
-                                      VerticalAlignment="Bottom"
-                                      Margin="15" />
+                    <uc:NowPlayingBar
+                        Margin="15"
+                        VerticalAlignment="Bottom"
+                        BackgroundStyle="UseAlbumArt"
+                        IsArtistShown="True" />
 
                     <!--<MediaPlayerElement x:Name="PlayerElement"
                                         animations:Connected.Key="Player"
@@ -352,11 +383,12 @@
             </Grid>
         </muxc:NavigationView>
 
-        <muxc:TeachingTip x:Name="IndexingTip"
-                          x:Uid="/Information/Indexing"
-                          x:FieldModifier="public"
-                          PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
+        <muxc:TeachingTip
+            x:Name="IndexingTip"
+            x:Uid="/Information/Indexing"
+            x:FieldModifier="public"
+            PlacementMargin="0,24,-26,0"
+            PreferredPlacement="TopRight">
             <muxc:TeachingTip.IconSource>
                 <muxc:FontIconSource Glyph="&#xEA69;" />
             </muxc:TeachingTip.IconSource>
@@ -365,44 +397,73 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <muxc:TeachingTip x:Name="AddedTip"
-                          x:FieldModifier="public"
-                          Title="Updated your library."
-                          Subtitle="Click anywhere to hide this notification."
-                          IsLightDismissEnabled="True"
-                          PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
+        <muxc:TeachingTip
+            x:Name="AddedTip"
+            Title="Updated your library."
+            x:FieldModifier="public"
+            PlacementMargin="0,24,-26,0"
+            PreferredPlacement="TopRight">
             <!--<muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/addednewmedia.png" />
             </muxc:TeachingTip.HeroContent>-->
         </muxc:TeachingTip>
 
-        <muxc:TeachingTip x:Name="CheckTip"
-                          x:FieldModifier="public"
-                          Title="Looking for new media on your device."
-                          PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight"
-                          IsLightDismissEnabled="True"
-                          HorizontalAlignment="Center"
-                          HeroContentPlacement="Bottom">
+        <muxc:TeachingTip
+            x:Name="CheckTip"
+            Title="Looking for new media on your device."
+            HorizontalAlignment="Center"
+            x:FieldModifier="public"
+            HeroContentPlacement="Bottom"
+            IsLightDismissEnabled="True"
+            PlacementMargin="0,24,-26,0"
+            PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>
                 <StackPanel>
-                    
+
                     <!--<Image Source="/Assets/lookingformedia.png" />-->
-                    <muxc:ProgressBar Width="270" CornerRadius="7" Margin="2,0,10,10" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+                    <muxc:ProgressBar
+                        Width="270"
+                        Margin="2,0,10,10"
+                        CornerRadius="7"
+                        IsIndeterminate="True"
+                        ShowError="False"
+                        ShowPaused="False" />
                 </StackPanel>
-                
+
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <muxc:TeachingTip x:Name="NoNewTip"
-                          x:Uid="/Information/NoNew"
-                          x:FieldModifier="public"
-                          PlacementMargin="0,24,-26,0"
-                          PreferredPlacement="TopRight">
+        <muxc:TeachingTip
+            x:Name="NoNewTip"
+            x:Uid="/Information/NoNew"
+            x:FieldModifier="public"
+            PlacementMargin="0,24,-26,0"
+            PreferredPlacement="TopRight">
             <muxc:TeachingTip.IconSource>
                 <muxc:FontIconSource Glyph="&#xE8F1;" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="SmallWidth">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
+                        <Setter Target="NavView.PaneDisplayMode" Value="Left" />
+                        <Setter Target="BigSearch.Visibility" Value="Visible" />
+                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="SmallHeight">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="600" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

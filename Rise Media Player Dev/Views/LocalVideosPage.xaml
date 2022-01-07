@@ -20,14 +20,6 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <muxc:InfoBar
-            Margin="0,50,0,0"
-            IsOpen="True"
-            Severity="Warning"
-            Title="Notice"
-            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
-                />
-
         <muxc:TeachingTip x:Name="DiscyOnVideo"
 	        Title="Playing videos"
 	        Subtitle="Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more."
@@ -120,7 +112,8 @@
                                                   Tag="Name"
                                                   Click="SortByName_Click"/>
                         <muxc:RadioMenuFlyoutItem Text="Date"
-                                                  Tag="Date" />
+                                                  Tag="Date"
+                                                  Click="SortByYear_Click" />
                         <muxc:RadioMenuFlyoutItem Text="Length"
                                                   Tag="Length"
                                                   Click="SortByLength_Click" />
@@ -149,7 +142,8 @@
                   IsItemClickEnabled="True"
                   ItemClick="GridView_ItemClick"
                   RightTapped="MainGrid_RightTapped_1"
-                  SelectionMode="None">
+                  SelectionMode="Single"
+                  SelectedItem="{x:Bind SelectedVideo, Mode=TwoWay}">
             <GridView.Resources>
                 <MenuFlyout x:Key="VideosFlyout" x:Name="VideosFlyout">
                     <MenuFlyoutItem x:Uid="/Information/PlayItem"

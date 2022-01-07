@@ -72,7 +72,6 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            ApplySettingsToView();
             Albums.Filter = null;
             Albums.SortDescriptions.Clear();
             Albums.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
@@ -198,7 +197,10 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+            ApplySettingsToView();
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);

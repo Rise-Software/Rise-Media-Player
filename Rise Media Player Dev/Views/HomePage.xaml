@@ -52,22 +52,15 @@
                             <FontIcon Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
                         </Button>
                         
-                        <TextBlock Text="v0.0.135.0"
+                        <TextBlock Text="v0.0.14.0"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="PA4 InDev"
+                        <TextBlock Text="Pre-Alpha 4"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
-
-            <muxc:InfoBar
-            IsOpen="True"
-            Severity="Warning"
-            Title="Notice"
-            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
-                />
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
@@ -121,20 +114,22 @@
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
 
-            <GridView HorizontalAlignment="Stretch"
-                      ItemContainerStyle="{StaticResource StretchedGridViewItem}"
-                      SelectionMode="None">
-                <uc:ExpanderControl x:Uid="/Information/AddRemove"
+            <uc:ExpanderControl x:Uid="/Information/AddRemove"
                                     Click="FoldersButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xE1DA;" />
-                <uc:ExpanderControl x:Uid="/Information/Contribute"
+
+            <uc:ExpanderControl x:Uid="/Information/Support"
+                                    Click="SupportButton_Click"
+                                    ExpanderStyle="Button"
+                                    Icon="&#xE822;" />
+
+            <uc:ExpanderControl x:Uid="/Information/Contribute"
                                     Click="ContributeButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xEC7A;" />
-            </GridView>
 
-            <Rectangle Height="120" />
+            
 
             <muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"

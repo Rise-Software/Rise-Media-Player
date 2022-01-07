@@ -337,11 +337,11 @@
                                   FontSize="16"/>
                     </Button>
                 </controls:WrapPanel>
-                <RelativePanel Margin="0,16,0,0" x:Name="DefaultVolumeControl" >
-                    <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,0" x:Name="VolumeIconViewBoxMediaControl">
-                        <SymbolIcon Symbol="Volume" />
-                    </Viewbox>
-                    <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
+                <RelativePanel Margin="0,16,0,0" x:Name="DefaultVolumeControl">
+                    <Button Click="VolumeIcon_Click" Padding="8" Margin="0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButton}">
+                        <FontIcon Glyph="&#xE767;" />
+                    </Button>
+                    <Slider ValueChanged="VolumeSlider_ValueChanged" StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,0,8,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
                     <TextBlock Text="{x:Bind VolumeSlider.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,-2,10,0" />
                 </RelativePanel>
             </StackPanel>

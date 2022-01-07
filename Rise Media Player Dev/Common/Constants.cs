@@ -145,6 +145,9 @@
         public const string GitHub =
             "https://github.com/Rise-Software/Rise-Media-Player";
 
+        public const string Support =
+            "https://www.patreon.com/risesoftware";
+
         public const string Insider =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UQ0UxNjFVS0pCUkpKVkpVTUpUSktBRjVKUS4u";
 
@@ -175,5 +178,12 @@
         /// </summary>
         public const string MusicThumb =
             "ms-appx:///Assets/Default.png";
+
+        /// <summary>
+        /// Default thumbnail for artists that don't
+        /// contain one already.
+        /// </summary>
+        public const string ArtistThumb =
+            "ms-appx:///Assets/BlankArtist.png";
     }
 }

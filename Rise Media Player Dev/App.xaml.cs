@@ -220,18 +220,25 @@ namespace Rise.App
         /// <param name="e">Details about the suspend request.</param>
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
-            await SBViewModel.SerializeItemsAsync();
+            SuspendingDeferral deferral = null;
             try
             {
+                deferral = e?.SuspendingOperation?.GetDeferral();
+
+                if (SBViewModel != null)
+                {
+                    await SBViewModel.SerializeItemsAsync();
+                }
+
                 await SuspensionManager.SaveAsync();
             }
             catch (SuspensionManagerException)
             {
-
             }
-
-            deferral.Complete();
+            finally
+            {
+                deferral?.Complete();
+            }
         }
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)

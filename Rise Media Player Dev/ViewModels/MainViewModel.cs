@@ -45,6 +45,11 @@ namespace Rise.App.ViewModels
         public bool CanIndex = false;
 
         /// <summary>
+        /// Whether or not the search bar is focused.
+        /// </summary>
+        public bool IsSearchActive = false;
+
+        /// <summary>
         /// Creates a new MainViewModel.
         /// </summary>
         public MainViewModel()
@@ -62,7 +67,7 @@ namespace Rise.App.ViewModels
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
 
-            _ = LoadPlaylists();
+            Task.Run(async () => await LoadPlaylists());
         }
 
         /// <summary>
@@ -219,7 +224,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Playlist p in playlists)
                     {
-                        if(!playlists.Contains(p))
+                        if (!playlists.Contains(p))
                             Playlists.Add(new PlaylistViewModel(p));
                     }
                 }

@@ -50,6 +50,7 @@ namespace Rise.App.Views
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
+        private bool SongsVisible = false, AlbumsVisible = true;
         #endregion
 
         public ArtistSongsPage()
@@ -242,6 +243,20 @@ namespace Rise.App.Views
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedTo(e);
+
+        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            if (SongsItem.IsSelected)
+            {
+                MainList.Visibility = Visibility.Visible;
+                AlbumsGrid.Visibility = Visibility.Collapsed;
+            }
+            else if (AlbumsItem.IsSelected)
+            {
+                MainList.Visibility = Visibility.Collapsed;
+                AlbumsGrid.Visibility = Visibility.Visible;
+            }
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);

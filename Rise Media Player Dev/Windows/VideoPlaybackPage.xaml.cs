@@ -18,8 +18,6 @@ namespace Rise.App.Views
         private PlaybackViewModel ViewModel => App.PViewModel;
         private VideoViewModel CurrentVideo => ViewModel.CurrentVideo;
 
-        private DependencyPropertyWatcher<string> _watcher;
-
         public VideoPlaybackPage()
         {
             InitializeComponent();
@@ -36,11 +34,6 @@ namespace Rise.App.Views
             _ = new ApplicationTitleBar(AppTitleBar);
         }
 
-        private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            Player.Visibility = Visibility.Visible;
-        }
-
         private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             await Task.Run(async () =>
@@ -49,8 +42,27 @@ namespace Rise.App.Views
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     Player.Visibility = Visibility.Collapsed;
+                    TopGrid.Visibility = Visibility.Collapsed;
                 });
             });
+        }
+
+        private async void Page_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (Player.Visibility == Visibility.Collapsed && TopGrid.Visibility == Visibility.Collapsed)
+            {
+                Player.Visibility = Visibility.Visible;
+                TopGrid.Visibility = Visibility.Visible;
+                await Task.Run(async () =>
+                {
+                    Thread.Sleep(3500);
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        Player.Visibility = Visibility.Collapsed;
+                        TopGrid.Visibility = Visibility.Collapsed;
+                    });
+                });
+            }
         }
     }
 }

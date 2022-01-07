@@ -19,14 +19,6 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <muxc:InfoBar
-            Margin="0,50,0,0"
-            IsOpen="True"
-            Severity="Warning"
-            Title="Notice"
-            Message="Your current build of Rise Media Player is not intended for public use, nor for the use of anyone besides trusted developers. Use at your own risk. Being heavily unfinished, glitches, bugs and crashes may occur. Please submit feedback if you face any of these issues."
-                />
-
         <muxc:TeachingTip x:Name="DiscyOnSong"
 	        Title="Taking action on songs"
 	        Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!"

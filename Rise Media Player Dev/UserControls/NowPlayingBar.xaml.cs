@@ -111,7 +111,7 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.Space)
+            if (args.VirtualKey == VirtualKey.Space && !App.MViewModel.IsSearchActive)
             {
                 TogglePlayPause();
             }
@@ -614,5 +614,42 @@ namespace Rise.App.UserControls
             UseAlbumArt
         }
 
+        private void VolumeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            FontIcon volumeIcon = VolumeIconViewBoxMediaControl.Content as FontIcon;
+            if (!_player.IsMuted)
+            {
+                _player.IsMuted = true;
+                VolumeSlider.Value = 0;
+                volumeIcon.Glyph = "\uE74F";
+            } else
+            {
+                _player.IsMuted = false;
+                VolumeSlider.Value = VolumeSlider.Maximum;
+                volumeIcon.Glyph = "\uE767";
+            }
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            FontIcon volumeIcon = VolumeIconViewBoxMediaControl.Content as FontIcon;
+
+            switch (VolumeProgressText.Text)
+            {
+                case "0":
+                    volumeIcon.Glyph = "\uE74F";
+                    break;
+                case "1":
+                case "10":
+                    volumeIcon.Glyph = "\uE993";
+                    break;
+                case "34":
+                    volumeIcon.Glyph = "\uE994";
+                    break;
+                case "67":
+                    volumeIcon.Glyph = "\uE995";
+                    break;
+            }
+        }
     }
 }
