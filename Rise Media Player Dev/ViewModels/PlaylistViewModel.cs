@@ -109,7 +109,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        /*public ObservableCollection<Song> Songs
+        public ObservableCollection<Song> Songs
         {
             get
             {
@@ -143,7 +143,7 @@ namespace Rise.App.ViewModels
             {
 
             }
-        }*/
+        }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 

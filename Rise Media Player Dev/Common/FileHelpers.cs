@@ -147,6 +147,18 @@ namespace Rise.App.Common
             => Uri.TryCreate(str, kind, out _);
 
         /// <summary>
+        /// Uses the provided <paramref name="baseUri"/> to make <paramref name="relativeUri"/>
+        /// an absolute URI.
+        /// If <paramref name="relativeUri"/> is already an absolute URI, no change is made.
+        /// </summary>
+        public static Uri ToAbsoluteUri(this Uri relativeUri, Uri baseUri)
+        {
+            return relativeUri.IsAbsoluteUri
+                ? relativeUri
+                : new Uri(baseUri, relativeUri);
+        }
+
+        /// <summary>
         /// Replaces characters in <c>text</c> that are not allowed in 
         /// file names with the specified replacement character.
         /// </summary>
@@ -293,58 +305,122 @@ namespace Rise.App.Common
         /// <returns>A playlist based on the file.</returns>
         public static async Task<Playlist> AsPlaylistModelAsync(this StorageFile file)
         {
-            string icon = "", duration = "", description = "";
-            Playlist playlist = new Playlist
+            // Read playlist file
+            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            Playlist playlist = new Playlist()
             {
-                Title = file.DisplayName,
-                Description = description,
-                Duration = duration,
-                Icon = string.IsNullOrWhiteSpace(icon) ? "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png" : icon
+                Title = string.Empty,
+                Description = string.Empty,
+                Duration = string.Empty,
+                Icon = string.Empty,
+                Songs = new System.Collections.ObjectModel.ObservableCollection<Song>()
             };
 
-            // Get details
-            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-            foreach (string line in lines)
+            // Check if linked to directory
+            if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
             {
+                Uri baseUri = new Uri(Path.GetDirectoryName(file.Path));
+                string dirPath = refUri.ToAbsoluteUri(baseUri).AbsolutePath;
+
+                if (dirPath.EndsWith(".m3u"))
+                {
+                    StorageFile linkedPlaylistFile = await StorageFile.GetFileFromPathAsync(dirPath);
+                    return await linkedPlaylistFile.AsPlaylistModelAsync();
+                }
+
+                foreach (var songPath in Directory.EnumerateFiles(dirPath))
+                {
+                    playlist.Songs.Add(new Song()
+                    {
+                        Location = new Uri(songPath).ToAbsoluteUri(baseUri).AbsolutePath,
+                    });
+                }
+                goto done;
+            }
+
+            // Get details
+            string title = null, artist = null, duration = null, icon = null;
+            for (int i = 0; i < lines.Count; i++)
+            {
+                string line = lines[i].Trim();
+
                 if (!string.IsNullOrWhiteSpace(line))
                 {
                     if (line.StartsWith("#"))
                     {
-                        if (line.StartsWith("#EXTDESC"))
+                        int splitIdx = line.IndexOf(':');
+                        string prop;
+                        string value = null;
+                        if (splitIdx >= 0)
                         {
-                            description = line.Split(":")[1].Trim();
+                            prop = line.Substring(0, splitIdx).Trim();
+                            value = line.Substring(splitIdx + 1).Trim();
                         }
-                        else if (line.StartsWith("#EXTIMG"))
+                        else
                         {
-                            icon = line.Split(":")[1].Trim();
-                        }
-                        else if (line.StartsWith("#EXTDURATION"))
-                        {
-                            duration = line.Split(":")[1].Trim();
+                            prop = line;
                         }
 
-                        /*if (line.StartsWith("#EXTINF"))
+                        if (prop == "#EXTINF")
                         {
-                            // Get song duration (in seconds) and title
-                            // line.Split(":");
-                            // Get song title
-                            // line.Split(", ")[1].Trim();
-                        }*/
+                            string[] inf = value.Split(new[] { ',', '-' }, 3);
+                            duration = inf[0].Trim();
+                            artist = inf[1].Trim();
+                            title = inf[2].Trim();
+                        }
+                        else if (prop == "#EXTDESC" || prop == "#DESCRIPTION")
+                        {
+                            playlist.Description = value;
+                        }
+                        else if (prop == "#EXTIMG")
+                        {
+                            playlist.Icon = lines[++i];
+                        }
+                        else if (prop == "#EXTDURATION" || prop == "#DURATION")
+                        {
+                            playlist.Duration = value;
+                        }
+                        else if (prop == "#PLAYLIST")
+                        {
+                            playlist.Title = value;
+                        }
 
                         // Otherwise, we skip this line because we don't want anything from it
                         // or it's a whitespace
                     }
                     else
                     {
-                        /*StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+                        StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
                         if (songFile != null)
                         {
                             Song song = await songFile.AsSongModelAsync();
+                            
+                            // If the playlist entry includes track info, override the tag data
+                            if (title != null)
+                            {
+                                song.Title = title;
+                                title = null;
+                            }
+                            if (artist != null)
+                            {
+                                song.Artist = artist;
+                                artist = null;
+                            }
+                            if (icon != null)
+                            {
+                                song.Thumbnail = icon;
+                                icon = null;
+                            }
+
                             playlist.Songs.Add(song);
-                        }*/
+                        }
                     }
                 }
             }
+
+            done:
+            if (string.IsNullOrWhiteSpace(playlist.Icon))
+                playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
 
             return playlist;
         }
