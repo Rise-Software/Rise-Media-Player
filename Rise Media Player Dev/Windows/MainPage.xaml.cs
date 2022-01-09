@@ -363,6 +363,11 @@ namespace Rise.App.Views
                         Items.FirstOrDefault(i => i.Tag == "AlbumsPage");
                     return;
 
+                case "PlaylistDetailsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
+                    return;
+
                 case "ArtistSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
@@ -744,7 +749,7 @@ namespace Rise.App.Views
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog
+            ContentDialog dialog = new()
             {
                 Title = "Messages & reports",
                 CloseButtonText = "Close",
@@ -752,15 +757,11 @@ namespace Rise.App.Views
                 Content = new MessagesDialog()
             };
 
-            var result = await dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
         
-
-
         private async void Support_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Support.LaunchAsync();
-
-
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

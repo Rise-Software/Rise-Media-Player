@@ -55,6 +55,22 @@ namespace Rise.App.Views
         private void SongsPage_Loaded(object sender, RoutedEventArgs e)
         {
             AddTo.Items.Clear();
+
+            AddTo.Items.Add(new MenuFlyoutItem()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            });
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
             foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
             {
                 MenuFlyoutItem item = new()
