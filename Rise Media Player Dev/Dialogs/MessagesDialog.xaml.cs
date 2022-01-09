@@ -30,13 +30,16 @@ namespace Rise.App.Dialogs
 
         private void ListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            (NotificationsList.Resources["ListMenu"] as MenuFlyout).ShowAt(e.OriginalSource as FrameworkElement, e.GetPosition(e.OriginalSource as FrameworkElement));
+            (NotificationsList.Resources["ListMenu"] as MenuFlyout).ShowAt(NotificationsList, e.GetPosition(NotificationsList));
             SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
         }
 
         private async void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedNotification.DeleteAsync();
+            if (SelectedNotification != null)
+            {
+                await SelectedNotification.DeleteAsync();
+            }
         }
 
         private void NotificationsList_Tapped(object sender, TappedRoutedEventArgs e)

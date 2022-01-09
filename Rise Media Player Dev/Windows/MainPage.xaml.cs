@@ -158,7 +158,7 @@ namespace Rise.App.Views
 
         private async void Indexer_Finished(object sender, int e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;

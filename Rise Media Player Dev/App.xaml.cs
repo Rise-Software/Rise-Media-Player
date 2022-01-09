@@ -119,7 +119,7 @@ namespace Rise.App
             UnhandledException += App_UnhandledException;
         }
 
-        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
@@ -134,7 +134,10 @@ namespace Rise.App
                 .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
                 .GetToastContent();
 
-            ToastNotification notification = new ToastNotification(content.GetXml());
+            string text = $"The exception {e.Exception.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Exception.Message}\n{e.Exception.StackTrace}\nSource: {e.Exception.Source}\nHResult: {e.Exception.HResult}";
+            await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here are some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
+
+            ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 

@@ -134,10 +134,9 @@ namespace Rise.App.ViewModels
             {
                 IsNew = false;
                 App.MViewModel.Notifications.Add(this);
-                await App.NBackendController.InsertAsync(this);
             }
 
-            await App.NBackendController.UpdateAsync(this, App.MViewModel.Notifications.IndexOf(this));
+            await App.NBackendController.InsertAsync(this);
         }
 
         /// <summary>

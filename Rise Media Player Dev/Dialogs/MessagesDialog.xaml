@@ -59,10 +59,15 @@
 
             <ScrollViewer Grid.Column="1">
                 <StackPanel Spacing="7">
-                    <TextBlock x:Name="Title"
+                    <StackPanel Orientation="Horizontal">
+
+                        <FontIcon Height="32" Width="32" Glyph="{x:Bind SelectedNotification.Icon, Mode=OneWay}" />
+
+                        <TextBlock x:Name="Title"
                                FontWeight="SemiBold"
                                FontSize="20" />
-                    <TextBlock x:Name="Description" />
+                    </StackPanel>
+                    <TextBlock x:Name="Description" IsTextSelectionEnabled="True" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

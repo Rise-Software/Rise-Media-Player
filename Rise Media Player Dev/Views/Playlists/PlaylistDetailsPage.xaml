@@ -19,8 +19,7 @@
                 <Border Padding="0,0,0,10" Margin="-66,0">
                     <Grid>
                         <ParallaxView VerticalShift="300"
-                                          Height="150"
-                                          Source="{x:Bind MainList}">
+                                      Source="{x:Bind MainList}">
                             <Image Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
                                        Stretch="UniformToFill"
                                        Opacity="0.6" />
@@ -98,6 +97,8 @@
                                             <Rectangle Grid.Column="1" />
                                         </Grid>
                                     </StackPanel>
+
+                                    <TextBlock Text="{x:Bind plViewModel.Description, Mode=OneWay}" />
 
                                     <CommandBar Background="Transparent"
                                         DefaultLabelPosition="Right"
