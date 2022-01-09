@@ -60,6 +60,7 @@ namespace Rise.App.ViewModels
             FilteredArtists = new AdvancedCollectionView(Artists);
             FilteredGenres = new AdvancedCollectionView(Genres);
             FilteredVideos = new AdvancedCollectionView(Videos);
+            FilteredNotifications = new AdvancedCollectionView(Notifications);
 
             QueryPresets.SongQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
@@ -110,6 +111,13 @@ namespace Rise.App.ViewModels
             = new ObservableCollection<PlaylistViewModel>();
         public AdvancedCollectionView FilteredPlaylists { get; set; }
 
+        /// <summary>
+        /// The collection of playlists in the list. 
+        /// </summary>
+        public ObservableCollection<NotificationViewModel> Notifications { get; set; }
+            = new ObservableCollection<NotificationViewModel>();
+        public AdvancedCollectionView FilteredNotifications { get; set; }
+
         private SongViewModel _selectedSong;
         /// <summary>
         /// Gets or sets the currently selected song.
@@ -156,6 +164,7 @@ namespace Rise.App.ViewModels
                 IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
                 IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
+                ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
 
                 Songs.Clear();
                 foreach (Song s in songs)
@@ -209,7 +218,16 @@ namespace Rise.App.ViewModels
                 {
                     foreach (PlaylistViewModel p in playlists)
                     {
-                        Playlists.Add(p);
+                         Playlists.Add(p);
+                    }
+                }
+
+                Notifications.Clear();
+                if (notifications != null)
+                {
+                    foreach (NotificationViewModel n in notifications)
+                    {
+                        Notifications.Add(n);
                     }
                 }
             }

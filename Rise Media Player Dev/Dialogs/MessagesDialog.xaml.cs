@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,14 +19,31 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Dialogs
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MessagesDialog : Page
     {
+        public NotificationViewModel SelectedNotification { get; set; }
+
         public MessagesDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void ListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            (NotificationsList.Resources["ListMenu"] as MenuFlyout).ShowAt(e.OriginalSource as FrameworkElement, e.GetPosition(e.OriginalSource as FrameworkElement));
+            SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
+        }
+
+        private async void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedNotification.DeleteAsync();
+        }
+
+        private void NotificationsList_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
+            Title.Text = SelectedNotification.Title;
+            Description.Text = SelectedNotification.Description;
         }
     }
 }

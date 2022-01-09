@@ -180,12 +180,13 @@
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
                         <MenuFlyoutItem x:Name="NewPlaylistMenu"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
+                                    x:Uid="/Information/NewPlaylist">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator />
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem x:Name="Share"

@@ -1,5 +1,7 @@
-﻿using Rise.Models;
+﻿using Newtonsoft.Json;
+using Rise.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -105,41 +107,29 @@ namespace Rise.App.ViewModels
             }
         }
 
-        /*public ObservableCollection<Song> Songs
+        private ObservableCollection<SongViewModel> _songs;
+
+        public ObservableCollection<SongViewModel> Songs
         {
             get
             {
-                return Model.Songs;
+                if (_songs != null)
+                {
+                    return _songs;
+                }
+                return new ObservableCollection<SongViewModel>();
             }
+
             set
             {
-                if (value != Model.Songs)
+                if (value != _songs)
                 {
-                    Model.Songs = value;
+                    _songs = value;
                     IsModified = true;
                     OnPropertyChanged(nameof(Songs));
                 }
-                SongsCount = Model.Songs.Count;
             }
         }
-
-        public int SongsCount
-        {
-            get
-            {
-                if (Songs != null)
-                {
-                    return Songs.Count;
-                } else
-                {
-                    return 0;
-                }
-            }
-            private set
-            {
-
-            }
-        }*/
 
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
@@ -192,10 +182,18 @@ namespace Rise.App.ViewModels
             {
                 IsNew = false;
                 App.MViewModel.Playlists.Add(this);
-                await App.PBackendController.InsertAsync(this);
             }
 
-            await App.PBackendController.UpdateAsync(this, App.MViewModel.Playlists.IndexOf(this));
+            await App.PBackendController.UpsertAsync(this);
+        }
+
+        /// <summary>
+        /// Adds a song to the playlist.
+        /// </summary>
+        public async Task AddSongAsync(SongViewModel song)
+        {
+            Songs.Add(song);
+            await SaveAsync();
         }
 
         /// <summary>

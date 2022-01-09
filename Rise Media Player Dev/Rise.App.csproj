@@ -158,6 +158,7 @@
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
     <Compile Include="DbControllers\BaseBackendController.cs" />
+    <Compile Include="DbControllers\NotificationsBackendController.cs" />
     <Compile Include="DbControllers\PlaylistsBackendController.cs" />
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
@@ -210,6 +211,7 @@
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />

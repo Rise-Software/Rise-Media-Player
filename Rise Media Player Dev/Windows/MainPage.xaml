@@ -240,8 +240,7 @@
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"
-                                Click="Messages_Click"
-                                IsEnabled="False">
+                                Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
