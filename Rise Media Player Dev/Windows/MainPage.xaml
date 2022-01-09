@@ -240,8 +240,7 @@
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"
-                                Click="Messages_Click"
-                                IsEnabled="False">
+                                Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xEA8F;" />
                                 </MenuFlyoutItem.Icon>
@@ -414,7 +413,6 @@
             HorizontalAlignment="Center"
             x:FieldModifier="public"
             HeroContentPlacement="Bottom"
-            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>

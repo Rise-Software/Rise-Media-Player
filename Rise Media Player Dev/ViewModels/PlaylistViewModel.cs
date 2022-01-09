@@ -1,9 +1,7 @@
-﻿using Rise.App.Common;
+﻿using Newtonsoft.Json;
 using Rise.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -109,21 +107,27 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public ObservableCollection<Song> Songs
+        private ObservableCollection<SongViewModel> _songs;
+
+        public ObservableCollection<SongViewModel> Songs
         {
             get
             {
-                return Model.Songs;
+                if (_songs != null)
+                {
+                    return _songs;
+                }
+                return new ObservableCollection<SongViewModel>();
             }
+
             set
             {
-                if (value != Model.Songs)
+                if (value != _songs)
                 {
-                    Model.Songs = value;
+                    _songs = value;
                     IsModified = true;
                     OnPropertyChanged(nameof(Songs));
                 }
-                SongsCount = Model.Songs.Count;
             }
         }
 
@@ -198,9 +202,16 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Playlists.Add(this);
             }
 
-            await App.Repository.Playlists.QueueUpsertAsync(Model);
-            StorageFile file = await App.PlaylistsFolder.CreateFileAsync($"{Title}.m3u", CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, $"#EXTM3U\n\n#EXTDESC: {Description}\n#EXTIMG: {Icon}\n#EXTDURATION: {Duration}");
+            await App.PBackendController.UpsertAsync(this);
+        }
+
+        /// <summary>
+        /// Adds a song to the playlist.
+        /// </summary>
+        public async Task AddSongAsync(SongViewModel song)
+        {
+            Songs.Add(song);
+            await SaveAsync();
         }
 
         /// <summary>
@@ -224,7 +235,7 @@ namespace Rise.App.ViewModels
             IsModified = true;
 
             App.MViewModel.Playlists.Remove(this);
-            await App.Repository.Playlists.QueueDeletionAsync(Model);
+            await App.PBackendController.DeleteAsync(this);
         }
 
         /// <summary>

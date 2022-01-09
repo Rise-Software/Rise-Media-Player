@@ -30,7 +30,7 @@ namespace Rise.App.Dialogs
             string title = string.IsNullOrWhiteSpace(TitleTextBox.Text) ? "Untitled" : TitleTextBox.Text;
             string description = string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ? "No description." : DescriptionTextBox.Text;
 
-            PlaylistViewModel plViewModel = new PlaylistViewModel
+            PlaylistViewModel plViewModel = new()
             {
                 Title = title,
                 Description = description,
@@ -39,7 +39,7 @@ namespace Rise.App.Dialogs
             };
 
             await Task.Run(async () => await plViewModel.SaveAsync());
-            
+
             Hide();
         }
 

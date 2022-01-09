@@ -3,6 +3,7 @@ using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
+using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
@@ -32,6 +33,16 @@ namespace Rise.App
         #region Variables
 
         public static StorageFolder PlaylistsFolder { get; set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
+        /// </summary>
+        public static PlaylistsBackendController PBackendController { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
+        /// </summary>
+        public static NotificationsBackendController NBackendController { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
@@ -108,7 +119,7 @@ namespace Rise.App
             UnhandledException += App_UnhandledException;
         }
 
-        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
@@ -123,7 +134,10 @@ namespace Rise.App
                 .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
                 .GetToastContent();
 
-            ToastNotification notification = new ToastNotification(content.GetXml());
+            string text = $"The exception {e.Exception.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Exception.Message}\n{e.Exception.StackTrace}\nSource: {e.Exception.Source}\nHResult: {e.Exception.HResult}";
+            await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here are some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
+
+            ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
@@ -163,6 +177,8 @@ namespace Rise.App
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
+            PBackendController = new PlaylistsBackendController();
+            NBackendController = new NotificationsBackendController();
             MViewModel = new MainViewModel();
             PViewModel = new PlaybackViewModel();
             SBViewModel = new SidebarViewModel();
