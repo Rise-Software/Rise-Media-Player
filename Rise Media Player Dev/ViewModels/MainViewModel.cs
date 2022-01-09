@@ -465,9 +465,14 @@ namespace Rise.App.ViewModels
                     vid.Thumbnail = Resources.MusicThumb;
                 }
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 await vid.SaveAsync();
             }
+        }
+
+        public async Task SavePlaylistModelAsync(StorageFile file)
+        {
+
         }
 
         /// <summary>

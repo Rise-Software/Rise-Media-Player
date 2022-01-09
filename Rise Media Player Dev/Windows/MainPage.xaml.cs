@@ -677,8 +677,27 @@ namespace Rise.App.Views
         }
         #endregion
 
+        private async Task<bool> OpenPageAsWindowAsync(Type t)
+        {
+            var view = CoreApplication.CreateNewView();
+            int id = 0;
+
+            await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var frame = new Frame();
+                frame.Navigate(t, null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+                id = ApplicationView.GetForCurrentView().Id;
+            });
+
+            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Feedback.LaunchAsync();
+        {
+            await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
+        }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {

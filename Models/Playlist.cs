@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Rise.Models
@@ -13,6 +12,7 @@ namespace Rise.Models
         public string Icon { get; set; }
         public string Description { get; set; }
         public string Duration { get; set; }
+        public ObservableCollection<Song> Songs { get; set; }
 
         /// <summary>
         /// Returns the playlist title.

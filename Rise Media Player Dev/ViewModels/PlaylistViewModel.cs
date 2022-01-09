@@ -131,6 +131,24 @@ namespace Rise.App.ViewModels
             }
         }
 
+        public int SongsCount
+        {
+            get
+            {
+                if (Songs != null)
+                {
+                    return Songs.Count;
+                } else
+                {
+                    return 0;
+                }
+            }
+            private set
+            {
+
+            }
+        }
+
         /// <summary>
         /// Gets or sets a value that indicates whether the underlying model has been modified. 
         /// </summary>
