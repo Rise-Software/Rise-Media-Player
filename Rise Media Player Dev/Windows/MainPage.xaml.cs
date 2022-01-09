@@ -158,7 +158,7 @@ namespace Rise.App.Views
 
         private async void Indexer_Finished(object sender, int e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
@@ -361,6 +361,11 @@ namespace Rise.App.Views
                     IsInPageWithoutHeader = true;
                     NavView.SelectedItem = SBViewModel.
                         Items.FirstOrDefault(i => i.Tag == "AlbumsPage");
+                    return;
+
+                case "PlaylistDetailsPage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
+                    IsInPageWithoutHeader = true;
                     return;
 
                 case "ArtistSongsPage":
@@ -763,7 +768,7 @@ namespace Rise.App.Views
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog
+            ContentDialog dialog = new()
             {
                 Title = "Messages & reports",
                 CloseButtonText = "Close",
@@ -771,15 +776,11 @@ namespace Rise.App.Views
                 Content = new MessagesDialog()
             };
 
-            var result = await dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
         
-
-
         private async void Support_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Support.LaunchAsync();
-
-
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

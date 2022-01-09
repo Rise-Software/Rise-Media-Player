@@ -46,9 +46,54 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
+            Loaded += SongsPage_Loaded;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             ApplySettings();
+        }
+
+        private void SongsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddTo.Items.Clear();
+
+            AddTo.Items.Add(new MenuFlyoutItem()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            });
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                AddTo.Items.Add(item);
+            }
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+            await playlist.AddSongAsync(SelectedSong);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)

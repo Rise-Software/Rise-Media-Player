@@ -18,6 +18,19 @@ namespace Rise.App.Indexing
             };
 
         /// <summary>
+        /// Query options for playlist indexing.
+        /// </summary>
+        public static readonly QueryOptions PlaylistQueryOptions =
+            new QueryOptions(CommonFileQuery.DefaultQuery,
+            new string[]
+            {
+                ".m3u", ".m3u8", // ".wpl", ".zpl", ".asx", ".pls", ".xspf"
+            })
+            {
+                FolderDepth = FolderDepth.Deep
+            };
+
+        /// <summary>
         /// Query options for video indexing.
         /// </summary>
         public static readonly QueryOptions VideoQueryOptions =

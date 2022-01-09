@@ -60,14 +60,13 @@ namespace Rise.App.ViewModels
             FilteredArtists = new AdvancedCollectionView(Artists);
             FilteredGenres = new AdvancedCollectionView(Genres);
             FilteredVideos = new AdvancedCollectionView(Videos);
+            FilteredNotifications = new AdvancedCollectionView(Notifications);
 
             QueryPresets.SongQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
-
-            Task.Run(async () => await LoadPlaylists());
         }
 
         /// <summary>
@@ -112,6 +111,13 @@ namespace Rise.App.ViewModels
             = new ObservableCollection<PlaylistViewModel>();
         public AdvancedCollectionView FilteredPlaylists { get; set; }
 
+        /// <summary>
+        /// The collection of playlists in the list. 
+        /// </summary>
+        public ObservableCollection<NotificationViewModel> Notifications { get; set; }
+            = new ObservableCollection<NotificationViewModel>();
+        public AdvancedCollectionView FilteredNotifications { get; set; }
+
         private SongViewModel _selectedSong;
         /// <summary>
         /// Gets or sets the currently selected song.
@@ -143,19 +149,6 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Loads playlists from a list of playlist files
-        /// </summary>
-        private async Task LoadPlaylists()
-        {
-            App.PlaylistsFolder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("Playlists", CreationCollisionOption.OpenIfExists);
-            foreach (StorageFile playlistFile in await App.PlaylistsFolder.GetFilesAsync())
-            {
-                PlaylistViewModel playlistViewModel = new PlaylistViewModel(await playlistFile.AsPlaylistModelAsync());
-                await playlistViewModel.SaveAsync();
-            }
-        }
-
-        /// <summary>
         /// Gets the complete list of data from the database.
         /// </summary>
         public async Task GetListsAsync()
@@ -170,7 +163,8 @@ namespace Rise.App.ViewModels
                 IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
                 IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
                 IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
-                IEnumerable<Playlist> playlists = await App.Repository.Playlists.GetAsync();
+                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
+                ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
 
                 Songs.Clear();
                 foreach (Song s in songs)
@@ -222,10 +216,18 @@ namespace Rise.App.ViewModels
                 Playlists.Clear();
                 if (playlists != null)
                 {
-                    foreach (Playlist p in playlists)
+                    foreach (PlaylistViewModel p in playlists)
                     {
-                        if (!playlists.Contains(p))
-                            Playlists.Add(new PlaylistViewModel(p));
+                         Playlists.Add(p);
+                    }
+                }
+
+                Notifications.Clear();
+                if (notifications != null)
+                {
+                    foreach (NotificationViewModel n in notifications)
+                    {
+                        Notifications.Add(n);
                     }
                 }
             }
@@ -463,9 +465,14 @@ namespace Rise.App.ViewModels
                     vid.Thumbnail = Resources.MusicThumb;
                 }
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 await vid.SaveAsync();
             }
+        }
+
+        public async Task SavePlaylistModelAsync(StorageFile file)
+        {
+
         }
 
         /// <summary>
