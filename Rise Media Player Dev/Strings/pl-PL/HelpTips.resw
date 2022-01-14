@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
+    <value>Dodajemy Twoją muzykę i filmy</value>
+  </data>
+  <data name="Alpha.Text" xml:space="preserve">
+    <value>• Te wersje zostaną wydane przez Microsoft Store
+• Playlisty
+• Obsługa urządzeń
+• Nagrywanie płyt
+• Obsługa wielu języków (dla 12 języków początkowo (niekompletna))
+• Usługi online w tle – Discord Rich Presence i Last.fm Scrobbling
+• Dodano widoki i sortowanie muzyki
+• Indeksowanie i odtwarzanie wideo
+• Ulepszone wrażenia i kolejka „Teraz odtwarzane”
+• Zmodernizowany interfejs ustawień wprowadzony do wszystkich kompilacji
+• Lokalne rekomendacje i ostatnio odtwarzane
+• Discy w większości tej aplikacji</value>
+  </data>
+  <data name="AlphaH.Text" xml:space="preserve">
+    <value>Późna Pre-Alpha - Alpha</value>
+  </data>
+  <data name="Benefits.Text" xml:space="preserve">
+    <value>Po pierwsze, aplikacja wcześnie.
+
+Wtajemniczeni w Bloom Channel mają dostęp do najwcześniejszych możliwych kompilacji. To naprawdę daje Ci szansę zobaczenia, nad czym pracujemy, i wyrażenia opinii, gdy aktywnie pracujemy nad częściami aplikacji, co oznacza, że Twoja opinia wiele znaczy! Oczywiście nie jest to pozbawione wad. Insiderzy Bloom Channel napotykają również więcej błędów i problemów niż inni użytkownicy. Wtajemniczeni z Bloom uzyskują również dostęp do funkcji oznaczonych jako „Eksperymentalne”, co oznacza, że włożyliśmy w nie bardzo mało pracy lub są one bardzo niestabilne, ale mimo to interesujące do wypróbowania. Te funkcje nigdy nie są domyślnie włączone.
+
+Insiderzy wczesnego dostępu (wcześniej Seeding Insiders) uzyskują dostęp do aplikacji wcześniej, choć ze znacznie większą stabilnością. Funkcje eksperymentalne nie będą dostępne dla niejawnych testerów na tym kanale.*
+
+*Funkcje oznaczone jako eksperymentalne w interfejsie ustawień</value>
+  </data>
+  <data name="BenefitsH.Text" xml:space="preserve">
+    <value>Co dostajesz za bycie Insiderem?</value>
+  </data>
+  <data name="Beta.Text" xml:space="preserve">
+    <value>• Usługi przesyłania strumieniowego i rekomendacje w jakiejś formie
+• Korektor
+• Wizualizator
+• Szukanie informacji o albumie
+• Zgrywanie płyt
+• Obsługa sieci
+• Więcej rzeczy</value>
+  </data>
+  <data name="BetaH.Text" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="FAQH.Text" xml:space="preserve">
+    <value>Podstawy</value>
+  </data>
+  <data name="Features.Title" xml:space="preserve">
+    <value>Jakie funkcje traktujesz priorytetowo?</value>
+  </data>
+  <data name="HowTrans.Text" xml:space="preserve">
+    <value>Jeśli chcesz nas wesprzeć lub tłumaczyć, dołącz do naszego serwera Discord! Tutaj: https://disboard.org/server/872910570003791922</value>
+  </data>
+  <data name="HowTransH.Text" xml:space="preserve">
+    <value>Jak mogę zostać współtwórcą lub tłumaczem?</value>
+  </data>
+  <data name="Insider.Text" xml:space="preserve">
+    <value>Po przesłaniu formularza. Nie musisz nic więcej robić, po prostu poczekaj. Po opublikowaniu następnej kompilacji otrzymasz wiadomość e-mail do naszego portalu Insider, z którego możesz pobrać pakiet MSIX dla nowej kompilacji. Uwaga: kompilacje Alpha i nowsze będą korzystać z Microsoft Store do dystrybucji, ale zdecydowaliśmy się użyć MSIX dla wersji Pre-Alpha, ponieważ będzie wiele kompilacji. W ciągu kilku tygodni niejawni testerzy z obu kanałów mogą otrzymać te same kompilacje. To normalne, nie martw się!</value>
+  </data>
+  <data name="InsiderH.Text" xml:space="preserve">
+    <value>Hej, jestem Insiderem. Jak uzyskać kompilacje?</value>
+  </data>
+  <data name="InsiderProgram.Title" xml:space="preserve">
+    <value>Program Insider, tłumaczenia i współtwórstwo</value>
+  </data>
+  <data name="Join.Text" xml:space="preserve">
+    <value>Po prostu przejdź do poniższego formularza i odpowiedz na pytania. Wybierz swój kanał, wpisz swój adres e-mail i kilka innych rzeczy. https://bit.ly/rise-insider
+
+Powodzenia w testach!</value>
+  </data>
+  <data name="JoinH.Text" xml:space="preserve">
+    <value>Jak dołączyć do programu Insider?</value>
+  </data>
+  <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
+    <value>Odtwarzanie mediów i teraz odtwarzane</value>
+  </data>
+  <data name="PreAlpha.Text" xml:space="preserve">
+    <value>• Indeksowanie utworów, albumów, wykonawców i gatunków
+• Widoki albumów, wykonawców, gatunków i utworów (na razie statyczne)
+• Odtwarzanie multimediów
+• Pasek poleceń (PODSTAWOWY)
+• Lokalizacje multimediów kontrolowane przez użytkownika
+• Manipulowanie interfejsem użytkownika za pomocą ustawień
+• Podstawowa kontrola metadanych dla muzyki
+• Podstawowy interfejs użytkownika „Teraz odtwarzane”
+• Okno podstawowych właściwości
+• Sekcja pomocy z najczęściej zadawanymi pytaniami
+• Discy na małych obszarach</value>
+  </data>
+  <data name="PreAlphaH.Text" xml:space="preserve">
+    <value>Pre Alpha (będzie wiele wersji pre-alpha)</value>
+  </data>
+  <data name="ReleaseDate.Title" xml:space="preserve">
+    <value>Kiedy zostanie wydany Rise Media Player?</value>
+  </data>
+  <data name="ReleaseInfo.Text" xml:space="preserve">
+    <value>Nie ma oficjalnej daty premiery. Wersja Pre-Alpha 1 zostanie wydana 21 października (wraz z Rise Notes) i cieszymy się, że w końcu użytkownicy testują! :)
+
+Jeśli chodzi o inne wersje, nie mamy dokładnych dat, aby podać wam wszystko, ale do tego dążymy (wersje mogą zostać wydane wcześniej lub później, w zależności od funkcji:
+
+• Proces Pre Alpha – od października do grudnia 2021 r. (Pre-Alpha 1 to pierwsza wersja)
+
+• Kompilacje alfa — Nowy Rok (2022) do marca 2022 r. Uwaga: W trakcie procesu alfa wersje demonstracyjne aplikacji będą publicznie dostępne do przetestowania na potrzeby interfejsu użytkownika.
+
+• Beta — kwiecień — do ustalenia (ta wersja będzie dostępna dla wszystkich użytkowników publicznych w sklepie Microsoft Store. Nie musisz brać udziału w programie Insider, ale przegapisz funkcje)</value>
+  </data>
+  <data name="SortingManagingLibrary.Title" xml:space="preserve">
+    <value>Sortowanie i zarządzanie biblioteką</value>
+  </data>
+  <data name="WhatDiscy.Description" xml:space="preserve">
+    <value>Musisz zobaczyć ;)</value>
+  </data>
+  <data name="WhatDiscy.Title" xml:space="preserve">
+    <value>Co to Discy?</value>
+  </data>
+</root>
