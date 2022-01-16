@@ -47,7 +47,8 @@
                     <Border CornerRadius="5">
                         <Image Height="96"
                                Stretch="UniformToFill"
-                               Width="96">
+                               Width="96"
+                               x:Name="imgAlbum">
                             <Image.Source>
                                 <BitmapImage UriSource="{x:Bind Props.Thumbnail}" />
                             </Image.Source>
@@ -66,7 +67,7 @@
                                    Margin="0,-4,0,4"
                                    Style="{StaticResource BodyTextBlockStyle}" />
 
-                        <muxc:SplitButton>
+                        <muxc:SplitButton Click="SplitButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon Glyph="&#xE104;" FontSize="16" />
                                 <TextBlock x:Uid="/Details/EditAlbum"
