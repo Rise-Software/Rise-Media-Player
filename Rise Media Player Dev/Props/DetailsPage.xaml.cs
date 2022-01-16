@@ -1,8 +1,7 @@
-﻿using Rise.App.Common;
+﻿using System;
+using Rise.App.Common;
 using Rise.App.ViewModels;
-using System;
 using Windows.Storage.FileProperties;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
