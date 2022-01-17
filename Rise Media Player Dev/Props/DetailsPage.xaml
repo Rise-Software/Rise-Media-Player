@@ -67,7 +67,7 @@
                                    Margin="0,-4,0,4"
                                    Style="{StaticResource BodyTextBlockStyle}" />
 
-                        <muxc:SplitButton Click="SplitButton_Click">
+                        <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon Glyph="&#xE104;" FontSize="16" />
                                 <TextBlock x:Uid="/Details/EditAlbum"

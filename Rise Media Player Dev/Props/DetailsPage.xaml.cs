@@ -34,7 +34,7 @@ namespace Rise.App.Props
             LocalTip.IsOpen = true;
         }
 
-        private async void SplitButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
+        private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker
             {
