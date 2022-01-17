@@ -470,11 +470,6 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public async Task SavePlaylistModelAsync(StorageFile file)
-        {
-
-        }
-
         /// <summary>
         /// Upserts and removes all queued items.
         /// </summary>
@@ -485,14 +480,12 @@ namespace Rise.App.ViewModels
             await App.Repository.Artists.UpsertQueuedAsync();
             await App.Repository.Genres.UpsertQueuedAsync();
             await App.Repository.Videos.UpsertQueuedAsync();
-            await App.Repository.Playlists.UpsertQueuedAsync();
 
             await App.Repository.Songs.DeleteQueuedAsync();
             await App.Repository.Albums.DeleteQueuedAsync();
             await App.Repository.Artists.DeleteQueuedAsync();
             await App.Repository.Genres.DeleteQueuedAsync();
             await App.Repository.Videos.DeleteQueuedAsync();
-            await App.Repository.Playlists.DeleteQueuedAsync();
         }
 
         /// <summary>

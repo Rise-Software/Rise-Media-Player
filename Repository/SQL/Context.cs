@@ -35,10 +35,5 @@ namespace Rise.Repository.SQL
         /// Gets the videos DbSet.
         /// </summary>
         public DbSet<Video> Videos { get; set; }
-
-        /// <summary>
-        /// Gets the playlists DbSet.
-        /// </summary>
-        public DbSet<Playlist> Playlists { get; set; }
     }
 }

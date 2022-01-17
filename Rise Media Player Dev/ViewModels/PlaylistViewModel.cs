@@ -266,17 +266,9 @@ namespace Rise.App.ViewModels
             IsInEdit = false;
             if (IsModified)
             {
-                await RefreshPlaylistsAsync();
+                //await RefreshPlaylistsAsync();
                 IsModified = false;
             }
-        }
-
-        /// <summary>
-        /// Reloads all of the playlist data.
-        /// </summary>
-        public async Task RefreshPlaylistsAsync()
-        {
-            Model = await App.Repository.Playlists.GetAsync(Model.Id);
         }
     }
 }

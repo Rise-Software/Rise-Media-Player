@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:converters="using:Rise.App.Converters" xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:converters="using:Rise.App.Converters"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
