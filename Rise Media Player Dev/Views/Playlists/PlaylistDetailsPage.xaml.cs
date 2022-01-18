@@ -29,6 +29,20 @@ namespace Rise.App.Views
         private PlaylistViewModel plViewModel;
         private SongViewModel _song;
 
+        private SongViewModel _selectedSong;
+
+        /// <summary>
+        /// Gets or sets the currently selected song.
+        /// </summary>
+        public SongViewModel SelectedSong
+        {
+            get => _selectedSong;
+            set 
+            {
+                _selectedSong = value;
+            }
+        }
+
         public PlaylistDetailsPage()
         {
             InitializeComponent();
@@ -83,7 +97,7 @@ namespace Rise.App.Views
 
         private async void Remove_Click(object sender, RoutedEventArgs e)
         {
-            
+            Debug.WriteLine(plViewModel.Songs.Remove(SelectedSong));
         }
     }
 }
