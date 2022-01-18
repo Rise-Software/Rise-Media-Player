@@ -66,7 +66,7 @@ namespace Rise.App.Views
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
             => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool result = await Props.SaveChangesAsync();
 
