@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using System;
 using Windows.UI.Xaml;
@@ -289,6 +290,11 @@ namespace Rise.App.Views
                     song.IsDurationVisible = false;
                 }
             }
+        }
+
+        private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
+        {
+            await new MusicStreamingDialog().ShowAsync();
         }
     }
 }

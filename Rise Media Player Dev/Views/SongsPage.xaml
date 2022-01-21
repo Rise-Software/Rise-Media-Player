@@ -135,6 +135,12 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+
+            <AppBarButton Label="Play from URL" Click="PlayFromUrl_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE704;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </CommandBar>
 
         <ListView x:Name="MainList"
