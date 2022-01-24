@@ -230,13 +230,14 @@
                     <Button.Flyout>
                         <MenuFlyout>
 
-                            <MenuFlyoutItem x:Uid="/Information/Accounts" IsEnabled="False">
+                            <MenuFlyoutItem x:Uid="/Information/Accounts" x:Name="Acc" Click="Account_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
 
+                            <MenuFlyoutSeparator />
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"

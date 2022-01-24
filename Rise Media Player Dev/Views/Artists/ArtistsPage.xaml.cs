@@ -2,7 +2,11 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Xml;
 using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +17,10 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistsPage : Page
     {
+        XmlDocument xmlDoc = new();
+        List<string> artistnames = new();
+        List<string> imagelinks = new();
+
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -40,8 +48,47 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
+            SetArtistPictures();
         }
+        private async void SetArtistPictures()
+        {
+            string image;
+            foreach (ArtistViewModel artist in Artists)
+            {
+                if (artist.Name != "Unknown Artist")
+                {
+                    artistnames.Add(artist.Name);
+                }
+            }
+            foreach (string artistname in artistnames)
+            {
+                image = await Task.Run(() => getartistimg(artistname));
+                imagelinks.Add(artistname + " - " + image);
+            }
+            foreach (string imagel in imagelinks)
+            {
+                foreach (ArtistViewModel artist in Artists)
+                {
+                    if (artist.Name == "Unknown Artist") { }
+                    else if (imagel.Contains(artist.Name))
+                    {
+                        artist.Picture = imagel.Replace(artist.Name + " - ", "");
+                    }
+                }
+            }
+        }
+        public Task<string> getartistimg(string artist)
+        {
+            string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            xmlDoc.LoadXml(xmlStr);
 
+            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+            string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+            return Task.FromResult(yes);
+        }
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {

@@ -1,7 +1,12 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Xml;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -14,6 +19,8 @@ namespace Rise.App.Views
     public sealed partial class ArtistSongsPage : Page
     {
         #region Variables
+
+        XmlDocument xmlDoc = new();
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -61,6 +68,83 @@ namespace Rise.App.Views
             DataContext = this;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            Loaded += ArtistSongsPage_Loaded;
+        }
+        public string name;
+        private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            name = ArtistName.Text;
+            if (ArtistName.Text == "Unknown Artist")
+            {
+                AboutArtist.Text = "";
+            }
+            else
+            {
+                AboutArtist.Visibility = Visibility.Visible;
+                try
+                {
+                    string artist = await Task.Run(() => GetArtistInfo(name));
+                    if (AboutArtist.Text == artist) { }
+                    else
+                    {
+                        AboutArtist.Text = artist;
+                    }
+                    string genre = await Task.Run(() => GetGenre(name));
+                    if (SongAlbums.Text.Contains(genre)) { }
+                    else
+                    {
+                        SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
+                    }
+                }
+                catch { }
+            }
+        } /// <summary>
+          /// Task to get description about artist.
+          /// </summary>
+          /// <param name="artist">Artist name.</param>
+          /// <returns></returns>
+        public Task<string> GetArtistInfo(string artist)
+        {
+            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            xmlDoc.LoadXml(xmlStr);
+            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+            string url = node.InnerText;
+            node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
+            string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
+            return Task.FromResult(okay);
+        }
+
+        /// <summary>
+        /// Task to get the genre of the artist.
+        /// </summary>
+        /// <param name="artist">Artist name.</param>
+        /// <returns></returns>
+        public Task<string> GetGenre(string artist)
+        {
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            xmlDoc.LoadXml(xmlStr);
+            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
+            return Task.FromResult(textInfo.ToTitleCase(node.InnerText));
+        }
+        public Task<string> GetArtistInfoBig(string artist)
+        {
+            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            xmlDoc.LoadXml(xmlStr);
+            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+            string url = node.InnerText;
+            node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
+            string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+            return Task.FromResult(okay);
         }
 
         private static readonly DependencyProperty SelectedAlbumProperty =
@@ -261,5 +345,24 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ArtistName.Text;
+            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            ContentDialog aboutArtist = new()
+            {
+                Title = "About " + name,
+                Content = new ScrollViewer()
+                {
+                    Content = new TextBlock()
+                    {
+                        Text = AboutArtistBig,
+                        TextWrapping = TextWrapping.WrapWholeWords
+                    },
+                },
+                CloseButtonText = "Close"
+            };
+            await aboutArtist.ShowAsync();
+        }
     }
 }

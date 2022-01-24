@@ -79,7 +79,11 @@ namespace Rise.App.Views
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
-
+        internal string AccountMenuText
+        {
+            get { return Acc.Text.ToString(); }
+            set { Acc.Text = value; }
+        }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
@@ -760,10 +764,29 @@ namespace Rise.App.Views
                 }
             }
         }
-
-        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        private async Task<bool> GetFileStatus()
         {
-
+            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
+            return file != null;
+        }
+        private async void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool fileexists = await GetFileStatus();
+            if (fileexists)
+            {
+                Windows.Storage.StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("userid.txt");
+                string content = System.IO.File.ReadAllText(file.Path.ToString());
+                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("signature.txt");
+                string signature = System.IO.File.ReadAllText(file.Path.ToString());
+                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
+                string name = System.IO.File.ReadAllText(file.Path.ToString());
+                App app = Application.Current as App;
+                app.sessionkey = content;
+                app.signature = signature;
+                Acc.Text = name;
+            }
+            else { }
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
@@ -880,7 +903,18 @@ namespace Rise.App.Views
                 sender.ItemsSource = suitableItems;
             }
         }
-
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (Acc.Text != "Add an account")
+            {
+                string url = "https://www.last.fm/user/" + Acc.Text;
+                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            }
+            else
+            {
+                _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+            }
+        }
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
