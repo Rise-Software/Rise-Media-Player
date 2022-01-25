@@ -52,11 +52,11 @@
                             <FontIcon Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
                         </Button>
                         
-                        <TextBlock Text="v0.0.14.0"
+                        <TextBlock Text="v0.0.160.0"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Text="Pre-Alpha 4"
+                        <TextBlock Text="Alpha Preview"
                                    Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
