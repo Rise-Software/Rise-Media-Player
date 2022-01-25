@@ -781,8 +781,8 @@ namespace Rise.App.Views
                 file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
                 string name = System.IO.File.ReadAllText(file.Path.ToString());
                 App app = Application.Current as App;
-                app.sessionkey = content;
-                app.signature = signature;
+                App.LMViewModel.SessionKey = content;
+                App.LMViewModel.Signature = signature;
                 Acc.Text = name;
             }
             else { }

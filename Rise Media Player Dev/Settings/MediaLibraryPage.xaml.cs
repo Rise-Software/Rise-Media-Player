@@ -5,6 +5,7 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -81,40 +82,12 @@ namespace Rise.App.Settings
 
         private async void LastFmFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            bool fileExists = await LastFMHelper.GetFileStatus();
-            if (!fileExists)
+            try
             {
-                string Token = await Task.Run(LastFMHelper.GetToken);
-                string uriToLaunch = "https://www.last.fm/api/auth?api_key=" + LastFM.key + "&token=" + Token + "&redirect_uri=" + Uri.EscapeDataString("https://www.google.com");
-                LastFMHelper.startUri = new Uri(uriToLaunch);
-                App app = Application.Current as App;
-                /*
-                app.urilink = uri;
-                LoginDialog loginDialog = new();
-                _ = await loginDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-                */
-
-                Dictionary<string, string> args = new()
-                {
-                    { "method", "auth.getSession" },
-                    { "api_key", LastFM.key },
-                    { "token", Token }
-                };
-                string url = LastFMHelper.GetSignedURI(args, true);
-                Uri endUri = new(url);
-                WebAuthenticationResult webAuthenticationResult =
-                    await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, LastFMHelper.startUri, endUri);
-                string signature = LastFMHelper.SignCall(args);
-                WebClient wc = new();
-                string xml = wc.DownloadString(url);
-                string key = await Task.Run(() => LastFMHelper.GetSessionKey(xml));
-                string name = await Task.Run(() => LastFMHelper.GetUserName(xml));
-                await AccountsHelper.AddTextToFile(key, "userid.txt");
-                await AccountsHelper.AddTextToFile(signature, "signature.txt");
-                await AccountsHelper.AddTextToFile(name, "name.txt");
-                app.sessionkey = key;
-                app.signature = signature;
-                MainPage.Current.AccountMenuText = name;
+                await LastFMHelper.LogIn();
+            } catch (Exception e1)
+            {
+                Debug.WriteLine(e1.Message);
             }
         }
     }

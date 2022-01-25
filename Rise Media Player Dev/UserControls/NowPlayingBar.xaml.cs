@@ -658,9 +658,7 @@ namespace Rise.App.UserControls
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-
-            App app = Application.Current as App;
-            LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, app.sessionkey, (s) =>
+            LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, App.LMViewModel.SessionKey, (s) =>
             {
                 Debug.WriteLine("Scrobble Success!");
             });

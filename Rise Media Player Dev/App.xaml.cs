@@ -32,15 +32,6 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
-
-        public Uri urilink;
-
-        public string sessionkey;
-
-        public string token;
-
-        public string signature;
-
         /// <summary>
         /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
         /// </summary>
@@ -70,6 +61,11 @@ namespace Rise.App
         /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
         /// </summary>
         public static SidebarViewModel SBViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
+        /// </summary>
+        public static LastFMViewModel LMViewModel { get; private set; }
 
         /// <summary>
         /// Pipeline for interacting with backend service or database.
@@ -187,6 +183,7 @@ namespace Rise.App
             PBackendController = new PlaylistsBackendController();
             NBackendController = new NotificationsBackendController();
             MViewModel = new MainViewModel();
+            LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
             SBViewModel = new SidebarViewModel();
 
