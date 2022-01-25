@@ -26,20 +26,20 @@ namespace Rise.App.Settings
 
         public static MediaLibraryPage Current;
 
-        private readonly FoldersDialog Dialog = new FoldersDialog();
-        private readonly VFoldersDialog VDialog = new VFoldersDialog();
+        private readonly FoldersDialog Dialog = new();
+        private readonly VFoldersDialog VDialog = new();
 
-        public ContentDialog FolderDialog = new ContentDialog
+        public ContentDialog FolderDialog = new()
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
         };
 
-        public ContentDialog VFolderDialog = new ContentDialog
+        public ContentDialog VFolderDialog = new()
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
         };
 
-        private readonly List<string> Deletion = new List<string>
+        private readonly List<string> Deletion = new()
         {
             ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
             ResourceLoaders.MediaLibraryLoader.GetString("Device")
