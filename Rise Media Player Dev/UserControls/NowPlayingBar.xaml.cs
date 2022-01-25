@@ -25,6 +25,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Rise.App.Helpers;
 
 namespace Rise.App.UserControls
 {
@@ -293,71 +294,7 @@ namespace Rise.App.UserControls
             });
 
         }
-        public static string MD5(string toHash)
-        {
-            byte[] textBytes = Encoding.UTF8.GetBytes(toHash);
-            System.Security.Cryptography.MD5CryptoServiceProvider cryptHandler = new();
-            byte[] hash = cryptHandler.ComputeHash(textBytes);
-            return hash.Aggregate("", (current, a) => current + a.ToString("x2"));
-        }
-        public string GetSignature(Dictionary<string, string> parameters)
-        {
-            string result = string.Empty;
 
-            IOrderedEnumerable<KeyValuePair<string, string>> data = parameters.OrderBy(x => x.Key);
-
-            foreach (var s in data)
-            {
-                result += s.Key + s.Value;
-            }
-            System.Security.Cryptography.MD5CryptoServiceProvider cryptHandler = new();
-            result += LastFM.secret;
-            result = MD5(result);
-
-            return result;
-        }
-        public static string GetUnixTimestamp()
-        {
-            TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
-            return ((int)t.TotalSeconds).ToString();
-        }
-        public void ScrobbleTrack(string artist, string track, string sessionKey, Action<string> onCompletion)
-        {
-            string currentTimestamp = GetUnixTimestamp();
-
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("artist[0]", artist);
-            parameters.Add("track[0]", track);
-            parameters.Add("timestamp[0]", currentTimestamp);
-            parameters.Add("method", "track.scrobble");
-            parameters.Add("api_key", LastFM.key);
-            parameters.Add("sk", sessionKey);
-
-            string signature = GetSignature(parameters);
-
-            string comboUrl = string.Concat("https://ws.audioscrobbler.com/2.0/", "?method=track.scrobble", "&api_key=", LastFM.key,
-            "&artist[0]=", artist, "&track[0]=", track, "&sk=", sessionKey,
-            "&timestamp[0]=", currentTimestamp,
-            "&api_sig=", signature);
-
-            var client = new WebClient();
-            client.UploadStringAsync(new Uri(comboUrl), string.Empty);
-            client.UploadStringCompleted += (s, e) =>
-            {
-                try
-                {
-                    onCompletion(e.Result);
-                }
-                catch (WebException ex)
-                {
-                    HttpWebResponse response = (HttpWebResponse)ex.Response;
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        Debug.WriteLine(reader.ReadToEnd());
-                    }
-                }
-            };
-        }
         private async void PViewModel_CurrentVideoChanged(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -723,7 +660,7 @@ namespace Rise.App.UserControls
         {
 
             App app = Application.Current as App;
-            ScrobbleTrack(SongArtist.Text, SongTitle.Text, app.sessionkey, (s) =>
+            LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, app.sessionkey, (s) =>
             {
                 Debug.WriteLine("Scrobble Success!");
             });

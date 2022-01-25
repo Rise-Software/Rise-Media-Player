@@ -32,11 +32,14 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+
         public Uri urilink;
+
         public string sessionkey;
+
         public string token;
+
         public string signature;
-        public static StorageFolder PlaylistsFolder { get; set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
