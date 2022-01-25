@@ -467,7 +467,7 @@ namespace Rise.App.ViewModels
             StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
             MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new MediaPlaybackItem(source);
+            MediaPlaybackItem media = new(source);
 
             MediaItemDisplayProperties props = media.GetDisplayProperties();
             props.Type = MediaPlaybackType.Music;
@@ -487,6 +487,12 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
+
+        /// <summary>
+        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
+        /// </summary>
+        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
+        
 
         public readonly static RelayCommand _beginPlayback = new RelayCommand(async () =>
         {
