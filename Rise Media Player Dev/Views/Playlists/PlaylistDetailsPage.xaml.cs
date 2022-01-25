@@ -2,6 +2,7 @@
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,6 +29,20 @@ namespace Rise.App.Views
         private PlaylistViewModel plViewModel;
         private SongViewModel _song;
 
+        private SongViewModel _selectedSong;
+
+        /// <summary>
+        /// Gets or sets the currently selected song.
+        /// </summary>
+        public SongViewModel SelectedSong
+        {
+            get => _selectedSong;
+            set 
+            {
+                _selectedSong = value;
+            }
+        }
+
         public PlaylistDetailsPage()
         {
             InitializeComponent();
@@ -46,7 +61,12 @@ namespace Rise.App.Views
 
         private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                _song = song;
+                Debug.WriteLine(_song);
+                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
+            }
         }
 
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -63,6 +83,9 @@ namespace Rise.App.Views
             {
                 int index = MainList.Items.IndexOf(song);
                 await App.PViewModel.StartMusicPlaybackAsync(plViewModel.Songs.GetEnumerator(), index, plViewModel.Songs.Count, false);
+            } else
+            {
+                await App.PViewModel.StartMusicPlaybackAsync(plViewModel.Songs.GetEnumerator(), 0, plViewModel.Songs.Count, false);
             }
         }
 
@@ -71,5 +94,10 @@ namespace Rise.App.Views
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
             => EventsLogic.GoToArtist(sender);
+
+        private async void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(plViewModel.Songs.Remove(SelectedSong));
+        }
     }
 }

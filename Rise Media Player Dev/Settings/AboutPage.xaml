@@ -29,7 +29,7 @@
                                 <TextBlock
                                     FontSize="12"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Text="PA4 InDev" />
+                                    Text="Alpha Preview" />
                             </StackPanel>
                         </StackPanel>
                     </Button>

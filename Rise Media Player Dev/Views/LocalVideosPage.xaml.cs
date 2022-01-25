@@ -70,14 +70,9 @@ namespace Rise.App.Views
                 }
                 if (Window.Current.Content is Frame rootFrame)
                 {
-                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
             }
-        }
-
-        private void GridView_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -115,6 +110,8 @@ namespace Rise.App.Views
                     break;
                 case "Descending":
                     CurrentSort = SortDirection.Descending;
+                    break;
+                default:
                     break;
             }
             Videos.SortDescriptions.Add(new SortDescription(CurrentSortProperty, CurrentSort));

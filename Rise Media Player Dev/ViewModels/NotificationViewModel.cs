@@ -1,7 +1,6 @@
 ﻿using Rise.Models;
 using System;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {

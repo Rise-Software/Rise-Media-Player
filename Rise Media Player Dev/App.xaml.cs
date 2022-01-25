@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
@@ -31,9 +32,6 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
-
-        public static StorageFolder PlaylistsFolder { get; set; }
-
         /// <summary>
         /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
         /// </summary>
@@ -63,6 +61,11 @@ namespace Rise.App
         /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
         /// </summary>
         public static SidebarViewModel SBViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
+        /// </summary>
+        public static LastFMViewModel LMViewModel { get; private set; }
 
         /// <summary>
         /// Pipeline for interacting with backend service or database.
@@ -180,6 +183,7 @@ namespace Rise.App
             PBackendController = new PlaylistsBackendController();
             NBackendController = new NotificationsBackendController();
             MViewModel = new MainViewModel();
+            LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
             SBViewModel = new SidebarViewModel();
 
@@ -296,13 +300,22 @@ namespace Rise.App
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (!(Window.Current.Content is Frame rootFrame))
+            if (Window.Current.Content is not Frame rootFrame)
             {
                 await InitDatabase();
                 await MViewModel.GetListsAsync();
 
-                LeavingBackground += async (s, e) =>
-                    await MViewModel.StartFullCrawlAsync();
+                // Scan every minute instead of just doing it each time we leave background.
+                // This can have some serious performance boosts when doing it like this.
+                // TODO: let user manage it from settings.
+                Timer timer = new(TimeSpan.FromMinutes(1).TotalMilliseconds)
+                {
+                    AutoReset = true
+                };
+                timer.Elapsed += async (s, e) => await MViewModel.StartFullCrawlAsync();
+                timer.Start();
+
+                // LeavingBackground += async (s, e) => await MViewModel.StartFullCrawlAsync();
 
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();

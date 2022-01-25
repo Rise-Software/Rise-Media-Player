@@ -72,7 +72,11 @@ namespace Rise.App.ViewModels
             set => Model.Rating = value * 20;
         }
 
-        public string Thumbnail => Model.Thumbnail;
+        public string Thumbnail
+        {
+            get => Model.Thumbnail;
+            set => Model.Thumbnail = value;
+        }
 
         public string Location => Model.Location;
 

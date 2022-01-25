@@ -127,9 +127,6 @@
     /// </summary>
     public static class URLs
     {
-        public const string MusicBrainz =
-            "http://musicbrainz.org/ws/2/";
-
         public const string UserAgent =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36";
 
@@ -165,8 +162,20 @@
 
         public const string TranslationReports =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
-    }
+        public const string LastFM =
+            "http://ws.audioscrobbler.com/2.0/?method=";
 
+        public const string Deezer =
+            "https://api.deezer.com/";
+    }
+    /// <summary>
+    /// Last.fm api key and secret
+    /// </summary>
+    public static class LastFM
+    {
+        public const string key = "191ab527092524a972de4d7b03a64929";
+        public const string secret = "361a1268f1ed7a8152321d15bf872a42";
+    }
     /// <summary>
     /// App resource URIs.
     /// </summary>

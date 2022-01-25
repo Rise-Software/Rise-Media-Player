@@ -9,7 +9,8 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:converters="using:Rise.App.Converters"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -64,12 +65,15 @@
                                     Orientation="Vertical"
                                     Spacing="8"
                                         Padding="0,10,0,0">
-                            <TextBlock Text="{x:Bind SelectedArtist.Name, Mode=OneWay}"
+                            <TextBlock x:Name="ArtistName" Text="{x:Bind SelectedArtist.Name, Mode=OneWay}"
                                        MaxLines="1"
                                        Style="{StaticResource TitleTextBlockStyle}" />
-
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind SelectedArtist.Songs, Mode=OneWay}" />
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind SelectedArtist.Albums, Mode=OneWay}" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" x:Name="SongAlbums"/>
+                            <HyperlinkButton Padding="-1.8,0,0,0" Click="HyperlinkButton_Click" >
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" x:Name="AboutArtist" TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="1"></TextBlock>
+                                </StackPanel>
+                            </HyperlinkButton>
 
                             <CommandBar Background="Transparent"
                                         DefaultLabelPosition="Right"

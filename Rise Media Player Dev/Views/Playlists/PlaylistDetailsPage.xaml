@@ -4,7 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Rise.App.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
 
@@ -13,11 +16,24 @@
                   x:Name="MainList"
                   RightTapped="MainList_RightTapped"
                   DoubleTapped="MainList_DoubleTapped"
+                  SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   Padding="56,0">
+
+            <ListView.Resources>
+                <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
+                    <MenuFlyoutItem x:Name="Remove"
+                                    x:Uid="/Information/RemoveThing"
+                                    Click="Remove_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </ListView.Resources>
 
             <ListView.Header>
                 <Border Padding="0,0,0,10" Margin="-66,0">
-                    <Grid>
+                    <Grid Height="250">
                         <ParallaxView VerticalShift="300"
                                       Source="{x:Bind MainList}">
                             <Image Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
@@ -122,7 +138,7 @@
                                     x:Uid="/Information/NewPlaylist"
                                     IsEnabled="False">
                                                         <MenuFlyoutItem.Icon>
-                                                            <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                                                            <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
                                                         </MenuFlyoutItem.Icon>
                                                     </MenuFlyoutItem>
                                                     <MenuFlyoutSeparator/>
@@ -149,7 +165,6 @@
                         </Border>
                     </Grid>
                 </Border>
-
             </ListView.Header>
             
             <ListView.ItemTemplate>

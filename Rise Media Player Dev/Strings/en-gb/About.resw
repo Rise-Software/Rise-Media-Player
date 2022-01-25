@@ -145,9 +145,7 @@
     <value>Copy version</value>
   </data>
   <data name="More.Subtitle" xml:space="preserve">
-    <value>InDev Release Date: December 24th, 2021
-Final release date: January 1st, 2022
-Internal Version: 0.0.135.0
+    <value>Internal Version: 0.0.160.0
 Edition: Bloom
 
 Created by Joseph Beattie &amp; YourOrdinaryCat</value>

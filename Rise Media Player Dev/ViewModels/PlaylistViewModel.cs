@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using Rise.Models;
+﻿using Rise.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
@@ -266,17 +264,9 @@ namespace Rise.App.ViewModels
             IsInEdit = false;
             if (IsModified)
             {
-                await RefreshPlaylistsAsync();
+                //await RefreshPlaylistsAsync();
                 IsModified = false;
             }
-        }
-
-        /// <summary>
-        /// Reloads all of the playlist data.
-        /// </summary>
-        public async Task RefreshPlaylistsAsync()
-        {
-            Model = await App.Repository.Playlists.GetAsync(Model.Id);
         }
     }
 }

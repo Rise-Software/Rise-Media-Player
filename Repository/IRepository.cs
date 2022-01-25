@@ -28,10 +28,5 @@ namespace Rise.Repository
         /// Returns the videos repository.
         /// </summary>
         ISQLRepository<Video> Videos { get; set; }
-
-        /// <summary>
-        /// Returns the playlists repository.
-        /// </summary>
-        ISQLRepository<Playlist> Playlists { get; set; }
     }
 }

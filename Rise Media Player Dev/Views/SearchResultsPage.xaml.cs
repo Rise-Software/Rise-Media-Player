@@ -1,7 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,9 +11,9 @@ namespace Rise.App.Views
     public sealed partial class SearchResultsPage : Page
     {
         private string _searchText = string.Empty;
-        private List<ArtistViewModel> suitableArtists = new List<ArtistViewModel>();
-        private List<SongViewModel> suitableSongs = new List<SongViewModel>();
-        private List<AlbumViewModel> suitableAlbums = new List<AlbumViewModel>();
+        private readonly List<ArtistViewModel> suitableArtists = new();
+        private readonly List<SongViewModel> suitableSongs = new();
+        private readonly List<AlbumViewModel> suitableAlbums = new();
         private string[] splitText;
         private bool songFound, albumFound, artistFound;
 
@@ -30,7 +29,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
             }
         }
 
@@ -38,7 +37,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
             }
         }
 
@@ -88,7 +87,7 @@ namespace Rise.App.Views
                 if (artistFound)
                 {
                     suitableArtists.Add(artist);
-                } 
+                }
             }
 
             if (suitableSongs.Count == 0)

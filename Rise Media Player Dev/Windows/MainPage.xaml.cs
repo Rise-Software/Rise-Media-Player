@@ -20,7 +20,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
@@ -79,7 +78,11 @@ namespace Rise.App.Views
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
-
+        internal string AccountMenuText
+        {
+            get => Acc.Text.ToString();
+            set => Acc.Text = value;
+        }
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
@@ -98,11 +101,11 @@ namespace Rise.App.Views
             if (e.NewSize.Width < 800 && IsInPageWithoutHeader)
             {
                 ContentFrame.Margin = new Thickness(0, 48, 0, 0);
-            } 
+            }
             else if (e.NewSize.Width < 800 && !IsInPageWithoutHeader)
             {
                 ContentFrame.Margin = new Thickness(0);
-            } 
+            }
             else if (e.NewSize.Width >= 800)
             {
                 ContentFrame.Margin = new Thickness(0);
@@ -158,7 +161,7 @@ namespace Rise.App.Views
 
         private async void Indexer_Finished(object sender, int e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
@@ -679,13 +682,13 @@ namespace Rise.App.Views
 
         private async Task<bool> OpenPageAsWindowAsync(Type t)
         {
-            var view = CoreApplication.CreateNewView();
+            CoreApplicationView view = CoreApplication.CreateNewView();
             int id = 0;
 
             await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                var frame = new Frame();
-                frame.Navigate(t, null);
+                Frame frame = new();
+                _ = frame.Navigate(t, null);
                 Window.Current.Content = frame;
                 Window.Current.Activate();
                 id = ApplicationView.GetForCurrentView().Id;
@@ -696,7 +699,7 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
+            _ = await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
@@ -760,10 +763,25 @@ namespace Rise.App.Views
                 }
             }
         }
-
-        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        private async Task<bool> GetFileStatus()
         {
-
+            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
+            return file != null;
+        }
+        private async void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool fileexists = await GetFileStatus();
+            if (fileexists)
+            {
+                Windows.Storage.StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("userid.txt");
+                string content = System.IO.File.ReadAllText(file.Path.ToString());
+                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
+                string name = System.IO.File.ReadAllText(file.Path.ToString());
+                App.LMViewModel.SessionKey = content;
+                Acc.Text = name;
+            }
+            else { }
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
@@ -776,9 +794,9 @@ namespace Rise.App.Views
                 Content = new MessagesDialog()
             };
 
-            await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
-        
+
         private async void Support_Click(object sender, RoutedEventArgs e)
             => _ = await URLs.Support.LaunchAsync();
 
@@ -792,7 +810,7 @@ namespace Rise.App.Views
             {
                 case "Album":
                     AlbumViewModel album = App.MViewModel.Albums.FirstOrDefault(a => a.Title.Equals(searchItem.Title));
-                    ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                    _ = ContentFrame.Navigate(typeof(AlbumSongsPage), album);
                     break;
                 case "Song":
                     SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Title.Equals(searchItem.Title));
@@ -880,10 +898,21 @@ namespace Rise.App.Views
                 sender.ItemsSource = suitableItems;
             }
         }
-
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (Acc.Text != "Add an account")
+            {
+                string url = "https://www.last.fm/user/" + Acc.Text;
+                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            }
+            else
+            {
+                _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+            }
+        }
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
         }
 
         private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
@@ -901,7 +930,7 @@ namespace Rise.App.Views
             if (string.IsNullOrWhiteSpace(str))
             {
                 return Visibility.Collapsed;
-            } 
+            }
             else
             {
                 return Visibility.Visible;
@@ -952,6 +981,6 @@ namespace Rise.App.Views
         }
     }
 
-    
+
 
 }

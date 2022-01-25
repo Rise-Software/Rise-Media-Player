@@ -65,10 +65,7 @@ namespace Rise.Repository.SQL
         public async Task QueueUpsertAsync(Album item)
         {
             _upsertQueue.Add(item);
-            if (_upsertQueue.Count >= 200)
-            {
-                await UpsertQueuedAsync();
-            }
+            await UpsertQueuedAsync();
         }
 
         public async Task UpsertQueuedAsync()
@@ -83,10 +80,7 @@ namespace Rise.Repository.SQL
         public async Task QueueDeletionAsync(Album item)
         {
             _removalQueue.Add(item);
-            if (_removalQueue.Count >= 200)
-            {
-                await DeleteQueuedAsync();
-            }
+            await DeleteQueuedAsync();
         }
 
         public async Task DeleteQueuedAsync()

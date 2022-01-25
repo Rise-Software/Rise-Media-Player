@@ -10,7 +10,7 @@ namespace Rise.App.Views
 {
     public sealed partial class HomePage : Page
     {
-        private static readonly FeatureDialog _dialog = new FeatureDialog();
+        private static readonly FeatureDialog _dialog = new();
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -79,7 +79,8 @@ namespace Rise.App.Views
                 case "Discy":
                     DiscyOnHome.IsOpen = true;
                     break;
-
+                default:
+                    break;
             }
         }
 

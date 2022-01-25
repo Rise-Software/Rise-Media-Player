@@ -8,7 +8,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.Media.Playback;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Microsoft.Toolkit.Uwp.UI;
@@ -17,12 +16,16 @@ using Windows.Graphics.Imaging;
 using ColorThiefDotNet;
 using Rise.App.Converters;
 using Rise.App.ViewModels;
-using Rise.App.Common;
 using Rise.App.Views;
-using System.Diagnostics;
 using Windows.Media.Casting;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.System;
+using System.Net;
+using Rise.App.Common;
+using System.Text;
+using System.IO;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Rise.App.Helpers;
 
 namespace Rise.App.UserControls
 {
@@ -289,6 +292,7 @@ namespace Rise.App.UserControls
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
             });
+
         }
 
         private async void PViewModel_CurrentVideoChanged(object sender, EventArgs e)
@@ -650,6 +654,14 @@ namespace Rise.App.UserControls
                     volumeIcon.Glyph = "\uE995";
                     break;
             }
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, App.LMViewModel.SessionKey, (s) =>
+            {
+                Debug.WriteLine("Scrobble Success!");
+            });
         }
     }
 }

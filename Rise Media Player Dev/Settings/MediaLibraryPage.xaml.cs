@@ -1,7 +1,10 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,20 +19,20 @@ namespace Rise.App.Settings
 
         public static MediaLibraryPage Current;
 
-        private readonly FoldersDialog Dialog = new FoldersDialog();
-        private readonly VFoldersDialog VDialog = new VFoldersDialog();
+        private readonly FoldersDialog Dialog = new();
+        private readonly VFoldersDialog VDialog = new();
 
-        public ContentDialog FolderDialog = new ContentDialog
+        public ContentDialog FolderDialog = new()
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
         };
 
-        public ContentDialog VFolderDialog = new ContentDialog
+        public ContentDialog VFolderDialog = new()
         {
             Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
         };
 
-        private readonly List<string> Deletion = new List<string>
+        private readonly List<string> Deletion = new()
         {
             ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
             ResourceLoaders.MediaLibraryLoader.GetString("Device")
@@ -70,10 +73,15 @@ namespace Rise.App.Settings
             }
         }
 
-        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
+        private async void LastFmFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                await LastFMHelper.LogIn();
+            } catch (Exception e1)
+            {
+                Debug.WriteLine(e1.Message);
+            }
         }
-
     }
 }

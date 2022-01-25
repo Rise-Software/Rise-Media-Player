@@ -21,7 +21,6 @@ namespace Rise.Repository.SQL
             Artists = new SQLArtistRepository(_dbOptions);
             Genres = new SQLGenreRepository(_dbOptions);
             Videos = new SQLVideoRepository(_dbOptions);
-            Playlists = new SQLPlaylistRepository(_dbOptions);
         }
 
         public ISQLRepository<Song> Songs { get; set; }
@@ -29,6 +28,5 @@ namespace Rise.Repository.SQL
         public ISQLRepository<Artist> Artists { get; set; }
         public ISQLRepository<Genre> Genres { get; set; }
         public ISQLRepository<Video> Videos { get; set; }
-        public ISQLRepository<Playlist> Playlists { get; set; }
     }
 }

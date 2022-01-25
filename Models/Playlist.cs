@@ -6,7 +6,7 @@ namespace Rise.Models
     /// <summary>
     /// Represents a playlist.
     /// </summary>
-    public class Playlist : DbObject, IEquatable<Playlist>
+    public class Playlist : IEquatable<Playlist>
     {
         public string Title { get; set; }
         public string Icon { get; set; }
