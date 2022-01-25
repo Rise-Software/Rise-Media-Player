@@ -1,11 +1,8 @@
 ﻿using Rise.Models;
 using Rise.App.Common;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using Windows.Data.Xml.Dom;
 
 namespace Rise.App.ViewModels
 {
@@ -123,7 +120,6 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
-            if (Picture == null) Picture = Resources.ArtistThumb;
             await App.Repository.Artists.QueueUpsertAsync(Model);
         }
 

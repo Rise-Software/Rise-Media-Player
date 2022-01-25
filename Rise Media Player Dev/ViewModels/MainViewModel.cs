@@ -170,7 +170,9 @@ namespace Rise.App.ViewModels
                 foreach (Song s in songs)
                 {
                     if(!songs.Contains(s))
+                    {
                         Songs.Add(new SongViewModel(s));
+                    }
                 }
 
                 Albums.Clear();
@@ -179,7 +181,9 @@ namespace Rise.App.ViewModels
                     foreach (Album a in albums)
                     {
                         if(!albums.Contains(a))
+                        {
                             Albums.Add(new AlbumViewModel(a));
+                        }
                     }
                 }
 
@@ -189,7 +193,9 @@ namespace Rise.App.ViewModels
                     foreach (Artist a in artists)
                     {
                         if(!artists.Contains(a))
+                        {
                             Artists.Add(new ArtistViewModel(a));
+                        }
                     }
                 }
 
@@ -199,7 +205,9 @@ namespace Rise.App.ViewModels
                     foreach (Genre g in genres)
                     {
                         if(!genres.Contains(g))
+                        {
                             Genres.Add(new GenreViewModel(g));
+                        }
                     }
                 }
 
@@ -209,7 +217,9 @@ namespace Rise.App.ViewModels
                     foreach (Video v in videos)
                     {
                         if(!videos.Contains(v))
+                        {
                             Videos.Add(new VideoViewModel(v));
+                        }
                     }
                 }
 
@@ -326,7 +336,7 @@ namespace Rise.App.ViewModels
                 }
 
                 // Set AlbumViewModel data.
-                AlbumViewModel alvm = new AlbumViewModel
+                AlbumViewModel alvm = new()
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
@@ -448,7 +458,7 @@ namespace Rise.App.ViewModels
 
             if (!videoExists)
             {
-                VideoViewModel vid = new VideoViewModel(video);
+                VideoViewModel vid = new(video);
 
                 // Get song thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);

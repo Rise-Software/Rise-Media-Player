@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rise.Models
+﻿namespace Rise.Models
 {
     public class SearchItem
     {

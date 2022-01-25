@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using Rise.Models;
+﻿using Rise.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {

@@ -17,9 +17,9 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistsPage : Page
     {
-        XmlDocument xmlDoc = new();
-        List<string> artistnames = new();
-        List<string> imagelinks = new();
+        private readonly XmlDocument xmlDoc = new();
+        private readonly List<string> artistnames = new();
+        private readonly List<string> imagelinks = new();
 
         /// <summary>
         /// Gets the app-wide MViewModel instance.
@@ -50,6 +50,7 @@ namespace Rise.App.Views
             _navigationHelper = new NavigationHelper(this);
             SetArtistPictures();
         }
+
         private async void SetArtistPictures()
         {
             string image;
@@ -89,6 +90,7 @@ namespace Rise.App.Views
             string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
             return Task.FromResult(yes);
         }
+
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {

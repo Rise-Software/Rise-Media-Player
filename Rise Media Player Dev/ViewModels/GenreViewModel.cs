@@ -20,15 +20,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Name
         {
-            get
-            {
-                if (Model.Name == "UnknownGenreResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
-                }
-
-                return Model.Name;
-            }
+            get => Model.Name == "UnknownGenreResource" ? ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource") : Model.Name;
             set
             {
                 if (value != Model.Name)

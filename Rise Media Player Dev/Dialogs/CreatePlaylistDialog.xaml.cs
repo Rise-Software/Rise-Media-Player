@@ -1,12 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
-using Rise.Models;
 using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

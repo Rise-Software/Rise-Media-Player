@@ -3,23 +3,15 @@ using System.Linq;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI;
 using Windows.Media.Playback;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Microsoft.Toolkit.Uwp.UI;
-using Windows.Storage.Streams;
-using Windows.Graphics.Imaging;
-using ColorThiefDotNet;
 using Rise.App.Converters;
 using Rise.App.ViewModels;
-using Rise.App.Common;
 using Rise.App.Views;
-using System.Diagnostics;
 using Windows.Media.Casting;
 
 namespace Rise.App.UserControls

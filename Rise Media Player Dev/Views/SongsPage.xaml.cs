@@ -294,7 +294,7 @@ namespace Rise.App.Views
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
         {
-            await new MusicStreamingDialog().ShowAsync();
+            _ = await new MusicStreamingDialog().ShowAsync();
         }
     }
 }

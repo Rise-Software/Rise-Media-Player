@@ -17,7 +17,7 @@ namespace Rise.App.Views
         /// Gets the app-wide NPViewModel instance.
         /// </summary>
         private static PlaybackViewModel ViewModel => App.PViewModel;
-        private readonly AdvancedCollectionView Songs = new AdvancedCollectionView(ViewModel.PlayingSongs);
+        private readonly AdvancedCollectionView Songs = new(ViewModel.PlayingSongs);
 
         public QueuePage()
         {
