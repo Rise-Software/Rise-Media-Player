@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Rise.App.Dialogs
             InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if (!Uri.IsWellFormedUriString(StreamingTextBox.Text, UriKind.Absolute))
             {
@@ -42,7 +43,21 @@ namespace Rise.App.Dialogs
             {
                 InvalidUrlText.Visibility = Visibility.Collapsed;
             }
+
             Hide();
+
+            SongViewModel song = new()
+            {
+                Title = "title",
+                Track = 0,
+                Disc = 0,
+                Album = "UnknownAlbumResource",
+                Artist = "UnknownArtistResource",
+                AlbumArtist = "UnknownArtistResource",
+                Location = StreamingTextBox.Text
+            };
+
+            await App.PViewModel.PlaySongFromUrlAsync(song);
         }
     }
 }

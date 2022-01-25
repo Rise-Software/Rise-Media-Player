@@ -57,7 +57,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _currentVideo, value);
         }
 
-        public readonly MediaPlayer Player = new MediaPlayer();
+        public readonly MediaPlayer Player = new();
 
         public MediaPlaybackList PlaybackList { get; set; }
             = new MediaPlaybackList();
@@ -95,6 +95,18 @@ namespace Rise.App.ViewModels
             Player.Play();
         }
 
+        public async Task PlaySongFromUrlAsync(SongViewModel song)
+        {
+            CancelTask();
+
+            ClearLists();
+            PlaybackList.ShuffleEnabled = false;
+
+            PlaybackList.Items.Add(await song.AsPlaybackItemAsync(new Uri(song.Location)));
+            SetCurrentSong(0);
+            Player.Play();
+        }
+
         public async Task PlayVideoAsync(VideoViewModel video)
         {
             CancelTask();
@@ -123,12 +135,20 @@ namespace Rise.App.ViewModels
             await CreatePlaybackListAsync(startIndex, count, songs, Token);
         }
 
+        public async Task StartMusicPlaybackFromUrlAsync(IEnumerator<SongViewModel> songs, int startIndex, int count, bool shuffle = false)
+        {
+            CancelTask();
+            PlaybackList.ShuffleEnabled = shuffle;
+
+            await CreatePlaybackListAsync(startIndex, count, songs, Token);
+        }
+
         public async Task StartMusicPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)
         {
             CancelTask();
             PlaybackList.ShuffleEnabled = false;
 
-            List<SongViewModel> list = new List<SongViewModel>();
+            List<SongViewModel> list = new();
             while (songs.MoveNext())
             {
                 list.Add(new SongViewModel
