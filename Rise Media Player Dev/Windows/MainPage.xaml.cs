@@ -776,13 +776,9 @@ namespace Rise.App.Views
             {
                 Windows.Storage.StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("userid.txt");
                 string content = System.IO.File.ReadAllText(file.Path.ToString());
-                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("signature.txt");
-                string signature = System.IO.File.ReadAllText(file.Path.ToString());
                 file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
                 string name = System.IO.File.ReadAllText(file.Path.ToString());
-                App app = Application.Current as App;
                 App.LMViewModel.SessionKey = content;
-                App.LMViewModel.Signature = signature;
                 Acc.Text = name;
             }
             else { }

@@ -83,16 +83,13 @@ namespace Rise.App.Helpers
                 Uri endUri = new(url);
                 WebAuthenticationResult webAuthenticationResult =
                     await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
-                string signature = LastFMHelper.SignCall(args);
                 WebClient wc = new();
                 string xml = wc.DownloadString(url);
                 string key = await Task.Run(() => LastFMHelper.GetSessionKey(xml));
                 string name = await Task.Run(() => LastFMHelper.GetUserName(xml));
                 await AccountsHelper.AddTextToFile(key, "userid.txt");
-                await AccountsHelper.AddTextToFile(signature, "signature.txt");
                 await AccountsHelper.AddTextToFile(name, "name.txt");
                 App.LMViewModel.SessionKey = key;
-                App.LMViewModel.Signature = signature;
                 MainPage.Current.AccountMenuText = name;
             }
         }

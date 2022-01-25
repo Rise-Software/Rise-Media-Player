@@ -2,16 +2,9 @@
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
-using Rise.App.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using Windows.Security.Authentication.Web;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
