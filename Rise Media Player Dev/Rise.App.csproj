@@ -179,7 +179,7 @@
       <DependentUpon>VFoldersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\AccountsHelper.cs" />
+    <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Props\FilePage.xaml.cs">

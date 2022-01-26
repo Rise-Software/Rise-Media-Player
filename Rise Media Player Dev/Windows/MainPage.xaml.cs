@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
+using Windows.Security.Credentials;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -769,19 +770,25 @@ namespace Rise.App.Views
             Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
             return file != null;
         }
-        private async void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
-            bool fileexists = await GetFileStatus();
-            if (fileexists)
+            try
             {
-                Windows.Storage.StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("userid.txt");
-                string content = System.IO.File.ReadAllText(file.Path.ToString());
-                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
-                string name = System.IO.File.ReadAllText(file.Path.ToString());
-                App.LMViewModel.SessionKey = content;
-                Acc.Text = name;
+                PasswordVault vault = new();
+                IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
+                foreach (PasswordCredential passwordCredential in credentials)
+                {
+                    passwordCredential.RetrievePassword();
+                    App.LMViewModel.SessionKey = passwordCredential.Password;
+                    Acc.Text = passwordCredential.UserName;
+
+                }
+                MediaLibraryPage.Current.AccountMenuText = false;
             }
-            else { }
+            catch
+            {
+
+            }
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)

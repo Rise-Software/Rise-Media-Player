@@ -17,7 +17,7 @@ namespace Rise.App.Settings
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        public static MediaLibraryPage Current;
+        internal static MediaLibraryPage Current;
 
         private readonly FoldersDialog Dialog = new();
         private readonly VFoldersDialog VDialog = new();
@@ -50,6 +50,11 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
+        internal bool AccountMenuText
+        {
+            get => LastFMStatus.IsEnabled;
+            set => LastFMStatus.IsEnabled = value;
+        }
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
             => _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 
