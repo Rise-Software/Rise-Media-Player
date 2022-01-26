@@ -25,9 +25,7 @@ namespace Rise.App.Helpers
         public static string GetSignature(Dictionary<string, string> parameters)
         {
             string result = string.Empty;
-
             IOrderedEnumerable<KeyValuePair<string, string>> data = parameters.OrderBy(x => x.Key);
-
             foreach (KeyValuePair<string, string> s in data)
             {
                 result += s.Key + s.Value;
@@ -35,7 +33,6 @@ namespace Rise.App.Helpers
             System.Security.Cryptography.MD5CryptoServiceProvider cryptHandler = new();
             result += LastFM.secret;
             result = MD5(result);
-
             return result;
         }
 
@@ -43,14 +40,6 @@ namespace Rise.App.Helpers
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             return ((int)t.TotalSeconds).ToString();
-        }
-
-        public static async Task AddTextToFile(string textToSave, string fileName)
-        {
-            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile file = await appFolder.CreateFileAsync(fileName,
-                Windows.Storage.CreationCollisionOption.OpenIfExists);
-            await Windows.Storage.FileIO.AppendTextAsync(file, textToSave);
         }
     }
 
@@ -64,12 +53,6 @@ namespace Rise.App.Helpers
             string Token = await Task.Run(GetToken);
             string uriToLaunch = "https://www.last.fm/api/auth?api_key=" + LastFM.key + "&token=" + Token + "&redirect_uri=" + Uri.EscapeDataString("https://www.google.com");
             startUri = new Uri(uriToLaunch);
-            /*
-            app.urilink = uri;
-            LoginDialog loginDialog = new();
-            _ = await loginDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-            */
-
             Dictionary<string, string> args = new()
             {
                 { "method", "auth.getSession" },
@@ -84,12 +67,10 @@ namespace Rise.App.Helpers
             string xml = wc.DownloadString(url);
             string key = await Task.Run(() => GetSessionKey(xml));
             string name = await Task.Run(() => GetUserName(xml));
-            await AccountsHelper.AddTextToFile(key, "userid.txt");
-            await AccountsHelper.AddTextToFile(name, "name.txt");
             App.LMViewModel.SessionKey = key;
             MainPage.Current.AccountMenuText = name;
             wc.Dispose();
-            var vault = new Windows.Security.Credentials.PasswordVault();
+            Windows.Security.Credentials.PasswordVault vault = new();
             vault.Add(new Windows.Security.Credentials.PasswordCredential("RiseMP - LastFM account", name, key));
         }
 

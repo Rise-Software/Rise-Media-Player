@@ -764,12 +764,6 @@ namespace Rise.App.Views
                 }
             }
         }
-        private async Task<bool> GetFileStatus()
-        {
-            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
-            return file != null;
-        }
         private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
             try
