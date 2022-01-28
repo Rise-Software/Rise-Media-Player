@@ -1,31 +1,27 @@
-﻿using System;
+﻿using ColorThiefDotNet;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Converters;
+using Rise.App.Helpers;
+using Rise.App.ViewModels;
+using Rise.App.Views;
+using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Graphics.Imaging;
+using Windows.Media.Casting;
+using Windows.Media.Playback;
+using Windows.Storage.Streams;
+using Windows.System;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI;
-using Windows.Media.Playback;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
-using Windows.Storage.Streams;
-using Windows.Graphics.Imaging;
-using ColorThiefDotNet;
-using Rise.App.Converters;
-using Rise.App.ViewModels;
-using Rise.App.Views;
-using Windows.Media.Casting;
-using Windows.System;
-using System.Net;
-using Rise.App.Common;
-using System.Text;
-using System.IO;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Rise.App.Helpers;
 
 namespace Rise.App.UserControls
 {
@@ -278,19 +274,22 @@ namespace Rise.App.UserControls
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
                     CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
-                    Uri imageUri = new Uri(CurrentSongAlbum.Thumbnail);
+                    Uri imageUri = new(CurrentSongAlbum.Thumbnail);
                     RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                    using (IRandomAccessStream stream = await random.OpenReadAsync())
-                    {
-                        var decoder = await BitmapDecoder.CreateAsync(stream);
-                        var colorThief = new ColorThief();
-                        var color = await colorThief.GetColor(decoder);
-                        BackgroundAcrylicBrush.TintOpacity = 100;
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
-                    }
+                    using IRandomAccessStream stream = await random.OpenReadAsync();
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                    ColorThief colorThief = new();
+                    QuantizedColor color = await colorThief.GetColor(decoder);
+                    BackgroundAcrylicBrush.TintOpacity = 100;
+                    BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
                 }
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
+                await Task.Delay(TimeSpan.FromSeconds(30));
+                LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, App.LMViewModel.SessionKey, (s) =>
+                {
+
+                });
             });
 
         }
@@ -626,7 +625,8 @@ namespace Rise.App.UserControls
                 _player.IsMuted = true;
                 VolumeSlider.Value = 0;
                 volumeIcon.Glyph = "\uE74F";
-            } else
+            }
+            else
             {
                 _player.IsMuted = false;
                 VolumeSlider.Value = VolumeSlider.Maximum;
@@ -654,14 +654,6 @@ namespace Rise.App.UserControls
                     volumeIcon.Glyph = "\uE995";
                     break;
             }
-        }
-
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, App.LMViewModel.SessionKey, (s) =>
-            {
-                Debug.WriteLine("Scrobble Success!");
-            });
         }
     }
 }
