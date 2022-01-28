@@ -9,7 +9,7 @@ namespace Rise.App.UserControls
     [ContentProperty(Name = "Controls")]
     public sealed partial class ExpanderControl : UserControl
     {
-        private readonly ExpanderViewModel ViewModel = new ExpanderViewModel();
+        private readonly ExpanderViewModel ViewModel = new();
 
         public ExpanderControl()
         {

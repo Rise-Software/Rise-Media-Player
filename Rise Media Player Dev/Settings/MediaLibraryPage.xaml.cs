@@ -74,7 +74,8 @@ namespace Rise.App.Settings
 
                 case "OnlineServices":
                     break;
-
+                default:
+                    break;
             }
         }
 
@@ -83,7 +84,8 @@ namespace Rise.App.Settings
             try
             {
                 await LastFMHelper.LogIn();
-            } catch (Exception e1)
+            }
+            catch (Exception e1)
             {
                 Debug.WriteLine(e1.Message);
             }

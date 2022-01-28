@@ -5,7 +5,6 @@ using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -28,11 +27,11 @@ namespace Rise.App.UserControls
     public sealed partial class NowPlayingBar : UserControl
     {
         #region Variables
-        private MediaPlayer _player = App.PViewModel.Player;
+        private readonly MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
 
         private AlbumViewModel CurrentSongAlbum;
-        private CastingDevicePicker castingPicker;
+        private readonly CastingDevicePicker castingPicker;
         #endregion
 
         #region Properties
@@ -52,10 +51,7 @@ namespace Rise.App.UserControls
         public NowPlayingBarBackgroundStyles BackgroundStyle
         {
             get => (NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty);
-            set
-            {
-                SetValue(BackgroundStylesProperty, value);
-            }
+            set => SetValue(BackgroundStylesProperty, value);
         }
 
         public static readonly DependencyProperty IsInNowPlayingPageProperty = DependencyProperty.Register("IsInNowPlayingPage", typeof(bool), typeof(NowPlayingBar), new PropertyMetadata(null));
@@ -65,10 +61,7 @@ namespace Rise.App.UserControls
         public bool IsInNowPlayingPage
         {
             get => (bool)GetValue(IsInNowPlayingPageProperty);
-            set
-            {
-                SetValue(IsInNowPlayingPageProperty, value);
-            }
+            set => SetValue(IsInNowPlayingPageProperty, value);
         }
 
         public static readonly DependencyProperty OverlayBtnVisibilityProperty = DependencyProperty.Register("OverlayBtnVisibility", typeof(Visibility), typeof(NowPlayingBar), new PropertyMetadata(null));
@@ -78,10 +71,7 @@ namespace Rise.App.UserControls
         public Visibility OverlayBtnVisibility
         {
             get => (Visibility)GetValue(OverlayBtnVisibilityProperty);
-            set
-            {
-                SetValue(OverlayBtnVisibilityProperty, value);
-            }
+            set => SetValue(OverlayBtnVisibilityProperty, value);
         }
 
         #endregion
@@ -95,7 +85,7 @@ namespace Rise.App.UserControls
             _player.PlaybackSession.PlaybackRate = 1;
             Set1.IsChecked = true;
             Unloaded += NowPlayingBar_Unloaded;
-            UISettings uiSettings = new UISettings();
+            UISettings uiSettings = new();
             uiSettings.ColorValuesChanged += UISettings_ColorValuesChanged;
 
             castingPicker = new CastingDevicePicker();
@@ -118,18 +108,18 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            if (isCtrlPressed() && args.VirtualKey == VirtualKey.Right)
+            if (IsCtrlPressed() && args.VirtualKey == VirtualKey.Right)
             {
                 if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
                 {
-                    App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
+                    _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
                 }
             }
-            else if (isCtrlPressed() && args.VirtualKey == VirtualKey.Left)
+            else if (IsCtrlPressed() && args.VirtualKey == VirtualKey.Left)
             {
                 if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
                 {
-                    App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
+                    _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
                 }
             }
         }
@@ -155,7 +145,7 @@ namespace Rise.App.UserControls
                 CastingConnection connection = args.SelectedCastingDevice.CreateCastingConnection();
 
                 // Cast the content loaded in the media element to the selected casting device
-                await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
+                _ = await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
             });
         }
 
@@ -235,6 +225,8 @@ namespace Rise.App.UserControls
                             Grid.Background = BackgroundAcrylicBrush;
                             Effects.SetShadow(Parent1, DropShadow);
                             break;
+                        default:
+                            break;
                     }
                 }
             });
@@ -305,26 +297,12 @@ namespace Rise.App.UserControls
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)ShuffleButton.IsChecked)
-            {
-                App.PViewModel.PlaybackList.ShuffleEnabled = true;
-            }
-            else
-            {
-                App.PViewModel.PlaybackList.ShuffleEnabled = false;
-            }
+            App.PViewModel.PlaybackList.ShuffleEnabled = (bool)ShuffleButton.IsChecked;
         }
 
         private void RepeatButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)RepeatButton.IsChecked)
-            {
-                App.PViewModel.PlaybackList.AutoRepeatEnabled = true;
-            }
-            else
-            {
-                App.PViewModel.PlaybackList.AutoRepeatEnabled = false;
-            }
+            App.PViewModel.PlaybackList.AutoRepeatEnabled = (bool)RepeatButton.IsChecked;
         }
 
         private async void PlaybackSession_PlaybackStateChanged(MediaPlaybackSession sender, object args)
@@ -380,14 +358,14 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
                 fontIcon.Glyph = "\uEE47";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
@@ -399,14 +377,14 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
                 fontIcon.Glyph = "\uEE49";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE47";
@@ -433,7 +411,11 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
-                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                if (IsArtistShown)
+                {
+                    Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                }
+
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
@@ -443,7 +425,11 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
-                if (IsArtistShown) Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                if (IsArtistShown)
+                {
+                    Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
+                }
+
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
@@ -469,19 +455,11 @@ namespace Rise.App.UserControls
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
-                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-                {
-                    fontIcon.Glyph = "\uEE47";
-                }
-                else fontIcon.Glyph = "\uEE49";
+                fontIcon.Glyph = ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay ? "\uEE47" : "\uEE49";
             }
 
             FontIcon fontIcon1 = OverlayButton.FindChildren().First() as FontIcon;
-            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-            {
-                fontIcon1.Glyph = "\uEE47";
-            }
-            else fontIcon1.Glyph = "\uEE49";
+            fontIcon1.Glyph = ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay ? "\uEE47" : "\uEE49";
         }
 
         private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -502,7 +480,7 @@ namespace Rise.App.UserControls
         {
             if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
             {
-                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
+                _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
             }
         }
 
@@ -510,7 +488,7 @@ namespace Rise.App.UserControls
         {
             if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
             {
-                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
+                _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
             }
         }
         private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
@@ -548,12 +526,14 @@ namespace Rise.App.UserControls
                 case "2.5x":
                     _player.PlaybackSession.PlaybackRate = 2.5;
                     break;
+                default:
+                    break;
             }
         }
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
-            var view = ApplicationView.GetForCurrentView();
+            ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();
@@ -604,9 +584,9 @@ namespace Rise.App.UserControls
             }
         }
 
-        private bool isCtrlPressed()
+        private bool IsCtrlPressed()
         {
-            var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
+            CoreVirtualKeyStates state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
             return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
         }
 
@@ -652,6 +632,8 @@ namespace Rise.App.UserControls
                     break;
                 case "67":
                     volumeIcon.Glyph = "\uE995";
+                    break;
+                default:
                     break;
             }
         }

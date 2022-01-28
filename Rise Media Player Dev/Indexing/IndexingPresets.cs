@@ -8,7 +8,7 @@ namespace Rise.App.Indexing
         /// Query options for song indexing.
         /// </summary>
         public static readonly QueryOptions SongQueryOptions =
-            new QueryOptions(CommonFileQuery.DefaultQuery,
+            new(CommonFileQuery.DefaultQuery,
             new string[]
             {
                 ".mp3", ".wma", ".wav", ".ogg", ".flac", ".aiff", ".aac", ".m4a"
@@ -21,7 +21,7 @@ namespace Rise.App.Indexing
         /// Query options for playlist indexing.
         /// </summary>
         public static readonly QueryOptions PlaylistQueryOptions =
-            new QueryOptions(CommonFileQuery.DefaultQuery,
+            new(CommonFileQuery.DefaultQuery,
             new string[]
             {
                 ".m3u", ".m3u8", // ".wpl", ".zpl", ".asx", ".pls", ".xspf"
@@ -34,7 +34,7 @@ namespace Rise.App.Indexing
         /// Query options for video indexing.
         /// </summary>
         public static readonly QueryOptions VideoQueryOptions =
-            new QueryOptions(CommonFileQuery.DefaultQuery,
+            new(CommonFileQuery.DefaultQuery,
             new string[]
             {
                 ".m4v", ".mp4", ".mov", ".asf", ".avi", ".wmv", ".mkv"

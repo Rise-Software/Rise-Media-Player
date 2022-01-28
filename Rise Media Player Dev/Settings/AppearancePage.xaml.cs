@@ -13,14 +13,14 @@ namespace Rise.App.Settings
     {
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        private readonly List<string> Themes = new List<string>
+        private readonly List<string> Themes = new()
         {
             ResourceLoaders.AppearanceLoader.GetString("Light"),
             ResourceLoaders.AppearanceLoader.GetString("Dark"),
             ResourceLoaders.AppearanceLoader.GetString("System")
         };
 
-        private readonly List<string> ColorThemes = new List<string>
+        private readonly List<string> ColorThemes = new()
         {
             "No glaze",
             "Use system accent colour",
@@ -28,7 +28,7 @@ namespace Rise.App.Settings
             "Use album art"
         };
 
-        private readonly List<string> Startup = new List<string>
+        private readonly List<string> Startup = new()
         {
             ResourceLoaders.AppearanceLoader.GetString("Home"),
             ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),

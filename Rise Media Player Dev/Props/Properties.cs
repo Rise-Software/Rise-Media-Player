@@ -8,13 +8,13 @@ namespace Rise.App.Props
         /// <summary>
         /// List of properties that may contain disc numbers.
         /// </summary>
-        public static readonly List<string> DiscProperties = new List<string>
+        public static readonly List<string> DiscProperties = new()
         {
             SystemMusic.DiscNumber,
             SystemMusic.PartOfSet,
         };
 
-        public static readonly List<string> ViewModelProperties = new List<string>
+        public static readonly List<string> ViewModelProperties = new()
         {
             "System.Title",
             SystemMusic.Artist,

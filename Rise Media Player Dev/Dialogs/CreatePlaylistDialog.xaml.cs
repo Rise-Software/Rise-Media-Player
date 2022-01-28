@@ -12,7 +12,7 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class CreatePlaylistDialog : ContentDialog
     {
-        private Uri _imagePath = new Uri("ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png");
+        private Uri _imagePath = new("ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png");
 
         public CreatePlaylistDialog()
         {

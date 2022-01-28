@@ -10,8 +10,7 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class FeatureDialog : ContentDialog
     {
-        private readonly ObservableCollection<Feature> _features =
-            new ObservableCollection<Feature>();
+        private readonly ObservableCollection<Feature> _features = new();
 
         private int _index;
         private int Index
