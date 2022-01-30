@@ -118,108 +118,108 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>About</value>
+    <value>Informazioni</value>
   </data>
   <data name="Abt" xml:space="preserve">
-    <value>About</value>
+    <value>Informazioni</value>
   </data>
   <data name="Account.Content" xml:space="preserve">
     <value>Account</value>
   </data>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>Album</value>
   </data>
   <data name="Appearance.Text" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Personalizza</value>
   </data>
   <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Personalizza</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Artisti</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>Dispositivi</value>
   </data>
   <data name="Discy" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>Centro assistenza</value>
   </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>Generi</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>In primo piano</value>
   </data>
   <data name="Ins" xml:space="preserve">
     <value>Insider</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>Insider Hub</value>
+    <value>Hub Insider</value>
   </data>
   <data name="Lang.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="Langs" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="Language.Content" xml:space="preserve">
-    <value>Language</value>
+    <value>Lingua</value>
   </data>
   <data name="Lib" xml:space="preserve">
-    <value>Library</value>
+    <value>Libreria</value>
   </data>
   <data name="Library.Text" xml:space="preserve">
-    <value>Library</value>
+    <value>Libreria</value>
   </data>
   <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Library</value>
+    <value>Libreria</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>Tutti i video</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>Music</value>
+    <value>Musica</value>
   </data>
   <data name="Navigation.Content" xml:space="preserve">
-    <value>Navigation</value>
+    <value>Navigazione</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Queue</value>
+    <value>Coda</value>
   </data>
   <data name="Pers" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Personalizza</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Playback</value>
+    <value>Riproduzione</value>
   </data>
   <data name="Playback.Text" xml:space="preserve">
-    <value>Playback</value>
+    <value>Riproduzione</value>
   </data>
   <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
     <value>Playback</value>
   </data>
   <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
+    <value>Playlist</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Tracce</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Streaming Services</value>
+    <value>Servizi di Streaming</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
-    <value>Restore video</value>
+    <value>Ripristina video</value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+    <value>Video</value>
   </data>
   <data name="Walls" xml:space="preserve">
-    <value>Wallpapers</value>
+    <value>Sfondi</value>
   </data>
 </root>
