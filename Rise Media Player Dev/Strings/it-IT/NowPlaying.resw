@@ -121,15 +121,15 @@
     <value>Album</value>
   </data>
   <data name="Back.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Back</value>
+    <value>Indietro</value>
   </data>
   <data name="PlayingItem.Text" xml:space="preserve">
-    <value>Playing</value>
+    <value>In riproduzione</value>
   </data>
   <data name="Queue.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Queue</value>
+    <value>Coda</value>
   </data>
   <data name="QueueItem.Text" xml:space="preserve">
-    <value>Queue</value>
+    <value>Coda</value>
   </data>
 </root>
