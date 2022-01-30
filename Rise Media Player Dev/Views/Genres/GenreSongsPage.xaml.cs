@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Navigation;
+using Rise.App.Helpers;
 
 namespace Rise.App.Views
 {
@@ -130,10 +131,7 @@ namespace Rise.App.Views
 
             foreach (ArtistViewModel artist in Artists)
             {
-                if (!Artists.Contains(artist))
-                {
-                    AllArtistsInGenre.Add(artist);
-                }
+                AllArtistsInGenre.AddIfNotExists(artist);
             }
 
             foreach (AlbumViewModel album in Albums)
