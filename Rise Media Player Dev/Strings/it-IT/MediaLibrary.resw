@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add.Content" xml:space="preserve">
-    <value>Add folder</value>
+    <value>Aggiungi cartella</value>
   </data>
   <data name="AddAccount.Description" xml:space="preserve">
     <value>Login to your services securely</value>
   </data>
   <data name="AddAccount.Title" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Aggiungi un account</value>
   </data>
   <data name="AdditionalH.Text" xml:space="preserve">
-    <value>Additional settings</value>
+    <value>Impostazioni aggiuntive</value>
   </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music files.</value>
+    <value>Scegli da dove reperire le canzoni</value>
   </data>
   <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove music library folders</value>
+    <value>Aggiungi/rimuovi cartelle musicali</value>
   </data>
   <data name="Deletion.Title" xml:space="preserve">
     <value>When removing local media:</value>
   </data>
   <data name="Device" xml:space="preserve">
-    <value>Delete from device</value>
+    <value>Elimina dal dispositivo</value>
   </data>
   <data name="Devices.Text" xml:space="preserve">
-    <value>Devices</value>
+    <value>Dispositivi</value>
   </data>
   <data name="DisableLocal.Title" xml:space="preserve">
     <value>Disable all local files and devices</value>
@@ -169,7 +169,7 @@
     <value>Online services</value>
   </data>
   <data name="OnlyApp" xml:space="preserve">
-    <value>Only remove from app</value>
+    <value>Rimuovi solo dall'app</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>Local media &amp; devices</value>
@@ -184,21 +184,21 @@
     <value>Create a seperate sidebar entry for your local music, rather than merging online and local music together in one place.</value>
   </data>
   <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Split local &amp; online library in sidebar</value>
+    <value>Dividi librerie locali da quelle online nella sidebar</value>
   </data>
   <data name="ShufflePlaylist.Text" xml:space="preserve">
-    <value>Shuffle playlist</value>
+    <value>Riproduci playlist casualmente</value>
   </data>
   <data name="Streaming.Text" xml:space="preserve">
-    <value>Streaming Service</value>
+    <value>Servizio di Streaming</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
   </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your video files.</value>
+    <value>Scegli da dove reperire i video</value>
   </data>
   <data name="VChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove video library folders</value>
+    <value>Aggiungi/rimuovi cartelle video</value>
   </data>
 </root>
