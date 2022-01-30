@@ -118,69 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Accetta</value>
   </data>
   <data name="AppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Rendilo tuo</value>
   </data>
   <data name="ConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Accedi con un account</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continua</value>
   </data>
   <data name="Decide" xml:space="preserve">
-    <value>Decide for me</value>
+    <value>Decidi per me</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
+    <value>Rifiuta</value>
   </data>
   <data name="DoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Finito!</value>
   </data>
   <data name="Intro.Text" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Siamo felici tu sia qui! Completa questi semplici passaggi per poter utilizzare l'app.</value>
   </data>
   <data name="LicenseH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Termini e condizioni</value>
   </data>
   <data name="LocalH" xml:space="preserve">
-    <value>Your own media</value>
+    <value>I tuoi media</value>
   </data>
   <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
+    <value>Non adesso (esci dall'app)</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
+    <value>Usa solo file locali</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
+    <value>Usa solo servizi di streaming</value>
   </data>
   <data name="PreSetup" xml:space="preserve">
     <value>Pre-setup</value>
   </data>
   <data name="PrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Privacy e raccomandazioni</value>
   </data>
   <data name="Start.Content" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Inizia setup</value>
   </data>
   <data name="Step1" xml:space="preserve">
-    <value>Step 1 of 5</value>
+    <value>Step 1 di 5</value>
   </data>
   <data name="Step2" xml:space="preserve">
-    <value>Step 2 of 5</value>
+    <value>Step 2 di 5</value>
   </data>
   <data name="Step3" xml:space="preserve">
-    <value>Step 3 of 5</value>
+    <value>Step 3 di 5</value>
   </data>
   <data name="Step4" xml:space="preserve">
-    <value>Step 4 of 5</value>
+    <value>Step 4 di 5</value>
   </data>
   <data name="Step5" xml:space="preserve">
-    <value>Step 5 of 5</value>
+    <value>Step 5 di 5</value>
   </data>
   <data name="Welcome.Text" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Benvenuto su</value>
   </data>
 </root>
