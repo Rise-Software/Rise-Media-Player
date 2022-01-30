@@ -130,7 +130,10 @@ namespace Rise.App.Views
 
             foreach (ArtistViewModel artist in Artists)
             {
-                AllArtistsInGenre.Add(artist);
+                if (!Artists.Contains(artist))
+                {
+                    AllArtistsInGenre.Add(artist);
+                }
             }
 
             foreach (AlbumViewModel album in Albums)
@@ -313,14 +316,20 @@ namespace Rise.App.Views
             }
         }
 
-        private void AlbumGrid_ItemClick(object sender, ItemClickEventArgs e)
+        private void ArtistGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), AlbumGrid.SelectedItem);
+            if ((e?.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+            }
         }
 
-        private void ArtistGrid_ItemClick(object sender, ItemClickEventArgs e)
+        private void AlbumGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), ArtistGrid.SelectedItem);
+            if ((e?.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+            }
         }
     }
 

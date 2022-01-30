@@ -78,17 +78,27 @@ namespace Rise.App.Views
                 }
             }
         }
-        public Task<string> getartistimg(string artist)
+        public string getartistimg(string artist)
         {
-            string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
+            try
+            {
+                string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
 
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-            string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-            return Task.FromResult(yes);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+                if (node != null)
+                {
+                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                    return yes;
+                }
+            } catch (Exception)
+            {
+
+            }
+            return "ms-appx:///Assets/BlankArtist.png";
         }
 
         #region Event handlers
