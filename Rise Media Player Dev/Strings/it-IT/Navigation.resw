@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddRemoveH.Text" xml:space="preserve">
+    <value>Add/remove sidebar items</value>
+  </data>
+  <data name="Albums.Title" xml:space="preserve">
+    <value>Albums</value>
+  </data>
+  <data name="AppearanceH.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Artists.Title" xml:space="preserve">
+    <value>Artists</value>
+  </data>
+  <data name="AtAGlance.Title" xml:space="preserve">
+    <value>At a glance</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colourful</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Devices.Title" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Everything" xml:space="preserve">
+    <value>Show everything</value>
+  </data>
+  <data name="GeneralH.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="GeneralItems.Title" xml:space="preserve">
+    <value>General items</value>
+  </data>
+  <data name="Genres.Title" xml:space="preserve">
+    <value>Genres</value>
+  </data>
+  <data name="Hamburger.Title" xml:space="preserve">
+    <value>Show the hamburger button</value>
+  </data>
+  <data name="HelpCentre.Title" xml:space="preserve">
+    <value>Help Centre</value>
+  </data>
+  <data name="IconStyle.Description" xml:space="preserve">
+    <value>Select through a variety of beautiful icon sets for your sidebar.</value>
+  </data>
+  <data name="IconStyle.Title" xml:space="preserve">
+    <value>Icon style</value>
+  </data>
+  <data name="Local.Title" xml:space="preserve">
+    <value>All Videos</value>
+  </data>
+  <data name="MusicItems.Title" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="NoIcons" xml:space="preserve">
+    <value>Don't show the sidebar</value>
+  </data>
+  <data name="NowPlaying.Title" xml:space="preserve">
+    <value>Queue</value>
+  </data>
+  <data name="OnlyIcons" xml:space="preserve">
+    <value>Only show icons</value>
+  </data>
+  <data name="Playlists.Title" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="Resize.Description" xml:space="preserve">
+    <value>Choose what to do with the sidebar when the window is made smaller.</value>
+  </data>
+  <data name="Resize.Title" xml:space="preserve">
+    <value>Window resize changes</value>
+  </data>
+  <data name="ShowHeader.Title" xml:space="preserve">
+    <value>Show header</value>
+  </data>
+  <data name="Songs.Title" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="Streaming.Title" xml:space="preserve">
+    <value>Streaming Services</value>
+  </data>
+  <data name="VideoItems.Title" xml:space="preserve">
+    <value>Video</value>
+  </data>
+</root>
