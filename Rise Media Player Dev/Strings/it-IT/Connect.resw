@@ -124,6 +124,6 @@
     <value>Gli account ed i Servizi di Streaming arriveranno presto!</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>Lo streaming richiede un account premium per funzionare. Solo un servizio musicale per volta potrà essere attivato.</value>
+    <value>Lo streaming richiede un account premium per funzionare. Solo un servizio per volta potrà essere attivato.</value>
   </data>
 </root>
