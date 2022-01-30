@@ -118,42 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AsFile.Title" xml:space="preserve">
-    <value>This song is stored as a file on your device.</value>
+    <value>Questa traccia è archiviata come file sul tuo dispositivo</value>
   </data>
   <data name="Disc.Text" xml:space="preserve">
-    <value>Disc</value>
+    <value>Disco</value>
   </data>
   <data name="EditAlbum.Text" xml:space="preserve">
-    <value>Edit album art</value>
+    <value>Modifica copertina album</value>
   </data>
   <data name="Genre.Text" xml:space="preserve">
-    <value>Genre</value>
+    <value>Genere</value>
   </data>
   <data name="Local.Subtitle" xml:space="preserve">
-    <value>This song is local, meaning it is stored directly on to your device's storage, rather than the cloud or online. Changing properties here will change them for the file itself, meaning it will affect other media players.</value>
+    <value>Questa traccia è locale, ovvero è archiviata come file sul tuo dispositivo. Cambiando le sue proprietà andrai a modificare le sue caratteristiche come file, apportando le modifiche anche ad altri Player.</value>
   </data>
   <data name="Local.Title" xml:space="preserve">
-    <value>Local Music</value>
+    <value>Traccia locale</value>
   </data>
   <data name="Rating.Text" xml:space="preserve">
-    <value>Rating</value>
+    <value>Valutazione</value>
   </data>
   <data name="SongAlbum.Text" xml:space="preserve">
     <value>Album</value>
   </data>
   <data name="SongAlbumArtist.Text" xml:space="preserve">
-    <value>Album artist</value>
+    <value>Artista dell'album</value>
   </data>
   <data name="SongArtist.Text" xml:space="preserve">
-    <value>Artist(s)</value>
+    <value>Artista/i</value>
   </data>
   <data name="SongTitle.Text" xml:space="preserve">
-    <value>Song title</value>
+    <value>Titolo</value>
   </data>
   <data name="Track.Text" xml:space="preserve">
-    <value>Track number</value>
+    <value>Numero traccia</value>
   </data>
   <data name="Year.Text" xml:space="preserve">
-    <value>Release year</value>
+    <value>Anno di pubblicazione</value>
   </data>
 </root>
