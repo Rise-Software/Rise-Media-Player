@@ -139,7 +139,7 @@
     <value>Lascia il programma insider</value>
   </data>
   <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+    <value>Release</value>
   </data>
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copia versione</value>
@@ -148,19 +148,19 @@
     <value>Internal Version: 0.0.160.0
 Edition: Bloom
 
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+Creato da Joseph Beattie e YourOrdinaryCat</value>
   </data>
   <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+    <value>Di più</value>
   </data>
   <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+    <value>Di più</value>
   </data>
   <data name="Of.Text" xml:space="preserve">
     <value>di</value>
   </data>
   <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: New media playback controls, Discography, Discy, View Options</value>
+    <value>Modifiche recenti: Nuovi controlli Media, Discografia, Discy, Opzioni di Visualizzazione</value>
   </data>
   <data name="Recent.Title" xml:space="preserve">
     <value>Modifiche recenti</value>
@@ -169,7 +169,7 @@ Created by Joseph Beattie &amp; YourOrdinaryCat</value>
     <value>Salva sul dispositivo</value>
   </data>
   <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+    <value>Resta aggiornato sulle novità in arrivo</value>
   </data>
   <data name="Social.Title" xml:space="preserve">
     <value>Social</value>
@@ -178,18 +178,18 @@ Created by Joseph Beattie &amp; YourOrdinaryCat</value>
     <value>Termini e Condizioni</value>
   </data>
   <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+    <value>Registro modifiche</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>Versione</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+    <value>Info versione</value>
   </data>
   <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+    <value>Accedi a sfondi esclusivi targati RiseMP.</value>
   </data>
   <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+    <value>Sfondi desktop e temi</value>
   </data>
 </root>
