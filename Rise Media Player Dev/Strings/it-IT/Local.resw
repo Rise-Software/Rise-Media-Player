@@ -121,6 +121,6 @@
     <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
+    <value>La tua libreria video è già divisa in "Locali ed acquistati" e le sezioni per i tuoi servizi di streaming.</value>
   </data>
 </root>
