@@ -152,14 +152,18 @@ namespace Rise.App.Helpers
             {
                 try
                 {
-                    onCompletion(e.Result);
-                }
-                catch (WebException ex)
-                {
-                    HttpWebResponse response = (HttpWebResponse)ex.Response;
-                    using StreamReader reader = new(response.GetResponseStream());
-                    Debug.WriteLine(reader.ReadToEnd());
-                }
+                    try
+                    {
+                        onCompletion(e.Result);
+                    }
+                    catch (WebException ex)
+                    {
+                        HttpWebResponse response = (HttpWebResponse)ex.Response;
+                        using StreamReader reader = new(response.GetResponseStream());
+                        Debug.WriteLine(reader.ReadToEnd());
+                    }
+                } catch (Exception) {}
+                
             };
             client.Dispose();
         }
