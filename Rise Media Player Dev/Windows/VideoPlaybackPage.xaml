@@ -18,15 +18,27 @@
 
     <Page.Resources>
         <conv:VideoToString x:Key="VidToStr" />
+
+        <Storyboard x:Name="EnterPointerStoryboard">
+            <FadeInThemeAnimation Storyboard.TargetName="TopGrid" Duration="3" />
+            <FadeInThemeAnimation Storyboard.TargetName="Player" Duration="3" />
+        </Storyboard>
+
+        <Storyboard x:Name="ExitPointerStoryboard">
+            <FadeOutThemeAnimation Storyboard.TargetName="TopGrid" Duration="3" />
+            <FadeOutThemeAnimation Storyboard.TargetName="Player" Duration="3" />
+        </Storyboard>
     </Page.Resources>
 
     <Grid>
         <Grid x:Name="TopGrid"
               Canvas.ZIndex="1"
-              Background="{ThemeResource SystemControlAcrylicElementBrush}"
-              Height="32"
+              Height="55"
               CornerRadius="0"
-              VerticalAlignment="Top">
+              VerticalAlignment="Top"
+              PointerEntered="TopGrid_PointerEntered"
+              PointerExited="TopGrid_PointerExited">
+            
             <Grid.Transitions>
                 <TransitionCollection>
                     <RepositionThemeTransition />
@@ -68,7 +80,9 @@
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
                                Margin="20"
                                Canvas.ZIndex="1"
-                               x:Name="Player" />
+                               x:Name="Player"
+                               PointerEntered="TopGrid_PointerEntered"
+                               PointerExited="TopGrid_PointerExited"/>
         <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
         <MediaPlayerElement x:Name="PlayerElement"
                             Canvas.ZIndex="0" />
