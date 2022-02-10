@@ -330,7 +330,8 @@ namespace Rise.App.Views
                     break;
 
                 case "SettingsPage":
-                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    ContentFrame.Navigate(typeof(SettingsPage));
+                    //_ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 default:
@@ -936,6 +937,16 @@ namespace Rise.App.Views
             {
                 return Visibility.Visible;
             }
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+            _ = await OpenPageAsWindowAsync(typeof(Settings.ScanningPage));
         }
     }
 

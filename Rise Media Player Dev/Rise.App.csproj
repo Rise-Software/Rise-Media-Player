@@ -199,6 +199,9 @@
     <Compile Include="Settings\InsiderWallpapers.xaml.cs">
       <DependentUpon>InsiderWallpapers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\ScanningPage.xaml.cs">
+      <DependentUpon>ScanningPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
@@ -475,6 +478,7 @@
     <Content Include="Assets\Tiles\BG6.png" />
     <Content Include="Assets\Unavailable\BG %28Dark%29.bmp" />
     <Content Include="Assets\Unavailable\BG %28Light%29.bmp" />
+    <Content Include="Assets\Unavailable\MissingAccPic.png" />
     <Content Include="Assets\Unavailable\Netflix.png" />
     <Content Include="Assets\Unavailable\Playlists.png" />
     <Content Include="Assets\Unavailable\Prime.png" />
@@ -538,6 +542,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\ScanningPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

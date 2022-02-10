@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="Rise.App.Settings.ScanningPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:conv="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
+
+    <Grid Padding="20,20,56,12">
+        <StackPanel>
+            <TextBlock Text="Change when we scan for media" FontSize="28" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
+            <ToggleSwitch Margin="0,14,0,0" Header="Automatic scanning" IsOn="True" />
+            <muxc:RadioButtons Margin="0,14,0,0" x:Name="PeriodicScan" SelectedIndex="3"  MaxColumns="4" Header="Scan periodically every:">
+                <x:String>1 hour</x:String>
+                <x:String>Daily</x:String>
+                <x:String>Weekly</x:String>
+                <x:String>Never</x:String>
+            </muxc:RadioButtons>
+            <ToggleSwitch Margin="0,14,0,0" Header="Scan when app comes to foreground" IsOn="True" />
+
+        </StackPanel>
+    </Grid>
+</Page>

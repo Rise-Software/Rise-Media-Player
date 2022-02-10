@@ -13,7 +13,7 @@
 
     <Grid>
         <muxc:ProgressRing IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <control:WebView2 x:Name="wv2" Source="https://rise-media.netlify.app/feedback/shell"/>
+        <control:WebView2 x:Name="wv2" Source="https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose"/>
 
 
 
