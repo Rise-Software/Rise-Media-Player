@@ -52,7 +52,7 @@
                         </Button.Flyout>
                     </Button>
 
-                    <Button Click="CommandBarButton_Click" Style="{StaticResource TransparentButton}" Tag="Devices"
+                    <!--<Button Click="CommandBarButton_Click" Style="{StaticResource TransparentButton}" Tag="Devices"
                             IsEnabled="False">
                         <StackPanel Orientation="Horizontal"
                                     Spacing="8">
@@ -65,7 +65,7 @@
                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                             </StackPanel>
                         </StackPanel>
-                    </Button>
+                    </Button>-->
 
 
 
@@ -76,7 +76,23 @@
             <uc:AdaptiveItemPane.RightPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="12">
-                    
+
+                    <Button Click="ScanningOpt_Click" Style="{StaticResource TransparentButton}" Tag="SCAN"
+                             Name="ScanningOpt">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <FontIcon Glyph="&#xE11A;" VerticalAlignment="Center" />
+
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Scanning options" FontWeight="SemiBold" />
+                                <TextBlock Text="Change when we scan" FontSize="12"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Button>
+
+
 
                     <Button Click="CommandBarButton_Click" Style="{StaticResource TransparentButton}" Tag="LocalMedia">
                         <Button.Content>

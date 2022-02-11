@@ -7,8 +7,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
+using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
 
 namespace Rise.App.Settings
 {
@@ -50,6 +56,23 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
+        private async Task<bool> OpenPageAsWindowAsync(Type t)
+        {
+            var view = CoreApplication.CreateNewView();
+            int id = 0;
+
+            await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var frame = new Frame();
+                frame.Navigate(t, null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+                id = ApplicationView.GetForCurrentView().Id;
+            });
+
+            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
+        }
+
         internal bool AccountMenuText
         {
             get => LastFMStatus.IsEnabled;
@@ -89,6 +112,11 @@ namespace Rise.App.Settings
             {
                 Debug.WriteLine(e1.Message);
             }
+        }
+
+        private async void ScanningOpt_Click(object sender, RoutedEventArgs e)
+        {
+            await OpenPageAsWindowAsync(typeof(ScanningPage));
         }
     }
 }
