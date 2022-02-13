@@ -265,15 +265,21 @@ namespace Rise.App.UserControls
             {
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
-                    CurrentSongAlbum = App.MViewModel.Albums.FirstOrDefault(album => album.Title == App.PViewModel.CurrentSong.Album);
-                    Uri imageUri = new(CurrentSongAlbum.Thumbnail);
-                    RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                    using IRandomAccessStream stream = await random.OpenReadAsync();
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    ColorThief colorThief = new();
-                    QuantizedColor color = await colorThief.GetColor(decoder);
-                    BackgroundAcrylicBrush.TintOpacity = 100;
-                    BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
+                    try
+                    {
+                        CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
+                        Uri imageUri = new(CurrentSongAlbum.Thumbnail);
+                        RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
+                        using IRandomAccessStream stream = await random.OpenReadAsync();
+                        BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                        ColorThief colorThief = new();
+                        QuantizedColor color = await colorThief.GetColor(decoder);
+                        BackgroundAcrylicBrush.TintOpacity = 100;
+                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
+                    } catch (InvalidOperationException)
+                    {
+
+                    }
                 }
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
