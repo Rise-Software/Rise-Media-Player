@@ -118,7 +118,7 @@ namespace Rise.App.Views
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedGenre = App.MViewModel.Genres.First(g => g.Name == str);
+                SelectedGenre = App.MViewModel.Genres.FirstOrDefault(g => g.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Genres.Contains(str);
                 Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(str);
             }

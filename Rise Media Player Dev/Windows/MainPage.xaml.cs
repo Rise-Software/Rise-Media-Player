@@ -707,7 +707,6 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             await App.MViewModel.StartFullCrawlAsync();
-            await App.MViewModel.SyncAsync();
         }
 
         private async void OpenSettings_Click(object sender, RoutedEventArgs e)

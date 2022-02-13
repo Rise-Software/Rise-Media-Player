@@ -83,7 +83,7 @@ namespace Rise.App.Views
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedAlbum = App.MViewModel.Albums.First(a => a.Title == str);
+                SelectedAlbum = App.MViewModel.Albums.FirstOrDefault(a => a.Title == str);
                 Songs.Filter = s => ((SongViewModel)s).Album == str;
             }
 

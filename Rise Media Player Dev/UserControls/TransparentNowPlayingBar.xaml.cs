@@ -153,7 +153,10 @@ namespace Rise.App.UserControls
             }
             else if (sender.PlaybackState == MediaPlaybackState.Buffering)
             {
-                ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                });
             }
         }
 

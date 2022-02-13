@@ -91,7 +91,7 @@ namespace Rise.App.Indexing
             queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
 
             // Index library.
-            /*foreach (StorageFolder folder in library.Folders)
+            foreach (StorageFolder folder in library.Folders)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -106,24 +106,6 @@ namespace Rise.App.Indexing
                 else
                 {
                     indexedFiles += await IndexFolderAsync(folder, queryOptions, token);
-                }
-            }*/
-
-            for (int i = 0; i < library.Folders.Count; i++)
-            {
-                if (token.IsCancellationRequested)
-                {
-                    OnFinished(indexedFiles);
-                    return;
-                }
-
-                if (useProc)
-                {
-                    indexedFiles += await IndexFolderAsync(library.Folders[i], queryOptions, token, process);
-                }
-                else
-                {
-                    indexedFiles += await IndexFolderAsync(library.Folders[i], queryOptions, token);
                 }
             }
 
@@ -165,7 +147,7 @@ namespace Rise.App.Indexing
 
                 // Process files
 
-                /*foreach (StorageFile file in fileList)
+                foreach (StorageFile file in fileList)
                 {
                     if (token.IsCancellationRequested)
                     {
@@ -180,24 +162,6 @@ namespace Rise.App.Indexing
                     else
                     {
                         OnFileIndexed(file);
-                    }
-                }*/
-
-                for (int i = 0; i < fileList.Count; i++)
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        return indexedFiles;
-                    }
-
-                    indexedFiles++;
-                    if (useProc)
-                    {
-                        await process(fileList[i]);
-                    }
-                    else
-                    {
-                        OnFileIndexed(fileList[i]);
                     }
                 }
 
@@ -246,16 +210,10 @@ namespace Rise.App.Indexing
                     folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
 
                 // Process files
-                /*foreach (StorageFile file in fileList)
+                foreach (StorageFile file in fileList)
                 {
                     indexedFiles++;
                     OnFileIndexed(file);
-                }*/
-
-                for (int i = 0; i < fileList.Count; i++)
-                {
-                    indexedFiles++;
-                    OnFileIndexed(fileList[i]);
                 }
 
                 fileList = await fileTask;

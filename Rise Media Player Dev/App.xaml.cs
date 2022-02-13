@@ -18,6 +18,7 @@ using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
@@ -280,7 +281,16 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartMusicPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
+            StorageApplicationPermissions.FutureAccessList.Add(args.Files[0] as StorageFile);
+            try
+            {
+                await PViewModel.PlaySongAsync(new SongViewModel(await (args.Files[0] as StorageFile).AsSongModelAsync()));
+            }
+            catch (UnauthorizedAccessException)
+            {
+
+            }
+            StorageApplicationPermissions.FutureAccessList.Clear();
         }
 
         /// <summary>

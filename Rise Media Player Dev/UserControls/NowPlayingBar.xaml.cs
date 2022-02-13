@@ -265,7 +265,7 @@ namespace Rise.App.UserControls
             {
                 if ((NowPlayingBarBackgroundStyles)GetValue(BackgroundStylesProperty) == NowPlayingBarBackgroundStyles.UseAlbumArt && App.PViewModel.CurrentSong != null)
                 {
-                    CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
+                    CurrentSongAlbum = App.MViewModel.Albums.FirstOrDefault(album => album.Title == App.PViewModel.CurrentSong.Album);
                     Uri imageUri = new(CurrentSongAlbum.Thumbnail);
                     RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
                     using IRandomAccessStream stream = await random.OpenReadAsync();
@@ -325,7 +325,10 @@ namespace Rise.App.UserControls
             }
             else if (sender.PlaybackState == MediaPlaybackState.Buffering)
             {
-                ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                });
             }
         }
 

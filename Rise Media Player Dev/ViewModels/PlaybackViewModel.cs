@@ -90,8 +90,19 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await song.AsPlaybackItemAsync());
-            SetCurrentSong(0);
+
+            CurrentSong = song;
+
             Player.Play();
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentSongChanged?.Invoke(this, new EventArgs());
         }
 
         public async Task PlaySongFromUrlAsync(SongViewModel song)
@@ -102,8 +113,19 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await song.AsPlaybackItemAsync(new Uri(song.Location)));
-            SetCurrentSong(0);
+
+            CurrentSong = song;
+
             Player.Play();
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentSongChanged?.Invoke(this, new EventArgs());
         }
 
         public async Task PlayVideoAsync(VideoViewModel video)

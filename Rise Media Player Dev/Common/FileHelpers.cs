@@ -1,4 +1,5 @@
 ﻿using Rise.App.Props;
+using Rise.App.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -211,7 +212,13 @@ namespace Rise.App.Common
             {
                 try
                 {
-                    cd = int.Parse(extraProps[SystemMusic.DiscNumber].ToString());
+                    if (int.TryParse(extraProps[SystemMusic.DiscNumber].ToString(), out int result))
+                    {
+                        cd = result;
+                    } else
+                    {
+                        Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.DiscNumber].ToString());
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -223,7 +230,13 @@ namespace Rise.App.Common
             {
                 try
                 {
-                    cd = int.Parse(extraProps[SystemMusic.PartOfSet].ToString());
+                    if (int.TryParse(extraProps[SystemMusic.PartOfSet].ToString(), out int result))
+                    {
+                        cd = result;
+                    } else
+                    {
+                        Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.PartOfSet].ToString());
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -246,7 +259,7 @@ namespace Rise.App.Common
                 ? musicProperties.AlbumArtist : "UnknownArtistResource";
 
             string genre = musicProperties.Genre.FirstOrDefault() != null
-                ? musicProperties.Genre.First() : "UnknownGenreResource";
+                ? musicProperties.Genre.FirstOrDefault() : "UnknownGenreResource";
 
             TimeSpan length = musicProperties.Duration;
 
@@ -278,7 +291,7 @@ namespace Rise.App.Common
             VideoProperties videoProperties =
                 await file.Properties.GetVideoPropertiesAsync();
 
-            // Valid song metadata is needed.
+            // Valid video metadata is needed.
             string title = videoProperties.Title.Length > 0
                 ? videoProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
 
@@ -301,17 +314,17 @@ namespace Rise.App.Common
         /// </summary>
         /// <param name="file">Playlist file.</param>
         /// <returns>A playlist based on the file.</returns>
-        public static async Task<Playlist> AsPlaylistModelAsync(this StorageFile file)
+        public static async Task<PlaylistViewModel> AsPlaylistModelAsync(this StorageFile file)
         {
             // Read playlist file
             var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-            Playlist playlist = new()
+            PlaylistViewModel playlist = new()
             {
                 Title = string.Empty,
                 Description = string.Empty,
                 Duration = string.Empty,
                 Icon = string.Empty,
-                Songs = new System.Collections.ObjectModel.ObservableCollection<Song>()
+                Songs = new System.Collections.ObjectModel.ObservableCollection<SongViewModel>()
             };
 
             // Check if linked to directory
@@ -328,7 +341,7 @@ namespace Rise.App.Common
 
                 foreach (var songPath in Directory.EnumerateFiles(dirPath))
                 {
-                    playlist.Songs.Add(new Song()
+                    playlist.Songs.Add(new SongViewModel()
                     {
                         Location = new Uri(songPath).ToAbsoluteUri(baseUri).AbsolutePath,
                     });
@@ -410,7 +423,7 @@ namespace Rise.App.Common
                                 icon = null;
                             }
 
-                            playlist.Songs.Add(song);
+                            playlist.Songs.Add(new SongViewModel(song));
                         }
                     }
                 }

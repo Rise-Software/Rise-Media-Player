@@ -352,8 +352,7 @@ namespace Rise.App.ViewModels
             }
             else
             {
-                AlbumViewModel alvm = Albums.
-                    First(a => a.Model.Title == song.Album);
+                AlbumViewModel alvm = Albums.FirstOrDefault(a => a.Model.Title == song.Album);
 
                 // Update album information, in case previous songs don't have it
                 // and the album is known.
@@ -401,7 +400,7 @@ namespace Rise.App.ViewModels
             // If artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                ArtistViewModel arvm = new ArtistViewModel
+                ArtistViewModel arvm = new()
                 {
                     Name = song.Artist,
                     Picture = Resources.MusicThumb
@@ -417,7 +416,7 @@ namespace Rise.App.ViewModels
             // If album artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                ArtistViewModel arvm = new ArtistViewModel
+                ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
                     Picture = Resources.MusicThumb
@@ -429,7 +428,7 @@ namespace Rise.App.ViewModels
             // If genre isn't there already, add it to the database.
             if (!genreExists)
             {
-                GenreViewModel gvm = new GenreViewModel
+                GenreViewModel gvm = new()
                 {
                     Name = song.Genres
                 };
@@ -440,7 +439,7 @@ namespace Rise.App.ViewModels
             // If song isn't there already, add it to the database
             if (!songExists)
             {
-                SongViewModel svm = new SongViewModel(song);
+                SongViewModel svm = new(song);
                 await svm.SaveAsync();
             }
         }
