@@ -286,7 +286,7 @@ namespace Rise.App
             {
                 await PViewModel.PlaySongAsync(new SongViewModel(await (args.Files[0] as StorageFile).AsSongModelAsync()));
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception)
             {
 
             }

@@ -10,7 +10,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" xmlns:local="using:Rise.App"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d"
     PointerExited="Page_PointerExited"
@@ -33,7 +33,7 @@
     <Grid>
         <Grid x:Name="TopGrid"
               Canvas.ZIndex="1"
-              Height="55"
+              Height="32"
               CornerRadius="0"
               VerticalAlignment="Top"
               PointerEntered="TopGrid_PointerEntered"
@@ -74,7 +74,7 @@
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
                              ShowIcon="True"
-                             Title="{x:Bind CurrentVideo.Title, Mode=OneWay}" />
+                             Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}" />
         </Grid>
 
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"

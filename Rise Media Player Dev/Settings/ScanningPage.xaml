@@ -15,7 +15,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
     <Grid>
-        <uc:MicaTitleBar x:Name="AppTitleBar" VerticalAlignment="Top" ShowIcon="True" Title="" />
+        <uc:MicaTitleBar x:Name="AppTitleBar" VerticalAlignment="Top" ShowIcon="False" Title="" />
         <Grid Padding="20,48,20,12">
             <StackPanel>
                 <TextBlock Text="Media scanning" Padding="0,0,0,12" FontSize="28" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
