@@ -946,7 +946,7 @@ namespace Rise.App.Views
 
         private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            _ = await OpenPageAsWindowAsync(typeof(Settings.ScanningPage));
+            _ = await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.App.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,9 +26,12 @@ namespace Rise.App.Settings
     {
         public ScanningPage()
         {
-            this.InitializeComponent();
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
+            InitializeComponent();
+
+            Loaded += (s, e) =>
+            {
+                _ = new ApplicationTitleBar(AppTitleBar);
+            };
         }
     }
 }

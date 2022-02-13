@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.App.Common;
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -86,27 +87,10 @@ namespace Rise.App.Web
             }
         }
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             string uriToLaunch = @"https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose";
-            var uri = new Uri(uriToLaunch);
-
-            async void Launch()
-            {
-                string uriToLaunch = @"https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose";
-                var uri = new Uri(uriToLaunch);
-
-                var success = await Windows.System.Launcher.LaunchUriAsync(uri);
-
-                if (success)
-                {
-                    // URI launched
-                }
-                else
-                {
-                    // URI launch failed
-                }
-            }
+            await uriToLaunch.LaunchAsync();
         }
     }
 }

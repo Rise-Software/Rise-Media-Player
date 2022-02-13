@@ -15,24 +15,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
     <Grid>
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="16,0,0,0">
-
-
-
-            <StackPanel Orientation="Horizontal">
-                <FontIcon Glyph="&#xE11A;" Height="16" Width="16" FontSize="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="Scanning settings"
-                    VerticalAlignment="Center"
-                    Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
-            </StackPanel>
-        </Border>
+        <uc:MicaTitleBar x:Name="AppTitleBar" VerticalAlignment="Top" ShowIcon="True" Title="" />
         <Grid Padding="20,48,20,12">
             <StackPanel>
                 <TextBlock Text="Media scanning" Padding="0,0,0,12" FontSize="28" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>

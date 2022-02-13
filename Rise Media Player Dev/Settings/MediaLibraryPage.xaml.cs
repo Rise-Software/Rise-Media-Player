@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
+using Rise.App.Views;
 
 namespace Rise.App.Settings
 {
@@ -54,23 +55,6 @@ namespace Rise.App.Settings
             VFolderDialog.Content = VDialog;
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
-        }
-
-        private async Task<bool> OpenPageAsWindowAsync(Type t)
-        {
-            var view = CoreApplication.CreateNewView();
-            int id = 0;
-
-            await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                var frame = new Frame();
-                frame.Navigate(t, null);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
-                id = ApplicationView.GetForCurrentView().Id;
-            });
-
-            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
         }
 
         internal bool AccountMenuText
@@ -116,7 +100,7 @@ namespace Rise.App.Settings
 
         private async void ScanningOpt_Click(object sender, RoutedEventArgs e)
         {
-            await OpenPageAsWindowAsync(typeof(ScanningPage));
+            await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
         }
     }
 }
