@@ -137,7 +137,7 @@
                   ItemsSource="{x:Bind Artists, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind SelectedArtist, Mode=TwoWay}"
+                  SelectedItem="{x:Bind SelectedArtistItem, Mode=TwoWay}"
                   SelectionMode="Single"
                   RightTapped="MainGrid_RightTapped"
                   Tapped="GridView_Tapped">
@@ -221,7 +221,7 @@
                     </MenuFlyoutItem>
 
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong" Click="SelectArtist_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>

@@ -176,7 +176,7 @@ namespace Rise.App.ViewModels
             StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
             MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new MediaPlaybackItem(source);
+            MediaPlaybackItem media = new(source);
 
             MediaItemDisplayProperties props = media.GetDisplayProperties();
             props.Type = MediaPlaybackType.Video;

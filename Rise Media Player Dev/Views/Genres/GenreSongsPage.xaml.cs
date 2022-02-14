@@ -50,8 +50,8 @@ namespace Rise.App.Views
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
-        private AdvancedCollectionView AllArtistsInGenre = new();
-        private AdvancedCollectionView AllAlbumsInGenre = new();
+        private readonly AdvancedCollectionView AllArtistsInGenre = new();
+        private readonly AdvancedCollectionView AllAlbumsInGenre = new();
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;

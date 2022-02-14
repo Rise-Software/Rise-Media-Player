@@ -173,8 +173,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
-                  Margin="-56,0"
-                  Padding="44,0,44,120"
+                  Padding="20,0,20,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">

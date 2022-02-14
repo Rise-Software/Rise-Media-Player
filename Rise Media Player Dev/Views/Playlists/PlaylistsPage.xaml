@@ -102,9 +102,8 @@
                   Margin="-46,0"
                   Padding="44,0,44,120"
                   SelectionMode="Single"
-                  SelectedItem="{x:Bind SelectedPlaylist, Mode=TwoWay}"
                   RightTapped="MainGrid_RightTapped"
-                  Tapped="GridView_Tapped">
+                  Tapped="GridView_Tapped" SelectionChanged="MainGrid_SelectionChanged">
             <GridView.Resources>
                 <MenuFlyout x:Key="PlaylistFlyout" x:Name="PlaylistFlyout">
 

@@ -136,8 +136,13 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
-            SetCurrentVideo(0);
+
+            CurrentVideo = video;
+
             Player.Play();
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentVideoChanged?.Invoke(this, new EventArgs());
         }
 
         public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)

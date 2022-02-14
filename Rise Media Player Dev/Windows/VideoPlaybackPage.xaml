@@ -37,7 +37,8 @@
               CornerRadius="0"
               VerticalAlignment="Top"
               PointerEntered="TopGrid_PointerEntered"
-              PointerExited="TopGrid_PointerExited">
+              PointerExited="TopGrid_PointerExited"
+              Background="Transparent">
             
             <Grid.Transitions>
                 <TransitionCollection>
@@ -55,7 +56,9 @@
                     VerticalAlignment="Center"
                     AutomationProperties.Name="Back"
                     AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
+                    AutomationProperties.ItemType="Navigation Button"
+                    PointerEntered="TopGrid_PointerEntered"
+                    PointerExited="TopGrid_PointerExited">
                 <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
                     <muxc:AnimatedIcon.Source>
                         <animatedvisuals:AnimatedBackVisualSource/>
@@ -74,7 +77,9 @@
                              Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                              Margin="48,0,0,0"
                              ShowIcon="True"
-                             Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}" />
+                             Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}"
+                             PointerEntered="TopGrid_PointerEntered"
+                             PointerExited="TopGrid_PointerExited" />
         </Grid>
 
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"

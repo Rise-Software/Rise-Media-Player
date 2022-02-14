@@ -163,7 +163,6 @@
                   Margin="-56,0"
                   Padding="44,0,44,120"
                   RightTapped="MainGrid_RightTapped"
-                  SelectedItem="{x:Bind SelectedAlbum, Mode=TwoWay}"
                   SelectionMode="Single"
                   Tapped="GridView_Tapped">
             <GridView.Resources>

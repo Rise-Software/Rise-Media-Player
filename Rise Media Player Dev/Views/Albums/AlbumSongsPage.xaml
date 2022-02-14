@@ -366,7 +366,7 @@
             </ListView.ItemTemplate>
 
             <ListView.Footer>
-                <Grid>
+                <Grid Visibility="{x:Bind HasMoreAlbumsByArtist, Mode=OneWay}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="1*" />

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+        private bool IsCtrlPressed;
+
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
 
@@ -80,12 +83,20 @@ namespace Rise.App.Views
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+                {
+                    _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                    SelectedAlbum = null;
+                }
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+                {
+                    SelectedAlbum = album;
+                }
             }
-
-            SelectedAlbum = null;
         }
 
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -415,6 +426,11 @@ namespace Rise.App.Views
                     album.IsReleaseYearVisible = false;
                 }
             }
+        }
+
+        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
         }
     }
 }

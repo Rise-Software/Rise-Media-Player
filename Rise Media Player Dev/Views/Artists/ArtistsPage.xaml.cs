@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage.FileProperties;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -35,6 +37,15 @@ namespace Rise.App.Views
         {
             get => (ArtistViewModel)GetValue(SelectedArtistProperty);
             set => SetValue(SelectedArtistProperty, value);
+        }
+
+        private static readonly DependencyProperty SelectedArtistItemProperty =
+            DependencyProperty.Register("SelectedArtistItem", typeof(ArtistViewModel), typeof(ArtistsPage), null);
+
+        private ArtistViewModel SelectedArtistItem
+        {
+            get => (ArtistViewModel)GetValue(SelectedArtistItemProperty);
+            set => SetValue(SelectedArtistItemProperty, value);
         }
 
         /// <summary>
@@ -104,12 +115,20 @@ namespace Rise.App.Views
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
+                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                {
+                    _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
+                    SelectedArtist = null;
+                }
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                {
+                    SelectedArtist = artist;
+                }
             }
-
-            SelectedArtist = null;
         }
 
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -189,6 +208,12 @@ namespace Rise.App.Views
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             SelectedArtist = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
+            System.Diagnostics.Debug.WriteLine(SelectedArtist.Name);
+        }
+
+        private void SelectArtist_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedArtistItem = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
         }
     }
 }
