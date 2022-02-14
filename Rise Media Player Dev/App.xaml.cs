@@ -318,7 +318,7 @@ namespace Rise.App
                 // Scan every minute instead of just doing it each time we leave background.
                 // This can have some serious performance boosts when doing it like this.
                 // TODO: let user manage it from settings.
-                Timer timer = new(TimeSpan.FromMinutes(1).TotalMilliseconds)
+                Timer timer = new(TimeSpan.FromSeconds(10).TotalMilliseconds)
                 {
                     AutoReset = true
                 };

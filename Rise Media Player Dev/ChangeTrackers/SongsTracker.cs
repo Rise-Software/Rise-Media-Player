@@ -169,16 +169,20 @@ namespace Rise.App.ChangeTrackers
                         toRemove.Add(song);
                     }
                 }
-
-                foreach (SongViewModel song in toRemove)
-                {
-                    await song.DeleteAsync();
-                }
             } 
             finally
             {
-                toRemove.Clear();
-                toRemove.TrimExcess();
+                try
+                {
+                    foreach (SongViewModel song in toRemove)
+                    {
+                        await song.DeleteAsync();
+                    }
+                } finally
+                {
+                    toRemove.Clear();
+                    toRemove.TrimExcess();
+                }
             }
         }
     }
