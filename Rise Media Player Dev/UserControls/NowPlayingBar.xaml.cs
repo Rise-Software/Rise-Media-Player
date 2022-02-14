@@ -284,6 +284,11 @@ namespace Rise.App.UserControls
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
                 await Task.Delay(TimeSpan.FromSeconds(30));
+
+                SongTitle.Text = App.PViewModel.CurrentSong.Title;
+                ToolTipService.SetToolTip(SongTitle, App.PViewModel.CurrentSong.Title);
+                SongArtist.Visibility = Visibility.Visible;
+
                 LastFMHelper.ScrobbleTrack(SongArtist.Text, SongTitle.Text, App.LMViewModel.SessionKey, (s) =>
                 {
 
@@ -298,6 +303,10 @@ namespace Rise.App.UserControls
             {
                 RestoreVideoButton.Visibility = Visibility.Visible;
                 Visibility = Visibility.Visible;
+
+                SongTitle.Text = App.PViewModel.CurrentVideo.Title;
+                ToolTipService.SetToolTip(SongTitle, App.PViewModel.CurrentVideo.Title);
+                SongArtist.Visibility = Visibility.Collapsed;
             });
         }
 

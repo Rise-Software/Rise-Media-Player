@@ -178,7 +178,7 @@
                     </Image>
                 </Border>
                 <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
-                    <TextBlock MaxLines="1" HorizontalAlignment="Stretch" ToolTipService.ToolTip="{Binding CurrentSong.Title, Mode=OneWay}" Text="{Binding CurrentSong.Title, Mode=OneWay}" TextTrimming="CharacterEllipsis" FontSize="17" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold" x:Name="SongTitle" />
+                    <TextBlock MaxLines="1" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" FontSize="17" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold" x:Name="SongTitle" />
                     <TextBlock ToolTipService.ToolTip="{Binding CurrentSong.Artist, Mode=OneWay}" Text="{Binding CurrentSong.Artist, Mode=OneWay}" FontSize="15" TextTrimming="CharacterEllipsis" x:Name="SongArtist" />
                 </StackPanel>
             </RelativePanel>
