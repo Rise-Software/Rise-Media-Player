@@ -56,7 +56,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _currentVideo, value);
         }
 
-        private PlaybackMetaViewModel _currentPlaybackItem;
+        private PlaybackMetaViewModel _currentPlaybackItem = new();
 
         /// <summary>
         /// Gets the media that's currently playing.
@@ -106,6 +106,7 @@ namespace Rise.App.ViewModels
 
             Player.Play();
 
+
             if (App.SViewModel.Color == -3)
             {
                 App.SViewModel.Color = -1;
@@ -114,6 +115,7 @@ namespace Rise.App.ViewModels
 
             CurrentMediaChanged?.Invoke(this, new EventArgs());
             CurrentSongChanged?.Invoke(this, new EventArgs());
+            await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
         public async Task PlaySongFromUrlAsync(SongViewModel song)
@@ -137,6 +139,8 @@ namespace Rise.App.ViewModels
 
             CurrentMediaChanged?.Invoke(this, new EventArgs());
             CurrentSongChanged?.Invoke(this, new EventArgs());
+
+            await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
         public async Task PlayVideoAsync(VideoViewModel video)
@@ -154,6 +158,7 @@ namespace Rise.App.ViewModels
 
             CurrentMediaChanged?.Invoke(this, new EventArgs());
             CurrentVideoChanged?.Invoke(this, new EventArgs());
+            await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
         public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)
@@ -337,16 +342,17 @@ namespace Rise.App.ViewModels
             {
                 CurrentVideo = null;
                 CurrentSong = PlayingSongs[index];
-                CurrentPlaybackItem = new();
-            }
 
-            if (App.SViewModel.Color == -3)
-            {
-                App.SViewModel.Color = -1;
-                App.SViewModel.Color = -3;
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, new EventArgs());
+                CurrentSongChanged?.Invoke(this, new EventArgs());
+                CurrentPlaybackItem.NotifyChanges(false);
             }
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
         }
 
         public void SetCurrentVideo(int index)
@@ -355,10 +361,17 @@ namespace Rise.App.ViewModels
             {
                 CurrentSong = null;
                 CurrentVideo = PlayingVideos[index];
-                CurrentPlaybackItem = new();
+
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, new EventArgs());
+                CurrentVideoChanged?.Invoke(this, new EventArgs());
+                CurrentPlaybackItem.NotifyChanges(true);
             }
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
         }
 
         public void CancelTask()

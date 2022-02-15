@@ -281,8 +281,10 @@ namespace Rise.App.UserControls
 
                     }
                 }
+
                 RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
+                SongArtist.Visibility = Visibility.Visible;
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
 
@@ -300,6 +302,7 @@ namespace Rise.App.UserControls
             {
                 RestoreVideoButton.Visibility = Visibility.Visible;
                 Visibility = Visibility.Visible;
+                SongArtist.Visibility = Visibility.Collapsed;
             });
         }
 
