@@ -179,6 +179,7 @@
       <DependentUpon>VFoldersDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Indexing\IndexingPresets.cs" />
@@ -220,6 +221,7 @@
     </Compile>
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\PlaybackMetaViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />

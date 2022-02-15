@@ -12,7 +12,7 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:local="using:Rise.App"
     Height="102"
     MaxWidth="1500"
     SizeChanged="UserControl_SizeChanged">
@@ -21,6 +21,7 @@
         <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
         <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
         <converters:BooleanToArtistColumnVisibility x:Key="BoolToVis" />
+        <converters:BooleanToVisibility x:Key="BoolToVis1" />
         <LinearGradientBrush x:Name="PlayBorderBrush">
             <GradientStop Color="#F98253" Offset="0.1"/>
             <GradientStop Color="#F98253"/>
@@ -171,15 +172,29 @@
                         Height="75"
                         CornerRadius="5"
                         ToolTipService.ToolTip="{Binding CurrentSong.Album}">
-                    <Image x:Name="AlbumArt">
-                        <Image.Source>
-                            <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
-                        </Image.Source>
-                    </Image>
+                    <Grid>
+                        <Image x:Name="AlbumArt">
+                            <Image.Source>
+                                <BitmapImage UriSource="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
                 </Border>
                 <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
-                    <TextBlock MaxLines="1" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" FontSize="17" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold" x:Name="SongTitle" />
-                    <TextBlock ToolTipService.ToolTip="{Binding CurrentSong.Artist, Mode=OneWay}" Text="{Binding CurrentSong.Artist, Mode=OneWay}" FontSize="15" TextTrimming="CharacterEllipsis" x:Name="SongArtist" />
+                    <TextBlock Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title}"
+                               MaxLines="1"
+                               HorizontalAlignment="Stretch"
+                               TextTrimming="CharacterEllipsis"
+                               FontSize="17"
+                               Style="{ThemeResource SubtitleTextBlockStyle}"
+                               FontWeight="SemiBold"
+                               x:Name="SongTitle" />
+                    
+                    <TextBlock Visibility="{x:Bind local:App.PViewModel.CurrentPlaybackItem.IsVideo, Mode=OneWay, Converter={StaticResource BoolToVis1}, ConverterParameter=Reverse}"
+                               ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
+                               Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
+                               FontSize="15" TextTrimming="CharacterEllipsis"
+                               x:Name="SongArtist" />
                 </StackPanel>
             </RelativePanel>
 

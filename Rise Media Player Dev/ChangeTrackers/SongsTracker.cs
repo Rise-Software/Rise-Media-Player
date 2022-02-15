@@ -158,30 +158,19 @@ namespace Rise.App.ChangeTrackers
         /// </summary>
         public static async Task HandleMusicFolderChanges()
         {
-            List<SongViewModel> toRemove = new();
-
-            try
+            /*foreach (SongViewModel song in ViewModel.Songs)
             {
-                foreach (SongViewModel song in ViewModel.Songs)
+                if (!File.Exists(song.Location))
                 {
-                    if (!File.Exists(song.Location))
-                    {
-                        toRemove.Add(song);
-                    }
+                    await song.DeleteAsync();
                 }
-            } 
-            finally
+            }*/
+
+            for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
-                try
+                if (!File.Exists(ViewModel.Songs[i].Location))
                 {
-                    foreach (SongViewModel song in toRemove)
-                    {
-                        await song.DeleteAsync();
-                    }
-                } finally
-                {
-                    toRemove.Clear();
-                    toRemove.TrimExcess();
+                    await ViewModel.Songs[i].DeleteAsync();
                 }
             }
         }

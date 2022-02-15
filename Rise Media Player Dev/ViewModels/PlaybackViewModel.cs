@@ -56,6 +56,17 @@ namespace Rise.App.ViewModels
             set => Set(ref _currentVideo, value);
         }
 
+        private PlaybackMetaViewModel _currentPlaybackItem;
+
+        /// <summary>
+        /// Gets the media that's currently playing.
+        /// </summary>
+        public PlaybackMetaViewModel CurrentPlaybackItem
+        {
+            get => _currentPlaybackItem;
+            set => Set(ref _currentPlaybackItem, value);
+        }
+
         public readonly MediaPlayer Player = new();
 
         public MediaPlaybackList PlaybackList { get; set; }
@@ -324,7 +335,9 @@ namespace Rise.App.ViewModels
         {
             if (index >= 0 && index < PlayingSongs.Count)
             {
+                CurrentVideo = null;
                 CurrentSong = PlayingSongs[index];
+                CurrentPlaybackItem = new();
             }
 
             if (App.SViewModel.Color == -3)
@@ -340,7 +353,9 @@ namespace Rise.App.ViewModels
         {
             if (index >= 0 && index < PlayingVideos.Count)
             {
+                CurrentSong = null;
                 CurrentVideo = PlayingVideos[index];
+                CurrentPlaybackItem = new();
             }
             CurrentMediaChanged?.Invoke(this, new EventArgs());
             CurrentVideoChanged?.Invoke(this, new EventArgs());
