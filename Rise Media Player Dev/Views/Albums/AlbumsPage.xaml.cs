@@ -137,7 +137,7 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
             IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
+            List<SongViewModel> songs = new();
 
             while (enumerator.MoveNext())
             {
@@ -157,7 +157,7 @@ namespace Rise.App.Views
             }
 
             IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
+            List<SongViewModel> songs = new();
 
             while (enumerator.MoveNext())
             {

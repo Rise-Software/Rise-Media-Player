@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace Rise.App.Views
             SetArtistPictures();
         }
 
-        private async void SetArtistPictures()
+        private async Task SetArtistPictures()
         {
             string image;
             foreach (ArtistViewModel artist in Artists)
@@ -81,10 +82,26 @@ namespace Rise.App.Views
             {
                 foreach (ArtistViewModel artist in Artists)
                 {
-                    if (artist.Name == "Unknown Artist") { }
+                    // Get images from database
+                    IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
+
+                    if (artist.Name == "Unknown Artist") 
+                    {
+                        artist.Picture = "ms-appx:///Assets/BlankArtist.png";
+                    }
                     else if (imagel.Contains(artist.Name))
                     {
                         artist.Picture = imagel.Replace(artist.Name + " - ", "");
+                    } else
+                    {
+                        try
+                        {
+                            Artist artist1 = artists.FirstOrDefault(a => a.Name == artist.Name);
+                            artist.Picture = artist1.Picture;
+                        } catch (Exception)
+                        {
+
+                        }
                     }
                 }
             }
@@ -135,6 +152,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
+                SelectedArtist = artist;
                 ArtistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
         }
@@ -173,8 +191,22 @@ namespace Rise.App.Views
 
         private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
         {
-            SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
-            await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), true);
+            try
+            {
+                List<SongViewModel> songs = new();
+                foreach (SongViewModel song in MViewModel.Songs)
+                {
+                    if (song.Artist == SelectedArtist.Name)
+                    {
+                        songs.Add(song);
+                    }
+                }
+                await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count, true);
+            } catch (Exception)
+            {
+                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
+                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+            }
         }
 
         private async void ChngArtImg_Click(object sender, RoutedEventArgs e)
