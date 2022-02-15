@@ -102,7 +102,8 @@
 
                 <RichTextBlock FontWeight="SemiBold" IsTextSelectionEnabled="False" FontSize="16" Margin="0,12,0,0" TextAlignment="Center">
                     <Paragraph>
-                        We’re adding extra help all of the time! You can always <Hyperlink UnderlineStyle="None" NavigateUri="https://definetly-not-super-secret-wip-rise-site.vercel.app/">get more help online</Hyperlink> if you need more support, or click on Discy!
+                        We’re adding extra help all of the time! You can always
+                        <Hyperlink UnderlineStyle="None" NavigateUri="https://rise-media.netlify.app/help">get more help online</Hyperlink> if you need more support, or click on Discy!
                     </Paragraph>
                 </RichTextBlock>
             </StackPanel>
