@@ -189,17 +189,6 @@ namespace Rise.App.Views
                     else if (imagel.Contains(artist.Name))
                     {
                         artist.Picture = imagel.Replace(artist.Name + " - ", "");
-                    } 
-                    else
-                    {
-                        try
-                        {
-                            Artist artist1 = artists.FirstOrDefault(a => a.Name == artist.Name);
-                            artist.Picture = artist1.Picture;
-                        } catch (Exception)
-                        {
-
-                        }
                     }
                 }
             }
