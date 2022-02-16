@@ -224,7 +224,7 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
-                        <FontIcon Glyph="&#xE10C;" />
+                        <FontIcon Glyph="" Height="24" />
                     </Button.Content>
 
                     <Button.Flyout>

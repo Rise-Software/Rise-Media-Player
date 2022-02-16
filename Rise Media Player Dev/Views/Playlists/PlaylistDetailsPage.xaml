@@ -32,8 +32,8 @@
         </ListView.Resources>
 
         <ListView.Header>
-            <Border Padding="0,0,0,10" Margin="-66,0">
-                <Grid Height="250">
+            <Border Padding="0,0,0,0" Margin="-56,0">
+                <Grid Height="200">
                     <ParallaxView VerticalShift="300"
                                       Source="{x:Bind MainList}">
                         <Image Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
@@ -41,7 +41,7 @@
                                        Opacity="0.6" />
                     </ParallaxView>
                     <Border>
-                        <Grid ColumnSpacing="24" Padding="80,24,80,24">
+                        <Grid ColumnSpacing="24" Padding="56,24,56,24">
                             <Grid.Background>
                                 <media:BackdropBlurBrush Amount="60" />
                             </Grid.Background>

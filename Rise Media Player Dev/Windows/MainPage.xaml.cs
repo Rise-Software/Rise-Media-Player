@@ -799,7 +799,9 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Support.LaunchAsync();
+        {
+            _ = await OpenPageAsWindowAsync(typeof(Web.SupportProject));
+        }
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

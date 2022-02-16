@@ -178,6 +178,9 @@
     <Compile Include="Dialogs\VFoldersDialog.xaml.cs">
       <DependentUpon>VFoldersDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
+      <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
@@ -253,6 +256,12 @@
     </Compile>
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Web\SupportProject.xaml.cs">
+      <DependentUpon>SupportProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Web\WhatsNew.xaml.cs">
+      <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
@@ -447,6 +456,7 @@
     <Content Include="Assets\Discy.svg" />
     <Content Include="Assets\HelpCentre.png" />
     <Content Include="Assets\lookingformedia.png" />
+    <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
@@ -520,6 +530,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\VFoldersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\WidgetsDialogContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -600,6 +614,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Web\FeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Web\SupportProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Web\WhatsNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

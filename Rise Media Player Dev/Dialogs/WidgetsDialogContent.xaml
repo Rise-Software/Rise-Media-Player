@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="Rise.App.Dialogs.WidgetsDialogContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Dialogs"
+    xmlns:app="using:Rise.App"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:uc="using:Rise.App.UserControls" 
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel Orientation="Vertical" Height="150" Width="800" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock FontSize="28" FontWeight="SemiBold"  Text="Nothing here yet :("/>
+            <TextBlock Text="Widgets aren't added yet. Check back soon."/>
+
+        </StackPanel>
+    </Grid>
+</Page>

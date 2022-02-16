@@ -140,7 +140,7 @@ namespace Rise.App.Views
             {
                 if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
                 {
-                    songs.Add(songs[i]);
+                    songs.Add(MViewModel.Songs[i]);
                 }
             }
 

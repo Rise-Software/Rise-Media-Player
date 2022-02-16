@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical" Spacing="4">
 
 
-            <muxc:TeachingTip x:Name="DiscyOnHome"
+            <!--<muxc:TeachingTip x:Name="DiscyOnHome"
 	        Title="About at a glance"
 	        Subtitle="At a glance will soon contain your recommendations, recently played and more. Currently though, you can see what is new in this Pre-Alpha build. Clicking on a card will give you more information. There are also some quick links to add media and contribute. "
 	        PreferredPlacement="Bottom"
@@ -24,7 +24,7 @@
                 <muxc:TeachingTip.HeroContent>
                     <Image Source="/Assets/Branding/discygraphic.png" />
                 </muxc:TeachingTip.HeroContent>
-            </muxc:TeachingTip>
+            </muxc:TeachingTip>-->
 
 
             <uc:AdaptiveItemPane Loaded="AdaptiveItemPane_Loaded_1">
@@ -38,7 +38,9 @@
                                 Spacing="8"
                                 VerticalAlignment="Center">
 
-                        <Button x:Name="Discy" Padding="5"
+                        <Button x:Name="GlanceManage" Content="Add widgets" Click="GlanceManage_Click" Width="125"/>
+
+                        <!--<Button x:Name="Discy" Padding="5"
                             Click="CommandBarButton_Click"
                             Style="{StaticResource TransparentButton}"
                             Tag="Discy">
@@ -57,12 +59,12 @@
                                    Margin="0,8,0,0"
                                    Style="{StaticResource BaseTextBlockStyle}" />
                         <TextBlock Text="Alpha Preview"
-                                   Style="{StaticResource SubtitleTextBlockStyle}" />
+                                   Style="{StaticResource SubtitleTextBlockStyle}" />-->
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
-            <uc:AdaptiveItemPane>
+            <!--<uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <TextBlock x:Uid="/Information/NewH"
                                Style="{StaticResource Subheader}" />
@@ -74,21 +76,21 @@
                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                Style="{StaticResource Subheader}" />
                 </uc:AdaptiveItemPane.RightPane>
-            </uc:AdaptiveItemPane>
+            </uc:AdaptiveItemPane>-->
 
             
 
-            <GridView HorizontalAlignment="Stretch"
+            <!--<GridView HorizontalAlignment="Stretch"
                       IsItemClickEnabled="True"
                       ItemClick="GridView_ItemClick"
                       ItemContainerStyle="{StaticResource StretchedGridViewItem}"
                       Margin="0,-12,0,0"
                       SelectionMode="None">
-                <!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
+                --><!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG1.png"
                                IconUri="ms-appx:///Assets/Settings/Sidebar.png"
                                Label="View options"
                                Margin="3"
-                               Tag="0" />-->
+                               Tag="0" />--><!--
                 <uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG3.png"
                                IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/albumartists.png"
                                Label="Artists &amp; Albums"
@@ -104,12 +106,12 @@
                                Label="Contextual Help"
                                Margin="3"
                                Tag="2" />
-                <!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
+                --><!--<uc:TiledImage BackgroundUri="ms-appx:///Assets/Tiles/BG6.png"
                                
                                IconUri="ms-appx:///Assets/AtAGlance/WhatsNew/playlists.png"
                                Label="More to come..."
-                               Tag="3" />-->
-            </GridView>
+                               Tag="3" />--><!--
+            </GridView>-->
 
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
@@ -131,12 +133,12 @@
 
             
 
-            <muxc:TeachingTip x:Name="vTip"
+            <!--<muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"
                           ActionButtonClick="VTip_ActionButtonClick"
                           CloseButtonClick="VTip_CloseButtonClick"
                           IsLightDismissEnabled="True"
-                          Target="{x:Bind Version}" />
+                          Target="{x:Bind Version}" />-->
         </StackPanel>
     </ScrollViewer>
 </Page>
