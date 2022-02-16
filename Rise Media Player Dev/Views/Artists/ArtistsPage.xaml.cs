@@ -121,7 +121,7 @@ namespace Rise.App.Views
 
             for (int i = 0; i < MViewModel.Songs.Count; i++)
             {
-                if (songs[i].Artist == SelectedArtist.Name)
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
                 {
                     songs.Add(songs[i]);
                 }
@@ -136,14 +136,11 @@ namespace Rise.App.Views
             List<SongViewModel> songs = new();
             PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
 
-            lock (MViewModel.Songs)
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
             {
-                foreach (SongViewModel song in MViewModel.Songs)
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
                 {
-                    if (song.Artist == SelectedArtist.Name)
-                    {
-                        songs.Add(song);
-                    }
+                    songs.Add(songs[i]);
                 }
             }
 

@@ -60,6 +60,89 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            Loaded += AlbumsPage_Loaded;
+        }
+
+        private void AlbumsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            AddTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                AddTo.Items.Add(item);
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongsAsync(songs);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(songs[i]);
+                }
+            }
+
+            await playlist.AddSongsAsync(songs);
         }
 
         /// <summary>
