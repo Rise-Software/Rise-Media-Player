@@ -29,7 +29,7 @@
             </StackPanel>
         </Border>
 
-        <Button Name="dropdown" Margin="98,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+        <Button IsEnabled="False" Name="dropdown" Margin="98,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
             <Button.Content>
                 <FontIcon Glyph="&#xE011;" FontSize="12"/>
             </Button.Content>
@@ -57,7 +57,7 @@
         </Button>
 
         <muxc:ProgressRing IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <control:WebView2 Margin="0,32,0,0" x:Name="wv2" Source="https://github.com/Rise-Software/Rise-Media-Player/issues/new/choose"/>
+        <control:WebView2 Margin="0,32,0,0" x:Name="wv2" Source="https://rise-media.netlify.app/feedback/shell"/>
 
     </Grid>
     
