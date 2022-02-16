@@ -29,23 +29,37 @@ namespace Rise.App.Views
         private PlaylistViewModel plViewModel;
         private SongViewModel _song;
 
-        private SongViewModel _selectedSong;
+        private static readonly DependencyProperty SelectedSongProperty =
+            DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(PlaylistDetailsPage), null);
 
-        /// <summary>
-        /// Gets or sets the currently selected song.
-        /// </summary>
-        public SongViewModel SelectedSong
+        private SongViewModel SelectedSong
         {
-            get => _selectedSong;
-            set 
-            {
-                _selectedSong = value;
-            }
+            get => (SongViewModel)GetValue(SelectedSongProperty);
+            set => SetValue(SelectedSongProperty, value);
         }
 
         public PlaylistDetailsPage()
         {
             InitializeComponent();
+            Loaded += PlaylistDetailsPage_Loaded;
+        }
+
+        private async void PlaylistDetailsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                foreach (SongViewModel song in plViewModel.Songs)
+                {
+                    if (!File.Exists(song.Location))
+                    {
+                        plViewModel.Songs.Remove(song);
+                        await plViewModel.SaveAsync();
+                    }
+                }
+            } catch (Exception)
+            {
+
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -63,8 +77,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                _song = song;
-                Debug.WriteLine(_song);
+                SelectedSong = song;
                 SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }

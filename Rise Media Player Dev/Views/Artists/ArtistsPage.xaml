@@ -165,21 +165,6 @@
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem x:Name="NewPlaylistMenu"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="PinToStartMenu"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE141;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem x:Name="Share"

@@ -94,6 +94,35 @@ namespace Rise.App.Common
 
             return "/";
         }
+
+        /// <summary>
+        /// Converts a <see cref="StorageItemThumbnail"/> to a <see cref="Buffer"/> and saves it.
+        /// </summary>
+        /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
+        /// <param name="filename">Filename of output image.</param>
+        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
+        public static async Task<string> SaveBitmapFromThumbnailWithReplaceAsync(StorageItemThumbnail thumbnail, string filename)
+        {
+            if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
+            {
+                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
+                    CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+
+                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
+                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                    buffer.Capacity, InputStreamOptions.None);
+
+                using (IRandomAccessStream strm = await
+                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    _ = await strm.WriteAsync(iBuf);
+                }
+
+                return Path.GetFileNameWithoutExtension(destinationFile.Path);
+            }
+
+            return "/";
+        }
     }
 
     public static class FileExtensions

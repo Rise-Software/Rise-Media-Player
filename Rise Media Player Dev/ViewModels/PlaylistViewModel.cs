@@ -1,5 +1,6 @@
 ﻿using Rise.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -105,17 +106,13 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private ObservableCollection<SongViewModel> _songs;
+        private ObservableCollection<SongViewModel> _songs = new();
 
         public ObservableCollection<SongViewModel> Songs
         {
             get
             {
-                if (_songs != null)
-                {
-                    return _songs;
-                }
-                return new ObservableCollection<SongViewModel>();
+                return _songs;
             }
 
             set
@@ -210,6 +207,23 @@ namespace Rise.App.ViewModels
         {
             Songs.Add(song);
             await SaveAsync();
+        }
+
+        /// <summary>
+        /// Adds multiple songs to the playlist.
+        /// </summary>
+        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs)
+        {
+            try
+            {
+                foreach (SongViewModel song in songs)
+                {
+                    Songs.Add(song);
+                }
+            } finally
+            {
+                await SaveAsync();
+            }
         }
 
         /// <summary>
