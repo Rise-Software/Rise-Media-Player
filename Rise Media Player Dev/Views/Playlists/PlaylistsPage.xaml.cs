@@ -3,7 +3,9 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
+using Windows.Storage.Pickers;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -94,6 +96,20 @@ namespace Rise.App.Views
         private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
         {
             await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(ApplicationViewMode.Default, 500, 600, true, SelectedPlaylist);
+        }
+
+        private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker picker = new();
+            picker.FileTypeFilter.Add(".m3u");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                PlaylistViewModel playlist = await file.AsPlaylistModelAsync();
+                await playlist.SaveAsync();
+            }
         }
     }
 }

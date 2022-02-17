@@ -94,6 +94,15 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+
+            <AppBarButton Icon="Save"
+                          Label="Export"
+                          IsEnabled="False" />
+            
+            <AppBarButton Icon="OpenFile"
+                          Label="Import"
+                          Click="ImportPlaylist_Click"/>
+
         </CommandBar>
 
         <GridView x:Name="MainGrid"
@@ -186,7 +195,7 @@
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                    </MenuFlyoutItem> 
                 </MenuFlyout>
             </GridView.Resources>
 
