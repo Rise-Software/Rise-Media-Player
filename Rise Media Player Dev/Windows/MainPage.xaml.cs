@@ -330,8 +330,7 @@ namespace Rise.App.Views
                     break;
 
                 case "SettingsPage":
-                    ContentFrame.Navigate(typeof(SettingsPage));
-                    //_ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
                     break;
 
                 default:
