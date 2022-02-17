@@ -10,7 +10,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -22,15 +22,17 @@
                 <uc:ExpanderControl x:Uid="/MediaLibrary/AutoScanMedia"
                                ExpanderStyle="Static"
                                Icon="&#xE12E;">
-                    <ToggleSwitch IsOn="False" />
+                    <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
-                <muxc:RadioButtons Margin="0,14,0,0" x:Name="PeriodicScan" SelectedIndex="3"  MaxColumns="4" Header="Scan periodically every:">
-                    <x:String>1 hour</x:String>
-                    <x:String>Daily</x:String>
-                    <x:String>Weekly</x:String>
+                
+                <muxc:RadioButtons SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}" Margin="0,14,0,0" x:Name="PeriodicScan" SelectedIndex="3" Header="Scan periodically every:">
                     <x:String>Never</x:String>
+                    <x:String>1 minute</x:String>
+                    <x:String>5 minutes</x:String>
+                    <x:String>10 minutes</x:String>
+                    <x:String>30 minutes</x:String>
+                    <x:String>1 hour</x:String>
                 </muxc:RadioButtons>
-
             </StackPanel>
         </Grid>
     </Grid>
