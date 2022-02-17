@@ -4,6 +4,7 @@ using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -88,6 +89,11 @@ namespace Rise.App.Views
             {
                 SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
             }
+        }
+
+        private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
+        {
+            await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(ApplicationViewMode.Default, 500, 600, true, SelectedPlaylist);
         }
     }
 }

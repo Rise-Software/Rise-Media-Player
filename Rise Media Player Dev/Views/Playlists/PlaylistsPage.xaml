@@ -176,7 +176,7 @@
                     </MenuFlyoutItem>
 
                     <MenuFlyoutItem Text="Info &amp; Properties"
-                                    IsEnabled="False" >
+                                    Click="PlaylistProperties_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;"/>
                         </MenuFlyoutItem.Icon>
@@ -187,10 +187,6 @@
                             <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
-
-
-
                 </MenuFlyout>
             </GridView.Resources>
 
