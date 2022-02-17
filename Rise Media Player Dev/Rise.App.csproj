@@ -263,6 +263,9 @@
     <Compile Include="Web\WhatsNew.xaml.cs">
       <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PlaylistPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistPropertiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PropertiesPage.xaml.cs">
       <DependentUpon>PropertiesPage.xaml</DependentUpon>
     </Compile>
@@ -622,6 +625,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Web\WhatsNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PlaylistPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
