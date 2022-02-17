@@ -25,7 +25,7 @@
                     <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
                 
-                <muxc:RadioButtons SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}" Margin="0,14,0,0" x:Name="PeriodicScan" SelectedIndex="3" Header="Scan periodically every:">
+                <muxc:RadioButtons SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}" Margin="0,14,0,0" x:Name="PeriodicScan" Header="Scan periodically every:">
                     <x:String>Never</x:String>
                     <x:String>1 minute</x:String>
                     <x:String>5 minutes</x:String>
