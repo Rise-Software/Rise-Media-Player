@@ -1,6 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.UserControls;
+using Rise.App.Web;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,7 +31,7 @@ namespace Rise.App.Views
             => _ = await URLs.GitHub.LaunchAsync();
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Support.LaunchAsync();
+            => _ = await typeof(SupportProject).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
@@ -56,16 +57,6 @@ namespace Rise.App.Views
         {
             var item = e.ClickedItem as TiledImage;
             await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
-        }
-
-        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AdaptiveItemPane_Loaded_1(object sender, RoutedEventArgs e)
-        {
-
         }
 
         //private void CommandBarButton_Click(object sender, RoutedEventArgs e)
@@ -95,22 +86,24 @@ namespace Rise.App.Views
 
         private async void GlanceManage_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Add widgets";
-            dialog.PrimaryButtonText = "See what we're working on";
-            dialog.CloseButtonText = "Close";
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = new WidgetsDialogContent();
+            ContentDialog dialog = new()
+            {
+                Title = "Add widgets",
+                PrimaryButtonText = "See what we're working on",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new WidgetsDialogContent()
+            };
 
             var result = await dialog.ShowAsync();
 
             if (result == ContentDialogResult.Primary)
             {
-                string url = "https://www.github.com/rise-software/rise-media-player";
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+                await "https://www.github.com/rise-software/rise-media-player".LaunchAsync();
             }
-
-
         }
+
+        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
+            => _ = await typeof(WhatsNew).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
     }
 }

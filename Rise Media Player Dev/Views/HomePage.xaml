@@ -27,7 +27,7 @@
             </muxc:TeachingTip>-->
 
 
-            <uc:AdaptiveItemPane Loaded="AdaptiveItemPane_Loaded_1">
+            <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <Image Height="33"
                            Source="ms-appx:///Assets/Branding/settingsbanner.png" />
@@ -113,6 +113,10 @@
                                Tag="3" />--><!--
             </GridView>-->
 
+            <Border BorderBrush="{StaticResource AppBarItemDisabledForegroundThemeBrush}" BorderThickness="2" CornerRadius="6">
+                <TextBlock Padding="50" TextAlignment="Center" Text="You have no widgets. Add some!" />
+            </Border>
+
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
 
@@ -125,6 +129,12 @@
                                     Click="SupportButton_Click"
                                     ExpanderStyle="Button"
                                     Icon="&#xE822;" />
+
+            <uc:ExpanderControl Click="WhatsNew_Click"
+                                ExpanderStyle="Button"
+                                Icon="&#xE109;"
+                                Title="What's New"
+                                Description="Check out the new features in Rise Media Player."/>
 
             <uc:ExpanderControl x:Uid="/Information/Contribute"
                                     Click="ContributeButton_Click"

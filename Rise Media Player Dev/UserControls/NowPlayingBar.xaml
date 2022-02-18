@@ -164,24 +164,24 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <RelativePanel>
-                <Border PointerReleased="AlbumArtContainer_PointerReleased"
-                        x:Name="AlbumArtContainer"
+            <Button Style="{StaticResource TransparentButton}" Padding="0" Click="PlaybackInfo_Click">
+                <RelativePanel>
+                    <Border x:Name="AlbumArtContainer"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         Width="75"
                         Height="75"
                         CornerRadius="5"
                         ToolTipService.ToolTip="{Binding CurrentSong.Album}">
-                    <Grid>
-                        <Image x:Name="AlbumArt">
-                            <Image.Source>
-                                <BitmapImage UriSource="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}" />
-                            </Image.Source>
-                        </Image>
-                    </Grid>
-                </Border>
-                <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
-                    <TextBlock Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}"
+                        <Grid>
+                            <Image x:Name="AlbumArt">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}" />
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </Border>
+                    <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
+                        <TextBlock Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}"
                                ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}"
                                MaxLines="1"
                                HorizontalAlignment="Stretch"
@@ -190,13 +190,14 @@
                                Style="{ThemeResource SubtitleTextBlockStyle}"
                                FontWeight="SemiBold"
                                x:Name="SongTitle" />
-                    
-                    <TextBlock ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
+
+                        <TextBlock ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
                                Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
                                FontSize="15" TextTrimming="CharacterEllipsis"
                                x:Name="SongArtist" />
-                </StackPanel>
-            </RelativePanel>
+                    </StackPanel>
+                </RelativePanel>
+            </Button>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="-1,0,0,0" Padding="3,0,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

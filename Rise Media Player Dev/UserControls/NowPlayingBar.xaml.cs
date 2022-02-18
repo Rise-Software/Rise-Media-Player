@@ -292,6 +292,7 @@ namespace Rise.App.UserControls
                 {
 
                 });
+                AlbumArt.Stretch = Stretch.Uniform;
             });
 
         }
@@ -303,6 +304,7 @@ namespace Rise.App.UserControls
                 RestoreVideoButton.Visibility = Visibility.Visible;
                 Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Collapsed;
+                AlbumArt.Stretch = Stretch.UniformToFill;
             });
         }
 
@@ -505,10 +507,6 @@ namespace Rise.App.UserControls
                 _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
             }
         }
-        private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
-        }
 
         private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
         {
@@ -649,6 +647,21 @@ namespace Rise.App.UserControls
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void PlaybackInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+            }
+            else
+            {
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
             }
         }
     }
