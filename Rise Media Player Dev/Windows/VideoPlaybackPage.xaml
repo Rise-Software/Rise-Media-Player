@@ -38,7 +38,7 @@
               VerticalAlignment="Top"
               PointerEntered="TopGrid_PointerEntered"
               PointerExited="TopGrid_PointerExited"
-              Background="Transparent">
+              Background="{StaticResource SystemControlAcrylicElementBrush}">
             
             <Grid.Transitions>
                 <TransitionCollection>
@@ -90,7 +90,8 @@
                                PointerExited="TopGrid_PointerExited"/>
         <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
         <MediaPlayerElement x:Name="PlayerElement"
-                            Canvas.ZIndex="0" />
+                            Canvas.ZIndex="0"
+                            x:FieldModifier="public"/>
         
     </Grid>
 </Page>

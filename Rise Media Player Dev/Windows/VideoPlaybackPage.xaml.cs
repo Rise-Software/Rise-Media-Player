@@ -20,6 +20,8 @@ namespace Rise.App.Views
 
         private bool _currentlyFocusedOnPlaybackControls = false;
 
+        public static VideoPlaybackPage Current;
+
         public VideoPlaybackPage()
         {
             InitializeComponent();
@@ -29,6 +31,7 @@ namespace Rise.App.Views
             Loaded += VideoPlaybackPage_Loaded;
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             DataContext = ViewModel;
+            Current = this;
         }
 
         private void VideoPlaybackPage_Loaded(object sender, RoutedEventArgs e)

@@ -15,7 +15,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     SizeChanged="UserControl_SizeChanged"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:app="using:Rise.App"
     MaxWidth="1500">
 
     <UserControl.Resources>
@@ -115,7 +115,7 @@
                 <ToggleMenuFlyoutItem Text="Picture slideshow" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
+            <MenuFlyoutSubItem Text="Settings">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE713;" />
                 </MenuFlyoutSubItem.Icon>
@@ -123,6 +123,8 @@
                 <muxc:RadioMenuFlyoutItem Text="Compact mode" />
                 <MenuFlyoutSeparator />
                 <ToggleMenuFlyoutItem Text="Tint to album art" />
+                <MenuFlyoutSeparator />
+                <ToggleMenuFlyoutItem Text="Zoom to fill" Click="ZoomToFill_Click" />
                 <MenuFlyoutSeparator />
                 <MenuFlyoutItem Text="Additional settings" />
             </MenuFlyoutSubItem>
@@ -290,8 +292,6 @@
                             <FontIcon Glyph="&#xEE49;"  />
                         </Button>
                         
-                            
-                            
                         <Button Height="45"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
