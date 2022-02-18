@@ -38,6 +38,11 @@ namespace Rise.App.ViewModels
                 Title = App.PViewModel.CurrentSong.Title;
                 Thumbnail = App.PViewModel.CurrentSong.Thumbnail;
             }
+
+            if (Thumbnail == null)
+            {
+                Thumbnail = "ms-appx:///Assets/Default.png";
+            }
         }
 
         public void NotifyChanges(bool isVideo)
@@ -52,6 +57,11 @@ namespace Rise.App.ViewModels
             {
                 Title = App.PViewModel.CurrentSong.Title;
                 Thumbnail = App.PViewModel.CurrentSong.Thumbnail;
+            }
+
+            if (Thumbnail == null)
+            {
+                Thumbnail = "ms-appx:///Assets/Default.png";
             }
         }
     }

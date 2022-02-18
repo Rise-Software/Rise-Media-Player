@@ -106,7 +106,6 @@ namespace Rise.App.ViewModels
 
             Player.Play();
 
-
             if (App.SViewModel.Color == -3)
             {
                 App.SViewModel.Color = -1;
