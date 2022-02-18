@@ -15,7 +15,7 @@
 [Contribute to this Project](https://github.com/Rise-Software/Rise-Media-Player)
 ## Appearance & design
 
-Created with **WinUI and the latest design ideologies**, **Rise Media Player** is modern while keeping all of the classic features people need. We use **WinUI 2.6/2.7** to keep our user interface, clean, modern and consistent with **Windows 11 UI and UX**. Although, this app does work on **Windows 10** too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, you can use it on any *Windows device!* **(go to bottom for more details)**
+Created with **WinUI and the latest design ideologies**, **Rise Media Player** is modern while keeping all of the classic features people need. We use **WinUI 2.8 Preview** to keep our user interface, clean, modern and consistent with **Windows 11 UI and UX**. Although, this app does work on **Windows 10** too. We use all of your favourite materials: Mica and Acrylic. We use Microsoft's icons and controls as well as some of our own to create a generally native feeling experience. Our own controls and icons give users a truly personalised experience, being able to choose their own icon packs and with features like compact mode, you can use it on any *Windows device!* **(go to bottom for more details)**
 
 ![Pre-Alpha 1 Render](https://user-images.githubusercontent.com/74561130/137600141-38c3a80a-519a-4e4f-9cae-7486b224e685.png)
 
@@ -31,6 +31,10 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 * Now Playing Window
 * Artist, Album and Songs Views
 * Modern Titlebar
+* LastFM Integration
+* Internet based artist images
+* Feedback page
+* Playlists
 * Sidebar with quick links
 * Modern Settings UI - Very few settings work (Sidebar customization)
 * Albums & Songs View
@@ -65,7 +69,7 @@ We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
 ## Downloads, Contribute and the Insider Program
 
-MSIX packages are available now for the Pre-Alpha 4 InDev build. We aren't going to be available in the Microsoft Store for a while as we will be releasing many builds over the next few months. Trying to approve each build on a regular basis is just not feasible. 
+MSIX packages are available now for the Alpha Preview 1 build.
 
 Currently, all users can try out the MSIX packages. When we move to the store, you must be signed up to the insider program to be able to install. You can do this from the button below.
 
