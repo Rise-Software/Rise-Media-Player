@@ -72,10 +72,10 @@
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>
 
-        <uc:ExpanderControl
+        <!--<uc:ExpanderControl
             x:Uid="/About/Recent"
             ExpanderStyle="Default"
-            Icon="&#xE121;" />
+            Icon="&#xE121;" />-->
 
 
         <TextBlock

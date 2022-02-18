@@ -113,8 +113,17 @@
                                Tag="3" />--><!--
             </GridView>-->
 
-            <Border BorderBrush="{StaticResource AppBarItemDisabledForegroundThemeBrush}" BorderThickness="2" CornerRadius="6">
-                <TextBlock Padding="50" TextAlignment="Center" Text="You have no widgets. Add some!" />
+            <Border Margin="0,15,0,0" BorderBrush="{StaticResource SystemControlHighlightListAccentLowBrush}" Opacity="1" BorderThickness="2" CornerRadius="6">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Padding="0,50,0,20">
+                        <Image Source="/Assets/AtAGlance/widgets.png" Height="80" Width="88"/>
+                    </StackPanel>
+                    
+                    <TextBlock Padding="0,0,0,0" FontSize="24" FontWeight="SemiBold" TextAlignment="Center" Text="We have nothing to show here." TextWrapping="WrapWholeWords" />
+                    <TextBlock Padding="0,0,0,0" FontSize="24" FontWeight="SemiBold" TextAlignment="Center" Text="That's pretty sad, so add some widgets!" TextWrapping="WrapWholeWords" />
+                    <TextBlock Padding="0,20,0,50" Opacity="0.5" FontSize="15" FontWeight="SemiBold" TextAlignment="Center" Text="Personalise your at a glance page with the things you love." TextWrapping="WrapWholeWords" />
+                </StackPanel>
+                
             </Border>
 
             <TextBlock x:Uid="/Information/QuickH"

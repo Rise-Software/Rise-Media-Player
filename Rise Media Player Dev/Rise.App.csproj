@@ -23,12 +23,15 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Auto</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>7920495CF4FE5E2474764EA323E20667137325E1</PackageCertificateThumbprint>
-    <AppxPackageDir>D:\YourOrdinaryCat\Applications\Installers\RiseMP\Pre-Alpha 2\</AppxPackageDir>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
+    <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>9.0</LangVersion>
+    <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -452,6 +455,7 @@
     <Content Include="Assets\AtAGlance\WhatsNew\Discy.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
+    <Content Include="Assets\AtAGlance\widgets.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
@@ -508,6 +512,7 @@
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
