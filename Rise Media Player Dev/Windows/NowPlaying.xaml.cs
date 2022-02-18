@@ -53,6 +53,9 @@ namespace Rise.App.Views
         }
 
         private void PlayFrame_Navigated(object sender, NavigationEventArgs e)
-            => IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
+        {
+            IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
+            BackForPlay.Visibility = IsInCurrentlyPlayingPage ? Visibility.Collapsed : Visibility.Visible;
+        }
     }
 }
