@@ -138,6 +138,9 @@
   <data name="Artists" xml:space="preserve">
     <value>Artists</value>
   </data>
+  <data name="ConnectedDevices" xml:space="preserve">
+    <value>Connected Devices</value>
+  </data>
   <data name="Devices" xml:space="preserve">
     <value>Devices</value>
   </data>

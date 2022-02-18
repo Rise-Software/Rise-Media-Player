@@ -222,6 +222,7 @@
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaybackMetaViewModel.cs" />
@@ -238,6 +239,9 @@
     </Compile>
     <Compile Include="Settings\ClassicSettings.xaml.cs">
       <DependentUpon>ClassicSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConnectedDevicesPage.xaml.cs">
+      <DependentUpon>ConnectedDevicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
@@ -593,6 +597,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\ClassicSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConnectedDevicesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,17 +24,17 @@ namespace Rise.App.ViewModels
             "Default", "Colorful"
         };
 
-        public List<string> GeneralTags = new List<string>
+        public List<string> GeneralTags = new()
         {
-            "HomePage", "PlaylistsPage", "DevicesPage", "NowPlayingPage"
+            "HomePage", "PlaylistsPage", "ConnectedDevicesPage", "NowPlayingPage"
         };
 
-        public List<string> MusicTags = new List<string>
+        public List<string> MusicTags = new()
         {
             "SongsPage", "ArtistsPage", "AlbumsPage", "GenresPage"
         };
 
-        public List<string> VideoTags = new List<string>
+        public List<string> VideoTags = new()
         {
             "LocalVideosPage", "StreamingPage"
         };

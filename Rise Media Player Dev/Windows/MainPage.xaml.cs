@@ -301,6 +301,10 @@ namespace Rise.App.Views
                     _ = await _nowPlayingWindow.TryShowAsync();
                     break;
 
+                case "ConnectedDevicesPage":
+                    _ = ContentFrame.Navigate(typeof(ConnectedDevicesPage));
+                    break;
+
                 case "PlaylistsPage":
                     _ = ContentFrame.Navigate(typeof(PlaylistsPage));
                     break;

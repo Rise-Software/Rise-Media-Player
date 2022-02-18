@@ -18,6 +18,15 @@
     "IsFooter": false
   },
   {
+    "LabelResource": "ConnectedDevices",
+    "Tag": "ConnectedDevicesPage",
+    "Icon": "\uECA5",
+    "HeaderGroup": "General",
+    "AccKey": "H",
+    "Visible": true,
+    "IsFooter": false
+  },
+  {
     "LabelResource": "Playlists",
     "Tag": "PlaylistsPage",
     "Icon": "\uE8FD",

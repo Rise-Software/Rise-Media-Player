@@ -30,6 +30,7 @@ namespace Rise.App.ViewModels
             _defaultIcons.Add("HomePage", "\uECA5");
             _defaultIcons.Add("NowPlayingPage", "\uEA37");
             _defaultIcons.Add("PlaylistsPage", "\uE8FD");
+            _defaultIcons.Add("ConnectedDevicesPage", "\uE8FD");
             _defaultIcons.Add("SongsPage", "\uEC4F");
             _defaultIcons.Add("ArtistsPage", "\uE125");
             _defaultIcons.Add("AlbumsPage", "\uE93C");
