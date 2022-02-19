@@ -234,7 +234,7 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Sync centre" Margin="0,2,0,12" />
-                                    <Button Click="DeleteConfirmation_Click" Content="Sync all" FontStretch="Normal" Margin="70,-9,-2,0" FontSize="12" Height="32"/>
+                                    <Button Content="Sync all" FontStretch="Normal" Margin="70,-9,-2,0" FontSize="12" Height="32"/>
                                 </StackPanel>
                                 <StackPanel Padding="25" Orientation="Vertical">
                                     <FontIcon Glyph="" Height="32"/>
