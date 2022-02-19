@@ -216,11 +216,45 @@
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
                     QueryIcon="Find" />
+
+
+                <Button
+                    x:Name="SyncCentre"
+                    Grid.Column="1"
+                    Height="32"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TransparentButton}">
+                    <Button.Content>
+                        <FontIcon Glyph="&#xE117;" Height="24" />
+                    </Button.Content>
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Sync centre" Margin="0,2,0,12" />
+                                    <Button Click="DeleteConfirmation_Click" Content="Sync all" FontStretch="Normal" Margin="70,-9,-2,0" FontSize="12" Height="32"/>
+                                </StackPanel>
+                                <StackPanel Padding="25" Orientation="Vertical">
+                                    <FontIcon Glyph="" Height="32"/>
+                                    <TextBlock FontSize="14" Text="Coming soon" FontWeight="Normal" TextAlignment="Center"/>
+
+                                </StackPanel>
+                            </StackPanel>
+                            
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+
+
                 <Button
                     x:Name="MoreButton"
                     x:Uid="/Information/More"
                     Grid.Column="1"
                     Height="32"
+                    Margin="40,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
