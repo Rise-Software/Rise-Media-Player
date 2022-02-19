@@ -124,7 +124,7 @@
     <value>Opens with</value>
   </data>
   <data name="Filename.Text" xml:space="preserve">
-    <value>Filename</value>
+    <value>File name</value>
   </data>
   <data name="FileType.Text" xml:space="preserve">
     <value>File type</value>

@@ -61,10 +61,13 @@
                         <TextBlock Text="{x:Bind Props.Title}"
                                    FontSize="22"
                                    MaxLines="2"
+                                   TextTrimming="WordEllipsis"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Props.Artist}"
-                                   Margin="0,-4,0,4"
+                                   Margin="-1,-4,0,4"
+                                   FontSize="16"
+                                   TextTrimming="WordEllipsis"
                                    Style="{StaticResource BodyTextBlockStyle}" />
 
                         <muxc:SplitButton Click="EditArtButton_Click">
@@ -74,9 +77,13 @@
                                            Style="{StaticResource BodyTextBlockStyle}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
-                                <Flyout Placement="Bottom">
-                                    <!-- flyout content -->
-                                </Flyout>
+                                <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                    <MenuFlyoutItem Text="Export album art" Name="exportAlbumArt" Click="exportAlbumArt_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE159;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </muxc:SplitButton.Flyout>
                         </muxc:SplitButton>
                     </StackPanel>
