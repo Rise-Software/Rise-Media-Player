@@ -168,6 +168,7 @@
 
                 <TextBlock x:Uid="/Details/SongAlbumArtist"
                            Margin="0,-2,0,0"
+                           
                            VerticalAlignment="Center" />
                 <TextBlock x:Uid="/Details/Disc"
                            Grid.Row="1"
@@ -180,16 +181,19 @@
 
                 <TextBox x:Name="SongAlbumArtist"
                          Grid.Column="1"
+                         Margin="8,0,0,0"
+                         
                          Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}"
                          HorizontalAlignment="Stretch" />
                 <TextBox x:Name="SongDisc"
                          Grid.Column="1"
+                         Margin="8,0,0,0"
                          Grid.Row="1"
                          Text="{x:Bind Props.Disc, Mode=TwoWay}" />
-                <muxc:RatingControl Grid.Column="1"
+                <RatingControl Grid.Column="1"
                                     Grid.Row="2"
                                     HorizontalAlignment="Left"
-                                    Margin="8,0,0,-4"
+                                    Margin="16,0,0,-4"
                                     Value="{x:Bind Props.Rating, Mode=TwoWay}"
                                     VerticalAlignment="Bottom" />
             </Grid>
