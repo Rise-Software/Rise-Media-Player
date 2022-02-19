@@ -60,12 +60,12 @@
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
-                    <MenuFlyout>
+                    <MenuFlyout x:Name="AddTo123">
                         <MenuFlyoutItem x:Name="NewPlaylistMenu"
                                     x:Uid="/Information/NewPlaylist"
                                     IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
+                                <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator/>

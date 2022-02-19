@@ -68,7 +68,13 @@ namespace Rise.App.Views
         {
             ApplySettingsToView();
 
-            AddTo.Items.Clear();
+            ApplyPlaylistItems(AddTo);
+            ApplyPlaylistItems(AddTo123);
+        }
+
+        private void ApplyPlaylistItems(MenuFlyout addTo)
+        {
+            addTo.Items.Clear();
 
             MenuFlyoutItem newPlaylistItem = new()
             {
@@ -82,11 +88,11 @@ namespace Rise.App.Views
 
             newPlaylistItem.Click += NewPlaylistItem_Click;
 
-            AddTo.Items.Add(newPlaylistItem);
+            addTo.Items.Add(newPlaylistItem);
 
             if (App.MViewModel.Playlists.Count > 0)
             {
-                AddTo.Items.Add(new MenuFlyoutSeparator());
+                addTo.Items.Add(new MenuFlyoutSeparator());
             }
 
             foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
@@ -104,7 +110,49 @@ namespace Rise.App.Views
 
                 item.Click += Item_Click;
 
-                AddTo.Items.Add(item);
+                addTo.Items.Add(item);
+            }
+        }
+
+        private void ApplyPlaylistItems(MenuFlyoutSubItem addTo)
+        {
+            addTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            addTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                addTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                addTo.Items.Add(item);
             }
         }
 
@@ -141,7 +189,7 @@ namespace Rise.App.Views
             {
                 if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
                 {
-                    songs.Add(songs[i]);
+                    songs.Add(MViewModel.Songs[i]);
                 }
             }
 

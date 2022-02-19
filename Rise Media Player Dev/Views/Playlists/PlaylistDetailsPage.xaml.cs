@@ -112,5 +112,10 @@ namespace Rise.App.Views
         {
             Debug.WriteLine(plViewModel.Songs.Remove(SelectedSong));
         }
+
+        private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true, plViewModel);
+        }
     }
 }

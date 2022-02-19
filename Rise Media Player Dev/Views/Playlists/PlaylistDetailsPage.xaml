@@ -32,7 +32,7 @@
         </ListView.Resources>
 
         <ListView.Header>
-            <Border Padding="0,0,0,0" Margin="-56,0">
+            <Border Padding="0,0,0,10" Margin="-56,0">
                 <Grid Height="200">
                     <ParallaxView VerticalShift="300"
                                       Source="{x:Bind MainList}">
@@ -159,6 +159,16 @@
                                               Icon="Delete"
                                               IsEnabled="False"
                                               Style="{StaticResource AppBarCompactButton}" />
+
+                                    <AppBarSeparator />
+
+                                    <AppBarButton x:Uid="/Information/Properties"
+                                              Style="{StaticResource AppBarCompactButton}"
+                                              Click="PlaylistProperties_Click">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xE70F;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
                                 </CommandBar>
                             </StackPanel>
                         </Grid>
