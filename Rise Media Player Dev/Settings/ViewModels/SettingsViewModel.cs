@@ -2,6 +2,7 @@
 using Rise.App.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using static Rise.App.Common.Enums;
 
 namespace Rise.App.ViewModels
@@ -100,6 +101,24 @@ namespace Rise.App.ViewModels
         {
             get => Get("Appearance", nameof(CuratedPlaylists), false);
             set => Set("Appearance", nameof(CuratedPlaylists), value);
+        }
+
+        public bool IsTilesInAlbumsPage
+        {
+            get => Get("Appearance", nameof(IsTilesInAlbumsPage), true);
+            set
+            {
+                Set("Appearance", nameof(IsTilesInAlbumsPage), value);
+            }
+        }
+
+        public bool IsListInAlbumsPage
+        {
+            get => Get("Appearance", nameof(IsListInAlbumsPage), false);
+            set
+            {
+                Set("Appearance", nameof(IsListInAlbumsPage), value);
+            }
         }
         #endregion
 

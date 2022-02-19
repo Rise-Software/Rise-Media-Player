@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
@@ -65,6 +66,8 @@ namespace Rise.App.Views
 
         private void AlbumsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ApplySettingsToView();
+
             AddTo.Items.Clear();
 
             MenuFlyoutItem newPlaylistItem = new()
@@ -293,7 +296,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
-            ApplySettingsToView();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -514,6 +516,22 @@ namespace Rise.App.Views
         private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
+        }
+
+        private void ViewMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Tiles")
+            {
+                SViewModel.IsListInAlbumsPage = false;
+                SViewModel.IsTilesInAlbumsPage = true;
+                System.Diagnostics.Debug.WriteLine("Tiles");
+            }
+            else if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Lists")
+            {
+                SViewModel.IsTilesInAlbumsPage = false;
+                SViewModel.IsListInAlbumsPage = true;
+                System.Diagnostics.Debug.WriteLine("Lists");
+            }
         }
     }
 }

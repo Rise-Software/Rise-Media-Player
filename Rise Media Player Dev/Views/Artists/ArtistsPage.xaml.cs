@@ -62,11 +62,12 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             Loaded += ArtistsPage_Loaded;
-            SetArtistPictures();
         }
 
         private void ArtistsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            SetArtistPictures();
+
             AddTo.Items.Clear();
 
             MenuFlyoutItem newPlaylistItem = new()

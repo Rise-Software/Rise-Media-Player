@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:helpers="using:Rise.App.Helpers"
     mc:Ignorable="d">
 
     <Grid>
@@ -44,9 +44,8 @@
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Icon="Shuffle"
-                          IsEnabled="False" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+                          Icon="Shuffle" />
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind helpers:BindingHelpers.IsNotNull(SelectedArtist), Mode=OneWay}" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>

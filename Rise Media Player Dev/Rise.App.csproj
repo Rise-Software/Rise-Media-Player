@@ -185,6 +185,7 @@
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />

@@ -7,12 +7,13 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:converters="using:Rise.App.Converters"
+    xmlns:converters="using:Rise.App.Converters" xmlns:helpers="using:Rise.App.Helpers"
     mc:Ignorable="d">
 
     <Page.Resources>
         <converters:BoolToRoundedCorners x:Key="BoolToRounded" />
         <converters:UintToStringConverter x:Key="UintToStringConverter" />
+        <converters:BooleanToVisibility x:Key="BoolToVis" />
     </Page.Resources>
 
     <Grid>
@@ -53,7 +54,7 @@
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
             
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind helpers:BindingHelpers.IsNotNull(SelectedAlbum), Mode=OneWay}" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
@@ -99,9 +100,8 @@
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <muxc:RadioMenuFlyoutItem Text="Tiles (Vertical)" IsChecked="True" />
-                        <muxc:RadioMenuFlyoutItem Text="Tiles (Horizontal)" IsEnabled="False" />
-                        <muxc:RadioMenuFlyoutItem Text="List" IsEnabled="False"/>
+                        <muxc:RadioMenuFlyoutItem Tag="Tiles" Text="Tiles" IsChecked="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=OneWay}" Click="ViewMode_Click" />
+                        <muxc:RadioMenuFlyoutItem Tag="Lists" Text="List" IsChecked="{x:Bind SViewModel.IsListInAlbumsPage, Mode=OneWay}" Click="ViewMode_Click" />
                         <MenuFlyoutSeparator/>
                         <ToggleMenuFlyoutItem Text="Split online &amp; local media" IsEnabled="false" />
                         <MenuFlyoutSeparator/>
@@ -164,7 +164,8 @@
                   Padding="44,0,44,120"
                   RightTapped="MainGrid_RightTapped"
                   SelectionMode="Single"
-                  Tapped="GridView_Tapped">
+                  Tapped="GridView_Tapped"
+                  Visibility="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=OneWay, Converter={StaticResource BoolToVis}}">
             <GridView.Resources>
                 <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
                     <MenuFlyoutItem x:Uid="/Information/PlayItem"
@@ -291,6 +292,146 @@
             </GridView.ItemTemplate>
         </GridView>
 
-        
+        <ListView x:Name="MainGrid1"
+                  animations:Connected.ListItemElementName="AlbumThumb"
+                  animations:Connected.ListItemKey="AlbumArt"
+                  Grid.Row="1"
+                  ItemsSource="{x:Bind Albums}"
+                  Margin="-56,0"
+                  Padding="44,0,44,120"
+                  RightTapped="MainGrid_RightTapped"
+                  SelectionMode="Single"
+                  Tapped="GridView_Tapped"
+                  Visibility="{x:Bind SViewModel.IsListInAlbumsPage, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+            <ListView.Resources>
+                <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout1">
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    Click="PlayButton_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE102;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShuffleAlbum"
+                                    Click="ShuffleButton_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE14B;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Uid="/Information/ShowArtist"
+                                    Click="ShowArtist_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE125;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutSubItem x:Name="AddTo1"
+                                    x:Uid="/Information/AddTo"
+                                    IsEnabled="True">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                    </MenuFlyoutSubItem>
+
+                    <MenuFlyoutItem x:Name="Share1"
+                                    x:Uid="/Information/Share"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE72D;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="AskDiscy1"
+                                    Click="AskDiscy_Click"
+                                    x:Uid="/Information/AskDiscy"
+                                    IsEnabled="True">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE11B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove1"
+                                    x:Uid="/Information/RemoveThing"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
+                    <MenuFlyoutItem x:Name="Props1"
+                                    x:Uid="/MediaData/Properties"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE1E3;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </ListView.Resources>
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:AlbumViewModel">
+                    <Grid Margin="15,10,0,10"
+                          ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Border ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                                Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}"
+                                CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
+                            <Border x:Name="AlbumThumb"
+                                    CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
+                                <Image x:Phase="1"
+                                       Height="60"
+                                       Source="{x:Bind Thumbnail}"
+                                       Stretch="UniformToFill"
+                                       Width="60" />
+                            </Border>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" Spacing="5">
+                            <TextBlock Text="{x:Bind Title}"
+                                   MaxLines="1"
+                                   ToolTipService.ToolTip="{x:Bind Title}"
+                                   Style="{StaticResource BaseTextBlockStyle}"
+                                   TextWrapping="Wrap"
+                                   Visibility="{x:Bind IsTitleVisible, Mode=OneWay}"/>
+
+                            <TextBlock Text="{x:Bind Genres}"
+                                   MaxLines="1"
+                                   Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}"
+                                   TextWrapping="Wrap" />
+
+                            <TextBlock Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
+                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
+                                <Run Text="{x:Bind Artist}" />
+                            </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Visibility="{x:Bind IsReleaseYearVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
+                            Release year: <Run Text="{x:Bind Year, Converter={StaticResource UintToStringConverter}}" />
+                            </TextBlock>
+                        </StackPanel>
+                        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </Page>
