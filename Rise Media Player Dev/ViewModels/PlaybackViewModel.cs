@@ -56,6 +56,17 @@ namespace Rise.App.ViewModels
             set => Set(ref _currentVideo, value);
         }
 
+        private PlaybackMetaViewModel _currentPlaybackItem = new();
+
+        /// <summary>
+        /// Gets the media that's currently playing.
+        /// </summary>
+        public PlaybackMetaViewModel CurrentPlaybackItem
+        {
+            get => _currentPlaybackItem;
+            set => Set(ref _currentPlaybackItem, value);
+        }
+
         public readonly MediaPlayer Player = new();
 
         public MediaPlaybackList PlaybackList { get; set; }
@@ -90,8 +101,20 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await song.AsPlaybackItemAsync());
-            SetCurrentSong(0);
+
+            CurrentSong = song;
+
             Player.Play();
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentSongChanged?.Invoke(this, new EventArgs());
+            await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
         public async Task PlaySongFromUrlAsync(SongViewModel song)
@@ -102,8 +125,21 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await song.AsPlaybackItemAsync(new Uri(song.Location)));
-            SetCurrentSong(0);
+
+            CurrentSong = song;
+
             Player.Play();
+
+            if (App.SViewModel.Color == -3)
+            {
+                App.SViewModel.Color = -1;
+                App.SViewModel.Color = -3;
+            }
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentSongChanged?.Invoke(this, new EventArgs());
+
+            await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
         public async Task PlayVideoAsync(VideoViewModel video)
@@ -114,8 +150,14 @@ namespace Rise.App.ViewModels
             PlaybackList.ShuffleEnabled = false;
 
             PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
-            SetCurrentVideo(0);
+
+            CurrentVideo = video;
+
             Player.Play();
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
         public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)
@@ -297,26 +339,38 @@ namespace Rise.App.ViewModels
         {
             if (index >= 0 && index < PlayingSongs.Count)
             {
+                CurrentVideo = null;
                 CurrentSong = PlayingSongs[index];
-            }
 
-            if (App.SViewModel.Color == -3)
-            {
-                App.SViewModel.Color = -1;
-                App.SViewModel.Color = -3;
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, new EventArgs());
+                CurrentSongChanged?.Invoke(this, new EventArgs());
+                CurrentPlaybackItem.NotifyChanges(false);
             }
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
         }
 
         public void SetCurrentVideo(int index)
         {
             if (index >= 0 && index < PlayingVideos.Count)
             {
+                CurrentSong = null;
                 CurrentVideo = PlayingVideos[index];
+
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, new EventArgs());
+                CurrentVideoChanged?.Invoke(this, new EventArgs());
+                CurrentPlaybackItem.NotifyChanges(true);
             }
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
         }
 
         public void CancelTask()

@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="Rise.App.Views.PlaylistPropertiesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:uc="using:Rise.App.UserControls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <uc:MicaTitleBar x:Name="TitleBar" ShowIcon="False" Title="Playlist properties" Margin="-13,0,0,0" />
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Orientation="Vertical" Spacing="10" Padding="10">
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid CornerRadius="6"
+                            PointerEntered="Image_PointerEntered"
+                            PointerExited="Image_PointerExited"
+                            HorizontalAlignment="Left">
+                        <Image Height="160"
+                           Width="160"
+                           Stretch="Uniform"
+                           VerticalAlignment="Center"
+                           Source="ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
+                           x:Name="PreviewImage" />
+                        <Button HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Margin="10,0,10,5"
+                            Content="Use custom image"
+                            x:Name="UseCustomImageButton"
+                            Click="UseCustomImageButton_Click"
+                            Visibility="Collapsed"
+                            Style="{StaticResource AccentButtonStyle}" />
+                    </Grid>
+
+                    <StackPanel Orientation="Vertical" Spacing="5" Grid.Column="1">
+                        <TextBox Text="{x:Bind _plViewModel.Title, Mode=OneWay}" Header="Title" />
+
+                        <TextBox Text="{x:Bind _plViewModel.Description, Mode=OneWay}" 
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Header="Description" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel HorizontalAlignment="Right" Margin="0,0,10,10" Spacing="10" Orientation="Horizontal" Grid.Row="2" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+            <Button Content="Cancel" />
+            <Button Style="{StaticResource AccentButtonStyle}" Content="Save" />
+        </StackPanel>
+    </Grid>
+</Page>

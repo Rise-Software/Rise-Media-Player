@@ -1,8 +1,12 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
+using Windows.Storage.Pickers;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -53,12 +57,59 @@ namespace Rise.App.Views
 
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist);
-            }
+                if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+                {
+                    _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist);
+                }
 
-            SelectedPlaylist = null;
+                SelectedPlaylist = null;
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+                {
+                    SelectedPlaylist = playlist;
+                }
+            }
+        }
+
+        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel model = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+            System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {model.Title}\n   Description: {model.Description}");
+        }
+
+        private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                PlaylistViewModel playlist = MainGrid.Items[MainGrid.SelectedIndex] as PlaylistViewModel;
+                SelectedPlaylist = playlist;
+                System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {SelectedPlaylist.Title}\n   Description: {SelectedPlaylist.Description}");
+            } catch (ArgumentOutOfRangeException)
+            {
+                SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
+            }
+        }
+
+        private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
+        {
+            await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(ApplicationViewMode.Default, 500, 600, true, SelectedPlaylist);
+        }
+
+        private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker picker = new();
+            picker.FileTypeFilter.Add(".m3u");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                PlaylistViewModel playlist = await file.AsPlaylistModelAsync();
+                await playlist.SaveAsync();
+            }
         }
     }
 }

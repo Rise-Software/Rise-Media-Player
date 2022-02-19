@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Search;
 
 namespace Rise.App.ChangeTrackers
@@ -157,23 +158,21 @@ namespace Rise.App.ChangeTrackers
         /// </summary>
         public static async Task HandleMusicFolderChanges()
         {
-            List<SongViewModel> toRemove = new List<SongViewModel>();
-
-            foreach (SongViewModel song in ViewModel.Songs)
+            /*foreach (SongViewModel song in ViewModel.Songs)
             {
                 if (!File.Exists(song.Location))
                 {
-                    toRemove.Add(song);
+                    await song.DeleteAsync();
+                }
+            }*/
+
+            for (int i = 0; i < ViewModel.Songs.Count; i++)
+            {
+                if (!File.Exists(ViewModel.Songs[i].Location))
+                {
+                    await ViewModel.Songs[i].DeleteAsync();
                 }
             }
-
-            foreach (SongViewModel song in toRemove)
-            {
-                await song.DeleteAsync();
-            }
-
-            toRemove.Clear();
-            toRemove.TrimExcess();
         }
     }
 }

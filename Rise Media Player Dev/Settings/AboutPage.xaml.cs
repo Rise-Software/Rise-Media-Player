@@ -9,7 +9,7 @@ namespace Rise.App.Settings
 {
     public sealed partial class AboutPage : Page
     {
-        private readonly DataPackage VersionData = new DataPackage();
+        private readonly DataPackage VersionData = new();
 
         public AboutPage()
         {

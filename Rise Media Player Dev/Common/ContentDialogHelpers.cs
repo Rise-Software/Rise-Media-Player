@@ -11,7 +11,7 @@ namespace Rise.App.Common
     public static class ContentDialogHelpers
     {
         public static ContentDialog ActiveDialog;
-        private static TaskCompletionSource<bool> _dialogAwaiter = new TaskCompletionSource<bool>();
+        private static TaskCompletionSource<bool> _dialogAwaiter = new();
 
         /// <summary>
         /// Opens a <see cref="ContentDialog"/> with the specified options.
@@ -27,7 +27,7 @@ namespace Rise.App.Common
         private static async Task<ContentDialogResult> Show(this ContentDialog dialog, ExistingDialogOptions option)
         {
             TaskCompletionSource<bool> currentAwaiter = _dialogAwaiter;
-            TaskCompletionSource<bool> nextAwaiter = new TaskCompletionSource<bool>();
+            TaskCompletionSource<bool> nextAwaiter = new();
 
             _dialogAwaiter = nextAwaiter;
 

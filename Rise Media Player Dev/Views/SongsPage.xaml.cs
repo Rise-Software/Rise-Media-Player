@@ -57,7 +57,7 @@ namespace Rise.App.Views
         {
             AddTo.Items.Clear();
 
-            AddTo.Items.Add(new MenuFlyoutItem()
+            MenuFlyoutItem newPlaylistItem = new()
             {
                 Text = "New playlist",
                 Icon = new FontIcon
@@ -65,7 +65,11 @@ namespace Rise.App.Views
                     Glyph = "\uE93F",
                     FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
                 }
-            });
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            AddTo.Items.Add(newPlaylistItem);
 
             if (App.MViewModel.Playlists.Count > 0)
             {
@@ -89,6 +93,20 @@ namespace Rise.App.Views
 
                 AddTo.Items.Add(item);
             }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongAsync(SelectedSong);
         }
 
         private async void Item_Click(object sender, RoutedEventArgs e)

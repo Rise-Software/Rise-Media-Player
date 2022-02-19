@@ -7,8 +7,7 @@ namespace Rise.App.Dialogs
     public sealed partial class SettingsDialogContainer : ContentDialog
     {
         public static SettingsDialogContainer Current;
-        public static ObservableCollection<string> Breadcrumbs =
-            new ObservableCollection<string>();
+        public static ObservableCollection<string> Breadcrumbs = new();
 
         public SettingsDialogContainer()
         {

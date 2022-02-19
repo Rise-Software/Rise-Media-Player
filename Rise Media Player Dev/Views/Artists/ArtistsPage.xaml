@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:helpers="using:Rise.App.Helpers"
     mc:Ignorable="d">
 
     <Grid>
@@ -44,9 +44,8 @@
 
             <AppBarButton x:Name="ShuffleItem"
                           x:Uid="/Information/Shuffle"
-                          Icon="Shuffle"
-                          IsEnabled="False" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+                          Icon="Shuffle" />
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind helpers:BindingHelpers.IsNotNull(SelectedArtist), Mode=OneWay}" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
@@ -137,7 +136,7 @@
                   ItemsSource="{x:Bind Artists, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind SelectedArtist, Mode=TwoWay}"
+                  SelectedItem="{x:Bind SelectedArtistItem, Mode=TwoWay}"
                   SelectionMode="Single"
                   RightTapped="MainGrid_RightTapped"
                   Tapped="GridView_Tapped">
@@ -165,21 +164,6 @@
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem x:Name="NewPlaylistMenu"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="PinToStartMenu"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE141;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem x:Name="Share"
@@ -221,7 +205,7 @@
                     </MenuFlyoutItem>
 
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
+                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong" Click="SelectArtist_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE1E3;" />
                         </MenuFlyoutItem.Icon>

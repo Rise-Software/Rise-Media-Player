@@ -35,6 +35,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+        public bool HasMoreAlbumsByArtist;
 
         private SongViewModel _song;
         public SongViewModel SelectedSong
@@ -45,7 +46,7 @@ namespace Rise.App.Views
 
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
-        private AdvancedCollectionView AlbumsByArtist = new AdvancedCollectionView();
+        private AdvancedCollectionView AlbumsByArtist = new();
 
         #endregion
 
@@ -83,7 +84,7 @@ namespace Rise.App.Views
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedAlbum = App.MViewModel.Albums.First(a => a.Title == str);
+                SelectedAlbum = App.MViewModel.Albums.FirstOrDefault(a => a.Title == str);
                 Songs.Filter = s => ((SongViewModel)s).Album == str;
             }
 
@@ -99,17 +100,30 @@ namespace Rise.App.Views
 
         private void findAlbumsByArtist(string artist)
         {
-            AlbumsByArtist.Clear();
-            foreach (AlbumViewModel album in Albums)
+            if (Albums.Count > 0)
             {
-                if (album.Artist == artist && !album.Equals(SelectedAlbum))
+                AlbumsByArtist.Clear();
+                HasMoreAlbumsByArtist = true;
+
+                try
                 {
-                    AlbumsByArtist.Add(album);
+                    foreach (AlbumViewModel album in Albums)
+                    {
+                        if (album.Artist == artist && !album.Equals(SelectedAlbum))
+                        {
+                            AlbumsByArtist.Add(album);
+                        }
+                    }
+                } finally
+                {
+                    AlbumsByArtist.SortDescriptions.Clear();
+                    AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+                    AlbumsByArtist.Refresh();
                 }
+            } else
+            {
+                HasMoreAlbumsByArtist = false;
             }
-            AlbumsByArtist.SortDescriptions.Clear();
-            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
-            AlbumsByArtist.Refresh();
         }
 
         #region Event handlers

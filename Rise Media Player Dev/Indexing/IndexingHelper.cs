@@ -146,6 +146,7 @@ namespace Rise.App.Indexing
                     folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
 
                 // Process files
+
                 foreach (StorageFile file in fileList)
                 {
                     if (token.IsCancellationRequested)

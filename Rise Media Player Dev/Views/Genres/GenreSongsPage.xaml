@@ -173,8 +173,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
-                  Margin="-56,0"
-                  Padding="44,0,44,120"
+                  Padding="20,0,20,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
@@ -280,7 +279,7 @@
                           Padding="44,0,44,120"
                           SelectionMode="Single"
                           RightTapped="ArtistGrid_RightTapped"
-                          ItemClick="ArtistGrid_ItemClick"
+                          Tapped="ArtistGrid_Tapped"
                           Visibility="Collapsed">
                     <GridView.Resources>
                         <MenuFlyout x:Key="ArtistFlyout" x:Name="ArtistFlyout">
@@ -413,7 +412,7 @@
                           Padding="44,0,44,120"
                           RightTapped="AlbumGrid_RightTapped"
                           SelectionMode="Single"
-                          ItemClick="AlbumGrid_ItemClick"
+                          Tapped="AlbumGrid_Tapped"
                           Visibility="Collapsed">
                     <GridView.Resources>
                         <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">

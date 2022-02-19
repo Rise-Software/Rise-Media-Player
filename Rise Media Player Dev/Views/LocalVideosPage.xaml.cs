@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using Windows.UI.Xaml;
@@ -39,6 +40,8 @@ namespace Rise.App.Views
         private SortDirection CurrentSort = SortDirection.Ascending;
         private string CurrentSortProperty = "Title";
 
+        private bool IsCtrlPressed;
+
         public LocalVideosPage()
         {
             InitializeComponent();
@@ -49,10 +52,23 @@ namespace Rise.App.Views
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            await PViewModel.PlayVideoAsync(e.ClickedItem as VideoViewModel);
-            if (Window.Current.Content is Frame rootFrame)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                rootFrame.Navigate(typeof(VideoPlaybackPage));
+                if (e.ClickedItem is VideoViewModel video)
+                {
+                    await PViewModel.PlayVideoAsync(e.ClickedItem as VideoViewModel);
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    }
+                    SelectedVideo = null;
+                }
+            } else
+            {
+                if (e.ClickedItem is VideoViewModel video)
+                {
+                    SelectedVideo = video;
+                }
             }
         }
 
@@ -84,8 +100,8 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
             {
-                VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
                 SelectedVideo = video;
+                VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
         }
 
@@ -141,6 +157,11 @@ namespace Rise.App.Views
             {
                 _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
             }
+        }
+
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
         }
     }
 }

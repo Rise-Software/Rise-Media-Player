@@ -12,8 +12,5 @@ namespace Rise.App.ViewModels
 
         public string SessionKey;
 
-        public string Token;
-
-        public string Signature;
     }
 }

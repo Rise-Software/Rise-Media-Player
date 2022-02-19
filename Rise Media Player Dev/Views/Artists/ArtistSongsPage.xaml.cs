@@ -122,7 +122,7 @@ namespace Rise.App.Views
         /// </summary>
         /// <param name="artist">Artist name.</param>
         /// <returns></returns>
-        public Task<string> GetGenre(string artist)
+        public string GetGenre(string artist)
         {
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
@@ -131,7 +131,11 @@ namespace Rise.App.Views
             xmlStr = wc.DownloadString(m_strFilePath);
             xmlDoc.LoadXml(xmlStr);
             XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
-            return Task.FromResult(textInfo.ToTitleCase(node.InnerText));
+            if (node != null)
+            {
+                return textInfo.ToTitleCase(node.InnerText);
+            }
+            return "Unknown Genre";
         }
         public Task<string> GetArtistInfoBig(string artist)
         {
@@ -181,7 +185,7 @@ namespace Rise.App.Views
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedArtist = App.MViewModel.Artists.First(a => a.Name == str);
+                SelectedArtist = App.MViewModel.Artists.FirstOrDefault(a => a.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Artist == str
                     || ((SongViewModel)s).AlbumArtist == str;
 
@@ -310,7 +314,7 @@ namespace Rise.App.Views
             // try to handle scrolling
             if (MainList.Height > Height)
             {
-                (MainList.HeaderTemplate.GetChildren<Border>().First().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
+                (MainList.HeaderTemplate.GetChildren<Border>().FirstOrDefault().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
             }
         }
         #endregion

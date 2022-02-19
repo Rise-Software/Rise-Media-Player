@@ -1,4 +1,5 @@
 ﻿using Rise.App.Props;
+using Rise.App.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -30,41 +31,39 @@ namespace Rise.App.Common
         /// <returns>Whether or not the operation was successful.</returns>
         public static async Task<bool> SaveSoftwareBitmapToFile(SoftwareBitmap softwareBitmap, StorageFile outputFile)
         {
-            using (IRandomAccessStream stream = await outputFile.OpenAsync(FileAccessMode.ReadWrite))
+            using IRandomAccessStream stream = await outputFile.OpenAsync(FileAccessMode.ReadWrite);
+            // Create an encoder with the desired format
+            BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+
+            // Set the software bitmap
+            encoder.SetSoftwareBitmap(softwareBitmap);
+            encoder.IsThumbnailGenerated = true;
+
+            try
             {
-                // Create an encoder with the desired format
-                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
-
-                // Set the software bitmap
-                encoder.SetSoftwareBitmap(softwareBitmap);
-                encoder.IsThumbnailGenerated = true;
-
-                try
-                {
-                    await encoder.FlushAsync();
-                }
-                catch (Exception err)
-                {
-                    const int WINCODEC_ERR_UNSUPPORTEDOPERATION = unchecked((int)0x88982F81);
-                    switch (err.HResult)
-                    {
-                        case WINCODEC_ERR_UNSUPPORTEDOPERATION:
-                            // If the encoder does not support writing a thumbnail, then try again
-                            // but disable thumbnail generation.
-                            encoder.IsThumbnailGenerated = false;
-                            break;
-                        default:
-                            return false;
-                    }
-                }
-
-                if (encoder.IsThumbnailGenerated == false)
-                {
-                    await encoder.FlushAsync();
-                }
-
-                return true;
+                await encoder.FlushAsync();
             }
+            catch (Exception err)
+            {
+                const int WINCODEC_ERR_UNSUPPORTEDOPERATION = unchecked((int)0x88982F81);
+                switch (err.HResult)
+                {
+                    case WINCODEC_ERR_UNSUPPORTEDOPERATION:
+                        // If the encoder does not support writing a thumbnail, then try again
+                        // but disable thumbnail generation.
+                        encoder.IsThumbnailGenerated = false;
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            if (encoder.IsThumbnailGenerated == false)
+            {
+                await encoder.FlushAsync();
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -80,7 +79,36 @@ namespace Rise.App.Common
                 StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                     CreateFileAsync(filename, CreationCollisionOption.GenerateUniqueName);
 
-                Buffer buffer = new Buffer(Convert.ToUInt32(thumbnail.Size));
+                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
+                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                    buffer.Capacity, InputStreamOptions.None);
+
+                using (IRandomAccessStream strm = await
+                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    _ = await strm.WriteAsync(iBuf);
+                }
+
+                return Path.GetFileNameWithoutExtension(destinationFile.Path);
+            }
+
+            return "/";
+        }
+
+        /// <summary>
+        /// Converts a <see cref="StorageItemThumbnail"/> to a <see cref="Buffer"/> and saves it.
+        /// </summary>
+        /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
+        /// <param name="filename">Filename of output image.</param>
+        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
+        public static async Task<string> SaveBitmapFromThumbnailWithReplaceAsync(StorageItemThumbnail thumbnail, string filename)
+        {
+            if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
+            {
+                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
+                    CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+
+                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
                 IBuffer iBuf = await thumbnail.ReadAsync(buffer,
                     buffer.Capacity, InputStreamOptions.None);
 
@@ -167,8 +195,8 @@ namespace Rise.App.Common
         /// <returns>A string that can be used as a filename. If the output string would otherwise be empty, returns "_".</returns>
         public static string AsValidFileName(this string text, char? replacement = '_')
         {
-            StringBuilder sb = new StringBuilder(text.Length);
-            char[] invalids = _invalids ?? (_invalids = Path.GetInvalidFileNameChars());
+            StringBuilder sb = new(text.Length);
+            char[] invalids = _invalids ??= Path.GetInvalidFileNameChars();
             bool changed = false;
 
             for (int i = 0; i < text.Length; i++)
@@ -213,7 +241,13 @@ namespace Rise.App.Common
             {
                 try
                 {
-                    cd = int.Parse(extraProps[SystemMusic.DiscNumber].ToString());
+                    if (int.TryParse(extraProps[SystemMusic.DiscNumber].ToString(), out int result))
+                    {
+                        cd = result;
+                    } else
+                    {
+                        Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.DiscNumber].ToString());
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -225,7 +259,13 @@ namespace Rise.App.Common
             {
                 try
                 {
-                    cd = int.Parse(extraProps[SystemMusic.PartOfSet].ToString());
+                    if (int.TryParse(extraProps[SystemMusic.PartOfSet].ToString(), out int result))
+                    {
+                        cd = result;
+                    } else
+                    {
+                        Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.PartOfSet].ToString());
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -248,7 +288,7 @@ namespace Rise.App.Common
                 ? musicProperties.AlbumArtist : "UnknownArtistResource";
 
             string genre = musicProperties.Genre.FirstOrDefault() != null
-                ? musicProperties.Genre.First() : "UnknownGenreResource";
+                ? musicProperties.Genre.FirstOrDefault() : "UnknownGenreResource";
 
             TimeSpan length = musicProperties.Duration;
 
@@ -280,7 +320,7 @@ namespace Rise.App.Common
             VideoProperties videoProperties =
                 await file.Properties.GetVideoPropertiesAsync();
 
-            // Valid song metadata is needed.
+            // Valid video metadata is needed.
             string title = videoProperties.Title.Length > 0
                 ? videoProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
 
@@ -303,23 +343,23 @@ namespace Rise.App.Common
         /// </summary>
         /// <param name="file">Playlist file.</param>
         /// <returns>A playlist based on the file.</returns>
-        public static async Task<Playlist> AsPlaylistModelAsync(this StorageFile file)
+        public static async Task<PlaylistViewModel> AsPlaylistModelAsync(this StorageFile file)
         {
             // Read playlist file
             var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-            Playlist playlist = new Playlist()
+            PlaylistViewModel playlist = new()
             {
                 Title = string.Empty,
                 Description = string.Empty,
                 Duration = string.Empty,
                 Icon = string.Empty,
-                Songs = new System.Collections.ObjectModel.ObservableCollection<Song>()
+                Songs = new System.Collections.ObjectModel.ObservableCollection<SongViewModel>()
             };
 
             // Check if linked to directory
             if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
             {
-                Uri baseUri = new Uri(Path.GetDirectoryName(file.Path));
+                Uri baseUri = new(Path.GetDirectoryName(file.Path));
                 string dirPath = refUri.ToAbsoluteUri(baseUri).AbsolutePath;
 
                 if (dirPath.EndsWith(".m3u"))
@@ -330,7 +370,7 @@ namespace Rise.App.Common
 
                 foreach (var songPath in Directory.EnumerateFiles(dirPath))
                 {
-                    playlist.Songs.Add(new Song()
+                    playlist.Songs.Add(new SongViewModel()
                     {
                         Location = new Uri(songPath).ToAbsoluteUri(baseUri).AbsolutePath,
                     });
@@ -339,7 +379,7 @@ namespace Rise.App.Common
             }
 
             // Get details
-            string title = null, artist = null, duration = null, icon = null;
+            string title = null, artist = null, icon = null;
             for (int i = 0; i < lines.Count; i++)
             {
                 string line = lines[i].Trim();
@@ -364,7 +404,7 @@ namespace Rise.App.Common
                         if (prop == "#EXTINF")
                         {
                             string[] inf = value.Split(new[] { ',', '-' }, 3);
-                            duration = inf[0].Trim();
+                            string duration = inf[0].Trim();
                             artist = inf[1].Trim();
                             title = inf[2].Trim();
                         }
@@ -412,7 +452,7 @@ namespace Rise.App.Common
                                 icon = null;
                             }
 
-                            playlist.Songs.Add(song);
+                            playlist.Songs.Add(new SongViewModel(song));
                         }
                     }
                 }
@@ -433,7 +473,7 @@ namespace Rise.App.Common
         public static async Task<MediaPlaybackItem> AsSongPlaybackItemAsync(this StorageFile file)
         {
             MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new MediaPlaybackItem(source);
+            MediaPlaybackItem media = new(source);
 
             Song song = await file.AsSongModelAsync();
 

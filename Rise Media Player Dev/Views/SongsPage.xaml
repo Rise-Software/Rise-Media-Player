@@ -84,6 +84,14 @@
 
             <AppBarSeparator />
 
+            <AppBarButton Label="Play from URL" Click="PlayFromUrl_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE704;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+
+            <AppBarSeparator />
+
             <AppBarButton x:Uid="/Information/View">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
@@ -136,11 +144,7 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton Label="Play from URL" Click="PlayFromUrl_Click">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE704;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+            
         </CommandBar>
 
         <ListView x:Name="MainList"

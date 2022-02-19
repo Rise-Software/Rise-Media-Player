@@ -7,8 +7,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using static Rise.App.Common.Enums;
+using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
+using Rise.App.Views;
 
 namespace Rise.App.Settings
 {
@@ -17,7 +24,7 @@ namespace Rise.App.Settings
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        public static MediaLibraryPage Current;
+        internal static MediaLibraryPage Current;
 
         private readonly FoldersDialog Dialog = new();
         private readonly VFoldersDialog VDialog = new();
@@ -50,6 +57,11 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
+        internal bool AccountMenuText
+        {
+            get => LastFMStatus.IsEnabled;
+            set => LastFMStatus.IsEnabled = value;
+        }
         private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
             => _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 
@@ -69,7 +81,8 @@ namespace Rise.App.Settings
 
                 case "OnlineServices":
                     break;
-
+                default:
+                    break;
             }
         }
 
@@ -78,10 +91,16 @@ namespace Rise.App.Settings
             try
             {
                 await LastFMHelper.LogIn();
-            } catch (Exception e1)
+            }
+            catch (Exception e1)
             {
                 Debug.WriteLine(e1.Message);
             }
+        }
+
+        private async void ScanningOpt_Click(object sender, RoutedEventArgs e)
+        {
+            await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
         }
     }
 }

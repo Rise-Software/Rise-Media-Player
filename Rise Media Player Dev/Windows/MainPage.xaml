@@ -216,24 +216,57 @@
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
                     QueryIcon="Find" />
+
+
+                <Button
+                    x:Name="SyncCentre"
+                    Grid.Column="1"
+                    Height="32"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TransparentButton}">
+                    <Button.Content>
+                        <FontIcon Glyph="&#xE117;" Height="24" />
+                    </Button.Content>
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Sync centre" Margin="0,2,0,12" />
+                                    <Button Content="Sync all" FontStretch="Normal" Margin="70,-9,-2,0" FontSize="12" Height="32"/>
+                                </StackPanel>
+                                <StackPanel Padding="25" Orientation="Vertical">
+                                    <FontIcon Glyph="" Height="32"/>
+                                    <TextBlock FontSize="14" Text="Coming soon" FontWeight="Normal" TextAlignment="Center"/>
+
+                                </StackPanel>
+                            </StackPanel>
+                            
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+
+
                 <Button
                     x:Name="MoreButton"
                     x:Uid="/Information/More"
                     Grid.Column="1"
                     Height="32"
+                    Margin="40,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
-                        <FontIcon Glyph="&#xE10C;" />
+                        <FontIcon Glyph="" Height="24" />
                     </Button.Content>
 
                     <Button.Flyout>
                         <MenuFlyout>
-
-                            <MenuFlyoutItem x:Uid="/Information/Accounts" x:Name="Acc" Click="Account_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE13D;" />
-                                </MenuFlyoutItem.Icon>
+                            <MenuFlyoutItem x:Uid="/Information/Accounts" FontWeight="SemiBold" FontSize="14" Margin="3" Height="44" x:Name="Acc" Click="Account_Click">
+                                <MenuFlyoutItem.Background>
+                                    <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png"/>
+                                </MenuFlyoutItem.Background>
                             </MenuFlyoutItem>
 
 
@@ -243,18 +276,32 @@
                                 x:Uid="/Information/Notif"
                                 Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xEA8F;" />
+                                    <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Uid="/Information/Settings" Click="OpenSettings_Click">
+                            <MenuFlyoutItem Click="Support_Click" Text="Support this project">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE115;" />
+                                    <FontIcon Glyph="&#xE125;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+
+                            <MenuFlyoutSeparator />
+
+                            <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
                             <MenuFlyoutSeparator />
 
+                            <MenuFlyoutItem Text="Alpha Preview" IsEnabled="False">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE946;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
 
                             <MenuFlyoutItem x:Uid="/Information/Fdb" Click="Button_Click">
@@ -263,23 +310,11 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Click="Support_Click" Text="Support this project">
+                            <MenuFlyoutItem x:Uid="/Information/Settings" Click="OpenSettings_Click">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE822;" />
+                                    <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-
-
-
-                            <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE721;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-
-
-
-
 
                             <!--<MenuFlyoutItem x:Uid="/Information/Fdb"
                                             Click="Button_Click">
@@ -402,10 +437,18 @@
             Title="Updated your library."
             x:FieldModifier="public"
             PlacementMargin="0,24,-26,0"
+            HeroContentPlacement="Bottom"
+            ActionButtonClick="AddedTip_ActionButtonClick"
+            ActionButtonContent="Change when we scan"
+            ActionButtonStyle="{StaticResource AccentButtonStyle}"
+
+
             PreferredPlacement="TopRight">
             <!--<muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/addednewmedia.png" />
             </muxc:TeachingTip.HeroContent>-->
+            
+
         </muxc:TeachingTip>
 
         <muxc:TeachingTip
@@ -415,9 +458,14 @@
             x:FieldModifier="public"
             HeroContentPlacement="Bottom"
             PlacementMargin="0,24,-26,0"
+            ActionButtonClick="AddedTip_ActionButtonClick"
+            ActionButtonContent="Change when we scan"
+            ActionButtonStyle="{StaticResource AccentButtonStyle}"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>
                 <StackPanel>
+
+                   
 
                     <!--<Image Source="/Assets/lookingformedia.png" />-->
                     <muxc:ProgressBar

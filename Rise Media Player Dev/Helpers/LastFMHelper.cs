@@ -25,32 +25,21 @@ namespace Rise.App.Helpers
         public static string GetSignature(Dictionary<string, string> parameters)
         {
             string result = string.Empty;
-
             IOrderedEnumerable<KeyValuePair<string, string>> data = parameters.OrderBy(x => x.Key);
-
-            foreach (var s in data)
+            foreach (KeyValuePair<string, string> s in data)
             {
                 result += s.Key + s.Value;
             }
             System.Security.Cryptography.MD5CryptoServiceProvider cryptHandler = new();
             result += LastFM.secret;
             result = MD5(result);
-
             return result;
         }
 
         public static string GetCurrentUnixTimestamp()
         {
-            TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             return ((int)t.TotalSeconds).ToString();
-        }
-
-        public static async Task AddTextToFile(string textToSave, string fileName)
-        {
-            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile file = await appFolder.CreateFileAsync(fileName,
-                Windows.Storage.CreationCollisionOption.OpenIfExists);
-            await Windows.Storage.FileIO.AppendTextAsync(file, textToSave);
         }
     }
 
@@ -61,49 +50,39 @@ namespace Rise.App.Helpers
 
         public static async Task LogIn()
         {
-            bool fileExists = await GetFileStatus();
-            if (!fileExists)
+            string Token = await Task.Run(GetToken);
+            string uriToLaunch = "https://www.last.fm/api/auth?api_key=" + LastFM.key + "&token=" + Token + "&redirect_uri=" + Uri.EscapeDataString("https://www.google.com");
+            startUri = new Uri(uriToLaunch);
+            Dictionary<string, string> args = new()
             {
-                string Token = await Task.Run(GetToken);
-                string uriToLaunch = "https://www.last.fm/api/auth?api_key=" + LastFM.key + "&token=" + Token + "&redirect_uri=" + Uri.EscapeDataString("https://www.google.com");
-                startUri = new Uri(uriToLaunch);
-                /*
-                app.urilink = uri;
-                LoginDialog loginDialog = new();
-                _ = await loginDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-                */
-
-                Dictionary<string, string> args = new()
-                {
-                    { "method", "auth.getSession" },
-                    { "api_key", LastFM.key },
-                    { "token", Token }
-                };
-                string url = LastFMHelper.GetSignedURI(args, true);
-                Uri endUri = new(url);
-                WebAuthenticationResult webAuthenticationResult =
-                    await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
-                WebClient wc = new();
-                string xml = wc.DownloadString(url);
-                string key = await Task.Run(() => LastFMHelper.GetSessionKey(xml));
-                string name = await Task.Run(() => LastFMHelper.GetUserName(xml));
-                await AccountsHelper.AddTextToFile(key, "userid.txt");
-                await AccountsHelper.AddTextToFile(name, "name.txt");
-                App.LMViewModel.SessionKey = key;
-                MainPage.Current.AccountMenuText = name;
-            }
+                { "method", "auth.getSession" },
+                { "api_key", LastFM.key },
+                { "token", Token }
+            };
+            string url = GetSignedURI(args, true);
+            Uri endUri = new(url);
+            WebAuthenticationResult webAuthenticationResult =
+                await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
+            WebClient wc = new();
+            string xml = wc.DownloadString(url);
+            string key = await Task.Run(() => GetSessionKey(xml));
+            string name = await Task.Run(() => GetUserName(xml));
+            App.LMViewModel.SessionKey = key;
+            MainPage.Current.AccountMenuText = name;
+            wc.Dispose();
+            Windows.Security.Credentials.PasswordVault vault = new();
+            vault.Add(new Windows.Security.Credentials.PasswordCredential("RiseMP - LastFM account", name, key));
         }
 
         public static Task<string> GetToken()
         {
             string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.key;
-            string xmlStr;
             WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
+            string xmlStr = wc.DownloadString(m_strFilePath);
             xmlDoc.LoadXml(xmlStr);
             XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/token");
-            string okay = node.InnerText;
-            return Task.FromResult(okay);
+            wc.Dispose();
+            return Task.FromResult(node.InnerText);
         }
 
         public static string SignCall(Dictionary<string, string> args)
@@ -119,7 +98,7 @@ namespace Rise.App.Helpers
             StringBuilder stringBuilder = new();
             if (get)
             {
-                _ = stringBuilder.Append("http://ws.audioscrobbler.com/2.0/?");
+                _ = stringBuilder.Append("https://ws.audioscrobbler.com/2.0/?");
             }
             foreach (KeyValuePair<string, string> kvp in args)
             {
@@ -173,17 +152,20 @@ namespace Rise.App.Helpers
             {
                 try
                 {
-                    onCompletion(e.Result);
-                }
-                catch (WebException ex)
-                {
-                    HttpWebResponse response = (HttpWebResponse)ex.Response;
-                    using (StreamReader reader = new(response.GetResponseStream()))
+                    try
                     {
+                        onCompletion(e.Result);
+                    }
+                    catch (WebException ex)
+                    {
+                        HttpWebResponse response = (HttpWebResponse)ex.Response;
+                        using StreamReader reader = new(response.GetResponseStream());
                         Debug.WriteLine(reader.ReadToEnd());
                     }
-                }
+                } catch (Exception) {}
+                
             };
+            client.Dispose();
         }
     }
 }

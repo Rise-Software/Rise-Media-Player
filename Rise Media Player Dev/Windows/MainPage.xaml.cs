@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
+using Windows.Security.Credentials;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -298,6 +299,10 @@ namespace Rise.App.Views
                         _nowPlayingWindow = null;
                     };
                     _ = await _nowPlayingWindow.TryShowAsync();
+                    break;
+
+                case "ConnectedDevicesPage":
+                    _ = ContentFrame.Navigate(typeof(ConnectedDevicesPage));
                     break;
 
                 case "PlaylistsPage":
@@ -705,7 +710,6 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             await App.MViewModel.StartFullCrawlAsync();
-            await App.MViewModel.SyncAsync();
         }
 
         private async void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -763,25 +767,25 @@ namespace Rise.App.Views
                 }
             }
         }
-        private async Task<bool> GetFileStatus()
+        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
-            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
-            return file != null;
-        }
-        private async void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
-        {
-            bool fileexists = await GetFileStatus();
-            if (fileexists)
+            try
             {
-                Windows.Storage.StorageFile file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("userid.txt");
-                string content = System.IO.File.ReadAllText(file.Path.ToString());
-                file = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("name.txt");
-                string name = System.IO.File.ReadAllText(file.Path.ToString());
-                App.LMViewModel.SessionKey = content;
-                Acc.Text = name;
+                PasswordVault vault = new();
+                IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
+                foreach (PasswordCredential passwordCredential in credentials)
+                {
+                    passwordCredential.RetrievePassword();
+                    App.LMViewModel.SessionKey = passwordCredential.Password;
+                    Acc.Text = passwordCredential.UserName;
+
+                }
+                MediaLibraryPage.Current.AccountMenuText = false;
             }
-            else { }
+            catch
+            {
+
+            }
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)
@@ -798,7 +802,9 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Support.LaunchAsync();
+        {
+            _ = await OpenPageAsWindowAsync(typeof(Web.SupportProject));
+        }
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
@@ -935,6 +941,16 @@ namespace Rise.App.Views
             {
                 return Visibility.Visible;
             }
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+            _ = await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
         }
     }
 

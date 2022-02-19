@@ -22,10 +22,10 @@ namespace Rise.App.Settings
         private IEnumerable<ToggleButton> Toggles { get; set; }
 
         private readonly ObservableCollection<FontIcon> FontIcons =
-            new ObservableCollection<FontIcon>();
+            new();
 
         private readonly ObservableCollection<ImageIcon> ImageIcons =
-            new ObservableCollection<ImageIcon>();
+            new();
 
         private double Breakpoint { get; set; }
         #endregion
@@ -152,12 +152,14 @@ namespace Rise.App.Settings
             switch (tag)
             {
                 case "Langs":
-                    SettingsFrame.Navigate(typeof(LanguagePage));
+                    _ = SettingsFrame.Navigate(typeof(LanguagePage));
                     break;
 
                 case "Ins":
-                    SettingsFrame.Navigate(typeof(InsiderPage));
+                    _ = SettingsFrame.Navigate(typeof(InsiderPage));
                     Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Abt"));
+                    break;
+                default:
                     break;
             }
 

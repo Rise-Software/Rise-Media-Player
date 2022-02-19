@@ -1,6 +1,9 @@
 ﻿using Rise.App.Settings;
 using Rise.App.Views;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using static Rise.App.Common.Enums;
 
 namespace Rise.App.ViewModels
 {
@@ -22,17 +25,17 @@ namespace Rise.App.ViewModels
             "Default", "Colorful"
         };
 
-        public List<string> GeneralTags = new List<string>
+        public List<string> GeneralTags = new()
         {
-            "HomePage", "PlaylistsPage", "DevicesPage", "NowPlayingPage"
+            "HomePage", "PlaylistsPage", "ConnectedDevicesPage", "NowPlayingPage"
         };
 
-        public List<string> MusicTags = new List<string>
+        public List<string> MusicTags = new()
         {
             "SongsPage", "ArtistsPage", "AlbumsPage", "GenresPage"
         };
 
-        public List<string> VideoTags = new List<string>
+        public List<string> VideoTags = new()
         {
             "LocalVideosPage", "StreamingPage"
         };
@@ -99,6 +102,24 @@ namespace Rise.App.ViewModels
             get => Get("Appearance", nameof(CuratedPlaylists), false);
             set => Set("Appearance", nameof(CuratedPlaylists), value);
         }
+
+        public bool IsTilesInAlbumsPage
+        {
+            get => Get("Appearance", nameof(IsTilesInAlbumsPage), true);
+            set
+            {
+                Set("Appearance", nameof(IsTilesInAlbumsPage), value);
+            }
+        }
+
+        public bool IsListInAlbumsPage
+        {
+            get => Get("Appearance", nameof(IsListInAlbumsPage), false);
+            set
+            {
+                Set("Appearance", nameof(IsListInAlbumsPage), value);
+            }
+        }
         #endregion
 
         #region Media Library
@@ -106,6 +127,31 @@ namespace Rise.App.ViewModels
         {
             get => Get("MediaLibrary", nameof(Deletion), 0);
             set => Set("MediaLibrary", nameof(Deletion), value);
+        }
+
+        public bool AutoIndexingEnabled
+        {
+            get => Get("MediaLibrary", nameof(AutoIndexingEnabled), true);
+            set => Set("MediaLibrary", nameof(AutoIndexingEnabled), value);
+        }
+
+        /* 
+         
+         Indexing modes
+
+         -1: Never
+         0: Every 1 minute
+         1: Every 5 minutes
+         2: Every 10 minutes
+         3: Every 30 minutes
+         4: Every 1 hour
+
+         */
+
+        public int IndexingMode
+        {
+            get => Get("MediaLibrary", nameof(IndexingMode), 1);
+            set => Set("MediaLibrary", nameof(IndexingMode), value);
         }
 
         public bool SeparateLocal

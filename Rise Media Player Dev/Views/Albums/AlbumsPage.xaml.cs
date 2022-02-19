@@ -1,5 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -43,6 +45,8 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
+        private bool IsCtrlPressed;
+
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
 
@@ -57,6 +61,139 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            Loaded += AlbumsPage_Loaded;
+        }
+
+        private void AlbumsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ApplySettingsToView();
+
+            ApplyPlaylistItems(AddTo);
+            ApplyPlaylistItems(AddTo123);
+        }
+
+        private void ApplyPlaylistItems(MenuFlyout addTo)
+        {
+            addTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            addTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                addTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                addTo.Items.Add(item);
+            }
+        }
+
+        private void ApplyPlaylistItems(MenuFlyoutSubItem addTo)
+        {
+            addTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            addTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                addTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                addTo.Items.Add(item);
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongsAsync(songs);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            await playlist.AddSongsAsync(songs);
         }
 
         /// <summary>
@@ -80,12 +217,20 @@ namespace Rise.App.Views
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+                {
+                    _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                    SelectedAlbum = null;
+                }
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+                {
+                    SelectedAlbum = album;
+                }
             }
-
-            SelectedAlbum = null;
         }
 
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -126,7 +271,7 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
             IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
+            List<SongViewModel> songs = new();
 
             while (enumerator.MoveNext())
             {
@@ -146,7 +291,7 @@ namespace Rise.App.Views
             }
 
             IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new List<SongViewModel>();
+            List<SongViewModel> songs = new();
 
             while (enumerator.MoveNext())
             {
@@ -199,7 +344,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
-            ApplySettingsToView();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -414,6 +558,27 @@ namespace Rise.App.Views
                 {
                     album.IsReleaseYearVisible = false;
                 }
+            }
+        }
+
+        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
+        }
+
+        private void ViewMode_Click(object sender, RoutedEventArgs e)
+        {
+            if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Tiles")
+            {
+                SViewModel.IsListInAlbumsPage = false;
+                SViewModel.IsTilesInAlbumsPage = true;
+                System.Diagnostics.Debug.WriteLine("Tiles");
+            }
+            else if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Lists")
+            {
+                SViewModel.IsTilesInAlbumsPage = false;
+                SViewModel.IsListInAlbumsPage = true;
+                System.Diagnostics.Debug.WriteLine("Lists");
             }
         }
     }

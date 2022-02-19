@@ -25,40 +25,40 @@ namespace Rise.App.Settings
 
         #region NavView Icons
         private readonly ImageIcon libraryIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Library.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Library.png")) };
 
         private readonly FontIcon libraryIconMono =
-            new FontIcon() { Glyph = "\uEA69" };
+            new() { Glyph = "\uEA69" };
 
         private readonly ImageIcon playbackIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Playback.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Playback.png")) };
 
         private readonly FontIcon playbackIconMono =
-            new FontIcon() { Glyph = "\uE102" };
+            new() { Glyph = "\uE102" };
 
         private readonly ImageIcon appearanceIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Appearance.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Appearance.png")) };
 
         private readonly FontIcon appearanceIconMono =
-            new FontIcon() { Glyph = "\uE771" };
+            new() { Glyph = "\uE771" };
 
         private readonly ImageIcon feedbackIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Feedback.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Feedback.png")) };
 
         private readonly FontIcon feedbackIconMono =
-            new FontIcon() { Glyph = "\uE11D" };
+            new() { Glyph = "\uE11D" };
 
         private readonly ImageIcon languageIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Language.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/Language.png")) };
 
         private readonly FontIcon languageIconMono =
-            new FontIcon() { Glyph = "\uE12B" };
+            new() { Glyph = "\uE12B" };
 
         private readonly ImageIcon aboutIconColor =
-            new ImageIcon() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/About.png")) };
+            new() { Source = new BitmapImage(new Uri("ms-appx:///Assets/Settings/About.png")) };
 
         private readonly FontIcon aboutIconMono =
-            new FontIcon() { Glyph = "\uE946" };
+            new() { Glyph = "\uE946" };
         #endregion
 
         public ClassicSettings()

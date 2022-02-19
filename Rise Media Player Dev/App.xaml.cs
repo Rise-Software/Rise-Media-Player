@@ -18,6 +18,7 @@ using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
@@ -32,6 +33,32 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+        private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
+
+        public static TimeSpan IndexingInterval 
+        {
+            get
+            {
+                return _indexingInterval;
+            }
+            set
+            {
+                if (value != _indexingInterval)
+                {
+                    _indexingInterval = value;
+                }
+                IndexingTimer = new(value.TotalMilliseconds)
+                {
+                    AutoReset = true
+                };
+            }
+        }
+
+        public static Timer IndexingTimer = new(IndexingInterval.TotalMilliseconds)
+        {
+            AutoReset = true
+        };
+
         /// <summary>
         /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
         /// </summary>
@@ -280,7 +307,16 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            await PViewModel.StartMusicPlaybackAsync(args.Files.GetEnumerator(), 0, args.Files.Count);
+            StorageApplicationPermissions.FutureAccessList.Add(args.Files[0] as StorageFile);
+            try
+            {
+                await PViewModel.PlaySongAsync(new SongViewModel(await (args.Files[0] as StorageFile).AsSongModelAsync()));
+            }
+            catch (Exception)
+            {
+
+            }
+            StorageApplicationPermissions.FutureAccessList.Clear();
         }
 
         /// <summary>
@@ -305,15 +341,7 @@ namespace Rise.App
                 await InitDatabase();
                 await MViewModel.GetListsAsync();
 
-                // Scan every minute instead of just doing it each time we leave background.
-                // This can have some serious performance boosts when doing it like this.
-                // TODO: let user manage it from settings.
-                Timer timer = new(TimeSpan.FromMinutes(1).TotalMilliseconds)
-                {
-                    AutoReset = true
-                };
-                timer.Elapsed += async (s, e) => await MViewModel.StartFullCrawlAsync();
-                timer.Start();
+                StartIndexingTimer();
 
                 // LeavingBackground += async (s, e) => await MViewModel.StartFullCrawlAsync();
 
@@ -355,6 +383,57 @@ namespace Rise.App
             }
 
             return rootFrame;
+        }
+
+        public static void StartIndexingTimer()
+        {
+            if (!IndexingTimer.Enabled)
+            {
+                if (SViewModel.AutoIndexingEnabled)
+                {
+                    switch (SViewModel.IndexingMode)
+                    {
+                        case -1:
+                            return;
+                        case 0:
+                            IndexingInterval = TimeSpan.FromMinutes(1);
+                            break;
+                        case 1:
+                            IndexingInterval = TimeSpan.FromMinutes(5);
+                            break;
+                        case 2:
+                            IndexingInterval = TimeSpan.FromMinutes(10);
+                            break;
+                        case 3:
+                            IndexingInterval = TimeSpan.FromMinutes(30);
+                            break;
+                        case 4:
+                            IndexingInterval = TimeSpan.FromHours(1);
+                            break;
+                    }
+
+                    IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+                    IndexingTimer.Start();
+                }
+            } else
+            {
+                IndexingTimer.Elapsed -= IndexingTimer_Elapsed;
+                IndexingTimer.Stop();
+
+                StartIndexingTimer();
+            }
+        }
+
+        private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                await MViewModel.StartFullCrawlAsync();
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("An error occured while indexing.");
+            }
         }
     }
 }

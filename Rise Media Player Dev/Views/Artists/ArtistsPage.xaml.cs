@@ -1,13 +1,17 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
+using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -37,6 +41,15 @@ namespace Rise.App.Views
             set => SetValue(SelectedArtistProperty, value);
         }
 
+        private static readonly DependencyProperty SelectedArtistItemProperty =
+            DependencyProperty.Register("SelectedArtistItem", typeof(ArtistViewModel), typeof(ArtistsPage), null);
+
+        private ArtistViewModel SelectedArtistItem
+        {
+            get => (ArtistViewModel)GetValue(SelectedArtistItemProperty);
+            set => SetValue(SelectedArtistItemProperty, value);
+        }
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -48,10 +61,94 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
-            SetArtistPictures();
+            Loaded += ArtistsPage_Loaded;
         }
 
-        private async void SetArtistPictures()
+        private void ArtistsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetArtistPictures();
+
+            AddTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            AddTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                AddTo.Items.Add(item);
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongsAsync(songs);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            await playlist.AddSongsAsync(songs);
+        }
+
+        private async Task SetArtistPictures()
         {
             string image;
             foreach (ArtistViewModel artist in Artists)
@@ -70,7 +167,26 @@ namespace Rise.App.Views
             {
                 foreach (ArtistViewModel artist in Artists)
                 {
-                    if (artist.Name == "Unknown Artist") { }
+                    // Get images from database
+                    IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
+                    StorageFile file = null;
+
+                    try
+                    {
+                        file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appdata:///local/modified-artist-{artist.Name}.png"));
+                    } catch (Exception)
+                    {
+
+                    }
+
+                    if (artist.Name == "Unknown Artist") 
+                    {
+                        artist.Picture = "ms-appx:///Assets/BlankArtist.png";
+                    }
+                    else if (file != null)
+                    {
+                        artist.Picture = $@"ms-appdata:///local/modified-artist-{artist.Name}.png";
+                    }
                     else if (imagel.Contains(artist.Name))
                     {
                         artist.Picture = imagel.Replace(artist.Name + " - ", "");
@@ -78,34 +194,53 @@ namespace Rise.App.Views
                 }
             }
         }
-        public Task<string> getartistimg(string artist)
+        public string getartistimg(string artist)
         {
-            string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
+            try
+            {
+                string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
 
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-            string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-            return Task.FromResult(yes);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+                if (node != null)
+                {
+                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                    return yes;
+                }
+            } catch (Exception)
+            {
+
+            }
+            return "ms-appx:///Assets/BlankArtist.png";
         }
 
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
+                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                {
+                    _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
+                    SelectedArtist = null;
+                }
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                {
+                    SelectedArtist = artist;
+                }
             }
-
-            SelectedArtist = null;
         }
 
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
+                SelectedArtist = artist;
                 ArtistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
         }
@@ -144,8 +279,25 @@ namespace Rise.App.Views
 
         private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
         {
-            SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
-            await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), true);
+            try
+            {
+                List<SongViewModel> songs = new();
+                lock (MViewModel.Songs)
+                {
+                    foreach (SongViewModel song in MViewModel.Songs)
+                    {
+                        if (song.Artist == SelectedArtist.Name)
+                        {
+                            songs.Add(song);
+                        }
+                    }
+                }
+                await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), new Random().Next(0, songs.Count), songs.Count, true);
+            } catch (Exception)
+            {
+                SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
+                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+            }
         }
 
         private async void ChngArtImg_Click(object sender, RoutedEventArgs e)
@@ -159,18 +311,18 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
             if (file != null)
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"modified-artist-{file.Name}.png");
+                await FileHelpers.SaveBitmapFromThumbnailWithReplaceAsync(thumbnail, $@"modified-artist-{SelectedArtist.Name}.png");
 
                 thumbnail.Dispose();
                 if (SelectedArtist != null)
                 {
-                    SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{file.Name}.png";
+                    SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";
                     await SelectedArtist.SaveAsync();
                 }
             }
@@ -179,6 +331,12 @@ namespace Rise.App.Views
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             SelectedArtist = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
+            System.Diagnostics.Debug.WriteLine(SelectedArtist.Name);
+        }
+
+        private void SelectArtist_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedArtistItem = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
         }
     }
 }

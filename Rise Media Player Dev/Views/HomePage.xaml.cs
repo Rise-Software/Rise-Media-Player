@@ -1,6 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.UserControls;
+using Rise.App.Web;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -29,7 +31,7 @@ namespace Rise.App.Views
             => _ = await URLs.GitHub.LaunchAsync();
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.Support.LaunchAsync();
+            => _ = await typeof(SupportProject).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
@@ -57,32 +59,22 @@ namespace Rise.App.Views
             await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
         }
 
-        private void AdaptiveItemPane_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void CommandBarButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    switch (button.Tag.ToString())
+        //    {
 
-        }
-
-        private void AdaptiveItemPane_Loaded_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CommandBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            switch (button.Tag.ToString())
-            {
-
-                case "Version":
-                    vTip.IsOpen = true;
-                    break;
-                case "Discy":
-                    DiscyOnHome.IsOpen = true;
-                    break;
-                default:
-                    break;
-            }
-        }
+        //        case "Version":
+        //            vTip.IsOpen = true;
+        //            break;
+        //        case "Discy":
+        //            DiscyOnHome.IsOpen = true;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
         private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
@@ -92,5 +84,26 @@ namespace Rise.App.Views
         private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
             => await URLs.Releases.LaunchAsync();
 
+        private async void GlanceManage_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new()
+            {
+                Title = "Add widgets",
+                PrimaryButtonText = "See what we're working on",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new WidgetsDialogContent()
+            };
+
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                await "https://www.github.com/rise-software/rise-media-player".LaunchAsync();
+            }
+        }
+
+        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
+            => _ = await typeof(WhatsNew).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
     }
 }

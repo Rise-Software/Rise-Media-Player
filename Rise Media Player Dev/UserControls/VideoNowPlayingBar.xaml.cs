@@ -13,6 +13,7 @@ using Rise.App.Converters;
 using Windows.UI.Xaml.Media;
 using Windows.Media.Casting;
 using Windows.UI.Xaml.Controls.Primitives;
+using Rise.App.Views;
 
 namespace Rise.App.UserControls
 {
@@ -233,6 +234,20 @@ namespace Rise.App.UserControls
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.
+                }
+            }
+        }
+
+        private void ZoomToFill_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ToggleMenuFlyoutItem item)
+            {
+                if (item.IsChecked)
+                {
+                    VideoPlaybackPage.Current.PlayerElement.Stretch = Stretch.UniformToFill;
+                } else
+                {
+                    VideoPlaybackPage.Current.PlayerElement.Stretch = Stretch.Uniform;
                 }
             }
         }

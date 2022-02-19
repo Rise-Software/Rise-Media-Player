@@ -33,11 +33,11 @@ namespace Rise.App.Views
         {
             CoreApplicationView window = CoreApplication.CreateNewView();
             ApplicationView newView = null;
-            Size minSize = new Size(minWidth, minHeight);
+            Size minSize = new(minWidth, minHeight);
 
             await window.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                Frame frame = new Frame();
+                Frame frame = new();
                 _ = frame.Navigate(page, parameter);
 
                 Window.Current.Content = frame;
@@ -74,9 +74,9 @@ namespace Rise.App.Views
             int minWidth, int minHeight, bool openOnCreate = true, object parameter = null)
         {
             AppWindow window = await AppWindow.TryCreateAsync();
-            Size minSize = new Size(minWidth, minHeight);
+            Size minSize = new(minWidth, minHeight);
 
-            Frame frame = new Frame();
+            Frame frame = new();
             _ = frame.Navigate(page, parameter);
 
             ElementCompositionPreview.SetAppWindowContent(window, frame);

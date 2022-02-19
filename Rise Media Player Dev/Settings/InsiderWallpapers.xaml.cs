@@ -10,8 +10,7 @@ namespace Rise.App.Settings
 {
     public sealed partial class InsiderWallpapers : Page
     {
-        private readonly ObservableCollection<Wallpaper> Walls =
-            new ObservableCollection<Wallpaper>();
+        private readonly ObservableCollection<Wallpaper> Walls = new();
 
         public InsiderWallpapers()
         {

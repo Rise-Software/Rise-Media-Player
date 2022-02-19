@@ -9,13 +9,55 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:control="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
     <Grid>
+
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="32"
+                Margin="16,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <FontIcon Glyph="&#xED15;" Height="16" Width="16" FontSize="16"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="Feedback" Width="60"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+
+        <Button IsEnabled="False" Name="dropdown" Margin="98,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button.Content>
+                <FontIcon Glyph="&#xE011;" FontSize="12"/>
+            </Button.Content>
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="GitHub Issues Window">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE8D1;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Open in browser" Click="MenuFlyoutItem_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE12B;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Text="New design (WIP)">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xF4A5;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+
+            </Button.Flyout>
+        </Button>
+
         <muxc:ProgressRing IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <control:WebView2 x:Name="wv2" Source="https://rise-media.netlify.app/feedback/shell"/>
-
-
+        <control:WebView2 Margin="0,32,0,0" x:Name="wv2" Source="https://rise-media.netlify.app/feedback/shell"/>
 
     </Grid>
     

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:converters="using:Rise.App.Converters"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
@@ -14,6 +14,8 @@
     PointerExited="Page_PointerExited">
 
     <Page.Resources>
+        <converters:BooleanToVisibility1 x:Key="BoolToVis" />
+
         <Storyboard x:Name="PlayingAnimationIn">
             <FadeInThemeAnimation Storyboard.TargetName="BlurBrushBorder" />
             <FadeInThemeAnimation Storyboard.TargetName="PlayFrame" />
@@ -69,10 +71,22 @@
                 </Frame.ContentTransitions>
             </Frame>
 
-            <uc:TransparentNowPlayingBar x:Name="Player"
-                              Grid.Row="1"
-                              Margin="8" />
-
+            <Grid Grid.Row="1">
+                <Border CornerRadius="8"
+                        Margin="8"
+                        x:Name="BackForPlay">
+                    <Border.Background>
+                        <AcrylicBrush
+                              TintOpacity="0.0"
+                              TintColor="{StaticResource SystemColorBackgroundColor}" />
+                    </Border.Background>
+                </Border>
+                
+                <uc:TransparentNowPlayingBar x:Name="Player"
+                                             Grid.Row="1"
+                                             Margin="8" />
+            </Grid>
+            
             <!--<MediaPlayerElement x:Name="Player"
                                 Grid.Row="1"
                                 AreTransportControlsEnabled="True"

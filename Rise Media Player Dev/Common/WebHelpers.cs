@@ -20,7 +20,7 @@ namespace Rise.App.Common
         /// <returns>Response as a string.</returns>
         public static async Task<string> CreateGETRequestAsync(string url)
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
             HttpRequestHeaderCollection headers = client.DefaultRequestHeaders;
 
             string httpResponseBody;
@@ -57,7 +57,7 @@ namespace Rise.App.Common
         /// <returns>The filename without extension if success, "/" otherwise.</returns>
         public static async Task<string> SaveImageFromURLAsync(string url, string filename)
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
 
             StorageFile tempFile = await ApplicationData.Current.LocalCacheFolder.
                 CreateFileAsync("tempboi", CreationCollisionOption.GenerateUniqueName);
@@ -70,18 +70,16 @@ namespace Rise.App.Common
             try
             {
                 IBuffer buffer = await client.GetBufferAsync(new Uri(url));
-                using (IRandomAccessStream strm = await
-                    tempFile.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    _ = await strm.WriteAsync(buffer);
+                using IRandomAccessStream strm = await
+                    tempFile.OpenAsync(FileAccessMode.ReadWrite);
+                _ = await strm.WriteAsync(buffer);
 
-                    // Create the decoder from the stream
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(strm);
+                // Create the decoder from the stream
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(strm);
 
-                    // Get the SoftwareBitmap representation of the file
-                    SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync();
-                    result = await FileHelpers.SaveSoftwareBitmapToFile(softBmp, destinationFile);
-                }
+                // Get the SoftwareBitmap representation of the file
+                SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync();
+                result = await FileHelpers.SaveSoftwareBitmapToFile(softBmp, destinationFile);
             }
             catch (Exception ex)
             {
@@ -108,7 +106,7 @@ namespace Rise.App.Common
         /// <returns>Whether or not the URL points to an image.</returns>
         public static async Task<bool> IsImageURLAsync(string url)
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
             bool result = false;
 
             // Send the GET request asynchronously and retrieve the response as a string.

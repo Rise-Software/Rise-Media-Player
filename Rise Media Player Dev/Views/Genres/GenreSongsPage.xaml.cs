@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Navigation;
+using Rise.App.Helpers;
 
 namespace Rise.App.Views
 {
@@ -49,8 +50,8 @@ namespace Rise.App.Views
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
-        private AdvancedCollectionView AllArtistsInGenre = new();
-        private AdvancedCollectionView AllAlbumsInGenre = new();
+        private readonly AdvancedCollectionView AllArtistsInGenre = new();
+        private readonly AdvancedCollectionView AllAlbumsInGenre = new();
 
         private string SortProperty = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
@@ -117,7 +118,7 @@ namespace Rise.App.Views
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedGenre = App.MViewModel.Genres.First(g => g.Name == str);
+                SelectedGenre = App.MViewModel.Genres.FirstOrDefault(g => g.Name == str);
                 Songs.Filter = s => ((SongViewModel)s).Genres.Contains(str);
                 Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(str);
             }
@@ -130,7 +131,7 @@ namespace Rise.App.Views
 
             foreach (ArtistViewModel artist in Artists)
             {
-                AllArtistsInGenre.Add(artist);
+                AllArtistsInGenre.AddIfNotExists(artist);
             }
 
             foreach (AlbumViewModel album in Albums)
@@ -313,14 +314,20 @@ namespace Rise.App.Views
             }
         }
 
-        private void AlbumGrid_ItemClick(object sender, ItemClickEventArgs e)
+        private void ArtistGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), AlbumGrid.SelectedItem);
+            if ((e?.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+            }
         }
 
-        private void ArtistGrid_ItemClick(object sender, ItemClickEventArgs e)
+        private void AlbumGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), ArtistGrid.SelectedItem);
+            if ((e?.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+            }
         }
     }
 

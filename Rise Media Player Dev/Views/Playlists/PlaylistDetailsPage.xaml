@@ -11,77 +11,77 @@
     mc:Ignorable="d"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
 
-    <StackPanel Orientation="Vertical" Margin="-56,0,-56,0">
-        <ListView ItemsSource="{x:Bind plViewModel.Songs, Mode=OneWay}"
+    <ListView     ItemsSource="{x:Bind plViewModel.Songs, Mode=OneWay}"
                   x:Name="MainList"
                   RightTapped="MainList_RightTapped"
                   DoubleTapped="MainList_DoubleTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
-                  Padding="56,0">
+                  Padding="56,0"
+                  Margin="-56,0">
 
-            <ListView.Resources>
-                <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
-                    <MenuFlyoutItem x:Name="Remove"
+        <ListView.Resources>
+            <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
+                <MenuFlyoutItem x:Name="Remove"
                                     x:Uid="/Information/RemoveThing"
                                     Click="Remove_Click">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE107;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                </MenuFlyout>
-            </ListView.Resources>
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE107;"/>
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+        </ListView.Resources>
 
-            <ListView.Header>
-                <Border Padding="0,0,0,10" Margin="-66,0">
-                    <Grid Height="250">
-                        <ParallaxView VerticalShift="300"
+        <ListView.Header>
+            <Border Padding="0,0,0,10" Margin="-56,0">
+                <Grid Height="200">
+                    <ParallaxView VerticalShift="300"
                                       Source="{x:Bind MainList}">
-                            <Image Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
+                        <Image Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
                                        Stretch="UniformToFill"
                                        Opacity="0.6" />
-                        </ParallaxView>
-                        <Border>
-                            <Grid ColumnSpacing="24" Padding="80,24,80,24">
-                                <Grid.Background>
-                                    <media:BackdropBlurBrush Amount="60" />
-                                </Grid.Background>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="154" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-                                <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
+                    </ParallaxView>
+                    <Border>
+                        <Grid ColumnSpacing="24" Padding="56,24,56,24">
+                            <Grid.Background>
+                                <media:BackdropBlurBrush Amount="60" />
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="154" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
 
-                                <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                            <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                 CornerRadius="8"
                                 IsHitTestVisible="False"
                                 Padding="0">
-                                    <Border
+                                <Border
                                     CornerRadius="8">
-                                        <Image Height="154"
+                                    <Image Height="154"
                                                    Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
                                                    Stretch="Uniform"
                                                    Width="154" />
-                                    </Border>
-                                </Button>
+                                </Border>
+                            </Button>
 
-                                <StackPanel Grid.Column="1"
+                            <StackPanel Grid.Column="1"
                                     Orientation="Vertical"
                                     Spacing="8"
                                     VerticalAlignment="Center">
-                                    <Grid ColumnSpacing="4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
+                                <Grid ColumnSpacing="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="{x:Bind plViewModel.Title, Mode=OneWay}"
+                                    <TextBlock Text="{x:Bind plViewModel.Title, Mode=OneWay}"
                                            MaxLines="1"
                                            Style="{StaticResource TitleTextBlockStyle}"
                                            VerticalAlignment="Center"
                                            TextTrimming="CharacterEllipsis" />
 
-                                        <!--<FontIcon x:Name="Folder"
+                                    <!--<FontIcon x:Name="Folder"
                                           Grid.Column="1"
                                           FontSize="20"
                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -89,9 +89,9 @@
                                           Margin="5,0,0,0"
                                           VerticalAlignment="Center" 
                                           HorizontalAlignment="left"/>-->
-                                    </Grid>
+                                </Grid>
 
-                                    <!--<TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
+                                <!--<TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
                                         
                                         
 
@@ -102,88 +102,98 @@
                                         
                                         
                                     </TextBlock>-->
-                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
 
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="1*" />
-                                            </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
 
-                                            <Rectangle Grid.Column="1" />
-                                        </Grid>
-                                    </StackPanel>
+                                        <Rectangle Grid.Column="1" />
+                                    </Grid>
+                                </StackPanel>
 
-                                    <TextBlock Text="{x:Bind plViewModel.Description, Mode=OneWay}" />
+                                <TextBlock Text="{x:Bind plViewModel.Description, Mode=OneWay}" />
 
-                                    <CommandBar Background="Transparent"
+                                <CommandBar Background="Transparent"
                                         DefaultLabelPosition="Right"
                                         HorizontalAlignment="Left"
                                         Margin="-12,0">
-                                        <AppBarButton x:Name="PlayItem"
+                                    <AppBarButton x:Name="PlayItem"
                                               x:Uid="/Information/Play"
                                               Click="PlayButton_Click"
                                               Icon="Play"
                                               Style="{StaticResource AppBarCompactButton}" />
 
-                                        <AppBarSeparator />
-                                        <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
-                                            <AppBarButton.Icon>
-                                                <FontIcon Glyph="&#xECC8;" />
-                                            </AppBarButton.Icon>
+                                    <AppBarSeparator />
+                                    <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xECC8;" />
+                                        </AppBarButton.Icon>
 
-                                            <AppBarButton.Flyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem x:Name="NewPlaylist1"
+                                        <AppBarButton.Flyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem x:Name="NewPlaylist1"
                                     x:Uid="/Information/NewPlaylist"
                                     IsEnabled="False">
-                                                        <MenuFlyoutItem.Icon>
-                                                            <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                                                        </MenuFlyoutItem.Icon>
-                                                    </MenuFlyoutItem>
-                                                    <MenuFlyoutSeparator/>
-                                                    <MenuFlyoutItem x:Name="PinToStart"
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem x:Name="PinToStart"
                                     x:Uid="/Information/PinToStart"
                                     IsEnabled="False">
-                                                        <MenuFlyoutItem.Icon>
-                                                            <FontIcon Glyph="&#xE141;" />
-                                                        </MenuFlyoutItem.Icon>
-                                                    </MenuFlyoutItem>
-                                                </MenuFlyout>
-                                            </AppBarButton.Flyout>
-                                        </AppBarButton>
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE141;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyout>
+                                        </AppBarButton.Flyout>
+                                    </AppBarButton>
 
-                                        <AppBarSeparator />
+                                    <AppBarSeparator />
 
-                                        <AppBarButton x:Uid="/Information/Delete"
+                                    <AppBarButton x:Uid="/Information/Delete"
                                               Icon="Delete"
                                               IsEnabled="False"
                                               Style="{StaticResource AppBarCompactButton}" />
-                                    </CommandBar>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </Border>
-            </ListView.Header>
-            
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <Grid Background="Transparent"
+
+                                    <AppBarSeparator />
+
+                                    <AppBarButton x:Uid="/Information/Properties"
+                                              Style="{StaticResource AppBarCompactButton}"
+                                              Click="PlaylistProperties_Click">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xE70F;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+                                </CommandBar>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </ListView.Header>
+
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="viewmodels:SongViewModel">
+                <Grid Background="Transparent"
                           ColumnSpacing="12"
                           Padding="12,4"
                           PointerEntered="Grid_PointerEntered"
                           PointerExited="Grid_PointerExited"
                           PointerCanceled="Grid_PointerExited">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="32" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock HorizontalAlignment="Stretch"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Stretch"
                                    Text="{x:Bind Track}"
                                    TextAlignment="Center"
                                    VerticalAlignment="Center"
@@ -191,7 +201,7 @@
                                                 Converter={StaticResource BoolToVis},
                                                 Mode=OneWay}"
                                    Width="24" />
-                            <Button x:Uid="/Information/Play"
+                        <Button x:Uid="/Information/Play"
                                     Click="PlayButton_Click"
                                     Height="32"
                                     Padding="0"
@@ -199,65 +209,64 @@
                                     Visibility="{x:Bind IsFocused, Mode=OneWay}"
                                     Width="32"
                                     Margin="5,0,0,0">
-                                <FontIcon FontSize="16" Glyph="&#xE102;" />
-                            </Button>
-                        </StackPanel>
+                            <FontIcon FontSize="16" Glyph="&#xE102;" />
+                        </Button>
+                    </StackPanel>
 
-                        <Button Grid.Column="1"
+                    <Button Grid.Column="1"
                                 CornerRadius="4"
                                 Height="32"
                                 IsHitTestVisible="False"
                                 Padding="0"
                                 Width="32">
-                            <Border x:Name="AlbumThumb"
+                        <Border x:Name="AlbumThumb"
                                     CornerRadius="4"
                                     Height="32"
                                     Width="32">
-                                <Image x:Phase="2"
+                            <Image x:Phase="2"
                                        Height="32"
                                        Source="{x:Bind Thumbnail}"
                                        Width="32" />
-                            </Border>
-                        </Button>
+                        </Border>
+                    </Button>
 
-                        <StackPanel Grid.Column="2" Orientation="Vertical">
-                            <TextBlock Text="{x:Bind Title}"
+                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                        <TextBlock Text="{x:Bind Title}"
                                        TextTrimming="CharacterEllipsis" />
-                            <Grid ColumnSpacing="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
 
-                                <TextBlock>
+                            <TextBlock>
                                     <Hyperlink Click="Artist_Click" UnderlineStyle="None">
                                         <Run Text="{x:Bind Artist}" />
                                     </Hyperlink>
-                                </TextBlock>
+                            </TextBlock>
 
-                                <TextBlock Grid.Column="1"
+                            <TextBlock Grid.Column="1"
                                            Text="•" />
 
-                                <TextBlock Grid.Column="2">
+                            <TextBlock Grid.Column="2">
                                     <Hyperlink Click="Album_Click" UnderlineStyle="None">
                                         <Run Text="{x:Bind Album}" />
                                     </Hyperlink>
-                                </TextBlock>
+                            </TextBlock>
 
-                                <Rectangle Grid.Column="3" />
-                            </Grid>
-                        </StackPanel>
+                            <Rectangle Grid.Column="3" />
+                        </Grid>
+                    </StackPanel>
 
-                        <TextBlock x:Phase="1"
+                    <TextBlock x:Phase="1"
                                    Grid.Column="3"
                                    Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
                                    Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"
                                    VerticalAlignment="Center" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </Page>

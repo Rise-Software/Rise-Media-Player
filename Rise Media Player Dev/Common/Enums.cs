@@ -57,5 +57,15 @@ namespace Rise.App.Common
             /// </summary>
             Enqueue
         }
+
+        public enum IndexingMode
+        {
+            AutoOneHour,
+            AutoOneMinute,
+            AutoFiveMinutes,
+            AutoThirtyMinutes,
+            AutoTenMinutes,
+            Never
+        }
     }
 }

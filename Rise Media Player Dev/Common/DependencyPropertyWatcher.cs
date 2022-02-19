@@ -29,7 +29,7 @@ namespace Rise.App.Common
         public DependencyPropertyWatcher(DependencyObject target, string propertyPath)
         {
             Target = target;
-            Binding bind = new Binding()
+            Binding bind = new()
             {
                 Source = target,
                 Path = new PropertyPath(propertyPath),

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +27,8 @@ namespace Rise.App.Views
             set => SetValue(SelectedGenreProperty, value);
         }
 
+        private bool IsCtrlPressed;
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -42,10 +45,19 @@ namespace Rise.App.Views
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            SelectedGenre = null;
-            if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
+            if (!KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(GenreSongsPage), genre);
+                if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
+                {
+                    _ = Frame.Navigate(typeof(GenreSongsPage), genre);
+                    SelectedGenre = null;
+                }
+            } else
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
+                {
+                    SelectedGenre = genre;
+                }
             }
         }
         #endregion
