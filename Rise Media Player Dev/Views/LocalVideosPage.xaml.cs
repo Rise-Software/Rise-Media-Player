@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
@@ -162,6 +163,11 @@ namespace Rise.App.Views
         private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
+        }
+
+        private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await new VideoStreamingDialog().ShowAsync();
         }
     }
 }

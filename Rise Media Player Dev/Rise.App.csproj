@@ -172,6 +172,9 @@
     <Compile Include="Dialogs\MessagesDialog.xaml.cs">
       <DependentUpon>MessagesDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\VideoStreamingDialog.xaml.cs">
+      <DependentUpon>VideoStreamingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MusicStreamingDialog.xaml.cs">
       <DependentUpon>MusicStreamingDialog.xaml</DependentUpon>
     </Compile>
@@ -533,6 +536,10 @@
     <Page Include="Dialogs\MessagesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\VideoStreamingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\MusicStreamingDialog.xaml">
       <SubType>Designer</SubType>

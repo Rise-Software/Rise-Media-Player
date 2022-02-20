@@ -229,29 +229,32 @@
                     </Button>
 
                     <Border Margin="5,0" CornerRadius="50" Height="50" Width="50" BorderThickness="4">
-                        <Button PointerEntered="PlayButton_PointerEntered" Padding="10" PointerExited="PlayButton_PointerExited" Height="50" CornerRadius="50" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton" Width="50" HorizontalAlignment="Center">
-                            <Button.Resources>
-                                <ResourceDictionary>
-                                    <ResourceDictionary.ThemeDictionaries>
-                                        <ResourceDictionary x:Key="Dark">
-                                            <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                                <GradientStop Color="#F98253" Offset="0.1"/>
-                                                <GradientStop Color="#F98253"/>
-                                                <GradientStop Color="#B61F9C" Offset="0.8"/>
-                                            </LinearGradientBrush>
-                                        </ResourceDictionary>
-                                        <ResourceDictionary x:Key="Light">
-                                            <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                                <GradientStop Color="#F98253" Offset="0.1"/>
-                                                <GradientStop Color="#F98253"/>
-                                                <GradientStop Color="#B61F9C" Offset="0.8"/>
-                                            </LinearGradientBrush>
-                                        </ResourceDictionary>
-                                    </ResourceDictionary.ThemeDictionaries>
-                                </ResourceDictionary>
-                            </Button.Resources>
-                            <FontIcon Glyph="&#xF5B0;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" x:Name="PlayButtonIcon" />
-                        </Button>
+                        <Grid>
+                            <muxc:ProgressRing Width="30" Height="30" Visibility="Collapsed" x:Name="BufferingProgressRing" />
+                            <Button PointerEntered="PlayButton_PointerEntered" Padding="10" PointerExited="PlayButton_PointerExited" Height="50" CornerRadius="50" BorderBrush="Transparent" Background="Transparent" Click="PlayButton_Click" x:Name="PlayButton" Width="50" HorizontalAlignment="Center">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                                    <GradientStop Color="#F98253" Offset="0.1"/>
+                                                    <GradientStop Color="#F98253"/>
+                                                    <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                                    <GradientStop Color="#F98253" Offset="0.1"/>
+                                                    <GradientStop Color="#F98253"/>
+                                                    <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                                <FontIcon Glyph="&#xF5B0;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="20" x:Name="PlayButtonIcon" />
+                            </Button>
+                        </Grid>
                     </Border>
 
                     <Button Click="NextButton_Click"

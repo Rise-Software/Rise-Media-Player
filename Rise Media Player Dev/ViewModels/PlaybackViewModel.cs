@@ -160,6 +160,24 @@ namespace Rise.App.ViewModels
             await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
+        public async Task PlayVideoFromUrlAsync(VideoViewModel video)
+        {
+            CancelTask();
+
+            ClearLists();
+            PlaybackList.ShuffleEnabled = false;
+
+            PlaybackList.Items.Add(await video.AsPlaybackItemAsync(new Uri(video.Location)));
+
+            CurrentVideo = video;
+
+            Player.Play();
+
+            CurrentMediaChanged?.Invoke(this, new EventArgs());
+            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            await CurrentPlaybackItem.NotifyChangesAsync(true);
+        }
+
         public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)
         {
             CancelTask();

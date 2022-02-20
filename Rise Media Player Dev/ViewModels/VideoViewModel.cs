@@ -193,5 +193,26 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
+
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync(Uri uri)
+        { 
+            MediaSource source = MediaSource.CreateFromUri(uri);
+            MediaPlaybackItem media = new(source);
+
+            MediaItemDisplayProperties props = media.GetDisplayProperties();
+            props.Type = MediaPlaybackType.Video;
+
+            props.VideoProperties.Title = Title;
+            props.VideoProperties.Subtitle = Directors;
+
+            if (Thumbnail != null)
+            {
+                props.Thumbnail = RandomAccessStreamReference.
+                    CreateFromUri(new Uri(Thumbnail));
+            }
+
+            media.ApplyDisplayProperties(props);
+            return media;
+        }
     }
 }
