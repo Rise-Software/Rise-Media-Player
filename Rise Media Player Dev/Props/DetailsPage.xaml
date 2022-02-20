@@ -61,10 +61,13 @@
                         <TextBlock Text="{x:Bind Props.Title}"
                                    FontSize="22"
                                    MaxLines="2"
+                                   TextTrimming="WordEllipsis"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Props.Artist}"
-                                   Margin="0,-4,0,4"
+                                   Margin="-1,-4,0,4"
+                                   FontSize="16"
+                                   TextTrimming="WordEllipsis"
                                    Style="{StaticResource BodyTextBlockStyle}" />
 
                         <muxc:SplitButton Click="EditArtButton_Click">
@@ -74,9 +77,13 @@
                                            Style="{StaticResource BodyTextBlockStyle}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
-                                <Flyout Placement="Bottom">
-                                    <!-- flyout content -->
-                                </Flyout>
+                                <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                    <MenuFlyoutItem Text="Export album art" Name="exportAlbumArt" Click="exportAlbumArt_Click">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE159;"/>
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
                             </muxc:SplitButton.Flyout>
                         </muxc:SplitButton>
                     </StackPanel>
@@ -168,6 +175,7 @@
 
                 <TextBlock x:Uid="/Details/SongAlbumArtist"
                            Margin="0,-2,0,0"
+                           
                            VerticalAlignment="Center" />
                 <TextBlock x:Uid="/Details/Disc"
                            Grid.Row="1"
@@ -180,16 +188,19 @@
 
                 <TextBox x:Name="SongAlbumArtist"
                          Grid.Column="1"
+                         Margin="8,0,0,0"
+                         
                          Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}"
                          HorizontalAlignment="Stretch" />
                 <TextBox x:Name="SongDisc"
                          Grid.Column="1"
+                         Margin="8,0,0,0"
                          Grid.Row="1"
                          Text="{x:Bind Props.Disc, Mode=TwoWay}" />
-                <muxc:RatingControl Grid.Column="1"
+                <RatingControl Grid.Column="1"
                                     Grid.Row="2"
                                     HorizontalAlignment="Left"
-                                    Margin="8,0,0,-4"
+                                    Margin="16,0,0,-4"
                                     Value="{x:Bind Props.Rating, Mode=TwoWay}"
                                     VerticalAlignment="Bottom" />
             </Grid>

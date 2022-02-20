@@ -39,15 +39,19 @@
 
                     <TextBox x:Name="SongFilename"
                              Grid.Column="1"
+                             Margin="14,0,0,0"
                              Text="{x:Bind Props.Filename, Mode=TwoWay}"
                              HorizontalAlignment="Stretch" />
+                    
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
+                               Margin="25,0,0,0"
                                Text="{x:Bind Props.Extension}"
                                VerticalAlignment="Center" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="2"
-                               Text="Something"
+                               Margin="25,0,0,0"
+                               Text="Unknown"
                                VerticalAlignment="Center" />
                 </Grid>
 
@@ -69,6 +73,7 @@
 
                     <TextBlock x:Uid="/File/Location"
                                Margin="0,-2,0,0"
+                               TextTrimming="WordEllipsis"
                                VerticalAlignment="Center" />
                     <TextBlock x:Uid="/File/Size"
                                Grid.Row="1"
@@ -77,9 +82,11 @@
 
                     <TextBlock Grid.Column="1"
                                Text="{x:Bind Props.Location}"
+                               Margin="41,0,0,0"
                                VerticalAlignment="Center" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
+                               Margin="42,0,0,0"
                                Text="{x:Bind Props.Size}"
                                VerticalAlignment="Center" />
                 </Grid>
@@ -110,9 +117,11 @@
 
                     <TextBlock Grid.Column="1"
                                Text="{x:Bind Props.Created}"
+                               Margin="38,0,0,0"
                                VerticalAlignment="Center" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
+                               Margin="38,0,0,0"
                                Text="{x:Bind Props.Modified}"
                                VerticalAlignment="Center" />
                 </Grid>
