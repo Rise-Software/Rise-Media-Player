@@ -296,19 +296,14 @@ namespace Rise.App.UserControls
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
-            {
-                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1);
-            }
+            App.PViewModel.PlaybackList.MovePrevious();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
-            {
-                App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
-            }
+            App.PViewModel.PlaybackList.MoveNext();
         }
+
         private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
@@ -376,7 +371,6 @@ namespace Rise.App.UserControls
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 FullScreenButton.Text = "Full screen";
                 FullScreenIcon.Glyph = "\uE740";
                 // The SizeChanged event will be raised when the exit from full-screen mode is complete.
@@ -385,7 +379,6 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.

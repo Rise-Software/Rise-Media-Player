@@ -83,6 +83,63 @@
                   ItemsSource="{x:Bind Songs}"
                   ItemTemplate="{StaticResource NowPlayingQueueItem}"
                   Margin="-16,0,-16,-124"
-                  Padding="16,0,16,124" />
+                  Padding="16,0,16,124"
+                  RightTapped="MainList_RightTapped">
+            <ListView.Resources>
+                <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
+                    <MenuFlyoutItem x:Uid="/Information/PlayItem"
+                                    Click="PlayButton_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE102;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Remove1"
+                                    x:Uid="/Information/RemoveThing"
+                                    Click="Remove1_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE107;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutSubItem x:Name="AddTo"
+                                    x:Uid="/Information/AddTo">
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph="&#xECC8;" />
+                        </MenuFlyoutSubItem.Icon>
+                    </MenuFlyoutSubItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem Text="Move Up"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE010;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem Text="Move Down"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE011;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="Props1"
+                                    x:Uid="/MediaData/Properties"
+                                    IsEnabled="False">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE104;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
     </Grid>
 </Page>
