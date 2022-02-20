@@ -326,6 +326,7 @@ namespace Rise.App.UserControls
                 {
                     PlayButtonIcon.Glyph = "\uE62E";
                     ToolTipService.SetToolTip(PlayButton, "Pause");
+                    BufferingProgressRing.Visibility = Visibility.Collapsed;
                 });
             }
             else if (sender.PlaybackState == MediaPlaybackState.Paused)
@@ -334,6 +335,7 @@ namespace Rise.App.UserControls
                 {
                     PlayButtonIcon.Glyph = "\uF5B0";
                     ToolTipService.SetToolTip(PlayButton, "Play");
+                    BufferingProgressRing.Visibility = Visibility.Collapsed;
                 });
             }
             else if (sender.PlaybackState == MediaPlaybackState.Buffering)
@@ -341,6 +343,15 @@ namespace Rise.App.UserControls
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                    BufferingProgressRing.Visibility = Visibility.Visible;
+                });
+            }
+            else if (sender.PlaybackState == MediaPlaybackState.Opening)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ToolTipService.SetToolTip(PlayButton, "Opening...");
+                    BufferingProgressRing.Visibility = Visibility.Visible;
                 });
             }
         }
@@ -481,14 +492,14 @@ namespace Rise.App.UserControls
         private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             Button button = sender as Button;
-            Border border = button.Parent as Border;
+            Border border = (button.Parent as Grid).Parent as Border;
             border.BorderBrush = PlayBorderBrush;
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             Button button = sender as Button;
-            Border border = button.Parent as Border;
+            Border border = (button.Parent as Grid).Parent as Border;
             border.BorderBrush = new SolidColorBrush();
         }
 
@@ -549,7 +560,6 @@ namespace Rise.App.UserControls
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 FullScreenButton.Text = "Full screen";
                 FullScreenIcon.Glyph = "\uE740";
                 // The SizeChanged event will be raised when the exit from full-screen mode is complete.
@@ -558,7 +568,6 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.

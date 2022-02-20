@@ -1,7 +1,9 @@
 ﻿using System;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -59,6 +61,25 @@ namespace Rise.App.Props
                 Props.Thumbnail = uri.ToString();
                 //Update the source in the XAML view
                 imgAlbum.Source = new BitmapImage(uri);
+            }
+        }
+
+        private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
+        {
+            StorageFile picFile =
+                await StorageFile.GetFileFromApplicationUriAsync
+                (new Uri(Props.Thumbnail));
+
+            FolderPicker folderPicker = new FolderPicker
+            {
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+            };
+            folderPicker.FileTypeFilter.Add("*");
+
+            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                await picFile.CopyAsync(folder);
             }
         }
     }

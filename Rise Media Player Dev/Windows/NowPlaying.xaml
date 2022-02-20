@@ -71,7 +71,7 @@
                 </Frame.ContentTransitions>
             </Frame>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" MaxWidth="1510">
                 <Border CornerRadius="8"
                         Margin="8"
                         x:Name="BackForPlay">

@@ -80,7 +80,7 @@ namespace Rise.App.UserControls
         {
             if (sender.PlaybackState == MediaPlaybackState.Playing)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uE62E";
                     ToolTipService.SetToolTip(PlayButton, "Pause");
@@ -88,7 +88,7 @@ namespace Rise.App.UserControls
             }
             else if (sender.PlaybackState == MediaPlaybackState.Paused)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PlayButtonIcon.Glyph = "\uF5B0";
                     ToolTipService.SetToolTip(PlayButton, "Play");
@@ -96,7 +96,10 @@ namespace Rise.App.UserControls
             }
             else if (sender.PlaybackState == MediaPlaybackState.Buffering)
             {
-                ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                });
             }
         }
 
@@ -221,7 +224,6 @@ namespace Rise.App.UserControls
             if (view.IsFullScreenMode)
             {
                 view.ExitFullScreenMode();
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 FullScreenButton.Text = "Full screen";
                 FullScreenIcon.Glyph = "\uE740";
                 // The SizeChanged event will be raised when the exi`1t from full-screen mode is complete.
@@ -230,7 +232,6 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.

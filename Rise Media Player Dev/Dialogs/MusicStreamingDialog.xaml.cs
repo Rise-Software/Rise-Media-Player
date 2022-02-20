@@ -1,5 +1,7 @@
 ﻿using Rise.App.ViewModels;
 using System;
+using System.Globalization;
+using System.Net;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +18,22 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!Uri.IsWellFormedUriString(StreamingTextBox.Text, UriKind.Absolute))
+            bool isValidSong;
+
+            try
+            {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(StreamingTextBox.Text);
+                req.Method = "HEAD";
+                using var resp = req.GetResponse();
+                isValidSong = resp.ContentType.ToLower(CultureInfo.InvariantCulture)
+                           .StartsWith("audio/", StringComparison.OrdinalIgnoreCase);
+            }
+            catch (Exception)
+            {
+                isValidSong = false;
+            }
+
+            if (!(Uri.IsWellFormedUriString(StreamingTextBox.Text, UriKind.Absolute) && isValidSong))
             {
                 // Not a well formed URL, show error and don't continue.
                 if (InvalidUrlText.Visibility == Visibility.Collapsed)

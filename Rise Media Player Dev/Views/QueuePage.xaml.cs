@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -17,7 +18,9 @@ namespace Rise.App.Views
         /// Gets the app-wide NPViewModel instance.
         /// </summary>
         private static PlaybackViewModel ViewModel => App.PViewModel;
+        private SongViewModel _selectedSong;
         private readonly AdvancedCollectionView Songs = new(ViewModel.PlayingSongs);
+        private MainViewModel MViewModel => App.MViewModel;
 
         public QueuePage()
         {
@@ -28,6 +31,7 @@ namespace Rise.App.Views
             {
                 Queue.Checked += ToggleButton_Checked;
                 AlbumQueue.Checked += ToggleButton_Checked;
+                ApplyPlaylistItems(AddTo);
             };
         }
 
@@ -104,6 +108,131 @@ namespace Rise.App.Views
                     ViewModel.PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
                     break;
             }
+        }
+
+        private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                _selectedSong = song;
+                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
+            }
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.PViewModel.PlaybackList.MoveTo((uint)Songs.IndexOf(_selectedSong));
+        }
+
+        private async void Remove1_Click(object sender, RoutedEventArgs e)
+        {
+            App.PViewModel.PlayingSongs.Remove(_selectedSong);
+            App.PViewModel.PlaybackList.Items.Remove(await _selectedSong.AsPlaybackItemAsync());
+        }
+
+        private void ApplyPlaylistItems(MenuFlyout addTo)
+        {
+            addTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            addTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                addTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                addTo.Items.Add(item);
+            }
+        }
+
+        private void ApplyPlaylistItems(MenuFlyoutSubItem addTo)
+        {
+            addTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            addTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                addTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                addTo.Items.Add(item);
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongAsync(_selectedSong);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+
+            await playlist.AddSongAsync(_selectedSong);
         }
     }
 }
