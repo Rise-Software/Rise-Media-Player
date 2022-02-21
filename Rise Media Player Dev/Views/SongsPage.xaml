@@ -90,6 +90,12 @@
                 </AppBarButton.Icon>
             </AppBarButton>
 
+            <AppBarButton Label="TestUnavailability" Click="AppBarButton_Click">
+            <AppBarButton.Icon>
+                <FontIcon Glyph="" />
+            </AppBarButton.Icon>
+            </AppBarButton>
+
             <AppBarSeparator />
 
             <AppBarButton x:Uid="/Information/View">

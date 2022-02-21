@@ -8,6 +8,17 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:SongPropertiesViewModel}"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Border Style="{StaticResource SettingsCard}">
             <StackPanel Orientation="Vertical"

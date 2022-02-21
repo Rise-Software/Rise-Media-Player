@@ -126,8 +126,8 @@
             <ListView.Header>
                     <Border Margin="-56,0,-56,10">
                         <Grid>
-                            <ParallaxView VerticalShift="300"
-                                          Height="150"
+                            <ParallaxView VerticalShift="500"
+                                          Height="250"
                                           Source="{x:Bind MainList}">
                                 <Image Source="{x:Bind SelectedAlbum.Thumbnail, Mode=OneWay}"
                                        Stretch="UniformToFill"
@@ -139,7 +139,7 @@
                                         <media:BackdropBlurBrush Amount="60" />
                                     </Grid.Background>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="154" />
+                                        <ColumnDefinition Width="220" />
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
                                     <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
@@ -150,10 +150,10 @@
                                 Padding="0">
                                         <Border animations:Connected.Key="AlbumArt"
                                     CornerRadius="8">
-                                            <Image Height="154"
+                                            <Image Height="200"
                                                    Source="{x:Bind SelectedAlbum.Thumbnail, Mode=OneWay}"
                                                    Stretch="Uniform"
-                                                   Width="154" />
+                                                   Width="200" />
                                         </Border>
                                     </Button>
 
@@ -172,6 +172,7 @@
                                            MaxLines="1"
                                            Style="{StaticResource TitleTextBlockStyle}"
                                            VerticalAlignment="Center"
+                                                       FontSize="36"
                                            TextTrimming="CharacterEllipsis" />
 
                                             <!--<FontIcon x:Name="Folder"
@@ -183,22 +184,20 @@
                                           VerticalAlignment="Center" 
                                           HorizontalAlignment="left"/>-->
 
-                                            <muxc:TeachingTip x:Name="AlbumTip"
+                                        <muxc:TeachingTip x:Name="AlbumTip"
                                                   />
 
-                                            <ToggleButton Grid.Column="1"
-                                              Background="Transparent"
-                                              BorderThickness="0"
-                                              Padding="8">
-                                                <FontIcon FontSize="18" Glyph="&#xE19F;" />
-                                            </ToggleButton>
 
-                                            <ToggleButton Grid.Column="2"
-                                              Background="Transparent"
-                                              BorderThickness="0"
-                                              Margin="3,0"
+                                        <ToggleButton Grid.Column="2"
+                                              Name="LikeAlbum"
+                                              Checked="LikeAlbum_Checked"
+                                                      Unchecked="LikeAlbum_Unchecked"
+                                              Margin="3,6,0,0"
+                                                      Background="Transparent"
+                                                      Height="42"
+                                                      Width="42"
                                               Padding="8">
-                                                <FontIcon FontSize="18" Glyph="&#xE19E;" />
+                                            <FontIcon Name="LikeIcon" FontSize="22" Glyph="" />
                                             </ToggleButton>
                                         </Grid>
 
@@ -213,7 +212,7 @@
                                         
                                         
                                     </TextBlock>-->
-                                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                                        <StackPanel Grid.Column="1" Margin="-1,-4,0,0" Orientation="Vertical">
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -222,7 +221,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <TextBlock>
-                                    <Hyperlink Click="Artist_Click" UnderlineStyle="None" FontWeight="SemiBold">
+                                    <Hyperlink Click="Artist_Click" UnderlineStyle="None" FontSize="18"   FontWeight="SemiBold">
                                         <Run Text="{x:Bind SelectedAlbum.Artist, Mode=OneWay}" />
                                     </Hyperlink>
                                                 </TextBlock>
@@ -234,6 +233,8 @@
 
                                         <TextBlock Text="{x:Bind SelectedAlbum.Genres, Mode=OneWay}"
                                        MaxLines="1"
+                                       Margin="-1,8,0,0"
+                                       FontSize="16"
                                        Style="{StaticResource BodyTextBlockStyle}" />
 
                                         <CommandBar Background="Transparent"

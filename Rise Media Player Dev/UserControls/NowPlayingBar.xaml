@@ -349,11 +349,39 @@
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
+                            ToolTipService.ToolTip="More">
+                        <FontIcon Glyph=""
+                                  FontSize="16"/>
+                        <Button.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Lyrics" Margin="0,2,0,12" />
+                                    </StackPanel>
+                                    <StackPanel Padding="25" Orientation="Vertical">
+                                        <FontIcon Glyph="" Height="32"/>
+                                        <TextBlock FontSize="14" Padding="50,0,50,0" Text="Coming soon" FontWeight="Normal" TextAlignment="Center"/>
+
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </Flyout>
+                        </Button.Flyout>
+
+                    </Button>
+
+                    <Button BorderBrush="Transparent"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Padding="10"
+                            Height="35"
                             Flyout="{StaticResource MoreMenuFlyout}"
                             ToolTipService.ToolTip="More">
                         <FontIcon Glyph="&#xE712;"
                                   FontSize="16"/>
                     </Button>
+                    
+                    
                 </controls:WrapPanel>
                 <RelativePanel Margin="0,16,0,0" x:Name="DefaultVolumeControl">
                     <Button Click="VolumeIcon_Click" Padding="8" Margin="0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButton}">

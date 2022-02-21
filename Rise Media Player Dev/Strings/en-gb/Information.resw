@@ -237,6 +237,9 @@
   <data name="NewPlaylist.Text" xml:space="preserve">
     <value>New playlist</value>
   </data>
+  <data name="NewSettings.Text" xml:space="preserve">
+    <value>NEW SETTINGS</value>
+  </data>
   <data name="NoNew.Title" xml:space="preserve">
     <value>No new media found in your library</value>
   </data>

@@ -314,5 +314,10 @@ namespace Rise.App.Views
         {
             _ = await new MusicStreamingDialog().ShowAsync();
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

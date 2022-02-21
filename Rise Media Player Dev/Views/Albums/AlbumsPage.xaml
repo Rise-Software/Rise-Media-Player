@@ -268,7 +268,7 @@
                         <TextBlock Text="{x:Bind Title}"
                                    Padding="0,7,0,0"
                                    MaxLines="1"
-                                   ToolTipService.ToolTip="{x:Bind Title}"
+                                   ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap"
                                    Visibility="{x:Bind IsTitleVisible, Mode=OneWay}"/>
@@ -279,7 +279,7 @@
                                    TextWrapping="Wrap" />
 
                         <TextBlock Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}" FontSize="13">
-                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind Artist}">
+                            <Hyperlink Click="Artist_Click" UnderlineStyle="None" ToolTipService.ToolTip="{x:Bind TitleWithArtist}">
                                 <Run Text="{x:Bind Artist}" />
                             </Hyperlink>
                         </TextBlock>

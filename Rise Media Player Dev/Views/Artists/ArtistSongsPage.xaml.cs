@@ -76,7 +76,7 @@ namespace Rise.App.Views
             name = ArtistName.Text;
             if (ArtistName.Text == "Unknown Artist")
             {
-                AboutArtist.Text = "";
+                AboutArtist.Visibility = Visibility.Collapsed;
             }
             else
             {

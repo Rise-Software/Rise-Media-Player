@@ -218,6 +218,9 @@
                     QueryIcon="Find" />
 
 
+                <StackPanel Orientation="Horizontal">
+                    
+                </StackPanel>
                 <Button
                     x:Name="SyncCentre"
                     Grid.Column="1"
@@ -315,6 +318,13 @@
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
+                            
+                            <MenuFlyoutItem x:Uid="/Information/NewSettings" Click="NewSettings_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xEA86;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
 
                             <!--<MenuFlyoutItem x:Uid="/Information/Fdb"
                                             Click="Button_Click">

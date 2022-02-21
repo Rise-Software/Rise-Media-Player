@@ -12,6 +12,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
     <Grid>
+        
 
         <Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
@@ -29,7 +30,7 @@
             </StackPanel>
         </Border>
 
-        <Button IsEnabled="False" Name="dropdown" Margin="98,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+        <Button IsEnabled="true" Name="dropdown" Margin="98,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
             <Button.Content>
                 <FontIcon Glyph="&#xE011;" FontSize="12"/>
             </Button.Content>
