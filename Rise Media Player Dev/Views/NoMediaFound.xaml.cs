@@ -99,5 +99,13 @@ namespace Rise.App.Views
                 AppTitle.Foreground = defaultForegroundBrush;
             }
         }
+
+        private void AddMedia_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(Settings.MediaSourcesPage));
+            }
+        }
     }
 }

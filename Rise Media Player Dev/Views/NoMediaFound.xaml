@@ -50,5 +50,15 @@
 
         </Button>
 
+        <StackPanel Padding="56,0,56,0" HorizontalAlignment="left" VerticalAlignment="Center">
+            <Image Source="/Assets/FileIcons/MUFILE.png" Height="96" HorizontalAlignment="Left"/>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="We couldn't find any media to display. Add more media sources to continue." TextAlignment="Left" Padding="0,16,0,0"/>
+            <TextBlock Style="{StaticResource Subheader}" Opacity="0.6" FontWeight="Normal" FontSize="18" Text="If you want to, we can hide this message, but there still won't be any media to display." TextWrapping="WrapWholeWords" TextAlignment="Left" />
+            <StackPanel Margin="0,24,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Dismiss this message" Width="200"/>
+                <Button Margin="8,0,0,0" Style="{StaticResource AccentButtonStyle}" Name="AddMedia" Click="AddMedia_Click" Content="Add media sources" Width="200"/>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Page>

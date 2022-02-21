@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="Rise.App.Settings.MediaSourcesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Web"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:control="using:Microsoft.UI.Xaml.Controls" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="467*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="32"
+                Margin="48,0,0,0">
+            <StackPanel Orientation="Horizontal">
+
+                <FontIcon Glyph="" Height="16" Width="16" FontSize="16"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="Manage media sources" Width="153"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+        <Button VerticalAlignment="Top" x:Name="BackButton"
+                    Command="{x:Bind _navigationHelper.GoBackCommand}"
+                    CornerRadius="5"
+                    Height="28"
+                    Margin="2,2,0,0"
+                    Style="{StaticResource TransparentButton}"
+                    Width="40"
+                    AutomationProperties.Name="Back"
+                    AutomationProperties.AutomationId="BackButton"
+                    AutomationProperties.ItemType="Navigation Button">
+            <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
+                <muxc:AnimatedIcon.Source>
+                    <animatedvisuals:AnimatedBackVisualSource/>
+                </muxc:AnimatedIcon.Source>
+                <muxc:AnimatedIcon.FallbackIconSource>
+                    <muxc:SymbolIconSource Symbol="Back"/>
+                </muxc:AnimatedIcon.FallbackIconSource>
+            </muxc:AnimatedIcon>
+
+
+        </Button>
+
+        <muxc:NavigationView SelectionChanged="Selection_SelectionChanged"  Margin="0,28,0,0" Name="Selection" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" Grid.RowSpan="2">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Content="Show all" Tag="AllMedia" >
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEA69;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Music" Tag="Music" >
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE189;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Videos" Tag="Videos" >
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B2;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+
+        </muxc:NavigationView>
+
+        <Frame Margin="56,62,56,0" Name="SelectVidorMusic" Grid.Row="1"/>
+
+    </Grid>
+</Page>
