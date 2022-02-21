@@ -92,7 +92,7 @@
 
             <AppBarButton Label="TestUnavailability" Click="AppBarButton_Click">
             <AppBarButton.Icon>
-                <FontIcon Glyph="" />
+                    <FontIcon Glyph="&#xE7BA;" />
             </AppBarButton.Icon>
             </AppBarButton>
 

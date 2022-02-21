@@ -317,7 +317,10 @@ namespace Rise.App.Views
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(NoMediaFound));
+            }
         }
     }
 }

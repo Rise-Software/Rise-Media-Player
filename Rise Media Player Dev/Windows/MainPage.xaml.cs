@@ -962,7 +962,7 @@ namespace Rise.App.Views
         {
             if (Window.Current.Content is Frame rootFrame)
             {
-                _ = rootFrame.Navigate(typeof(NoMediaFound));
+                _ = rootFrame.Navigate(typeof(FullPageSettings));
             }
         }
     }

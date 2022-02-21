@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Rise.App.Views.NoMediaFound"
+    x:Class="Rise.App.Settings.FullPageSettings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Rise.App.Web"
@@ -20,9 +20,9 @@
                 Margin="48,0,0,0">
             <StackPanel Orientation="Horizontal">
 
-                <FontIcon Glyph="&#xE7BA;" Height="16" Width="16" FontSize="16"/>
+                <FontIcon Glyph="&#xE115;" Height="16" Width="16" FontSize="16"/>
                 <TextBlock x:Name="AppTitle"
-                    Text="No media found" Width="110"
+                    Text="App settings" Width="110"
                     VerticalAlignment="Center"
                     Margin="12,0,0,0"
                     Style="{StaticResource CaptionTextBlockStyle}" />
