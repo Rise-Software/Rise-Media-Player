@@ -314,5 +314,13 @@ namespace Rise.App.Views
         {
             _ = await new MusicStreamingDialog().ShowAsync();
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(NoMediaFound));
+            }
+        }
     }
 }

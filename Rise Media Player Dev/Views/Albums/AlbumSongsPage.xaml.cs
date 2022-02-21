@@ -219,5 +219,15 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void LikeAlbum_Checked(object sender, RoutedEventArgs e)
+        {
+            LikeIcon.Glyph = "\uE00B";
+        }
+
+        private void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
+        {
+            LikeIcon.Glyph = "\uE006";
+        }
     }
 }

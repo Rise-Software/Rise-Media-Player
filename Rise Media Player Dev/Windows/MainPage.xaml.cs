@@ -952,6 +952,19 @@ namespace Rise.App.Views
         {
             _ = await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
         }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NewSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(FullPageSettings));
+            }
+        }
     }
 
     [ContentProperty(Name = "GlyphTemplate")]
