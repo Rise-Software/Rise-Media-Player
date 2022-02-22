@@ -204,14 +204,17 @@
     <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
       <DependentUpon>SongTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\FullPageSettings.xaml.cs">
-      <DependentUpon>FullPageSettings.xaml</DependentUpon>
+    <Compile Include="Settings\AllSettingsPage.xaml.cs">
+      <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\InsiderWallpapers.xaml.cs">
       <DependentUpon>InsiderWallpapers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\MediaSourcesPage.xaml.cs">
+      <DependentUpon>MediaSourcesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\ScanningPage.xaml.cs">
       <DependentUpon>ScanningPage.xaml</DependentUpon>
@@ -475,6 +478,8 @@
     <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
+    <Content Include="Assets\FileIcons\MUFILE.png" />
+    <Content Include="Assets\FileIcons\VIDFILE.png" />
     <Content Include="Assets\HelpCentre.png" />
     <Content Include="Assets\lookingformedia.png" />
     <Content Include="Assets\missingperson.png" />
@@ -579,7 +584,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\FullPageSettings.xaml">
+    <Page Include="Settings\AllSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -588,6 +593,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\MediaSourcesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

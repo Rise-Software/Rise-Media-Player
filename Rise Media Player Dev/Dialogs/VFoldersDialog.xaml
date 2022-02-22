@@ -15,11 +15,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock x:Uid="/MediaLibrary/FolderInfo"
-                   Style="{StaticResource CaptionTextBlockStyle}"
-                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                   TextWrapping="WrapWholeWords" />
-
         <ListView Grid.Row="1"
                   IsItemClickEnabled="False"
                   ItemsSource="{x:Bind VideoLibrary.Folders}"
@@ -44,7 +39,7 @@
                             </Grid.ColumnDefinitions>
 
                             <FontIcon VerticalAlignment="Center"
-                                      Glyph="&#xE8B7;"
+                                      Glyph="&#xE8B2;"
                                       FontSize="16" />
 
                             <StackPanel Grid.Column="1"
@@ -77,7 +72,6 @@
                    Margin="-24,24,-24,-24" />
 
         <Grid Grid.Row="3"
-              Background="{ThemeResource ContentDialogBackground}"
               BorderThickness="0,1,0,0"
               ColumnSpacing="12"
               HorizontalAlignment="Stretch"
