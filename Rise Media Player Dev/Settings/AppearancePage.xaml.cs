@@ -132,16 +132,6 @@ namespace Rise.App.Settings
             await CoreApplication.RequestRestartAsync("-fastInit -level 1 -foo");
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
-        private void ThemeChange_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            
-        }
-
         private void ThemeChange_DropDownClosed(object sender, object e)
         {
             ChangeThemeTip.IsOpen = true;

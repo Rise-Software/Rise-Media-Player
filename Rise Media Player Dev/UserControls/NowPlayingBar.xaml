@@ -349,7 +349,7 @@
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
-                            ToolTipService.ToolTip="More">
+                            ToolTipService.ToolTip="Lyrics">
                         <FontIcon Glyph=""
                                   FontSize="16"/>
                         <Button.Flyout>

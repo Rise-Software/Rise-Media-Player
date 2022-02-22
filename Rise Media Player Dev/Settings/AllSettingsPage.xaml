@@ -11,7 +11,9 @@
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
+    
     <Grid>
+        
         <!--<uc:MicaTitleBar Icon="&#xE115;" Title="App settings" ShowIcon="True"/>-->
         <Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
@@ -62,10 +64,73 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <TextBlock Text="Settings" FontFamily="Segoe UI Variable Static Display" Margin="5" FontSize="28" FontWeight="SemiBold"/>
                             <StackPanel Orientation="Horizontal" Margin="40,0,0,0" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                <Button  HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
                                     <FontIcon Glyph="" FontSize="16"/>
+                                    <Button.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutSubItem Text="View">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph=""/>
+                                                </MenuFlyoutSubItem.Icon>
+                                                
+                                                <MenuFlyoutItem Text="Navigation:" IsEnabled="False">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE8B0;"/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                
+                                                <MenuFlyoutItem Text="Left">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph=""/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                
+                                                <MenuFlyoutItem Text="Top">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="" Rotation="180"/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                
+                                                <MenuFlyoutSeparator/>
+                                                
+                                                <MenuFlyoutItem Text="Icons:" IsEnabled="False">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="&#xE91B;"/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                
+                                                <MenuFlyoutItem Text="High Contrast">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph=""/>
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                                
+                                                <MenuFlyoutItem Text="Fluent Colour">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon Glyph="" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyoutSubItem>
+                                            
+                                            <MenuFlyoutSeparator/>
+                                            
+                                            <MenuFlyoutItem Text="Language">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph=""/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            
+                                            <MenuFlyoutItem Text="Insider Hub">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xF1AD;"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            
+                                        </MenuFlyout>
+
+                                    </Button.Flyout>
                                 </Button>
-                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                <Button Name="FeedbackSettings" Click="FeedbackSettings_Click" HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
                                     <FontIcon Glyph="" FontSize="16"/>
                                 </Button>
                             </StackPanel>
@@ -81,17 +146,24 @@
     IsBackButtonVisible="Collapsed"
     IsBackEnabled="False"
                                          PaneDisplayMode="Left"
-    Header="Header"
+    Header=""
                                  HorizontalAlignment="Left"
                                  Width="235"
+                                         
                                  
-    AlwaysShowHeader="True"
+    AlwaysShowHeader="False"
                                  IsPaneToggleButtonVisible="False"
+                                 IsTitleBarAutoPaddingEnabled="False"
     
 
     ExpandedModeThresholdWidth="500"
     SelectionFollowsFocus="Disabled"
     IsTabStop="False">
+
+                        <muxc:NavigationView.Resources>
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                        </muxc:NavigationView.Resources>
 
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem Content="Appearance" Tag="Appearance" x:Name="Appearance">
@@ -132,7 +204,7 @@
                         <muxc:NavigationView.FooterMenuItems>
                             <muxc:NavigationViewItem Content="Windows behaviours" Tag="Behaviour" x:Name="Behaviour">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph=""/>
+                                    <FontIcon Glyph="&#xE7C4;"/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem Content="Manage components" Tag="Components" x:Name="Components">
@@ -152,19 +224,32 @@
             </Border>
             
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}" 
-                                CornerRadius="8"
+                                CornerRadius="3"
                     Margin="316,0,0,0"
                                 BorderThickness="1"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                <StackPanel Margin="37,37,32,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Grid Margin="0,37,0,0">
+                    <StackPanel Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <FontIcon x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
                         <TextBlock Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontFamily="Segoe UI Variable Static Display" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
-                    <Frame Margin="0,12,0,0" HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
-                        <TextBlock FontSize="14" FontWeight="SemiBold" Opacity="0.6" Text="Select an item from the sidebar to continue." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
-                    </Frame>
-                </StackPanel>
+                    <Grid>
+                        <ScrollViewer Padding="37,49,37,0" CornerRadius="8"
+                      VerticalScrollBarVisibility="Auto">
+
+                        <Frame  HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
+                            <TextBlock FontSize="14" FontWeight="SemiBold" Opacity="0.6" Text="Select an item from the sidebar to continue." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                            <Frame.ContentTransitions>
+                                <TransitionCollection>
+                                    <NavigationThemeTransition />
+                                </TransitionCollection>
+                            </Frame.ContentTransitions>
+                        </Frame>
+                    </ScrollViewer>
+                    </Grid>
+
+
+                </Grid>
 
             </Border>
 

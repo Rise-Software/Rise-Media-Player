@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
+using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -54,6 +56,23 @@ namespace Rise.App.Settings
 
             //Register a handler for when the window changes focus
             Window.Current.Activated += Current_Activated;
+        }
+
+        private async Task<bool> OpenPageAsWindowAsync(Type t)
+        {
+            CoreApplicationView view = CoreApplication.CreateNewView();
+            int id = 0;
+
+            await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Frame frame = new();
+                _ = frame.Navigate(t, null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+                id = ApplicationView.GetForCurrentView().Id;
+            });
+
+            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
         }
 
         private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
@@ -116,11 +135,11 @@ namespace Rise.App.Settings
                 MainSettingsHeader.Text = "Media library";
                 SettingsMainFrame.Navigate(typeof(Settings.MediaLibraryPage));
             }
-            else if (selectedItemTag == "About")
+            else if (selectedItemTag == "Navigation")
             {
-                MainSettingsHeaderIcon.Glyph = "\uE946";
-                MainSettingsHeader.Text = "About";
-                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
+                MainSettingsHeaderIcon.Glyph = "\uE8B0";
+                MainSettingsHeader.Text = "Navigation";
+                SettingsMainFrame.Navigate(typeof(Settings.NavigationPage));
             }
             else if (selectedItemTag == "Playback")
             {
@@ -128,18 +147,43 @@ namespace Rise.App.Settings
                 MainSettingsHeader.Text = "Playback & sound";
                 SettingsMainFrame.Navigate(typeof(Settings.PlaybackPage));
             }
-            else if (selectedItemTag == "Navigation")
+            else if (selectedItemTag == "Sync")
             {
-                MainSettingsHeaderIcon.Glyph = "\uE8B0";
-                MainSettingsHeader.Text = "Navigation";
-                SettingsMainFrame.Navigate(typeof(Settings.NavigationPage));
+                MainSettingsHeaderIcon.Glyph = "\uE117";
+                MainSettingsHeader.Text = "Syncing";
+                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
             }
+            else if (selectedItemTag == "Behaviour")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE7C4";
+                MainSettingsHeader.Text = "Windows behaviours";
+                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
+            }
+            else if (selectedItemTag == "Components")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uEA86";
+                MainSettingsHeader.Text = "Manage components";
+                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
+            }
+
+            else if (selectedItemTag == "About")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE946";
+                MainSettingsHeader.Text = "About";
+                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
+            }
+
             else
             {
                 MainSettingsHeaderIcon.Glyph = "\uE115";
                 MainSettingsHeader.Text = "No page selected";
                 SettingsMainFrame.Navigate(typeof(Settings.MediaSourcesPage));
             }
+        }
+
+        private async void FeedbackSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
         }
     }
 }

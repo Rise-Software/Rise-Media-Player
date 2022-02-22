@@ -22,11 +22,6 @@ IsLightDismissEnabled="True"
         </muxc:TeachingTip>
 
         <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
-        <uc:ExpanderControl x:Uid="/Appearance/DesignUnavailable"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE946;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
-        </uc:ExpanderControl>
 
         <uc:ExpanderControl 
             x:Uid="/Appearance/ChooseTheme"
