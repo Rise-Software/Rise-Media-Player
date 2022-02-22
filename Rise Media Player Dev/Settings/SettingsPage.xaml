@@ -4,68 +4,229 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:uc="using:Rise.App.UserControls"
-    mc:Ignorable="d">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Margin="-24">
 
-    <Grid>
+    <Page.Resources>
+        <Style TargetType="muxc:BreadcrumbBarItem">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <uc:MicaTitleBar ShowIcon="False" Title=" " x:Name="TitleBar" />
+        <Rectangle x:Name="DualTone"
+                   Fill="{ThemeResource ContentDialogBackground}"
+                   Height="60"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Top" />
 
-        <Grid ColumnSpacing="10" Grid.Row="1">
+        <Grid BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
+              BorderThickness="0,0,0,1"
+              ColumnSpacing="8"
+              Height="Auto"
+              HorizontalAlignment="Stretch"
+              Padding="16,14,12,14"
+              VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="300" />
-                <ColumnDefinition />
+                <ColumnDefinition x:Name="FirstDefinition" Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <RelativePanel Margin="23,0,0,0">
-                <StackPanel Orientation="Vertical" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Spacing="10">
-                    <RelativePanel>
-                        <TextBlock Text="Settings" FontSize="27" FontWeight="SemiBold" RelativePanel.AlignVerticalCenterWithPanel="True" />
-                        <StackPanel Orientation="Horizontal"
-                            Spacing="3"
-                            RelativePanel.AlignRightWithPanel="True"
-                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                            Margin="0,3,0,0">
-                            <Button Content="S" />
-                            <Button Content="S" />
-                        </StackPanel>
-                    </RelativePanel>
+            <Grid x:Name="ItemGrid" ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                    <ListView SelectedIndex="0" x:Name="MainPagesList" SelectionChanged="MainPagesList_SelectionChanged" ItemsSource="{x:Bind SettingsItems, Mode=OneWay}" Margin="-5,0,0,0">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="viewmodels:SettingsItemViewModel">
-                                <StackPanel Margin="8,0,0,0" Orientation="Horizontal" Spacing="10" Padding="10,13">
-                                    <FontIcon Glyph="{x:Bind Icon, Mode=OneWay}" />
-                                    <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
+                <ToggleButton x:Name="Library"
+                              Checked="ToggleButton_Checked"
+                              Tag="LibraryItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                <ListView ItemsSource="{x:Bind SettingsFooterItems, Mode=OneWay}"
-                          RelativePanel.AlignBottomWithPanel="True"
-                          RelativePanel.AlignLeftWithPanel="True"
-                          RelativePanel.AlignRightWithPanel="True"
-                          Margin="-5,0,0,10"
-                          SelectionChanged="ListView_SelectionChanged"
-                          x:Name="FooterPagesList">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:SettingsItemViewModel">
-                            <StackPanel Margin="8,0,0,0" Orientation="Horizontal" Spacing="10" Padding="10,13">
-                                <FontIcon Glyph="{x:Bind Icon, Mode=OneWay}" />
-                                <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </RelativePanel>
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Library.png" />
+                            <FontIcon FontSize="14" Glyph="&#xEA69;" />
+                            <TextBlock x:Uid="/Sidebar/Library" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
 
-            <Frame Grid.Column="1" x:Name="SettingsFrame" />
+                <ToggleButton x:Name="Playback"
+                              Grid.Column="1"
+                              Checked="ToggleButton_Checked"
+                              Tag="PlaybackItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Playback.png" />
+                            <FontIcon FontSize="14" Glyph="&#xE102;" />
+                            <TextBlock x:Uid="/Sidebar/Playback" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <ToggleButton x:Name="Appearance"
+                              Grid.Column="2"
+                              Checked="ToggleButton_Checked"
+                              Tag="AppearanceItem"
+                              Unchecked="ToggleButton_Unchecked">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <muxc:ImageIcon Width="14" VerticalAlignment="Center" Source="ms-appx:///Assets/Settings/Appearance.png" />
+                            <FontIcon FontSize="14" Glyph="&#xE771;" />
+                            <TextBlock x:Uid="/Sidebar/Appearance" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </Grid>
+
+            <StackPanel x:Name="SecondGrid"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="6">
+                <AutoSuggestBox HorizontalAlignment="Stretch"
+                                Width="160"
+                                PlaceholderText="Find a setting"
+                                QueryIcon="Find" />
+
+                <Button x:Name="MoreButton"
+                        x:Uid="/Information/More"
+                        Height="32"
+                        Padding="0"
+                        Width="32">
+                    <Button.Content>
+                        <FontIcon FontSize="14" Glyph="&#xE10C;" />
+                    </Button.Content>
+
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutSubItem x:Uid="/Information/Style">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon Glyph="&#xE771;" />
+                                </MenuFlyoutSubItem.Icon>
+
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/HC"
+                                                          Click="IconFlyoutItem_Click"
+                                                          GroupName="Icons"
+                                                          IsChecked="{x:Bind ViewModel.ColoredSettingsIcons.Equals(x:False)}"
+                                                          Tag="HC" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Colorful"
+                                                          Click="IconFlyoutItem_Click"
+                                                          GroupName="Icons"
+                                                          IsChecked="{x:Bind ViewModel.ColoredSettingsIcons}"
+                                                          Tag="Color" />
+
+                                <MenuFlyoutSeparator />
+
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Sidebar" GroupName="Dialog" />
+                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/MenuBar" GroupName="Dialog" />
+                            </MenuFlyoutSubItem>
+
+                            <MenuFlyoutSeparator />
+
+                            <MenuFlyoutItem x:Uid="/Sidebar/Lang" Click="MenuFlyoutItem_Click" Tag="Langs">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE12B;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutItem x:Uid="/Sidebar/Insider" Click="MenuFlyoutItem_Click" Tag="Ins">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xECA7;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutItem Text="Support this project"
+                                            Click="Support_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE822;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+                <Rectangle Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
+                           Height="26"
+                           Width="1" />
+
+                <ToggleButton x:Name="About"
+                              x:Uid="/Sidebar/About"
+                              Checked="ToggleButton_Checked"
+                              Height="32"
+                              Padding="0"
+                              Tag="AboutItem"
+                              Unchecked="ToggleButton_Unchecked"
+                              Width="32">
+                    <ToggleButton.Content>
+                        <FontIcon FontSize="14" Glyph="&#xE946;" />
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <Button x:Uid="/Information/Feedback"
+                        Click="Button_Click"
+                        Height="32"
+                        Padding="0"
+                        Width="32">
+                    <Button.Content>
+                        <FontIcon FontSize="14" Glyph="&#xED15;" />
+                    </Button.Content>
+                </Button>
+
+                <Button x:Name="CloseButton"
+                        x:Uid="/Information/Close"
+                        Click="CloseButton_Click"
+                        Height="32"
+                        Margin="4,0,0,0"
+                        Padding="0"
+                        Style="{StaticResource TransparentButton}"
+                        Width="32">
+                    <FontIcon FontSize="14" Glyph="&#xE10A;" />
+                </Button>
+            </StackPanel>
         </Grid>
+
+        <muxc:BreadcrumbBar x:Name="Header"
+                            Grid.Row="1"
+                            ItemsSource="{x:Bind Breadcrumbs}"
+                            Margin="32,20,32,0" />
+
+        <ScrollViewer Grid.Row="2"
+                      Padding="32,0"
+                      VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="SettingsFrame"
+                   x:FieldModifier="public"
+                   Padding="0,4,0,32">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </ScrollViewer>
     </Grid>
 </Page>
