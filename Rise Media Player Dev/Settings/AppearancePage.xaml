@@ -10,6 +10,17 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
+        <muxc:TeachingTip x:Name="ChangeThemeTip"
+    Target="{x:Bind ThemeChange}"
+    Title="App theme changed"
+                          ActionButtonContent="Restart now"
+                          CloseButtonContent="Maybe later"
+                          ActionButtonClick="ChangeThemeTip_ActionButtonClick"
+IsLightDismissEnabled="True"
+    Subtitle="You'll need to restart the app for your changes to take effect.">
+
+        </muxc:TeachingTip>
+
         <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
         <uc:ExpanderControl x:Uid="/Appearance/DesignUnavailable"
                                ExpanderStyle="Disabled"
@@ -17,11 +28,14 @@
             <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
-        <uc:ExpanderControl x:Uid="/Appearance/ChooseTheme"
+        <uc:ExpanderControl 
+            x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"
                                Padding="0,10,0,0"
                                Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
+                      x:Name="ThemeChange"
+                      DropDownClosed="ThemeChange_DropDownClosed"
                       PlaceholderText="Use system setting"
                       SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
         </uc:ExpanderControl>

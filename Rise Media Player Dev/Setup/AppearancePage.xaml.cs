@@ -1,7 +1,11 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Core;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
+
 
 namespace Rise.App.Setup
 {
@@ -23,5 +27,7 @@ namespace Rise.App.Setup
 
             DataContext = ViewModel;
         }
+
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -44,6 +46,7 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            ChangeThemeTip.IsOpen = false;
 
             foreach (Border border in RiseColorsPanel.Children)
             {
@@ -124,6 +127,24 @@ namespace Rise.App.Settings
             }
         }
 
-        
+        private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+            await CoreApplication.RequestRestartAsync("-fastInit -level 1 -foo");
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void ThemeChange_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
+        }
+
+        private void ThemeChange_DropDownClosed(object sender, object e)
+        {
+            ChangeThemeTip.IsOpen = true;
+        }
     }
 }

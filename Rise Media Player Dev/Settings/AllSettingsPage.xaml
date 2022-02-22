@@ -52,7 +52,7 @@
         </Button>
         <Grid Margin="16,34,16,16">
             <StackPanel></StackPanel>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}"
+            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}" 
                     Width="301" 
                                 CornerRadius="8"
                                 BorderThickness="1"
