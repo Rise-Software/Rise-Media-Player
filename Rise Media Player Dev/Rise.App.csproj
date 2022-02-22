@@ -204,8 +204,8 @@
     <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
       <DependentUpon>SongTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\FullPageSettings.xaml.cs">
-      <DependentUpon>FullPageSettings.xaml</DependentUpon>
+    <Compile Include="Settings\AllSettingsPage.xaml.cs">
+      <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
@@ -584,7 +584,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\FullPageSettings.xaml">
+    <Page Include="Settings\AllSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

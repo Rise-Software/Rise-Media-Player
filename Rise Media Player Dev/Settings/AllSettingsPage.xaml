@@ -1,0 +1,179 @@
+﻿<Page
+    x:Class="Rise.App.Settings.AllSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Web"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:control="using:Microsoft.UI.Xaml.Controls" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <!--<uc:MicaTitleBar Icon="&#xE115;" Title="App settings" ShowIcon="True"/>-->
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="32"
+                Margin="48,0,0,0">
+            <StackPanel Orientation="Horizontal">
+
+                <FontIcon Glyph="&#xE115;" Height="16" Width="16" FontSize="16"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="App settings" Width="110"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+        <Button VerticalAlignment="Top" x:Name="BackButton"
+                    Command="{x:Bind _navigationHelper.GoBackCommand}"
+                    CornerRadius="5"
+                    Height="28"
+                    Margin="2,2,0,0"
+                    Style="{StaticResource TransparentButton}"
+                    Width="40"
+                    AutomationProperties.Name="Back"
+                    AutomationProperties.AutomationId="BackButton"
+                    AutomationProperties.ItemType="Navigation Button">
+            <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
+                <muxc:AnimatedIcon.Source>
+                    <animatedvisuals:AnimatedBackVisualSource/>
+                </muxc:AnimatedIcon.Source>
+                <muxc:AnimatedIcon.FallbackIconSource>
+                    <muxc:SymbolIconSource Symbol="Back"/>
+                </muxc:AnimatedIcon.FallbackIconSource>
+            </muxc:AnimatedIcon>
+
+
+        </Button>
+        <Grid Margin="16,34,16,16">
+            <StackPanel></StackPanel>
+            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    Width="301" 
+                                CornerRadius="8"
+                                BorderThickness="1"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                <Grid>
+                    <StackPanel Margin="32,32,32,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <TextBlock Text="Settings" FontFamily="Segoe UI Variable Static Display" Margin="5" FontSize="28" FontWeight="SemiBold"/>
+                            <StackPanel Orientation="Horizontal" Margin="40,0,0,0" HorizontalAlignment="Right">
+                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                    <FontIcon Glyph="" FontSize="16"/>
+                                </Button>
+                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                    <FontIcon Glyph="" FontSize="16"/>
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                    <muxc:NavigationView x:Name="SettingsSidebar"
+    IsSettingsVisible="False" Margin="32,76,32,30"
+    SelectionChanged="SettingsSidebar_SelectionChanged"
+    IsBackButtonVisible="Collapsed"
+    IsBackEnabled="False"
+                                         PaneDisplayMode="Left"
+    Header="Header"
+                                 HorizontalAlignment="Left"
+                                 Width="235"
+                                 
+    AlwaysShowHeader="True"
+                                 IsPaneToggleButtonVisible="False"
+    
+
+    ExpandedModeThresholdWidth="500"
+    SelectionFollowsFocus="Disabled"
+    IsTabStop="False">
+
+                        <muxc:NavigationView.MenuItems>
+                            <muxc:NavigationViewItem Content="Appearance" Tag="Appearance" x:Name="Appearance">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="Media library" Tag="MediaLibrary" x:Name="MediaLibrary">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="Navigation" Tag="Navigation" x:Name="Navigation">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="Playback &amp; sound" Tag="Playback" x:Name="Playback">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="Syncing" Tag="Sync" x:Name="Sync">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                        </muxc:NavigationView.MenuItems>
+
+                        <muxc:NavigationView.PaneCustomContent>
+                            <HyperlinkButton x:Name="PaneHyperlink" Content="More info" Margin="12,0" Visibility="Collapsed" />
+                        </muxc:NavigationView.PaneCustomContent>
+
+                        <muxc:NavigationView.AutoSuggestBox>
+                            <AutoSuggestBox QueryIcon="Find" Margin="-12,0,-12,0" PlaceholderText="Search" AutomationProperties.Name="Search" />
+                        </muxc:NavigationView.AutoSuggestBox>
+
+                        <muxc:NavigationView.FooterMenuItems>
+                            <muxc:NavigationViewItem Content="Windows behaviours" Tag="Behaviour" x:Name="Behaviour">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="Manage components" Tag="Components" x:Name="Components">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Content="About" Tag="About" x:Name="About">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon Glyph=""/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                        </muxc:NavigationView.FooterMenuItems>
+                    </muxc:NavigationView>
+                </Grid>
+
+            </Border>
+            
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                                CornerRadius="8"
+                    Margin="316,0,0,0"
+                                BorderThickness="1"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                <StackPanel Margin="37,37,32,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <FontIcon x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
+                        <TextBlock Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontFamily="Segoe UI Variable Static Display" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                    <Frame Margin="0,12,0,0" HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
+                        <TextBlock FontSize="14" FontWeight="SemiBold" Opacity="0.6" Text="Select an item from the sidebar to continue." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                    </Frame>
+                </StackPanel>
+
+            </Border>
+
+            
+
+
+            
+        </Grid>
+        
+    </Grid>
+
+</Page>

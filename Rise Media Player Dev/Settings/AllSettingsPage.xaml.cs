@@ -24,11 +24,10 @@ namespace Rise.App.Settings
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class FullPageSettings : Page
+    public sealed partial class AllSettingsPage : Page
     {
         private readonly NavigationHelper _navigationHelper;
-
-        public FullPageSettings()
+        public AllSettingsPage()
         {
             this.InitializeComponent();
             _navigationHelper = new NavigationHelper(this);
@@ -99,6 +98,48 @@ namespace Rise.App.Settings
                 AppTitle.Foreground = defaultForegroundBrush;
             }
         }
+
+        private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            string selectedItemTag = ((string)selectedItem.Tag);
+
+            if (selectedItemTag == "Appearance")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE771";
+                MainSettingsHeader.Text = "Appearance";
+                SettingsMainFrame.Navigate(typeof(Settings.AppearancePage));
+            }
+            else if (selectedItemTag == "MediaLibrary")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uEA69";
+                MainSettingsHeader.Text = "Media library";
+                SettingsMainFrame.Navigate(typeof(Settings.MediaLibraryPage));
+            }
+            else if (selectedItemTag == "About")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE946";
+                MainSettingsHeader.Text = "About";
+                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
+            }
+            else if (selectedItemTag == "Playback")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uF4C3";
+                MainSettingsHeader.Text = "Playback & sound";
+                SettingsMainFrame.Navigate(typeof(Settings.PlaybackPage));
+            }
+            else if (selectedItemTag == "Navigation")
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE8B0";
+                MainSettingsHeader.Text = "Navigation";
+                SettingsMainFrame.Navigate(typeof(Settings.NavigationPage));
+            }
+            else
+            {
+                MainSettingsHeaderIcon.Glyph = "\uE115";
+                MainSettingsHeader.Text = "No page selected";
+                SettingsMainFrame.Navigate(typeof(Settings.MediaSourcesPage));
+            }
+        }
     }
 }
-
