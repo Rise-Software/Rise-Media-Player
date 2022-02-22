@@ -54,13 +54,19 @@
 
         </Button>
 
-        <muxc:NavigationView SelectionChanged="Selection_SelectionChanged"  Margin="0,28,0,0" Name="Selection" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" Grid.RowSpan="2">
+        <Button IsEnabled="true" Name="info" Margin="202,2,0,0" Height="28" Width="32" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button.Content>
+                <FontIcon Glyph="" FontSize="12"/>
+            </Button.Content>
+        </Button>
+
+        <muxc:NavigationView SelectionChanged="Selection_SelectionChanged"  Margin="0,32,0,0" Name="Selection" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" Grid.RowSpan="2">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Show all" Tag="AllMedia" >
+                <!--<muxc:NavigationViewItem Content="Show all" Tag="AllMedia" >
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEA69;"/>
                     </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                </muxc:NavigationViewItem>-->
                 <muxc:NavigationViewItem Content="Music" Tag="Music" >
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE189;"/>
@@ -75,7 +81,7 @@
 
         </muxc:NavigationView>
 
-        <Frame Margin="56,62,56,0" Name="SelectVidorMusic" Grid.Row="1"/>
+        <Frame Margin="36,69,36,36" Name="SelectVidorMusic" Grid.Row="1"/>
 
     </Grid>
 </Page>
