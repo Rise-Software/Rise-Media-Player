@@ -125,5 +125,6 @@
 		<uap:Capability Name="musicLibrary"/>
 		<uap:Capability Name="videosLibrary"/>
 		<rescap:Capability Name="confirmAppClose"/>
+		<uap:Capability Name="removableStorage" />
 	</Capabilities>
 </Package>
