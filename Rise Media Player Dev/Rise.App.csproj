@@ -244,6 +244,7 @@
     <Compile Include="ViewModels\GenreViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
     <Compile Include="ViewModels\SearchItemViewModel.cs" />
+    <Compile Include="ViewModels\SettingsItemViewModel.cs" />
     <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />

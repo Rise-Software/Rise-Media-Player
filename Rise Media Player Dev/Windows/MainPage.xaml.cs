@@ -334,7 +334,11 @@ namespace Rise.App.Views
                     break;
 
                 case "SettingsPage":
-                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    //_ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        _ = rootFrame.Navigate(typeof(SettingsPage));
+                    }
                     break;
 
                 default:
@@ -396,6 +400,10 @@ namespace Rise.App.Views
 
                 case "DiscyPage":
                     IsInPageWithoutHeader = false;
+                    return;
+
+                case "SettingsPage":
+                    IsInPageWithoutHeader = true;
                     return;
 
                 default:
