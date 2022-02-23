@@ -250,8 +250,6 @@
                     </Button.Flyout>
                 </Button>
 
-
-
                 <Button
                     x:Name="MoreButton"
                     x:Uid="/Information/More"
@@ -271,7 +269,6 @@
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png"/>
                                 </MenuFlyoutItem.Background>
                             </MenuFlyoutItem>
-
 
                             <MenuFlyoutSeparator />
 
