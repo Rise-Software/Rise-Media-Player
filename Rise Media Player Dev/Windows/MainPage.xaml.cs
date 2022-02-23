@@ -961,7 +961,10 @@ namespace Rise.App.Views
 
         private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            _ = await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(AllSettingsPage));
+            }
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)

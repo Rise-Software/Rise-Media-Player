@@ -10,6 +10,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
+        
+
         <muxc:TeachingTip x:Name="ChangeThemeTip"
     Target="{x:Bind ThemeChange}"
     Title="App theme changed"
@@ -23,6 +25,7 @@ IsLightDismissEnabled="True"
 
         <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
 
+        
         <uc:ExpanderControl 
             x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"

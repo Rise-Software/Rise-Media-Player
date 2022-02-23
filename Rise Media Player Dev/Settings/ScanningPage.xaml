@@ -14,18 +14,35 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
-    <Grid>
-        <uc:MicaTitleBar x:Name="AppTitleBar" VerticalAlignment="Top" ShowIcon="False" Title="" />
-        <Grid Padding="20,48,20,12">
+    <StackPanel Orientation="Vertical" Spacing="4">
+<TextBlock Text="Automatic scanning" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <Grid>
             <StackPanel>
-                <TextBlock Text="Media scanning" Padding="0,0,0,12" FontSize="28" FontWeight="SemiBold" TextWrapping="WrapWholeWords"/>
                 <uc:ExpanderControl x:Uid="/MediaLibrary/AutoScanMedia"
                                ExpanderStyle="Static"
                                Icon="&#xE12E;">
                     <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
-                
-                <muxc:RadioButtons SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}" Margin="0,14,0,0" x:Name="PeriodicScan" Header="Scan periodically every:">
+
+                <Border
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                    HorizontalAlignment="Stretch"
+                        Height="66"
+                    CornerRadius="3"
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    <StackPanel Orientation="Vertical" Padding="15,8,15,8">
+                        <uc:ExpanderControl VerticalAlignment="Center" x:Uid="/MediaLibrary/AutoScanMedia"
+                               ExpanderStyle="Transparent"
+                               Icon="&#xE12E;">
+                            <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
+                        </uc:ExpanderControl>
+                    </StackPanel>
+                    
+                </Border>
+
+                <muxc:RadioButtons SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}" Margin="0,14,0,0" MaxColumns="7" x:Name="PeriodicScan" Header="Scan periodically every:">
                     <x:String>Never</x:String>
                     <x:String>1 minute</x:String>
                     <x:String>5 minutes</x:String>
@@ -35,7 +52,7 @@
                 </muxc:RadioButtons>
             </StackPanel>
         </Grid>
-    </Grid>
 
-    
+    </StackPanel>
+
 </Page>

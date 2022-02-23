@@ -30,11 +30,6 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
 
-            Loaded += (s, e) =>
-            {
-                _ = new ApplicationTitleBar(AppTitleBar);
-                PeriodicScan.SelectedIndex = App.SViewModel.IndexingMode + 1;
-            };
         }
 
         private void PeriodicScan_SelectionChanged(object sender, SelectionChangedEventArgs e)

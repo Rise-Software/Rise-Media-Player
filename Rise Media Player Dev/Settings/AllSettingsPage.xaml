@@ -213,7 +213,7 @@
                         <TextBlock Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontFamily="Segoe UI Variable Static Display" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                     <Grid>
-                        <ScrollViewer Padding="37,49,37,20" CornerRadius="8"
+                        <ScrollViewer Padding="37,49,37,0" CornerRadius="8"
                       VerticalScrollBarVisibility="Auto">
 
                         <Frame HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">

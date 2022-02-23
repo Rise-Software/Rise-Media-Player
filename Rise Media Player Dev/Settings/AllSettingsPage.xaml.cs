@@ -53,7 +53,7 @@ namespace Rise.App.Settings
                 case "MediaLibrary":
                     MainSettingsHeaderIcon.Glyph = "\uEA69";
                     MainSettingsHeader.Text = "Media library";
-                    SettingsMainFrame.Navigate(typeof(MediaLibraryPage));
+                    SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
                     break;
                 case "Navigation":
                     MainSettingsHeaderIcon.Glyph = "\uE8B0";
