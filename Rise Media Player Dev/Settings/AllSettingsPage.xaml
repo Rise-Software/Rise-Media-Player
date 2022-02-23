@@ -166,17 +166,17 @@
                         </muxc:NavigationView.Resources>
 
                         <muxc:NavigationView.MenuItems>
-                            <muxc:NavigationViewItem Content="Appearance" Tag="Appearance" x:Name="Appearance">
+                            <muxc:NavigationViewItem Content="Appearance" ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion." Tag="Appearance" x:Name="Appearance">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph=""/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="Media library" Tag="MediaLibrary" x:Name="MediaLibrary">
+                            <muxc:NavigationViewItem Content="Media library" ToolTipService.ToolTip="Manage media sources, your online services and scanning settings." Tag="MediaLibrary" x:Name="MediaLibrary">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph=""/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="Navigation" Tag="Navigation" x:Name="Navigation">
+                            <muxc:NavigationViewItem Content="Navigation" ToolTipService.ToolTip="Change click actions, startup options." Tag="Navigation" x:Name="Navigation">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph=""/>
                                 </muxc:NavigationViewItem.Icon>
