@@ -387,40 +387,44 @@ namespace Rise.App
 
         public static void StartIndexingTimer()
         {
-            if (!IndexingTimer.Enabled)
+            if (SViewModel.IndexingMode > -1)
             {
-                if (SViewModel.AutoIndexingEnabled)
+                if (!IndexingTimer.Enabled)
                 {
-                    switch (SViewModel.IndexingMode)
+                    if (SViewModel.AutoIndexingEnabled)
                     {
-                        case -1:
-                            return;
-                        case 0:
-                            IndexingInterval = TimeSpan.FromMinutes(1);
-                            break;
-                        case 1:
-                            IndexingInterval = TimeSpan.FromMinutes(5);
-                            break;
-                        case 2:
-                            IndexingInterval = TimeSpan.FromMinutes(10);
-                            break;
-                        case 3:
-                            IndexingInterval = TimeSpan.FromMinutes(30);
-                            break;
-                        case 4:
-                            IndexingInterval = TimeSpan.FromHours(1);
-                            break;
+                        switch (SViewModel.IndexingMode)
+                        {
+                            case -1:
+                                return;
+                            case 0:
+                                IndexingInterval = TimeSpan.FromMinutes(1);
+                                break;
+                            case 1:
+                                IndexingInterval = TimeSpan.FromMinutes(5);
+                                break;
+                            case 2:
+                                IndexingInterval = TimeSpan.FromMinutes(10);
+                                break;
+                            case 3:
+                                IndexingInterval = TimeSpan.FromMinutes(30);
+                                break;
+                            case 4:
+                                IndexingInterval = TimeSpan.FromHours(1);
+                                break;
+                        }
+
+                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+                        IndexingTimer.Start();
                     }
-
-                    IndexingTimer.Elapsed += IndexingTimer_Elapsed;
-                    IndexingTimer.Start();
                 }
-            } else
-            {
-                IndexingTimer.Elapsed -= IndexingTimer_Elapsed;
-                IndexingTimer.Stop();
+                else
+                {
+                    IndexingTimer.Elapsed -= IndexingTimer_Elapsed;
+                    IndexingTimer.Stop();
 
-                StartIndexingTimer();
+                    StartIndexingTimer();
+                }
             }
         }
 
