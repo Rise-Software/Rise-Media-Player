@@ -708,7 +708,7 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
+            _ = await typeof(Web.FeedbackPage).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)

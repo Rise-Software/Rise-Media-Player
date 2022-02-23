@@ -13,14 +13,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="32" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button VerticalAlignment="Top" x:Name="BackButton"
                     Command="{x:Bind _navigationHelper.GoBackCommand}"
                     CornerRadius="5"
                     Height="28"
-                    Margin="2,6,0,0"
+                    Margin="2,2,0,0"
                     Style="{StaticResource TransparentButton}"
                     Width="40"
                     AutomationProperties.Name="Back"
@@ -36,9 +36,9 @@
             </muxc:AnimatedIcon>
         </Button>
 
-        <FontIcon Glyph="&#xE713;" Width="20" Height="20" FontSize="14" Margin="48,0,0,0" HorizontalAlignment="Left" />
+        <FontIcon Glyph="&#xE713;" Width="20" Height="20" FontSize="16" Margin="48,0,0,0" HorizontalAlignment="Left" />
 
-        <uc:MicaTitleBar Title="    App settings" Margin="40,0,0,0" x:Name="TitleBar" ShowIcon="False" />
+        <uc:MicaTitleBar Title="App settings" FontSize="14" Margin="52,0,0,0" x:Name="TitleBar" ShowIcon="False" />
         
         <Grid Margin="16,0,16,16" Grid.Row="1">
             <Border HorizontalAlignment="Left"
