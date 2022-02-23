@@ -111,7 +111,7 @@ namespace Rise.App.ChangeTrackers
                     // Song was deleted
                     for (int i = 0; i < ViewModel.Songs.Count; i++)
                     {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location && !File.Exists(ViewModel.Songs[i].Location))
+                        if (change.PreviousPath == ViewModel.Songs[i].Location || !File.Exists(ViewModel.Songs[i].Location))
                         {
                             await ViewModel.Songs[i].DeleteAsync();
                         }
