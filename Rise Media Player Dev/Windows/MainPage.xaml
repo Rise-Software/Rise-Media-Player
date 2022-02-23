@@ -315,12 +315,6 @@
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            
-                            <MenuFlyoutItem x:Uid="/Information/NewSettings" Click="NewSettings_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xEA86;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
 
 
                             <!--<MenuFlyoutItem x:Uid="/Information/Fdb"

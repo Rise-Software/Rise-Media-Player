@@ -41,63 +41,55 @@ namespace Rise.App.Settings
         private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
             var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
-            string selectedItemTag = ((string)selectedItem.Tag);
+            string selectedItemTag = selectedItem.Tag as string;
 
-            if (selectedItemTag == "Appearance")
+            switch (selectedItemTag)
             {
-                MainSettingsHeaderIcon.Glyph = "\uE771";
-                MainSettingsHeader.Text = "Appearance";
-                SettingsMainFrame.Navigate(typeof(Settings.AppearancePage));
-            }
-            else if (selectedItemTag == "MediaLibrary")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uEA69";
-                MainSettingsHeader.Text = "Media library";
-                SettingsMainFrame.Navigate(typeof(Settings.MediaLibraryPage));
-            }
-            else if (selectedItemTag == "Navigation")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uE8B0";
-                MainSettingsHeader.Text = "Navigation";
-                SettingsMainFrame.Navigate(typeof(Settings.NavigationPage));
-            }
-            else if (selectedItemTag == "Playback")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uF4C3";
-                MainSettingsHeader.Text = "Playback & sound";
-                SettingsMainFrame.Navigate(typeof(Settings.PlaybackPage));
-            }
-            else if (selectedItemTag == "Sync")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uE117";
-                MainSettingsHeader.Text = "Syncing";
-                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
-            }
-            else if (selectedItemTag == "Behaviour")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uE7C4";
-                MainSettingsHeader.Text = "Windows behaviours";
-                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
-            }
-            else if (selectedItemTag == "Components")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uEA86";
-                MainSettingsHeader.Text = "Manage components";
-                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
-            }
-
-            else if (selectedItemTag == "About")
-            {
-                MainSettingsHeaderIcon.Glyph = "\uE946";
-                MainSettingsHeader.Text = "About";
-                SettingsMainFrame.Navigate(typeof(Settings.AboutPage));
-            }
-
-            else
-            {
-                MainSettingsHeaderIcon.Glyph = "\uE115";
-                MainSettingsHeader.Text = "No page selected";
-                SettingsMainFrame.Navigate(typeof(Settings.MediaSourcesPage));
+                case "Appearance":
+                    MainSettingsHeaderIcon.Glyph = "\uE771";
+                    MainSettingsHeader.Text = "Appearance";
+                    SettingsMainFrame.Navigate(typeof(AppearancePage));
+                    break;
+                case "MediaLibrary":
+                    MainSettingsHeaderIcon.Glyph = "\uEA69";
+                    MainSettingsHeader.Text = "Media library";
+                    SettingsMainFrame.Navigate(typeof(MediaLibraryPage));
+                    break;
+                case "Navigation":
+                    MainSettingsHeaderIcon.Glyph = "\uE8B0";
+                    MainSettingsHeader.Text = "Navigation";
+                    SettingsMainFrame.Navigate(typeof(NavigationPage));
+                    break;
+                case "Playback":
+                    MainSettingsHeaderIcon.Glyph = "\uF4C3";
+                    MainSettingsHeader.Text = "Playback & sound";
+                    SettingsMainFrame.Navigate(typeof(PlaybackPage));
+                    break;
+                case "Sync":
+                    /*MainSettingsHeaderIcon.Glyph = "\uE117";
+                    MainSettingsHeader.Text = "Syncing";
+                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    break;
+                case "Behaviour":
+                    /*MainSettingsHeaderIcon.Glyph = "\uE7C4";
+                    MainSettingsHeader.Text = "Windows behaviours";
+                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    break;
+                case "Components":
+                    /*MainSettingsHeaderIcon.Glyph = "\uEA86";
+                    MainSettingsHeader.Text = "Manage components";
+                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    break;
+                case "About":
+                    MainSettingsHeaderIcon.Glyph = "\uE946";
+                    MainSettingsHeader.Text = "About";
+                    SettingsMainFrame.Navigate(typeof(AboutPage));
+                    break;
+                default:
+                    MainSettingsHeaderIcon.Glyph = "\uE115";
+                    MainSettingsHeader.Text = "No page selected";
+                    SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
+                    break;
             }
         }
 
