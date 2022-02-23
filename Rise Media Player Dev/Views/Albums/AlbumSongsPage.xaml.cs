@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
+﻿using System;
+using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using System.Collections.Generic;
@@ -226,8 +227,16 @@ namespace Rise.App.Views
             LikeIcon.Glyph = "\uE00B";
 
             List<SongViewModel> songs = new();
+            PlaylistViewModel playlist = null;
 
-            PlaylistViewModel playlist = App.MViewModel.Playlists.First(p => p.Title == "Liked");
+            try
+            {
+                playlist = App.MViewModel.Playlists.First(p => p.Title == "Liked");
+            }
+            catch (InvalidOperationException)
+            {
+
+            }
 
             if (playlist == null)
             {
