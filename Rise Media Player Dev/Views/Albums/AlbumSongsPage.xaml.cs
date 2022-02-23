@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -220,14 +221,66 @@ namespace Rise.App.Views
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
 
-        private void LikeAlbum_Checked(object sender, RoutedEventArgs e)
+        private async void LikeAlbum_Checked(object sender, RoutedEventArgs e)
         {
             LikeIcon.Glyph = "\uE00B";
+
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = App.MViewModel.Playlists.First(p => p.Title == "Liked");
+
+            if (playlist == null)
+            {
+                playlist = new()
+                {
+                    Title = $"Liked",
+                    Description = "Your liked songs, albums and artists' songs go here.",
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                    Duration = "0"
+                };
+            }
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongsAsync(songs);
         }
 
-        private void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
+        private async void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
         {
             LikeIcon.Glyph = "\uE006";
+
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = App.MViewModel.Playlists.First(p => p.Title == "Liked");
+
+            if (playlist == null)
+            {
+                playlist = new()
+                {
+                    Title = $"Liked",
+                    Description = "Your liked songs, albums and artists' songs go here.",
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                    Duration = "0"
+                };
+            }
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.RemoveSongsAsync(songs);
         }
     }
 }
