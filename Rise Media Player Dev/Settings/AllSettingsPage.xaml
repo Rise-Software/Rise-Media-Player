@@ -11,31 +11,16 @@
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
-    
     <Grid>
-        
-        <!--<uc:MicaTitleBar Icon="&#xE115;" Title="App settings" ShowIcon="True"/>-->
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="48,0,0,0">
-            <StackPanel Orientation="Horizontal">
-
-                <FontIcon Glyph="&#xE115;" Height="16" Width="16" FontSize="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="App settings" Width="110"
-                    VerticalAlignment="Center"
-                    Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
-            </StackPanel>
-        </Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Button VerticalAlignment="Top" x:Name="BackButton"
                     Command="{x:Bind _navigationHelper.GoBackCommand}"
                     CornerRadius="5"
                     Height="28"
-                    Margin="2,2,0,0"
+                    Margin="2,6,0,0"
                     Style="{StaticResource TransparentButton}"
                     Width="40"
                     AutomationProperties.Name="Back"
@@ -49,62 +34,56 @@
                     <muxc:SymbolIconSource Symbol="Back"/>
                 </muxc:AnimatedIcon.FallbackIconSource>
             </muxc:AnimatedIcon>
-
-
         </Button>
-        <Grid Margin="16,34,16,16">
-            <StackPanel></StackPanel>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}" 
+
+        <FontIcon Glyph="&#xE713;" Width="20" Height="20" FontSize="14" Margin="48,0,0,0" HorizontalAlignment="Left" />
+
+        <uc:MicaTitleBar Title="    App settings" Margin="40,0,0,0" x:Name="TitleBar" ShowIcon="False" />
+        
+        <Grid Margin="16,0,16,16" Grid.Row="1">
+            <Border HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
                     Width="301" 
-                                CornerRadius="8"
-                                BorderThickness="1"
-                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    CornerRadius="8"
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
                 <Grid>
                     <StackPanel Margin="32,32,32,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <TextBlock Text="Settings" FontFamily="Segoe UI Variable Static Display" Margin="5" FontSize="28" FontWeight="SemiBold"/>
+                            <TextBlock Text="Settings" Margin="5" FontSize="28" FontWeight="SemiBold"/>
                             <StackPanel Orientation="Horizontal" Margin="40,0,0,0" HorizontalAlignment="Right">
-                                <Button  HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
                                     <FontIcon Glyph="" FontSize="16"/>
                                     <Button.Flyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutSubItem Text="View">
+                                            <MenuFlyoutSubItem Text="Navigation">
                                                 <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph=""/>
+                                                    <FontIcon Glyph="&#xE8B0;" />
                                                 </MenuFlyoutSubItem.Icon>
-                                                
-                                                <MenuFlyoutItem Text="Navigation:" IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE8B0;"/>
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                
                                                 <MenuFlyoutItem Text="Left">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph=""/>
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
-                                                
+
                                                 <MenuFlyoutItem Text="Top">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="" Rotation="180"/>
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
-                                                
-                                                <MenuFlyoutSeparator/>
-                                                
-                                                <MenuFlyoutItem Text="Icons:" IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE91B;"/>
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                
+                                            </MenuFlyoutSubItem>
+
+                                            <MenuFlyoutSubItem Text="Icons">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xE91B;" />
+                                                </MenuFlyoutSubItem.Icon>
                                                 <MenuFlyoutItem Text="High Contrast">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph=""/>
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
-                                                
+
                                                 <MenuFlyoutItem Text="Fluent Colour">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon Glyph="" />
@@ -130,35 +109,33 @@
 
                                     </Button.Flyout>
                                 </Button>
-                                <Button Name="FeedbackSettings" Click="FeedbackSettings_Click" HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                <Button Name="FeedbackSettings"
+                                        Click="FeedbackSettings_Click"
+                                        HorizontalAlignment="Right"
+                                        Height="36"
+                                        Style="{StaticResource TransparentButton}">
                                     <FontIcon Glyph="" FontSize="16"/>
                                 </Button>
                             </StackPanel>
-
                         </StackPanel>
-
-
                     </StackPanel>
 
                     <muxc:NavigationView x:Name="SettingsSidebar"
-    IsSettingsVisible="False" Margin="32,76,32,30"
-    SelectionChanged="SettingsSidebar_SelectionChanged"
-    IsBackButtonVisible="Collapsed"
-    IsBackEnabled="False"
+                                         IsSettingsVisible="False"
+                                         Margin="32,76,32,30"
+                                         SelectionChanged="SettingsSidebar_SelectionChanged"
+                                         IsBackButtonVisible="Collapsed"
+                                         IsBackEnabled="False"
                                          PaneDisplayMode="Left"
-    Header=""
-                                 HorizontalAlignment="Left"
-                                 Width="235"
-                                         
-                                 
-    AlwaysShowHeader="False"
-                                 IsPaneToggleButtonVisible="False"
-                                 IsTitleBarAutoPaddingEnabled="False"
-    
-
-    ExpandedModeThresholdWidth="500"
-    SelectionFollowsFocus="Disabled"
-    IsTabStop="False">
+                                         HorizontalAlignment="Left"
+                                         Width="235"
+                                         AlwaysShowHeader="False"
+                                         IsPaneToggleButtonVisible="False"
+                                         IsTitleBarAutoPaddingEnabled="False"
+                                         ExpandedModeThresholdWidth="500"
+                                         SelectionFollowsFocus="Disabled"
+                                         IsTabStop="False"
+                                         SelectedItem="{x:Bind Appearance}">
 
                         <muxc:NavigationView.Resources>
                             <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
@@ -223,21 +200,23 @@
 
             </Border>
             
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource LayerFillColorDefaultBrush}" 
-                                CornerRadius="3"
+            <Border HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                    CornerRadius="3"
                     Margin="316,0,0,0"
-                                BorderThickness="1"
-                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
                 <Grid Margin="0,37,0,0">
                     <StackPanel Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <FontIcon x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
                         <TextBlock Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontFamily="Segoe UI Variable Static Display" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                     <Grid>
-                        <ScrollViewer Padding="37,49,37,0" CornerRadius="8"
+                        <ScrollViewer Padding="37,49,37,20" CornerRadius="8"
                       VerticalScrollBarVisibility="Auto">
 
-                        <Frame  HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
+                        <Frame HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
                             <TextBlock FontSize="14" FontWeight="SemiBold" Opacity="0.6" Text="Select an item from the sidebar to continue." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                             <Frame.ContentTransitions>
                                 <TransitionCollection>
@@ -247,15 +226,8 @@
                         </Frame>
                     </ScrollViewer>
                     </Grid>
-
-
                 </Grid>
-
             </Border>
-
-            
-
-
             
         </Grid>
         
