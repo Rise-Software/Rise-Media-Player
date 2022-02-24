@@ -110,18 +110,27 @@ namespace Rise.App.Settings
                 SelectVidorMusic.Navigate(typeof(Dialogs.VFoldersDialog));
                 Dialogs.VFoldersDialog.Current.MusicList.Visibility = Visibility.Visible;
                 Dialogs.VFoldersDialog.Current.VideosList.Visibility = Visibility.Visible;
+                Dialogs.VFoldersDialog.Current.VideoButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.MusicButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.AllButtons.Visibility = Visibility.Visible;
             }
             else if (selectedItemTag == "Music")
             {
                 SelectVidorMusic.Navigate(typeof(Dialogs.VFoldersDialog));
                 Dialogs.VFoldersDialog.Current.MusicList.Visibility = Visibility.Visible;
                 Dialogs.VFoldersDialog.Current.VideosList.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.VideoButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.AllButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.MusicButtons.Visibility = Visibility.Visible;
             }
             else if (selectedItemTag == "Videos") 
             {
                 SelectVidorMusic.Navigate(typeof(Dialogs.VFoldersDialog));
                 Dialogs.VFoldersDialog.Current.MusicList.Visibility = Visibility.Collapsed;
                 Dialogs.VFoldersDialog.Current.VideosList.Visibility = Visibility.Visible;
+                Dialogs.VFoldersDialog.Current.MusicButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.AllButtons.Visibility = Visibility.Collapsed;
+                Dialogs.VFoldersDialog.Current.VideoButtons.Visibility = Visibility.Visible;
             }
             else
             {

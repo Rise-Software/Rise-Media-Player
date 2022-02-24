@@ -31,7 +31,8 @@
                 <StackPanel x:Name="ScanningStuff">
                     <Border Margin="0,4,0,0" x:Name="PeriodicBorder"
                     VerticalAlignment="Stretch"
-                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                    Style="{StaticResource SettingsCard}"
+                            Padding="0"
                     HorizontalAlignment="Stretch"
                         Height="120"
                     CornerRadius="3"
@@ -73,7 +74,8 @@
                     </Border>
                     <Border Margin="0,4,0,0" x:Name="EventsBorder"
                     VerticalAlignment="Stretch"
-                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                    Style="{StaticResource SettingsCard}"
+                            Padding="0" 
                     HorizontalAlignment="Stretch"
                         Height="254"
                     CornerRadius="3"

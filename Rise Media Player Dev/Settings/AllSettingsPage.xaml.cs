@@ -146,6 +146,11 @@ namespace Rise.App.Settings
 
         private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync();
+
+        private void BacktoMediaLibrary_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
     }
 

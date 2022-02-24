@@ -87,7 +87,7 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <TextBlock Text="Settings" Margin="5" FontSize="28" FontWeight="SemiBold"/>
                             <StackPanel Orientation="Horizontal" Margin="40,0,0,0" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}">
+                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}" ToolTipService.ToolTip="More">
                                     <FontIcon Glyph="" FontSize="16"/>
                                     <Button.Flyout>
                                         <MenuFlyout>
@@ -153,6 +153,7 @@
                                         Click="FeedbackSettings_Click"
                                         HorizontalAlignment="Right"
                                         Height="36"
+                                        ToolTipService.ToolTip="Feedback"
                                         Style="{StaticResource TransparentButton}">
                                     <FontIcon Glyph="" FontSize="16"/>
                                 </Button>
@@ -240,7 +241,7 @@
                 </Grid>
 
             </Border>
-            
+
             <Border HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{ThemeResource LayerFillColorDefaultBrush}" 
@@ -248,13 +249,24 @@
                     Margin="316,0,0,0"
                     BorderThickness="1"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                
                 <Grid Margin="0,37,0,0">
-                    <StackPanel Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Button Visibility="Collapsed" x:Name="BackMediaLibrary" x:FieldModifier="public"
+                                        Click="BacktoMediaLibrary_Click"
+                                        VerticalAlignment="Top"
+                                        Height="36"
+                            Margin="37,3,0,0"
+                                        ToolTipService.ToolTip="Feedback"
+                                        Style="{StaticResource TransparentButton}">
+                        <FontIcon Glyph="&#xE0A6;" FontSize="16"/>
+                    </Button>
+                    <StackPanel x:Name="HeaderArea" x:FieldModifier="public" Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
                         <TextBlock x:FieldModifier="public" Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                        
                     </StackPanel>
                     <Grid>
-                        <ScrollViewer Padding="37,49,37,0" CornerRadius="8"
+                        <ScrollViewer Padding="37,0,37,0" Margin="0,49,0,0" CornerRadius="8"
                       VerticalScrollBarVisibility="Auto">
 
                         <Frame x:FieldModifier="public" HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">

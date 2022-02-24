@@ -189,6 +189,12 @@
   <data name="LastFM.Text" xml:space="preserve">
     <value>Last.fm</value>
   </data>
+  <data name="ManageFolders.Description" xml:space="preserve">
+    <value>Videos, music and more</value>
+  </data>
+  <data name="ManageFolders.Title" xml:space="preserve">
+    <value>Manage local media folders</value>
+  </data>
   <data name="ManualScan.Description" xml:space="preserve">
     <value>Scans the folders you've already added for music and videos to add to your library.</value>
   </data>
