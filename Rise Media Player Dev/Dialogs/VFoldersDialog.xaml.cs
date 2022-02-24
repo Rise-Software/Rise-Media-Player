@@ -33,8 +33,11 @@ namespace Rise.App.Dialogs
         private async void Done_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
 
-        private async void Add_Click(object sender, RoutedEventArgs e)
+        private async void AddVideo_Click(object sender, RoutedEventArgs e)
             => await App.VideoLibrary.RequestAddFolderAsync();
+
+        private async void AddMusic_Click(object sender, RoutedEventArgs e)
+            => await App.MusicLibrary.RequestAddFolderAsync();
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {

@@ -15,15 +15,57 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="top">
+        <StackPanel x:Name="AllButtons" x:FieldModifier="public" Orientation="Horizontal" VerticalAlignment="top">
             <Button x:Uid="/MediaLibrary/Add"
-                    Click="Add_Click"
+                    Width="100"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource AccentButtonStyle}" >
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Contains music" Click="AddMusic_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE189;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Contains videos" Click="AddVideo_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE8B2;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+                </Button>
+            <Button x:Uid="/MediaLibrary/Done"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    Width="100"
+                    HorizontalAlignment="Stretch"
+                    Click="Done_Click" />
+        </StackPanel>
+
+        <StackPanel x:Name="MusicButtons" x:FieldModifier="public" Orientation="Horizontal" VerticalAlignment="top">
+            <Button x:Uid="/MediaLibrary/Add"
+                    Click="AddMusic_Click"
                     Width="100"
                     HorizontalAlignment="Stretch"
                     Style="{StaticResource AccentButtonStyle}" />
             <Button x:Uid="/MediaLibrary/Done"
                     Grid.Column="1"
-                    Margin="4,0,0,0"
+                    Margin="8,0,0,0"
+                    Width="100"
+                    HorizontalAlignment="Stretch"
+                    Click="Done_Click" />
+        </StackPanel>
+
+        <StackPanel x:Name="VideoButtons" x:FieldModifier="public" Orientation="Horizontal" VerticalAlignment="top">
+            <Button x:Uid="/MediaLibrary/Add"
+                    Click="AddVideo_Click"
+                    Width="100"
+                    HorizontalAlignment="Stretch"
+                    Style="{StaticResource AccentButtonStyle}" />
+            <Button x:Uid="/MediaLibrary/Done"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
                     Width="100"
                     HorizontalAlignment="Stretch"
                     Click="Done_Click" />
