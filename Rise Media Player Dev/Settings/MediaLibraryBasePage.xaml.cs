@@ -22,14 +22,11 @@ namespace Rise.App.Settings
     /// </summary>
     public sealed partial class MediaLibraryBasePage : Page
     {
+        public static MediaLibraryBasePage Current;
         public MediaLibraryBasePage()
         {
             this.InitializeComponent();
-        }
-
-        private void AppearanceNav_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            
+            Current = this;
         }
 
         private void MediaNav_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -45,8 +42,8 @@ namespace Rise.App.Settings
                 case "Scanning":
                     MediaFrame.Navigate(typeof(ScanningPage));
                     break;
-                case "Services":
-                    MediaFrame.Navigate(typeof(AppearancePage));
+                default:
+                    MediaFrame.Navigate(typeof(ComingSoonPage));
                     break;
 
             }

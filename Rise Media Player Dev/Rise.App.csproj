@@ -207,6 +207,12 @@
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\AppearanceBasePage.xaml.cs">
+      <DependentUpon>AppearanceBasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ComingSoonPage.xaml.cs">
+      <DependentUpon>ComingSoonPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
     </Compile>
@@ -586,6 +592,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\AllSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\AppearanceBasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\ComingSoonPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

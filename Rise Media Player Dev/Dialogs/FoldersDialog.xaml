@@ -41,9 +41,9 @@
         
 
         <ListView Grid.Row="1"
+                  VerticalAlignment="Top"
                   IsItemClickEnabled="False"
                   ItemsSource="{x:Bind MusicLibrary.Folders}"
-                  MaxHeight="400"
                   SelectionMode="None">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
@@ -84,7 +84,15 @@
                                     Click="Button_Click"
                                     Padding="8"
                                     Style="{StaticResource TransparentButton}">
-                                <FontIcon Glyph="&#xE106;" FontSize="12" />
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE106;" Margin="0,2,0,0" FontSize="16" />
+                                        <TextBlock Margin="8,0,0,0" Text="Remove"/>
+                                        
+                                    </StackPanel>
+                                    
+                                </Button.Content>
+                                
                             </Button>
                         </Grid>
                     </Border>

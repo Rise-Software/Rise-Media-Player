@@ -9,8 +9,9 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="4">
-        
+    
+    <StackPanel Orientation="Vertical" Spacing="4" Margin="0,10,0,0">
+
 
         <muxc:TeachingTip x:Name="ChangeThemeTip"
     Target="{x:Bind ThemeChange}"
@@ -23,10 +24,20 @@ IsLightDismissEnabled="True"
 
         </muxc:TeachingTip>
 
-        <TextBlock x:Uid="/Appearance/DesignPresetsH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <Border Margin="0,-4,0,0" x:Name="ThemeBorder"
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}" 
+                    HorizontalAlignment="Stretch"
+                        Height="120"
+                    CornerRadius="3"
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <TextBlock Text="Themes are coming soon" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Opacity="0.6"/>
 
-        
-        <uc:ExpanderControl 
+
+        </Border>
+
+        <uc:ExpanderControl Margin="0,8,0,0"
             x:Uid="/Appearance/ChooseTheme"
                                ExpanderStyle="Static"
                                Padding="0,10,0,0"
@@ -52,6 +63,7 @@ IsLightDismissEnabled="True"
             </uc:ExpanderControl.HeaderControls>
 
             <StackPanel>
+                
                 <TextBlock FontSize="14" FontWeight="Normal" Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown." x:Name="Nothing" Padding="30,0,0,0" TextWrapping="WrapWholeWords"/>
                 <StackPanel x:Name="TextforGlaze">
                     <TextBlock FontSize="14" FontWeight="Normal" Text="Recent colours" Padding="30,0,150,0"/>
@@ -126,6 +138,9 @@ IsLightDismissEnabled="True"
         </uc:ExpanderControl>
 
         <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
+        
+        
+        
         <uc:ExpanderControl x:Uid="/Appearance/Startup"
                             ExpanderStyle="Static"
                             Icon="&#xE7E8;">

@@ -169,7 +169,7 @@
     <value>Disable all online services and networks</value>
   </data>
   <data name="Done.Content" xml:space="preserve">
-    <value>Done</value>
+    <value>Clear all</value>
   </data>
   <data name="EventsScan.Description" xml:space="preserve">
     <value>Scan for new media after an event or events take place.</value>

@@ -30,10 +30,13 @@ namespace Rise.App.Settings
     public sealed partial class AllSettingsPage : Page
     {
         private readonly NavigationHelper _navigationHelper;
+        public static AllSettingsPage Current;
+
         public AllSettingsPage()
         {
             InitializeComponent();
             _navigationHelper = new NavigationHelper(this);
+            Current = this;
 
             _ = new ApplicationTitleBar(TitleBar);
         }
@@ -48,7 +51,7 @@ namespace Rise.App.Settings
                 case "Appearance":
                     MainSettingsHeaderIcon.Glyph = "\uE771";
                     MainSettingsHeader.Text = "Appearance";
-                    SettingsMainFrame.Navigate(typeof(AppearancePage));
+                    SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
                     break;
                 case "MediaLibrary":
                     MainSettingsHeaderIcon.Glyph = "\uEA69";
@@ -66,19 +69,19 @@ namespace Rise.App.Settings
                     SettingsMainFrame.Navigate(typeof(PlaybackPage));
                     break;
                 case "Sync":
-                    /*MainSettingsHeaderIcon.Glyph = "\uE117";
+                    MainSettingsHeaderIcon.Glyph = "\uE117";
                     MainSettingsHeader.Text = "Syncing";
-                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    SettingsMainFrame.Navigate(typeof(ComingSoonPage));
                     break;
                 case "Behaviour":
-                    /*MainSettingsHeaderIcon.Glyph = "\uE7C4";
+                    MainSettingsHeaderIcon.Glyph = "\uE7C4";
                     MainSettingsHeader.Text = "Windows behaviours";
-                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    SettingsMainFrame.Navigate(typeof(ComingSoonPage));
                     break;
                 case "Components":
-                    /*MainSettingsHeaderIcon.Glyph = "\uEA86";
+                    MainSettingsHeaderIcon.Glyph = "\uEA86";
                     MainSettingsHeader.Text = "Manage components";
-                    SettingsMainFrame.Navigate(typeof(AboutPage));*/
+                    SettingsMainFrame.Navigate(typeof(ComingSoonPage));
                     break;
                 case "About":
                     MainSettingsHeaderIcon.Glyph = "\uE946";
@@ -111,5 +114,35 @@ namespace Rise.App.Settings
             MainSettingsHeader.Text = "Language";
             SettingsMainFrame.Navigate(typeof(LanguagePage));
         }
+
+        private void SettingsSidebar_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            //var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.InvokedItem;
+            //string selectedItemTag = selectedItem.Tag as string;
+
+            //switch (selectedItemTag)
+            //{
+            //    case "Appearance":
+            //        MainSettingsHeaderIcon.Glyph = "\uE771";
+            //        MainSettingsHeader.Text = "Appearance";
+            //        SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
+            //        break;
+            //    case "MediaLibrary":
+            //        MainSettingsHeaderIcon.Glyph = "\uEA69";
+            //        MainSettingsHeader.Text = "Media library";
+            //        SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
+            //        break;
+            //    case "Navigation":
+            //        MainSettingsHeaderIcon.Glyph = "\uE8B0";
+            //        MainSettingsHeader.Text = "Navigation";
+            //        SettingsMainFrame.Navigate(typeof(NavigationPage));
+            //        break;
+            //    case "Playback":
+            //        MainSettingsHeaderIcon.Glyph = "\uF4C3";
+            //        MainSettingsHeader.Text = "Playback & sound";
+            //        SettingsMainFrame.Navigate(typeof(PlaybackPage));
+            //        break;
+            }
+        }
     }
-}
+

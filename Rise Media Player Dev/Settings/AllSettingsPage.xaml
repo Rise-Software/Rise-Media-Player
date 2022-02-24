@@ -158,6 +158,7 @@
                                          IsSettingsVisible="False"
                                          Margin="32,76,32,30"
                                          SelectionChanged="SettingsSidebar_SelectionChanged"
+                                         ItemInvoked="SettingsSidebar_ItemInvoked"
                                          IsBackButtonVisible="Collapsed"
                                          IsBackEnabled="False"
                                          PaneDisplayMode="Left"
@@ -243,14 +244,14 @@
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
                 <Grid Margin="0,37,0,0">
                     <StackPanel Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                        <FontIcon x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
-                        <TextBlock Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontFamily="Segoe UI Variable Static Display" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                        <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
+                        <TextBlock x:FieldModifier="public" Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                     <Grid>
                         <ScrollViewer Padding="37,49,37,0" CornerRadius="8"
                       VerticalScrollBarVisibility="Auto">
 
-                        <Frame HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
+                        <Frame x:FieldModifier="public" HorizontalAlignment="Stretch" x:Name="SettingsMainFrame">
                             <TextBlock FontSize="14" FontWeight="SemiBold" Opacity="0.6" Text="Select an item from the sidebar to continue." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                             <Frame.ContentTransitions>
                                 <TransitionCollection>

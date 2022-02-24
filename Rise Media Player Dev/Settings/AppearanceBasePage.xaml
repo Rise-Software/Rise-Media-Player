@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="Rise.App.Settings.AppearanceBasePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Web"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:control="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <muxc:NavigationView x:Name="AppearanceNav" SelectedItem="{x:Bind Overview}" Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="AppearanceNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+            <muxc:NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+            </muxc:NavigationView.Resources>
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem Content="Overview" Tag="Overview" x:Name="Overview" >
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Colours" Tag="Colours" x:Name="Colours" >
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Icons &amp; fonts" Tag="IconsFonts" x:Name="IconsFonts" >
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="App layout" Tag="Layout" x:Name="Layout" >
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Motion" Tag="Motion" x:Name="Motion" >
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </muxc:NavigationView>
+        <ScrollViewer Margin="0 36">
+            <Frame HorizontalAlignment="Stretch" x:Name="AppearanceFrame">
+                <TextBlock Text="This page is coming soon" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold" Opacity="0.6"/>
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </ScrollViewer>
+    </Grid>
+</Page>
