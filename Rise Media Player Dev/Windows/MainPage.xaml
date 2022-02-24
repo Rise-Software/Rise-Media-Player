@@ -228,6 +228,7 @@
                     Margin="0,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    ToolTipService.ToolTip="Sync centre"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
                         <FontIcon Glyph="&#xE117;" Height="24" />

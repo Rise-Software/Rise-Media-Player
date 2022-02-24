@@ -129,11 +129,20 @@
   <data name="AdditionalH.Text" xml:space="preserve">
     <value>Additional settings</value>
   </data>
+  <data name="AddLocation.Title" xml:space="preserve">
+    <value>Scan when you add a new media location</value>
+  </data>
+  <data name="Automatic.Description" xml:space="preserve">
+    <value>Enable for periodic scanning and smart event scan.</value>
+  </data>
+  <data name="Automatic.Title" xml:space="preserve">
+    <value>Automatic scanning</value>
+  </data>
   <data name="AutoScanMedia.Description" xml:space="preserve">
-    <value>Scan periodically for media you've added.</value>
+    <value>Scan per a specified period of time when the app is open.</value>
   </data>
   <data name="AutoScanMedia.Title" xml:space="preserve">
-    <value>Automatic scanning</value>
+    <value>Periodic scanning</value>
   </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
     <value>Choose where we look for your music files.</value>
@@ -147,6 +156,9 @@
   <data name="Device" xml:space="preserve">
     <value>Delete from device</value>
   </data>
+  <data name="DeviceConnect.Title" xml:space="preserve">
+    <value>Scan when a removable device or drive is connected</value>
+  </data>
   <data name="Devices.Text" xml:space="preserve">
     <value>Devices</value>
   </data>
@@ -159,6 +171,15 @@
   <data name="Done.Content" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="EventsScan.Description" xml:space="preserve">
+    <value>Scan for new media after an event or events take place.</value>
+  </data>
+  <data name="EventsScan.Title" xml:space="preserve">
+    <value>Smart event scan</value>
+  </data>
+  <data name="FilesAdd.Title" xml:space="preserve">
+    <value>Scan when adding files to your media sources</value>
+  </data>
   <data name="FolderInfo.Text" xml:space="preserve">
     <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
   </data>
@@ -168,6 +189,12 @@
   <data name="LastFM.Text" xml:space="preserve">
     <value>Last.fm</value>
   </data>
+  <data name="ManualScan.Description" xml:space="preserve">
+    <value>Scans the folders you've already added for music and videos to add to your library.</value>
+  </data>
+  <data name="ManualScan.Title" xml:space="preserve">
+    <value>Manual scan</value>
+  </data>
   <data name="OnlineH.Text" xml:space="preserve">
     <value>Online media &amp; services</value>
   </data>
@@ -176,6 +203,9 @@
   </data>
   <data name="OnlyApp" xml:space="preserve">
     <value>Only remove from app</value>
+  </data>
+  <data name="Open.Title" xml:space="preserve">
+    <value>Scan when the app is opened</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>Local media &amp; devices</value>

@@ -97,5 +97,19 @@ namespace Rise.App.Settings
         {
             _ = await typeof(Web.FeedbackPage).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
         }
+
+        private void Insider_Click(object sender, RoutedEventArgs e)
+        {
+            MainSettingsHeaderIcon.Glyph = "\uF1AD";
+            MainSettingsHeader.Text = "Insider Hub";
+            SettingsMainFrame.Navigate(typeof(InsiderPage));
+        }
+
+        private void Language_Click(object sender, RoutedEventArgs e)
+        {
+            MainSettingsHeaderIcon.Glyph = "\uE12B";
+            MainSettingsHeader.Text = "Language";
+            SettingsMainFrame.Navigate(typeof(LanguagePage));
+        }
     }
 }

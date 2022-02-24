@@ -16,10 +16,12 @@
             <RowDefinition Height="32" />
             <RowDefinition />
         </Grid.RowDefinitions>
+
         <Button VerticalAlignment="Top" x:Name="BackButton"
                     Command="{x:Bind _navigationHelper.GoBackCommand}"
                     CornerRadius="5"
                     Height="28"
+                    ToolTipService.ToolTip="Back"
                     Margin="2,2,0,0"
                     Style="{StaticResource TransparentButton}"
                     Width="40"
@@ -36,10 +38,42 @@
             </muxc:AnimatedIcon>
         </Button>
 
-        <FontIcon Glyph="&#xE713;" Width="20" Height="20" FontSize="16" Margin="48,0,0,0" HorizontalAlignment="Left" />
+        <StackPanel Orientation="Horizontal">
+            <FontIcon Glyph="&#xE713;" Width="20" Height="20" FontSize="16" Margin="48,0,8,0" HorizontalAlignment="Left" />
 
-        <uc:MicaTitleBar Title="App settings" FontSize="14" Margin="52,0,0,0" x:Name="TitleBar" ShowIcon="False" />
-        
+            
+            
+        </StackPanel>
+
+        <uc:MicaTitleBar Title="App settings" HorizontalAlignment="Stretch" FontSize="14" Margin="54,0,275,0" x:Name="TitleBar" ShowIcon="False" />
+
+        <Button VerticalAlignment="Top" x:Name="SyncButton" 
+                    CornerRadius="5"
+                    Height="28"
+                    HorizontalAlignment="Right"
+                    Margin="2,2,190,0"
+                    ToolTipService.ToolTip="Sync centre"
+                    Style="{StaticResource TransparentButton}"
+                    Width="40">
+            <Button.Flyout>
+                <Flyout>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Sync centre" Margin="0,2,0,12" />
+                            <Button Content="Sync all" FontStretch="Normal" Margin="70,-9,-2,0" FontSize="12" Height="32"/>
+                        </StackPanel>
+                        <StackPanel Padding="25" Orientation="Vertical">
+                            <FontIcon Glyph="" Height="32"/>
+                            <TextBlock FontSize="14" Text="Coming soon" FontWeight="Normal" TextAlignment="Center"/>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </Flyout>
+            </Button.Flyout>
+            <FontIcon Glyph="" FontSize="14"/>
+        </Button>
+
         <Grid Margin="16,0,16,16" Grid.Row="1">
             <Border HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
@@ -93,13 +127,13 @@
                                             
                                             <MenuFlyoutSeparator/>
                                             
-                                            <MenuFlyoutItem Text="Language">
+                                            <MenuFlyoutItem x:Name="Language" Text="Language" Click="Language_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph=""/>
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             
-                                            <MenuFlyoutItem Text="Insider Hub">
+                                            <MenuFlyoutItem x:Name="Insider" Text="Insider Hub" Click="Insider_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xF1AD;"/>
                                                 </MenuFlyoutItem.Icon>
