@@ -138,6 +138,12 @@
                                                     <FontIcon Glyph="&#xF1AD;"/>
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Name="ClassicDialog" Text="Open classic dialog" Click="ClassicDialog_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE17C;"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
                                             
                                         </MenuFlyout>
 

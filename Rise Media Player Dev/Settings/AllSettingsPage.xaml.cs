@@ -143,6 +143,9 @@ namespace Rise.App.Settings
             //        SettingsMainFrame.Navigate(typeof(PlaybackPage));
             //        break;
             }
-        }
+
+        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
+            => _ = await MainPage.Current.SDialog.ShowAsync();
+    }
     }
 

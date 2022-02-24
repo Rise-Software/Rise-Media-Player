@@ -56,14 +56,14 @@
             </Button.Content>
         </Button>-->
 
-        <muxc:NavigationView x:Name="ManageFoldersNav"  Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="Selection_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+        <muxc:NavigationView x:Name="ManageFoldersNav" SelectedItem="{x:Bind AllMedia}"  Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="Selection_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
             <muxc:NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                 <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
             </muxc:NavigationView.Resources>
             
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Show all" Tag="AllMedia" >
+                <muxc:NavigationViewItem Content="Show all" Tag="AllMedia" x:Name="AllMedia" >
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Music" Tag="Music" >
                 </muxc:NavigationViewItem>

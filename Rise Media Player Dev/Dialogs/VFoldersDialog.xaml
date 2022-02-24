@@ -30,57 +30,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Margin="0,48,0,0">
-            <ListView x:Name="VideosList" x:FieldModifier="public" Grid.Row="1"
-                  IsItemClickEnabled="False"
-                  ItemsSource="{x:Bind VideoLibrary.Folders}"
-                  VerticalAlignment="Top"
-                  SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="0,0,0,4" />
-                        <Setter Property="UseSystemFocusVisuals" Value="False" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
-                            <Grid ColumnSpacing="12" VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon VerticalAlignment="Center"
-                                      Glyph="&#xE8B2;"
-                                      FontSize="16" />
-
-                                <StackPanel Grid.Column="1"
-                                        Orientation="Vertical"
-                                        VerticalAlignment="Center">
-                                    <TextBlock Text="{x:Bind DisplayName}"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           VerticalAlignment="Center" />
-                                    <TextBlock Text="{x:Bind Path}"
-                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                           VerticalAlignment="Center" />
-                                </StackPanel>
-
-                                <Button x:Uid="/Information/RemoveFolder"
-                                    Grid.Column="2"
-                                    Click="Button_Click"
-                                    Padding="8"
-                                    Style="{StaticResource TransparentButton}">
-                                    <FontIcon Glyph="&#xE106;" FontSize="12" />
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            
             <ListView Grid.Row="1"
                       x:Name="MusicList" x:FieldModifier="public"
                   IsItemClickEnabled="False"
@@ -133,6 +83,59 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <ListView x:Name="VideosList" x:FieldModifier="public" Grid.Row="1"
+                  IsItemClickEnabled="False"
+                  ItemsSource="{x:Bind VideoLibrary.Folders}"
+                  VerticalAlignment="Top"
+                  SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="0,0,0,4" />
+                        <Setter Property="UseSystemFocusVisuals" Value="False" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="storage:StorageFolder">
+                        <Border Style="{StaticResource SettingsCard}">
+                            <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <FontIcon VerticalAlignment="Center"
+                                      Glyph="&#xE8B2;"
+                                      FontSize="16" />
+
+                                <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="{x:Bind DisplayName}"
+                                           Style="{StaticResource BodyTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                                    <TextBlock Text="{x:Bind Path}"
+                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <Button x:Uid="/Information/RemoveFolder"
+                                    Grid.Column="2"
+                                    Click="Button_Click"
+                                    Padding="8"
+                                    Style="{StaticResource TransparentButton}">
+                                    <FontIcon Glyph="&#xE106;" FontSize="12" />
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
         </StackPanel>
 
         
