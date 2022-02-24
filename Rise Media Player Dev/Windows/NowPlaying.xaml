@@ -28,8 +28,10 @@
             <FadeOutThemeAnimation Storyboard.TargetName="Player" />
         </Storyboard>
     </Page.Resources>
+    
+    
 
-    <Grid>
+    <Grid CornerRadius="7">
         <Grid.Background>
             <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill">
                 <ImageBrush.ImageSource>
@@ -37,6 +39,8 @@
                 </ImageBrush.ImageSource>
             </ImageBrush>
         </Grid.Background>
+        
+        <uc:MicaTitleBar Title="" HorizontalAlignment="Stretch" FontSize="14" Margin="20,0,0,0" Visibility="Collapsed" x:Name="TitleBar" ShowIcon="False" />
 
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"

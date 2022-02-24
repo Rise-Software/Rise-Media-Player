@@ -130,6 +130,6 @@
     <value>Queue</value>
   </data>
   <data name="QueueItem.Text" xml:space="preserve">
-    <value>Queue</value>
+    <value>Up next</value>
   </data>
 </root>

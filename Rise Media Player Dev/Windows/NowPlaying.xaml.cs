@@ -19,6 +19,7 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
+            _ = new ApplicationTitleBar(TitleBar);
 
             //Player.SetMediaPlayer(ViewModel.Player);
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -35,7 +36,7 @@ namespace Rise.App.Views
                 PlayingAnimationIn.Begin();
                 PlayFrame.Visibility = Visibility.Visible;
                 Player.Visibility = Visibility.Visible;
-                ImageBrushAlbumCover.Opacity = 0.25;
+                ImageBrushAlbumCover.Opacity = 0.5;
                 BlurBrush.Amount = 10;
             }
         }

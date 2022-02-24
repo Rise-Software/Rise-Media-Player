@@ -132,7 +132,7 @@
             <uc:ExpanderControl x:Uid="/Information/AddRemove"
                                     Click="FoldersButton_Click"
                                     ExpanderStyle="Button"
-                                    Icon="&#xE1DA;" />
+                                    Icon="&#xE19C;" />
 
             <uc:ExpanderControl x:Uid="/Information/Support"
                                     Click="SupportButton_Click"
@@ -141,16 +141,11 @@
 
             <uc:ExpanderControl Click="WhatsNew_Click"
                                 ExpanderStyle="Button"
-                                Icon="&#xE109;"
+                                Icon="&#xF4A5;"
                                 Title="What's New"
                                 Description="Check out the new features in Rise Media Player."/>
 
-            <uc:ExpanderControl x:Uid="/Information/Contribute"
-                                    Click="ContributeButton_Click"
-                                    ExpanderStyle="Button"
-                                    Icon="&#xEC7A;" />
 
-            
 
             <!--<muxc:TeachingTip x:Name="vTip"
                           x:Uid="/About/More"

@@ -8,7 +8,7 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="12">
+    <Grid RowSpacing="12" Margin="-9,-46,-14,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
@@ -18,7 +18,7 @@
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
                       VerticalScrollBarVisibility="Hidden">
-            <Grid ColumnSpacing="6">
+            <Grid ColumnSpacing="6"  HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="1*" />
@@ -42,7 +42,22 @@
                     </muxc:AnimatedIcon>
                 </Button>
 
+                <muxc:NavigationView x:Name="QueueNav" SelectedItem="{x:Bind QueueItem}" Margin="24,0,0,0" IsSettingsVisible="False" SelectionChanged="QueueNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+                    <muxc:NavigationView.Resources>
+                        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    </muxc:NavigationView.Resources>
+                    <muxc:NavigationView.MenuItems>
+                        <muxc:NavigationViewItem Content="Up next" Tag="QueueItem" x:Name="QueueItem" >
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Content="Album" Tag="AlbumItem" x:Name="AlbumItem" >
+                        </muxc:NavigationViewItem>
+                    </muxc:NavigationView.MenuItems>
+                    <Frame x:Name="contentFrame"/>
+                </muxc:NavigationView>
+
                 <ToggleButton x:Name="Queue"
+                              Visibility="Collapsed"
                               Grid.Column="1"
                               IsChecked="True"
                               Tag="QueueItem">
@@ -61,6 +76,7 @@
 
                 <ToggleButton x:Name="AlbumQueue"
                               Grid.Column="2"
+                              Visibility="Collapsed"
                               Tag="AlbumItem">
                     <ToggleButton.Content>
                         <Grid ColumnSpacing="6">
@@ -82,7 +98,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   ItemsSource="{x:Bind Songs}"
                   ItemTemplate="{StaticResource NowPlayingQueueItem}"
-                  Margin="-16,0,-16,-124"
+                  Margin="-16,-12,-16,-124"
                   Padding="16,0,16,124"
                   RightTapped="MainList_RightTapped">
             <ListView.Resources>

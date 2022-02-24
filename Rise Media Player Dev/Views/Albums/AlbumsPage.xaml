@@ -6,17 +6,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:converters="using:Rise.App.Converters" xmlns:helpers="using:Rise.App.Helpers"
     mc:Ignorable="d">
 
+
+
     <Page.Resources>
+        <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
+        <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
         <converters:BoolToRoundedCorners x:Key="BoolToRounded" />
         <converters:UintToStringConverter x:Key="UintToStringConverter" />
         <converters:BooleanToVisibility x:Key="BoolToVis" />
     </Page.Resources>
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
@@ -253,6 +260,7 @@
                                 Spacing="2"
                                 Width="134">
                         <Border ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                                PointerEntered="Border_PointerEntered"
                                 Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}, Mode=OneWay}"
                                 CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
                                 <Border x:Name="AlbumThumb"

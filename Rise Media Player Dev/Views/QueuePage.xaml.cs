@@ -234,5 +234,39 @@ namespace Rise.App.Views
 
             await playlist.AddSongAsync(_selectedSong);
         }
+
+        private void QueueNav_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            string selectedItemTag = selectedItem.Tag as string;
+
+            switch (selectedItemTag)
+            {
+                case "QueueItem":
+
+                    using (Songs.DeferRefresh())
+                    {
+                        Songs.Filter = null;
+                    }
+
+                    Songs.Refresh();
+                    ViewModel.PlaybackList.CurrentItemChanged -= PlaybackList_CurrentItemChanged;
+                    break;
+
+                default:
+                    if (ViewModel.PlaybackList.CurrentItem != null)
+                    {
+                        if (ViewModel.PlaybackList.CurrentItem.GetDisplayProperties().Type == MediaPlaybackType.Music)
+                        {
+                            var props = ViewModel.PlaybackList.CurrentItem.GetDisplayProperties();
+                            Songs.Filter = s =>
+                                ((SongViewModel)s).Album == props.MusicProperties.AlbumTitle;
+                        }
+                    }
+
+                    ViewModel.PlaybackList.CurrentItemChanged += PlaybackList_CurrentItemChanged;
+                    break;
+            }
+        }
     }
 }

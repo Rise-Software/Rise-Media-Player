@@ -581,5 +581,10 @@ namespace Rise.App.Views
                 System.Diagnostics.Debug.WriteLine("Lists");
             }
         }
+
+        private void Border_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
     }
 }
