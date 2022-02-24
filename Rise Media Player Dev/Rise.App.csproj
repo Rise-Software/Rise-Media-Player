@@ -207,11 +207,20 @@
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\AppearanceBasePage.xaml.cs">
+      <DependentUpon>AppearanceBasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ComingSoonPage.xaml.cs">
+      <DependentUpon>ComingSoonPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\InsiderPage.xaml.cs">
       <DependentUpon>InsiderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\InsiderWallpapers.xaml.cs">
       <DependentUpon>InsiderWallpapers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\MediaLibraryBasePage.xaml.cs">
+      <DependentUpon>MediaLibraryBasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\MediaSourcesPage.xaml.cs">
       <DependentUpon>MediaSourcesPage.xaml</DependentUpon>
@@ -249,9 +258,6 @@
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Settings\ClassicSettings.xaml.cs">
-      <DependentUpon>ClassicSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConnectedDevicesPage.xaml.cs">
       <DependentUpon>ConnectedDevicesPage.xaml</DependentUpon>
@@ -472,6 +478,7 @@
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
+    <Content Include="Assets\Branding\AlphaBanner.png" />
     <Content Include="Assets\Branding\discygraphic.png" />
     <Content Include="Assets\Branding\settingsbanner.png" />
     <Content Include="Assets\Default.png" />
@@ -588,11 +595,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Settings\AppearanceBasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\ComingSoonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\InsiderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\MediaLibraryBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -625,10 +644,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Artists\ArtistSongsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\ClassicSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -860,6 +875,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
+    <Folder Include="Settings\AboutPages\" />
+    <Folder Include="Settings\AppearancePages\" />
+    <Folder Include="Settings\BehaviourPages\" />
+    <Folder Include="Settings\ComponentsPages\" />
+    <Folder Include="Settings\MediaLibraryPages\" />
+    <Folder Include="Settings\NavigationPages\" />
+    <Folder Include="Settings\PlaybackSoundPages\" />
+    <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Rise.Models.csproj">

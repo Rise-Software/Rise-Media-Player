@@ -228,6 +228,7 @@
                     Margin="0,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    ToolTipService.ToolTip="Sync centre"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
                         <FontIcon Glyph="&#xE117;" Height="24" />
@@ -250,8 +251,6 @@
                     </Button.Flyout>
                 </Button>
 
-
-
                 <Button
                     x:Name="MoreButton"
                     x:Uid="/Information/More"
@@ -271,7 +270,6 @@
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png"/>
                                 </MenuFlyoutItem.Background>
                             </MenuFlyoutItem>
-
 
                             <MenuFlyoutSeparator />
 
@@ -316,12 +314,6 @@
                             <MenuFlyoutItem x:Uid="/Information/Settings" Click="OpenSettings_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            
-                            <MenuFlyoutItem x:Uid="/Information/NewSettings" Click="NewSettings_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xEA86;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 

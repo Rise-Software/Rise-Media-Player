@@ -54,7 +54,7 @@ namespace Rise.App.ChangeTrackers
                     {
                         foreach (SongViewModel song in ViewModel.Songs)
                         {
-                            if (change.PreviousPath == song.Location)
+                            if (change.PreviousPath == song.Location || !File.Exists(song.Location))
                             {
                                 await song.DeleteAsync();
                             }
@@ -98,7 +98,7 @@ namespace Rise.App.ChangeTrackers
                     file = (StorageFile)await change.GetStorageItemAsync();
                     for (int i = 0; i < ViewModel.Songs.Count; i++)
                     {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
+                        if (change.PreviousPath == ViewModel.Songs[i].Location && File.Exists(ViewModel.Songs[i].Location))
                         {
                             ViewModel.Songs[i].Location = file.Path;
                             await ViewModel.Songs[i].SaveAsync();
@@ -111,7 +111,7 @@ namespace Rise.App.ChangeTrackers
                     // Song was deleted
                     for (int i = 0; i < ViewModel.Songs.Count; i++)
                     {
-                        if (change.PreviousPath == ViewModel.Songs[i].Location)
+                        if (change.PreviousPath == ViewModel.Songs[i].Location || !File.Exists(ViewModel.Songs[i].Location))
                         {
                             await ViewModel.Songs[i].DeleteAsync();
                         }
@@ -158,6 +158,7 @@ namespace Rise.App.ChangeTrackers
         /// </summary>
         public static async Task HandleMusicFolderChanges()
         {
+            List<SongViewModel> toRemove = new();
             /*foreach (SongViewModel song in ViewModel.Songs)
             {
                 if (!File.Exists(song.Location))
@@ -166,11 +167,20 @@ namespace Rise.App.ChangeTrackers
                 }
             }*/
 
-            for (int i = 0; i < ViewModel.Songs.Count; i++)
+            try
             {
-                if (!File.Exists(ViewModel.Songs[i].Location))
+                for (int i = 0; i < ViewModel.Songs.Count; i++)
                 {
-                    await ViewModel.Songs[i].DeleteAsync();
+                    if (!File.Exists(ViewModel.Songs[i].Location))
+                    {
+                        toRemove.Add(ViewModel.Songs[i]);
+                    }
+                }
+            } finally
+            {
+                foreach (SongViewModel song in toRemove)
+                {
+                    await song.DeleteAsync();
                 }
             }
         }

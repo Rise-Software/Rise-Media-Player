@@ -334,7 +334,11 @@ namespace Rise.App.Views
                     break;
 
                 case "SettingsPage":
-                    _ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    //_ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        _ = rootFrame.Navigate(typeof(AllSettingsPage));
+                    }
                     break;
 
                 default:
@@ -704,7 +708,7 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await OpenPageAsWindowAsync(typeof(Web.FeedbackPage));
+            _ = await typeof(Web.FeedbackPage).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
@@ -713,7 +717,14 @@ namespace Rise.App.Views
         }
 
         private async void OpenSettings_Click(object sender, RoutedEventArgs e)
-            => _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(AllSettingsPage));
+            }
+
+            // _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+        }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
             => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
@@ -833,10 +844,10 @@ namespace Rise.App.Views
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                List<SearchItemViewModel> suitableItems = new List<SearchItemViewModel>();
-                List<ArtistViewModel> suitableArtists = new List<ArtistViewModel>();
-                List<SongViewModel> suitableSongs = new List<SongViewModel>();
-                List<AlbumViewModel> suitableAlbums = new List<AlbumViewModel>();
+                List<SearchItemViewModel> suitableItems = new();
+                List<ArtistViewModel> suitableArtists = new();
+                List<SongViewModel> suitableSongs = new();
+                List<AlbumViewModel> suitableAlbums = new();
 
                 int maxCount = 4;
 
@@ -950,7 +961,10 @@ namespace Rise.App.Views
 
         private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            _ = await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(AllSettingsPage));
+            }
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)

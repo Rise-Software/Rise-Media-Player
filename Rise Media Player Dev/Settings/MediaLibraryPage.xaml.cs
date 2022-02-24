@@ -46,10 +46,11 @@ namespace Rise.App.Settings
         };
         #endregion
 
-        public MediaLibraryPage()
+                public MediaLibraryPage()
         {
             InitializeComponent();
             Current = this;
+
 
             FolderDialog.Content = Dialog;
             VFolderDialog.Content = VDialog;
@@ -62,11 +63,15 @@ namespace Rise.App.Settings
             get => LastFMStatus.IsEnabled;
             set => LastFMStatus.IsEnabled = value;
         }
-        private async void ChooseFolders_Click(object sender, RoutedEventArgs e)
-            => _ = await FolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-
-        private async void VChooseFolders_Click(object sender, RoutedEventArgs e)
-            => _ = await VFolderDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        private async void GotoManage_Click(object sender, RoutedEventArgs e)
+        {
+            AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
+            AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
+            AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
+            //AllSettingsPage.Current.BackMediaLibrary.Visibility = Visibility.Visible;
+            //AllSettingsPage.Current.HeaderArea.Padding = 87,0,37,0;
+        }
+         
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
         {
@@ -98,9 +103,5 @@ namespace Rise.App.Settings
             }
         }
 
-        private async void ScanningOpt_Click(object sender, RoutedEventArgs e)
-        {
-            await typeof(ScanningPage).PlaceInWindowAsync(ApplicationViewMode.Default, 600, 600, true);
-        }
     }
 }

@@ -210,6 +210,15 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Removes a song to the playlist.
+        /// </summary>
+        public async Task RemoveSongAsync(SongViewModel song)
+        {
+            Songs.Remove(song);
+            await SaveAsync();
+        }
+
+        /// <summary>
         /// Adds multiple songs to the playlist.
         /// </summary>
         public async Task AddSongsAsync(IEnumerable<SongViewModel> songs)
@@ -280,6 +289,21 @@ namespace Rise.App.ViewModels
             {
                 //await RefreshPlaylistsAsync();
                 IsModified = false;
+            }
+        }
+
+        public async Task RemoveSongsAsync(List<SongViewModel> songs)
+        {
+            try
+            {
+                foreach (SongViewModel song in songs)
+                {
+                    Songs.Remove(song);
+                }
+            }
+            finally
+            {
+                await SaveAsync();
             }
         }
     }

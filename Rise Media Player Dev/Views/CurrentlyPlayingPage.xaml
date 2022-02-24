@@ -12,21 +12,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        
-        <Button VerticalAlignment="Top" x:Name="QueueButton"
-                    CornerRadius="5"
-                    Height="28"
-                    Margin="-12,-42,0,0"
-                    Style="{StaticResource TransparentButton}"
-                    Width="40"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
-            <FontIcon Glyph="&#xE14C;" FontSize="12"/>
-
-
-
-            </Button>
         <Grid x:Name="TopGrid"
               Canvas.ZIndex="1"
               Height="32"

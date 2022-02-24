@@ -73,84 +73,19 @@
                 </StackPanel>
             </uc:AdaptiveItemPane.LeftPane>
 
-            <uc:AdaptiveItemPane.RightPane>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="12">
-
-                    <Button Click="ScanningOpt_Click" Style="{StaticResource TransparentButton}" Tag="SCAN"
-                             Name="ScanningOpt">
-                        <StackPanel Orientation="Horizontal"
-                                    Spacing="8">
-                            <FontIcon Glyph="&#xE11A;" VerticalAlignment="Center" />
-
-                            <StackPanel Orientation="Vertical"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="Scanning options" FontWeight="SemiBold" />
-                                <TextBlock Text="Change when we scan" FontSize="12"
-                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Button>
-
-
-
-                    <Button Click="CommandBarButton_Click" Style="{StaticResource TransparentButton}" Tag="LocalMedia">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal"
-                                    Spacing="8">
-                                <FontIcon Glyph="&#xE8B7;" VerticalAlignment="Center" />
-
-                                <StackPanel Orientation="Vertical"
-                                        VerticalAlignment="Center">
-                                    <TextBlock Text="Add media sources" FontWeight="SemiBold" />
-                                    <TextBlock Text="Videos, music and more" FontSize="12"
-                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Button.Content>
-                        <Button.Flyout>
-                            <MenuFlyout>
-
-                                <MenuFlyoutItem Text="Music on device"
-                                                Click="ChooseFolders_Click">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xE8D6;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-
-                                <MenuFlyoutItem Text="Videos on device"
-                                                Click="VChooseFolders_Click">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xE8B2;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-
-                                <MenuFlyoutSeparator/>
-
-                                <MenuFlyoutItem Text="Network share"
-                                                IsEnabled="False">
-                                    <MenuFlyoutItem.Icon>
-                                        <FontIcon Glyph="&#xEC27;" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-
-                            </MenuFlyout>
-                        </Button.Flyout>
-                        
-
-
-                    </Button>
-
-                    
-                </StackPanel>
-            </uc:AdaptiveItemPane.RightPane>
+            
         </uc:AdaptiveItemPane>
 
 
 
+        <uc:ExpanderControl x:Name="GotoManage" x:Uid="/MediaLibrary/ManageFolders"
+                               ExpanderStyle="Button"
+                               Icon="&#xE19C;"
+                            Click="GotoManage_Click">
+            <FontIcon Glyph="&#xE00F;"/>
+        </uc:ExpanderControl>
 
-
-        <TextBlock x:Uid="/MediaLibrary/OwnH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource Subheader}" />
 
         <uc:ExpanderControl x:Uid="/MediaLibrary/Deletion"
                                ExpanderStyle="Disabled"
