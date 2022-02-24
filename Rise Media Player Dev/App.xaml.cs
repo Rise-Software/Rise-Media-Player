@@ -414,8 +414,8 @@ namespace Rise.App
                                 break;
                         }
 
-                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
                         IndexingTimer.Start();
+                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
                     }
                 }
                 else
