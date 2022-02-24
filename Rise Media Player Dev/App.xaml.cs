@@ -369,13 +369,16 @@ namespace Rise.App
                     }
                 }
 
-                _ = await KnownFolders.MusicLibrary.
+                if (SViewModel.AutoIndexingEnabled || SViewModel.IndexingMode > -1)
+                {
+                    _ = await KnownFolders.MusicLibrary.
                     TrackForegroundAsync(QueryPresets.SongQueryOptions,
                     SongsTracker.MusicQueryResultChanged);
-                _ = await KnownFolders.VideosLibrary.
-                    TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                    SongsTracker.MusicQueryResultChanged);
-
+                    _ = await KnownFolders.VideosLibrary.
+                        TrackForegroundAsync(QueryPresets.VideoQueryOptions,
+                        SongsTracker.MusicQueryResultChanged);
+                }
+                
                 // await MViewModel.StartFullCrawlAsync();
 
                 // Place the frame in the current Window
@@ -414,8 +417,8 @@ namespace Rise.App
                                 break;
                         }
 
-                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
                         IndexingTimer.Start();
+                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
                     }
                 }
                 else
