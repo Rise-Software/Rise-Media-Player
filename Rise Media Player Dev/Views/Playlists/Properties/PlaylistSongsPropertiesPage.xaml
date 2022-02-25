@@ -5,40 +5,60 @@
     xmlns:local="using:Rise.App.Views.Playlists.Properties"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <ListView ItemsSource="{x:Bind _plViewModel.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,0,-12,0" Padding="0,0,12,0">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="viewmodels:SongViewModel">
-                <ListViewItem Style="{ThemeResource DefaultListViewItemStyle}" Margin="-16,5,0,5">
-                    <Border HorizontalAlignment="Stretch"
-                            Background="{StaticResource LayerFillColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                        <Grid Padding="10,5,5,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="135" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{x:Bind Title}" VerticalAlignment="Center" />
+    <StackPanel>
+        <uc:ExpanderControl x:Uid="/Details/AsPlaylist"
+                               ExpanderStyle="Static"
+                               Icon="&#xE82F;">
+            <Button x:Name="LocalButton"
+                    Visibility="Collapsed"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    
+                    Padding="0">
+                <Button.Content>
+                    <FontIcon FontSize="16" Glyph="&#xE946;" />
+                </Button.Content>
+            </Button>
+        </uc:ExpanderControl>
 
-                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Grid.Column="1">
-                                <Button Style="{StaticResource TransparentButton}" Click="MoveUp_Click" Tag="{x:Bind}">
-                                    <FontIcon Glyph="&#xE014;" />
-                                </Button>
-                                <Button Style="{StaticResource TransparentButton}" Click="MoveBottom_Click" Tag="{x:Bind}">
-                                    <FontIcon Glyph="&#xE015;" />
-                                </Button>
-                                <Button Style="{StaticResource TransparentButton}" Click="RemoveSong_Click" Tag="{x:Bind}">
-                                    <FontIcon Glyph="&#xE106;" />
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </ListViewItem>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        <ListView ItemsSource="{x:Bind _plViewModel.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,8,-12,0" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                    <ListViewItem Style="{ThemeResource DefaultListViewItemStyle}" Margin="-16,0,0,5">
+                        <Border HorizontalAlignment="Stretch"
+                           Style="{StaticResource SettingsCard}"
+                            CornerRadius="3"
+                            Padding="4"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                            <Grid Padding="10,5,5,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="135" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Bind Title}" VerticalAlignment="Center" />
+
+                                <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Grid.Column="1">
+                                    <Button Style="{StaticResource TransparentButton}" Click="MoveUp_Click" Tag="{x:Bind}">
+                                        <FontIcon Glyph="&#xE014;" />
+                                    </Button>
+                                    <Button Style="{StaticResource TransparentButton}" Click="MoveBottom_Click" Tag="{x:Bind}">
+                                        <FontIcon Glyph="&#xE015;" />
+                                    </Button>
+                                    <Button Style="{StaticResource TransparentButton}" Click="RemoveSong_Click" Tag="{x:Bind}">
+                                        <FontIcon Glyph="&#xE106;" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </ListViewItem>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+
+    
 </Page>

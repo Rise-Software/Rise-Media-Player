@@ -66,7 +66,6 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
                             <FontIcon FontSize="16" Glyph="&#xEC4F;" />
                             <TextBlock x:Uid="/Props/SongsItem" Grid.Column="2" />
                         </Grid>
@@ -75,16 +74,18 @@
             </Grid>
         </ScrollViewer>
 
-        <Frame x:Name="PropsFrame"
-               Grid.Row="2"
-               Padding="12"
-               Background="{ThemeResource NavigationViewContentBackground}">
-            <Frame.ContentTransitions>
-                <TransitionCollection>
-                    <NavigationThemeTransition />
-                </TransitionCollection>
-            </Frame.ContentTransitions>
-        </Frame>
+        <ScrollViewer Grid.Row="2"
+                      Background="{ThemeResource NavigationViewContentBackground}"
+                      Padding="12,0"
+                      VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="PropsFrame" Padding="0,12">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </ScrollViewer>
 
         <Grid Grid.Row="3"
               BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
@@ -102,6 +103,7 @@
             <Button x:Uid="/Props/Save"
                     Grid.Column="1"
                     Style="{StaticResource AccentButtonStyle}"
+                    Click="Button_Click"
                     Width="120" />
             <Button x:Uid="/Props/Cancel"
                     Grid.Column="2"

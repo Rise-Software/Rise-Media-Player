@@ -38,6 +38,7 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
+            
 
             Toggles = ItemGrid.GetChildren<ToggleButton>();
             //Loaded += (s, e) =>
@@ -120,5 +121,9 @@ namespace Rise.App.Views
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
             => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+           await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
     }
 }
