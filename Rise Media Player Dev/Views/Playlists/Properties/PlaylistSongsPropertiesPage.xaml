@@ -20,14 +20,20 @@
                         <Grid Padding="10,5,5,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="135" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{x:Bind Title}" VerticalAlignment="Center" />
 
                             <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Grid.Column="1">
-                                <Button Content="t" Style="{StaticResource TransparentButton}" />
-                                <Button Content="t" Style="{StaticResource TransparentButton}" />
-                                <Button Content="t" Style="{StaticResource TransparentButton}" />
+                                <Button Style="{StaticResource TransparentButton}" Click="MoveUp_Click" Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE014;" />
+                                </Button>
+                                <Button Style="{StaticResource TransparentButton}" Click="MoveBottom_Click" Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE015;" />
+                                </Button>
+                                <Button Style="{StaticResource TransparentButton}" Click="RemoveSong_Click" Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE106;" />
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </Border>

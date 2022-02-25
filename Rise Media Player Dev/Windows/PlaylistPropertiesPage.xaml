@@ -101,7 +101,6 @@
             <Rectangle />
             <Button x:Uid="/Props/Save"
                     Grid.Column="1"
-                    
                     Style="{StaticResource AccentButtonStyle}"
                     Width="120" />
             <Button x:Uid="/Props/Cancel"
