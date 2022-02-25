@@ -141,7 +141,7 @@
                 x:Name="AppTitleBar"
                 x:FieldModifier="public"
                 Height="40"
-                Margin="48,8,0,0"
+                Margin="48,4,0,0"
                 VerticalAlignment="Top"
                 AddLabelWidth="800"
                 Canvas.ZIndex="1"
