@@ -82,7 +82,12 @@ namespace Rise.App.Views
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-            => Frame.GoBack();
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
+        }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {

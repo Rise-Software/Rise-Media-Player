@@ -40,41 +40,32 @@ namespace Rise.App.Views
 
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 PlayingAnimationIn.Begin();
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 PlayFrame.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 ImageBrushAlbumCover.Opacity = 0.5;
                 BlurBrush.Amount = 10;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             }
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 PlayingAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Collapsed;
                 ImageBrushAlbumCover.Opacity = 1;
                 BlurBrush.Amount = 0;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             }
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void PlayFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
             BackForPlay.Visibility = IsInCurrentlyPlayingPage ? Visibility.Collapsed : Visibility.Visible;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
