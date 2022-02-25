@@ -26,6 +26,15 @@ namespace Rise.App.UserControls
 {
     public sealed partial class NowPlayingBar : UserControl
     {
+
+        private MainViewModel MViewModel => App.MViewModel;
+
+        private SongViewModel SelectedSong
+        {
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
+        }
+
         #region Variables
         private readonly MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
@@ -672,6 +681,17 @@ namespace Rise.App.UserControls
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
             }
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedSong = App.PViewModel.CurrentSong;
+            await SelectedSong.StartEdit();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            QueueFrame.Navigate(typeof(QueuePage));
         }
     }
 }

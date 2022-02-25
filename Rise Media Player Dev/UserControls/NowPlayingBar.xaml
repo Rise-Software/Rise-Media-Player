@@ -29,6 +29,7 @@
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
 
+
         <MenuFlyout x:Name="MiniMenuFlyout">
             <MenuFlyoutItem Text="Add to pinned" IsEnabled="True" Click="MiniMenuFlyout_Click">
                 <MenuFlyoutItem.Icon>
@@ -38,15 +39,15 @@
         </MenuFlyout>
 
         <MenuFlyout x:Key="MoreMenuFlyout">
-            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
+            <MenuFlyoutItem x:Name="Props" Text="Info &amp; Properties" Click="Props_Click" IsEnabled="True">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Queue" IsEnabled="False">
+            <MenuFlyoutItem Text="Lyrics" IsEnabled="False">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xEA37;" />
+                    <FontIcon Glyph="&#xF12E;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
@@ -136,7 +137,7 @@
             </MenuFlyoutSubItem>
         </MenuFlyout>
 
-        <Flyout x:Key="VolumeFlyout">
+        <Flyout x:Key="VolumeFlyout" >
             <RelativePanel Width="200">
                 <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
                     <SymbolIcon Symbol="Volume" />
@@ -145,6 +146,8 @@
                 <TextBlock Text="{x:Bind VolumeSlider1.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
             </RelativePanel>
         </Flyout>
+
+        
     </UserControl.Resources>
 
     <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
@@ -349,21 +352,18 @@
                             BorderThickness="0"
                             Padding="10"
                             Height="35"
-                            ToolTipService.ToolTip="Lyrics">
+                            Click="Button_Click"
+                            ToolTipService.ToolTip="Queue">
                         <FontIcon Glyph=""
                                   FontSize="16"/>
                         <Button.Flyout>
                             <Flyout>
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Lyrics" Margin="0,2,0,12" />
-                                    </StackPanel>
-                                    <StackPanel Padding="25" Orientation="Vertical">
-                                        <FontIcon Glyph="" Height="32"/>
-                                        <TextBlock FontSize="14" Padding="50,0,50,0" Text="Coming soon" FontWeight="Normal" TextAlignment="Center"/>
 
-                                    </StackPanel>
-                                </StackPanel>
+                                <Grid Height="auto" Padding="-8">
+                                    <ScrollViewer>
+                                        <Frame Margin="12,39,12,0" x:Name="QueueFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </ScrollViewer>
+                                </Grid>
 
                             </Flyout>
                         </Button.Flyout>
