@@ -71,7 +71,7 @@
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource BodyTextBlockStyle}" />
 
-                        <muxc:SplitButton >
+                        <muxc:SplitButton Name="EditPlaylistIcon" Click="EditPlaylistIcon_Click" >
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon Glyph="&#xE104;" FontSize="16" />
                                 <TextBlock x:Uid="/Details/EditPlaylist"
