@@ -74,13 +74,18 @@
             </Grid>
         </ScrollViewer>
 
-        <Frame x:Name="PropsFrame" Grid.Row="2" Background="{ThemeResource NavigationViewContentBackground}" Padding="12">
+        <ScrollViewer Grid.Row="2"
+                      Background="{ThemeResource NavigationViewContentBackground}"
+                      Padding="12,0"
+                      VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="PropsFrame" Padding="0,12">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
-                        <NavigationThemeTransition/>
+                        <NavigationThemeTransition />
                     </TransitionCollection>
                 </Frame.ContentTransitions>
-        </Frame>
+            </Frame>
+        </ScrollViewer>
 
         <Grid Grid.Row="3"
               BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
