@@ -271,11 +271,20 @@
     <Compile Include="Views\NoMediaFound.xaml.cs">
       <DependentUpon>NoMediaFound.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NPBarQueuePage.xaml.cs">
+      <DependentUpon>NPBarQueuePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
       <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistDetailsPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistDetailsPropertiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistSongsPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistSongsPropertiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
@@ -663,11 +672,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NPBarQueuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Playlists\PlaylistDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Playlists\PlaylistsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistDetailsPropertiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistSongsPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

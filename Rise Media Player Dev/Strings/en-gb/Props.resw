@@ -141,13 +141,19 @@
   <data name="LyricsItem.Text" xml:space="preserve">
     <value>Lyrics</value>
   </data>
+  <data name="PlaylistWindowTitle.Title" xml:space="preserve">
+    <value>Playlist info</value>
+  </data>
   <data name="ProfileItem.Text" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
     <value>Save changes</value>
   </data>
+  <data name="SongsItem.Text" xml:space="preserve">
+    <value>Songs</value>
+  </data>
   <data name="WindowTitle.Title" xml:space="preserve">
-    <value>Song Info</value>
+    <value>Song info</value>
   </data>
 </root>

@@ -9,15 +9,6 @@
     "IsFooter": false
   },
   {
-    "LabelResource": "NowPlaying",
-    "Tag": "NowPlayingPage",
-    "Icon": "\uEA37",
-    "HeaderGroup": "General",
-    "AccKey": "Q",
-    "Visible": true,
-    "IsFooter": false
-  },
-  {
     "LabelResource": "Playlists",
     "Tag": "PlaylistsPage",
     "Icon": "\uE8FD",

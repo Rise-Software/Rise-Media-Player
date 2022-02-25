@@ -284,7 +284,7 @@ namespace Rise.App.UserControls
         {
             Button button = sender as Button;
             Border border = button.Parent as Border;
-            border.BorderBrush = PlayBorderBrush;
+            border.BorderBrush = PlayBorderBrushDark;
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)

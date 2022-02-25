@@ -115,7 +115,7 @@
                 <ToggleMenuFlyoutItem Text="Picture slideshow" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Settings">
+            <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE713;" />
                 </MenuFlyoutSubItem.Icon>
@@ -131,16 +131,16 @@
         </MenuFlyout>
     </UserControl.Resources>
 
-    <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
-        <Grid x:Name="Grid" Padding="5"
+    <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}" >
+        <Grid x:Name="Grid" Padding="4,4,4,4"
               Background="{ThemeResource SystemControlAcrylicElementBrush}"
               BorderThickness="1"
-              CornerRadius="8"
+              CornerRadius="7"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
 
             <RelativePanel VerticalAlignment="Center">
                 <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="ButtonsContainer" RelativePanel.AlignLeftWithPanel="True" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Height="45"
+                    <Button Height="40" Width="40"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             Click="PlayButton_Click"
@@ -150,16 +150,16 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
@@ -170,7 +170,7 @@
 
                     <Button Click="Back10_Click"
                             Margin="5,0,0,0"
-                            Height="45"
+                            Height="40" Width="40"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             ToolTipService.ToolTip="Move back 10 seconds"
@@ -180,25 +180,25 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3C;" FontSize="16" x:Name="Back10Icon" />
+                        <FontIcon Glyph="&#xED3C;" FontSize="18" x:Name="Back10Icon" />
                     </Button>
                     <Button Margin="0,0,5,0"
-                            Height="45"
+                            Height="40" Width="40"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             x:Name="Forward30"
@@ -209,22 +209,22 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3D;" FontSize="16" x:Name="Forward30Icon" />
+                        <FontIcon Glyph="&#xED3D;" FontSize="18" x:Name="Forward30Icon" />
                     </Button>
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
@@ -243,7 +243,7 @@
                 <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
                     <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <ToggleButton
-                                Height="45"
+                                Height="40" Width="40"
                                 Margin="5,0,0,0"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
@@ -252,7 +252,7 @@
                                 Click="RepeatButton_Click">
                             <FontIcon Glyph="&#xE1CD;"/>
                         </ToggleButton>
-                        <Button Height="45"
+                        <Button Height="40" Width="40"
                                 Margin="5,0,0,0"
                                 HorizontalAlignment="Right"
                                 x:Name="VolumeFlyoutButton"
@@ -291,8 +291,8 @@
                             BorderBrush="Transparent">
                             <FontIcon Glyph="&#xEE49;"  />
                         </Button>
-                        
-                        <Button Height="45"
+
+                        <Button Height="40" Width="40"
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
                                 ToolTipService.ToolTip="More"

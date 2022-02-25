@@ -26,6 +26,15 @@ namespace Rise.App.UserControls
 {
     public sealed partial class NowPlayingBar : UserControl
     {
+
+        private MainViewModel MViewModel => App.MViewModel;
+
+        private SongViewModel SelectedSong
+        {
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
+        }
+
         #region Variables
         private readonly MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
@@ -404,6 +413,7 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
@@ -411,6 +421,7 @@ namespace Rise.App.UserControls
             }
             else
             {
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
@@ -672,6 +683,17 @@ namespace Rise.App.UserControls
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
             }
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedSong = App.PViewModel.CurrentSong;
+            await SelectedSong.StartEdit();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            QueueFrame.Navigate(typeof(NPBarQueuePage));
         }
     }
 }

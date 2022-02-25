@@ -57,19 +57,6 @@
                            HorizontalAlignment="Stretch"
                            Margin="-16,0" />
 
-                <uc:ExpanderControl x:Uid="/Navigation/NowPlaying"
-                                       ExpanderStyle="Transparent"
-                                       Icon="&#xEA37;"
-                                       Margin="0,-8">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.ShowNowPlaying, Mode=TwoWay}"
-                                  Margin="0,2,0,0" />
-                </uc:ExpanderControl>
-
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0" />
-
                 <uc:ExpanderControl x:Uid="/Navigation/Playlists"
                                        ExpanderStyle="Transparent"
                                        Icon="&#xE8FD;"
@@ -166,7 +153,7 @@
         </uc:ExpanderControl>
 
         <uc:ExpanderControl x:Uid="/Navigation/VideoItems"
-                               Icon="&#xE173;">
+                               Icon="&#xE8B2;">
             <uc:ExpanderControl.HeaderControls>
                 <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
             </uc:ExpanderControl.HeaderControls>
@@ -190,7 +177,7 @@
 
                 <uc:ExpanderControl x:Uid="/Navigation/Local"
                                        ExpanderStyle="Transparent"
-                                       Icon="&#xE8B7;"
+                                       Icon="&#xE8B2;"
                                        Margin="0,-8,0,-16">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLocalVideos, Mode=TwoWay}"
                                   Margin="0,2,0,0" />

@@ -15,6 +15,7 @@
         <Grid x:Name="TopGrid"
               Canvas.ZIndex="1"
               Height="32"
+              Margin="-9,-37,-15,15"
               CornerRadius="0"
               VerticalAlignment="Top">
             <Grid.Transitions>
@@ -23,7 +24,33 @@
                 </TransitionCollection>
             </Grid.Transitions>
 
-            <Button x:Uid="/NowPlaying/Queue"
+            <Button Margin="0,-50"
+                        x:Uid="/NowPlaying/Queue"
+                    Click="Queue_Click"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Height="32"
+                    Width="32"
+                        Padding="8">
+                <Button.Content>
+                    <FontIcon FontSize="16" Glyph="&#xEE47;" />
+                </Button.Content>
+            </Button>
+            
+            <Button Margin="32,-50"
+                        x:Uid="/NowPlaying/Queue"
+                    Click="Queue_Click"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Height="32"
+                    Width="32"
+                        Padding="8">
+                <Button.Content>
+                    <FontIcon FontSize="16" Glyph="&#xEA37;" />
+                </Button.Content>
+            </Button>
+
+            <!--<Button x:Uid="/NowPlaying/Queue"
                     Click="Queue_Click"
                     CornerRadius="5"
                     Height="36"
@@ -34,40 +61,31 @@
                 <Button.Content>
                     <FontIcon FontSize="14" Glyph="&#xEA37;" />
                 </Button.Content>
-            </Button>
+            </Button>-->
 
         </Grid>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" />
 
-            <!--<Button x:Uid="/NowPlaying/Queue"
-                Click="Queue_Click"
-                Style="{StaticResource TransparentButton}">
-                <Button.Content>
-                    <FontIcon FontSize="16" Glyph="&#xEA37;" />
-                </Button.Content>
-            </Button>-->
-
-            <Rectangle Grid.Row="1" />
-
-            <StackPanel Grid.Row="2" Orientation="Vertical">
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,48,0,0" VerticalAlignment="Center">
                 <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
-                       FontWeight="SemiBold"
                        MaxLines="1"
                        HorizontalTextAlignment="Center"
+                       FontSize="24"
+                       FontWeight="Bold"
                        Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
-                       FontSize="22"
+                       FontSize="18"
+                           Margin="0,4,0,0"
+                           Opacity="0.6"
+                           FontWeight="SemiBold"
                        HorizontalTextAlignment="Center"
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}" />
                 <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
-                       Margin="0,4"
+                       Margin="0,4,0,0"
+                           FontSize="16"
+                           Opacity="0.6"
                        MaxLines="1"
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="NoWrap"
@@ -75,5 +93,4 @@
                        VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
-   </Grid>
 </Page>

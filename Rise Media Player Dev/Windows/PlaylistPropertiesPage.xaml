@@ -11,6 +11,115 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <uc:MicaTitleBar x:Uid="/Props/PlaylistWindowTitle"
+                         Canvas.ZIndex="1"
+                         AddLabelWidth="0"
+                         Height="24"
+                         Margin="-12,8,0,0"
+                         ShowIcon="False"
+                         VerticalAlignment="Top" />
+
+        <ScrollViewer Grid.Row="1"
+                      BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
+                      BorderThickness="0,0,0,1"
+                      HorizontalScrollBarVisibility="Auto"
+                      HorizontalAlignment="Stretch"
+                      Padding="12"
+                      VerticalAlignment="Center"
+                      VerticalScrollBarVisibility="Hidden">
+            <Grid x:Name="ItemGrid" ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <ToggleButton x:Name="Details"
+                              Checked="ToggleButton_Checked"
+                              HorizontalAlignment="Stretch"
+                              Tag="DetailsItem">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon FontSize="16" Glyph="&#xE946;" />
+                            <TextBlock x:Uid="/Props/DetailItem" Grid.Column="1" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <ToggleButton x:Name="Songs"
+                              Grid.Column="1"
+                              Checked="ToggleButton_Checked"
+                              HorizontalAlignment="Stretch"
+                              Tag="SongsItem">
+                    <ToggleButton.Content>
+                        <Grid ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon FontSize="16" Glyph="&#xEC4F;" />
+                            <TextBlock x:Uid="/Props/SongsItem" Grid.Column="2" />
+                        </Grid>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </Grid>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="2"
+                      Background="{ThemeResource NavigationViewContentBackground}"
+                      Padding="12,0"
+                      VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="PropsFrame" Padding="0,12">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </ScrollViewer>
+
+        <Grid Grid.Row="3"
+              BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
+              BorderThickness="0,1,0,0"
+              ColumnSpacing="12"
+              HorizontalAlignment="Stretch"
+              Padding="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+
+            <Rectangle />
+            <Button x:Uid="/Props/Save"
+                    Grid.Column="1"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Click="Button_Click"
+                    Width="120" />
+            <Button x:Uid="/Props/Cancel"
+                    Grid.Column="2"
+                    Click="CancelButton_Click"
+                    Width="120" />
+        </Grid>
+
+        <muxc:TeachingTip x:Name="ErrorTip"
+                          x:Uid="/Props/Error"
+                          PreferredPlacement="Bottom" />
+    </Grid>
+    
+    
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
@@ -58,8 +167,8 @@
         </ScrollViewer>
 
         <StackPanel HorizontalAlignment="Right" Margin="0,0,10,10" Spacing="10" Orientation="Horizontal" Grid.Row="2" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-            <Button Content="Cancel" />
+            <Button Content="Cancel" Click="CancelButton_Click"/>
             <Button Style="{StaticResource AccentButtonStyle}" Content="Save" />
         </StackPanel>
-    </Grid>
+    </Grid>-->
 </Page>

@@ -120,11 +120,17 @@
   <data name="AsFile.Title" xml:space="preserve">
     <value>This song is stored as a file on your device.</value>
   </data>
+  <data name="AsPlaylist.Title" xml:space="preserve">
+    <value>Move songs by clicking the up and down buttons.</value>
+  </data>
   <data name="Disc.Text" xml:space="preserve">
     <value>Disc</value>
   </data>
   <data name="EditAlbum.Text" xml:space="preserve">
     <value>Edit album art</value>
+  </data>
+  <data name="EditPlaylist.Text" xml:space="preserve">
+    <value>Edit playlist icon</value>
   </data>
   <data name="Genre.Text" xml:space="preserve">
     <value>Genre</value>
@@ -134,6 +140,12 @@
   </data>
   <data name="Local.Title" xml:space="preserve">
     <value>Local Music</value>
+  </data>
+  <data name="PlaylistDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="PlaylistTitle.Text" xml:space="preserve">
+    <value>Playlist name</value>
   </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Rating</value>
