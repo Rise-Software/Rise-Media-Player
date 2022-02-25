@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="Rise.App.Views.Playlists.Properties.PlaylistSongsPropertiesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Views.Playlists.Properties"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    mc:Ignorable="d">
+
+    <ListView ItemsSource="{x:Bind _plViewModel.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,0,-12,0" Padding="0,0,12,0">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="viewmodels:SongViewModel">
+                <ListViewItem Style="{ThemeResource DefaultListViewItemStyle}" Margin="-16,5,0,5">
+                    <Border HorizontalAlignment="Stretch"
+                            Background="{StaticResource LayerFillColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                        <Grid Padding="10,5,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{x:Bind Title}" VerticalAlignment="Center" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Grid.Column="1">
+                                <Button Content="t" Style="{StaticResource TransparentButton}" />
+                                <Button Content="t" Style="{StaticResource TransparentButton}" />
+                                <Button Content="t" Style="{StaticResource TransparentButton}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ListViewItem>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Page>

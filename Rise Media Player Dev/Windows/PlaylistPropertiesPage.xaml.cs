@@ -1,6 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.App.Views.Playlists.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +51,7 @@ namespace Rise.App.Views
             base.OnNavigatedTo(e);
             Details.IsChecked = true;
             _plViewModel = e.Parameter as PlaylistViewModel;
-            _updatedPlViewModel = new(_plViewModel.Model);
+            _updatedPlViewModel = _plViewModel;
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -65,11 +66,11 @@ namespace Rise.App.Views
             switch (clicked.Tag.ToString())
             {
                 case "DetailsItem":
-                    //_ = PropsFrame.Navigate(typeof(DetailsPage), Props);
+                    _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), _updatedPlViewModel);
                     break;
 
                 case "SongsItem":
-                    //_ = PropsFrame.Navigate(typeof(FilePage), Props);
+                    _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), _updatedPlViewModel);
                     break;
 
                 default:

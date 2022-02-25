@@ -277,6 +277,12 @@
     <Compile Include="Views\Playlists\PlaylistsPage.xaml.cs">
       <DependentUpon>PlaylistsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistDetailsPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistDetailsPropertiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistSongsPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistSongsPropertiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
@@ -668,6 +674,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Playlists\PlaylistsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistDetailsPropertiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistSongsPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
