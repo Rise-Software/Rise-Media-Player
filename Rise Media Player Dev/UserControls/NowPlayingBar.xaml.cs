@@ -695,7 +695,7 @@ namespace Rise.App.UserControls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            QueueFrame.Navigate(typeof(QueuePage));
+            QueueFrame.Navigate(typeof(NPBarQueuePage));
         }
     }
 }

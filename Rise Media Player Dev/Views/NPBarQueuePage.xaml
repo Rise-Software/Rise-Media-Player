@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Rise.App.Views.QueuePage"
+    x:Class="Rise.App.Views.NPBarQueuePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -25,24 +25,8 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="BackButton"
-                        x:Uid="/NowPlaying/Back"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Click="BackButton_Click"
-                        Height="32"
-                        Padding="8">
-                    <muxc:AnimatedIcon>
-                        <muxc:AnimatedIcon.Source>
-                            <animatedvisuals:AnimatedBackVisualSource />
-                        </muxc:AnimatedIcon.Source>
-                        <muxc:AnimatedIcon.FallbackIconSource>
-                            <muxc:SymbolIconSource Symbol="Back" />
-                        </muxc:AnimatedIcon.FallbackIconSource>
-                    </muxc:AnimatedIcon>
-                </Button>
 
-                <muxc:NavigationView x:Name="QueueNav" SelectedItem="{x:Bind QueueItem}" Margin="24,0,0,0" IsSettingsVisible="False" SelectionChanged="QueueNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+                <muxc:NavigationView x:Name="QueueNav" SelectedItem="{x:Bind QueueItem}" Margin="-8,0,0,0" IsSettingsVisible="False" SelectionChanged="QueueNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
                     <muxc:NavigationView.Resources>
                         <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                         <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
@@ -109,7 +93,7 @@
                             <FontIcon Glyph="&#xE102;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    
+
                     <MenuFlyoutSeparator/>
 
                     <MenuFlyoutItem x:Name="Remove1"

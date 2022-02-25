@@ -359,9 +359,9 @@
                         <Button.Flyout>
                             <Flyout>
 
-                                <Grid Height="auto" Padding="-8">
+                                <Grid Height="auto" Padding="-12">
                                     <ScrollViewer>
-                                        <Frame Margin="12,39,12,0" x:Name="QueueFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                        <Frame Margin="12,42,12,4" x:Name="QueueFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                     </ScrollViewer>
                                 </Grid>
 
