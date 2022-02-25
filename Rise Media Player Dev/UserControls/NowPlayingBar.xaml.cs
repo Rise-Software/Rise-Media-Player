@@ -38,6 +38,7 @@ namespace Rise.App.UserControls
         #region Variables
         private readonly MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
+        private byte lightThemeAdditions = 85;
 
         private AlbumViewModel CurrentSongAlbum;
         private readonly CastingDevicePicker castingPicker;
@@ -284,7 +285,15 @@ namespace Rise.App.UserControls
                         ColorThief colorThief = new();
                         QuantizedColor color = await colorThief.GetColor(decoder);
                         BackgroundAcrylicBrush.TintOpacity = 100;
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
+                        if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+                        {
+                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R - lightThemeAdditions), (byte)(color.Color.G - lightThemeAdditions), (byte)(color.Color.B - lightThemeAdditions));
+                        }
+                        else
+                        {
+                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R + lightThemeAdditions), (byte)(color.Color.G + lightThemeAdditions), (byte)(color.Color.B + lightThemeAdditions));
+                        }
+                        
                     } catch (InvalidOperationException)
                     {
 
@@ -602,17 +611,24 @@ namespace Rise.App.UserControls
             }
         }
 
-        private void HandleColorStyles()
+        private async void HandleColorStyles()
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
+
                 _tintOpacity = 130;
                 BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
+
+                //_tintOpacity = 130;
+                //BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                _tintOpacity = 100;
-                BackgroundAcrylicBrush.TintLuminosityOpacity = 0;
+
+                _tintOpacity = 130;
+                BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
+                //_tintOpacity = 100;
+                //BackgroundAcrylicBrush.TintLuminosityOpacity = 0;
             }
         }
 

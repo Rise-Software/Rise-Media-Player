@@ -51,7 +51,15 @@ namespace Rise.App.Views
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Visible;
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                ImageBrushAlbumCover.Opacity = 0.5;
+                if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+                {
+                    ImageBrushAlbumCover.Opacity = 0.25;
+                }
+                else
+                {
+                    ImageBrushAlbumCover.Opacity = 0.5;
+                }
+
                 BlurBrush.Amount = 10;
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             }

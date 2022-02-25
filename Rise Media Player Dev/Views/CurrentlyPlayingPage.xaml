@@ -25,11 +25,12 @@
             </Grid.Transitions>
 
             <Button Margin="0,-50"
-                        x:Uid="/NowPlaying/Queue"
-                    Click="Queue_Click"
+                    x:Name="Expand"
+                        x:Uid="/NowPlaying/Overlay"
                         Background="Transparent"
                         BorderThickness="0"
                         Height="32"
+                    Click="Button_Click"
                     Width="32"
                         Padding="8">
                 <Button.Content>
@@ -67,9 +68,9 @@
 
         <Rectangle Grid.Row="1" />
 
-            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,48,0,0" VerticalAlignment="Center">
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,48,0,0" Padding="20" VerticalAlignment="Center">
                 <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
-                       MaxLines="1"
+                       MaxLines="2"
                        HorizontalTextAlignment="Center"
                        FontSize="24"
                        FontWeight="Bold"
@@ -86,9 +87,9 @@
                        Margin="0,4,0,0"
                            FontSize="16"
                            Opacity="0.6"
-                       MaxLines="1"
+                       MaxLines="2"
                        Style="{StaticResource BodyTextBlockStyle}"
-                       TextWrapping="NoWrap"
+                       TextWrapping="WrapWholeWords"
                        HorizontalTextAlignment="Center"
                        VerticalAlignment="Center" />
             </StackPanel>

@@ -123,6 +123,9 @@
   <data name="Back.ToolTipService.ToolTip" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Overlay.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Expand</value>
+  </data>
   <data name="PlayingItem.Text" xml:space="preserve">
     <value>Playing</value>
   </data>

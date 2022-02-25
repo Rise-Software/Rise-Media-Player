@@ -55,7 +55,7 @@
 
             <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click" RightTapped="MiniMenu_RightTapped">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xEE49;"/>
+                    <FontIcon Glyph="&#xE10C;"/>
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
@@ -243,9 +243,10 @@
                             Click="OverlayButton1_Click"
                             Background="Transparent"
                             BorderThickness="0"
+                            Flyout="{StaticResource MoreMenuFlyout}"
                             BorderBrush="Transparent"
-                            ToolTipService.ToolTip="Mini player">
-                        <FontIcon Glyph="&#xEE49;" />
+                            ToolTipService.ToolTip="More">
+                        <FontIcon Glyph="&#xE10C;" x:Name="Overlay1"/>
                     </Button>
                 </StackPanel>
                 <RelativePanel MaxWidth="400">
@@ -280,7 +281,7 @@
                             BorderThickness="0"
                             Height="35"
                             ToolTipService.ToolTip="Mini player">
-                        <FontIcon Glyph="&#xEE49;"
+                        <FontIcon Glyph="&#xEE49;" x:Name="Overlay2"
                                   FontSize="16"/>
                         <Button.Resources>
                             <MenuFlyout x:Name="OverlayFlyout">

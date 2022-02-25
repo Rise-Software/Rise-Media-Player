@@ -28,7 +28,8 @@ namespace Rise.App.UserControls
         public TransparentNowPlayingBar()
         {
             InitializeComponent();
-
+            Overlay1.Glyph = "\uE10C";
+            Overlay2.Glyph = "\uE10C";
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
 
@@ -192,14 +193,11 @@ namespace Rise.App.UserControls
                 var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                fontIcon.Glyph = "\uEE47";
+                fontIcon.Glyph = "\uE10C";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                preferences.CustomSize = new Size(600, 700);
-                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
-                fontIcon.Glyph = "\uEE49";
+               
             }
         }
 
@@ -211,14 +209,11 @@ namespace Rise.App.UserControls
                 var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                fontIcon.Glyph = "\uEE49";
+                fontIcon.Glyph = "\uE10C";
             }
             else
             {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                preferences.CustomSize = new Size(600, 700);
-                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
-                fontIcon.Glyph = "\uEE47";
+                
             }
         }
 
@@ -267,7 +262,7 @@ namespace Rise.App.UserControls
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
                 if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
                 {
-                    fontIcon.Glyph = "\uEE47";
+                    OverlayButton.Visibility = Visibility.Collapsed;
                 }
                 else fontIcon.Glyph = "\uEE49";
             }
@@ -275,7 +270,7 @@ namespace Rise.App.UserControls
             FontIcon fontIcon1 = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
             {
-                fontIcon1.Glyph = "\uEE47";
+                OverlayButton.Visibility = Visibility.Collapsed;
             }
             else fontIcon1.Glyph = "\uEE49";
         }

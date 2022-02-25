@@ -1,5 +1,7 @@
 ﻿using Rise.App.ViewModels;
+using System;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -37,5 +39,13 @@ namespace Rise.App.Views
         private void Queue_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(QueuePage));
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+            var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+            preferences.CustomSize = new Size(600, 700);
+            _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+        }
     }
 }
