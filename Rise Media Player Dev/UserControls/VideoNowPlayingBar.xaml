@@ -150,16 +150,16 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
@@ -180,16 +180,16 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
@@ -209,16 +209,16 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="#F98253" Offset="0.1"/>
-                                            <GradientStop Color="#F98253"/>
-                                            <GradientStop Color="#B61F9C" Offset="0.8"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
