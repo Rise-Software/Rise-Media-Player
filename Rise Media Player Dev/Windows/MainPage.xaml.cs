@@ -128,11 +128,7 @@ namespace Rise.App.Views
             FinishNavigation();
 
             App.MViewModel.CanIndex = true;
-            
-            if (SViewModel.AutoIndexingEnabled)
-            {
-                await App.MViewModel.StartFullCrawlAsync();
-            }
+            _ = Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
 
             //PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);

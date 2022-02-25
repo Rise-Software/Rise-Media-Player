@@ -369,7 +369,7 @@ namespace Rise.App
                     }
                 }
 
-                if (SViewModel.AutoIndexingEnabled)
+                if (SViewModel.AutoIndexingEnabled || SViewModel.IndexingMode > -1)
                 {
                     _ = await KnownFolders.MusicLibrary.
                     TrackForegroundAsync(QueryPresets.SongQueryOptions,
@@ -390,33 +390,36 @@ namespace Rise.App
 
         public static void StartIndexingTimer()
         {
-            if (SViewModel.AutoIndexingEnabled)
+            if (SViewModel.IndexingMode > -1)
             {
                 if (!IndexingTimer.Enabled)
                 {
-                    switch (SViewModel.IndexingMode)
+                    if (SViewModel.AutoIndexingEnabled)
                     {
-                        case -1:
-                            return;
-                        case 0:
-                            IndexingInterval = TimeSpan.FromMinutes(1);
-                            break;
-                        case 1:
-                            IndexingInterval = TimeSpan.FromMinutes(5);
-                            break;
-                        case 2:
-                            IndexingInterval = TimeSpan.FromMinutes(10);
-                            break;
-                        case 3:
-                            IndexingInterval = TimeSpan.FromMinutes(30);
-                            break;
-                        case 4:
-                            IndexingInterval = TimeSpan.FromHours(1);
-                            break;
-                    }
+                        switch (SViewModel.IndexingMode)
+                        {
+                            case -1:
+                                return;
+                            case 0:
+                                IndexingInterval = TimeSpan.FromMinutes(1);
+                                break;
+                            case 1:
+                                IndexingInterval = TimeSpan.FromMinutes(5);
+                                break;
+                            case 2:
+                                IndexingInterval = TimeSpan.FromMinutes(10);
+                                break;
+                            case 3:
+                                IndexingInterval = TimeSpan.FromMinutes(30);
+                                break;
+                            case 4:
+                                IndexingInterval = TimeSpan.FromHours(1);
+                                break;
+                        }
 
-                    IndexingTimer.Start();
-                    IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+                        IndexingTimer.Start();
+                        IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+                    }
                 }
                 else
                 {

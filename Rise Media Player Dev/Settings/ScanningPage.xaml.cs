@@ -30,7 +30,16 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
 
-            PeriodicScan.SelectedIndex = App.SViewModel.IndexingMode;
+            if (AllScanning.IsOn == true)
+            {
+                ScanningStuff.Visibility = Visibility.Visible;
+                
+            }
+            else
+            {
+                ScanningStuff.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void PeriodicScan_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,33 +48,53 @@ namespace Rise.App.Settings
             {
                 case 0:
                     // Index every 1 minute
-                    App.SViewModel.IndexingMode = 0;
+                    App.SViewModel.IndexingMode = 1;
                     App.IndexingInterval = TimeSpan.FromMinutes(1);
                     break;
                 case 1:
                     // Index every 5 minutes
-                    App.SViewModel.IndexingMode = 1;
+                    App.SViewModel.IndexingMode = 2;
                     App.IndexingInterval = TimeSpan.FromMinutes(5);
                     break;
                 case 2:
                     // Index every 10 minutes
-                    App.SViewModel.IndexingMode = 2;
+                    App.SViewModel.IndexingMode = 3;
                     App.IndexingInterval = TimeSpan.FromMinutes(10);
                     break;
                 case 3:
                     // Index every 30 minutes
-                    App.SViewModel.IndexingMode = 3;
+                    App.SViewModel.IndexingMode = 4;
                     App.IndexingInterval = TimeSpan.FromMinutes(30);
                     break;
                 case 4:
                     // Index every hour
-                    App.SViewModel.IndexingMode = 4;
+                    App.SViewModel.IndexingMode = 5;
                     App.IndexingInterval = TimeSpan.FromHours(1);
+                    break;
+                case 5:
+                    // Index every 3 hours
+                    App.SViewModel.IndexingMode = 6;
+                    App.IndexingInterval = TimeSpan.FromHours(3);
                     break;
                 default:
                     break;
             }
             App.StartIndexingTimer();
+        }
+
+        private void AllScanning_Toggled(object sender, RoutedEventArgs e)
+        {
+            //if (AllScanning.IsOn == true)
+            //{
+            //    ScanningStuff.Visibility = Visibility.Visible;
+                
+            //}
+            //else
+            //{
+            //    ScanningStuff.Visibility = Visibility.Collapsed;
+            //}
+
+
         }
 
         private void PeriodicSwitch_Toggled(object sender, RoutedEventArgs e)
