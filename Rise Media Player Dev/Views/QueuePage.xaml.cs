@@ -28,6 +28,8 @@ namespace Rise.App.Views
             set => MViewModel.SelectedSong = value;
         }
 
+
+
         public QueuePage()
         {
             InitializeComponent();

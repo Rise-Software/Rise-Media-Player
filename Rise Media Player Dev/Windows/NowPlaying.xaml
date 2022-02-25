@@ -11,6 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d"
     PointerEntered="Page_PointerEntered"
+    PointerMoved="Page_PointerMoved"
     PointerExited="Page_PointerExited">
 
     <Page.Resources>
