@@ -95,7 +95,8 @@ namespace Rise.App.Views
 
         private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
         {
-            await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(ApplicationViewMode.Default, 500, 600, true, SelectedPlaylist);
+            _ = await typeof(PlaylistPropertiesPage).
+                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, SelectedPlaylist);
         }
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)

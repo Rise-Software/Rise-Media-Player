@@ -171,16 +171,21 @@
 
                 <StackPanel Padding="56,0">
                     <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False"  SelectedItem="{x:Bind AlbumsItem}" Margin="0,0,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
+                        <muxc:NavigationView.Resources>
+                            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                        </muxc:NavigationView.Resources>
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem x:Name="SongsItem" Content="Albums" />
                             <muxc:NavigationViewItem x:Name="AlbumsItem" Content="Songs" />
                         </muxc:NavigationView.MenuItems>
                     </muxc:NavigationView>
 
-                    <Grid>
+                    <Grid Margin="0,-8,0,0">
                         <GridView 
                               x:Name="AlbumsGrid"
                               Grid.Row="1"
+                            
                               ItemsSource="{x:Bind Albums}"
                               RightTapped="MainGrid_RightTapped"
                               SelectionMode="Single"

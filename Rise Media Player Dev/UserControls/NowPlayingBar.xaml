@@ -354,7 +354,7 @@
                             Height="35"
                             Click="Button_Click"
                             ToolTipService.ToolTip="Queue">
-                        <FontIcon Glyph=""
+                        <FontIcon Glyph="&#xE14C;"
                                   FontSize="16"/>
                         <Button.Flyout>
                             <Flyout>
