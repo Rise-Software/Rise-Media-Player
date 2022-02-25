@@ -149,7 +149,8 @@
 
                     <MenuFlyoutItem x:Name="Props1"
                                     x:Uid="/MediaData/Properties"
-                                    IsEnabled="False">
+                                    Click="Props_Click"
+                                    IsEnabled="True">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>

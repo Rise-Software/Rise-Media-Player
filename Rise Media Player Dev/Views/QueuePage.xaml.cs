@@ -22,6 +22,12 @@ namespace Rise.App.Views
         private readonly AdvancedCollectionView Songs = new(ViewModel.PlayingSongs);
         private MainViewModel MViewModel => App.MViewModel;
 
+        private SongViewModel SelectedSong
+        {
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
+        }
+
         public QueuePage()
         {
             InitializeComponent();
@@ -268,5 +274,11 @@ namespace Rise.App.Views
                     break;
             }
         }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            await _selectedSong.StartEdit();
+        }
+
     }
 }
