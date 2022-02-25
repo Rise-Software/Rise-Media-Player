@@ -32,10 +32,12 @@ namespace Rise.App.Views.Playlists.Properties
     {
         private PlaylistViewModel _plViewModel;
         private PlaylistViewModel _updatedPlViewModel;
+        public static PlaylistDetailsPropertiesPage Current;
 
         public PlaylistDetailsPropertiesPage()
         {
             this.InitializeComponent();
+            Current = this;
             
         }
 
@@ -87,7 +89,7 @@ namespace Rise.App.Views.Playlists.Properties
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
                 thumbnail.Dispose();
-                _plViewModel.Icon = uri.ToString();
+                _updatedPlViewModel.Icon = uri.ToString();
                 //Update the source in the XAML view
                 imgAlbum.Source = new BitmapImage(uri);
             }

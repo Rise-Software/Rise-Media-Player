@@ -123,7 +123,9 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-           await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+            _plViewModel.Title = PlaylistDetailsPropertiesPage.Current.PlaylistTitle.Text;
+            _plViewModel.Description = PlaylistDetailsPropertiesPage.Current.PlaylistDescription.Text;
+            await ApplicationView.GetForCurrentView().TryConsolidateAsync();
         }
     }
 }

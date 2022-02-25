@@ -115,10 +115,12 @@
                                VerticalAlignment="Center" />
                     
 
-                    <TextBox x:Name="SongTitle"
+                    <TextBox x:Name="PlaylistTitle"
                              Grid.Column="1"
+                             x:FieldModifier="public"
                              Text="{x:Bind _plViewModel.Title, Mode=OneWay}" />
-                    <TextBox x:Name="SongArtist"
+                    <TextBox x:Name="PlaylistDescription"
+                             x:FieldModifier="public"
                              Grid.Column="1"
                              Grid.Row="1"
                              Text="{x:Bind _plViewModel.Description, Mode=OneWay}" />
