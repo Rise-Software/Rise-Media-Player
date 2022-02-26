@@ -41,6 +41,7 @@ namespace Rise.App.UserControls
         private byte lightThemeAdditions = 85;
 
         private AlbumViewModel CurrentSongAlbum;
+        private ArtistViewModel CurrentSongArtist;
         private readonly CastingDevicePicker castingPicker;
         #endregion
 
@@ -278,6 +279,7 @@ namespace Rise.App.UserControls
                     try
                     {
                         CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
+                        CurrentSongArtist = App.MViewModel.Artists.First(artist => artist.Name == App.PViewModel.CurrentSong.Artist);
                         Uri imageUri = new(CurrentSongAlbum.Thumbnail);
                         RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
                         using IRandomAccessStream stream = await random.OpenReadAsync();
@@ -710,6 +712,107 @@ namespace Rise.App.UserControls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             QueueFrame.Navigate(typeof(NPBarQueuePage));
+        }
+
+        private void GoToNowPlaying_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(Views.FullNowPlayingPage));
+            }
+        }
+
+        private void GotoArtist_Click(object sender, RoutedEventArgs e)
+        {
+            if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist);
+            }
+            else
+            {
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+            }
+        }
+
+        private void AlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            System.Threading.Thread.Sleep(0);
+            NowPlayingHover.OverlayInputPassThroughElement = NPBAR;
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            
+            NowPlayingHover.Hide();
+        }
+
+        private void StackPanel_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Parent1_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void NPBAR_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void FlyoutAlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void SongTitle_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void SongArtist_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void RelativePanel_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+        }
+
+        private void SongTitle_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+        }
+
+        private void SongArtist_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+        }
+
+        private void RelativePanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+        }
+
+        private void AlbumArtContainer_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
         }
     }
 }

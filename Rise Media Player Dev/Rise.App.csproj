@@ -265,6 +265,9 @@
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FullNowPlayingPage.xaml.cs">
+      <DependentUpon>FullNowPlayingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
@@ -661,6 +664,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CurrentlyPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FullNowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
