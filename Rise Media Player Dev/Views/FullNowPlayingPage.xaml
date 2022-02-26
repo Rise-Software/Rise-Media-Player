@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:materials="using:Rise.App.Materials_Visualisers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -69,6 +70,7 @@
         <Button VerticalAlignment="Top" x:Name="PopOutWindow" 
                     CornerRadius="5"
                     Height="28"
+                Click="PopOutWindow_Click"
                     HorizontalAlignment="Right"
                     Margin="2,2,190,0"
                     ToolTipService.ToolTip="Pop out window"
@@ -84,6 +86,14 @@
         <Grid CornerRadius="0" Margin="0,32,0,0" PointerEntered="Page_PointerEntered"
     PointerMoved="Page_PointerMoved"
     PointerExited="Page_PointerExited">
+
+            <!--<Grid.Background>
+                <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill" Opacity="0.5">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="{Binding CurrentSong.Thumbnail, Mode=OneWay}" />
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Grid.Background>-->
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,-32,0,0" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="FlyoutAlbumArtContainer"
@@ -216,5 +226,7 @@
             </MediaPlayerElement>-->
         </Grid>
     </Grid>
+        
     </Grid>
+    
 </Page>

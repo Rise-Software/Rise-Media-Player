@@ -193,6 +193,9 @@
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Indexing\IndexingPresets.cs" />
+    <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
+      <DependentUpon>BloomView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>
@@ -553,6 +556,7 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
@@ -590,6 +594,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Materials_Visualisers\BloomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

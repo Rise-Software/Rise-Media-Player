@@ -118,5 +118,9 @@ namespace Rise.App.Views
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
+        private async void PopOutWindow_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await typeof(Materials_Visualisers.BlankPage1).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
+        }
     }
 }

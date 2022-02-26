@@ -209,7 +209,7 @@
                                             <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
                                                 <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
                                                 <GradientStop Color="{StaticResource SystemAccentColor}"/>
-                                                <GradientStop Color="{StaticResource SystemAccentColorDark2}" Offset="0.8"/>
+                                                <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
                                             </LinearGradientBrush>
                                         </ResourceDictionary>
                                     </ResourceDictionary.ThemeDictionaries>

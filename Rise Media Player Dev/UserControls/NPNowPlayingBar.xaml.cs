@@ -189,6 +189,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                Overlay1.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 600)
             {
@@ -198,6 +199,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
+                Overlay1.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 480)
             {
@@ -207,6 +209,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
@@ -223,6 +226,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
@@ -239,6 +243,7 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script>
+var uniqueId = 0;function genUniqueKeyframeName(){return"seq-"+uniqueId++}var uniqueId=0,SceneItem=function(n,t,i,r,u){n.style.visibility="visible";this.keyframe_sequence=u;this.element=n;this.animation_name=t;this.animation_duration=r;this.keyframes="@-ms-keyframes "+t+" {"+i+"}"},KeyframeSequencer=function(n){this._created_keyframes=[];this.container_element=n;this._sequences=[];var t=document.createElement("style");document.head.appendChild(t);this.stylesheet=t.sheet},ScenesManager;KeyframeSequencer.prototype.addSequence=function(n,t,i,r){var u={},e,s,f,o,h,c;for(u.element=n,u.keyframe_name=genUniqueKeyframeName(),u.keyframe_style_str="@-ms-keyframes "+u.keyframe_name+" {",e=0,f=0;f<t.length;f++)o=t[f].duration,e+=o;for(s=0,f=0;f<t.length;f++)o=t[f].duration,s+=o,h=s/e*100+"%",c=t[f].properties,u.keyframe_style_str+=h+"{"+c+"}";u.keyframe_style_str+="}";u.delay=i;u.duration=e+"s";u.fill_mode=r||"both";this._sequences.push(u)};KeyframeSequencer.prototype.playSequence=function(){for(var n,i,r=[],t=0;t<this.container_element.childNodes.length;t++)r.push(this.container_element.childNodes[t]);for(this.stylesheet.cssText="",t=0;t<this._sequences.length;t++)n=this._sequences[t],i=n.element,this.stylesheet.insertRule(n.keyframe_style_str,0),this._created_keyframes.push(n.keyframe_name),i.style.msAnimationDuration=n.duration,i.style.msAnimationDelay=n.delay,i.style.msAnimationFillMode=n.fill_mode,i.style.msAnimationName=n.keyframe_name};ScenesManager=function(n){this._event_element=document.createElement("div");this._canvas=n;this._scenes=[];this._playhead=0;this._repeat=!1;this._repeat_from=0;this._iteration_count=0;this._max_iteration=0;this.oncomplete_callback=null;var t=document.createElement("style");document.head.appendChild(t);this.stylesheet=t.sheet};ScenesManager.prototype.addScene=function(n){this._scenes.push(n)};ScenesManager.prototype.playScenes=function(n){while(this._canvas.hasChildNodes())this._canvas.removeChild(this._canvas.childNodes[0]);n&&n.repeat&&(this._repeat=n.repeat,n&&n.repeat_from&&(this._repeat_from=n.repeat_from),n&&n.repeat_count&&(this._max_iteration=n.repeat_count));n&&n.oncomplete_callback&&(this.oncomplete_callback=n.oncomplete_callback);this.playCurrentScene()};ScenesManager.prototype._onPlayNext=function(){var n=!1;this._playhead+1<this._scenes.length?(this._playhead+=1,this.playCurrentScene()):(this.stylesheet.cssText="",this._repeat?(this._playhead=this._repeat_from,this._max_iteration!=0&&this._iteration_count>=this._max_iteration-1?(this.repeat=!1,n=!0):(this.playCurrentScene(),this._iteration_count+=1)):n=!0);n&&this.oncomplete_callback!=null&&this.oncomplete_callback()};ScenesManager.prototype.playCurrentScene=function(){var u=this,t=this._scenes[this._playhead],n=t.element,i,r;this._canvas.appendChild(n);i=t.keyframes;r=this.stylesheet;r.insertRule(i,0);n.has_event||(n.has_event=!0,n.addEventListener("MSAnimationEnd",function(t){t.target===n&&u._onPlayNext()}));n.style.msAnimationName=t.animation_name;n.style.msAnimationDuration=t.animation_duration;n.style.msAnimationFillMode="both";t.keyframe_sequence&&t.keyframe_sequence.playSequence()}
+var rtl_mode=false,v_offset=40;function setVerticalOffset(n){v_offset=n}function setTextStyle(n,t){_setTextStyle(n,t,".instruction_text, .final_text")}function setSubTextStyle(n,t){_setTextStyle(n,t,".instruction_text_small, .final_text_small")}function _setTextStyle(n,t,i){for(var r,u=n.split(";"),o=u[0]+"pt",s=u[1],h=u[2],e=document.querySelectorAll(i),f=0;f<e.length;f++)r=e[f],r.style.fontSize=o,r.style.fontFamily=s,r.style.fontWeight=h,r.style.fontColor=t}function setRTL(n){rtl_mode=n;var t;n?(t=document.getElementById("playback_canvas"),t.parentElement.removeChild(t)):(t=document.getElementById("playback_canvas_rtl"),t.parentElement.removeChild(t))}function initTryThisLaterMessageSequence(n,t,i){var u=document.getElementById("trythislater_overlay_canvas"),r=new ScenesManager(u);r.addScene(new SceneItem(document.getElementById("trythislater_sequence"),"s0","to{opacity:0}","0s",null));r.addScene(new SceneItem(document.getElementById("trythislater_sequence"),"s0","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}",n,null));r.addScene(new SceneItem(document.getElementById("trythislater_sequence"),"s0","to{opacity:1}",t,null));r.addScene(new SceneItem(document.getElementById("trythislater_sequence"),"s0","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}",i,null));r.playScenes({repeat:!1})}function initEndSequence(){document.getElementById("end_sequence_canvas").style.visibility="visible";var n,t=document.getElementById("end_sequence_canvas");n=new ScenesManager(t);n.addScene(new SceneItem(document.getElementById("pre_end_sequence"),"es","to{opacity:1}","6.2s",setPreEndSequence()));n.addScene(new SceneItem(document.getElementById("end_sequence"),"es","to{opacity:1}","0s",setEndSequence()));n.playScenes({repeat:!1,oncomplete_callback:function(){startAnimation()}})}function initEndSequenceMessagesOverlay(){document.getElementById("final_messages_overlay_canvas").style.visibility="visible";var n,t=document.getElementById("final_messages_overlay_canvas");n=new ScenesManager(t);n.addScene(new SceneItem(document.getElementById("message_overlay_sequence"),"mos","to{opacity:1}","300s",setFinalMessagesSequence()));n.playScenes({repeat:!1})}function addZDPMessage(n){rgZDPMessages[rgZDPMessages.length]=n}function initZDPEndSequence(){initEndSequence();document.getElementById("zdp_final_messages_overlay_canvas").style.visibility="visible";nextZDPMessage()}function nextZDPMessage(){document.getElementById("zdp_final_message_text").innerHTML=rgZDPMessages[zdpMessageIndex++];var n,t=document.getElementById("zdp_final_messages_overlay_canvas");n=new ScenesManager(t);n.addScene(new SceneItem(document.getElementById("zdp_message_overlay_sequence"),"mos","to{opacity:1}","60s",setZDPFinalMessagesSequence()));n.playScenes({repeat:!1,oncomplete_callback:function(){zdpMessageIndex>=rgZDPMessages.length&&(zdpMessageIndex=0);nextZDPMessage()}})}function setFinalMessagesSequence(){var i=new KeyframeSequencer(document.getElementById("message_overlay_sequence"));var r=60,n=r-7,t=n;return i.addSequence(document.getElementById("final_message_text1"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:6},{properties:"-ms-animation-timing-function:linear;-ms-transform:translate(0px,0px);opacity:1;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),i.addSequence(document.getElementById("sub_final_message_text1"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:6},{properties:"-ms-animation-timing-function:linear;-ms-transform:translate(0px,0px);opacity:1;",duration:n+2+(r-2)},{properties:"-ms-animation-timing-function:linear;-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),t+=7,n=r-2,i.addSequence(document.getElementById("final_message_text2"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+"s"),i.addSequence(document.getElementById("sub_final_message_text2"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+"s"),t+=n+2,i.addSequence(document.getElementById("final_message_text3"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+"s"),i.addSequence(document.getElementById("sub_final_message_text3"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n*3+4},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1}],t+"s"),t+=n+2,i.addSequence(document.getElementById("final_message_text4"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+"s"),i.addSequence(document.getElementById("sub_final_message_text4"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n+1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+(n+2)*2+"s"),t+=n+2,i.addSequence(document.getElementById("final_message_text5"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:n},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1}],t+"s"),i.addSequence(document.getElementById("sub_final_message_text5"),[{properties:"-ms-animation-timing-function:linear;opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:n+1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],t+(n+2)*3+"s"),i}function setZDPFinalMessagesSequence(){var n,t,i;return n=new KeyframeSequencer(document.getElementById("zdp_message_overlay_sequence")),t=60,i=t-7,n.addSequence(document.getElementById("zdp_final_message_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:6},{properties:"-ms-animation-timing-function:linear;-ms-transform:translate(0px,0px);opacity:1;",duration:i},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n}function startAnimation(){elm=document.getElementById("color1");rCurrent=rValues[currentColor];gCurrent=gValues[currentColor];bCurrent=bValues[currentColor];setTargetColor()}function hexToRgb(n){var i,t;try{return i=/^#?([a-f\d])([a-f\d])([a-f\d])$/i,n=n.replace(i,function(n,t,i,r){return t+t+i+i+r+r}),t=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(n),t?{r:parseInt(t[1],16),g:parseInt(t[2],16),b:parseInt(t[3],16)}:null}catch(r){return null}}function setColorCycleOverride(n,t){var i=hexToRgb(n);i&&t&&(rValues=[i.r,i.r],gValues=[i.g,i.g],bValues=[i.b,i.b],document.getElementById("color0").style.backgroundColor=n,document.getElementById("color1").style.backgroundColor=n,document.body.style.color=t)}function setTargetColor(){rIncrement=(rValues[targetColor]-rCurrent)/steps;gIncrement=(gValues[targetColor]-gCurrent)/steps;bIncrement=(bValues[targetColor]-bCurrent)/steps;currentColor=(currentColor+1)%numberColors;targetColor=(targetColor+1)%numberColors;currentStep=steps;cycleToTargetColor()}function cycleToTargetColor(){currentStep--;rCurrent+=rIncrement;gCurrent+=gIncrement;bCurrent+=bIncrement;framesSinceSkip++;framesSinceSkip>=skipNthFrame&&(framesSinceSkip=0,elm.style.backgroundColor="rgb("+Math.round(rCurrent)+","+Math.round(gCurrent)+","+Math.round(bCurrent)+")");currentStep>0?callback=requestAnimationFrame(cycleToTargetColor):setTargetColor()}function setPreEndSequence(){var n;return n=new KeyframeSequencer(document.getElementById("pre_end_sequence")),n.addSequence(document.getElementById("color0"),[{properties:"-ms-animation-timing-function:linear;opacity:0;",duration:0},{properties:"opacity:1;",duration:4}],"1s"),n}function setEndSequence(){var n;return n=new KeyframeSequencer(document.getElementById("end_sequence")),n.addSequence(document.getElementById("color1"),[{properties:"-ms-animation-timing-function:linear;opacity:1;",duration:0}],"0s"),n}function initTouchSequence(n){if(n)initEndSequence(),initEndSequenceMessagesOverlay();else{initTryThisLaterMessageSequence("6s","21s","7s");var t,i;i=rtl_mode?document.getElementById("playback_canvas_rtl"):document.getElementById("playback_canvas");t=new ScenesManager(i);t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","6s",setTouchSequence0()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7s",setTouchSequence1()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7s",setTouchSequence3()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7s",setTouchSequence3()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7s",setTouchSequence2()));t.playScenes({repeat:!1,oncomplete_callback:function(){initEndSequence();initEndSequenceMessagesOverlay()}})}}function initTouchAndMouseSequence(n){if(n)initEndSequence(),initEndSequenceMessagesOverlay();else{initTryThisLaterMessageSequence("6s","57.4s","7.8s");var t,i;i=rtl_mode?document.getElementById("playback_canvas_rtl"):document.getElementById("playback_canvas");t=new ScenesManager(i);t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","6s",setTouchSequence0()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7s",setTouchSequence1()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7s",setTouchSequence2()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","9.8s",setMouseSequence3()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7.8s",setMouseSequence2()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","9s",setTouchSequence4()));t.addScene(new SceneItem(document.getElementById("touch_sequence"),"s1","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7s",setTouchSequence2()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","9.8s",setMouseSequence3()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7.8s",setMouseSequence2()));t.playScenes({oncomplete_callback:function(){initEndSequence();initEndSequenceMessagesOverlay()}})}}function initMouseSequence(n){if(n)initEndSequence(),initEndSequenceMessagesOverlay();else{initTryThisLaterMessageSequence("14.3s","15.6s","7.8s");var t,i;i=rtl_mode?document.getElementById("playback_canvas_rtl"):document.getElementById("playback_canvas");t=new ScenesManager(i);t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:0;}15%{opacity:1}85%{opacity:1}to{opacity:1}","14.3s",setMouseSequence1()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7.8s",setMouseSequence2()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:1}","7.8s",setMouseSequence2()));t.addScene(new SceneItem(document.getElementById("mouse_sequence"),"s2","from{-ms-animation-timing-function:ease;opacity:1;}15%{opacity:1}85%{opacity:1}to{opacity:0}","7.8s",setMouseSequence2()));t.playScenes({repeat:!1,oncomplete_callback:function(){initEndSequence();initEndSequenceMessagesOverlay()}})}}function setTouchSequence0(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"2s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("thumbs"),[{properties:"opacity:1;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"opacity:0;",duration:.01}],"0s")):(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"2s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("thumbs"),[{properties:"opacity:1;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"opacity:0;",duration:.01}],"0s")),n}function setTouchSequence1(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:scale(-1,1) translate(120px,0px);",duration:0},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"4.05s")):(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(120px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"4.05s")),n}function setTouchSequence2(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:scale(-1,1) translate(120px,0px);",duration:0},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1}],"4.05s")):(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(120px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:1}],"4.05s")),n}function setTouchSequence3(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:scale(-1,1) translate(120px,0px);",duration:0},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"4.05s")):(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(120px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1.5}],"2s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:rotate(0deg) translate(0px,0px);",duration:.75}],"4s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"4.05s")),n}function setTouchSequence4(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"2s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:scale(-1,1) translate(120px,0px);",duration:0},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:scale(-1,1) translate(0px,0px);opacity:0",duration:1.5}],"4s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:scale(-1,1) rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:scale(-1,1) rotate(0deg) translate(0px,0px);",duration:.75}],"6s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"6.05s")):(n=new KeyframeSequencer(document.getElementById("touch_sequence")),n.addSequence(document.getElementById("touch_intro_text"),[{properties:"opacity:0;",duration:.01}],"0s"),n.addSequence(document.getElementById("touch_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"2s"),n.addSequence(document.getElementById("touch_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(120px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1.5}],"4s"),n.addSequence(document.getElementById("thumbs"),[{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(0deg) translate(0px,0px);",duration:0},{properties:"-ms-animation-timing-function:ease;-ms-transform:rotate(-20deg) translate(-3px,11px);",duration:.25},{properties:"-ms-transform:rotate(0deg) translate(0px,0px);",duration:.75}],"6s"),n.addSequence(document.getElementById("touch_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"6.05s")),n}function setMouseSequence1(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"2s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"6s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(-130px,-130px)",duration:1}],"8s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"9s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(4px,0px);",duration:.5},{properties:"-ms-transform:translate(4px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(4px,0px);opacity:0",duration:1}],"11.6s")):(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"2s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"6s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(100px,-100px)",duration:1}],"8s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"9s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"11.6s")),n}function setMouseSequence3(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"2s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(-130px,-130px)",duration:1}],"4s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"5s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(4px,0px);",duration:.5},{properties:"-ms-transform:translate(4px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(4px,0px);opacity:0",duration:1}],"7.6s")):(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"2s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(100px,-100px)",duration:1}],"4s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"5s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"7.6s")),n}function setMouseSequence2(){var n;return rtl_mode?(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(-130px,-130px)",duration:1}],"2s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"3s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(-35px,0px);",duration:0},{properties:"-ms-transform:translate(4px,0px);",duration:.5},{properties:"-ms-transform:translate(4px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(4px,0px);opacity:0",duration:1}],"5.6s")):(n=new KeyframeSequencer(document.getElementById("mouse_sequence")),n.addSequence(document.getElementById("mouse_intro_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"0s"),n.addSequence(document.getElementById("mouse_instruction_text"),[{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2}],"0s"),n.addSequence(document.getElementById("cursor"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:0},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:2},{properties:"opacity:1;-ms-transform:translate(0px,0px)",duration:1},{properties:"opacity:1;-ms-transform:translate(100px,-100px)",duration:1}],"2s"),n.addSequence(document.getElementById("mouse_arrow"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px)",duration:0},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:1},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:1;-ms-transform:translate(0px,0px);",duration:.8},{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;",duration:.7}],"3s"),n.addSequence(document.getElementById("mouse_charms"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);-ms-transform:translate(35px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);",duration:.5},{properties:"-ms-transform:translate(0px,0px);opacity:1",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:0",duration:1}],"5.6s")),n}function init(){document.getElementById("playback_canvas"+(rtl_mode?"_rtl":"")).style.visibility="visible";centerPos();window.onresize=function(){centerPos()}}function adjustInstructionText(){for(var t,u,r,i=window.innerWidth,f=564,e=document.querySelectorAll(".instruction_text"),n=0;n<e.length;n++)t=e[n],t.style.width=i+"px",t.style.left=(f-i)/2+"px",t.style.top=-t.clientHeight-40+"px";for(u=document.querySelectorAll(".instruction_text_small"),n=0;n<u.length;n++)r=u[n],r.style.width=i+"px",r.style.left=(f-i)/2+"px",r.style.top="390px"}function centerPos(){var f,e,n,t;adjustInstructionText();var o=564,s=390,i=window.innerWidth,r=window.innerHeight,h=document.querySelector("#playback_canvas"+(rtl_mode?"_rtl":""));h.style.left=(i-o)/2+"px";h.style.top=(r-s)/2+v_offset+"px";f=document.querySelector("#trythislater_overlay_canvas");f.style.left=(i-o)/2+"px";f.style.top=(r-s)/2+v_offset+"px";var u=document.querySelectorAll(".final_text"),i=window.innerWidth,r=window.innerHeight;for(n=0;n<u.length;n++)t=u[n],t.style.width=i+"px",t.style.top=(r-t.offsetHeight)/2+"px";var u=document.querySelectorAll(".final_text_small"),i=window.innerWidth,r=window.innerHeight;for(n=0;n<u.length;n++)t=u[n],t.style.width=i+"px",t.style.top=Math.floor((r-t.offsetHeight+120)/2)+"px";for(e=document.querySelectorAll(".fullscreen_color"),n=0;n<e.length;n++)t=e[n],t.style.width=window.outerWidth+"px",t.style.height=window.outerHeight+"px"}function endAnimation(){var n,t=document.getElementById("drape");n=new ScenesManager(t);n.addScene(new SceneItem(document.getElementById("wrap_up_sequence"),"ws","to{opacity:1}","5.2s",setWrapUpSequence()));n.playScenes();setTimeout(function(){for(var i,t=document.querySelector("#container").childNodes,n=0;n<t.length;n++)i=t[n],document.querySelector("#container").removeChild(i)},2e3)}function setWrapUpSequence(){var n;return n=new KeyframeSequencer(document.getElementById("wrap_up_sequence")),n.addSequence(document.getElementById("finish_text"),[{properties:"-ms-animation-timing-function:cubic-bezier(0.1, 0.9, 0.2, 1);opacity:0;-ms-transform:translate(0px,0px);",duration:0},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:1},{properties:"-ms-transform:translate(0px,0px);opacity:1;",duration:2},{properties:"-ms-transform:translate(0px,0px);opacity:0;",duration:1}],"1s"),n.addSequence(document.getElementById("black_panel"),[{properties:"-ms-animation-timing-function:linear;opacity:0;",duration:0},{properties:"opacity:1;",duration:1}],"0s"),n}function setUserColor(n,t){for(var i,u=document.getElementsByClassName("user_color1"),r=0;r<u.length;r++)i=u[r],i.attributes.fill?i.attributes.fill.value=n:i.style.backgroundColor=n;for(u=document.getElementsByClassName("user_color2"),r=0;r<u.length;r++)i=u[r],i.attributes.fill?i.attributes.fill.value=t:i.style.backgroundColor=t}function setItemText(n,t){document.getElementById(n).innerHTML=t}function setAriaLabel(n,t){document.getElementById(n).setAttribute("aria-label",t)}var rtl_mode=!1,v_offset=40,zdpMessageIndex=0,rgZDPMessages=[],elm,rCurrent,gCurrent,bCurrent,rIncrement,gIncrement,bIncrement,steps=240,currentStep=240,skipNthFrame=3,framesSinceSkip=0,numberColors=2,currentColor=0,targetColor=1,rValues=[0,0],gValues=[114,45],bValues=[201,80],callback=null
+</script>
+<style type="text/css">
+    body {
+        overflow: hidden;
+        -ms-content-zooming: none;
+        -ms-high-contrast-adjust: none;
+        background-color: transparent;
+    }
+.instruction_text, .instruction_text_small, .final_text, .final_text_small {
+font-family: "Segoe UI Variable";
+font-size: 28pt;
+font-weight:400;
+text-align: center;
+position: absolute;
+top: 0px;
+left: 0px;
+z-index: 99;
+}
+.instruction_text_small {
+font-size: 20pt;
+position: absolute;
+z-index: 100;
+}
+.final_text_small {
+font-size: 20pt;
+position: absolute;
+}
+#drape {
+z-index: 10000;
+}
+#playback_canvas, #playback_canvas_rtl, #trythislater_overlay_canvas, .sequence {
+visibility: hidden;
+position: absolute;
+}
+#end_sequence_canvas, #pre_end_sequence, #end_sequence, #drape, .fullscreen_color {
+position: absolute;
+top: 0px;
+left: 0px;
+}
+.scene {
+position: absolute;
+}
+.scene-part {
+position: absolute;
+left: 0px;
+top: 0px;
+}
+.final_text {
+position: absolute;
+top: 0px;
+left: 0px;
+}
+body {
+color: #fff;
+background-color: transparent;
+}
+.asset {
+position: absolute;
+top: 60px;
+}
+@keyframes circle1Path {
+0%{
+top:50vh;
+left:50vw;
+width:5vw;
+height:5vw;
+opacity:0.5;
+}
+50%{
+top:0vh;
+left:45vw;
+width:60vw;
+height:60vw;
+opacity: 1;
+}
+100%{
+top:50vh;
+left:50vw;
+width:5vw;
+height:5vw;
+opacity:0.5;
+}
+}
+@keyframes circle2Path {
+0%{
+top:40vh;
+left:45vw;
+width:15vw;
+height:15vw;
+}
+50%{
+top:37vh;
+left:-10vw;
+width:80vw;
+height:80vw;
+}
+100%{
+top:40vh;
+left:45vw;
+width:15vw;
+height:15vw;
+}
+}
+@keyframes circle3Path {
+0%{
+top:30vh;
+left:30vw;
+width:25vw;
+height:25vw;
+}
+50%{
+top:-50vh;
+left:-20vw;
+width:120vw;
+height:120vw;
+}
+100%{
+top:30vh;
+left:30vw;
+width:25vw;
+height:25vw;
+}
+}
+@keyframes fadeIn {
+0%{
+opacity: 0;
+}
+}
+@keyframes fadeCircleIn{
+0%{
+opacity:0;
+}
+100%{
+opacity: 1;
+}
+}
+.circle1{
+position: absolute;
+animation: circle1Path 15s infinite, fadeCircleIn 1332ms ease-out;
+border-radius: 100vw; 
+background: radial-gradient(50% 50% at 50% 50%, rgba(12, 119, 255, 0.3) 15.62%, rgba(12, 119, 255, 0) 100%);
+}
+.circle2{
+position: absolute;
+animation: circle2Path 20s infinite, fadeCircleIn 1332ms ease-out;
+border-radius: 100vw; 
+background: radial-gradient(50% 50% at 50% 50%, rgba(0, 56, 255, 0.3) 15.62%, rgba(12, 119, 255, 0) 100%);
+}
+.circle3{
+position: absolute;
+animation: circle3Path 30s infinite, fadeCircleIn 1332ms ease-out;
+border-radius: 100vw; 
+background: radial-gradient(50% 50% at 50% 50%, rgba(65, 56, 210, 0.5) 15.62%, rgba(65, 56, 210, 0) 100%);
+}
+</style>
+<script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+<body>
+<div id="container">
+<div id="trythislater_overlay_canvas">
+<div id="trythislater_sequence" class="scene sequence">
+<div id="trythislater_intro_text" class="scene-part instruction_text_small">
+[ ]
+</div>
+</div>
+</div>
+<div id="playback_canvas">
+<div id="touch_sequence" class="scene sequence">
+<div id="touch_intro_text" class="scene-part instruction_text">
+[After your PC is ready]
+</div>
+<div id="touch_instruction_text" class="scene-part instruction_text">
+[Swipe in from any edge]
+</div>
+<div id="touch_animation_group">
+<div id="touch_screen" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-102 -54 575 390" enable-background="new -102 -54 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect class="user_color1" fill="#011a37" width="378" height="213" />
+</svg>
+</div>
+<div style="height: 300px; width: 479px; overflow: hidden" class="scene-part">
+<div id="touch_charms" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-445 -55 575 390" enable-background="new -445 -55 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect fill="#1A1A1A" width="35" height="212" />
+<path fill="#FFFFFF" d="M19.742,19.162c-3.059,0-5.538,2.479-5.538,5.538c0,1.297,0.45,2.488,1.197,3.432l-0.533,0.533
+c-0.375,0.025-0.755,0.185-1.012,0.441l-3.94,3.942c-0.237,0.238-0.405,0.584-0.446,0.929c-0.051,0.405,0.071,0.777,0.343,1.048
+c0.231,0.231,0.533,0.354,0.873,0.354c0.399,0,0.822-0.176,1.104-0.458l3.941-3.941c0.248-0.248,0.41-0.599,0.443-0.963
+c0.003-0.033-0.001-0.065,0-0.098l0.569-0.569c0.864,0.559,1.892,0.887,2.998,0.887c3.059,0,5.538-2.48,5.538-5.538
+C25.28,21.642,22.801,19.162,19.742,19.162z M19.742,28.656c-2.186,0-3.956-1.771-3.956-3.956c0-2.185,1.771-3.956,3.956-3.956
+s3.956,1.771,3.956,3.956C23.698,26.885,21.928,28.656,19.742,28.656z" />
+<g>
+<path fill="#FFFFFF" d="M9.458,144.472c0-0.825,0.675-1.5,1.5-1.5h4.119c0.825,0,1.5,0.675,1.5,1.5v2.143
+c0,0.825-0.675,1.5-1.5,1.5h-4.119c-0.825,0-1.5-0.675-1.5-1.5V144.472z" />
+</g>
+<path fill="#FFFFFF" d="M21.127,139.411h-5.735c-2.77,0-3.165,1.979-3.165,1.979h8.702c0.981,0,1.978,0.996,1.978,1.978v4.351
+c0,0.982-0.996,1.979-1.978,1.979h-8.702c0,0,0.396,1.978,3.165,1.978h5.735c2.175,0,3.758-1.978,3.758-3.956v-4.351
+C24.885,141.39,23.302,139.411,21.127,139.411z" />
+<path fill="#FFFFFF" d="M24.639,187.013l-1.227-0.508c-0.202-0.084-0.362-0.188-0.355-0.23s0.026-0.256,0.044-0.475l0.002-1.008
+c-0.018-0.219-0.037-0.434-0.043-0.476c-0.007-0.043,0.153-0.147,0.355-0.23l1.223-0.507c0.203-0.083,0.301-0.317,0.216-0.521
+l-0.609-1.473c-0.084-0.203-0.318-0.3-0.521-0.217l-1.224,0.508c-0.203,0.084-0.389,0.124-0.414,0.089
+c-0.026-0.035-0.163-0.199-0.307-0.366l-0.715-0.713c-0.166-0.143-0.331-0.279-0.366-0.305s0.005-0.211,0.089-0.414l0.508-1.227
+c0.084-0.202-0.014-0.437-0.216-0.521l-1.473-0.609c-0.202-0.083-0.437,0.013-0.521,0.217l-0.508,1.227
+c-0.084,0.201-0.188,0.361-0.23,0.355c-0.043-0.007-0.256-0.034-0.474-0.061c0,0-0.212-0.025-0.515-0.025
+c-0.299,0-0.498,0.023-0.498,0.023c-0.217,0.025-0.431,0.053-0.473,0.06c-0.043,0.007-0.146-0.153-0.229-0.356l-0.508-1.223
+c-0.084-0.204-0.317-0.3-0.521-0.217l-1.473,0.609c-0.202,0.085-0.3,0.319-0.216,0.521l0.507,1.224
+c0.084,0.202,0.124,0.39,0.089,0.414c-0.034,0.026-0.199,0.163-0.366,0.306l-0.713,0.715c-0.142,0.167-0.279,0.332-0.304,0.367
+c-0.026,0.035-0.212-0.005-0.415-0.09l-1.226-0.508c-0.202-0.083-0.437,0.014-0.521,0.217l-0.61,1.473
+c-0.084,0.202,0.013,0.438,0.216,0.521l1.227,0.508c0.202,0.084,0.361,0.188,0.355,0.23c-0.008,0.042-0.027,0.257-0.045,0.475
+l-0.001,1.01c0.017,0.218,0.036,0.433,0.043,0.475c0.007,0.043-0.153,0.146-0.356,0.23l-1.223,0.506
+c-0.203,0.085-0.3,0.318-0.216,0.521l0.609,1.473c0.084,0.203,0.318,0.299,0.521,0.216l1.224-0.508
+c0.203-0.083,0.389-0.124,0.414-0.089c0.026,0.035,0.163,0.199,0.306,0.366l0.715,0.714c0.167,0.142,0.332,0.278,0.367,0.304
+c0.034,0.025-0.005,0.212-0.089,0.415l-0.508,1.226c-0.084,0.203,0.014,0.438,0.216,0.521l1.473,0.609
+c0.203,0.085,0.437-0.013,0.521-0.215l0.508-1.227c0.084-0.202,0.188-0.362,0.23-0.355c0.043,0.008,0.256,0.034,0.474,0.06
+c0,0,0.212,0.025,0.516,0.025c0.298,0,0.497-0.023,0.497-0.023c0.218-0.025,0.431-0.051,0.474-0.058
+c0.042-0.008,0.146,0.152,0.229,0.355l0.507,1.224c0.084,0.202,0.318,0.299,0.521,0.215l1.473-0.61
+c0.202-0.083,0.3-0.317,0.216-0.521l-0.507-1.223c-0.083-0.203-0.124-0.39-0.089-0.414c0.035-0.026,0.199-0.163,0.366-0.307
+l0.713-0.715c0.142-0.167,0.279-0.332,0.305-0.366c0.025-0.036,0.212,0.004,0.414,0.088l1.227,0.508
+c0.202,0.084,0.437-0.012,0.521-0.215l0.61-1.473C24.938,187.331,24.841,187.098,24.639,187.013z M17.369,189.251
+c-2.186,0-3.956-1.771-3.956-3.954c0-2.186,1.771-3.956,3.956-3.956c2.184,0,3.955,1.771,3.955,3.956
+C21.324,187.48,19.553,189.251,17.369,189.251z" />
+<path fill="#FFFFFF" d="M9.443,64.942c-0.921,0.926-0.921,2.432,0,3.358c0.434,0.437,0.996,0.66,1.566,0.685
+c0.952,2.925,3.617,5.072,6.803,5.232c-0.267-0.506-0.408-1.073-0.408-1.663c0-0.02,0.002-0.039,0.002-0.059
+c-2.266-0.304-4.124-1.908-4.815-4.038c0.063-0.053,0.131-0.098,0.191-0.158c0.92-0.926,0.92-2.432,0-3.358
+C11.861,64.017,10.363,64.017,9.443,64.942z" />
+<path fill="#FFFFFF" d="M23.446,63.206c-0.087,0.089-0.18,0.171-0.273,0.249c0.578,0.917,0.918,2.002,0.918,3.167
+c0,1.596-0.632,3.042-1.654,4.11c-0.926-0.767-2.296-0.726-3.161,0.145c-0.921,0.926-0.921,2.432,0,3.358
+c0.92,0.926,2.418,0.926,3.338,0c0.538-0.542,0.752-1.279,0.661-1.984c1.525-1.394,2.487-3.398,2.487-5.629
+c0-1.723-0.575-3.311-1.539-4.588C24.047,62.467,23.786,62.865,23.446,63.206z" />
+<path fill="#FFFFFF" d="M19.275,59.009c-0.023,0.024-0.04,0.052-0.063,0.077c-0.335-0.046-0.674-0.079-1.021-0.079
+c-2.903,0-5.419,1.659-6.686,4.079c0.555,0.062,1.098,0.254,1.578,0.578c1.021-1.776,2.925-2.976,5.107-2.976
+c0.133,0,0.265,0.006,0.395,0.017c0.004,0.602,0.233,1.203,0.689,1.662c0.92,0.926,2.418,0.926,3.338,0
+c0.921-0.926,0.921-2.432,0-3.358C21.693,58.083,20.195,58.083,19.275,59.009z" />
+<path class="user_color2" fill="#038dff" d="M17.119,105.642h9.197v-8.063l-9.197,1.285V105.642z M17.119,106.519v6.783l9.197,1.283v-8.066H17.119z
+M9.309,105.642v-5.688l6.934-0.969v6.656H9.309z M16.242,106.519H9.309v5.691l6.934,0.969V106.519z" />
+</svg>
+</div>
+</div>
+<div id="touch_frame" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-79.759 -33.5 575 390" enable-background="new -79.759 -33.5 575 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M400.241,234.178H21.481V20.52h378.76V234.178z M22.481,233.178h376.76V21.52H22.481V233.178z" />
+<rect x="1" y="1" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
+stroke-miterlimit="10" width="419.648" height="253.557" />
+</svg>
+</div>
+<div id="frame_button" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-285 -271.5 575 390" xml:space="preserve">
+<defs></defs>
+<polygon fill="#FFF" points="6,6.338 6,10.84 13,11.676 13,6.338" />
+<polygon fill="#FFF" points="5,6.338 0,6.338 0,10.094 5,10.721" />
+<polygon fill="#FFF" points="6,5.338 6,0.836 13,0 13,5.338" />
+<polygon fill="#FFF" points="5,5.338 0,5.338 0,1.582 5,0.955" />
+</svg>
+</div>
+<div style="height: 300px; width: 479px; overflow: hidden" class="scene-part">
+<div id="touch_arrow" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-376.504 -143.21 575 390" enable-background="new -376.504 -143.21 575 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M59.763,21.018h-9.956v-7.467h9.956V21.018z M44.387,21.018h-9.956v-7.467h9.956V21.018z" />
+<polygon fill="#FFFFFF" points="27.69,0 17.297,0 0,17.29 17.297,34.579 27.69,34.579 14.001,20.896 29.119,20.896 29.119,13.67
+14.021,13.67 " />
+<path fill="#FFFFFF" d="M90.433,21.018h-9.956v-7.467h9.956V21.018z M75.057,21.018h-9.956v-7.467h9.956V21.018z" />
+<path fill="#FFFFFF" d="M121.102,21.018h-9.956v-7.467h9.956V21.018z M105.726,21.018h-9.956v-7.467h9.956V21.018z" />
+</svg>
+</div>
+</div>
+<div id="hands" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-4.976 -113.451 575 390" enable-background="new -4.976 -113.451 575 390"
+xml:space="preserve">
+<path d="M496.024,19.549v72.069l-30.102,34.931c-1.407,16-1.682,33.403,1.741,49.602c3.022,14.428,8.02,26.848,13.698,32.742
+c6.488,6.748,9.422,39.656,10.488,54.656h74.021c-0.312-12-1.047-35.613-2.039-43.97c-0.259-2.19-2.952-96.882-3.705-121.907
+c-0.938-30.604-28.978-52.228-38.013-60.119c0,0-12.9-11.227-24.244-17.514"/>
+<path fill="#FFFFFF" d="M466.688,176.107c3.197,15.257,8.284,27.384,13.956,33.271c4.412,4.586,8.137,24.296,10.215,54.074
+l1.993-0.14c-1.515-21.707-4.61-48.924-10.767-55.322c-5.341-5.54-10.363-17.613-13.44-32.295
+c-2.008-9.502-2.729-19.318-2.704-29.146c-0.667,0-1.333,0-2,0C463.912,156.496,464.647,166.449,466.688,176.107z"/>
+<path fill="#FFFFFF" d="M496.936,20.652l0.456,0.252c11.118,6.163,23.945,17.271,24.073,17.383c0.653,0.571,1.41,1.216,2.248,1.931
+c10.343,8.826,34.563,29.495,35.42,57.443c0.193,6.447,0.52,17.518,0.896,30.438c1.381,47.346,2.635,89.971,2.814,91.514
+c1.073,9.029,1.828,35.804,2.035,43.795l1.997-0.051c-0.204-8.017-0.963-34.866-2.047-43.979
+c-0.188-1.661-1.762-55.626-2.805-91.336c-0.377-12.921-0.699-23.993-0.896-30.441c-0.884-28.833-25.577-49.905-36.121-58.904
+c-0.831-0.709-1.581-1.349-2.229-1.917c-0.131-0.113-12.77-11.059-23.963-17.369l-1.779-1.003"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path d="M75.023,263.383c0,0,1.828-45.699,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-13.294,6.405-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C1.644,231.08,1,263.383,1,263.383"/>
+<path d="M75.023,263.383c1.067-15.297,3.999-47.951,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-12.887,6.21-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C2.047,227.852,1.312,251.279,1,263.383"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path fill="#C1272D" d="M56.457,91.618l-1.703-1.049c1.99-3.233,5.241-5.009,6.556-5.627l7.172-69.744l1.989,0.205l-7.294,70.929
+l-0.569,0.223C62.568,86.57,58.583,88.163,56.457,91.618z"/>
+<path d="M75.023,263.383c0,0,1.828-45.699,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-13.294,6.405-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C1.644,231.08,1,263.383,1,263.383"/>
+<path fill="#C1272D" d="M76.022,263.423l-1.998-0.08c0.075-1.882,1.945-46.185,10.77-55.353c5.339-5.54,10.362-17.613,13.439-32.295
+c5.185-24.534,1.869-51.17-1.057-74.67l-0.121-0.973c-1.24-9.983-1.93-81.695-1.959-84.743C95.077,7.968,89.557,2,82.791,2
+c-6.779,0-12.294,5.966-12.294,13.3l-0.005,0.104l-0.55,5.248l-0.456,0.252c-11.118,6.163-23.944,17.271-24.072,17.383
+c-0.654,0.571-1.41,1.216-2.248,1.931C32.822,49.044,8.601,69.713,7.745,97.662c-0.194,6.447-0.518,17.518-0.895,30.438
+c-1.381,47.346-2.636,89.97-2.816,91.514C2.658,231.02,2.006,263.08,2,263.402l-2-0.039c0.007-0.324,0.661-32.486,2.048-43.987
+c0.188-1.659,1.762-55.624,2.804-91.334c0.377-12.921,0.7-23.993,0.895-30.441c0.883-28.833,25.577-49.905,36.121-58.904
+c0.832-0.709,1.58-1.349,2.231-1.917c0.13-0.113,12.768-11.059,23.962-17.369l0.437-4.163C68.523,6.834,74.925,0,82.791,0
+s14.283,6.862,14.305,15.298c0.007,0.738,0.718,74.638,1.943,84.508l0.121,0.973c2.944,23.656,6.282,50.468,1.028,75.329
+c-3.196,15.257-8.284,27.384-13.956,33.271C77.931,218.004,76.04,262.971,76.022,263.423z"/>
+<path fill="#FFFFFF" d="M76.021,263.452l-1.995-0.14c1.516-21.707,4.612-48.924,10.768-55.322
+c5.339-5.54,10.362-17.613,13.439-32.295c5.185-24.534,1.869-51.17-1.057-74.67l-0.121-0.973c-1.24-9.983-1.93-81.695-1.959-84.743
+C95.077,7.968,89.557,2,82.791,2c-6.734,0-11.905,5.615-12.296,13.351l-0.554,5.301l-0.456,0.252
+c-11.118,6.163-23.944,17.271-24.072,17.383c-0.654,0.571-1.41,1.216-2.248,1.931C32.822,49.044,8.601,69.713,7.745,97.662
+c-0.194,6.447-0.518,17.518-0.895,30.438c-1.381,47.346-2.636,89.97-2.816,91.514C2.96,228.643,2.206,255.417,2,263.408l-2-0.051
+c0.206-8.017,0.963-34.866,2.047-43.979c0.188-1.661,1.763-55.626,2.805-91.336c0.377-12.921,0.7-23.993,0.895-30.441
+c0.883-28.833,25.577-49.905,36.121-58.904c0.832-0.709,1.58-1.349,2.231-1.917c0.13-0.113,12.768-11.059,23.962-17.369l0.441-4.214
+C68.937,6.556,75.082,0,82.791,0c7.866,0,14.283,6.862,14.305,15.298c0.007,0.738,0.718,74.638,1.943,84.508l0.121,0.973
+c2.944,23.656,6.282,50.468,1.028,75.329c-3.196,15.257-8.284,27.384-13.956,33.271C81.821,213.964,78.099,233.674,76.021,263.452z"
+/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path fill="#FFFFFF" d="M61.187,85.053c0,0-8.019,1.297-11.432,7.193c0,0-0.448,0.552-1.066,0.954s-1.311,0.444-1.311,0.444
+l1.256,1.435c0,0,0.223-0.162,1.137-0.518s1.714-1.312,1.714-1.312c2.93-5.061,9.87-6.085,9.94-6.095c0,0,1.397-0.471,1.628-0.709
+l0.123-0.112l7.294-70.929l-1.989-0.205L61.31,84.942"/>
+</svg>
+</div>
+<div id="thumbs" class="scene-part" style="position: absolute; top: 110px; left: 465px;
+-ms-transform: rotate(0deg) translate(0px,0px); -ms-transform-origin: 6px 148px;">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="63px"
+height="169px" viewbox="-3.84 -3.88 63 169" enable-background="new -3.84 -3.88 63 169"
+xml:space="preserve">
+<defs></defs>
+<g>
+<path d="M48.75,89.5c0,0,6.433,1.842,8.434,12.515s1.334,6.671-1.833,13.008c0.433-0.276-2.036,2.521-1.638,2.11
+c-0.268,12.18-3.443,27.768-14.628,36.416c-18.75,14.5-37.085-7-37.085-7C2.041,131,3.971,115.424,5.763,101.025l0.121-0.973
+c1.239-9.984,1.931-81.695,1.959-84.743C7.861,7.968,13.382,2,20.147,2c6.734,0,11.906,5.615,12.298,13.35l0.533,5.116l0.129,1.141
+l6.656,64.724l0.567,0.224c0.025,0.009,2.211-0.054,4.367,0.742L48.75,89.5z"/>
+</g>
+<path fill="#FFFFFF" d="M51.33,93.136c-2.93-5.061-9.87-6.085-9.94-6.095c0,0-1.397-0.471-1.628-0.709l-6.656-64.724l-0.129-1.141
+l-0.533-5.116C32.052,7.615,26.88,2,20.147,2C13.382,2,7.861,7.968,7.843,15.308c-0.028,3.048-0.72,74.76-1.959,84.743l-0.121,0.975
+C3.971,115.424,2.041,131,2,146.549c-0.672,0-1.339,0-2,0c0.04-15.658,1.978-31.305,3.779-45.769L3.9,99.807
+c1.225-9.871,1.936-83.771,1.943-84.509C5.865,6.862,12.281,0,20.147,0c7.709,0,13.855,6.556,14.291,15.196l0.439,4.214l0.225,2.046
+l6.527,63.485l0.038,0.12c0.324,0.045,7.98,1.178,11.394,7.073l2.377,0.397v2.094c0,0-1.185-0.054-2.099-0.41
+S51.33,93.136,51.33,93.136z"/>
+</svg>
+</div>
+</div>
+</div>
+<div id="mouse_sequence" class="scene sequence">
+<div id="mouse_intro_text" class="scene-part instruction_text">
+[After your PC is ready]
+</div>
+<div id="mouse_instruction_text" class="scene-part instruction_text">
+[With mouse, go to corners]
+</div>
+<div id="Div1">
+<div id="mouse_screen" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-96.322 -53.976 564 390" enable-background="new -96.322 -53.976 564 390"
+xml:space="preserve">
+<defs></defs>
+<rect class="user_color1" fill="#011a37" width="377.687" height="212.444" />
+</svg>
+</div>
+<div style="height: 300px; width: 475px; overflow: hidden" class="scene-part">
+<div id="mouse_charms" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-438 -55 575 390" enable-background="new -445 -55 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect fill="#1A1A1A" width="35" height="212" />
+<path fill="#FFFFFF" d="M19.742,19.162c-3.059,0-5.538,2.479-5.538,5.538c0,1.297,0.45,2.488,1.197,3.432l-0.533,0.533
+c-0.375,0.025-0.755,0.185-1.012,0.441l-3.94,3.942c-0.237,0.238-0.405,0.584-0.446,0.929c-0.051,0.405,0.071,0.777,0.343,1.048
+c0.231,0.231,0.533,0.354,0.873,0.354c0.399,0,0.822-0.176,1.104-0.458l3.941-3.941c0.248-0.248,0.41-0.599,0.443-0.963
+c0.003-0.033-0.001-0.065,0-0.098l0.569-0.569c0.864,0.559,1.892,0.887,2.998,0.887c3.059,0,5.538-2.48,5.538-5.538
+C25.28,21.642,22.801,19.162,19.742,19.162z M19.742,28.656c-2.186,0-3.956-1.771-3.956-3.956c0-2.185,1.771-3.956,3.956-3.956
+s3.956,1.771,3.956,3.956C23.698,26.885,21.928,28.656,19.742,28.656z" />
+<g>
+<path fill="#FFFFFF" d="M9.458,144.472c0-0.825,0.675-1.5,1.5-1.5h4.119c0.825,0,1.5,0.675,1.5,1.5v2.143
+c0,0.825-0.675,1.5-1.5,1.5h-4.119c-0.825,0-1.5-0.675-1.5-1.5V144.472z" />
+</g>
+<path fill="#FFFFFF" d="M21.127,139.411h-5.735c-2.77,0-3.165,1.979-3.165,1.979h8.702c0.981,0,1.978,0.996,1.978,1.978v4.351
+c0,0.982-0.996,1.979-1.978,1.979h-8.702c0,0,0.396,1.978,3.165,1.978h5.735c2.175,0,3.758-1.978,3.758-3.956v-4.351
+C24.885,141.39,23.302,139.411,21.127,139.411z" />
+<path fill="#FFFFFF" d="M24.639,187.013l-1.227-0.508c-0.202-0.084-0.362-0.188-0.355-0.23s0.026-0.256,0.044-0.475l0.002-1.008
+c-0.018-0.219-0.037-0.434-0.043-0.476c-0.007-0.043,0.153-0.147,0.355-0.23l1.223-0.507c0.203-0.083,0.301-0.317,0.216-0.521
+l-0.609-1.473c-0.084-0.203-0.318-0.3-0.521-0.217l-1.224,0.508c-0.203,0.084-0.389,0.124-0.414,0.089
+c-0.026-0.035-0.163-0.199-0.307-0.366l-0.715-0.713c-0.166-0.143-0.331-0.279-0.366-0.305s0.005-0.211,0.089-0.414l0.508-1.227
+c0.084-0.202-0.014-0.437-0.216-0.521l-1.473-0.609c-0.202-0.083-0.437,0.013-0.521,0.217l-0.508,1.227
+c-0.084,0.201-0.188,0.361-0.23,0.355c-0.043-0.007-0.256-0.034-0.474-0.061c0,0-0.212-0.025-0.515-0.025
+c-0.299,0-0.498,0.023-0.498,0.023c-0.217,0.025-0.431,0.053-0.473,0.06c-0.043,0.007-0.146-0.153-0.229-0.356l-0.508-1.223
+c-0.084-0.204-0.317-0.3-0.521-0.217l-1.473,0.609c-0.202,0.085-0.3,0.319-0.216,0.521l0.507,1.224
+c0.084,0.202,0.124,0.39,0.089,0.414c-0.034,0.026-0.199,0.163-0.366,0.306l-0.713,0.715c-0.142,0.167-0.279,0.332-0.304,0.367
+c-0.026,0.035-0.212-0.005-0.415-0.09l-1.226-0.508c-0.202-0.083-0.437,0.014-0.521,0.217l-0.61,1.473
+c-0.084,0.202,0.013,0.438,0.216,0.521l1.227,0.508c0.202,0.084,0.361,0.188,0.355,0.23c-0.008,0.042-0.027,0.257-0.045,0.475
+l-0.001,1.01c0.017,0.218,0.036,0.433,0.043,0.475c0.007,0.043-0.153,0.146-0.356,0.23l-1.223,0.506
+c-0.203,0.085-0.3,0.318-0.216,0.521l0.609,1.473c0.084,0.203,0.318,0.299,0.521,0.216l1.224-0.508
+c0.203-0.083,0.389-0.124,0.414-0.089c0.026,0.035,0.163,0.199,0.306,0.366l0.715,0.714c0.167,0.142,0.332,0.278,0.367,0.304
+c0.034,0.025-0.005,0.212-0.089,0.415l-0.508,1.226c-0.084,0.203,0.014,0.438,0.216,0.521l1.473,0.609
+c0.203,0.085,0.437-0.013,0.521-0.215l0.508-1.227c0.084-0.202,0.188-0.362,0.23-0.355c0.043,0.008,0.256,0.034,0.474,0.06
+c0,0,0.212,0.025,0.516,0.025c0.298,0,0.497-0.023,0.497-0.023c0.218-0.025,0.431-0.051,0.474-0.058
+c0.042-0.008,0.146,0.152,0.229,0.355l0.507,1.224c0.084,0.202,0.318,0.299,0.521,0.215l1.473-0.61
+c0.202-0.083,0.3-0.317,0.216-0.521l-0.507-1.223c-0.083-0.203-0.124-0.39-0.089-0.414c0.035-0.026,0.199-0.163,0.366-0.307
+l0.713-0.715c0.142-0.167,0.279-0.332,0.305-0.366c0.025-0.036,0.212,0.004,0.414,0.088l1.227,0.508
+c0.202,0.084,0.437-0.012,0.521-0.215l0.61-1.473C24.938,187.331,24.841,187.098,24.639,187.013z M17.369,189.251
+c-2.186,0-3.956-1.771-3.956-3.954c0-2.186,1.771-3.956,3.956-3.956c2.184,0,3.955,1.771,3.955,3.956
+C21.324,187.48,19.553,189.251,17.369,189.251z" />
+<path fill="#FFFFFF" d="M9.443,64.942c-0.921,0.926-0.921,2.432,0,3.358c0.434,0.437,0.996,0.66,1.566,0.685
+c0.952,2.925,3.617,5.072,6.803,5.232c-0.267-0.506-0.408-1.073-0.408-1.663c0-0.02,0.002-0.039,0.002-0.059
+c-2.266-0.304-4.124-1.908-4.815-4.038c0.063-0.053,0.131-0.098,0.191-0.158c0.92-0.926,0.92-2.432,0-3.358
+C11.861,64.017,10.363,64.017,9.443,64.942z" />
+<path fill="#FFFFFF" d="M23.446,63.206c-0.087,0.089-0.18,0.171-0.273,0.249c0.578,0.917,0.918,2.002,0.918,3.167
+c0,1.596-0.632,3.042-1.654,4.11c-0.926-0.767-2.296-0.726-3.161,0.145c-0.921,0.926-0.921,2.432,0,3.358
+c0.92,0.926,2.418,0.926,3.338,0c0.538-0.542,0.752-1.279,0.661-1.984c1.525-1.394,2.487-3.398,2.487-5.629
+c0-1.723-0.575-3.311-1.539-4.588C24.047,62.467,23.786,62.865,23.446,63.206z" />
+<path fill="#FFFFFF" d="M19.275,59.009c-0.023,0.024-0.04,0.052-0.063,0.077c-0.335-0.046-0.674-0.079-1.021-0.079
+c-2.903,0-5.419,1.659-6.686,4.079c0.555,0.062,1.098,0.254,1.578,0.578c1.021-1.776,2.925-2.976,5.107-2.976
+c0.133,0,0.265,0.006,0.395,0.017c0.004,0.602,0.233,1.203,0.689,1.662c0.92,0.926,2.418,0.926,3.338,0
+c0.921-0.926,0.921-2.432,0-3.358C21.693,58.083,20.195,58.083,19.275,59.009z" />
+<path class="user_color2" fill="#038dff" d="M17.119,105.642h9.197v-8.063l-9.197,1.285V105.642z M17.119,106.519v6.783l9.197,1.283v-8.066H17.119z
+M9.309,105.642v-5.688l6.934-0.969v6.656H9.309z M16.242,106.519H9.309v5.691l6.934,0.969V106.519z" />
+</svg>
+</div>
+</div>
+<div style="height: 300px; width: 476px; overflow: hidden" class="scene-part">
+<div id="mouse_arrow" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-415.224 -53.976 564 390" enable-background="new -415.224 -53.976 564 390"
+xml:space="preserve">
+<defs></defs>
+<polygon fill="#FFFFFF" points="22.982,30.45 28.344,35.818 36.006,28.162 30.643,22.789 " />
+<polygon fill="#FFFFFF" points="11.49,41.941 16.854,47.309 24.514,39.653 19.152,34.28 " />
+<polygon fill="#FFFFFF" points="0,53.433 5.361,58.801 13.023,51.145 7.66,45.772 " />
+<polygon fill="#FFFFFF" points="33.094,0 25.373,7.723 45.709,7.723 34.473,18.954 39.846,24.321 51.063,13.101 51.063,33.412
+58.785,25.69 58.785,0 " />
+</svg>
+</div>
+</div>
+<div style="height: 300px; width: 475px; overflow: hidden" class="scene-part">
+<div id="cursor" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-405.441 -116.311 564 390" enable-background="new -405.441 -116.311 564 390"
+xml:space="preserve">
+<defs></defs>
+<polyline class="user_color1" fill="#011a37" points="1.001,2.369 48.793,48.86 27.101,48.837 25.598,48.835 26.177,50.222 38.88,80.641 30.311,84.195
+17.675,53.85 17.091,52.447 16.034,53.539 1.04,69.023 1.001,2.369" />
+<path fill="#FFFFFF" d="M1.001,2.369L48.793,48.86l-21.692-0.023l-1.503-0.001l0.579,1.387L38.88,80.641l-8.57,3.554L17.675,53.85
+l-0.584-1.403l-1.057,1.092L1.04,69.023L1.001,2.369 M0,0l0.041,71.492l16.711-17.258l13.02,31.267l10.418-4.321L27.1,49.837
+l24.158,0.026L0,0L0,0z" />
+</svg>
+</div>
+</div>
+<div id="mouse_frame" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-74.341 -32 564 390" enable-background="new -74.341 -32 564 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M420.648,256.411H1c-0.552,0-1-0.447-1-1V1c0-0.552,0.448-1,1-1h419.648c0.553,0,1,0.448,1,1v254.411
+C421.648,255.964,421.201,256.411,420.648,256.411z M419.648,2H2v252.411h417.648" />
+<path fill="#FFFFFF" d="M400.168,234.92H21.481V21.476h378.687V234.92z M399.168,22.476H22.481V233.92h376.687" />
+<path fill="#FFFFFF" d="M257.051,255.411h2v42.939l67.524,9.36c0.494,0.068,0.863,0.491,0.862,0.991l-0.01,9.652
+c-0.001,0.552-0.448,0.999-1,0.999H95.209c-0.552,0-1-0.447-1-1v-9.652c0-0.499,0.368-0.922,0.863-0.99l67.468-9.36v-42.939h2
+v43.811c0,0.499-0.368,0.922-0.863,0.99l-67.468,9.36v7.781h229.219l0.008-7.781l-67.523-9.36c-0.494-0.068-0.862-0.491-0.862-0.99" />
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div id="playback_canvas_rtl">
+<div id="touch_sequence" class="scene sequence">
+<div id="touch_intro_text" class="scene-part instruction_text">
+[After your PC is ready]
+</div>
+<div id="touch_instruction_text" class="scene-part instruction_text">
+[With touch, swipe in from any edge]
+</div>
+<div id="touch_animation_group">
+<div id="touch_screen" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-102 -54 575 390" enable-background="new -102 -54 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect class="user_color1" fill="#011a37" width="378" height="213" />
+</svg>
+</div>
+<div style="height: 300px; width: 279px; overflow: hidden; left: 102px" class="scene-part">
+<div id="touch_charms" class="scene-part" style="position: absolute; left: -445px">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-445 -55 575 390" enable-background="new -445 -55 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect fill="#1A1A1A" width="35" height="212" />
+<path fill="#FFFFFF" d="M19.742,19.162c-3.059,0-5.538,2.479-5.538,5.538c0,1.297,0.45,2.488,1.197,3.432l-0.533,0.533
+c-0.375,0.025-0.755,0.185-1.012,0.441l-3.94,3.942c-0.237,0.238-0.405,0.584-0.446,0.929c-0.051,0.405,0.071,0.777,0.343,1.048
+c0.231,0.231,0.533,0.354,0.873,0.354c0.399,0,0.822-0.176,1.104-0.458l3.941-3.941c0.248-0.248,0.41-0.599,0.443-0.963
+c0.003-0.033-0.001-0.065,0-0.098l0.569-0.569c0.864,0.559,1.892,0.887,2.998,0.887c3.059,0,5.538-2.48,5.538-5.538
+C25.28,21.642,22.801,19.162,19.742,19.162z M19.742,28.656c-2.186,0-3.956-1.771-3.956-3.956c0-2.185,1.771-3.956,3.956-3.956
+s3.956,1.771,3.956,3.956C23.698,26.885,21.928,28.656,19.742,28.656z" />
+<g>
+<path fill="#FFFFFF" d="M9.458,144.472c0-0.825,0.675-1.5,1.5-1.5h4.119c0.825,0,1.5,0.675,1.5,1.5v2.143
+c0,0.825-0.675,1.5-1.5,1.5h-4.119c-0.825,0-1.5-0.675-1.5-1.5V144.472z" />
+</g>
+<path fill="#FFFFFF" d="M21.127,139.411h-5.735c-2.77,0-3.165,1.979-3.165,1.979h8.702c0.981,0,1.978,0.996,1.978,1.978v4.351
+c0,0.982-0.996,1.979-1.978,1.979h-8.702c0,0,0.396,1.978,3.165,1.978h5.735c2.175,0,3.758-1.978,3.758-3.956v-4.351
+C24.885,141.39,23.302,139.411,21.127,139.411z" />
+<path fill="#FFFFFF" d="M24.639,187.013l-1.227-0.508c-0.202-0.084-0.362-0.188-0.355-0.23s0.026-0.256,0.044-0.475l0.002-1.008
+c-0.018-0.219-0.037-0.434-0.043-0.476c-0.007-0.043,0.153-0.147,0.355-0.23l1.223-0.507c0.203-0.083,0.301-0.317,0.216-0.521
+l-0.609-1.473c-0.084-0.203-0.318-0.3-0.521-0.217l-1.224,0.508c-0.203,0.084-0.389,0.124-0.414,0.089
+c-0.026-0.035-0.163-0.199-0.307-0.366l-0.715-0.713c-0.166-0.143-0.331-0.279-0.366-0.305s0.005-0.211,0.089-0.414l0.508-1.227
+c0.084-0.202-0.014-0.437-0.216-0.521l-1.473-0.609c-0.202-0.083-0.437,0.013-0.521,0.217l-0.508,1.227
+c-0.084,0.201-0.188,0.361-0.23,0.355c-0.043-0.007-0.256-0.034-0.474-0.061c0,0-0.212-0.025-0.515-0.025
+c-0.299,0-0.498,0.023-0.498,0.023c-0.217,0.025-0.431,0.053-0.473,0.06c-0.043,0.007-0.146-0.153-0.229-0.356l-0.508-1.223
+c-0.084-0.204-0.317-0.3-0.521-0.217l-1.473,0.609c-0.202,0.085-0.3,0.319-0.216,0.521l0.507,1.224
+c0.084,0.202,0.124,0.39,0.089,0.414c-0.034,0.026-0.199,0.163-0.366,0.306l-0.713,0.715c-0.142,0.167-0.279,0.332-0.304,0.367
+c-0.026,0.035-0.212-0.005-0.415-0.09l-1.226-0.508c-0.202-0.083-0.437,0.014-0.521,0.217l-0.61,1.473
+c-0.084,0.202,0.013,0.438,0.216,0.521l1.227,0.508c0.202,0.084,0.361,0.188,0.355,0.23c-0.008,0.042-0.027,0.257-0.045,0.475
+l-0.001,1.01c0.017,0.218,0.036,0.433,0.043,0.475c0.007,0.043-0.153,0.146-0.356,0.23l-1.223,0.506
+c-0.203,0.085-0.3,0.318-0.216,0.521l0.609,1.473c0.084,0.203,0.318,0.299,0.521,0.216l1.224-0.508
+c0.203-0.083,0.389-0.124,0.414-0.089c0.026,0.035,0.163,0.199,0.306,0.366l0.715,0.714c0.167,0.142,0.332,0.278,0.367,0.304
+c0.034,0.025-0.005,0.212-0.089,0.415l-0.508,1.226c-0.084,0.203,0.014,0.438,0.216,0.521l1.473,0.609
+c0.203,0.085,0.437-0.013,0.521-0.215l0.508-1.227c0.084-0.202,0.188-0.362,0.23-0.355c0.043,0.008,0.256,0.034,0.474,0.06
+c0,0,0.212,0.025,0.516,0.025c0.298,0,0.497-0.023,0.497-0.023c0.218-0.025,0.431-0.051,0.474-0.058
+c0.042-0.008,0.146,0.152,0.229,0.355l0.507,1.224c0.084,0.202,0.318,0.299,0.521,0.215l1.473-0.61
+c0.202-0.083,0.3-0.317,0.216-0.521l-0.507-1.223c-0.083-0.203-0.124-0.39-0.089-0.414c0.035-0.026,0.199-0.163,0.366-0.307
+l0.713-0.715c0.142-0.167,0.279-0.332,0.305-0.366c0.025-0.036,0.212,0.004,0.414,0.088l1.227,0.508
+c0.202,0.084,0.437-0.012,0.521-0.215l0.61-1.473C24.938,187.331,24.841,187.098,24.639,187.013z M17.369,189.251
+c-2.186,0-3.956-1.771-3.956-3.954c0-2.186,1.771-3.956,3.956-3.956c2.184,0,3.955,1.771,3.955,3.956
+C21.324,187.48,19.553,189.251,17.369,189.251z" />
+<path fill="#FFFFFF" d="M9.443,64.942c-0.921,0.926-0.921,2.432,0,3.358c0.434,0.437,0.996,0.66,1.566,0.685
+c0.952,2.925,3.617,5.072,6.803,5.232c-0.267-0.506-0.408-1.073-0.408-1.663c0-0.02,0.002-0.039,0.002-0.059
+c-2.266-0.304-4.124-1.908-4.815-4.038c0.063-0.053,0.131-0.098,0.191-0.158c0.92-0.926,0.92-2.432,0-3.358
+C11.861,64.017,10.363,64.017,9.443,64.942z" />
+<path fill="#FFFFFF" d="M23.446,63.206c-0.087,0.089-0.18,0.171-0.273,0.249c0.578,0.917,0.918,2.002,0.918,3.167
+c0,1.596-0.632,3.042-1.654,4.11c-0.926-0.767-2.296-0.726-3.161,0.145c-0.921,0.926-0.921,2.432,0,3.358
+c0.92,0.926,2.418,0.926,3.338,0c0.538-0.542,0.752-1.279,0.661-1.984c1.525-1.394,2.487-3.398,2.487-5.629
+c0-1.723-0.575-3.311-1.539-4.588C24.047,62.467,23.786,62.865,23.446,63.206z" />
+<path fill="#FFFFFF" d="M19.275,59.009c-0.023,0.024-0.04,0.052-0.063,0.077c-0.335-0.046-0.674-0.079-1.021-0.079
+c-2.903,0-5.419,1.659-6.686,4.079c0.555,0.062,1.098,0.254,1.578,0.578c1.021-1.776,2.925-2.976,5.107-2.976
+c0.133,0,0.265,0.006,0.395,0.017c0.004,0.602,0.233,1.203,0.689,1.662c0.92,0.926,2.418,0.926,3.338,0
+c0.921-0.926,0.921-2.432,0-3.358C21.693,58.083,20.195,58.083,19.275,59.009z" />
+<path class="user_color2" fill="#038dff" d="M17.119,105.642h9.197v-8.063l-9.197,1.285V105.642z M17.119,106.519v6.783l9.197,1.283v-8.066H17.119z
+M9.309,105.642v-5.688l6.934-0.969v6.656H9.309z M16.242,106.519H9.309v5.691l6.934,0.969V106.519z" />
+</svg>
+</div>
+</div>
+<div id="touch_frame" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-79.759 -33.5 575 390" enable-background="new -79.759 -33.5 575 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M400.241,234.178H21.481V20.52h378.76V234.178z M22.481,233.178h376.76V21.52H22.481V233.178z" />
+<rect x="1" y="1" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
+stroke-miterlimit="10" width="419.648" height="253.557" />
+</svg>
+</div>
+<div id="frame_button" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-285 -271.5 575 390" xml:space="preserve">
+<defs></defs>
+<polygon fill="#FFF" points="6,6.338 6,10.84 13,11.676 13,6.338 " />
+<polygon fill="#FFF" points="5,6.338 0,6.338 0,10.094 5,10.721 " />
+<polygon fill="#FFF" points="6,5.338 6,0.836 13,0 13,5.338 " />
+<polygon fill="#FFF" points="5,5.338 0,5.338 0,1.582 5,0.955 " />
+</svg>
+</div>
+<div style="height: 300px; width: 279px; overflow: hidden; left: 102px" class="scene-part">
+<div id="touch_arrow" class="scene-part" style="-ms-transform: scale(-1,1); left: -94px">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-376.504 -143.21 575 390" enable-background="new -376.504 -143.21 575 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M59.763,21.018h-9.956v-7.467h9.956V21.018z M44.387,21.018h-9.956v-7.467h9.956V21.018z" />
+<polygon fill="#FFFFFF" points="27.69,0 17.297,0 0,17.29 17.297,34.579 27.69,34.579 14.001,20.896 29.119,20.896 29.119,13.67
+14.021,13.67 " />
+<path fill="#FFFFFF" d="M90.433,21.018h-9.956v-7.467h9.956V21.018z M75.057,21.018h-9.956v-7.467h9.956V21.018z" />
+<path fill="#FFFFFF" d="M121.102,21.018h-9.956v-7.467h9.956V21.018z M105.726,21.018h-9.956v-7.467h9.956V21.018z" />
+</svg>
+</div>
+</div>
+<div id="hands" class="scene-part" style='left: 5px; -ms-transform: scale(-1,1)'>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-4.976 -113.451 575 390" enable-background="new -4.976 -113.451 575 390"
+xml:space="preserve">
+<path d="M496.024,19.549v72.069l-30.102,34.931c-1.407,16-1.682,33.403,1.741,49.602c3.022,14.428,8.02,26.848,13.698,32.742
+c6.488,6.748,9.422,39.656,10.488,54.656h74.021c-0.312-12-1.047-35.613-2.039-43.97c-0.259-2.19-2.952-96.882-3.705-121.907
+c-0.938-30.604-28.978-52.228-38.013-60.119c0,0-12.9-11.227-24.244-17.514"/>
+<path fill="#FFFFFF" d="M466.688,176.107c3.197,15.257,8.284,27.384,13.956,33.271c4.412,4.586,8.137,24.296,10.215,54.074
+l1.993-0.14c-1.515-21.707-4.61-48.924-10.767-55.322c-5.341-5.54-10.363-17.613-13.44-32.295
+c-2.008-9.502-2.729-19.318-2.704-29.146c-0.667,0-1.333,0-2,0C463.912,156.496,464.647,166.449,466.688,176.107z"/>
+<path fill="#FFFFFF" d="M496.936,20.652l0.456,0.252c11.118,6.163,23.945,17.271,24.073,17.383c0.653,0.571,1.41,1.216,2.248,1.931
+c10.343,8.826,34.563,29.495,35.42,57.443c0.193,6.447,0.52,17.518,0.896,30.438c1.381,47.346,2.635,89.971,2.814,91.514
+c1.073,9.029,1.828,35.804,2.035,43.795l1.997-0.051c-0.204-8.017-0.963-34.866-2.047-43.979
+c-0.188-1.661-1.762-55.626-2.805-91.336c-0.377-12.921-0.699-23.993-0.896-30.441c-0.884-28.833-25.577-49.905-36.121-58.904
+c-0.831-0.709-1.581-1.349-2.229-1.917c-0.131-0.113-12.77-11.059-23.963-17.369l-1.779-1.003"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path d="M75.023,263.383c0,0,1.828-45.699,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-13.294,6.405-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C1.644,231.08,1,263.383,1,263.383"/>
+<path d="M75.023,263.383c1.067-15.297,3.999-47.951,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-12.887,6.21-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C2.047,227.852,1.312,251.279,1,263.383"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path fill="#C1272D" d="M56.457,91.618l-1.703-1.049c1.99-3.233,5.241-5.009,6.556-5.627l7.172-69.744l1.989,0.205l-7.294,70.929
+l-0.569,0.223C62.568,86.57,58.583,88.163,56.457,91.618z"/>
+<path d="M75.023,263.383c0,0,1.828-45.699,10.49-54.699c5.679-5.894,10.674-18.354,13.698-32.783
+c5.292-25.041,1.767-52.412-1.164-75.972C96.8,89.888,96.096,15.3,96.096,15.3C96.075,7.405,90.156,1,82.791,1
+c-7.345,0-13.294,6.405-13.294,14.3l-0.495,4.729c-11.343,6.287-24.245,17.503-24.245,17.503
+C35.722,45.423,7.683,67.027,6.746,97.631c-0.753,25.025-3.447,119.674-3.705,121.865C1.644,231.08,1,263.383,1,263.383"/>
+<path fill="#C1272D" d="M76.022,263.423l-1.998-0.08c0.075-1.882,1.945-46.185,10.77-55.353c5.339-5.54,10.362-17.613,13.439-32.295
+c5.185-24.534,1.869-51.17-1.057-74.67l-0.121-0.973c-1.24-9.983-1.93-81.695-1.959-84.743C95.077,7.968,89.557,2,82.791,2
+c-6.779,0-12.294,5.966-12.294,13.3l-0.005,0.104l-0.55,5.248l-0.456,0.252c-11.118,6.163-23.944,17.271-24.072,17.383
+c-0.654,0.571-1.41,1.216-2.248,1.931C32.822,49.044,8.601,69.713,7.745,97.662c-0.194,6.447-0.518,17.518-0.895,30.438
+c-1.381,47.346-2.636,89.97-2.816,91.514C2.658,231.02,2.006,263.08,2,263.402l-2-0.039c0.007-0.324,0.661-32.486,2.048-43.987
+c0.188-1.659,1.762-55.624,2.804-91.334c0.377-12.921,0.7-23.993,0.895-30.441c0.883-28.833,25.577-49.905,36.121-58.904
+c0.832-0.709,1.58-1.349,2.231-1.917c0.13-0.113,12.768-11.059,23.962-17.369l0.437-4.163C68.523,6.834,74.925,0,82.791,0
+s14.283,6.862,14.305,15.298c0.007,0.738,0.718,74.638,1.943,84.508l0.121,0.973c2.944,23.656,6.282,50.468,1.028,75.329
+c-3.196,15.257-8.284,27.384-13.956,33.271C77.931,218.004,76.04,262.971,76.022,263.423z"/>
+<path fill="#FFFFFF" d="M76.021,263.452l-1.995-0.14c1.516-21.707,4.612-48.924,10.768-55.322
+c5.339-5.54,10.362-17.613,13.439-32.295c5.185-24.534,1.869-51.17-1.057-74.67l-0.121-0.973c-1.24-9.983-1.93-81.695-1.959-84.743
+C95.077,7.968,89.557,2,82.791,2c-6.734,0-11.905,5.615-12.296,13.351l-0.554,5.301l-0.456,0.252
+c-11.118,6.163-23.944,17.271-24.072,17.383c-0.654,0.571-1.41,1.216-2.248,1.931C32.822,49.044,8.601,69.713,7.745,97.662
+c-0.194,6.447-0.518,17.518-0.895,30.438c-1.381,47.346-2.636,89.97-2.816,91.514C2.96,228.643,2.206,255.417,2,263.408l-2-0.051
+c0.206-8.017,0.963-34.866,2.047-43.979c0.188-1.661,1.763-55.626,2.805-91.336c0.377-12.921,0.7-23.993,0.895-30.441
+c0.883-28.833,25.577-49.905,36.121-58.904c0.832-0.709,1.58-1.349,2.231-1.917c0.13-0.113,12.768-11.059,23.962-17.369l0.441-4.214
+C68.937,6.556,75.082,0,82.791,0c7.866,0,14.283,6.862,14.305,15.298c0.007,0.738,0.718,74.638,1.943,84.508l0.121,0.973
+c2.944,23.656,6.282,50.468,1.028,75.329c-3.196,15.257-8.284,27.384-13.956,33.271C81.821,213.964,78.099,233.674,76.021,263.452z"
+/>
+<path d="M69.476,15.3l-7.231,70.323c0,0-4.301,1.67-6.64,5.47"/>
+<path fill="#FFFFFF" d="M61.187,85.053c0,0-8.019,1.297-11.432,7.193c0,0-0.448,0.552-1.066,0.954s-1.311,0.444-1.311,0.444
+l1.256,1.435c0,0,0.223-0.162,1.137-0.518s1.714-1.312,1.714-1.312c2.93-5.061,9.87-6.085,9.94-6.095c0,0,1.397-0.471,1.628-0.709
+l0.123-0.112l7.294-70.929l-1.989-0.205L61.31,84.942"/>
+</svg>
+</div>
+<div id="thumbs" class="scene-part" style="position: absolute; top: 110px; left: 103px;
+-ms-transform: rotate(0deg) translate(0px,0px) scale(-1,1); -ms-transform-origin: 6px 148px;">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="63px"
+height="169px" viewbox="-3.84 -3.88 63 169" enable-background="new -3.84 -3.88 63 169"
+xml:space="preserve">
+<defs></defs>
+<g>
+<path d="M48.75,89.5c0,0,6.433,1.842,8.434,12.515s1.334,6.671-1.833,13.008c0.433-0.276-2.036,2.521-1.638,2.11
+c-0.268,12.18-3.443,27.768-14.628,36.416c-18.75,14.5-37.085-7-37.085-7C2.041,131,3.971,115.424,5.763,101.025l0.121-0.973
+c1.239-9.984,1.931-81.695,1.959-84.743C7.861,7.968,13.382,2,20.147,2c6.734,0,11.906,5.615,12.298,13.35l0.533,5.116l0.129,1.141
+l6.656,64.724l0.567,0.224c0.025,0.009,2.211-0.054,4.367,0.742L48.75,89.5z"/>
+</g>
+<path fill="#FFFFFF" d="M51.33,93.136c-2.93-5.061-9.87-6.085-9.94-6.095c0,0-1.397-0.471-1.628-0.709l-6.656-64.724l-0.129-1.141
+l-0.533-5.116C32.052,7.615,26.88,2,20.147,2C13.382,2,7.861,7.968,7.843,15.308c-0.028,3.048-0.72,74.76-1.959,84.743l-0.121,0.975
+C3.971,115.424,2.041,131,2,146.549c-0.672,0-1.339,0-2,0c0.04-15.658,1.978-31.305,3.779-45.769L3.9,99.807
+c1.225-9.871,1.936-83.771,1.943-84.509C5.865,6.862,12.281,0,20.147,0c7.709,0,13.855,6.556,14.291,15.196l0.439,4.214l0.225,2.046
+l6.527,63.485l0.038,0.12c0.324,0.045,7.98,1.178,11.394,7.073l2.377,0.397v2.094c0,0-1.185-0.054-2.099-0.41
+S51.33,93.136,51.33,93.136z"/>
+</svg>
+</div>
+</div>
+</div>
+<div id="mouse_sequence" class="scene sequence">
+<div id="mouse_intro_text" class="scene-part instruction_text">
+[After your PC is ready]
+</div>
+<div id="mouse_instruction_text" class="scene-part instruction_text">
+[With mouse, go to corners]
+</div>
+<div id="touch_animation_group">
+<div id="mouse_screen" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-96.322 -53.976 564 390" enable-background="new -96.322 -53.976 564 390"
+xml:space="preserve">
+<defs></defs>
+<rect class="user_color1" fill="#011a37" width="377.687" height="212.444" />
+</svg>
+</div>
+<div style="left: 97px; height: 300px; width: 275px; overflow: hidden" class="scene-part">
+<div id="mouse_charms" class="scene-part" style="left: -445px">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="575px"
+height="390px" viewbox="-438 -55 575 390" enable-background="new -445 -55 575 390"
+xml:space="preserve">
+<defs></defs>
+<rect fill="#1A1A1A" width="35" height="212" />
+<path fill="#FFFFFF" d="M19.742,19.162c-3.059,0-5.538,2.479-5.538,5.538c0,1.297,0.45,2.488,1.197,3.432l-0.533,0.533
+c-0.375,0.025-0.755,0.185-1.012,0.441l-3.94,3.942c-0.237,0.238-0.405,0.584-0.446,0.929c-0.051,0.405,0.071,0.777,0.343,1.048
+c0.231,0.231,0.533,0.354,0.873,0.354c0.399,0,0.822-0.176,1.104-0.458l3.941-3.941c0.248-0.248,0.41-0.599,0.443-0.963
+c0.003-0.033-0.001-0.065,0-0.098l0.569-0.569c0.864,0.559,1.892,0.887,2.998,0.887c3.059,0,5.538-2.48,5.538-5.538
+C25.28,21.642,22.801,19.162,19.742,19.162z M19.742,28.656c-2.186,0-3.956-1.771-3.956-3.956c0-2.185,1.771-3.956,3.956-3.956
+s3.956,1.771,3.956,3.956C23.698,26.885,21.928,28.656,19.742,28.656z" />
+<g>
+<path fill="#FFFFFF" d="M9.458,144.472c0-0.825,0.675-1.5,1.5-1.5h4.119c0.825,0,1.5,0.675,1.5,1.5v2.143
+c0,0.825-0.675,1.5-1.5,1.5h-4.119c-0.825,0-1.5-0.675-1.5-1.5V144.472z" />
+</g>
+<path fill="#FFFFFF" d="M21.127,139.411h-5.735c-2.77,0-3.165,1.979-3.165,1.979h8.702c0.981,0,1.978,0.996,1.978,1.978v4.351
+c0,0.982-0.996,1.979-1.978,1.979h-8.702c0,0,0.396,1.978,3.165,1.978h5.735c2.175,0,3.758-1.978,3.758-3.956v-4.351
+C24.885,141.39,23.302,139.411,21.127,139.411z" />
+<path fill="#FFFFFF" d="M24.639,187.013l-1.227-0.508c-0.202-0.084-0.362-0.188-0.355-0.23s0.026-0.256,0.044-0.475l0.002-1.008
+c-0.018-0.219-0.037-0.434-0.043-0.476c-0.007-0.043,0.153-0.147,0.355-0.23l1.223-0.507c0.203-0.083,0.301-0.317,0.216-0.521
+l-0.609-1.473c-0.084-0.203-0.318-0.3-0.521-0.217l-1.224,0.508c-0.203,0.084-0.389,0.124-0.414,0.089
+c-0.026-0.035-0.163-0.199-0.307-0.366l-0.715-0.713c-0.166-0.143-0.331-0.279-0.366-0.305s0.005-0.211,0.089-0.414l0.508-1.227
+c0.084-0.202-0.014-0.437-0.216-0.521l-1.473-0.609c-0.202-0.083-0.437,0.013-0.521,0.217l-0.508,1.227
+c-0.084,0.201-0.188,0.361-0.23,0.355c-0.043-0.007-0.256-0.034-0.474-0.061c0,0-0.212-0.025-0.515-0.025
+c-0.299,0-0.498,0.023-0.498,0.023c-0.217,0.025-0.431,0.053-0.473,0.06c-0.043,0.007-0.146-0.153-0.229-0.356l-0.508-1.223
+c-0.084-0.204-0.317-0.3-0.521-0.217l-1.473,0.609c-0.202,0.085-0.3,0.319-0.216,0.521l0.507,1.224
+c0.084,0.202,0.124,0.39,0.089,0.414c-0.034,0.026-0.199,0.163-0.366,0.306l-0.713,0.715c-0.142,0.167-0.279,0.332-0.304,0.367
+c-0.026,0.035-0.212-0.005-0.415-0.09l-1.226-0.508c-0.202-0.083-0.437,0.014-0.521,0.217l-0.61,1.473
+c-0.084,0.202,0.013,0.438,0.216,0.521l1.227,0.508c0.202,0.084,0.361,0.188,0.355,0.23c-0.008,0.042-0.027,0.257-0.045,0.475
+l-0.001,1.01c0.017,0.218,0.036,0.433,0.043,0.475c0.007,0.043-0.153,0.146-0.356,0.23l-1.223,0.506
+c-0.203,0.085-0.3,0.318-0.216,0.521l0.609,1.473c0.084,0.203,0.318,0.299,0.521,0.216l1.224-0.508
+c0.203-0.083,0.389-0.124,0.414-0.089c0.026,0.035,0.163,0.199,0.306,0.366l0.715,0.714c0.167,0.142,0.332,0.278,0.367,0.304
+c0.034,0.025-0.005,0.212-0.089,0.415l-0.508,1.226c-0.084,0.203,0.014,0.438,0.216,0.521l1.473,0.609
+c0.203,0.085,0.437-0.013,0.521-0.215l0.508-1.227c0.084-0.202,0.188-0.362,0.23-0.355c0.043,0.008,0.256,0.034,0.474,0.06
+c0,0,0.212,0.025,0.516,0.025c0.298,0,0.497-0.023,0.497-0.023c0.218-0.025,0.431-0.051,0.474-0.058
+c0.042-0.008,0.146,0.152,0.229,0.355l0.507,1.224c0.084,0.202,0.318,0.299,0.521,0.215l1.473-0.61
+c0.202-0.083,0.3-0.317,0.216-0.521l-0.507-1.223c-0.083-0.203-0.124-0.39-0.089-0.414c0.035-0.026,0.199-0.163,0.366-0.307
+l0.713-0.715c0.142-0.167,0.279-0.332,0.305-0.366c0.025-0.036,0.212,0.004,0.414,0.088l1.227,0.508
+c0.202,0.084,0.437-0.012,0.521-0.215l0.61-1.473C24.938,187.331,24.841,187.098,24.639,187.013z M17.369,189.251
+c-2.186,0-3.956-1.771-3.956-3.954c0-2.186,1.771-3.956,3.956-3.956c2.184,0,3.955,1.771,3.955,3.956
+C21.324,187.48,19.553,189.251,17.369,189.251z" />
+<path fill="#FFFFFF" d="M9.443,64.942c-0.921,0.926-0.921,2.432,0,3.358c0.434,0.437,0.996,0.66,1.566,0.685
+c0.952,2.925,3.617,5.072,6.803,5.232c-0.267-0.506-0.408-1.073-0.408-1.663c0-0.02,0.002-0.039,0.002-0.059
+c-2.266-0.304-4.124-1.908-4.815-4.038c0.063-0.053,0.131-0.098,0.191-0.158c0.92-0.926,0.92-2.432,0-3.358
+C11.861,64.017,10.363,64.017,9.443,64.942z" />
+<path fill="#FFFFFF" d="M23.446,63.206c-0.087,0.089-0.18,0.171-0.273,0.249c0.578,0.917,0.918,2.002,0.918,3.167
+c0,1.596-0.632,3.042-1.654,4.11c-0.926-0.767-2.296-0.726-3.161,0.145c-0.921,0.926-0.921,2.432,0,3.358
+c0.92,0.926,2.418,0.926,3.338,0c0.538-0.542,0.752-1.279,0.661-1.984c1.525-1.394,2.487-3.398,2.487-5.629
+c0-1.723-0.575-3.311-1.539-4.588C24.047,62.467,23.786,62.865,23.446,63.206z" />
+<path fill="#FFFFFF" d="M19.275,59.009c-0.023,0.024-0.04,0.052-0.063,0.077c-0.335-0.046-0.674-0.079-1.021-0.079
+c-2.903,0-5.419,1.659-6.686,4.079c0.555,0.062,1.098,0.254,1.578,0.578c1.021-1.776,2.925-2.976,5.107-2.976
+c0.133,0,0.265,0.006,0.395,0.017c0.004,0.602,0.233,1.203,0.689,1.662c0.92,0.926,2.418,0.926,3.338,0
+c0.921-0.926,0.921-2.432,0-3.358C21.693,58.083,20.195,58.083,19.275,59.009z" />
+<path class="user_color2" fill="#038dff" d="M17.119,105.642h9.197v-8.063l-9.197,1.285V105.642z M17.119,106.519v6.783l9.197,1.283v-8.066H17.119z
+M9.309,105.642v-5.688l6.934-0.969v6.656H9.309z M16.242,106.519H9.309v5.691l6.934,0.969V106.519z" />
+</svg>
+</div>
+</div>
+<div style="-ms-transform: scale(-1,1); height: 300px; width: 476px; left: 94px;
+overflow: hidden" class="scene-part">
+<div id="mouse_arrow" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-415.224 -53.976 564 390" enable-background="new -415.224 -53.976 564 390"
+xml:space="preserve">
+<defs></defs>
+<polygon fill="#FFFFFF" points="22.982,30.45 28.344,35.818 36.006,28.162 30.643,22.789 " />
+<polygon fill="#FFFFFF" points="11.49,41.941 16.854,47.309 24.514,39.653 19.152,34.28 " />
+<polygon fill="#FFFFFF" points="0,53.433 5.361,58.801 13.023,51.145 7.66,45.772 " />
+<polygon fill="#FFFFFF" points="33.094,0 25.373,7.723 45.709,7.723 34.473,18.954 39.846,24.321 51.063,13.101 51.063,33.412
+58.785,25.69 58.785,0 " />
+</svg>
+</div>
+</div>
+<div style="top: 55px; left: 97px; height: 300px; width: 275px; overflow: hidden"
+class="scene-part">
+<div id="cursor" class="scene-part" style="top: -55px; left: -340px">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-405.441 -116.311 564 390" enable-background="new -405.441 -116.311 564 390"
+xml:space="preserve">
+<defs></defs>
+<polyline class="user_color1" fill="#011a37" points="1.001,2.369 48.793,48.86 27.101,48.837 25.598,48.835 26.177,50.222 38.88,80.641 30.311,84.195
+17.675,53.85 17.091,52.447 16.034,53.539 1.04,69.023 1.001,2.369 " />
+<path fill="#FFFFFF" d="M1.001,2.369L48.793,48.86l-21.692-0.023l-1.503-0.001l0.579,1.387L38.88,80.641l-8.57,3.554L17.675,53.85
+l-0.584-1.403l-1.057,1.092L1.04,69.023L1.001,2.369 M0,0l0.041,71.492l16.711-17.258l13.02,31.267l10.418-4.321L27.1,49.837
+l24.158,0.026L0,0L0,0z" />
+</svg>
+</div>
+</div>
+<div id="mouse_frame" class="scene-part">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" width="564px"
+height="390px" viewbox="-74.341 -32 564 390" enable-background="new -74.341 -32 564 390"
+xml:space="preserve">
+<defs></defs>
+<path fill="#FFFFFF" d="M420.648,256.411H1c-0.552,0-1-0.447-1-1V1c0-0.552,0.448-1,1-1h419.648c0.553,0,1,0.448,1,1v254.411
+C421.648,255.964,421.201,256.411,420.648,256.411z M419.648,2H2v252.411h417.648" />
+<path fill="#FFFFFF" d="M400.168,234.92H21.481V21.476h378.687V234.92z M399.168,22.476H22.481V233.92h376.687" />
+<path fill="#FFFFFF" d="M257.051,255.411h2v42.939l67.524,9.36c0.494,0.068,0.863,0.491,0.862,0.991l-0.01,9.652
+c-0.001,0.552-0.448,0.999-1,0.999H95.209c-0.552,0-1-0.447-1-1v-9.652c0-0.499,0.368-0.922,0.863-0.99l67.468-9.36v-42.939h2
+v43.811c0,0.499-0.368,0.922-0.863,0.99l-67.468,9.36v7.781h229.219l0.008-7.781l-67.523-9.36c-0.494-0.068-0.862-0.491-0.862-0.99" />
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div id="end_sequence_canvas" style="visibility:hidden">
+<div id="pre_end_sequence">
+<div id="color0" class="fullscreen_color" style="background-color: rgb(0,114,201)"></div>
+</div>
+<div id="end_sequence">
+<div id="color1" class="fullscreen_color" style="background-color: rgb(0,114,201)"></div>
+</div>
+</div>
+</div>
+<label id="narrator_voiceover"></label>
+<div id="final_messages_overlay_canvas" style="visibility: hidden; position: absolute; top: 0px; left: 0px">
+<div id="message_overlay_sequence">
+<div class="final_text">
+<div id="final_message_text1" aria-hidden="true">
+[Installing apps]
+</div>
+</div>
+<div id="sub_final_message_text1" class="final_text_small" aria-hidden="true">
+[This might take a few minutes]
+</div>
+<div class="final_text">
+<div id="final_message_text2" aria-hidden="true">
+[Getting your apps ready]
+</div>
+</div>
+<div id="sub_final_message_text2" class="final_text_small" aria-hidden="true">
+</div>
+<div class="final_text">
+<div id="final_message_text3" aria-hidden="true">
+</div>
+</div>
+<div id="sub_final_message_text3" class="final_text_small" aria-hidden="true">
+[Don't turn off your PC]
+</div>
+<div class="final_text">
+<div id="final_message_text4" aria-hidden="true">[Getting your PC ready]</div>
+</div>
+<div id="sub_final_message_text4" class="final_text_small" aria-hidden="true">
+</div>
+<div class="final_text">
+<div id="final_message_text5" aria-hidden="true">[Almost ready]</div>
+</div>
+<div id="sub_final_message_text5" class="final_text_small" aria-hidden="true">
+</div>
+</div>
+</div>
+<div id="zdp_final_messages_overlay_canvas" style="visibility: hidden; position: absolute; top: 0px; left: 0px">
+<div id="zdp_message_overlay_sequence">
+<div class="final_text">
+<div id="zdp_final_message_text" aria-hidden="true">
+[ZDP Installing Updates]
+</div>
+</div>
+<div id="zdp_sub_final_message_text" class="final_text_small" aria-hidden="true">
+[ZDP Don't turn off your PC]
+</div>
+</div>
+</div>
+<div class="circles">
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="circle3"></div>
+</div>
+<div id="drape" style="visibility: hidden">
+<div id="wrap_up_sequence">
+<div id="finish_text" class="final_text" style="color:#fff" aria-hidden="true">
+[Let's start]
+</div>
+</div>
+</div>
+<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6dd7f091dc5f7373',m:'pl2_JPN59q.H5_I3y9NdL2KOm8LZvCLLnj9iDMFxXr8-1644858939-0-ATrWbTCTWM++Mx+QLzOfy5vRPm+raEXB00QG4Y8vFPp+X7jq65i2u561zs5C86DdCsKOM+PsvagyoEp73koy9Jo01ctW8rgJqltVSOSL/RcJGAEIAocCWmkayZYUZ1Oa9kaNlbJoXQf2YZLUWUJJmUB401S61XFnetaYb+kDTcyyZGxGHafTlRFYq5aWooE2SrgxFE9AhhjIBGFaYo/fxjc=',s:[0xab3f01eb4a,0x37b616208f],}})();</script></body>
+</html>

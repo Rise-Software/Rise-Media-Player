@@ -15,7 +15,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Height="102"
-    MaxWidth="1500"
+    MaxWidth="9000"
     SizeChanged="UserControl_SizeChanged">
 
     <UserControl.Resources>
