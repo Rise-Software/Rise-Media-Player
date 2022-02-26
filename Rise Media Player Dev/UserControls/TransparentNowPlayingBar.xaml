@@ -26,7 +26,12 @@
                         <GradientStop Color="{StaticResource SystemAccentColorLight1}"/>
                         <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
                     </LinearGradientBrush>
-                </ResourceDictionary>
+            <LinearGradientBrush x:Name="PlayBorderBrushLight">
+                <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
+                <GradientStop Color="{StaticResource SystemAccentColor}"/>
+                <GradientStop Color="{StaticResource SystemAccentColorDark2}" Offset="0.8"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
 
 
 
@@ -202,9 +207,9 @@
                                         </ResourceDictionary>
                                         <ResourceDictionary x:Key="Light">
                                             <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                                <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
-                                                <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
-                                                <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                                <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
+                                                <GradientStop Color="{StaticResource SystemAccentColor}"/>
+                                                <GradientStop Color="{StaticResource SystemAccentColorDark2}" Offset="0.8"/>
                                             </LinearGradientBrush>
                                         </ResourceDictionary>
                                     </ResourceDictionary.ThemeDictionaries>

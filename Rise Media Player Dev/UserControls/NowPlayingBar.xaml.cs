@@ -306,6 +306,7 @@ namespace Rise.App.UserControls
                 ArtistFlyoutText.Visibility = Visibility.Visible;
                 AlbumFlyoutText.Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Visible;
+                AlbumButtons.Visibility = Visibility.Visible;
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
 
@@ -326,6 +327,7 @@ namespace Rise.App.UserControls
                 SongArtist.Visibility = Visibility.Collapsed;
                 AlbumArt.Stretch = Stretch.UniformToFill;
                 ArtistFlyoutText.Visibility = Visibility.Collapsed;
+                AlbumButtons.Visibility = Visibility.Collapsed;
                 AlbumFlyoutText.Visibility = Visibility.Collapsed;
             });
         }
@@ -703,6 +705,7 @@ namespace Rise.App.UserControls
         {
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
+                NowPlayingHover.Hide();
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
             }
             else
@@ -737,6 +740,7 @@ namespace Rise.App.UserControls
         {
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
+                NowPlayingHover.Hide();
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist);
             }
             else
@@ -760,27 +764,27 @@ namespace Rise.App.UserControls
 
         private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+            NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void SongTitle_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+            NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void SongArtist_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+            NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void RelativePanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+            NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void AlbumArtContainer_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+            NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void ArtistFlyoutText_Click(object sender, RoutedEventArgs e)
@@ -798,5 +802,7 @@ namespace Rise.App.UserControls
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
             }
         }
+
+        
     }
 }

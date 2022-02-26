@@ -38,52 +38,82 @@
             </MenuFlyoutItem>
         </MenuFlyout>
 
-        <Flyout x:Name="NowPlayingHover">
-            <StackPanel Orientation="Horizontal" MaxWidth="500" Margin="0,-20,0,0">
+        <Flyout x:Name="NowPlayingHover" >
+            <StackPanel Orientation="Horizontal" MaxWidth="500" >
                 <Border x:Name="FlyoutAlbumArtContainer"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
-                        Width="80"
-                        Height="80"
+                        MaxHeight="130"
+                       
                         CornerRadius="7"
-                        Margin="0,15,0,0"
-                        ToolTipService.ToolTip="{x:Bind CurrentSongAlbum.Title, Mode=OneWay}">
+                        ToolTipService.ToolTip="{Binding CurrentSong.Album}">
+                    
                     <Grid>
-                        <Image x:Name="FlyoutAlbumArt">
-                            <Image.Source>
-                                <BitmapImage UriSource="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}" />
-                            </Image.Source>
-                        </Image>
+                        <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                CornerRadius="8"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                            <Border 
+                                    CornerRadius="8">
+                                <Image 
+                                                   Source="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}"
+                                                   Stretch="Uniform"
+                                                    />
+                            </Border>
+                        </Button>
                     </Grid>
                 </Border>
-                <StackPanel Margin="16,16,0,0" VerticalAlignment="Center" Spacing="5">
-                    <TextBlock FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
+                <StackPanel>
+                    <StackPanel Margin="16,8,8,8" VerticalAlignment="Center">
+                        <TextBlock FontSize="18" HorizontalAlignment="Left" MaxWidth="265" FontWeight="Bold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="ArtistFlyoutText" FontSize="16" MaxWidth="265" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{x:Bind local:App.PViewModel.CurrentSong.AlbumArtist, Mode=OneWay}" MaxLines="1"/>
+                        <TextBlock x:Name="AlbumFlyoutText" FontSize="14" MaxWidth="265"   Margin="0,12,0,0" FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1" TextTrimming="CharacterEllipsis"/>
 
-                    <Button x:Name="ArtistFlyoutText" Style="{StaticResource TransparentButton}" Click="ArtistFlyoutText_Click">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Go to artist" />
-                            <TextBlock FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}" MaxLines="1"/>
-                        </StackPanel>
-                    </Button>
+                    </StackPanel>
+                    <StackPanel Margin="16,0,0,0" Orientation="Horizontal" x:Name="AlbumButtons" VerticalAlignment="Bottom" >
+                        <Button Grid.Column="0" Style="{StaticResource AccentButtonStyle}" Click="PlaybackInfo_Click">
+                                <Button.Content>
+                                    <Grid ColumnSpacing="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                    <Button x:Name="AlbumFlyoutText" Style="{StaticResource TransparentButton}" Click="AlbumFlyoutText_Click">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Go to album" />
-                            <TextBlock FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1"/>
-                        </StackPanel>
-                    </Button>
+                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                        <TextBlock Text="Go to album" Grid.Column="1" />
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                        <Button Grid.Column="1" Margin="4,0,0,0" Style="{StaticResource AccentButtonStyle}"  Click="GotoArtist_Click">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                    <TextBlock Text="Go to artist" Grid.Column="1" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
+                
+                
+
+
 
             </StackPanel>
         </Flyout>
 
             <MenuFlyout x:Name="AlbumArtistFlyout">
-                <MenuFlyoutItem Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" Click="PlaybackInfo_Click">
+                <MenuFlyoutItem Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" >
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE93C;"/>
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
                 <MenuFlyoutSeparator/>
-                <MenuFlyoutItem x:Name="GotoArtist" Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}" Click="GotoArtist_Click" >
+                <MenuFlyoutItem x:Name="GotoArtist" Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}" >
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE13D;"/>
                     </MenuFlyoutItem.Icon>
@@ -220,12 +250,11 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GoToNowPlaying" RightTapped="GoToNowPlaying_RightTapped" Flyout="{StaticResource NowPlayingHover}" Style="{StaticResource TransparentButton}" Padding="0">
+            <Button x:Name="GoToNowPlaying"  RightTapped="GoToNowPlaying_RightTapped" Flyout="{StaticResource NowPlayingHover}" Style="{StaticResource TransparentButton}" Margin="0,0,0,0" Padding="0">
                 
                 <RelativePanel RightTapped="RelativePanel_RightTapped">
-                    <Border x:Name="AlbumArtContainer"
-                        RightTapped="AlbumArtContainer_RightTapped"
-                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                    <Border x:Name="AlbumArtContainer" Margin="0,0,0,0"
+                        RightTapped="AlbumArtContainer_RightTapped"              RelativePanel.AlignVerticalCenterWithPanel="True"
                         Width="75"
                         Height="75"
                         CornerRadius="5"
@@ -252,12 +281,13 @@
 
                         <TextBlock ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
                                Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
-                               IsRightTapEnabled="False"
                                FontSize="14" TextTrimming="CharacterEllipsis"
                                Margin="-1,0,0,0"
+                                   HorizontalAlignment="Left"
                                RightTapped="SongArtist_RightTapped"    
                                x:Name="SongArtist" />
                     </StackPanel>
+                    
                 </RelativePanel>
             </Button>
 
