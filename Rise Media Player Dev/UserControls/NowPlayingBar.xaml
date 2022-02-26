@@ -250,7 +250,7 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GoToNowPlaying"  RightTapped="GoToNowPlaying_RightTapped" Flyout="{StaticResource NowPlayingHover}" Style="{StaticResource TransparentButton}" Margin="0,0,0,0" Padding="0">
+            <Button x:Name="GoToNowPlaying" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped"  Style="{StaticResource TransparentButton}" Margin="0,0,0,0" Padding="0">
                 
                 <RelativePanel RightTapped="RelativePanel_RightTapped">
                     <Border x:Name="AlbumArtContainer" Margin="0,0,0,0"
@@ -424,16 +424,7 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button x:Name="RestoreVideoButton"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Height="35"
-                            ToolTipService.ToolTip="Restore full view"
-                            Click="RestoreVideoButton_Click">
-                        <FontIcon Glyph="&#xE010;" />
-                    </Button>
+                    
 
                     <Button BorderBrush="Transparent"
                             Background="Transparent"

@@ -30,15 +30,16 @@ namespace Rise.App.Views
         private PlaybackViewModel ViewModel => App.PViewModel;
         private readonly NavigationHelper _navigationHelper;
         public static FullNowPlayingPage Current;
-
         private bool IsInCurrentlyPlayingPage = false;
 
 
         public FullNowPlayingPage()
         {
             this.InitializeComponent();
+
             NavigationCacheMode = NavigationCacheMode.Required;
             _navigationHelper = new NavigationHelper(this);
+            Current = this;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
@@ -86,7 +87,6 @@ namespace Rise.App.Views
 
         private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            await System.Threading.Tasks.Task.Delay(2500);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {

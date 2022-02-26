@@ -16,13 +16,13 @@
     <Page.Resources>
         <converters:BooleanToVisibility1 x:Key="BoolToVis" />
 
-        <Storyboard x:Name="PlayingAnimationIn">
+        <Storyboard x:Name="PlayingAnimationIn" x:FieldModifier="public">
             <FadeInThemeAnimation Storyboard.TargetName="BlurBrushBorder" />
             <FadeInThemeAnimation Storyboard.TargetName="PlayFrame" />
             <FadeInThemeAnimation Storyboard.TargetName="Player" />
         </Storyboard>
 
-        <Storyboard x:Name="PlayingAnimationOut">
+        <Storyboard x:Name="PlayingAnimationOut" x:FieldModifier="public">
             <DrillOutThemeAnimation Storyboard.TargetName="BlurBrushBorder" />
             <DrillOutThemeAnimation Storyboard.TargetName="PlayFrame" />
             <DrillOutThemeAnimation Storyboard.TargetName="Player" />
@@ -141,7 +141,7 @@
                     Margin="0,-2"
                 x:Name="BlurBrushBorder">
             <Border.Background>
-                <media:BackdropBlurBrush x:Name="BlurBrush" />
+                <media:BackdropBlurBrush x:Name="BlurBrush" x:FieldModifier="public" />
             </Border.Background>
         </Border>
 
@@ -153,7 +153,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Frame x:Name="PlayFrame"
+                <Frame x:Name="PlayFrame" x:FieldModifier="public"
                    Navigated="PlayFrame_Navigated"
                    Padding="0,0,0,0"
                    VerticalAlignment="Stretch"
@@ -181,7 +181,7 @@
                     </Border.Background>
                 </Border>
 
-                <uc:TransparentNowPlayingBar x:Name="Player"
+                    <uc:NPNowPlayingBar x:Name="Player" x:FieldModifier="public"
                                              Grid.Row="1"
                                              Margin="8" />
             </Grid>
