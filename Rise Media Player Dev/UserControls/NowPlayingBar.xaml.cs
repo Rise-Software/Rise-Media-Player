@@ -302,8 +302,9 @@ namespace Rise.App.UserControls
                     }
                 }
 
-                RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
+                ArtistFlyoutText.Visibility = Visibility.Visible;
+                AlbumFlyoutText.Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Visible;
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
@@ -321,10 +322,11 @@ namespace Rise.App.UserControls
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                RestoreVideoButton.Visibility = Visibility.Visible;
                 Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Collapsed;
                 AlbumArt.Stretch = Stretch.UniformToFill;
+                ArtistFlyoutText.Visibility = Visibility.Collapsed;
+                AlbumFlyoutText.Visibility = Visibility.Collapsed;
             });
         }
 
@@ -543,9 +545,18 @@ namespace Rise.App.UserControls
 
         private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame)
+            if (App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+            } else
+            {
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
+                }
             }
         }
 
@@ -706,7 +717,7 @@ namespace Rise.App.UserControls
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
             SelectedSong = App.PViewModel.CurrentSong;
-            await SelectedSong.StartEdit();
+            await App.PViewModel.CurrentSong.StartEdit();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -739,55 +750,12 @@ namespace Rise.App.UserControls
 
         private void AlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            System.Threading.Thread.Sleep(0);
-            NowPlayingHover.OverlayInputPassThroughElement = NPBAR;
             NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
         private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            
             NowPlayingHover.Hide();
-        }
-
-        private void StackPanel_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void Parent1_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void NPBAR_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void FlyoutAlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-
-        }
-
-        private void SongTitle_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void SongArtist_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
-        }
-
-        private void RelativePanel_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            
         }
 
         private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -813,6 +781,22 @@ namespace Rise.App.UserControls
         private void AlbumArtContainer_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             AlbumArtistFlyout.ShowAt(GoToNowPlaying, e.GetPosition(GoToNowPlaying));
+        }
+
+        private void ArtistFlyoutText_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentSongArtist != null)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist);
+            }
+        }
+
+        private void AlbumFlyoutText_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentSongAlbum != null)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+            }
         }
     }
 }
