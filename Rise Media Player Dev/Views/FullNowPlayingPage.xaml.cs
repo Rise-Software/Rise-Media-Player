@@ -67,8 +67,14 @@ namespace Rise.App.Views
             //}
         }
 
+        private void FullNowPlayingPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            _ = new ApplicationTitleBar(TitleBar);
+        }
+
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
+            _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {
@@ -111,5 +117,6 @@ namespace Rise.App.Views
         {
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
+
     }
 }
