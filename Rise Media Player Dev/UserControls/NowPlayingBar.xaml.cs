@@ -38,8 +38,10 @@ namespace Rise.App.UserControls
         #region Variables
         private readonly MediaPlayer _player = App.PViewModel.Player;
         private byte _tintOpacity = 100;
+        private byte lightThemeAdditions = 85;
 
         private AlbumViewModel CurrentSongAlbum;
+        private ArtistViewModel CurrentSongArtist;
         private readonly CastingDevicePicker castingPicker;
         #endregion
 
@@ -277,6 +279,7 @@ namespace Rise.App.UserControls
                     try
                     {
                         CurrentSongAlbum = App.MViewModel.Albums.First(album => album.Title == App.PViewModel.CurrentSong.Album);
+                        CurrentSongArtist = App.MViewModel.Artists.First(artist => artist.Name == App.PViewModel.CurrentSong.Artist);
                         Uri imageUri = new(CurrentSongAlbum.Thumbnail);
                         RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
                         using IRandomAccessStream stream = await random.OpenReadAsync();
@@ -284,16 +287,26 @@ namespace Rise.App.UserControls
                         ColorThief colorThief = new();
                         QuantizedColor color = await colorThief.GetColor(decoder);
                         BackgroundAcrylicBrush.TintOpacity = 100;
-                        BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, color.Color.R, color.Color.G, color.Color.B);
+                        if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+                        {
+                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R - lightThemeAdditions), (byte)(color.Color.G - lightThemeAdditions), (byte)(color.Color.B - lightThemeAdditions));
+                        }
+                        else
+                        {
+                            BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R + lightThemeAdditions), (byte)(color.Color.G + lightThemeAdditions), (byte)(color.Color.B + lightThemeAdditions));
+                        }
+                        
                     } catch (InvalidOperationException)
                     {
 
                     }
                 }
 
-                RestoreVideoButton.Visibility = Visibility.Collapsed;
                 Visibility = Visibility.Visible;
+                ArtistFlyoutText.Visibility = Visibility.Visible;
+                AlbumFlyoutText.Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Visible;
+                AlbumButtons.Visibility = Visibility.Visible;
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
 
@@ -310,10 +323,12 @@ namespace Rise.App.UserControls
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                RestoreVideoButton.Visibility = Visibility.Visible;
                 Visibility = Visibility.Visible;
                 SongArtist.Visibility = Visibility.Collapsed;
                 AlbumArt.Stretch = Stretch.UniformToFill;
+                ArtistFlyoutText.Visibility = Visibility.Collapsed;
+                AlbumButtons.Visibility = Visibility.Collapsed;
+                AlbumFlyoutText.Visibility = Visibility.Collapsed;
             });
         }
 
@@ -532,9 +547,18 @@ namespace Rise.App.UserControls
 
         private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame)
+            if (App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+            } else
+            {
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
+                }
             }
         }
 
@@ -602,17 +626,24 @@ namespace Rise.App.UserControls
             }
         }
 
-        private void HandleColorStyles()
+        private async void HandleColorStyles()
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {
+
                 _tintOpacity = 130;
                 BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
+
+                //_tintOpacity = 130;
+                //BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
             }
             else if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                _tintOpacity = 100;
-                BackgroundAcrylicBrush.TintLuminosityOpacity = 0;
+
+                _tintOpacity = 130;
+                BackgroundAcrylicBrush.TintLuminosityOpacity = 130;
+                //_tintOpacity = 100;
+                //BackgroundAcrylicBrush.TintLuminosityOpacity = 0;
             }
         }
 
@@ -674,6 +705,7 @@ namespace Rise.App.UserControls
         {
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
+                NowPlayingHover.Hide();
                 _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
             }
             else
@@ -688,12 +720,89 @@ namespace Rise.App.UserControls
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
             SelectedSong = App.PViewModel.CurrentSong;
-            await SelectedSong.StartEdit();
+            await App.PViewModel.CurrentSong.StartEdit();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             QueueFrame.Navigate(typeof(NPBarQueuePage));
         }
+
+        private void GoToNowPlaying_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(Views.FullNowPlayingPage));
+            }
+        }
+
+        private void GotoArtist_Click(object sender, RoutedEventArgs e)
+        {
+            if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
+            {
+                NowPlayingHover.Hide();
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist);
+            }
+            else
+            {
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+            }
+        }
+
+        private void AlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            NowPlayingHover.Hide();
+        }
+
+        private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void SongTitle_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void SongArtist_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void RelativePanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void AlbumArtContainer_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            NowPlayingHover.ShowAt(GoToNowPlaying);
+        }
+
+        private void ArtistFlyoutText_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentSongArtist != null)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist);
+            }
+        }
+
+        private void AlbumFlyoutText_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentSongAlbum != null)
+            {
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+            }
+        }
+
+        
     }
 }

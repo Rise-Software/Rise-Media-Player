@@ -1,22 +1,31 @@
-﻿using System;
-using System.Linq;
-using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.Media.Playback;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
+﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Converters;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.Media.Casting;
+using Windows.Media.Playback;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Rise.App.UserControls
 {
-    public sealed partial class TransparentNowPlayingBar : UserControl
+    public sealed partial class NPNowPlayingBar : UserControl
     {
         #region Variables
         private MediaPlayer _player = App.PViewModel.Player;
@@ -25,13 +34,13 @@ namespace Rise.App.UserControls
         private CastingDevicePicker castingPicker;
         #endregion
 
-        public TransparentNowPlayingBar()
+        public NPNowPlayingBar()
         {
             InitializeComponent();
             Overlay1.Glyph = "\uE10C";
-            Overlay2.Glyph = "\uE10C";
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
+            QueueFrame.Navigate(typeof(NPBarQueuePage));
 
             castingPicker = new CastingDevicePicker();
             castingPicker.Filter.SupportsVideo = true;
@@ -62,42 +71,7 @@ namespace Rise.App.UserControls
                 await connection.RequestStartCastingAsync(_player.GetAsCastingSource());
             });
         }
-        private void OverlayButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            OverlayFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
-        }
 
-        private void UnpinOverlay_Click(object sender, RoutedEventArgs e)
-        {
-            OverlayMenu.Visibility = Visibility.Visible;
-            OverlayButton.Visibility = Visibility.Collapsed;
-        }
-
-        private void MiniMenu_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            MiniMenuFlyout.ShowAt(OverlayButton, e.GetPosition(OverlayButton));
-        }
-
-        private void MiniMenuFlyout_Click(object sender, RoutedEventArgs e)
-        {
-            OverlayMenu.Visibility = Visibility.Collapsed;
-            OverlayButton.Visibility = Visibility.Visible;
-        }
-
-        private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
-        {
-            if (PinMiniPlayer.IsChecked == false)
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
-
-            else
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
-        }
 
         private void SliderProgress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
@@ -187,34 +161,22 @@ namespace Rise.App.UserControls
 
         private async void OverlayButton_Click(object sender, RoutedEventArgs e)
         {
-            FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
-            if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
-            {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                preferences.CustomSize = new Size(400, 400);
-                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                fontIcon.Glyph = "\uE10C";
-            }
-            else
-            {
-               
-            }
+
         }
 
-        private async void OverlayButton1_Click(object sender, RoutedEventArgs e)
+        private async void QueueButton_Click(object sender, RoutedEventArgs e)
         {
-            FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
-            if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
-            {
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                preferences.CustomSize = new Size(400, 400);
-                _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                fontIcon.Glyph = "\uE10C";
-            }
-            else
-            {
-                
-            }
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                FullNowPlayingPage.Current.PlayingAnimationIn.Begin();
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                FullNowPlayingPage.Current.PlayFrame.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                FullNowPlayingPage.Current.Player.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+
+                FullNowPlayingPage.Current.BlurBrush.Amount = 15;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -222,57 +184,80 @@ namespace Rise.App.UserControls
             if (e.NewSize.Width >= 900)
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
+                MediaControlButtons.HorizontalAlignment = HorizontalAlignment.Left;
+                SliderControl.HorizontalAlignment = HorizontalAlignment.Left;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
-                OverlayButton1.Visibility = Visibility.Collapsed;
+                Overlay1.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 600)
             {
                 DefaultVolumeControl.Visibility = Visibility.Visible;
+                MediaControlButtons.HorizontalAlignment = HorizontalAlignment.Left;
+                SliderControl.HorizontalAlignment = HorizontalAlignment.Left;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
-                OverlayButton1.Visibility = Visibility.Collapsed;
+                Overlay1.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 480)
             {
-                DefaultVolumeControl.Visibility = Visibility.Visible;
-                VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
-                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
-                OverlayButton1.Visibility = Visibility.Collapsed;
-            }
-            else if (e.NewSize.Width >= 400)
-            {
-                DefaultVolumeControl.Visibility = Visibility.Visible;
-                VolumeFlyoutButton.Visibility = Visibility.Collapsed;
-                Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
-                VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
-                OverlayButton1.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
+                MediaControlButtons.HorizontalAlignment = HorizontalAlignment.Center;
+                SliderControl.HorizontalAlignment = HorizontalAlignment.Center;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
                 if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
                 {
-                    OverlayButton.Visibility = Visibility.Collapsed;
+                    QueueButton.Visibility = Visibility.Collapsed;
                 }
-                else fontIcon.Glyph = "\uEE49";
+            }
+            else if (e.NewSize.Width >= 400)
+            {
+                DefaultVolumeControl.Visibility = Visibility.Collapsed;
+                MediaControlButtons.HorizontalAlignment = HorizontalAlignment.Center;
+                SliderControl.HorizontalAlignment = HorizontalAlignment.Center;
+                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
+
+                OverlayButton1.Visibility = Visibility.Visible;
+                FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
+                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                {
+                    QueueButton.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                DefaultVolumeControl.Visibility = Visibility.Collapsed;
+                MediaControlButtons.HorizontalAlignment = HorizontalAlignment.Center;
+                SliderControl.HorizontalAlignment = HorizontalAlignment.Center;
+                VolumeFlyoutButton.Visibility = Visibility.Visible;
+                Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
+                VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Overlay1.Visibility = Visibility.Collapsed;
+
+                OverlayButton1.Visibility = Visibility.Visible;
+                FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
+                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                {
+                    QueueButton.Visibility = Visibility.Collapsed;
+                }
             }
 
-            FontIcon fontIcon1 = OverlayButton.FindChildren().First() as FontIcon;
+            FontIcon fontIcon1 = QueueButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
             {
-                OverlayButton.Visibility = Visibility.Collapsed;
+                QueueButton.Visibility = Visibility.Collapsed;
             }
-            else fontIcon1.Glyph = "\uEE49";
         }
 
         private void PlayButton_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -287,7 +272,7 @@ namespace Rise.App.UserControls
             {
                 border.BorderBrush = PlayBorderBrushLight;
             }
-            
+
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)

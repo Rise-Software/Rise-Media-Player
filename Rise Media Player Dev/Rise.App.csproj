@@ -193,6 +193,9 @@
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Indexing\IndexingPresets.cs" />
+    <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
+      <DependentUpon>BloomView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>
@@ -232,6 +235,9 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NPNowPlayingBar.xaml.cs">
+      <DependentUpon>NPNowPlayingBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TransparentNowPlayingBar.xaml.cs">
       <DependentUpon>TransparentNowPlayingBar.xaml</DependentUpon>
     </Compile>
@@ -264,6 +270,12 @@
     </Compile>
     <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
       <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CurrentlyPlayingPageWindow.xaml.cs">
+      <DependentUpon>CurrentlyPlayingPageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FullNowPlayingPage.xaml.cs">
+      <DependentUpon>FullNowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
@@ -544,6 +556,7 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
@@ -581,6 +594,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Materials_Visualisers\BloomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -636,6 +653,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\NPNowPlayingBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TransparentNowPlayingBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -661,6 +682,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CurrentlyPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CurrentlyPlayingPageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FullNowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

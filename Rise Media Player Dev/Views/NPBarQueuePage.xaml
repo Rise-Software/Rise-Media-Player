@@ -80,6 +80,7 @@
         <ListView x:Name="MainList"
                   Grid.Row="1"
                   DoubleTapped="MainList_DoubleTapped"
+                  
                   ItemsSource="{x:Bind Songs}"
                   ItemTemplate="{StaticResource NowPlayingQueueItem}"
                   Margin="-16,-8,-16,-124"

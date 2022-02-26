@@ -14,7 +14,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:local="using:Rise.App"
     Height="102"
-    MaxWidth="1500"
+    MaxWidth="1000"
     SizeChanged="UserControl_SizeChanged">
 
     <UserControl.Resources>
@@ -38,7 +38,89 @@
             </MenuFlyoutItem>
         </MenuFlyout>
 
-        <MenuFlyout x:Key="MoreMenuFlyout">
+        <Flyout x:Name="NowPlayingHover" >
+            <StackPanel Orientation="Horizontal" MaxWidth="500" >
+                <Border x:Name="FlyoutAlbumArtContainer"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        MaxHeight="130"
+                       
+                        CornerRadius="7"
+                        ToolTipService.ToolTip="{Binding CurrentSong.Album}">
+                    
+                    <Grid>
+                        <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                CornerRadius="8"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                            <Border 
+                                    CornerRadius="8">
+                                <Image 
+                                                   Source="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Thumbnail, Mode=OneWay}"
+                                                   Stretch="Uniform"
+                                                    />
+                            </Border>
+                        </Button>
+                    </Grid>
+                </Border>
+                <StackPanel>
+                    <StackPanel Margin="16,8,8,8" VerticalAlignment="Center">
+                        <TextBlock FontSize="18" HorizontalAlignment="Left" MaxWidth="265" FontWeight="Bold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="ArtistFlyoutText" FontSize="16" MaxWidth="265" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{x:Bind local:App.PViewModel.CurrentSong.AlbumArtist, Mode=OneWay}" MaxLines="1"/>
+                        <TextBlock x:Name="AlbumFlyoutText" FontSize="14" MaxWidth="265"   Margin="0,12,0,0" FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1" TextTrimming="CharacterEllipsis"/>
+
+                    </StackPanel>
+                    <StackPanel Margin="16,0,0,0" Orientation="Horizontal" x:Name="AlbumButtons" VerticalAlignment="Bottom" >
+                        <Button Grid.Column="0" Style="{StaticResource AccentButtonStyle}" Click="PlaybackInfo_Click">
+                                <Button.Content>
+                                    <Grid ColumnSpacing="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                        <TextBlock Text="Go to album" Grid.Column="1" />
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                        <Button Grid.Column="1" Margin="4,0,0,0" Style="{StaticResource AccentButtonStyle}"  Click="GotoArtist_Click">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                    <TextBlock Text="Go to artist" Grid.Column="1" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+
+
+
+            </StackPanel>
+        </Flyout>
+
+            <MenuFlyout x:Name="AlbumArtistFlyout">
+                <MenuFlyoutItem Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" >
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE93C;"/>
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator/>
+                <MenuFlyoutItem x:Name="GotoArtist" Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}" >
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE13D;"/>
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+
+            <MenuFlyout x:Key="MoreMenuFlyout">
             <MenuFlyoutItem x:Name="Props" Text="Info &amp; Properties" Click="Props_Click" IsEnabled="True">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
@@ -154,10 +236,11 @@
         <Grid x:Name="Grid" Padding="12,0"
               BorderThickness="1"
               CornerRadius="8"
-              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <Grid.Background>
+              BorderBrush="{StaticResource LayerFillColorDefaultBrush}">
+            <Grid.Background >
                 <AcrylicBrush BackgroundSource="Backdrop"
                               x:Name="BackgroundAcrylicBrush"
+                              
                               TintOpacity="0.0"
                               TintColor="{StaticResource SystemColorBackgroundColor}" />
             </Grid.Background>
@@ -167,10 +250,11 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource TransparentButton}" Padding="0" Click="PlaybackInfo_Click">
-                <RelativePanel>
-                    <Border x:Name="AlbumArtContainer"
-                        RelativePanel.AlignVerticalCenterWithPanel="True"
+            <Button x:Name="GoToNowPlaying" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped"  Style="{StaticResource TransparentButton}" Margin="0,0,0,0" Padding="0">
+                
+                <RelativePanel RightTapped="RelativePanel_RightTapped">
+                    <Border x:Name="AlbumArtContainer" Margin="0,0,0,0"
+                        RightTapped="AlbumArtContainer_RightTapped"              RelativePanel.AlignVerticalCenterWithPanel="True"
                         Width="75"
                         Height="75"
                         CornerRadius="5"
@@ -183,26 +267,31 @@
                             </Image>
                         </Grid>
                     </Border>
-                    <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="10,0,0,0">
+                    <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="AlbumArtContainer" Spacing="3" Margin="15,0,15,0">
                         <TextBlock Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}"
                                ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}"
-                               MaxLines="1"
+                               MaxLines="2"
                                HorizontalAlignment="Stretch"
                                TextTrimming="CharacterEllipsis"
-                               FontSize="17"
+                               FontSize="16"
                                Style="{ThemeResource SubtitleTextBlockStyle}"
                                FontWeight="SemiBold"
+                               RightTapped="SongTitle_RightTapped"
                                x:Name="SongTitle" />
 
                         <TextBlock ToolTipService.ToolTip="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
                                Text="{x:Bind local:App.PViewModel.CurrentSong.Artist, Mode=OneWay}"
-                               FontSize="15" TextTrimming="CharacterEllipsis"
+                               FontSize="14" TextTrimming="CharacterEllipsis"
+                               Margin="-1,0,0,0"
+                                   HorizontalAlignment="Left"
+                               RightTapped="SongArtist_RightTapped"    
                                x:Name="SongArtist" />
                     </StackPanel>
+                    
                 </RelativePanel>
             </Button>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="-1,0,0,0" Padding="3,0,0,0">
+            <StackPanel Grid.Column="1" VerticalAlignment="Center"  Margin="-1,0,0,0" Padding="3,0,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button HorizontalAlignment="Right" Padding="10" Margin="5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Flyout="{StaticResource VolumeFlyout}" BorderThickness="0" Background="Transparent">
                         <FontIcon Glyph="&#xE767;" />
@@ -335,17 +424,7 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button x:Name="RestoreVideoButton"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Height="35"
-                            ToolTipService.ToolTip="Restore video"
-                            Click="RestoreVideoButton_Click"
-                            Visibility="Collapsed">
-                        <FontIcon Glyph="&#xE010;" />
-                    </Button>
+                    
 
                     <Button BorderBrush="Transparent"
                             Background="Transparent"
@@ -359,9 +438,9 @@
                         <Button.Flyout>
                             <Flyout>
 
-                                <Grid Height="auto" Padding="-12">
-                                    <ScrollViewer>
-                                        <Frame Margin="12,42,12,4" x:Name="QueueFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <Grid Padding="-12">
+                                    <ScrollViewer MaxWidth="350" MaxHeight="500">
+                                        <Frame  Margin="12,42,12,4" x:Name="QueueFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                     </ScrollViewer>
                                 </Grid>
 

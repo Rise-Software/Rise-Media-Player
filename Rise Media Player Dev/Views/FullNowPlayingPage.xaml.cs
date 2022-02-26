@@ -1,36 +1,65 @@
+﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Rise.App.Views
 {
-    public sealed partial class NowPlaying : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class FullNowPlayingPage : Page
     {
-        /// <summary>
-        /// Gets the app-wide NPViewModel instance.
-        /// </summary>
         private PlaybackViewModel ViewModel => App.PViewModel;
+        private readonly NavigationHelper _navigationHelper;
+        public static FullNowPlayingPage Current;
         private bool IsInCurrentlyPlayingPage = false;
 
-        
 
-
-        public NowPlaying()
+        public FullNowPlayingPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
             NavigationCacheMode = NavigationCacheMode.Required;
+            _navigationHelper = new NavigationHelper(this);
+            Current = this;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             _ = new ApplicationTitleBar(TitleBar);
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                PlayingAnimationIn.Begin();
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                PlayFrame.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+                Player.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+
+                BlurBrush.Amount = 15;
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
 
             //Player.SetMediaPlayer(ViewModel.Player);
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             DataContext = ViewModel;
-            _ = PlayFrame.Navigate(typeof(CurrentlyPlayingPage));
+            _ = PlayFrame.Navigate(typeof(CurrentlyPlayingPageWindow));
             //int testvar = 3;
             //while (testvar==3)
             //{
@@ -38,9 +67,14 @@ namespace Rise.App.Views
             //}
         }
 
+        private void FullNowPlayingPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            _ = new ApplicationTitleBar(TitleBar);
+        }
+
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            
+            _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {
@@ -51,21 +85,13 @@ namespace Rise.App.Views
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Visible;
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
-                {
-                    ImageBrushAlbumCover.Opacity = 0.25;
-                }
-                else
-                {
-                    ImageBrushAlbumCover.Opacity = 0.5;
-                }
 
-                BlurBrush.Amount = 10;
+                BlurBrush.Amount = 15;
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
@@ -74,7 +100,6 @@ namespace Rise.App.Views
                 PlayingAnimationOut.Begin();
                 PlayFrame.Visibility = Visibility.Collapsed;
                 Player.Visibility = Visibility.Collapsed;
-                ImageBrushAlbumCover.Opacity = 1;
                 BlurBrush.Amount = 0;
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             }
@@ -91,6 +116,11 @@ namespace Rise.App.Views
         private void Page_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+        }
+
+        private async void PopOutWindow_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await typeof(Materials_Visualisers.BlankPage1).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
         }
     }
 }
