@@ -29,7 +29,7 @@
                                 <TextBlock
                                     FontSize="12"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Text="Alpha Preview" />
+                                    Text="Alpha Preview 2" />
                             </StackPanel>
                         </StackPanel>
                     </Button>
@@ -42,11 +42,11 @@
                             <FontIcon VerticalAlignment="Center" Glyph="&#xECA7;" />
 
                             <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                <TextBlock FontWeight="SemiBold" Text="Insider" />
+                                <TextBlock FontWeight="SemiBold" Text="Insider Hub" />
                                 <TextBlock
                                     FontSize="12"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Text="Bloom" />
+                                    Text="Wallpapers and extras" />
                             </StackPanel>
                         </StackPanel>
                     </Button>
@@ -71,12 +71,6 @@
                 </StackPanel>
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>
-
-        <!--<uc:ExpanderControl
-            x:Uid="/About/Recent"
-            ExpanderStyle="Default"
-            Icon="&#xE121;" />-->
-
 
         <TextBlock
             x:Uid="/About/MoreH"
