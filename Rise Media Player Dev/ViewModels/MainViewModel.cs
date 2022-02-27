@@ -18,16 +18,11 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private bool _isIndexing = false;
         /// <summary>
         /// Whether or not are we currently indexing. This is to avoid
         /// unnecessarily indexing concurrently.
         /// </summary>
-        public bool IsIndexing
-        {
-            get => _isIndexing;
-            set => Set(ref _isIndexing, value);
-        }
+        public bool IsIndexing = false;
 
         /// <summary>
         /// Whether or not is there a recrawl queued. If true,
