@@ -62,9 +62,13 @@ namespace Rise.App.ViewModels
 
             QueryPresets.SongQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
+            QueryPresets.SongQueryOptions.
+                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
+            QueryPresets.VideoQueryOptions.
+                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
         }
 
         /// <summary>
@@ -167,7 +171,7 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    if(!songs.Contains(s))
+                    if (!songs.Contains(s))
                     {
                         Songs.Add(new SongViewModel(s));
                     }
@@ -178,7 +182,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        if(!albums.Contains(a))
+                        if (!albums.Contains(a))
                         {
                             Albums.Add(new AlbumViewModel(a));
                         }
@@ -190,7 +194,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        if(!artists.Contains(a))
+                        if (!artists.Contains(a))
                         {
                             Artists.Add(new ArtistViewModel(a));
                         }
@@ -202,7 +206,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Genre g in genres)
                     {
-                        if(!genres.Contains(g))
+                        if (!genres.Contains(g))
                         {
                             Genres.Add(new GenreViewModel(g));
                         }
@@ -214,7 +218,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Video v in videos)
                     {
-                        if(!videos.Contains(v))
+                        if (!videos.Contains(v))
                         {
                             Videos.Add(new VideoViewModel(v));
                         }
@@ -226,7 +230,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (PlaylistViewModel p in playlists)
                     {
-                         Playlists.Add(p);
+                        Playlists.Add(p);
                     }
                 }
 
@@ -262,21 +266,17 @@ namespace Rise.App.ViewModels
 
             IsIndexing = true;
 
-            Indexer.CancelTask();
-            await Indexer.IndexLibraryAsync(App.MusicLibrary,
-                QueryPresets.SongQueryOptions,
-                Indexer.Token,
-                SaveMusicModelsAsync,
-                IndexerOption.UseIndexerWhenAvailable,
-                PropertyPrefetchOptions.MusicProperties,
-                Properties.DiscProperties);
+            await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                PropertyPrefetchOptions.MusicProperties, Properties.DiscProperties))
+            {
+                await SaveMusicModelsAsync(song);
+            }
 
-            await Indexer.IndexLibraryAsync(App.VideoLibrary,
-                QueryPresets.VideoQueryOptions,
-                Indexer.Token,
-                SaveVideoModelAsync,
-                IndexerOption.UseIndexerWhenAvailable,
-                PropertyPrefetchOptions.VideoProperties);
+            await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                PropertyPrefetchOptions.MusicProperties, Properties.DiscProperties))
+            {
+                await SaveVideoModelAsync(video);
+            }
 
             if (QueuedReindex)
             {
