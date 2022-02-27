@@ -39,7 +39,8 @@ namespace Rise.App.Indexing
         }
 
         /// <summary>
-        /// Indexes a folder's contents.
+        /// Indexes a folder's contents based on personalized
+        /// query options.
         /// </summary>
         /// <param name="folder">Folder to index.</param>
         /// <param name="options">Query options.</param>
