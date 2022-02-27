@@ -26,10 +26,11 @@
                     VerticalAlignment="Center"
                     Width="400">
             <TextBlock x:Uid="/Setup/Welcome"
+
                        HorizontalAlignment="Center"
                        Style="{StaticResource TitleTextBlockStyle}" />
             <Image HorizontalAlignment="Center"
-                   Source="ms-appx:///Assets/Branding/settingsbanner.png"
+                   Source="ms-appx:///Assets/Branding/AlphaBanner.png"
                    Width="Auto" />
             <TextBlock x:Uid="/Setup/Intro"
                        HorizontalAlignment="Center"
@@ -37,6 +38,7 @@
                        TextAlignment="Center" />
             <Button x:Uid="/Setup/Start"
                     Click="SetupButton_Click"
+                    Width="150"
                     HorizontalAlignment="Center"
                     Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>

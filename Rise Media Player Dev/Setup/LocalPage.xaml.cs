@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
@@ -13,6 +14,7 @@ namespace Rise.App.Setup
         public LocalPage()
         {
             InitializeComponent();
+            SetupLocalFrame.Navigate(typeof(Settings.MediaSourcesPage));
 
             Deletion = new List<string>
             {
@@ -21,6 +23,11 @@ namespace Rise.App.Setup
             };
 
             DataContext = ViewModel;
+        }
+
+        private async void ExpanderControl_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
         }
     }
 }

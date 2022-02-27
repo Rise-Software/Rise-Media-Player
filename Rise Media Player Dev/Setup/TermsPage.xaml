@@ -8,9 +8,8 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="20">
-        <TextBlock x:Uid="/Terms/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Padding="0,4,0,0">
             <TextBlock x:Uid="/Terms/TermsStart" Style="{StaticResource BaseTextBlockStyle}" />
             <TextBlock x:Uid="/Terms/LastUpdated" Style="{StaticResource BodyTextBlockStyle}" />
         </StackPanel>
