@@ -20,7 +20,7 @@ namespace Rise.App.Indexing
         /// <param name="queryOptions">Query options.</param>
         /// <param name="prefetchOptions">What options to prefetch.</param>
         /// <param name="extraProps">Extra properties to prefetch.</param>
-        public static async IAsyncEnumerable<StorageFile> IndexLibraryAsync(StorageLibrary library,
+        public static async IAsyncEnumerable<StorageFile> IndexAsync(this StorageLibrary library,
             QueryOptions queryOptions,
             PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
             IEnumerable<string> extraProps = null)
@@ -31,7 +31,7 @@ namespace Rise.App.Indexing
             // Index library.
             foreach (StorageFolder folder in library.Folders)
             {
-                await foreach (var file in IndexFolderAsync(folder, queryOptions))
+                await foreach (var file in folder.IndexAsync(queryOptions))
                 {
                     yield return file;
                 }
@@ -48,7 +48,7 @@ namespace Rise.App.Indexing
         /// be 1 or greater.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// an invalid <paramref name="stepSize"/> is specified.</exception>
-        public static async IAsyncEnumerable<StorageFile> IndexFolderAsync(StorageFolder folder,
+        public static async IAsyncEnumerable<StorageFile> IndexAsync(this StorageFolder folder,
             QueryOptions options,
             uint stepSize = 10)
         {
