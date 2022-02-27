@@ -18,8 +18,6 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private IndexingHelper Indexer => App.Indexer;
-
         private bool _isIndexing = false;
         /// <summary>
         /// Whether or not are we currently indexing. This is to avoid
