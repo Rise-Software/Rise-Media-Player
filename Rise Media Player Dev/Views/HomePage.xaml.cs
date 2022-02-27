@@ -34,7 +34,14 @@ namespace Rise.App.Views
             => _ = await typeof(SupportProject).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
-            => _ = await MainPage.Current.SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Manage local media folders";
+            dialog.CloseButtonText = "Close";
+            dialog.Content = new Settings.MediaSourcesPage();
+            var result = await dialog.ShowAsync();
+
+        }
 
         #region NavigationHelper registration
         /// <summary>
