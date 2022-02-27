@@ -39,6 +39,7 @@
 
                 <TextBlock x:Name="Header"
                            Padding="0,0,0,4"
+
                            Style="{StaticResource TitleTextBlockStyle}" />
 
                 <ScrollViewer Grid.Row="1"
@@ -75,7 +76,7 @@
             <StackPanel Orientation="Vertical"
                         Padding="0,0,48,0"
                         VerticalAlignment="Center">
-                <TextBlock x:Name="SetupInfo"
+                <TextBlock x:Name="SetupInfo" Padding="0,0,0,6"
                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                            Style="{StaticResource BaseTextBlockStyle}" />
                 <muxc:ProgressBar x:Name="SetupProgress" HorizontalAlignment="Left" Width="162" />

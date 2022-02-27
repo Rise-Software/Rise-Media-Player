@@ -9,11 +9,12 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="20">
+    <Grid>
         <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
-        <StackPanel Orientation="Vertical" Spacing="4">
+        <!--<StackPanel Orientation="Vertical" Spacing="4">
             <uc:ExpanderControl x:Uid="/MediaLibrary/ChooseFolders"
                                    ExpanderStyle="Button"
+                                Click="ExpanderControl_Click"
                                    Icon="&#xE8B7;">
                 <FontIcon Glyph="&#xE2B4;"
                           FontSize="16"
@@ -24,21 +25,24 @@
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE74D;">
-                <!--ComboBox ItemsSource="{x:Bind Deletion}"
+                --><!--ComboBox ItemsSource="{x:Bind Deletion}"
                           PlaceholderText="Delete from device"
-                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" /-->
+                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" /--><!--
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE145;">
-                <!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /-->
+                --><!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /--><!--
             </uc:ExpanderControl>
         </StackPanel>
 
         <TextBlock x:Uid="/Local/Tip"
                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                   Style="{StaticResource BodyTextBlockStyle}" />
-    </StackPanel>
+                   Style="{StaticResource BodyTextBlockStyle}" />-->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0,48,0,0">
+            <Frame x:Name="SetupLocalFrame"/>
+        </ScrollViewer>
+    </Grid>
 </Page>
