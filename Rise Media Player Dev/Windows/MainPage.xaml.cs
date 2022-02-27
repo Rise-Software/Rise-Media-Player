@@ -73,9 +73,6 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
-            App.Indexer.Started += Indexer_Started;
-            App.Indexer.Finished += Indexer_Finished;
-
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
