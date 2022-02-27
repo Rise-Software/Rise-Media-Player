@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
@@ -9,6 +10,56 @@ namespace Rise.App.Indexing
 {
     public static class IndexingHelpers
     {
+        #region Indexing
+        /// <summary>
+        /// Indexes a folder's contents.
+        /// </summary>
+        /// <param name="folder">Folder to index.</param>
+        /// <param name="options">Query options.</param>
+        /// <param name="stepSize">The step size. This allows for
+        /// the files to be indexed and processed in batches. Must
+        /// be 1 or greater.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// an invalid <paramref name="stepSize"/> is specified.</exception>
+        public static async IAsyncEnumerable<StorageFile> IndexFolderAsync(StorageFolder folder,
+            QueryOptions options,
+            uint stepSize = 10)
+        {
+            if (stepSize < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(stepSize));
+            }
+
+            int indexedFiles = 0;
+
+            // Prepare the query
+            StorageFileQueryResult folderQueryResult = folder.CreateFileQueryWithOptions(options);
+
+            // Index by steps
+            uint index = 0;
+
+            IReadOnlyList<StorageFile> fileList = await folderQueryResult.GetFilesAsync(index, stepSize);
+            index += 10;
+
+            // Start crawling data
+            while (fileList.Count != 0)
+            {
+                Task<IReadOnlyList<StorageFile>> fileTask =
+                    folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
+
+                // Process files
+                foreach (StorageFile file in fileList)
+                {
+                    indexedFiles++;
+                    yield return file;
+                }
+
+                fileList = await fileTask;
+                index += 10;
+            }
+        }
+        #endregion
+
         #region Tracking
         /// <summary>
         /// Registers a <see cref="StorageFolder"/> for foreground change tracking.
