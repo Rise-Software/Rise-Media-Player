@@ -342,7 +342,6 @@
     <Compile Include="Setup\TermsPage.xaml.cs">
       <DependentUpon>TermsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Indexing\IndexingHelper.cs" />
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
