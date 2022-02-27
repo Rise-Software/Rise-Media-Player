@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
 namespace Rise.App.Indexing
@@ -11,6 +12,32 @@ namespace Rise.App.Indexing
     public static class IndexingHelpers
     {
         #region Indexing
+        /// <summary>
+        /// Indexes a library's contents based on personalized
+        /// query options.
+        /// </summary>
+        /// <param name="library">Library to index.</param>
+        /// <param name="queryOptions">Query options.</param>
+        /// <param name="prefetchOptions">What options to prefetch.</param>
+        /// <param name="extraProps">Extra properties to prefetch.</param>
+        public static async IAsyncEnumerable<StorageFile> IndexLibraryAsync(StorageLibrary library,
+            QueryOptions queryOptions,
+            PropertyPrefetchOptions prefetchOptions = PropertyPrefetchOptions.BasicProperties,
+            IEnumerable<string> extraProps = null)
+        {
+            // Prefetch file properties.
+            queryOptions.SetPropertyPrefetch(prefetchOptions, extraProps);
+
+            // Index library.
+            foreach (StorageFolder folder in library.Folders)
+            {
+                await foreach (var file in IndexFolderAsync(folder, queryOptions))
+                {
+                    yield return file;
+                }
+            }
+        }
+
         /// <summary>
         /// Indexes a folder's contents.
         /// </summary>
