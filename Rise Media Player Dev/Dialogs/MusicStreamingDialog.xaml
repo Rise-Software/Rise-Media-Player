@@ -15,9 +15,9 @@
 
     <StackPanel Width="300" Spacing="6">
         <TextBox Header="URL to stream" x:Name="StreamingTextBox" />
-        <TextBlock FontSize="13" TextWrapping="Wrap" Text="Note: not a YouTube Music URL for example, but a direct link to a song file." />
+        <TextBlock FontSize="13" TextWrapping="Wrap" Text="Note: not a YouTube Music URL for example, but a direct link to a song file, stream, or playlist." />
         <TextBlock FontSize="13" TextWrapping="Wrap">
-            Examples of direct links include:<LineBreak />https://www.example.com/song.mp3
+            Examples of direct links include:<LineBreak />https://www.example.com/song.mp3<LineBreak />https://www.example.com/song_playlist.m3u
         </TextBlock>
         <TextBlock FontSize="13" TextWrapping="Wrap" Text="Invalid URL." x:Name="InvalidUrlText" Visibility="Collapsed" />
     </StackPanel>
