@@ -409,6 +409,7 @@ namespace Rise.App.UserControls
             FontIcon fontIcon = OverlayButton.FindChildren().First() as FontIcon;
             if (ApplicationView.GetForCurrentView().ViewMode != ApplicationViewMode.CompactOverlay)
             {
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(400, 400);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
@@ -416,6 +417,7 @@ namespace Rise.App.UserControls
             }
             else
             {
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);

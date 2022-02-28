@@ -25,26 +25,26 @@
                 <uc:ExpanderControl Margin="0,12,0,0"  x:Uid="/MediaLibrary/Automatic"
                                ExpanderStyle="Static"
                                Icon="&#xE094;">
-                    <ToggleSwitch Toggled="AllScanning_Toggled" x:Name="AllScanning" IsOn="True" />
+                    <ToggleSwitch x:Name="AllScanning" IsOn="True" />
                 </uc:ExpanderControl>
 
-                <StackPanel x:Name="ScanningStuff">
+                <StackPanel x:Name="ScanningStuff" Visibility="{x:Bind AllScanning.IsOn, Mode=OneWay, Converter={StaticResource BoolToVis}}">
                     <Border Margin="0,4,0,0" x:Name="PeriodicBorder"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource SettingsCard}"
+                            VerticalAlignment="Stretch"
+                            Style="{StaticResource SettingsCard}"
                             Padding="0"
-                    HorizontalAlignment="Stretch"
-                        Height="120"
-                    CornerRadius="3"
-                    BorderThickness="1"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                            HorizontalAlignment="Stretch"
+                            Height="120"
+                            CornerRadius="3"
+                            BorderThickness="1"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
                         <StackPanel Orientation="Vertical" Padding="15,8,15,8">
 
                             <StackPanel>
                                 <uc:ExpanderControl VerticalAlignment="Center" x:Uid="/MediaLibrary/AutoScanMedia"
                                ExpanderStyle="Transparent"
                                Icon="&#xE121;">
-                                    <ToggleSwitch x:Name="PeriodicSwitch" Toggled="PeriodicSwitch_Toggled" IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
+                                    <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
                                 </uc:ExpanderControl>
                             </StackPanel>
 
@@ -56,21 +56,16 @@
 
                                 <StackPanel Orientation="Horizontal" Margin="28,0,15,0">
                                     <TextBlock Style="{StaticResource Subheader}" FontWeight="Normal" Text="Run every:"/>
-                                    <muxc:RadioButtons Margin="16,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="PeriodicScan_SelectionChanged" IsEnabled="True" SelectedItem="30 minutes"  MaxColumns="7" x:Name="PeriodicScan">
+                                    <muxc:RadioButtons Margin="16,3,0,0" IsEnabled="{x:Bind PeriodicSwitch.IsOn, Mode=OneWay}" SelectedIndex="{x:Bind local1:App.SViewModel.IndexingMode}" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="PeriodicScan_SelectionChanged" MaxColumns="7" x:Name="PeriodicScan">
                                         <x:String>1 minute</x:String>
                                         <x:String>5 minutes</x:String>
                                         <x:String>10 minutes</x:String>
                                         <x:String>30 minutes</x:String>
                                         <x:String>1 hour</x:String>
-
                                     </muxc:RadioButtons>
                                 </StackPanel>
-
                             </StackPanel>
-
                         </StackPanel>
-
-
                     </Border>
                     <Border Margin="0,4,0,0" x:Name="EventsBorder"
                     VerticalAlignment="Stretch"
