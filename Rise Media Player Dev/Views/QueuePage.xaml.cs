@@ -82,7 +82,12 @@ namespace Rise.App.Views
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-            => Frame.GoBack();
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
+        }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -279,7 +284,10 @@ namespace Rise.App.Views
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            await _selectedSong.StartEdit();
+            if (!_selectedSong.IsOnline)
+            {
+                await _selectedSong.StartEdit();
+            }
         }
 
     }

@@ -297,7 +297,10 @@ namespace Rise.App.Views
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            await _selectedSong.StartEdit();
+            if (!_selectedSong.IsOnline)
+            {
+                await _selectedSong.StartEdit();
+            }
         }
 
     }

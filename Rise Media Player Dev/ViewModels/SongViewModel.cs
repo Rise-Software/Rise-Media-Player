@@ -32,6 +32,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Checks if the song is played from an online stream, playlist or song.
+        /// </summary>
+        public bool IsOnline = false;
+
+        /// <summary>
         /// Gets or sets the song title.
         /// </summary>
         public string Title

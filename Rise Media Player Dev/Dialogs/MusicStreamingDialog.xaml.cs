@@ -60,7 +60,8 @@ namespace Rise.App.Dialogs
                 Album = "UnknownAlbumResource",
                 Artist = "UnknownArtistResource",
                 AlbumArtist = "UnknownArtistResource",
-                Location = StreamingTextBox.Text
+                Location = StreamingTextBox.Text,
+                IsOnline = true
             };
 
             await App.PViewModel.PlaySongFromUrlAsync(song);
