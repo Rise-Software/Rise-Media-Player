@@ -721,8 +721,11 @@ namespace Rise.App.UserControls
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            SelectedSong = App.PViewModel.CurrentSong;
-            await App.PViewModel.CurrentSong.StartEdit();
+            if (!App.PViewModel.CurrentSong.IsOnline)
+            {
+                SelectedSong = App.PViewModel.CurrentSong;
+                await App.PViewModel.CurrentSong.StartEdit();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

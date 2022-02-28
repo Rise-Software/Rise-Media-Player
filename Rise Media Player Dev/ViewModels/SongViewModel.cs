@@ -32,6 +32,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Checks if the song is played from an online stream, playlist or song.
+        /// </summary>
+        public bool IsOnline = false;
+
+        /// <summary>
         /// Gets or sets the song title.
         /// </summary>
         public string Title
@@ -500,11 +505,12 @@ namespace Rise.App.ViewModels
             MediaItemDisplayProperties props = media.GetDisplayProperties();
             props.Type = MediaPlaybackType.Music;
 
-            props.MusicProperties.Title = Title;
+            /*props.MusicProperties.Title = Title;
             props.MusicProperties.Artist = Artist;
             props.MusicProperties.AlbumTitle = Album;
             props.MusicProperties.AlbumArtist = AlbumArtist;
-            props.MusicProperties.TrackNumber = Track;
+            props.MusicProperties.TrackNumber = Track;*/
+            Title = props.MusicProperties.Title;
 
             if (Thumbnail != null)
             {
