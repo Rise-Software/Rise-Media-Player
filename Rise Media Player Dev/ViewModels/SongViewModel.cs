@@ -505,12 +505,11 @@ namespace Rise.App.ViewModels
             MediaItemDisplayProperties props = media.GetDisplayProperties();
             props.Type = MediaPlaybackType.Music;
 
-            /*props.MusicProperties.Title = Title;
+            props.MusicProperties.Title = Title;
             props.MusicProperties.Artist = Artist;
             props.MusicProperties.AlbumTitle = Album;
             props.MusicProperties.AlbumArtist = AlbumArtist;
-            props.MusicProperties.TrackNumber = Track;*/
-            Title = props.MusicProperties.Title;
+            props.MusicProperties.TrackNumber = Track;
 
             if (Thumbnail != null)
             {
