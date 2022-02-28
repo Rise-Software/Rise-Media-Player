@@ -20,6 +20,9 @@ namespace Rise.App.Views
     {
         #region Variables
 
+        public static ArtistSongsPage Current;
+
+
         XmlDocument xmlDoc = new();
         /// <summary>
         /// Gets the app-wide MViewModel instance.
@@ -66,6 +69,7 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
+            Current=this;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             Loaded += ArtistSongsPage_Loaded;
@@ -351,11 +355,17 @@ namespace Rise.App.Views
         #endregion
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
+            //string name = ArtistName.Text;
+            //string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            //ContentDialog aboutArtist = new ContentDialog();
+            //    aboutArtist.Content = new Dialogs.AboutArtist(AboutArtistBig);
+            //aboutArtist.CloseButtonText = "Close";
+            //await aboutArtist.ShowAsync();
             string name = ArtistName.Text;
             string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
             ContentDialog aboutArtist = new()
             {
-                Title = "About " + name,
+                Title = name,
                 Content = new ScrollViewer()
                 {
                     Content = new TextBlock()
