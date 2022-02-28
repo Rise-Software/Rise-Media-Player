@@ -431,7 +431,10 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                song.Thumbnail = alvm.Thumbnail;
+                if (song.Thumbnail == null)
+                {
+                    song.Thumbnail = alvm.Thumbnail;
+                }
             }
 
             // If artist isn't there already, add it to the database.
