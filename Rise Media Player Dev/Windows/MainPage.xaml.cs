@@ -73,8 +73,8 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
-            App.Indexer.Started += Indexer_Started;
-            App.Indexer.Finished += Indexer_Finished;
+            App.MViewModel.IndexingStarted += MViewModel_IndexingStarted;
+            App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
@@ -144,7 +144,7 @@ namespace Rise.App.Views
             };
         }
 
-        private async void Indexer_Started()
+        private async void MViewModel_IndexingStarted(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -160,7 +160,7 @@ namespace Rise.App.Views
             });
         }
 
-        private async void Indexer_Finished(object sender, int e)
+        private async void MViewModel_IndexingFinished(object sender, IndexingFinishedEventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {

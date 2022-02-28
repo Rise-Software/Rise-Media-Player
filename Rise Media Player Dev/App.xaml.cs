@@ -121,9 +121,6 @@ namespace Rise.App
 
         private static List<StorageLibraryChange> Changes { get; set; }
             = new List<StorageLibraryChange>();
-
-        public static IndexingHelper Indexer { get; private set; }
-            = new IndexingHelper();
         #endregion
 
         /// <summary>

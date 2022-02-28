@@ -18,24 +18,28 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private IndexingHelper Indexer => App.Indexer;
+        #region Events
+        public event EventHandler IndexingStarted;
+        public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
+        #endregion
 
-        private bool _isIndexing = false;
+        #region Fields
+        // Amount of indexed items. These are used to provide data to the
+        // IndexingFinished event.
+        private uint IndexedSongs = 0;
+        private uint IndexedVideos = 0;
+
         /// <summary>
         /// Whether or not are we currently indexing. This is to avoid
         /// unnecessarily indexing concurrently.
         /// </summary>
-        public bool IsIndexing
-        {
-            get => _isIndexing;
-            set => Set(ref _isIndexing, value);
-        }
+        private bool IsIndexing = false;
 
         /// <summary>
         /// Whether or not is there a recrawl queued. If true,
         /// <see cref="IndexLibrariesAsync"/> will call itself when necessary.
         /// </summary>
-        public bool QueuedReindex = false;
+        private bool QueuedReindex = false;
 
         /// <summary>
         /// Whether or not can indexing start. This is set to true once
@@ -48,6 +52,7 @@ namespace Rise.App.ViewModels
         /// Whether or not the search bar is focused.
         /// </summary>
         public bool IsSearchActive = false;
+        #endregion
 
         /// <summary>
         /// Creates a new MainViewModel.
@@ -64,9 +69,13 @@ namespace Rise.App.ViewModels
 
             QueryPresets.SongQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
+            QueryPresets.SongQueryOptions.
+                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
 
             QueryPresets.VideoQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
+            QueryPresets.VideoQueryOptions.
+                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
         }
 
         /// <summary>
@@ -169,7 +178,7 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (Song s in songs)
                 {
-                    if(!songs.Contains(s))
+                    if (!songs.Contains(s))
                     {
                         Songs.Add(new SongViewModel(s));
                     }
@@ -180,7 +189,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Album a in albums)
                     {
-                        if(!albums.Contains(a))
+                        if (!albums.Contains(a))
                         {
                             Albums.Add(new AlbumViewModel(a));
                         }
@@ -192,7 +201,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Artist a in artists)
                     {
-                        if(!artists.Contains(a))
+                        if (!artists.Contains(a))
                         {
                             Artists.Add(new ArtistViewModel(a));
                         }
@@ -204,7 +213,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Genre g in genres)
                     {
-                        if(!genres.Contains(g))
+                        if (!genres.Contains(g))
                         {
                             Genres.Add(new GenreViewModel(g));
                         }
@@ -216,7 +225,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (Video v in videos)
                     {
-                        if(!videos.Contains(v))
+                        if (!videos.Contains(v))
                         {
                             Videos.Add(new VideoViewModel(v));
                         }
@@ -228,7 +237,7 @@ namespace Rise.App.ViewModels
                 {
                     foreach (PlaylistViewModel p in playlists)
                     {
-                         Playlists.Add(p);
+                        Playlists.Add(p);
                     }
                 }
 
@@ -242,58 +251,86 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
         public async Task StartFullCrawlAsync()
         {
-            await SongsTracker.HandleMusicFolderChanges();
-            await IndexLibrariesAsync();
-            await UpdateItemsAsync();
-        }
-
-        public async Task IndexLibrariesAsync()
-        {
+            // There are no direct callers to IndexLibrariesAsync outside of
+            // this function, so we can just check here
             if (!CanIndex)
             {
                 return;
             }
 
-            if (IsIndexing)
+            await SongsTracker.HandleMusicFolderChanges();
+            await IndexLibrariesAsync();
+            await UpdateItemsAsync();
+        }
+
+        private async Task IndexLibrariesAsync()
+        {
+            if (!IsIndexing && !QueuedReindex)
             {
+                // If we haven't started indexing, invoke the event
+                IndexingStarted?.Invoke(this, EventArgs.Empty);
+            }
+            else if (IsIndexing && !QueuedReindex)
+            {
+                // If we're indexing and a reindex isn't queued,
+                // queue a reindex and return
                 QueuedReindex = true;
+                return;
+            }
+            else if (!IsIndexing && QueuedReindex)
+            {
+                // If we're not indexing and a reindex is queued,
+                // allow adding a reindex to the queue and continue
+                QueuedReindex = false;
+            }
+            else
+            {
                 return;
             }
 
             IsIndexing = true;
-
-            Indexer.CancelTask();
-            await Indexer.IndexLibraryAsync(App.MusicLibrary,
-                QueryPresets.SongQueryOptions,
-                Indexer.Token,
-                SaveMusicModelsAsync,
-                IndexerOption.UseIndexerWhenAvailable,
-                PropertyPrefetchOptions.MusicProperties,
-                Properties.DiscProperties);
-
-            await Indexer.IndexLibraryAsync(App.VideoLibrary,
-                QueryPresets.VideoQueryOptions,
-                Indexer.Token,
-                SaveVideoModelAsync,
-                IndexerOption.UseIndexerWhenAvailable,
-                PropertyPrefetchOptions.VideoProperties);
-
-            if (QueuedReindex)
+            await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                PropertyPrefetchOptions.MusicProperties, Properties.DiscProperties))
             {
-                QueuedReindex = false;
-                await IndexLibrariesAsync();
+                if (await SaveMusicModelsAsync(song))
+                {
+                    IndexedSongs++;
+                }
+            }
+
+            await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
+                PropertyPrefetchOptions.VideoProperties))
+            {
+                if (await SaveVideoModelAsync(video))
+                {
+                    IndexedVideos++;
+                }
             }
 
             IsIndexing = false;
+            if (!QueuedReindex)
+            {
+                IndexedSongs = 0;
+                IndexedVideos = 0;
+
+                IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            }
+            else
+            {
+                await IndexLibrariesAsync();
+            }
         }
 
         /// <summary>
         /// Saves a song to the repository and ViewModel.
         /// </summary>
         /// <param name="file">Song file to add.</param>
-        public async Task SaveMusicModelsAsync(StorageFile file)
+        /// <returns>true if the song didn't exist beforehand,
+        /// otherwise false.</returns>
+        public async Task<bool> SaveMusicModelsAsync(StorageFile file)
         {
             Song song = await file.AsSongModelAsync();
 
@@ -442,13 +479,17 @@ namespace Rise.App.ViewModels
                 SongViewModel svm = new(song);
                 await svm.SaveAsync();
             }
+
+            return !songExists;
         }
 
         /// <summary>
         /// Saves a video to the repository and ViewModel.
         /// </summary>
         /// <param name="file">Video file to add.</param>
-        public async Task SaveVideoModelAsync(StorageFile file)
+        /// <returns>true if the video didn't exist beforehand,
+        /// otherwise false.</returns>
+        public async Task<bool> SaveVideoModelAsync(StorageFile file)
         {
             Video video = await file.AsVideoModelAsync();
 
@@ -477,6 +518,8 @@ namespace Rise.App.ViewModels
                 thumbnail?.Dispose();
                 await vid.SaveAsync();
             }
+
+            return !videoExists;
         }
 
         /// <summary>
@@ -503,9 +546,20 @@ namespace Rise.App.ViewModels
         public async Task SyncAsync()
         {
             IsLoading = true;
-
             await GetListsAsync();
             IsLoading = false;
+        }
+    }
+
+    public class IndexingFinishedEventArgs : EventArgs
+    {
+        public uint IndexedSongs { get; private set; }
+        public uint IndexedVideos { get; private set; }
+
+        public IndexingFinishedEventArgs(uint songs, uint videos)
+        {
+            IndexedSongs = songs;
+            IndexedVideos = videos;
         }
     }
 }
