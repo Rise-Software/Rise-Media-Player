@@ -25,6 +25,16 @@ namespace Rise.App.Dialogs
         public WidgetsDialogContent()
         {
             this.InitializeComponent();
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                WidgetsImage.Visibility = Visibility.Collapsed;
+                WidgetsImageDark.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                WidgetsImageDark.Visibility = Visibility.Collapsed;
+                WidgetsImage.Visibility = Visibility.Visible;
+            }
         }
     }
 }
