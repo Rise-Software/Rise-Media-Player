@@ -261,7 +261,23 @@
                         <FontIcon Glyph="&#xE0A6;" FontSize="16"/>
                     </Button>
                     <StackPanel x:Name="HeaderArea" x:FieldModifier="public" Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                        <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
+                        <!--<Button x:FieldModifier="public"
+                                x:Name="BackFrameIcon"
+                                Margin="0,4,0,0"
+                                FontSize="20"
+                                Style="{StaticResource TransparentButton}"
+                                VerticalAlignment="Top"
+                                Height="36"
+                                Visibility="Collapsed"
+                                Click="BackFrameIcon_Click">
+                            <FontIcon Glyph="&#xE830;" FontSize="22"/>
+                        </Button>-->
+                        <Button x:Name="SettingsBack" Style="{StaticResource TransparentButton}" Click="SettingsBack_Click">
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE830;" FontSize="16"/>
+                            </Button.Content>
+                        </Button> 
+                        <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="20,4,0,0" FontSize="28"/>
                         <TextBlock x:FieldModifier="public" Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
                         
                     </StackPanel>

@@ -39,6 +39,7 @@ namespace Rise.App.Settings
             Current = this;
 
             _ = new ApplicationTitleBar(TitleBar);
+            SettingsBack.Visibility = Visibility.Visible;
         }
 
         private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -151,6 +152,16 @@ namespace Rise.App.Settings
         {
 
         }
+
+        private void SettingsBack_Click(object sender, RoutedEventArgs e)
+        {
+
+            // Missing sidebar and header
+            if (SettingsMainFrame.CanGoBack)
+            {
+                SettingsMainFrame.GoBack();
+            }
+        }
     }
-    }
+}
 
