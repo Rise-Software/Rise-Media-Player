@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using MoreLinq.Extensions;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
 using Rise.App.Indexing;
