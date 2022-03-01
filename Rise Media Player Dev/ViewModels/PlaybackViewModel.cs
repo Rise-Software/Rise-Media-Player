@@ -112,8 +112,8 @@ namespace Rise.App.ViewModels
                 App.SViewModel.Color = -3;
             }
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
@@ -136,8 +136,8 @@ namespace Rise.App.ViewModels
                 App.SViewModel.Color = -3;
             }
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
 
             await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
@@ -155,8 +155,8 @@ namespace Rise.App.ViewModels
 
             Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
@@ -173,8 +173,8 @@ namespace Rise.App.ViewModels
 
             Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
@@ -366,8 +366,8 @@ namespace Rise.App.ViewModels
                     App.SViewModel.Color = -3;
                 }
 
-                CurrentMediaChanged?.Invoke(this, new EventArgs());
-                CurrentSongChanged?.Invoke(this, new EventArgs());
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentSongChanged?.Invoke(this, EventArgs.Empty);
                 CurrentPlaybackItem.NotifyChanges(false);
             }
         }
@@ -385,8 +385,8 @@ namespace Rise.App.ViewModels
                     App.SViewModel.Color = -3;
                 }
 
-                CurrentMediaChanged?.Invoke(this, new EventArgs());
-                CurrentVideoChanged?.Invoke(this, new EventArgs());
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
                 CurrentPlaybackItem.NotifyChanges(true);
             }
         }

@@ -41,16 +41,6 @@ namespace Rise.App.Dialogs
 
         private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) => Hide();
 
-        private void Image_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            UseCustomImageButton.Visibility = Visibility.Visible;
-        }
-
-        private void Image_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            UseCustomImageButton.Visibility = Visibility.Collapsed;
-        }
-
         private async void UseCustomImageButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker

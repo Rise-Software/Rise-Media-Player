@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -11,7 +12,7 @@ namespace Rise.App.ViewModels
     /// to handle property changes.
     /// </summary>
     /// <typeparam name="Type">Type of the underlying model.</typeparam>
-    public abstract class ViewModel<Type> : ViewModel
+    public abstract class ViewModel<Type> : ViewModel, IEquatable<Type>
     {
         private Type _model;
         /// <summary>
@@ -30,6 +31,11 @@ namespace Rise.App.ViewModels
                     OnPropertyChanged(string.Empty);
                 }
             }
+        }
+
+        public bool Equals(Type other)
+        {
+            return other.Equals(Model);
         }
     }
 

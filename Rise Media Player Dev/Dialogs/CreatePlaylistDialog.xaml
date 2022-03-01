@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     PrimaryButtonText="Create"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     CloseButtonText="Cancel"
     PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
@@ -15,59 +17,57 @@
 
     <StackPanel Width="500">
         <RelativePanel>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Create a new playlist" />
-            <Button Style="{StaticResource TransparentButton}" RelativePanel.AlignRightWithPanel="True">
-                <Button.Content>
-                    <StackPanel Spacing="7" Orientation="Horizontal">
-                        <FontIcon Foreground="{StaticResource SystemAccentColorLight1}" Glyph="&#xE710;" />
-                        <TextBlock Foreground="{StaticResource SystemAccentColorLight1}" Text="Add media" />
-                    </StackPanel>
-                </Button.Content>
-            </Button>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Create playlist" />
         </RelativePanel>
-        <Grid ColumnSpacing="10">
+        <Grid ColumnSpacing="10" Margin="0,16,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition MinWidth="270" />
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <StackPanel BorderThickness="1"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            Background="{StaticResource LayerFillColorDefaultBrush}"
-                            CornerRadius="8"
-                            Padding="0,0,0,10"
-                            PointerEntered="Image_PointerEntered"
-                            PointerExited="Image_PointerExited"
-                            VerticalAlignment="Center">
-                    <Image Height="180"
-                           Width="180"
-                           Stretch="Uniform"
-                           VerticalAlignment="Center"
-                           Source="ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
-                           x:Name="PreviewImage" />
-                    <Button HorizontalAlignment="Stretch"
+                <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                CornerRadius="8"
+                                IsHitTestVisible="False"
+                                Padding="0">
+                    <Border 
+                                    CornerRadius="5">
+                        <Image Height="200"
+                                                   Stretch="Uniform"
+                               x:Name="PreviewImage"
+                               Source="/Assets/navigationview/playlistspage/blankplaylist.png"
+                                                   Width="200" >
+                        </Image>
+                    </Border>
+                </Button>
+            </Grid>
+            <Button HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            Margin="10,-35,10,0"
+                            Margin="0,0,10,0"
                             Content="Use custom image"
                             x:Name="UseCustomImageButton"
                             Click="UseCustomImageButton_Click"
                             Visibility="Collapsed"
                             Style="{StaticResource AccentButtonStyle}"/>
-                </StackPanel>
-            </Grid>
 
-            <ScrollViewer Width="270" MaxHeight="200" Grid.Column="1" VerticalAlignment="Center">
-                <StackPanel Margin="0,10,0,0" Spacing="10">
-                    <TextBox Header="Title" x:Name="TitleTextBox" />
+            <StackPanel Width="270" MaxHeight="200" Margin="0,0,0,0" Padding="0,0,-8,0" Grid.Column="1" VerticalAlignment="Top">
+                <StackPanel Margin="0,0,0,0" Spacing="10">
+                    <TextBox x:Name="TitleTextBox" PlaceholderText="Title"/>
 
-                    <TextBox Header="Description"
+                    <TextBox PlaceholderText="Description"
                              AcceptsReturn="True"
+                             IsSpellCheckEnabled="False"
                              TextWrapping="Wrap"
-                             x:Name="DescriptionTextBox"
-                             MinHeight="95" />
+                             MaxHeight="112"
+                             x:Name="DescriptionTextBox" />
+                    <Button Margin="0,4,0,0" Style="{StaticResource AccentButtonStyle}" Click="UseCustomImageButton_Click" x:Name="UseCustomImage" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE158;" FontSize="16" />
+                            <TextBlock Margin="8,0,0,0" Text="Use custom image"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
-            </ScrollViewer>
+            </StackPanel>
         </Grid>
     </StackPanel>
 </ContentDialog>

@@ -19,6 +19,9 @@ namespace Rise.App.ViewModels
     public class MainViewModel : ViewModel
     {
         #region Events
+        public event EventHandler LoadingStarted;
+        public event EventHandler LoadingFinished;
+
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
         #endregion
@@ -147,109 +150,86 @@ namespace Rise.App.ViewModels
             set => Set(ref _selectedVideo, value);
         }
 
-        private bool _isLoading = false;
-        /// <summary>
-        /// Gets or sets a value indicating whether the lists are currently being updated. 
-        /// </summary>
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
-
         /// <summary>
         /// Gets the complete list of data from the database.
         /// </summary>
         public async Task GetListsAsync()
         {
-            IsLoading = true;
-
-            IEnumerable<Song> songs = await App.Repository.Songs.GetAsync();
+            LoadingStarted?.Invoke(this, EventArgs.Empty);
+            IEnumerable<Song> songs = (await App.Repository.Songs.GetAsync()).Distinct();
 
             if (songs != null)
             {
-                IEnumerable<Album> albums = await App.Repository.Albums.GetAsync();
-                IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
-                IEnumerable<Genre> genres = await App.Repository.Genres.GetAsync();
-                IEnumerable<Video> videos = await App.Repository.Videos.GetAsync();
+                IEnumerable<Album> albums = (await App.Repository.Albums.GetAsync()).Distinct();
+                IEnumerable<Artist> artists = (await App.Repository.Artists.GetAsync()).Distinct();
+                IEnumerable<Genre> genres = (await App.Repository.Genres.GetAsync()).Distinct();
+                IEnumerable<Video> videos = (await App.Repository.Videos.GetAsync()).Distinct();
+
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
 
                 Songs.Clear();
-                foreach (Song s in songs)
+                foreach (var item in songs)
                 {
-                    if (!songs.Contains(s))
-                    {
-                        Songs.Add(new SongViewModel(s));
-                    }
+                    Songs.Add(new(item));
                 }
 
                 Albums.Clear();
                 if (albums != null)
                 {
-                    foreach (Album a in albums)
+                    foreach (var item in albums)
                     {
-                        if (!albums.Contains(a))
-                        {
-                            Albums.Add(new AlbumViewModel(a));
-                        }
+                        Albums.Add(new(item));
                     }
                 }
 
                 Artists.Clear();
                 if (artists != null)
                 {
-                    foreach (Artist a in artists)
+                    foreach (var item in artists)
                     {
-                        if (!artists.Contains(a))
-                        {
-                            Artists.Add(new ArtistViewModel(a));
-                        }
+                        Artists.Add(new(item));
                     }
                 }
 
                 Genres.Clear();
                 if (genres != null)
                 {
-                    foreach (Genre g in genres)
+                    foreach (var item in genres)
                     {
-                        if (!genres.Contains(g))
-                        {
-                            Genres.Add(new GenreViewModel(g));
-                        }
+                        Genres.Add(new(item));
                     }
                 }
 
                 Videos.Clear();
                 if (videos != null)
                 {
-                    foreach (Video v in videos)
+                    foreach (var item in videos)
                     {
-                        if (!videos.Contains(v))
-                        {
-                            Videos.Add(new VideoViewModel(v));
-                        }
+                        Videos.Add(new(item));
                     }
                 }
 
                 Playlists.Clear();
                 if (playlists != null)
                 {
-                    foreach (PlaylistViewModel p in playlists)
+                    foreach (var item in playlists)
                     {
-                        Playlists.Add(p);
+                        Playlists.Add(item);
                     }
                 }
 
                 Notifications.Clear();
                 if (notifications != null)
                 {
-                    foreach (NotificationViewModel n in notifications)
+                    foreach (var item in notifications)
                     {
-                        Notifications.Add(n);
+                        Notifications.Add(item);
                     }
                 }
             }
+
+            LoadingFinished?.Invoke(this, EventArgs.Empty);
         }
 
         public async Task StartFullCrawlAsync()
@@ -548,9 +528,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SyncAsync()
         {
-            IsLoading = true;
+            LoadingStarted?.Invoke(this, EventArgs.Empty);
+
+            await UpdateItemsAsync();
             await GetListsAsync();
-            IsLoading = false;
+
+            LoadingFinished?.Invoke(this, EventArgs.Empty);
         }
     }
 

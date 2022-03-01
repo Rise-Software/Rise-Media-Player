@@ -367,7 +367,10 @@ namespace Rise.App.ViewModels
                 OnPropertyChanged(nameof(ArtistViewModel.SongCount));
             }
 
-            await App.Repository.Songs.QueueUpsertAsync(Model);
+            if (await App.Repository.Songs.GetAsync(Model.Id) == null)
+            {
+                await App.Repository.Songs.QueueUpsertAsync(Model);
+            }
         }
 
         /// <summary>

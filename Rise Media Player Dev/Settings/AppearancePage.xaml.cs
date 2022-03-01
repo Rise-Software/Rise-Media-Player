@@ -29,19 +29,7 @@ namespace Rise.App.Settings
             "Use custom colour",
             "Use album art"
         };
-
-        private readonly List<string> Startup = new()
-        {
-            ResourceLoaders.AppearanceLoader.GetString("Home"),
-            ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),
-            ResourceLoaders.AppearanceLoader.GetString("Playlists"),
-            ResourceLoaders.AppearanceLoader.GetString("Songs"),
-            ResourceLoaders.AppearanceLoader.GetString("Artists"),
-            ResourceLoaders.AppearanceLoader.GetString("Albums"),
-            ResourceLoaders.AppearanceLoader.GetString("Genres"),
-            ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
-        };
-
+        
         public AppearancePage()
         {
             InitializeComponent();

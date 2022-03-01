@@ -95,8 +95,6 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Add widgets",
-                PrimaryButtonText = "See what we're working on",
                 CloseButtonText = "Close",
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new WidgetsDialogContent()
