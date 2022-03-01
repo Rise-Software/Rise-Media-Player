@@ -12,7 +12,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
     <Grid>
-        <muxc:NavigationView x:Name="AppearanceNav" SelectedItem="{x:Bind Colours}" Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="AppearanceNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+        <muxc:NavigationView x:Name="AppearanceNav" SelectedItem="{x:Bind Window}" Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="AppearanceNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
             <muxc:NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                 <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
@@ -20,13 +20,15 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Overview" Tag="Overview" x:Name="Overview" >
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Colours" Tag="Colours" x:Name="Colours" >
+                <muxc:NavigationViewItem Content="App window" Tag="Window" x:Name="Window" >
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Icons &amp; fonts" Tag="IconsFonts" x:Name="IconsFonts" >
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="App layout" Tag="Layout" x:Name="Layout" >
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Motion" Tag="Motion" x:Name="Motion" >
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Controls" Tag="Controls" x:Name="Controls" >
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>

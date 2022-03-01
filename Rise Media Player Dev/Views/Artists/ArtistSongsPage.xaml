@@ -65,7 +65,7 @@
                                     Orientation="Vertical"
                                     Spacing="8"
                                         Padding="0,10,0,0">
-                            <TextBlock x:Name="ArtistName" Text="{x:Bind SelectedArtist.Name, Mode=OneWay}"
+                            <TextBlock x:FieldModifier="public" x:Name="ArtistName" Text="{x:Bind SelectedArtist.Name, Mode=OneWay}"
                                        MaxLines="1"
                                        Style="{StaticResource TitleTextBlockStyle}" />
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" x:Name="SongAlbums"/>

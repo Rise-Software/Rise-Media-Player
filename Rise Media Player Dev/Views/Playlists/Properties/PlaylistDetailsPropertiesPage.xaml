@@ -47,12 +47,12 @@
 
                     <Border CornerRadius="5">
                         <Image Height="96"
+                               
                                Stretch="UniformToFill"
                                Width="96"
+                               Source="/Assets/navigationview/blankplaylist.png"
                                x:Name="imgAlbum">
-                            <Image.Source>
-                                <BitmapImage UriSource="{x:Bind _plViewModel.Icon, Mode=OneWay}" />
-                            </Image.Source>
+                            
                         </Image>
                     </Border>
 

@@ -376,7 +376,6 @@
                     <TextBlock Padding="10,60,20,10" Text="More albums by this artist" FontSize="16" Style="{StaticResource Subheader}" />
                     <GridView Grid.Row="1"
                               ItemsSource="{x:Bind AlbumsByArtist}"
-                              RightTapped="MainGrid_RightTapped"
                               SelectionMode="Single"
                               Tapped="GridView_Tapped">
                         <GridView.ItemTemplate>

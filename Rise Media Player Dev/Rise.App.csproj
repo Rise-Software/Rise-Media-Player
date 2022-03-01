@@ -163,6 +163,9 @@
     <Compile Include="DbControllers\BaseBackendController.cs" />
     <Compile Include="DbControllers\NotificationsBackendController.cs" />
     <Compile Include="DbControllers\PlaylistsBackendController.cs" />
+    <Compile Include="Dialogs\AboutArtist.xaml.cs">
+      <DependentUpon>AboutArtist.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>
@@ -496,6 +499,8 @@
     <Content Include="Assets\AtAGlance\WhatsNew\NPBar.png" />
     <Content Include="Assets\AtAGlance\WhatsNew\playlists.png" />
     <Content Include="Assets\AtAGlance\widgets.png" />
+    <Content Include="Assets\AtAGlance\WidgetsComingSoon.png" />
+    <Content Include="Assets\AtAGlance\WidgetsComingSoonDark.png" />
     <Content Include="Assets\BlankAlbum.png" />
     <Content Include="Assets\BlankArtist.png" />
     <Content Include="Assets\BlankGenre.png" />
@@ -512,6 +517,7 @@
     <Content Include="Assets\lookingformedia.png" />
     <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
+    <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
     <Content Include="Assets\NavigationView\AlbumsPage\Colorful.png" />
     <Content Include="Assets\NavigationView\ArtistsPage\Colorful.png" />
@@ -558,6 +564,7 @@
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\en-gb\Widgets.resw" />
     <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -565,6 +572,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AboutArtist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

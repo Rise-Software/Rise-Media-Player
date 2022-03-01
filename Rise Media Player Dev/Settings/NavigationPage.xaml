@@ -9,6 +9,19 @@
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <uc:ExpanderControl x:Uid="/Appearance/Startup"
+                            ExpanderStyle="Static"
+                            Icon="&#xE7E8;">
+            <ComboBox ItemsSource="{x:Bind Startup}"
+                      PlaceholderText="Songs"
+                      SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
+        </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/Appearance/PickUp"
+                               ExpanderStyle="Static"
+                               Icon="&#xE126;">
+            <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
+        </uc:ExpanderControl>
         <uc:ExpanderControl x:Uid="/Navigation/Resize"
                                ExpanderStyle="Disabled"
                                Icon="&#xE944;">
