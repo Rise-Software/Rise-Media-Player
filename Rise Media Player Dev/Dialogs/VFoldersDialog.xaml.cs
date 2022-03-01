@@ -55,5 +55,25 @@ namespace Rise.App.Dialogs
                 await Launcher.LaunchFolderAsync(folder);
             }
         }
+
+        private void Border_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Border_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Border_PointerEntered_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Border_PointerExited_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            
+        }
     }
 }

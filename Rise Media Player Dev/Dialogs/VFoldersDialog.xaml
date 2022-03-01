@@ -93,7 +93,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
+                        <Border Style="{StaticResource SettingsCard}" PointerEntered="Border_PointerEntered" PointerExited="Border_PointerExited">
                             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -120,12 +120,13 @@
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
                                     <Button
                                     Click="Button_Click_2"
+                                        x:Name="MusicLocationButton" x:FieldModifier="public"
                                     Padding="8" Margin="0,0,8,0"
                                         Style="{StaticResource TransparentButton}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <FontIcon Glyph="&#xE838;" FontSize="16" />
-                                                <TextBlock Margin="8,0,0,0" Text="Open file location"/>
+                                                <TextBlock Margin="8,0,0,0" Text="Open folder location"/>
                                             </StackPanel>
                                         </Button.Content>
 
@@ -161,7 +162,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
+                        <Border Style="{StaticResource SettingsCard}" PointerEntered="Border_PointerEntered_1" PointerExited="Border_PointerExited_1">
                             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -186,14 +187,14 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Button
-                                    Click="Button_Click_2"
+                                    <Button x:Name="VideoLocationButton"
+                                    Click="Button_Click_2"  x:FieldModifier="public"
                                     Padding="8" Margin="0,0,8,0"
                                         Style="{StaticResource TransparentButton}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <FontIcon Glyph="&#xE838;" FontSize="16" />
-                                                <TextBlock Margin="8,0,0,0" Text="Open file location"/>
+                                                <TextBlock Margin="8,0,0,0" Text="Open folder location"/>
                                             </StackPanel>
                                         </Button.Content>
 
