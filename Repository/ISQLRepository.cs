@@ -7,6 +7,11 @@ namespace Rise.Repository
     public interface ISQLRepository<T> where T : class
     {
         /// <summary>
+        /// Invoked when the items in the database are updated.
+        /// </summary>
+        event EventHandler ItemsUpdated;
+
+        /// <summary>
         /// Returns all items.
         /// </summary>
         Task<IEnumerable<T>> GetAsync();
