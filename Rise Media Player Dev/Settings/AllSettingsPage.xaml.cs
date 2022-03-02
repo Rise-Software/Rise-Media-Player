@@ -140,11 +140,7 @@ namespace Rise.App.Settings
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SettingsMainFrame.CanGoBack)
-            {
-                SettingsMainFrame.GoBack();
-                FinishNavigation();
-            } else if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
+            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
             }

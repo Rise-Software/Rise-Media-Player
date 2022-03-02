@@ -28,12 +28,6 @@
                 AutomationProperties.Name="Back"
                 AutomationProperties.AutomationId="BackButton"
                 AutomationProperties.ItemType="Navigation Button">
-            <Button.ContextFlyout>
-                <MenuFlyout Placement="Bottom">
-                    <MenuFlyoutItem Text="Go back a page" Click="GoBackAPage_Click" IsEnabled="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}" />
-                    <MenuFlyoutItem Text="Go back to main page" Click="GoBackToMain_Click" />
-                </MenuFlyout>
-            </Button.ContextFlyout>
             <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
                 <muxc:AnimatedIcon.Source>
                     <animatedvisuals:AnimatedBackVisualSource/>
@@ -267,9 +261,29 @@
                         <FontIcon Glyph="&#xE0A6;" FontSize="16"/>
                     </Button>
                     <StackPanel x:Name="HeaderArea" x:FieldModifier="public" Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Button VerticalAlignment="Center"
+                                Click="GoBackAPage_Click"
+                                CornerRadius="5"
+                                Height="28"
+                                ToolTipService.ToolTip="Back"
+                                Style="{StaticResource TransparentButton}"
+                                Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay, Converter={StaticResource BoolToVis}}"
+                                Padding="10,0,10,0"
+                                Margin="0,2,12,0"
+                                AutomationProperties.Name="Back"
+                                AutomationProperties.AutomationId="BackButton1"
+                                AutomationProperties.ItemType="Navigation Button">
+                            <muxc:AnimatedIcon Height="20" Width="20">
+                                <muxc:AnimatedIcon.Source>
+                                    <animatedvisuals:AnimatedBackVisualSource/>
+                                </muxc:AnimatedIcon.Source>
+                                <muxc:AnimatedIcon.FallbackIconSource>
+                                    <muxc:SymbolIconSource Symbol="Back"/>
+                                </muxc:AnimatedIcon.FallbackIconSource>
+                            </muxc:AnimatedIcon>
+                        </Button>
                         <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
                         <TextBlock x:FieldModifier="public" Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
-                        
                     </StackPanel>
                     <Grid>
                         <ScrollViewer Padding="37,0,37,0" Margin="0,49,0,0" CornerRadius="8"
