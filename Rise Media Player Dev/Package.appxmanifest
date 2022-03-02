@@ -5,6 +5,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap mp uap3 rescap">
 
@@ -50,6 +51,15 @@
 				<uap:LockScreen BadgeLogo="Assets\App\BadgeLogo.png" Notification="badge"/>
 			</uap:VisualElements>
 				<Extensions>
+          <uap5:Extension
+                Category="windows.startupTask"
+                Executable="Rise Media Player.exe"
+                EntryPoint="Rise.App.App">
+            <uap5:StartupTask
+              TaskId="6VQ93204-N7OY-0258-54G3-385B9X0FUHIB"
+              Enabled="false"
+              DisplayName="Rise Media Player" />
+          </uap5:Extension>
 					<!-- File associations for audio files -->
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="mp3">

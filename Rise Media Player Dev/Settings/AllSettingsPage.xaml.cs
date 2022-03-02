@@ -76,7 +76,7 @@ namespace Rise.App.Settings
                 case "Behaviour":
                     MainSettingsHeaderIcon.Glyph = "\uE7C4";
                     MainSettingsHeader.Text = "Windows behaviours";
-                    SettingsMainFrame.Navigate(typeof(ComingSoonPage));
+                    SettingsMainFrame.Navigate(typeof(WindowsStartupPage));
                     break;
                 case "Components":
                     MainSettingsHeaderIcon.Glyph = "\uEA86";

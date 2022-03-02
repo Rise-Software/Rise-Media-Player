@@ -186,6 +186,12 @@ namespace Rise.App
 
                 Window.Current.Activate();
                 _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+
+                switch (e.Kind)
+                {
+                    case ActivationKind.StartupTask:
+                        break;
+                }
             }
         }
 
