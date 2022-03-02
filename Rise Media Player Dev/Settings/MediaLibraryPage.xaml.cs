@@ -57,14 +57,9 @@ namespace Rise.App.Settings
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-
-        internal bool AccountMenuText
-        {
-            get => LastFMStatus.IsEnabled;
-            set => LastFMStatus.IsEnabled = value;
-        }
         private async void GotoManage_Click(object sender, RoutedEventArgs e)
         {
+            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
             AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
@@ -91,17 +86,7 @@ namespace Rise.App.Settings
             }
         }
 
-        private async void LastFmFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                await LastFMHelper.LogIn();
-            }
-            catch (Exception e1)
-            {
-                Debug.WriteLine(e1.Message);
-            }
-        }
+
 
     }
 }

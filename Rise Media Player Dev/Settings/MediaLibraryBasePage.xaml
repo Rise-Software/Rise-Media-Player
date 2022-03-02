@@ -12,7 +12,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
     <Grid>
-        <muxc:NavigationView x:Name="MediaNav" Margin="-15,-8,0,0" SelectedItem="{x:Bind Overview}" IsSettingsVisible="False" SelectionChanged="MediaNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
+        <muxc:NavigationView x:Name="MediaNav" Margin="-15,-8,0,0" SelectedItem="{x:Bind Local}" IsSettingsVisible="False" SelectionChanged="MediaNav_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
             <muxc:NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                 <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />

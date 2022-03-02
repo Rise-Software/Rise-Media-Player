@@ -232,6 +232,9 @@
     <Compile Include="Settings\MediaSourcesPage.xaml.cs">
       <DependentUpon>MediaSourcesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\OnlineServicesPage.xaml.cs">
+      <DependentUpon>OnlineServicesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ScanningPage.xaml.cs">
       <DependentUpon>ScanningPage.xaml</DependentUpon>
     </Compile>
@@ -562,6 +565,7 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-gb\Widgets.resw" />
@@ -653,6 +657,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\MediaSourcesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\OnlineServicesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -249,27 +249,19 @@
                     Margin="316,0,0,0"
                     BorderThickness="1"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                
+
                 <Grid Margin="0,37,0,0">
-                    <Button Visibility="Collapsed" x:Name="BackMediaLibrary" x:FieldModifier="public"
-                                        Click="BacktoMediaLibrary_Click"
-                                        VerticalAlignment="Top"
-                                        Height="36"
-                            Margin="37,3,0,0"
-                                        ToolTipService.ToolTip="Feedback"
-                                        Style="{StaticResource TransparentButton}">
-                        <FontIcon Glyph="&#xE0A6;" FontSize="16"/>
-                    </Button>
                     <StackPanel x:Name="HeaderArea" x:FieldModifier="public" Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                         <Button VerticalAlignment="Center"
+                                x:Name="GOBACKPAGE" x:FieldModifier="public"
                                 Click="GoBackAPage_Click"
                                 CornerRadius="5"
-                                Height="28"
+                                Height="36"
+                                Padding="8,4,8,4"
+                                Margin="0,4,12,0"
                                 ToolTipService.ToolTip="Back"
                                 Style="{StaticResource TransparentButton}"
-                                Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay, Converter={StaticResource BoolToVis}}"
-                                Padding="10,0,10,0"
-                                Margin="0,2,12,0"
+                                Visibility="Collapsed"
                                 AutomationProperties.Name="Back"
                                 AutomationProperties.AutomationId="BackButton1"
                                 AutomationProperties.ItemType="Navigation Button">
