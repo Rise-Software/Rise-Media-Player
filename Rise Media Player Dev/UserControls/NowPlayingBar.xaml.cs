@@ -521,7 +521,14 @@ namespace Rise.App.UserControls
         {
             Button button = sender as Button;
             Border border = (button.Parent as Grid).Parent as Border;
-            border.BorderBrush = PlayBorderBrush;
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                border.BorderBrush = PlayBorderBrushDark;
+            }
+            else
+            {
+                border.BorderBrush = PlayBorderBrushLight;
+            }
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)

@@ -33,7 +33,7 @@ IsLightDismissEnabled="True"
                     CornerRadius="3"
                     BorderThickness="1"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <TextBlock Text="Themes are coming soon" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Opacity="0.6"/>
+            <TextBlock Text="Lots of settings are coming. Stay tuned." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Opacity="0.6"/>
 
 
         </Border>
@@ -138,32 +138,7 @@ IsLightDismissEnabled="True"
 
         </uc:ExpanderControl>
 
-        <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
-        
-        
-        
-        
-
-        <uc:ExpanderControl x:Uid="/Appearance/CompactMode"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE73F;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Appearance/SidebarItems"
-                               Click="SidebarCustomize_Click"
-                               ExpanderStyle="Button"
-                               Icon="&#xE9D5;">
-            <FontIcon Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Playback/NowPlaying"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE102;">
-            <FontIcon FontSize="16"
-                      Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
-
+       
 
 
 
