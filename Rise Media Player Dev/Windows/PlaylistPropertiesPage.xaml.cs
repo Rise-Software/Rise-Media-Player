@@ -38,7 +38,7 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            
+
 
             Toggles = ItemGrid.GetChildren<ToggleButton>();
             //Loaded += (s, e) =>
@@ -126,7 +126,7 @@ namespace Rise.App.Views
             _plViewModel.Title = PlaylistDetailsPropertiesPage.Current.PlaylistTitle.Text;
             _plViewModel.Description = PlaylistDetailsPropertiesPage.Current.PlaylistDescription.Text;
             await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-            //_plViewModel.SaveAsync(); - THIS DOESN'T WORK. IT CREATES A NEW PLAYLIST. ANY HELP?
+            await _plViewModel.SaveAsync();
         }
     }
 }

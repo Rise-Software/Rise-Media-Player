@@ -133,7 +133,8 @@ namespace Rise.App.ViewModels
                 if (Songs != null)
                 {
                     return Songs.Count;
-                } else
+                }
+                else
                 {
                     return 0;
                 }
@@ -199,6 +200,12 @@ namespace Rise.App.ViewModels
                 IsNew = false;
                 App.MViewModel.Playlists.Add(this);
             }
+            else
+            {
+                // If the playlist isn't new, it means it's likely
+                // being edited, so delete it and save it again
+                await App.PBackendController.DeleteAsync(this);
+            }
 
             await App.PBackendController.UpsertAsync(this);
         }
@@ -232,7 +239,8 @@ namespace Rise.App.ViewModels
                 {
                     Songs.Add(song);
                 }
-            } finally
+            }
+            finally
             {
                 await SaveAsync();
             }
