@@ -795,7 +795,7 @@ namespace Rise.App.Views
                     Acc.Text = passwordCredential.UserName;
 
                 }
-                MediaLibraryPage.Current.AccountMenuText = false;
+                //OnlineServicesPage.Current.AccountMenuText = false;
             }
             catch
             {

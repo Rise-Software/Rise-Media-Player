@@ -18,16 +18,16 @@
         </Grid.RowDefinitions>
 
         <Button VerticalAlignment="Top" x:Name="BackButton"
-                    Command="{x:Bind _navigationHelper.GoBackCommand}"
-                    CornerRadius="5"
-                    Height="28"
-                    ToolTipService.ToolTip="Back"
-                    Margin="2,2,0,0"
-                    Style="{StaticResource TransparentButton}"
-                    Width="40"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
+                Click="BackButton_Click"
+                CornerRadius="5"
+                Height="28"
+                ToolTipService.ToolTip="Back"
+                Margin="2,2,0,0"
+                Style="{StaticResource TransparentButton}"
+                Width="40"
+                AutomationProperties.Name="Back"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button">
             <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
                 <muxc:AnimatedIcon.Source>
                     <animatedvisuals:AnimatedBackVisualSource/>
@@ -249,21 +249,33 @@
                     Margin="316,0,0,0"
                     BorderThickness="1"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                
+
                 <Grid Margin="0,37,0,0">
-                    <Button Visibility="Collapsed" x:Name="BackMediaLibrary" x:FieldModifier="public"
-                                        Click="BacktoMediaLibrary_Click"
-                                        VerticalAlignment="Top"
-                                        Height="36"
-                            Margin="37,3,0,0"
-                                        ToolTipService.ToolTip="Feedback"
-                                        Style="{StaticResource TransparentButton}">
-                        <FontIcon Glyph="&#xE0A6;" FontSize="16"/>
-                    </Button>
                     <StackPanel x:Name="HeaderArea" x:FieldModifier="public" Padding="37,0,37,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Button VerticalAlignment="Center"
+                                x:Name="GOBACKPAGE" x:FieldModifier="public"
+                                Click="GoBackAPage_Click"
+                                CornerRadius="5"
+                                Height="36"
+                                Padding="8,4,8,4"
+                                Margin="0,4,12,0"
+                                ToolTipService.ToolTip="Back"
+                                Style="{StaticResource TransparentButton}"
+                                Visibility="Collapsed"
+                                AutomationProperties.Name="Back"
+                                AutomationProperties.AutomationId="BackButton1"
+                                AutomationProperties.ItemType="Navigation Button">
+                            <muxc:AnimatedIcon Height="20" Width="20">
+                                <muxc:AnimatedIcon.Source>
+                                    <animatedvisuals:AnimatedBackVisualSource/>
+                                </muxc:AnimatedIcon.Source>
+                                <muxc:AnimatedIcon.FallbackIconSource>
+                                    <muxc:SymbolIconSource Symbol="Back"/>
+                                </muxc:AnimatedIcon.FallbackIconSource>
+                            </muxc:AnimatedIcon>
+                        </Button>
                         <FontIcon x:FieldModifier="public" x:Name="MainSettingsHeaderIcon" Glyph="" Margin="0,4,0,0" FontSize="28"/>
                         <TextBlock x:FieldModifier="public" Margin="12,0,0,0" x:Name="MainSettingsHeader" FontSize="28" FontWeight="SemiBold" Text="No page selected" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
-                        
                     </StackPanel>
                     <Grid>
                         <ScrollViewer Padding="37,0,37,0" Margin="0,49,0,0" CornerRadius="8"

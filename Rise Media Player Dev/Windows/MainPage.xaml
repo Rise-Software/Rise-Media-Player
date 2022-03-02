@@ -299,7 +299,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem Text="Alpha Preview" IsEnabled="False">
+                            <MenuFlyoutItem Text="Alpha Preview 2" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE946;" />
                                 </MenuFlyoutItem.Icon>
