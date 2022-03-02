@@ -251,7 +251,7 @@
             <Border HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{ThemeResource LayerFillColorDefaultBrush}" 
-                    CornerRadius="3"
+                    CornerRadius="8"
                     Margin="316,0,0,0"
                     BorderThickness="1"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">

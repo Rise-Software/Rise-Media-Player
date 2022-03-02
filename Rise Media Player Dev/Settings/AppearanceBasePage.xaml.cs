@@ -34,7 +34,7 @@ namespace Rise.App.Settings
 
             switch (selectedItemTag)
             {
-                case "Colours":
+                case "Window":
                     AppearanceFrame.Navigate(typeof(AppearancePage));
                     break;
                 default:

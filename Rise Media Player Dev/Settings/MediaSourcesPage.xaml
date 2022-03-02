@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
-    <Grid MinWidth="450">
+    <Grid>
         <!--<Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
                 VerticalAlignment="Top"
