@@ -161,6 +161,7 @@
 
                             <TextBlock Grid.Column="1"
                                    Text="{x:Bind Name}"
+                                   FontSize="16"
                                    MaxLines="2"
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap"
