@@ -286,7 +286,7 @@
     <value>Remove whole section</value>
   </data>
   <data name="RemoveThing.Text" xml:space="preserve">
-    <value>Remove...</value>
+    <value>Remove from playlist</value>
   </data>
   <data name="Scan.Text" xml:space="preserve">
     <value>Scan for new media</value>

@@ -61,7 +61,14 @@ namespace Rise.App.Dialogs
 
                 await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"playlist-{file.Name}.png");
 
-                thumbnail.Dispose();
+                try
+                {
+                    thumbnail.Dispose();
+                }
+                catch
+                {
+
+                }
                 _imagePath = new Uri($@"ms-appdata:///local/playlist-{file.Name}.png");
             }
 

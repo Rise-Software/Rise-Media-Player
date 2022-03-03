@@ -146,7 +146,7 @@
                 <Button x:Name="OpenFileLocation" Click="OpenFileLocation_Click"  HorizontalAlignment="Stretch">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="&#xE197;" FontSize="16" />
+                            <FontIcon Glyph="&#xE197;" FontSize="16"  />
                             <TextBlock Margin="8,0,0,0" Text="Open file location"/>
                         </StackPanel>
                     </Button.Content>
