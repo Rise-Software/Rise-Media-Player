@@ -239,9 +239,6 @@
       <DependentUpon>ScanningPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
-    <Compile Include="Settings\WindowsStartupPage.xaml.cs">
-      <DependentUpon>WindowsStartupPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
@@ -669,10 +666,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\ScanningPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings\WindowsStartupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

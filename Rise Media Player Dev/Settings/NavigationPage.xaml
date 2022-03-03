@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:local1="using:Rise.App"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
@@ -22,6 +22,16 @@
                                Icon="&#xE126;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
         </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/WindowsBehaviours/RiseStartup"
+                            ExpanderStyle="Static"
+                            Icon="&#xE7E8;">
+            <ToggleSwitch x:Name="OpenRiseMPinStartup"
+                          IsOn="{x:Bind local1:App.SViewModel.OpenInLogin, Mode=TwoWay}"
+                          IsEnabled="{x:Bind local1:App.SViewModel.CanOpenInLogin, Mode=OneWay}"
+                          Toggled="OpenRiseMPinStartup_Toggled"/>
+        </uc:ExpanderControl>
+        
         <uc:ExpanderControl x:Uid="/Navigation/Resize"
                                ExpanderStyle="Disabled"
                                Icon="&#xE944;">

@@ -170,28 +170,38 @@ namespace Rise.App
 
         protected async override void OnActivated(IActivatedEventArgs e)
         {
-            if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
+            switch (e.Kind)
             {
-                QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                case ActivationKind.StartupTask:
+                    Frame rootFrame1 = await InitializeWindowAsync(e);
+                    if (rootFrame1.Content == null)
+                    {
+                        _ = !SViewModel.SetupCompleted
+                            ? rootFrame1.Navigate(typeof(SetupPage))
+                            : rootFrame1.Navigate(typeof(MainPage));
+                    }
 
-                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
+                    Window.Current.Activate();
+                    break;
+                case ActivationKind.ToastNotification:
+                    if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
+                    {
+                        QueryString args = QueryString.Parse(toastActivationArgs.Argument);
 
-                Frame rootFrame = await InitializeWindowAsync(e);
-                if (rootFrame.Content == null)
-                {
-                    _ = !SViewModel.SetupCompleted
-                        ? rootFrame.Navigate(typeof(SetupPage))
-                        : rootFrame.Navigate(typeof(MainPage));
-                }
+                        string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
 
-                Window.Current.Activate();
-                _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+                        Frame rootFrame = await InitializeWindowAsync(e);
+                        if (rootFrame.Content == null)
+                        {
+                            _ = !SViewModel.SetupCompleted
+                                ? rootFrame.Navigate(typeof(SetupPage))
+                                : rootFrame.Navigate(typeof(MainPage));
+                        }
 
-                switch (e.Kind)
-                {
-                    case ActivationKind.StartupTask:
-                        break;
-                }
+                        Window.Current.Activate();
+                        _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+                    }
+                    break;
             }
         }
 

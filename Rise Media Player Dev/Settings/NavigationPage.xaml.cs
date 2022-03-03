@@ -40,5 +40,10 @@ namespace Rise.App.Settings
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
+
+        private async void OpenRiseMPinStartup_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            await App.SViewModel.OpenFilesAtStartup();
+        }
     }
 }
