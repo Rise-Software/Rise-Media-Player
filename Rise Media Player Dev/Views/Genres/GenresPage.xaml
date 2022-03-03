@@ -15,11 +15,19 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <CommandBar Background="Transparent"
+        <StackPanel>
+            <muxc:InfoBar
+                Margin="-2,8,-2,0"
+    IsOpen="True"
+    Title="Note:"
+    Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." >
+
+            </muxc:InfoBar>
+            <CommandBar Background="Transparent"
                     DefaultLabelPosition="Right"
                     HorizontalAlignment="Left"
-                    Margin="-12,0">
-            <AppBarButton x:Name="PlayItem"
+                    Margin="-12,8,0,0">
+                <!--<AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
                           Icon="Play"
                           IsEnabled="False"
@@ -113,9 +121,14 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-        </CommandBar>
 
-        <GridView Grid.Row="1"
+            <AppBarSeparator/>-->
+
+                <AppBarButton HorizontalAlignment="Right" x:Uid="/MediaLibrary/AddFolders" Icon="NewFolder" x:Name="AddFolders" Click="AddFolders_Click"/>
+
+            </CommandBar>
+
+            <GridView Grid.Row="1"
                   animations:Connected.ListItemElementName="GenreThumb"
                   animations:Connected.ListItemKey="GenreArt"
                   ItemsSource="{x:Bind Genres, Mode=OneWay}"
@@ -124,37 +137,41 @@
                   SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
                   SelectionMode="Single"
                   Tapped="GridView_Tapped">
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                    <Grid ColumnSpacing="12"
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:GenreViewModel">
+                        <Grid ColumnSpacing="12"
                           Margin="12"
                           Width="210">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="48" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Button CornerRadius="4"
+                            <Button CornerRadius="4"
                                 IsHitTestVisible="False"
                                 Padding="0">
-                            <Border x:Name="GenreThumb"
+                                <Border x:Name="GenreThumb"
                                     CornerRadius="4">
-                                <Image Height="48"
+                                    <Image Height="48"
                                        Source="ms-appx:///Assets/BlankGenre.png"
                                        Stretch="UniformToFill"
                                        Width="48" />
-                            </Border>
-                        </Button>
+                                </Border>
+                            </Button>
 
-                        <TextBlock Grid.Column="1"
+                            <TextBlock Grid.Column="1"
                                    Text="{x:Bind Name}"
                                    MaxLines="2"
                                    Style="{StaticResource BaseTextBlockStyle}"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center" />
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </StackPanel>
+        
+
+        
     </Grid>
 </Page>

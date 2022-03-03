@@ -47,11 +47,12 @@
                         <TextBlock Text="{x:Bind Playlist.Title, Mode=OneWay}"
                                    FontSize="22"
                                    MaxLines="2"
+                                   Margin="4,0,0,0"
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Playlist.Description, Mode=OneWay}"
-                                   Margin="-1,-4,0,4"
+                                   Margin="3,-4,0,4"
                                    FontSize="14"
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource BodyTextBlockStyle}" />

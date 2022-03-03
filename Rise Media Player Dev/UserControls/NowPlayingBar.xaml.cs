@@ -600,6 +600,7 @@ namespace Rise.App.UserControls
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
+            
             ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
@@ -612,6 +613,20 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
+                    if (App.PViewModel.CurrentPlaybackItem.IsVideo)
+                    {
+                        if (Window.Current.Content is Frame rootFrame)
+                        {
+                            _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                        }
+                    }
+                    else
+                    {
+                        if (Window.Current.Content is Frame rootFrame)
+                        {
+                            _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
+                        }
+                    }
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.

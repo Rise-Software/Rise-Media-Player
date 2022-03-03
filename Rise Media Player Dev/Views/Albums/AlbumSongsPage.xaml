@@ -124,7 +124,7 @@
             </ListView.Resources>
 
             <ListView.Header>
-                    <Border Margin="-56,0,-56,10">
+                    <Border Margin="-56,0,-56,24">
                         <Grid>
                             <ParallaxView VerticalShift="500"
                                           Height="250"

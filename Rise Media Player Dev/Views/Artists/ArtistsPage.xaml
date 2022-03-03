@@ -73,7 +73,7 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/Delete"
+            <!--<AppBarButton x:Uid="/Information/Delete"
                           Icon="Delete"
                           IsEnabled="False"
                           Style="{StaticResource AppBarCompactButton}" />
@@ -126,7 +126,10 @@
                                                   Tag="Descending" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
-            </AppBarButton>
+            </AppBarButton>-->
+
+
+            <AppBarButton HorizontalAlignment="Right" x:Uid="/MediaLibrary/AddFolders" Icon="NewFolder" x:Name="AddFolders" Click="AddFolders_Click"/>
         </CommandBar>
 
         <GridView Grid.Row="1"
@@ -136,7 +139,6 @@
                   ItemsSource="{x:Bind Artists, Mode=OneWay}"
                   Margin="-56,0"
                   Padding="44,0,44,120"
-                  SelectedItem="{x:Bind SelectedArtistItem, Mode=TwoWay}"
                   SelectionMode="Single"
                   RightTapped="MainGrid_RightTapped"
                   Tapped="GridView_Tapped">
@@ -205,21 +207,16 @@
                     </MenuFlyoutItem>
 
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong" Click="SelectArtist_Click">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
                 </MenuFlyout>
             </GridView.Resources>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel">
-                    <Grid ColumnSpacing="12"
+                    <Grid ColumnSpacing="10"
                           Margin="12"
-                          Width="210"
+                          Width="200"
                           RightTapped="Grid_RightTapped">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="84" />
+                            <ColumnDefinition Width="80" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
@@ -229,16 +226,17 @@
                             <Border x:Name="ArtistThumb"
                                     CornerRadius="42">
                                 <Image
-                                       Height="84"
+                                       Height="80"
                                        Source="{x:Bind Picture, Mode=OneWay}"
                                        Stretch="UniformToFill"
-                                       Width="84" />
+                                       Width="80" />
                             </Border>
                         </Button>
 
-                        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="2" VerticalAlignment="Center">
                             <TextBlock Text="{x:Bind Name}"
                                        MaxLines="1"
+                                       FontSize="16"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        TextWrapping="Wrap" />
                             <TextBlock Text="{x:Bind Songs}"
