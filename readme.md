@@ -13,7 +13,7 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 
 ![Alpha Preview 2 Screenshot](https://user-images.githubusercontent.com/74561130/156649276-8dc63e37-bf76-4321-ae7a-4e77f2022c37.png)
 
-**Note**: This render may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are simply not coded or they are being tested internally. 
+**Note**: This screenshot may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are being tested internally. 
 
 ## Features Available in current commit
 
