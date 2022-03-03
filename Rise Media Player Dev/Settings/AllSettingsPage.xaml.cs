@@ -131,7 +131,14 @@ namespace Rise.App.Settings
         }
 
         private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
-            => _ = await MainPage.Current.SDialog.ShowAsync();
+        {
+            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+            }
+            _ = await MainPage.Current.SDialog.ShowAsync();
+            SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
+        }
 
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
