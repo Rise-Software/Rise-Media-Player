@@ -3,6 +3,7 @@ using Rise.App.Common;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Rise.Repository.SQL;
 
 namespace Rise.App.ViewModels
 {
@@ -120,7 +121,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Artists.Add(this);
             }
 
-            await App.Repository.Artists.QueueUpsertAsync(Model);
+            await SQLRepository.Repository.Artists.QueueUpsertAsync(Model);
         }
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace Rise.App.ViewModels
             IsModified = true;
 
             App.MViewModel.Artists.Remove(this);
-            await App.Repository.Artists.QueueDeletionAsync(Model);
+            await SQLRepository.Repository.Artists.QueueDeletionAsync(Model);
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task RefreshArtistsAsync()
         {
-            Model = await App.Repository.Artists.GetAsync(Model.Id);
+            Model = await SQLRepository.Repository.Artists.GetAsync(Model.Id);
         }
     }
 }

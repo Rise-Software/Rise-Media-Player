@@ -1,6 +1,7 @@
 ﻿using Rise.App.Common;
 using Rise.App.Views;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -367,9 +368,9 @@ namespace Rise.App.ViewModels
                 OnPropertyChanged(nameof(ArtistViewModel.SongCount));
             }
 
-            if (await App.Repository.Songs.GetAsync(Model.Id) == null)
+            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
             {
-                await App.Repository.Songs.QueueUpsertAsync(Model);
+                await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
             }
         }
 
@@ -386,7 +387,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Songs.Remove(this);
             }
 
-            await App.Repository.Songs.QueueUpsertAsync(Model);
+            await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
@@ -463,7 +464,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task RefreshSongsAsync()
         {
-            Model = await App.Repository.Songs.GetAsync(Model.Id);
+            Model = await SQLRepository.Repository.Songs.GetAsync(Model.Id);
         }
 
         /// <summary>

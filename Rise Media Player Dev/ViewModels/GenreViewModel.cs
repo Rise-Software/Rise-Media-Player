@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
@@ -62,7 +63,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Genres.Add(this);
             }
 
-            await App.Repository.Genres.QueueUpsertAsync(Model);
+            await SQLRepository.Repository.Genres.QueueUpsertAsync(Model);
         }
     }
 }

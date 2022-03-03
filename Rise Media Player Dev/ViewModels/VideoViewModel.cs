@@ -1,4 +1,5 @@
 ﻿using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Threading.Tasks;
 using Windows.Media;
@@ -164,7 +165,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Videos.Add(this);
             }
 
-            await App.Repository.Videos.QueueUpsertAsync(Model);
+            await SQLRepository.Repository.Videos.QueueUpsertAsync(Model);
         }
 
         /// <summary>
