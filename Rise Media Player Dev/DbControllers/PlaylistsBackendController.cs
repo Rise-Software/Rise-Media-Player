@@ -17,6 +17,20 @@ namespace Rise.App.DbControllers
 
         public PlaylistsBackendController() : base("Playlists") { }
 
+        public async Task<PlaylistViewModel> GetAsync(Guid id)
+        {
+            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                ObservableCollection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<ObservableCollection<PlaylistViewModel>>(text);
+                return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<ObservableCollection<PlaylistViewModel>> GetAsync()
         {
             string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));

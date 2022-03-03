@@ -39,6 +39,9 @@ namespace Rise.App.Settings
                 case "Local":
                     MediaFrame.Navigate(typeof(MediaLibraryPage));
                     break;
+                case "Services":
+                    MediaFrame.Navigate(typeof(OnlineServicesPage));
+                    break;
                 case "Scanning":
                     MediaFrame.Navigate(typeof(ScanningPage));
                     break;

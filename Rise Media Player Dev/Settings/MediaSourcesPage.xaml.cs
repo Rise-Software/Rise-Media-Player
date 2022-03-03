@@ -31,6 +31,7 @@ namespace Rise.App.Settings
         public MediaSourcesPage()
         {
             this.InitializeComponent();
+            
             _navigationHelper = new NavigationHelper(this);
             //var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 

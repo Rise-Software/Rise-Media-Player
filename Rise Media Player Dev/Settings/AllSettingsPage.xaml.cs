@@ -133,10 +133,6 @@ namespace Rise.App.Settings
         private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
             => _ = await MainPage.Current.SDialog.ShowAsync();
 
-        private void BacktoMediaLibrary_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,6 +144,7 @@ namespace Rise.App.Settings
 
         private void FinishNavigation()
         {
+            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Collapsed;
             string type = SettingsMainFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
@@ -198,6 +195,7 @@ namespace Rise.App.Settings
             {
                 SettingsMainFrame.GoBack();
                 FinishNavigation();
+                GOBACKPAGE.Visibility = Visibility.Collapsed;
             }
         }
 

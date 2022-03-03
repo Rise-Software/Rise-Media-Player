@@ -22,11 +22,18 @@
         <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
         <converters:BooleanToArtistColumnVisibility x:Key="BoolToVis" />
         <converters:BooleanToVisibility1 Reverse="True" x:Key="BoolToVis1" />
-        <LinearGradientBrush x:Name="PlayBorderBrush">
-            <GradientStop Color="{StaticResource SystemAccentColorLight2}" Offset="0.1"/>
-            <GradientStop Color="{StaticResource SystemAccentColorLight1}"/>
-            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
-        </LinearGradientBrush>
+        <ResourceDictionary x:Key="Dark">
+            <LinearGradientBrush x:Name="PlayBorderBrushDark">
+                <GradientStop Color="{StaticResource SystemAccentColorLight2}" Offset="0.1"/>
+                <GradientStop Color="{StaticResource SystemAccentColorLight1}"/>
+                <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Name="PlayBorderBrushLight">
+                <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
+                <GradientStop Color="{StaticResource SystemAccentColor}"/>
+                <GradientStop Color="{StaticResource SystemAccentColorDark2}" Offset="0.8"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
 
 
