@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74561130/156648862-a2ff962b-b6d1-4bce-9e18-d6f26df9efea.png" />
+  <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
 </p>
 
 ### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 1 is out now!**
