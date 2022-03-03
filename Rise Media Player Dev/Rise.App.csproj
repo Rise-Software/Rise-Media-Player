@@ -980,6 +980,26 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\pt-BR\Terms.resw" />
+    <PRIResource Include="Strings\pt-BR\Sidebar.resw" />
+    <PRIResource Include="Strings\pt-BR\Setup.resw" />
+    <PRIResource Include="Strings\pt-BR\Props.resw" />
+    <PRIResource Include="Strings\pt-BR\Privacy.resw" />
+    <PRIResource Include="Strings\pt-BR\Playback.resw" />
+    <PRIResource Include="Strings\pt-BR\NowPlaying.resw" />
+    <PRIResource Include="Strings\pt-BR\Navigation.resw" />
+    <PRIResource Include="Strings\pt-BR\MediaLibrary.resw" />
+    <PRIResource Include="Strings\pt-BR\MediaData.resw" />
+    <PRIResource Include="Strings\pt-BR\Local.resw" />
+    <PRIResource Include="Strings\pt-BR\Language.resw" />
+    <PRIResource Include="Strings\pt-BR\Information.resw" />
+    <PRIResource Include="Strings\pt-BR\HelpTips.resw" />
+    <PRIResource Include="Strings\pt-BR\Finish.resw" />
+    <PRIResource Include="Strings\pt-BR\File.resw" />
+    <PRIResource Include="Strings\pt-BR\Details.resw" />
+    <PRIResource Include="Strings\pt-BR\Connect.resw" />
+    <PRIResource Include="Strings\pt-BR\Appearance.resw" />
+    <PRIResource Include="Strings\pt-BR\About.resw" />
     <PRIResource Include="Strings\pt-PT\Terms.resw" />
     <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
     <PRIResource Include="Strings\pt-PT\Setup.resw" />
