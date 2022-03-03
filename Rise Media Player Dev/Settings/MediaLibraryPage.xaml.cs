@@ -59,12 +59,12 @@ namespace Rise.App.Settings
         }
         private async void GotoManage_Click(object sender, RoutedEventArgs e)
         {
-            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
-            AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
-            AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
-            AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-            //AllSettingsPage.Current.BackMediaLibrary.Visibility = Visibility.Visible;
-            //AllSettingsPage.Current.HeaderArea.Padding = 87,0,37,0;
+                AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
+                AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
+                AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
+                AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
+            
+                SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaSourcesPage));
         }
          
 
