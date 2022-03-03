@@ -10,6 +10,8 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Rise.App.Views;
+using Rise.App.Common;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
@@ -115,7 +117,13 @@ namespace Rise.App.Views
 
         private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(PlaylistPropertiesPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true, plViewModel);
+            await plViewModel.StartEditAsync();
+        }
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            await plViewModel.DeleteAsync();
+            this.Frame.GoBack();
         }
     }
 }

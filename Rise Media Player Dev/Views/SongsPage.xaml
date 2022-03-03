@@ -90,11 +90,11 @@
                 </AppBarButton.Icon>
             </AppBarButton>
 
-            <AppBarButton Label="TestUnavailability" Click="AppBarButton_Click">
+            <!--<AppBarButton Label="TestUnavailability" Click="AppBarButton_Click">
             <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE7BA;" />
             </AppBarButton.Icon>
-            </AppBarButton>
+            </AppBarButton>-->
 
             <AppBarSeparator />
 
@@ -150,7 +150,11 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            
+            <AppBarSeparator/>
+
+            <AppBarButton HorizontalAlignment="Right" x:Uid="/MediaLibrary/AddFolders" Icon="NewFolder" x:Name="AddFolders" Click="AddFolders_Click"/>
+
+
         </CommandBar>
 
         <ListView x:Name="MainList"
@@ -234,14 +238,6 @@
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-
 
                 </MenuFlyout>
             </ListView.Resources>

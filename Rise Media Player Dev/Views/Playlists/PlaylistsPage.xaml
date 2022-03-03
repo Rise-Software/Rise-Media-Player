@@ -52,56 +52,15 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xECAA;" />
-                </AppBarButton.Icon>
-
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Default">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xF0E2;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-
-            <AppBarButton x:Uid="/Information/Sort"
-                          Icon="Sort">
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  IsChecked="True"
-                                                  Tag="Title" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Tag="Artist" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                  Tag="Genres" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
-                                                  Tag="Year" />
-
-                        <MenuFlyoutSeparator />
-
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
-                                                  GroupName="Descending"
-                                                  IsChecked="True"
-                                                  Tag="Ascending" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
-                                                  GroupName="Descending"
-                                                  Tag="Descending" />
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
+            <AppBarButton Icon="OpenFile"
+                          Label="Import"
+                          Click="ImportPlaylist_Click"/>
 
             <AppBarButton Icon="Save"
                           Label="Export"
                           IsEnabled="False" />
             
-            <AppBarButton Icon="OpenFile"
-                          Label="Import"
-                          Click="ImportPlaylist_Click"/>
+            
 
         </CommandBar>
 
@@ -184,18 +143,13 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Text="Info &amp; Properties"
+                    <MenuFlyoutItem x:Uid="/Information/EditPlaylistText"
                                     Click="PlaylistProperties_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem> 
                 </MenuFlyout>
             </GridView.Resources>
 
