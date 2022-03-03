@@ -61,11 +61,12 @@
                         <TextBlock Text="{x:Bind Props.Title}"
                                    FontSize="22"
                                    MaxLines="2"
+                                   Margin="4,0,0,0"
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
                         <TextBlock Text="{x:Bind Props.Artist}"
-                                   Margin="-1,-4,0,4"
+                                   Margin="3,-4,0,4"
                                    FontSize="14"
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource BodyTextBlockStyle}" />

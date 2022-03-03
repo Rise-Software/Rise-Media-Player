@@ -49,7 +49,6 @@
                                 <ColumnDefinition Width="154" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
 
                             <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                 CornerRadius="8"
@@ -127,48 +126,22 @@
                                               Style="{StaticResource AppBarCompactButton}" />
 
                                     <AppBarSeparator />
-                                    <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="&#xECC8;" />
-                                        </AppBarButton.Icon>
 
-                                        <AppBarButton.Flyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem x:Name="NewPlaylist1"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem x:Name="PinToStart"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE141;" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </AppBarButton.Flyout>
-                                    </AppBarButton>
+                                    
 
-                                    <AppBarSeparator />
 
-                                    <AppBarButton x:Uid="/Information/Delete"
-                                              Icon="Delete"
-                                              IsEnabled="False"
-                                              Style="{StaticResource AppBarCompactButton}" />
-
-                                    <AppBarSeparator />
-
-                                    <AppBarButton x:Uid="/Information/Properties"
-                                              Style="{StaticResource AppBarCompactButton}"
+                                    <AppBarButton x:Uid="/Information/EditPlaylist"
+                                            
                                               Click="PlaylistProperties_Click">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xE70F;" />
                                         </AppBarButton.Icon>
                                     </AppBarButton>
+
+                                    <AppBarButton x:Uid="/Information/DeleteFull"
+                                              Icon="Delete"
+                                                  Click="AppBarButton_Click"
+                                              IsEnabled="True"/>
                                 </CommandBar>
                             </StackPanel>
                         </Grid>

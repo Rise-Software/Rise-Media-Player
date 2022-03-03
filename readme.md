@@ -15,42 +15,35 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 
 **Note**: This screenshot may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are being tested internally. 
 
-## Features Available in current commit
+## [All Features](https://github.com/Rise-Software/Rise-Media-Player/releases/tag/v0.0.170.0)
 
-**All Users, GitHub or Insider**
-* Song & Album Indexing (Brand new system in this build made for speed and stability)
-* Media Playback (MP3, M4A, WAV, FLAC and others)
-* Sorting for Songs and Albums
+**The basics**
+* Music and video playback
+* Sorting for Songs, Albums and Videos
 * Now Playing Bar
-* Now Playing Window
-* Artist, Album and Songs Views
-* Modern Titlebar
-* LastFM Integration
+* Now Playing Overlay
+* Now Playing Full Screen Design
+* last.fm Integration
 * Internet based artist images
 * Feedback page
 * Playlists
-* Sidebar with quick links
-* Modern Settings UI - Very few settings work (Sidebar customization)
-* Albums & Songs View
+* Modern Settings UI with a lot of planned customisation options (themes, layouts, services)
 * (BASIC) OneDrive Support
-* Properties/ Song Info Window
+* Properties / Details Window
 * Links to Rise Services, Some help and FAQ.
-* Early version of command bar with basic functionality
 * Colourful icons setting for more Windows 11 esque experience
-* Casting to devices, repeat
-* Insider Settings page with RiseMP wallpapers
+* Casting to devices, repeat, shuffle
+* Insider exclusives
 * Pick up where you left off support
 
 **Insider Exclusives**
 
-(You get these features if you sign up for the Insider Program and use the Store version. Cloning from GitHub will not contain these)
-* Nothing yet. There will be some exclusive features and themes for your PC though, so stay tuned! 
+- RiseMP Designed Wallpapers and themes for your desktop
+- Feature sneak peeks
 
 ## Planned features
 
-**Coming VERY soon (later in Pre-Alpha / Start of Alpha)**
-
-On [GitHub Issues Page](https://github.com/Rise-Software/Rise-Media-Player/issues)
+**Most planned features are available on [GitHub Issues Page](https://github.com/Rise-Software/Rise-Media-Player/issues). Guess you'll have to wait and see for the rest ;)**
 
 ## Licensing
 

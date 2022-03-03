@@ -87,9 +87,18 @@ namespace Rise.App.Views
                 PlaylistViewModel playlist = MainGrid.Items[MainGrid.SelectedIndex] as PlaylistViewModel;
                 SelectedPlaylist = playlist;
                 System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {SelectedPlaylist.Title}\n   Description: {SelectedPlaylist.Description}");
-            } catch (ArgumentOutOfRangeException)
+            } 
+            catch
             {
-                SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
+                try
+                {
+                    SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
+                }
+                catch
+                {
+
+                }
+                
             }
         }
 

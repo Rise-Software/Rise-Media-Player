@@ -103,7 +103,14 @@ namespace Rise.App.Views
             }
             else
             {
-                await Playlist.RevertChangesAsync();
+                try
+                {
+                    await Playlist.RevertChangesAsync();
+                }
+                catch
+                {
+
+                }
             }
         }
     }

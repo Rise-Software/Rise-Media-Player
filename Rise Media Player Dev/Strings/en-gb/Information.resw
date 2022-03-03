@@ -189,6 +189,12 @@
   <data name="Delete.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove...</value>
   </data>
+  <data name="DeleteFull.Label" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteFull.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Descending.Text" xml:space="preserve">
     <value>Descending</value>
   </data>
@@ -197,6 +203,12 @@
   </data>
   <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
     <value>Properties and Info</value>
+  </data>
+  <data name="EditPlaylist.Label" xml:space="preserve">
+    <value>Edit playlist</value>
+  </data>
+  <data name="EditPlaylistText.Text" xml:space="preserve">
+    <value>Edit playlist</value>
   </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Feedback</value>

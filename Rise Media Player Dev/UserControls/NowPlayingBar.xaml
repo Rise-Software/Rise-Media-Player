@@ -72,8 +72,8 @@
                 <StackPanel>
                     <StackPanel Margin="16,8,8,8" VerticalAlignment="Center">
                         <TextBlock FontSize="18" HorizontalAlignment="Left" MaxWidth="265" FontWeight="Bold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock x:Name="ArtistFlyoutText" FontSize="16" MaxWidth="265" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{x:Bind local:App.PViewModel.CurrentSong.AlbumArtist, Mode=OneWay}" MaxLines="1"/>
-                        <TextBlock x:Name="AlbumFlyoutText" FontSize="14" MaxWidth="265"   Margin="0,12,0,0" FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="ArtistFlyoutText" FontSize="16" MaxWidth="265" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{x:Bind local:App.PViewModel.CurrentSong.AlbumArtist, Mode=OneWay}" MaxLines="1" Opacity="0.6"/>
+                        <TextBlock x:Name="AlbumFlyoutText" FontSize="14" MaxWidth="265"   Margin="0,12,0,0" FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1" TextTrimming="CharacterEllipsis" Opacity="0.6"/>
 
                     </StackPanel>
                     <StackPanel Margin="16,0,0,0" Orientation="Horizontal" x:Name="AlbumButtons" VerticalAlignment="Bottom" >

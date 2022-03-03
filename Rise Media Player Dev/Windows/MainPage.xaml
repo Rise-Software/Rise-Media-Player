@@ -371,7 +371,7 @@
                 <Grid Grid.Row="1">
                     <Frame
                         x:Name="ContentFrame"
-                        Padding="56,0,56,10"
+                        Padding="56,0,56,0"
                         x:FieldModifier="public"
                         Navigated="ContentFrame_Navigated">
                         <Frame.ContentTransitions>

@@ -126,6 +126,12 @@
   <data name="AddAccount.Title" xml:space="preserve">
     <value>Add an account</value>
   </data>
+  <data name="AddFolders.Label" xml:space="preserve">
+    <value>Add media folders</value>
+  </data>
+  <data name="AddFolders.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add media folders</value>
+  </data>
   <data name="AdditionalH.Text" xml:space="preserve">
     <value>Additional settings</value>
   </data>

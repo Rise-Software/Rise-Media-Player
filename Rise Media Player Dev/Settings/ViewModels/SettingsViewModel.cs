@@ -28,14 +28,14 @@ namespace Rise.App.ViewModels
 
         public bool OpenInLogin
         {
-            get => Get("WindowsBehaviours", nameof(OpenInLogin), false);
-            set => Set("WindowsBehaviours", nameof(OpenInLogin), value);
+            get => Get("OpenInLogin", nameof(OpenInLogin), false);
+            set => Set("OpenInLogin", nameof(OpenInLogin), value);
         }
 
         public bool CanOpenInLogin
         {
-            get => Get("WindowsBehaviours", nameof(CanOpenInLogin), true);
-            set => Set("WindowsBehaviours", nameof(CanOpenInLogin), value);
+            get => Get("CanOpenInLogin", nameof(CanOpenInLogin), true);
+            set => Set("CanOpenInLogin", nameof(CanOpenInLogin), value);
         }
 
         public async Task OpenFilesAtStartupAsync()

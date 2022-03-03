@@ -20,123 +20,141 @@
     </Page.Resources>
 
     <Grid>
-        <Border Style="{StaticResource SettingsCard}">
-            <StackPanel Orientation="Vertical"
+        <StackPanel>
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel Orientation="Vertical"
                         Padding="0,4,0,0"
                         Spacing="16">
-                <Grid ColumnSpacing="12" RowSpacing="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid ColumnSpacing="12" RowSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                    </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock x:Uid="/File/Filename"
+                        <TextBlock x:Uid="/File/Filename"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/File/FileType"
+                        <TextBlock x:Uid="/File/FileType"
                                Grid.Row="1"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/File/DefaultApp"
+                        <TextBlock x:Uid="/File/DefaultApp"
                                Grid.Row="2"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
 
-                    <TextBox x:Name="SongFilename"
+                        <TextBox x:Name="SongFilename"
                              Grid.Column="1"
                              Margin="14,0,0,0"
                              Text="{x:Bind Props.Filename, Mode=TwoWay}"
                              HorizontalAlignment="Stretch" />
-                    
-                    <TextBlock Grid.Column="1"
+
+                        <TextBlock Grid.Column="1"
                                Grid.Row="1"
                                Margin="25,0,0,0"
                                Text="{x:Bind Props.Extension}"
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="1"
                                Grid.Row="2"
                                Margin="25,0,0,0"
                                Text="Unknown"
                                VerticalAlignment="Center" />
-                </Grid>
+                    </Grid>
 
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
+                    <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0,-16,-8" />
 
-                <Grid ColumnSpacing="12" RowSpacing="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid ColumnSpacing="12" RowSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                    </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock x:Uid="/File/Location"
+                        <TextBlock x:Uid="/File/Location"
                                Margin="0,-2,0,0"
                                TextTrimming="WordEllipsis"
                                VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/File/Size"
+                        <TextBlock x:Uid="/File/Size"
                                Grid.Row="1"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="1"
                                Text="{x:Bind Props.Location}"
                                Margin="41,0,0,0"
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="1"
                                Grid.Row="1"
                                Margin="42,0,0,0"
                                Text="{x:Bind Props.Size}"
                                VerticalAlignment="Center" />
-                </Grid>
+                    </Grid>
 
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
+                    <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
                            Height="1"
                            HorizontalAlignment="Stretch"
                            Margin="-16,0,-16,-8" />
 
-                <Grid ColumnSpacing="12" RowSpacing="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid ColumnSpacing="12" RowSpacing="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                    </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                        </Grid.RowDefinitions>
 
-                    <TextBlock x:Uid="/File/Created"
+                        <TextBlock x:Uid="/File/Created"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/File/Modified"
+                        <TextBlock x:Uid="/File/Modified"
                                Grid.Row="1"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="1"
                                Text="{x:Bind Props.Created}"
                                Margin="38,0,0,0"
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="1"
+                        <TextBlock Grid.Column="1"
                                Grid.Row="1"
                                Margin="38,0,0,0"
                                Text="{x:Bind Props.Modified}"
                                VerticalAlignment="Center" />
-                </Grid>
-            </StackPanel>
-        </Border>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="OpenFileLocation" Click="OpenFileLocation_Click"  HorizontalAlignment="Stretch">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE197;" FontSize="16" />
+                            <TextBlock Margin="8,0,0,0" Text="Open file location"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </StackPanel>
+        
+        
+        
     </Grid>
 </Page>
