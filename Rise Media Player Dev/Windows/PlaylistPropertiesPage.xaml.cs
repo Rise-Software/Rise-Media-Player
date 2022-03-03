@@ -2,6 +2,7 @@
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Playlists.Properties;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,8 +30,9 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class PlaylistPropertiesPage : Page
     {
-        private PlaylistViewModel _plViewModel;
-        private PlaylistViewModel _updatedPlViewModel;
+        private PlaylistViewModel Playlist;
+        private bool _saveChanges = false;
+
         private Uri _imagePath = new("ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png");
         private IEnumerable<ToggleButton> Toggles { get; set; }
 
@@ -38,9 +40,9 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
-            
 
             Toggles = ItemGrid.GetChildren<ToggleButton>();
+            ApplicationView.GetForCurrentView().Consolidated += PlaylistPropertiesPage_Consolidated;
             //Loaded += (s, e) =>
             //{
             //    _ = new ApplicationTitleBar(TitleBar);
@@ -50,9 +52,9 @@ namespace Rise.App.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            Playlist = e.Parameter as PlaylistViewModel;
+
             Details.IsChecked = true;
-            _plViewModel = e.Parameter as PlaylistViewModel;
-            _updatedPlViewModel = _plViewModel;
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -67,11 +69,11 @@ namespace Rise.App.Views
             switch (clicked.Tag.ToString())
             {
                 case "DetailsItem":
-                    _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), _updatedPlViewModel);
+                    _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), Playlist);
                     break;
 
                 case "SongsItem":
-                    _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), _updatedPlViewModel);
+                    _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), Playlist);
                     break;
 
                 default:
@@ -81,52 +83,28 @@ namespace Rise.App.Views
             clicked.Checked += ToggleButton_Checked;
         }
 
-        //private void Image_PointerEntered(object sender, PointerRoutedEventArgs e)
-        //{
-        //    UseCustomImageButton.Visibility = Visibility.Visible;
-        //}
-
-        //private void Image_PointerExited(object sender, PointerRoutedEventArgs e)
-        //{
-        //    UseCustomImageButton.Visibility = Visibility.Collapsed;
-        //}
-
-        //private async void UseCustomImageButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var picker = new Windows.Storage.Pickers.FileOpenPicker
-        //    {
-        //        ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
-        //        SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
-        //    };
-        //    picker.FileTypeFilter.Add(".jpg");
-        //    picker.FileTypeFilter.Add(".jpeg");
-        //    picker.FileTypeFilter.Add(".png");
-
-        //    Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
-
-        //    if (file != null)
-        //    {
-        //        // Get file thumbnail and make a PNG out of it.
-        //        StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-
-        //        await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"playlist-{file.Name}.png");
-
-        //        thumbnail.Dispose();
-        //        _imagePath = new Uri($@"ms-appdata:///local/playlist-{file.Name}.png");
-        //    }
-
-        //    PreviewImage.Source = new BitmapImage(_imagePath);
-        //}
-
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
-            => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        {
+            _saveChanges = false;
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _plViewModel.Title = PlaylistDetailsPropertiesPage.Current.PlaylistTitle.Text;
-            _plViewModel.Description = PlaylistDetailsPropertiesPage.Current.PlaylistDescription.Text;
-            await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-            //_plViewModel.SaveAsync(); - THIS DOESN'T WORK. IT CREATES A NEW PLAYLIST. ANY HELP?
+            _saveChanges = true;
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
+
+        private async void PlaylistPropertiesPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
+        {
+            if (_saveChanges)
+            {
+                await Playlist.EndEditAsync();
+            }
+            else
+            {
+                await Playlist.RevertChangesAsync();
+            }
         }
     }
 }

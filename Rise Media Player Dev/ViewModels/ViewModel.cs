@@ -48,6 +48,11 @@ namespace Rise.App.ViewModels
         private readonly Dictionary<PropertyChangedEventHandler, SynchronizationContext> PropertyChangedEvents =
             new Dictionary<PropertyChangedEventHandler, SynchronizationContext>();
 
+        /// <summary>
+        /// Whether or not to send property change notifications.
+        /// </summary>
+        protected bool NotifyPropertyChanges = true;
+
         /// <summary> 
         /// Occurs when a property value changes.
         /// </summary>
@@ -71,6 +76,11 @@ namespace Rise.App.ViewModels
         /// that support <see cref="CallerMemberNameAttribute"/>.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            if (!NotifyPropertyChanges)
+            {
+                return;
+            }
+
             PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
             foreach (KeyValuePair<PropertyChangedEventHandler, SynchronizationContext> @event in PropertyChangedEvents)
             {
@@ -106,7 +116,12 @@ namespace Rise.App.ViewModels
             }
 
             storage = value;
-            OnPropertyChanged(propertyName);
+
+            if (NotifyPropertyChanges)
+            {
+                OnPropertyChanged(propertyName);
+            }
+
             return true;
         }
     }

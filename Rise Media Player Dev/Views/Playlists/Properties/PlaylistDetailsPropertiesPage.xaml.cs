@@ -30,29 +30,24 @@ namespace Rise.App.Views.Playlists.Properties
     /// </summary>
     public sealed partial class PlaylistDetailsPropertiesPage : Page
     {
-        private PlaylistViewModel _plViewModel;
-        private PlaylistViewModel _updatedPlViewModel;
-        public static PlaylistDetailsPropertiesPage Current;
+        private PlaylistViewModel Playlist;
 
         public PlaylistDetailsPropertiesPage()
         {
             this.InitializeComponent();
-            Current = this;
-            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            _plViewModel = e.Parameter as PlaylistViewModel;
-            _updatedPlViewModel = _plViewModel;
+            Playlist = e.Parameter as PlaylistViewModel;
         }
 
         private async void exportPlaylistArt_Click(object sender, RoutedEventArgs e)
         {
             StorageFile picFile =
                 await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(_plViewModel.Icon));
+                (new Uri(Playlist.Icon));
 
             FolderPicker folderPicker = new FolderPicker
             {
@@ -69,16 +64,17 @@ namespace Rise.App.Views.Playlists.Properties
 
         private async void EditPlaylistIcon_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker
+            var picker = new FileOpenPicker
             {
-                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
-                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
+
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
             if (file != null)
             {
@@ -89,9 +85,7 @@ namespace Rise.App.Views.Playlists.Properties
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
                 thumbnail.Dispose();
-                _updatedPlViewModel.Icon = uri.ToString();
-                //Update the source in the XAML view
-                imgAlbum.Source = new BitmapImage(uri);
+                Playlist.Icon = uri.ToString();
             }
         }
     }

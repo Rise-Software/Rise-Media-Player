@@ -200,7 +200,8 @@
             </GridView.Resources>
 
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:PlaylistViewModel">
+                <DataTemplate x:DataType="viewmodels:PlaylistViewModel"
+                              x:DefaultBindMode="OneWay">
                     <StackPanel Margin="12"
                                 Orientation="Vertical"
                                 Spacing="2"
@@ -210,11 +211,15 @@
                                 Padding="0">
                             <Border x:Name="AlbumThumb"
                                     CornerRadius="4">
-                                <Image x:Phase="1"
-                                       Height="134"
-                                       Source="{x:Bind Icon}"
-                                       Stretch="UniformtoFill"
-                                       Width="134"/>
+                                <Image Height="134"
+                                       Stretch="UniformToFill"
+                                       Width="134">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelHeight="134"
+                                                     DecodePixelWidth="134"
+                                                     UriSource="{x:Bind Icon}" />
+                                    </Image.Source>
+                                </Image>
                             </Border>
                         </Button>
 

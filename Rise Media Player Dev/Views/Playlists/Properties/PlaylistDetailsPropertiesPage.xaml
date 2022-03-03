@@ -5,9 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
-
 
     <Page.Resources>
         <ResourceDictionary>
@@ -21,20 +19,6 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <!--<uc:ExpanderControl x:Uid="/Details/AsFile"
-                               ExpanderStyle="Static"
-                               Icon="&#xE8B7;">
-            <Button x:Name="LocalButton"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    
-                    Padding="0">
-                <Button.Content>
-                    <FontIcon FontSize="16" Glyph="&#xE946;" />
-                </Button.Content>
-            </Button>
-        </uc:ExpanderControl>-->
-
         <Border Style="{StaticResource SettingsCard}">
             <StackPanel Orientation="Vertical"
                         Padding="0,4,0,0"
@@ -47,25 +31,26 @@
 
                     <Border CornerRadius="5">
                         <Image Height="96"
-                               
                                Stretch="UniformToFill"
-                               Width="96"
-                               Source="/Assets/navigationview/blankplaylist.png"
-                               x:Name="imgAlbum">
-                            
+                               Width="96">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="96"
+                                             DecodePixelWidth="96"
+                                             UriSource="{x:Bind Playlist.Icon, Mode=OneWay}" />
+                            </Image.Source>
                         </Image>
                     </Border>
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Vertical"
                                 Spacing="8">
-                        <TextBlock Text="{x:Bind _plViewModel.Title, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind Playlist.Title, Mode=OneWay}"
                                    FontSize="22"
                                    MaxLines="2"
                                    TextTrimming="WordEllipsis"
                                    Style="{StaticResource TitleTextBlockStyle}" />
 
-                        <TextBlock Text="{x:Bind _plViewModel.Description, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind Playlist.Description, Mode=OneWay}"
                                    Margin="-1,-4,0,4"
                                    FontSize="14"
                                    TextTrimming="WordEllipsis"
@@ -113,66 +98,15 @@
                                Grid.Row="1"
                                Margin="0,-2,0,0"
                                VerticalAlignment="Center" />
-                    
 
-                    <TextBox x:Name="PlaylistTitle"
-                             Grid.Column="1"
-                             x:FieldModifier="public"
-                             Text="{x:Bind _plViewModel.Title, Mode=OneWay}" />
-                    <TextBox x:Name="PlaylistDescription"
-                             x:FieldModifier="public"
-                             Grid.Column="1"
+                    <TextBox Grid.Column="1"
+                             Text="{x:Bind Playlist.Title, Mode=TwoWay}" />
+                    <TextBox Grid.Column="1"
                              Grid.Row="1"
-                             Text="{x:Bind _plViewModel.Description, Mode=OneWay}" />
-                    
+                             Text="{x:Bind Playlist.Description, Mode=TwoWay}" />
                 </Grid>
             </StackPanel>
         </Border>
-
-        <!--<Border Style="{StaticResource SettingsCard}">
-            <Grid ColumnSpacing="12" RowSpacing="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="14*" />
-                    <ColumnDefinition Width="183*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="32" />
-                    <RowDefinition Height="32" />
-                    <RowDefinition Height="32" />
-                </Grid.RowDefinitions>
-
-                <TextBlock x:Uid="/Details/SongAlbumArtist"
-                           
-                           VerticalAlignment="Center" />
-                <TextBlock x:Uid="/Details/Disc"
-                           Grid.Row="1"
-                           Margin="0,10,0,0"
-                           VerticalAlignment="Top" />
-                <TextBlock x:Uid="/Details/Rating"
-                           Grid.Row="2"
-                           Margin="0,14,0,0"
-                           VerticalAlignment="Top" />
-
-                <TextBox x:Name="SongAlbumArtist"
-                         Grid.Column="1"
-                         Margin="20,0,-12,0"
-                         
-                         Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                <TextBox x:Name="SongDisc"
-                         Grid.Column="1"
-                         Margin="20,4,-12,28"
-                         Grid.Row="1"
-                         Text="{x:Bind Props.Disc, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-                <RatingControl Grid.Column="1"
-                                    Grid.Row="2"
-                                    HorizontalAlignment="Left"
-                                    Margin="28,0,0,-12"
-                                    Value="{x:Bind Props.Rating, Mode=TwoWay}"
-                                    VerticalAlignment="Bottom" Grid.ColumnSpan="2" />
-            </Grid>
-        </Border>-->
 
         <muxc:TeachingTip x:Name="LocalTip"
                           x:Uid="/Details/Local"
@@ -180,33 +114,4 @@
                           PreferredPlacement="Bottom"
                            />
     </StackPanel>
-
-
-    <!--<ScrollViewer Padding="0,10,0,0">
-        <StackPanel Orientation="Vertical">
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Border Background="{StaticResource LayerFillColorDefaultBrush}"
-                        CornerRadius="8"
-                        BorderThickness="1"
-                        Height="130"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                    <Image Source="ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png" />
-                </Border>
-
-                <StackPanel Orientation="Vertical" Grid.Column="1" Spacing="5" VerticalAlignment="Center">
-                    <TextBox FontSize="25" FontWeight="SemiBold" Text="Playlist title" />
-                    
-                    <TextBox Text="Description"
-                             AcceptsReturn="True"
-                             TextWrapping="Wrap" />
-                </StackPanel>
-
-            </Grid>
-        </StackPanel>
-    </ScrollViewer>-->
 </Page>

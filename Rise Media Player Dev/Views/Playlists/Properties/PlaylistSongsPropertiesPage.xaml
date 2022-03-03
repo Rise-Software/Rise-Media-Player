@@ -16,7 +16,6 @@
                     Visibility="Collapsed"
                     Background="Transparent"
                     BorderThickness="0"
-                    
                     Padding="0">
                 <Button.Content>
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
@@ -24,7 +23,7 @@
             </Button>
         </uc:ExpanderControl>
 
-        <ListView ItemsSource="{x:Bind _plViewModel.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,8,-12,0" >
+        <ListView ItemsSource="{x:Bind Playlist.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,8,-12,0" >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
                     <ListViewItem Style="{ThemeResource DefaultListViewItemStyle}" Margin="-16,0,0,5">
