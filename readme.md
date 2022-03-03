@@ -38,8 +38,8 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 
 **Insider Exclusives**
 
-(You get these features if you sign up for the Insider Program and use the Store version. Cloning from GitHub will not contain these)
-* Nothing yet. There will be some exclusive features and themes for your PC though, so stay tuned! 
+- RiseMP Designed Wallpapers and themes for your desktop
+- Feature sneak peeks
 
 ## Planned features
 
