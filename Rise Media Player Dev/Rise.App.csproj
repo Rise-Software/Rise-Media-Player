@@ -961,16 +961,6 @@
     <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Rise.Models.csproj">
-      <Project>{e004f435-7a57-4421-b0b2-9f52ca67e908}</Project>
-      <Name>Rise.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Repository\Rise.Repository.csproj">
-      <Project>{7fb357a3-39f9-4069-8718-464521a9d194}</Project>
-      <Name>Rise.Repository</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\en-gb\Setup.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -1095,6 +1085,16 @@
     <PRIResource Include="Strings\en-gb\Finish.resw" />
     <PRIResource Include="Strings\en-gb\Privacy.resw" />
     <PRIResource Include="Strings\en-gb\Local.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
+      <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
+      <Name>Rise.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rise.Repository\Rise.Repository.csproj">
+      <Project>{c0da58a4-4ebe-4f14-8eb2-f92e99960c52}</Project>
+      <Name>Rise.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
