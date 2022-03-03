@@ -21,9 +21,9 @@ namespace Rise.App.ViewModels
 
         public SettingsViewModel()
         {
-            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenFilesAtStartup);
+            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenFilesAtStartupAsync);
 
-            _ = DetectOpenFilesAtStartup();
+            _ = DetectOpenFilesAtStartupAsync();
         }
 
         public bool OpenInLogin
@@ -38,7 +38,7 @@ namespace Rise.App.ViewModels
             set => Set("CanOpenInLogin", nameof(CanOpenInLogin), value);
         }
 
-        public async Task OpenFilesAtStartup()
+        public async Task OpenFilesAtStartupAsync()
         {
             var stateMode = await ReadState();
 
@@ -62,11 +62,11 @@ namespace Rise.App.ViewModels
                 {
                     startupTask.Disable();
                 }
-                await DetectOpenFilesAtStartup();
+                await DetectOpenFilesAtStartupAsync();
             }
         }
 
-        public async Task DetectOpenFilesAtStartup()
+        public async Task DetectOpenFilesAtStartupAsync()
         {
             var stateMode = await ReadState();
 

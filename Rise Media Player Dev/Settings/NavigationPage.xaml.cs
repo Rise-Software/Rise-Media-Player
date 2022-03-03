@@ -43,7 +43,7 @@ namespace Rise.App.Settings
 
         private async void OpenRiseMPinStartup_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await App.SViewModel.OpenFilesAtStartup();
+            await App.SViewModel.OpenFilesAtStartupAsync();
         }
     }
 }
