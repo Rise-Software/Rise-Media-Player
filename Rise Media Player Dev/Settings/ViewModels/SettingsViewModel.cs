@@ -3,7 +3,11 @@ using Rise.App.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.ApplicationModel;
 using static Rise.App.Common.Enums;
+using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Rise.App.ViewModels
 {
@@ -12,7 +16,90 @@ namespace Rise.App.ViewModels
         private SidebarViewModel SBViewModel => App.SBViewModel;
 
         // Empty constructor.
-        public SettingsViewModel() { }
+
+        public ICommand OpenFilesAtStartupCommand { get; }
+
+        public SettingsViewModel()
+        {
+            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenFilesAtStartupAsync);
+
+            _ = DetectOpenFilesAtStartupAsync();
+        }
+
+        public bool OpenInLogin
+        {
+            get => Get("OpenInLogin", nameof(OpenInLogin), false);
+            set => Set("OpenInLogin", nameof(OpenInLogin), value);
+        }
+
+        public bool CanOpenInLogin
+        {
+            get => Get("CanOpenInLogin", nameof(CanOpenInLogin), true);
+            set => Set("CanOpenInLogin", nameof(CanOpenInLogin), value);
+        }
+
+        public async Task OpenFilesAtStartupAsync()
+        {
+            var stateMode = await ReadState();
+
+            bool state = stateMode switch
+            {
+                StartupTaskState.Enabled => true,
+                StartupTaskState.EnabledByPolicy => true,
+                StartupTaskState.DisabledByPolicy => false,
+                StartupTaskState.DisabledByUser => false,
+                _ => false,
+            };
+
+            if (state != OpenInLogin)
+            {
+                StartupTask startupTask = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
+                if (OpenInLogin)
+                {
+                    await startupTask.RequestEnableAsync();
+                }
+                else
+                {
+                    startupTask.Disable();
+                }
+                await DetectOpenFilesAtStartupAsync();
+            }
+        }
+
+        public async Task DetectOpenFilesAtStartupAsync()
+        {
+            var stateMode = await ReadState();
+
+            switch (stateMode)
+            {
+                case StartupTaskState.Disabled:
+                    CanOpenInLogin = true;
+                    OpenInLogin = false;
+                    break;
+                case StartupTaskState.Enabled:
+                    CanOpenInLogin = true;
+                    OpenInLogin = true;
+                    break;
+                case StartupTaskState.DisabledByPolicy:
+                    CanOpenInLogin = false;
+                    OpenInLogin = false;
+                    break;
+                case StartupTaskState.DisabledByUser:
+                    CanOpenInLogin = false;
+                    OpenInLogin = false;
+                    break;
+                case StartupTaskState.EnabledByPolicy:
+                    CanOpenInLogin = false;
+                    OpenInLogin = true;
+                    break;
+            }
+        }
+
+        public async Task<StartupTaskState> ReadState()
+        {
+            var state = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
+            return state.State;
+        }
 
         public string[] OpenLocations = new string[8]
         {

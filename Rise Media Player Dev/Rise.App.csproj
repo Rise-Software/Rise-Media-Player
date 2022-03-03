@@ -568,6 +568,7 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\en-gb\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-gb\Widgets.resw" />
     <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
@@ -907,6 +908,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.2</Version>
     </PackageReference>
@@ -924,6 +928,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.0-prerelease.220118001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
