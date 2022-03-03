@@ -17,9 +17,10 @@ namespace Rise.App.Settings
 
         private void ExpanderControl_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(InsiderWallpapers));
-            SettingsDialogContainer.Breadcrumbs.
-                Add(ResourceLoaders.SidebarLoader.GetString("Walls"));
+            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
+            AllSettingsPage.Current.MainSettingsHeader.Text = "Wallpapers";
+            AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE8B9";
+            AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(InsiderWallpapers));
         }
     }
 }

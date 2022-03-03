@@ -29,9 +29,10 @@ namespace Rise.App.Settings
             switch (button.Tag.ToString())
             {
                 case "Insider":
-                    _ = Frame.Navigate(typeof(InsiderPage));
-                    SettingsDialogContainer.Breadcrumbs.Add
-                        (ResourceLoaders.SidebarLoader.GetString("Ins"));
+                    AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
+                    AllSettingsPage.Current.MainSettingsHeader.Text = "Insider Hub";
+                    AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uECA7";
+                    AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(InsiderPage));
                     break;
 
                 case "Version":

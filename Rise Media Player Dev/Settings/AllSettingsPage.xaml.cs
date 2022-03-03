@@ -134,7 +134,7 @@ namespace Rise.App.Settings
             => _ = await MainPage.Current.SDialog.ShowAsync();
 
 
-        private async void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
             {
@@ -153,38 +153,52 @@ namespace Rise.App.Settings
                 case "AppearanceBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uE771";
                     MainSettingsHeader.Text = "Appearance";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "MediaLibraryBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uEA69";
                     MainSettingsHeader.Text = "Media library";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "NavigationPage":
                     MainSettingsHeaderIcon.Glyph = "\uE8B0";
                     MainSettingsHeader.Text = "Navigation";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "PlaybackPage":
                     MainSettingsHeaderIcon.Glyph = "\uF4C3";
                     MainSettingsHeader.Text = "Playback & sound";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "ComingSoonPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
                     MainSettingsHeader.Text = "Coming soon...";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "AboutPage":
                     MainSettingsHeaderIcon.Glyph = "\uE946";
                     MainSettingsHeader.Text = "About";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "MediaSourcesPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
                     MainSettingsHeader.Text = "Media Sources";
+                    GOBACKPAGE.Visibility = Visibility.Collapsed;
                     break;
                 case "InsiderPage":
-                    MainSettingsHeaderIcon.Glyph = "\uF1AD";
+                    MainSettingsHeaderIcon.Glyph = "\uECA7";
                     MainSettingsHeader.Text = "Insider Hub";
+                    GOBACKPAGE.Visibility = Visibility.Visible;
+                    break;
+                case "InsiderWallpapers":
+                    MainSettingsHeaderIcon.Glyph = "\uE8B9";
+                    MainSettingsHeader.Text = "Wallpapers";
+                    GOBACKPAGE.Visibility = Visibility.Visible;
                     break;
                 case "LanguagePage":
                     MainSettingsHeaderIcon.Glyph = "\uE12B";
                     MainSettingsHeader.Text = "Language";
+                    GOBACKPAGE.Visibility = Visibility.Visible;
                     break;
             }
         }
@@ -195,7 +209,6 @@ namespace Rise.App.Settings
             {
                 SettingsMainFrame.GoBack();
                 FinishNavigation();
-                GOBACKPAGE.Visibility = Visibility.Collapsed;
             }
         }
 
