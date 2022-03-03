@@ -18,7 +18,7 @@ namespace Rise.App.Views.Playlists.Properties
 {
     public sealed partial class PlaylistSongsPropertiesPage : Page
     {
-        private PlaylistViewModel _plViewModel;
+        private PlaylistViewModel Playlist;
 
         public PlaylistSongsPropertiesPage()
         {
@@ -28,23 +28,22 @@ namespace Rise.App.Views.Playlists.Properties
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            _plViewModel = e.Parameter as PlaylistViewModel;
+            Playlist = e.Parameter as PlaylistViewModel;
         }
 
-        private async void RemoveSong_Click(object sender, RoutedEventArgs e)
+        private void RemoveSong_Click(object sender, RoutedEventArgs e)
         {
             SongViewModel song = (sender as Button).Tag as SongViewModel;
-
-            _plViewModel.Songs.Remove(song);
+            Playlist.Songs.Remove(song);
         }
 
         private void MoveBottom_Click(object sender, RoutedEventArgs e)
         {
             SongViewModel song = (sender as Button).Tag as SongViewModel;
 
-            if ((_plViewModel.Songs.IndexOf(song) + 1) < _plViewModel.Songs.Count)
+            if ((Playlist.Songs.IndexOf(song) + 1) < Playlist.Songs.Count)
             {
-                _plViewModel.Songs.Move(_plViewModel.Songs.IndexOf(song), _plViewModel.Songs.IndexOf(song) + 1);
+                Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) + 1);
             }
         }
 
@@ -52,9 +51,9 @@ namespace Rise.App.Views.Playlists.Properties
         {
             SongViewModel song = (sender as Button).Tag as SongViewModel;
 
-            if ((_plViewModel.Songs.IndexOf(song) - 1) > 0)
+            if ((Playlist.Songs.IndexOf(song) - 1) > 0)
             {
-                _plViewModel.Songs.Move(_plViewModel.Songs.IndexOf(song), _plViewModel.Songs.IndexOf(song) - 1);
+                Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) - 1);
             }
         }
     }
