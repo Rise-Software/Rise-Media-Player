@@ -3,6 +3,7 @@ using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,7 +168,7 @@ namespace Rise.App.Views
                 foreach (ArtistViewModel artist in Artists)
                 {
                     // Get images from database
-                    IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
+                    IEnumerable<Artist> artists = await SQLRepository.Repository.Artists.GetAsync();
                     StorageFile file = null;
 
                     try
@@ -326,7 +327,7 @@ namespace Rise.App.Views
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";
-                    await SelectedArtist.SaveAsync();
+                    await SelectedArtist.SaveEditsAsync();
                 }
             }
         }
