@@ -47,15 +47,9 @@
         </MenuFlyout>
         
         <MenuFlyout x:Key="MoreMenuFlyout">
-            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
+            <MenuFlyoutItem Text="Info &amp; Properties" x:Name="Props" Click="Props_Click" IsEnabled="True">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
-                </MenuFlyoutItem.Icon>
-            </MenuFlyoutItem>
-
-            <MenuFlyoutItem Text="Queue" IsEnabled="False">
-                <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xEA37;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
@@ -108,29 +102,8 @@
                 <MenuFlyoutItem Text="More options" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSeparator />
-
-            <MenuFlyoutSubItem Text="Pinned" IsEnabled="False">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon Glyph="&#xE141;" />
-                </MenuFlyoutSubItem.Icon>
-                <ToggleMenuFlyoutItem Text="Mini player" x:Name="PinMiniPlayer" Click="PinMiniPlayer_Click"/>
-                <ToggleMenuFlyoutItem Text="Queue" />
-                <ToggleMenuFlyoutItem Text="Full screen" />
-                <ToggleMenuFlyoutItem Text="Cast to device" />
-                <ToggleMenuFlyoutItem Text="Playback speed" />
-            </MenuFlyoutSubItem>
 
             <MenuFlyoutSeparator />
-
-            <MenuFlyoutSubItem Text="Visualizer" IsEnabled="False">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon Glyph="&#xF4A5;" />
-                </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Text="None" />
-                <muxc:RadioMenuFlyoutItem Text="Color shift" />
-                <ToggleMenuFlyoutItem Text="Picture slideshow" />
-            </MenuFlyoutSubItem>
 
             <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
                 <MenuFlyoutSubItem.Icon>

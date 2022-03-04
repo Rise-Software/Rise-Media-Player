@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <uc:AdaptiveItemPane Margin="0,10,0,0">
+        <!--<uc:AdaptiveItemPane Margin="0,10,0,0">
             <uc:AdaptiveItemPane.LeftPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="8">
@@ -41,9 +41,9 @@
                     </Button>
                 </StackPanel>
             </uc:AdaptiveItemPane.RightPane>
-        </uc:AdaptiveItemPane>
+        </uc:AdaptiveItemPane>-->
 
-        <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
         <uc:ExpanderControl x:Uid="/About/Walls"
                                Click="ExpanderControl_Click"
                                ExpanderStyle="Button"

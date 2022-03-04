@@ -34,6 +34,14 @@ namespace Rise.App.UserControls
         private CastingDevicePicker castingPicker;
         #endregion
 
+        private MainViewModel MViewModel => App.MViewModel;
+
+        private SongViewModel SelectedSong
+        {
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
+        }
+
         public NPNowPlayingBar()
         {
             InitializeComponent();
@@ -418,6 +426,15 @@ namespace Rise.App.UserControls
                 {
                     ToolTipService.SetToolTip(PlayButton, "Buffering...");
                 });
+            }
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            if (!App.PViewModel.CurrentSong.IsOnline)
+            {
+                SelectedSong = App.PViewModel.CurrentSong;
+                await App.PViewModel.CurrentSong.StartEdit();
             }
         }
     }

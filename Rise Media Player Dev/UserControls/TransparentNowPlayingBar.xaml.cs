@@ -25,6 +25,14 @@ namespace Rise.App.UserControls
         private CastingDevicePicker castingPicker;
         #endregion
 
+        private MainViewModel MViewModel => App.MViewModel;
+
+        private SongViewModel SelectedSong
+        {
+            get => MViewModel.SelectedSong;
+            set => MViewModel.SelectedSong = value;
+        }
+
         public TransparentNowPlayingBar()
         {
             InitializeComponent();
@@ -86,17 +94,7 @@ namespace Rise.App.UserControls
 
         private void PinMiniPlayer_Click(object sender, RoutedEventArgs e)
         {
-            if (PinMiniPlayer.IsChecked == false)
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
 
-            else
-            {
-                OverlayMenu.Visibility = Visibility.Collapsed;
-                OverlayButton.Visibility = Visibility.Visible;
-            }
         }
 
         private void SliderProgress_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
@@ -443,6 +441,15 @@ namespace Rise.App.UserControls
         private void Back10_Click(object sender, RoutedEventArgs e)
         {
             _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            if (!App.PViewModel.CurrentSong.IsOnline)
+            {
+                SelectedSong = App.PViewModel.CurrentSong;
+                await App.PViewModel.CurrentSong.StartEdit();
+            }
         }
     }
 }
