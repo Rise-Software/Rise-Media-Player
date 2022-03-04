@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.Graphics.Imaging;
 using Windows.Security.Credentials;
 using Windows.Storage.Streams;
@@ -117,6 +118,7 @@ namespace Rise.App.Views
         {
             // Sidebar icons
             await SBViewModel.LoadItemsAsync();
+            
             ChangeIconPack(SViewModel.CurrentPack);
 
             // Startup setting

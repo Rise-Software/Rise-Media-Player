@@ -98,7 +98,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   ItemsSource="{x:Bind Songs}"
                   ItemTemplate="{StaticResource NowPlayingQueueItem}"
-                  Margin="-16,-8,-16,-124"
+                  Margin="-20,-8,-16,0"
                   Padding="16,0,16,124"
                   RightTapped="MainList_RightTapped">
             <ListView.Resources>

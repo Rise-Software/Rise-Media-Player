@@ -71,7 +71,7 @@
                 </Border>
                 <StackPanel>
                     <StackPanel Margin="16,8,8,8" VerticalAlignment="Center">
-                        <TextBlock FontSize="18" HorizontalAlignment="Left" MaxWidth="265" FontWeight="Bold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock FontSize="18" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" MaxWidth="265" FontWeight="Bold" Text="{x:Bind local:App.PViewModel.CurrentPlaybackItem.Title, Mode=OneWay}" MaxLines="2" TextTrimming="CharacterEllipsis"/>
                         <TextBlock x:Name="ArtistFlyoutText" FontSize="16" MaxWidth="265" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{x:Bind local:App.PViewModel.CurrentSong.AlbumArtist, Mode=OneWay}" MaxLines="1" Opacity="0.6"/>
                         <TextBlock x:Name="AlbumFlyoutText" FontSize="14" MaxWidth="265"   Margin="0,12,0,0" FontWeight="SemiBold" Text="{x:Bind local:App.PViewModel.CurrentSong.Album, Mode=OneWay}" MaxLines="1" TextTrimming="CharacterEllipsis" Opacity="0.6"/>
 
@@ -257,9 +257,9 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <Button  x:Name="GoToNowPlaying" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped" BorderBrush="Transparent" Background="Transparent" Margin="0,0,0,0" Padding="0">
+            <Button  x:Name="GoToNowPlaying" Height="90"  CornerRadius="8" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped" BorderBrush="Transparent" Background="Transparent" Margin="-7,0,0,0" Padding="0">
                 
-                <RelativePanel RightTapped="RelativePanel_RightTapped">
+                <RelativePanel RightTapped="RelativePanel_RightTapped" Margin="7,0,0,0">
                     <Border x:Name="AlbumArtContainer" Margin="0,0,0,0"
                         RightTapped="AlbumArtContainer_RightTapped"              RelativePanel.AlignVerticalCenterWithPanel="True"
                         Width="75"
