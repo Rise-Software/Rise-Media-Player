@@ -41,20 +41,12 @@
         
 
         <MenuFlyout x:Key="MoreMenuFlyout">
-            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
+            <MenuFlyoutItem Text="Info &amp; Properties" x:Name="Props" Click="Props_Click" IsEnabled="True">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
-
-            <MenuFlyoutItem Text="Queue" IsEnabled="False">
-                <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xEA37;" />
-                </MenuFlyoutItem.Icon>
-            </MenuFlyoutItem>
-
-            
-
+    
             <MenuFlyoutItem Text="Full screen" x:Name="FullScreenButton" Click="FullScreen_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" />
@@ -96,19 +88,6 @@
                 <muxc:RadioMenuFlyoutItem Text="Color shift" />
                 <MenuFlyoutSeparator />
                 <MenuFlyoutItem Text="More options" />
-            </MenuFlyoutSubItem>
-
-            <MenuFlyoutSeparator />
-
-            <MenuFlyoutSubItem Text="Pinned" IsEnabled="False">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon Glyph="&#xE141;" />
-                </MenuFlyoutSubItem.Icon>
-                <ToggleMenuFlyoutItem Text="Mini player" />
-                <ToggleMenuFlyoutItem Text="Queue" />
-                <ToggleMenuFlyoutItem Text="Full screen" />
-                <ToggleMenuFlyoutItem Text="Cast to device" />
-                <ToggleMenuFlyoutItem Text="Playback speed" />
             </MenuFlyoutSubItem>
 
             <MenuFlyoutSeparator />
