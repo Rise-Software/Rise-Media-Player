@@ -140,7 +140,7 @@
             <uc:MicaTitleBar
                 x:Name="AppTitleBar"
                 x:FieldModifier="public"
-                Height="40"
+                Height="32"
                 Margin="48,8,0,0"
                 VerticalAlignment="Top"
                 AddLabelWidth="800"
