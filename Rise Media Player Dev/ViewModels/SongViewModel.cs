@@ -1,8 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.Views;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,20 +17,20 @@ namespace Rise.App.ViewModels
 {
     public class SongViewModel : ViewModel<Song>
     {
-        #region Constructor
+        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
         /// <summary>
         /// Initializes a new instance of the SongViewModel class that wraps a Song object.
         /// </summary>
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
+            IsNew = true;
 
             OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
             OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
@@ -47,7 +47,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Title)
                 {
                     Model.Title = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Title));
                 }
             }
         }
@@ -71,7 +72,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Artist)
                 {
                     Model.Artist = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Artist));
                 }
             }
         }
@@ -87,7 +89,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Track)
                 {
                     Model.Track = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Track));
                 }
             }
         }
@@ -103,7 +106,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Disc)
                 {
                     Model.Disc = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Disc));
                 }
             }
         }
@@ -127,7 +131,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Album)
                 {
                     Model.Album = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Album));
                 }
             }
         }
@@ -151,7 +156,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.AlbumArtist)
                 {
                     Model.AlbumArtist = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(AlbumArtist));
                 }
             }
         }
@@ -175,7 +181,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Genres)
                 {
                     Model.Genres = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Genres));
                 }
             }
         }
@@ -191,7 +198,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Length)
                 {
                     Model.Length = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Length));
                 }
             }
         }
@@ -207,7 +215,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Year)
                 {
                     Model.Year = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Year));
                 }
             }
         }
@@ -223,7 +232,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Location)
                 {
                     Model.Location = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Location));
                 }
             }
         }
@@ -249,7 +259,8 @@ namespace Rise.App.ViewModels
                 if (value != Model.Rating)
                 {
                     Model.Rating = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Rating));
                 }
             }
         }
@@ -265,9 +276,48 @@ namespace Rise.App.ViewModels
                 if (value != Model.Thumbnail)
                 {
                     Model.Thumbnail = value;
-                    OnPropertyChanged();
+                    IsModified = true;
+                    OnPropertyChanged(nameof(Thumbnail));
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the underlying model has been modified. 
+        /// </summary>
+        /// <remarks>
+        /// Used to reduce load and only upsert the models that have changed.
+        /// </remarks>
+        public bool IsModified { get; set; }
+
+        private bool _isLoading;
+        /// <summary>
+        /// Gets or sets a value that indicates whether to show a progress bar. 
+        /// </summary>
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => Set(ref _isLoading, value);
+        }
+
+        private bool _isNew;
+        /// <summary>
+        /// Gets or sets a value that indicates whether this is a new item.
+        /// </summary>
+        public bool IsNew
+        {
+            get => _isNew;
+            set => Set(ref _isNew, value);
+        }
+
+        private bool _isInEdit;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the item data is being edited.
+        /// </summary>
+        public bool IsInEdit
+        {
+            get => _isInEdit;
+            set => Set(ref _isInEdit, value);
         }
 
         private bool _isFocused;
@@ -299,30 +349,44 @@ namespace Rise.App.ViewModels
             get => _isDurationVisible;
             set => Set(ref _isDurationVisible, value);
         }
-        #endregion
 
-        #region Backend
         /// <summary>
-        /// Saves item data to the backend.
+        /// Saves song data that has been edited.
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Songs.Add(this);
+            IsInEdit = false;
+            IsModified = false;
 
-            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
+            if (IsNew)
             {
-                await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
+                IsNew = false;
+                App.MViewModel.Songs.Add(this);
+
+                OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
+                OnPropertyChanged(nameof(ArtistViewModel.SongCount));
+            }
+
+            if (await App.Repository.Songs.GetAsync(Model.Id) == null)
+            {
+                await App.Repository.Songs.QueueUpsertAsync(Model);
             }
         }
 
         /// <summary>
-        /// Deletes item data from the backend.
+        /// Delete song from MViewModel.
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Songs.Remove(this);
+            await CancelEditsAsync();
+            IsModified = true;
 
-            await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
+            if (!IsNew)
+            {
+                App.MViewModel.Songs.Remove(this);
+            }
+
+            await App.Repository.Songs.QueueUpsertAsync(Model);
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
@@ -340,14 +404,46 @@ namespace Rise.App.ViewModels
                 await artist.CheckAvailabilityAsync();
             }
         }
-        #endregion
 
-        #region Editing
+        /// <summary>
+        /// Raised when the user cancels the changes they've made to the song data.
+        /// </summary>
+        public event EventHandler AddNewSongCanceled;
+
+        /// <summary>
+        /// Cancels any in progress edits.
+        /// </summary>
+        public async Task CancelEditsAsync()
+        {
+            if (IsNew)
+            {
+                AddNewSongCanceled?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                await RevertChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Discards any edits that have been made, restoring the original values.
+        /// </summary>
+        public async Task RevertChangesAsync()
+        {
+            IsInEdit = false;
+            if (IsModified)
+            {
+                await RefreshSongsAsync();
+                IsModified = false;
+            }
+        }
+
         /// <summary>
         /// Enables edit mode.
         /// </summary>
-        public async Task StartEditAsync()
+        public async Task StartEdit()
         {
+            IsInEdit = true;
             StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
             if (file != null)
@@ -363,23 +459,13 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Saves any edits that have been made.
+        /// Reloads all of the song data.
         /// </summary>
-        public async Task SaveEditsAsync()
+        public async Task RefreshSongsAsync()
         {
-            await SQLRepository.Repository.Songs.UpdateAsync(Model);
+            Model = await App.Repository.Songs.GetAsync(Model.Id);
         }
 
-        /// <summary>
-        /// Discards any edits that have been made, restoring the original values.
-        /// </summary>
-        public async Task CancelEditsAsync()
-        {
-            Model = await SQLRepository.Repository.Songs.GetAsync(Model.Id);
-        }
-        #endregion
-
-        #region Playback
         /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
         /// </summary>
@@ -414,7 +500,7 @@ namespace Rise.App.ViewModels
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
         /// </summary>
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        public MediaPlaybackItem AsPlaybackItem(Uri url)
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync(Uri url)
         {
             MediaSource source = MediaSource.CreateFromUri(url);
             MediaPlaybackItem media = new(source);
@@ -437,6 +523,26 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
-        #endregion
+
+        public readonly static RelayCommand _beginPlayback = new RelayCommand(async () =>
+        {
+            int index = 0;
+            if (App.MViewModel.SelectedSong != null)
+            {
+                index = App.MViewModel.FilteredSongs.IndexOf(App.MViewModel.SelectedSong);
+                App.MViewModel.SelectedSong = null;
+            }
+
+            IEnumerator<object> enumerator = App.MViewModel.FilteredSongs.GetEnumerator();
+            List<SongViewModel> songs = new List<SongViewModel>();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count);
+        });
     }
 }

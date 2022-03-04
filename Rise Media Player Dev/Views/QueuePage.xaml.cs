@@ -285,7 +285,7 @@ namespace Rise.App.Views
         {
             if (!_selectedSong.IsOnline)
             {
-                await _selectedSong.StartEditAsync();
+                await _selectedSong.StartEdit();
             }
         }
 

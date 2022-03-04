@@ -5,7 +5,6 @@ using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -157,14 +156,14 @@ namespace Rise.App.ViewModels
         public async Task GetListsAsync()
         {
             LoadingStarted?.Invoke(this, EventArgs.Empty);
-            IEnumerable<Song> songs = (await SQLRepository.Repository.Songs.GetAsync()).Distinct();
+            IEnumerable<Song> songs = (await App.Repository.Songs.GetAsync()).Distinct();
 
             if (songs != null)
             {
-                IEnumerable<Album> albums = (await SQLRepository.Repository.Albums.GetAsync()).Distinct();
-                IEnumerable<Artist> artists = (await SQLRepository.Repository.Artists.GetAsync()).Distinct();
-                IEnumerable<Genre> genres = (await SQLRepository.Repository.Genres.GetAsync()).Distinct();
-                IEnumerable<Video> videos = (await SQLRepository.Repository.Videos.GetAsync()).Distinct();
+                IEnumerable<Album> albums = (await App.Repository.Albums.GetAsync()).Distinct();
+                IEnumerable<Artist> artists = (await App.Repository.Artists.GetAsync()).Distinct();
+                IEnumerable<Genre> genres = (await App.Repository.Genres.GetAsync()).Distinct();
+                IEnumerable<Video> videos = (await App.Repository.Videos.GetAsync()).Distinct();
 
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
@@ -511,17 +510,17 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task UpdateItemsAsync()
         {
-            await SQLRepository.Repository.Songs.UpsertQueuedAsync();
-            await SQLRepository.Repository.Albums.UpsertQueuedAsync();
-            await SQLRepository.Repository.Artists.UpsertQueuedAsync();
-            await SQLRepository.Repository.Genres.UpsertQueuedAsync();
-            await SQLRepository.Repository.Videos.UpsertQueuedAsync();
+            await App.Repository.Songs.UpsertQueuedAsync();
+            await App.Repository.Albums.UpsertQueuedAsync();
+            await App.Repository.Artists.UpsertQueuedAsync();
+            await App.Repository.Genres.UpsertQueuedAsync();
+            await App.Repository.Videos.UpsertQueuedAsync();
 
-            await SQLRepository.Repository.Songs.DeleteQueuedAsync();
-            await SQLRepository.Repository.Albums.DeleteQueuedAsync();
-            await SQLRepository.Repository.Artists.DeleteQueuedAsync();
-            await SQLRepository.Repository.Genres.DeleteQueuedAsync();
-            await SQLRepository.Repository.Videos.DeleteQueuedAsync();
+            await App.Repository.Songs.DeleteQueuedAsync();
+            await App.Repository.Albums.DeleteQueuedAsync();
+            await App.Repository.Artists.DeleteQueuedAsync();
+            await App.Repository.Genres.DeleteQueuedAsync();
+            await App.Repository.Videos.DeleteQueuedAsync();
         }
 
         /// <summary>

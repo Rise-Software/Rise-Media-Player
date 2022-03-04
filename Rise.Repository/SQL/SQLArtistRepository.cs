@@ -60,31 +60,10 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task UpdateAsync(Artist item)
-        {
-            using (_db = new Context(_dbOptions))
-            {
-                _db.Artists.Update(item);
-                await _db.SaveChangesAsync();
-            }
-        }
-
-        public async Task UpsertAsync(Artist item)
-        {
-            using (_db = new Context(_dbOptions))
-            {
-                await _db.Artists.AddAsync(item);
-                await _db.SaveChangesAsync();
-            }
-        }
-
         public async Task QueueUpsertAsync(Artist item)
         {
             _upsertQueue.Add(item);
-            if (_upsertQueue.Count >= 250)
-            {
-                await UpsertQueuedAsync();
-            }
+            await UpsertQueuedAsync();
         }
 
         public async Task UpsertQueuedAsync()
@@ -96,22 +75,10 @@ namespace Rise.Repository.SQL
             }
         }
 
-        public async Task DeleteAsync(Artist item)
-        {
-            using (_db = new Context(_dbOptions))
-            {
-                _db.Artists.Remove(item);
-                await _db.SaveChangesAsync();
-            }
-        }
-
         public async Task QueueDeletionAsync(Artist item)
         {
             _removalQueue.Add(item);
-            if (_removalQueue.Count >= 250)
-            {
-                await DeleteQueuedAsync();
-            }
+            await DeleteQueuedAsync();
         }
 
         public async Task DeleteQueuedAsync()

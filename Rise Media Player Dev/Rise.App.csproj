@@ -568,9 +568,9 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Materials_Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
-    <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
-    <PRIResource Include="Strings\en-GB\Widgets.resw" />
-    <PRIResource Include="Strings\en-GB\HelpTips.resw" />
+    <PRIResource Include="Strings\en-gb\WindowsBehaviours.resw" />
+    <PRIResource Include="Strings\en-gb\Widgets.resw" />
+    <PRIResource Include="Strings\en-gb\HelpTips.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -940,14 +940,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Language.resw" />
-    <PRIResource Include="Strings\en-GB\About.resw" />
-    <PRIResource Include="Strings\en-GB\Playback.resw" />
-    <PRIResource Include="Strings\en-GB\Navigation.resw" />
-    <PRIResource Include="Strings\en-GB\Appearance.resw" />
-    <PRIResource Include="Strings\en-GB\MediaLibrary.resw" />
-    <PRIResource Include="Strings\en-GB\Information.resw" />
-    <PRIResource Include="Strings\en-GB\Sidebar.resw" />
+    <PRIResource Include="Strings\en-gb\Language.resw" />
+    <PRIResource Include="Strings\en-gb\About.resw" />
+    <PRIResource Include="Strings\en-gb\Playback.resw" />
+    <PRIResource Include="Strings\en-gb\Navigation.resw" />
+    <PRIResource Include="Strings\en-gb\Appearance.resw" />
+    <PRIResource Include="Strings\en-gb\MediaLibrary.resw" />
+    <PRIResource Include="Strings\en-gb\Information.resw" />
+    <PRIResource Include="Strings\en-gb\Sidebar.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
@@ -961,13 +961,13 @@
     <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Setup.resw" />
+    <PRIResource Include="Strings\en-gb\Setup.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Terms.resw" />
+    <PRIResource Include="Strings\en-gb\Terms.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Connect.resw" />
+    <PRIResource Include="Strings\en-gb\Connect.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\MediaPlayerIcons.ttf">
@@ -1077,14 +1077,14 @@
     <PRIResource Include="Strings\hi-IN\Connect.resw" />
     <PRIResource Include="Strings\hi-IN\Appearance.resw" />
     <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\en-GB\MediaData.resw" />
-    <PRIResource Include="Strings\en-GB\NowPlaying.resw" />
-    <PRIResource Include="Strings\en-GB\File.resw" />
-    <PRIResource Include="Strings\en-GB\Details.resw" />
-    <PRIResource Include="Strings\en-GB\Props.resw" />
-    <PRIResource Include="Strings\en-GB\Finish.resw" />
-    <PRIResource Include="Strings\en-GB\Privacy.resw" />
-    <PRIResource Include="Strings\en-GB\Local.resw" />
+    <PRIResource Include="Strings\en-gb\MediaData.resw" />
+    <PRIResource Include="Strings\en-gb\NowPlaying.resw" />
+    <PRIResource Include="Strings\en-gb\File.resw" />
+    <PRIResource Include="Strings\en-gb\Details.resw" />
+    <PRIResource Include="Strings\en-gb\Props.resw" />
+    <PRIResource Include="Strings\en-gb\Finish.resw" />
+    <PRIResource Include="Strings\en-gb\Privacy.resw" />
+    <PRIResource Include="Strings\en-gb\Local.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">

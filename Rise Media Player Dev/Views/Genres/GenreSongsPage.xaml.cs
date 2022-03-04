@@ -160,11 +160,11 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEditAsync();
+            => await SelectedSong.StartEdit();
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedSong.StartEditAsync();
+            await SelectedSong.StartEdit();
             SelectedSong = null;
         }
 

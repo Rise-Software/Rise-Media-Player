@@ -124,7 +124,7 @@ namespace Rise.App.ViewModels
             ClearLists();
             PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(song.AsPlaybackItem(new Uri(song.Location)));
+            PlaybackList.Items.Add(await song.AsPlaybackItemAsync(new Uri(song.Location)));
 
             CurrentSong = song;
 
@@ -167,7 +167,7 @@ namespace Rise.App.ViewModels
             ClearLists();
             PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(video.AsPlaybackItem(new Uri(video.Location)));
+            PlaybackList.Items.Add(await video.AsPlaybackItemAsync(new Uri(video.Location)));
 
             CurrentVideo = video;
 

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rise.Models;
-using System.IO;
-using Windows.Storage;
 
 namespace Rise.Repository.SQL
 {
@@ -9,26 +7,7 @@ namespace Rise.Repository.SQL
     {
         private readonly DbContextOptions<Context> _dbOptions;
 
-        private static SQLRepository _repository;
-        public static SQLRepository Repository
-        {
-            get
-            {
-                if (_repository == null)
-                {
-                    string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
-
-                    DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
-                        "Data Source=" + dbPath);
-
-                    _repository = new SQLRepository(dbOptions);
-                }
-
-                return _repository;
-            }
-        }
-
-        private SQLRepository(DbContextOptionsBuilder<Context>
+        public SQLRepository(DbContextOptionsBuilder<Context>
             dbOptionsBuilder)
         {
             _dbOptions = dbOptionsBuilder.Options;
