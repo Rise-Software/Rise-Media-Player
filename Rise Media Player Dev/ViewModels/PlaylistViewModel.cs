@@ -16,15 +16,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public PlaylistViewModel(Playlist model = null)
         {
-            if (model != null)
-            {
-                Model = model;
-            }
-            else
-            {
-                Model = new Playlist();
-                IsNew = true;
-            }
+            Model = model ?? new Playlist();
         }
         #endregion
 
@@ -40,7 +32,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Title)
                 {
                     Model.Title = value;
-                    OnPropertyChanged(nameof(Title));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -56,7 +48,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Description)
                 {
                     Model.Description = value;
-                    OnPropertyChanged(nameof(Description));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -72,7 +64,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Icon)
                 {
                     Model.Icon = value;
-                    OnPropertyChanged(nameof(Icon));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -102,7 +94,7 @@ namespace Rise.App.ViewModels
                 if (value != _songs)
                 {
                     _songs = value;
-                    OnPropertyChanged(nameof(Songs));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -121,39 +113,20 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
         #endregion
 
         #region Backend
         /// <summary>
-        /// Saves playlist to the backend.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Playlists.Add(this);
-                await App.PBackendController.UpsertAsync(this);
-            }
-            else
-            {
-                await App.PBackendController.DeleteAsync(this);
-                await App.PBackendController.UpsertAsync(this);
-            }
+            App.MViewModel.Playlists.Add(this);
+            await App.PBackendController.UpsertAsync(this);
         }
 
         /// <summary>
-        /// Deletes playlist from the backend.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
@@ -162,7 +135,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Checks whether or not the playlist is available. If it's not,
+        /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
         /*public async Task CheckAvailabilityAsync()
@@ -182,7 +155,7 @@ namespace Rise.App.ViewModels
         public async Task AddSongAsync(SongViewModel song)
         {
             Songs.Add(song);
-            await SaveAsync();
+            await SaveEditsAsync();
         }
 
         /// <summary>
@@ -191,7 +164,7 @@ namespace Rise.App.ViewModels
         public async Task RemoveSongAsync(SongViewModel song)
         {
             Songs.Remove(song);
-            await SaveAsync();
+            await SaveEditsAsync();
         }
 
         /// <summary>
@@ -208,7 +181,7 @@ namespace Rise.App.ViewModels
             }
             finally
             {
-                await SaveAsync();
+                await SaveEditsAsync();
             }
         }
 
@@ -226,7 +199,7 @@ namespace Rise.App.ViewModels
             }
             finally
             {
-                await SaveAsync();
+                await SaveEditsAsync();
             }
         }
         #endregion
@@ -241,7 +214,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>
-        public async Task SaveEditAsync()
+        public async Task SaveEditsAsync()
         {
             await App.PBackendController.DeleteAsync(this);
             await App.PBackendController.UpsertAsync(this);
@@ -250,7 +223,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task CancelEditAsync()
+        public async Task CancelEditsAsync()
         {
             Model = (await App.PBackendController.GetAsync(Model.Id)).Model;
         }

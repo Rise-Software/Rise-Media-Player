@@ -14,7 +14,6 @@ namespace Rise.App.ViewModels
         public GenreViewModel(Genre model = null)
         {
             Model = model ?? new Genre();
-            IsNew = true;
         }
         #endregion
 
@@ -34,30 +33,15 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
         #endregion
 
         #region Backend
         /// <summary>
-        /// Saves genre data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Genres.Add(this);
-            }
-
+            App.MViewModel.Genres.Add(this);
             await SQLRepository.Repository.Genres.QueueUpsertAsync(Model);
         }
         #endregion

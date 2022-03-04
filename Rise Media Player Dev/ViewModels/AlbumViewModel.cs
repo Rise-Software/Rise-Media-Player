@@ -15,15 +15,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public AlbumViewModel(Album model = null)
         {
-            if (model != null)
-            {
-                Model = model;
-            }
-            else
-            {
-                Model = new Album();
-                IsNew = true;
-            }
+            Model = model ?? new Album();
 
             OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
@@ -151,16 +143,6 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
         private bool _isArtistVisible = true;
         /// <summary>
         /// Gets or sets a value that indicates whether the album title is displayed or not.
@@ -224,21 +206,16 @@ namespace Rise.App.ViewModels
 
         #region Backend
         /// <summary>
-        /// Saves album data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Albums.Add(this);
-            }
-
+            App.MViewModel.Albums.Add(this);
             await SQLRepository.Repository.Albums.QueueUpsertAsync(Model);
         }
 
         /// <summary>
-        /// Delete album from repository and MViewModel.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
@@ -255,7 +232,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Checks whether or not the album is available. If it's not,
+        /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
         public async Task CheckAvailabilityAsync()
@@ -281,7 +258,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>
-        public async Task SaveEditAsync()
+        public async Task SaveEditsAsync()
         {
             await SQLRepository.Repository.Albums.UpdateAsync(Model);
         }
@@ -289,7 +266,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task CancelEditAsync()
+        public async Task CancelEditsAsync()
         {
             Model = await SQLRepository.Repository.Albums.GetAsync(Model.Id);
         }

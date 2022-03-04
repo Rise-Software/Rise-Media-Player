@@ -24,7 +24,6 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-            IsNew = true;
 
             OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
             OnPropertyChanged(nameof(ArtistViewModel.SongCount));
@@ -271,16 +270,6 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
         private bool _isFocused;
         /// <summary>
         /// Gets or sets a value that indicates whether the item is focused.
@@ -314,18 +303,11 @@ namespace Rise.App.ViewModels
 
         #region Backend
         /// <summary>
-        /// Saves song data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Songs.Add(this);
-
-                OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-                OnPropertyChanged(nameof(ArtistViewModel.SongCount));
-            }
+            App.MViewModel.Songs.Add(this);
 
             if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
             {
@@ -334,14 +316,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Delete song from MViewModel.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
-            if (!IsNew)
-            {
-                App.MViewModel.Songs.Remove(this);
-            }
+            App.MViewModel.Songs.Remove(this);
 
             await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
             AlbumViewModel album = App.MViewModel.Albums.
@@ -386,7 +365,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>
-        public async Task SaveEditAsync()
+        public async Task SaveEditsAsync()
         {
             await SQLRepository.Repository.Songs.UpdateAsync(Model);
         }
@@ -394,7 +373,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task CancelEditAsync()
+        public async Task CancelEditsAsync()
         {
             Model = await SQLRepository.Repository.Songs.GetAsync(Model.Id);
         }

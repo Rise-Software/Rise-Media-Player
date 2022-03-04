@@ -16,7 +16,6 @@ namespace Rise.App.ViewModels
         public ArtistViewModel(Artist model = null)
         {
             Model = model ?? new Artist();
-            IsNew = true;
         }
         #endregion
 
@@ -77,35 +76,20 @@ namespace Rise.App.ViewModels
         /// Combination of artist's song count and album count.
         /// </summary>
         public string SongsNAlbums => Albums + ", " + Songs;
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
         #endregion
 
         #region Backend
         /// <summary>
-        /// Saves artist data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Artists.Add(this);
-            }
-
+            App.MViewModel.Artists.Add(this);
             await SQLRepository.Repository.Artists.QueueUpsertAsync(Model);
         }
 
         /// <summary>
-        /// Delete artist from repository and MViewModel.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
@@ -114,7 +98,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Checks whether or not the artist is available. If it's not,
+        /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
         public async Task CheckAvailabilityAsync()
@@ -140,7 +124,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>
-        public async Task SaveEditAsync()
+        public async Task SaveEditsAsync()
         {
             await SQLRepository.Repository.Artists.UpdateAsync(Model);
         }
@@ -148,7 +132,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task CancelEditAsync()
+        public async Task CancelEditsAsync()
         {
             Model = await SQLRepository.Repository.Artists.GetAsync(Model.Id);
         }

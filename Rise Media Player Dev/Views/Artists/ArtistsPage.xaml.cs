@@ -324,7 +324,7 @@ namespace Rise.App.Views
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";
-                    await SelectedArtist.SaveAsync();
+                    await SelectedArtist.SaveEditsAsync();
                 }
             }
         }

@@ -54,11 +54,11 @@ namespace Rise.App.Views
                 {
                     if (!File.Exists(song.Location))
                     {
-                        plViewModel.Songs.Remove(song);
-                        await plViewModel.SaveAsync();
+                        await plViewModel.RemoveSongAsync(song);
                     }
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -98,7 +98,8 @@ namespace Rise.App.Views
             {
                 int index = MainList.Items.IndexOf(song);
                 await App.PViewModel.StartMusicPlaybackAsync(plViewModel.Songs.GetEnumerator(), index, plViewModel.Songs.Count, false);
-            } else
+            }
+            else
             {
                 await App.PViewModel.StartMusicPlaybackAsync(plViewModel.Songs.GetEnumerator(), 0, plViewModel.Songs.Count, false);
             }
