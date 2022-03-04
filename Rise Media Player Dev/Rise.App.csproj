@@ -418,7 +418,6 @@
     <Compile Include="Settings\PlaybackPage.xaml.cs">
       <DependentUpon>PlaybackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\ViewModels\SettingsManager.cs" />
     <Compile Include="Settings\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>

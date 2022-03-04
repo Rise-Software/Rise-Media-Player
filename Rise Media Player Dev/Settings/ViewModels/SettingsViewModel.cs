@@ -1,22 +1,18 @@
-﻿using Rise.App.Settings;
+﻿using Microsoft.Toolkit.Mvvm.Input;
 using Rise.App.Views;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
-using static Rise.App.Common.Enums;
-using Microsoft.Toolkit.Mvvm.Input;
+using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
-    public class SettingsViewModel : SettingsManager
+    public class SettingsViewModel : ViewModel
     {
         private SidebarViewModel SBViewModel => App.SBViewModel;
-
-        // Empty constructor.
-
         public ICommand OpenFilesAtStartupCommand { get; }
 
         public SettingsViewModel()
@@ -28,19 +24,19 @@ namespace Rise.App.ViewModels
 
         public bool OpenInLogin
         {
-            get => Get("OpenInLogin", nameof(OpenInLogin), false);
-            set => Set("OpenInLogin", nameof(OpenInLogin), value);
+            get => Get(false, "WindowsBehaviours");
+            set => Set(value, "WindowsBehaviours");
         }
 
         public bool CanOpenInLogin
         {
-            get => Get("CanOpenInLogin", nameof(CanOpenInLogin), true);
-            set => Set("CanOpenInLogin", nameof(CanOpenInLogin), value);
+            get => Get(true, "WindowsBehaviours");
+            set => Set(value, "WindowsBehaviours");
         }
 
         public async Task OpenFilesAtStartupAsync()
         {
-            var stateMode = await ReadState();
+            var stateMode = await ReadStateAsync();
 
             bool state = stateMode switch
             {
@@ -68,7 +64,7 @@ namespace Rise.App.ViewModels
 
         public async Task DetectOpenFilesAtStartupAsync()
         {
-            var stateMode = await ReadState();
+            var stateMode = await ReadStateAsync();
 
             switch (stateMode)
             {
@@ -95,7 +91,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public async Task<StartupTaskState> ReadState()
+        public async Task<StartupTaskState> ReadStateAsync()
         {
             var state = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
             return state.State;
@@ -114,112 +110,113 @@ namespace Rise.App.ViewModels
 
         public List<string> GeneralTags = new()
         {
-            "HomePage", "PlaylistsPage", "ConnectedDevicesPage", "NowPlayingPage"
+            "HomePage",
+            "PlaylistsPage",
+            "ConnectedDevicesPage",
+            "NowPlayingPage"
         };
 
         public List<string> MusicTags = new()
         {
-            "SongsPage", "ArtistsPage", "AlbumsPage", "GenresPage"
+            "SongsPage",
+            "ArtistsPage",
+            "AlbumsPage",
+            "GenresPage"
         };
 
         public List<string> VideoTags = new()
         {
-            "LocalVideosPage", "StreamingPage"
+            "LocalVideosPage",
+            "StreamingPage"
         };
 
         #region Appearance
         public int Theme
         {
-            get => Get("Appearance", nameof(Theme), 2);
-            set => Set("Appearance", nameof(Theme), value);
+            get => Get(2, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public int ColorTheme
         {
-            get => Get("Appearance", nameof(ColorTheme), 0);
-            set => Set("Appearance", nameof(ColorTheme), value);
+            get => Get(0, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public int Color
         {
-            get => Get("Appearance", nameof(Color), -1);
-            set => Set("Appearance", nameof(Color), value);
+            get => Get(-1, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool SquareAlbumArt
         {
-            get => Get("Appearance", nameof(SquareAlbumArt), false);
-            set => Set("Appearance", nameof(SquareAlbumArt), value);
+            get => Get(false, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public int OpenTo
         {
-            get => Get("Appearance", nameof(OpenTo), 0);
-            set => Set("Appearance", nameof(OpenTo), value);
+            get => Get(0, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public string Open => OpenLocations[OpenTo];
 
         public bool PickUp
         {
-            get => Get("Appearance", nameof(PickUp), false);
-            set => Set("Appearance", nameof(PickUp), value);
+            get => Get(false, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool CompactMode
         {
-            get => Get("Appearance", nameof(CompactMode), true);
-            set => Set("Appearance", nameof(CompactMode), value);
+            get => Get(true, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool ColoredSettingsIcons
         {
-            get => Get("Appearance", nameof(ColoredSettingsIcons), true);
-            set => Set("Appearance", nameof(ColoredSettingsIcons), value);
+            get => Get(true, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool TrackHistory
         {
-            get => Get("Appearance", nameof(TrackHistory), false);
-            set => Set("Appearance", nameof(TrackHistory), value);
+            get => Get(false, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool CuratedPlaylists
         {
-            get => Get("Appearance", nameof(CuratedPlaylists), false);
-            set => Set("Appearance", nameof(CuratedPlaylists), value);
+            get => Get(false, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool IsTilesInAlbumsPage
         {
-            get => Get("Appearance", nameof(IsTilesInAlbumsPage), true);
-            set
-            {
-                Set("Appearance", nameof(IsTilesInAlbumsPage), value);
-            }
+            get => Get(true, "Appearance");
+            set => Set(value, "Appearance");
         }
 
         public bool IsListInAlbumsPage
         {
-            get => Get("Appearance", nameof(IsListInAlbumsPage), false);
-            set
-            {
-                Set("Appearance", nameof(IsListInAlbumsPage), value);
-            }
+            get => Get(false, "Appearance");
+            set => Set(value, "Appearance");
         }
         #endregion
 
         #region Media Library
         public int Deletion
         {
-            get => Get("MediaLibrary", nameof(Deletion), 0);
-            set => Set("MediaLibrary", nameof(Deletion), value);
+            get => Get(0, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool AutoIndexingEnabled
         {
-            get => Get("MediaLibrary", nameof(AutoIndexingEnabled), true);
-            set => Set("MediaLibrary", nameof(AutoIndexingEnabled), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         /* 
@@ -237,68 +234,68 @@ namespace Rise.App.ViewModels
 
         public int IndexingMode
         {
-            get => Get("MediaLibrary", nameof(IndexingMode), 1);
-            set => Set("MediaLibrary", nameof(IndexingMode), value);
+            get => Get(1, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool SeparateLocal
         {
-            get => Get("MediaLibrary", nameof(SeparateLocal), false);
-            set => Set("MediaLibrary", nameof(SeparateLocal), value);
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool DisableOnline
         {
-            get => Get("MediaLibrary", nameof(DisableOnline), false);
-            set => Set("MediaLibrary", nameof(DisableOnline), value);
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowArtistInAlbums
         {
-            get => Get("MediaLibrary", nameof(ShowArtistInAlbums), true);
-            set => Set("MediaLibrary", nameof(ShowArtistInAlbums), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowThumbnailInAlbums
         {
-            get => Get("MediaLibrary", nameof(ShowThumbnailInAlbums), true);
-            set => Set("MediaLibrary", nameof(ShowThumbnailInAlbums), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowGenreInAlbums
         {
-            get => Get("MediaLibrary", nameof(ShowGenreInAlbums), false);
-            set => Set("MediaLibrary", nameof(ShowGenreInAlbums), value);
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowTitleInAlbums
         {
-            get => Get("MediaLibrary", nameof(ShowTitleInAlbums), true);
-            set => Set("MediaLibrary", nameof(ShowTitleInAlbums), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowReleaseYearInAlbums
         {
-            get => Get("MediaLibrary", nameof(ShowReleaseYearInAlbums), false);
-            set => Set("MediaLibrary", nameof(ShowReleaseYearInAlbums), value);
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool RoundedAlbumArt
         {
-            get => Get("MediaLibrary", nameof(RoundedAlbumArt), true);
-            set => Set("MediaLibrary", nameof(RoundedAlbumArt), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowTrackNumberInSongs
         {
-            get => Get("MediaLibrary", nameof(ShowTrackNumberInSongs), true);
-            set => Set("MediaLibrary", nameof(ShowTrackNumberInSongs), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         public bool ShowDurationInSongs
         {
-            get => Get("MediaLibrary", nameof(ShowDurationInSongs), true);
-            set => Set("MediaLibrary", nameof(ShowDurationInSongs), value);
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
         }
 
         #endregion
@@ -306,23 +303,23 @@ namespace Rise.App.ViewModels
         #region Navigation
         public int Resize
         {
-            get => Get("Navigation", nameof(Resize), 0);
-            set => Set("Navigation", nameof(Resize), value);
+            get => Get(0, "Navigation");
+            set => Set(value, "Navigation");
         }
 
         public bool Hamburger
         {
-            get => Get("Navigation", nameof(Hamburger), false);
-            set => Set("Navigation", nameof(Hamburger), value);
+            get => Get(false, "Navigation");
+            set => Set(value, "Navigation");
         }
 
         public string CurrentPack => _iconPacks[IconPack];
         public int IconPack
         {
-            get => Get("Local", nameof(IconPack), 0);
+            get => Get(0, "Local");
             set
             {
-                Set("Local", nameof(IconPack), value);
+                Set(value, "Local");
                 MainPage.Current.ChangeIconPack(CurrentPack);
             }
         }
@@ -482,53 +479,155 @@ namespace Rise.App.ViewModels
         #region Playback
         public bool Gapless
         {
-            get => Get("Playback", nameof(Gapless), false);
-            set => Set("Playback", nameof(Gapless), value);
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
         }
 
         public int CrossfadeDuration
         {
-            get => Get("Playback", nameof(CrossfadeDuration), 0);
-            set => Set("Playback", nameof(CrossfadeDuration), value);
+            get => Get(0, "Playback");
+            set => Set(value, "Playback");
         }
 
         public int ScaleToWindow
         {
-            get => Get("Playback", nameof(ScaleToWindow), 0);
-            set => Set("Playback", nameof(ScaleToWindow), value);
+            get => Get(0, "Playback");
+            set => Set(value, "Playback");
         }
 
         public bool GoDevice
         {
-            get => Get("Playback", nameof(GoDevice), false);
-            set => Set("Playback", nameof(GoDevice), value);
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
         }
 
         public bool ReplaceFlyouts
         {
-            get => Get("Playback", nameof(ReplaceFlyouts), false);
-            set => Set("Playback", nameof(ReplaceFlyouts), value);
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
         }
         #endregion
 
         #region Setup
         public bool SetupCompleted
         {
-            get => Get("Local", nameof(SetupCompleted), false);
-            set => Set("Local", nameof(SetupCompleted), value);
+            get => Get(false);
+            set => Set(value);
         }
 
         public int SetupProgress
         {
-            get => Get("Local", nameof(SetupProgress), 0);
-            set => Set("Local", nameof(SetupProgress), value);
+            get => Get(0);
+            set => Set(value);
         }
         #endregion
 
         public int Language
         {
-            get => Get("Local", nameof(Language), 0);
-            set => Set("Local", nameof(Language), value);
+            get => Get(0);
+            set => Set(value);
         }
+
+        #region Methods to get/set app settings
+        /// <summary>
+        /// Gets an app setting.
+        /// </summary>
+        /// <param name="defaultValue">Default setting value.</param>
+        /// <param name="store">Setting store name.</param>
+        /// <param name="setting">Setting name.</param>
+        /// <returns>App setting value.</returns>
+        /// <remarks>If the store parameter is "Local", a local setting will be returned.</remarks>
+        private Type Get<Type>(Type defaultValue,
+            string store = "Local",
+            [CallerMemberName] string setting = null)
+        {
+            // If store == "Local", get a local setting
+            if (store == "Local")
+            {
+                // Get app settings
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+                // Check if the setting exists
+                if (localSettings.Values[setting] == null)
+                {
+                    localSettings.Values[setting] = defaultValue;
+                }
+
+                object val = localSettings.Values[setting];
+
+                // Return the setting if type matches
+                if (!(val is Type))
+                {
+                    throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
+                }
+
+                return (Type)val;
+            }
+
+            // Get desired composite value
+            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
+
+            // If the store exists, check if the setting does as well
+            if (composite == null)
+            {
+                composite = new ApplicationDataCompositeValue();
+            }
+
+            if (composite[setting] == null)
+            {
+                composite[setting] = defaultValue;
+                roamingSettings.Values[store] = composite;
+            }
+
+            object value = composite[setting];
+
+            // Return the setting if type matches
+            if (!(value is Type))
+            {
+                throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
+            }
+
+            return (Type)value;
+        }
+
+        /// <summary>
+        /// Sets an app setting.
+        /// </summary>
+        /// <param name="newValue">New setting value.</param>
+        /// <param name="store">Setting store name.</param>
+        /// <param name="setting">Setting name.</param>
+        /// <remarks>If the store parameter is "Local", a local setting will be set.</remarks>
+        private void Set<Type>(Type newValue, string store = "Local", [CallerMemberName] string setting = null)
+        {
+            // Try to get the setting, if types don't match, it'll throw an exception
+            _ = Get(newValue, store, setting);
+
+            // If store == "Local", set a local setting
+            if (store == "Local")
+            {
+                // Get app settings
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                localSettings.Values[setting] = newValue;
+                return;
+            }
+
+            // Get desired composite value
+            ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+            ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
+
+            // Store doesn't exist, create it
+            if (composite == null)
+            {
+                composite = new ApplicationDataCompositeValue();
+            }
+
+            // Set the setting to the desired value
+            composite[setting] = newValue;
+            roamingSettings.Values[store] = composite;
+
+            OnPropertyChanged(setting);
+        }
+        #endregion
     }
 }
