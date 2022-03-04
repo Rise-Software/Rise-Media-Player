@@ -1,7 +1,8 @@
-﻿using System;
-using Microsoft.Toolkit.Uwp.UI;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -61,6 +62,7 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
         /// <summary>
@@ -76,13 +78,15 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.NavigationParameter is AlbumViewModel album)
+            if (e.NavigationParameter is Guid id)
             {
-                SelectedAlbum = album;
-                Songs.Filter = s => ((SongViewModel)s).Album == album.Title;
+                SelectedAlbum = App.MViewModel.Albums.
+                    FirstOrDefault(a => a.Model.Id == id);
+
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
 
                 // TODO: Get "more album from this artist" to work.
-                findAlbumsByArtist(album.Artist);
+                FindAlbumsByArtist(SelectedAlbum.Artist);
             }
             else if (e.NavigationParameter is string str)
             {
@@ -95,12 +99,17 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
         }
 
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            Frame.SetListDataItemForNextConnectedAnimation(SelectedAlbum);
+        }
+
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {
             DiscyOnSong.IsOpen = true;
         }
 
-        private void findAlbumsByArtist(string artist)
+        private void FindAlbumsByArtist(string artist)
         {
             if (Albums.Count > 0)
             {
@@ -116,13 +125,15 @@ namespace Rise.App.Views
                             AlbumsByArtist.Add(album);
                         }
                     }
-                } finally
+                }
+                finally
                 {
                     AlbumsByArtist.SortDescriptions.Clear();
                     AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
                     AlbumsByArtist.Refresh();
                 }
-            } else
+            }
+            else
             {
                 HasMoreAlbumsByArtist = false;
             }
