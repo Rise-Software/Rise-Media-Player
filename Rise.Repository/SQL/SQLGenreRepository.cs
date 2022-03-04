@@ -60,10 +60,22 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task UpsertAsync(Genre item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.Genres.AddAsync(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task QueueUpsertAsync(Genre item)
         {
             _upsertQueue.Add(item);
-            await UpsertQueuedAsync();
+            if (_upsertQueue.Count >= 250)
+            {
+                await UpsertQueuedAsync();
+            }
         }
 
         public async Task UpsertQueuedAsync()
@@ -75,10 +87,22 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task DeleteAsync(Genre item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Genres.Remove(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task QueueDeletionAsync(Genre item)
         {
             _removalQueue.Add(item);
-            await DeleteQueuedAsync();
+            if (_removalQueue.Count >= 250)
+            {
+                await DeleteQueuedAsync();
+            }
         }
 
         public async Task DeleteQueuedAsync()
