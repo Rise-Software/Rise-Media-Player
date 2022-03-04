@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,17 +9,17 @@ namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : ViewModel<Artist>
     {
-        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the ArtistViewModel class that wraps an Artist object.
         /// </summary>
         public ArtistViewModel(Artist model = null)
         {
             Model = model ?? new Artist();
-            IsNew = true;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the artist name.
         /// </summary>
@@ -38,8 +39,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Name)
                 {
                     Model.Name = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Name));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -55,8 +55,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Picture)
                 {
                     Model.Picture = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Picture));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -77,54 +76,29 @@ namespace Rise.App.ViewModels
         /// Combination of artist's song count and album count.
         /// </summary>
         public string SongsNAlbums => Albums + ", " + Songs;
+        #endregion
 
+        #region Backend
         /// <summary>
-        /// Gets or sets a value that indicates whether the underlying model has been modified. 
-        /// </summary>
-        /// <remarks>
-        /// Used to reduce load and only upsert the models that have changed.
-        /// </remarks>
-        public bool IsModified { get; set; }
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
-        private bool _isInEdit = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the artist data is being edited.
-        /// </summary>
-        public bool IsInEdit
-        {
-            get => _isInEdit;
-            set => Set(ref _isInEdit, value);
-        }
-
-        /// <summary>
-        /// Saves artist data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            IsInEdit = false;
-            IsModified = false;
-
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Artists.Add(this);
-            }
-
-            await App.Repository.Artists.QueueUpsertAsync(Model);
+            App.MViewModel.Artists.Add(this);
+            await SQLRepository.Repository.Artists.QueueUpsertAsync(Model);
         }
 
         /// <summary>
-        /// Checks whether or not the artist is available. If it's not,
+        /// Deletes item data from the backend.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            App.MViewModel.Artists.Remove(this);
+            await SQLRepository.Repository.Artists.QueueDeletionAsync(Model);
+        }
+
+        /// <summary>
+        /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
         public async Task CheckAvailabilityAsync()
@@ -135,62 +109,33 @@ namespace Rise.App.ViewModels
                 return;
             }
         }
+        #endregion
 
+        #region Editing
         /// <summary>
-        /// Delete artist from repository and MViewModel.
+        /// Enables edit mode.
         /// </summary>
-        public async Task DeleteAsync()
+        /*public async Task StartEditAsync()
         {
-            IsModified = true;
-
-            App.MViewModel.Artists.Remove(this);
-            await App.Repository.Artists.QueueDeletionAsync(Model);
-        }
+            _ = await typeof(PropertiesPage).
+                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
+        }*/
 
         /// <summary>
-        /// Raised when the user cancels the changes they've made to the artist data.
+        /// Saves any edits that have been made.
         /// </summary>
-        public event EventHandler AddNewArtistCanceled;
-
-        /// <summary>
-        /// Cancels any in progress edits.
-        /// </summary>
-        public async Task CancelEditsAsync()
+        public async Task SaveEditsAsync()
         {
-            if (IsNew)
-            {
-                AddNewArtistCanceled?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                await RevertChangesAsync();
-            }
+            await SQLRepository.Repository.Artists.UpdateAsync(Model);
         }
 
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task RevertChangesAsync()
+        public async Task CancelEditsAsync()
         {
-            IsInEdit = false;
-            if (IsModified)
-            {
-                await RefreshArtistsAsync();
-                IsModified = false;
-            }
+            Model = await SQLRepository.Repository.Artists.GetAsync(Model.Id);
         }
-
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public void StartEdit() => IsInEdit = true;
-
-        /// <summary>
-        /// Reloads all of the artist data.
-        /// </summary>
-        public async Task RefreshArtistsAsync()
-        {
-            Model = await App.Repository.Artists.GetAsync(Model.Id);
-        }
+        #endregion
     }
 }

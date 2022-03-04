@@ -140,6 +140,7 @@ namespace Rise.App.ViewModels
                 {
                     // await songFile.Properties.SavePropertiesAsync(props);
                     await musicProps.SavePropertiesAsync();
+                    await Model.SaveEditsAsync();
                     result = true;
                 }
                 catch (Exception ex)
@@ -148,8 +149,6 @@ namespace Rise.App.ViewModels
                     Debug.WriteLine(ex.Message);
                     result = false;
                 }
-
-                await Model.SaveAsync();
             }
 
             return result;

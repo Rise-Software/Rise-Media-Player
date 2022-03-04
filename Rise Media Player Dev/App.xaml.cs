@@ -95,11 +95,6 @@ namespace Rise.App
         public static LastFMViewModel LMViewModel { get; private set; }
 
         /// <summary>
-        /// Pipeline for interacting with backend service or database.
-        /// </summary>
-        public static IRepository Repository { get; private set; }
-
-        /// <summary>
         /// Gets the music library.
         /// </summary>
         public static StorageLibrary MusicLibrary { get; private set; }
@@ -183,6 +178,7 @@ namespace Rise.App
 
                     Window.Current.Activate();
                     break;
+
                 case ActivationKind.ToastNotification:
                     if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
                     {
@@ -206,22 +202,19 @@ namespace Rise.App
         }
 
         /// <summary>
-        /// Initializes the app's database and ViewModels.
+        /// Initializes the app's ViewModels.
         /// </summary>
-        private async Task InitDatabase()
+        private async Task InitDataSourcesAsync()
         {
+            // We still have to make sure the file's there
             _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
-            string dbPath = Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "Files.db");
-            DbContextOptionsBuilder<Context> dbOptions = new DbContextOptionsBuilder<Context>().UseSqlite(
-                "Data Source=" + dbPath);
-
-            Repository = new SQLRepository(dbOptions);
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             PBackendController = new PlaylistsBackendController();
             NBackendController = new NotificationsBackendController();
+
             MViewModel = new MainViewModel();
             LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
@@ -351,7 +344,7 @@ namespace Rise.App
             // just ensure that the window is active
             if (Window.Current.Content is not Frame rootFrame)
             {
-                await InitDatabase();
+                await InitDataSourcesAsync();
                 await MViewModel.GetListsAsync();
 
                 StartIndexingTimer();

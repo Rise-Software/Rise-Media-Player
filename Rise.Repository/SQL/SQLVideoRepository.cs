@@ -60,10 +60,31 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task UpdateAsync(Video item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Videos.Update(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpsertAsync(Video item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                await _db.Videos.AddAsync(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task QueueUpsertAsync(Video item)
         {
             _upsertQueue.Add(item);
-            await UpsertQueuedAsync();
+            if (_upsertQueue.Count >= 250)
+            {
+                await UpsertQueuedAsync();
+            }
         }
 
         public async Task UpsertQueuedAsync()
@@ -78,7 +99,19 @@ namespace Rise.Repository.SQL
         public async Task QueueDeletionAsync(Video item)
         {
             _removalQueue.Add(item);
-            await DeleteQueuedAsync();
+            if (_removalQueue.Count >= 250)
+            {
+                await DeleteQueuedAsync();
+            }
+        }
+
+        public async Task DeleteAsync(Video item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Videos.Remove(item);
+                await _db.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteQueuedAsync()

@@ -44,8 +44,7 @@ namespace Rise.App.Views
                 {
                     if (!File.Exists(song.Location))
                     {
-                        plViewModel.Songs.Remove(song);
-                        await plViewModel.SaveAsync();
+                        await plViewModel.RemoveSongAsync(song);
                     }
                 }
             }
