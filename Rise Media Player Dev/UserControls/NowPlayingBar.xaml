@@ -257,7 +257,7 @@
                 <ColumnDefinition Width=".45*" x:Name="VolumeColumn" MaxWidth="200" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GoToNowPlaying" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped"  Style="{StaticResource TransparentButton}" Margin="0,0,0,0" Padding="0">
+            <Button  x:Name="GoToNowPlaying" Click="RestoreVideoButton_Click"  RightTapped="GoToNowPlaying_RightTapped" BorderBrush="Transparent" Background="Transparent" Margin="0,0,0,0" Padding="0">
                 
                 <RelativePanel RightTapped="RelativePanel_RightTapped">
                     <Border x:Name="AlbumArtContainer" Margin="0,0,0,0"
@@ -305,10 +305,9 @@
                     </Button>
 
                     <ToggleButton x:Name="ShuffleButton"
-                                  Padding="10"
+                                  Padding="7"
                                   Margin="10"
                                   Background="Transparent"
-                                  BorderThickness="0"
                                   BorderBrush="Transparent"
                                   Click="ShuffleButton_Click"
                                   ToolTipService.ToolTip="Shuffle">
@@ -320,9 +319,28 @@
                             Background="Transparent"
                             x:Name="PreviousButton"
                             Padding="10"
-                            BorderThickness="0"
                             Margin="-2"
                             Click="PreviousButton_Click">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColor}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
                         <FontIcon Glyph="&#xF8AC;"
                                   FontSize="16"/>
                     </Button>
@@ -361,19 +379,37 @@
                             Margin="-2"
                             ToolTipService.ToolTip="Next"
                             BorderBrush="Transparent"
-                            BorderThickness="0"
                             Background="Transparent"
                             x:Name="NextButton">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColor}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColor}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
                         <FontIcon Glyph="&#xF8AD;"
                                   FontSize="16"/>
                     </Button>
 
                     <ToggleButton x:Name="RepeatButton"
                                   Background="Transparent"
-                                  Padding="10"
+                                  Padding="7"
                                   Margin="10"
                                   BorderBrush="Transparent"
-                                  BorderThickness="0"
                                   Click="RepeatButton_Click"
                                   ToolTipService.ToolTip="Repeat">
                         <FontIcon Glyph="&#xE1CD;" />
@@ -398,14 +434,13 @@
             </StackPanel>
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Padding="10,0,0,0">
-                <controls:WrapPanel Margin="0,4,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <controls:WrapPanel Margin="0,3,0,0" x:Name="PinnedArea" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <Button Height="35"
+                    <Button
                             Padding="10"
                             HorizontalAlignment="Right"
                             x:Name="VolumeFlyoutButton"
                             BorderBrush="Transparent"
-                            BorderThickness="0"
                             Background="Transparent"
                             ToolTipService.ToolTip="Volume"
                             Flyout="{StaticResource VolumeFlyout}">
@@ -419,8 +454,6 @@
                             Background="Transparent"
                             Padding="10,10,10,10"
                             BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Height="35"
                             ToolTipService.ToolTip="Mini player">
                         <FontIcon Glyph="&#xEE49;"
                                   FontSize="16"/>
@@ -435,9 +468,7 @@
 
                     <Button BorderBrush="Transparent"
                             Background="Transparent"
-                            BorderThickness="0"
                             Padding="10"
-                            Height="35"
                             Click="Button_Click"
                             ToolTipService.ToolTip="Queue">
                         <FontIcon Glyph="&#xE14C;"
@@ -458,9 +489,8 @@
 
                     <Button BorderBrush="Transparent"
                             Background="Transparent"
-                            BorderThickness="0"
                             Padding="10"
-                            Height="35"
+
                             Flyout="{StaticResource MoreMenuFlyout}"
                             ToolTipService.ToolTip="More">
                         <FontIcon Glyph="&#xE712;"
@@ -469,8 +499,8 @@
                     
                     
                 </controls:WrapPanel>
-                <RelativePanel Margin="0,16,0,0" x:Name="DefaultVolumeControl">
-                    <Button Click="VolumeIcon_Click" Padding="8" Margin="0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButton}">
+                <RelativePanel Margin="0,11,0,0" x:Name="DefaultVolumeControl">
+                    <Button Click="VolumeIcon_Click" Padding="8" Margin="0,0,3,0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButton}">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
                     <Slider ValueChanged="VolumeSlider_ValueChanged" StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,0,8,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
