@@ -302,12 +302,6 @@
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
 
-                                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE1E3;" />
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-
                                 </MenuFlyout>
                             </ListView.Resources>
 

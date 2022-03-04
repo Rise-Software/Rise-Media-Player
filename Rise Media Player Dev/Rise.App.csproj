@@ -517,6 +517,7 @@
     <Content Include="Assets\FileIcons\MUFILE.png" />
     <Content Include="Assets\FileIcons\VIDFILE.png" />
     <Content Include="Assets\HelpCentre.png" />
+    <Content Include="Assets\likedplaylist.png" />
     <Content Include="Assets\lookingformedia.png" />
     <Content Include="Assets\missingperson.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
