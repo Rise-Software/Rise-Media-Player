@@ -12,6 +12,7 @@ namespace Rise.App.ViewModels
 {
     public class VideoViewModel : ViewModel<Video>
     {
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/>
         /// class that wraps a <see cref="Video"/> object.
@@ -21,7 +22,9 @@ namespace Rise.App.ViewModels
             Model = model ?? new Video();
             IsNew = true;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the video title.
         /// </summary>
@@ -153,7 +156,9 @@ namespace Rise.App.ViewModels
             get => _isInEdit;
             set => Set(ref _isInEdit, value);
         }
+        #endregion
 
+        #region Backend
         /// <summary>
         /// Saves video data that has been edited.
         /// </summary>
@@ -167,7 +172,9 @@ namespace Rise.App.ViewModels
 
             await SQLRepository.Repository.Videos.QueueUpsertAsync(Model);
         }
+        #endregion
 
+        #region Playback
         /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="VideoViewModel"/>.
         /// </summary>
@@ -195,7 +202,7 @@ namespace Rise.App.ViewModels
             return media;
         }
 
-        public async Task<MediaPlaybackItem> AsPlaybackItemAsync(Uri uri)
+        public MediaPlaybackItem AsPlaybackItem(Uri uri)
         { 
             MediaSource source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
@@ -215,5 +222,6 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
+        #endregion
     }
 }

@@ -1,16 +1,15 @@
-﻿using Rise.Models;
-using Rise.App.Common;
+﻿using Rise.App.Common;
+using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Rise.Repository.SQL;
 
 namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : ViewModel<Artist>
     {
-        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the ArtistViewModel class that wraps an Artist object.
         /// </summary>
@@ -19,7 +18,9 @@ namespace Rise.App.ViewModels
             Model = model ?? new Artist();
             IsNew = true;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the artist name.
         /// </summary>
@@ -39,8 +40,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Name)
                 {
                     Model.Name = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Name));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -56,8 +56,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Picture)
                 {
                     Model.Picture = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Picture));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -79,14 +78,6 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string SongsNAlbums => Albums + ", " + Songs;
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether the underlying model has been modified. 
-        /// </summary>
-        /// <remarks>
-        /// Used to reduce load and only upsert the models that have changed.
-        /// </remarks>
-        public bool IsModified { get; set; }
-
         private bool _isNew;
         /// <summary>
         /// Gets or sets a value that indicates whether this is a new item.
@@ -96,25 +87,14 @@ namespace Rise.App.ViewModels
             get => _isNew;
             set => Set(ref _isNew, value);
         }
+        #endregion
 
-        private bool _isInEdit = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the artist data is being edited.
-        /// </summary>
-        public bool IsInEdit
-        {
-            get => _isInEdit;
-            set => Set(ref _isInEdit, value);
-        }
-
+        #region Backend
         /// <summary>
         /// Saves artist data that has been edited.
         /// </summary>
         public async Task SaveAsync()
         {
-            IsInEdit = false;
-            IsModified = false;
-
             if (IsNew)
             {
                 IsNew = false;
@@ -122,6 +102,15 @@ namespace Rise.App.ViewModels
             }
 
             await SQLRepository.Repository.Artists.QueueUpsertAsync(Model);
+        }
+
+        /// <summary>
+        /// Delete artist from repository and MViewModel.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            App.MViewModel.Artists.Remove(this);
+            await SQLRepository.Repository.Artists.QueueDeletionAsync(Model);
         }
 
         /// <summary>
@@ -136,62 +125,33 @@ namespace Rise.App.ViewModels
                 return;
             }
         }
+        #endregion
 
+        #region Editing
         /// <summary>
-        /// Delete artist from repository and MViewModel.
+        /// Enables edit mode.
         /// </summary>
-        public async Task DeleteAsync()
+        /*public async Task StartEditAsync()
         {
-            IsModified = true;
-
-            App.MViewModel.Artists.Remove(this);
-            await SQLRepository.Repository.Artists.QueueDeletionAsync(Model);
-        }
+            _ = await typeof(PropertiesPage).
+                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
+        }*/
 
         /// <summary>
-        /// Raised when the user cancels the changes they've made to the artist data.
+        /// Saves any edits that have been made.
         /// </summary>
-        public event EventHandler AddNewArtistCanceled;
-
-        /// <summary>
-        /// Cancels any in progress edits.
-        /// </summary>
-        public async Task CancelEditsAsync()
+        public async Task SaveEditAsync()
         {
-            if (IsNew)
-            {
-                AddNewArtistCanceled?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                await RevertChangesAsync();
-            }
+            await SQLRepository.Repository.Artists.UpdateAsync(Model);
         }
 
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task RevertChangesAsync()
-        {
-            IsInEdit = false;
-            if (IsModified)
-            {
-                await RefreshArtistsAsync();
-                IsModified = false;
-            }
-        }
-
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public void StartEdit() => IsInEdit = true;
-
-        /// <summary>
-        /// Reloads all of the artist data.
-        /// </summary>
-        public async Task RefreshArtistsAsync()
+        public async Task CancelEditAsync()
         {
             Model = await SQLRepository.Repository.Artists.GetAsync(Model.Id);
         }
+        #endregion
     }
 }

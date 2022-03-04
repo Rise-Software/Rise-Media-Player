@@ -60,6 +60,15 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task UpdateAsync(Genre item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Genres.Update(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task UpsertAsync(Genre item)
         {
             using (_db = new Context(_dbOptions))

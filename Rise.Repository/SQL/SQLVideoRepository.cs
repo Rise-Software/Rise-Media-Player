@@ -60,6 +60,15 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task UpdateAsync(Video item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Videos.Update(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task UpsertAsync(Video item)
         {
             using (_db = new Context(_dbOptions))

@@ -64,6 +64,15 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task UpdateAsync(Song item)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                _db.Songs.Update(item);
+                await _db.SaveChangesAsync();
+            }
+        }
+
         public async Task UpsertAsync(Song item)
         {
             using (_db = new Context(_dbOptions))

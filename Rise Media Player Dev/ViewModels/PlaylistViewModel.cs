@@ -10,6 +10,7 @@ namespace Rise.App.ViewModels
 {
     public class PlaylistViewModel : ViewModel<Playlist>
     {
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the PlaylistViewModel class that wraps a Playlist object.
         /// </summary>
@@ -25,7 +26,9 @@ namespace Rise.App.ViewModels
                 IsNew = true;
             }
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the playlist title.
         /// </summary>
@@ -128,7 +131,9 @@ namespace Rise.App.ViewModels
             get => _isNew;
             set => Set(ref _isNew, value);
         }
+        #endregion
 
+        #region Backend
         /// <summary>
         /// Saves playlist to the backend.
         /// </summary>
@@ -147,6 +152,30 @@ namespace Rise.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Deletes playlist from the backend.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            App.MViewModel.Playlists.Remove(this);
+            await App.PBackendController.DeleteAsync(this);
+        }
+
+        /// <summary>
+        /// Checks whether or not the playlist is available. If it's not,
+        /// delete it.
+        /// </summary>
+        /*public async Task CheckAvailabilityAsync()
+        {
+            if (TrackCount == 0)
+            {
+                await DeleteAsync();
+                return;
+            }
+        }*/
+        #endregion
+
+        #region Item management
         /// <summary>
         /// Adds a song to the playlist.
         /// </summary>
@@ -184,50 +213,8 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Checks whether or not the playlist is available. If it's not,
-        /// delete it.
+        /// Removes multiple songs from the playlist.
         /// </summary>
-        /*public async Task CheckAvailabilityAsync()
-        {
-            if (TrackCount == 0)
-            {
-                await DeleteAsync();
-                return;
-            }
-        }*/
-
-        /// <summary>
-        /// Delete playlist from repository and MViewModel.
-        /// </summary>
-        public async Task DeleteAsync()
-        {
-            App.MViewModel.Playlists.Remove(this);
-            await App.PBackendController.DeleteAsync(this);
-        }
-
-        public async Task StartEditAsync()
-        {
-            _ = await typeof(PlaylistPropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, this);
-        }
-
-        /// <summary>
-        /// Saves any edits that have been made.
-        /// </summary>
-        public async Task EndEditAsync()
-        {
-            await App.PBackendController.DeleteAsync(this);
-            await App.PBackendController.UpsertAsync(this);
-        }
-
-        /// <summary>
-        /// Discards any edits that have been made, restoring the original values.
-        /// </summary>
-        public async Task RevertChangesAsync()
-        {
-            Model = (await App.PBackendController.GetAsync(Model.Id)).Model;
-        }
-
         public async Task RemoveSongsAsync(List<SongViewModel> songs)
         {
             try
@@ -242,5 +229,31 @@ namespace Rise.App.ViewModels
                 await SaveAsync();
             }
         }
+        #endregion
+
+        #region Editing
+        public async Task StartEditAsync()
+        {
+            _ = await typeof(PlaylistPropertiesPage).
+                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, this);
+        }
+
+        /// <summary>
+        /// Saves any edits that have been made.
+        /// </summary>
+        public async Task SaveEditAsync()
+        {
+            await App.PBackendController.DeleteAsync(this);
+            await App.PBackendController.UpsertAsync(this);
+        }
+
+        /// <summary>
+        /// Discards any edits that have been made, restoring the original values.
+        /// </summary>
+        public async Task CancelEditAsync()
+        {
+            Model = (await App.PBackendController.GetAsync(Model.Id)).Model;
+        }
+        #endregion
     }
 }

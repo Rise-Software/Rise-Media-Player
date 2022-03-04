@@ -7,6 +7,7 @@ namespace Rise.App.ViewModels
 {
     public class GenreViewModel : ViewModel<Genre>
     {
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
         /// </summary>
@@ -15,7 +16,9 @@ namespace Rise.App.ViewModels
             Model = model ?? new Genre();
             IsNew = true;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the genre name.
         /// </summary>
@@ -27,19 +30,10 @@ namespace Rise.App.ViewModels
                 if (value != Model.Name)
                 {
                     Model.Name = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Name));
+                    OnPropertyChanged();
                 }
             }
         }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the underlying model has been modified. 
-        /// </summary>
-        /// <remarks>
-        /// Used to reduce load and only upsert the models that have changed.
-        /// </remarks>
-        public bool IsModified { get; set; }
 
         private bool _isNew;
         /// <summary>
@@ -50,13 +44,14 @@ namespace Rise.App.ViewModels
             get => _isNew;
             set => Set(ref _isNew, value);
         }
+        #endregion
 
+        #region Backend
         /// <summary>
         /// Saves genre data that has been edited.
         /// </summary>
         public async Task SaveAsync()
         {
-            IsModified = false;
             if (IsNew)
             {
                 IsNew = false;
@@ -65,5 +60,6 @@ namespace Rise.App.ViewModels
 
             await SQLRepository.Repository.Genres.QueueUpsertAsync(Model);
         }
+        #endregion
     }
 }

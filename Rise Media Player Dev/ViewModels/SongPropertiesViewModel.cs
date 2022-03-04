@@ -140,16 +140,15 @@ namespace Rise.App.ViewModels
                 {
                     // await songFile.Properties.SavePropertiesAsync(props);
                     await musicProps.SavePropertiesAsync();
+                    await Model.SaveAsync();
                     result = true;
                 }
                 catch (Exception ex)
                 {
-                    await Model.CancelEditsAsync();
+                    await Model.CancelEditAsync();
                     Debug.WriteLine(ex.Message);
                     result = false;
                 }
-
-                await Model.SaveAsync();
             }
 
             return result;

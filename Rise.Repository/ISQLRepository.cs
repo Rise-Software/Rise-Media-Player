@@ -23,6 +23,11 @@ namespace Rise.Repository
         Task<T> GetAsync(Guid id);
 
         /// <summary>
+        /// Directly updates an item.
+        /// </summary>
+        Task UpdateAsync(T item);
+
+        /// <summary>
         /// Directly upserts an item.
         /// </summary>
         Task UpsertAsync(T item);

@@ -99,13 +99,13 @@ namespace Rise.App.Views
         {
             if (_saveChanges)
             {
-                await Playlist.EndEditAsync();
+                await Playlist.SaveEditAsync();
             }
             else
             {
                 try
                 {
-                    await Playlist.RevertChangesAsync();
+                    await Playlist.CancelEditAsync();
                 }
                 catch
                 {

@@ -148,14 +148,14 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+            => await SelectedSong.StartEditAsync();
 
         private void ShowArtist_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedSong.Artist);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedSong.StartEdit();
+            await SelectedSong.StartEditAsync();
             SelectedSong = null;
         }
 
