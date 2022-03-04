@@ -195,7 +195,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3C;" FontSize="18" x:Name="Back10Icon" />
+                        <FontIcon Glyph="&#xED3C;" FontSize="17" x:Name="Back10Icon" />
                     </Button>
                     <Button Margin="0,0,5,0"
                             Height="40" Width="40"
@@ -224,7 +224,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3D;" FontSize="18" x:Name="Forward30Icon" />
+                        <FontIcon Glyph="&#xED3D;" FontSize="17" x:Name="Forward30Icon" />
                     </Button>
                 </StackPanel>
                 <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">

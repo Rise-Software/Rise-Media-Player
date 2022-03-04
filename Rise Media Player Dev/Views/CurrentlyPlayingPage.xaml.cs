@@ -45,7 +45,6 @@ namespace Rise.App.Views
             var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             preferences.CustomSize = new Size(600, 700);
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
     }
 }
