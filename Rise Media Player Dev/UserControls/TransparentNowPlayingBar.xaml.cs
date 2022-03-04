@@ -227,6 +227,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 600)
             {
@@ -236,6 +238,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 480)
             {
@@ -245,6 +249,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
             }
             else if (e.NewSize.Width >= 400)
             {
@@ -254,6 +260,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
                 OverlayButton1.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -262,6 +270,8 @@ namespace Rise.App.UserControls
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;
@@ -423,6 +433,16 @@ namespace Rise.App.UserControls
                     ToolTipService.SetToolTip(PlayButton, "Buffering...");
                 });
             }
+        }
+
+        private void Forward30_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
+        }
+
+        private void Back10_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
         }
     }
 }

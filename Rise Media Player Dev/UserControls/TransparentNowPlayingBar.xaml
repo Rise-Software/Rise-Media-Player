@@ -173,7 +173,7 @@
 
                     <ToggleButton x:Name="ShuffleButton"
                                   Padding="7"
-                                  Margin="0,10,6,10"
+                                  Margin="0,10,4,10"
                                   Background="Transparent"
                                   BorderBrush="Transparent"
                                   Click="ShuffleButton_Click"
@@ -181,12 +181,42 @@
                         <FontIcon Glyph="&#xE14B;"  />
                     </ToggleButton>
 
+                    <Button Click="Back10_Click"
+                            Margin="0,0,0,0"
+                            Height="40" Width="40"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            ToolTipService.ToolTip="Move back 10 seconds"
+                            x:Name="Back10">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <FontIcon Glyph="&#xED3C;" FontSize="17" x:Name="Back10Icon" />
+                    </Button>
+
                     <Button ToolTipService.ToolTip="Previous"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             x:Name="PreviousButton"
                             Padding="10"
-                            Margin="-2"
+                            Margin="2,-2,-2,-2"
                             Click="PreviousButton_Click">
                         <Button.Resources>
                             <ResourceDictionary>
@@ -269,6 +299,36 @@
                                   FontSize="16"/>
                     </Button>
 
+                    <Button Margin="-2,0,5,0"
+                            Height="40" Width="40"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            x:Name="Forward30"
+                            ToolTipService.ToolTip="Move forward 30 seconds"
+                            Click="Forward30_Click">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.ThemeDictionaries>
+                                    <ResourceDictionary x:Key="Dark">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                    <ResourceDictionary x:Key="Light">
+                                        <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                        </LinearGradientBrush>
+                                    </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <FontIcon Glyph="&#xED3D;" FontSize="17" x:Name="Forward30Icon" />
+                    </Button>
+
                     <ToggleButton x:Name="RepeatButton"
                                   Background="Transparent"
                                   Padding="7"
@@ -290,7 +350,7 @@
                         <FontIcon Glyph="&#xE10C;" x:Name="Overlay1"/>
                     </Button>
                 </StackPanel>
-                <RelativePanel MaxWidth="400">
+                <RelativePanel MaxWidth="4000">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
                     <Slider PointerCaptureLost="SliderProgress_PointerCaptureLost" x:Name="SliderProgress" Padding="8,0,8,0" RelativePanel.RightOf="MediaPlayingDurationLeft" RelativePanel.LeftOf="MediaPlayingDurationRight" IsThumbToolTipEnabled="False" />
                     <TextBlock Text="0:00" x:Name="MediaPlayingDurationRight" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
@@ -351,7 +411,7 @@
                     <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,0,0" x:Name="VolumeIconViewBoxMediaControl">
                         <SymbolIcon Symbol="Volume" />
                     </Viewbox>
-                    <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}"  RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" HorizontalAlignment="Right"/>
+                    <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}"  RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0,10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" RelativePanel.AlignRightWithPanel="True"/>
                 </RelativePanel>
             </StackPanel>
         </Grid>
