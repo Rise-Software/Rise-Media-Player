@@ -91,7 +91,7 @@
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo"
+                    <!--<MenuFlyoutSubItem x:Name="AddTo"
                                     x:Uid="/Information/AddTo"
                                     IsEnabled="True">
                         <MenuFlyoutSubItem.Icon>
@@ -112,7 +112,7 @@
                                 <FontIcon Glyph="&#xE141;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                    </MenuFlyoutSubItem>
+                    </MenuFlyoutSubItem>-->
 
                     <MenuFlyoutItem x:Name="Share"
                                     x:Uid="/Information/Share"

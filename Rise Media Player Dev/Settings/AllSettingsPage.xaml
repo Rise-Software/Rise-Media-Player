@@ -52,6 +52,7 @@
                     Height="28"
                     HorizontalAlignment="Right"
                     Margin="2,2,190,0"
+                    IsEnabled="False"
                     ToolTipService.ToolTip="Sync centre"
                     Style="{StaticResource TransparentButton}"
                     Width="40">
