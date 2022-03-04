@@ -221,6 +221,7 @@ namespace Rise.App.UserControls
         {
             if (e.NewSize.Width >= 900)
             {
+                OverlayMediaButtons.HorizontalAlignment = HorizontalAlignment.Left;
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
@@ -229,6 +230,7 @@ namespace Rise.App.UserControls
             }
             else if (e.NewSize.Width >= 600)
             {
+                OverlayMediaButtons.HorizontalAlignment = HorizontalAlignment.Left;
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
@@ -237,6 +239,7 @@ namespace Rise.App.UserControls
             }
             else if (e.NewSize.Width >= 480)
             {
+                OverlayMediaButtons.HorizontalAlignment = HorizontalAlignment.Left;
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
@@ -245,6 +248,7 @@ namespace Rise.App.UserControls
             }
             else if (e.NewSize.Width >= 400)
             {
+                OverlayMediaButtons.HorizontalAlignment = HorizontalAlignment.Left;
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0.5, GridUnitType.Star);
@@ -253,6 +257,7 @@ namespace Rise.App.UserControls
             }
             else
             {
+                OverlayMediaButtons.HorizontalAlignment = HorizontalAlignment.Center;
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
@@ -382,10 +387,41 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
+                    }
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.
                 }
+            }
+        }
+
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    PlayButtonIcon.Glyph = "\uE62E";
+                    ToolTipService.SetToolTip(PlayButton, "Pause");
+                });
+            }
+            else if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    PlayButtonIcon.Glyph = "\uF5B0";
+                    ToolTipService.SetToolTip(PlayButton, "Play");
+                });
+            }
+            else if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Buffering)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    ToolTipService.SetToolTip(PlayButton, "Buffering...");
+                });
             }
         }
     }

@@ -25,7 +25,7 @@
 
         <uc:ExpanderControl x:Uid="/WindowsBehaviours/RiseStartup"
                             ExpanderStyle="Static"
-                            Icon="&#xE7E8;">
+                            Icon="&#xE819;">
             <ToggleSwitch x:Name="OpenRiseMPinStartup"
                           IsOn="{x:Bind local1:App.SViewModel.OpenInLogin, Mode=TwoWay}"
                           IsEnabled="{x:Bind local1:App.SViewModel.CanOpenInLogin, Mode=OneWay}"
