@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Converters;
+using Rise.App.ViewModels;
+using Rise.App.Views;
+using System;
 using System.Linq;
 using Windows.Foundation;
+using Windows.Media.Casting;
+using Windows.Media.Playback;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.Media.Playback;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Converters;
-using Rise.App.ViewModels;
-using Rise.App.Views;
-using Windows.Media.Casting;
 
 namespace Rise.App.UserControls
 {
@@ -195,7 +195,7 @@ namespace Rise.App.UserControls
             }
             else
             {
-               
+
             }
         }
 
@@ -211,7 +211,7 @@ namespace Rise.App.UserControls
             }
             else
             {
-                
+
             }
         }
 
@@ -300,7 +300,7 @@ namespace Rise.App.UserControls
             {
                 border.BorderBrush = PlayBorderBrushLight;
             }
-            
+
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)

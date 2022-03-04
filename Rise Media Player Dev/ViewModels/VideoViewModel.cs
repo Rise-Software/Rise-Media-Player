@@ -195,7 +195,7 @@ namespace Rise.App.ViewModels
         }
 
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync(Uri uri)
-        { 
+        {
             MediaSource source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
 

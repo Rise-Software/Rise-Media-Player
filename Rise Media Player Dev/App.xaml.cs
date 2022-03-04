@@ -35,7 +35,7 @@ namespace Rise.App
         #region Variables
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
 
-        public static TimeSpan IndexingInterval 
+        public static TimeSpan IndexingInterval
         {
             get
             {
@@ -391,7 +391,7 @@ namespace Rise.App
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
                         SongsTracker.MusicQueryResultChanged);
                 }
-                
+
                 // await MViewModel.StartFullCrawlAsync();
 
                 // Place the frame in the current Window

@@ -64,7 +64,8 @@ namespace Rise.App.Views
                     }
                     SelectedVideo = null;
                 }
-            } else
+            }
+            else
             {
                 if (e.ClickedItem is VideoViewModel video)
                 {

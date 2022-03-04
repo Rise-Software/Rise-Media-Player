@@ -295,8 +295,9 @@ namespace Rise.App.UserControls
                         {
                             BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R + lightThemeAdditions), (byte)(color.Color.G + lightThemeAdditions), (byte)(color.Color.B + lightThemeAdditions));
                         }
-                        
-                    } catch (InvalidOperationException)
+
+                    }
+                    catch (InvalidOperationException)
                     {
 
                     }
@@ -562,7 +563,8 @@ namespace Rise.App.UserControls
                 {
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
-            } else
+            }
+            else
             {
                 if (Window.Current.Content is Frame rootFrame)
                 {
@@ -600,7 +602,7 @@ namespace Rise.App.UserControls
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
-            
+
             ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
@@ -830,6 +832,6 @@ namespace Rise.App.UserControls
             }
         }
 
-        
+
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using Rise.App.Common;
+﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using System;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
@@ -49,7 +49,7 @@ namespace Rise.App.Props
 
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
 
-            if(file != null)
+            if (file != null)
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);

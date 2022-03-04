@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -174,12 +173,13 @@ namespace Rise.App.Views
                     try
                     {
                         file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appdata:///local/modified-artist-{artist.Name}.png"));
-                    } catch (Exception)
+                    }
+                    catch (Exception)
                     {
 
                     }
 
-                    if (artist.Name == "Unknown Artist") 
+                    if (artist.Name == "Unknown Artist")
                     {
                         artist.Picture = "ms-appx:///Assets/BlankArtist.png";
                     }
@@ -210,7 +210,8 @@ namespace Rise.App.Views
                     string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
                     return yes;
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -227,7 +228,8 @@ namespace Rise.App.Views
                     _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
                     SelectedArtist = null;
                 }
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
                 {
@@ -293,7 +295,8 @@ namespace Rise.App.Views
                     }
                 }
                 await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), new Random().Next(0, songs.Count), songs.Count, true);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
                 await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);

@@ -38,7 +38,8 @@ namespace Rise.App.DbControllers
             {
                 ObservableCollection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<ObservableCollection<PlaylistViewModel>>(text);
                 return playlists;
-            } else
+            }
+            else
             {
                 return new ObservableCollection<PlaylistViewModel>();
             }
@@ -56,13 +57,14 @@ namespace Rise.App.DbControllers
         public async Task UpsertAsync(PlaylistViewModel playlist)
         {
             Collection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<Collection<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new Collection<PlaylistViewModel>();
-            
+
             bool playlistExists = playlists.Any(p =>
             {
                 if (p != null)
                 {
                     return p.Model.Equals(playlist.Model);
-                } else
+                }
+                else
                 {
                     return false;
                 }
@@ -73,7 +75,8 @@ namespace Rise.App.DbControllers
                 PlaylistViewModel item = playlists.FirstOrDefault(i => i.Model.Equals(playlist.Model));
                 var oldIndex = playlists.IndexOf(item);
                 playlists[oldIndex] = playlist;
-            } else
+            }
+            else
             {
                 await InsertAsync(playlist);
                 return;

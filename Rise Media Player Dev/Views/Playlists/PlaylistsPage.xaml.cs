@@ -3,10 +3,8 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
-using Rise.Models;
 using System;
 using Windows.Storage.Pickers;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -65,7 +63,8 @@ namespace Rise.App.Views
                 }
 
                 SelectedPlaylist = null;
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
                 {
@@ -87,7 +86,7 @@ namespace Rise.App.Views
                 PlaylistViewModel playlist = MainGrid.Items[MainGrid.SelectedIndex] as PlaylistViewModel;
                 SelectedPlaylist = playlist;
                 System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {SelectedPlaylist.Title}\n   Description: {SelectedPlaylist.Description}");
-            } 
+            }
             catch
             {
                 try
@@ -98,7 +97,7 @@ namespace Rise.App.Views
                 {
 
                 }
-                
+
             }
         }
 

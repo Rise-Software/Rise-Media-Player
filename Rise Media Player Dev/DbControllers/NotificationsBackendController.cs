@@ -33,7 +33,8 @@ namespace Rise.App.DbControllers
             {
                 ObservableCollection<NotificationViewModel> notifications = JsonConvert.DeserializeObject<ObservableCollection<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile));
                 return notifications;
-            } else
+            }
+            else
             {
                 return new ObservableCollection<NotificationViewModel>();
             }

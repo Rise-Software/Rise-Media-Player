@@ -29,7 +29,7 @@ namespace Rise.App.Settings
             "Use custom colour",
             "Use album art"
         };
-        
+
         public AppearancePage()
         {
             InitializeComponent();

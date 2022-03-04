@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.Storage.Search;
 
 namespace Rise.App.ChangeTrackers
@@ -176,7 +175,8 @@ namespace Rise.App.ChangeTrackers
                         toRemove.Add(ViewModel.Songs[i]);
                     }
                 }
-            } finally
+            }
+            finally
             {
                 foreach (SongViewModel song in toRemove)
                 {

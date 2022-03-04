@@ -248,7 +248,8 @@ namespace Rise.App.Views
                 {
                     song.IsDurationVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (SongViewModel song in Songs)
                 {

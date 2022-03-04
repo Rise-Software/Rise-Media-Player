@@ -227,7 +227,8 @@ namespace Rise.App.Views
 
                     SelectedAlbum = null;
                 }
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
                 {
@@ -361,7 +362,8 @@ namespace Rise.App.Views
                 {
                     album.IsTitleVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {
@@ -454,7 +456,8 @@ namespace Rise.App.Views
                 {
                     album.IsArtistVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {

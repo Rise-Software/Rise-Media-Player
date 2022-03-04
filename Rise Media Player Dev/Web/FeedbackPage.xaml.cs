@@ -1,7 +1,5 @@
 ﻿using Rise.App.Common;
-using System;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -19,9 +17,9 @@ namespace Rise.App.Web
     {
         public FeedbackPage()
         {
-            
+
             InitializeComponent();
-            
+
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
             titleBar.ButtonBackgroundColor = Colors.Transparent;

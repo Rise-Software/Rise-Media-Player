@@ -162,8 +162,9 @@ namespace Rise.App.Helpers
                         using StreamReader reader = new(response.GetResponseStream());
                         Debug.WriteLine(reader.ReadToEnd());
                     }
-                } catch (Exception) {}
-                
+                }
+                catch (Exception) { }
+
             };
             client.Dispose();
         }

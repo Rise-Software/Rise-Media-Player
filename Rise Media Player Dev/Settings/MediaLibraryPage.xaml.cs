@@ -1,21 +1,11 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
-using static Rise.App.Common.Enums;
-using Windows.UI.WindowManagement;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Core;
-using Windows.ApplicationModel.Core;
-using Windows.UI.ViewManagement;
-using Rise.App.Views;
 
 namespace Rise.App.Settings
 {
@@ -46,7 +36,7 @@ namespace Rise.App.Settings
         };
         #endregion
 
-                public MediaLibraryPage()
+        public MediaLibraryPage()
         {
             InitializeComponent();
             Current = this;
@@ -59,14 +49,14 @@ namespace Rise.App.Settings
         }
         private async void GotoManage_Click(object sender, RoutedEventArgs e)
         {
-                AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
-                AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
-                AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
-                AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-            
-                SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaSourcesPage));
+            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
+            AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
+            AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
+            AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
+
+            SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaSourcesPage));
         }
-         
+
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
         {

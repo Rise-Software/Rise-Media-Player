@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Media;
 using Windows.Media.Playback;

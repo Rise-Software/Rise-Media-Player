@@ -3,7 +3,6 @@ using Rise.App.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Views
 {

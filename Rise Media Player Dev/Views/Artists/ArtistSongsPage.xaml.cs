@@ -69,7 +69,7 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
-            Current=this;
+            Current = this;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             Loaded += ArtistSongsPage_Loaded;
@@ -196,7 +196,7 @@ namespace Rise.App.Views
             }
 
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
