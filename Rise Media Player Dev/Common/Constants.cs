@@ -193,6 +193,6 @@
         /// contain one already.
         /// </summary>
         public const string ArtistThumb =
-            "ms-appx:///Assets/missingperson.png";
+            "ms-appx:///Assets/BlankArtist.png";
     }
 }
