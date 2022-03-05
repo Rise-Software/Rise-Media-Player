@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.Settings;
+using Rise.Common.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

@@ -1,4 +1,4 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common.Constants;
 using System.Collections.Generic;
 
 namespace Rise.App.Props
