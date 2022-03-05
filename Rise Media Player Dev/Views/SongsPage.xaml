@@ -52,7 +52,7 @@
                           x:Uid="/Information/Shuffle"
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
@@ -221,6 +221,15 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+                    <MenuFlyoutItem x:Name="ShowinFE"
+                                    x:Uid="/Information/ShowinFE"
+                                    IsEnabled="True"
+                                    Click="ShowinFE_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xEC50;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
 
                     <MenuFlyoutSeparator/>
 
@@ -282,7 +291,7 @@
                                 CornerRadius="4"
                                 Height="32"
                                 IsHitTestVisible="False"
-                                Padding="0"
+                                Padding="-12"
                                 Width="32">
                             <Border x:Name="AlbumThumb"
                                     CornerRadius="4"

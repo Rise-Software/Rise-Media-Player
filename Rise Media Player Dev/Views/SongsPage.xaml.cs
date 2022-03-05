@@ -3,6 +3,9 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using System;
+using System.Diagnostics;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -331,6 +334,24 @@ namespace Rise.App.Views
             dialog.CloseButtonText = "Close";
             dialog.Content = new Settings.MediaSourcesPage();
             var result = await dialog.ShowAsync();
+        }
+
+        private async void ShowinFE_Click(object sender, RoutedEventArgs e)
+        {
+            string folderlocation = SelectedSong.Location;
+            string filename = SelectedSong.Filename;
+            string result = folderlocation.Replace(filename, "");
+            Debug.WriteLine(result);
+
+            try
+            {
+                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
+                await Launcher.LaunchFolderAsync(folder);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
