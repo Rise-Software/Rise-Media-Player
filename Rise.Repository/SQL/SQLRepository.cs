@@ -5,7 +5,7 @@ using Windows.Storage;
 
 namespace Rise.Repository.SQL
 {
-    public class SQLRepository : IRepository
+    public class SQLRepository
     {
         private readonly DbContextOptions<Context> _dbOptions;
 
@@ -44,10 +44,29 @@ namespace Rise.Repository.SQL
             Videos = new SQLVideoRepository(_dbOptions);
         }
 
+        /// <summary>
+        /// Returns the songs repository.
+        /// </summary>
         public ISQLRepository<Song> Songs { get; set; }
+
+        /// <summary>
+        /// Returns the albums repository.
+        /// </summary>
         public ISQLRepository<Album> Albums { get; set; }
+
+        /// <summary>
+        /// Returns the artists repository.
+        /// </summary>
         public ISQLRepository<Artist> Artists { get; set; }
+
+        /// <summary>
+        /// Returns the genres repository.
+        /// </summary>
         public ISQLRepository<Genre> Genres { get; set; }
+
+        /// <summary>
+        /// Returns the videos repository.
+        /// </summary>
         public ISQLRepository<Video> Videos { get; set; }
     }
 }

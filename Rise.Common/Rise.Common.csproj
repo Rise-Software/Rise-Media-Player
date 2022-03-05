@@ -126,6 +126,8 @@
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Interfaces\ICancellableTask.cs" />
+    <Compile Include="Interfaces\ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Rise.Common.rd.xml" />
   </ItemGroup>
@@ -136,6 +138,12 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
+      <Project>{17D51104-B536-4D03-BD8B-74E0CCE49CFB}</Project>
+      <Name>Rise.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
