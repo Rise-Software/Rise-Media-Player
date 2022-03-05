@@ -186,7 +186,7 @@
         /// contain one already.
         /// </summary>
         public const string MusicThumb =
-            "ms-appx:///Assets/Default.png";
+            "ms-appx:///Assets/BlankAlbum.png";
 
         /// <summary>
         /// Default thumbnail for artists that don't
