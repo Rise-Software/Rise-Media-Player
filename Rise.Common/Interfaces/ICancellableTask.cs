@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Rise.App.Common
+namespace Rise.Common.Interfaces
 {
     /// <summary>
     /// Allows for Tasks to be cancelled while running.
