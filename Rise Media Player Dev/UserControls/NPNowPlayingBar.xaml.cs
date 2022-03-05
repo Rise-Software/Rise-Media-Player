@@ -216,8 +216,8 @@ namespace Rise.App.UserControls
                 Grid.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Visible;
                 OverlayButton1.Visibility = Visibility.Visible;
-                Forward30.Visibility = Visibility.Collapsed;
-                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Visible;
 
                 OverlayButton1.Visibility = Visibility.Visible;
                 FontIcon fontIcon = OverlayButton1.FindChildren().First() as FontIcon;

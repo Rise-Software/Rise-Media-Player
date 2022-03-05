@@ -19,8 +19,11 @@
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
-                    <Image Height="33"
-                           Source="ms-appx:///Assets/Branding/settingsbanner.png" />
+                    <Button HorizontalContentAlignment="Left" Margin="-4,8,-4,-4" BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
+                        <Image Height="42" Margin="-5"
+                           Source="ms-appx:///Assets/Branding/alphabanner.png" />
+                    </Button>
+                    
                 </uc:AdaptiveItemPane.LeftPane>
 
                 <uc:AdaptiveItemPane.RightPane>
@@ -63,6 +66,8 @@
             <uc:ExpanderControl Click="WhatsNew_Click"
                                 ExpanderStyle="Button"
                                 Icon="&#xF4A5;"
+                                Padding="0,0,0,0"
+                                Margin="0,0,0,120"
                                 Title="What's New"
                                 Description="Check out the new features in Rise Media Player."/>
 

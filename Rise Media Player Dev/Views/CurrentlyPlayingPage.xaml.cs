@@ -15,10 +15,12 @@ namespace Rise.App.Views
         /// </summary>
         private PlaybackViewModel ViewModel => App.PViewModel;
 
+        public static CurrentlyPlayingPage Current;
+
         public CurrentlyPlayingPage()
         {
             InitializeComponent();
-
+            Current = this;
             Loaded += CurrentlyPlayingPage_Loaded;
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
@@ -43,5 +45,6 @@ namespace Rise.App.Views
             preferences.CustomSize = new Size(600, 700);
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
         }
+
     }
 }

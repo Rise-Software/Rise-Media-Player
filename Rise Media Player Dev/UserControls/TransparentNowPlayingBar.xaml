@@ -118,13 +118,13 @@
             </MenuFlyoutSubItem>
         </MenuFlyout>
 
-        <Flyout x:Key="VolumeFlyout">
-            <RelativePanel Width="200">
+        <Flyout x:Key="VolumeFlyout" x:Name="VolumeFlyout">
+            <RelativePanel Width="200" Height="15" Padding="-5" >
                 <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
-                    <SymbolIcon Symbol="Volume" />
+                    <SymbolIcon Symbol="Volume"/>
                 </Viewbox>
-                <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="10,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
-                <TextBlock Text="{x:Bind VolumeSlider1.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                <Slider StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider1" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText1" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="16,-8,16,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl1" />
+                <TextBlock Margin="-8,-2,4,0" Text="{x:Bind VolumeSlider1.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText1" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
             </RelativePanel>
         </Flyout>
     </UserControl.Resources>
@@ -140,7 +140,7 @@
 
             <StackPanel VerticalAlignment="Center" Margin="-1,0,0,0" Padding="3,0,0,0">
                 <StackPanel x:Name="OverlayMediaButtons" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button HorizontalAlignment="Right" Padding="7" Margin="0,5,5,5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Flyout="{StaticResource VolumeFlyout}"  Background="Transparent">
+                    <Button HorizontalAlignment="Right" Padding="7" Margin="0,5,5,5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Click="VolumeFlyoutButton1_Click"  Background="Transparent">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 
@@ -323,7 +323,7 @@
                         <FontIcon Glyph="&#xE10C;" x:Name="Overlay1"/>
                     </Button>
                 </StackPanel>
-                <RelativePanel MaxWidth="4000">
+                <RelativePanel MaxWidth="4000" x:Name="Progress">
                     <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
                     <Slider PointerCaptureLost="SliderProgress_PointerCaptureLost" x:Name="SliderProgress" Padding="8,0,8,0" RelativePanel.RightOf="MediaPlayingDurationLeft" RelativePanel.LeftOf="MediaPlayingDurationRight" IsThumbToolTipEnabled="False" />
                     <TextBlock Text="0:00" x:Name="MediaPlayingDurationRight" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" />

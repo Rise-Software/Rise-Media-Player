@@ -111,5 +111,35 @@ namespace Rise.App.Views
         {
 
         }
+
+        private void FullNPGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width >= 900)
+            {
+                CurrentlyPlayingPage.Current.ArtInfo.Visibility = Visibility.Visible;
+                ArtInfo.Visibility = Visibility.Visible;
+            }
+            else if (e.NewSize.Width >= 600)
+            {
+                CurrentlyPlayingPage.Current.ArtInfo.Visibility = Visibility.Visible;
+                ArtInfo.Visibility = Visibility.Visible;
+            }
+            else if (e.NewSize.Width >= 480)
+            {
+                CurrentlyPlayingPage.Current.ArtInfo.Visibility = Visibility.Collapsed;
+                ArtInfo.Visibility = Visibility.Collapsed;
+            }
+            else if (e.NewSize.Width >= 400)
+            {
+                CurrentlyPlayingPage.Current.ArtInfo.Visibility = Visibility.Collapsed;
+                ArtInfo.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CurrentlyPlayingPage.Current.ArtInfo.Visibility = Visibility.Collapsed;
+                ArtInfo.Visibility = Visibility.Collapsed;
+            }
+        }
+
     }
 }

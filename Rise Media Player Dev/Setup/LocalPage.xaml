@@ -42,7 +42,7 @@
                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                    Style="{StaticResource BodyTextBlockStyle}" />-->
         <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0,48,0,0">
-            <Frame x:Name="SetupLocalFrame"/>
+            <Frame HorizontalAlignment="Left" x:Name="SetupLocalFrame" x:FieldModifier="public" Width="486"/>
         </ScrollViewer>
     </Grid>
 </Page>

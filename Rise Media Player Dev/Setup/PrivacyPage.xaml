@@ -29,7 +29,7 @@
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/Appearance/AtAGlance"
-                                   ExpanderStyle="Button"
+                                   ExpanderStyle="Disabled"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xECA5;">
                 <!--FontIcon FontSize="16"
