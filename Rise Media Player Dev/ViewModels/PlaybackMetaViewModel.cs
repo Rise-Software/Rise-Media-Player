@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Rise.Data.ViewModels;
+using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {

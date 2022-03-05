@@ -1,4 +1,6 @@
-﻿namespace Rise.App.ViewModels
+﻿using Rise.Data.ViewModels;
+
+namespace Rise.App.ViewModels
 {
     public class DeviceViewModel : ViewModel
     {

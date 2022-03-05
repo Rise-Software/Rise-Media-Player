@@ -1,4 +1,5 @@
-﻿using Rise.Models;
+﻿using Rise.Data.ViewModels;
+using Rise.Models;
 using Rise.Repository.SQL;
 using System;
 using System.Threading.Tasks;

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 using Rise.App.Views;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -12,7 +14,7 @@ namespace Rise.App.ViewModels
 {
     public class SettingsViewModel : ViewModel
     {
-        private SidebarViewModel SBViewModel => App.SBViewModel;
+        private NavViewDataSource SBViewModel => App.NavDataSource;
         public ICommand OpenFilesAtStartupCommand { get; }
 
         public SettingsViewModel()
