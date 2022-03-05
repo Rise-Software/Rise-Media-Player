@@ -249,7 +249,10 @@ namespace Rise.App.Dialogs
                 Header.Margin = BackButton.Visibility == Visibility.Visible ?
                     new Thickness(42, -5, 0, 0) : new Thickness(0, -5, 0, 0);
 
-                LocalPage.Current.SetupLocalFrame.Width = 450;
+                if (LocalPage.Current != null)
+                {
+                    LocalPage.Current.SetupLocalFrame.Width = 450;
+                }
             }
             else
             {
@@ -260,7 +263,10 @@ namespace Rise.App.Dialogs
                 ControlGrid.Margin = new Thickness(-24);
                 Header.Margin = new Thickness(0, -4, 0, 0);
 
-                LocalPage.Current.SetupLocalFrame.Width = 486;
+                if (LocalPage.Current != null)
+                {
+                    LocalPage.Current.SetupLocalFrame.Width = 486;
+                }
             }
 
             // The 59 is because for some reason the dialog has a 1px transparent

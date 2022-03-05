@@ -1,0 +1,102 @@
+{
+  "Items": [
+    {
+      "Id": "HomePage",
+      "AccessKey": "H",
+      "HeaderGroup": "General",
+      "Icon": "\uECA5",
+      "Label": "Home",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "PlaylistsPage",
+      "AccessKey": "P",
+      "HeaderGroup": "General",
+      "Icon": "\uE8FD",
+      "Label": "Playlists",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "MHeader",
+      "HeaderGroup": "Music",
+      "Label": "Music",
+      "IsVisible": true,
+      "ItemType": 0
+    },
+    {
+      "Id": "SongsPage",
+      "AccessKey": "N",
+      "HeaderGroup": "Music",
+      "Icon": "\uEC4F",
+      "Label": "Songs",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "ArtistsPage",
+      "AccessKey": "T",
+      "HeaderGroup": "Music",
+      "Icon": "\uE125",
+      "Label": "Artists",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "AlbumsPage",
+      "AccessKey": "A",
+      "HeaderGroup": "Music",
+      "Icon": "\uE93C",
+      "Label": "Albums",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "GenresPage",
+      "AccessKey": "G",
+      "HeaderGroup": "Music",
+      "Icon": "\uE138",
+      "Label": "Genres",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "VHeader",
+      "HeaderGroup": "Videos",
+      "Label": "Videos",
+      "IsVisible": true,
+      "ItemType": 0
+    },
+    {
+      "Id": "LocalVideosPage",
+      "AccessKey": "V",
+      "HeaderGroup": "Videos",
+      "Icon": "\uE8B2",
+      "Label": "LocalVideos",
+      "IsVisible": true,
+      "ItemType": 1
+    }
+  ],
+
+  "FooterItems": [
+    {
+      "Id": "DiscyPage",
+      "AccessKey": "C",
+      "HeaderGroup": "General",
+      "Icon": "\uE9CE",
+      "Label": "Discy",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
+      "Id": "SettingsPage",
+      "AccessKey": "S",
+      "HeaderGroup": "Other",
+      "Icon": "\uE115",
+      "Label": "Settings",
+      "IsVisible": true,
+      "ItemType": 1
+    }
+  ]
+}
