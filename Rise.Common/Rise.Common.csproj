@@ -120,6 +120,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Enums\ExistingDialogOptions.cs" />
+    <Compile Include="Enums\ExpanderStyles.cs" />
+    <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />

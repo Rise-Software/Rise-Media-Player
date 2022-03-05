@@ -1,8 +1,8 @@
 ﻿using Rise.App.Common;
 using Rise.App.Dialogs;
+using Rise.Common.Enums;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Views
 {
