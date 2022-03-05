@@ -6,6 +6,7 @@ using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using System;
 using System.Collections.Generic;
@@ -377,6 +378,7 @@ namespace Rise.App
                     _ = await KnownFolders.MusicLibrary.
                     TrackForegroundAsync(QueryPresets.SongQueryOptions,
                     SongsTracker.MusicQueryResultChanged);
+
                     _ = await KnownFolders.VideosLibrary.
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
                         SongsTracker.MusicQueryResultChanged);

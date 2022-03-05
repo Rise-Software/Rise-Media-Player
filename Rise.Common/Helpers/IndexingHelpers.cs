@@ -7,7 +7,7 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
-namespace Rise.App.Indexing
+namespace Rise.Common.Helpers
 {
     public static class IndexingHelpers
     {
