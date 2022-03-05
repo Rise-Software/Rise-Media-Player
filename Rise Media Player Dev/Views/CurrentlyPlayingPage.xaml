@@ -69,7 +69,7 @@
 
         <Rectangle Grid.Row="1" />
 
-            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,48,0,0"  Visibility="Collapsed" Padding="20" VerticalAlignment="Center">
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,48,0,0"  Padding="20" VerticalAlignment="Center">
                 <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
                        MaxLines="2"
                        HorizontalTextAlignment="Center"

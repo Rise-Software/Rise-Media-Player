@@ -223,9 +223,9 @@
                         </muxc:NavigationView.AutoSuggestBox>
 
                         <muxc:NavigationView.FooterMenuItems>
-                            <muxc:NavigationViewItem Content="Windows behaviours" Tag="Behaviour" x:Name="Behaviour">
+                            <muxc:NavigationViewItem Content="System behaviours" Tag="Behaviour" x:Name="Behaviour">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE336;"/>
+                                    <FontIcon Glyph="&#xEC7A;"/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem Content="Manage components" Tag="Components" x:Name="Components">
