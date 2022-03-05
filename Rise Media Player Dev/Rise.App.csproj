@@ -162,6 +162,7 @@
     <Compile Include="Converters\VideoToString.cs" />
     <Compile Include="DbControllers\BaseBackendController.cs" />
     <Compile Include="DbControllers\NotificationsBackendController.cs" />
+    <Compile Include="DbControllers\WidgetsBackendController.cs" />
     <Compile Include="DbControllers\PlaylistsBackendController.cs" />
     <Compile Include="Dialogs\AboutArtist.xaml.cs">
       <DependentUpon>AboutArtist.xaml</DependentUpon>
