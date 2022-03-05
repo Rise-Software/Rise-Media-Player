@@ -4,13 +4,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
 
+        <muxc:InfoBar
+            x:Name="TryRiseEQ" x:FieldModifier="public"
+            IsOpen="True"
+            Margin="0,4,0,0"
+            IsIconVisible="True"
+            IsClosable="False"
+            Severity="Informational"
+            Message="We are currently working on an Equaliser for Rise Media Player as a separate app. Go to GitHub to contribute and try it out!">
+            <muxc:InfoBar.ActionButton>
+                <HyperlinkButton Content="RiseEQ GitHub"
+                                 Click="RiseEQLink_Click"
+                                 x:Name="RiseEQLink"/>
+            </muxc:InfoBar.ActionButton>
+        </muxc:InfoBar>
         
-        <TextBlock x:Uid="/Playback/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        
+        <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource Subheader}" />
         <uc:ExpanderControl x:Uid="/Playback/EQ"
                                ExpanderStyle="Disabled"
                                Icon="&#xE9E9;">
