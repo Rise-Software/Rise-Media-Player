@@ -387,37 +387,6 @@
                         VerticalAlignment="Bottom"
                         BackgroundStyle="UseAlbumArt"
                         IsArtistShown="True" />
-
-                    <!--<MediaPlayerElement x:Name="PlayerElement"
-                                        animations:Connected.Key="Player"
-                                        AreTransportControlsEnabled="True"
-                                        Height="120"
-                                        Margin="44,0"
-                                        VerticalAlignment="Bottom"
-                                        Visibility="Visible">
-                        <MediaPlayerElement.TransportControls>
-                            <MediaTransportControls x:Name="MediaControls"
-                                                    IsFastForwardButtonVisible="False"
-                                                    IsFastForwardEnabled="False"
-                                                    IsFastRewindButtonVisible="False"
-                                                    IsFastRewindEnabled="False"
-                                                    IsPlaybackRateButtonVisible="True"
-                                                    IsPlaybackRateEnabled="True"
-                                                    IsFullWindowButtonVisible="False"
-                                                    IsFullWindowEnabled="False"
-                                                    IsZoomButtonVisible="False"
-                                                    IsRepeatButtonVisible="True"
-                                                    IsRepeatEnabled="True"
-                                                    IsSkipBackwardButtonVisible="False"
-                                                    IsSkipForwardButtonVisible="False"
-                                                    IsCompact="False"
-                                                    IsSeekBarVisible="True"
-                                                    IsSeekEnabled="True"
-                                                    IsNextTrackButtonVisible="True"
-                                                    IsPreviousTrackButtonVisible="True"
-                                                    ShowAndHideAutomatically="False" />
-                        </MediaPlayerElement.TransportControls>
-                    </MediaPlayerElement>-->
                 </Grid>
             </Grid>
         </muxc:NavigationView>
@@ -448,10 +417,7 @@
 
 
             PreferredPlacement="TopRight">
-            <!--<muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/addednewmedia.png" />
-            </muxc:TeachingTip.HeroContent>-->
-            
+
 
         </muxc:TeachingTip>
 
@@ -468,10 +434,6 @@
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>
                 <StackPanel>
-
-                   
-
-                    <!--<Image Source="/Assets/lookingformedia.png" />-->
                     <muxc:ProgressBar
                         Width="270"
                         Margin="2,0,10,10"
@@ -494,6 +456,7 @@
                 <muxc:FontIconSource Glyph="&#xE8F1;" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
+        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="SmallWidth">

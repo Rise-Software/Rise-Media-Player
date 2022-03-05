@@ -100,14 +100,10 @@ namespace Rise.App.Views
             };
 
             var result = await dialog.ShowAsync();
-
-            if (result == ContentDialogResult.Primary)
-            {
-                await "https://www.github.com/rise-software/rise-media-player".LaunchAsync();
-            }
         }
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
             => _ = await typeof(WhatsNew).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
+
     }
 }

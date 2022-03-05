@@ -9,10 +9,13 @@ namespace Rise.App.Setup
     {
         private SettingsViewModel ViewModel => App.SViewModel;
         private List<string> Deletion { get; set; }
+        public static LocalPage Current;
+
 
         public LocalPage()
         {
             InitializeComponent();
+            Current = this;
             SetupLocalFrame.Navigate(typeof(Settings.MediaSourcesPage));
 
             Deletion = new List<string>
