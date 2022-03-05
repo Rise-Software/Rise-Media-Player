@@ -454,6 +454,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -467,6 +470,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -481,6 +487,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -495,6 +504,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Left;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
@@ -504,6 +516,9 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Left;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
@@ -786,9 +801,12 @@ namespace Rise.App.UserControls
             NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
+        private void GoToNowPlaying_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+        }
+
         private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            NowPlayingHover.Hide();
         }
 
         private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -832,6 +850,17 @@ namespace Rise.App.UserControls
             }
         }
 
+        private void Forward30_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
+        }
+
+        private void Back10_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
+        }
+
+        
 
     }
 }
