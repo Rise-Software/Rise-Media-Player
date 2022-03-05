@@ -302,5 +302,67 @@ namespace Rise.App.Views
             // This will automatically save the playlist to the db
             await playlist.RemoveSongsAsync(songs);
         }
+
+        private void Root_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            AddTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                AddTo.Items.Add(item);
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongAsync(SelectedSong);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+            await playlist.AddSongAsync(SelectedSong);
+        }
     }
 }

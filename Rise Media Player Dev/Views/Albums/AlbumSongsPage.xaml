@@ -1,5 +1,6 @@
 ﻿<Page
     x:Name="Root"
+    Loaded="Root_Loaded"
     x:Class="Rise.App.Views.AlbumSongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -66,13 +67,6 @@
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem x:Name="NewPlaylist"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem x:Name="Share"
