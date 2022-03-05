@@ -336,7 +336,7 @@ namespace Rise.App.ViewModels
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                string thumb = URIs.MusicThumb;
+                string thumb = URIs.AlbumThumb;
 
                 // If the album is unknown, no need to get a thumbnail.
                 if (song.Album != "UnknownAlbumResource")
@@ -410,7 +410,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveAsync();
+                        await alvm.SaveEditsAsync();
                     }
                 }
 
