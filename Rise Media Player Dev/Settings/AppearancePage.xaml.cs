@@ -117,7 +117,7 @@ namespace Rise.App.Settings
 
         private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            await CoreApplication.RequestRestartAsync("-fastInit -level 1 -foo");
+            await CoreApplication.RequestRestartAsync("Theme changed");
         }
 
         private void ThemeChange_DropDownClosed(object sender, object e)

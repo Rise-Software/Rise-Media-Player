@@ -92,40 +92,33 @@
                                     <FontIcon Glyph="" FontSize="16"/>
                                     <Button.Flyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutSubItem Text="Navigation">
+                                            <MenuFlyoutSubItem Text="Settings menus">
                                                 <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xE8B0;" />
+                                                    <FontIcon Glyph="&#xE145;" />
                                                 </MenuFlyoutSubItem.Icon>
-                                                <MenuFlyoutItem Text="Left">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph=""/>
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
+                                                <muxc:RadioMenuFlyoutItem IsChecked="True" IsEnabled="False" Text="Left"/>
+                                                <muxc:RadioMenuFlyoutItem IsChecked="False" IsEnabled="False" Text="Top"/>
+                                            </MenuFlyoutSubItem>
 
-                                                <MenuFlyoutItem Text="Top">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="" Rotation="180"/>
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
+                                            <MenuFlyoutSubItem Text="Header">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xE185;" />
+                                                </MenuFlyoutSubItem.Icon>
+                                                <muxc:RadioMenuFlyoutItem IsChecked="True" IsEnabled="False" Text="Left"/>
+
+                                                <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Centre"/>
+
+                                                <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Right"/>
                                             </MenuFlyoutSubItem>
 
                                             <MenuFlyoutSubItem Text="Icons">
                                                 <MenuFlyoutSubItem.Icon>
                                                     <FontIcon Glyph="&#xE91B;" />
                                                 </MenuFlyoutSubItem.Icon>
-                                                <MenuFlyoutItem Text="High Contrast">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph=""/>
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-
-                                                <MenuFlyoutItem Text="Fluent Colour">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
+                                                <muxc:RadioMenuFlyoutItem Text="High Contrast" IsEnabled="False" IsChecked="True"/>
+                                                <muxc:RadioMenuFlyoutItem Text="Fluent Colour" IsEnabled="False"/>
                                             </MenuFlyoutSubItem>
-                                            
+
                                             <MenuFlyoutSeparator/>
                                             
                                             <MenuFlyoutItem x:Name="Language" Text="Language" Click="Language_Click">
@@ -133,16 +126,24 @@
                                                     <FontIcon Glyph=""/>
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
-                                            
+
                                             <MenuFlyoutItem x:Name="Insider" Text="Insider Hub" Click="Insider_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xF1AD;"/>
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
+                                            <MenuFlyoutSeparator/>
+
                                             <MenuFlyoutItem x:Name="ClassicDialog" Text="Open classic dialog" Click="ClassicDialog_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE17C;"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Name="RestoreDefaultSettings" IsEnabled="False" Text="Restore defaults">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE359;"/>
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             
@@ -224,7 +225,7 @@
                         <muxc:NavigationView.FooterMenuItems>
                             <muxc:NavigationViewItem Content="Windows behaviours" Tag="Behaviour" x:Name="Behaviour">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon Glyph="&#xE7C4;"/>
+                                    <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE336;"/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem Content="Manage components" Tag="Components" x:Name="Components">

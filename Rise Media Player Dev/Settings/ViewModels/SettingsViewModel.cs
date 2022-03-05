@@ -36,6 +36,12 @@ namespace Rise.App.ViewModels
             set => Set(value, "WindowsBehaviours");
         }
 
+        public int FLGStartupTask
+        {
+            get => Get(0, "WindowsBehaviours");
+            set => Set(value, "WindowsBehaviours");
+        }
+
         public async Task OpenFilesAtStartupAsync()
         {
             var stateMode = await ReadStateAsync();
@@ -73,22 +79,27 @@ namespace Rise.App.ViewModels
                 case StartupTaskState.Disabled:
                     CanOpenInLogin = true;
                     OpenInLogin = false;
+                    FLGStartupTask = 0;
                     break;
                 case StartupTaskState.Enabled:
                     CanOpenInLogin = true;
                     OpenInLogin = true;
+                    FLGStartupTask = 0;
                     break;
                 case StartupTaskState.DisabledByPolicy:
                     CanOpenInLogin = false;
                     OpenInLogin = false;
+                    FLGStartupTask = 1;
                     break;
                 case StartupTaskState.DisabledByUser:
                     CanOpenInLogin = false;
                     OpenInLogin = false;
+                    FLGStartupTask = 2;
                     break;
                 case StartupTaskState.EnabledByPolicy:
                     CanOpenInLogin = false;
                     OpenInLogin = true;
+                    FLGStartupTask = 3;
                     break;
             }
         }
