@@ -20,6 +20,7 @@
                 Margin="-2,8,-2,0"
     IsOpen="True"
     Title="Note:"
+    IsClosable="False"
     Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." >
 
             </muxc:InfoBar>

@@ -32,7 +32,6 @@
                           Toggled="OpenRiseMPinStartup_Toggled"/>
         </uc:ExpanderControl>
 
-        <!-- put the infobar above the setting -->
         <muxc:InfoBar
             x:Name="InfoBarStartup" x:FieldModifier="public"
             IsOpen="True"
@@ -41,7 +40,7 @@
             Severity="Warning"
             Title="Warning">
             <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Content="Open Startup Settings"
+                <HyperlinkButton Content="Startup Settings"
                                  Click="InfoBarStartupLink_Click"
                                  x:Name="InfoBarStartupLink"
                                  x:FieldModifier="public"/>

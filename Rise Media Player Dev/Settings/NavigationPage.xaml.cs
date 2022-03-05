@@ -62,21 +62,21 @@ namespace Rise.App.Settings
 
                 case 1:
                     //1 => Disabled by Policy
-                    InfoBarStartup.Message = "This feature is disabled due to your administrator's current policies. For more information, please contact your administrator.";
+                    InfoBarStartup.Message = "This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     break;
 
                 case 2:
                     //2 => Disabled by user
-                    InfoBarStartup.Message = "This feature is disabled due to your Windows Startup settings. To change the setting, click the 'Open Startup Settings' link.";
+                    InfoBarStartup.Message = "This feature is disabled due to your current Startup settings. Click the link below to modify these settings.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     break;
 
                 case 3:
                     //3 => Enabled by policy
-                    InfoBarStartup.Message = "This feature is enabled but cannot be modified due to your administrator's current policies. For more information, please contact your administrator.";
+                    InfoBarStartup.Message = "This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     break;
