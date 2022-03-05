@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
@@ -7,12 +6,9 @@ using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Repository;
-using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
