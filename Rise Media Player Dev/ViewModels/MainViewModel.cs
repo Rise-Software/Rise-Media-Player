@@ -425,7 +425,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.Artist,
-                    Picture = Resources.MusicThumb
+                    Picture = Resources.ArtistThumb
                 };
 
                 await arvm.SaveAsync();
@@ -441,7 +441,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
-                    Picture = Resources.MusicThumb
+                    Picture = Resources.ArtistThumb
                 };
 
                 await arvm.SaveAsync();

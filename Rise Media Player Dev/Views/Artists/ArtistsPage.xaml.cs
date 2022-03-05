@@ -182,7 +182,7 @@ namespace Rise.App.Views
 
                     if (artist.Name == "Unknown Artist")
                     {
-                        artist.Picture = "ms-appx:///Assets/BlankArtist.png";
+                        artist.Picture = global::Rise.App.Common.Resources.ArtistThumb;
                     }
                     else if (file != null)
                     {
