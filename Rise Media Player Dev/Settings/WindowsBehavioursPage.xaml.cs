@@ -1,6 +1,9 @@
 ﻿using System;
 using Windows.UI.Xaml.Controls;
 using Rise.App.ViewModels;
+using Windows.System.Profile;
+using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,6 +21,8 @@ namespace Rise.App.Settings
             this.InitializeComponent();
             InfoBar();
         }
+
+       
 
         private async void OpenRiseMPinStartup_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
