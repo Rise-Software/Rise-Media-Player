@@ -427,7 +427,7 @@ namespace Rise.App.UserControls
             if (!App.PViewModel.CurrentSong.IsOnline)
             {
                 SelectedSong = App.PViewModel.CurrentSong;
-                await App.PViewModel.CurrentSong.StartEdit();
+                await App.PViewModel.CurrentSong.StartEditAsync();
             }
         }
     }
