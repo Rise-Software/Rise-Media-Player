@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.Data.ViewModels;
+using System;
 
 namespace Rise.App.ViewModels
 {

@@ -4,6 +4,7 @@ using Rise.App.Common;
 using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -424,7 +425,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.Artist,
-                    Picture = Resources.MusicThumb
+                    Picture = Resources.ArtistThumb
                 };
 
                 await arvm.SaveAsync();
@@ -440,7 +441,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
-                    Picture = Resources.MusicThumb
+                    Picture = Resources.ArtistThumb
                 };
 
                 await arvm.SaveAsync();

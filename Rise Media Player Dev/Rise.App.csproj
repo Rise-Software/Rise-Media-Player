@@ -194,7 +194,6 @@
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
-    <Compile Include="Helpers\CollectionHelpers.cs" />
     <Compile Include="Indexing\IndexingHelpers.cs" />
     <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
@@ -239,6 +238,9 @@
       <DependentUpon>ScanningPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Settings\WindowsBehavioursPage.xaml.cs">
+      <DependentUpon>WindowsBehavioursPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
@@ -264,9 +266,7 @@
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
-    <Compile Include="ViewModels\NavViewItemViewModel.cs" />
     <Compile Include="ViewModels\SearchItemViewModel.cs" />
-    <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
@@ -424,7 +424,6 @@
     <Compile Include="Views\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\SongViewModel.cs" />
     <Compile Include="Windows\CrashDetailsPage.xaml.cs">
       <DependentUpon>CrashDetailsPage.xaml</DependentUpon>
@@ -667,6 +666,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\ScanningPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\WindowsBehavioursPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -974,7 +977,7 @@
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\SampleItemData.json">
+    <Content Include="Assets\ItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
@@ -1088,6 +1091,14 @@
     <PRIResource Include="Strings\en-GB\Local.resw" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
+      <Project>{86322C85-900E-4BC8-959B-141CDFD68231}</Project>
+      <Name>Rise.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rise.Data\Rise.Data.csproj">
+      <Project>{5185BB21-8B6A-4C08-8C50-4E1B8F57B2D5}</Project>
+      <Name>Rise.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
       <Name>Rise.Models</Name>

@@ -6,6 +6,7 @@ using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Data.Sources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,9 +82,9 @@ namespace Rise.App
         public static SettingsViewModel SViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
+        /// Gets the app-wide <see cref="NavViewDataSource"/> singleton instance.
         /// </summary>
-        public static SidebarViewModel SBViewModel { get; private set; }
+        public static NavViewDataSource NavDataSource { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
@@ -214,7 +215,7 @@ namespace Rise.App
             MViewModel = new MainViewModel();
             LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
-            SBViewModel = new SidebarViewModel();
+            NavDataSource = new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
@@ -274,9 +275,9 @@ namespace Rise.App
             {
                 deferral = e?.SuspendingOperation?.GetDeferral();
 
-                if (SBViewModel != null)
+                if (NavDataSource != null)
                 {
-                    await SBViewModel.SerializeItemsAsync();
+                    await NavDataSource.SerializeGroupsAsync();
                 }
 
                 await SuspensionManager.SaveAsync();

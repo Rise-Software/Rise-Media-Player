@@ -15,7 +15,7 @@
     mc:Ignorable="d">
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="4">
+        <StackPanel Orientation="Vertical" Padding="0,56,0,0" Spacing="4">
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.Data.ViewModels;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;

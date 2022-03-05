@@ -23,30 +23,6 @@
             <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
-        <uc:ExpanderControl x:Uid="/WindowsBehaviours/RiseStartup"
-                            ExpanderStyle="Static"
-                            Icon="&#xE819;">
-            <ToggleSwitch x:Name="OpenRiseMPinStartup"
-                          IsOn="{x:Bind local1:App.SViewModel.OpenInLogin, Mode=TwoWay}"
-                          IsEnabled="{x:Bind local1:App.SViewModel.CanOpenInLogin, Mode=OneWay}"
-                          Toggled="OpenRiseMPinStartup_Toggled"/>
-        </uc:ExpanderControl>
-
-        <muxc:InfoBar
-            x:Name="InfoBarStartup" x:FieldModifier="public"
-            IsOpen="True"
-            IsIconVisible="True"
-            IsClosable="False"
-            Severity="Warning"
-            Title="Warning">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Content="Startup Settings"
-                                 Click="InfoBarStartupLink_Click"
-                                 x:Name="InfoBarStartupLink"
-                                 x:FieldModifier="public"/>
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
-
         <uc:ExpanderControl x:Uid="/Navigation/Resize"
                                ExpanderStyle="Disabled"
                                Icon="&#xE944;">

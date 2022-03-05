@@ -1,4 +1,5 @@
-﻿using static Rise.App.Common.Enums;
+﻿using Rise.Data.ViewModels;
+using static Rise.App.Common.Enums;
 
 namespace Rise.App.ViewModels
 {

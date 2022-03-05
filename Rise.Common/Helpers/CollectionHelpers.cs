@@ -1,7 +1,8 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Rise.App.Helpers
+namespace Rise.Common.Helpers
 {
     public static class CollectionHelpers
     {
@@ -10,14 +11,13 @@ namespace Rise.App.Helpers
             if (collection?.Remove(item) ?? false)
             {
                 collection.Insert(newIndex, item);
-
                 return true;
             }
 
             return false;
         }
 
-        public static bool AddIfNotExists<T>(this Collection<T> collection, T item)
+        public static bool AddIfNotExists<T>(this ICollection<T> collection, T item)
         {
             if (!collection.Contains(item))
             {

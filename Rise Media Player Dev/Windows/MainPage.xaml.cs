@@ -3,6 +3,9 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,7 +37,7 @@ namespace Rise.App.Views
     {
         #region Variables
         private SettingsViewModel SViewModel => App.SViewModel;
-        private SidebarViewModel SBViewModel => App.SBViewModel;
+        private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private AdvancedCollectionView Albums = App.MViewModel.FilteredAlbums;
         private AdvancedCollectionView Songs = App.MViewModel.FilteredSongs;
@@ -116,7 +119,7 @@ namespace Rise.App.Views
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
             // Sidebar icons
-            await SBViewModel.LoadItemsAsync();
+            await NavDataSource.PopulateGroupsAsync();
 
             ChangeIconPack(SViewModel.CurrentPack);
 
@@ -247,7 +250,7 @@ namespace Rise.App.Views
         #endregion
 
         #region Navigation
-        private async void NavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private async void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             string navTo = args?.InvokedItemContainer?.Tag?.ToString();
             if (navTo == ContentFrame.CurrentSourcePageType.ToString())
@@ -262,7 +265,7 @@ namespace Rise.App.Views
             }
         }
 
-        private async void NavViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
+        private async void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
             var item = sender as NavigationViewItem;
             string navTo = item.Tag.ToString();
@@ -279,7 +282,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void NavView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+        private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
             => ContentFrame.GoBack();
 
         private async Task Navigate(string navTo)
@@ -358,24 +361,34 @@ namespace Rise.App.Views
         public void FinishNavigation()
         {
             string type = ContentFrame.CurrentSourcePageType.ToString();
-            string tag = type.Split('.').Last();
+            string id = type.Split('.').Last();
+            bool found = NavDataSource.TryGetItem(id, out var current);
 
             Breadcrumbs.Clear();
             CrumbsHeader.Visibility = Visibility.Visible;
 
-            switch (tag)
+            if (found)
+            {
+                NavView.SelectedItem = current;
+                Breadcrumbs.Add(new Crumb
+                {
+                    Title = ResourceLoaders.SidebarLoader.GetString(current.Label)
+                });
+            }
+
+            switch (id)
             {
                 case "HomePage":
-                    NavView.SelectedItem = SBViewModel.
-                        Items.FirstOrDefault(i => i.Tag == tag);
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
                     return;
 
                 case "AlbumSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
-                    NavView.SelectedItem = SBViewModel.
-                        Items.FirstOrDefault(i => i.Tag == "AlbumsPage");
+
+                    NavView.SelectedItem = NavDataSource.
+                        Items.FirstOrDefault(i => i.Id == "AlbumsPage");
                     return;
 
                 case "PlaylistDetailsPage":
@@ -386,14 +399,16 @@ namespace Rise.App.Views
                 case "ArtistSongsPage":
                     CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
-                    NavView.SelectedItem = SBViewModel.
-                        Items.FirstOrDefault(i => i.Tag == "ArtistsPage");
+
+                    NavView.SelectedItem = NavDataSource.
+                        Items.FirstOrDefault(i => i.Id == "ArtistsPage");
                     return;
 
                 case "GenreSongsPage":
                     IsInPageWithoutHeader = false;
-                    NavView.SelectedItem = SBViewModel.
-                        Items.FirstOrDefault(i => i.Tag == "GenresPage");
+
+                    NavView.SelectedItem = NavDataSource.
+                        Items.FirstOrDefault(i => i.Id == "GenresPage");
                     return;
 
                 case "SearchResultsPage":
@@ -401,39 +416,10 @@ namespace Rise.App.Views
                     IsInPageWithoutHeader = true;
                     return;
 
-                case "DiscyPage":
-                    IsInPageWithoutHeader = false;
-                    return;
-
                 default:
+                    CrumbsHeader.Visibility = Visibility.Visible;
                     IsInPageWithoutHeader = false;
                     break;
-            }
-
-            foreach (NavViewItemViewModel item in SBViewModel.Items)
-            {
-                if (item.Tag == tag)
-                {
-                    NavView.SelectedItem = item;
-                    Breadcrumbs.Add(new Crumb
-                    {
-                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
-                    });
-                    return;
-                }
-            }
-
-            foreach (NavViewItemViewModel item in SBViewModel.FooterItems)
-            {
-                if (item.Tag == tag)
-                {
-                    NavView.SelectedItem = item;
-                    Breadcrumbs.Add(new Crumb
-                    {
-                        Title = ResourceLoaders.SidebarLoader.GetString(item.LabelResource)
-                    });
-                    return;
-                }
             }
         }
         #endregion
@@ -441,14 +427,14 @@ namespace Rise.App.Views
         #region Settings
         public void ChangeIconPack(string newIcons)
         {
-            SBViewModel.ChangeIconPack(newIcons);
+            NavDataSource.ChangeIconPack(newIcons);
 
             // Refresh item templates.
             NavView.MenuItemsSource = null;
             NavView.FooterMenuItemsSource = null;
 
-            NavView.MenuItemsSource = SBViewModel.Items;
-            NavView.FooterMenuItemsSource = SBViewModel.FooterItems;
+            NavView.MenuItemsSource = NavDataSource.Items;
+            NavView.FooterMenuItemsSource = NavDataSource.FooterItems;
         }
 
         private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -719,7 +705,7 @@ namespace Rise.App.Views
             await App.MViewModel.StartFullCrawlAsync();
         }
 
-        private async void OpenSettings_Click(object sender, RoutedEventArgs e)
+        private void OpenSettings_Click(object sender, RoutedEventArgs e)
         {
             if (Window.Current.Content is Frame rootFrame)
             {
@@ -730,29 +716,27 @@ namespace Rise.App.Views
         }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+            => NavDataSource.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
 
         private void HideSection_Click(object sender, RoutedEventArgs e)
         {
-            NavViewItemViewModel item = SBViewModel.
-                ItemFromTag(RightClickedItem.Tag.ToString());
-
-            SBViewModel.HideGroup(item.HeaderGroup);
+            _ = NavDataSource.TryGetItem(RightClickedItem.Tag.ToString(), out var item);
+            NavDataSource.HideGroup(item.HeaderGroup);
         }
 
         private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveUp(RightClickedItem.Tag.ToString());
+            => NavDataSource.MoveUp(RightClickedItem.Tag.ToString());
 
         private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveDown(RightClickedItem.Tag.ToString());
+            => NavDataSource.MoveDown(RightClickedItem.Tag.ToString());
 
         private void ToTop_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveToTop(RightClickedItem.Tag.ToString());
+            => NavDataSource.MoveToTop(RightClickedItem.Tag.ToString());
 
         private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => SBViewModel.MoveToBottom(RightClickedItem.Tag.ToString());
+            => NavDataSource.MoveToBottom(RightClickedItem.Tag.ToString());
 
-        private void NavView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             DependencyObject source = e.OriginalSource as DependencyObject;
 
@@ -768,8 +752,8 @@ namespace Rise.App.Views
                 }
                 else
                 {
-                    bool up = SBViewModel.CanMoveUp(tag);
-                    bool down = SBViewModel.CanMoveDown(tag);
+                    bool up = NavDataSource.CanMoveUp(tag);
+                    bool down = NavDataSource.CanMoveDown(tag);
 
                     TopOption.IsEnabled = up;
                     UpOption.IsEnabled = up;
@@ -959,22 +943,12 @@ namespace Rise.App.Views
             }
         }
 
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private async void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
             if (Window.Current.Content is Frame rootFrame)
             {
                 _ = rootFrame.Navigate(typeof(AllSettingsPage));
             }
-        }
-
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void NewSettings_Click(object sender, RoutedEventArgs e)
@@ -986,35 +960,48 @@ namespace Rise.App.Views
         }
     }
 
-    [ContentProperty(Name = "GlyphTemplate")]
-    public class MenuItemTemplateSelector : DataTemplateSelector
+    public class NavViewItemTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate GlyphTemplate { get; set; }
-        public DataTemplate ImageTemplate { get; set; }
-
+        public DataTemplate GlyphIconTemplate { get; set; }
+        public DataTemplate AssetIconTemplate { get; set; }
         public DataTemplate HeaderTemplate { get; set; }
         public DataTemplate SeparatorTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            NavViewItemViewModel itemData = item as NavViewItemViewModel;
-            if (itemData.Tag == "Header")
-            {
-                return HeaderTemplate;
-            }
+            var itm = (NavViewItemViewModel)item;
+            return GetTemplate(itm);
+        }
 
-            if (itemData.Tag == "Separator")
-            {
-                return SeparatorTemplate;
-            }
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            var itm = (NavViewItemViewModel)item;
+            return GetTemplate(itm);
+        }
 
-            if (itemData.Icon.IsValidUri(UriKind.Absolute))
+        /// <summary>
+        /// Gets the desired DataTemplate based on the item type.
+        /// </summary>
+        private DataTemplate GetTemplate(NavViewItemViewModel item)
+        {
+            switch (item.ItemType)
             {
-                return ImageTemplate;
-            }
-            else
-            {
-                return GlyphTemplate;
+                case NavViewItemType.Header:
+                    return HeaderTemplate;
+
+                case NavViewItemType.Item:
+                    if (item.Icon.IsValidUri(UriKind.Absolute))
+                    {
+                        return AssetIconTemplate;
+                    }
+
+                    return GlyphIconTemplate;
+
+                case NavViewItemType.Separator:
+                    return SeparatorTemplate;
+
+                default:
+                    return null;
             }
         }
     }
@@ -1028,7 +1015,4 @@ namespace Rise.App.Views
             return Title;
         }
     }
-
-
-
 }

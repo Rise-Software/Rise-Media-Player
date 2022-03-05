@@ -55,6 +55,8 @@
             </Button.Content>
         </Button>-->
 
+        
+
         <muxc:NavigationView x:Name="ManageFoldersNav" SelectedItem="{x:Bind AllMedia}"  Margin="-15,-8,0,0" IsSettingsVisible="False" SelectionChanged="Selection_SelectionChanged" IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
             <muxc:NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />

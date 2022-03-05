@@ -53,7 +53,7 @@ namespace Rise.App.Settings
                         SettingsMainFrame.Navigate(typeof(ComingSoonPage));
                         break;
                     case "Behaviour":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
+                        SettingsMainFrame.Navigate(typeof(WindowsBehavioursPage));
                         break;
                     case "Components":
                         SettingsMainFrame.Navigate(typeof(ComingSoonPage));
@@ -162,6 +162,10 @@ namespace Rise.App.Settings
                 case "ComingSoonPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
                     MainSettingsHeader.Text = "Coming soon...";
+                    break;
+                case "WindowsBehavioursPage":
+                    MainSettingsHeaderIcon.Glyph = "\uEC7A";
+                    MainSettingsHeader.Text = "System behaviours";
                     break;
                 case "AboutPage":
                     MainSettingsHeaderIcon.Glyph = "\uE946";
