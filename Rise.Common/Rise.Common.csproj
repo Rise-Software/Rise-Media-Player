@@ -120,6 +120,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants\LastFM.cs" />
+    <Compile Include="Constants\URIs.cs" />
+    <Compile Include="Constants\SystemMusic.cs" />
+    <Compile Include="Constants\URLs.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\IndexingMode.cs" />

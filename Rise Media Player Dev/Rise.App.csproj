@@ -139,7 +139,6 @@
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Common\CompositionControl.cs" />
-    <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ContentDialogHelpers.cs" />
     <Compile Include="Common\DependencyPropertyWatcher.cs" />
     <Compile Include="Common\EventsLogic.cs" />

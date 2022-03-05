@@ -2,6 +2,7 @@
 using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.Web;
+using Rise.Common.Constants;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
