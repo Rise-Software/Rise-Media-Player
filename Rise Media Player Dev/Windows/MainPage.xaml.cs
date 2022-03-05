@@ -368,7 +368,7 @@ namespace Rise.App.Views
                 case "HomePage":
                     NavView.SelectedItem = SBViewModel.
                         Items.FirstOrDefault(i => i.Tag == tag);
-                    IsInPageWithoutHeader = false;
+                    IsInPageWithoutHeader = true;
                     return;
 
                 case "AlbumSongsPage":
