@@ -61,6 +61,11 @@ namespace Rise.App
         public static PlaylistsBackendController PBackendController { get; private set; }
 
         /// <summary>
+        /// Gets the app-wide <see cref="WidgetsBackendController"/> singleton instance.
+        /// </summary>
+        public static WidgetsBackendController WBackendController { get; private set; }
+
+        /// <summary>
         /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
         /// </summary>
         public static NotificationsBackendController NBackendController { get; private set; }
@@ -209,6 +214,7 @@ namespace Rise.App
             VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
             PBackendController = new PlaylistsBackendController();
+            WBackendController = new WidgetsBackendController();
             NBackendController = new NotificationsBackendController();
 
             MViewModel = new MainViewModel();

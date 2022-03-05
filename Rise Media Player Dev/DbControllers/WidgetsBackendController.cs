@@ -36,8 +36,8 @@ namespace Rise.App.DbControllers
             string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Widgets.json", CreationCollisionOption.OpenIfExists));
             if (!string.IsNullOrWhiteSpace(text))
             {
-                ObservableCollection<WidgetViewModel> playlists = JsonConvert.DeserializeObject<ObservableCollection<WidgetViewModel>>(text);
-                return playlists;
+                ObservableCollection<WidgetViewModel> widgets = JsonConvert.DeserializeObject<ObservableCollection<WidgetViewModel>>(text);
+                return widgets;
             }
             else
             {
@@ -45,13 +45,13 @@ namespace Rise.App.DbControllers
             }
         }
 
-        public async Task InsertAsync(WidgetViewModel playlist)
+        public async Task InsertAsync(WidgetViewModel widget)
         {
             Collection<WidgetViewModel> widgets = JsonConvert.DeserializeObject<Collection<WidgetViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Widgets.json", CreationCollisionOption.OpenIfExists))) ?? new Collection<WidgetViewModel>();
             widgets.Add(widget);
 
-            string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
+            string json = JsonConvert.SerializeObject(widgets, Formatting.Indented);
+            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Widgets.json", CreationCollisionOption.OpenIfExists), json);
         }
 
         public async Task UpsertAsync(WidgetViewModel widget)
@@ -86,11 +86,10 @@ namespace Rise.App.DbControllers
             await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Widgets.json", CreationCollisionOption.OpenIfExists), json);
         }
 
-        public async Task DeleteAsync(WidgetViewModel playlist)
+        public async Task DeleteAsync(WidgetViewModel widget)
         {
             string json = JsonConvert.SerializeObject(App.MViewModel.Widgets, Formatting.Indented);
             await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Widgets.json", CreationCollisionOption.OpenIfExists), json);
         }
-
     }
 }

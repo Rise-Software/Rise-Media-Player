@@ -258,6 +258,9 @@
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WidgetTemplateControl.xaml.cs">
+      <DependentUpon>WidgetTemplateControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
@@ -270,6 +273,7 @@
     <Compile Include="ViewModels\SidebarViewModel.cs" />
     <Compile Include="ViewModels\SongPropertiesViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
+    <Compile Include="ViewModels\WidgetViewModel.cs" />
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
     </Compile>
@@ -695,6 +699,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\WidgetTemplateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Artists\ArtistSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -961,6 +969,7 @@
     <Folder Include="Settings\NavigationPages\" />
     <Folder Include="Settings\PlaybackSoundPages\" />
     <Folder Include="Settings\SyncingPages\" />
+    <Folder Include="Views\Widgets\" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-GB\Setup.resw" />

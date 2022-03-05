@@ -71,7 +71,7 @@
                   Padding="44,0,44,120"
                   SelectionMode="Single"
                   RightTapped="MainGrid_RightTapped"
-                  Tapped="GridView_Tapped" SelectionChanged="MainGrid_SelectionChanged">
+                  Tapped="GridView_Tapped">
             <GridView.Resources>
                 <MenuFlyout x:Key="PlaylistFlyout" x:Name="PlaylistFlyout">
 

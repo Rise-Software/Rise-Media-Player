@@ -47,6 +47,8 @@
                 
             </Border>
 
+            <uc:WidgetTemplateControl Width="300" Height="300" />
+
             <TextBlock x:Uid="/Information/QuickH"
                        Style="{StaticResource Subheader}" />
 

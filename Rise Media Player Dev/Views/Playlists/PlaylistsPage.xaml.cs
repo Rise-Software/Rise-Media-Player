@@ -79,28 +79,6 @@ namespace Rise.App.Views
             System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {model.Title}\n   Description: {model.Description}");
         }
 
-        private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                PlaylistViewModel playlist = MainGrid.Items[MainGrid.SelectedIndex] as PlaylistViewModel;
-                SelectedPlaylist = playlist;
-                System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {SelectedPlaylist.Title}\n   Description: {SelectedPlaylist.Description}");
-            }
-            catch
-            {
-                try
-                {
-                    SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
-                }
-                catch
-                {
-
-                }
-
-            }
-        }
-
         private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
         {
             await SelectedPlaylist.StartEditAsync();

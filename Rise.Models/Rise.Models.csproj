@@ -131,6 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchItem.cs" />
     <Compile Include="Wallpaper.cs" />
+    <Compile Include="Widget.cs" />
     <EmbeddedResource Include="Properties\Rise.Models.rd.xml" />
   </ItemGroup>
   <ItemGroup>
