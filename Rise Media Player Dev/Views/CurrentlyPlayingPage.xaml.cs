@@ -15,19 +15,13 @@ namespace Rise.App.Views
         /// </summary>
         private PlaybackViewModel ViewModel => App.PViewModel;
 
-        public static CurrentlyPlayingPage Current;
-
         public CurrentlyPlayingPage()
         {
             InitializeComponent();
-            Current = this;
             Loaded += CurrentlyPlayingPage_Loaded;
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = ViewModel;
-
-
-
         }
 
         private void CurrentlyPlayingPage_Loaded(object sender, RoutedEventArgs e)
