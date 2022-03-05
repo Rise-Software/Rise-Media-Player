@@ -4,6 +4,8 @@ using Rise.App.Common;
 using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
+using Rise.Common.Constants;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
@@ -335,7 +337,7 @@ namespace Rise.App.ViewModels
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                string thumb = Resources.MusicThumb;
+                string thumb = URIs.AlbumThumb;
 
                 // If the album is unknown, no need to get a thumbnail.
                 if (song.Album != "UnknownAlbumResource")
@@ -384,7 +386,7 @@ namespace Rise.App.ViewModels
                         save = true;
                     }
 
-                    if (alvm.Thumbnail == Resources.MusicThumb)
+                    if (alvm.Thumbnail == URIs.MusicThumb)
                     {
                         // Get song thumbnail and make a PNG out of it.
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
@@ -409,7 +411,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveAsync();
+                        await alvm.SaveEditsAsync();
                     }
                 }
 
@@ -425,7 +427,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.Artist,
-                    Picture = Resources.ArtistThumb
+                    Picture = URIs.ArtistThumb
                 };
 
                 await arvm.SaveAsync();
@@ -441,7 +443,7 @@ namespace Rise.App.ViewModels
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
-                    Picture = Resources.ArtistThumb
+                    Picture = URIs.ArtistThumb
                 };
 
                 await arvm.SaveAsync();
@@ -497,7 +499,7 @@ namespace Rise.App.ViewModels
                 }
                 else
                 {
-                    vid.Thumbnail = Resources.MusicThumb;
+                    vid.Thumbnail = URIs.MusicThumb;
                 }
 
                 thumbnail?.Dispose();

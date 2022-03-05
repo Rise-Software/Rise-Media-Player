@@ -19,6 +19,25 @@ namespace Rise.App.Settings
         public WindowsBehavioursPage()
         {
             this.InitializeComponent();
+            var v = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+            var major = (Convert.ToUInt64(v) & Convert.ToUInt64(0xFFFF000000000000)) >> 48;
+            var minor = (Convert.ToUInt64(v) & Convert.ToUInt64(0x0000FFFF00000000)) >> 32;
+            var build = (Convert.ToUInt64(v) & Convert.ToUInt64(0x00000000FFFF0000)) >> 16;
+            var release = Convert.ToUInt64(v) & Convert.ToUInt64(0x000000000000FFFF);
+
+            Debug.WriteLine(build);
+
+            if (build >= 22000)
+            {
+                WinVer.Text = "You are running Windows 11!";
+                InfoString.Text = "All settings should be available.";
+            }
+            else
+            {
+                WinVer.Text = "You are running Windows 10!";
+                InfoString.Text = "Some settings are unavailable. To use them, upgrade your PC to Windows 11.";
+            }
+
             InfoBar();
         }
 
@@ -49,7 +68,7 @@ namespace Rise.App.Settings
 
                 case 2:
                     //2 => Disabled by user
-                    InfoBarStartup.Message = "This feature is disabled due to your current Startup settings. Click the link below to modify these settings, then restart the app.";
+                    InfoBarStartup.Message = "This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     break;

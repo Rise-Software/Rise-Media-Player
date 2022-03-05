@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -182,7 +183,7 @@ namespace Rise.App.Views
 
                     if (artist.Name == "Unknown Artist")
                     {
-                        artist.Picture = global::Rise.App.Common.Resources.ArtistThumb;
+                        artist.Picture = URIs.ArtistThumb;
                     }
                     else if (file != null)
                     {

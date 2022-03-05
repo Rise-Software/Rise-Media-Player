@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using System;
 using System.Globalization;
 using System.Linq;
