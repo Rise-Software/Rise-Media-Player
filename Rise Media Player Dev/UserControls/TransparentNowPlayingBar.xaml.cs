@@ -451,10 +451,5 @@ namespace Rise.App.UserControls
                 await App.PViewModel.CurrentSong.StartEditAsync();
             }
         }
-
-        private void VolumeFlyoutButton1_Click(object sender, RoutedEventArgs e)
-        {
-            VolumeFlyout.ShowAt(Progress);
-        }
     }
 }
