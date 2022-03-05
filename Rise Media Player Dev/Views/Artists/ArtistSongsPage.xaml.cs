@@ -270,7 +270,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 

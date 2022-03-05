@@ -732,7 +732,7 @@ namespace Rise.App.UserControls
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
                 NowPlayingHover.Hide();
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
             }
             else
             {
@@ -828,7 +828,7 @@ namespace Rise.App.UserControls
         {
             if (CurrentSongAlbum != null)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
             }
         }
 

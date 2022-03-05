@@ -830,12 +830,14 @@ namespace Rise.App.Views
             {
                 case "Album":
                     AlbumViewModel album = App.MViewModel.Albums.FirstOrDefault(a => a.Title.Equals(searchItem.Title));
-                    _ = ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                    _ = ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
                     break;
+
                 case "Song":
                     SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Title.Equals(searchItem.Title));
                     await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
                     break;
+
                 case "Artist":
                     ArtistViewModel artist = App.MViewModel.Artists.FirstOrDefault(a => a.Name.Equals(searchItem.Title));
                     ContentFrame.Navigate(typeof(ArtistSongsPage), artist);

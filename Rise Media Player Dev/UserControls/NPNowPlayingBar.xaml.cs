@@ -305,7 +305,7 @@ namespace Rise.App.UserControls
 
         private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
         }
 
         private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
