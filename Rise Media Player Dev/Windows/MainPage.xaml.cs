@@ -379,6 +379,7 @@ namespace Rise.App.Views
             switch (id)
             {
                 case "HomePage":
+                    CrumbsHeader.Visibility = Visibility.Collapsed;
                     IsInPageWithoutHeader = true;
                     return;
 
