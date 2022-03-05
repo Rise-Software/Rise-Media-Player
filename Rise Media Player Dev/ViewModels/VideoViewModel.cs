@@ -1,4 +1,5 @@
 ﻿using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Threading.Tasks;
 using Windows.Media;
@@ -11,6 +12,7 @@ namespace Rise.App.ViewModels
 {
     public class VideoViewModel : ViewModel<Video>
     {
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/>
         /// class that wraps a <see cref="Video"/> object.
@@ -18,9 +20,10 @@ namespace Rise.App.ViewModels
         public VideoViewModel(Video model = null)
         {
             Model = model ?? new Video();
-            IsNew = true;
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the video title.
         /// </summary>
@@ -132,41 +135,57 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+        #endregion
 
-        private bool _isNew;
+        #region Backend
         /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
-        private bool _isInEdit;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the item data is being edited.
-        /// </summary>
-        public bool IsInEdit
-        {
-            get => _isInEdit;
-            set => Set(ref _isInEdit, value);
-        }
-
-        /// <summary>
-        /// Saves video data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            if (IsNew)
-            {
-                IsNew = false;
-                App.MViewModel.Videos.Add(this);
-            }
+            App.MViewModel.Videos.Add(this);
+            await SQLRepository.Repository.Videos.QueueUpsertAsync(Model);
+        }
+        #endregion
 
-            await App.Repository.Videos.QueueUpsertAsync(Model);
+        #region Editing
+        /// <summary>
+        /// Enables edit mode.
+        /// </summary>
+        /*public async Task StartEditAsync()
+        {
+            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+
+            if (file != null)
+            {
+                SongPropertiesViewModel props = new SongPropertiesViewModel(this, file.DateCreated)
+                {
+                    FileProps = await file.GetBasicPropertiesAsync()
+                };
+
+                _ = await typeof(PropertiesPage).
+                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
+            }
+        }*/
+
+        /// <summary>
+        /// Saves any edits that have been made.
+        /// </summary>
+        public async Task SaveEditsAsync()
+        {
+            await SQLRepository.Repository.Videos.UpdateAsync(Model);
         }
 
+        /// <summary>
+        /// Discards any edits that have been made, restoring the original values.
+        /// </summary>
+        public async Task CancelEditsAsync()
+        {
+            Model = await SQLRepository.Repository.Videos.GetAsync(Model.Id);
+        }
+        #endregion
+
+        #region Playback
         /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="VideoViewModel"/>.
         /// </summary>
@@ -194,8 +213,8 @@ namespace Rise.App.ViewModels
             return media;
         }
 
-        public async Task<MediaPlaybackItem> AsPlaybackItemAsync(Uri uri)
-        { 
+        public MediaPlaybackItem AsPlaybackItem(Uri uri)
+        {
             MediaSource source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
 
@@ -214,5 +233,6 @@ namespace Rise.App.ViewModels
             media.ApplyDisplayProperties(props);
             return media;
         }
+        #endregion
     }
 }

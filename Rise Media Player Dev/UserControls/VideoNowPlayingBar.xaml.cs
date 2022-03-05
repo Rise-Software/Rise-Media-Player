@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Converters;
+using Rise.App.Views;
+using System;
 using System.Linq;
-using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.Media.Playback;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
+using Windows.Media.Casting;
+using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Converters;
-using Windows.UI.Xaml.Media;
-using Windows.Media.Casting;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Rise.App.Views;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.UserControls
 {
@@ -171,7 +171,8 @@ namespace Rise.App.UserControls
             if ((bool)toggleButton.IsChecked)
             {
                 App.PViewModel.PlaybackList.AutoRepeatEnabled = true;
-            } else
+            }
+            else
             {
                 App.PViewModel.PlaybackList.AutoRepeatEnabled = false;
             }
@@ -246,7 +247,8 @@ namespace Rise.App.UserControls
                 if (item.IsChecked)
                 {
                     VideoPlaybackPage.Current.PlayerElement.Stretch = Stretch.UniformToFill;
-                } else
+                }
+                else
                 {
                     VideoPlaybackPage.Current.PlayerElement.Stretch = Stretch.Uniform;
                 }

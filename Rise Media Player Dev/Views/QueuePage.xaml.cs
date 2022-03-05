@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -286,7 +285,7 @@ namespace Rise.App.Views
         {
             if (!_selectedSong.IsOnline)
             {
-                await _selectedSong.StartEdit();
+                await _selectedSong.StartEditAsync();
             }
         }
 

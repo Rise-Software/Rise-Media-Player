@@ -244,7 +244,8 @@ namespace Rise.App.Common
                     if (int.TryParse(extraProps[SystemMusic.DiscNumber].ToString(), out int result))
                     {
                         cd = result;
-                    } else
+                    }
+                    else
                     {
                         Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.DiscNumber].ToString());
                     }
@@ -262,7 +263,8 @@ namespace Rise.App.Common
                     if (int.TryParse(extraProps[SystemMusic.PartOfSet].ToString(), out int result))
                     {
                         cd = result;
-                    } else
+                    }
+                    else
                     {
                         Debug.WriteLine("Something wrong happened while parsing song.\nProblematic part of set: " + extraProps[SystemMusic.PartOfSet].ToString());
                     }
@@ -434,7 +436,7 @@ namespace Rise.App.Common
                         if (songFile != null)
                         {
                             Song song = await songFile.AsSongModelAsync();
-                            
+
                             // If the playlist entry includes track info, override the tag data
                             if (title != null)
                             {
@@ -458,7 +460,7 @@ namespace Rise.App.Common
                 }
             }
 
-            done:
+        done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
                 playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
 

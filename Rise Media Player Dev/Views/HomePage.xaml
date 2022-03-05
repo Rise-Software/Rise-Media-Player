@@ -12,7 +12,6 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">

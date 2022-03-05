@@ -1,20 +1,9 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -43,16 +32,16 @@ namespace Rise.App.Views
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                PlayingAnimationIn.Begin();
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                PlayFrame.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                Player.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            PlayingAnimationIn.Begin();
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            PlayFrame.Visibility = Visibility.Visible;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            Player.Visibility = Visibility.Visible;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
 
-                BlurBrush.Amount = 15;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            BlurBrush.Amount = 15;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
 
             //Player.SetMediaPlayer(ViewModel.Player);
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;

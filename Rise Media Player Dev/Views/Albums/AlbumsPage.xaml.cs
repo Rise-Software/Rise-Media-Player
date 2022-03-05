@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
 using Rise.App.Helpers;
@@ -221,10 +222,13 @@ namespace Rise.App.Views
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
                 {
-                    _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                    Frame.SetListDataItemForNextConnectedAnimation(album);
+                    _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+
                     SelectedAlbum = null;
                 }
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
                 {
@@ -358,7 +362,8 @@ namespace Rise.App.Views
                 {
                     album.IsTitleVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {
@@ -451,7 +456,8 @@ namespace Rise.App.Views
                 {
                     album.IsArtistVisible = true;
                 }
-            } else
+            }
+            else
             {
                 foreach (AlbumViewModel album in Albums)
                 {

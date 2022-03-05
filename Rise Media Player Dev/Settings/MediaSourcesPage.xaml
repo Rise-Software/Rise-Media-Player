@@ -8,8 +8,7 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:control="using:Microsoft.UI.Xaml.Controls" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    mc:Ignorable="d"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    mc:Ignorable="d">
 
     <Grid>
         <!--<Border x:Name="AppTitleBar"
@@ -75,7 +74,7 @@
 
         <ScrollViewer Margin="0 36">
             <Frame HorizontalAlignment="Stretch" x:Name="SelectVidorMusic">
-                <TextBlock Text="This page is coming soon" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold" Opacity="0.6"/>
+                <TextBlock Text="Select a tab to view sources." TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold" Opacity="0.6"/>
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

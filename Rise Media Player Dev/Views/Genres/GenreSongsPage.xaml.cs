@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using System;
 using System.Linq;
@@ -9,7 +10,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Navigation;
-using Rise.App.Helpers;
 
 namespace Rise.App.Views
 {
@@ -160,11 +160,11 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+            => await SelectedSong.StartEditAsync();
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedSong.StartEdit();
+            await SelectedSong.StartEditAsync();
             SelectedSong = null;
         }
 
@@ -326,7 +326,7 @@ namespace Rise.App.Views
         {
             if ((e?.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album);
+                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
     }

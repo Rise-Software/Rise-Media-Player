@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
@@ -33,7 +29,8 @@ namespace Rise.App.ViewModels
             {
                 Title = App.PViewModel.CurrentVideo.Title;
                 Thumbnail = App.PViewModel.CurrentVideo.Thumbnail;
-            } else
+            }
+            else
             {
                 Title = App.PViewModel.CurrentSong.Title;
                 Thumbnail = App.PViewModel.CurrentSong.Thumbnail;

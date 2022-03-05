@@ -69,7 +69,7 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
-            Current=this;
+            Current = this;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             Loaded += ArtistSongsPage_Loaded;
@@ -196,7 +196,7 @@ namespace Rise.App.Views
             }
 
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -224,14 +224,14 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+            => await SelectedSong.StartEditAsync();
 
         private void ShowAlbum_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedSong.StartEdit();
+            await SelectedSong.StartEditAsync();
             SelectedSong = null;
         }
 
@@ -270,7 +270,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 

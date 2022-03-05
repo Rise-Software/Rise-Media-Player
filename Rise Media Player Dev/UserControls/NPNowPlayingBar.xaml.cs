@@ -3,23 +3,16 @@ using Rise.App.Converters;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Media.Casting;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -49,7 +42,7 @@ namespace Rise.App.UserControls
             DataContext = App.PViewModel;
             Loaded += NowPlayingBar_Loaded;
             QueueFrame.Navigate(typeof(NPBarQueuePage));
-            
+
 
             castingPicker = new CastingDevicePicker();
             castingPicker.Filter.SupportsVideo = true;
@@ -176,16 +169,16 @@ namespace Rise.App.UserControls
         private async void QueueButton_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                FullNowPlayingPage.Current.PlayingAnimationIn.Begin();
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                FullNowPlayingPage.Current.PlayFrame.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-                FullNowPlayingPage.Current.Player.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            FullNowPlayingPage.Current.PlayingAnimationIn.Begin();
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            FullNowPlayingPage.Current.PlayFrame.Visibility = Visibility.Visible;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            FullNowPlayingPage.Current.Player.Visibility = Visibility.Visible;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
 
-                FullNowPlayingPage.Current.BlurBrush.Amount = 15;
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
+            FullNowPlayingPage.Current.BlurBrush.Amount = 15;
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -312,7 +305,7 @@ namespace Rise.App.UserControls
 
         private void AlbumArtContainer_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+            _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
         }
 
         private void RestoreVideoButton_Click(object sender, RoutedEventArgs e)
@@ -434,7 +427,7 @@ namespace Rise.App.UserControls
             if (!App.PViewModel.CurrentSong.IsOnline)
             {
                 SelectedSong = App.PViewModel.CurrentSong;
-                await App.PViewModel.CurrentSong.StartEdit();
+                await App.PViewModel.CurrentSong.StartEditAsync();
             }
         }
     }
