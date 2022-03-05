@@ -564,6 +564,7 @@
     <Content Include="Assets\Wallpapers\DarkPink.png" />
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
+    <Content Include="Assets\SettingsIcons.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Materials_Visualisers\Bloom.html" />
