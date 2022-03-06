@@ -175,7 +175,11 @@ namespace Rise.App.ViewModels
                 Songs.Clear();
                 foreach (var item in songs)
                 {
-                    Songs.Add(new(item));
+                    if (!songs.Contains(item))
+                    {
+                        Songs.Add(new(item));
+                    }
+                        
                 }
 
                 Albums.Clear();
@@ -183,7 +187,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in albums)
                     {
-                        Albums.Add(new(item));
+                        if (!albums.Contains(item))
+                        {
+                            Albums.Add(new(item));
+                        }
+                            
                     }
                 }
 
@@ -192,7 +200,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in artists)
                     {
-                        Artists.Add(new(item));
+                        if (!artists.Contains(item))
+                        {
+                            Artists.Add(new(item));
+                        }
+                            
                     }
                 }
 
@@ -201,7 +213,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in genres)
                     {
-                        Genres.Add(new(item));
+                        if (!genres.Contains(item))
+                        {
+                            Genres.Add(new(item));
+                        }
+                            
                     }
                 }
 
@@ -210,7 +226,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in videos)
                     {
-                        Videos.Add(new(item));
+                        if (!videos.Contains(item))
+                        {
+                            Videos.Add(new(item));
+                        }
+                            
                     }
                 }
 
@@ -219,7 +239,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in playlists)
                     {
-                        Playlists.Add(item);
+                        if (!playlists.Contains(item))
+                        {
+                            Playlists.Add(item);
+                        }
+                            
                     }
                 }
 
@@ -228,7 +252,11 @@ namespace Rise.App.ViewModels
                 {
                     foreach (var item in notifications)
                     {
-                        Notifications.Add(item);
+                        if(!notifications.Contains(item))
+                        {
+                            Notifications.Add(item);
+                        }
+                        
                     }
                 }
             }
