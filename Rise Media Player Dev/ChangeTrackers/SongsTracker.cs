@@ -28,6 +28,8 @@ namespace Rise.App.ChangeTrackers
             StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
             IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
 
+            List<SongViewModel> songRemoveQueue = new();
+
             foreach (StorageLibraryChange change in changes)
             {
                 if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
@@ -51,9 +53,18 @@ namespace Rise.App.ChangeTrackers
                 {
                     if (change.ChangeType == StorageLibraryChangeType.Deleted)
                     {
-                        foreach (SongViewModel song in ViewModel.Songs)
+                        try
                         {
-                            if (change.PreviousPath == song.Location)
+                            foreach (SongViewModel song in ViewModel.Songs)
+                            {
+                                if (change.PreviousPath == song.Location)
+                                {
+                                    songRemoveQueue.Add(song);
+                                }
+                            }
+                        } finally
+                        {
+                            foreach (SongViewModel song in songRemoveQueue)
                             {
                                 await song.DeleteAsync();
                             }

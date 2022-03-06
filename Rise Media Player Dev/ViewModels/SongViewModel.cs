@@ -308,12 +308,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Songs.Add(this);
-
             if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
             {
-                await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
+                App.MViewModel.Songs.Add(this);
             }
+
+            await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
         }
 
         /// <summary>
@@ -368,6 +368,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveEditsAsync()
         {
+            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
+            {
+                await SaveAsync();
+                return;
+            }
             await SQLRepository.Repository.Songs.UpdateAsync(Model);
         }
 
