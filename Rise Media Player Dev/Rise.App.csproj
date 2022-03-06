@@ -139,13 +139,11 @@
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Common\CompositionControl.cs" />
-    <Compile Include="Common\ContentDialogHelpers.cs" />
     <Compile Include="Common\DependencyPropertyWatcher.cs" />
     <Compile Include="Common\EventsLogic.cs" />
     <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Common\VisualTreeHelpers.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />

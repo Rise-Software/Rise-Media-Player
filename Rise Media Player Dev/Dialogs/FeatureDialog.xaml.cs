@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.Common.Enums;
+﻿using Rise.Common.Enums;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
