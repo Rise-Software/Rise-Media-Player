@@ -82,7 +82,7 @@
                                 <uc:ExpanderControl VerticalAlignment="Center" x:Uid="/MediaLibrary/EventsScan"
                                ExpanderStyle="Transparent"
                                Icon="&#xF78D;">
-                                    <ToggleSwitch x:Name="EventsSwitch" Toggled="PeriodicSwitch_Toggled" IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
+                                    <ToggleSwitch x:Name="EventsSwitch" Toggled="PeriodicSwitch_Toggled" IsEnabled="False"  IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
                                 </uc:ExpanderControl>
                             </StackPanel>
 
@@ -95,7 +95,7 @@
                                 <StackPanel Orientation="Vertical" Margin="28,0,15,0">
                                     <uc:ExpanderControl Margin="-13,-2,13,0"  x:Uid="/MediaLibrary/Open"
                                ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="OpenSwitch" />
+                                        <ToggleSwitch x:Name="OpenSwitch" IsOn="True" IsEnabled="False" />
                                     </uc:ExpanderControl>
 
                                 </StackPanel>
@@ -108,7 +108,7 @@
                                 <StackPanel Orientation="Vertical" Margin="28,0,15,0">
                                     <uc:ExpanderControl Margin="-13,-2,13,0"  x:Uid="/MediaLibrary/DeviceConnect"
                                ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="DeviceSwitch" />
+                                        <ToggleSwitch x:Name="DeviceSwitch" IsOn="False" IsEnabled="False" />
                                     </uc:ExpanderControl>
 
                                 </StackPanel>
@@ -121,7 +121,7 @@
                                 <StackPanel Orientation="Vertical" Margin="28,0,15,0">
                                     <uc:ExpanderControl Margin="-13,-2,13,0"  x:Uid="/MediaLibrary/AddLocation"
                                ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="LocationSwitch" />
+                                        <ToggleSwitch x:Name="LocationSwitch" IsOn="False" IsEnabled="False" />
                                     </uc:ExpanderControl>
 
                                 </StackPanel>
@@ -134,7 +134,7 @@
                                 <StackPanel Orientation="Vertical" Margin="28,0,15,0">
                                     <uc:ExpanderControl Margin="-13,-2,13,0"  x:Uid="/MediaLibrary/FilesAdd"
                                ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="FilesAddSwitch" />
+                                        <ToggleSwitch x:Name="FilesAddSwitch" IsOn="False" IsEnabled="False"/>
                                     </uc:ExpanderControl>
 
                                 </StackPanel>
