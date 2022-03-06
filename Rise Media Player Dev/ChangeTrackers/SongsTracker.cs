@@ -47,7 +47,7 @@ namespace Rise.App.ChangeTrackers
                 }
                 else if (change.IsOfType(StorageItemTypes.Folder))
                 {
-                    await ViewModel.StartFullCrawlAsync();
+                    //await ViewModel.StartFullCrawlAsync();
                 }
                 else
                 {
