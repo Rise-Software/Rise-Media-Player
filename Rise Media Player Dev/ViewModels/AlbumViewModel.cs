@@ -261,7 +261,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveEditsAsync()
         {
-            await SQLRepository.Repository.Albums.UpdateAsync(Model);
+            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) != null)
+            {
+                await SQLRepository.Repository.Albums.UpdateAsync(Model);
+            }
+            else await SaveAsync();
         }
 
         /// <summary>
