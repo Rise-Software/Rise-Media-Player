@@ -188,10 +188,13 @@
                                     CornerRadius="4"
                                     Height="32"
                                     Width="32">
-                            <Image x:Phase="2"
-                                       Height="32"
-                                       Source="{x:Bind Thumbnail}"
-                                       Width="32" />
+                            <Image Height="32" Width="32">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelHeight="32"
+                                                 DecodePixelWidth="32"
+                                                 UriSource="{x:Bind Thumbnail}" />
+                                </Image.Source>
+                            </Image>
                         </Border>
                     </Button>
 

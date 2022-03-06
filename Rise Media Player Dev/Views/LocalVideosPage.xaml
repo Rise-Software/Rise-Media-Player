@@ -198,7 +198,8 @@
                 </MenuFlyout>
             </GridView.Resources>
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:VideoViewModel">
+                <DataTemplate x:DataType="viewmodels:VideoViewModel"
+                              x:DefaultBindMode="OneWay">
                     <StackPanel Orientation="Vertical" Margin="8" Spacing="2">
                         <Border x:Name="ItemThumbnail"
                                 Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
@@ -208,7 +209,9 @@
                                    Stretch="UniformToFill"
                                    Width="192">
                                 <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                    <BitmapImage DecodePixelHeight="108"
+                                                 DecodePixelWidth="192"
+                                                 UriSource="{x:Bind Thumbnail}" />
                                 </Image.Source>
                             </Image>
                         </Border>

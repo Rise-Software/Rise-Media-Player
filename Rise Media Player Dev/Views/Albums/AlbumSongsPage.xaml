@@ -386,7 +386,9 @@
                                                Stretch="UniformToFill"
                                                Width="134">
                                             <Image.Source>
-                                                <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                                <BitmapImage DecodePixelHeight="134"
+                                                             DecodePixelWidth="134"
+                                                             UriSource="{x:Bind Thumbnail}" />
                                             </Image.Source>
                                         </Image>
                                     </Border>
