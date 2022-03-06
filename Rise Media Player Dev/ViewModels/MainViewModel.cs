@@ -245,10 +245,6 @@ namespace Rise.App.ViewModels
                 return;
             }
 
-            Songs.Clear();
-            Albums.Clear();
-            Genres.Clear();
-
             await SongsTracker.HandleMusicFolderChanges();
             await IndexLibrariesAsync();
             await UpdateItemsAsync();
