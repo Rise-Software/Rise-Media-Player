@@ -11,7 +11,7 @@
     <AssemblyName>Rise.Common</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -130,8 +130,10 @@
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Helpers\CollectionHelpers.cs" />
+    <Compile Include="Helpers\ContentDialogHelpers.cs" />
     <Compile Include="Helpers\IndexingHelpers.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Helpers\VisualTreeHelpers.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
     <Compile Include="Interfaces\ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

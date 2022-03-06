@@ -201,7 +201,8 @@
                     TextChanged="BigSearch_TextChanged"
                     Visibility="Collapsed">
                     <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="appviewmodels:SearchItemViewModel">
+                        <DataTemplate x:DataType="appviewmodels:SearchItemViewModel"
+                                      x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60" />
@@ -212,7 +213,13 @@
                                     Width="40"
                                     Height="40"
                                     CornerRadius="3">
-                                    <Image Source="{x:Bind Thumbnail}" />
+                                    <Image>
+                                        <Image.Source>
+                                            <BitmapImage DecodePixelHeight="40"
+                                                         DecodePixelWidth="40"
+                                                         UriSource="{x:Bind Thumbnail}" />
+                                        </Image.Source>
+                                    </Image>
                                 </Border>
 
                                 <StackPanel Grid.Column="1">
@@ -295,7 +302,7 @@
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"
-                                Click="Messages_Click">
+                                Click="Messages_Click" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -472,7 +479,7 @@
                 <muxc:FontIconSource Glyph="&#xE8F1;" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
-        
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="SmallWidth">

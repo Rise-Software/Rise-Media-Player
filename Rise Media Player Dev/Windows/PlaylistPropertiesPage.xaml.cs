@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Rise.App.Views.Playlists.Properties;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using Windows.UI.ViewManagement;

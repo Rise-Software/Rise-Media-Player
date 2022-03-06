@@ -282,11 +282,14 @@
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove folder</value>
   </data>
+  <data name="RemovePlaylist.Text" xml:space="preserve">
+    <value>Remove from playlist</value>
+  </data>
   <data name="RemoveSection.Text" xml:space="preserve">
     <value>Remove whole section</value>
   </data>
   <data name="RemoveThing.Text" xml:space="preserve">
-    <value>Remove from playlist</value>
+    <value>Remove...</value>
   </data>
   <data name="Scan.Text" xml:space="preserve">
     <value>Scan for new media</value>
@@ -317,6 +320,9 @@
   </data>
   <data name="ShowArtist.Text" xml:space="preserve">
     <value>Show artist</value>
+  </data>
+  <data name="ShowinFE.Text" xml:space="preserve">
+    <value>Show in File Explorer</value>
   </data>
   <data name="Shuffle.Label" xml:space="preserve">
     <value>Shuffle</value>

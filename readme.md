@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
 </p>
 
-### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 1 is out now!**
+### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -56,7 +56,7 @@ We use the GPL License V3 - View our License (aka Terms and Conditions) below.
 
 ## Downloads, Contribute and the Insider Program
 
-MSIX packages are available now for the Alpha Preview 1 build.
+MSIX packages are available now for the Alpha Preview 2 build.
 
 Currently, all users can try out the MSIX packages. When we move to the store, you must be signed up to the insider program to be able to install. You can do this from the button below.
 
