@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Rise.Repository
+namespace Rise.Common.Interfaces
 {
     public interface ISQLRepository<T> where T : class
     {

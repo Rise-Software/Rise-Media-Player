@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Rise.Common.Interfaces;
 using Rise.Models;
 using System.IO;
 using Windows.Storage;

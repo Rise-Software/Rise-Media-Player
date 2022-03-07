@@ -1,5 +1,6 @@
 ﻿using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
+using Rise.Common.Interfaces;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
