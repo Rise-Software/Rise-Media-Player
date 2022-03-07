@@ -12,6 +12,7 @@ Contributing anytime is always welcome, but
 2. Label your issue correctly, and don't add labels like "triage approved" and "help wanted" because these are usually handled by the team.
 3. Add screenshots/videos/mockups of your issue so that it becomes clearer.
 4. Properly describe the bug/feature you are talking about, failing to do so for bugs might result in your issue being closed.
+5. Add your Windows version and build number you're currently running RiseMP on, for example: Windows 11 build 22000.318, Windows 10 build 18362.1 etc...
 
 ### FAQ
 
