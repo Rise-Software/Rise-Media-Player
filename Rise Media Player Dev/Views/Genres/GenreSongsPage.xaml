@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                
+
 
 
                 <StackPanel Grid.Column="1"
@@ -153,7 +153,7 @@
                     </CommandBar>
                 </StackPanel>
             </Grid>
-            
+
             <StackPanel>
                 <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" Margin="-12,-24,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
                     <muxc:NavigationView.Resources>
@@ -377,11 +377,15 @@
                                 Padding="0">
                                     <Border x:Name="ArtistThumb"
                                     CornerRadius="42">
-                                        <Image
-                                       Height="84"
-                                       Source="{x:Bind Picture, Mode=OneWay}"
-                                       Stretch="UniformToFill"
-                                       Width="84" />
+                                        <Image Height="84"
+                                               Stretch="UniformToFill"
+                                               Width="84">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelHeight="84"
+                                                             DecodePixelWidth="84"
+                                                             UriSource="{x:Bind Picture}" />
+                                            </Image.Source>
+                                        </Image>
                                     </Border>
                                 </Button>
 
@@ -514,11 +518,15 @@
                                 CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
                                     <Border x:Name="AlbumThumb"
                                     CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
-                                        <Image x:Phase="1"
-                                       Height="134"
-                                       Source="{x:Bind Thumbnail}"
-                                       Stretch="UniformToFill"
-                                       Width="134" />
+                                        <Image Height="134"
+                                               Stretch="UniformToFill"
+                                               Width="134">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelHeight="134"
+                                                             DecodePixelWidth="134"
+                                                             UriSource="{x:Bind Thumbnail}" />
+                                            </Image.Source>
+                                        </Image>
                                     </Border>
                                 </Border>
 

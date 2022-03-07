@@ -248,13 +248,10 @@ namespace Rise.App.Dialogs
 
                 Header.Margin = BackButton.Visibility == Visibility.Visible ?
                     new Thickness(42, -5, 0, 0) : new Thickness(0, -5, 0, 0);
-                try
+
+                if (LocalPage.Current != null)
                 {
                     LocalPage.Current.SetupLocalFrame.Width = 450;
-                }
-                catch
-                {
-
                 }
             }
             else
@@ -265,13 +262,10 @@ namespace Rise.App.Dialogs
                 InfoGrid.ColumnSpacing = 28;
                 ControlGrid.Margin = new Thickness(-24);
                 Header.Margin = new Thickness(0, -4, 0, 0);
-                try
+
+                if (LocalPage.Current != null)
                 {
                     LocalPage.Current.SetupLocalFrame.Width = 486;
-                }
-                catch
-                {
-
                 }
             }
 

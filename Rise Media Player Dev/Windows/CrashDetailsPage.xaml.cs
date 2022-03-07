@@ -1,4 +1,5 @@
 ﻿using Rise.App.Common;
+using Rise.Common.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -12,12 +13,6 @@ namespace Rise.App.Views
         public CrashDetailsPage()
         {
             InitializeComponent();
-            Loaded += CrashDetailsPage_Loaded;
-        }
-
-        private void CrashDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            _ = new ApplicationTitleBar(AppTitleBar);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

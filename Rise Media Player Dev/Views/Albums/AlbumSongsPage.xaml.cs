@@ -4,7 +4,10 @@ using Rise.App.Common;
 using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -363,6 +366,24 @@ namespace Rise.App.Views
         {
             PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
             await playlist.AddSongAsync(SelectedSong);
+        }
+
+        private async void ShowinFE_Click(object sender, RoutedEventArgs e)
+        {
+            string folderlocation = SelectedSong.Location;
+            string filename = SelectedSong.Filename;
+            string result = folderlocation.Replace(filename, "");
+            Debug.WriteLine(result);
+
+            try
+            {
+                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
+                await Launcher.LaunchFolderAsync(folder);
+            }
+            catch
+            {
+
+            }
         }
     }
 }

@@ -24,8 +24,6 @@ namespace Rise.App.Settings
             InitializeComponent();
             _navigationHelper = new NavigationHelper(this);
             Current = this;
-
-            _ = new ApplicationTitleBar(TitleBar);
         }
 
         private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -53,7 +51,7 @@ namespace Rise.App.Settings
                         SettingsMainFrame.Navigate(typeof(ComingSoonPage));
                         break;
                     case "Behaviour":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
+                        SettingsMainFrame.Navigate(typeof(WindowsBehavioursPage));
                         break;
                     case "Components":
                         SettingsMainFrame.Navigate(typeof(ComingSoonPage));
@@ -126,8 +124,7 @@ namespace Rise.App.Settings
             SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
-
-        private async void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
             {
@@ -162,6 +159,10 @@ namespace Rise.App.Settings
                 case "ComingSoonPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
                     MainSettingsHeader.Text = "Coming soon...";
+                    break;
+                case "WindowsBehavioursPage":
+                    MainSettingsHeaderIcon.Glyph = "\uEC7A";
+                    MainSettingsHeader.Text = "System behaviours";
                     break;
                 case "AboutPage":
                     MainSettingsHeaderIcon.Glyph = "\uE946";

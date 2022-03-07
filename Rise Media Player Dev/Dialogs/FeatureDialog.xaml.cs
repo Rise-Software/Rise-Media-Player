@@ -1,10 +1,10 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common.Enums;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Dialogs
 {

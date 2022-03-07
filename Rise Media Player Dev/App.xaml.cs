@@ -6,6 +6,8 @@ using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common.Helpers;
+using Rise.Data.Sources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -86,9 +88,9 @@ namespace Rise.App
         public static SettingsViewModel SViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide <see cref="SidebarViewModel"/> singleton instance.
+        /// Gets the app-wide <see cref="NavViewDataSource"/> singleton instance.
         /// </summary>
-        public static SidebarViewModel SBViewModel { get; private set; }
+        public static NavViewDataSource NavDataSource { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
@@ -220,9 +222,10 @@ namespace Rise.App
             MViewModel = new MainViewModel();
             LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
-            SBViewModel = new SidebarViewModel();
+            NavDataSource = new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+            VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
@@ -280,9 +283,9 @@ namespace Rise.App
             {
                 deferral = e?.SuspendingOperation?.GetDeferral();
 
-                if (SBViewModel != null)
+                if (NavDataSource != null)
                 {
-                    await SBViewModel.SerializeItemsAsync();
+                    await NavDataSource.SerializeGroupsAsync();
                 }
 
                 await SuspensionManager.SaveAsync();
@@ -382,9 +385,10 @@ namespace Rise.App
                     _ = await KnownFolders.MusicLibrary.
                     TrackForegroundAsync(QueryPresets.SongQueryOptions,
                     SongsTracker.MusicQueryResultChanged);
+
                     _ = await KnownFolders.VideosLibrary.
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                        SongsTracker.MusicQueryResultChanged);
+                        VideosTracker.VideosLibrary_ContentsChanged);
                 }
 
                 // await MViewModel.StartFullCrawlAsync();

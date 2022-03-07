@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace Rise.App.ViewModels
+namespace Rise.Data.ViewModels
 {
     /// <summary>
     /// Base ViewModel implementation, wraps a <typeparamref name="Type"/>

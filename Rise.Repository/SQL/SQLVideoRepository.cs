@@ -1,5 +1,6 @@
 ﻿using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
+using Rise.Common.Interfaces;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,17 @@ namespace Rise.Repository.SQL
                 return await _db.Videos
                     .AsNoTracking()
                     .FirstOrDefaultAsync(video => video.Id == id);
+            }
+        }
+
+        public async Task<bool> CheckForMatchAsync(Video other)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                var item = await _db.Videos.AsNoTracking().
+                    FirstOrDefaultAsync(itm => itm.Equals(other));
+
+                return item != null;
             }
         }
 

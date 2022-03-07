@@ -52,7 +52,7 @@
                           x:Uid="/Information/Shuffle"
                           Click="ShuffleButton_Click"
                           Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
+            <AppBarButton x:Uid="/Information/Add" IsEnabled="False" IsCompact="True">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
@@ -221,6 +221,15 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+                    <MenuFlyoutItem x:Name="ShowinFE"
+                                    x:Uid="/Information/ShowinFE"
+                                    IsEnabled="True"
+                                    Click="ShowinFE_Click">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xEC50;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
 
                     <MenuFlyoutSeparator/>
 
@@ -238,12 +247,12 @@
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
                 </MenuFlyout>
             </ListView.Resources>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                <DataTemplate x:DataType="viewmodels:SongViewModel"
+                              x:DefaultBindMode="OneWay">
                     <Grid Background="Transparent"
                           ColumnSpacing="12"
                           Padding="12,4"
@@ -259,19 +268,18 @@
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock HorizontalAlignment="Stretch"
-                                   Text="{x:Bind Track, Mode=OneWay}"
+                                   Text="{x:Bind Track}"
                                    TextAlignment="Center"
                                    VerticalAlignment="Center"
                                    Visibility="{x:Bind IsTrackNumberVisible,
-                                                Converter={StaticResource BoolToVis},
-                                                Mode=OneWay}"
+                                                Converter={StaticResource BoolToVis}}"
                                    Width="24" />
                             <Button x:Uid="/Information/Play"
                                     Click="PlayButton_Click"
                                     Height="32"
                                     Padding="0"
                                     Style="{StaticResource TransparentButton}"
-                                    Visibility="{x:Bind IsFocused, Mode=OneWay}"
+                                    Visibility="{x:Bind IsFocused}"
                                     Width="32"
                                     Margin="5,0,0,0">
                                 <FontIcon FontSize="16" Glyph="&#xE102;" />
@@ -282,21 +290,24 @@
                                 CornerRadius="4"
                                 Height="32"
                                 IsHitTestVisible="False"
-                                Padding="0"
+                                Padding="-12"
                                 Width="32">
                             <Border x:Name="AlbumThumb"
                                     CornerRadius="4"
                                     Height="32"
                                     Width="32">
-                                <Image x:Phase="2"
-                                       Height="32"
-                                       Source="{x:Bind Thumbnail, Mode=OneWay}"
-                                       Width="32" />
+                                <Image Height="32" Width="32">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelHeight="32"
+                                                     DecodePixelWidth="32"
+                                                     UriSource="{x:Bind Thumbnail}" />
+                                    </Image.Source>
+                                </Image>
                             </Border>
                         </Button>
 
                         <StackPanel Grid.Column="2" Orientation="Vertical">
-                            <TextBlock Text="{x:Bind Title, Mode=OneWay}"
+                            <TextBlock Text="{x:Bind Title}"
                                        TextTrimming="CharacterEllipsis" />
                             <Grid ColumnSpacing="4">
                                 <Grid.ColumnDefinitions>
@@ -308,7 +319,7 @@
 
                                 <TextBlock>
                                     <Hyperlink Click="Artist_Click" UnderlineStyle="None">
-                                        <Run Text="{x:Bind Artist, Mode=OneWay}" />
+                                        <Run Text="{x:Bind Artist}" />
                                     </Hyperlink>
                                 </TextBlock>
 
@@ -317,7 +328,7 @@
 
                                 <TextBlock Grid.Column="2">
                                     <Hyperlink Click="Album_Click" UnderlineStyle="None">
-                                        <Run Text="{x:Bind Album, Mode=OneWay}" />
+                                        <Run Text="{x:Bind Album}" />
                                     </Hyperlink>
                                 </TextBlock>
 
@@ -328,7 +339,7 @@
                         <TextBlock x:Phase="1"
                                    Grid.Column="3"
                                    Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                   Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"
+                                   Visibility="{x:Bind IsDurationVisible, Converter={StaticResource BoolToVis}}"
                                    VerticalAlignment="Center" />
                     </Grid>
                 </DataTemplate>

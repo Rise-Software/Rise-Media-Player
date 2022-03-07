@@ -1,4 +1,6 @@
 ﻿using Rise.App.Common;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -9,6 +11,8 @@ namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : ViewModel<Artist>
     {
+        private ISQLRepository<Artist> Repository => SQLRepository.Repository.Artists;
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the ArtistViewModel class that wraps an Artist object.
@@ -84,8 +88,16 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Artists.Add(this);
-            await SQLRepository.Repository.Artists.QueueUpsertAsync(Model);
+            bool hasMatch = await Repository.CheckForMatchAsync(Model);
+            if (!hasMatch)
+            {
+                App.MViewModel.Artists.Add(this);
+                await Repository.QueueUpsertAsync(Model);
+            }
+            else
+            {
+                await Repository.UpdateAsync(Model);
+            }
         }
 
         /// <summary>
@@ -94,7 +106,7 @@ namespace Rise.App.ViewModels
         public async Task DeleteAsync()
         {
             App.MViewModel.Artists.Remove(this);
-            await SQLRepository.Repository.Artists.QueueDeletionAsync(Model);
+            await Repository.QueueDeletionAsync(Model);
         }
 
         /// <summary>
@@ -122,19 +134,11 @@ namespace Rise.App.ViewModels
         }*/
 
         /// <summary>
-        /// Saves any edits that have been made.
-        /// </summary>
-        public async Task SaveEditsAsync()
-        {
-            await SQLRepository.Repository.Artists.UpdateAsync(Model);
-        }
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await SQLRepository.Repository.Artists.GetAsync(Model.Id);
+            Model = await Repository.GetAsync(Model.Id);
         }
         #endregion
     }

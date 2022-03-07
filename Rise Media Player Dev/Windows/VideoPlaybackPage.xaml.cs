@@ -28,15 +28,9 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
 
-            Loaded += VideoPlaybackPage_Loaded;
             PlayerElement.SetMediaPlayer(App.PViewModel.Player);
             DataContext = ViewModel;
             Current = this;
-        }
-
-        private void VideoPlaybackPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            _ = new ApplicationTitleBar(AppTitleBar);
         }
 
         private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)

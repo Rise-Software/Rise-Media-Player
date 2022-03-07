@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Rise.Common.Enums;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using static Rise.App.Common.Enums;
 
-namespace Rise.App.Common
+namespace Rise.Common.Helpers
 {
     /// <summary>
     /// Some helpers to better manage ContentDialogs.

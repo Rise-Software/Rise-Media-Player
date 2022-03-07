@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.Views;
+﻿using Rise.App.Views;
+using Rise.Common.Constants;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -23,5 +23,10 @@ namespace Rise.Models
         {
             return Title == other.Title;
         }
+
+        public override int GetHashCode()
+        {
+            return Title.GetHashCode();
+        }
     }
 }

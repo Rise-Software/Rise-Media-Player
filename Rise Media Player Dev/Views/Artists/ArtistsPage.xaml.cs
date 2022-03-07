@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -182,7 +183,7 @@ namespace Rise.App.Views
 
                     if (artist.Name == "Unknown Artist")
                     {
-                        artist.Picture = "ms-appx:///Assets/BlankArtist.png";
+                        artist.Picture = URIs.ArtistThumb;
                     }
                     else if (file != null)
                     {
@@ -327,7 +328,7 @@ namespace Rise.App.Views
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";
-                    await SelectedArtist.SaveEditsAsync();
+                    await SelectedArtist.SaveAsync();
                 }
             }
         }

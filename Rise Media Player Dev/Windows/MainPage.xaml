@@ -1,17 +1,15 @@
 ﻿<Page
     x:Class="Rise.App.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
+    xmlns:appviewmodels="using:Rise.App.ViewModels"
+    xmlns:local="using:Rise.App.Views"
+    xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -84,69 +82,90 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
-            <local:MenuItemTemplateSelector x:Key="NavViewItem">
-                <local:MenuItemTemplateSelector.GlyphTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem
-                            x:Phase="1"
-                            AccessKey="{x:Bind AccKey}"
-                            AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
-                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                            Tag="{x:Bind Tag}"
-                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
-                            <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon, Mode=OneWay}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
-                    </DataTemplate>
-                </local:MenuItemTemplateSelector.GlyphTemplate>
+            <!-- #region NavView item templates -->
+            <DataTemplate
+                x:DataType="viewmodels:NavViewItemViewModel"
+                x:DefaultBindMode="OneWay"
+                x:Key="AssetIconTemplate">
+                <muxc:NavigationViewItem
+                    x:Phase="1"
+                    AccessKey="{x:Bind AccessKey}"
+                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                    AutomationProperties.AutomationId="{x:Bind Id}"
+                    AutomationProperties.Name="{x:Bind Label}"
+                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                    Tag="{x:Bind Id}"
+                    Visibility="{x:Bind IsVisible}">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </DataTemplate>
 
-                <local:MenuItemTemplateSelector.ImageTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem
-                            x:Phase="1"
-                            AccessKey="{x:Bind AccKey}"
-                            AccessKeyInvoked="NavViewItem_AccessKeyInvoked"
-                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                            Tag="{x:Bind Tag}"
-                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}">
-                            <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon, Mode=OneWay}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
-                    </DataTemplate>
-                </local:MenuItemTemplateSelector.ImageTemplate>
+            <DataTemplate
+                x:DataType="viewmodels:NavViewItemViewModel"
+                x:DefaultBindMode="OneWay"
+                x:Key="GlyphIconTemplate">
+                <muxc:NavigationViewItem
+                    x:Phase="1"
+                    AccessKey="{x:Bind AccessKey}"
+                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                    AutomationProperties.AutomationId="{x:Bind Id}"
+                    AutomationProperties.Name="{x:Bind Label}"
+                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                    Tag="{x:Bind Id}"
+                    Visibility="{x:Bind IsVisible}">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </DataTemplate>
 
-                <local:MenuItemTemplateSelector.HeaderTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItemHeader
-                            x:Phase="1"
-                            Content="{x:Bind LabelResource, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                            Visibility="{x:Bind Visible, Mode=TwoWay, Converter={StaticResource BoolToVis}}" />
-                    </DataTemplate>
-                </local:MenuItemTemplateSelector.HeaderTemplate>
+            <DataTemplate
+                x:DataType="viewmodels:NavViewItemViewModel"
+                x:DefaultBindMode="OneWay"
+                x:Key="HeaderTemplate">
+                <muxc:NavigationViewItemHeader
+                    x:Phase="1"
+                    AutomationProperties.AutomationId="{x:Bind Id}"
+                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                    Visibility="{x:Bind IsVisible}"
+                    Tag="{x:Bind Id}" />
+            </DataTemplate>
 
-                <local:MenuItemTemplateSelector.SeparatorTemplate>
-                    <DataTemplate>
-                        <muxc:NavigationViewItemSeparator />
-                    </DataTemplate>
-                </local:MenuItemTemplateSelector.SeparatorTemplate>
-            </local:MenuItemTemplateSelector>
+            <DataTemplate
+                x:DataType="viewmodels:NavViewItemViewModel"
+                x:DefaultBindMode="OneWay"
+                x:Key="SeparatorTemplate">
+                <muxc:NavigationViewItemSeparator
+                    AutomationProperties.AutomationId="{x:Bind Id}"
+                    Tag="{x:Bind Id}"
+                    Visibility="{x:Bind IsVisible}" />
+            </DataTemplate>
+            <!-- #endregion -->
+
+            <local:NavViewItemTemplateSelector
+                x:Key="NavViewItemTemplateSelector"
+                AssetIconTemplate="{StaticResource AssetIconTemplate}"
+                GlyphIconTemplate="{StaticResource GlyphIconTemplate}"
+                HeaderTemplate="{StaticResource HeaderTemplate}"
+                SeparatorTemplate="{StaticResource SeparatorTemplate}" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid x:Name="_Grid">
         <Grid Canvas.ZIndex="1">
-            <uc:MicaTitleBar
+            <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 x:FieldModifier="public"
-                Height="32"
-                Margin="48,8,0,0"
-                VerticalAlignment="Top"
-                AddLabelWidth="800"
                 Canvas.ZIndex="1"
+                Height="40"
+                LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
                 Loaded="AppTitleBar_Loaded"
-                ShowIcon="True" />
+                Margin="48,8,0,0"
+                MinTitleWidth="800"
+                ShowIcon="True"
+                VerticalAlignment="Top" />
 
             <Grid
                 x:Name="OverlayModeContentPanel"
@@ -183,7 +202,8 @@
                     TextChanged="BigSearch_TextChanged"
                     Visibility="Collapsed">
                     <AutoSuggestBox.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:SearchItemViewModel">
+                        <DataTemplate x:DataType="appviewmodels:SearchItemViewModel"
+                                      x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60" />
@@ -194,7 +214,13 @@
                                     Width="40"
                                     Height="40"
                                     CornerRadius="3">
-                                    <Image Source="{x:Bind Thumbnail}" />
+                                    <Image>
+                                        <Image.Source>
+                                            <BitmapImage DecodePixelHeight="40"
+                                                         DecodePixelWidth="40"
+                                                         UriSource="{x:Bind Thumbnail}" />
+                                        </Image.Source>
+                                    </Image>
                                 </Border>
 
                                 <StackPanel Grid.Column="1">
@@ -220,7 +246,7 @@
 
 
                 <StackPanel Orientation="Horizontal">
-                    
+
                 </StackPanel>
                 <Button
                     x:Name="SyncCentre"
@@ -248,7 +274,7 @@
 
                                 </StackPanel>
                             </StackPanel>
-                            
+
                         </Flyout>
                     </Button.Flyout>
                 </Button>
@@ -277,7 +303,7 @@
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"
-                                Click="Messages_Click">
+                                Click="Messages_Click" IsEnabled="False">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -336,7 +362,7 @@
 
         <muxc:NavigationView
             x:Name="NavView"
-            BackRequested="NavView_BackRequested"
+            BackRequested="NavigationView_BackRequested"
             Canvas.ZIndex="0"
             CompactModeThresholdWidth="800"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
@@ -345,11 +371,11 @@
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
-            ItemInvoked="NavView_ItemInvoked"
-            MenuItemTemplateSelector="{StaticResource NavViewItem}"
+            ItemInvoked="NavigationView_ItemInvoked"
+            MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             OpenPaneLength="260"
             PaneDisplayMode="LeftMinimal"
-            RightTapped="NavView_RightTapped">
+            RightTapped="NavigationView_RightTapped">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -414,8 +440,6 @@
             ActionButtonClick="AddedTip_ActionButtonClick"
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
-
-
             PreferredPlacement="TopRight">
 
 
@@ -456,7 +480,6 @@
                 <muxc:FontIconSource Glyph="&#xE8F1;" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
-        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="SmallWidth">

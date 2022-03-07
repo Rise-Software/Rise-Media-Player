@@ -119,7 +119,7 @@
         </MenuFlyout>
 
         <Flyout x:Key="VolumeFlyout" x:Name="VolumeFlyout">
-            <RelativePanel Width="200" Height="15" Padding="-5" >
+            <RelativePanel Width="200" Height="15">
                 <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBoxMediaControl1">
                     <SymbolIcon Symbol="Volume"/>
                 </Viewbox>
@@ -140,7 +140,7 @@
 
             <StackPanel VerticalAlignment="Center" Margin="-1,0,0,0" Padding="3,0,0,0">
                 <StackPanel x:Name="OverlayMediaButtons" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button HorizontalAlignment="Right" Padding="7" Margin="0,5,5,5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Click="VolumeFlyoutButton1_Click"  Background="Transparent">
+                    <Button HorizontalAlignment="Right" Padding="7" Margin="0,5,5,5" x:Name="VolumeFlyoutButton1" BorderBrush="Transparent" Flyout="{StaticResource VolumeFlyout}" Background="Transparent">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
 

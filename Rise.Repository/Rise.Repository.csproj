@@ -16,6 +16,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -120,8 +121,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
-    <Compile Include="ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL\Context.cs" />
     <Compile Include="SQL\SQLAlbumRepository.cs" />
@@ -144,6 +143,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
+      <Project>{86322c85-900e-4bc8-959b-141cdfd68231}</Project>
+      <Name>Rise.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
       <Name>Rise.Models</Name>

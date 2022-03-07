@@ -28,6 +28,8 @@ namespace Rise.App.ChangeTrackers
             StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
             IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
 
+            List<SongViewModel> songRemoveQueue = new();
+
             foreach (StorageLibraryChange change in changes)
             {
                 if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
@@ -45,15 +47,24 @@ namespace Rise.App.ChangeTrackers
                 }
                 else if (change.IsOfType(StorageItemTypes.Folder))
                 {
-                    await ViewModel.StartFullCrawlAsync();
+                    //await ViewModel.StartFullCrawlAsync();
                 }
                 else
                 {
                     if (change.ChangeType == StorageLibraryChangeType.Deleted)
                     {
-                        foreach (SongViewModel song in ViewModel.Songs)
+                        try
                         {
-                            if (change.PreviousPath == song.Location)
+                            foreach (SongViewModel song in ViewModel.Songs)
+                            {
+                                if (change.PreviousPath == song.Location)
+                                {
+                                    songRemoveQueue.Add(song);
+                                }
+                            }
+                        } finally
+                        {
+                            foreach (SongViewModel song in songRemoveQueue)
                             {
                                 await song.DeleteAsync();
                             }
@@ -100,7 +111,7 @@ namespace Rise.App.ChangeTrackers
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
                             ViewModel.Songs[i].Location = file.Path;
-                            await ViewModel.Songs[i].SaveEditsAsync();
+                            await ViewModel.Songs[i].SaveAsync();
                         }
                     }
                     break;

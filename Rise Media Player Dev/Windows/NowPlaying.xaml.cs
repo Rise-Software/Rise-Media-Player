@@ -18,8 +18,6 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            _ = new ApplicationTitleBar(TitleBar);
-
             //Player.SetMediaPlayer(ViewModel.Player);
 
             DataContext = ViewModel;

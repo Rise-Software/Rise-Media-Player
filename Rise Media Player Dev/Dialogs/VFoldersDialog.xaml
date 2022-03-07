@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:storage="using:Windows.Storage"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
 
@@ -15,6 +16,8 @@
             <RowDefinition Height="1" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        
 
         <StackPanel x:Name="AllButtons" x:FieldModifier="public"  Orientation="Horizontal" VerticalAlignment="top">
             <Button x:Uid="/MediaLibrary/Add"
@@ -75,8 +78,16 @@
                     Click="Done_Click" />
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="0,48,0,0">
-            
+        <StackPanel Orientation="Vertical" Margin="0,38,0,0">
+            <muxc:InfoBar
+            x:Name="TryRiseEQ" x:FieldModifier="public"
+            IsOpen="True"
+            Margin="0,4,0,8"
+            IsIconVisible="True"
+            IsClosable="False"
+            Severity="Informational"
+            Message="We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.">
+            </muxc:InfoBar>
             <ListView Grid.Row="1"
                       x:Name="MusicList" x:FieldModifier="public"
                   IsItemClickEnabled="False"

@@ -210,7 +210,8 @@
                 </MenuFlyout>
             </GridView.Resources>
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:ArtistViewModel">
+                <DataTemplate x:DataType="viewmodels:ArtistViewModel"
+                              x:DefaultBindMode="OneWay">
                     <Grid ColumnSpacing="10"
                           Margin="12"
                           Width="200"
@@ -225,11 +226,15 @@
                                 Padding="0">
                             <Border x:Name="ArtistThumb"
                                     CornerRadius="42">
-                                <Image
-                                       Height="80"
-                                       Source="{x:Bind Picture, Mode=OneWay}"
+                                <Image Height="80"
                                        Stretch="UniformToFill"
-                                       Width="80" />
+                                       Width="80">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelHeight="80"
+                                                     DecodePixelWidth="80"
+                                                     UriSource="{x:Bind Picture}" />
+                                    </Image.Source>
+                                </Image>
                             </Border>
                         </Button>
 
