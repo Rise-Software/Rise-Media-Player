@@ -1,5 +1,5 @@
 ﻿using Rise.Common.Enums;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Models;
 using System;
 using Windows.Data.Json;

@@ -6,7 +6,7 @@ using Rise.App.DbControllers;
 using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Data.Sources;
 using System;
 using System.Collections.Generic;

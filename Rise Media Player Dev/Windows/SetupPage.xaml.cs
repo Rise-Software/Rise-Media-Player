@@ -1,6 +1,6 @@
 ﻿using Rise.App.Dialogs;
 using Rise.Common.Enums;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

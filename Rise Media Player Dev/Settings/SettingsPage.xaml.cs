@@ -3,7 +3,7 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;

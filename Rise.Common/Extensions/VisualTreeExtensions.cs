@@ -2,9 +2,9 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace Rise.Common.Helpers
+namespace Rise.Common.Extensions
 {
-    public static class VisualTreeHelpers
+    public static class VisualTreeExtensions
     {
         /// <summary>
         /// Tries to find the specified visual child with the specified name.

@@ -4,7 +4,7 @@ using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;

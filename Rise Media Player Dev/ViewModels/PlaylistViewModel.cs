@@ -1,4 +1,5 @@
 ﻿using Rise.App.Views;
+using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;

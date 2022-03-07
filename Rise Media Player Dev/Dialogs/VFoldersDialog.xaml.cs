@@ -1,6 +1,6 @@
 ﻿using Rise.App.Views;
 using Rise.Common.Enums;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using System;
 using Windows.Storage;
 using Windows.System;

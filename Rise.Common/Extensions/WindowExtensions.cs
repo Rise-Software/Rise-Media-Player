@@ -1,5 +1,4 @@
-﻿using Rise.App.UserControls;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -11,9 +10,8 @@ using Windows.UI.WindowManagement.Preview;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Media;
 
-namespace Rise.App.Views
+namespace Rise.Common.Extensions
 {
     public static class WindowExtensions
     {

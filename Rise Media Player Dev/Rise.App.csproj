@@ -348,7 +348,6 @@
     <Compile Include="Views\QueuePage.xaml.cs">
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\WindowHelpers.cs" />
     <Compile Include="UserControls\ExtendedTitleBar.xaml.cs">
       <DependentUpon>ExtendedTitleBar.xaml</DependentUpon>
     </Compile>

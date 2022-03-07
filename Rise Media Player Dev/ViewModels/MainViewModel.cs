@@ -5,7 +5,7 @@ using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
 using Rise.Common.Constants;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
