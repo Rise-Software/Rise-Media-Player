@@ -349,8 +349,8 @@
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\WindowHelpers.cs" />
-    <Compile Include="UserControls\MicaTitleBar.xaml.cs">
-      <DependentUpon>MicaTitleBar.xaml</DependentUpon>
+    <Compile Include="UserControls\ExtendedTitleBar.xaml.cs">
+      <DependentUpon>ExtendedTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -799,7 +799,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MicaTitleBar.xaml">
+    <Page Include="UserControls\ExtendedTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -16,7 +16,6 @@ namespace Rise.App.Views
         public SetupPage()
         {
             InitializeComponent();
-            _ = new ApplicationTitleBar(AppTitleBar);
         }
 
         private async void SetupButton_Click(object sender, RoutedEventArgs e)

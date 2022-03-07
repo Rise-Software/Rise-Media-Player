@@ -137,16 +137,10 @@ namespace Rise.App.Views
                 await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
             }
 
-            _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             await HandleViewModelColorSettingAsync();
+            UpdateTitleBarItems(NavView);
 
             Loaded -= MainPage_Loaded;
-
-            // When the page is loaded, initialize the titlebar
-            Loaded += (s, e) =>
-            {
-                _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
-            };
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
@@ -201,12 +195,8 @@ namespace Rise.App.Views
         /// </summary>
         private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
         {
-            // Update title bar control size as needed to account for system size changes.
-            AppTitleBar.Height = coreTitleBar.Height;
-
             // Ensure the custom title bar does not overlap window caption controls
             Thickness currMargin = AppTitleBar.Margin;
-            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
             ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
 
             UpdateTitleBarItems(NavView);

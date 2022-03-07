@@ -418,11 +418,13 @@ namespace Rise.App.UserControls
             }
             else
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
+                
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 
@@ -439,11 +441,13 @@ namespace Rise.App.UserControls
             }
             else
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE47";
+
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 

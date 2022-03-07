@@ -4,13 +4,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:local="using:Rise.App"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:conv="using:Rise.App.Converters"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" xmlns:local="using:Rise.App"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     mc:Ignorable="d"
     PointerExited="Page_PointerExited"
@@ -39,7 +38,7 @@
               PointerEntered="TopGrid_PointerEntered"
               PointerExited="TopGrid_PointerExited"
               Background="{StaticResource SystemControlAcrylicElementBrush}">
-            
+
             <Grid.Transitions>
                 <TransitionCollection>
                     <RepositionThemeTransition />
@@ -71,15 +70,15 @@
 
             </Button>
 
-            <uc:MicaTitleBar x:Name="AppTitleBar"
-                             Canvas.ZIndex="1"
-                             AddLabelWidth="0"
-                             Height="32"
-                             Margin="24,0,0,0"
-                             ShowIcon="False"
-                             Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}"
-                             PointerEntered="TopGrid_PointerEntered"
-                             PointerExited="TopGrid_PointerExited" />
+            <uc:ExtendedTitleBar x:Name="AppTitleBar"
+                                 Canvas.ZIndex="1"
+                                 Height="32"
+                                 Margin="24,0,0,0"
+                                 MinTitleWidth="0"
+                                 ShowIcon="False"
+                                 Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}"
+                                 PointerEntered="TopGrid_PointerEntered"
+                                 PointerExited="TopGrid_PointerExited" />
         </Grid>
 
         <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
@@ -92,6 +91,6 @@
         <MediaPlayerElement x:Name="PlayerElement"
                             Canvas.ZIndex="0"
                             x:FieldModifier="public"/>
-        
+
     </Grid>
 </Page>

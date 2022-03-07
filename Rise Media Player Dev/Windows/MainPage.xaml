@@ -155,16 +155,17 @@
 
     <Grid x:Name="_Grid">
         <Grid Canvas.ZIndex="1">
-            <uc:MicaTitleBar
+            <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 x:FieldModifier="public"
-                Height="32"
-                Margin="48,8,0,0"
-                VerticalAlignment="Top"
-                AddLabelWidth="800"
                 Canvas.ZIndex="1"
+                Height="40"
+                LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
                 Loaded="AppTitleBar_Loaded"
-                ShowIcon="True" />
+                Margin="48,8,0,0"
+                MinTitleWidth="800"
+                ShowIcon="True"
+                VerticalAlignment="Top" />
 
             <Grid
                 x:Name="OverlayModeContentPanel"

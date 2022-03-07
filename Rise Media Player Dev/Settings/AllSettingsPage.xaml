@@ -45,7 +45,7 @@
             
         </StackPanel>
 
-        <uc:MicaTitleBar Title="App settings" HorizontalAlignment="Stretch" FontSize="14" Margin="54,0,275,0" x:Name="TitleBar" ShowIcon="False" />
+        <uc:ExtendedTitleBar Title="App settings" HorizontalAlignment="Stretch" FontSize="14" Margin="54,0,275,0" x:Name="TitleBar" ShowIcon="False" />
 
         <Button VerticalAlignment="Top" x:Name="SyncButton" 
                     CornerRadius="5"

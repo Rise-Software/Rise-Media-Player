@@ -30,7 +30,6 @@ namespace Rise.App.Views
             _navigationHelper = new NavigationHelper(this);
             Current = this;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-            _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             PlayingAnimationIn.Begin();
@@ -56,14 +55,8 @@ namespace Rise.App.Views
             //}
         }
 
-        private void FullNowPlayingPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            _ = new ApplicationTitleBar(TitleBar);
-        }
-
         private void Page_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            _ = new ApplicationTitleBar(TitleBar);
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             if (IsInCurrentlyPlayingPage)
             {
