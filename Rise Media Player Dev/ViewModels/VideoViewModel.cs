@@ -160,7 +160,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Deletes item data to the backend.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
