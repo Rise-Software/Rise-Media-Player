@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Rise.App.Extensions
+namespace Rise.Common.Extensions
 {
     public static class EnumerableExtensions
     {
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
         {
-            return ShuffleEnumerableExtensions.Shuffle(source, new Random());
+            return source.Shuffle(new Random());
         }
 
         public static IList<T> CloneList<T>(this IEnumerable<T> source)
@@ -38,26 +38,23 @@ namespace Rise.App.Extensions
             return list;
         }
 
-        private static class ShuffleEnumerableExtensions
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, Random rnd)
         {
-            public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source, Random rnd)
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (rnd == null) throw new ArgumentNullException(nameof(rnd));
+
+            return ShuffleIterator<T>(source, rnd);
+        }
+
+        private static IEnumerable<T> ShuffleIterator<T>(IEnumerable<T> source, Random rnd)
+        {
+            IList<T> buffer = source.ToList();
+            for (int i = 0; i < buffer.Count; i++)
             {
-                if (source == null) throw new ArgumentNullException(nameof(source));
-                if (rnd == null) throw new ArgumentNullException(nameof(rnd));
+                int j = rnd.Next(i, buffer.Count);
+                yield return buffer[j];
 
-                return ShuffleIterator<T>(source, rnd);
-            }
-
-            private static IEnumerable<T> ShuffleIterator<T>(IEnumerable<T> source, Random rnd)
-            {
-                IList<T> buffer = source.ToList();
-                for (int i = 0; i < buffer.Count; i++)
-                {
-                    int j = rnd.Next(i, buffer.Count);
-                    yield return buffer[j];
-
-                    buffer[j] = buffer[i];
-                }
+                buffer[j] = buffer[i];
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Extensions;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
