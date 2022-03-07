@@ -1,4 +1,5 @@
 ﻿using Rise.App.Common;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
@@ -8,6 +9,8 @@ namespace Rise.App.ViewModels
 {
     public class GenreViewModel : ViewModel<Genre>
     {
+        private ISQLRepository<Genre> Repository => SQLRepository.Repository.Genres;
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
@@ -42,8 +45,16 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Genres.Add(this);
-            await SQLRepository.Repository.Genres.QueueUpsertAsync(Model);
+            bool hasMatch = await Repository.CheckForMatchAsync(Model);
+            if (!hasMatch)
+            {
+                App.MViewModel.Genres.Add(this);
+                await Repository.QueueUpsertAsync(Model);
+            }
+            else
+            {
+                await Repository.UpdateAsync(Model);
+            }
         }
         #endregion
     }

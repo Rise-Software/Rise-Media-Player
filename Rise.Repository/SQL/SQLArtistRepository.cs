@@ -44,6 +44,17 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task<bool> CheckForMatchAsync(Artist other)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                var item = await _db.Artists.AsNoTracking().
+                    FirstOrDefaultAsync(itm => itm.Equals(other));
+
+                return item != null;
+            }
+        }
+
         public async Task<IEnumerable<Artist>> GetAsync(string search)
         {
             using (_db = new Context(_dbOptions))

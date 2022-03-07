@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.Views;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
@@ -18,6 +19,8 @@ namespace Rise.App.ViewModels
 {
     public class SongViewModel : ViewModel<Song>
     {
+        private ISQLRepository<Song> Repository => SQLRepository.Repository.Songs;
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the SongViewModel class that wraps a Song object.
@@ -308,12 +311,16 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
+            bool hasMatch = await Repository.CheckForMatchAsync(Model);
+            if (!hasMatch)
             {
                 App.MViewModel.Songs.Add(this);
+                await Repository.QueueUpsertAsync(Model);
             }
-
-            await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
+            else
+            {
+                await Repository.UpdateAsync(Model);
+            }
         }
 
         /// <summary>
@@ -323,7 +330,7 @@ namespace Rise.App.ViewModels
         {
             App.MViewModel.Songs.Remove(this);
 
-            await SQLRepository.Repository.Songs.QueueUpsertAsync(Model);
+            await Repository.QueueUpsertAsync(Model);
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
@@ -364,24 +371,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Saves any edits that have been made.
-        /// </summary>
-        public async Task SaveEditsAsync()
-        {
-            if (await SQLRepository.Repository.Songs.GetAsync(Model.Id) == null)
-            {
-                await SaveAsync();
-                return;
-            }
-            await SQLRepository.Repository.Songs.UpdateAsync(Model);
-        }
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await SQLRepository.Repository.Songs.GetAsync(Model.Id);
+            Model = await Repository.GetAsync(Model.Id);
         }
         #endregion
 

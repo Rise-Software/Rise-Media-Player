@@ -44,6 +44,17 @@ namespace Rise.Repository.SQL
             }
         }
 
+        public async Task<bool> CheckForMatchAsync(Video other)
+        {
+            using (_db = new Context(_dbOptions))
+            {
+                var item = await _db.Videos.AsNoTracking().
+                    FirstOrDefaultAsync(itm => itm.Equals(other));
+
+                return item != null;
+            }
+        }
+
         public async Task<IEnumerable<Video>> GetAsync(string search)
         {
             using (_db = new Context(_dbOptions))

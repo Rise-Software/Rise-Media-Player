@@ -12,15 +12,21 @@ namespace Rise.Common.Interfaces
         Task<IEnumerable<T>> GetAsync();
 
         /// <summary>
+        /// Returns the item with the given id. 
+        /// </summary>
+        Task<T> GetAsync(Guid id);
+
+        /// <summary>
+        /// If an item that is equal to <paramref name="other"/> is found,
+        /// returns true, false otherwise.
+        /// </summary>
+        Task<bool> CheckForMatchAsync(T other);
+
+        /// <summary>
         /// Returns all items with a data field matching the start of the
         /// given string. 
         /// </summary>
         Task<IEnumerable<T>> GetAsync(string search);
-
-        /// <summary>
-        /// Returns the item with the given id. 
-        /// </summary>
-        Task<T> GetAsync(Guid id);
 
         /// <summary>
         /// Directly updates an item.

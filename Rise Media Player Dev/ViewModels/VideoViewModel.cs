@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -13,6 +14,8 @@ namespace Rise.App.ViewModels
 {
     public class VideoViewModel : ViewModel<Video>
     {
+        private ISQLRepository<Video> Repository => SQLRepository.Repository.Videos;
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoViewModel"/>
@@ -144,8 +147,16 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Videos.Add(this);
-            await SQLRepository.Repository.Videos.QueueUpsertAsync(Model);
+            bool hasMatch = await Repository.CheckForMatchAsync(Model);
+            if (!hasMatch)
+            {
+                App.MViewModel.Videos.Add(this);
+                await Repository.QueueUpsertAsync(Model);
+            }
+            else
+            {
+                await Repository.UpdateAsync(Model);
+            }
         }
         #endregion
 
@@ -170,19 +181,11 @@ namespace Rise.App.ViewModels
         }*/
 
         /// <summary>
-        /// Saves any edits that have been made.
-        /// </summary>
-        public async Task SaveEditsAsync()
-        {
-            await SQLRepository.Repository.Videos.UpdateAsync(Model);
-        }
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await SQLRepository.Repository.Videos.GetAsync(Model.Id);
+            Model = await Repository.GetAsync(Model.Id);
         }
         #endregion
 

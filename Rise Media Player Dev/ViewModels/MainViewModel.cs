@@ -411,7 +411,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveEditsAsync();
+                        await alvm.SaveAsync();
                     }
                 }
 
