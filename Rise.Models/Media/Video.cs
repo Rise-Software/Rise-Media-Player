@@ -21,6 +21,13 @@ namespace Rise.Models
         public override string ToString() => Title;
 
         public bool Equals(Video other)
-            => Location == other.Location;
+        {
+            return Location == other.Location;
+        }
+
+        public override int GetHashCode()
+        {
+            return Location.GetHashCode();
+        }
     }
 }

@@ -37,5 +37,11 @@ namespace Rise.Models
                    Length == other.Length &&
                    Year == other.Year;
         }
+
+        public override int GetHashCode()
+        {
+            return (Title, Artist, Track, Disc, Album,
+                AlbumArtist, Genres, Length, Year).GetHashCode();
+        }
     }
 }

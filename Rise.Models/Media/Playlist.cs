@@ -26,5 +26,10 @@ namespace Rise.Models
                    Icon == other.Icon &&
                    Description == other.Description;
         }
+
+        public override int GetHashCode()
+        {
+            return (Title, Duration, Icon, Description).GetHashCode();
+        }
     }
 }
