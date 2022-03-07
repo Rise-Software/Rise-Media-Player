@@ -158,6 +158,16 @@ namespace Rise.App.ViewModels
                 await Repository.UpdateAsync(Model);
             }
         }
+
+        /// <summary>
+        /// Deletes item data to the backend.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            App.MViewModel.Videos.Remove(this);
+
+            await Repository.DeleteAsync(Model);
+        }
         #endregion
 
         #region Editing

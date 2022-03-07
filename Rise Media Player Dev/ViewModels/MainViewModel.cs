@@ -246,6 +246,7 @@ namespace Rise.App.ViewModels
             }
 
             await SongsTracker.HandleMusicFolderChanges();
+            await VideosTracker.HandleVideosFolderChanges();
             await IndexLibrariesAsync();
             await UpdateItemsAsync();
         }

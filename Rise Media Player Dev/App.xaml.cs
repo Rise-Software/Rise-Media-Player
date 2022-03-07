@@ -219,6 +219,7 @@ namespace Rise.App
             NavDataSource = new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+            VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
@@ -381,7 +382,7 @@ namespace Rise.App
 
                     _ = await KnownFolders.VideosLibrary.
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                        SongsTracker.MusicQueryResultChanged);
+                        VideosTracker.VideosLibrary_ContentsChanged);
                 }
 
                 // await MViewModel.StartFullCrawlAsync();
