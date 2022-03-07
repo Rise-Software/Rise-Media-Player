@@ -17,6 +17,7 @@ namespace Rise.Data.Sources
     {
         #region Private fields
         private const string _fileName = "ItemData.json";
+        private const string _tmpFileName = "ItemData.json.~tmp";
 
         private readonly Dictionary<string, string> _defaultIcons =
             new Dictionary<string, string>();
@@ -85,6 +86,20 @@ namespace Rise.Data.Sources
             }
 
             string jsonText = await FileIO.ReadTextAsync(file);
+
+            // So, why check for this? The file should have the info, right?
+            if (jsonText == null || jsonText.Length == 0)
+            {
+                // For some unexplainable reason, Windows will sometimes save
+                // stuff to a tmp file and call it a day. We have to account
+                // for that. I'm not joking when I say not checking for this
+                // can crash the app, every single time it starts up.
+                file = await ApplicationData.Current.LocalFolder.
+                    GetFileAsync(_tmpFileName);
+
+                jsonText = await FileIO.ReadTextAsync(file);
+            }
+
             JsonObject jsonObject = JsonObject.Parse(jsonText);
 
             JsonArray itemArray = jsonObject["Items"].GetArray();
