@@ -132,10 +132,10 @@ namespace Rise.App.Views
 
             App.MViewModel.CanIndex = true;
 
-            if (SViewModel.AutoIndexingEnabled)
+            /*if (SViewModel.AutoIndexingEnabled)
             {
                 await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-            }
+            }*/
 
             _ = new ApplicationTitleBar(AppTitleBar, CoreTitleBar_LayoutMetricsChanged);
             await HandleViewModelColorSettingAsync();
