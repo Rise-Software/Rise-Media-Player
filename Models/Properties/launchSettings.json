@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Rise.Models": {
+      "commandName": "Project"
+    },
+    "Rise.app": {
+      "commandName": "Executable"
+    }
+  }
+}

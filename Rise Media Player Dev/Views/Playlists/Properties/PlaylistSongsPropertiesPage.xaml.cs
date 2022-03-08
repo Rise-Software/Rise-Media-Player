@@ -54,7 +54,12 @@ namespace Rise.App.Views.Playlists.Properties
 
             if ((_plViewModel.Songs.IndexOf(song) - 1) > 0)
             {
-                _plViewModel.Songs.Move(_plViewModel.Songs.IndexOf(song), _plViewModel.Songs.IndexOf(song) - 1);
+                int index1 = _plViewModel.Songs.IndexOf(song);
+                int index2 = _plViewModel.Songs.IndexOf(song) - 1;
+                System.Diagnostics.Debug.WriteLine(index1);
+                System.Diagnostics.Debug.WriteLine(index2);
+                System.Diagnostics.Debug.WriteLine(_plViewModel.Songs);
+                //_plViewModel.Songs.Move(_plViewModel.Songs.IndexOf(song), _plViewModel.Songs.IndexOf(song) -1);
             }
         }
     }
