@@ -230,6 +230,20 @@ namespace Rise.App.ViewModels
             }
         }
 
+        private ObservableCollection<VideoViewModel> _videos = new();
+        public ObservableCollection<VideoViewModel> Videos
+        {
+            get => _videos;
+            set
+            {
+                if (value != _videos)
+                {
+                    _videos = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public int SongsCount
         {
             get
@@ -237,6 +251,21 @@ namespace Rise.App.ViewModels
                 if (Songs != null)
                 {
                     return Songs.Count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public int VideosCount
+        {
+            get
+            {
+                if (Videos != null)
+                {
+                    return Videos.Count;
                 }
                 else
                 {
@@ -290,11 +319,29 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Adds a video to the playlist.
+        /// </summary>
+        public async Task AddVideoAsync(VideoViewModel video)
+        {
+            Videos.Add(video);
+            await SaveEditsAsync();
+        }
+
+        /// <summary>
         /// Removes a song to the playlist.
         /// </summary>
         public async Task RemoveSongAsync(SongViewModel song)
         {
             Songs.Remove(song);
+            await SaveEditsAsync();
+        }
+
+        ///<summary>
+        /// Removes a video from the playlist.
+        ///</summary>
+        public async Task RemoveVideoAsync(VideoViewModel video)
+        {
+            Videos.Remove(video);
             await SaveEditsAsync();
         }
 
@@ -316,6 +363,24 @@ namespace Rise.App.ViewModels
             }
         }
 
+        ///<summary>
+        /// Adds multiple videos to the playlist.
+        ///</summary>
+        public async Task AddVideosAsync(IEnumerable<VideoViewModel> videos)
+        {
+            try
+            {
+                foreach(VideoViewModel video in videos)
+                {
+                    Videos.Add(video);
+                }
+            }
+            finally
+            {
+                await SaveEditsAsync();
+            }
+        }
+
         /// <summary>
         /// Removes multiple songs from the playlist.
         /// </summary>
@@ -326,6 +391,24 @@ namespace Rise.App.ViewModels
                 foreach (SongViewModel song in songs)
                 {
                     Songs.Remove(song);
+                }
+            }
+            finally
+            {
+                await SaveEditsAsync();
+            }
+        }
+
+        /// <summary>
+        /// Removes multiple videos from the playlist.
+        /// </summary>
+        public async Task RemoveVideosAsync(List<VideoViewModel> videos)
+        {
+            try
+            {
+                foreach (VideoViewModel video in videos)
+                {
+                    Videos.Remove(video);
                 }
             }
             finally
