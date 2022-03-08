@@ -121,6 +121,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
     <Compile Include="Constants\SupportedFileTypes.cs" />
     <Compile Include="Constants\URIs.cs" />
@@ -133,9 +134,12 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentDialogExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
+    <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="Extensions\IndexingExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
+    <Compile Include="Extensions\WebHelpers.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />

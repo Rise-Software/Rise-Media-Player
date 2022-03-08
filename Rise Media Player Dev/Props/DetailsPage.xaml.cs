@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -38,22 +38,22 @@ namespace Rise.App.Props
 
         private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
         {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker
+            var picker = new FileOpenPicker
             {
-                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
-                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
             if (file != null)
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"modified-artist-{file.Name}.png");
+                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
 
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 

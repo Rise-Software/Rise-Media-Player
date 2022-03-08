@@ -338,7 +338,7 @@ namespace Rise.App.ViewModels
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
                     string filename = song.Album.AsValidFileName();
-                    filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                    filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                     if (filename != "/")
                     {
@@ -384,7 +384,7 @@ namespace Rise.App.ViewModels
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
                         string filename = song.Album.AsValidFileName();
-                        filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                        filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                         if (filename != "/")
                         {
@@ -483,7 +483,7 @@ namespace Rise.App.ViewModels
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
-                filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                 if (filename != "/")
                 {

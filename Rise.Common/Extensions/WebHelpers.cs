@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -80,7 +81,7 @@ namespace Rise.App.Common
 
                 // Get the SoftwareBitmap representation of the file
                 SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync();
-                result = await FileHelpers.SaveSoftwareBitmapToFile(softBmp, destinationFile);
+                result = await softBmp.SaveToFileAsync(destinationFile);
             }
             catch (Exception ex)
             {

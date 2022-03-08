@@ -1,7 +1,7 @@
-﻿using Rise.App.Common;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.Common;
 using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
