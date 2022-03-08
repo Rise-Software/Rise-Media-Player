@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,7 +24,7 @@ namespace Rise.App.ChangeTrackers
         public static async Task ManageVideoChange(StorageLibraryChange change)
         {
             StorageFile file;
-
+            Video video;
             // Temp variable used for instantiating StorageFiles for sorting if needed later
             switch (change.ChangeType)
             {
@@ -32,13 +32,17 @@ namespace Rise.App.ChangeTrackers
                 case StorageLibraryChangeType.Created:
                     // Song was created..?
                     file = (StorageFile)await change.GetStorageItemAsync();
-                    await new VideoViewModel(await file.AsVideoModelAsync()).SaveAsync();
+                    video = await Video.GetFromFileAsync(file);
+
+                    await new VideoViewModel(video).SaveAsync();
                     break;
 
                 case StorageLibraryChangeType.MovedIntoLibrary:
                     // Song was moved into the library
                     file = (StorageFile)await change.GetStorageItemAsync();
-                    await new VideoViewModel(await file.AsVideoModelAsync()).SaveAsync();
+                    video = await Video.GetFromFileAsync(file);
+
+                    await new VideoViewModel(video).SaveAsync();
                     break;
 
                 case StorageLibraryChangeType.MovedOrRenamed:
@@ -106,7 +110,6 @@ namespace Rise.App.ChangeTrackers
         private static async void VideosLibrary_DefinitionChanged(StorageLibrary sender, object args)
         {
             Debug.WriteLine("Video folder changes!");
-
             await MViewModel.StartFullCrawlAsync();
         }
 
@@ -116,26 +119,6 @@ namespace Rise.App.ChangeTrackers
         /// <param name="folders">Folder changes.</param>
         public static async Task HandleVideosFolderChanges()
         {
-            /*bool isInFolder = false;
-            foreach (VideoViewModel video in MViewModel.Videos)
-            {
-                foreach (StorageFolder folder in folders)
-                {
-                    if (video.Location.StartsWith(folder.Path))
-                    {
-                        isInFolder = true;
-                        break;
-                    }
-                }
-
-                if (!isInFolder)
-                {
-                    video.Delete();
-                }
-
-                isInFolder = false;
-            }*/
-
             List<VideoViewModel> toRemove = new();
 
             try

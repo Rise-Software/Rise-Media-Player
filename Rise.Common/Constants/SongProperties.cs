@@ -1,9 +1,8 @@
-﻿using Rise.Common.Constants;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Rise.App.Props
+namespace Rise.Common.Constants
 {
-    public class Properties
+    public class SongProperties
     {
         /// <summary>
         /// List of properties that may contain disc numbers.

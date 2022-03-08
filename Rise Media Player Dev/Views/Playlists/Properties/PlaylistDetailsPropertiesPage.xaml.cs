@@ -73,7 +73,7 @@ namespace Rise.App.Views.Playlists.Properties
 
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 Playlist.Icon = uri.ToString();
             }
         }

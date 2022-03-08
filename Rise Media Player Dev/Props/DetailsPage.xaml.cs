@@ -57,7 +57,7 @@ namespace Rise.App.Props
 
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 Props.Thumbnail = uri.ToString();
                 //Update the source in the XAML view
                 imgAlbum.Source = new BitmapImage(uri);

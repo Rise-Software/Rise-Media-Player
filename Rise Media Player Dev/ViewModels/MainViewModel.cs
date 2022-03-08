@@ -1,7 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ChangeTrackers;
-using Rise.App.Common;
-using Rise.App.Props;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
@@ -276,7 +274,7 @@ namespace Rise.App.ViewModels
 
             IsIndexing = true;
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
-                PropertyPrefetchOptions.MusicProperties, Properties.DiscProperties))
+                PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
                 if (await SaveMusicModelsAsync(song))
                 {
@@ -308,7 +306,7 @@ namespace Rise.App.ViewModels
         /// otherwise false.</returns>
         public async Task<bool> SaveMusicModelsAsync(StorageFile file)
         {
-            Song song = await file.AsSongModelAsync();
+            var song = await Song.GetFromFileAsync(file);
 
             // Check if song exists.
             bool songExists = Songs.
@@ -345,7 +343,7 @@ namespace Rise.App.ViewModels
                         thumb = $@"ms-appdata:///local/{filename}.png";
                     }
 
-                    thumbnail.Dispose();
+                    thumbnail?.Dispose();
                 }
 
                 // Set AlbumViewModel data.
@@ -392,7 +390,7 @@ namespace Rise.App.ViewModels
                             save = true;
                         }
 
-                        thumbnail.Dispose();
+                        thumbnail?.Dispose();
                     }
 
                     if (alvm.Year == 0)
@@ -470,7 +468,7 @@ namespace Rise.App.ViewModels
         /// otherwise false.</returns>
         public async Task<bool> SaveVideoModelAsync(StorageFile file)
         {
-            Video video = await file.AsVideoModelAsync();
+            var video = await Video.GetFromFileAsync(file);
 
             bool videoExists = Videos.
                 Any(v => v.Model.Equals(video));

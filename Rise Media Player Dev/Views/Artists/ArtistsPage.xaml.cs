@@ -325,7 +325,7 @@ namespace Rise.App.Views
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
                 await thumbnail.SaveToFileAsync($@"modified-artist-{SelectedArtist.Name}.png", CreationCollisionOption.ReplaceExisting);
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";

@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
+    <Compile Include="Constants\SongProperties.cs" />
     <Compile Include="Constants\SupportedFileTypes.cs" />
     <Compile Include="Constants\URIs.cs" />
     <Compile Include="Constants\SystemMusic.cs" />
@@ -158,12 +159,6 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.2</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
-      <Project>{17D51104-B536-4D03-BD8B-74E0CCE49CFB}</Project>
-      <Name>Rise.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

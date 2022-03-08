@@ -1,4 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
 
 namespace Rise.Models
 {
@@ -28,6 +32,36 @@ namespace Rise.Models
         public override int GetHashCode()
         {
             return Location.GetHashCode();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Video"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Video file.</param>
+        /// <returns>A video based on the file.</returns>
+        public static async Task<Video> GetFromFileAsync(StorageFile file)
+        {
+            // Put the value into memory to make sure that the system
+            // really fetches the property.
+            VideoProperties videoProperties =
+                await file.Properties.GetVideoPropertiesAsync();
+
+            // Valid video metadata is needed.
+            string title = videoProperties.Title.Length > 0
+                ? videoProperties.Title : Path.GetFileNameWithoutExtension(file.Path);
+
+            string directors = videoProperties.Directors.Count > 0
+                ? string.Join(";", videoProperties.Directors) : "UnknownArtistResource";
+
+            return new Video
+            {
+                Title = title,
+                Directors = directors,
+                Length = videoProperties.Duration,
+                Year = videoProperties.Year,
+                Location = file.Path,
+                Rating = videoProperties.Rating
+            };
         }
     }
 }

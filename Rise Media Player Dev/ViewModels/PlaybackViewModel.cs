@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.Common.Interfaces;
+﻿using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -212,8 +212,8 @@ namespace Rise.App.ViewModels
             List<SongViewModel> list = new();
             while (songs.MoveNext())
             {
-                list.Add(new SongViewModel
-                    (await (songs.Current as StorageFile).AsSongModelAsync()));
+                var song = await Song.GetFromFileAsync(songs.Current as StorageFile);
+                list.Add(new SongViewModel(song));
             }
 
             songs.Dispose();

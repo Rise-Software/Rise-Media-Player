@@ -5,7 +5,9 @@ using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
@@ -19,6 +21,133 @@ namespace Rise.App.ViewModels
         public PlaylistViewModel(Playlist model = null)
         {
             Model = model ?? new Playlist();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Playlist"/> based on a <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="file">Playlist file.</param>
+        /// <returns>A playlist based on the file.</returns>
+        public static async Task<PlaylistViewModel> GetFromFileAsync(StorageFile file)
+        {
+            // Read playlist file
+            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            PlaylistViewModel playlist = new()
+            {
+                Title = string.Empty,
+                Description = string.Empty,
+                Duration = string.Empty,
+                Icon = string.Empty,
+                Songs = new ObservableCollection<SongViewModel>()
+            };
+
+            // Check if linked to directory
+            if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
+            {
+                Uri baseUri = new(Path.GetDirectoryName(file.Path));
+                string dirPath = refUri.ToAbsoluteUri(baseUri).AbsolutePath;
+
+                if (dirPath.EndsWith(".m3u"))
+                {
+                    StorageFile linkedPlaylistFile = await StorageFile.GetFileFromPathAsync(dirPath);
+                    return await PlaylistViewModel.GetFromFileAsync(linkedPlaylistFile);
+                }
+
+                foreach (var songPath in Directory.EnumerateFiles(dirPath))
+                {
+                    playlist.Songs.Add(new SongViewModel()
+                    {
+                        Location = new Uri(songPath).ToAbsoluteUri(baseUri).AbsolutePath,
+                    });
+                }
+                goto done;
+            }
+
+            // Get details
+            string title = null, artist = null, icon = null;
+            for (int i = 0; i < lines.Count; i++)
+            {
+                string line = lines[i].Trim();
+
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    if (line.StartsWith("#"))
+                    {
+                        int splitIdx = line.IndexOf(':');
+                        string prop;
+                        string value = null;
+                        if (splitIdx >= 0)
+                        {
+                            prop = line.Substring(0, splitIdx).Trim();
+                            value = line.Substring(splitIdx + 1).Trim();
+                        }
+                        else
+                        {
+                            prop = line;
+                        }
+
+                        if (prop == "#EXTINF")
+                        {
+                            string[] inf = value.Split(new[] { ',', '-' }, 3);
+                            string duration = inf[0].Trim();
+                            artist = inf[1].Trim();
+                            title = inf[2].Trim();
+                        }
+                        else if (prop == "#EXTDESC" || prop == "#DESCRIPTION")
+                        {
+                            playlist.Description = value;
+                        }
+                        else if (prop == "#EXTIMG")
+                        {
+                            playlist.Icon = lines[++i];
+                        }
+                        else if (prop == "#EXTDURATION" || prop == "#DURATION")
+                        {
+                            playlist.Duration = value;
+                        }
+                        else if (prop == "#PLAYLIST")
+                        {
+                            playlist.Title = value;
+                        }
+
+                        // Otherwise, we skip this line because we don't want anything from it
+                        // or it's a whitespace
+                    }
+                    else
+                    {
+                        StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+                        if (songFile != null)
+                        {
+                            var song = await Song.GetFromFileAsync(songFile);
+
+                            // If the playlist entry includes track info, override the tag data
+                            if (title != null)
+                            {
+                                song.Title = title;
+                                title = null;
+                            }
+                            if (artist != null)
+                            {
+                                song.Artist = artist;
+                                artist = null;
+                            }
+                            if (icon != null)
+                            {
+                                song.Thumbnail = icon;
+                                icon = null;
+                            }
+
+                            playlist.Songs.Add(new SongViewModel(song));
+                        }
+                    }
+                }
+            }
+
+        done:
+            if (string.IsNullOrWhiteSpace(playlist.Icon))
+                playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
+
+            return playlist;
         }
         #endregion
 
