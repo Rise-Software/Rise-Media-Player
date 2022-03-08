@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
+using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using System.Collections.Generic;

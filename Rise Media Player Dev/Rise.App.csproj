@@ -321,7 +321,6 @@
     <Compile Include="Props\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\ResourceLoaders.cs" />
     <Compile Include="Setup\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>

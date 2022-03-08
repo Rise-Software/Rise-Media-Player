@@ -3,6 +3,7 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
+using Rise.Common;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Data.Sources;

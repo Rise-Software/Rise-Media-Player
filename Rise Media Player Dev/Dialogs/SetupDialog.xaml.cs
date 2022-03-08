@@ -1,7 +1,7 @@
-﻿using Rise.App.Common;
-using Rise.App.Setup;
+﻿using Rise.App.Setup;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;

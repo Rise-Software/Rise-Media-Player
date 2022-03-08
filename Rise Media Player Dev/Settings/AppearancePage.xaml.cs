@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;

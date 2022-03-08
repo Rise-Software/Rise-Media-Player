@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.ViewModels;
+using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
