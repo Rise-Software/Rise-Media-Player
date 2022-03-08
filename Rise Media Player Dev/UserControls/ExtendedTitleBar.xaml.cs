@@ -30,6 +30,10 @@ namespace Rise.App.UserControls
         /// <summary>
         /// The icon displayed on the titlebar.
         /// </summary>
+        /// 
+
+        public static ExtendedTitleBar Current;
+
         public string Icon
         {
             get => (string)GetValue(IconProperty);
@@ -94,7 +98,7 @@ namespace Rise.App.UserControls
         public void SetupTitleBar()
         {
             ApplicationViewTitleBar bar = ApplicationView.GetForCurrentView().TitleBar;
-
+            Current = this;
             bar.ButtonBackgroundColor = Colors.Transparent;
             bar.ButtonInactiveBackgroundColor = Colors.Transparent;
 

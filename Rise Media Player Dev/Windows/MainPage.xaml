@@ -259,7 +259,10 @@
                     ToolTipService.ToolTip="Sync centre"
                     Style="{StaticResource TransparentButton}">
                     <Button.Content>
-                        <FontIcon Glyph="&#xE117;" Height="24" />
+                        <StackPanel>
+                            <FontIcon x:Name="OpenSync" Glyph="&#xE117;" Height="24" />
+                            <muxc:ProgressRing x:Name="IsScanning" IsActive="True" Height="20" Width="20" />
+                        </StackPanel>
                     </Button.Content>
                     <Button.Flyout>
                         <Flyout>
@@ -292,7 +295,7 @@
                     </Button.Content>
 
                     <Button.Flyout>
-                        <MenuFlyout>
+                        <MenuFlyout x:Name="ProfileMenu">
                             <MenuFlyoutItem x:Uid="/Information/Accounts" FontWeight="SemiBold" FontSize="14" Margin="3" Height="44" x:Name="Acc" Click="Account_Click">
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png"/>

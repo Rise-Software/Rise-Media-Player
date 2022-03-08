@@ -34,10 +34,12 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+            UserControls.ExtendedTitleBar.Current.AppTitleBar.IsHitTestVisible = true;
             var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             preferences.CustomSize = new Size(600, 700);
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
+            MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+            MainPage.Current.AppTitleBar.SetupTitleBar();
         }
 
     }

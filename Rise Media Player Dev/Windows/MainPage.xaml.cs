@@ -68,6 +68,7 @@ namespace Rise.App.Views
         public MainPage()
         {
             InitializeComponent();
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
@@ -692,7 +693,12 @@ namespace Rise.App.Views
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
+            ProfileMenu.Hide();
+            OpenSync.Visibility = Visibility.Collapsed;
+            IsScanning.Visibility = Visibility.Visible;
             await App.MViewModel.StartFullCrawlAsync();
+            IsScanning.Visibility = Visibility.Collapsed;
+            OpenSync.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)

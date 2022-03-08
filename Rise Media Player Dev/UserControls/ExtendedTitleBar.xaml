@@ -8,7 +8,7 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Border Background="Transparent" IsHitTestVisible="True">
+    <Border x:Name="AppTitleBar" x:FieldModifier="public" Background="Transparent" IsHitTestVisible="True">
         <StackPanel
             x:Name="AppData"
             Width="Auto"
@@ -29,7 +29,8 @@
                 IsTextSelectionEnabled="False"
                 VerticalAlignment="Center">
                 <Paragraph>
-                    <Bold FontWeight="SemiBold">Rise</Bold> Media Player
+                    <Bold FontWeight="Bold">Rise</Bold>
+                    <Bold FontWeight="SemiBold">Media Player</Bold>
                 </Paragraph>
             </RichTextBlock>
 
