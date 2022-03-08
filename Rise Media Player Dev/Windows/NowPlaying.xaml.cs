@@ -1,6 +1,4 @@
 using Rise.App.ViewModels;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -19,9 +17,6 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Required;
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
-
-            _ = new ApplicationTitleBar(TitleBar);
 
             //Player.SetMediaPlayer(ViewModel.Player);
 
@@ -60,14 +55,12 @@ namespace Rise.App.Views
                 ImageBrushAlbumCover.Opacity = 1;
                 BlurBrush.Amount = 0;
             }
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void PlayFrame_Navigated(object sender, NavigationEventArgs e)
         {
             IsInCurrentlyPlayingPage = !IsInCurrentlyPlayingPage;
             BackForPlay.Visibility = IsInCurrentlyPlayingPage ? Visibility.Collapsed : Visibility.Visible;
-            MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void Page_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)

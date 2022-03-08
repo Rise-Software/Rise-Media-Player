@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:storage="using:Windows.Storage"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
 
     <Grid RowSpacing="8" Margin="0,10,0,0">
@@ -14,6 +16,8 @@
             <RowDefinition Height="1" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        
 
         <StackPanel x:Name="AllButtons" x:FieldModifier="public"  Orientation="Horizontal" VerticalAlignment="top">
             <Button x:Uid="/MediaLibrary/Add"
@@ -74,8 +78,16 @@
                     Click="Done_Click" />
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="0,48,0,0">
-            
+        <StackPanel Orientation="Vertical" Margin="0,38,0,0">
+            <muxc:InfoBar
+            x:Name="TryRiseEQ" x:FieldModifier="public"
+            IsOpen="True"
+            Margin="0,4,0,8"
+            IsIconVisible="True"
+            IsClosable="False"
+            Severity="Informational"
+            Message="We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.">
+            </muxc:InfoBar>
             <ListView Grid.Row="1"
                       x:Name="MusicList" x:FieldModifier="public"
                   IsItemClickEnabled="False"
@@ -92,7 +104,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
+                        <Border Style="{StaticResource SettingsCard}" PointerEntered="Border_PointerEntered" PointerExited="Border_PointerExited">
                             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -116,13 +128,30 @@
                                            VerticalAlignment="Center" />
                                 </StackPanel>
 
-                                <Button x:Uid="/Information/RemoveFolder"
-                                    Grid.Column="2"
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Button
+                                    Click="Button_Click_2"
+                                        x:Name="MusicLocationButton" x:FieldModifier="public"
+                                    Padding="8" Margin="0,0,8,0"
+                                        Style="{StaticResource TransparentButton}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <FontIcon Glyph="&#xE838;" FontSize="16" />
+                                                <TextBlock Margin="8,0,0,0" Text="Open folder location"/>
+                                            </StackPanel>
+                                        </Button.Content>
+
+                                    </Button>
+
+
+                                    <Button x:Uid="/Information/RemoveFolder"
                                     Click="Button_Click_1"
-                                    Padding="8"
-                                    Style="{StaticResource TransparentButton}">
-                                    <FontIcon Glyph="&#xE106;" FontSize="12" />
-                                </Button>
+                                    Padding="9">
+                                        <FontIcon Glyph="&#xE106;" FontSize="14" />
+                                    </Button>
+                                </StackPanel>
+
+                                
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -144,7 +173,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
+                        <Border Style="{StaticResource SettingsCard}" PointerEntered="Border_PointerEntered_1" PointerExited="Border_PointerExited_1">
                             <Grid ColumnSpacing="12" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -168,13 +197,27 @@
                                            VerticalAlignment="Center" />
                                 </StackPanel>
 
-                                <Button x:Uid="/Information/RemoveFolder"
-                                    Grid.Column="2"
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Button x:Name="VideoLocationButton"
+                                    Click="Button_Click_2"  x:FieldModifier="public"
+                                    Padding="8" Margin="0,0,8,0"
+                                        Style="{StaticResource TransparentButton}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <FontIcon Glyph="&#xE838;" FontSize="16" />
+                                                <TextBlock Margin="8,0,0,0" Text="Open folder location"/>
+                                            </StackPanel>
+                                        </Button.Content>
+
+                                    </Button>
+
+
+                                    <Button x:Uid="/Information/RemoveFolder"
                                     Click="Button_Click"
-                                    Padding="8"
-                                    Style="{StaticResource TransparentButton}">
-                                    <FontIcon Glyph="&#xE106;" FontSize="12" />
-                                </Button>
+                                    Padding="9">
+                                        <FontIcon Glyph="&#xE106;" FontSize="14" />
+                                    </Button>
+                                </StackPanel>
                             </Grid>
                         </Border>
                     </DataTemplate>

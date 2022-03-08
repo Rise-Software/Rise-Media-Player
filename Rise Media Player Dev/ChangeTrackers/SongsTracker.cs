@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.Storage.Search;
 
 namespace Rise.App.ChangeTrackers
@@ -29,6 +28,8 @@ namespace Rise.App.ChangeTrackers
             StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
             IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
 
+            List<SongViewModel> songRemoveQueue = new();
+
             foreach (StorageLibraryChange change in changes)
             {
                 if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
@@ -46,15 +47,24 @@ namespace Rise.App.ChangeTrackers
                 }
                 else if (change.IsOfType(StorageItemTypes.Folder))
                 {
-                    await ViewModel.StartFullCrawlAsync();
+                    //await ViewModel.StartFullCrawlAsync();
                 }
                 else
                 {
                     if (change.ChangeType == StorageLibraryChangeType.Deleted)
                     {
-                        foreach (SongViewModel song in ViewModel.Songs)
+                        try
                         {
-                            if (change.PreviousPath == song.Location)
+                            foreach (SongViewModel song in ViewModel.Songs)
+                            {
+                                if (change.PreviousPath == song.Location)
+                                {
+                                    songRemoveQueue.Add(song);
+                                }
+                            }
+                        } finally
+                        {
+                            foreach (SongViewModel song in songRemoveQueue)
                             {
                                 await song.DeleteAsync();
                             }
@@ -176,7 +186,8 @@ namespace Rise.App.ChangeTrackers
                         toRemove.Add(ViewModel.Songs[i]);
                     }
                 }
-            } finally
+            }
+            finally
             {
                 foreach (SongViewModel song in toRemove)
                 {

@@ -22,7 +22,7 @@
         <ListView.Resources>
             <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
                 <MenuFlyoutItem x:Name="Remove"
-                                    x:Uid="/Information/RemoveThing"
+                                    x:Uid="/Information/RemovePlaylist"
                                     Click="Remove_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE107;"/>
@@ -32,7 +32,7 @@
         </ListView.Resources>
 
         <ListView.Header>
-            <Border Padding="0,0,0,10" Margin="-56,0">
+            <Border Padding="0,0,0,10" Margin="-56,0,-56,12">
                 <Grid Height="200">
                     <ParallaxView VerticalShift="300"
                                       Source="{x:Bind MainList}">
@@ -49,7 +49,6 @@
                                 <ColumnDefinition Width="154" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
 
                             <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                 CornerRadius="8"
@@ -127,48 +126,22 @@
                                               Style="{StaticResource AppBarCompactButton}" />
 
                                     <AppBarSeparator />
-                                    <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="&#xECC8;" />
-                                        </AppBarButton.Icon>
 
-                                        <AppBarButton.Flyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem x:Name="NewPlaylist1"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE93F;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                                <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem x:Name="PinToStart"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                                                    <MenuFlyoutItem.Icon>
-                                                        <FontIcon Glyph="&#xE141;" />
-                                                    </MenuFlyoutItem.Icon>
-                                                </MenuFlyoutItem>
-                                            </MenuFlyout>
-                                        </AppBarButton.Flyout>
-                                    </AppBarButton>
+                                    
 
-                                    <AppBarSeparator />
 
-                                    <AppBarButton x:Uid="/Information/Delete"
-                                              Icon="Delete"
-                                              IsEnabled="False"
-                                              Style="{StaticResource AppBarCompactButton}" />
-
-                                    <AppBarSeparator />
-
-                                    <AppBarButton x:Uid="/Information/Properties"
-                                              Style="{StaticResource AppBarCompactButton}"
+                                    <AppBarButton x:Uid="/Information/EditPlaylist"
+                                            
                                               Click="PlaylistProperties_Click">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xE70F;" />
                                         </AppBarButton.Icon>
                                     </AppBarButton>
+
+                                    <AppBarButton x:Uid="/Information/DeleteFull"
+                                              Icon="Delete"
+                                                  Click="AppBarButton_Click"
+                                              IsEnabled="True"/>
                                 </CommandBar>
                             </StackPanel>
                         </Grid>
@@ -181,7 +154,7 @@
             <DataTemplate x:DataType="viewmodels:SongViewModel">
                 <Grid Background="Transparent"
                           ColumnSpacing="12"
-                          Padding="12,4"
+                          Padding="12,4,4,4"
                           PointerEntered="Grid_PointerEntered"
                           PointerExited="Grid_PointerExited"
                           PointerCanceled="Grid_PointerExited">
@@ -193,14 +166,6 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock HorizontalAlignment="Stretch"
-                                   Text="{x:Bind Track}"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Visibility="{x:Bind IsTrackNumberVisible,
-                                                Converter={StaticResource BoolToVis},
-                                                Mode=OneWay}"
-                                   Width="24" />
                         <Button x:Uid="/Information/Play"
                                     Click="PlayButton_Click"
                                     Height="32"
@@ -217,16 +182,19 @@
                                 CornerRadius="4"
                                 Height="32"
                                 IsHitTestVisible="False"
-                                Padding="0"
+                                Padding="-12"
                                 Width="32">
                         <Border x:Name="AlbumThumb"
                                     CornerRadius="4"
                                     Height="32"
                                     Width="32">
-                            <Image x:Phase="2"
-                                       Height="32"
-                                       Source="{x:Bind Thumbnail}"
-                                       Width="32" />
+                            <Image Height="32" Width="32">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelHeight="32"
+                                                 DecodePixelWidth="32"
+                                                 UriSource="{x:Bind Thumbnail}" />
+                                </Image.Source>
+                            </Image>
                         </Border>
                     </Button>
 
@@ -262,6 +230,7 @@
 
                     <TextBlock x:Phase="1"
                                    Grid.Column="3"
+                               Margin="12"
                                    Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
                                    Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"
                                    VerticalAlignment="Center" />

@@ -64,7 +64,8 @@ namespace Rise.App.Views
                     }
                     SelectedVideo = null;
                 }
-            } else
+            }
+            else
             {
                 if (e.ClickedItem is VideoViewModel video)
                 {
@@ -168,6 +169,15 @@ namespace Rise.App.Views
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
         {
             _ = await new VideoStreamingDialog().ShowAsync();
+        }
+
+        private async void AddFolders_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Manage local media folders";
+            dialog.CloseButtonText = "Close";
+            dialog.Content = new Settings.MediaSourcesPage();
+            var result = await dialog.ShowAsync();
         }
     }
 }

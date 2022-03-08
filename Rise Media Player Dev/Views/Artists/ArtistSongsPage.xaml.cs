@@ -1,12 +1,17 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Common;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -19,6 +24,9 @@ namespace Rise.App.Views
     public sealed partial class ArtistSongsPage : Page
     {
         #region Variables
+
+        public static ArtistSongsPage Current;
+
 
         XmlDocument xmlDoc = new();
         /// <summary>
@@ -66,6 +74,7 @@ namespace Rise.App.Views
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             DataContext = this;
+            Current = this;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             Loaded += ArtistSongsPage_Loaded;
@@ -192,7 +201,7 @@ namespace Rise.App.Views
             }
 
             Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));        
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
         }
 
         #region Event handlers
@@ -220,14 +229,14 @@ namespace Rise.App.Views
         }
 
         private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEdit();
+            => await SelectedSong.StartEditAsync();
 
         private void ShowAlbum_Click(object sender, RoutedEventArgs e)
             => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedSong.StartEdit();
+            await SelectedSong.StartEditAsync();
             SelectedSong = null;
         }
 
@@ -266,7 +275,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 
@@ -349,13 +358,98 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+        private void Root_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddTo.Items.Clear();
+
+            MenuFlyoutItem newPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newPlaylistItem.Click += NewPlaylistItem_Click;
+
+            AddTo.Items.Add(newPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddTo.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem item = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                item.Click += Item_Click;
+
+                AddTo.Items.Add(item);
+            }
+        }
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongAsync(SelectedSong);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+            await playlist.AddSongAsync(SelectedSong);
+        }
+
+        private async void ShowinFE_Click(object sender, RoutedEventArgs e)
+        {
+            string folderlocation = SelectedSong.Location;
+            string filename = SelectedSong.Filename;
+            string result = folderlocation.Replace(filename, "");
+            Debug.WriteLine(result);
+
+            try
+            {
+                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
+                await Launcher.LaunchFolderAsync(folder);
+            }
+            catch
+            {
+
+            }
+        }
+
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
+            //string name = ArtistName.Text;
+            //string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            //ContentDialog aboutArtist = new ContentDialog();
+            //    aboutArtist.Content = new Dialogs.AboutArtist(AboutArtistBig);
+            //aboutArtist.CloseButtonText = "Close";
+            //await aboutArtist.ShowAsync();
             string name = ArtistName.Text;
             string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
             ContentDialog aboutArtist = new()
             {
-                Title = "About " + name,
+                Title = name,
                 Content = new ScrollViewer()
                 {
                     Content = new TextBlock()

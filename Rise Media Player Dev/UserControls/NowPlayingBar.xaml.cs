@@ -295,8 +295,9 @@ namespace Rise.App.UserControls
                         {
                             BackgroundAcrylicBrush.TintColor = Windows.UI.Color.FromArgb(_tintOpacity, (byte)(color.Color.R + lightThemeAdditions), (byte)(color.Color.G + lightThemeAdditions), (byte)(color.Color.B + lightThemeAdditions));
                         }
-                        
-                    } catch (InvalidOperationException)
+
+                    }
+                    catch (InvalidOperationException)
                     {
 
                     }
@@ -417,11 +418,13 @@ namespace Rise.App.UserControls
             }
             else
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
+                
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 
@@ -438,11 +441,13 @@ namespace Rise.App.UserControls
             }
             else
             {
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 ViewModePreferences preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE47";
+
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 
@@ -453,6 +458,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -466,6 +474,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Visible;
                 VolumeFlyoutButton.Visibility = Visibility.Collapsed;
                 AlbumArtContainer.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Visible;
+                Forward30.Visibility = Visibility.Visible;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -480,6 +491,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Center;
                 if (IsArtistShown)
                 {
                     Grid.ColumnDefinitions[0].Width = new GridLength(0.45, GridUnitType.Star);
@@ -494,6 +508,9 @@ namespace Rise.App.UserControls
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Left;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0.5, GridUnitType.Star);
                 VolumeFlyoutButton1.Visibility = Visibility.Collapsed;
@@ -503,6 +520,9 @@ namespace Rise.App.UserControls
             {
                 DefaultVolumeControl.Visibility = Visibility.Collapsed;
                 VolumeFlyoutButton.Visibility = Visibility.Visible;
+                Back10.Visibility = Visibility.Collapsed;
+                Forward30.Visibility = Visibility.Collapsed;
+                MediaControls.HorizontalAlignment = HorizontalAlignment.Left;
                 Grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
                 Grid.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
                 AlbumArtContainer.Visibility = Visibility.Collapsed;
@@ -521,7 +541,14 @@ namespace Rise.App.UserControls
         {
             Button button = sender as Button;
             Border border = (button.Parent as Grid).Parent as Border;
-            border.BorderBrush = PlayBorderBrush;
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                border.BorderBrush = PlayBorderBrushDark;
+            }
+            else
+            {
+                border.BorderBrush = PlayBorderBrushLight;
+            }
         }
 
         private void PlayButton_PointerExited(object sender, PointerRoutedEventArgs e)
@@ -555,7 +582,8 @@ namespace Rise.App.UserControls
                 {
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
-            } else
+            }
+            else
             {
                 if (Window.Current.Content is Frame rootFrame)
                 {
@@ -593,6 +621,7 @@ namespace Rise.App.UserControls
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
+
             ApplicationView view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
@@ -605,6 +634,20 @@ namespace Rise.App.UserControls
             {
                 if (view.TryEnterFullScreenMode())
                 {
+                    if (App.PViewModel.CurrentPlaybackItem.IsVideo)
+                    {
+                        if (Window.Current.Content is Frame rootFrame)
+                        {
+                            _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                        }
+                    }
+                    else
+                    {
+                        if (Window.Current.Content is Frame rootFrame)
+                        {
+                            _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
+                        }
+                    }
                     FullScreenButton.Text = "Exit full screen";
                     FullScreenIcon.Glyph = "\uE73F";
                     // The SizeChanged event will be raised when the entry to full-screen mode is complete.
@@ -708,7 +751,7 @@ namespace Rise.App.UserControls
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
             {
                 NowPlayingHover.Hide();
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
             }
             else
             {
@@ -721,8 +764,11 @@ namespace Rise.App.UserControls
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            SelectedSong = App.PViewModel.CurrentSong;
-            await App.PViewModel.CurrentSong.StartEdit();
+            if (App.PViewModel.CurrentSong != null && !App.PViewModel.CurrentSong.IsOnline)
+            {
+                SelectedSong = App.PViewModel.CurrentSong;
+                await App.PViewModel.CurrentSong.StartEditAsync();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -759,9 +805,12 @@ namespace Rise.App.UserControls
             NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
+        private void GoToNowPlaying_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+        }
+
         private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            NowPlayingHover.Hide();
         }
 
         private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -801,10 +850,21 @@ namespace Rise.App.UserControls
         {
             if (CurrentSongAlbum != null)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum);
+                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
             }
         }
 
+        private void Forward30_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
+        }
+
+        private void Back10_Click(object sender, RoutedEventArgs e)
+        {
+            _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
+        }
+
         
+
     }
 }

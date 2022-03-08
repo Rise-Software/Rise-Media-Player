@@ -14,35 +14,42 @@
 
 
         <muxc:TeachingTip x:Name="ChangeThemeTip"
-    Target="{x:Bind ThemeChange}"
-    Title="App theme changed"
+                          Target="{x:Bind ThemeChange}"
+                          Title="App theme changed"
                           ActionButtonContent="Restart now"
                           CloseButtonContent="Maybe later"
                           ActionButtonClick="ChangeThemeTip_ActionButtonClick"
-IsLightDismissEnabled="True"
-    Subtitle="You'll need to restart the app for your changes to take effect.">
+                          IsLightDismissEnabled="True"
+                          Subtitle="You'll need to restart the app for your changes to take effect.">
 
         </muxc:TeachingTip>
 
-        <Border Margin="0,-4,0,0" x:Name="ThemeBorder"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource SettingsCard}"
-                            Padding="0"
-                    HorizontalAlignment="Stretch"
-                        Height="120"
-                    CornerRadius="3"
-                    BorderThickness="1"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <TextBlock Text="Themes are coming soon" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Opacity="0.6"/>
-
-
+        <Border Margin="0,-4,0,0"
+                x:Name="ThemeBorder"
+                VerticalAlignment="Stretch"
+                Style="{StaticResource SettingsCard}"
+                Padding="0"
+                HorizontalAlignment="Stretch"
+                Height="120"
+                CornerRadius="3"
+                BorderThickness="1"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <TextBlock Text="Lots of settings are coming. Stay tuned."
+                       TextWrapping="WrapWholeWords"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Opacity="0.6"/>
         </Border>
 
         <uc:ExpanderControl Margin="0,8,0,0"
-            x:Uid="/Appearance/ChooseTheme"
-                               ExpanderStyle="Static"
-                               Padding="0,10,0,0"
-                               Icon="&#xE790;">
+                            x:Uid="/Appearance/ChooseTheme"
+                            ExpanderStyle="Static"
+                            Padding="0,10,0,0"
+                            Icon="&#xE790;">
             <ComboBox ItemsSource="{x:Bind Themes}"
                       x:Name="ThemeChange"
                       DropDownClosed="ThemeChange_DropDownClosed"
@@ -64,7 +71,6 @@ IsLightDismissEnabled="True"
             </uc:ExpanderControl.HeaderControls>
 
             <StackPanel>
-                
                 <TextBlock FontSize="14" FontWeight="Normal" Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown." x:Name="Nothing" Padding="30,0,0,0" TextWrapping="WrapWholeWords"/>
                 <StackPanel x:Name="TextforGlaze">
                     <TextBlock FontSize="14" FontWeight="Normal" Text="Recent colours" Padding="30,0,150,0"/>
@@ -130,54 +136,7 @@ IsLightDismissEnabled="True"
                     <TextBlock FontSize="14" FontWeight="Normal" Text="Customised colours" Padding="30,16,150,0"/>
                     <Button HorizontalAlignment="right" Margin="0,-25,0,0"  Content="View colours"/>
                 </StackPanel>
-                
             </StackPanel>
-
-
-
-
         </uc:ExpanderControl>
-
-        <TextBlock x:Uid="/Appearance/NavigationH" Style="{StaticResource Subheader}" />
-        
-        
-        
-        <uc:ExpanderControl x:Uid="/Appearance/Startup"
-                            ExpanderStyle="Static"
-                            Icon="&#xE7E8;">
-            <ComboBox ItemsSource="{x:Bind Startup}"
-                      PlaceholderText="Songs"
-                      SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Appearance/PickUp"
-                               ExpanderStyle="Static"
-                               Icon="&#xE126;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Appearance/CompactMode"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE73F;">
-            <ToggleSwitch IsOn="{x:Bind ViewModel.CompactMode, Mode=TwoWay}" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Appearance/SidebarItems"
-                               Click="SidebarCustomize_Click"
-                               ExpanderStyle="Button"
-                               Icon="&#xE9D5;">
-            <FontIcon Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
-
-        <uc:ExpanderControl x:Uid="/Playback/NowPlaying"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE102;">
-            <FontIcon FontSize="16"
-                      Glyph="&#xE00F;" />
-        </uc:ExpanderControl>
-
-
-
-
     </StackPanel>
 </Page>

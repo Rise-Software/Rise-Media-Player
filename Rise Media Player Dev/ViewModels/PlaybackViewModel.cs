@@ -1,4 +1,6 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -112,8 +114,8 @@ namespace Rise.App.ViewModels
                 App.SViewModel.Color = -3;
             }
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
@@ -124,7 +126,7 @@ namespace Rise.App.ViewModels
             ClearLists();
             PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(await song.AsPlaybackItemAsync(new Uri(song.Location)));
+            PlaybackList.Items.Add(song.AsPlaybackItem(new Uri(song.Location)));
 
             CurrentSong = song;
 
@@ -136,8 +138,8 @@ namespace Rise.App.ViewModels
                 App.SViewModel.Color = -3;
             }
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentSongChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
 
             await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
@@ -155,8 +157,8 @@ namespace Rise.App.ViewModels
 
             Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
@@ -167,14 +169,14 @@ namespace Rise.App.ViewModels
             ClearLists();
             PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(await video.AsPlaybackItemAsync(new Uri(video.Location)));
+            PlaybackList.Items.Add(video.AsPlaybackItem(new Uri(video.Location)));
 
             CurrentVideo = video;
 
             Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, new EventArgs());
-            CurrentVideoChanged?.Invoke(this, new EventArgs());
+            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
             await CurrentPlaybackItem.NotifyChangesAsync(true);
         }
 
@@ -210,8 +212,8 @@ namespace Rise.App.ViewModels
             List<SongViewModel> list = new();
             while (songs.MoveNext())
             {
-                list.Add(new SongViewModel
-                    (await (songs.Current as StorageFile).AsSongModelAsync()));
+                var song = await Song.GetFromFileAsync(songs.Current as StorageFile);
+                list.Add(new SongViewModel(song));
             }
 
             songs.Dispose();
@@ -366,8 +368,8 @@ namespace Rise.App.ViewModels
                     App.SViewModel.Color = -3;
                 }
 
-                CurrentMediaChanged?.Invoke(this, new EventArgs());
-                CurrentSongChanged?.Invoke(this, new EventArgs());
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentSongChanged?.Invoke(this, EventArgs.Empty);
                 CurrentPlaybackItem.NotifyChanges(false);
             }
         }
@@ -385,8 +387,8 @@ namespace Rise.App.ViewModels
                     App.SViewModel.Color = -3;
                 }
 
-                CurrentMediaChanged?.Invoke(this, new EventArgs());
-                CurrentVideoChanged?.Invoke(this, new EventArgs());
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
                 CurrentPlaybackItem.NotifyChanges(true);
             }
         }

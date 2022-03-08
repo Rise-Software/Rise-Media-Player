@@ -41,7 +41,7 @@
             </ImageBrush>
         </Grid.Background>
         
-        <uc:MicaTitleBar Title="" HorizontalAlignment="Stretch" FontSize="14" Margin="20,0,0,0" Visibility="Collapsed" x:Name="TitleBar" ShowIcon="False" />
+        <uc:ExtendedTitleBar Title="" HorizontalAlignment="Stretch" FontSize="14" Margin="20,0,0,0" Visibility="Collapsed" x:Name="TitleBar" ShowIcon="False" />
 
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"

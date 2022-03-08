@@ -2,7 +2,10 @@
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -168,20 +170,21 @@ namespace Rise.App.Views
                 foreach (ArtistViewModel artist in Artists)
                 {
                     // Get images from database
-                    IEnumerable<Artist> artists = await App.Repository.Artists.GetAsync();
+                    IEnumerable<Artist> artists = await SQLRepository.Repository.Artists.GetAsync();
                     StorageFile file = null;
 
                     try
                     {
                         file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appdata:///local/modified-artist-{artist.Name}.png"));
-                    } catch (Exception)
+                    }
+                    catch (Exception)
                     {
 
                     }
 
-                    if (artist.Name == "Unknown Artist") 
+                    if (artist.Name == "Unknown Artist")
                     {
-                        artist.Picture = "ms-appx:///Assets/BlankArtist.png";
+                        artist.Picture = URIs.ArtistThumb;
                     }
                     else if (file != null)
                     {
@@ -210,7 +213,8 @@ namespace Rise.App.Views
                     string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
                     return yes;
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
 
             }
@@ -227,7 +231,8 @@ namespace Rise.App.Views
                     _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
                     SelectedArtist = null;
                 }
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
                 {
@@ -293,7 +298,8 @@ namespace Rise.App.Views
                     }
                 }
                 await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), new Random().Next(0, songs.Count), songs.Count, true);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Artist == SelectedArtist.Name);
                 await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
@@ -317,9 +323,9 @@ namespace Rise.App.Views
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await FileHelpers.SaveBitmapFromThumbnailWithReplaceAsync(thumbnail, $@"modified-artist-{SelectedArtist.Name}.png");
+                await thumbnail.SaveToFileAsync($@"modified-artist-{SelectedArtist.Name}.png", CreationCollisionOption.ReplaceExisting);
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";
@@ -338,5 +344,15 @@ namespace Rise.App.Views
         {
             SelectedArtistItem = (e.OriginalSource as FrameworkElement).DataContext as ArtistViewModel;
         }
+
+        private async void AddFolders_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Manage local media folders";
+            dialog.CloseButtonText = "Close";
+            dialog.Content = new Settings.MediaSourcesPage();
+            var result = await dialog.ShowAsync();
+        }
+
     }
 }

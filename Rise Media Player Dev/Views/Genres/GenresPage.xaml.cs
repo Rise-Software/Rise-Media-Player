@@ -2,6 +2,7 @@
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -52,7 +53,8 @@ namespace Rise.App.Views
                     _ = Frame.Navigate(typeof(GenreSongsPage), genre);
                     SelectedGenre = null;
                 }
-            } else
+            }
+            else
             {
                 if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
                 {
@@ -78,5 +80,14 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private async void AddFolders_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Manage local media folders";
+            dialog.CloseButtonText = "Close";
+            dialog.Content = new Settings.MediaSourcesPage();
+            var result = await dialog.ShowAsync();
+        }
     }
 }

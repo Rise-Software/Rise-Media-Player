@@ -21,35 +21,29 @@
 
     <Grid>
         <StackPanel>
-            <Grid ColumnSpacing="24" Padding="12,0,12,32">
+            <Grid ColumnSpacing="0" Padding="0,0,12,32">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="154" />
+                    <ColumnDefinition Width="0" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <Button CornerRadius="8"
-                                IsHitTestVisible="False"
-                                Padding="0">
-                    <Border animations:Connected.Key="GenreArt"
-                                    CornerRadius="8">
-                        <Image Height="154"
-                                       Source="ms-appx:///Assets/BlankGenre.png"
-                                       Stretch="UniformToFill"
-                                       Width="154" />
-                    </Border>
-                </Button>
+
+
 
                 <StackPanel Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Spacing="8">
+                                    Orientation="Horizontal"
+                            HorizontalAlignment="Stretch"
+                                    Spacing="0">
                     <TextBlock Text="{x:Bind SelectedGenre.Name, Mode=OneWay}"
                                        MaxLines="1"
+                               HorizontalAlignment="Left"
+                               FontSize="28"
                                        Style="{StaticResource TitleTextBlockStyle}" />
 
                     <CommandBar Background="Transparent"
                                         DefaultLabelPosition="Right"
-                                        HorizontalAlignment="Left"
-                                        Margin="-12,0">
+                                        HorizontalAlignment="Right"
+                                >
                         <AppBarButton x:Uid="/Information/Play"
                                               Click="PlayButton_Click"
                                               Icon="Play"
@@ -159,9 +153,13 @@
                     </CommandBar>
                 </StackPanel>
             </Grid>
-            
+
             <StackPanel>
-                <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" Margin="0,0,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
+                <muxc:NavigationView ItemInvoked="NavigationView_ItemInvoked" IsSettingsVisible="False" Margin="-12,-24,0,10" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
+                    <muxc:NavigationView.Resources>
+                        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    </muxc:NavigationView.Resources>
                     <muxc:NavigationView.MenuItems>
                         <muxc:NavigationViewItem Tag="Songs" x:Name="AlbumsItem" Content="Songs" IsSelected="True" />
                         <muxc:NavigationViewItem Tag="Albums" x:Name="SongsItem" Content="Albums" />
@@ -173,7 +171,7 @@
                   DoubleTapped="MainList_DoubleTapped"
                   IsDoubleTapEnabled="True"
                   ItemsSource="{x:Bind Songs}"
-                  Padding="20,0,20,120"
+                  Padding="0,0,0,120"
                   RightTapped="MainList_RightTapped"
                   SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                   SelectionMode="Single">
@@ -275,8 +273,8 @@
                           animations:Connected.ListItemElementName="ArtistThumb"
                           animations:Connected.ListItemKey="ArtistArt"
                           ItemsSource="{x:Bind AllArtistsInGenre}"
-                          Margin="-56,0"
-                          Padding="44,0,44,120"
+                          Margin="0,0"
+                          Padding="0,0,0,120"
                           SelectionMode="Single"
                           RightTapped="ArtistGrid_RightTapped"
                           Tapped="ArtistGrid_Tapped"
@@ -379,11 +377,15 @@
                                 Padding="0">
                                     <Border x:Name="ArtistThumb"
                                     CornerRadius="42">
-                                        <Image
-                                       Height="84"
-                                       Source="{x:Bind Picture, Mode=OneWay}"
-                                       Stretch="UniformToFill"
-                                       Width="84" />
+                                        <Image Height="84"
+                                               Stretch="UniformToFill"
+                                               Width="84">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelHeight="84"
+                                                             DecodePixelWidth="84"
+                                                             UriSource="{x:Bind Picture}" />
+                                            </Image.Source>
+                                        </Image>
                                     </Border>
                                 </Button>
 
@@ -408,8 +410,8 @@
                           animations:Connected.ListItemKey="AlbumArt"
                           Grid.Row="1"
                           ItemsSource="{x:Bind Albums}"
-                          Margin="-56,0"
-                          Padding="44,0,44,120"
+                          Margin="0,0"
+                          Padding="0,0,0,120"
                           RightTapped="AlbumGrid_RightTapped"
                           SelectionMode="Single"
                           Tapped="AlbumGrid_Tapped"
@@ -516,11 +518,15 @@
                                 CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
                                     <Border x:Name="AlbumThumb"
                                     CornerRadius="{x:Bind HasRoundedAlbumArt, Mode=OneWay, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
-                                        <Image x:Phase="1"
-                                       Height="134"
-                                       Source="{x:Bind Thumbnail}"
-                                       Stretch="UniformToFill"
-                                       Width="134" />
+                                        <Image Height="134"
+                                               Stretch="UniformToFill"
+                                               Width="134">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelHeight="134"
+                                                             DecodePixelWidth="134"
+                                                             UriSource="{x:Bind Thumbnail}" />
+                                            </Image.Source>
+                                        </Image>
                                     </Border>
                                 </Border>
 

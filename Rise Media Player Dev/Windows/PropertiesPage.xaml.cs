@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.Props;
+﻿using Rise.App.Props;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using Windows.UI.ViewManagement;

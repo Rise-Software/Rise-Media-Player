@@ -17,13 +17,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <uc:MicaTitleBar x:Uid="/Props/WindowTitle"
-                         Canvas.ZIndex="1"
-                         AddLabelWidth="0"
-                         Height="24"
-                         Margin="-12,8,0,0"
-                         ShowIcon="False"
-                         VerticalAlignment="Top" />
+        <uc:ExtendedTitleBar x:Uid="/Props/WindowTitle"
+                             Canvas.ZIndex="1"
+                             MinTitleWidth="0"
+                             Height="24"
+                             Margin="-12,8,0,0"
+                             ShowIcon="False"
+                             VerticalAlignment="Top" />
 
         <ScrollViewer Grid.Row="1"
                       BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"

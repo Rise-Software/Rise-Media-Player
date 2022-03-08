@@ -1,5 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Windows.Globalization;
 using Windows.System.UserProfile;
 using Windows.UI.Xaml;

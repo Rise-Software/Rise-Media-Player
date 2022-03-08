@@ -1,6 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
@@ -28,18 +28,6 @@ namespace Rise.App.Settings
             "Use system accent colour",
             "Use custom colour",
             "Use album art"
-        };
-
-        private readonly List<string> Startup = new()
-        {
-            ResourceLoaders.AppearanceLoader.GetString("Home"),
-            ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),
-            ResourceLoaders.AppearanceLoader.GetString("Playlists"),
-            ResourceLoaders.AppearanceLoader.GetString("Songs"),
-            ResourceLoaders.AppearanceLoader.GetString("Artists"),
-            ResourceLoaders.AppearanceLoader.GetString("Albums"),
-            ResourceLoaders.AppearanceLoader.GetString("Genres"),
-            ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
         };
 
         public AppearancePage()
@@ -129,7 +117,7 @@ namespace Rise.App.Settings
 
         private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            await CoreApplication.RequestRestartAsync("-fastInit -level 1 -foo");
+            await CoreApplication.RequestRestartAsync("Theme changed");
         }
 
         private void ThemeChange_DropDownClosed(object sender, object e)

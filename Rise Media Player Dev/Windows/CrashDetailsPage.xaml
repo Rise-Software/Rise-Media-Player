@@ -21,11 +21,11 @@
         </Grid.RowDefinitions>
         <Grid x:Name="TopGrid"
               VerticalAlignment="Top">
-            <uc:MicaTitleBar x:Name="AppTitleBar"
+            <uc:ExtendedTitleBar x:Name="AppTitleBar"
                              Canvas.ZIndex="1"
-                             AddLabelWidth="0"
                              Height="32"
                              Margin="15,5,0,0"
+                             MinTitleWidth="0"
                              ShowIcon="True" />
         </Grid>
         <ScrollViewer Padding="20"

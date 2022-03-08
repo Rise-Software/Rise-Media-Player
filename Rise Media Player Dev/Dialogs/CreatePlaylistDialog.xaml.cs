@@ -1,11 +1,10 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Rise.App.Dialogs
@@ -41,16 +40,6 @@ namespace Rise.App.Dialogs
 
         private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) => Hide();
 
-        private void Image_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            UseCustomImageButton.Visibility = Visibility.Visible;
-        }
-
-        private void Image_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            UseCustomImageButton.Visibility = Visibility.Collapsed;
-        }
-
         private async void UseCustomImageButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker
@@ -69,9 +58,9 @@ namespace Rise.App.Dialogs
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"playlist-{file.Name}.png");
+                await thumbnail.SaveToFileAsync($@"playlist-{file.Name}.png");
+                thumbnail?.Dispose();
 
-                thumbnail.Dispose();
                 _imagePath = new Uri($@"ms-appdata:///local/playlist-{file.Name}.png");
             }
 

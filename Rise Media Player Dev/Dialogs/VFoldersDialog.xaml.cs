@@ -1,10 +1,11 @@
-﻿using Rise.App.Common;
-using Rise.App.Views;
+﻿using Rise.App.Views;
+using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using System;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Dialogs
 {
@@ -45,6 +46,34 @@ namespace Rise.App.Dialogs
             {
                 _ = await MusicLibrary.RequestRemoveFolderAsync(folder);
             }
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is StorageFolder folder)
+            {
+                await Launcher.LaunchFolderAsync(folder);
+            }
+        }
+
+        private void Border_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void Border_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void Border_PointerEntered_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void Border_PointerExited_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+
         }
     }
 }

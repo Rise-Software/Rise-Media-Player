@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.Data.ViewModels;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -122,34 +123,25 @@ namespace Rise.App.ViewModels
                 musicProps.Year = Year;
                 musicProps.Rating = Rating * 20;
 
-                /*var props = await songFile.Properties.RetrievePropertiesAsync(Properties.ViewModelProperties);
-
-                // Apply properties.
-                props["System.Title"] = Title;
-                props[SystemMusic.Artist] = Artist;
-                props[SystemMusic.TrackNumber] = Track;
-                props[SystemMusic.AlbumTitle] = Album;
-                props[SystemMusic.AlbumArtist] = AlbumArtist;
-                props["System.Media.Year"] = Year;
-                props["System.Rating"] = Rating * 20;*/
-
-                await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
-                Model.Location = songFile.Path;
-
                 try
                 {
-                    // await songFile.Properties.SavePropertiesAsync(props);
                     await musicProps.SavePropertiesAsync();
                     result = true;
                 }
                 catch (Exception ex)
                 {
-                    await Model.CancelEditsAsync();
                     Debug.WriteLine(ex.Message);
+
+                    await Model.CancelEditsAsync();
                     result = false;
                 }
-
-                await Model.SaveAsync();
+                finally
+                {
+                    // The rename operation will likely complete either way
+                    await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
+                    Model.Location = songFile.Path;
+                    await Model.SaveAsync();
+                }
             }
 
             return result;

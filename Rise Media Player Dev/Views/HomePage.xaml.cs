@@ -2,11 +2,12 @@
 using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.Web;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using static Rise.App.Common.Enums;
 
 namespace Rise.App.Views
 {
@@ -95,22 +96,16 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Add widgets",
-                PrimaryButtonText = "See what we're working on",
                 CloseButtonText = "Close",
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new WidgetsDialogContent()
             };
 
             var result = await dialog.ShowAsync();
-
-            if (result == ContentDialogResult.Primary)
-            {
-                await "https://www.github.com/rise-software/rise-media-player".LaunchAsync();
-            }
         }
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
             => _ = await typeof(WhatsNew).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
+
     }
 }

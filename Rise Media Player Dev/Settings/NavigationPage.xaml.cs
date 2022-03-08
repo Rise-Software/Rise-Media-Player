@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,10 +23,23 @@ namespace Rise.App.Settings
             ResourceLoaders.NavigationLoader.GetString("Everything")
         };
 
+        private readonly List<string> Startup = new()
+        {
+            ResourceLoaders.AppearanceLoader.GetString("Home"),
+            ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),
+            ResourceLoaders.AppearanceLoader.GetString("Playlists"),
+            ResourceLoaders.AppearanceLoader.GetString("Songs"),
+            ResourceLoaders.AppearanceLoader.GetString("Artists"),
+            ResourceLoaders.AppearanceLoader.GetString("Albums"),
+            ResourceLoaders.AppearanceLoader.GetString("Genres"),
+            ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
+        };
+
         public NavigationPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
+
     }
 }

@@ -65,7 +65,7 @@
                     </Button>
                 </Grid>
             </Border>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="26,0,0,0">
+            <StackPanel Orientation="Vertical" x:Name="ArtInfo" x:FieldModifier="public" VerticalAlignment="Center" Margin="26,0,0,0">
                 <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
                        MaxLines="2"
                        HorizontalAlignment="Left"

@@ -30,7 +30,7 @@
         </Storyboard>
     </Page.Resources>
 
-    <Grid>
+    <Grid Name="FullNPGrid" SizeChanged="FullNPGrid_SizeChanged">
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
@@ -65,7 +65,7 @@
 
         </StackPanel>
 
-        <uc:MicaTitleBar x:FieldModifier="public"  Title="Now Playing" HorizontalAlignment="Stretch" FontSize="14" Margin="54,0,275,0" x:Name="TitleBar" ShowIcon="False" />
+        <uc:ExtendedTitleBar x:FieldModifier="public"  Title="Now Playing" HorizontalAlignment="Stretch" FontSize="14" Margin="54,0,275,0" x:Name="TitleBar" ShowIcon="False" />
 
         <Button VerticalAlignment="Top" x:Name="PopOutWindow" 
                     CornerRadius="5"
@@ -118,7 +118,7 @@
                         </Button>
                     </Grid>
                 </Border>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="26,0,0,0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" x:Name="ArtInfo" Margin="26,0,0,0">
                     <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
                        MaxLines="2"
                        HorizontalAlignment="Left"

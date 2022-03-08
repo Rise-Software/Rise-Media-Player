@@ -1,9 +1,8 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
-using Windows.System;
 using Windows.UI.Xaml.Controls;
 
 
@@ -12,20 +11,31 @@ namespace Rise.App.Setup
     public sealed partial class AppearancePage : Page
     {
         private SettingsViewModel ViewModel => App.SViewModel;
-        private List<string> Themes { get; set; }
+
+        private readonly List<string> Themes = new()
+        {
+            ResourceLoaders.AppearanceLoader.GetString("Light"),
+            ResourceLoaders.AppearanceLoader.GetString("Dark"),
+            ResourceLoaders.AppearanceLoader.GetString("System")
+        };
 
         public AppearancePage()
         {
             InitializeComponent();
+            ChangeThemeTip.IsOpen = false;
 
-            Themes = new List<string>
-            {
-                ResourceLoaders.AppearanceLoader.GetString("Light"),
-                ResourceLoaders.AppearanceLoader.GetString("Dark"),
-                ResourceLoaders.AppearanceLoader.GetString("System")
-            };
 
             DataContext = ViewModel;
+        }
+
+        private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+            await CoreApplication.RequestRestartAsync("Theme changed");
+        }
+
+        private void ThemeChange_DropDownClosed(object sender, object e)
+        {
+            ChangeThemeTip.IsOpen = true;
         }
 
 

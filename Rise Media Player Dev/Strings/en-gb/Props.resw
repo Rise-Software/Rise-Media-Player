@@ -142,7 +142,7 @@
     <value>Lyrics</value>
   </data>
   <data name="PlaylistWindowTitle.Title" xml:space="preserve">
-    <value>Playlist info</value>
+    <value>Edit playlist</value>
   </data>
   <data name="ProfileItem.Text" xml:space="preserve">
     <value>Profile</value>

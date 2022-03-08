@@ -4,11 +4,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:local1="using:Rise.App" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <uc:ExpanderControl x:Uid="/Appearance/Startup"
+                            ExpanderStyle="Static"
+                            Icon="&#xE7E8;">
+            <ComboBox ItemsSource="{x:Bind Startup}"
+                      PlaceholderText="Songs"
+                      SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
+        </uc:ExpanderControl>
+
+        <uc:ExpanderControl x:Uid="/Appearance/PickUp"
+                               ExpanderStyle="Static"
+                               Icon="&#xE126;">
+            <ToggleSwitch IsOn="{x:Bind ViewModel.PickUp, Mode=TwoWay}" />
+        </uc:ExpanderControl>
+
         <uc:ExpanderControl x:Uid="/Navigation/Resize"
                                ExpanderStyle="Disabled"
                                Icon="&#xE944;">

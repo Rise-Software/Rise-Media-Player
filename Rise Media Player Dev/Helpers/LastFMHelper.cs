@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.Views;
+﻿using Rise.App.Views;
+using Rise.Common.Constants;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -162,8 +162,9 @@ namespace Rise.App.Helpers
                         using StreamReader reader = new(response.GetResponseStream());
                         Debug.WriteLine(reader.ReadToEnd());
                     }
-                } catch (Exception) {}
-                
+                }
+                catch (Exception) { }
+
             };
             client.Dispose();
         }

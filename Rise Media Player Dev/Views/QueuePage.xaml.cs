@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -284,7 +283,10 @@ namespace Rise.App.Views
 
         private async void Props_Click(object sender, RoutedEventArgs e)
         {
-            await _selectedSong.StartEdit();
+            if (!_selectedSong.IsOnline)
+            {
+                await _selectedSong.StartEditAsync();
+            }
         }
 
     }

@@ -1,5 +1,8 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Rise.Models;
+using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,26 +11,21 @@ namespace Rise.App.ViewModels
 {
     public class AlbumViewModel : ViewModel<Album>
     {
-        // private readonly DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        private ISQLRepository<Album> Repository => SQLRepository.Repository.Albums;
 
+        #region Constructor
         /// <summary>
         /// Initializes a new instance of the AlbumViewModel class that wraps an Album object.
         /// </summary>
         public AlbumViewModel(Album model = null)
         {
-            if (model != null)
-            {
-                Model = model;
-            }
-            else
-            {
-                Model = new Album();
-                IsNew = true;
-            }
+            Model = model ?? new Album();
 
             OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Gets or sets the album title.
         /// </summary>
@@ -47,8 +45,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Title)
                 {
                     Model.Title = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Title));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -72,8 +69,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Artist)
                 {
                     Model.Artist = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Artist));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -108,8 +104,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Genres)
                 {
                     Model.Genres = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Genres));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -131,8 +126,7 @@ namespace Rise.App.ViewModels
                 if (value != Model.Thumbnail)
                 {
                     Model.Thumbnail = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Thumbnail));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -148,54 +142,12 @@ namespace Rise.App.ViewModels
                 if (value != Model.Year)
                 {
                     Model.Year = value;
-                    IsModified = true;
-                    OnPropertyChanged(nameof(Year));
+                    OnPropertyChanged();
                 }
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether the underlying model has been modified. 
-        /// </summary>
-        /// <remarks>
-        /// Used to reduce load and only upsert the models that have changed.
-        /// </remarks>
-        public bool IsModified { get; set; }
-
-        private bool _isLoading;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether to show a progress bar. 
-        /// </summary>
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
-        private bool _isInEdit = false;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album data is being edited.
-        /// </summary>
-        public bool IsInEdit
-        {
-            get => _isInEdit;
-            set => Set(ref _isInEdit, value);
-        }
-
         private bool _isArtistVisible = true;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album title is displayed or not.
         /// </summary>
@@ -206,7 +158,6 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isThumbnailVisible = true;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album art is displayed or not.
         /// </summary>
@@ -217,7 +168,6 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isGenresVisible = false;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album genre is displayed or not.
         /// </summary>
@@ -228,7 +178,6 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isTitleVisible = true;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album title is displayed or not.
         /// </summary>
@@ -239,7 +188,6 @@ namespace Rise.App.ViewModels
         }
 
         private bool _hasRoundedAlbumArt = true;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album art is rounded or not.
         /// </summary>
@@ -250,7 +198,6 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isReleaseYearVisible = false;
-
         /// <summary>
         /// Gets or sets a value that indicates whether the album release year is rounded or not.
         /// </summary>
@@ -259,46 +206,33 @@ namespace Rise.App.ViewModels
             get => _isReleaseYearVisible;
             set => Set(ref _isReleaseYearVisible, value);
         }
+        #endregion
 
+        #region Backend
         /// <summary>
-        /// Saves album data that has been edited.
+        /// Saves item data to the backend.
         /// </summary>
         public async Task SaveAsync()
         {
-            IsInEdit = false;
-            IsModified = false;
-
-            if (IsNew)
+            bool hasMatch = await Repository.CheckForMatchAsync(Model);
+            if (!hasMatch)
             {
-                IsNew = false;
                 App.MViewModel.Albums.Add(this);
+                await Repository.QueueUpsertAsync(Model);
             }
-
-            await App.Repository.Albums.QueueUpsertAsync(Model);
-        }
-
-        /// <summary>
-        /// Checks whether or not the album is available. If it's not,
-        /// delete it.
-        /// </summary>
-        public async Task CheckAvailabilityAsync()
-        {
-            if (TrackCount == 0)
+            else
             {
-                await DeleteAsync();
-                return;
+                await Repository.UpdateAsync(Model);
             }
         }
 
         /// <summary>
-        /// Delete album from repository and MViewModel.
+        /// Deletes item data from the backend.
         /// </summary>
         public async Task DeleteAsync()
         {
-            IsModified = true;
-
             App.MViewModel.Albums.Remove(this);
-            await App.Repository.Albums.QueueDeletionAsync(Model);
+            await Repository.QueueDeletionAsync(Model);
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
@@ -310,44 +244,36 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Raised when the user cancels the changes they've made to the album data.
+        /// Checks whether or not the item is available. If it's not,
+        /// delete it.
         /// </summary>
-        public event EventHandler AddNewAlbumCanceled;
-
-        /// <summary>
-        /// Cancels any in progress edits.
-        /// </summary>
-        public async Task CancelEditsAsync()
+        public async Task CheckAvailabilityAsync()
         {
-            if (IsNew)
+            if (TrackCount == 0)
             {
-                AddNewAlbumCanceled?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                await RevertChangesAsync();
+                await DeleteAsync();
+                return;
             }
         }
+        #endregion
+
+        #region Editing
+        /// <summary>
+        /// Enables edit mode.
+        /// </summary>
+        /*public async Task StartEditAsync()
+        {
+            _ = await typeof(PropertiesPage).
+                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
+        }*/
 
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
-        public async Task RevertChangesAsync()
+        public async Task CancelEditsAsync()
         {
-            IsInEdit = false;
-            if (IsModified)
-            {
-                await RefreshAlbumsAsync();
-                IsModified = false;
-            }
+            Model = await Repository.GetAsync(Model.Id);
         }
-
-        /// <summary>
-        /// Reloads all of the album data.
-        /// </summary>
-        public async Task RefreshAlbumsAsync()
-        {
-            Model = await App.Repository.Albums.GetAsync(Model.Id);
-        }
+        #endregion
     }
 }

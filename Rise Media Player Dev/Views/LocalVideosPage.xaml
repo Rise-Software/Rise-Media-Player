@@ -45,31 +45,6 @@
                           Icon="Play"
                           Style="{StaticResource AppBarCompactButton}" />
 
-            <AppBarButton x:Name="ShuffleItem"
-                          x:Uid="/Information/Shuffle"
-                          Click="ShuffleItem_Click"
-                          Icon="Shuffle" />
-
-            <AppBarSeparator />
-
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xECC8;" />
-                </AppBarButton.Icon>
-
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Name="NewPlaylistM"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-
             <AppBarSeparator />
 
             <AppBarButton x:Uid="/Information/Delete"
@@ -85,6 +60,14 @@
             </AppBarButton>
 
             <AppBarSeparator />
+
+            <AppBarButton Label="Play from URL" Click="PlayFromUrl_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE704;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+
+            <AppBarSeparator/>
 
             <AppBarButton x:Uid="/Information/View" IsEnabled="False">
                 <AppBarButton.Icon>
@@ -133,11 +116,11 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton Label="Play from URL" Click="PlayFromUrl_Click">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE704;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+            <AppBarSeparator/>
+            <AppBarButton HorizontalAlignment="Right" x:Uid="/MediaLibrary/AddFolders" Icon="NewFolder" x:Name="AddFolders" Click="AddFolders_Click"/>
+
+
+
         </CommandBar>
 
         <GridView Grid.Row="1"
@@ -212,15 +195,11 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
                 </MenuFlyout>
             </GridView.Resources>
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:VideoViewModel">
+                <DataTemplate x:DataType="viewmodels:VideoViewModel"
+                              x:DefaultBindMode="OneWay">
                     <StackPanel Orientation="Vertical" Margin="8" Spacing="2">
                         <Border x:Name="ItemThumbnail"
                                 Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
@@ -230,7 +209,9 @@
                                    Stretch="UniformToFill"
                                    Width="192">
                                 <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Thumbnail}" />
+                                    <BitmapImage DecodePixelHeight="108"
+                                                 DecodePixelWidth="192"
+                                                 UriSource="{x:Bind Thumbnail}" />
                                 </Image.Source>
                             </Image>
                         </Border>
