@@ -1,9 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
-using Rise.App.Indexing;
 using Rise.App.Props;
 using Rise.App.Views;
+using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;

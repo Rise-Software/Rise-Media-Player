@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\LastFM.cs" />
+    <Compile Include="Constants\SupportedFileTypes.cs" />
     <Compile Include="Constants\URIs.cs" />
     <Compile Include="Constants\SystemMusic.cs" />
     <Compile Include="Constants\URLs.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
     <Compile Include="Interfaces\ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

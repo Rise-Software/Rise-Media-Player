@@ -188,7 +188,6 @@
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
-    <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
