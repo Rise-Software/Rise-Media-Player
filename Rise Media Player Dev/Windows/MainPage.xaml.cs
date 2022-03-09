@@ -68,7 +68,7 @@ namespace Rise.App.Views
         public MainPage()
         {
             InitializeComponent();
-            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
