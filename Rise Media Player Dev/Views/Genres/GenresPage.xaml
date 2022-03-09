@@ -1,10 +1,10 @@
 ﻿<Page
     x:Class="Rise.App.Views.GenresPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
@@ -17,17 +17,16 @@
 
         <StackPanel>
             <muxc:InfoBar
+                Title="Note:"
                 Margin="-2,8,-2,0"
-    IsOpen="True"
-    Title="Note:"
-    IsClosable="False"
-    Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." >
-
-            </muxc:InfoBar>
-            <CommandBar Background="Transparent"
-                    DefaultLabelPosition="Right"
-                    HorizontalAlignment="Left"
-                    Margin="-12,8,0,0">
+                IsClosable="False"
+                IsOpen="True"
+                Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." />
+            <CommandBar
+                Margin="-12,8,0,0"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                DefaultLabelPosition="Right">
                 <!--<AppBarButton x:Name="PlayItem"
                           x:Uid="/Information/Play"
                           Icon="Play"
@@ -125,55 +124,64 @@
 
             <AppBarSeparator/>-->
 
-                <AppBarButton HorizontalAlignment="Right" x:Uid="/MediaLibrary/AddFolders" Icon="NewFolder" x:Name="AddFolders" Click="AddFolders_Click"/>
+                <AppBarButton
+                    x:Name="AddFolders"
+                    x:Uid="/MediaLibrary/AddFolders"
+                    HorizontalAlignment="Right"
+                    Click="AddFolders_Click"
+                    Icon="NewFolder" />
 
             </CommandBar>
 
-            <GridView Grid.Row="1"
-                  animations:Connected.ListItemElementName="GenreThumb"
-                  animations:Connected.ListItemKey="GenreArt"
-                  ItemsSource="{x:Bind Genres, Mode=OneWay}"
-                  Margin="-56,0"
-                  Padding="44,0,44,120"
-                  SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
-                  SelectionMode="Single"
-                  Tapped="GridView_Tapped">
+            <GridView
+                Grid.Row="1"
+                Margin="-56,0"
+                Padding="44,0,44,120"
+                animations:Connected.ListItemElementName="GenreThumb"
+                animations:Connected.ListItemKey="GenreArt"
+                ItemsSource="{x:Bind Genres, Mode=OneWay}"
+                SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
+                SelectionMode="Single"
+                Tapped="GridView_Tapped">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                        <Grid ColumnSpacing="12"
-                          Margin="12"
-                          Width="210">
+                        <Grid
+                            Width="210"
+                            Margin="12"
+                            ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Button CornerRadius="4"
-                                IsHitTestVisible="False"
-                                Padding="0">
-                                <Border x:Name="GenreThumb"
-                                    CornerRadius="4">
-                                    <Image Height="48"
-                                       Source="ms-appx:///Assets/BlankGenre.png"
-                                       Stretch="UniformToFill"
-                                       Width="48" />
+                            <Button
+                                Padding="0"
+                                CornerRadius="4"
+                                IsHitTestVisible="False">
+                                <Border x:Name="GenreThumb" CornerRadius="4">
+                                    <Image
+                                        Width="48"
+                                        Height="48"
+                                        Source="ms-appx:///Assets/BlankGenre.png"
+                                        Stretch="UniformToFill" />
                                 </Border>
                             </Button>
 
-                            <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Name}"
-                                   FontSize="16"
-                                   MaxLines="2"
-                                   Style="{StaticResource BaseTextBlockStyle}"
-                                   TextWrapping="Wrap"
-                                   VerticalAlignment="Center" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                MaxLines="2"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="{x:Bind Name}"
+                                TextWrapping="Wrap" />
                         </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
         </StackPanel>
-        
 
-        
+
+
     </Grid>
 </Page>

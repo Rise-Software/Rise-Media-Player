@@ -1,8 +1,8 @@
 ﻿<Page
     x:Class="Rise.App.Views.SetupPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -11,36 +11,41 @@
 
     <Grid>
         <Grid Canvas.ZIndex="1">
-            <uc:ExtendedTitleBar x:Name="AppTitleBar"
-                                 Canvas.ZIndex="1"
-                                 Height="40"
-                                 Margin="16,8,0,0"
-                                 MinTitleWidth="0"
-                                 ShowIcon="True"
-                                 VerticalAlignment="Top" />
+            <uc:ExtendedTitleBar
+                x:Name="AppTitleBar"
+                Height="40"
+                Margin="16,8,0,0"
+                VerticalAlignment="Top"
+                Canvas.ZIndex="1"
+                MinTitleWidth="0"
+                ShowIcon="True" />
         </Grid>
 
-        <StackPanel HorizontalAlignment="Center"
-                    Orientation="Vertical"
-                    Spacing="24"
-                    VerticalAlignment="Center"
-                    Width="400">
-            <TextBlock x:Uid="/Setup/Welcome"
-
-                       HorizontalAlignment="Center"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-            <Image HorizontalAlignment="Center"
-                   Source="ms-appx:///Assets/Branding/AlphaBanner.png"
-                   Width="Auto" />
-            <TextBlock x:Uid="/Setup/Intro"
-                       HorizontalAlignment="Center"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextAlignment="Center" />
-            <Button x:Uid="/Setup/Start"
-                    Click="SetupButton_Click"
-                    Width="150"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource AccentButtonStyle}" />
+        <StackPanel
+            Width="400"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical"
+            Spacing="24">
+            <TextBlock
+                x:Uid="/Setup/Welcome"
+                HorizontalAlignment="Center"
+                Style="{StaticResource TitleTextBlockStyle}" />
+            <Image
+                Width="Auto"
+                HorizontalAlignment="Center"
+                Source="ms-appx:///Assets/Branding/AlphaBanner.png" />
+            <TextBlock
+                x:Uid="/Setup/Intro"
+                HorizontalAlignment="Center"
+                Style="{StaticResource BodyTextBlockStyle}"
+                TextAlignment="Center" />
+            <Button
+                x:Uid="/Setup/Start"
+                Width="150"
+                HorizontalAlignment="Center"
+                Click="SetupButton_Click"
+                Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>
 </Page>

@@ -2,53 +2,68 @@
     x:Class="Rise.App.UserControls.VideoNowPlayingBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.UserControls"
+    xmlns:app="using:Rise.App"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    MaxWidth="1500"
+    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     d:DesignHeight="50"
     d:DesignWidth="700"
-    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     SizeChanged="UserControl_SizeChanged"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:app="using:Rise.App"
-    MaxWidth="1500">
+    mc:Ignorable="d">
 
     <UserControl.Resources>
-        <media:AttachedCardShadow Offset="0,2" x:Name="DropShadow" CornerRadius="8" BlurRadius="25" Opacity=".15" />
+        <media:AttachedCardShadow
+            x:Name="DropShadow"
+            BlurRadius="25"
+            CornerRadius="8"
+            Opacity=".15"
+            Offset="0,2" />
         <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
         <converters:BooleanToArtistColumnVisibility x:Key="BoolToVis" />
         <LinearGradientBrush x:Name="PlayBorderBrush">
-            <GradientStop Color="#F98253" Offset="0.1"/>
-            <GradientStop Color="#F98253"/>
-            <GradientStop Color="#B61F9C" Offset="0.8"/>
+            <GradientStop Offset="0.1" Color="#F98253" />
+            <GradientStop Color="#F98253" />
+            <GradientStop Offset="0.8" Color="#B61F9C" />
         </LinearGradientBrush>
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
 
         <MenuFlyout x:Key="MoreMenuFlyout">
-            <MenuFlyoutItem Text="Info &amp; Properties" IsEnabled="False">
+            <MenuFlyoutItem IsEnabled="False" Text="Info &amp; Properties">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE70F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Queue" IsEnabled="False">
+            <MenuFlyoutItem IsEnabled="False" Text="Queue">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEA37;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Mini player" IsEnabled="true" Visibility="Collapsed" x:Name="OverlayMenu" Click="OverlayButton_Click">
+            <MenuFlyoutItem
+                x:Name="OverlayMenu"
+                Click="OverlayButton_Click"
+                IsEnabled="true"
+                Text="Mini player"
+                Visibility="Collapsed">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon Glyph="&#xEE49;"/>
+                    <FontIcon Glyph="&#xEE49;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Full screen" x:Name="FullScreenButton" Click="FullScreen_Click">
+            <MenuFlyoutItem
+                x:Name="FullScreenButton"
+                Click="FullScreen_Click"
+                Text="Full screen">
                 <MenuFlyoutItem.Icon>
                     <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" />
                 </MenuFlyoutItem.Icon>
@@ -56,7 +71,10 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutItem Click="CastToDevice_Click" x:Name="CastButton" Text="Cast to device">
+            <MenuFlyoutItem
+                x:Name="CastButton"
+                Click="CastToDevice_Click"
+                Text="Cast to device">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xEC15;" />
                 </MenuFlyoutItem.Icon>
@@ -67,13 +85,16 @@
                     <FontIcon Glyph="&#xEC4A;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="0.5x" />
-                <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" IsChecked="True" Text="1x (Normal)" />
+                <muxc:RadioMenuFlyoutItem
+                    Click="RadioMenuFlyoutItem_Click"
+                    IsChecked="True"
+                    Text="1x (Normal)" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="1.5x" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2x" />
                 <muxc:RadioMenuFlyoutItem Click="RadioMenuFlyoutItem_Click" Text="2.5x" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Sound profile" IsEnabled="False">
+            <MenuFlyoutSubItem IsEnabled="False" Text="Sound profile">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xF4C3;" />
                 </MenuFlyoutSubItem.Icon>
@@ -93,7 +114,7 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutSubItem Text="Pinned" IsEnabled="False">
+            <MenuFlyoutSubItem IsEnabled="False" Text="Pinned">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE141;" />
                 </MenuFlyoutSubItem.Icon>
@@ -106,7 +127,7 @@
 
             <MenuFlyoutSeparator />
 
-            <MenuFlyoutSubItem Text="Visualizer" IsEnabled="False">
+            <MenuFlyoutSubItem IsEnabled="False" Text="Visualizer">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xF4A5;" />
                 </MenuFlyoutSubItem.Icon>
@@ -115,7 +136,7 @@
                 <ToggleMenuFlyoutItem Text="Picture slideshow" />
             </MenuFlyoutSubItem>
 
-            <MenuFlyoutSubItem Text="Settings" IsEnabled="False">
+            <MenuFlyoutSubItem IsEnabled="False" Text="Settings">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon Glyph="&#xE713;" />
                 </MenuFlyoutSubItem.Icon>
@@ -124,182 +145,243 @@
                 <MenuFlyoutSeparator />
                 <ToggleMenuFlyoutItem Text="Tint to album art" />
                 <MenuFlyoutSeparator />
-                <ToggleMenuFlyoutItem Text="Zoom to fill" Click="ZoomToFill_Click" />
+                <ToggleMenuFlyoutItem Click="ZoomToFill_Click" Text="Zoom to fill" />
                 <MenuFlyoutSeparator />
                 <MenuFlyoutItem Text="Additional settings" />
             </MenuFlyoutSubItem>
         </MenuFlyout>
     </UserControl.Resources>
 
-    <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}" >
-        <Grid x:Name="Grid" Padding="4,4,4,4"
-              Background="{ThemeResource SystemControlAcrylicElementBrush}"
-              BorderThickness="1"
-              CornerRadius="7"
-              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+    <Border x:Name="Parent1" ui:Effects.Shadow="{x:Bind DropShadow}">
+        <Grid
+            x:Name="Grid"
+            Padding="4,4,4,4"
+            Background="{ThemeResource SystemControlAcrylicElementBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="7">
 
             <RelativePanel VerticalAlignment="Center">
-                <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="ButtonsContainer" RelativePanel.AlignLeftWithPanel="True" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Height="40" Width="40"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            Click="PlayButton_Click"
-                            x:Name="PlayButton">
+                <StackPanel
+                    x:Name="ButtonsContainer"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True">
+                    <Button
+                        x:Name="PlayButton"
+                        Width="40"
+                        Height="40"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="PlayButton_Click">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorDark1}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xF5B0;" FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" FontSize="16" x:Name="PlayButtonIcon" />
+                        <FontIcon
+                            x:Name="PlayButtonIcon"
+                            FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons"
+                            FontSize="16"
+                            Glyph="&#xF5B0;" />
                     </Button>
 
-                    <Button Click="Back10_Click"
-                            Margin="5,0,0,0"
-                            Height="40" Width="40"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            ToolTipService.ToolTip="Move back 10 seconds"
-                            x:Name="Back10">
+                    <Button
+                        x:Name="Back10"
+                        Width="40"
+                        Height="40"
+                        Margin="5,0,0,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="Back10_Click"
+                        ToolTipService.ToolTip="Move back 10 seconds">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorDark1}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3C;" FontSize="17" x:Name="Back10Icon" />
+                        <FontIcon
+                            x:Name="Back10Icon"
+                            FontSize="17"
+                            Glyph="&#xED3C;" />
                     </Button>
-                    <Button Margin="0,0,5,0"
-                            Height="40" Width="40"
-                            BorderBrush="Transparent"
-                            Background="Transparent"
-                            x:Name="Forward30"
-                            ToolTipService.ToolTip="Move forward 30 seconds"
-                            Click="Forward30_Click">
+                    <Button
+                        x:Name="Forward30"
+                        Width="40"
+                        Height="40"
+                        Margin="0,0,5,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="Forward30_Click"
+                        ToolTipService.ToolTip="Move forward 30 seconds">
                         <Button.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Dark">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight3}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorLight1}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                     <ResourceDictionary x:Key="Light">
                                         <LinearGradientBrush x:Key="ButtonForegroundPointerOver">
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark1}" Offset="0.1"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}"/>
-                                            <GradientStop Color="{StaticResource SystemAccentColorDark3}" Offset="0.8"/>
+                                            <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorDark1}" />
+                                            <GradientStop Color="{StaticResource SystemAccentColorDark2}" />
+                                            <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
                                         </LinearGradientBrush>
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <FontIcon Glyph="&#xED3D;" FontSize="17" x:Name="Forward30Icon" />
+                        <FontIcon
+                            x:Name="Forward30Icon"
+                            FontSize="17"
+                            Glyph="&#xED3D;" />
                     </Button>
                 </StackPanel>
-                <RelativePanel RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="ButtonsContainer" RelativePanel.LeftOf="PlaybackControls" Grid.Column="1" Padding="10,0,0,0">
-                    <TextBlock x:Name="MediaPlayingDurationLeft" RelativePanel.AlignVerticalCenterWithPanel="True" Text="0:00" Height="20" RelativePanel.AlignLeftWithPanel="True" />
-                    
-                    <Slider RelativePanel.AlignVerticalCenterWithPanel="True"
-                            PointerCaptureLost="SliderProgress_PointerCaptureLost"
-                            x:Name="SliderProgress"
-                            Padding="15,0"
-                            RelativePanel.RightOf="MediaPlayingDurationLeft"
-                            RelativePanel.LeftOf="MediaPlayingDurationRight"
-                            IsThumbToolTipEnabled="False" />
-                    
-                    <TextBlock Text="0:00" x:Name="MediaPlayingDurationRight" Height="20" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
+                <RelativePanel
+                    Grid.Column="1"
+                    Padding="10,0,0,0"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    RelativePanel.LeftOf="PlaybackControls"
+                    RelativePanel.RightOf="ButtonsContainer">
+                    <TextBlock
+                        x:Name="MediaPlayingDurationLeft"
+                        Height="20"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Text="0:00" />
+
+                    <Slider
+                        x:Name="SliderProgress"
+                        Padding="15,0"
+                        IsThumbToolTipEnabled="False"
+                        PointerCaptureLost="SliderProgress_PointerCaptureLost"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        RelativePanel.LeftOf="MediaPlayingDurationRight"
+                        RelativePanel.RightOf="MediaPlayingDurationLeft" />
+
+                    <TextBlock
+                        x:Name="MediaPlayingDurationRight"
+                        Height="20"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Text="0:00" />
                 </RelativePanel>
-                <StackPanel Padding="10,0,0,0" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="PlaybackControls" RelativePanel.AlignRightWithPanel="True" Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2">
-                    <controls:WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel
+                    x:Name="PlaybackControls"
+                    Grid.Column="2"
+                    Padding="10,0,0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True">
+                    <controls:WrapPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <ToggleButton
-                                Height="40" Width="40"
-                                Margin="5,0,0,0"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                ToolTipService.ToolTip="Repeat"
-                                Background="Transparent"
-                                Click="RepeatButton_Click">
-                            <FontIcon Glyph="&#xE1CD;"/>
+                            Width="40"
+                            Height="40"
+                            Margin="5,0,0,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="RepeatButton_Click"
+                            ToolTipService.ToolTip="Repeat">
+                            <FontIcon Glyph="&#xE1CD;" />
                         </ToggleButton>
-                        <Button Height="40" Width="40"
-                                Margin="5,0,0,0"
-                                HorizontalAlignment="Right"
-                                x:Name="VolumeFlyoutButton"
-                                BorderBrush="Transparent"
-                                ToolTipService.ToolTip="Volume"
-                                BorderThickness="0"
-                                Background="Transparent">
+                        <Button
+                            x:Name="VolumeFlyoutButton"
+                            Width="40"
+                            Height="40"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Right"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            ToolTipService.ToolTip="Volume">
                             <Button.Flyout>
                                 <Flyout>
                                     <RelativePanel Width="200">
-                                        <Viewbox Width="16" Height="16" RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="VolumeIconViewBox3">
+                                        <Viewbox
+                                            x:Name="VolumeIconViewBox3"
+                                            Width="16"
+                                            Height="16"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True">
                                             <SymbolIcon Symbol="Volume" />
                                         </Viewbox>
-                                        <Slider StepFrequency=".01"
-                                                Maximum="1"
-                                                IsThumbToolTipEnabled="False"
-                                                x:Name="VolumeSlider3"
-                                                Value="{x:Bind _player.Volume, Mode=TwoWay}"
-                                                RelativePanel.LeftOf="VolumeProgressText3"
-                                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                                Margin="10,0"
-                                                RelativePanel.RightOf="VolumeIconViewBox3" />
-                                        <TextBlock Text="{x:Bind VolumeSlider3.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" x:Name="VolumeProgressText3" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                        <Slider
+                                            x:Name="VolumeSlider3"
+                                            Margin="10,0"
+                                            IsThumbToolTipEnabled="False"
+                                            Maximum="1"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                                            RelativePanel.LeftOf="VolumeProgressText3"
+                                            RelativePanel.RightOf="VolumeIconViewBox3"
+                                            StepFrequency=".01"
+                                            Value="{x:Bind _player.Volume, Mode=TwoWay}" />
+                                        <TextBlock
+                                            x:Name="VolumeProgressText3"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                                            Text="{x:Bind VolumeSlider3.Value, Converter={StaticResource DecimalPointToPercentage}, Mode=OneWay}" />
                                     </RelativePanel>
                                 </Flyout>
                             </Button.Flyout>
                             <FontIcon Glyph="&#xE767;" />
                         </Button>
 
-                        <Button x:Name="OverlayButton"
-                            Click="OverlayButton_Click"
+                        <Button
+                            x:Name="OverlayButton"
                             VerticalAlignment="Stretch"
                             Background="Transparent"
+                            BorderBrush="Transparent"
                             BorderThickness="0"
-                            ToolTipService.ToolTip="Mini player"
-                            BorderBrush="Transparent">
-                            <FontIcon Glyph="&#xEE49;"  />
+                            Click="OverlayButton_Click"
+                            ToolTipService.ToolTip="Mini player">
+                            <FontIcon Glyph="&#xEE49;" />
                         </Button>
 
-                        <Button Height="40" Width="40"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                ToolTipService.ToolTip="More"
-                                Background="Transparent"
-                                Flyout="{StaticResource MoreMenuFlyout}">
+                        <Button
+                            Width="40"
+                            Height="40"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Flyout="{StaticResource MoreMenuFlyout}"
+                            ToolTipService.ToolTip="More">
                             <Button.Content>
-                                <FontIcon Glyph="&#xE712;"  />
+                                <FontIcon Glyph="&#xE712;" />
                             </Button.Content>
                         </Button>
                     </controls:WrapPanel>

@@ -2,61 +2,100 @@
     x:Class="Rise.App.Views.NoMediaFound"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Web"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:control="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Web"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:control="using:Microsoft.UI.Xaml.Controls" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    mc:Ignorable="d"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    xmlns:uc="using:Rise.App.UserControls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
 
     <Grid>
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="48,0,0,0">
+        <Border
+            x:Name="AppTitleBar"
+            Height="32"
+            Margin="48,0,0,0"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            IsHitTestVisible="True">
             <StackPanel Orientation="Horizontal">
 
-                <FontIcon Glyph="&#xE7BA;" Height="16" Width="16" FontSize="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="No media found" Width="110"
-                    VerticalAlignment="Center"
+                <FontIcon
+                    Width="16"
+                    Height="16"
+                    FontSize="16"
+                    Glyph="&#xE7BA;" />
+                <TextBlock
+                    x:Name="AppTitle"
+                    Width="110"
                     Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="No media found" />
             </StackPanel>
         </Border>
-        <Button VerticalAlignment="Top" x:Name="BackButton"
-                    Command="{x:Bind _navigationHelper.GoBackCommand}"
-                    CornerRadius="5"
-                    Height="28"
-                    Margin="2,2,0,0"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Width="40"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
-            <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
+        <Button
+            x:Name="BackButton"
+            Width="40"
+            Height="28"
+            Margin="2,2,0,0"
+            VerticalAlignment="Top"
+            AutomationProperties.AutomationId="BackButton"
+            AutomationProperties.ItemType="Navigation Button"
+            AutomationProperties.Name="Back"
+            Command="{x:Bind _navigationHelper.GoBackCommand}"
+            CornerRadius="5"
+            Style="{StaticResource TransparentButtonStyle}">
+            <muxc:AnimatedIcon
+                x:Name="BackAnimatedIcon"
+                Width="16"
+                Height="16">
                 <muxc:AnimatedIcon.Source>
-                    <animatedvisuals:AnimatedBackVisualSource/>
+                    <animatedvisuals:AnimatedBackVisualSource />
                 </muxc:AnimatedIcon.Source>
                 <muxc:AnimatedIcon.FallbackIconSource>
-                    <muxc:SymbolIconSource Symbol="Back"/>
+                    <muxc:SymbolIconSource Symbol="Back" />
                 </muxc:AnimatedIcon.FallbackIconSource>
             </muxc:AnimatedIcon>
 
 
         </Button>
 
-        <StackPanel Padding="56,0,56,0" HorizontalAlignment="left" VerticalAlignment="Center">
-            <Image Source="/Assets/FileIcons/MUFILE.png" Height="96" HorizontalAlignment="Left"/>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="We couldn't find any media to display. Add more media sources to continue." TextAlignment="Left" Padding="0,16,0,0"/>
-            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Opacity="0.6" FontWeight="SemiBold" FontSize="15" Text="If you want to, we can hide this message, but there still won't be any media to display." TextWrapping="WrapWholeWords" TextAlignment="Left" />
-            <StackPanel Margin="0,24,0,0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Dismiss this message" Width="180"/>
-                <Button Margin="8,0,0,0" Style="{StaticResource AccentButtonStyle}" Name="AddMedia" Click="AddMedia_Click" Content="Add media sources" Width="180"/>
+        <StackPanel
+            Padding="56,0,56,0"
+            HorizontalAlignment="left"
+            VerticalAlignment="Center">
+            <Image
+                Height="96"
+                HorizontalAlignment="Left"
+                Source="/Assets/FileIcons/MUFILE.png" />
+            <TextBlock
+                Padding="0,16,0,0"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="We couldn't find any media to display. Add more media sources to continue."
+                TextAlignment="Left" />
+            <TextBlock
+                FontSize="15"
+                FontWeight="SemiBold"
+                Opacity="0.6"
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="If you want to, we can hide this message, but there still won't be any media to display."
+                TextAlignment="Left"
+                TextWrapping="WrapWholeWords" />
+            <StackPanel
+                Margin="0,24,0,0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <Button Width="180" Content="Dismiss this message" />
+                <Button
+                    Name="AddMedia"
+                    Width="180"
+                    Margin="8,0,0,0"
+                    Click="AddMedia_Click"
+                    Content="Add media sources"
+                    Style="{StaticResource AccentButtonStyle}" />
             </StackPanel>
         </StackPanel>
 

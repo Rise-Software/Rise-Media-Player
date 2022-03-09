@@ -1,11 +1,11 @@
 ﻿<Page
     x:Class="Rise.App.Setup.LocalPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
@@ -25,24 +25,34 @@
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE74D;">
-                --><!--ComboBox ItemsSource="{x:Bind Deletion}"
-                          PlaceholderText="Delete from device"
-                          SelectedIndex="{Binding Deletion, Mode=TwoWay}" /--><!--
+        -->
+        <!--
+            ComboBox ItemsSource="{x:Bind Deletion}"
+            PlaceholderText="Delete from device"
+            SelectedIndex="{Binding Deletion, Mode=TwoWay}" /
+        -->
+        <!--
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE145;">
-                --><!--ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /--><!--
+        -->
+        <!--  ToggleSwitch IsOn="{Binding SeparateLocal, Mode=TwoWay}" /  -->
+        <!--
             </uc:ExpanderControl>
         </StackPanel>
 
         <TextBlock x:Uid="/Local/Tip"
                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                    Style="{StaticResource BodyTextBlockStyle}" />-->
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="0,48,0,0">
-            <Frame HorizontalAlignment="Left" x:Name="SetupLocalFrame" x:FieldModifier="public" Width="486"/>
+        <ScrollViewer Padding="0,48,0,0" HorizontalScrollBarVisibility="Auto">
+            <Frame
+                x:Name="SetupLocalFrame"
+                Width="486"
+                HorizontalAlignment="Left"
+                x:FieldModifier="public" />
         </ScrollViewer>
     </Grid>
 </Page>

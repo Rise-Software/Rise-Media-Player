@@ -1,69 +1,77 @@
 ﻿<Page
     x:Class="Rise.App.Settings.PlaybackPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
 
         <muxc:InfoBar
-            x:Name="TryRiseEQ" x:FieldModifier="public"
-            IsOpen="True"
+            x:Name="TryRiseEQ"
             Margin="0,4,0,0"
-            IsIconVisible="True"
+            x:FieldModifier="public"
             IsClosable="False"
-            Severity="Informational"
-            Message="We are currently working on an Equaliser for Rise Media Player as a separate app. Go to GitHub to contribute and try it out!">
+            IsIconVisible="True"
+            IsOpen="True"
+            Message="We are currently working on an Equaliser for Rise Media Player as a separate app. Go to GitHub to contribute and try it out!"
+            Severity="Informational">
             <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Content="RiseEQ GitHub"
-                                 Click="RiseEQLink_Click"
-                                 x:Name="RiseEQLink"/>
+                <HyperlinkButton
+                    x:Name="RiseEQLink"
+                    Click="RiseEQLink_Click"
+                    Content="RiseEQ GitHub" />
             </muxc:InfoBar.ActionButton>
         </muxc:InfoBar>
-        
-        
+
+
         <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
-        <uc:ExpanderControl x:Uid="/Playback/EQ"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE9E9;">
-            <FontIcon FontSize="16"
-                      Glyph="&#xE00F;" />
+        <uc:ExpanderControl
+            x:Uid="/Playback/EQ"
+            ExpanderStyle="Disabled"
+            Icon="&#xE9E9;">
+            <FontIcon FontSize="16" Glyph="&#xE00F;" />
         </uc:ExpanderControl>
 
-        <uc:ExpanderControl x:Uid="/Playback/StreamingQuality"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xEA69;">
-            <FontIcon FontSize="16"
-                      Glyph="&#xE00F;" />
+        <uc:ExpanderControl
+            x:Uid="/Playback/StreamingQuality"
+            ExpanderStyle="Disabled"
+            Icon="&#xEA69;">
+            <FontIcon FontSize="16" Glyph="&#xE00F;" />
         </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource SubheaderTextBlockStyle}" />
-        <uc:ExpanderControl x:Uid="/Playback/Gapless"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE101;">
+        <uc:ExpanderControl
+            x:Uid="/Playback/Gapless"
+            ExpanderStyle="Disabled"
+            Icon="&#xE101;">
             <ToggleSwitch IsOn="{x:Bind ViewModel.Gapless, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
-        <uc:ExpanderControl x:Uid="/Playback/Crossfade"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE13C;">
-            <ComboBox ItemsSource="{x:Bind Crossfade}"
-                      PlaceholderText="No crossfade"
-                      SelectedIndex="{x:Bind ViewModel.CrossfadeDuration, Mode=TwoWay}" />
+        <uc:ExpanderControl
+            x:Uid="/Playback/Crossfade"
+            ExpanderStyle="Disabled"
+            Icon="&#xE13C;">
+            <ComboBox
+                ItemsSource="{x:Bind Crossfade}"
+                PlaceholderText="No crossfade"
+                SelectedIndex="{x:Bind ViewModel.CrossfadeDuration, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
 
         <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource SubheaderTextBlockStyle}" />
-        <uc:ExpanderControl x:Uid="/Playback/Scaling"
-                               ExpanderStyle="Disabled"
-                               Icon="&#xE1D9;">
-            <ComboBox ItemsSource="{x:Bind VideoScale}"
-                      PlaceholderText="Scale to window size"
-                      SelectedIndex="{x:Bind ViewModel.ScaleToWindow, Mode=TwoWay}" />
+        <uc:ExpanderControl
+            x:Uid="/Playback/Scaling"
+            ExpanderStyle="Disabled"
+            Icon="&#xE1D9;">
+            <ComboBox
+                ItemsSource="{x:Bind VideoScale}"
+                PlaceholderText="Scale to window size"
+                SelectedIndex="{x:Bind ViewModel.ScaleToWindow, Mode=TwoWay}" />
         </uc:ExpanderControl>
 
     </StackPanel>

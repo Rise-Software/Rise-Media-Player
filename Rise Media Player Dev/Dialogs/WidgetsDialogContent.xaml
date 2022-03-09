@@ -2,19 +2,25 @@
     x:Class="Rise.App.Dialogs.WidgetsDialogContent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Dialogs"
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:uc="using:Rise.App.UserControls" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <Image x:Name="WidgetsImage" Source="/Assets/ataglance/widgetscomingsoon.png" Stretch="UniformToFill"/>
-            <Image x:Name="WidgetsImageDark" Source="/Assets/ataglance/widgetscomingsoondark.png" Stretch="UniformToFill"/>
+            <Image
+                x:Name="WidgetsImage"
+                Source="/Assets/ataglance/widgetscomingsoon.png"
+                Stretch="UniformToFill" />
+            <Image
+                x:Name="WidgetsImageDark"
+                Source="/Assets/ataglance/widgetscomingsoondark.png"
+                Stretch="UniformToFill" />
             <!--<muxc:NavigationView x:Name="ManageFoldersNav" SelectedItem="{x:Bind AllWidgets}"  Margin="-15,-8,0,0" IsSettingsVisible="False"  IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
                 <muxc:NavigationView.Resources>
                     <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />

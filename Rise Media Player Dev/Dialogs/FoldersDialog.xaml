@@ -1,8 +1,8 @@
 ﻿<Page
     x:Class="Rise.App.Dialogs.FoldersDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:storage="using:Windows.Storage"
     mc:Ignorable="d">
@@ -15,38 +15,42 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        
 
-        <Grid Grid.Row="3"
-              BorderThickness="0,1,0,0"
-              ColumnSpacing="12"
-              HorizontalAlignment="Stretch"
-              Margin="-24,0,-24,-24"
-              Padding="24">
+
+        <Grid
+            Grid.Row="3"
+            Margin="-24,0,-24,-24"
+            Padding="24"
+            HorizontalAlignment="Stretch"
+            BorderThickness="0,1,0,0"
+            ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Uid="/MediaLibrary/Add"
-                    Click="Add_Click"
-                    HorizontalAlignment="Stretch"
-                    Style="{StaticResource AccentButtonStyle}" />
-            <Button x:Uid="/MediaLibrary/Done"
-                    Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    Click="Done_Click" />
+            <Button
+                x:Uid="/MediaLibrary/Add"
+                HorizontalAlignment="Stretch"
+                Click="Add_Click"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Uid="/MediaLibrary/Done"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                Click="Done_Click" />
         </Grid>
 
-        
 
-        <ListView Grid.Row="1"
-                  VerticalAlignment="Top"
-                  IsItemClickEnabled="False"
-                  ItemsSource="{x:Bind MusicLibrary.Folders}"
-                  SelectionMode="None">
+
+        <ListView
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            IsItemClickEnabled="False"
+            ItemsSource="{x:Bind MusicLibrary.Folders}"
+            SelectionMode="None">
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="Padding" Value="0,0,0,4" />
                     <Setter Property="UseSystemFocusVisuals" Value="False" />
@@ -56,43 +60,51 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="storage:StorageFolder">
                     <Border Style="{StaticResource SettingsCard}">
-                        <Grid ColumnSpacing="12" VerticalAlignment="Center">
+                        <Grid VerticalAlignment="Center" ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <FontIcon VerticalAlignment="Center"
-                                      Glyph=""
-                                      FontSize="16" />
+                            <FontIcon
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Glyph="" />
 
-                            <StackPanel Grid.Column="1"
-                                        Orientation="Vertical"
-                                        VerticalAlignment="Center">
-                                <TextBlock Text="{x:Bind DisplayName}"
-                                           Style="{StaticResource BodyTextBlockStyle}"
-                                           VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind Path}"
-                                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                           VerticalAlignment="Center" />
+                            <StackPanel
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind DisplayName}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{x:Bind Path}" />
                             </StackPanel>
 
-                            <Button x:Uid="/Information/RemoveFolder"
-                                    Grid.Column="2"
-                                    Click="Button_Click"
-                                    Padding="8"
-                                    Style="{StaticResource TransparentButtonStyle}">
+                            <Button
+                                x:Uid="/Information/RemoveFolder"
+                                Grid.Column="2"
+                                Padding="8"
+                                Click="Button_Click"
+                                Style="{StaticResource TransparentButtonStyle}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <FontIcon Glyph="&#xE106;" Margin="0,2,0,0" FontSize="16" />
-                                        <TextBlock Margin="8,0,0,0" Text="Remove"/>
-                                        
+                                        <FontIcon
+                                            Margin="0,2,0,0"
+                                            FontSize="16"
+                                            Glyph="&#xE106;" />
+                                        <TextBlock Margin="8,0,0,0" Text="Remove" />
+
                                     </StackPanel>
-                                    
+
                                 </Button.Content>
-                                
+
                             </Button>
                         </Grid>
                     </Border>
@@ -100,10 +112,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Rectangle Grid.Row="2"
-                   Fill="{ThemeResource NavigationViewContentGridBorderBrush}"
-                   Margin="-24,24,-24,-24" />
+        <Rectangle
+            Grid.Row="2"
+            Margin="-24,24,-24,-24"
+            Fill="{ThemeResource NavigationViewContentGridBorderBrush}" />
 
-        
+
     </Grid>
 </Page>

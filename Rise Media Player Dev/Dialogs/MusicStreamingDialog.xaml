@@ -2,23 +2,32 @@
     x:Class="Rise.App.Dialogs.MusicStreamingDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Title="Play music from URL"
-    PrimaryButtonText="Play song"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
     CloseButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    Style="{StaticResource DefaultContentDialogStyle}">
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
+    PrimaryButtonText="Play song"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    mc:Ignorable="d">
 
     <StackPanel Width="300" Spacing="6">
-        <TextBox Header="URL to stream" x:Name="StreamingTextBox" />
-        <TextBlock FontSize="13" TextWrapping="Wrap" Text="Note: not a YouTube Music URL for example, but a direct link to a song file, stream, or playlist." />
+        <TextBox x:Name="StreamingTextBox" Header="URL to stream" />
+        <TextBlock
+            FontSize="13"
+            Text="Note: not a YouTube Music URL for example, but a direct link to a song file, stream, or playlist."
+            TextWrapping="Wrap" />
         <TextBlock FontSize="13" TextWrapping="Wrap">
-            Examples of direct links include:<LineBreak />https://www.example.com/song.mp3<LineBreak />https://www.example.com/song_playlist.m3u
-        </TextBlock>
-        <TextBlock FontSize="13" TextWrapping="Wrap" Text="Invalid URL." x:Name="InvalidUrlText" Visibility="Collapsed" />
+            Examples of direct links include:<LineBreak />
+            https://www.example.com/song.mp3<LineBreak />
+            https://www.example.com/song_playlist.m3u</TextBlock>
+        <TextBlock
+            x:Name="InvalidUrlText"
+            FontSize="13"
+            Text="Invalid URL."
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
     </StackPanel>
 </ContentDialog>

@@ -1,18 +1,20 @@
 ﻿<Page
     x:Class="Rise.App.Views.FullNowPlayingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materials="using:Rise.App.Materials_Visualisers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:converters="using:Rise.App.Converters" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
 
     <Page.Resources>
         <converters:BooleanToVisibility1 x:Key="BoolToVis" />
@@ -32,60 +34,83 @@
 
     <Grid Name="FullNPGrid" SizeChanged="FullNPGrid_SizeChanged">
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-        <Button VerticalAlignment="Top" x:Name="BackButton"
-                    Command="{x:Bind _navigationHelper.GoBackCommand}"
-                    CornerRadius="5"
-                    Height="28"
-                    ToolTipService.ToolTip="Back"
-                    Margin="2,2,0,0"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Width="40"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button">
-            <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
-                <muxc:AnimatedIcon.Source>
-                    <animatedvisuals:AnimatedBackVisualSource/>
-                </muxc:AnimatedIcon.Source>
-                <muxc:AnimatedIcon.FallbackIconSource>
-                    <muxc:SymbolIconSource Symbol="Back"/>
-                </muxc:AnimatedIcon.FallbackIconSource>
-            </muxc:AnimatedIcon>
-        </Button>
+            <Button
+                x:Name="BackButton"
+                Width="40"
+                Height="28"
+                Margin="2,2,0,0"
+                VerticalAlignment="Top"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"
+                AutomationProperties.Name="Back"
+                Command="{x:Bind _navigationHelper.GoBackCommand}"
+                CornerRadius="5"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="Back">
+                <muxc:AnimatedIcon
+                    x:Name="BackAnimatedIcon"
+                    Width="16"
+                    Height="16">
+                    <muxc:AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource />
+                    </muxc:AnimatedIcon.Source>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back" />
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
 
-        <StackPanel Orientation="Horizontal">
-                <FontIcon Glyph="&#xE102;" Width="20" Height="20" FontSize="16" Margin="48,0,8,0" HorizontalAlignment="Left" />
+            <StackPanel Orientation="Horizontal">
+                <FontIcon
+                    Width="20"
+                    Height="20"
+                    Margin="48,0,8,0"
+                    HorizontalAlignment="Left"
+                    FontSize="16"
+                    Glyph="&#xE102;" />
 
 
 
-        </StackPanel>
+            </StackPanel>
 
-        <uc:ExtendedTitleBar x:FieldModifier="public"  Title="Now Playing" HorizontalAlignment="Stretch" FontSize="14" Margin="42,0,275,0" x:Name="TitleBar" ShowIcon="False" />
+            <uc:ExtendedTitleBar
+                x:Name="TitleBar"
+                Title="Now Playing"
+                Margin="42,0,275,0"
+                HorizontalAlignment="Stretch"
+                x:FieldModifier="public"
+                FontSize="14"
+                ShowIcon="False" />
 
-        <Button VerticalAlignment="Top" x:Name="PopOutWindow" 
-                    CornerRadius="5"
-                    Height="28"
+            <Button
+                x:Name="PopOutWindow"
+                Width="40"
+                Height="28"
+                Margin="2,2,190,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
                 Click="PopOutWindow_Click"
-                    HorizontalAlignment="Right"
-                    Margin="2,2,190,0"
-                    ToolTipService.ToolTip="Pop out window"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Width="40">
+                CornerRadius="5"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="Pop out window">
 
-                <FontIcon Glyph="&#xE78B;" FontSize="14"/>
-        </Button>
-    </Grid>
+                <FontIcon FontSize="14" Glyph="&#xE78B;" />
+            </Button>
+        </Grid>
 
 
 
-        <Grid CornerRadius="0" Margin="0,32,0,0" PointerEntered="Page_PointerEntered"
-    PointerMoved="Page_PointerMoved"
-    PointerExited="Page_PointerExited">
+        <Grid
+            Margin="0,32,0,0"
+            CornerRadius="0"
+            PointerEntered="Page_PointerEntered"
+            PointerExited="Page_PointerExited"
+            PointerMoved="Page_PointerMoved">
 
             <!--<Grid.Background>
                 <ImageBrush x:Name="ImageBrushAlbumCover" Stretch="UniformToFill" Opacity="0.5">
@@ -95,108 +120,124 @@
                 </ImageBrush>
             </Grid.Background>-->
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,-32,0,0" Padding="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="FlyoutAlbumArtContainer"
-                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                        MaxHeight="184"
-                       
-                        CornerRadius="7"
-                        ToolTipService.ToolTip="{Binding CurrentSong.Album}">
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,-32,0,0"
+                Padding="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Border
+                    x:Name="FlyoutAlbumArtContainer"
+                    MaxHeight="184"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    CornerRadius="7"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    ToolTipService.ToolTip="{Binding CurrentSong.Album}">
 
                     <Grid>
-                        <Button ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
-                                CornerRadius="8"
-                                IsHitTestVisible="False"
-                                Padding="0">
-                            <Border 
-                                    CornerRadius="8">
-                                <Image 
-                                                   Source="{Binding CurrentSong.Thumbnail, Mode=OneWay}"
-                                                   Stretch="Uniform"
-                                                    />
+                        <Button
+                            Padding="0"
+                            ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                            CornerRadius="8"
+                            IsHitTestVisible="False">
+                            <Border CornerRadius="8">
+                                <Image Source="{Binding CurrentSong.Thumbnail, Mode=OneWay}" Stretch="Uniform" />
                             </Border>
                         </Button>
                     </Grid>
                 </Border>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" x:Name="ArtInfo" Margin="26,0,0,0">
-                    <TextBlock Text="{Binding CurrentSong.Title, Mode=OneWay}"
-                       MaxLines="2"
-                       HorizontalAlignment="Left"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Style="{StaticResource TitleTextBlockStyle}" />
-                    <TextBlock Text="{Binding CurrentSong.Artist, Mode=OneWay}"
-                       FontSize="22"
-                           Margin="0,4,0,0"
-                           Opacity="0.6"
-                           FontWeight="SemiBold"
-                       HorizontalAlignment="Left"
-                       MaxLines="1"
-                       Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock Text="{Binding CurrentSong.Album, Mode=OneWay}"
-                       Margin="0,24,0,0"
-                           FontSize="16"
-                           Opacity="0.6"
-                       MaxLines="2"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextWrapping="WrapWholeWords"
-                       HorizontalAlignment="Left"
-                        />
+                <StackPanel
+                    x:Name="ArtInfo"
+                    Margin="26,0,0,0"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="{Binding CurrentSong.Title, Mode=OneWay}" />
+                    <TextBlock
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Left"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        MaxLines="1"
+                        Opacity="0.6"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding CurrentSong.Artist, Mode=OneWay}" />
+                    <TextBlock
+                        Margin="0,24,0,0"
+                        HorizontalAlignment="Left"
+                        FontSize="16"
+                        MaxLines="2"
+                        Opacity="0.6"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding CurrentSong.Album, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords" />
                 </StackPanel>
             </StackPanel>
 
 
-            <Border HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                    Margin="0,-2"
-                x:Name="BlurBrushBorder">
-            <Border.Background>
-                <media:BackdropBlurBrush x:Name="BlurBrush" x:FieldModifier="public" />
-            </Border.Background>
-        </Border>
+            <Border
+                x:Name="BlurBrushBorder"
+                Margin="0,-2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <Border.Background>
+                    <media:BackdropBlurBrush x:Name="BlurBrush" x:FieldModifier="public" />
+                </Border.Background>
+            </Border>
 
-        <Grid HorizontalAlignment="Stretch"
-              Padding="0,32,0,0"
-              VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <Grid
+                Padding="0,32,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <Frame x:Name="PlayFrame" x:FieldModifier="public"
-                   Navigated="PlayFrame_Navigated"
-                   Padding="0,0,0,0"
-                   VerticalAlignment="Stretch"
-                   VerticalContentAlignment="Stretch"
-                   Visibility="Collapsed">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition>
-                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                                <DrillInNavigationTransitionInfo />
-                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                        </NavigationThemeTransition>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
+                <Frame
+                    x:Name="PlayFrame"
+                    Padding="0,0,0,0"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    x:FieldModifier="public"
+                    Navigated="PlayFrame_Navigated"
+                    Visibility="Collapsed">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <DrillInNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
 
-            <Grid Grid.Row="1" MaxWidth="1510">
-                <Border CornerRadius="8"
+                <Grid Grid.Row="1" MaxWidth="1510">
+                    <Border
+                        x:Name="BackForPlay"
                         Margin="8"
-                        x:Name="BackForPlay">
-                    <Border.Background>
-                        <AcrylicBrush
-                              TintOpacity="0.0"
-                              TintColor="{StaticResource SystemColorBackgroundColor}" />
-                    </Border.Background>
-                </Border>
+                        CornerRadius="8">
+                        <Border.Background>
+                            <AcrylicBrush TintColor="{StaticResource SystemColorBackgroundColor}" TintOpacity="0.0" />
+                        </Border.Background>
+                    </Border>
 
-                    <uc:NPNowPlayingBar x:Name="Player" x:FieldModifier="public"
-                                             Grid.Row="1"
-                                             Margin="8" />
-            </Grid>
+                    <uc:NPNowPlayingBar
+                        x:Name="Player"
+                        Grid.Row="1"
+                        Margin="8"
+                        x:FieldModifier="public" />
+                </Grid>
 
-            <!--<MediaPlayerElement x:Name="Player"
+                <!--<MediaPlayerElement x:Name="Player"
                                 Grid.Row="1"
                                 AreTransportControlsEnabled="True"
                                 Height="Auto"
@@ -224,9 +265,9 @@
                                             IsPreviousTrackButtonVisible="True" />
                 </MediaPlayerElement.TransportControls>
             </MediaPlayerElement>-->
+            </Grid>
         </Grid>
+
     </Grid>
-        
-    </Grid>
-    
+
 </Page>

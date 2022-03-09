@@ -1,19 +1,19 @@
 ﻿<Page
     x:Class="Rise.App.Views.VideoPlaybackPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:conv="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:local="using:Rise.App"
-    xmlns:conv="using:Rise.App.Converters"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
-    mc:Ignorable="d"
     PointerExited="Page_PointerExited"
-    PointerMoved="Page_PointerMoved">
+    PointerMoved="Page_PointerMoved"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <conv:VideoToString x:Key="VidToStr" />
@@ -30,14 +30,15 @@
     </Page.Resources>
 
     <Grid>
-        <Grid x:Name="TopGrid"
-              Canvas.ZIndex="1"
-              Height="32"
-              CornerRadius="0"
-              VerticalAlignment="Top"
-              PointerEntered="TopGrid_PointerEntered"
-              PointerExited="TopGrid_PointerExited"
-              Background="{StaticResource SystemControlAcrylicElementBrush}">
+        <Grid
+            x:Name="TopGrid"
+            Height="32"
+            VerticalAlignment="Top"
+            Background="{StaticResource SystemControlAcrylicElementBrush}"
+            Canvas.ZIndex="1"
+            CornerRadius="0"
+            PointerEntered="TopGrid_PointerEntered"
+            PointerExited="TopGrid_PointerExited">
 
             <Grid.Transitions>
                 <TransitionCollection>
@@ -45,52 +46,62 @@
                 </TransitionCollection>
             </Grid.Transitions>
 
-            <Button x:Name="BackButton"
-                    Command="{x:Bind _navigationHelper.GoBackCommand}"
-                    CornerRadius="5"
-                    Height="28"
-                    ToolTipService.ToolTip="Back"
-                    Margin="2,0"
-                    Style="{StaticResource TransparentButtonStyle}"
-                    Width="40"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button"
-                    PointerEntered="TopGrid_PointerEntered"
-                    PointerExited="TopGrid_PointerExited">
-                <muxc:AnimatedIcon x:Name="BackAnimatedIcon" Height="16" Width="16">
+            <Button
+                x:Name="BackButton"
+                Width="40"
+                Height="28"
+                Margin="2,0"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"
+                AutomationProperties.Name="Back"
+                Command="{x:Bind _navigationHelper.GoBackCommand}"
+                CornerRadius="5"
+                PointerEntered="TopGrid_PointerEntered"
+                PointerExited="TopGrid_PointerExited"
+                Style="{StaticResource TransparentButtonStyle}"
+                ToolTipService.ToolTip="Back">
+                <muxc:AnimatedIcon
+                    x:Name="BackAnimatedIcon"
+                    Width="16"
+                    Height="16">
                     <muxc:AnimatedIcon.Source>
-                        <animatedvisuals:AnimatedBackVisualSource/>
+                        <animatedvisuals:AnimatedBackVisualSource />
                     </muxc:AnimatedIcon.Source>
                     <muxc:AnimatedIcon.FallbackIconSource>
-                        <muxc:SymbolIconSource Symbol="Back"/>
+                        <muxc:SymbolIconSource Symbol="Back" />
                     </muxc:AnimatedIcon.FallbackIconSource>
                 </muxc:AnimatedIcon>
 
             </Button>
 
-            <uc:ExtendedTitleBar x:Name="AppTitleBar"
-                                 Canvas.ZIndex="1"
-                                 Height="32"
-                                 Margin="24,0,0,0"
-                                 MinTitleWidth="0"
-                                 ShowIcon="False"
-                                 Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}"
-                                 PointerEntered="TopGrid_PointerEntered"
-                                 PointerExited="TopGrid_PointerExited" />
+            <uc:ExtendedTitleBar
+                x:Name="AppTitleBar"
+                Title="{x:Bind local:App.PViewModel.CurrentVideo.Title, Mode=OneWay}"
+                Height="32"
+                Margin="24,0,0,0"
+                Canvas.ZIndex="1"
+                MinTitleWidth="0"
+                PointerEntered="TopGrid_PointerEntered"
+                PointerExited="TopGrid_PointerExited"
+                ShowIcon="False" />
         </Grid>
 
-        <uc:VideoNowPlayingBar VerticalAlignment="Bottom"
-                               Margin="20"
-                               Canvas.ZIndex="1"
-                               x:Name="Player"
-                               PointerEntered="TopGrid_PointerEntered"
-                               PointerExited="TopGrid_PointerExited"/>
-        <muxc:ProgressRing IsActive="True" Height="50" Width="50" />
-        <MediaPlayerElement x:Name="PlayerElement"
-                            Canvas.ZIndex="0"
-                            x:FieldModifier="public"/>
+        <uc:VideoNowPlayingBar
+            x:Name="Player"
+            Margin="20"
+            VerticalAlignment="Bottom"
+            Canvas.ZIndex="1"
+            PointerEntered="TopGrid_PointerEntered"
+            PointerExited="TopGrid_PointerExited" />
+        <muxc:ProgressRing
+            Width="50"
+            Height="50"
+            IsActive="True" />
+        <MediaPlayerElement
+            x:Name="PlayerElement"
+            x:FieldModifier="public"
+            Canvas.ZIndex="0" />
 
     </Grid>
 </Page>
