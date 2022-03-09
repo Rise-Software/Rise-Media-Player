@@ -71,7 +71,6 @@
         </Grid>
 
         <Rectangle Grid.Row="1" />
-
         <StackPanel
             Grid.Row="1"
             Margin="0,48,0,0"

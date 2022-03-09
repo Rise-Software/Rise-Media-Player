@@ -123,6 +123,12 @@ namespace Rise.App.ViewModels
         public AdvancedCollectionView FilteredPlaylists { get; set; }
 
         /// <summary>
+        /// The collection of widgets in the list. 
+        /// </summary>
+        public ObservableCollection<WidgetViewModel> Widgets { get; set; }
+            = new ObservableCollection<WidgetViewModel>();
+
+        /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
         public ObservableCollection<NotificationViewModel> Notifications { get; set; }
@@ -165,6 +171,7 @@ namespace Rise.App.ViewModels
 
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
+                ObservableCollection<WidgetViewModel> widgets = await App.WBackendController.GetAsync();
 
                 Songs.Clear();
                 foreach (var item in songs)
@@ -223,6 +230,15 @@ namespace Rise.App.ViewModels
                     foreach (var item in notifications)
                     {
                         Notifications.Add(item);
+                    }
+                }
+
+                Widgets.Clear();
+                if (widgets != null)
+                {
+                    foreach (var item in widgets)
+                    {
+                        Widgets.Add(item);
                     }
                 }
             }
