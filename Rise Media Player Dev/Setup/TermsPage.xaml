@@ -2,24 +2,24 @@
     x:Class="Rise.App.Setup.TermsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Setup"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Setup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="20">
 
-        <StackPanel Orientation="Vertical" Padding="0,4,0,0">
+        <StackPanel Padding="0,4,0,0" Orientation="Vertical">
             <TextBlock x:Uid="/Terms/TermsStart" Style="{StaticResource BaseTextBlockStyle}" />
             <TextBlock x:Uid="/Terms/LastUpdated" Style="{StaticResource BodyTextBlockStyle}" />
         </StackPanel>
 
         <TextBlock x:Uid="/Terms/BaseH" Style="{StaticResource BaseTextBlockStyle}" />
         <TextBlock x:Uid="/Terms/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
-        
+
         <TextBlock x:Uid="/Terms/LocalH" Style="{StaticResource BaseTextBlockStyle}" />
         <TextBlock x:Uid="/Terms/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
-        
+
         <TextBlock x:Uid="/Terms/StreamingH" Style="{StaticResource BaseTextBlockStyle}" />
         <TextBlock x:Uid="/Terms/BodyPart3" Style="{StaticResource BodyTextBlockStyle}" />
     </StackPanel>

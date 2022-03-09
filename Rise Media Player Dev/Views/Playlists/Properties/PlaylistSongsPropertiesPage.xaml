@@ -2,52 +2,72 @@
     x:Class="Rise.App.Views.Playlists.Properties.PlaylistSongsPropertiesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Views.Playlists.Properties"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Views.Playlists.Properties"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
     <StackPanel>
-        <uc:ExpanderControl x:Uid="/Details/AsPlaylist"
-                               ExpanderStyle="Static"
-                               Icon="&#xE82F;">
-            <Button x:Name="LocalButton"
-                    Visibility="Collapsed"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Padding="0">
+        <uc:ExpanderControl
+            x:Uid="/Details/AsPlaylist"
+            ExpanderStyle="Static"
+            Icon="&#xE82F;">
+            <Button
+                x:Name="LocalButton"
+                Padding="0"
+                Background="Transparent"
+                BorderThickness="0"
+                Visibility="Collapsed">
                 <Button.Content>
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
                 </Button.Content>
             </Button>
         </uc:ExpanderControl>
 
-        <ListView ItemsSource="{x:Bind Playlist.Songs, Mode=OneWay}" SelectionMode="None" Margin="0,8,-12,0" >
+        <ListView
+            Margin="0,8,-12,0"
+            ItemsSource="{x:Bind Playlist.Songs, Mode=OneWay}"
+            SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <ListViewItem Style="{ThemeResource DefaultListViewItemStyle}" Margin="-16,0,0,5">
-                        <Border HorizontalAlignment="Stretch"
-                           Style="{StaticResource SettingsCard}"
-                            CornerRadius="3"
+                    <ListViewItem Margin="-16,0,0,5" Style="{ThemeResource DefaultListViewItemStyle}">
+                        <Border
                             Padding="4"
+                            HorizontalAlignment="Stretch"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                            CornerRadius="3"
+                            Style="{StaticResource SettingsCard}">
                             <Grid Padding="10,5,5,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="135" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{x:Bind Title}" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Bind Title}" />
 
-                                <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Grid.Column="1">
-                                    <Button Style="{StaticResource TransparentButton}" Click="MoveUp_Click" Tag="{x:Bind}">
+                                <StackPanel
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <Button
+                                        Click="MoveUp_Click"
+                                        Style="{StaticResource TransparentButtonStyle}"
+                                        Tag="{x:Bind}">
                                         <FontIcon Glyph="&#xE014;" />
                                     </Button>
-                                    <Button Style="{StaticResource TransparentButton}" Click="MoveBottom_Click" Tag="{x:Bind}">
+                                    <Button
+                                        Click="MoveBottom_Click"
+                                        Style="{StaticResource TransparentButtonStyle}"
+                                        Tag="{x:Bind}">
                                         <FontIcon Glyph="&#xE015;" />
                                     </Button>
-                                    <Button Style="{StaticResource TransparentButton}" Click="RemoveSong_Click" Tag="{x:Bind}">
+                                    <Button
+                                        Click="RemoveSong_Click"
+                                        Style="{StaticResource TransparentButtonStyle}"
+                                        Tag="{x:Bind}">
                                         <FontIcon Glyph="&#xE106;" />
                                     </Button>
                                 </StackPanel>
@@ -59,5 +79,5 @@
         </ListView>
     </StackPanel>
 
-    
+
 </Page>

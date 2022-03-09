@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Rise.Common.Helpers
+namespace Rise.Common.Extensions
 {
-    public static class CollectionHelpers
+    public static class CollectionExtensions
     {
         public static bool MoveItemInCollection<T>(this Collection<T> collection, T item, int newIndex)
         {

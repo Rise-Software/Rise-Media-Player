@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -69,11 +69,11 @@ namespace Rise.App.Views.Playlists.Properties
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"modified-artist-{file.Name}.png");
+                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
 
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 Playlist.Icon = uri.ToString();
             }
         }

@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
-namespace Rise.Common.Helpers
+namespace Rise.Common.Extensions
 {
-    public static class JsonHelpers
+    public static class JsonExtensions
     {
         /// <summary>
         /// Creates a <see cref="JsonObject"/> from an object and returns it.

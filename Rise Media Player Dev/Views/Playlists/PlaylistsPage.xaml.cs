@@ -93,7 +93,7 @@ namespace Rise.App.Views
 
             if (file != null)
             {
-                PlaylistViewModel playlist = await file.AsPlaylistModelAsync();
+                var playlist = await PlaylistViewModel.GetFromFileAsync(file);
                 await playlist.SaveAsync();
             }
         }

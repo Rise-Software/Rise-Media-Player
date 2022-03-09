@@ -6,72 +6,120 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Views"
+    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
-    <ScrollViewer Margin="-56,0" Padding="56,0" VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Padding="0,56,0,0" Spacing="4">
+    <ScrollViewer
+        Margin="-56,0"
+        Padding="56,0"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            Padding="0,56,0,0"
+            Orientation="Vertical"
+            Spacing="4">
 
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
-                    <Button HorizontalContentAlignment="Left" Margin="-4,8,-4,-4" BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
-                        <Image Height="42" Margin="-5"
-                           Source="ms-appx:///Assets/Branding/alphabanner.png" />
+                    <Button
+                        Margin="-4,8,-4,-4"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="0">
+                        <Image
+                            Height="42"
+                            Margin="-5"
+                            Source="ms-appx:///Assets/Branding/alphabanner.png" />
                     </Button>
-                    
+
                 </uc:AdaptiveItemPane.LeftPane>
 
                 <uc:AdaptiveItemPane.RightPane>
-                    <StackPanel Orientation="Horizontal"
-                                Spacing="8"
-                                VerticalAlignment="Center">
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
 
-                        <Button x:Name="GlanceManage" Content="Add widgets" Click="GlanceManage_Click" Width="125"/>
+                        <Button
+                            x:Name="GlanceManage"
+                            Width="125"
+                            Click="GlanceManage_Click"
+                            Content="Add widgets" />
 
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
-            <Border Margin="0,15,0,0" Style="{StaticResource SettingsCard}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" Opacity="1" BorderThickness="1" CornerRadius="6">
+            <Border
+                Margin="0,15,0,0"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Opacity="1"
+                Style="{StaticResource SettingsCard}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Padding="0,50,0,20">
-                        <Image Source="/Assets/AtAGlance/widgets.png" Height="80" Width="88"/>
+                        <Image
+                            Width="88"
+                            Height="80"
+                            Source="/Assets/AtAGlance/widgets.png" />
                     </StackPanel>
-                    
-                    <TextBlock Padding="0,0,0,0" FontSize="24" FontWeight="SemiBold" TextAlignment="Center" Text="We have nothing to show here." TextWrapping="WrapWholeWords" />
-                    <TextBlock Padding="0,0,0,0" FontSize="24" FontWeight="SemiBold" TextAlignment="Center" Text="That's pretty sad, so add some widgets!" TextWrapping="WrapWholeWords" />
-                    <TextBlock Padding="0,20,0,50" Opacity="0.5" FontSize="15" FontWeight="SemiBold" TextAlignment="Center" Text="Personalise your at a glance page with the things you love." TextWrapping="WrapWholeWords" />
+
+                    <TextBlock
+                        Padding="0,0,0,0"
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Text="We have nothing to show here."
+                        TextAlignment="Center"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Padding="0,0,0,0"
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Text="That's pretty sad, so add some widgets!"
+                        TextAlignment="Center"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Padding="0,20,0,50"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        Opacity="0.5"
+                        Text="Personalise your at a glance page with the things you love."
+                        TextAlignment="Center"
+                        TextWrapping="WrapWholeWords" />
                 </StackPanel>
-                
+
             </Border>
 
             <uc:WidgetTemplateControl Width="300" Height="300" />
+            <TextBlock x:Uid="/Information/QuickH" Style="{StaticResource SubheaderTextBlockStyle}" />
 
-            <TextBlock x:Uid="/Information/QuickH"
-                       Style="{StaticResource Subheader}" />
+            <uc:ExpanderControl
+                x:Uid="/Information/AddRemove"
+                Click="FoldersButton_Click"
+                ExpanderStyle="Button"
+                Icon="&#xE19C;" />
 
-            <uc:ExpanderControl x:Uid="/Information/AddRemove"
-                                    Click="FoldersButton_Click"
-                                    ExpanderStyle="Button"
-                                    Icon="&#xE19C;" />
+            <uc:ExpanderControl
+                x:Uid="/Information/Support"
+                Click="SupportButton_Click"
+                ExpanderStyle="Button"
+                Icon="&#xE822;" />
 
-            <uc:ExpanderControl x:Uid="/Information/Support"
-                                    Click="SupportButton_Click"
-                                    ExpanderStyle="Button"
-                                    Icon="&#xE822;" />
-
-            <uc:ExpanderControl Click="WhatsNew_Click"
-                                ExpanderStyle="Button"
-                                Icon="&#xF4A5;"
-                                Padding="0,0,0,0"
-                                Margin="0,0,0,120"
-                                Title="What's New"
-                                Description="Check out the new features in Rise Media Player."/>
+            <uc:ExpanderControl
+                Title="What's New"
+                Margin="0,0,0,120"
+                Padding="0,0,0,0"
+                Click="WhatsNew_Click"
+                Description="Check out the new features in Rise Media Player."
+                ExpanderStyle="Button"
+                Icon="&#xF4A5;" />
 
         </StackPanel>
     </ScrollViewer>

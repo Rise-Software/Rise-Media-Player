@@ -1,7 +1,6 @@
-﻿using Rise.App.Common;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using System;
+using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -47,7 +46,8 @@ namespace Rise.App.Settings
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-        private async void GotoManage_Click(object sender, RoutedEventArgs e)
+
+        private void GotoManage_Click(object sender, RoutedEventArgs e)
         {
             AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
             AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
@@ -56,7 +56,6 @@ namespace Rise.App.Settings
 
             SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaSourcesPage));
         }
-
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
         {

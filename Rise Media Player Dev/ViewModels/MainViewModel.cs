@@ -1,11 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ChangeTrackers;
-using Rise.App.Common;
-using Rise.App.Indexing;
-using Rise.App.Props;
 using Rise.App.Views;
+using Rise.Common;
 using Rise.Common.Constants;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.Repository.SQL;
@@ -23,9 +21,6 @@ namespace Rise.App.ViewModels
     public class MainViewModel : ViewModel
     {
         #region Events
-        public event EventHandler LoadingStarted;
-        public event EventHandler LoadingFinished;
-
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
         #endregion
@@ -165,7 +160,6 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            LoadingStarted?.Invoke(this, EventArgs.Empty);
             IEnumerable<Song> songs = (await SQLRepository.Repository.Songs.GetAsync()).Distinct();
 
             if (songs != null)
@@ -248,8 +242,6 @@ namespace Rise.App.ViewModels
                     }
                 }
             }
-
-            LoadingFinished?.Invoke(this, EventArgs.Empty);
         }
 
         public async Task StartFullCrawlAsync()
@@ -261,18 +253,26 @@ namespace Rise.App.ViewModels
                 return;
             }
 
+            IndexingStarted?.Invoke(this, EventArgs.Empty);
+
             await SongsTracker.HandleMusicFolderChanges();
             await VideosTracker.HandleVideosFolderChanges();
             await IndexLibrariesAsync();
-            await UpdateItemsAsync();
+            await SyncAsync();
+
+            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+
+            IndexedSongs = 0;
+            IndexedVideos = 0;
         }
 
         private async Task IndexLibrariesAsync()
         {
-            if (!IsIndexing && !QueuedReindex)
+            if (IsIndexing && QueuedReindex)
             {
-                // If we haven't started indexing, invoke the event
-                IndexingStarted?.Invoke(this, EventArgs.Empty);
+                // If we're indexing and a reindex is queued,
+                // don't bother doing anything
+                return;
             }
             else if (IsIndexing && !QueuedReindex)
             {
@@ -287,14 +287,10 @@ namespace Rise.App.ViewModels
                 // allow adding a reindex to the queue and continue
                 QueuedReindex = false;
             }
-            else
-            {
-                return;
-            }
 
             IsIndexing = true;
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
-                PropertyPrefetchOptions.MusicProperties, Properties.DiscProperties))
+                PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
                 if (await SaveMusicModelsAsync(song))
                 {
@@ -312,14 +308,7 @@ namespace Rise.App.ViewModels
             }
 
             IsIndexing = false;
-            if (!QueuedReindex)
-            {
-                IndexedSongs = 0;
-                IndexedVideos = 0;
-
-                IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
-            }
-            else
+            if (QueuedReindex)
             {
                 await IndexLibrariesAsync();
             }
@@ -333,7 +322,7 @@ namespace Rise.App.ViewModels
         /// otherwise false.</returns>
         public async Task<bool> SaveMusicModelsAsync(StorageFile file)
         {
-            Song song = await file.AsSongModelAsync();
+            var song = await Song.GetFromFileAsync(file);
 
             // Check if song exists.
             bool songExists = Songs.
@@ -363,14 +352,14 @@ namespace Rise.App.ViewModels
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
                     string filename = song.Album.AsValidFileName();
-                    filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                    filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                     if (filename != "/")
                     {
                         thumb = $@"ms-appdata:///local/{filename}.png";
                     }
 
-                    thumbnail.Dispose();
+                    thumbnail?.Dispose();
                 }
 
                 // Set AlbumViewModel data.
@@ -409,7 +398,7 @@ namespace Rise.App.ViewModels
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
                         string filename = song.Album.AsValidFileName();
-                        filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                        filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                         if (filename != "/")
                         {
@@ -417,7 +406,7 @@ namespace Rise.App.ViewModels
                             save = true;
                         }
 
-                        thumbnail.Dispose();
+                        thumbnail?.Dispose();
                     }
 
                     if (alvm.Year == 0)
@@ -495,7 +484,7 @@ namespace Rise.App.ViewModels
         /// otherwise false.</returns>
         public async Task<bool> SaveVideoModelAsync(StorageFile file)
         {
-            Video video = await file.AsVideoModelAsync();
+            var video = await Video.GetFromFileAsync(file);
 
             bool videoExists = Videos.
                 Any(v => v.Model.Equals(video));
@@ -508,7 +497,7 @@ namespace Rise.App.ViewModels
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
-                filename = await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"{filename}.png");
+                filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
                 if (filename != "/")
                 {
@@ -549,12 +538,8 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SyncAsync()
         {
-            LoadingStarted?.Invoke(this, EventArgs.Empty);
-
             await UpdateItemsAsync();
             await GetListsAsync();
-
-            LoadingFinished?.Invoke(this, EventArgs.Empty);
         }
     }
 

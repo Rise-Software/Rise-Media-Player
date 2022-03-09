@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.Common.Constants;
+﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -21,6 +21,7 @@ namespace Rise.App.Views
             base.OnNavigatedTo(e);
         }
 
-        private void SubmitIssueButton_Click(object sender, RoutedEventArgs e) => _ = URLs.Feedback.LaunchAsync();
+        private void SubmitIssueButton_Click(object sender, RoutedEventArgs e) =>
+            _ = URLs.Feedback.LaunchAsync();
     }
 }

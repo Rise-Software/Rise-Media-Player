@@ -141,7 +141,6 @@
     <Compile Include="Common\CompositionControl.cs" />
     <Compile Include="Common\DependencyPropertyWatcher.cs" />
     <Compile Include="Common\EventsLogic.cs" />
-    <Compile Include="Common\FileHelpers.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
@@ -152,7 +151,6 @@
     <Compile Include="Converters\StringToBoolean.cs" />
     <Compile Include="Converters\StringToVisibility.cs" />
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
-    <Compile Include="Common\WebHelpers.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
     <Compile Include="DbControllers\BaseBackendController.cs" />
@@ -186,18 +184,15 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
-    <Compile Include="Indexing\IndexingPresets.cs" />
     <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Props\FilePage.xaml.cs">
       <DependentUpon>FilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Props\Properties.cs" />
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
@@ -328,7 +323,6 @@
     <Compile Include="Props\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\ResourceLoaders.cs" />
     <Compile Include="Setup\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
@@ -353,7 +347,6 @@
     <Compile Include="Views\QueuePage.xaml.cs">
       <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\WindowHelpers.cs" />
     <Compile Include="UserControls\ExtendedTitleBar.xaml.cs">
       <DependentUpon>ExtendedTitleBar.xaml</DependentUpon>
     </Compile>
@@ -624,9 +617,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceDictionaries\Expanders.xaml">
+    <Page Include="ResourceDictionaries\CustomStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\Expanders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceDictionaries\SongTemplates.xaml">
       <SubType>Designer</SubType>

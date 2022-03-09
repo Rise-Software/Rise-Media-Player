@@ -121,7 +121,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
+    <Compile Include="Constants\SongProperties.cs" />
+    <Compile Include="Constants\SupportedFileTypes.cs" />
     <Compile Include="Constants\URIs.cs" />
     <Compile Include="Constants\SystemMusic.cs" />
     <Compile Include="Constants\URLs.cs" />
@@ -129,14 +132,21 @@
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
-    <Compile Include="Helpers\CollectionHelpers.cs" />
-    <Compile Include="Helpers\ContentDialogHelpers.cs" />
-    <Compile Include="Helpers\IndexingHelpers.cs" />
-    <Compile Include="Helpers\JsonHelpers.cs" />
-    <Compile Include="Helpers\VisualTreeHelpers.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ContentDialogExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
+    <Compile Include="Extensions\ImageExtensions.cs" />
+    <Compile Include="Extensions\IndexingExtensions.cs" />
+    <Compile Include="Extensions\JsonExtensions.cs" />
+    <Compile Include="Extensions\VisualTreeExtensions.cs" />
+    <Compile Include="Extensions\WebHelpers.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
     <Compile Include="Interfaces\ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceLoaders.cs" />
     <EmbeddedResource Include="Properties\Rise.Common.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -149,12 +159,6 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.2</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
-      <Project>{17D51104-B536-4D03-BD8B-74E0CCE49CFB}</Project>
-      <Name>Rise.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

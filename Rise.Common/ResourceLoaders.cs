@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel.Resources;
 
-namespace Rise.App.Common
+namespace Rise.Common
 {
     /// <summary>
     /// ResourceLoaders for app resources, all for view independent use.

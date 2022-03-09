@@ -1,8 +1,8 @@
 ﻿<Page
     x:Class="Rise.App.Props.FilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SongPropertiesViewModel}"
@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+            <Style BasedOn="{StaticResource DefaultTextBoxStyle}" TargetType="TextBox">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -22,9 +22,10 @@
     <Grid>
         <StackPanel>
             <Border Style="{StaticResource SettingsCard}">
-                <StackPanel Orientation="Vertical"
-                        Padding="0,4,0,0"
-                        Spacing="16">
+                <StackPanel
+                    Padding="0,4,0,0"
+                    Orientation="Vertical"
+                    Spacing="16">
                     <Grid ColumnSpacing="12" RowSpacing="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -37,40 +38,47 @@
                             <RowDefinition Height="32" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Uid="/File/Filename"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                        <TextBlock x:Uid="/File/FileType"
-                               Grid.Row="1"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                        <TextBlock x:Uid="/File/DefaultApp"
-                               Grid.Row="2"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/Filename"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/FileType"
+                            Grid.Row="1"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/DefaultApp"
+                            Grid.Row="2"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
 
-                        <TextBox x:Name="SongFilename"
-                             Grid.Column="1"
-                             Margin="14,0,0,0"
-                             Text="{x:Bind Props.Filename, Mode=TwoWay}"
-                             HorizontalAlignment="Stretch" />
+                        <TextBox
+                            x:Name="SongFilename"
+                            Grid.Column="1"
+                            Margin="14,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            Text="{x:Bind Props.Filename, Mode=TwoWay}" />
 
-                        <TextBlock Grid.Column="1"
-                               Grid.Row="1"
-                               Margin="25,0,0,0"
-                               Text="{x:Bind Props.Extension}"
-                               VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="1"
-                               Grid.Row="2"
-                               Margin="25,0,0,0"
-                               Text="Unknown"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Props.Extension}" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="Unknown" />
                     </Grid>
 
-                    <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0,-16,-8" />
+                    <Rectangle
+                        Height="1"
+                        Margin="-16,0,-16,-8"
+                        HorizontalAlignment="Stretch"
+                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
                     <Grid ColumnSpacing="12" RowSpacing="4">
                         <Grid.ColumnDefinitions>
@@ -83,30 +91,35 @@
                             <RowDefinition Height="32" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Uid="/File/Location"
-                               Margin="0,-2,0,0"
-                               TextTrimming="WordEllipsis"
-                               VerticalAlignment="Center" />
-                        <TextBlock x:Uid="/File/Size"
-                               Grid.Row="1"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/Location"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center"
+                            TextTrimming="WordEllipsis" />
+                        <TextBlock
+                            x:Uid="/File/Size"
+                            Grid.Row="1"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
 
-                        <TextBlock Grid.Column="1"
-                               Text="{x:Bind Props.Location}"
-                               Margin="41,0,0,0"
-                               VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="1"
-                               Grid.Row="1"
-                               Margin="42,0,0,0"
-                               Text="{x:Bind Props.Size}"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="41,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Props.Location}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="42,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Props.Size}" />
                     </Grid>
 
-                    <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0,-16,-8" />
+                    <Rectangle
+                        Height="1"
+                        Margin="-16,0,-16,-8"
+                        HorizontalAlignment="Stretch"
+                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
                     <Grid ColumnSpacing="12" RowSpacing="4">
                         <Grid.ColumnDefinitions>
@@ -119,23 +132,27 @@
                             <RowDefinition Height="32" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Uid="/File/Created"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                        <TextBlock x:Uid="/File/Modified"
-                               Grid.Row="1"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/Created"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
+                        <TextBlock
+                            x:Uid="/File/Modified"
+                            Grid.Row="1"
+                            Margin="0,-2,0,0"
+                            VerticalAlignment="Center" />
 
-                        <TextBlock Grid.Column="1"
-                               Text="{x:Bind Props.Created}"
-                               Margin="38,0,0,0"
-                               VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="1"
-                               Grid.Row="1"
-                               Margin="38,0,0,0"
-                               Text="{x:Bind Props.Modified}"
-                               VerticalAlignment="Center" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="38,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Props.Created}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="38,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Props.Modified}" />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -143,18 +160,21 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="OpenFileLocation" Click="OpenFileLocation_Click"  HorizontalAlignment="Stretch">
+                <Button
+                    x:Name="OpenFileLocation"
+                    HorizontalAlignment="Stretch"
+                    Click="OpenFileLocation_Click">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="&#xE197;" FontSize="16"  />
-                            <TextBlock Margin="8,0,0,0" Text="Open file location"/>
+                            <FontIcon FontSize="16" Glyph="&#xE197;" />
+                            <TextBlock Margin="8,0,0,0" Text="Open file location" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
             </Grid>
         </StackPanel>
-        
-        
-        
+
+
+
     </Grid>
 </Page>

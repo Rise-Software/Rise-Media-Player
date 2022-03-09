@@ -7,9 +7,9 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
 
-namespace Rise.Common.Helpers
+namespace Rise.Common.Extensions
 {
-    public static class IndexingHelpers
+    public static class IndexingExtensions
     {
         #region Indexing
         /// <summary>

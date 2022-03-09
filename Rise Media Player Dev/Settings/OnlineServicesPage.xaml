@@ -1,20 +1,39 @@
 ﻿<Page
     x:Class="Rise.App.Settings.OnlineServicesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Margin="0,10,0,0" Spacing="4">
+    <StackPanel
+        Margin="0,10,0,0"
+        Orientation="Vertical"
+        Spacing="4">
 
-        <Button Height="140" Padding="0,-30,0,-30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" x:Name="LastFMStatus" Click="LastFmFlyoutItem_Click">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Padding="16,0,16,0" HorizontalAlignment="Left">
-                <Image Height="32" HorizontalAlignment="Left" Source="/Assets/web/lastfm.png"/>
+        <Button
+            x:Name="LastFMStatus"
+            Height="140"
+            Padding="0,-30,0,-30"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            Click="LastFmFlyoutItem_Click">
+            <StackPanel
+                Padding="16,0,16,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Orientation="Vertical">
+                <Image
+                    Height="32"
+                    HorizontalAlignment="Left"
+                    Source="/Assets/web/lastfm.png" />
                 <StackPanel Padding="0,8,0,0">
-                    <TextBlock Text="Connect to last.fm" FontSize="24" FontWeight="SemiBold" />
-                    <TextBlock FontSize="16" Text="Discover your recently played, listening history and scrobble to the internet."/>
+                    <TextBlock
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Text="Connect to last.fm" />
+                    <TextBlock FontSize="16" Text="Discover your recently played, listening history and scrobble to the internet." />
                 </StackPanel>
 
             </StackPanel>

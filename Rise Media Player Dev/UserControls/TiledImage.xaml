@@ -44,10 +44,10 @@
             <Border
                 Width="80"
                 Height="80"
-                CornerRadius="8"
                 Margin="16"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                CornerRadius="8">
                 <Image Width="64" Height="64">
                     <Image.Source>
                         <BitmapImage UriSource="{x:Bind IconUri, Mode=OneWay}" />

@@ -2,7 +2,7 @@
 using Rise.App.Common;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using System;
 using System.Diagnostics;
 using System.Globalization;

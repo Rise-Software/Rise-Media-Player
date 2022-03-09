@@ -2,37 +2,50 @@
     x:Class="Rise.App.Web.WhatsNew"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Rise.App.Web"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:control="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App.Web"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
 
     <Grid>
 
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="32"
-                Margin="16,0,0,0">
+        <Border
+            x:Name="AppTitleBar"
+            Height="32"
+            Margin="16,0,0,0"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            IsHitTestVisible="True">
             <StackPanel Orientation="Horizontal">
-                <FontIcon Glyph="&#xF4A5;" Height="16" Width="16" FontSize="16"/>
-                <TextBlock x:Name="AppTitle"
-                    Text="What's new?" Width="110"
-                    VerticalAlignment="Center"
+                <FontIcon
+                    Width="16"
+                    Height="16"
+                    FontSize="16"
+                    Glyph="&#xF4A5;" />
+                <TextBlock
+                    x:Name="AppTitle"
+                    Width="110"
                     Margin="12,0,0,0"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="What's new?" />
             </StackPanel>
         </Border>
 
-       
 
-        <muxc:ProgressRing IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <control:WebView2 Margin="0,32,0,0" x:Name="wv2" Source="https://rise-media.netlify.app/shell/whatsnew"/>
+
+        <muxc:ProgressRing
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsActive="True" />
+        <control:WebView2
+            x:Name="wv2"
+            Margin="0,32,0,0"
+            Source="https://rise-media.netlify.app/shell/whatsnew" />
 
     </Grid>
 

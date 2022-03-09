@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 namespace Rise.App.Setup
 {
     public sealed partial class AppearancePage : Page
-    { 
+    {
         private SettingsViewModel ViewModel => App.SViewModel;
 
         private readonly List<string> Themes = new()

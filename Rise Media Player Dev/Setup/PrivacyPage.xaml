@@ -1,11 +1,11 @@
 ﻿<Page
     x:Class="Rise.App.Setup.PrivacyPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
@@ -13,27 +13,32 @@
         <TextBlock x:Uid="/Privacy/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:ExpanderControl x:Uid="/Appearance/History"
-                                   ExpanderStyle="Static"
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Icon="&#xEADF;"
-                                   Margin="0,0,0,4">
-                <!--ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /-->
+            <uc:ExpanderControl
+                x:Uid="/Appearance/History"
+                Margin="0,0,0,4"
+                ExpanderStyle="Static"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Icon="&#xEADF;">
+                <!--  ToggleSwitch IsOn="{Binding TrackHistory, Mode=TwoWay}" /  -->
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/Appearance/CuratedPlaylists"
-                                   ExpanderStyle="Static"
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Icon="&#xE8FD;">
-                <!--ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /-->
+            <uc:ExpanderControl
+                x:Uid="/Appearance/CuratedPlaylists"
+                ExpanderStyle="Static"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Icon="&#xE8FD;">
+                <!--  ToggleSwitch IsOn="{Binding CuratedPlaylists, Mode=TwoWay}" /  -->
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl x:Uid="/Appearance/AtAGlance"
-                                   ExpanderStyle="Disabled"
-                                   Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                   Icon="&#xECA5;">
-                <!--FontIcon FontSize="16"
-                          Glyph="&#xE00F;" /-->
+            <uc:ExpanderControl
+                x:Uid="/Appearance/AtAGlance"
+                ExpanderStyle="Disabled"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Icon="&#xECA5;">
+                <!--
+                    FontIcon FontSize="16"
+                    Glyph="&#xE00F;" /
+                -->
             </uc:ExpanderControl>
         </StackPanel>
     </StackPanel>

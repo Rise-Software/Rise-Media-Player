@@ -1,4 +1,4 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common.Extensions;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;

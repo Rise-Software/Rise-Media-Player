@@ -19,7 +19,7 @@
                     <Button
                         x:Name="Version"
                         Click="CommandBarButton_Click"
-                        Style="{StaticResource TransparentButton}"
+                        Style="{StaticResource TransparentButtonStyle}"
                         Tag="Version">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon VerticalAlignment="Center" Glyph="&#xE946;" />
@@ -36,7 +36,7 @@
 
                     <Button
                         Click="CommandBarButton_Click"
-                        Style="{StaticResource TransparentButton}"
+                        Style="{StaticResource TransparentButtonStyle}"
                         Tag="Insider">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon VerticalAlignment="Center" Glyph="&#xECA7;" />
@@ -75,7 +75,7 @@
         <TextBlock
             x:Uid="/About/MoreH"
             Margin="0,-10,0,0"
-            Style="{StaticResource Subheader}" />
+            Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl
             x:Uid="/About/Social"
             ExpanderStyle="Static"

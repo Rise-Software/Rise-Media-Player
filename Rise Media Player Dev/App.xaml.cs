@@ -3,11 +3,12 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.Common;
 using Rise.App.DbControllers;
-using Rise.App.Indexing;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Common.Helpers;
+using Rise.Common;
+using Rise.Common.Extensions;
 using Rise.Data.Sources;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -321,7 +322,8 @@ namespace Rise.App
             StorageApplicationPermissions.FutureAccessList.Add(args.Files[0] as StorageFile);
             try
             {
-                await PViewModel.PlaySongAsync(new SongViewModel(await (args.Files[0] as StorageFile).AsSongModelAsync()));
+                var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
+                await PViewModel.PlaySongAsync(new SongViewModel(song));
             }
             catch (Exception)
             {
@@ -383,8 +385,8 @@ namespace Rise.App
                 if (SViewModel.AutoIndexingEnabled)
                 {
                     _ = await KnownFolders.MusicLibrary.
-                    TrackForegroundAsync(QueryPresets.SongQueryOptions,
-                    SongsTracker.MusicQueryResultChanged);
+                        TrackForegroundAsync(QueryPresets.SongQueryOptions,
+                        SongsTracker.MusicQueryResultChanged);
 
                     _ = await KnownFolders.VideosLibrary.
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,

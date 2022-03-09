@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Constants;
+using Rise.Data.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -112,7 +113,7 @@ namespace Rise.App.ViewModels
 
             if (songFile != null)
             {
-                // Get song properties.
+                // Get WinRT music properties
                 var musicProps = await songFile.Properties.GetMusicPropertiesAsync();
 
                 musicProps.Title = Title;
@@ -123,9 +124,17 @@ namespace Rise.App.ViewModels
                 musicProps.Year = Year;
                 musicProps.Rating = Rating * 20;
 
+                // We can't set MusicProperties.Genres, so
+                // we use the Win32 prop here
+                var genreProp = await songFile.Properties.
+                    RetrievePropertiesAsync(new string[] { SystemMusic.Genre });
+                genreProp[SystemMusic.Genre] = Genres.Split("; ")[0];
+
                 try
                 {
                     await musicProps.SavePropertiesAsync();
+                    await songFile.Properties.SavePropertiesAsync(genreProp);
+
                     result = true;
                 }
                 catch (Exception ex)

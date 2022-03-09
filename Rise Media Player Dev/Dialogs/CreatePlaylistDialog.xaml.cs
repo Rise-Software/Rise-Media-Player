@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage.FileProperties;
@@ -58,16 +58,9 @@ namespace Rise.App.Dialogs
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-                await FileHelpers.SaveBitmapFromThumbnailAsync(thumbnail, $@"playlist-{file.Name}.png");
+                await thumbnail.SaveToFileAsync($@"playlist-{file.Name}.png");
+                thumbnail?.Dispose();
 
-                try
-                {
-                    thumbnail.Dispose();
-                }
-                catch
-                {
-
-                }
                 _imagePath = new Uri($@"ms-appdata:///local/playlist-{file.Name}.png");
             }
 

@@ -3,6 +3,7 @@ using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Models;
 using Rise.Repository.SQL;
 using System;
@@ -322,9 +323,9 @@ namespace Rise.App.Views
             {
                 // Get file thumbnail and make a PNG out of it.
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await FileHelpers.SaveBitmapFromThumbnailWithReplaceAsync(thumbnail, $@"modified-artist-{SelectedArtist.Name}.png");
+                await thumbnail.SaveToFileAsync($@"modified-artist-{SelectedArtist.Name}.png", CreationCollisionOption.ReplaceExisting);
 
-                thumbnail.Dispose();
+                thumbnail?.Dispose();
                 if (SelectedArtist != null)
                 {
                     SelectedArtist.Picture = $@"ms-appdata:///local/modified-artist-{SelectedArtist.Name}.png";

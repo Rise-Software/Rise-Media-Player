@@ -1,47 +1,50 @@
 ﻿<Page
     x:Class="Rise.App.Setup.AppearancePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel Spacing="20">
         <TextBlock x:Uid="/Appearance/Header" Style="{StaticResource BaseTextBlockStyle}" />
 
-        <muxc:TeachingTip x:Name="ChangeThemeTip"
-    Target="{x:Bind ThemeChange}"
-    Title="App theme changed"
-                          ActionButtonContent="Restart now"
-                          CloseButtonContent="Maybe later"
-                          ActionButtonClick="ChangeThemeTip_ActionButtonClick"
-IsLightDismissEnabled="True"
-    Subtitle="You'll need to restart the app for your changes to take effect.">
+        <muxc:TeachingTip
+            x:Name="ChangeThemeTip"
+            Title="App theme changed"
+            ActionButtonClick="ChangeThemeTip_ActionButtonClick"
+            ActionButtonContent="Restart now"
+            CloseButtonContent="Maybe later"
+            IsLightDismissEnabled="True"
+            Subtitle="You'll need to restart the app for your changes to take effect."
+            Target="{x:Bind ThemeChange}" />
 
-        </muxc:TeachingTip>
-        
         <StackPanel Orientation="Vertical" Spacing="4">
-            <uc:ExpanderControl Margin="0,-24,0,0"
-            x:Uid="/Appearance/ChooseTheme"
-                               ExpanderStyle="Static"
-                               Padding="0,10,0,0"
-                               Icon="&#xE790;">
-                <ComboBox ItemsSource="{x:Bind Themes}"
-                      x:Name="ThemeChange"
-                      DropDownClosed="ThemeChange_DropDownClosed"
-                      PlaceholderText="Use system setting"
-                      SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
+            <uc:ExpanderControl
+                x:Uid="/Appearance/ChooseTheme"
+                Margin="0,-24,0,0"
+                Padding="0,10,0,0"
+                ExpanderStyle="Static"
+                Icon="&#xE790;">
+                <ComboBox
+                    x:Name="ThemeChange"
+                    DropDownClosed="ThemeChange_DropDownClosed"
+                    ItemsSource="{x:Bind Themes}"
+                    PlaceholderText="Use system setting"
+                    SelectedIndex="{x:Bind ViewModel.Theme, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
             <!--<uc:ExpanderControl x:Uid="/Appearance/CompactMode"
                                    ExpanderStyle="Static"
                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                    Icon="&#xE73F;">
-                --><!--ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /--><!--
+            -->
+            <!--  ToggleSwitch IsOn="{Binding CompactMode, Mode=TwoWay}" /  -->
+            <!--
             </uc:ExpanderControl>
 
             <uc:ExpanderControl x:Uid="/Appearance/SidebarItems"

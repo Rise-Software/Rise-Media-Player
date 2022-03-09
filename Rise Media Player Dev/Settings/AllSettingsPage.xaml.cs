@@ -1,5 +1,6 @@
 ﻿using Rise.App.Common;
 using Rise.App.Views;
+using Rise.Common.Extensions;
 using System;
 using System.Linq;
 using Windows.UI.ViewManagement;

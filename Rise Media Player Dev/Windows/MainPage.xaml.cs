@@ -3,8 +3,9 @@ using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
+using Rise.Common;
 using Rise.Common.Enums;
-using Rise.Common.Helpers;
+using Rise.Common.Extensions;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -67,6 +68,7 @@ namespace Rise.App.Views
         public MainPage()
         {
             InitializeComponent();
+
             Current = this;
             SDialog.Content = new SettingsPage();
             Loaded += MainPage_Loaded;
@@ -691,7 +693,12 @@ namespace Rise.App.Views
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
+            ProfileMenu.Hide();
+            OpenSync.Visibility = Visibility.Collapsed;
+            IsScanning.Visibility = Visibility.Visible;
             await App.MViewModel.StartFullCrawlAsync();
+            IsScanning.Visibility = Visibility.Collapsed;
+            OpenSync.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)

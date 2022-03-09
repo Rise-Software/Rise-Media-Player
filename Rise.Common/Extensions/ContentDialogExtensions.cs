@@ -3,12 +3,12 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace Rise.Common.Helpers
+namespace Rise.Common.Extensions
 {
     /// <summary>
     /// Some helpers to better manage ContentDialogs.
     /// </summary>
-    public static class ContentDialogHelpers
+    public static class ContentDialogExtensions
     {
         public static ContentDialog ActiveDialog;
         private static TaskCompletionSource<bool> _dialogAwaiter = new();

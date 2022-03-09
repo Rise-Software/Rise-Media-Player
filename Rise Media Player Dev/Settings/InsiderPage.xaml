@@ -1,8 +1,8 @@
 ﻿<Page
     x:Class="Rise.App.Settings.InsiderPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
@@ -26,14 +26,14 @@
             <uc:AdaptiveItemPane.RightPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="12">
-                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE73A;" VerticalAlignment="Center" />
                             <TextBlock x:Uid="/About/Change" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
 
-                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xF3B1;" />
                             <TextBlock x:Uid="/About/Leave" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
@@ -43,11 +43,15 @@
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>-->
 
-        <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
-        <uc:ExpanderControl x:Uid="/About/Walls"
-                               Click="ExpanderControl_Click"
-                               ExpanderStyle="Button"
-                               Icon="&#xE8B9;">
+        <TextBlock
+            x:Uid="/About/ExtrasH"
+            Margin="0,-10,0,0"
+            Style="{StaticResource SubheaderTextBlockStyle}" />
+        <uc:ExpanderControl
+            x:Uid="/About/Walls"
+            Click="ExpanderControl_Click"
+            ExpanderStyle="Button"
+            Icon="&#xE8B9;">
             <FontIcon Glyph="&#xE00F;" />
         </uc:ExpanderControl>
     </StackPanel>
