@@ -13,6 +13,7 @@ namespace Rise.Models
         public string Description { get; set; }
         public string Duration { get; set; }
         public ObservableCollection<Song> Songs { get; set; }
+        public ObservableCollection<Video> Videos { get; set; }
 
         /// <summary>
         /// Returns the playlist title.
