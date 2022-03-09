@@ -83,7 +83,7 @@
                                     Grid.Column="2"
                                     Click="Button_Click"
                                     Padding="8"
-                                    Style="{StaticResource TransparentButton}">
+                                    Style="{StaticResource TransparentButtonStyle}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <FontIcon Glyph="&#xE106;" Margin="0,2,0,0" FontSize="16" />

@@ -21,7 +21,7 @@
             
         </Border>
 
-        <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource Subheader}" Margin="0,0,0,-4" />
+        <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" Margin="0,0,0,-4" />
 
         <muxc:InfoBar
             x:Name="InfoBarStartup" x:FieldModifier="public"

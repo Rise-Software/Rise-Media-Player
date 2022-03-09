@@ -32,7 +32,7 @@
                           x:Uid="/Information/Play"
                           Icon="Play"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
 
             <AppBarSeparator />
 
@@ -71,11 +71,11 @@
             <AppBarButton x:Uid="/Information/Delete"
                           Icon="Delete"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton x:Uid="/Information/Edit"
                           Icon="Edit"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
 
             <AppBarSeparator />
 

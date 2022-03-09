@@ -1,11 +1,11 @@
 ﻿<ContentDialog
     x:Class="Rise.App.Dialogs.UnavailableDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Style="{StaticResource DefaultContentDialogStyle}">
+    Style="{StaticResource DefaultContentDialogStyle}"
+    mc:Ignorable="d">
 
     <ContentDialog.Resources>
         <ResourceDictionary>
@@ -15,28 +15,31 @@
     </ContentDialog.Resources>
 
     <Grid>
-        <Image HorizontalAlignment="Center"
-               Margin="-24"
-               MaxHeight="320"
-               Stretch="UniformToFill"
-               Style="{ThemeResource Win11Image}" />
-        <Rectangle Fill="{ThemeResource SystemControlAcrylicElementBrush}"
-                   HorizontalAlignment="Stretch"
-                   Margin="-24"
-                   VerticalAlignment="Stretch" />
+        <Image
+            MaxHeight="320"
+            Margin="-24"
+            HorizontalAlignment="Center"
+            Stretch="UniformToFill"
+            Style="{ThemeResource Win11Image}" />
+        <Rectangle
+            Margin="-24"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Fill="{ThemeResource SystemControlAcrylicElementBrush}" />
 
-        <ScrollViewer VerticalScrollMode="Auto"
-                      VerticalScrollBarVisibility="Auto">
-            <StackPanel HorizontalAlignment="Center"
-                        Margin="68,20,68,-8"
-                        MaxWidth="448"
-                        Orientation="Vertical"
-                        Spacing="24"
-                        VerticalAlignment="Center">
-                <StackPanel HorizontalAlignment="Center"
-                            Height="80"
-                            Orientation="Horizontal"
-                            Spacing="56">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
+            <StackPanel
+                MaxWidth="448"
+                Margin="68,20,68,-8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="24">
+                <StackPanel
+                    Height="80"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="56">
                     <StackPanel.Transitions>
                         <TransitionCollection>
                             <EntranceThemeTransition FromVerticalOffset="-200" />
@@ -48,28 +51,30 @@
                     <Image Source="{x:Bind RightHero}" Stretch="None" />
                 </StackPanel>
 
-                <TextBlock Text="{x:Bind Header}"
-                           FontSize="24"
-                           HorizontalAlignment="Center"
-                           HorizontalTextAlignment="Center"
-                           Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock Text="{x:Bind Description}"
-                           Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                           HorizontalAlignment="Center"
-                           Margin="0,-4,0,4"
-                           Style="{StaticResource BaseTextBlockStyle}" />
-                <GridView HorizontalAlignment="Center"
-                          ItemContainerStyle="{StaticResource StretchedGridViewItem}"
-                          SelectionMode="None">
-                    <Button Click="Button_Click"
-                            Content="See what we're working on"
-                            Margin="2"
-                            Width="208" />
-                    <Button Click="CloseButton_Click"
-                            Content="Close"
-                            Margin="2"
-                            Style="{StaticResource AccentButtonStyle}"
-                            Width="208" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{x:Bind Header}" />
+                <TextBlock
+                    Margin="0,-4,0,4"
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Text="{x:Bind Description}" />
+                <GridView HorizontalAlignment="Center" SelectionMode="None">
+                    <Button
+                        Width="208"
+                        Margin="2"
+                        Click="Button_Click"
+                        Content="See what we're working on" />
+                    <Button
+                        Width="208"
+                        Margin="2"
+                        Click="CloseButton_Click"
+                        Content="Close"
+                        Style="{StaticResource AccentButtonStyle}" />
                 </GridView>
             </StackPanel>
         </ScrollViewer>

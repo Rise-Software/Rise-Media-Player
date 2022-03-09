@@ -51,7 +51,7 @@
             </Border>
 
             <TextBlock x:Uid="/Information/QuickH"
-                       Style="{StaticResource Subheader}" />
+                       Style="{StaticResource SubheaderTextBlockStyle}" />
 
             <uc:ExpanderControl x:Uid="/Information/AddRemove"
                                     Click="FoldersButton_Click"

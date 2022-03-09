@@ -133,7 +133,7 @@
                                     Click="Button_Click_2"
                                         x:Name="MusicLocationButton" x:FieldModifier="public"
                                     Padding="8" Margin="0,0,8,0"
-                                        Style="{StaticResource TransparentButton}">
+                                        Style="{StaticResource TransparentButtonStyle}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <FontIcon Glyph="&#xE838;" FontSize="16" />
@@ -201,7 +201,7 @@
                                     <Button x:Name="VideoLocationButton"
                                     Click="Button_Click_2"  x:FieldModifier="public"
                                     Padding="8" Margin="0,0,8,0"
-                                        Style="{StaticResource TransparentButton}">
+                                        Style="{StaticResource TransparentButtonStyle}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <FontIcon Glyph="&#xE838;" FontSize="16" />

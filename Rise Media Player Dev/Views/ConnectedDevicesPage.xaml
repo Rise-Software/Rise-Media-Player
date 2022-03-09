@@ -16,7 +16,7 @@
                             <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                                 <StackPanel Padding="15,0,15,15" Spacing="5">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{x:Bind Title}" Style="{StaticResource Subheader}" FontSize="23" />
+                                        <TextBlock Text="{x:Bind Title}" Style="{StaticResource SubheaderTextBlockStyle}" FontSize="23" />
 
                                     </StackPanel>
                                     <TextBlock Text="{x:Bind Description}" />

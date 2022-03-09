@@ -257,7 +257,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     ToolTipService.ToolTip="Sync centre"
-                    Style="{StaticResource TransparentButton}">
+                    Style="{StaticResource TransparentButtonStyle}">
                     <Button.Content>
                         <StackPanel>
                             <FontIcon x:Name="OpenSync" Glyph="&#xE117;" Height="24" />
@@ -289,7 +289,7 @@
                     Height="32"
                     Margin="40,0,0,0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource TransparentButton}">
+                    Style="{StaticResource TransparentButtonStyle}">
                     <Button.Content>
                         <FontIcon Glyph="" Height="24" />
                     </Button.Content>

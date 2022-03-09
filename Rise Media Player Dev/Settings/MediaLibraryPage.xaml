@@ -20,7 +20,7 @@
             <FontIcon Glyph="&#xE00F;"/>
         </uc:ExpanderControl>
 
-        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource SubheaderTextBlockStyle}" />
 
         <uc:ExpanderControl x:Uid="/MediaLibrary/Deletion"
                                ExpanderStyle="Disabled"
@@ -41,7 +41,7 @@
         
 
 
-        <!--<TextBlock x:Uid="/MediaLibrary/AdditionalH" Style="{StaticResource Subheader}" />
+        <!--<TextBlock x:Uid="/MediaLibrary/AdditionalH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/MediaLibrary/SeparateLocal"
                                ExpanderStyle="Disabled"
                                Icon="&#xE145;">

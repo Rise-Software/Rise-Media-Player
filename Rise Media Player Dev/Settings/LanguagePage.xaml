@@ -39,7 +39,7 @@
             <uc:AdaptiveItemPane.RightPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="12">
-                    <Button Click="ReportButton_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="ReportButton_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemAccentColor}" Glyph="&#xE7BA;" VerticalAlignment="Center" />
                             <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
@@ -47,7 +47,7 @@
                     </Button>
                     
 
-                    <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
                             <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
@@ -57,7 +57,7 @@
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>
 
-        <TextBlock x:Uid="/Language/Options" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Language/Options" Style="{StaticResource SubheaderTextBlockStyle}" />
         <muxc:InfoBar IsClosable="False"
                       IsOpen="True"
                       Severity="Informational"

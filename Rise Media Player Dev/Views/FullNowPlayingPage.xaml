@@ -43,7 +43,7 @@
                     Height="28"
                     ToolTipService.ToolTip="Back"
                     Margin="2,2,0,0"
-                    Style="{StaticResource TransparentButton}"
+                    Style="{StaticResource TransparentButtonStyle}"
                     Width="40"
                     AutomationProperties.Name="Back"
                     AutomationProperties.AutomationId="BackButton"
@@ -74,7 +74,7 @@
                     HorizontalAlignment="Right"
                     Margin="2,2,190,0"
                     ToolTipService.ToolTip="Pop out window"
-                    Style="{StaticResource TransparentButton}"
+                    Style="{StaticResource TransparentButtonStyle}"
                     Width="40">
 
                 <FontIcon Glyph="&#xE78B;" FontSize="14"/>

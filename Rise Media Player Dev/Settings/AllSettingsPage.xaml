@@ -23,7 +23,7 @@
                 Height="28"
                 ToolTipService.ToolTip="Back"
                 Margin="2,2,0,0"
-                Style="{StaticResource TransparentButton}"
+                Style="{StaticResource TransparentButtonStyle}"
                 Width="40"
                 AutomationProperties.Name="Back"
                 AutomationProperties.AutomationId="BackButton"
@@ -54,7 +54,7 @@
                     Margin="2,2,190,0"
                     IsEnabled="False"
                     ToolTipService.ToolTip="Sync centre"
-                    Style="{StaticResource TransparentButton}"
+                    Style="{StaticResource TransparentButtonStyle}"
                     Width="40">
             <Button.Flyout>
                 <Flyout>
@@ -88,7 +88,7 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <TextBlock Text="Settings" Margin="5" FontSize="28" FontWeight="SemiBold"/>
                             <StackPanel Orientation="Horizontal" Margin="40,0,0,0" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButton}" ToolTipService.ToolTip="More">
+                                <Button HorizontalAlignment="Right" Height="36" Style="{StaticResource TransparentButtonStyle}" ToolTipService.ToolTip="More">
                                     <FontIcon Glyph="" FontSize="16"/>
                                     <Button.Flyout>
                                         <MenuFlyout>
@@ -156,7 +156,7 @@
                                         HorizontalAlignment="Right"
                                         Height="36"
                                         ToolTipService.ToolTip="Feedback"
-                                        Style="{StaticResource TransparentButton}">
+                                        Style="{StaticResource TransparentButtonStyle}">
                                     <FontIcon Glyph="" FontSize="16"/>
                                 </Button>
                             </StackPanel>
@@ -262,7 +262,7 @@
                                 Padding="8,4,8,4"
                                 Margin="0,4,12,0"
                                 ToolTipService.ToolTip="Back"
-                                Style="{StaticResource TransparentButton}"
+                                Style="{StaticResource TransparentButtonStyle}"
                                 Visibility="Collapsed"
                                 AutomationProperties.Name="Back"
                                 AutomationProperties.AutomationId="BackButton1"

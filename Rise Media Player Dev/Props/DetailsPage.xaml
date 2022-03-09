@@ -1,8 +1,8 @@
 ﻿<Page
     x:Class="Rise.App.Props.DetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+            <Style BasedOn="{StaticResource DefaultTextBoxStyle}" TargetType="TextBox">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -20,14 +20,16 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <uc:ExpanderControl x:Uid="/Details/AsFile"
-                               ExpanderStyle="Static"
-                               Icon="&#xE8B7;">
-            <Button x:Name="LocalButton"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="LocalButton_Click"
-                    Padding="0">
+        <uc:ExpanderControl
+            x:Uid="/Details/AsFile"
+            ExpanderStyle="Static"
+            Icon="&#xE8B7;">
+            <Button
+                x:Name="LocalButton"
+                Padding="0"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="LocalButton_Click">
                 <Button.Content>
                     <FontIcon FontSize="16" Glyph="&#xE946;" />
                 </Button.Content>
@@ -35,9 +37,10 @@
         </uc:ExpanderControl>
 
         <Border Style="{StaticResource SettingsCard}">
-            <StackPanel Orientation="Vertical"
-                        Padding="0,4,0,0"
-                        Spacing="16">
+            <StackPanel
+                Padding="0,4,0,0"
+                Orientation="Vertical"
+                Spacing="16">
                 <Grid ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="96" />
@@ -45,43 +48,49 @@
                     </Grid.ColumnDefinitions>
 
                     <Border CornerRadius="5">
-                        <Image Height="96"
-                               Stretch="UniformToFill"
-                               Width="96"
-                               x:Name="imgAlbum">
+                        <Image
+                            x:Name="imgAlbum"
+                            Width="96"
+                            Height="96"
+                            Stretch="UniformToFill">
                             <Image.Source>
                                 <BitmapImage UriSource="{x:Bind Props.Thumbnail}" />
                             </Image.Source>
                         </Image>
                     </Border>
 
-                    <StackPanel Grid.Column="1"
-                                Orientation="Vertical"
-                                Spacing="8">
-                        <TextBlock Text="{x:Bind Props.Title}"
-                                   FontSize="22"
-                                   MaxLines="2"
-                                   Margin="4,0,0,0"
-                                   TextTrimming="WordEllipsis"
-                                   Style="{StaticResource TitleTextBlockStyle}" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Spacing="8">
+                        <TextBlock
+                            Margin="4,0,0,0"
+                            FontSize="22"
+                            MaxLines="2"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{x:Bind Props.Title}"
+                            TextTrimming="WordEllipsis" />
 
-                        <TextBlock Text="{x:Bind Props.Artist}"
-                                   Margin="3,-4,0,4"
-                                   FontSize="14"
-                                   TextTrimming="WordEllipsis"
-                                   Style="{StaticResource BodyTextBlockStyle}" />
+                        <TextBlock
+                            Margin="3,-4,0,4"
+                            FontSize="14"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind Props.Artist}"
+                            TextTrimming="WordEllipsis" />
 
                         <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
-                                <FontIcon Glyph="&#xE104;" FontSize="16" />
-                                <TextBlock x:Uid="/Details/EditAlbum"
-                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <FontIcon FontSize="16" Glyph="&#xE104;" />
+                                <TextBlock x:Uid="/Details/EditAlbum" Style="{StaticResource BodyTextBlockStyle}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                    <MenuFlyoutItem Text="Export album art" Name="exportAlbumArt" Click="exportAlbumArt_Click">
+                                    <MenuFlyoutItem
+                                        Name="exportAlbumArt"
+                                        Click="exportAlbumArt_Click"
+                                        Text="Export album art">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xE159;"/>
+                                            <FontIcon Glyph="&#xE159;" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
@@ -90,10 +99,11 @@
                     </StackPanel>
                 </Grid>
 
-                <Rectangle Fill="{ThemeResource ExpanderHeaderBorderBrush}"
-                           Height="1"
-                           HorizontalAlignment="Stretch"
-                           Margin="-16,0,-16,-8" />
+                <Rectangle
+                    Height="1"
+                    Margin="-16,0,-16,-8"
+                    HorizontalAlignment="Stretch"
+                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
                 <Grid ColumnSpacing="12" RowSpacing="4">
                     <Grid.ColumnDefinitions>
@@ -110,53 +120,65 @@
                         <RowDefinition Height="32" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Uid="/Details/SongTitle"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/Details/SongArtist"
-                               Grid.Row="1"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/Details/SongAlbum"
-                               Grid.Row="2"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/Details/Track"
-                               Grid.Row="3"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/Details/Genre"
-                               Grid.Row="4"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
-                    <TextBlock x:Uid="/Details/Year"
-                               Grid.Row="5"
-                               Margin="0,-2,0,0"
-                               VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/SongTitle"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/SongArtist"
+                        Grid.Row="1"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/SongAlbum"
+                        Grid.Row="2"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/Track"
+                        Grid.Row="3"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/Genre"
+                        Grid.Row="4"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Uid="/Details/Year"
+                        Grid.Row="5"
+                        Margin="0,-2,0,0"
+                        VerticalAlignment="Center" />
 
-                    <TextBox x:Name="SongTitle"
-                             Grid.Column="1"
-                             Text="{x:Bind Props.Title, Mode=TwoWay}" />
-                    <TextBox x:Name="SongArtist"
-                             Grid.Column="1"
-                             Grid.Row="1"
-                             Text="{x:Bind Props.Artist, Mode=TwoWay}" />
-                    <TextBox x:Name="SongAlbum"
-                             Grid.Column="1"
-                             Grid.Row="2"
-                             Text="{x:Bind Props.Album, Mode=TwoWay}" />
-                    <TextBox x:Name="SongTrack"
-                             Grid.Column="1"
-                             Grid.Row="3"
-                             Text="{x:Bind Props.Track, Mode=TwoWay}" />
-                    <TextBox x:Name="SongGenre"
-                             Grid.Column="1"
-                             Grid.Row="4"
-                             Text="{x:Bind Props.Genres, Mode=TwoWay}" />
-                    <TextBox x:Name="SongYear"
-                             Grid.Column="1"
-                             Grid.Row="5"
-                             Text="{x:Bind Props.Year, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongTitle"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Title, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongArtist"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Artist, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongAlbum"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Album, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongTrack"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Track, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongGenre"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Genres, Mode=TwoWay}" />
+                    <TextBox
+                        x:Name="SongYear"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Text="{x:Bind Props.Year, Mode=TwoWay}" />
                 </Grid>
             </StackPanel>
         </Border>
@@ -174,43 +196,48 @@
                     <RowDefinition Height="32" />
                 </Grid.RowDefinitions>
 
-                <TextBlock x:Uid="/Details/SongAlbumArtist"
-                           Margin="0,-2,0,0"
-                           
-                           VerticalAlignment="Center" />
-                <TextBlock x:Uid="/Details/Disc"
-                           Grid.Row="1"
-                           Margin="0,-2,0,0"
-                           VerticalAlignment="Center" />
-                <TextBlock x:Uid="/Details/Rating"
-                           Grid.Row="2"
-                           Margin="0,-2,0,0"
-                           VerticalAlignment="Center" />
+                <TextBlock
+                    x:Uid="/Details/SongAlbumArtist"
+                    Margin="0,-2,0,0"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    x:Uid="/Details/Disc"
+                    Grid.Row="1"
+                    Margin="0,-2,0,0"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    x:Uid="/Details/Rating"
+                    Grid.Row="2"
+                    Margin="0,-2,0,0"
+                    VerticalAlignment="Center" />
 
-                <TextBox x:Name="SongAlbumArtist"
-                         Grid.Column="1"
-                         Margin="8,0,0,0"
-                         
-                         Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}"
-                         HorizontalAlignment="Stretch" />
-                <TextBox x:Name="SongDisc"
-                         Grid.Column="1"
-                         Margin="8,0,0,0"
-                         Grid.Row="1"
-                         Text="{x:Bind Props.Disc, Mode=TwoWay}" />
-                <RatingControl Grid.Column="1"
-                                    Grid.Row="2"
-                                    HorizontalAlignment="Left"
-                                    Margin="16,0,0,-4"
-                                    Value="{x:Bind Props.Rating, Mode=TwoWay}"
-                                    VerticalAlignment="Bottom" />
+                <TextBox
+                    x:Name="SongAlbumArtist"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    HorizontalAlignment="Stretch"
+                    Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}" />
+                <TextBox
+                    x:Name="SongDisc"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    Text="{x:Bind Props.Disc, Mode=TwoWay}" />
+                <RatingControl
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="16,0,0,-4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Value="{x:Bind Props.Rating, Mode=TwoWay}" />
             </Grid>
         </Border>
 
-        <muxc:TeachingTip x:Name="LocalTip"
-                          x:Uid="/Details/Local"
-                          IsLightDismissEnabled="True"
-                          PreferredPlacement="Bottom"
-                          Target="{x:Bind LocalButton}" />
+        <muxc:TeachingTip
+            x:Name="LocalTip"
+            x:Uid="/Details/Local"
+            IsLightDismissEnabled="True"
+            PreferredPlacement="Bottom"
+            Target="{x:Bind LocalButton}" />
     </StackPanel>
 </Page>

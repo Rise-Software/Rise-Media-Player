@@ -26,14 +26,14 @@
             <uc:AdaptiveItemPane.RightPane>
                 <StackPanel Orientation="Horizontal"
                             Spacing="12">
-                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE73A;" VerticalAlignment="Center" />
                             <TextBlock x:Uid="/About/Change" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                         </StackPanel>
                     </Button>
 
-                    <Button Click="Button_Click" Style="{StaticResource TransparentButton}">
+                    <Button Click="Button_Click" Style="{StaticResource TransparentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="8" IsHitTestVisible="False">
                             <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xF3B1;" />
                             <TextBlock x:Uid="/About/Leave" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
@@ -43,7 +43,7 @@
             </uc:AdaptiveItemPane.RightPane>
         </uc:AdaptiveItemPane>-->
 
-        <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource Subheader}" Margin="0,-10,0,0" />
+        <TextBlock x:Uid="/About/ExtrasH" Style="{StaticResource SubheaderTextBlockStyle}" Margin="0,-10,0,0" />
         <uc:ExpanderControl x:Uid="/About/Walls"
                                Click="ExpanderControl_Click"
                                ExpanderStyle="Button"

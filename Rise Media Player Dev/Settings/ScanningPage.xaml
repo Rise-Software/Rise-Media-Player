@@ -55,7 +55,7 @@
                            Margin="-16,8,-16,0" />
 
                                 <StackPanel Orientation="Horizontal" Margin="28,0,15,0">
-                                    <TextBlock Style="{StaticResource Subheader}" FontWeight="Normal" Text="Run every:"/>
+                                    <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" FontWeight="Normal" Text="Run every:"/>
                                     <muxc:RadioButtons Margin="16,3,0,0" IsEnabled="{x:Bind PeriodicSwitch.IsOn, Mode=OneWay}" SelectedIndex="{x:Bind local1:App.SViewModel.IndexingMode}" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="PeriodicScan_SelectionChanged" MaxColumns="7" x:Name="PeriodicScan">
                                         <x:String>1 minute</x:String>
                                         <x:String>5 minutes</x:String>

@@ -25,7 +25,7 @@
         </muxc:InfoBar>
         
         
-        <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Playback/EQ"
                                ExpanderStyle="Disabled"
                                Icon="&#xE9E9;">
@@ -41,7 +41,7 @@
         </uc:ExpanderControl>
 
 
-        <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Playback/Gapless"
                                ExpanderStyle="Disabled"
                                Icon="&#xE101;">
@@ -57,7 +57,7 @@
         </uc:ExpanderControl>
 
 
-        <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Playback/Scaling"
                                ExpanderStyle="Disabled"
                                Icon="&#xE1D9;">

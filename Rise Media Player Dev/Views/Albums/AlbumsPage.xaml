@@ -52,7 +52,7 @@
                           x:Uid="/Information/Play"
                           Click="PlayButton_Click"
                           Icon="Play"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
 
             <AppBarSeparator />
 
@@ -92,11 +92,11 @@
             <AppBarButton x:Uid="/Information/Delete"
                           Icon="Delete"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton x:Uid="/Information/Edit"
                           Icon="Edit"
                           IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButton}" />
+                          Style="{StaticResource AppBarCompactButtonStyle}" />
 
             <AppBarSeparator />
 

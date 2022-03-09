@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/GeneralH" Margin="0,-10,0,0" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Appearance/Startup"
                             ExpanderStyle="Static"
                             Icon="&#xE7E8;">
@@ -32,7 +32,7 @@
         </uc:ExpanderControl>
 
 
-        <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/AppearanceH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Navigation/Hamburger"
                                ExpanderStyle="Disabled"
                                Icon="&#xE700;">
@@ -48,7 +48,7 @@
         </uc:ExpanderControl>
 
 
-        <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{StaticResource Subheader}" />
+        <TextBlock x:Uid="/Navigation/AddRemoveH" Style="{StaticResource SubheaderTextBlockStyle}" />
         <uc:ExpanderControl x:Uid="/Navigation/GeneralItems"
                                Icon="&#xE71D;">
             <uc:ExpanderControl.HeaderControls>

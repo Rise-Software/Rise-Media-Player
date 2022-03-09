@@ -203,7 +203,7 @@
                         Height="32"
                         Margin="4,0,0,0"
                         Padding="0"
-                        Style="{StaticResource TransparentButton}"
+                        Style="{StaticResource TransparentButtonStyle}"
                         Width="32">
                     <FontIcon FontSize="14" Glyph="&#xE10A;" />
                 </Button>

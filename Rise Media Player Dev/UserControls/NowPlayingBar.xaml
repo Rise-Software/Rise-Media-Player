@@ -560,7 +560,7 @@
                     
                 </controls:WrapPanel>
                 <RelativePanel Margin="0,11,0,0" x:Name="DefaultVolumeControl">
-                    <Button Click="VolumeIcon_Click" Padding="8" Margin="0,0,3,0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButton}">
+                    <Button Click="VolumeIcon_Click" Padding="8" Margin="0,0,3,0" x:Name="VolumeIconViewBoxMediaControl" Style="{StaticResource TransparentButtonStyle}">
                         <FontIcon Glyph="&#xE767;" />
                     </Button>
                     <Slider ValueChanged="VolumeSlider_ValueChanged" StepFrequency=".01" Maximum="1" IsThumbToolTipEnabled="False" x:Name="VolumeSlider" Value="{x:Bind _player.Volume, Mode=TwoWay}" RelativePanel.LeftOf="VolumeProgressText" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,0,8,0" RelativePanel.RightOf="VolumeIconViewBoxMediaControl" />
