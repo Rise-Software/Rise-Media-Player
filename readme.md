@@ -2,6 +2,7 @@
   <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
 </p>
 
+[![Get it from Microsoft](https://user-images.githubusercontent.com/74561130/157766576-d4dcf43b-2b67-4d76-82a7-aade752f2f1c.png)](https://www.microsoft.com/store/r/9PCSZTMTT55Z)
 
 
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
