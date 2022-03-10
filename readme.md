@@ -2,10 +2,9 @@
   <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
 </p>
 
-<script type="module" src="https://getbadgecdn.azureedge.net/ms-store-badge.bundled.js"></script>
-<ms-store-badge productid="9PCSZTMTT55Z" size="large"></ms-store-badge>
 
-** Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)
+
+**Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
 ### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**
 
