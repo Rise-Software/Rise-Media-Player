@@ -20,7 +20,7 @@
         <uc:ExtendedTitleBar
             x:Uid="/Props/PlaylistWindowTitle"
             Height="24"
-            Margin="-12,8,0,0"
+            Margin="-24,5,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="1"
             MinTitleWidth="0"

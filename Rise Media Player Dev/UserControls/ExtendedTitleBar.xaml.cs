@@ -175,5 +175,10 @@ namespace Rise.App.UserControls
             }
         }
         #endregion
+
+        private void TitleBarIcon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
