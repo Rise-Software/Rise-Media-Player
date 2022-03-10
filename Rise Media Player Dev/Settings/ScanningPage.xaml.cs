@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -66,7 +67,7 @@ namespace Rise.App.Settings
 
         private async void ManualScanButton_Click(object sender, RoutedEventArgs e)
         {
-            await App.MViewModel.StartFullCrawlAsync();
+            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
         }
     }
 }
