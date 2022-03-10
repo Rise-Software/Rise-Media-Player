@@ -130,6 +130,8 @@ namespace Rise.App.Settings
             if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
+                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
+                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 

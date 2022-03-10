@@ -43,6 +43,7 @@
                 x:Name="BackButton"
                 Width="40"
                 Height="28"
+                Click="BackButton_Click"
                 Margin="2,2,0,0"
                 VerticalAlignment="Top"
                 AutomationProperties.AutomationId="BackButton"

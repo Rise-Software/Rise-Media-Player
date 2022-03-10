@@ -15,33 +15,37 @@
 
         <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
 
-            <RelativePanel Margin="0,6,0,0">
+            <RelativePanel Margin="0,4,0,0">
                 <FontIcon
                     x:Name="WindowsLogo"
-                    Margin="0,0,4,0"
+                    Margin="0,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons"
-                    FontSize="64"
+                    FontSize="56"
                     Glyph="&#xE336;" />
-                <TextBlock
+                <StackPanel RelativePanel.RightOf="WindowsLogo" Margin="8,0,0,0">
+                    <TextBlock
                     x:Name="WinVer"
-                    Padding="8,0,0,4"
+                    Padding="8,0,0,0"
                     FontSize="22"
                     FontWeight="SemiBold"
                     RelativePanel.RightOf="WindowsLogo"
                     Text="You are running Windows 11!"
                     TextWrapping="WrapWholeWords" />
-                <TextBlock
+                    <TextBlock
                     x:Name="InfoString"
-                    Padding="8,0,0,8"
+                    Padding="8,0,0,0"
                     FontSize="17"
-                    FontWeight="Normal"
+                    FontWeight="SemiBold"
                     Opacity="0.6"
                     RelativePanel.Below="WinVer"
                     RelativePanel.RightOf="WindowsLogo"
                     Text="All settings should be available."
                     TextWrapping="WrapWholeWords" />
+                    <HyperlinkButton x:Name="Update" Margin="-4,8,0,0" Content="Windows Update" Click="Update_Click"/>
+
+                </StackPanel>
             </RelativePanel>
 
         </Border>
