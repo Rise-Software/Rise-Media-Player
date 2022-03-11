@@ -79,7 +79,7 @@
                                 x:Name="SongAlbums"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" />
-                            <HyperlinkButton Padding="-1.8,0,0,0" Click="HyperlinkButton_Click">
+                            <HyperlinkButton Padding="-1,0,0,0" Click="HyperlinkButton_Click">
                                 <StackPanel>
                                     <TextBlock
                                         x:Name="AboutArtist"
