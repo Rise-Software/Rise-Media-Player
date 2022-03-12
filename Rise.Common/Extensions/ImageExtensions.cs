@@ -64,7 +64,7 @@ namespace Rise.Common.Extensions
         /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
         public static async Task<string> SaveToFileAsync(this StorageItemThumbnail thumbnail,
             string filename,
-            CreationCollisionOption collisionOption = CreationCollisionOption.GenerateUniqueName)
+            CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {

@@ -11,12 +11,12 @@ namespace Rise.Tasks
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            this.deferral = taskInstance.GetDeferral();
+            deferral = taskInstance.GetDeferral();
 
             var tracker = await GetChangeTrackerAsync();
             await ProcessChangesAsync(tracker);
 
-            this.deferral.Complete();
+            deferral.Complete();
         }
 
         private async Task<StorageLibraryChangeTracker> GetChangeTrackerAsync()
