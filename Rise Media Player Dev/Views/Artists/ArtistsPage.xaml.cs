@@ -9,7 +9,6 @@ using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
@@ -68,7 +67,7 @@ namespace Rise.App.Views
 
         private void ArtistsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SetArtistPictures();
+            // SetArtistPictures();
 
             AddTo.Items.Clear();
 
@@ -149,7 +148,7 @@ namespace Rise.App.Views
 
             await playlist.AddSongsAsync(songs);
         }
-
+        /* Not needed: loads while indexing now
         private async Task SetArtistPictures()
         {
             string image;
@@ -197,29 +196,7 @@ namespace Rise.App.Views
                 }
             }
         }
-        public string getartistimg(string artist)
-        {
-            try
-            {
-                string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-                if (node != null)
-                {
-                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-                    return yes;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            return "ms-appx:///Assets/BlankArtist.png";
-        }
+        */
 
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
