@@ -148,6 +148,7 @@ namespace Rise.App.Views
 
             await playlist.AddSongsAsync(songs);
         }
+
         /* Not needed: loads while indexing now
         private async Task SetArtistPictures()
         {

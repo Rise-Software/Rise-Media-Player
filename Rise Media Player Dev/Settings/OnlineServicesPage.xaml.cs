@@ -17,11 +17,11 @@ namespace Rise.App.Settings
         internal static OnlineServicesPage Current;
         public OnlineServicesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
         }
 
-        internal bool AccountMenuText
+        public bool AccountMenuText
         {
             get => LastFMStatus.IsEnabled;
             set => LastFMStatus.IsEnabled = value;
