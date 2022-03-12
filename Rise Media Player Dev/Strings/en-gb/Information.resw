@@ -204,6 +204,12 @@
   <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
     <value>Properties and Info</value>
   </data>
+  <data name="EditArtist.Label" xml:space="preserve">
+    <value>Edit artist info</value>
+  </data>
+  <data name="EditArtist.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit artist info</value>
+  </data>
   <data name="EditPlaylist.Label" xml:space="preserve">
     <value>Edit playlist</value>
   </data>

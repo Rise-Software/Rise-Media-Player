@@ -157,10 +157,10 @@
                                             DefaultLabelPosition="Right">
                                             <AppBarButton
                                                 x:Name="PlayItem"
-                                                x:Uid="/Information/Play"
                                                 Click="PlayButton_Click"
                                                 Icon="Play"
-                                                Style="{StaticResource AppBarCompactButtonStyle}" />
+                                                Label="Play all"
+                                                ToolTipService.ToolTip="Play all" />
 
                                             <AppBarSeparator />
 
@@ -178,33 +178,17 @@
                                                 </AppBarButton.Icon>
 
                                                 <AppBarButton.Flyout>
-                                                    <MenuFlyout x:Name="AddToCommand">
-                                                        
-                                                    </MenuFlyout>
+                                                    <MenuFlyout x:Name="AddToCommand" />
                                                 </AppBarButton.Flyout>
                                             </AppBarButton>
 
                                             <AppBarSeparator />
 
                                             <AppBarButton
-                                                x:Uid="/Information/Delete"
-                                                Icon="Delete"
-                                                IsEnabled="False"
-                                                Style="{StaticResource AppBarCompactButtonStyle}" />
-                                            <AppBarButton
-                                                x:Uid="/Information/Edit"
+                                                x:Uid="/Information/EditArtist"
                                                 Click="EditButton_Click"
-                                                Icon="Edit"
-                                                IsEnabled="{Binding ElementName=Root, Path=SelectedSong, Converter={StaticResource NullToBool}, Mode=OneWay}"
-                                                Style="{StaticResource AppBarCompactButtonStyle}" />
-
-                                            <AppBarSeparator />
-
-
+                                                Icon="Edit"/>
                                         </CommandBar>
-
-
-
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -214,55 +198,60 @@
                     </Border>
                 </Grid>
 
-                <Grid ColumnSpacing="12">
+                <Grid ColumnSpacing="12"  x:Name="LastFMClickables">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
                     <Border
-                    x:Name="TopSongs"
-                    Margin="0,12,0,0"
-                    CornerRadius="5"
-                    Style="{StaticResource SettingsCard}">
+                        x:Name="TopSongs"
+                        Margin="0,12,0,0"
+                        Height="200"
+                        CornerRadius="5"
+                        Style="{StaticResource SettingsCard}">
                         <Grid>
                             <StackPanel>
-                                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE734;" />
                                     <TextBlock
-                                    Margin="8,0,0,0"
-                                    FontWeight="SemiBold"
-                                    Text="Top tracks" />
+                                        Margin="8,0,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="Top tracks" />
                                 </StackPanel>
                                 <Rectangle
-                                Height="1"
-                                Margin="-16,12,-16,12"
-                                HorizontalAlignment="Stretch"
-                                Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                                    Height="1"
+                                    Margin="-16,12,-16,12"
+                                    HorizontalAlignment="Stretch"
+                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                                
                             </StackPanel>
+                            <TextBlock FontSize="28" Opacity="0.6" Margin="0,36,0,0" VerticalAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Coming soon"/>
                         </Grid>
                     </Border>
                     <Border
-                    x:Name="MusicVideos"
+                        x:Name="MusicVideos"
                         Grid.Column="1"
-                    Margin="0,12,0,0"
-                    CornerRadius="5"
-                    Style="{StaticResource SettingsCard}">
+                        Height="200"
+                        Margin="0,12,0,0"
+                        CornerRadius="5"
+                        Style="{StaticResource SettingsCard}">
                         <Grid>
                             <StackPanel>
                                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE786;" />
                                     <TextBlock
-                                    Margin="8,0,0,0"
-                                    FontWeight="SemiBold"
-                                    Text="Music videos" />
+                                        Margin="8,0,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="Music videos" />
                                 </StackPanel>
                                 <Rectangle
-                                Height="1"
-                                Margin="-16,12,-16,12"
-                                HorizontalAlignment="Stretch"
-                                Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                                    Height="1"
+                                    Margin="-16,12,-16,12"
+                                    HorizontalAlignment="Stretch"
+                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
                             </StackPanel>
+                            <TextBlock FontSize="28" Opacity="0.6" Margin="0,36,0,0" VerticalAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Coming soon"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -270,6 +259,7 @@
                 <Border
                     x:Name="Discography"
                     Margin="0,12,0,0"
+                    MaxHeight="50000"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
                     <Grid>
@@ -279,6 +269,11 @@
                             VerticalAlignment="Top"
                             Background="Transparent"
                             DefaultLabelPosition="Right">
+                            <AppBarButton x:Name="UpDown" Click="UpDown_Click" Label="Collapse">
+                                <AppBarButton.Icon>
+                                    <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;"/>
+                                </AppBarButton.Icon>
+                            </AppBarButton>
                             <AppBarButton
                                 x:Name="SortButton"
                                 Icon="Sort"
@@ -366,6 +361,74 @@
                                     SelectionMode="Single"
                                     Tapped="GridView_Tapped"
                                     Visibility="Collapsed">
+                                    <GridView.Resources>
+                                        <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
+                                            <MenuFlyoutItem x:Uid="/Information/PlayItem" x:Name="PlayAlbumButton" Click="PlayAlbumButton_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE102;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Uid="/Information/ShuffleAlbum" x:Name="ShuffleAlbumButton" Click="ShuffleAlbumButton_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE14B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutSeparator />
+
+                                            <!--<MenuFlyoutSubItem
+                                                    x:Name="AddTo"
+                                                    x:Uid="/Information/AddTo"
+                                                    IsEnabled="True">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xECC8;" />
+                                                </MenuFlyoutSubItem.Icon>
+                                            </MenuFlyoutSubItem>-->
+
+                                            <MenuFlyoutItem
+                                                    x:Name="ShareAlbum"
+                                                    x:Uid="/Information/Share"
+                                                    IsEnabled="False">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE72D;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutSeparator />
+
+                                            <!--<MenuFlyoutItem
+                                                    x:Name="AskDiscyAlbum"
+                                                    x:Uid="/Information/AskDiscy"
+                                                    Click="AskDiscy_Click"
+                                                    IsEnabled="True">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE11B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>-->
+
+                                            <MenuFlyoutItem
+                                                    x:Name="RemoveAlbum"
+                                                    x:Uid="/Information/RemoveThing"
+                                                    IsEnabled="False">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE107;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+
+                                            <MenuFlyoutItem
+                                                    x:Name="PropsAlbum"
+                                                    x:Uid="/MediaData/Properties"
+                                                    Click="PropsAlbum_Click"
+                                                    IsEnabled="True">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE104;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                        </MenuFlyout>
+                                    </GridView.Resources>
                                     <GridView.ItemTemplate>
                                         <DataTemplate x:DataType="viewmodels:AlbumViewModel">
                                             <StackPanel
@@ -396,7 +459,6 @@
                                                 <TextBlock
                                                     Padding="0,0,0,0"
                                                     MaxLines="1"
-                                                    
                                                     Text="{x:Bind Year}"
                                                     TextWrapping="Wrap" />
                                             </StackPanel>
@@ -518,7 +580,7 @@
                                                         x:Uid="/Information/Play"
                                                         Width="36"
                                                         Height="36"
-                                                        Margin="-3,0,-4,0"
+                                                        Margin="-2,0,0,0"
                                                         Padding="0"
                                                         Click="PlayButton_Click"
                                                         Style="{StaticResource TransparentButtonStyle}"
@@ -531,16 +593,16 @@
                                                     Grid.Column="1"
                                                     Width="32"
                                                     Height="32"
+                                                    Margin="-4"
                                                     Padding="0"
-                                                    Margin="0"
                                                     CornerRadius="7"
                                                     IsHitTestVisible="False">
                                                     <Border
                                                         x:Name="AlbumThumb"
                                                         Width="32"
-                                                        VerticalAlignment="Center"
-                                                        HorizontalAlignment="Center"
                                                         Height="32"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
                                                         CornerRadius="3">
                                                         <Image Width="32" Height="32">
                                                             <Image.Source>
@@ -608,7 +670,6 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </Grid>
-
                         </StackPanel>
                     </Grid>
                 </Border>

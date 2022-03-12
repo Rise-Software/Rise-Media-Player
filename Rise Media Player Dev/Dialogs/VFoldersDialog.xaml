@@ -98,7 +98,7 @@
 
         <StackPanel Margin="0,38,0,0" Orientation="Vertical">
             <muxc:InfoBar
-                x:Name="TryRiseEQ"
+                x:Name="Info"
                 Margin="0,4,0,8"
                 x:FieldModifier="public"
                 IsClosable="False"
@@ -166,7 +166,7 @@
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <FontIcon FontSize="16" Glyph="&#xE838;" />
-                                                <TextBlock Margin="8,0,0,0" Text="Open folder location" />
+                                                <TextBlock Margin="8,0,0,0" Text="Open folder location"  />
                                             </StackPanel>
                                         </Button.Content>
 

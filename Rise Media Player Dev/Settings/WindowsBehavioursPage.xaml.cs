@@ -21,7 +21,6 @@ namespace Rise.App.Settings
             this.InitializeComponent();
             var v = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
             var build = (Convert.ToUInt64(v) & Convert.ToUInt64(0x00000000FFFF0000)) >> 16;
-            build = 19000;
             Debug.WriteLine(build);
 
             if (build >= 22000)

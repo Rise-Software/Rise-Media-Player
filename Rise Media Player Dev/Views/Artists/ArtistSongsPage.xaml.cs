@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
@@ -87,13 +88,22 @@ namespace Rise.App.Views
             SortName = "Title";
             SortButton.Label = "Sort by: " + SortName;
             name = ArtistName.Text;
+            bool isNetworkConnected = NetworkInterface.GetIsNetworkAvailable();
+
             if (ArtistName.Text == "Unknown Artist")
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
+                LastFMClickables.Visibility = Visibility.Collapsed;
+            }
+            else if (isNetworkConnected == false)
+            {
+                ArtistAbout.Visibility = Visibility.Collapsed;
+                LastFMClickables.Visibility = Visibility.Collapsed;
             }
             else
             {
                 ArtistAbout.Visibility = Visibility.Visible;
+                LastFMClickables.Visibility = Visibility.Visible;
                 string name = ArtistName.Text;
                 try
                 {
@@ -309,6 +319,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
                 SelectedAlbum = album;
+                AlbumFlyout.ShowAt(AlbumsGrid, e.GetPosition(AlbumsGrid));
             }
         }
 
@@ -570,6 +581,79 @@ namespace Rise.App.Views
             {
                 SelectedSong = song;
                 await SelectedSong.StartEditAsync();
+            }
+        }
+
+        private async void PlayAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            Songs.Filter = null;
+            Songs.SortDescriptions.Clear();
+
+            if (SelectedAlbum != null)
+            {
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+            }
+            else
+            {
+                Songs.SortDescriptions.Add(new SortDescription("Album", CurrentSort));
+            }
+
+            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
+        }
+
+        private async void ShuffleAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Songs.Filter = null;
+            if (SelectedAlbum != null)
+            {
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+            }
+
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count, true);
+        }
+
+        private async void PropsAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedAlbum.StartEditAsync();
+        }
+
+        private void UpDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (UpDown.Label == "Expand")
+            {
+                UpDownIcon.Glyph = "\uE010";
+                SortButton.Visibility = Visibility.Visible;
+                UpDown.Label = "Collapse";
+                Discography.MaxHeight = 50000;
+            }
+            else
+            {
+                UpDownIcon.Glyph = "\uE011";
+                SortButton.Visibility = Visibility.Collapsed;
+                UpDown.Label = "Expand";
+                Discography.MaxHeight = 18;
             }
         }
 
