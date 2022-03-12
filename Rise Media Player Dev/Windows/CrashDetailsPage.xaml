@@ -34,14 +34,18 @@
             VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="80" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Crash Details" />
+                <StackPanel>
+                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="We've ran into a problem. Sorry about that." TextWrapping="WrapWholeWords" />
+                    <TextBlock FontSize="16" FontWeight="Normal" Text="RiseMP has crashed. Here's some details." TextWrapping="WrapWholeWords" />
+                </StackPanel>
+                
 
                 <TextBlock
                     Grid.Row="1"
-                    Margin="0,10,0,0"
+                    Margin="0,12,0,0"
                     IsTextSelectionEnabled="True"
                     Text="{x:Bind Text, Mode=OneWay}"
                     TextWrapping="Wrap" />

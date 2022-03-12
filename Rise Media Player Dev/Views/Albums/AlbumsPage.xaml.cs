@@ -4,8 +4,10 @@ using Microsoft.UI.Xaml.Controls;
 using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -600,6 +602,11 @@ namespace Rise.App.Views
             dialog.CloseButtonText = "Close";
             dialog.Content = new Settings.MediaSourcesPage();
             var result = await dialog.ShowAsync();
+        }
+
+        private async void Props_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedAlbum.StartEditAsync();
         }
     }
 }

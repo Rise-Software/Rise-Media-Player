@@ -10,30 +10,33 @@
 
     <Border Background="Transparent" IsHitTestVisible="True">
         <StackPanel
-            
             x:Name="AppData"
             Width="Auto"
             Orientation="Horizontal"
             Spacing="12">
-            <Button x:Name="TitleBarIcon" Padding="-1,0,-1,0" Style="{StaticResource TransparentButtonStyle}">
+            <Button
+                x:Name="TitleBarIcon"
+                Padding="-1,0,-1,0"
+                CornerRadius="0"
+                Style="{StaticResource TransparentButtonStyle}">
                 <Button.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Close">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE10A;"/>
+                                <FontIcon Glyph="&#xE10A;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
                 </Button.Flyout>
                 <Image
-                x:Name="AppIcon"
-                Width="16"
-                Height="16"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                d:Source="ms-appx:///Assets/App/Titlebar.png"
-                Source="{x:Bind Icon, Mode=OneWay}"
-                Visibility="{x:Bind ShowIcon, Mode=OneWay}" />
+                    x:Name="AppIcon"
+                    Width="16"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    d:Source="ms-appx:///Assets/App/Titlebar.png"
+                    Source="{x:Bind Icon, Mode=OneWay}"
+                    Visibility="{x:Bind ShowIcon, Mode=OneWay}" />
             </Button>
             <RichTextBlock
                 x:Name="DefaultTitle"
@@ -55,5 +58,5 @@
                 Text="{x:Bind Title, Mode=OneWay}" />
         </StackPanel>
     </Border>
-    
+
 </UserControl>

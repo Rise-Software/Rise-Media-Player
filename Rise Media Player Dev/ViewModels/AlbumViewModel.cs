@@ -1,4 +1,5 @@
 ﻿using Rise.Common;
+using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -6,6 +7,7 @@ using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
@@ -261,11 +263,11 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Enables edit mode.
         /// </summary>
-        /*public async Task StartEditAsync()
+        public async Task StartEditAsync()
         {
-            _ = await typeof(PropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
-        }*/
+            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).
+                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, this);
+        }
 
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.

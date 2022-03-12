@@ -4,9 +4,11 @@ using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
@@ -64,6 +66,7 @@ namespace Rise.App.Views
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
 
         private string SortProperty = "Title";
+        private string SortName = "Title";
         private SortDirection CurrentSort = SortDirection.Ascending;
         private bool SongsVisible = false, AlbumsVisible = true;
         #endregion
@@ -82,14 +85,26 @@ namespace Rise.App.Views
         public string name;
         private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            SortName = "Title";
+            SortButton.Label = "Sort by: " + SortName;
             name = ArtistName.Text;
+            bool isNetworkConnected = NetworkInterface.GetIsNetworkAvailable();
+
             if (ArtistName.Text == "Unknown Artist")
             {
-                AboutArtist.Visibility = Visibility.Collapsed;
+                ArtistAbout.Visibility = Visibility.Collapsed;
+                LastFMClickables.Visibility = Visibility.Collapsed;
+            }
+            else if (isNetworkConnected == false)
+            {
+                ArtistAbout.Visibility = Visibility.Collapsed;
+                LastFMClickables.Visibility = Visibility.Collapsed;
             }
             else
             {
-                AboutArtist.Visibility = Visibility.Visible;
+                ArtistAbout.Visibility = Visibility.Visible;
+                LastFMClickables.Visibility = Visibility.Visible;
+                string name = ArtistName.Text;
                 try
                 {
                     string artist = await Task.Run(() => GetArtistInfo(name));
@@ -104,9 +119,11 @@ namespace Rise.App.Views
                     {
                         SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
                     }
+                    ReadMoreAbout.Content = "Read more";
                 }
                 catch { }
             }
+
         } /// <summary>
           /// Task to get description about artist.
           /// </summary>
@@ -120,6 +137,7 @@ namespace Rise.App.Views
             xmlStr = wc.DownloadString(m_strFilePath);
             xmlDoc.LoadXml(xmlStr);
             XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+
             string url = node.InnerText;
             node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
             string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
@@ -260,6 +278,22 @@ namespace Rise.App.Views
                     Songs.SortDescriptions.
                         Add(new SortDescription("Disc", CurrentSort));
                     SortProperty = tag;
+                    SortName = "Track number";
+                    break;
+
+                case "Title":
+                    SortProperty = tag;
+                    SortName = "Title";
+                    break;
+
+                case "Genres":
+                    SortProperty = tag;
+                    SortName = "Genre";
+                    break;
+
+                case "Year":
+                    SortProperty = tag;
+                    SortName = "Year";
                     break;
 
                 default:
@@ -269,6 +303,7 @@ namespace Rise.App.Views
 
             Songs.SortDescriptions.
                 Add(new SortDescription(SortProperty, CurrentSort));
+            SortButton.Label = "Sort by: " + SortName;
         }
 
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -284,6 +319,7 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
                 SelectedAlbum = album;
+                AlbumFlyout.ShowAt(AlbumsGrid, e.GetPosition(AlbumsGrid));
             }
         }
 
@@ -311,7 +347,7 @@ namespace Rise.App.Views
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
             => EventsLogic.UnfocusSong(ref _song, e);
 
-        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        private void Album_Click(Hyperlink sender, RoutedEventArgs args)
             => EventsLogic.GoToAlbum(sender);
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
@@ -360,6 +396,47 @@ namespace Rise.App.Views
         #endregion
         private void Root_Loaded(object sender, RoutedEventArgs e)
         {
+            AddToCommand.Items.Clear();
+
+            MenuFlyoutItem newCommandPlaylistItem = new()
+            {
+                Text = "New playlist",
+                Icon = new FontIcon
+                {
+                    Glyph = "\uE93F",
+                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                }
+            };
+
+            newCommandPlaylistItem.Click += NewCommandPlaylistItem_Click;
+
+            AddToCommand.Items.Add(newCommandPlaylistItem);
+
+            if (App.MViewModel.Playlists.Count > 0)
+            {
+                AddToCommand.Items.Add(new MenuFlyoutSeparator());
+            }
+
+            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
+            {
+                MenuFlyoutItem commanditem = new()
+                {
+                    Text = playlist.Title,
+                    Icon = new FontIcon
+                    {
+                        Glyph = "\uE93F",
+                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
+                    },
+                    Tag = playlist
+                };
+
+                commanditem.Click += CommandItem_Click;
+
+                AddToCommand.Items.Add(commanditem);
+            }
+
+
+
             AddTo.Items.Clear();
 
             MenuFlyoutItem newPlaylistItem = new()
@@ -413,6 +490,30 @@ namespace Rise.App.Views
             await playlist.AddSongAsync(SelectedSong);
         }
 
+        private async void NewCommandPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            // This will automatically save the playlist to the db
+            await playlist.AddSongsAsync(songs);
+        }
+
         private async void Item_Click(object sender, RoutedEventArgs e)
         {
             PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
@@ -434,6 +535,125 @@ namespace Rise.App.Views
             catch
             {
 
+            }
+        }
+
+        private async void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
+        {
+            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            string artist = await Task.Run(() => GetArtistInfo(name));
+            string currentinfo = AboutArtist.Text.ToString();
+            if (currentinfo == artist)
+            {
+                AboutArtist.Text = AboutArtistBig;
+                ReadMoreAbout.Content = "Read less";
+            }
+            else
+            {
+                AboutArtist.Text = artist;
+                ReadMoreAbout.Content = "Read more";
+            }
+            
+        }
+
+        private async void CommandItem_Click(object sender, RoutedEventArgs e)
+        {
+            List<SongViewModel> songs = new();
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+
+            for (int i = 0; i < MViewModel.Songs.Count; i++)
+            {
+                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
+                {
+                    songs.Add(MViewModel.Songs[i]);
+                }
+            }
+
+            await playlist.AddSongsAsync(songs);
+        }
+
+        private void HyperlinkButton_Click_1(Hyperlink sender, RoutedEventArgs e)
+           => EventsLogic.GoToAlbum(sender);
+
+        private async void PropsHover_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                await SelectedSong.StartEditAsync();
+            }
+        }
+
+        private async void PlayAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            Songs.Filter = null;
+            Songs.SortDescriptions.Clear();
+
+            if (SelectedAlbum != null)
+            {
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+            }
+            else
+            {
+                Songs.SortDescriptions.Add(new SortDescription("Album", CurrentSort));
+            }
+
+            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
+            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
+        }
+
+        private async void ShuffleAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Songs.Filter = null;
+            if (SelectedAlbum != null)
+            {
+                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
+            }
+
+            IEnumerator<object> enumerator = Songs.GetEnumerator();
+            List<SongViewModel> songs = new();
+
+            while (enumerator.MoveNext())
+            {
+                songs.Add(enumerator.Current as SongViewModel);
+            }
+
+            enumerator.Dispose();
+            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count, true);
+        }
+
+        private async void PropsAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedAlbum.StartEditAsync();
+        }
+
+        private void UpDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (UpDown.Label == "Expand")
+            {
+                UpDownIcon.Glyph = "\uE010";
+                SortButton.Visibility = Visibility.Visible;
+                UpDown.Label = "Collapse";
+                Discography.MaxHeight = 50000;
+            }
+            else
+            {
+                UpDownIcon.Glyph = "\uE011";
+                SortButton.Visibility = Visibility.Collapsed;
+                UpDown.Label = "Expand";
+                Discography.MaxHeight = 18;
             }
         }
 

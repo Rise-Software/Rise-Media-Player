@@ -122,7 +122,7 @@ namespace Rise.App.Settings
                 rootFrame.GoBack();
             }
             _ = await MainPage.Current.SDialog.ShowAsync();
-            SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
+            _ = SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

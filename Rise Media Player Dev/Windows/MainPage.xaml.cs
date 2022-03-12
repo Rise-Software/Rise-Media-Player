@@ -906,7 +906,10 @@ namespace Rise.App.Views
             }
             else
             {
-                _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(AllSettingsPage));
+                }
             }
         }
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
