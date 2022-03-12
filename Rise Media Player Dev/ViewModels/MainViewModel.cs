@@ -11,9 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
@@ -22,9 +20,6 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private readonly XmlDocument xmlDoc = new();
-        private readonly List<string> imagelinks = new();
-
         #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
@@ -419,20 +414,11 @@ namespace Rise.App.ViewModels
             // If artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                string thumb = URIs.ArtistThumb;
-                string image;
-                image = await Task.Run(() => getartistimg(song.Artist));
-                imagelinks.Add(song.Artist + " - " + image);
-                foreach (string imagel in imagelinks)
+                ArtistViewModel arvm = new()
                 {
-                    if (imagel.Contains(song.Artist))
-                    {
-                        thumb = imagel.Replace(song.Artist + " - ", "");
-                    }
-                }
-                ArtistViewModel arvm = new();
-                arvm.Name = song.Artist;
-                arvm.Picture = thumb;
+                    Name = song.Artist,
+                    Picture = URIs.ArtistThumb
+                };
 
                 await arvm.SaveAsync();
             }
@@ -444,20 +430,11 @@ namespace Rise.App.ViewModels
             // If album artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                string thumb = URIs.ArtistThumb;
-                string image;
-                image = await Task.Run(() => getartistimg(song.Artist));
-                imagelinks.Add(song.Artist + " - " + image);
-                foreach (string imagel in imagelinks)
+                ArtistViewModel arvm = new()
                 {
-                    if (imagel.Contains(song.Artist))
-                    {
-                        thumb = imagel.Replace(song.Artist + " - ", "");
-                    }
-                }
-                ArtistViewModel arvm = new();
-                arvm.Name = song.Artist;
-                arvm.Picture = thumb;
+                    Name = song.AlbumArtist,
+                    Picture = URIs.ArtistThumb
+                };
 
                 await arvm.SaveAsync();
             }
@@ -483,29 +460,6 @@ namespace Rise.App.ViewModels
             return !songExists;
         }
 
-        public string getartistimg(string artist)
-        {
-            try
-            {
-                string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-                if (node != null)
-                {
-                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-                    return yes;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            return URIs.ArtistThumb;
-        }
         /// <summary>
         /// Saves a video to the repository and ViewModel.
         /// </summary>

@@ -29,7 +29,15 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Name
         {
-            get => Model.Name == "UnknownArtistResource" ? ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource") : Model.Name;
+            get
+            {
+                if (Model.Name == "UnknownArtistResource")
+                {
+                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
+                }
+
+                return Model.Name;
+            }
             set
             {
                 if (value != Model.Name)
