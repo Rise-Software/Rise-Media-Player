@@ -32,14 +32,7 @@ namespace Rise.App.Views.Playlists.Properties
 
             if ((Playlist.Songs.IndexOf(song) + 1) < Playlist.Songs.Count)
             {
-                try
-                {
                     Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) + 1);
-                }
-                catch
-                {
-
-                }
             }
         }
 
@@ -49,7 +42,7 @@ namespace Rise.App.Views.Playlists.Properties
 
             if ((Playlist.Songs.IndexOf(song) - 1) > 0)
             {
-                Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) - 1);
+                    Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) - 1);
             }
         }
     }

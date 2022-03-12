@@ -45,7 +45,17 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="135" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center" Text="{x:Bind Title}" />
+
+
+                                <Button CornerRadius="3" Padding="-2" Margin="-4,0,0,0" x:Name="AlbumImage">
+                                    <Image Source="{x:Bind Thumbnail}" HorizontalAlignment="Left" Height="36" Width="36" VerticalAlignment="Center"/>
+                                </Button>
+                                <StackPanel>
+                                    <TextBlock Margin="42,0,0,0" VerticalAlignment="Center" Text="{x:Bind Title}" TextWrapping="WrapWholeWords" MaxLines="2" TextTrimming="WordEllipsis"/>
+                                    <TextBlock Margin="42,0,0,0" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Text="{x:Bind Artist}" TextWrapping="WrapWholeWords" MaxLines="2" TextTrimming="WordEllipsis"/>
+                                </StackPanel>
+                                
+                                
 
                                 <StackPanel
                                     Grid.Column="1"

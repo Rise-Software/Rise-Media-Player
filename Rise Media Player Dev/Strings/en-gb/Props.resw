@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlbumWindowTitle.Title" xml:space="preserve">
+    <value>Album info</value>
+  </data>
   <data name="Cancel.Content" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="LyricsItem.Text" xml:space="preserve">
     <value>Lyrics</value>
   </data>
+  <data name="MoreItem.Text" xml:space="preserve">
+    <value>More</value>
+  </data>
   <data name="PlaylistWindowTitle.Title" xml:space="preserve">
     <value>Edit playlist</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="SongsItem.Text" xml:space="preserve">
     <value>Songs</value>
+  </data>
+  <data name="StayHere" xml:space="preserve">
+    <value>oops</value>
   </data>
   <data name="WindowTitle.Title" xml:space="preserve">
     <value>Song info</value>

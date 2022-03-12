@@ -1,0 +1,80 @@
+﻿using Rise.Common.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace Rise.App.Views.Albums.Properties
+{
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class AlbumPropertiesPage : Page
+    {
+        private IEnumerable<ToggleButton> Toggles { get; set; }
+        public AlbumPropertiesPage()
+        {
+            this.InitializeComponent();
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            Toggles = ItemGrid.GetChildren<ToggleButton>();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Details.IsChecked = true;
+            base.OnNavigatedTo(e);
+        }
+
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Details.IsChecked = false;
+            Songs.IsChecked = false;
+            More.IsChecked = false;
+
+            ToggleButton clicked = (ToggleButton)sender;
+            clicked.Checked -= ToggleButton_Checked;
+            clicked.IsChecked = true;
+
+            switch (clicked.Tag.ToString())
+            {
+                case "DetailsItem":
+                    //_ = PropsFrame.Navigate(typeof(DetailsPage), Props);
+                    break;
+
+                case "FileItem":
+                    //_ = PropsFrame.Navigate(typeof(FilePage), Props);
+                    break;
+
+                default:
+                    break;
+            }
+
+            clicked.Checked += ToggleButton_Checked;
+        }
+
+        private async void CancelButton_Click(object sender, RoutedEventArgs e)
+            => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+                _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                return;
+        }
+
+    }
+}
