@@ -79,7 +79,7 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 
 * [**Agnihotra Nath (@AlfarexGuy2019)**](https://github.com/alfarexguy2019)
 * [**Makesh Vineeth (@MakeshVineeth)**](https://github.com/makeshvineeth)
-* [**Rareș Pița (@dlphin)**](https://github.com/dlphin)
+* [**Dolphin (@dlphinStudios)**](https://github.com/dlphinStudios)
 
 ### Notes
 *1 Any Windows device running Windows 10 1903 or later. Windows Mobile/Windows Phone is not supported.*
