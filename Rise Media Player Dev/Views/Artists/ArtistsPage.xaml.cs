@@ -148,7 +148,7 @@ namespace Rise.App.Views
 
             await playlist.AddSongsAsync(songs);
         }
-        /*
+        /* Not needed: loads while indexing now
         private async Task SetArtistPictures()
         {
             string image;
@@ -197,6 +197,7 @@ namespace Rise.App.Views
             }
         }
         */
+
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
