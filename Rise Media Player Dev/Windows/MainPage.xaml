@@ -163,7 +163,6 @@
                 x:FieldModifier="public"
                 Canvas.ZIndex="1"
                 LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
-                Loaded="AppTitleBar_Loaded"
                 MinTitleWidth="800"
                 ShowIcon="True" />
 

@@ -133,7 +133,6 @@ namespace Rise.App.Views
             FinishNavigation();
 
             App.MViewModel.CanIndex = true;
-
             if (SViewModel.AutoIndexingEnabled)
             {
                 await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
@@ -141,6 +140,24 @@ namespace Rise.App.Views
 
             await HandleViewModelColorSettingAsync();
             UpdateTitleBarItems(NavView);
+
+            try
+            {
+                PasswordVault vault = new();
+                IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
+                foreach (PasswordCredential passwordCredential in credentials)
+                {
+                    passwordCredential.RetrievePassword();
+                    App.LMViewModel.SessionKey = passwordCredential.Password;
+                    Acc.Text = passwordCredential.UserName;
+                }
+
+                //OnlineServicesPage.Current.AccountMenuText = false;
+            }
+            catch
+            {
+
+            }
 
             Loaded -= MainPage_Loaded;
         }
@@ -759,26 +776,6 @@ namespace Rise.App.Views
 
                     NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
                 }
-            }
-        }
-        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                PasswordVault vault = new();
-                IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
-                foreach (PasswordCredential passwordCredential in credentials)
-                {
-                    passwordCredential.RetrievePassword();
-                    App.LMViewModel.SessionKey = passwordCredential.Password;
-                    Acc.Text = passwordCredential.UserName;
-
-                }
-                //OnlineServicesPage.Current.AccountMenuText = false;
-            }
-            catch
-            {
-
             }
         }
 
