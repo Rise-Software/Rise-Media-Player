@@ -82,14 +82,17 @@ namespace Rise.App.Views
         public string name;
         private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
+
+
             name = ArtistName.Text;
             if (ArtistName.Text == "Unknown Artist")
             {
-                AboutArtist.Visibility = Visibility.Collapsed;
+                ArtistAbout.Visibility = Visibility.Collapsed;
             }
             else
             {
-                AboutArtist.Visibility = Visibility.Visible;
+                ArtistAbout.Visibility = Visibility.Visible;
+                string name = ArtistName.Text;
                 try
                 {
                     string artist = await Task.Run(() => GetArtistInfo(name));
@@ -104,6 +107,7 @@ namespace Rise.App.Views
                     {
                         SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
                     }
+                    ReadMoreAbout.Content = "Read more";
                 }
                 catch { }
             }
@@ -311,7 +315,7 @@ namespace Rise.App.Views
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
             => EventsLogic.UnfocusSong(ref _song, e);
 
-        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+        private void Album_Click(Hyperlink sender, RoutedEventArgs args)
             => EventsLogic.GoToAlbum(sender);
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
@@ -436,6 +440,27 @@ namespace Rise.App.Views
 
             }
         }
+
+        private async void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
+        {
+            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            string artist = await Task.Run(() => GetArtistInfo(name));
+            string currentinfo = AboutArtist.Text.ToString();
+            if (currentinfo == artist)
+            {
+                AboutArtist.Text = AboutArtistBig;
+                ReadMoreAbout.Content = "Read less";
+            }
+            else
+            {
+                AboutArtist.Text = artist;
+                ReadMoreAbout.Content = "Read more";
+            }
+            
+        }
+
+        private void HyperlinkButton_Click_1(Hyperlink sender, RoutedEventArgs e)
+           => EventsLogic.GoToAlbum(sender);
 
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
