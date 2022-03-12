@@ -1,4 +1,5 @@
-﻿using Rise.Common.Extensions;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Rise.App.Views.Albums.Properties
     /// </summary>
     public sealed partial class AlbumPropertiesPage : Page
     {
+        private AlbumViewModel Album;
+        private bool _saveChanges = false;
         private IEnumerable<ToggleButton> Toggles { get; set; }
         public AlbumPropertiesPage()
         {
@@ -36,6 +39,8 @@ namespace Rise.App.Views.Albums.Properties
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Album = e.Parameter as AlbumViewModel;
+
             Details.IsChecked = true;
             base.OnNavigatedTo(e);
         }
@@ -53,11 +58,11 @@ namespace Rise.App.Views.Albums.Properties
             switch (clicked.Tag.ToString())
             {
                 case "DetailsItem":
-                    //_ = PropsFrame.Navigate(typeof(DetailsPage), Props);
+                    _ = PropsFrame.Navigate(typeof(AlbumPropsDetailsPagexaml), Album);
                     break;
 
                 case "FileItem":
-                    //_ = PropsFrame.Navigate(typeof(FilePage), Props);
+                    //_ = PropsFrame.Navigate(typeof(FilePage), Album);
                     break;
 
                 default:
@@ -68,13 +73,20 @@ namespace Rise.App.Views.Albums.Properties
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
-            => _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        {
+            _saveChanges = false;
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-                _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-                return;
+            _saveChanges = true;
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
         }
 
+        private async void PlaylistPropertiesPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
+        {
+            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
     }
 }

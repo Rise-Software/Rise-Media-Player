@@ -262,6 +262,9 @@
     <Compile Include="Views\Albums\Properties\AlbumPropertiesPage.xaml.cs">
       <DependentUpon>AlbumPropertiesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml.cs">
+      <DependentUpon>AlbumPropsDetailsPagexaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
     </Compile>
@@ -693,6 +696,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Albums\Properties\AlbumPropertiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

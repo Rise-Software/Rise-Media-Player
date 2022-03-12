@@ -228,6 +228,9 @@
   <data name="Indexing.Title" xml:space="preserve">
     <value>Adding media to your library</value>
   </data>
+  <data name="Like.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Like</value>
+  </data>
   <data name="MenuBar.Text" xml:space="preserve">
     <value>Menu bar</value>
   </data>
@@ -272,6 +275,9 @@
   </data>
   <data name="Properties.Label" xml:space="preserve">
     <value>Info &amp; Properties</value>
+  </data>
+  <data name="Props.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Song info</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Quick links</value>
