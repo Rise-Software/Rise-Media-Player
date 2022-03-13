@@ -129,4 +129,11 @@
         Offset="0,4,0" />
     <!--#endregion-->
 
+    <!--#region Gradients-->
+    <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="1" Color="#00000000" />
+        <GradientStop Offset="0" Color="#99000000" />
+    </LinearGradientBrush>
+    <!--#endregion-->
+
 </ResourceDictionary>
