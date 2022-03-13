@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -197,17 +198,16 @@ namespace Rise.App.Views
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (!KeyboardHelpers.IsCtrlPressed())
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                if (!KeyboardHelpers.IsCtrlPressed())
                 {
-                    _ = Frame.Navigate(typeof(ArtistSongsPage), artist);
+                    Frame.SetListDataItemForNextConnectedAnimation(artist);
+                    _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+
                     SelectedArtist = null;
                 }
-            }
-            else
-            {
-                if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+                else
                 {
                     SelectedArtist = artist;
                 }
