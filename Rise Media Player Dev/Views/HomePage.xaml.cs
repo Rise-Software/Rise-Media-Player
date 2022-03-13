@@ -1,9 +1,9 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.Web;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Rise.Common
+namespace Rise.Common.Helpers
 {
     /// <summary>
     /// A command whose sole purpose is to relay its functionality 

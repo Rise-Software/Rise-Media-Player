@@ -6,6 +6,7 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Models;
 using System;

@@ -179,8 +179,6 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BindingHelpers.cs" />
-    <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>

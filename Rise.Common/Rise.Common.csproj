@@ -142,8 +142,10 @@
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Extensions\WebHelpers.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Helpers\DependencyPropertyWatcher.cs" />
+    <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />

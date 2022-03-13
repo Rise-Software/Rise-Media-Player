@@ -5,6 +5,7 @@ using Rise.App.ViewModels;
 using Rise.Common;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;

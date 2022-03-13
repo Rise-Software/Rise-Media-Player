@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Rise.Common
+namespace Rise.Common.Helpers
 {
     /// <summary>
     /// Listens to changes to a specified <see cref="DependencyProperty"/>.

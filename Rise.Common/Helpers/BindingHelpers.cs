@@ -1,4 +1,4 @@
-﻿namespace Rise.App.Helpers
+﻿namespace Rise.Common.Helpers
 {
     public static class BindingHelpers
     {

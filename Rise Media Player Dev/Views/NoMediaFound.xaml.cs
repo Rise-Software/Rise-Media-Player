@@ -1,4 +1,4 @@
-﻿using Rise.Common;
+﻿using Rise.Common.Helpers;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;

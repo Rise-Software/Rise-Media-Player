@@ -1,4 +1,4 @@
-﻿using Rise.Common;
+﻿using Rise.Common.Helpers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

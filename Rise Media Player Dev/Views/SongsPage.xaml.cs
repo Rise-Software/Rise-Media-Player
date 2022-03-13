@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using Rise.Common;
+using Rise.Common.Helpers;
 using System;
 using System.Diagnostics;
 using Windows.Storage;
@@ -31,8 +31,8 @@ namespace Rise.App.Views
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
-        private SongViewModel _song;
 
+        private SongViewModel _song;
         private SongViewModel SelectedSong
         {
             get => MViewModel.SelectedSong;

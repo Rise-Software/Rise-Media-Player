@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Rise.Common;
+using Rise.Common.Helpers;
 
 namespace Rise.App.Views
 {

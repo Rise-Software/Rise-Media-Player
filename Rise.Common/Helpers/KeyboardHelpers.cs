@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Core;
 
-namespace Rise.App.Helpers
+namespace Rise.Common.Helpers
 {
     public class KeyboardHelpers
     {

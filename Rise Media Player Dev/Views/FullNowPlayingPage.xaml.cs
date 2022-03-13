@@ -1,5 +1,5 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common;
+using Rise.Common.Helpers;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;

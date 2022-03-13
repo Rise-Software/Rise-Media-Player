@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common.Helpers;
 using System;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
