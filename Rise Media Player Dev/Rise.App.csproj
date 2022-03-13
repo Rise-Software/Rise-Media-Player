@@ -311,8 +311,8 @@
     <Compile Include="Windows\PlaylistPropertiesPage.xaml.cs">
       <DependentUpon>PlaylistPropertiesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\PropertiesPage.xaml.cs">
-      <DependentUpon>PropertiesPage.xaml</DependentUpon>
+    <Compile Include="Windows\SongPropertiesPage.xaml.cs">
+      <DependentUpon>SongPropertiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
       <DependentUpon>SetupDialog.xaml</DependentUpon>
@@ -768,7 +768,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\PropertiesPage.xaml">
+    <Page Include="Windows\SongPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

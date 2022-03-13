@@ -32,7 +32,7 @@ namespace Rise.App.Views
             => _ = await URLs.GitHub.LaunchAsync();
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-            => _ = await typeof(SupportProject).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
+            => _ = await typeof(SupportProject).ShowInApplicationViewAsync(null, 500, 600, true);
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
         {
@@ -105,7 +105,7 @@ namespace Rise.App.Views
         }
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
-            => _ = await typeof(WhatsNew).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
+            => _ = await typeof(WhatsNew).ShowInApplicationViewAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
 
     }
 }

@@ -3,7 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Rise.App.Views.Playlists.Properties
+namespace Rise.App.Views
 {
     public sealed partial class PlaylistSongsPropertiesPage : Page
     {

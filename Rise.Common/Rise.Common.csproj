@@ -128,6 +128,7 @@
     <Compile Include="Constants\URIs.cs" />
     <Compile Include="Constants\SystemMusic.cs" />
     <Compile Include="Constants\URLs.cs" />
+    <Compile Include="Constants\ViewManagement.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Extensions\WebHelpers.cs" />
-    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Extensions\ViewManagementExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Helpers\DependencyPropertyWatcher.cs" />

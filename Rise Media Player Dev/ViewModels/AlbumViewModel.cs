@@ -266,7 +266,7 @@ namespace Rise.App.ViewModels
         public async Task StartEditAsync()
         {
             _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, this);
+                ShowInApplicationViewAsync(this, 380, 550, true);
         }
 
         /// <summary>

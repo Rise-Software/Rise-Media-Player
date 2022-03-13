@@ -1,9 +1,8 @@
 ﻿<Page
-    x:Class="Rise.App.Views.Playlists.Properties.PlaylistSongsPropertiesPage"
+    x:Class="Rise.App.Views.PlaylistSongsPropertiesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Views.Playlists.Properties"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -47,15 +46,38 @@
                                 </Grid.ColumnDefinitions>
 
 
-                                <Button CornerRadius="3" Padding="-2" Margin="-4,0,0,0" x:Name="AlbumImage">
-                                    <Image Source="{x:Bind Thumbnail}" HorizontalAlignment="Left" Height="36" Width="36" VerticalAlignment="Center"/>
+                                <Button
+                                    x:Name="AlbumImage"
+                                    Margin="-4,0,0,0"
+                                    Padding="-2"
+                                    CornerRadius="3">
+                                    <Image
+                                        Width="36"
+                                        Height="36"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Source="{x:Bind Thumbnail}" />
                                 </Button>
                                 <StackPanel>
-                                    <TextBlock Margin="42,0,0,0" VerticalAlignment="Center" Text="{x:Bind Title}" TextWrapping="WrapWholeWords" MaxLines="2" TextTrimming="WordEllipsis"/>
-                                    <TextBlock Margin="42,0,0,0" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Text="{x:Bind Artist}" TextWrapping="WrapWholeWords" MaxLines="2" TextTrimming="WordEllipsis"/>
+                                    <TextBlock
+                                        Margin="42,0,0,0"
+                                        VerticalAlignment="Center"
+                                        MaxLines="2"
+                                        Text="{x:Bind Title}"
+                                        TextTrimming="WordEllipsis"
+                                        TextWrapping="WrapWholeWords" />
+                                    <TextBlock
+                                        Margin="42,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="13"
+                                        FontWeight="SemiBold"
+                                        MaxLines="2"
+                                        Text="{x:Bind Artist}"
+                                        TextTrimming="WordEllipsis"
+                                        TextWrapping="WrapWholeWords" />
                                 </StackPanel>
-                                
-                                
+
+
 
                                 <StackPanel
                                     Grid.Column="1"

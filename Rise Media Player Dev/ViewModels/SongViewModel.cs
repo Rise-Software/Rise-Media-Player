@@ -366,8 +366,8 @@ namespace Rise.App.ViewModels
                     FileProps = await file.GetBasicPropertiesAsync()
                 };
 
-                _ = await typeof(PropertiesPage).
-                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
+                _ = await typeof(SongPropertiesPage).
+                    PlaceInApplicationViewAsync(props, 380, 550, true);
             }
         }
 

@@ -19,6 +19,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
+using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -203,7 +204,8 @@ namespace Rise.App
                             }
 
                             Window.Current.Activate();
-                            _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+                            _ = typeof(CrashDetailsPage).
+                                ShowInApplicationViewAsync(text, 600, 600);
                         }
                         break;
                     }
@@ -321,7 +323,7 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300);
+                ShowInApplicationViewAsync(AppWindowPresentationKind.Default, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.Add(args.Files[0] as StorageFile);
             try

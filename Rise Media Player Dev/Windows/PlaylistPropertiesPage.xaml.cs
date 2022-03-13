@@ -1,5 +1,4 @@
 ﻿using Rise.App.ViewModels;
-using Rise.App.Views.Playlists.Properties;
 using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
@@ -31,10 +30,6 @@ namespace Rise.App.Views
 
             Toggles = ItemGrid.GetChildren<ToggleButton>();
             ApplicationView.GetForCurrentView().Consolidated += PlaylistPropertiesPage_Consolidated;
-            //Loaded += (s, e) =>
-            //{
-            //    _ = new ApplicationTitleBar(TitleBar);
-            //};
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

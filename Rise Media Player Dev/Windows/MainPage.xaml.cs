@@ -161,6 +161,7 @@ namespace Rise.App.Views
                 {
 
                 }
+
                 App.IsLoaded = false;
             }
         }
@@ -187,8 +188,6 @@ namespace Rise.App.Views
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
-                await Task.Delay(2500);
-                AddedTip.IsOpen = false;
 
                 SongsDefer.Dispose();
                 AlbumsDefer.Dispose();
@@ -203,6 +202,9 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredGenres.Refresh();
                 App.MViewModel.FilteredVideos.Refresh();
                 App.MViewModel.FilteredPlaylists.Refresh();
+                
+                await Task.Delay(2500);
+                AddedTip.IsOpen = false;
             });
         }
 
@@ -310,13 +312,14 @@ namespace Rise.App.Views
                     if (_nowPlayingWindow == null)
                     {
                         _nowPlayingWindow = await typeof(NowPlaying).
-                            PlaceInWindowAsync(AppWindowPresentationKind.Default, 320, 300, false);
+                            PlaceInAppWindowAsync(null, 320, 300, true);
                     }
 
                     _nowPlayingWindow.Closed += (s, e) =>
                     {
                         _nowPlayingWindow = null;
                     };
+
                     _ = await _nowPlayingWindow.TryShowAsync();
                     break;
 
@@ -691,26 +694,9 @@ namespace Rise.App.Views
         }
         #endregion
 
-        private async Task<bool> OpenPageAsWindowAsync(Type t)
-        {
-            CoreApplicationView view = CoreApplication.CreateNewView();
-            int id = 0;
-
-            await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                Frame frame = new();
-                _ = frame.Navigate(t, null);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
-                id = ApplicationView.GetForCurrentView().Id;
-            });
-
-            return await ApplicationViewSwitcher.TryShowAsStandaloneAsync(id);
-        }
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
+            _ = await typeof(Web.FeedbackPage).ShowInApplicationViewAsync(null, 375, 600, true);
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
@@ -799,7 +785,7 @@ namespace Rise.App.Views
 
         private async void Support_Click(object sender, RoutedEventArgs e)
         {
-            _ = await OpenPageAsWindowAsync(typeof(Web.SupportProject));
+            _ = await typeof(Web.SupportProject).ShowInApplicationViewAsync();
         }
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)

@@ -11,12 +11,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    public sealed partial class PropertiesPage : Page
+    public sealed partial class SongPropertiesPage : Page
     {
         private SongPropertiesViewModel Props { get; set; }
         private IEnumerable<ToggleButton> Toggles { get; set; }
 
-        public PropertiesPage()
+        public SongPropertiesPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;

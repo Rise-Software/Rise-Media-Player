@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.ViewManagement;
+using Windows.UI.WindowManagement;
 
 namespace Rise.App.ViewModels
 {
@@ -339,7 +339,7 @@ namespace Rise.App.ViewModels
         public async Task StartEditAsync()
         {
             _ = await typeof(PlaylistPropertiesPage).
-                PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, this);
+                ShowInApplicationViewAsync(this, 380, 550, true);
         }
 
         /// <summary>

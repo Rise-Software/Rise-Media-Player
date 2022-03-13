@@ -71,7 +71,8 @@ namespace Rise.App.Settings
 
         private async void FeedbackSettings_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).PlaceInWindowAsync(ApplicationViewMode.Default, 375, 600, true);
+            _ = await typeof(Web.FeedbackPage).
+                ShowInApplicationViewAsync(null, 375, 600, true);
         }
 
         private void Insider_Click(object sender, RoutedEventArgs e)
