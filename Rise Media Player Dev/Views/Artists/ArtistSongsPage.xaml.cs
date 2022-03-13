@@ -26,9 +26,7 @@ namespace Rise.App.Views
     public sealed partial class ArtistSongsPage : Page
     {
         #region Variables
-
         public static ArtistSongsPage Current;
-
 
         XmlDocument xmlDoc = new();
         /// <summary>
@@ -78,7 +76,7 @@ namespace Rise.App.Views
 
             DataContext = this;
             Current = this;
-            
+
             _navigationHelper = new(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
@@ -724,15 +722,14 @@ namespace Rise.App.Views
         private async void CustomisePage_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new ContentDialog();
-            
+
             dialog.Title = "Customise this page";
             dialog.PrimaryButtonText = "Save changes";
             dialog.CloseButtonText = "Cancel";
-            
+
             dialog.DefaultButton = ContentDialogButton.Primary;
             dialog.Content = new Dialogs.LibraryPageEditDialog();
-            
-            Dialogs.LibraryPageEditDialog.Current.LibraryPageChange.Navigate(typeof(Settings.LibraryCustomise.ArtistsCustomisePage));
+
             var result = await dialog.ShowAsync();
         }
     }

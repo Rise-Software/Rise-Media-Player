@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.App.Settings.LibraryCustomise;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,11 +23,10 @@ namespace Rise.App.Dialogs
     /// </summary>
     public sealed partial class LibraryPageEditDialog : Page
     {
-        public static LibraryPageEditDialog Current;
         public LibraryPageEditDialog()
         {
             this.InitializeComponent();
-            Current = this;
+            _ = this.ContentFrame.Navigate(typeof(ArtistsCustomisePage));
         }
     }
 }
