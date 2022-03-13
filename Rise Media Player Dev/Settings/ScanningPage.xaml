@@ -31,15 +31,8 @@
                         Click="ManualScanButton_Click"
                         Content="Scan now" />
                 </uc:ExpanderControl>
-                <uc:ExpanderControl
-                    x:Uid="/MediaLibrary/Automatic"
-                    Margin="0,12,0,0"
-                    ExpanderStyle="Static"
-                    Icon="&#xE094;">
-                    <ToggleSwitch x:Name="AllScanning" IsOn="True" />
-                </uc:ExpanderControl>
 
-                <StackPanel x:Name="ScanningStuff" Visibility="{x:Bind AllScanning.IsOn, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+                <StackPanel x:Name="ScanningStuff">
                     <Border
                         x:Name="PeriodicBorder"
                         Height="120"
@@ -80,7 +73,7 @@
                                         Margin="16,3,0,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        IsEnabled="{x:Bind PeriodicSwitch.IsOn, Mode=OneWay}"
+                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}"
                                         MaxColumns="7"
                                         SelectedIndex="{x:Bind local1:App.SViewModel.IndexingMode}"
                                         SelectionChanged="PeriodicScan_SelectionChanged">
@@ -106,13 +99,13 @@
                         CornerRadius="3"
                         Style="{StaticResource SettingsCard}">
                         <StackPanel Padding="15,8,15,8" Orientation="Vertical">
-
                             <StackPanel>
                                 <uc:ExpanderControl
                                     x:Uid="/MediaLibrary/EventsScan"
                                     VerticalAlignment="Center"
                                     ExpanderStyle="Transparent"
-                                    Icon="&#xF78D;">
+                                    Icon="&#xF78D;"
+                                    IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
                                     <ToggleSwitch
                                         x:Name="EventsSwitch"
                                         IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}"
@@ -131,7 +124,8 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/Open"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
+                                        ExpanderStyle="Transparent"
+                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
                                         <ToggleSwitch x:Name="OpenSwitch" />
                                     </uc:ExpanderControl>
 
@@ -147,7 +141,8 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/DeviceConnect"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
+                                        ExpanderStyle="Transparent"
+                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
                                         <ToggleSwitch x:Name="DeviceSwitch" />
                                     </uc:ExpanderControl>
 
@@ -163,7 +158,8 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/AddLocation"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
+                                        ExpanderStyle="Transparent"
+                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
                                         <ToggleSwitch x:Name="LocationSwitch" />
                                     </uc:ExpanderControl>
 
@@ -179,7 +175,8 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/FilesAdd"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
+                                        ExpanderStyle="Transparent"
+                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
                                         <ToggleSwitch x:Name="FilesAddSwitch" />
                                     </uc:ExpanderControl>
 

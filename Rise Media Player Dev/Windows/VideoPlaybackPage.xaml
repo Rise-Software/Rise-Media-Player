@@ -34,7 +34,7 @@
             x:Name="TopGrid"
             Height="32"
             VerticalAlignment="Top"
-            Background="{StaticResource SystemControlAcrylicElementBrush}"
+            Background="{StaticResource GradientBlackToTransparentBrush}"
             Canvas.ZIndex="1"
             CornerRadius="0"
             PointerEntered="TopGrid_PointerEntered"

@@ -119,47 +119,49 @@ namespace Rise.App.Views
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
-            // Sidebar icons
-            await NavDataSource.PopulateGroupsAsync();
-
-            ChangeIconPack(SViewModel.CurrentPack);
-
-            // Startup setting
-            if (ContentFrame.Content == null)
+            if (App.IsLoaded)
             {
-                await Navigate(SViewModel.Open);
-            }
+                // Sidebar icons
+                await NavDataSource.PopulateGroupsAsync();
 
-            FinishNavigation();
+                ChangeIconPack(SViewModel.CurrentPack);
 
-            App.MViewModel.CanIndex = true;
-            if (SViewModel.AutoIndexingEnabled)
-            {
-                await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-            }
-
-            await HandleViewModelColorSettingAsync();
-            UpdateTitleBarItems(NavView);
-
-            try
-            {
-                PasswordVault vault = new();
-                IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
-                foreach (PasswordCredential passwordCredential in credentials)
+                // Startup setting
+                if (ContentFrame.Content == null)
                 {
-                    passwordCredential.RetrievePassword();
-                    App.LMViewModel.SessionKey = passwordCredential.Password;
-                    Acc.Text = passwordCredential.UserName;
+                    await Navigate(SViewModel.Open);
                 }
 
-                //OnlineServicesPage.Current.AccountMenuText = false;
-            }
-            catch
-            {
+                FinishNavigation();
 
-            }
+                App.MViewModel.CanIndex = true;
+                if (SViewModel.AutoIndexingEnabled)
+                {
+                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+                }
 
-            Loaded -= MainPage_Loaded;
+                await HandleViewModelColorSettingAsync();
+                UpdateTitleBarItems(NavView);
+
+                try
+                {
+                    PasswordVault vault = new();
+                    IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
+                    foreach (PasswordCredential passwordCredential in credentials)
+                    {
+                        passwordCredential.RetrievePassword();
+                        App.LMViewModel.SessionKey = passwordCredential.Password;
+                        Acc.Text = passwordCredential.UserName;
+                    }
+
+                    //OnlineServicesPage.Current.AccountMenuText = false;
+                }
+                catch
+                {
+
+                }
+                App.IsLoaded = false;
+            }
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)

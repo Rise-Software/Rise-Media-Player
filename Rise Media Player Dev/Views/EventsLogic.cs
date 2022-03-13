@@ -60,7 +60,7 @@ namespace Rise.App.Views
             var run = sender.Inlines.FirstOrDefault() as Run;
 
             _ = MainPage.Current.ContentFrame.
-                Navigate(typeof(AlbumSongsPage), run.Text);
+                    Navigate(typeof(AlbumSongsPage), run.Text);
         }
 
         public static void GoToArtist(Hyperlink sender)
@@ -68,7 +68,7 @@ namespace Rise.App.Views
             var run = sender.Inlines.FirstOrDefault() as Run;
 
             _ = MainPage.Current.ContentFrame.
-                Navigate(typeof(ArtistSongsPage), run.Text);
+                    Navigate(typeof(ArtistSongsPage), run.Text);
         }
 
         public static async Task StartMusicPlaybackAsync(int index = 0, bool shuffle = false)
@@ -101,7 +101,7 @@ namespace Rise.App.Views
             if (shuffle)
             {
                 Random rnd = new();
-                index = rnd.Next(0, Songs.Count);
+                index = rnd.Next(0, Videos.Count);
             }
 
             await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);

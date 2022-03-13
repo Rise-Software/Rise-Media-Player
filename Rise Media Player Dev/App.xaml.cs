@@ -32,6 +32,8 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+        public static bool IsLoaded = false;
+
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
 
         public static TimeSpan IndexingInterval
@@ -123,7 +125,7 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            SViewModel = new SettingsViewModel();
+            SViewModel = new();
             switch (SViewModel.Theme)
             {
                 case 0:
@@ -167,25 +169,10 @@ namespace Rise.App
             switch (e.Kind)
             {
                 case ActivationKind.StartupTask:
-                    Frame rootFrame1 = await InitializeWindowAsync(e);
-                    if (rootFrame1.Content == null)
                     {
-                        _ = !SViewModel.SetupCompleted
-                            ? rootFrame1.Navigate(typeof(SetupPage))
-                            : rootFrame1.Navigate(typeof(MainPage));
-                    }
+                        Frame rootFrame = await
+                            InitializeWindowAsync(e.PreviousExecutionState);
 
-                    Window.Current.Activate();
-                    break;
-
-                case ActivationKind.ToastNotification:
-                    if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
-                    {
-                        QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-
-                        string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
-
-                        Frame rootFrame = await InitializeWindowAsync(e);
                         if (rootFrame.Content == null)
                         {
                             _ = !SViewModel.SetupCompleted
@@ -194,9 +181,32 @@ namespace Rise.App
                         }
 
                         Window.Current.Activate();
-                        _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+                        break;
                     }
-                    break;
+
+                case ActivationKind.ToastNotification:
+                    {
+                        if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
+                        {
+                            QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+
+                            string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
+
+                            Frame rootFrame = await
+                                InitializeWindowAsync(e.PreviousExecutionState);
+
+                            if (rootFrame.Content == null)
+                            {
+                                _ = !SViewModel.SetupCompleted
+                                    ? rootFrame.Navigate(typeof(SetupPage))
+                                    : rootFrame.Navigate(typeof(MainPage));
+                            }
+
+                            Window.Current.Activate();
+                            _ = typeof(CrashDetailsPage).PlaceInWindowAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 600, 600, true, text);
+                        }
+                        break;
+                    }
             }
         }
 
@@ -236,7 +246,7 @@ namespace Rise.App
         /// <param name="e">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = await InitializeWindowAsync(e);
+            Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -296,7 +306,7 @@ namespace Rise.App
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
-            Frame rootFrame = await InitializeWindowAsync(args);
+            Frame rootFrame = await InitializeWindowAsync(args.PreviousExecutionState);
             if (rootFrame.Content == null)
             {
                 // When the navigation stack isn't restored navigate to the first page,
@@ -329,18 +339,10 @@ namespace Rise.App
         /// <summary>
         /// Initializes the main app window.
         /// </summary>
-        /// <param name="args">Event args, must be of type
-        /// <see cref="FileActivatedEventArgs"/> or <see cref="LaunchActivatedEventArgs"/>.</param>
+        /// <param name="previousState">Previous app execution state.</param>
         /// <returns>The app window's root frame.</returns>
-        private async Task<Frame> InitializeWindowAsync(dynamic args)
+        private async Task<Frame> InitializeWindowAsync(ApplicationExecutionState previousState)
         {
-#if DEBUG
-            if (Debugger.IsAttached)
-            {
-                // DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (Window.Current.Content is not Frame rootFrame)
@@ -360,8 +362,8 @@ namespace Rise.App
                 // Associate the frame with a SuspensionManager key.
                 SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
-                if ((args.PreviousExecutionState == ApplicationExecutionState.Terminated) ||
-                    (args.PreviousExecutionState == ApplicationExecutionState.ClosedByUser &&
+                if ((previousState == ApplicationExecutionState.Terminated) ||
+                    (previousState == ApplicationExecutionState.ClosedByUser &&
                     SViewModel.PickUp))
                 {
                     // Restore the saved session state only when appropriate.
@@ -392,6 +394,8 @@ namespace Rise.App
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+            IsLoaded = true;
 
             return rootFrame;
         }
