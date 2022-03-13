@@ -51,10 +51,15 @@
                 </muxc:TeachingTip.HeroContent>
             </muxc:TeachingTip>
 
+            <Image
+                                        Opacity="0.05" Margin="-125" Stretch="UniformToFill" 
+                                        Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"/>
+
+
             <StackPanel>
                 <Grid>
-                    <Grid CornerRadius="8" />
-
+                    <Grid CornerRadius="8">
+                    </Grid>
                     <Border
                         Height="230"
                         Margin="0,0,0,16"
@@ -98,10 +103,11 @@
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
                                     <Button
-                                        Padding="-1"
+                                    
+                                    Padding="-1"
                                         CornerRadius="250"
                                         IsHitTestVisible="False">
-                                        <Border animations:Connected.Key="ArtistArt" CornerRadius="77">
+                                        <Border animations:Connected.Key="ArtistArt" CornerRadius="250">
                                             <Image
                                                 Width="175"
                                                 Height="175"
@@ -186,8 +192,9 @@
 
                                             <AppBarButton
                                                 x:Uid="/Information/EditArtist"
-                                                Click="EditButton_Click"
-                                                Icon="Edit"/>
+                                                x:Name="CustomisePage"
+                                                Click="CustomisePage_Click"
+                                                Icon="Edit" />
                                         </CommandBar>
                                     </StackPanel>
                                 </Grid>
@@ -198,7 +205,7 @@
                     </Border>
                 </Grid>
 
-                <Grid ColumnSpacing="12"  x:Name="LastFMClickables">
+                <Grid x:Name="LastFMClickables" ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -206,13 +213,16 @@
 
                     <Border
                         x:Name="TopSongs"
-                        Margin="0,12,0,0"
                         Height="200"
+                        Margin="0,12,0,0"
                         CornerRadius="5"
                         Style="{StaticResource SettingsCard}">
                         <Grid>
                             <StackPanel>
-                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                                <StackPanel
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE734;" />
                                     <TextBlock
                                         Margin="8,0,0,0"
@@ -224,9 +234,16 @@
                                     Margin="-16,12,-16,12"
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-                                
+
                             </StackPanel>
-                            <TextBlock FontSize="28" Opacity="0.6" Margin="0,36,0,0" VerticalAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Coming soon"/>
+                            <TextBlock
+                                Margin="0,36,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="28"
+                                FontWeight="SemiBold"
+                                Opacity="0.6"
+                                Text="Coming soon" />
                         </Grid>
                     </Border>
                     <Border
@@ -251,15 +268,22 @@
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
                             </StackPanel>
-                            <TextBlock FontSize="28" Opacity="0.6" Margin="0,36,0,0" VerticalAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Coming soon"/>
+                            <TextBlock
+                                Margin="0,36,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="28"
+                                FontWeight="SemiBold"
+                                Opacity="0.6"
+                                Text="Coming soon" />
                         </Grid>
                     </Border>
                 </Grid>
 
                 <Border
                     x:Name="Discography"
-                    Margin="0,12,0,0"
                     MaxHeight="50000"
+                    Margin="0,12,0,0"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
                     <Grid>
@@ -269,9 +293,12 @@
                             VerticalAlignment="Top"
                             Background="Transparent"
                             DefaultLabelPosition="Right">
-                            <AppBarButton x:Name="UpDown" Click="UpDown_Click" Label="Collapse">
+                            <AppBarButton
+                                x:Name="UpDown"
+                                Click="UpDown_Click"
+                                Label="Collapse">
                                 <AppBarButton.Icon>
-                                    <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;"/>
+                                    <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;" />
                                 </AppBarButton.Icon>
                             </AppBarButton>
                             <AppBarButton
@@ -363,13 +390,19 @@
                                     Visibility="Collapsed">
                                     <GridView.Resources>
                                         <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
-                                            <MenuFlyoutItem x:Uid="/Information/PlayItem" x:Name="PlayAlbumButton" Click="PlayAlbumButton_Click">
+                                            <MenuFlyoutItem
+                                                x:Name="PlayAlbumButton"
+                                                x:Uid="/Information/PlayItem"
+                                                Click="PlayAlbumButton_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE102;" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutItem x:Uid="/Information/ShuffleAlbum" x:Name="ShuffleAlbumButton" Click="ShuffleAlbumButton_Click">
+                                            <MenuFlyoutItem
+                                                x:Name="ShuffleAlbumButton"
+                                                x:Uid="/Information/ShuffleAlbum"
+                                                Click="ShuffleAlbumButton_Click">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE14B;" />
                                                 </MenuFlyoutItem.Icon>
@@ -387,9 +420,9 @@
                                             </MenuFlyoutSubItem>-->
 
                                             <MenuFlyoutItem
-                                                    x:Name="ShareAlbum"
-                                                    x:Uid="/Information/Share"
-                                                    IsEnabled="False">
+                                                x:Name="ShareAlbum"
+                                                x:Uid="/Information/Share"
+                                                IsEnabled="False">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE72D;" />
                                                 </MenuFlyoutItem.Icon>
@@ -408,9 +441,9 @@
                                             </MenuFlyoutItem>-->
 
                                             <MenuFlyoutItem
-                                                    x:Name="RemoveAlbum"
-                                                    x:Uid="/Information/RemoveThing"
-                                                    IsEnabled="False">
+                                                x:Name="RemoveAlbum"
+                                                x:Uid="/Information/RemoveThing"
+                                                IsEnabled="False">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE107;" />
                                                 </MenuFlyoutItem.Icon>
@@ -418,10 +451,10 @@
 
 
                                             <MenuFlyoutItem
-                                                    x:Name="PropsAlbum"
-                                                    x:Uid="/MediaData/Properties"
-                                                    Click="PropsAlbum_Click"
-                                                    IsEnabled="True">
+                                                x:Name="PropsAlbum"
+                                                x:Uid="/MediaData/Properties"
+                                                Click="PropsAlbum_Click"
+                                                IsEnabled="True">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE104;" />
                                                 </MenuFlyoutItem.Icon>
@@ -580,7 +613,7 @@
                                                         x:Uid="/Information/Play"
                                                         Width="36"
                                                         Height="36"
-                                                        Margin="-2,0,0,0"
+                                                        Margin="-2,0,4,0"
                                                         Padding="0"
                                                         Click="PlayButton_Click"
                                                         Style="{StaticResource TransparentButtonStyle}"
@@ -593,7 +626,7 @@
                                                     Grid.Column="1"
                                                     Width="32"
                                                     Height="32"
-                                                    Margin="-4"
+                                                    Margin="-8"
                                                     Padding="0"
                                                     CornerRadius="7"
                                                     IsHitTestVisible="False">
@@ -615,7 +648,10 @@
                                                     </Border>
                                                 </Button>
 
-                                                <RelativePanel Grid.Column="2" VerticalAlignment="Center">
+                                                <RelativePanel
+                                                    Grid.Column="2"
+                                                    Margin="-8,0,0,0"
+                                                    VerticalAlignment="Center">
                                                     <TextBlock
                                                         x:Name="songtitle"
                                                         MaxLines="2"

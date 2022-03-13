@@ -123,7 +123,7 @@
             </ListView.Resources>
 
             <ListView.Header>
-                <Border Margin="-56,0,-56,24">
+                <Border Margin="0,48,0,24" CornerRadius="8" Style="{StaticResource TransparentCard}">
                     <Grid>
                         <ParallaxView
                             Height="250"
@@ -135,7 +135,7 @@
                                 Stretch="UniformToFill" />
                         </ParallaxView>
                         <Border>
-                            <Grid Padding="60,24,56,24" ColumnSpacing="24">
+                            <Grid Padding="24,24,56,24" ColumnSpacing="24">
                                 <Grid.Background>
                                     <media:BackdropBlurBrush Amount="60" />
                                 </Grid.Background>

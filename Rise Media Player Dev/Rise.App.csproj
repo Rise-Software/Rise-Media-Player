@@ -138,6 +138,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
+      <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
+      <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventsLogic.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -522,6 +528,7 @@
     <Content Include="Assets\Settings\Library.png" />
     <Content Include="Assets\Settings\About.png" />
     <Content Include="Assets\Settings\Language.png" />
+    <Content Include="Assets\Settings\LibraryCustomise\widgettoptrackpreview.png" />
     <Content Include="Assets\Settings\Playback.png" />
     <Content Include="Assets\Settings\Appearance.png" />
     <Content Include="Assets\Settings\Sidebar.png" />
@@ -572,6 +579,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\LibraryPageEditDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -640,6 +651,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\InsiderWallpapers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

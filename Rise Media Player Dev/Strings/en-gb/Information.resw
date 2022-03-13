@@ -205,10 +205,10 @@
     <value>Properties and Info</value>
   </data>
   <data name="EditArtist.Label" xml:space="preserve">
-    <value>Edit artist info</value>
+    <value>Customise this page</value>
   </data>
   <data name="EditArtist.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Edit artist info</value>
+    <value>Customise this page</value>
   </data>
   <data name="EditPlaylist.Label" xml:space="preserve">
     <value>Edit playlist</value>
