@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

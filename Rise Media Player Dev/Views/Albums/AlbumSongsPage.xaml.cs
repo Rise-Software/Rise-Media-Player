@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Common;
 using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

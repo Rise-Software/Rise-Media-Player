@@ -8,7 +8,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Rise.App.Common
+namespace Rise.Common
 {
     /// <summary>
     /// SuspensionManager captures global session state to simplify process lifetime management
@@ -17,7 +17,7 @@ namespace Rise.App.Common
     /// carry across sessions, but that should be discarded when an application crashes or is
     /// upgraded.
     /// </summary>
-    internal sealed class SuspensionManager
+    public sealed class SuspensionManager
     {
         private static Dictionary<string, object> _sessionState = new();
         private static readonly List<Type> _knownTypes = new();

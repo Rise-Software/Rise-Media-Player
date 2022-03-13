@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
-using Rise.App.Views;
 using Rise.Common.Extensions;
 using System;
 using System.Linq;
@@ -9,7 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 
-namespace Rise.App.Common
+namespace Rise.App.Views
 {
     /// <summary>
     /// This contains common logic for event handlers that can

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Common;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -20,6 +19,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Rise.Common;
 
 namespace Rise.App.Views
 {

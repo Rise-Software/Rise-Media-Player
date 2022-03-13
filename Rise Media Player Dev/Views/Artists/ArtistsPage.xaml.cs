@@ -1,15 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
-using Rise.Common.Constants;
+using Rise.Common;
 using Rise.Common.Extensions;
-using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;

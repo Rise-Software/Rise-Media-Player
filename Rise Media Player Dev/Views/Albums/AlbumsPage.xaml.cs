@@ -1,13 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Microsoft.UI.Xaml.Controls;
-using Rise.App.Common;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
+using Rise.Common;
 using System;
 using System.Collections.Generic;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
+using Rise.Common;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

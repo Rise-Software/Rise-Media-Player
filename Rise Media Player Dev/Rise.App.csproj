@@ -138,11 +138,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
-    <Compile Include="Common\CompositionControl.cs" />
-    <Compile Include="Common\DependencyPropertyWatcher.cs" />
-    <Compile Include="Common\EventsLogic.cs" />
-    <Compile Include="Common\NavigationHelper.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Views\EventsLogic.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
@@ -195,11 +191,9 @@
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
       <DependentUpon>SongTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Rise\App\Views\Properties.cs" />
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>

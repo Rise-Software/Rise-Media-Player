@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.Settings;
+﻿using Rise.App.Settings;
+using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Windows.UI.Xaml;

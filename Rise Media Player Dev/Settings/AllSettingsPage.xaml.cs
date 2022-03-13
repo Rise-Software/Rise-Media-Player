@@ -1,5 +1,5 @@
-﻿using Rise.App.Common;
-using Rise.App.Views;
+﻿using Rise.App.Views;
+using Rise.Common;
 using Rise.Common.Extensions;
 using System;
 using System.Linq;

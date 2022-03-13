@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Common;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;

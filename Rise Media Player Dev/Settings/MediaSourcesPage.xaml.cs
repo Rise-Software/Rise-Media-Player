@@ -1,4 +1,4 @@
-﻿using Rise.App.Common;
+﻿using Rise.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,8 +11,8 @@ namespace Rise.App.Settings
     /// </summary>
     public sealed partial class MediaSourcesPage : Page
     {
-
         private readonly NavigationHelper _navigationHelper;
+
         public MediaSourcesPage()
         {
             this.InitializeComponent();
