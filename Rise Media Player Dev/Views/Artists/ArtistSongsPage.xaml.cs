@@ -175,7 +175,7 @@ namespace Rise.App.Views
         {
             try
             {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key + "&autocorrect=1";
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);
