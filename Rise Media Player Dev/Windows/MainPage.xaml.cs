@@ -183,10 +183,12 @@ namespace Rise.App.Views
 
         private async void MViewModel_IndexingFinished(object sender, IndexingFinishedEventArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
+                await Task.Delay(2500);
+                AddedTip.IsOpen = false;
 
                 SongsDefer.Dispose();
                 AlbumsDefer.Dispose();

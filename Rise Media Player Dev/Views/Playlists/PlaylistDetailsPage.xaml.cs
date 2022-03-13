@@ -124,5 +124,14 @@ namespace Rise.App.Views
             await plViewModel.DeleteAsync();
             this.Frame.GoBack();
         }
+
+        private void RemovefromPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                Debug.WriteLine(plViewModel.Songs.Remove(SelectedSong));
+            }
+        }
     }
 }
