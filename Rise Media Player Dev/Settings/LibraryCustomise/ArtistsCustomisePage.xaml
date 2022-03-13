@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="Rise.App.Settings.LibraryCustomise.ArtistsCustomisePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rise.App.Settings.LibraryCustomise"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <Border Style="{StaticResource SettingsCard}">
+                <StackPanel Orientation="Horizontal">
+                    <Image MaxHeight="64" Source="ms-appx:///Assets/Settings/LibraryCustomise/widgettoptrackpreview.png"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="8,0,0,0" FontSize="16" FontWeight="SemiBold" Text="Top Tracks"/>
+                        <TextBlock Margin="8,0,0,0" FontSize="14" FontWeight="Normal" Width="300" Text="Show the trending and most popular tracks from your artist from across the world." TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

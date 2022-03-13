@@ -249,8 +249,8 @@
                                     Stretch="UniformToFill">
                                     <Image.Source>
                                         <BitmapImage
-                                            DecodePixelHeight="80"
-                                            DecodePixelWidth="80"
+                                            DecodePixelHeight="500"
+                                            DecodePixelWidth="500"
                                             UriSource="{x:Bind Picture}" />
                                     </Image.Source>
                                 </Image>

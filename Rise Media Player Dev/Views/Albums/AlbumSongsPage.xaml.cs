@@ -238,7 +238,6 @@ namespace Rise.App.Views
 
         private async void LikeAlbum_Checked(object sender, RoutedEventArgs e)
         {
-            LikeIcon.Glyph = "\uE00B";
 
             List<SongViewModel> songs = new();
             PlaylistViewModel playlist = null;
@@ -277,7 +276,6 @@ namespace Rise.App.Views
 
         private async void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
         {
-            LikeIcon.Glyph = "\uE006";
 
             List<SongViewModel> songs = new();
 

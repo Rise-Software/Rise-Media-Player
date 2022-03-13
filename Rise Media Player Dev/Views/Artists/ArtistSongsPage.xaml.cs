@@ -94,16 +94,21 @@ namespace Rise.App.Views
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
+                NoListeners.Visibility = Visibility.Collapsed;
             }
             else if (isNetworkConnected == false)
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
+                NoListeners.Visibility = Visibility.Collapsed;
+
             }
             else
             {
                 ArtistAbout.Visibility = Visibility.Visible;
                 LastFMClickables.Visibility = Visibility.Visible;
+                NoListeners.Visibility = Visibility.Visible;
+
                 string name = ArtistName.Text;
                 try
                 {
@@ -687,30 +692,16 @@ namespace Rise.App.Views
             }
         }
 
-        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        private async void CustomisePage_Click(object sender, RoutedEventArgs e)
         {
-            //string name = ArtistName.Text;
-            //string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
-            //ContentDialog aboutArtist = new ContentDialog();
-            //    aboutArtist.Content = new Dialogs.AboutArtist(AboutArtistBig);
-            //aboutArtist.CloseButtonText = "Close";
-            //await aboutArtist.ShowAsync();
-            string name = ArtistName.Text;
-            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
-            ContentDialog aboutArtist = new()
-            {
-                Title = name,
-                Content = new ScrollViewer()
-                {
-                    Content = new TextBlock()
-                    {
-                        Text = AboutArtistBig,
-                        TextWrapping = TextWrapping.WrapWholeWords
-                    },
-                },
-                CloseButtonText = "Close"
-            };
-            await aboutArtist.ShowAsync();
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "Customise this page";
+            dialog.PrimaryButtonText = "Save changes";
+            dialog.CloseButtonText = "Cancel";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = new Dialogs.LibraryPageEditDialog();
+            Dialogs.LibraryPageEditDialog.Current.LibraryPageChange.Navigate(typeof(Settings.LibraryCustomise.ArtistsCustomisePage));
+            var result = await dialog.ShowAsync();
         }
     }
 }
