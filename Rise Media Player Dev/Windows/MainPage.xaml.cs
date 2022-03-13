@@ -39,9 +39,9 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private AdvancedCollectionView Albums = App.MViewModel.FilteredAlbums;
-        private AdvancedCollectionView Songs = App.MViewModel.FilteredSongs;
-        private AdvancedCollectionView Artists = App.MViewModel.FilteredArtists;
+        private AdvancedCollectionView Albums => App.MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
+        private AdvancedCollectionView Artists => App.MViewModel.FilteredArtists;
 
         private bool IsInPageWithoutHeader = false;
 
