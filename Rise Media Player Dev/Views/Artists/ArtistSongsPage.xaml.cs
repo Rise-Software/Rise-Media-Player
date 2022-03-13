@@ -1,15 +1,16 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Net;
-using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 using System.Xml;
 using Windows.Storage;
 using Windows.System;
@@ -19,7 +20,6 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Rise.Common.Helpers;
 
 namespace Rise.App.Views
 {
@@ -67,8 +67,8 @@ namespace Rise.App.Views
 
         private string SortProperty = "Title";
         private string SortName = "Title";
+
         private SortDirection CurrentSort = SortDirection.Ascending;
-        private bool SongsVisible = false, AlbumsVisible = true;
         #endregion
 
         public ArtistSongsPage()
@@ -78,12 +78,15 @@ namespace Rise.App.Views
 
             DataContext = this;
             Current = this;
+            
             _navigationHelper = new(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
+
             Loaded += ArtistSongsPage_Loaded;
         }
 
-        private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
+        private void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
             SortName = "Title";
             SortButton.Label = "Sort by: " + SortName;
@@ -138,7 +141,8 @@ namespace Rise.App.Views
                 node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
                 string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
                 return okay;
-            } catch
+            }
+            catch
             {
 
             }
@@ -163,7 +167,8 @@ namespace Rise.App.Views
                 xmlDoc.LoadXml(xmlStr);
                 XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
                 return node != null ? textInfo.ToTitleCase(node.InnerText) : "Unknown Genre";
-            } catch
+            }
+            catch
             {
 
             }
@@ -185,7 +190,8 @@ namespace Rise.App.Views
                 node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
                 string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
                 return okay;
-            } catch
+            }
+            catch
             {
 
             }
@@ -221,7 +227,8 @@ namespace Rise.App.Views
                 XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
                 long num = long.Parse(node.InnerText);
                 return $"{FormatNumber(num)} listeners.";
-            } catch
+            }
+            catch
             {
 
             }
@@ -251,13 +258,14 @@ namespace Rise.App.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-
-            if (e.NavigationParameter is ArtistViewModel artist)
+            if (e.NavigationParameter is Guid id)
             {
-                SelectedArtist = artist;
-                Songs.Filter = s => ((SongViewModel)s).Artist == artist.Name;
+                SelectedArtist = App.MViewModel.Artists.
+                    FirstOrDefault(a => a.Model.Id == id);
 
-                Albums.Filter = a => ((AlbumViewModel)a).Artist == artist.Name;
+                Songs.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name;
+                Albums.Filter = a => ((AlbumViewModel)a).Artist == SelectedArtist.Name;
+
                 Albums.SortDescriptions.Clear();
                 Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
             }
@@ -271,6 +279,11 @@ namespace Rise.App.Views
 
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            Frame.SetListDataItemForNextConnectedAnimation(SelectedArtist);
         }
 
         #region Event handlers
@@ -428,6 +441,10 @@ namespace Rise.App.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedTo(e);
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
+
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (SongsItem.IsSelected)
@@ -442,9 +459,6 @@ namespace Rise.App.Views
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
         private void Root_Loaded(object sender, RoutedEventArgs e)
         {
             AddToCommand.Items.Clear();
@@ -589,7 +603,7 @@ namespace Rise.App.Views
             }
         }
 
-        private async void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
+        private void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
         {
             string AboutArtistBig = GetArtistInfoBig(SelectedArtist.Name);
             string artist = GetArtistInfo(SelectedArtist.Name);
@@ -665,7 +679,7 @@ namespace Rise.App.Views
 
         private async void ShuffleAlbumButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Songs.Filter = null;
             if (SelectedAlbum != null)
             {

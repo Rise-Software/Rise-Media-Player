@@ -318,7 +318,7 @@ namespace Rise.App.Views
         {
             if ((e?.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
             }
         }
 

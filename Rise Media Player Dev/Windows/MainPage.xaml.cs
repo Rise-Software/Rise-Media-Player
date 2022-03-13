@@ -819,7 +819,7 @@ namespace Rise.App.Views
 
                 case "Artist":
                     ArtistViewModel artist = App.MViewModel.Artists.FirstOrDefault(a => a.Name.Equals(searchItem.Title));
-                    ContentFrame.Navigate(typeof(ArtistSongsPage), artist);
+                    ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
                     break;
             }
         }
