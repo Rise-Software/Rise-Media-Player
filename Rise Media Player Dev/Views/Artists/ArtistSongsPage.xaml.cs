@@ -78,24 +78,24 @@ namespace Rise.App.Views
 
             DataContext = this;
             Current = this;
-            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper = new(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             Loaded += ArtistSongsPage_Loaded;
         }
-        public string name;
+
         private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
             SortName = "Title";
             SortButton.Label = "Sort by: " + SortName;
-            name = ArtistName.Text;
+            string name = SelectedArtist.Name;
             bool isNetworkConnected = NetworkInterface.GetIsNetworkAvailable();
 
-            if (ArtistName.Text == "Unknown Artist")
+            if (name == "Unknown Artist")
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
             }
-            else if (isNetworkConnected == false)
+            else if (!isNetworkConnected)
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
@@ -104,27 +104,15 @@ namespace Rise.App.Views
             {
                 ArtistAbout.Visibility = Visibility.Visible;
                 LastFMClickables.Visibility = Visibility.Visible;
-                string name = ArtistName.Text;
                 try
                 {
-                    string artist = await Task.Run(() => GetArtistInfo(name));
-                    if (AboutArtist.Text == artist) { }
-                    else
-                    {
-                        AboutArtist.Text = artist;
-                    }
-                    string genre = await Task.Run(() => GetGenre(name));
+                    string genre = GetGenre(name);
                     if (SongAlbums.Text.Contains(genre)) { }
                     else
                     {
                         SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
                     }
-                    string listeners = await Task.Run(() => GetMonthlyListeners(name));
-                    if (NoListeners.Text == listeners) { }
-                    else
-                    {
-                        NoListeners.Text = listeners;
-                    }
+
                     ReadMoreAbout.Content = "Read more";
                 }
                 catch { }
@@ -135,19 +123,27 @@ namespace Rise.App.Views
           /// </summary>
           /// <param name="artist">Artist name.</param>
           /// <returns></returns>
-        public Task<string> GetArtistInfo(string artist)
+        public string GetArtistInfo(string artist)
         {
-            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+            try
+            {
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
 
-            string url = node.InnerText;
-            node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
-            string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
-            return Task.FromResult(okay);
+                string url = node.InnerText;
+                node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
+                string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
+                return okay;
+            } catch
+            {
+
+            }
+
+            return "No artist info";
         }
 
         /// <summary>
@@ -157,30 +153,47 @@ namespace Rise.App.Views
         /// <returns></returns>
         public string GetGenre(string artist)
         {
-            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
-            return node != null ? textInfo.ToTitleCase(node.InnerText) : "Unknown Genre";
+            try
+            {
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
+                return node != null ? textInfo.ToTitleCase(node.InnerText) : "Unknown Genre";
+            } catch
+            {
+
+            }
+
+            return "Unknown Genre";
         }
 
-        public Task<string> GetArtistInfoBig(string artist)
+        public string GetArtistInfoBig(string artist)
         {
-            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
-            string url = node.InnerText;
-            node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
-            string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
-            return Task.FromResult(okay);
+            try
+            {
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+                string url = node.InnerText;
+                node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
+                string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+                return okay;
+            } catch
+            {
+
+            }
+
+            return "No artist info";
         }
-        private static string FormatNumber(long num)
+
+        private string FormatNumber(long num)
         {
             // Ensure number has max 3 significant digits (no rounding up can happen)
             long i = (long)Math.Pow(10, (int)Math.Max(0, Math.Log10(num) - 2));
@@ -196,16 +209,24 @@ namespace Rise.App.Views
             return num.ToString("#,0");
         }
 
-        public Task<string> GetMonthlyListeners(string artist)
+        public string GetMonthlyListeners(string artist)
         {
-            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            xmlDoc.LoadXml(xmlStr);
-            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
-            long yes = long.Parse(node.InnerText);
-            return Task.FromResult(FormatNumber(yes).ToString() + " Listeners");
+            try
+            {
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
+                long num = long.Parse(node.InnerText);
+                return $"{FormatNumber(num)} listeners.";
+            } catch
+            {
+
+            }
+
+            return "";
         }
 
         private static readonly DependencyProperty SelectedAlbumProperty =
@@ -570,8 +591,8 @@ namespace Rise.App.Views
 
         private async void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
         {
-            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
-            string artist = await Task.Run(() => GetArtistInfo(name));
+            string AboutArtistBig = GetArtistInfoBig(SelectedArtist.Name);
+            string artist = GetArtistInfo(SelectedArtist.Name);
             string currentinfo = AboutArtist.Text.ToString();
             if (currentinfo == artist)
             {
@@ -583,7 +604,6 @@ namespace Rise.App.Views
                 AboutArtist.Text = artist;
                 ReadMoreAbout.Content = "Read more";
             }
-            
         }
 
         private async void CommandItem_Click(object sender, RoutedEventArgs e)
@@ -696,7 +716,7 @@ namespace Rise.App.Views
             //aboutArtist.CloseButtonText = "Close";
             //await aboutArtist.ShowAsync();
             string name = ArtistName.Text;
-            string AboutArtistBig = await Task.Run(() => GetArtistInfoBig(name));
+            string AboutArtistBig = GetArtistInfoBig(name);
             ContentDialog aboutArtist = new()
             {
                 Title = name,

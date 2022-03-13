@@ -141,7 +141,7 @@
                                                         FontWeight="Bold"
                                                         Opacity="0.6"
                                                         Style="{StaticResource BodyTextBlockStyle}"
-                                                        Text="" />
+                                                        Text="{x:Bind GetMonthlyListeners(SelectedArtist.Name), Mode=OneWay}" />
 
                                                 </StackPanel>
 
@@ -696,7 +696,8 @@
                             <TextBlock
                                 x:Name="AboutArtist"
                                 Margin="0,0,0,8"
-                                TextWrapping="WrapWholeWords" />
+                                TextWrapping="WrapWholeWords"
+                                Text="{x:Bind GetArtistInfo(SelectedArtist.Name), Mode=OneWay}"/>
                             <HyperlinkButton
                                 x:Name="ReadMoreAbout"
                                 Padding="0"

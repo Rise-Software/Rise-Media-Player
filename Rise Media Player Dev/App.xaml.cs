@@ -32,6 +32,8 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+        public static bool IsLoaded = false;
+
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
 
         public static TimeSpan IndexingInterval
@@ -123,7 +125,7 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            SViewModel = new SettingsViewModel();
+            SViewModel = new();
             switch (SViewModel.Theme)
             {
                 case 0:
@@ -392,6 +394,8 @@ namespace Rise.App
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+            IsLoaded = true;
 
             return rootFrame;
         }
