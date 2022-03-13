@@ -261,6 +261,11 @@
                                 x:Name="OpenSync"
                                 Height="24"
                                 Glyph="&#xE117;" />
+                            <FontIcon
+                                x:Name="ScanDone"
+                                Height="24"
+                                Glyph="&#xE001;" />
+
                             <muxc:ProgressRing
                                 x:Name="IsScanning"
                                 Width="20"
@@ -320,6 +325,9 @@
                                 Click="Account_Click"
                                 FontSize="14"
                                 FontWeight="SemiBold">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
+                                </MenuFlyoutItem.Icon>
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
                                 </MenuFlyoutItem.Background>
@@ -462,6 +470,7 @@
             x:Name="AddedTip"
             Title="Updated your library."
             x:FieldModifier="public"
+            IsLightDismissEnabled="True"
             ActionButtonClick="AddedTip_ActionButtonClick"
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"

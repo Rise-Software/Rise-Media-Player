@@ -357,7 +357,7 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 Click="RestoreVideoButton_Click"
-                CornerRadius="8"
+                CornerRadius="5"
                 PointerEntered="GoToNowPlaying_PointerEntered"
                 PointerExited="GoToNowPlaying_PointerExited"
                 RightTapped="GoToNowPlaying_RightTapped">

@@ -112,6 +112,15 @@ namespace Rise.App.Views
             DiscyOnSong.IsOpen = true;
         }
 
+        private async void PropsHover_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                await SelectedSong.StartEditAsync();
+            }
+        }
+
         private void FindAlbumsByArtist(string artist)
         {
             if (Albums.Count > 0)
@@ -132,13 +141,13 @@ namespace Rise.App.Views
                 finally
                 {
                     AlbumsByArtist.SortDescriptions.Clear();
-                    AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+                    AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
                     AlbumsByArtist.Refresh();
                 }
             }
             else
             {
-                HasMoreAlbumsByArtist = false;
+                
             }
         }
 
@@ -307,6 +316,14 @@ namespace Rise.App.Views
         private void Root_Loaded(object sender, RoutedEventArgs e)
         {
             AddTo.Items.Clear();
+            if (Albums.Count > 0)
+            {
+                IfAlbumHasMore.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                IfAlbumHasMore.Visibility = Visibility.Collapsed;
+            }
 
             MenuFlyoutItem newPlaylistItem = new()
             {

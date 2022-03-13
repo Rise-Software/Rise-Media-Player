@@ -123,7 +123,10 @@
             </ListView.Resources>
 
             <ListView.Header>
-                <Border Margin="0,48,0,24" CornerRadius="8" Style="{StaticResource TransparentCard}">
+                <Border
+                    Margin="0,48,0,24"
+                    CornerRadius="8"
+                    Style="{StaticResource TransparentCard}">
                     <Grid>
                         <ParallaxView
                             Height="250"
@@ -339,107 +342,209 @@
                         PointerExited="Grid_PointerExited">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="32" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock
-                            Width="24"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            Text="{x:Bind Track}"
-                            TextAlignment="Right"
-                            Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse, Mode=OneWay}" />
-
-
-
-                        <Button
-                            x:Uid="/Information/Play"
-                            Width="32"
-                            Height="32"
-                            Padding="0"
-                            Click="PlayButton_Click"
-                            Style="{StaticResource TransparentButtonStyle}"
-                            Visibility="{x:Bind IsFocused, Mode=OneWay}">
-                            <FontIcon FontSize="16" Glyph="&#xE102;" />
-                        </Button>
-
-                        <StackPanel Grid.Column="1" Orientation="Vertical">
-                            <TextBlock Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock>
-                                    <Hyperlink Click="Artist_Click" UnderlineStyle="None">
-                                        <Run Text="{x:Bind Artist}" />
-                                    </Hyperlink>
-                                </TextBlock>
-
-                                <Rectangle Grid.Column="1" />
-                            </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                x:Uid="/Information/Play"
+                                Width="36"
+                                Height="36"
+                                Margin="-2,0,-20,0"
+                                Padding="0"
+                                Click="PlayButton_Click"
+                                Style="{StaticResource TransparentButtonStyle}"
+                                Visibility="{x:Bind IsFocused, Mode=OneWay}">
+                                <FontIcon FontSize="16" Glyph="&#xE102;" />
+                            </Button>
                         </StackPanel>
 
                         <TextBlock
-                            Grid.Column="2"
+                            x:Name="tracknumber"
+                            Grid.Column="1"
+                            Width="24"
+                            Margin="-32,0,0,0"
+                            Padding="0"
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
-                            x:Phase="1"
-                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
+                            Text="{x:Bind Track}"
+                            TextAlignment="Center"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="WrapWholeWords"
+                            Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse, Mode=OneWay}" />
+
+                        <RelativePanel
+                            Grid.Column="2"
+                            Margin="-16,0,0,0"
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                x:Name="songtitle"
+                                MaxLines="2"
+                                Text="{x:Bind Title}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="WrapWholeWords" />
+                            <TextBlock
+                                Margin="16,0,0,0"
+                                RelativePanel.RightOf="songtitle"
+                                TextTrimming="CharacterEllipsis">
+                                <Hyperlink
+                                    Click="Artist_Click"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    UnderlineStyle="None">
+                                    <Run Text="{x:Bind Artist, Mode=OneWay}" />
+                                </Hyperlink>
+                            </TextBlock>
+
+
+                        </RelativePanel>
+                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                            <Button
+                                x:Name="PropsHover"
+                                x:Uid="/Information/Props"
+                                Width="36"
+                                Height="36"
+                                Padding="0"
+                                Click="PropsHover_Click"
+                                Style="{StaticResource TransparentButtonStyle}"
+                                Visibility="{x:Bind IsFocused, Mode=OneWay}">
+                                <FontIcon FontSize="16" Glyph="&#xE104;" />
+                            </Button>
+                            <Button
+                                x:Uid="/Information/Like"
+                                Width="36"
+                                Height="36"
+                                Padding="0"
+                                Style="{StaticResource TransparentButtonStyle}"
+                                Visibility="{x:Bind IsFocused, Mode=OneWay}">
+                                <FontIcon FontSize="16" Glyph="&#xE006;" />
+                            </Button>
+                            <TextBlock
+                                Margin="12"
+                                VerticalAlignment="Center"
+                                Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
+                                Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                        </StackPanel>
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
+
+
             <ListView.Footer>
-                <Grid Visibility="{x:Bind HasMoreAlbumsByArtist, Mode=OneWay}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Padding="10,60,20,10"
-                        FontSize="16"
-                        Style="{StaticResource SubheaderTextBlockStyle}"
-                        Text="More albums by this artist" />
-                    <GridView
-                        Grid.Row="1"
-                        ItemsSource="{x:Bind AlbumsByArtist}"
-                        SelectionMode="Single"
-                        Tapped="GridView_Tapped">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="viewmodels:AlbumViewModel">
-                                <StackPanel
-                                    Width="134"
-                                    Margin="12"
-                                    Orientation="Vertical"
-                                    Spacing="2">
-                                    <Border x:Name="ItemThumbnail" CornerRadius="4">
-                                        <Image
-                                            Width="134"
-                                            Height="134"
-                                            Stretch="UniformToFill">
-                                            <Image.Source>
-                                                <BitmapImage
-                                                    DecodePixelHeight="134"
-                                                    DecodePixelWidth="134"
-                                                    UriSource="{x:Bind Thumbnail}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </Border>
-
+                <Grid x:Name="IfAlbumHasMore" ColumnSpacing="12" Margin="0,12,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        x:Name="MoreAlbumsByArtist"
+                        Width="auto"
+                        Height="auto"
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Stretch"
+                        CornerRadius="5"
+                        Style="{StaticResource SettingsCard}">
+                        <Grid>
+                            <StackPanel>
+                                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xE93C;" />
                                     <TextBlock
-                                        Padding="0,7,0,0"
-                                        MaxLines="1"
-                                        Style="{StaticResource BaseTextBlockStyle}"
-                                        Text="{x:Bind Title}"
-                                        TextWrapping="Wrap" />
+                                        Margin="8,0,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="More albums by this artist" />
                                 </StackPanel>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                                <Rectangle
+                                    Height="1"
+                                    Margin="-16,12,-16,12"
+                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+
+                            </StackPanel>
+                            <GridView
+                                Margin="0,48,0,-8"
+                                Grid.Row="1"
+                                ItemsSource="{x:Bind AlbumsByArtist}"
+                                SelectionMode="Single"
+                                Tapped="GridView_Tapped">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="viewmodels:AlbumViewModel">
+                                        <StackPanel
+                                            Width="134"
+                                            Margin="12"
+                                            Orientation="Vertical"
+                                            Spacing="2">
+                                            <Border x:Name="ItemThumbnail" CornerRadius="4">
+                                                <Image
+                                                    Width="134"
+                                                    Height="134"
+                                                    Stretch="UniformToFill">
+                                                    <Image.Source>
+                                                        <BitmapImage
+                                                            DecodePixelHeight="134"
+                                                            DecodePixelWidth="134"
+                                                            UriSource="{x:Bind Thumbnail}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </Border>
+
+                                            <TextBlock
+                                                    Padding="0,7,0,0"
+                                                    MaxLines="1"
+                                                    Style="{StaticResource BaseTextBlockStyle}"
+                                                    Text="{x:Bind Title}"
+                                                    TextWrapping="Wrap" />
+                                            <TextBlock
+                                                    Padding="0,0,0,0"
+                                                    MaxLines="1"
+                                                    Text="{x:Bind Year}"
+                                                    TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        x:Name="RelatedAlbums"
+                        Grid.Column="1"
+                        Width="auto"
+                        Margin="0,12,0,0"
+                        Height="150"
+                        HorizontalAlignment="Stretch"
+                        CornerRadius="5"
+                        Style="{StaticResource SettingsCard}">
+                        <Grid>
+                            <StackPanel>
+                                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+                                    <FontIcon Glyph="" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="You might like these" />
+                                </StackPanel>
+                                <Rectangle
+                                    Height="1"
+                                    Margin="-16,12,-16,12"
+                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                                <TextBlock
+                                Margin="0,16,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="28"
+                                FontWeight="SemiBold"
+                                Opacity="0.6"
+                                Text="Coming soon" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    
+
                 </Grid>
             </ListView.Footer>
         </ListView>
