@@ -141,7 +141,7 @@
                                                         FontWeight="Bold"
                                                         Opacity="0.6"
                                                         Style="{StaticResource BodyTextBlockStyle}"
-                                                        Text="4.5M monthly listeners (Placeholder)" />
+                                                        Text="" />
 
                                                 </StackPanel>
 

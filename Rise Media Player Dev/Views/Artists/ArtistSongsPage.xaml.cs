@@ -119,6 +119,12 @@ namespace Rise.App.Views
                     {
                         SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
                     }
+                    string listeners = await Task.Run(() => GetMonthlyListeners(name));
+                    if (NoListeners.Text == listeners) { }
+                    else
+                    {
+                        NoListeners.Text = listeners;
+                    }
                     ReadMoreAbout.Content = "Read more";
                 }
                 catch { }
@@ -158,12 +164,9 @@ namespace Rise.App.Views
             xmlStr = wc.DownloadString(m_strFilePath);
             xmlDoc.LoadXml(xmlStr);
             XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
-            if (node != null)
-            {
-                return textInfo.ToTitleCase(node.InnerText);
-            }
-            return "Unknown Genre";
+            return node != null ? textInfo.ToTitleCase(node.InnerText) : "Unknown Genre";
         }
+
         public Task<string> GetArtistInfoBig(string artist)
         {
             string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
@@ -176,6 +179,33 @@ namespace Rise.App.Views
             node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
             string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
             return Task.FromResult(okay);
+        }
+        private static string FormatNumber(long num)
+        {
+            // Ensure number has max 3 significant digits (no rounding up can happen)
+            long i = (long)Math.Pow(10, (int)Math.Max(0, Math.Log10(num) - 2));
+            num = num / i * i;
+
+            if (num >= 1000000000)
+                return (num / 1000000000D).ToString("0.##") + "B";
+            if (num >= 1000000)
+                return (num / 1000000D).ToString("0.##") + "M";
+            if (num >= 1000)
+                return (num / 1000D).ToString("0.##") + "K";
+
+            return num.ToString("#,0");
+        }
+
+        public Task<string> GetMonthlyListeners(string artist)
+        {
+            string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            xmlDoc.LoadXml(xmlStr);
+            XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
+            long yes = long.Parse(node.InnerText);
+            return Task.FromResult(FormatNumber(yes).ToString() + " Listeners");
         }
 
         private static readonly DependencyProperty SelectedAlbumProperty =
