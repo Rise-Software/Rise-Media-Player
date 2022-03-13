@@ -152,6 +152,7 @@ namespace Rise.App.Views
                         passwordCredential.RetrievePassword();
                         App.LMViewModel.SessionKey = passwordCredential.Password;
                         Acc.Text = passwordCredential.UserName;
+                        AccountPic.Glyph = "\uE13D";
                     }
 
                     //OnlineServicesPage.Current.AccountMenuText = false;

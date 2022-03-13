@@ -320,6 +320,9 @@
                                 Click="Account_Click"
                                 FontSize="14"
                                 FontWeight="SemiBold">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
+                                </MenuFlyoutItem.Icon>
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
                                 </MenuFlyoutItem.Background>

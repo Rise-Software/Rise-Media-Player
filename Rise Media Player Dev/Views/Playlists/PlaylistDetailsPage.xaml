@@ -27,14 +27,14 @@
                     x:Uid="/Information/RemovePlaylist"
                     Click="Remove_Click">
                     <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE107;" />
+                        <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
             </MenuFlyout>
         </ListView.Resources>
 
         <ListView.Header>
-            <Border Margin="-56,0,-56,12" Padding="0,0,0,10">
+            <Border Margin="0,56,0,12" Padding="0,0,0,0" CornerRadius="8">
                 <Grid Height="200">
                     <ParallaxView Source="{x:Bind MainList}" VerticalShift="300">
                         <Image
@@ -43,7 +43,7 @@
                             Stretch="UniformToFill" />
                     </ParallaxView>
                     <Border>
-                        <Grid Padding="56,24,56,24" ColumnSpacing="24">
+                        <Grid Padding="24,24,56,24" ColumnSpacing="24">
                             <Grid.Background>
                                 <media:BackdropBlurBrush Amount="60" />
                             </Grid.Background>
@@ -155,7 +155,6 @@
                 </Grid>
             </Border>
         </ListView.Header>
-
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="viewmodels:SongViewModel">
                 <Grid
@@ -175,9 +174,9 @@
                     <StackPanel Orientation="Horizontal">
                         <Button
                             x:Uid="/Information/Play"
-                            Width="32"
-                            Height="32"
-                            Margin="5,0,0,0"
+                            Width="36"
+                            Height="36"
+                            Margin="2,0,-28,0"
                             Padding="0"
                             Click="PlayButton_Click"
                             Style="{StaticResource TransparentButtonStyle}"
@@ -190,14 +189,18 @@
                         Grid.Column="1"
                         Width="32"
                         Height="32"
-                        Padding="-12"
-                        CornerRadius="4"
-                        IsHitTestVisible="False">
+                        Margin="-8"
+                        Padding="0"
+                        CornerRadius="7"
+                        IsHitTestVisible="False"
+                        Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse, Mode=OneWay}">
                         <Border
                             x:Name="AlbumThumb"
                             Width="32"
                             Height="32"
-                            CornerRadius="4">
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            CornerRadius="3">
                             <Image Width="32" Height="32">
                                 <Image.Source>
                                     <BitmapImage
@@ -209,41 +212,81 @@
                         </Border>
                     </Button>
 
-                    <StackPanel Grid.Column="2" Orientation="Vertical">
-                        <TextBlock Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
-                        <Grid ColumnSpacing="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
+                    <RelativePanel
+                        Grid.Column="2"
+                        Margin="-8,0,0,0"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            x:Name="songtitle"
+                            MaxLines="2"
+                            Text="{x:Bind Title}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="WrapWholeWords" />
+                        <TextBlock
+                            x:Name="artistname"
+                            Margin="16,0,0,0"
+                            RelativePanel.RightOf="songtitle"
+                            TextTrimming="CharacterEllipsis">
+                            <Hyperlink
+                                Click="Artist_Click"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                UnderlineStyle="None">
+                                <Run Text="{x:Bind Artist, Mode=OneWay}" />
+                            </Hyperlink>
+                        </TextBlock>
 
-                            <TextBlock>
-                                <Hyperlink Click="Artist_Click" UnderlineStyle="None">
-                                    <Run Text="{x:Bind Artist}" />
-                                </Hyperlink>
-                            </TextBlock>
+                        <TextBlock
+                            x:Name="Pill"
+                            Margin="8,0,0,0"
+                            RelativePanel.RightOf="artistname"
+                            Text="•" />
 
-                            <TextBlock Grid.Column="1" Text="•" />
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            RelativePanel.RightOf="Pill"
+                            TextTrimming="CharacterEllipsis">
+                            <Hyperlink
+                                Click="Album_Click"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                UnderlineStyle="None">
+                                <Run Text="{x:Bind Album, Mode=OneWay}" />
+                            </Hyperlink>
+                        </TextBlock>
 
-                            <TextBlock Grid.Column="2">
-                                <Hyperlink Click="Album_Click" UnderlineStyle="None">
-                                    <Run Text="{x:Bind Album}" />
-                                </Hyperlink>
-                            </TextBlock>
 
-                            <Rectangle Grid.Column="3" />
-                        </Grid>
+                    </RelativePanel>
+                    <StackPanel Grid.Column="3" Orientation="Horizontal">
+                        <Button
+                            x:Name="PropsHover"
+                            x:Uid="/Information/Props"
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            Click="PropsHover_Click"
+                            Style="{StaticResource TransparentButtonStyle}"
+                            Visibility="{x:Bind IsFocused, Mode=OneWay}">
+                            <FontIcon FontSize="16" Glyph="&#xE104;" />
+                        </Button>
+                        <Button
+                            x:Uid="/Information/RemovePlaylist"
+                            x:Name="RemovefromPlaylist"
+                            Click="Remove_Click"
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            Style="{StaticResource TransparentButtonStyle}"
+                            Visibility="{x:Bind IsFocused, Mode=OneWay}">
+                            <FontIcon FontSize="16" Glyph="&#xECC9;" />
+                        </Button>
+                        <TextBlock
+                            Margin="12"
+                            VerticalAlignment="Center"
+                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
+                            Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                     </StackPanel>
 
-                    <TextBlock
-                        Grid.Column="3"
-                        Margin="12"
-                        VerticalAlignment="Center"
-                        x:Phase="1"
-                        Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                        Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>

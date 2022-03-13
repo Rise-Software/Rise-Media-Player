@@ -94,6 +94,15 @@ namespace Rise.App.Views
             }
         }
 
+        private async void PropsHover_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                await SelectedSong.StartEditAsync();
+            }
+        }
+
         private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
             => EventsLogic.GoToAlbum(sender);
 
