@@ -9,13 +9,13 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace Rise.App.Props
+namespace Rise.App.Views
 {
-    public sealed partial class DetailsPage : Page
+    public sealed partial class SongDetailsPage : Page
     {
         private SongPropertiesViewModel Props { get; set; }
 
-        public DetailsPage()
+        public SongDetailsPage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;

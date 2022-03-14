@@ -1,5 +1,4 @@
-﻿using Rise.App.Props;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
@@ -49,11 +48,11 @@ namespace Rise.App.Views
             switch (clicked.Tag.ToString())
             {
                 case "DetailsItem":
-                    _ = PropsFrame.Navigate(typeof(DetailsPage), Props);
+                    _ = PropsFrame.Navigate(typeof(SongDetailsPage), Props);
                     break;
 
                 case "FileItem":
-                    _ = PropsFrame.Navigate(typeof(FilePage), Props);
+                    _ = PropsFrame.Navigate(typeof(SongFilePage), Props);
                     break;
 
                 default:

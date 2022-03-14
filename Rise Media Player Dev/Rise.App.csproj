@@ -189,8 +189,8 @@
     <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Props\FilePage.xaml.cs">
-      <DependentUpon>FilePage.xaml</DependentUpon>
+    <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
+      <DependentUpon>SongFilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
@@ -320,8 +320,8 @@
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Props\DetailsPage.xaml.cs">
-      <DependentUpon>DetailsPage.xaml</DependentUpon>
+    <Compile Include="Views\Songs\Properties\SongDetailsPage.xaml.cs">
+      <DependentUpon>SongDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Setup\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
@@ -410,7 +410,7 @@
     <Compile Include="Settings\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SongsPage.xaml.cs">
+    <Compile Include="Views\Songs\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\SongViewModel.cs" />
@@ -607,7 +607,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Props\FilePage.xaml">
+    <Page Include="Views\Songs\Properties\SongFilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -783,7 +783,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Props\DetailsPage.xaml">
+    <Page Include="Views\Songs\Properties\SongDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -891,7 +891,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SongsPage.xaml">
+    <Page Include="Views\Songs\SongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
