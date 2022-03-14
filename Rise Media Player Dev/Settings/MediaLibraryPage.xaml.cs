@@ -15,6 +15,19 @@ namespace Rise.App.Settings
 
         internal static MediaLibraryPage Current;
 
+        private readonly FoldersDialog Dialog = new();
+        private readonly VFoldersDialog VDialog = new();
+
+        public ContentDialog FolderDialog = new()
+        {
+            Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
+        };
+
+        public ContentDialog VFolderDialog = new()
+        {
+            Title = ResourceLoaders.MediaLibraryLoader.GetString("Folders"),
+        };
+
         private readonly List<string> Deletion = new()
         {
             ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
@@ -26,6 +39,10 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
             Current = this;
+
+
+            FolderDialog.Content = Dialog;
+            VFolderDialog.Content = VDialog;
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }

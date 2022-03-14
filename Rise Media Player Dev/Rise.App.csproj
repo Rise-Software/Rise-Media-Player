@@ -179,6 +179,9 @@
     <Compile Include="Dialogs\SettingsDialogContainer.xaml.cs">
       <DependentUpon>SettingsDialogContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\VFoldersDialog.xaml.cs">
+      <DependentUpon>VFoldersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
@@ -361,6 +364,9 @@
       <DependentUpon>ExpanderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibility.cs" />
+    <Compile Include="Dialogs\FoldersDialog.xaml.cs">
+      <DependentUpon>FoldersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Albums\AlbumsPage.xaml.cs">
       <DependentUpon>AlbumsPage.xaml</DependentUpon>
     </Compile>
@@ -596,6 +602,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\VFoldersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -825,6 +835,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ExpanderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\FoldersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
