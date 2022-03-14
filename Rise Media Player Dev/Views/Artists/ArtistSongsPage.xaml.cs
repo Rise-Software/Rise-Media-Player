@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Rise.App.Converters;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -197,22 +198,6 @@ namespace Rise.App.Views
             return "No artist info";
         }
 
-        private string FormatNumber(long num)
-        {
-            // Ensure number has max 3 significant digits (no rounding up can happen)
-            long i = (long)Math.Pow(10, (int)Math.Max(0, Math.Log10(num) - 2));
-            num = num / i * i;
-
-            if (num >= 1000000000)
-                return (num / 1000000000D).ToString("0.##") + "B";
-            if (num >= 1000000)
-                return (num / 1000000D).ToString("0.##") + "M";
-            if (num >= 1000)
-                return (num / 1000D).ToString("0.##") + "K";
-
-            return num.ToString("#,0");
-        }
-
         public string GetMonthlyListeners(string artist)
         {
             try
@@ -223,8 +208,8 @@ namespace Rise.App.Views
                 xmlStr = wc.DownloadString(m_strFilePath);
                 xmlDoc.LoadXml(xmlStr);
                 XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
-                long num = long.Parse(node.InnerText);
-                return $"{FormatNumber(num)} listeners.";
+                _ = long.TryParse(node.InnerText, out long num);
+                return $"{FormatNumber.Format(num)} listeners.";
             }
             catch
             {
