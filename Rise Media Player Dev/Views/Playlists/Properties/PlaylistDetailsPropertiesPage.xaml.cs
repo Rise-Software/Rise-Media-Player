@@ -2,7 +2,6 @@
 using Rise.Common.Extensions;
 using System;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -67,14 +66,18 @@ namespace Rise.App.Views
 
             if (file != null)
             {
-                // Get file thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
+                var img = await file.GetBitmapAsync(200, 200);
 
-                var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
+                var newFile = await ApplicationData.Current.LocalFolder.
+                    CreateFileAsync($@"modified-artist-{file.Name}.png", CreationCollisionOption.ReplaceExisting);
 
-                thumbnail?.Dispose();
-                Playlist.Icon = uri.ToString();
+                var result = await img.SaveToFileAsync(newFile);
+
+                if (result)
+                {
+                    var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
+                    Playlist.Icon = uri.ToString();
+                }
             }
         }
     }
