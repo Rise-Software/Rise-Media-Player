@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
+using Rise.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -21,7 +22,6 @@ namespace Rise.App.Views
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
-
         public PlaylistDetailsPage()
         {
             InitializeComponent();
@@ -32,7 +32,6 @@ namespace Rise.App.Views
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
         }
-
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (e.NavigationParameter is Guid id)
@@ -58,12 +57,47 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
+            
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private async void MoveSongUp_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                if ((SelectedPlaylist.Songs.IndexOf(song) - 1) >= 0)
+                {
+                    var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                    SelectedPlaylist.Songs.Remove(song);
+                    SelectedPlaylist.Songs.Insert(index - 1, song);
+                    await SelectedPlaylist.SaveEditsAsync();
+                }
+            }
+        }
+
+        private async void MoveSongDown_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                if ((SelectedPlaylist.Songs.IndexOf(song) + 1) < SelectedPlaylist.Songs.Count)
+                {
+                    var index = MainList.Items.IndexOf(song);
+
+                    SelectedPlaylist.Songs.Remove(song);
+                    SelectedPlaylist.Songs.Insert(index + 1, song);
+                    await SelectedPlaylist.SaveEditsAsync();
+                }
+            }
+        }
     }
+
+    
 
     // Fields, properties
     public sealed partial class PlaylistDetailsPage : Page
@@ -94,6 +128,7 @@ namespace Rise.App.Views
     {
         private async void PlaylistDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            SongCount.Text = SelectedPlaylist.SongsCount + " " + "songs";
             try
             {
                 await Task.Run(async () =>
@@ -172,6 +207,18 @@ namespace Rise.App.Views
         private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
         {
             await SelectedPlaylist.StartEditAsync();
+        }
+
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await EventsLogic.StartMusicPlaybackAsync(0, true);
+            }
+            catch
+            {
+
+            }
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)

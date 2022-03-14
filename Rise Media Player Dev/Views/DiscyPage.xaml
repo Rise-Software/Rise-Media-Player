@@ -26,35 +26,6 @@
                         CornerRadius="8"
                         Opacity=".2" />
                 </Border.Resources>
-                <Grid Height="190" CornerRadius="10">
-                    <Border>
-                        <Image
-                            HorizontalAlignment="Center"
-                            Opacity="0.8"
-                            Stretch="UniformToFill"
-                            Style="{ThemeResource Win11Image}" />
-                    </Border>
-
-                    <Rectangle
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Fill="{ThemeResource SystemControlAcrylicElementBrush}" />
-
-                    <StackPanel
-                        Margin="24"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Vertical"
-                        Spacing="24">
-                        <Image Height="60" Source="ms-appx:///Assets/HelpCentre.png" />
-
-                        <TextBlock
-                            FontSize="17"
-                            FontWeight="SemiBold"
-                            Opacity="0.6"
-                            Text="Get advice, help and tips from many sources." />
-                    </StackPanel>
-                </Grid>
             </Border>
 
             <TextBlock

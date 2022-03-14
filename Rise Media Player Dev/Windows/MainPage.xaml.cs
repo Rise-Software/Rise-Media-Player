@@ -203,7 +203,7 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredVideos.Refresh();
                 App.MViewModel.FilteredPlaylists.Refresh();
                 
-                await Task.Delay(2500);
+                await Task.Delay(1000);
                 AddedTip.IsOpen = false;
             });
         }

@@ -82,7 +82,7 @@
         <Frame
             x:Name="PropsFrame"
             Grid.Row="2"
-            Padding="12"
+            Padding="12,12,12,0"
             Background="{ThemeResource NavigationViewContentBackground}">
             <Frame.ContentTransitions>
                 <TransitionCollection>

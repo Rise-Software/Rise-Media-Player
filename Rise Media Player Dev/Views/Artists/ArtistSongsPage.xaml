@@ -48,7 +48,7 @@
                                     VerticalAlignment="Stretch"
                                     HorizontalShift="0"
                                     Source="{x:Bind MainList}"
-                                    VerticalShift="1000">
+                                    VerticalShift="500">
                                     <Image
                                         Opacity="0.6"
                                         Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
@@ -67,7 +67,7 @@
                                     Padding="16"
                                     ColumnSpacing="24">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="175" />
+                                        <ColumnDefinition Width="172" />
                                         <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
                                     <Button
@@ -76,8 +76,8 @@
                                         IsHitTestVisible="False">
                                         <Border animations:Connected.Key="ArtistArt" CornerRadius="250">
                                             <Image
-                                                Width="175"
-                                                Height="175"
+                                                Width="172"
+                                                Height="172"
                                                 Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
                                                 Stretch="UniformToFill" />
                                         </Border>
@@ -558,8 +558,10 @@
 
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewmodels:SongViewModel">
+                                            
                                             <Grid
                                                 Padding="0,4"
+                                                
                                                 Background="Transparent"
                                                 ColumnSpacing="12"
                                                 PointerCanceled="Grid_PointerExited"
@@ -571,6 +573,8 @@
                                                     <ColumnDefinition Width="1*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
+
+                                                
 
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button

@@ -107,8 +107,10 @@
                 <Rectangle
                     Grid.Column="3"
                     Width="1"
-                    Height="26"
-                    Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}" />
+                    Height="auto"
+                    Margin="0,4,0,4"
+                    Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
+                    Opacity="0.3" />
 
                 <ToggleButton
                     x:Name="File"
