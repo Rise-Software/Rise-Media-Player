@@ -52,6 +52,8 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
+        private readonly string Label = "Artists";
+
         public ArtistsPage()
         {
             InitializeComponent();
