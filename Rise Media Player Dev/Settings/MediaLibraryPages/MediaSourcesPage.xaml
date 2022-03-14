@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="Rise.App.Settings.MediaSourcesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+
+            <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <muxc:NavigationView
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            ItemInvoked="NavigationView_ItemInvoked"
+            PaneDisplayMode="Top"
+            SelectedItem="{x:Bind AllMedia}">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    x:Name="AllMedia"
+                    Content="Show all"
+                    Tag="AllMedia" />
+                <muxc:NavigationViewItem Content="Music" Tag="Music" />
+                <muxc:NavigationViewItem Content="Videos" Tag="Videos" />
+            </muxc:NavigationView.MenuItems>
+
+            <Frame x:Name="ContentFrame" />
+        </muxc:NavigationView>
+    </Grid>
+</Page>

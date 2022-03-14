@@ -1,56 +1,54 @@
-﻿using Rise.Common.Helpers;
-using System;
+﻿using System;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
-    public sealed partial class MediaSourcesPage : Page
+    public sealed partial class MediaSourcesListsPage : Page
     {
-        private readonly NavigationHelper _navigationHelper;
+        private string _currTag = "AllMedia";
 
         private StorageLibrary MusicLibrary => App.MusicLibrary;
         private StorageLibrary VideoLibrary => App.VideoLibrary;
 
-        private string _currTag = "AllMedia";
-
-        public MediaSourcesPage()
+        public MediaSourcesListsPage()
         {
             this.InitializeComponent();
-            this._navigationHelper = new NavigationHelper(this);
         }
 
-        private void Selection_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
-            _currTag = (string)selectedItem.Tag;
-
-            if (_currTag == "Music")
+            if (e.Parameter is string param)
             {
-                this.MusicList.Visibility = Visibility.Visible;
-                this.VideoList.Visibility = Visibility.Collapsed;
-            }
-            else if (_currTag == "Videos")
-            {
-                this.MusicList.Visibility = Visibility.Collapsed;
-                this.VideoList.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.MusicList.Visibility = Visibility.Visible;
-                this.VideoList.Visibility = Visibility.Visible;
+                this._currTag = param;
+                if (param == "Music")
+                {
+                    this.MusicList.Visibility = Visibility.Visible;
+                    this.VideoList.Visibility = Visibility.Collapsed;
+                }
+                else if (param == "Videos")
+                {
+                    this.MusicList.Visibility = Visibility.Collapsed;
+                    this.VideoList.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.MusicList.Visibility = Visibility.Visible;
+                    this.VideoList.Visibility = Visibility.Visible;
+                }
             }
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currTag == "Music")
+            if (this._currTag == "Music")
             {
                 _ = await this.MusicLibrary.RequestAddFolderAsync();
             }
-            else if (_currTag == "Videos")
+            else if (this._currTag == "Videos")
             {
                 _ = await this.VideoLibrary.RequestAddFolderAsync();
             }

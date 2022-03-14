@@ -144,6 +144,9 @@
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
+      <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventsLogic.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -210,10 +213,10 @@
     <Compile Include="Settings\InsiderWallpapers.xaml.cs">
       <DependentUpon>InsiderWallpapers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\MediaLibraryBasePage.xaml.cs">
+    <Compile Include="Settings\MediaLibraryPages\MediaLibraryBasePage.xaml.cs">
       <DependentUpon>MediaLibraryBasePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\MediaSourcesPage.xaml.cs">
+    <Compile Include="Settings\MediaLibraryPages\MediaSourcesPage.xaml.cs">
       <DependentUpon>MediaSourcesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\OnlineServicesPage.xaml.cs">
@@ -398,7 +401,7 @@
     <Compile Include="Settings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\MediaLibraryPage.xaml.cs">
+    <Compile Include="Settings\MediaLibraryPages\MediaLibraryPage.xaml.cs">
       <DependentUpon>MediaLibraryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\PlaybackPage.xaml.cs">
@@ -648,11 +651,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\MediaLibraryBasePage.xaml">
+    <Page Include="Settings\MediaLibraryPages\MediaLibraryBasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\MediaSourcesPage.xaml">
+    <Page Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\MediaLibraryPages\MediaSourcesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -872,7 +879,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\MediaLibraryPage.xaml">
+    <Page Include="Settings\MediaLibraryPages\MediaLibraryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -958,7 +965,6 @@
     <Folder Include="Settings\AppearancePages\" />
     <Folder Include="Settings\BehaviourPages\" />
     <Folder Include="Settings\ComponentsPages\" />
-    <Folder Include="Settings\MediaLibraryPages\" />
     <Folder Include="Settings\NavigationPages\" />
     <Folder Include="Settings\PlaybackSoundPages\" />
     <Folder Include="Settings\SyncingPages\" />
