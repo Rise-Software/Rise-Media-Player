@@ -3,17 +3,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:converters="using:Rise.App.Converters"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:Rise.App.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
-
-
 
     <Page.Resources>
         <media:AttachedCardShadow
@@ -23,14 +22,16 @@
             Opacity=".15"
             Offset="0,2" />
         <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
-        <converters:BoolToRoundedCorners x:Key="BoolToRounded" />
-        <converters:UintToStringConverter x:Key="UintToStringConverter" />
-        <converters:BooleanToVisibility x:Key="BoolToVis" />
+
+        <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
+        <conv:UintToStringConverter x:Key="UintToStringConverter" />
+        <conv:BooleanToVisibility x:Key="BoolToVis" />
+        <conv:ResourceToString x:Key="StrToRes" />
     </Page.Resources>
 
-    <Grid>
-
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -49,7 +50,13 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
+        <TextBlock
+            d:Text="Albums"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+
         <CommandBar
+            Grid.Row="1"
             Margin="-12,0"
             HorizontalAlignment="Left"
             Background="Transparent"
@@ -217,12 +224,11 @@
                 HorizontalAlignment="Right"
                 Click="AddFolders_Click"
                 Icon="NewFolder" />
-
         </CommandBar>
 
         <GridView
             x:Name="MainGrid"
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
             animations:Connected.ListItemElementName="AlbumThumb"

@@ -36,6 +36,8 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
+        private readonly string Label = "Albums";
+
         private static readonly DependencyProperty SelectedAlbumProperty =
             DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumsPage), null);
 
