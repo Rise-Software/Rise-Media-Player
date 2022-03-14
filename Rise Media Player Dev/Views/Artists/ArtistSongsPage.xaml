@@ -10,15 +10,20 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="Root"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="760"
+    d:Width="500"
     Loaded="Root_Loaded"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:NullToBoolean x:Key="NullToBool" />
+        <ResourceDictionary>
+            <converters:NullToBoolean x:Key="NullToBool" />
+        </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer Margin="-56,0,-56,-56">
-        <Grid Margin="48">
+    <ScrollViewer Padding="44,44,44,0" d:Padding="12">
+        <Grid>
             <muxc:TeachingTip
                 x:Name="DiscyOnSong"
                 Title="Taking action on songs"
@@ -33,142 +38,148 @@
                 </muxc:TeachingTip.HeroContent>
             </muxc:TeachingTip>
 
-            <StackPanel>
-                <Grid>
-                    <Border
-                        Height="230"
-                        Margin="0,0,0,16"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        Style="{StaticResource SettingsCard}">
-                        <Grid>
-                            <Grid Margin="-16" CornerRadius="8">
-                                <ParallaxView
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalShift="0"
-                                    Source="{x:Bind MainList}"
-                                    VerticalShift="500">
-                                    <Image
-                                        Opacity="0.6"
-                                        Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
-                                        Stretch="UniformToFill" />
-                                </ParallaxView>
-                            </Grid>
+            <Grid RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="230" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                            <Grid Margin="-16">
-                                <Grid.Background>
-                                    <media:BackdropBlurBrush Amount="35" />
-                                </Grid.Background>
+                <Border
+                    Margin="0,0,0,16"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Style="{StaticResource SettingsCard}">
+                    <Grid>
+                        <Grid Margin="-16" CornerRadius="8">
+                            <ParallaxView
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                HorizontalShift="0"
+                                Source="{x:Bind MainList}"
+                                VerticalShift="500">
+                                <Image
+                                    Opacity="0.6"
+                                    Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
+                                    Stretch="UniformToFill" />
+                            </ParallaxView>
+                        </Grid>
 
+                        <Grid Margin="-16">
+                            <Grid.Background>
+                                <media:BackdropBlurBrush Amount="35" />
+                            </Grid.Background>
 
-                                <Grid
-                                    Margin="16"
-                                    Padding="16"
-                                    ColumnSpacing="24">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="172" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Button
-                                        Padding="-1"
-                                        CornerRadius="250"
-                                        IsHitTestVisible="False">
-                                        <Border animations:Connected.Key="ArtistArt" CornerRadius="250">
-                                            <Image
-                                                Width="172"
-                                                Height="172"
-                                                Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
-                                                Stretch="UniformToFill" />
-                                        </Border>
-                                    </Button>
+                            <Grid
+                                Margin="16"
+                                Padding="16"
+                                ColumnSpacing="24">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="172" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+                                    Padding="-1"
+                                    CornerRadius="250"
+                                    IsHitTestVisible="False">
+                                    <Border animations:Connected.Key="ArtistArt" CornerRadius="250">
+                                        <Image
+                                            Width="172"
+                                            Height="172"
+                                            Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
+                                            Stretch="UniformToFill" />
+                                    </Border>
+                                </Button>
 
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Padding="0,10,0,0"
-                                        VerticalAlignment="Center"
-                                        Orientation="Vertical"
-                                        Spacing="8">
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Padding="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Orientation="Vertical"
+                                    Spacing="8">
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel>
+                                            <TextBlock
+                                                x:Name="ArtistName"
+                                                x:FieldModifier="public"
+                                                FontSize="36"
+                                                MaxLines="1"
+                                                Style="{StaticResource TitleTextBlockStyle}"
+                                                Text="{x:Bind SelectedArtist.Name, Mode=OneWay}" />
+                                            <TextBlock
+                                                x:Name="SongAlbums"
+                                                Margin="0,0,0,8"
+                                                FontSize="18"
+                                                FontWeight="SemiBold"
+                                                Opacity="0.6"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" />
+                                            <StackPanel Orientation="Horizontal">
                                                 <TextBlock
-                                                    x:Name="ArtistName"
-                                                    x:FieldModifier="public"
-                                                    FontSize="36"
-                                                    MaxLines="1"
-                                                    Style="{StaticResource TitleTextBlockStyle}"
-                                                    Text="{x:Bind SelectedArtist.Name, Mode=OneWay}" />
-                                                <TextBlock
-                                                    x:Name="SongAlbums"
-                                                    Margin="0,0,0,8"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
+                                                    x:Name="NoListeners"
+                                                    Margin="0,0,0,0"
+                                                    FontSize="16"
+                                                    FontWeight="Bold"
                                                     Opacity="0.6"
                                                     Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" />
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock
-                                                        x:Name="NoListeners"
-                                                        Margin="0,0,0,0"
-                                                        FontSize="16"
-                                                        FontWeight="Bold"
-                                                        Opacity="0.6"
-                                                        Style="{StaticResource BodyTextBlockStyle}"
-                                                        Text="{x:Bind GetMonthlyListeners(SelectedArtist.Name), Mode=OneWay}" />
-                                                </StackPanel>
+                                                    Text="{x:Bind GetMonthlyListeners(SelectedArtist.Name), Mode=OneWay}" />
                                             </StackPanel>
                                         </StackPanel>
-
-
-                                        <CommandBar
-                                            Margin="-12,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Bottom"
-                                            Background="Transparent"
-                                            DefaultLabelPosition="Right">
-                                            <AppBarButton
-                                                x:Name="PlayItem"
-                                                Click="PlayButton_Click"
-                                                Icon="Play"
-                                                Label="Play all"
-                                                ToolTipService.ToolTip="Play all" />
-
-                                            <AppBarSeparator />
-
-                                            <AppBarButton
-                                                x:Name="ShuffleItem"
-                                                x:Uid="/Information/Shuffle"
-                                                Click="ShuffleButton_Click"
-                                                Icon="Shuffle" />
-                                            <AppBarButton
-                                                x:Uid="/Information/Add"
-                                                IsCompact="True"
-                                                IsEnabled="True">
-                                                <AppBarButton.Icon>
-                                                    <FontIcon Glyph="&#xECC8;" />
-                                                </AppBarButton.Icon>
-
-                                                <AppBarButton.Flyout>
-                                                    <MenuFlyout x:Name="AddToCommand" />
-                                                </AppBarButton.Flyout>
-                                            </AppBarButton>
-
-                                            <AppBarSeparator />
-
-                                            <AppBarButton
-                                                x:Name="CustomisePage"
-                                                x:Uid="/Information/EditArtist"
-                                                Click="CustomisePage_Click"
-                                                Icon="Edit" />
-                                        </CommandBar>
                                     </StackPanel>
-                                </Grid>
+
+
+                                    <CommandBar
+                                        Margin="-12,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Background="Transparent"
+                                        DefaultLabelPosition="Right">
+                                        <AppBarButton
+                                            x:Name="PlayItem"
+                                            Click="PlayButton_Click"
+                                            Icon="Play"
+                                            Label="Play all"
+                                            ToolTipService.ToolTip="Play all" />
+
+                                        <AppBarSeparator />
+
+                                        <AppBarButton
+                                            x:Name="ShuffleItem"
+                                            x:Uid="/Information/Shuffle"
+                                            Click="ShuffleButton_Click"
+                                            Icon="Shuffle" />
+                                        <AppBarButton
+                                            x:Uid="/Information/Add"
+                                            IsCompact="True"
+                                            IsEnabled="True">
+                                            <AppBarButton.Icon>
+                                                <FontIcon Glyph="&#xECC8;" />
+                                            </AppBarButton.Icon>
+
+                                            <AppBarButton.Flyout>
+                                                <MenuFlyout x:Name="AddToCommand" />
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+
+                                        <AppBarSeparator />
+
+                                        <AppBarButton
+                                            x:Name="CustomisePage"
+                                            x:Uid="/Information/EditArtist"
+                                            Click="CustomisePage_Click"
+                                            Icon="Edit" />
+                                    </CommandBar>
+                                </StackPanel>
                             </Grid>
                         </Grid>
-                    </Border>
-                </Grid>
+                    </Grid>
+                </Border>
 
-                <Grid x:Name="LastFMClickables" ColumnSpacing="12">
+                <Grid
+                    x:Name="LastFMClickables"
+                    Grid.Row="1"
+                    ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -177,7 +188,6 @@
                     <Border
                         x:Name="TopSongs"
                         Height="200"
-                        Margin="0,12,0,0"
                         CornerRadius="5"
                         Style="{StaticResource SettingsCard}">
                         <Grid>
@@ -210,11 +220,11 @@
                                 Text="Coming soon" />
                         </Grid>
                     </Border>
+
                     <Border
                         x:Name="MusicVideos"
                         Grid.Column="1"
                         Height="200"
-                        Margin="0,12,0,0"
                         CornerRadius="5"
                         Style="{StaticResource SettingsCard}">
                         <Grid>
@@ -246,8 +256,7 @@
 
                 <Border
                     x:Name="Discography"
-                    MaxHeight="50000"
-                    Margin="0,12,0,0"
+                    Grid.Row="2"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
                     <Grid>
@@ -306,21 +315,22 @@
                                 </AppBarButton.Flyout>
                             </AppBarButton>
                         </CommandBar>
-                        <StackPanel>
 
+                        <StackPanel>
                             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                 <FontIcon Glyph="&#xE93C;" />
                                 <TextBlock
                                     Margin="8,0,0,0"
                                     FontWeight="SemiBold"
                                     Text="Discography" />
-
                             </StackPanel>
+
                             <Rectangle
                                 Height="1"
                                 Margin="-16,12,-16,0"
                                 HorizontalAlignment="Stretch"
                                 Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+
                             <muxc:NavigationView
                                 Margin="-4,0,0,0"
                                 IsBackButtonVisible="Collapsed"
@@ -337,15 +347,11 @@
                                     <muxc:NavigationViewItem x:Name="AlbumsItem" Content="All songs" />
                                 </muxc:NavigationView.MenuItems>
                             </muxc:NavigationView>
+
                             <Grid>
-                                <Grid.Transitions>
-                                    <TransitionCollection>
-                                        <NavigationThemeTransition />
-                                    </TransitionCollection>
-                                </Grid.Transitions>
                                 <GridView
                                     x:Name="AlbumsGrid"
-                                    Grid.Row="1"
+                                    MaxHeight="400"
                                     Margin="0,0,0,-8"
                                     ItemsSource="{x:Bind Albums}"
                                     RightTapped="MainGrid_RightTapped"
@@ -462,9 +468,10 @@
                                         </DataTemplate>
                                     </GridView.ItemTemplate>
                                 </GridView>
+
                                 <ListView
                                     x:Name="MainList"
-                                    Grid.Row="1"
+                                    MaxHeight="400"
                                     Margin="-56,0"
                                     Padding="44,0,44,0"
                                     DoubleTapped="MainList_DoubleTapped"
@@ -558,10 +565,9 @@
 
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewmodels:SongViewModel">
-                                            
+
                                             <Grid
                                                 Padding="0,4"
-                                                
                                                 Background="Transparent"
                                                 ColumnSpacing="12"
                                                 PointerCanceled="Grid_PointerExited"
@@ -574,7 +580,7 @@
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
 
-                                                
+
 
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button
@@ -681,6 +687,7 @@
 
                 <Border
                     x:Name="ArtistAbout"
+                    Grid.Row="3"
                     Margin="0,12,0,135"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
@@ -693,11 +700,13 @@
                                     FontWeight="SemiBold"
                                     Text="About" />
                             </StackPanel>
+
                             <Rectangle
                                 Height="1"
                                 Margin="-16,12,-16,12"
                                 HorizontalAlignment="Stretch"
                                 Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+
                             <TextBlock
                                 x:Name="AboutArtist"
                                 Margin="0,0,0,8"
@@ -711,8 +720,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-            </StackPanel>
-
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>
