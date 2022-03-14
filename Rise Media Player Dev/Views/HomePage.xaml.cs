@@ -1,7 +1,5 @@
 ﻿using Rise.App.Dialogs;
-using Rise.App.UserControls;
 using Rise.App.Web;
-using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -13,8 +11,6 @@ namespace Rise.App.Views
 {
     public sealed partial class HomePage : Page
     {
-        private static readonly FeatureDialog _dialog = new();
-
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -28,20 +24,40 @@ namespace Rise.App.Views
             _navigationHelper = new NavigationHelper(this);
         }
 
-        private async void ContributeButton_Click(object sender, RoutedEventArgs e)
-            => _ = await URLs.GitHub.LaunchAsync();
-
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-            => _ = await typeof(SupportProject).ShowInApplicationViewAsync(null, 500, 600, true);
+        {
+            _ = await typeof(SupportProject).
+                ShowInApplicationViewAsync(null, 500, 600, true);
+        }
+
+        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await typeof(WhatsNew).
+                ShowInApplicationViewAsync(null, 500, 600, true);
+        }
 
         private async void FoldersButton_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Manage local media folders";
-            dialog.CloseButtonText = "Close";
-            dialog.Content = new Settings.MediaSourcesPage();
-            var result = await dialog.ShowAsync();
+            ContentDialog dialog = new()
+            {
+                Title = "Manage local media folders",
+                CloseButtonText = "Close",
+                Content = new Settings.MediaSourcesPage()
+            };
 
+            var result = await dialog.ShowAsync();
+        }
+
+        private async void GlanceManage_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new()
+            {
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new WidgetsDialogContent()
+            };
+
+            var result = await dialog.ShowAsync();
         }
 
         #region NavigationHelper registration
@@ -60,52 +76,5 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
-
-        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var item = e.ClickedItem as TiledImage;
-            await _dialog.OpenFeatureAsync(int.Parse(item.Tag.ToString()));
-        }
-
-        //private void CommandBarButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Button button = sender as Button;
-        //    switch (button.Tag.ToString())
-        //    {
-
-        //        case "Version":
-        //            vTip.IsOpen = true;
-        //            break;
-        //        case "Discy":
-        //            DiscyOnHome.IsOpen = true;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-
-        private void VTip_CloseButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-
-        }
-
-        private async void VTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-            => await URLs.Releases.LaunchAsync();
-
-        private async void GlanceManage_Click(object sender, RoutedEventArgs e)
-        {
-            ContentDialog dialog = new()
-            {
-                CloseButtonText = "Close",
-                DefaultButton = ContentDialogButton.Primary,
-                Content = new WidgetsDialogContent()
-            };
-
-            var result = await dialog.ShowAsync();
-        }
-
-        private async void WhatsNew_Click(object sender, RoutedEventArgs e)
-            => _ = await typeof(WhatsNew).ShowInApplicationViewAsync(Windows.UI.ViewManagement.ApplicationViewMode.Default, 500, 600, true);
-
     }
 }
