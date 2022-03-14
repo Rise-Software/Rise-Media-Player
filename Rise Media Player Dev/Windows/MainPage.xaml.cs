@@ -18,7 +18,6 @@ using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -274,12 +273,6 @@ namespace Rise.App.Views
             App.MViewModel.SelectedSong = null;
             var type = this.ContentFrame.CurrentSourcePageType;
 
-            if (type == typeof(AllSettingsPage))
-            {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-                return;
-            }
-
             bool hasKey = this.Destinations.TryGetKey(type, out var key);
 
             // We need to handle unlisted destinations
@@ -316,6 +309,13 @@ namespace Rise.App.Views
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             string tag = args?.InvokedItemContainer?.Tag?.ToString();
+
+            if (tag == "SettingsPage")
+            {
+                this.Frame.Navigate(typeof(AllSettingsPage));
+                return;
+            }
+
             if (this.ContentFrame.SourcePageType != Destinations[tag])
             {
                 this.ContentFrame.Navigate(Destinations[tag],
@@ -332,6 +332,13 @@ namespace Rise.App.Views
         private void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
             string tag = ((FrameworkElement)sender).Tag.ToString();
+
+            if (tag == "SettingsPage")
+            {
+                this.Frame.Navigate(typeof(AllSettingsPage));
+                return;
+            }
+
             if (this.ContentFrame.SourcePageType != Destinations[tag])
             {
                 this.ContentFrame.Navigate(Destinations[tag]);
