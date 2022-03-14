@@ -2,7 +2,6 @@
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
-using Rise.Common;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -10,7 +9,6 @@ using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -36,19 +34,14 @@ namespace Rise.App.Views
     public sealed partial class MainPage : Page
     {
         #region Variables
+        public static MainPage Current;
+
         private SettingsViewModel SViewModel => App.SViewModel;
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private AdvancedCollectionView Albums => App.MViewModel.FilteredAlbums;
         private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
         private AdvancedCollectionView Artists => App.MViewModel.FilteredArtists;
-
-        private bool IsInPageWithoutHeader = false;
-
-        public static MainPage Current;
-
-        public ObservableCollection<Crumb> Breadcrumbs { get; set; }
-            = new ObservableCollection<Crumb>();
 
         public SettingsDialogContainer SDialog { get; }
             = new SettingsDialogContainer();
@@ -62,7 +55,31 @@ namespace Rise.App.Views
 
         private NavigationViewItem RightClickedItem { get; set; }
 
-        private AppWindow _nowPlayingWindow;
+        internal string AccountMenuText
+        {
+            get => Acc.Text.ToString();
+            set => Acc.Text = value;
+        }
+
+        private readonly Dictionary<string, Type> Destinations = new()
+        {
+            { "HomePage", typeof(HomePage) },
+            { "PlaylistsPage", typeof(PlaylistsPage) },
+            { "SongsPage", typeof(SongsPage) },
+            { "ArtistsPage", typeof(ArtistsPage) },
+            { "AlbumsPage", typeof(AlbumsPage) },
+            { "GenresPage", typeof(GenresPage) },
+            { "LocalVideosPage", typeof(LocalVideosPage) },
+            { "DiscyPage", typeof(DiscyPage) }
+        };
+
+        private readonly Dictionary<string, Type> UnlistedDestinations = new()
+        {
+            { "PlaylistsPage", typeof(PlaylistDetailsPage) },
+            { "ArtistsPage", typeof(ArtistSongsPage) },
+            { "AlbumsPage", typeof(AlbumSongsPage) },
+            { "GenresPage", typeof(GenreSongsPage) }
+        };
         #endregion
 
         public MainPage()
@@ -71,6 +88,7 @@ namespace Rise.App.Views
 
             Current = this;
             SDialog.Content = new SettingsPage();
+
             Loaded += MainPage_Loaded;
             SizeChanged += MainPage_SizeChanged;
 
@@ -83,11 +101,7 @@ namespace Rise.App.Views
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
-        internal string AccountMenuText
-        {
-            get => Acc.Text.ToString();
-            set => Acc.Text = value;
-        }
+
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
@@ -101,19 +115,6 @@ namespace Rise.App.Views
                 OverlayModeContentPanel.Visibility = Visibility.Collapsed;
                 AppTitleBar.Visibility = Visibility.Visible;
                 ControlsPanel.Visibility = Visibility.Visible;
-            }
-
-            if (e.NewSize.Width < 800 && IsInPageWithoutHeader)
-            {
-                ContentFrame.Margin = new Thickness(0, 48, 0, 0);
-            }
-            else if (e.NewSize.Width < 800 && !IsInPageWithoutHeader)
-            {
-                ContentFrame.Margin = new Thickness(0);
-            }
-            else if (e.NewSize.Width >= 800)
-            {
-                ContentFrame.Margin = new Thickness(0);
             }
         }
 
@@ -129,10 +130,8 @@ namespace Rise.App.Views
                 // Startup setting
                 if (ContentFrame.Content == null)
                 {
-                    await Navigate(SViewModel.Open);
+                    this.ContentFrame.Navigate(Destinations[SViewModel.Open]);
                 }
-
-                FinishNavigation();
 
                 App.MViewModel.CanIndex = true;
                 if (SViewModel.AutoIndexingEnabled)
@@ -202,7 +201,7 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredGenres.Refresh();
                 App.MViewModel.FilteredVideos.Refresh();
                 App.MViewModel.FilteredPlaylists.Refresh();
-                
+
                 await Task.Delay(1000);
                 AddedTip.IsOpen = false;
             });
@@ -265,178 +264,88 @@ namespace Rise.App.Views
         #endregion
 
         #region Navigation
-        private async void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
-        {
-            string navTo = args?.InvokedItemContainer?.Tag?.ToString();
-            if (navTo == ContentFrame.CurrentSourcePageType.ToString())
-            {
-                FinishNavigation();
-                return;
-            }
-
-            if (navTo != null)
-            {
-                await Navigate(navTo);
-            }
-        }
-
-        private async void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
-        {
-            var item = sender as NavigationViewItem;
-            string navTo = item.Tag.ToString();
-
-            if (navTo == ContentFrame.CurrentSourcePageType.ToString())
-            {
-                FinishNavigation();
-                return;
-            }
-
-            if (navTo != null)
-            {
-                await Navigate(navTo);
-            }
-        }
-
-        private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
-            => ContentFrame.GoBack();
-
-        private async Task Navigate(string navTo)
-        {
-            switch (navTo)
-            {
-                case "HomePage":
-                    _ = ContentFrame.Navigate(typeof(HomePage));
-                    break;
-
-                case "NowPlayingPage":
-                    if (_nowPlayingWindow == null)
-                    {
-                        _nowPlayingWindow = await typeof(NowPlaying).
-                            PlaceInAppWindowAsync(null, 320, 300, true);
-                    }
-
-                    _nowPlayingWindow.Closed += (s, e) =>
-                    {
-                        _nowPlayingWindow = null;
-                    };
-
-                    _ = await _nowPlayingWindow.TryShowAsync();
-                    break;
-
-                case "ConnectedDevicesPage":
-                    _ = ContentFrame.Navigate(typeof(ConnectedDevicesPage));
-                    break;
-
-                case "PlaylistsPage":
-                    _ = ContentFrame.Navigate(typeof(PlaylistsPage));
-                    break;
-
-                case "SongsPage":
-                    _ = ContentFrame.Navigate(typeof(SongsPage));
-                    break;
-
-                case "ArtistsPage":
-                    _ = ContentFrame.Navigate(typeof(ArtistsPage));
-                    break;
-
-                case "AlbumsPage":
-                    _ = ContentFrame.Navigate(typeof(AlbumsPage));
-                    break;
-
-                case "GenresPage":
-                    _ = ContentFrame.Navigate(typeof(GenresPage));
-                    break;
-
-                case "LocalVideosPage":
-                    _ = ContentFrame.Navigate(typeof(LocalVideosPage));
-                    break;
-
-                case "DiscyPage":
-                    _ = ContentFrame.Navigate(typeof(DiscyPage));
-                    break;
-
-                case "SettingsPage":
-                    //_ = await SDialog.ShowAsync(ExistingDialogOptions.CloseExisting);
-                    if (Window.Current.Content is Frame rootFrame)
-                    {
-                        _ = rootFrame.Navigate(typeof(AllSettingsPage));
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        /// <summary>
+        /// Invoked whenever navigation happens within a frame.
+        /// </summary>
+        /// <param name="sender">Frame that navigated.</param>
+        /// <param name="e">Details about the navigation.</param>
+        private void OnNavigated(object sender, NavigationEventArgs e)
         {
             App.MViewModel.SelectedSong = null;
-            FinishNavigation();
+            var type = this.ContentFrame.CurrentSourcePageType;
+
+            if (type == typeof(AllSettingsPage))
+            {
+                this.Frame.Navigate(typeof(AllSettingsPage));
+                return;
+            }
+
+            bool hasKey = this.Destinations.TryGetKey(type, out var key);
+
+            // We need to handle unlisted destinations
+            if (!hasKey)
+            {
+                hasKey = this.UnlistedDestinations.TryGetKey(type, out key);
+            }
+
+            if (hasKey)
+            {
+                bool hasItem = this.NavDataSource.TryGetItem(key, out var item);
+                if (hasItem)
+                {
+                    this.NavView.SelectedItem = item;
+                }
+            }
         }
 
-        public void FinishNavigation()
+        /// <summary>
+        /// Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation</param>
+        /// <param name="e">Details about the navigation failure</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            string type = ContentFrame.CurrentSourcePageType.ToString();
-            string id = type.Split('.').Last();
-            bool found = NavDataSource.TryGetItem(id, out var current);
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
 
-            Breadcrumbs.Clear();
-            CrumbsHeader.Visibility = Visibility.Visible;
-
-            if (found)
+        /// <summary>
+        /// Invoked when a NavView item is invoked.
+        /// </summary>
+        /// <param name="sender">The NavigationView that contains the item.</param>
+        /// <param name="args">Details about the item invocation.</param>
+        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            string tag = args?.InvokedItemContainer?.Tag?.ToString();
+            if (this.ContentFrame.SourcePageType != Destinations[tag])
             {
-                NavView.SelectedItem = current;
-                Breadcrumbs.Add(new Crumb
-                {
-                    Title = ResourceLoaders.SidebarLoader.GetString(current.Label)
-                });
+                this.ContentFrame.Navigate(Destinations[tag],
+                    null, args.RecommendedNavigationTransitionInfo);
             }
+        }
 
-            switch (id)
+        /// <summary>
+        /// Invoked when an access key for an element inside a NavView is invoked.
+        /// </summary>
+        /// <param name="sender">The element associated with the access key that
+        /// was invoked.</param>
+        /// <param name="args">Details about the key invocation.</param>
+        private void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
+        {
+            string tag = ((FrameworkElement)sender).Tag.ToString();
+            if (this.ContentFrame.SourcePageType != Destinations[tag])
             {
-                case "HomePage":
-                    CrumbsHeader.Visibility = Visibility.Collapsed;
-                    IsInPageWithoutHeader = true;
-                    return;
-
-                case "AlbumSongsPage":
-                    CrumbsHeader.Visibility = Visibility.Collapsed;
-                    IsInPageWithoutHeader = true;
-
-                    NavView.SelectedItem = NavDataSource.
-                        Items.FirstOrDefault(i => i.Id == "AlbumsPage");
-                    return;
-
-                case "PlaylistDetailsPage":
-                    CrumbsHeader.Visibility = Visibility.Collapsed;
-                    IsInPageWithoutHeader = true;
-                    return;
-
-                case "ArtistSongsPage":
-                    CrumbsHeader.Visibility = Visibility.Collapsed;
-                    IsInPageWithoutHeader = true;
-
-                    NavView.SelectedItem = NavDataSource.
-                        Items.FirstOrDefault(i => i.Id == "ArtistsPage");
-                    return;
-
-                case "GenreSongsPage":
-                    IsInPageWithoutHeader = false;
-
-                    NavView.SelectedItem = NavDataSource.
-                        Items.FirstOrDefault(i => i.Id == "GenresPage");
-                    return;
-
-                case "SearchResultsPage":
-                    CrumbsHeader.Visibility = Visibility.Collapsed;
-                    IsInPageWithoutHeader = true;
-                    return;
-
-                default:
-                    CrumbsHeader.Visibility = Visibility.Visible;
-                    IsInPageWithoutHeader = false;
-                    break;
+                this.ContentFrame.Navigate(Destinations[tag]);
             }
+        }
+
+        /// <summary>
+        /// Invoked when a NavView's back button is clicked.
+        /// </summary>
+        /// <param name="sender">The NavigationView that contains the button.</param>
+        /// <param name="args">Details about the button click.</param>
+        private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+        {
+            this.ContentFrame.GoBack();
         }
         #endregion
 
@@ -696,7 +605,8 @@ namespace Rise.App.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(Web.FeedbackPage).ShowInApplicationViewAsync(null, 375, 600, true);
+            _ = await typeof(Web.FeedbackPage).
+                ShowInApplicationViewAsync(null, 375, 600, true);
         }
 
         private async void StartScan_Click(object sender, RoutedEventArgs e)
@@ -711,12 +621,7 @@ namespace Rise.App.Views
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(AllSettingsPage));
-            }
-
-            // _ = await SDialog.ShowAsync(ExistingDialogOptions.Enqueue);
+            this.Frame.Navigate(typeof(AllSettingsPage));
         }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
@@ -888,6 +793,7 @@ namespace Rise.App.Views
                 sender.ItemsSource = suitableItems;
             }
         }
+
         private async void Account_Click(object sender, RoutedEventArgs e)
         {
             if (Acc.Text != "Add an account")
@@ -897,10 +803,7 @@ namespace Rise.App.Views
             }
             else
             {
-                if (Window.Current.Content is Frame rootFrame)
-                {
-                    _ = rootFrame.Navigate(typeof(AllSettingsPage));
-                }
+                this.Frame.Navigate(typeof(AllSettingsPage));
             }
         }
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -931,14 +834,6 @@ namespace Rise.App.Views
         }
 
         private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
-        {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(AllSettingsPage));
-            }
-        }
-
-        private void NewSettings_Click(object sender, RoutedEventArgs e)
         {
             if (Window.Current.Content is Frame rootFrame)
             {
@@ -990,16 +885,6 @@ namespace Rise.App.Views
                 default:
                     return null;
             }
-        }
-    }
-
-    public class Crumb
-    {
-        public string Title { get; set; }
-
-        public override string ToString()
-        {
-            return Title;
         }
     }
 }

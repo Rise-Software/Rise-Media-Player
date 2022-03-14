@@ -121,6 +121,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Crumb.cs" />
     <Compile Include="DbObject.cs" />
     <Compile Include="Media\Album.cs" />
     <Compile Include="Media\Artist.cs" />

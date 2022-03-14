@@ -172,12 +172,12 @@
                 Visibility="Collapsed">
                 <Frame x:Name="NowPlayingFrame" />
             </Grid>
+
             <Grid
                 x:Name="ControlsPanel"
                 Height="32"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                x:FieldModifier="public"
                 Canvas.ZIndex="2"
                 ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
@@ -234,6 +234,7 @@
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
+
                 <AutoSuggestBox
                     x:Name="SmallSearch"
                     x:Uid="/Information/SmallSearch"
@@ -243,8 +244,6 @@
                     AutomationProperties.Name="Search"
                     QueryIcon="Find" />
 
-
-                <StackPanel Orientation="Horizontal" />
                 <Button
                     x:Name="SyncCentre"
                     Grid.Column="1"
@@ -273,6 +272,7 @@
                                 IsActive="True" />
                         </StackPanel>
                     </Button.Content>
+
                     <Button.Flyout>
                         <Flyout>
                             <StackPanel>
@@ -288,6 +288,7 @@
                                         FontSize="12"
                                         FontStretch="Normal" />
                                 </StackPanel>
+
                                 <StackPanel Padding="25" Orientation="Vertical">
                                     <FontIcon Height="32" Glyph="" />
                                     <TextBlock
@@ -295,10 +296,8 @@
                                         FontWeight="Normal"
                                         Text="Coming soon"
                                         TextAlignment="Center" />
-
                                 </StackPanel>
                             </StackPanel>
-
                         </Flyout>
                     </Button.Flyout>
                 </Button>
@@ -379,16 +378,6 @@
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-
-
-                            <!--<MenuFlyoutItem x:Uid="/Information/Fdb"
-                                            Click="Button_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xED15;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>-->
-
-
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
@@ -412,50 +401,23 @@
             PaneDisplayMode="LeftMinimal"
             RightTapped="NavigationView_RightTapped">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                <muxc:BreadcrumbBar
-                    x:Name="CrumbsHeader"
-                    Grid.Row="0"
-                    Margin="56,48,56,0"
+                <Frame
+                    x:Name="ContentFrame"
                     x:FieldModifier="public"
-                    ItemsSource="{x:Bind Breadcrumbs}">
-                    <muxc:BreadcrumbBar.ItemTemplate>
-                        <DataTemplate x:DataType="local:Crumb">
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Title}" />
-                        </DataTemplate>
-                    </muxc:BreadcrumbBar.ItemTemplate>
-                </muxc:BreadcrumbBar>
+                    Navigated="OnNavigated"
+                    NavigationFailed="OnNavigationFailed" />
 
-                <Grid Grid.Row="1">
-                    <Frame
-                        x:Name="ContentFrame"
-                        Padding="56,0,56,0"
-                        x:FieldModifier="public"
-                        Navigated="ContentFrame_Navigated">
-                        <Frame.ContentTransitions>
-                            <TransitionCollection>
-                                <NavigationThemeTransition />
-                            </TransitionCollection>
-                        </Frame.ContentTransitions>
-                    </Frame>
-
-                    <uc:NowPlayingBar
-                        Margin="15"
-                        VerticalAlignment="Bottom"
-                        BackgroundStyle="UseAlbumArt"
-                        IsArtistShown="True" />
-                </Grid>
+                <uc:NowPlayingBar
+                    Margin="15"
+                    VerticalAlignment="Bottom"
+                    BackgroundStyle="UseAlbumArt"
+                    IsArtistShown="True" />
             </Grid>
         </muxc:NavigationView>
 
         <muxc:TeachingTip
             x:Name="IndexingTip"
             x:Uid="/Information/Indexing"
-            x:FieldModifier="public"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.IconSource>
@@ -469,12 +431,11 @@
         <muxc:TeachingTip
             x:Name="AddedTip"
             Title="Updated your library."
-            x:FieldModifier="public"
-            IsLightDismissEnabled="True"
             ActionButtonClick="AddedTip_ActionButtonClick"
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
             HeroContentPlacement="Bottom"
+            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight" />
 
@@ -482,7 +443,6 @@
             x:Name="CheckTip"
             Title="Looking for new media on your device."
             HorizontalAlignment="Center"
-            x:FieldModifier="public"
             ActionButtonClick="AddedTip_ActionButtonClick"
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
@@ -490,23 +450,19 @@
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.HeroContent>
-                <StackPanel>
-                    <muxc:ProgressBar
-                        Width="270"
-                        Margin="2,0,10,10"
-                        CornerRadius="7"
-                        IsIndeterminate="True"
-                        ShowError="False"
-                        ShowPaused="False" />
-                </StackPanel>
-
+                <muxc:ProgressBar
+                    Width="270"
+                    Margin="2,0,10,10"
+                    CornerRadius="7"
+                    IsIndeterminate="True"
+                    ShowError="False"
+                    ShowPaused="False" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <muxc:TeachingTip
             x:Name="NoNewTip"
             x:Uid="/Information/NoNew"
-            x:FieldModifier="public"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight">
             <muxc:TeachingTip.IconSource>
