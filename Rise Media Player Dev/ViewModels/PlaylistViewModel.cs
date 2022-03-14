@@ -1,5 +1,6 @@
 ﻿using Rise.App.Views;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -8,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.WindowManagement;
 
 namespace Rise.App.ViewModels
 {
@@ -37,8 +37,7 @@ namespace Rise.App.ViewModels
                 Title = string.Empty,
                 Description = string.Empty,
                 Duration = string.Empty,
-                Icon = string.Empty,
-                Songs = new ObservableCollection<SongViewModel>()
+                Icon = string.Empty
             };
 
             // Check if linked to directory
@@ -216,19 +215,8 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private ObservableCollection<SongViewModel> _songs = new();
-        public ObservableCollection<SongViewModel> Songs
-        {
-            get => _songs;
-            set
-            {
-                if (value != _songs)
-                {
-                    _songs = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public readonly ThreadSafeCollection<SongViewModel>
+            Songs = new();
 
         public int SongsCount
         {

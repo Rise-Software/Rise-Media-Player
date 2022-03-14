@@ -32,7 +32,10 @@ namespace Rise.App.Views
 
             if ((Playlist.Songs.IndexOf(song) + 1) < Playlist.Songs.Count)
             {
-                    Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) + 1);
+                var index = Playlist.Songs.IndexOf(song);
+
+                Playlist.Songs.Remove(song);
+                Playlist.Songs.Insert(index + 1, song);
             }
         }
 
@@ -40,9 +43,12 @@ namespace Rise.App.Views
         {
             SongViewModel song = (sender as Button).Tag as SongViewModel;
 
-            if ((Playlist.Songs.IndexOf(song) - 1) > 0)
+            if ((Playlist.Songs.IndexOf(song) - 1) >= 0)
             {
-                    Playlist.Songs.Move(Playlist.Songs.IndexOf(song), Playlist.Songs.IndexOf(song) - 1);
+                var index = Playlist.Songs.IndexOf(song);
+
+                Playlist.Songs.Remove(song);
+                Playlist.Songs.Insert(index - 1, song);
             }
         }
     }

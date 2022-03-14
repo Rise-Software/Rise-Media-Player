@@ -8,7 +8,12 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <Grid RowSpacing="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
         <uc:ExpanderControl
             x:Uid="/Details/AsPlaylist"
             ExpanderStyle="Static"
@@ -26,90 +31,78 @@
         </uc:ExpanderControl>
 
         <ListView
-            Margin="0,8,-12,0"
-            ItemsSource="{x:Bind Playlist.Songs, Mode=OneWay}"
+            Grid.Row="1"
+            Margin="-12,0"
+            Padding="12,0"
+            ItemContainerStyle="{StaticResource BaseListViewItemStyle}"
+            ItemsSource="{x:Bind Playlist.Songs}"
             SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <ListViewItem Margin="-16,0,0,5" Style="{ThemeResource DefaultListViewItemStyle}">
-                        <Border
-                            Padding="4"
-                            HorizontalAlignment="Stretch"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="3"
-                            Style="{StaticResource SettingsCard}">
-                            <Grid Padding="10,5,5,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="135" />
-                                </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource SettingsCard}">
+                        <Grid Padding="4" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="36" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
+                            <Border
+                                Width="36"
+                                Height="36"
+                                CornerRadius="4">
+                                <Image
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Source="{x:Bind Thumbnail}" />
+                            </Border>
 
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    MaxLines="2"
+                                    Text="{x:Bind Title}"
+                                    TextTrimming="WordEllipsis"
+                                    TextWrapping="WrapWholeWords" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    MaxLines="2"
+                                    Text="{x:Bind Artist}"
+                                    TextTrimming="WordEllipsis"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="2"
+                                Orientation="Horizontal"
+                                Spacing="8">
                                 <Button
-                                    x:Name="AlbumImage"
-                                    Margin="-4,0,0,0"
-                                    Padding="-2"
-                                    CornerRadius="3">
-                                    <Image
-                                        Width="36"
-                                        Height="36"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Source="{x:Bind Thumbnail}" />
+                                    Click="MoveUp_Click"
+                                    Style="{StaticResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE014;" />
                                 </Button>
-                                <StackPanel>
-                                    <TextBlock
-                                        Margin="42,0,0,0"
-                                        VerticalAlignment="Center"
-                                        MaxLines="2"
-                                        Text="{x:Bind Title}"
-                                        TextTrimming="WordEllipsis"
-                                        TextWrapping="WrapWholeWords" />
-                                    <TextBlock
-                                        Margin="42,0,0,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="13"
-                                        FontWeight="SemiBold"
-                                        MaxLines="2"
-                                        Text="{x:Bind Artist}"
-                                        TextTrimming="WordEllipsis"
-                                        TextWrapping="WrapWholeWords" />
-                                </StackPanel>
-
-
-
-                                <StackPanel
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button
-                                        Click="MoveUp_Click"
-                                        Style="{StaticResource TransparentButtonStyle}"
-                                        Tag="{x:Bind}">
-                                        <FontIcon Glyph="&#xE014;" />
-                                    </Button>
-                                    <Button
-                                        Click="MoveBottom_Click"
-                                        Style="{StaticResource TransparentButtonStyle}"
-                                        Tag="{x:Bind}">
-                                        <FontIcon Glyph="&#xE015;" />
-                                    </Button>
-                                    <Button
-                                        Click="RemoveSong_Click"
-                                        Style="{StaticResource TransparentButtonStyle}"
-                                        Tag="{x:Bind}">
-                                        <FontIcon Glyph="&#xE106;" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </ListViewItem>
+                                <Button
+                                    Click="MoveBottom_Click"
+                                    Style="{StaticResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE015;" />
+                                </Button>
+                                <Button
+                                    Click="RemoveSong_Click"
+                                    Style="{StaticResource TransparentButtonStyle}"
+                                    Tag="{x:Bind}">
+                                    <FontIcon Glyph="&#xE106;" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackPanel>
+    </Grid>
 
 
 </Page>
