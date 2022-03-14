@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -15,7 +16,93 @@ namespace Rise.App.Views
 {
     public sealed partial class GenreSongsPage : Page
     {
-        #region Variables
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        private readonly NavigationHelper _navigationHelper;
+
+        public GenreSongsPage()
+        {
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            DataContext = this;
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
+        }
+
+        /// <summary>
+        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// provided when recreating a page from a prior session.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event; typically <see cref="NavigationHelper"/>
+        /// </param>
+        /// <param name="e">Event data that provides both the navigation parameter passed to
+        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
+        /// a dictionary of state preserved by this page during an earlier
+        /// session.  The state will be null the first time a page is visited.</param>
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (e.NavigationParameter is Guid id)
+            {
+                this.SelectedGenre = this.MViewModel.Genres.
+                    FirstOrDefault(g => g.Model.Id == id);
+
+                this.Songs.Filter = s => ((SongViewModel)s).Genres.Contains(SelectedGenre.Name);
+                this.Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(SelectedGenre.Name);
+            }
+            else if (e.NavigationParameter is string str)
+            {
+                this.SelectedGenre = this.MViewModel.Genres.
+                    FirstOrDefault(g => g.Name == str);
+
+                this.Songs.Filter = s => ((SongViewModel)s).Genres.Contains(str);
+                this.Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(str);
+            }
+
+            Songs.SortDescriptions.Clear();
+            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+
+            Albums.SortDescriptions.Clear();
+            Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+
+            foreach (ArtistViewModel artist in Artists)
+            {
+                AllArtistsInGenre.AddIfNotExists(artist);
+            }
+
+            foreach (AlbumViewModel album in Albums)
+            {
+                AllArtistsInGenre.Filter = a => album.Artist == ((ArtistViewModel)a).Name;
+            }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            this.Frame.SetListDataItemForNextConnectedAnimation(this.SelectedGenre);
+        }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
+    }
+
+    public sealed partial class GenreSongsPage : Page
+    {
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -25,11 +112,6 @@ namespace Rise.App.Views
         /// Gets the app-wide PViewModel instance.
         /// </summary>
         private PlaybackViewModel PViewModel => App.PViewModel;
-
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
 
         private static readonly DependencyProperty SelectedGenreProperty =
             DependencyProperty.Register("SelectedGenre", typeof(GenreViewModel), typeof(GenreSongsPage), null);
@@ -47,9 +129,10 @@ namespace Rise.App.Views
             set => MViewModel.SelectedSong = value;
         }
 
-        private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
-        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
-        private AdvancedCollectionView Artists => MViewModel.FilteredArtists;
+        private AdvancedCollectionView Songs => this.MViewModel.FilteredSongs;
+        private AdvancedCollectionView Albums => this.MViewModel.FilteredAlbums;
+        private AdvancedCollectionView Artists => this.MViewModel.FilteredArtists;
+
         private readonly AdvancedCollectionView AllArtistsInGenre = new();
         private readonly AdvancedCollectionView AllAlbumsInGenre = new();
 
@@ -85,67 +168,99 @@ namespace Rise.App.Views
             }
             set => _viewCommand = value;
         }
-        #endregion
-
-        public GenreSongsPage()
+    }
+    
+    // Event handlers
+    public sealed partial class GenreSongsPage : Page
+    {
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                int index = this.MainList.Items.IndexOf(song);
+                await EventsLogic.StartMusicPlaybackAsync(index);
+                return;
+            }
 
-            DataContext = this;
-            _navigationHelper = new NavigationHelper(this);
-            _navigationHelper.LoadState += NavigationHelper_LoadState;
+            await EventsLogic.StartMusicPlaybackAsync();
         }
 
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
+            => await EventsLogic.StartMusicPlaybackAsync(0, true);
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.FocusSong(ref _song, e);
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+            => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToAlbum(sender);
+
+        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+            => EventsLogic.GoToArtist(sender);
+
+        private void AlbumGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if (e.NavigationParameter is GenreViewModel genre)
+            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                SelectedGenre = genre;
-                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(genre.Name);
-                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(genre.Name);
-            }
-            else if (e.NavigationParameter is string str)
-            {
-                SelectedGenre = App.MViewModel.Genres.FirstOrDefault(g => g.Name == str);
-                Songs.Filter = s => ((SongViewModel)s).Genres.Contains(str);
-                Albums.Filter = a => ((AlbumViewModel)a).Genres.Contains(str);
-            }
-
-            Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
-
-            Albums.SortDescriptions.Clear();
-            Albums.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
-
-            foreach (ArtistViewModel artist in Artists)
-            {
-                AllArtistsInGenre.AddIfNotExists(artist);
-            }
-
-            foreach (AlbumViewModel album in Albums)
-            {
-                AllArtistsInGenre.Filter = a => album.Artist == ((ArtistViewModel)a).Name;
+                this.AlbumFlyout.ShowAt(AlbumGrid, e.GetPosition(AlbumGrid));
             }
         }
 
-        #region Event handlers
+        private void ArtistGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                this.ArtistFlyout.ShowAt(ArtistGrid, e.GetPosition(ArtistGrid));
+            }
+        }
+
+        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItem)
+            {
+                case "Songs":
+                    this.MainList.Visibility = Visibility.Visible;
+                    this.AlbumGrid.Visibility = Visibility.Collapsed;
+                    this.ArtistGrid.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Albums":
+                    this.MainList.Visibility = Visibility.Collapsed;
+                    this.AlbumGrid.Visibility = Visibility.Visible;
+                    this.ArtistGrid.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Artists":
+                    this.MainList.Visibility = Visibility.Collapsed;
+                    this.AlbumGrid.Visibility = Visibility.Collapsed;
+                    this.ArtistGrid.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void ArtistGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e?.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            {
+                this.Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+            }
+        }
+
+        private void AlbumGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if ((e?.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            {
+                this.Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            }
+        }
+
         private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                int index = MainList.Items.IndexOf(song);
+                int index = this.MainList.Items.IndexOf(song);
                 await EventsLogic.StartMusicPlaybackAsync(index);
             }
         }
@@ -154,8 +269,8 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
-                SelectedSong = song;
-                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
+                this.SelectedSong = song;
+                this.SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
             }
         }
 
@@ -226,107 +341,6 @@ namespace Rise.App.Views
                 default:
                     SortProperty = view;
                     break;
-            }
-        }
-        #endregion
-
-        #region Common handlers
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await EventsLogic.StartMusicPlaybackAsync(index);
-                return;
-            }
-
-            await EventsLogic.StartMusicPlaybackAsync();
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
-
-        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
-
-        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
-
-        private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToAlbum(sender);
-
-        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
-        #endregion
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-
-        private void AlbumGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                AlbumFlyout.ShowAt(AlbumGrid, e.GetPosition(AlbumGrid));
-            }
-        }
-
-        private void ArtistGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                ArtistFlyout.ShowAt(ArtistGrid, e.GetPosition(ArtistGrid));
-            }
-        }
-
-        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
-        {
-            switch (args.InvokedItem)
-            {
-                case "Songs":
-                    MainList.Visibility = Visibility.Visible;
-                    AlbumGrid.Visibility = Visibility.Collapsed;
-                    ArtistGrid.Visibility = Visibility.Collapsed;
-                    break;
-                case "Albums":
-                    MainList.Visibility = Visibility.Collapsed;
-                    AlbumGrid.Visibility = Visibility.Visible;
-                    ArtistGrid.Visibility = Visibility.Collapsed;
-                    break;
-                case "Artists":
-                    MainList.Visibility = Visibility.Collapsed;
-                    AlbumGrid.Visibility = Visibility.Collapsed;
-                    ArtistGrid.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
-
-        private void ArtistGrid_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if ((e?.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
-            }
-        }
-
-        private void AlbumGrid_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if ((e?.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
     }

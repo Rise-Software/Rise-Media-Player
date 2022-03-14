@@ -22,16 +22,7 @@
     <Grid>
         <StackPanel>
             <Grid Padding="0,0,12,32" ColumnSpacing="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-
-
-
-
                 <StackPanel
-                    Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     Orientation="Horizontal"
                     Spacing="0">
@@ -106,29 +97,6 @@
 
                         <AppBarSeparator />
 
-                        <!--AppBarButton x:Uid="/Information/View">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="&#xECAA;" />
-                                        </AppBarButton.Icon>
-
-                                        <AppBarButton.Flyout>
-                                            <MenuFlyout>
-                                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Songs"
-                                                                          Command="{Binding ElementName=Root, Path=ViewCommand}"
-                                                                          CommandParameter="Default"
-                                                                          GroupName="View" />
-                                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artists"
-                                                                          Command="{Binding ElementName=Root, Path=ViewCommand}"
-                                                                          CommandParameter="Artists"
-                                                                          GroupName="View" />
-                                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Albums"
-                                                                          Command="{Binding ElementName=Root, Path=ViewCommand}"
-                                                                          CommandParameter="Albums"
-                                                                          GroupName="View" />
-                                            </MenuFlyout>
-                                        </AppBarButton.Flyout>
-                                    </AppBarButton-->
-
                         <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
                             <AppBarButton.Flyout>
                                 <MenuFlyout>
@@ -197,6 +165,7 @@
                             Tag="Artists" />
                     </muxc:NavigationView.MenuItems>
                 </muxc:NavigationView>
+
                 <ListView
                     x:Name="MainList"
                     Grid.Row="1"
@@ -299,6 +268,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
                 <GridView
                     x:Name="ArtistGrid"
                     Grid.Row="1"

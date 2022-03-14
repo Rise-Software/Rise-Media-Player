@@ -12,176 +12,74 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            <muxc:InfoBar
-                Title="Note:"
-                Margin="-2,8,-2,0"
-                IsClosable="False"
-                IsOpen="True"
-                Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." />
-            <CommandBar
-                Margin="-12,8,0,0"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                DefaultLabelPosition="Right">
-                <!--<AppBarButton x:Name="PlayItem"
-                          x:Uid="/Information/Play"
-                          Icon="Play"
-                          IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButtonStyle}" />
+        <muxc:InfoBar
+            Title="Note:"
+            Margin="-2,8,-2,0"
+            IsOpen="True"
+            Message="All pages for your genres, including this one, are being replaced soon. We suggest you do not submit feedback about these pages." />
+        <CommandBar
+            Grid.Row="1"
+            Margin="-12,8,0,0"
+            HorizontalAlignment="Left"
+            Background="Transparent"
+            DefaultLabelPosition="Right">
+            <AppBarButton
+                x:Name="AddFolders"
+                x:Uid="/MediaLibrary/AddFolders"
+                HorizontalAlignment="Right"
+                Click="AddFolders_Click"
+                Icon="NewFolder" />
+        </CommandBar>
 
-            <AppBarSeparator />
+        <GridView
+            Grid.Row="2"
+            Margin="-56,0"
+            Padding="44,0,44,120"
+            animations:Connected.ListItemElementName="GenreThumb"
+            animations:Connected.ListItemKey="GenreArt"
+            ItemsSource="{x:Bind Genres}"
+            SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
+            SelectionMode="Single"
+            Tapped="GridView_Tapped">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:GenreViewModel">
+                    <Grid
+                        Width="210"
+                        Margin="12"
+                        ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
 
-            <AppBarButton x:Name="ShuffleItem"
-                          x:Uid="/Information/Shuffle"
-                          Icon="Shuffle"
-                          IsEnabled="False" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="True" IsCompact="True">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xECC8;" />
-                </AppBarButton.Icon>
+                        <Button
+                            Padding="0"
+                            CornerRadius="4"
+                            IsHitTestVisible="False">
+                            <Border x:Name="GenreThumb" CornerRadius="4">
+                                <Image
+                                    Width="48"
+                                    Height="48"
+                                    Source="ms-appx:///Assets/BlankGenre.png"
+                                    Stretch="UniformToFill" />
+                            </Border>
+                        </Button>
 
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Name="NewPlaylist"
-                                    x:Uid="/Information/NewPlaylist"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE93F;" FontFamily="Media Player Fluent Icons"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="PinToStart"
-                                    x:Uid="/Information/PinToStart"
-                                    IsEnabled="False">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xE141;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-
-            <AppBarSeparator />
-
-            <AppBarButton x:Uid="/Information/Delete"
-                          Icon="Delete"
-                          IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButtonStyle}" />
-            <AppBarButton x:Uid="/Information/Edit"
-                          Icon="Edit"
-                          IsEnabled="False"
-                          Style="{StaticResource AppBarCompactButtonStyle}" />
-
-            <AppBarSeparator />
-
-            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xECAA;" />
-                </AppBarButton.Icon>
-
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Default">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xF0E2;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-
-            <AppBarButton x:Uid="/Information/Sort"
-                          Icon="Sort"
-                          IsEnabled="False">
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Title"
-                                                  IsChecked="True"
-                                                  Tag="Title" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Artist"
-                                                  Tag="Artist" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Genre"
-                                                  Tag="Genres" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Year"
-                                                  Tag="Year" />
-
-                        <MenuFlyoutSeparator />
-
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Ascending"
-                                                  GroupName="Descending"
-                                                  IsChecked="True"
-                                                  Tag="Ascending" />
-                        <muxc:RadioMenuFlyoutItem x:Uid="/Information/Descending"
-                                                  GroupName="Descending"
-                                                  Tag="Descending" />
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-
-            <AppBarSeparator/>-->
-
-                <AppBarButton
-                    x:Name="AddFolders"
-                    x:Uid="/MediaLibrary/AddFolders"
-                    HorizontalAlignment="Right"
-                    Click="AddFolders_Click"
-                    Icon="NewFolder" />
-
-            </CommandBar>
-
-            <GridView
-                Grid.Row="1"
-                Margin="-56,0"
-                Padding="44,0,44,120"
-                animations:Connected.ListItemElementName="GenreThumb"
-                animations:Connected.ListItemKey="GenreArt"
-                ItemsSource="{x:Bind Genres, Mode=OneWay}"
-                SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
-                SelectionMode="Single"
-                Tapped="GridView_Tapped">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                        <Grid
-                            Width="210"
-                            Margin="12"
-                            ColumnSpacing="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Button
-                                Padding="0"
-                                CornerRadius="4"
-                                IsHitTestVisible="False">
-                                <Border x:Name="GenreThumb" CornerRadius="4">
-                                    <Image
-                                        Width="48"
-                                        Height="48"
-                                        Source="ms-appx:///Assets/BlankGenre.png"
-                                        Stretch="UniformToFill" />
-                                </Border>
-                            </Button>
-
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                FontSize="16"
-                                MaxLines="2"
-                                Style="{StaticResource BaseTextBlockStyle}"
-                                Text="{x:Bind Name}"
-                                TextWrapping="Wrap" />
-                        </Grid>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </StackPanel>
-
-
-
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            MaxLines="2"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Name}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>
