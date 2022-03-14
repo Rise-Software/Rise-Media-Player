@@ -2,21 +2,21 @@
     x:Class="Rise.App.Views.PlaylistDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
-    <Grid Margin="0,0,0,0">
+
+    <Grid>
         <ListView
             x:Name="MainList"
-            Margin="-56,0,-56,0"
+            Margin="-56,0"
             Padding="56,0"
             DoubleTapped="MainList_DoubleTapped"
-            ItemsSource="{x:Bind plViewModel.Songs, Mode=OneWay}"
+            ItemsSource="{x:Bind SelectedPlaylist.Songs, Mode=OneWay}"
             RightTapped="MainList_RightTapped"
             SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}">
 
@@ -42,7 +42,7 @@
                         <ParallaxView Source="{x:Bind MainList}" VerticalShift="300">
                             <Image
                                 Opacity="0.6"
-                                Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
+                                Source="{x:Bind SelectedPlaylist.Icon, Mode=OneWay}"
                                 Stretch="UniformToFill" />
                         </ParallaxView>
                         <Border>
@@ -60,11 +60,11 @@
                                     ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                     CornerRadius="8"
                                     IsHitTestVisible="False">
-                                    <Border CornerRadius="8">
+                                    <Border animations:Connected.Key="PlaylistArt" CornerRadius="8">
                                         <Image
                                             Width="154"
                                             Height="154"
-                                            Source="{x:Bind plViewModel.Icon, Mode=OneWay}"
+                                            Source="{x:Bind SelectedPlaylist.Icon, Mode=OneWay}"
                                             Stretch="Uniform" />
                                     </Border>
                                 </Button>
@@ -85,43 +85,11 @@
                                             VerticalAlignment="Center"
                                             MaxLines="1"
                                             Style="{StaticResource TitleTextBlockStyle}"
-                                            Text="{x:Bind plViewModel.Title, Mode=OneWay}"
+                                            Text="{x:Bind SelectedPlaylist.Title, Mode=OneWay}"
                                             TextTrimming="CharacterEllipsis" />
-
-                                        <!--<FontIcon x:Name="Folder"
-                                          Grid.Column="1"
-                                          FontSize="20"
-                                          Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                          Glyph="&#xF12B;"
-                                          Margin="5,0,0,0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="left"/>-->
                                     </Grid>
 
-                                    <!--<TextBlock FontWeight="SemiBold" Style="{StaticResource BodyTextBlockStyle}">
-
-
-
-                                <Hyperlink Click="Artist_Click" UnderlineStyle="None">
-                                    <Run Text="{x:Bind Artist}" />
-                                </Hyperlink>
-
-
-
-                                    </TextBlock>-->
-                                    <StackPanel Grid.Column="1" Orientation="Vertical">
-
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="1*" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Rectangle Grid.Column="1" />
-                                        </Grid>
-                                    </StackPanel>
-
-                                    <TextBlock Text="{x:Bind plViewModel.Description, Mode=OneWay}" />
+                                    <TextBlock Text="{x:Bind SelectedPlaylist.Description, Mode=OneWay}" />
 
                                     <CommandBar
                                         Margin="-12,0"
@@ -136,9 +104,6 @@
                                             Style="{StaticResource AppBarCompactButtonStyle}" />
 
                                         <AppBarSeparator />
-
-
-
 
                                         <AppBarButton x:Uid="/Information/EditPlaylist" Click="PlaylistProperties_Click">
                                             <AppBarButton.Icon>
@@ -158,6 +123,7 @@
                     </Grid>
                 </Border>
             </ListView.Header>
+
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
                     <Grid
@@ -289,7 +255,6 @@
                                 Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
                                 Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                         </StackPanel>
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

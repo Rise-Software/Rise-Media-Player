@@ -2,6 +2,7 @@
     x:Class="Rise.App.Views.PlaylistsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -66,9 +67,6 @@
                 Icon="Save"
                 IsEnabled="False"
                 Label="Export" />
-
-
-
         </CommandBar>
 
         <GridView
@@ -76,6 +74,8 @@
             Grid.Row="1"
             Margin="-46,0"
             Padding="44,0,44,120"
+            animations:Connected.ListItemElementName="PlaylistThumb"
+            animations:Connected.ListItemKey="PlaylistArt"
             ItemsSource="{x:Bind Playlists}"
             RightTapped="MainGrid_RightTapped"
             SelectionChanged="MainGrid_SelectionChanged"
@@ -167,24 +167,19 @@
                         Margin="12"
                         Orientation="Vertical"
                         Spacing="2">
-                        <Button
-                            Padding="0"
-                            CornerRadius="4"
-                            IsHitTestVisible="False">
-                            <Border x:Name="AlbumThumb" CornerRadius="4">
-                                <Image
-                                    Width="134"
-                                    Height="134"
-                                    Stretch="UniformToFill">
-                                    <Image.Source>
-                                        <BitmapImage
-                                            DecodePixelHeight="134"
-                                            DecodePixelWidth="134"
-                                            UriSource="{x:Bind Icon}" />
-                                    </Image.Source>
-                                </Image>
-                            </Border>
-                        </Button>
+                        <Border x:Name="PlaylistThumb" CornerRadius="4">
+                            <Image
+                                Width="134"
+                                Height="134"
+                                Stretch="UniformToFill">
+                                <Image.Source>
+                                    <BitmapImage
+                                        DecodePixelHeight="134"
+                                        DecodePixelWidth="134"
+                                        UriSource="{x:Bind Icon}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
 
                         <TextBlock
                             Padding="0,7,0,0"

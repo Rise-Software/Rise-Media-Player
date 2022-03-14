@@ -145,56 +145,6 @@ namespace Rise.App.Views
             await playlist.AddSongsAsync(songs);
         }
 
-        /* Not needed: loads while indexing now
-        private async Task SetArtistPictures()
-        {
-            string image;
-            foreach (ArtistViewModel artist in Artists)
-            {
-                if (artist.Name != "Unknown Artist")
-                {
-                    artistnames.Add(artist.Name);
-                }
-            }
-            foreach (string artistname in artistnames)
-            {
-                image = await Task.Run(() => getartistimg(artistname));
-                imagelinks.Add(artistname + " - " + image);
-            }
-            foreach (string imagel in imagelinks)
-            {
-                foreach (ArtistViewModel artist in Artists)
-                {
-                    // Get images from database
-                    IEnumerable<Artist> artists = await SQLRepository.Repository.Artists.GetAsync();
-                    StorageFile file = null;
-
-                    try
-                    {
-                        file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appdata:///local/modified-artist-{artist.Name}.png"));
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
-                    if (artist.Name == "Unknown Artist")
-                    {
-                        artist.Picture = URIs.ArtistThumb;
-                    }
-                    else if (file != null)
-                    {
-                        artist.Picture = $@"ms-appdata:///local/modified-artist-{artist.Name}.png";
-                    }
-                    else if (imagel.Contains(artist.Name))
-                    {
-                        artist.Picture = imagel.Replace(artist.Name + " - ", "");
-                    }
-                }
-            }
-        }
-        */
-
         #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {

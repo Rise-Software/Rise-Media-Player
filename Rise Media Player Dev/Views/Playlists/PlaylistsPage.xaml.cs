@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
@@ -7,27 +8,62 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
+    // Constructor, Lifecycle management
+    public sealed partial class PlaylistsPage : Page
+    {
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        private readonly NavigationHelper _navigationHelper;
+
+        public PlaylistsPage()
+        {
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            _navigationHelper = new NavigationHelper(this);
+        }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
+    }
+
+    // Fields, properties
     public sealed partial class PlaylistsPage : Page
     {
         private AdvancedCollectionView Playlists => App.MViewModel.FilteredPlaylists;
 
         private static readonly DependencyProperty SelectedPlaylistProperty =
-                DependencyProperty.Register("SelectedPlaylist", typeof(PlaylistViewModel), typeof(AlbumsPage), null);
+                DependencyProperty.Register("SelectedPlaylist", typeof(PlaylistViewModel), typeof(PlaylistsPage), null);
 
         private PlaylistViewModel SelectedPlaylist
         {
             get => (PlaylistViewModel)GetValue(SelectedPlaylistProperty);
             set => SetValue(SelectedPlaylistProperty, value);
         }
+    }
 
-        public PlaylistsPage()
-        {
-            InitializeComponent();
-        }
-
+    // Event handlers
+    public sealed partial class PlaylistsPage : Page
+    {
         private async void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
         {
             await new CreatePlaylistDialog().ShowAsync();
@@ -54,28 +90,19 @@ namespace Rise.App.Views
 
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (!KeyboardHelpers.IsCtrlPressed())
+            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
             {
-                if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+                if (!KeyboardHelpers.IsCtrlPressed())
                 {
-                    _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist);
+                    Frame.SetListDataItemForNextConnectedAnimation(playlist);
+                    _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
+                    SelectedPlaylist = null;
                 }
-
-                SelectedPlaylist = null;
-            }
-            else
-            {
-                if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
+                else
                 {
                     SelectedPlaylist = playlist;
                 }
             }
-        }
-
-        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            PlaylistViewModel model = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
-            System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {model.Title}\n   Description: {model.Description}");
         }
 
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
