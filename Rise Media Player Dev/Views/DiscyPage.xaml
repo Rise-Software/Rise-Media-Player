@@ -8,14 +8,18 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
     <ScrollViewer
-        Margin="-56,0"
-        Padding="56,0"
+        Padding="56,56,56,0"
+        d:Padding="12"
         VerticalScrollBarVisibility="Auto">
         <StackPanel
             Padding="0,0,0,120"
+            d:Padding="0"
             Orientation="Vertical"
             Spacing="4">
             <Border Margin="10,10,10,10" ui:Effects.Shadow="{x:Bind DropShadow}">
@@ -39,7 +43,7 @@
                 Icon="&#xEA69;">
                 <RichTextBlock IsTextSelectionEnabled="False">
                     <Paragraph>
-                        To add your personal music and videos, go to <Hyperlink Click="AppSettingsHyperlink_Click" UnderlineStyle="None">app settings</Hyperlink>
+                        To add your personal music and videos, go to<Hyperlink Click="AppSettingsHyperlink_Click" UnderlineStyle="None">app settings</Hyperlink>
                         and go to the library page. Click on the button that corresponds to the type of media you want to add (music or videos). Then click ‘Add folder’ to select from your files. If you add a root folder, we’ll look in all of the folders within, so there’s no need to add many folders. We’ll automatically rescan your music and videos to match your new locations. You’re done!</Paragraph>
                 </RichTextBlock>
             </uc:ExpanderControl>
@@ -107,7 +111,7 @@
                     IsTextSelectionEnabled="False"
                     TextAlignment="Center">
                     <Paragraph>
-                        We’re adding extra help all of the time! You can always <Hyperlink NavigateUri="https://rise-media.netlify.app/help" UnderlineStyle="None">get more help online</Hyperlink>
+                        We’re adding extra help all of the time! You can always<Hyperlink NavigateUri="https://rise-media.netlify.app/help" UnderlineStyle="None">get more help online</Hyperlink>
                         if you need more support, or click on Discy!</Paragraph>
                 </RichTextBlock>
             </StackPanel>
