@@ -8,12 +8,15 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    x:Name="Root"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
     <ListView
         x:Name="MainList"
         Padding="44,44,44,0"
+        d:Padding="12"
         DoubleTapped="MainList_DoubleTapped"
         Header="{x:Bind SelectedPlaylist, Mode=OneWay}"
         ItemsSource="{x:Bind SelectedPlaylist.Songs, Mode=OneWay}"
