@@ -1,7 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
-using Rise.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -15,90 +14,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    // Constructor, Lifecycle management
-    public sealed partial class PlaylistDetailsPage : Page
-    {
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
-        public PlaylistDetailsPage()
-        {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-            Loaded += PlaylistDetailsPage_Loaded;
-
-            _navigationHelper = new NavigationHelper(this);
-            _navigationHelper.LoadState += NavigationHelper_LoadState;
-            _navigationHelper.SaveState += NavigationHelper_SaveState;
-        }
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.NavigationParameter is Guid id)
-            {
-                SelectedPlaylist = App.MViewModel.Playlists.
-                    FirstOrDefault(p => p.Model.Id == id);
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedPlaylist);
-        }
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            _navigationHelper.OnNavigatedTo(e);
-        }
-            
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-
-        private async void MoveSongUp_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                if ((SelectedPlaylist.Songs.IndexOf(song) - 1) >= 0)
-                {
-                    var index = SelectedPlaylist.Songs.IndexOf(song);
-
-                    SelectedPlaylist.Songs.Remove(song);
-                    SelectedPlaylist.Songs.Insert(index - 1, song);
-                    await SelectedPlaylist.SaveEditsAsync();
-                }
-            }
-        }
-
-        private async void MoveSongDown_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                if ((SelectedPlaylist.Songs.IndexOf(song) + 1) < SelectedPlaylist.Songs.Count)
-                {
-                    var index = MainList.Items.IndexOf(song);
-
-                    SelectedPlaylist.Songs.Remove(song);
-                    SelectedPlaylist.Songs.Insert(index + 1, song);
-                    await SelectedPlaylist.SaveEditsAsync();
-                }
-            }
-        }
-    }
-
-    
-
     // Fields, properties
     public sealed partial class PlaylistDetailsPage : Page
     {
@@ -128,7 +43,6 @@ namespace Rise.App.Views
     {
         private async void PlaylistDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SongCount.Text = SelectedPlaylist.SongsCount + " " + "songs";
             try
             {
                 await Task.Run(async () =>
@@ -235,5 +149,89 @@ namespace Rise.App.Views
                 Debug.WriteLine(SelectedPlaylist.Songs.Remove(SelectedSong));
             }
         }
+
+        private async void MoveSongUp_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                if ((SelectedPlaylist.Songs.IndexOf(song) - 1) >= 0)
+                {
+                    var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                    SelectedPlaylist.Songs.Remove(song);
+                    SelectedPlaylist.Songs.Insert(index - 1, song);
+                    await SelectedPlaylist.SaveEditsAsync();
+                }
+            }
+        }
+
+        private async void MoveSongDown_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                if ((SelectedPlaylist.Songs.IndexOf(song) + 1) < SelectedPlaylist.Songs.Count)
+                {
+                    var index = MainList.Items.IndexOf(song);
+
+                    SelectedPlaylist.Songs.Remove(song);
+                    SelectedPlaylist.Songs.Insert(index + 1, song);
+                    await SelectedPlaylist.SaveEditsAsync();
+                }
+            }
+        }
+    }
+
+    // Constructor, Lifecycle management
+    public sealed partial class PlaylistDetailsPage : Page
+    {
+        /// <summary>
+        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
+        /// </summary>
+        private readonly NavigationHelper _navigationHelper;
+
+        public PlaylistDetailsPage()
+        {
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            Loaded += PlaylistDetailsPage_Loaded;
+
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (e.NavigationParameter is Guid id)
+            {
+                SelectedPlaylist = App.MViewModel.Playlists.
+                    FirstOrDefault(p => p.Model.Id == id);
+            }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            Frame.SetListDataItemForNextConnectedAnimation(SelectedPlaylist);
+        }
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
+
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }

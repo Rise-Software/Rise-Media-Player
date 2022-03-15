@@ -3,14 +3,25 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
-    <Grid Margin="-10,0,0,0">
+    <Page.Resources>
+        <ResourceDictionary>
+            <conv:ResourceToString x:Key="StrToRes" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -29,11 +40,17 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
+        <TextBlock
+            d:Text="Playlists"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+
         <CommandBar
+            Grid.Row="1"
+            Margin="-12,0"
             HorizontalAlignment="Left"
             Background="Transparent"
             DefaultLabelPosition="Right">
-
             <AppBarButton
                 Click="CreatePlaylistButton_Click"
                 IsCompact="True"
@@ -71,8 +88,8 @@
 
         <GridView
             x:Name="MainGrid"
-            Grid.Row="1"
-            Margin="-46,0"
+            Grid.Row="2"
+            Margin="-56,0"
             Padding="44,0,44,120"
             animations:Connected.ListItemElementName="PlaylistThumb"
             animations:Connected.ListItemKey="PlaylistArt"

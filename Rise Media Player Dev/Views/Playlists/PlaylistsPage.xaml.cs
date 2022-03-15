@@ -49,6 +49,7 @@ namespace Rise.App.Views
     // Fields, properties
     public sealed partial class PlaylistsPage : Page
     {
+        private readonly string Label = "Playlists";
         private AdvancedCollectionView Playlists => App.MViewModel.FilteredPlaylists;
 
         private static readonly DependencyProperty SelectedPlaylistProperty =
