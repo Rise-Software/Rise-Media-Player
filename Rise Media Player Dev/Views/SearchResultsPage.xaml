@@ -6,14 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:BooleanToVisibility x:Key="BoolToVis" />
+        <ResourceDictionary>
+            <converters:BooleanToVisibility x:Key="BoolToVis" />
+        </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer Margin="-50,0,-50,0" Padding="56,0,56,100">
-        <StackPanel Padding="0,48,0,0">
+    <ScrollViewer Padding="56,56,56,0" d:Padding="12">
+        <StackPanel Padding="0,0,0,120" d:Padding="0">
             <StackPanel
                 VerticalAlignment="Bottom"
                 Orientation="Horizontal"
@@ -198,6 +203,5 @@
                 </GridView>
             </StackPanel>
         </StackPanel>
-
     </ScrollViewer>
 </Page>
