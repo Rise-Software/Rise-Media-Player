@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Converters;
+using Rise.App.Models;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -9,10 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -85,7 +89,7 @@ namespace Rise.App.Views
             Loaded += ArtistSongsPage_Loaded;
         }
 
-        private void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
+        private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
             SortName = "Title";
             SortButton.Label = "Sort by: " + SortName;
@@ -119,12 +123,38 @@ namespace Rise.App.Views
                 }
                 catch { }
             }
+            LFM lfm = await Task.Run(() => GetTopTracks(name));
+            List<Track> track = lfm.Toptracks.Track;
+            foreach (Track trackname in track)
+            {
+                string traname = trackname.Name;
+                ListBoxItem listBoxItem = new();
+                listBoxItem.Content = traname;
+                TopTracksLis.Items.Add(listBoxItem);
+            }
 
-        } /// <summary>
-          /// Task to get description about artist.
-          /// </summary>
-          /// <param name="artist">Artist name.</param>
-          /// <returns></returns>
+
+        }
+
+        public Task<LFM> GetTopTracks(string artist)
+        {
+            LFM lfm = null;
+            string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
+            string xmlStr;
+            WebClient wc = new();
+            xmlStr = wc.DownloadString(m_strFilePath);
+            StringReader stringReader = new(xmlStr);
+            XmlSerializer xs = new(typeof(LFM));
+            XmlTextReader xmlReader = new(stringReader);
+            lfm = (LFM)xs.Deserialize(xmlReader);
+            return Task.FromResult(lfm);
+        }
+
+        /// <summary>
+        /// Task to get description about artist.
+        /// </summary>
+        /// <param name="artist">Artist name.</param>
+        /// <returns></returns>
         public string GetArtistInfo(string artist)
         {
             try

@@ -208,16 +208,10 @@
                                     Margin="-16,12,-16,12"
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                                <ListBox
+                                    Name="TopTracksLis"
+                                    Height="130" />
                             </StackPanel>
-
-                            <TextBlock
-                                Margin="0,36,0,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="28"
-                                FontWeight="SemiBold"
-                                Opacity="0.6"
-                                Text="Coming soon" />
                         </Grid>
                     </Border>
 
