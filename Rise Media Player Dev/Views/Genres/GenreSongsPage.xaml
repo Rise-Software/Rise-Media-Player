@@ -9,6 +9,9 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="Root"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -19,7 +22,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
         <StackPanel>
             <Grid Padding="0,0,12,32" ColumnSpacing="0">
                 <StackPanel

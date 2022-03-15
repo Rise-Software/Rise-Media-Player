@@ -47,6 +47,8 @@ namespace Rise.App.Views
     // Fields, Properties
     public sealed partial class GenresPage : Page
     {
+        private readonly string Label = "Genres";
+
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
