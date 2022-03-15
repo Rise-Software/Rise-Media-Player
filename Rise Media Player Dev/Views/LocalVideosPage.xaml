@@ -7,15 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:Height="320"
+    d:Width="500"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <conv:TimeSpanToString x:Key="TimeToStr" />
-        <conv:VideoToString x:Key="VidToStr" />
+        <ResourceDictionary>
+            <conv:TimeSpanToString x:Key="TimeToStr" />
+            <conv:ResourceToString x:Key="StrToRes" />
+            <conv:VideoToString x:Key="VidToStr" />
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -34,7 +41,13 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
+        <TextBlock
+            d:Text="All Videos"
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+
         <CommandBar
+            Grid.Row="1"
             Margin="-12,0"
             HorizontalAlignment="Left"
             Background="Transparent"
@@ -126,20 +139,18 @@
             </AppBarButton>
 
             <AppBarSeparator />
+
             <AppBarButton
                 x:Name="AddFolders"
                 x:Uid="/MediaLibrary/AddFolders"
                 HorizontalAlignment="Right"
                 Click="AddFolders_Click"
                 Icon="NewFolder" />
-
-
-
         </CommandBar>
 
         <GridView
             x:Name="MainGrid"
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="-56,0"
             Padding="48,0,48,120"
             IsItemClickEnabled="True"
@@ -217,6 +228,7 @@
 
                 </MenuFlyout>
             </GridView.Resources>
+
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:VideoViewModel" x:DefaultBindMode="OneWay">
                     <StackPanel

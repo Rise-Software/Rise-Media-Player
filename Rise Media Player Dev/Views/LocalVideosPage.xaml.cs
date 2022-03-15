@@ -37,6 +37,8 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
+        private readonly string Label = "LocalVideos";
+
         private SortDirection CurrentSort = SortDirection.Ascending;
         private string CurrentSortProperty = "Title";
 
