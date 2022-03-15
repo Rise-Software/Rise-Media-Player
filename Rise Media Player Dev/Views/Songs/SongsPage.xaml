@@ -14,8 +14,10 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:ResourceToString x:Key="StrToRes" />
+        <ResourceDictionary>
+            <conv:NullToBoolean x:Key="NullToBool" />
+            <conv:ResourceToString x:Key="StrToRes" />
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
