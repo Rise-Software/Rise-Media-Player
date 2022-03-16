@@ -118,78 +118,79 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bloom.Text" xml:space="preserve">
-    <value>Bloom (Earliest features, lower stability)</value>
+    <value>Bloom（早期特性，稳定性较低）</value>
   </data>
   <data name="Change.Text" xml:space="preserve">
-    <value>Change channel</value>
+    <value>更改频道</value>
   </data>
   <data name="Contribute.Text" xml:space="preserve">
-    <value>Contribute</value>
+    <value>贡献</value>
   </data>
   <data name="CurrentC.Text" xml:space="preserve">
-    <value>Current Channel</value>
+    <value>当前频道</value>
   </data>
   <data name="ExtrasH.Text" xml:space="preserve">
-    <value>Insider Extras</value>
+    <value>内幕消息</value>
   </data>
   <data name="Learn.Text" xml:space="preserve">
-    <value>Learn more</value>
+    <value>了解更多</value>
   </data>
   <data name="Leave.Text" xml:space="preserve">
-    <value>Leave the Insider program</value>
+    <value>离开内部成员计划</value>
   </data>
   <data name="More.ActionButtonContent" xml:space="preserve">
-    <value>Releases</value>
+    <value>发行版</value>
   </data>
   <data name="More.CloseButtonContent" xml:space="preserve">
-    <value>Copy version</value>
+    <value>复制版本号</value>
   </data>
   <data name="More.Subtitle" xml:space="preserve">
     <value>Alpha Preview 2
-Internal Version: 0.0.170.0
+内部版本: 0.0.170.0
+版本: Bloom
 
-Created by Joseph Beattie &amp; YourOrdinaryCat</value>
+由Joseph Beattie和YourOrdinaryCat创建</value>
   </data>
   <data name="More.Title" xml:space="preserve">
-    <value>More version info</value>
+    <value>更多版本信息</value>
   </data>
   <data name="MoreH.Text" xml:space="preserve">
-    <value>More</value>
+    <value>更多</value>
   </data>
   <data name="Of.Text" xml:space="preserve">
-    <value>of</value>
+    <value>的</value>
   </data>
   <data name="Recent.Description" xml:space="preserve">
-    <value>Most recent changes: New media playback controls, Discography, Discy, View Options</value>
+    <value>近期变化：排序、稳定性、侧边栏、设置。</value>
   </data>
   <data name="Recent.Title" xml:space="preserve">
-    <value>Recent changes</value>
+    <value>近期变化</value>
   </data>
   <data name="Save.Text" xml:space="preserve">
-    <value>Save to my device</value>
+    <value>保存到我的设备上</value>
   </data>
   <data name="Social.Description" xml:space="preserve">
-    <value>Keep up with the latest updates.</value>
+    <value>紧跟最新的更新。</value>
   </data>
   <data name="Social.Title" xml:space="preserve">
-    <value>Social media</value>
+    <value>社交媒体</value>
   </data>
   <data name="TermsAndConditions.Title" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
+    <value>软件条款</value>
   </data>
   <data name="vButton.Content" xml:space="preserve">
-    <value>View Changelog</value>
+    <value>查看更新日志</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
-    <value>Version</value>
+    <value>版本</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
-    <value>Version Info</value>
+    <value>版本信息</value>
   </data>
   <data name="Walls.Description" xml:space="preserve">
-    <value>Access some exclusive RiseMP branded wallpapers.</value>
+    <value>获取一些独家的RiseMP壁纸。</value>
   </data>
   <data name="Walls.Title" xml:space="preserve">
-    <value>Desktop wallpapers &amp; themes</value>
+    <value>桌面壁纸和主题</value>
   </data>
 </root>

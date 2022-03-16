@@ -118,75 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Crossfade.Description" xml:space="preserve">
-    <value>Blend the end &amp; beginning of your music tracks.</value>
+    <value>融合你的音乐曲目的结尾和开头。</value>
   </data>
   <data name="Crossfade.Title" xml:space="preserve">
-    <value>Crossfade</value>
+    <value>交叉淡化</value>
   </data>
   <data name="Duration0" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>没有交叉淡化</value>
   </data>
   <data name="Duration10s" xml:space="preserve">
-    <value>10 seconds</value>
+    <value>10 秒</value>
   </data>
   <data name="Duration3s" xml:space="preserve">
-    <value>3 seconds</value>
+    <value>3 秒</value>
   </data>
   <data name="Duration5s" xml:space="preserve">
-    <value>5 seconds</value>
+    <value>5 秒</value>
   </data>
   <data name="EQ.Description" xml:space="preserve">
-    <value>Choose different sound profiles depending on your media type.</value>
+    <value>根据你的媒体类型，选择不同的声音配置文件。</value>
   </data>
   <data name="EQ.Title" xml:space="preserve">
-    <value>Equalizer</value>
+    <value>均衡器</value>
   </data>
   <data name="Flyouts.Title" xml:space="preserve">
-    <value>Replace system volume and playback flyouts</value>
+    <value>替换系统音量和回放的浮出控件</value>
   </data>
   <data name="Gapless.Description" xml:space="preserve">
-    <value>We will instantly move to your next track without waiting.</value>
+    <value>我们将立即转到你的下一个轨道，无需等待。</value>
   </data>
   <data name="Gapless.Title" xml:space="preserve">
-    <value>Gapless playback</value>
+    <value>无缝切换</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
-    <value>General</value>
+    <value>通用</value>
   </data>
   <data name="GoDevice.Title" xml:space="preserve">
-    <value>Go to now playing when you connect an audio device</value>
+    <value>当你连接一个音频设备时，转到现在播放的状态</value>
   </data>
   <data name="MatchRes" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>始终匹配分辨率</value>
   </data>
   <data name="MusicH.Text" xml:space="preserve">
-    <value>Music</value>
+    <value>音乐</value>
   </data>
   <data name="NowPlaying.Description" xml:space="preserve">
-    <value>Choose what to show on your Now Playing UI.</value>
+    <value>选择在你的 "正在播放 "用户界面上显示的内容。</value>
   </data>
   <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Customise Now Playing</value>
+    <value>自定义正在播放</value>
   </data>
   <data name="NowPlayingH.Text" xml:space="preserve">
-    <value>Now Playing &amp; System Flyouts</value>
+    <value>正在播放和系统浮出控件</value>
   </data>
   <data name="Scaling.Description" xml:space="preserve">
-    <value>Adjust how your video scales depending on window size.</value>
+    <value>调整你的视频如何根据窗口的大小进行缩放。</value>
   </data>
   <data name="Scaling.Title" xml:space="preserve">
-    <value>Scaling</value>
+    <value>缩放比例</value>
   </data>
   <data name="StreamingQuality.Description" xml:space="preserve">
-    <value>Change video resolution and music bitrate.</value>
+    <value>更改视频分辨率和音乐比特率。</value>
   </data>
   <data name="StreamingQuality.Title" xml:space="preserve">
-    <value>Manage streaming quality</value>
+    <value>管理流媒体质量</value>
   </data>
   <data name="VideoH.Text" xml:space="preserve">
-    <value>Video</value>
+    <value>视频</value>
   </data>
   <data name="WindowSize" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>根据窗口大小调整比例</value>
   </data>
 </root>

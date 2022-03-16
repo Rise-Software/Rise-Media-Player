@@ -118,117 +118,117 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>专辑</value>
   </data>
   <data name="AppearanceH.Text" xml:space="preserve">
-    <value>App appearance</value>
+    <value>应用外观</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>艺术家</value>
   </data>
   <data name="AtAGlance.Description" xml:space="preserve">
-    <value>Add widgets to make your experience more personal.</value>
+    <value>添加小部件，使你的体验更加个性化。</value>
   </data>
   <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Customise your at a glance page</value>
+    <value>定制你的开始页</value>
   </data>
   <data name="ChooseColor.Title" xml:space="preserve">
-    <value>Choose your window glaze</value>
+    <value>选择你的窗口颜色</value>
   </data>
   <data name="ChooseTheme.Title" xml:space="preserve">
-    <value>Choose your colour</value>
+    <value>选择你的颜色</value>
   </data>
   <data name="CompactMode.Description" xml:space="preserve">
-    <value>Decreases overall margins and padding to show more content. Makes sidebar groups collapsible.</value>
+    <value>减少整体边距和填充，以显示更多内容。使得侧边栏组可以折叠。</value>
   </data>
   <data name="CompactMode.Title" xml:space="preserve">
-    <value>Compact mode</value>
+    <value>紧凑模式</value>
   </data>
   <data name="CuratedPlaylists.Description" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+    <value>播放列表是根据你的习惯和喜好为你制作的，包括你喜欢的歌曲。</value>
   </data>
   <data name="CuratedPlaylists.Title" xml:space="preserve">
-    <value>Make curated playlists</value>
+    <value>制作精选的播放列表</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>暗黑</value>
   </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
-    <value>Design and layout presets</value>
+    <value>设计和布局预设</value>
   </data>
   <data name="DesignUnavailable.Description" xml:space="preserve">
-    <value>Layout presets and custom themes are coming soon.</value>
+    <value>布局预设和自定义主题即将推出。</value>
   </data>
   <data name="DesignUnavailable.Title" xml:space="preserve">
-    <value>This feature is unavailable</value>
+    <value>该功能不可用</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>设备</value>
   </data>
   <data name="FullArt.Description" xml:space="preserve">
-    <value>Corners will no longer be rounded on these elements.</value>
+    <value>这些元素上的角将不再是圆角。</value>
   </data>
   <data name="FullArt.Title" xml:space="preserve">
-    <value>Show full album art &amp; thumbnails</value>
+    <value>显示完整的专辑封面和缩略图</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>类型</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
-    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
+    <value>用图标样式、颜色、模式等进行个性化定制，不仅可以使你的体验更加个性化，而且更加方便用户使用。</value>
   </data>
   <data name="History.Title" xml:space="preserve">
-    <value>Track media history and habits</value>
+    <value>追踪播放历史和使用习惯</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>一览</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>亮度</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>全部视频</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
-    <value>Navigation</value>
+    <value>导航</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Queue</value>
+    <value>列表</value>
   </data>
   <data name="PickUp.Title" xml:space="preserve">
-    <value>Pick up where you left off</value>
+    <value>从你离开的地方继续</value>
   </data>
   <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
+    <value>播放列表</value>
   </data>
   <data name="PrivacyH.Text" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>隐私与建议</value>
   </data>
   <data name="Sidebar" xml:space="preserve">
-    <value>Sidebar</value>
+    <value>侧边栏</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
-    <value>Add/remove sidebar items, change icon style and general behaviours.</value>
+    <value>添加/删除侧边栏项目，改变图标风格和一般行为。</value>
   </data>
   <data name="SidebarItems.Title" xml:space="preserve">
-    <value>Customise your sidebar</value>
+    <value>自定义你的侧边栏</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="Startup.Description" xml:space="preserve">
-    <value>Select what page to go to when you start the app.</value>
+    <value>选择启动应用程序时打开的页面。</value>
   </data>
   <data name="Startup.Title" xml:space="preserve">
-    <value>On startup</value>
+    <value>启动时</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Streaming Services</value>
+    <value>流媒体服务</value>
   </data>
   <data name="System" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>使用系统设置</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+    <value>*紧凑模式的改变在设置完成后才会生效。</value>
   </data>
 </root>

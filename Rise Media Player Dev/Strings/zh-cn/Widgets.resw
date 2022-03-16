@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArtistNewsFeed.Title" xml:space="preserve">
-    <value>Artist news feed</value>
+    <value>作者新闻资讯</value>
   </data>
 </root>

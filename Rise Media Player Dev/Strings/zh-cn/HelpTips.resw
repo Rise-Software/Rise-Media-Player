@@ -118,118 +118,119 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPersonalMusicAndVideos.Title" xml:space="preserve">
-    <value>Adding your personal music and videos</value>
+    <value>添加你的个人音乐和视频</value>
   </data>
   <data name="Alpha.Text" xml:space="preserve">
-    <value>• These versions will be pushed from the Microsoft Store
-• Playlists
-• Devices support
-• Disc Burning
-• Multi-language support for 12 languages at start (not complete)
-• Some online services in background - Discord Rich Presence &amp; Last.fm Scrobbling
-• Views and sorting for music added
-• Video indexing and playback
-• Improved Now Playing experience and queue
-• Overhauled Settings UI brought to all builds
-• Local recommendations and recently played
-• Discy in the majority of the app</value>
+    <value>• 这些版本将从微软商店推送
+
+• 播放列表
+• 设备支持
+• 光盘刻录
+• 开始时对12种语言的多语言支持（未完成）。
+• 背景中的一些在线服务 - Discord Rich Presence &amp; Last.fm Scrobbling
+• 增加了音乐的视图和排序
+• 视频索引和播放
+• 改进的现在播放体验和队列
+• 大改后的 "设置 "用户界面被带入所有版本
+• 本地推荐和最近播放的
+• 在大多数应用程序中都有Discy。</value>
   </data>
   <data name="AlphaH.Text" xml:space="preserve">
-    <value>Late Pre-Alpha - Alpha</value>
+    <value>Pre-Alpha 后期 - Alpha</value>
   </data>
   <data name="Benefits.Text" xml:space="preserve">
-    <value>First, the app early.
+    <value>首先，应用程序的早期。
 
-Insiders in the Bloom Channel get access to the earliest builds possible. This really gives you a chance to see what we are working on, and to give feedback as we actively work on parts of the app, meaning your feedback means a whole lot! Of course, it isn't without it's disadvantages. Bloom Channel insiders also face more bugs and issues than other users. Bloom Insiders also get access to features tagged 'Experimental', meaning we have put very little work into them at that point, or they are very unstable, but interesting to try out nonetheless. These features are never enabled by default.
+Bloom频道的内部人员可以获得尽可能早的版本。这真的让你有机会看到我们正在进行的工作，并在我们积极进行应用程序的部分工作时提供反馈，这意味着你的反馈意味着很多！当然，它也有缺点。当然，这也不是没有缺点的。与其他用户相比，Bloom Channel内部人员也面临更多的错误和问题。Bloom内部人员还可以使用被标记为 "实验性 "的功能，这意味着我们在这一点上投入的工作很少，或者它们非常不稳定，但还是很有趣的，可以尝试。这些功能在默认情况下是不会被启用的。
 
-Early Access Insiders (previously Seeding Insiders) get access to the app earlier, although with much more stability. Experimental features will not be available to Insiders in this channel.*
+Early Access Insiders（以前是Seeding Insiders）可以更早地访问该应用程序，尽管稳定性更高。实验性功能将不提供给该渠道的内部人员。*
 
-*Features tagged as Experimental in the Settings interface</value>
+*在设置界面中被标记为实验性的功能</value>
   </data>
   <data name="BenefitsH.Text" xml:space="preserve">
-    <value>What benefits do I get from joining the Insider Program?</value>
+    <value>加入内幕计划我可以得到什么好处？</value>
   </data>
   <data name="Beta.Text" xml:space="preserve">
-    <value>• Streaming services and reccommendations in some form
-• Equaliser
-• Visualiser
-• Find album info
-• Disc ripping
-• Networks support
-• More stuff</value>
+    <value>• 流媒体服务和某种形式的推荐
+• 均衡器
+• 展示台
+• 查找专辑信息
+• 光盘翻录
+• 网络支持
+• 更多内容</value>
   </data>
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="FAQH.Text" xml:space="preserve">
-    <value>The basics</value>
+    <value>基础知识</value>
   </data>
   <data name="Features.Title" xml:space="preserve">
-    <value>What features are you prioritising?</value>
+    <value>你优先考虑的是什么功能？</value>
   </data>
   <data name="HowTrans.Text" xml:space="preserve">
-    <value>If you'd like to contribute or translate, join our Discord server! Here: https://disboard.org/server/872910570003791922</value>
+    <value>如果你想做出贡献或进行翻译，请加入我们的Discord服务器! 链接: https://disboard.org/server/872910570003791922</value>
   </data>
   <data name="HowTransH.Text" xml:space="preserve">
-    <value>How can I become a contributor or a translator?</value>
+    <value>我如何才能成为贡献者或翻译者？</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>When you've submitted your form. There's nothing else you need to do, just wait. When the next build is released, you will receive an email to our Insider Portal, where you can download the MSIX package for the new build. Note: Alpha builds and up will use the Microsoft Store for distribution, but we have chosen to use MSIX for Pre-Alpha as there will be many builds. Some weeks, Insiders from both channels may receive the same builds. This is normal, don't worry!</value>
+    <value>当你提交了你的表格。你不需要做其他事情，只需要等待。当下一个版本发布时，你会收到一封邮件，进入我们的Insider Portal，在那里你可以下载新版本的MSIX包。注意：Alpha版本及以上版本将使用微软商店进行发布，但我们选择使用MSIX来发布Pre-Alpha，因为会有很多版本。有些时候，来自两个渠道的内部人员可能会收到相同的版本。这很正常，不用担心</value>
   </data>
   <data name="InsiderH.Text" xml:space="preserve">
-    <value>Hey, I'm an Insider. How do I get builds?</value>
+    <value>嘿，我是一个内部人士。我怎样才能获得构建？</value>
   </data>
   <data name="InsiderProgram.Title" xml:space="preserve">
-    <value>Insider Program, Translations &amp; Contribution</value>
+    <value>内幕计划，翻译和贡献</value>
   </data>
   <data name="Join.Text" xml:space="preserve">
-    <value>Simply go to the form below and answer the questions. Choose your channel, enter your email and a few other things. https://bit.ly/rise-insider
+    <value>只需进入下面的表格并回答问题。选择你的频道，输入你的电子邮件和其他一些东西。 https://bit.ly/rise-insider
 
-Good luck testing!</value>
+祝你测试顺利</value>
   </data>
   <data name="JoinH.Text" xml:space="preserve">
-    <value>How do I join the Insider Program?</value>
+    <value>我如何加入内幕计划？</value>
   </data>
   <data name="PlayingMediaNowPlaying.Title" xml:space="preserve">
-    <value>Playing media and now playing</value>
+    <value>播放媒体和现在播放的</value>
   </data>
   <data name="PreAlpha.Text" xml:space="preserve">
-    <value>• Song, Album, Artist and Genre Indexing
-• Album, Artist, Genre and Songs Views (static for now)
-• Media Playback
-• Command Bar (BASIC)
-• User Controlled Media Locations
-• UI Manipulation through Settings
-• Basic Metadata control for Music
-• Basic Now Playing UI
-• Basic Properties Window
-• FAQ Help Section
-• Discy in small areas</value>
+    <value>• 歌曲、专辑、艺术家和流派的索引
+• 专辑、艺术家、流派和歌曲浏览量（目前为静态）
+• 媒体回放
+• 命令栏(基础)
+• 用户控制的媒体位置
+• 通过设置操纵用户界面
+• 音乐的基本元数据控制
+• 基本的正在播放用户界面
+• 基本属性窗口
+• 常见问题帮助部分
+• 小范围内的Discy</value>
   </data>
   <data name="PreAlphaH.Text" xml:space="preserve">
-    <value>Pre Alpha (there will be many pre-alpha versions)</value>
+    <value>Pre Alpha (将会有许多pre-alpha版本)</value>
   </data>
   <data name="ReleaseDate.Title" xml:space="preserve">
-    <value>When will Rise Media Player be released?</value>
+    <value>Rise Media Player何时发布？</value>
   </data>
   <data name="ReleaseInfo.Text" xml:space="preserve">
-    <value>There is no official release date. Pre-Alpha 1 is being released October 21 (alongside Rise Notes) and we're so happy to finally have users testing! :)
+    <value>目前还没有正式的发布日期。Pre-Alpha 1将于10月21日发布（与Rise Notes同时发布），我们非常高兴终于有了用户的测试! :)
 
-In terms of other versions, we have no exact dates to give you all, but this is what we are aiming for (versions may be released earlier or later depending on features:
+在其他版本方面，我们没有确切的日期给大家，但这是我们的目标（版本可能会提前或推迟发布，取决于功能:
 
-• Pre Alpha Process - October to December 2021 (Pre-Alpha 1 is the first version)
+• Pre Alpha 进度 - 2021年10月至12月 (Pre-Alpha 1 是第一个版本)
 
-• Alpha Builds - New Year (2022) up to March 2022. Note: During the Alpha process, demo versions of the app will be publicly available to test for UI purposes.
+• Alpha 构建 - 新年（2022年）至2022年3月。 注意：在Alpha过程中，应用程序的演示版本将公开提供，以测试用户界面。
 
-• Beta - April -TBD (This version will be available for all public users from the Microsoft Store. You will not need to be a part of the Insider program, although you will miss out on features)</value>
+• Beta - 4月-TBD（该版本将从微软商店向所有公众用户提供。 你将不需要成为内幕计划的一部分，尽管你将错过一些功能)</value>
   </data>
   <data name="SortingManagingLibrary.Title" xml:space="preserve">
-    <value>Sorting and managing your library</value>
+    <value>分类和管理你的资料库</value>
   </data>
   <data name="WhatDiscy.Description" xml:space="preserve">
-    <value>You'll have to see ;)</value>
+    <value>你得看看;)</value>
   </data>
   <data name="WhatDiscy.Title" xml:space="preserve">
-    <value>What's Discy?</value>
+    <value>什么是 Discy?</value>
   </data>
 </root>

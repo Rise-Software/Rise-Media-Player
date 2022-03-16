@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlbumQueueItem.Text" xml:space="preserve">
-    <value>Album</value>
+    <value>专辑</value>
   </data>
   <data name="Back.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Back</value>
+    <value>后退</value>
   </data>
   <data name="Overlay.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Expand</value>
+    <value>展开</value>
   </data>
   <data name="PlayingItem.Text" xml:space="preserve">
-    <value>Playing</value>
+    <value>播放中</value>
   </data>
   <data name="Queue.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Queue</value>
+    <value>队列</value>
   </data>
   <data name="QueueItem.Text" xml:space="preserve">
-    <value>Up next</value>
+    <value>下一个</value>
   </data>
 </root>

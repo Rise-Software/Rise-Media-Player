@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BaseH.Text" xml:space="preserve">
-    <value>Base Software &amp; Copyright</value>
+    <value>基础软件和版权</value>
   </data>
   <data name="BodyPart1.Text" xml:space="preserve">
     <value>GNU GENERAL PUBLIC LICENSE
@@ -233,28 +233,29 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.</value>
   </data>
   <data name="BodyPart2.Text" xml:space="preserve">
-    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
+    <value>通过使用这个软件并添加你的文件夹，你可以让Rise Media Player完全访问编辑媒体的元数据，查看文件，删除等。您还可以访问您默认的媒体库位置（音乐和视频）。
 
-By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
+
+默认情况下，你让软件有机会跟踪你的收听历史和习惯，为你提供个性化的建议。这可以被关闭。</value>
   </data>
   <data name="BodyPart3.Text" xml:space="preserve">
-    <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).
+    <value>登录并使用您的在线账户，本软件可以管理您的在线图书馆，查看您选择的服务的购买和收听历史。
 
-By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
+通过使用本应用程序中的任何一个流媒体服务，你接受他们自己的服务条款和条件。这些条款和条件将在其各自的网站上提供。
 
-Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
+祝贺你，如果你读到这篇文章! 吃个饼干吧 :) 为了获得最好的体验和最少的问题，请遵守所有这些条款。</value>
   </data>
   <data name="LastUpdated.Text" xml:space="preserve">
-    <value>Last Updated December 2021 - GPL License 3.0</value>
+    <value>最后更新时间：2021年12月 - GPL License 3.0</value>
   </data>
   <data name="LocalH.Text" xml:space="preserve">
-    <value>Local Media Handling</value>
+    <value>本地媒体处理</value>
   </data>
   <data name="StreamingH.Text" xml:space="preserve">
-    <value>Streaming &amp; Online Services</value>
+    <value>流媒体和在线服务</value>
   </data>
   <data name="TermsStart.Text" xml:space="preserve">
-    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
+    <value>Rise Media Player - 许可协议和使用条款</value>
   </data>
   <data name="UNUSED" xml:space="preserve">
     <value />

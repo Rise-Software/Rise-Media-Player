@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Created.Text" xml:space="preserve">
-    <value>Created</value>
+    <value>创建</value>
   </data>
   <data name="DefaultApp.Text" xml:space="preserve">
-    <value>Opens with</value>
+    <value>打开方式</value>
   </data>
   <data name="Filename.Text" xml:space="preserve">
-    <value>File name</value>
+    <value>文件名</value>
   </data>
   <data name="FileType.Text" xml:space="preserve">
-    <value>File type</value>
+    <value>文件类型</value>
   </data>
   <data name="Location.Text" xml:space="preserve">
-    <value>Location</value>
+    <value>位置</value>
   </data>
   <data name="Modified.Text" xml:space="preserve">
-    <value>Modified</value>
+    <value>更改</value>
   </data>
   <data name="Size.Text" xml:space="preserve">
-    <value>File size</value>
+    <value>文件大小</value>
   </data>
 </root>

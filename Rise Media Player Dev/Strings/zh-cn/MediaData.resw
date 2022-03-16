@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>专辑</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>作者</value>
   </data>
   <data name="Properties.Text" xml:space="preserve">
-    <value>Properties &amp; Info</value>
+    <value>属性和信息</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>Unknown Album</value>
+    <value>未知专辑</value>
   </data>
   <data name="UnknownArtistResource" xml:space="preserve">
-    <value>Unknown Artist</value>
+    <value>未知作者</value>
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
-    <value>Unknown Genre</value>
+    <value>未知流派</value>
   </data>
 </root>

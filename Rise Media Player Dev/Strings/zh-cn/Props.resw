@@ -118,51 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlbumWindowTitle.Title" xml:space="preserve">
-    <value>Album info</value>
+    <value>专辑信息</value>
   </data>
   <data name="Cancel.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="DetailItem.Text" xml:space="preserve">
-    <value>Details</value>
+    <value>详细内容</value>
   </data>
   <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>即将推出</value>
   </data>
   <data name="Error.CloseButtonContent" xml:space="preserve">
-    <value>Got it</value>
+    <value>明白了</value>
   </data>
   <data name="Error.Subtitle" xml:space="preserve">
-    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+    <value>我们无法保存歌曲的属性。文件可能被移动、改变或删除了，也可能这只是一个Windows问题。</value>
   </data>
   <data name="Error.Title" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>什么东西出了问题</value>
   </data>
   <data name="FileItem.Text" xml:space="preserve">
-    <value>File</value>
+    <value>文件</value>
   </data>
   <data name="LyricsItem.Text" xml:space="preserve">
-    <value>Lyrics</value>
+    <value>歌词</value>
   </data>
   <data name="MoreItem.Text" xml:space="preserve">
-    <value>More</value>
+    <value>更多</value>
   </data>
   <data name="PlaylistWindowTitle.Title" xml:space="preserve">
-    <value>Edit playlist</value>
+    <value>编辑播放列表</value>
   </data>
   <data name="ProfileItem.Text" xml:space="preserve">
-    <value>Profile</value>
+    <value>概况</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
-    <value>Save changes</value>
+    <value>保存更改</value>
   </data>
   <data name="SongsItem.Text" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="StayHere" xml:space="preserve">
-    <value>oops</value>
+    <value>哎呀</value>
   </data>
   <data name="WindowTitle.Title" xml:space="preserve">
-    <value>Song info</value>
+    <value>歌曲信息</value>
   </data>
 </root>

@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header.Text" xml:space="preserve">
-    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
+    <value>无论那是你从CD和DVD上翻录的媒体，还是从互联网上购买或下载的媒体，都可以定制我们对它的处理方式。</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
-    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
+    <value>你的视频库已经被分为 "本地和购买 "以及流媒体服务部分。</value>
   </data>
 </root>
