@@ -226,12 +226,13 @@
                                                 Padding="2.5,2.5,2.5,2.5">
                                                 <Image
                                                     Source="{Binding Image}"
-                                                    Margin="5,5,15,5" />
+                                                    Margin="5,5,15,5" 
+                                                    Height="80"
+                                                    Width="80"/>
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
                                                         Text="{Binding SongName}"
                                                         FontWeight="SemiBold"
-                                                        Margin="0,15,0,0"
                                                         FontSize="16" />
                                                     <TextBlock
                                                         Text="{Binding ArtistName}" />

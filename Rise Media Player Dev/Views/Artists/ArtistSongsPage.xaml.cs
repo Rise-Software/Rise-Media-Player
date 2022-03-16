@@ -137,7 +137,7 @@ namespace Rise.App.Views
                 xmlStr = wc.DownloadString(m_strFilePath);
                 xmlDoc.LoadXml(xmlStr);
 
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/cover_small");
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/cover_medium");
                 if (node != null)
                 {
                     string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
