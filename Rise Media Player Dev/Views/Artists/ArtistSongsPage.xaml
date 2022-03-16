@@ -208,9 +208,42 @@
                                     Margin="-16,12,-16,12"
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-                                <ListBox
-                                    Name="TopTracksLis"
-                                    Height="130" />
+                                <ListView 
+                                    x:Name="TopTracksLis" 
+                                    Height="130">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel 
+                                                Orientation="Horizontal" 
+                                                Margin="0"
+                                                BorderBrush="{StaticResource SystemControlHighlightAccentBrush}"
+                                                BorderThickness="0,0,0,2"
+                                                Padding="2.5,2.5,2.5,2.5">
+                                                <Image
+                                                    Source="{Binding Image}"
+                                                    Margin="5,5,15,5" 
+                                                    Height="80"
+                                                    Width="80"/>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock
+                                                        Text="{Binding SongName}"
+                                                        FontWeight="SemiBold"
+                                                        FontSize="16" />
+                                                    <TextBlock
+                                                        Text="{Binding ArtistName}" />
+                                                    <TextBlock
+                                                        Text="{Binding Views}"
+                                                        FontWeight="SemiLight"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
                             </StackPanel>
                         </Grid>
                     </Border>

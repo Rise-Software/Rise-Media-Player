@@ -88,7 +88,7 @@ namespace Rise.App.Views
 
             Loaded += ArtistSongsPage_Loaded;
         }
-
+        
         private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
         {
             SortName = "Title";
@@ -120,22 +120,38 @@ namespace Rise.App.Views
                     }
 
                     ReadMoreAbout.Content = "Read more";
+                    TopTracksLis.ItemsSource = await Task.Run(() => GetTopTracks(name));
+                    
                 }
                 catch { }
             }
-            LFM lfm = await Task.Run(() => GetTopTracks(name));
-            TopTracksLis.Items.Clear();
-            List<Track> track = lfm.Toptracks.Track;
-            foreach (Track trackname in track)
+
+        }
+        public string GetAlbumImage(string track)
+        {
+            try
             {
-                string traname = trackname.Name;
-                ListBoxItem listBoxItem = new();
-                listBoxItem.Content = traname;
-                TopTracksLis.Items.Add(listBoxItem);
+                string m_strFilePath = URLs.Deezer + "/search/track/?q=" + track + "&output=xml&limit=1";
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                xmlDoc.LoadXml(xmlStr);
+
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/cover_medium");
+                if (node != null)
+                {
+                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                    return yes;
+                }
             }
+            catch (Exception)
+            {
+
+            }
+            return URIs.MusicThumb;
         }
 
-        public Task<LFM> GetTopTracks(string artist)
+        public Task<List<TopTracks>> GetTopTracks(string artist)
         {
             LFM lfm = null;
             string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
@@ -146,7 +162,19 @@ namespace Rise.App.Views
             XmlSerializer xs = new(typeof(LFM));
             XmlTextReader xmlReader = new(stringReader);
             lfm = (LFM)xs.Deserialize(xmlReader);
-            return Task.FromResult(lfm);
+            List<Track> track = lfm.Toptracks.Track;
+            List<TopTracks> tracks = new();
+            foreach (Track trackname in track)
+            {
+                string imgurl = GetAlbumImage(trackname.Name);
+                tracks.Add(
+                    new TopTracks(
+                        trackname.Name,
+                        trackname.Artist.Name,
+                        imgurl
+                    ));
+            }
+            return Task.FromResult(tracks);
         }
 
         /// <summary>
