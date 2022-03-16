@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Rise.App.Models
+namespace Rise.Models
 {
     [XmlRoot(ElementName = "artist")]
-    public class Artist
+    public class ArtistT
     {
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
@@ -39,7 +39,7 @@ namespace Rise.App.Models
         [XmlElement(ElementName = "streamable")]
         public string Streamable { get; set; }
         [XmlElement(ElementName = "artist")]
-        public Artist Artist { get; set; }
+        public ArtistT Artist { get; set; }
         [XmlElement(ElementName = "image")]
         public List<Image> Image { get; set; }
         [XmlAttribute(AttributeName = "rank")]

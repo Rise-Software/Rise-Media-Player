@@ -1,11 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Converters;
-using Rise.App.Models;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -124,6 +124,7 @@ namespace Rise.App.Views
                 catch { }
             }
             LFM lfm = await Task.Run(() => GetTopTracks(name));
+            TopTracksLis.Items.Clear();
             List<Track> track = lfm.Toptracks.Track;
             foreach (Track trackname in track)
             {
@@ -132,8 +133,6 @@ namespace Rise.App.Views
                 listBoxItem.Content = traname;
                 TopTracksLis.Items.Add(listBoxItem);
             }
-
-
         }
 
         public Task<LFM> GetTopTracks(string artist)

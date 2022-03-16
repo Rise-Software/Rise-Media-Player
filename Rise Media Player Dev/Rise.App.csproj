@@ -141,7 +141,6 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
-	<Compile Include="Models\TopTracks.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
