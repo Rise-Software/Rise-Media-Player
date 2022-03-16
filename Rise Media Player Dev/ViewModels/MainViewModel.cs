@@ -420,7 +420,7 @@ namespace Rise.App.ViewModels
             {
                 string thumb = URIs.ArtistThumb;
                 string image;
-                image = await Task.Run(() => getartistimg(song.Artist));
+                image = await Task.Run(() => GetArtistImage(song.Artist));
                 imagelinks.Add(song.Artist + " - " + image);
                 foreach (string imagel in imagelinks)
                 {
@@ -445,7 +445,7 @@ namespace Rise.App.ViewModels
             {
                 string thumb = URIs.ArtistThumb;
                 string image;
-                image = await Task.Run(() => getartistimg(song.Artist));
+                image = await Task.Run(() => GetArtistImage(song.Artist));
                 imagelinks.Add(song.Artist + " - " + image);
                 foreach (string imagel in imagelinks)
                 {
@@ -481,7 +481,7 @@ namespace Rise.App.ViewModels
 
             return !songExists;
         }
-        public string getartistimg(string artist)
+        public string GetArtistImage(string artist)
         {
             try
             {
