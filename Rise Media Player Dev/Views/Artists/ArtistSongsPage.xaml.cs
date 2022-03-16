@@ -120,20 +120,8 @@ namespace Rise.App.Views
                     }
 
                     ReadMoreAbout.Content = "Read more";
-                    LFM lfm = await Task.Run(() => GetTopTracks(name));
-                    List<Track> track = lfm.Toptracks.Track;
-                    List<TopTracks> tracks = new();
-                    foreach (Track trackname in track)
-                    {
-                        string imgurl = GetAlbumImage(trackname.Name);
-                        tracks.Add(
-                            new TopTracks(
-                                trackname.Name,
-                                trackname.Artist.Name,
-                                imgurl
-                            ));
-                    }
-                    TopTracksLis.ItemsSource = tracks;
+                    TopTracksLis.ItemsSource = await Task.Run(() => GetTopTracks(name));
+                    
                 }
                 catch { }
             }
@@ -163,7 +151,7 @@ namespace Rise.App.Views
             return URIs.MusicThumb;
         }
 
-        public Task<LFM> GetTopTracks(string artist)
+        public Task<List<TopTracks>> GetTopTracks(string artist)
         {
             LFM lfm = null;
             string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
@@ -174,7 +162,19 @@ namespace Rise.App.Views
             XmlSerializer xs = new(typeof(LFM));
             XmlTextReader xmlReader = new(stringReader);
             lfm = (LFM)xs.Deserialize(xmlReader);
-            return Task.FromResult(lfm);
+            List<Track> track = lfm.Toptracks.Track;
+            List<TopTracks> tracks = new();
+            foreach (Track trackname in track)
+            {
+                string imgurl = GetAlbumImage(trackname.Name);
+                tracks.Add(
+                    new TopTracks(
+                        trackname.Name,
+                        trackname.Artist.Name,
+                        imgurl
+                    ));
+            }
+            return Task.FromResult(tracks);
         }
 
         /// <summary>

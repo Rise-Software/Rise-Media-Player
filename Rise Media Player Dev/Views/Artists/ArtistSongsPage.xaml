@@ -230,14 +230,14 @@
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
                                                         Text="{Binding SongName}"
-                                                        FontWeight="Black"
+                                                        FontWeight="SemiBold"
                                                         Margin="0,15,0,0"
                                                         FontSize="16" />
                                                     <TextBlock
                                                         Text="{Binding ArtistName}" />
                                                     <TextBlock
                                                         Text="{Binding Views}"
-                                                        FontWeight="SemiBold"/>
+                                                        FontWeight="SemiLight"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
