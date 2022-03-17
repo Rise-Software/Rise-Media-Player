@@ -118,87 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddRemoveH.Text" xml:space="preserve">
-    <value>Add/remove sidebar items</value>
+    <value>添加/删除侧边栏项目</value>
   </data>
   <data name="Albums.Title" xml:space="preserve">
-    <value>Albums</value>
+    <value>专辑</value>
   </data>
   <data name="AppearanceH.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>外观</value>
   </data>
   <data name="Artists.Title" xml:space="preserve">
-    <value>Artists</value>
+    <value>作者</value>
   </data>
   <data name="AtAGlance.Title" xml:space="preserve">
-    <value>At a glance</value>
+    <value>一览</value>
   </data>
   <data name="Colorful" xml:space="preserve">
-    <value>Colourful</value>
+    <value>多彩</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default</value>
+    <value>默认</value>
   </data>
   <data name="Devices.Title" xml:space="preserve">
-    <value>Devices</value>
+    <value>设备</value>
   </data>
   <data name="Everything" xml:space="preserve">
-    <value>Show everything</value>
+    <value>显示所有内容</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
-    <value>General</value>
+    <value>通用</value>
   </data>
   <data name="GeneralItems.Title" xml:space="preserve">
-    <value>General items</value>
+    <value>通用项目</value>
   </data>
   <data name="Genres.Title" xml:space="preserve">
-    <value>Genres</value>
+    <value>流派</value>
   </data>
   <data name="Hamburger.Title" xml:space="preserve">
-    <value>Show the hamburger button</value>
+    <value>显示导航按钮</value>
   </data>
   <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>帮助中心</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
-    <value>Select through a variety of beautiful icon sets for your sidebar.</value>
+    <value>通过各种美丽的图标集来选择你的侧边栏。</value>
   </data>
   <data name="IconStyle.Title" xml:space="preserve">
-    <value>Icon style</value>
+    <value>图标风格</value>
   </data>
   <data name="Local.Title" xml:space="preserve">
-    <value>All Videos</value>
+    <value>所有视频</value>
   </data>
   <data name="MusicItems.Title" xml:space="preserve">
-    <value>Music</value>
+    <value>音乐</value>
   </data>
   <data name="NoIcons" xml:space="preserve">
-    <value>Don't show the sidebar</value>
+    <value>不显示侧边栏</value>
   </data>
   <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Queue</value>
+    <value>队列</value>
   </data>
   <data name="OnlyIcons" xml:space="preserve">
-    <value>Only show icons</value>
+    <value>只显示图标</value>
   </data>
   <data name="Playlists.Title" xml:space="preserve">
-    <value>Playlists</value>
+    <value>播放列表</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
-    <value>Choose what to do with the sidebar when the window is made smaller.</value>
+    <value>选择在窗口变小时如何处理侧边栏的问题。</value>
   </data>
   <data name="Resize.Title" xml:space="preserve">
-    <value>Window resize changes</value>
+    <value>窗口大小的变化</value>
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
-    <value>Show header</value>
+    <value>显示标题</value>
   </data>
   <data name="Songs.Title" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="Streaming.Title" xml:space="preserve">
-    <value>Streaming Services</value>
+    <value>流媒体服务</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
-    <value>Video</value>
+    <value>视频</value>
   </data>
 </root>

@@ -166,7 +166,7 @@
     <value>歌曲名</value>
   </data>
   <data name="Track.Text" xml:space="preserve">
-    <value>跟踪号码</value>
+    <value>轨道号码</value>
   </data>
   <data name="Year.Text" xml:space="preserve">
     <value>发行年份</value>

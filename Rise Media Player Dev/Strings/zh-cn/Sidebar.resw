@@ -118,111 +118,111 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="Abt" xml:space="preserve">
-    <value>About</value>
+    <value>关于</value>
   </data>
   <data name="Account.Content" xml:space="preserve">
-    <value>Account</value>
+    <value>账号</value>
   </data>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>专辑</value>
   </data>
   <data name="Appearance.Text" xml:space="preserve">
-    <value>Personalise</value>
+    <value>个性化</value>
   </data>
   <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Personalise</value>
+    <value>个性化</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>作者</value>
   </data>
   <data name="ConnectedDevices" xml:space="preserve">
-    <value>Connected Devices</value>
+    <value>连接设备</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>设备</value>
   </data>
   <data name="Discy" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>帮助中心</value>
   </data>
   <data name="Feedback.Content" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>流派</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>一览</value>
   </data>
   <data name="Ins" xml:space="preserve">
-    <value>Insider</value>
+    <value>内部人员</value>
   </data>
   <data name="Insider.Text" xml:space="preserve">
-    <value>Insider Hub</value>
+    <value>内部人员中心</value>
   </data>
   <data name="Lang.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="Langs" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="Language.Content" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="Lib" xml:space="preserve">
-    <value>Library</value>
+    <value>库</value>
   </data>
   <data name="Library.Text" xml:space="preserve">
-    <value>Library</value>
+    <value>库</value>
   </data>
   <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Library</value>
+    <value>库</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>所有视频</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>Music</value>
+    <value>音乐</value>
   </data>
   <data name="Navigation.Content" xml:space="preserve">
-    <value>Navigation</value>
+    <value>导航</value>
   </data>
   <data name="NowPlaying" xml:space="preserve">
-    <value>Queue</value>
+    <value>队列</value>
   </data>
   <data name="Pers" xml:space="preserve">
-    <value>Personalise</value>
+    <value>个性化</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Playback</value>
+    <value>回放</value>
   </data>
   <data name="Playback.Text" xml:space="preserve">
-    <value>Playback</value>
+    <value>回放</value>
   </data>
   <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Playback</value>
+    <value>回放</value>
   </data>
   <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
+    <value>播放列表</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Streaming Services</value>
+    <value>流媒体服务</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
-    <value>Restore video</value>
+    <value>恢复视频</value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+    <value>视频</value>
   </data>
   <data name="Walls" xml:space="preserve">
-    <value>Wallpapers</value>
+    <value>壁纸</value>
   </data>
 </root>

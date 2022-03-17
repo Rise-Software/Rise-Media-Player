@@ -217,174 +217,174 @@
     <value>Edit playlist</value>
   </data>
   <data name="Fdb.Text" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
   </data>
   <data name="Feedback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Feedback</value>
+    <value>反馈</value>
   </data>
   <data name="Genre.Text" xml:space="preserve">
-    <value>Genre</value>
+    <value>流派</value>
   </data>
   <data name="HC.Text" xml:space="preserve">
-    <value>High Contrast Icons</value>
+    <value>高对比度的图标</value>
   </data>
   <data name="Indexing.Subtitle" xml:space="preserve">
-    <value>We're adding some media to your library. This really won't take long.</value>
+    <value>我们正在向你的库添加一些媒体。这真的不会花很长时间。</value>
   </data>
   <data name="Indexing.Title" xml:space="preserve">
-    <value>Adding media to your library</value>
+    <value>将媒体添加到你的库中</value>
   </data>
   <data name="Like.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Like</value>
+    <value>喜欢</value>
   </data>
   <data name="MenuBar.Text" xml:space="preserve">
-    <value>Menu bar</value>
+    <value>菜单栏</value>
   </data>
   <data name="More.ToolTipService.ToolTip" xml:space="preserve">
-    <value>More settings</value>
+    <value>更多设置</value>
   </data>
   <data name="MoveDown.Text" xml:space="preserve">
-    <value>Move down</value>
+    <value>向下移动</value>
   </data>
   <data name="MoveUp.Text" xml:space="preserve">
-    <value>Move up</value>
+    <value>向上移动</value>
   </data>
   <data name="NameOnly.Text" xml:space="preserve">
-    <value>Merge albums with same title</value>
+    <value>合并同名专辑</value>
   </data>
   <data name="NewH.Text" xml:space="preserve">
-    <value>What's new in this build:</value>
+    <value>此版本的新内容:</value>
   </data>
   <data name="NewPlaylist.Text" xml:space="preserve">
-    <value>New playlist</value>
+    <value>新播放列表</value>
   </data>
   <data name="NewSettings.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="NoNew.Title" xml:space="preserve">
-    <value>No new media found in your library</value>
+    <value>在您的库中没有发现新的媒体</value>
   </data>
   <data name="Notif.Text" xml:space="preserve">
-    <value>Messages &amp; reports</value>
+    <value>消息和报告</value>
   </data>
   <data name="OpenFileLocation.Text" xml:space="preserve">
-    <value>Show in File Explorer</value>
+    <value>在文件资源管理器中显示</value>
   </data>
   <data name="PinToStart.Text" xml:space="preserve">
-    <value>Pin to Start</value>
+    <value>固定到开始</value>
   </data>
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Play</value>
+    <value>播放</value>
   </data>
   <data name="PlayItem.Text" xml:space="preserve">
-    <value>Play</value>
+    <value>播放</value>
   </data>
   <data name="Properties.Label" xml:space="preserve">
-    <value>Info &amp; Properties</value>
+    <value>信息和属性</value>
   </data>
   <data name="Props.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Song info</value>
+    <value>歌曲信息</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
-    <value>Quick links</value>
+    <value>快捷链接</value>
   </data>
   <data name="Remove.Text" xml:space="preserve">
-    <value>Remove from sidebar</value>
+    <value>从侧边栏中移除</value>
   </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Remove folder</value>
+    <value>移除文件夹</value>
   </data>
   <data name="RemovePlaylist.Text" xml:space="preserve">
-    <value>Remove from playlist</value>
+    <value>从播放列表中移除</value>
   </data>
   <data name="RemovePlaylist2.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Remove from playlist</value>
+    <value>从播放列表中移除</value>
   </data>
   <data name="RemoveSection.Text" xml:space="preserve">
-    <value>Remove whole section</value>
+    <value>移除整个章节</value>
   </data>
   <data name="RemoveThing.Text" xml:space="preserve">
-    <value>Remove...</value>
+    <value>移除...</value>
   </data>
   <data name="Scan.Text" xml:space="preserve">
-    <value>Scan for new media</value>
+    <value>扫描新的媒体</value>
   </data>
   <data name="Select.Label" xml:space="preserve">
-    <value>Select</value>
+    <value>选择</value>
   </data>
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Select</value>
+    <value>选择</value>
   </data>
   <data name="SelectAlbumorSong.Text" xml:space="preserve">
-    <value>Select</value>
+    <value>选择</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>App settings</value>
+    <value>应用设置</value>
   </data>
   <data name="SetupFinalise.Text" xml:space="preserve">
-    <value>We’re making sure all of your changes are saved.</value>
+    <value>我们要确保你所有的改动都被保存下来。</value>
   </data>
   <data name="SetupFinalise.Title" xml:space="preserve">
-    <value>Applying settings</value>
+    <value>应用设置中</value>
   </data>
   <data name="Share.Text" xml:space="preserve">
-    <value>Share</value>
+    <value>分享</value>
   </data>
   <data name="ShowAlbum.Text" xml:space="preserve">
-    <value>Show album</value>
+    <value>显示专辑</value>
   </data>
   <data name="ShowArtist.Text" xml:space="preserve">
-    <value>Show artist</value>
+    <value>显示作者</value>
   </data>
   <data name="ShowinFE.Text" xml:space="preserve">
-    <value>Show in File Explorer</value>
+    <value>在文件资源管理器中显示</value>
   </data>
   <data name="Shuffle.Label" xml:space="preserve">
-    <value>Shuffle</value>
+    <value>随机播放</value>
   </data>
   <data name="ShuffleAlbum.Text" xml:space="preserve">
-    <value>Shuffle album</value>
+    <value>随机播放专辑</value>
   </data>
   <data name="ShuffleArtist.Text" xml:space="preserve">
-    <value>Shuffle artist</value>
+    <value>改组作者</value>
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
-    <value>Sidebar (Classic)</value>
+    <value>侧边栏 (经典)</value>
   </data>
   <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>搜索</value>
   </data>
   <data name="Songs.Text" xml:space="preserve">
-    <value>Songs</value>
+    <value>歌曲</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
-    <value>Sort</value>
+    <value>排序</value>
   </data>
   <data name="Style.Text" xml:space="preserve">
-    <value>Settings style</value>
+    <value>设置样式</value>
   </data>
   <data name="Support.Description" xml:space="preserve">
-    <value>Become a patreon and enjoy exclusive benefits and merch, while helping this project move forward.</value>
+    <value>成为赞助者，享受独家优惠和商品，同时帮助这个项目的发展。</value>
   </data>
   <data name="Support.Title" xml:space="preserve">
-    <value>Support development</value>
+    <value>支持开发</value>
   </data>
   <data name="Title.Text" xml:space="preserve">
-    <value>Title</value>
+    <value>标题</value>
   </data>
   <data name="ToBottom.Text" xml:space="preserve">
-    <value>Move to bottom</value>
+    <value>移至底部</value>
   </data>
   <data name="ToTop.Text" xml:space="preserve">
-    <value>Move to top</value>
+    <value>移至顶部</value>
   </data>
   <data name="Track.Text" xml:space="preserve">
-    <value>Track number</value>
+    <value>轨道号码</value>
   </data>
   <data name="View.Label" xml:space="preserve">
-    <value>View</value>
+    <value>查看</value>
   </data>
   <data name="Year.Text" xml:space="preserve">
-    <value>Release year</value>
+    <value>发行年份</value>
   </data>
 </root>
