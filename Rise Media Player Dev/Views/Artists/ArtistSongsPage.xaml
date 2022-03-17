@@ -224,21 +224,17 @@
                                                 BorderBrush="{StaticResource SystemControlHighlightAccentBrush}"
                                                 BorderThickness="0,0,0,2"
                                                 Padding="2.5,2.5,2.5,2.5">
-                                                <Image
-                                                    Source="{Binding Image}"
-                                                    Margin="5,5,15,5" 
-                                                    Height="80"
-                                                    Width="80"/>
+                                                <TextBlock
+                                                    Text="{Binding Rank}" 
+                                                    HorizontalAlignment="Center"
+                                                    FontWeight="SemiBold"
+                                                    FontSize="18"
+                                                    Padding="0,0,15,0"/>
                                                 <StackPanel Orientation="Vertical">
                                                     <TextBlock
                                                         Text="{Binding SongName}"
-                                                        FontWeight="SemiBold"
+                                                        FontWeight="SemiLight"
                                                         FontSize="16" />
-                                                    <TextBlock
-                                                        Text="{Binding ArtistName}" />
-                                                    <TextBlock
-                                                        Text="{Binding Views}"
-                                                        FontWeight="SemiLight"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
