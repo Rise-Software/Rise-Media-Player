@@ -208,34 +208,37 @@
                                     Margin="-16,12,-16,12"
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-                                <ListView 
+                                <ListView Margin="-10,-4,-10,-4"
                                     x:Name="TopTracksLis" 
                                     Height="130">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel 
+                                            <StackPanel VerticalAlignment="Center"
                                                 Orientation="Horizontal" 
                                                 Margin="0"
-                                                BorderBrush="{StaticResource SystemControlHighlightAccentBrush}"
-                                                BorderThickness="0,0,0,2"
-                                                Padding="2.5,2.5,2.5,2.5">
-                                                <TextBlock
-                                                    Text="{Binding Rank}" 
-                                                    HorizontalAlignment="Center"
-                                                    FontWeight="SemiBold"
-                                                    FontSize="18"
-                                                    Padding="0,0,15,0"/>
-                                                <StackPanel Orientation="Vertical">
+                                                BorderThickness="0"
+                                                Padding="0,10,0,10">
+                                                <Button IsHitTestVisible="False" CornerRadius="7" Margin="0,0,12,0" Padding="0">
+                                                    <Image
+                                                    Source="{Binding Image}"
+                                                    Margin="0,0,0,0" 
+                                                    Height="32"
+                                                    Width="32"/>
+                                                </Button>
+                                                
+                                                <RelativePanel VerticalAlignment="Center">
                                                     <TextBlock
+                                                        x:Name="Topsongtitle"
                                                         Text="{Binding SongName}"
-                                                        FontWeight="SemiLight"
-                                                        FontSize="16" />
-                                                </StackPanel>
+                                                        FontWeight="Normal"
+                                                        FontSize="14" />
+                                                    <TextBlock
+                                                        x:Name="Album"
+                                                        RelativePanel.RightOf="Topsongtitle"
+                                                        Margin="12,0,0,0"
+                                                        Text="{Binding ArtistName}"
+                                                        FontWeight="SemiBold"/>
+                                                </RelativePanel>
                                             </StackPanel>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
