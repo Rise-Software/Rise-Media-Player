@@ -4,12 +4,12 @@
     {
         public string SongName { get; set; }
         public string ArtistName { get; set; }
-        public string Image { get; set; }
-        public TopTracks(string songName, string artist, string image)
+        public string Rank { get; set; }
+        public TopTracks(string songName/*, string artist*/, string rank)
         {
             SongName = songName;
-            ArtistName = artist;
-            Image = image;
+            // ArtistName = artist;
+            Rank = rank + ".";
         }
     }
 }

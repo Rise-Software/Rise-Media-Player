@@ -127,7 +127,7 @@ namespace Rise.App.Views
             }
 
         }
-        public string GetAlbumImage(string track)
+        public async Task<string> GetTrackAlbum(string track)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace Rise.App.Views
                 xmlStr = wc.DownloadString(m_strFilePath);
                 xmlDoc.LoadXml(xmlStr);
 
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/cover_medium");
+                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/title");
                 if (node != null)
                 {
                     string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
@@ -148,10 +148,10 @@ namespace Rise.App.Views
             {
 
             }
-            return URIs.MusicThumb;
+            return "";
         }
 
-        public Task<List<TopTracks>> GetTopTracks(string artist)
+        public async Task<List<TopTracks>> GetTopTracks(string artist)
         {
             LFM lfm = null;
             string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
@@ -166,15 +166,14 @@ namespace Rise.App.Views
             List<TopTracks> tracks = new();
             foreach (Track trackname in track)
             {
-                string imgurl = GetAlbumImage(trackname.Name);
+                // string album = await Task.Run(() => GetTrackAlbum(trackname.Name));
                 tracks.Add(
                     new TopTracks(
                         trackname.Name,
-                        trackname.Artist.Name,
-                        imgurl
+                        trackname.Rank
                     ));
             }
-            return Task.FromResult(tracks);
+            return tracks;
         }
 
         /// <summary>

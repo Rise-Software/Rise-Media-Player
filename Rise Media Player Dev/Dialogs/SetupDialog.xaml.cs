@@ -39,6 +39,7 @@ namespace Rise.App.Dialogs
         {
             InitializeComponent();
             ContentDialog_SizeChanged(null, null);
+
             Navigate();
         }
 
@@ -48,51 +49,21 @@ namespace Rise.App.Dialogs
             {
                 ViewModel.SetupProgress--;
             }
+
             Navigate();
         }
 
         private void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
-            PrimaryAction();
             ViewModel.SetupProgress++;
             Navigate();
         }
 
-        private async void SecondaryButton_ClickAsync(object sender, RoutedEventArgs e)
+        private async void SecondaryButton_Click(object sender, RoutedEventArgs e)
         {
             await SecondaryActionAsync();
             ViewModel.SetupProgress++;
             Navigate();
-        }
-
-        /// <summary>
-        /// Action that takes place when primary dialog button is pressed.
-        /// </summary>
-        private void PrimaryAction()
-        {
-            switch (ViewModel.SetupProgress)
-            {
-                case 0:
-                    break;
-
-                case 1:
-                    break;
-
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
-                    break;
-
-                default:
-                    break;
-            }
         }
 
         /// <summary>
@@ -111,26 +82,16 @@ namespace Rise.App.Dialogs
                     ViewModel.SetupProgress++;
                     break;
 
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
                 case 5:
                     ViewModel.SetupCompleted = true;
                     ViewModel.SetupProgress = 0;
+
                     _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
                     break;
 
                 default:
                     break;
             }
-
-            return;
         }
 
         /// <summary>
