@@ -349,6 +349,11 @@ namespace Rise.App.Views
             {
                 StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
                 await Launcher.LaunchFolderAsync(folder);
+                var t = new FolderLauncherOptions();
+                foreach (var SelectedSong in await folder.GetFilesAsync())
+                {
+                    t.ItemsToSelect.Add(SelectedSong);
+                }
             }
             catch
             {

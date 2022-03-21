@@ -76,7 +76,7 @@
                                 Padding="16"
                                 ColumnSpacing="24">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="172" />
+                                    <ColumnDefinition Width="154" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
                                 <Button

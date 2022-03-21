@@ -17,10 +17,16 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Image
+            Height="16"
+            Margin="12,5,0,0"
+            HorizontalAlignment="Left"
+            Source="ms-appx:///Assets/NavigationView/SongsPage/Colorful.png" />
+
         <uc:ExtendedTitleBar
             x:Uid="/Props/WindowTitle"
             Height="24"
-            Margin="-24,5,0,0"
+            Margin="2,3,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="1"
             MinTitleWidth="0"
@@ -29,9 +35,9 @@
         <ScrollViewer
             Grid.Row="1"
             Padding="12"
+            Margin="0,-4,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
-            BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
             BorderThickness="0,0,0,1"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Hidden">
@@ -137,9 +143,8 @@
         <ScrollViewer
             Grid.Row="2"
             Padding="12,0"
-            Background="{ThemeResource NavigationViewContentBackground}"
             VerticalScrollBarVisibility="Auto">
-            <Frame x:Name="PropsFrame" Padding="0,12">
+            <Frame x:Name="PropsFrame" Padding="0,0">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

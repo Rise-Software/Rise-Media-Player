@@ -218,17 +218,17 @@ namespace Rise.App.ViewModels
         public readonly ThreadSafeCollection<SongViewModel>
             Songs = new();
 
-        public int SongsCount
+        public string SongsCount
         {
             get
             {
                 if (Songs != null)
                 {
-                    return Songs.Count;
+                    return Songs.Count + " songs";
                 }
                 else
                 {
-                    return 0;
+                    return "0";
                 }
             }
         }

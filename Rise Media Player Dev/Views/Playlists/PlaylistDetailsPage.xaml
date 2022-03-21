@@ -65,16 +65,17 @@
 
                             <Grid
                                 Margin="16"
-                                Padding="16"
+                                Padding="0"
                                 ColumnSpacing="24">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="172" />
+                                    <ColumnDefinition Width="188" />
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="150" />
                                 </Grid.ColumnDefinitions>
 
                                 <Button
                                     Padding="-1"
+                                    Margin="16,0,0,0"
                                     ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                     CornerRadius="8"
                                     IsHitTestVisible="False">
@@ -93,7 +94,7 @@
                                     VerticalAlignment="Center"
                                     Orientation="Vertical"
                                     Spacing="8">
-                                    <StackPanel Orientation="Horizontal">
+                                    <RelativePanel>
                                         <StackPanel>
                                             <TextBlock
                                                 x:Name="PlaylistName"
@@ -102,28 +103,24 @@
                                                 MaxLines="1"
                                                 Style="{StaticResource TitleTextBlockStyle}"
                                                 Text="{x:Bind Title}" />
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock
-                                                    Margin="0,0,0,8"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind SongsCount}" />
-                                            </StackPanel>
-
+                                            <TextBlock
+                                                Margin="0,0,0,8"
+                                                FontSize="18"
+                                                FontWeight="SemiBold"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="{x:Bind SongsCount}" />
                                             <TextBlock
                                                 x:Name="Description"
                                                 Margin="0,0,0,0"
                                                 FontSize="16"
                                                 FontWeight="Bold"
-                                                MaxLines="1"
                                                 Opacity="0.6"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="{x:Bind Description}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextTrimming="CharacterEllipsis" MaxLines="2"/>
                                         </StackPanel>
-                                    </StackPanel>
+                                    </RelativePanel>
 
 
                                     <CommandBar

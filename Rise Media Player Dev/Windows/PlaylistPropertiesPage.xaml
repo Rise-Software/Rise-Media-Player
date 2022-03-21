@@ -17,21 +17,27 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Image
+            Height="16"
+            Margin="12,5,0,0"
+            HorizontalAlignment="Left"
+            Source="ms-appx:///Assets/NavigationView/PlaylistsPage/Colorful.png" />
+
         <uc:ExtendedTitleBar
             x:Uid="/Props/PlaylistWindowTitle"
             Height="24"
-            Margin="-24,5,0,0"
+            Margin="2,3,0,0"
             VerticalAlignment="Top"
             Canvas.ZIndex="1"
             MinTitleWidth="0"
             ShowIcon="False" />
-
+        
         <ScrollViewer
             Grid.Row="1"
             Padding="12"
+            Margin="0,-4,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
-            BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
             BorderThickness="0,0,0,1"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Hidden">
@@ -82,8 +88,7 @@
         <Frame
             x:Name="PropsFrame"
             Grid.Row="2"
-            Padding="12,12,12,0"
-            Background="{ThemeResource NavigationViewContentBackground}">
+            Padding="12,0">
             <Frame.ContentTransitions>
                 <TransitionCollection>
                     <NavigationThemeTransition />
