@@ -246,7 +246,13 @@
   <data name="MoveDown.Text" xml:space="preserve">
     <value>Move down</value>
   </data>
+  <data name="MoveDown2.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Move down</value>
+  </data>
   <data name="MoveUp.Text" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="MoveUp2.ToolTipService.ToolTip" xml:space="preserve">
     <value>Move up</value>
   </data>
   <data name="NameOnly.Text" xml:space="preserve">

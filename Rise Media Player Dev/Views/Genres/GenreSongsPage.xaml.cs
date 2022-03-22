@@ -216,6 +216,15 @@ namespace Rise.App.Views
             }
         }
 
+        private async void PropsHover_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                await SelectedSong.StartEditAsync();
+            }
+        }
+
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             switch (args.InvokedItem)

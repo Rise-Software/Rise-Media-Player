@@ -8,6 +8,14 @@
     xmlns:uc="using:Rise.App.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+
+            <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -41,77 +49,41 @@
             BorderThickness="0,0,0,1"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Hidden">
-            <Grid x:Name="ItemGrid" ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+            <muxc:NavigationView
+                Margin="-12,-8,0,0"
+                VerticalAlignment="Top"
+                IsBackButtonVisible="Collapsed"
+                IsSettingsVisible="False"
+                PaneDisplayMode="Top"
+                SelectedItem="{x:Bind SongDetails}"
+                SelectionChanged="NavigationView_SelectionChanged">
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem
+                        x:Name="SongDetails"
+                        x:Uid="/Props/DetailItemNav"
+                        Tag="DetailsItem">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xE946;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem x:Uid="/Props/SongsItemNav" IsEnabled="False" Tag="SongsItem">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xEC4F;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
 
-                <ToggleButton
-                    x:Name="Details"
-                    HorizontalAlignment="Stretch"
-                    Checked="ToggleButton_Checked"
-                    Tag="DetailsItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                </muxc:NavigationView.MenuItems>
 
-                            <FontIcon FontSize="16" Glyph="&#xE946;" />
-                            <TextBlock x:Uid="/Props/DetailItem" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
 
-                <ToggleButton
-                    x:Name="Songs"
-                    Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    Checked="ToggleButton_Checked"
-                    Tag="LyricsItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <FontIcon FontSize="16" Glyph="&#xEC4F;" />
-                            <TextBlock x:Uid="/Props/SongsItem" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
-
-                <ToggleButton
-                    x:Name="More"
-                    Grid.Column="3"
-                    HorizontalAlignment="Stretch"
-                    Checked="ToggleButton_Checked"
-                    Tag="FileItem">
-                    <ToggleButton.Content>
-                        <Grid ColumnSpacing="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <FontIcon FontSize="16" Glyph="&#xE10C;" />
-                            <TextBlock x:Uid="/Props/MoreItem" Grid.Column="1" />
-                        </Grid>
-                    </ToggleButton.Content>
-                </ToggleButton>
-            </Grid>
+            </muxc:NavigationView>
         </ScrollViewer>
 
 
         <ScrollViewer
             Grid.Row="2"
-            Padding="12,-12,12,12"
+            Padding="12,-10,12,8"
             VerticalScrollBarVisibility="Auto">
-            <Frame x:Name="PropsFrame" Padding="0,12">
+            <Frame x:Name="PropsFrame" Padding="0,0">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />
@@ -122,28 +94,26 @@
 
         <Grid
             Grid.Row="3"
-            Padding="12"
+            Padding="14,12,14,12"
             HorizontalAlignment="Stretch"
-            BorderBrush="{ThemeResource NavigationViewContentGridBorderBrush}"
+            BorderBrush="{ThemeResource SystemRevealListLowColor}"
             BorderThickness="0,1,0,0"
             ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <Rectangle />
             <Button
                 x:Uid="/Props/Save"
-                Grid.Column="1"
-                Width="120"
+                HorizontalAlignment="Stretch"
                 Click="SaveButton_Click"
                 Style="{StaticResource AccentButtonStyle}" />
             <Button
                 x:Uid="/Props/Cancel"
-                Grid.Column="2"
-                Width="120"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
                 Click="CancelButton_Click" />
         </Grid>
 

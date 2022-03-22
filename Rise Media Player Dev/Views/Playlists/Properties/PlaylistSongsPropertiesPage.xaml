@@ -73,6 +73,7 @@
                                 Spacing="4">
                                 <Button
                                     Click="MoveUp_Click"
+                                    x:Uid="/Information/MoveUp2"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
                                     <FontIcon
@@ -82,6 +83,7 @@
                                 </Button>
                                 <Button
                                     Click="MoveBottom_Click"
+                                    x:Uid="/Information/MoveDown2"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
                                     <FontIcon

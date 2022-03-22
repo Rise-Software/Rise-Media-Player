@@ -16,8 +16,9 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid Margin="-12,-6,-12,-12">
         <muxc:NavigationView
+            Margin="-4,0,0,0"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             ItemInvoked="NavigationView_ItemInvoked"
@@ -32,7 +33,8 @@
                 <muxc:NavigationViewItem Content="Videos" Tag="Videos" />
             </muxc:NavigationView.MenuItems>
 
-            <Frame x:Name="ContentFrame" />
+            
         </muxc:NavigationView>
+        <Frame x:Name="ContentFrame" Margin="0,48,0,0" />
     </Grid>
 </Page>

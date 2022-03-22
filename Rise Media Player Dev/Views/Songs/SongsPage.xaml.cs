@@ -329,6 +329,15 @@ namespace Rise.App.Views
             }
         }
 
+        private async void PropsHover_Click(object sender, RoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                SelectedSong = song;
+                await SelectedSong.StartEditAsync();
+            }
+        }
+
         private async void AddFolders_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new ContentDialog();

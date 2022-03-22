@@ -25,43 +25,13 @@ namespace Rise.App.Views.Albums.Properties
             this.InitializeComponent();
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            Toggles = ItemGrid.GetChildren<ToggleButton>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Album = e.Parameter as AlbumViewModel;
 
-            Details.IsChecked = true;
             base.OnNavigatedTo(e);
-        }
-
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            Details.IsChecked = false;
-            Songs.IsChecked = false;
-            More.IsChecked = false;
-
-            ToggleButton clicked = (ToggleButton)sender;
-            clicked.Checked -= ToggleButton_Checked;
-            clicked.IsChecked = true;
-
-            switch (clicked.Tag.ToString())
-            {
-                case "DetailsItem":
-                    _ = PropsFrame.Navigate(typeof(AlbumPropsDetailsPagexaml), Album);
-                    break;
-
-                case "FileItem":
-                    //_ = PropsFrame.Navigate(typeof(FilePage), Album);
-                    break;
-
-                default:
-                    break;
-            }
-
-            clicked.Checked += ToggleButton_Checked;
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -79,6 +49,25 @@ namespace Rise.App.Views.Albums.Properties
         private async void PlaylistPropertiesPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
         {
             _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+        }
+
+        private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            if (selectedItem != null)
+            {
+                string selectedItemTag = selectedItem.Tag as string;
+                switch (selectedItemTag)
+                {
+                    case "DetailsItem":
+                        _ = PropsFrame.Navigate(typeof(AlbumPropsDetailsPagexaml), Album);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
         }
     }
 }

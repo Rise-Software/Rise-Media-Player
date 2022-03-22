@@ -126,6 +126,9 @@
   <data name="DetailItem.Text" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="DetailItemNav.Content" xml:space="preserve">
+    <value>Details</value>
+  </data>
   <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
     <value>Coming soon</value>
   </data>
@@ -141,7 +144,13 @@
   <data name="FileItem.Text" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="FileItemNav.Content" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="LyricsItem.Text" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="LyricsItemNav.Content" xml:space="preserve">
     <value>Lyrics</value>
   </data>
   <data name="MoreItem.Text" xml:space="preserve">
@@ -157,6 +166,9 @@
     <value>Save changes</value>
   </data>
   <data name="SongsItem.Text" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="SongsItemNav.Content" xml:space="preserve">
     <value>Songs</value>
   </data>
   <data name="StayHere" xml:space="preserve">

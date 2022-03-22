@@ -285,7 +285,7 @@
                             Spacing="4">
                             <Button
                                 x:Name="MoveSongUp"
-                                x:Uid="/Information/RemovePlaylist2"
+                                x:Uid="/Information/MoveUp2"
                                 Width="36"
                                 Height="36"
                                 Padding="0"
@@ -296,7 +296,7 @@
                             </Button>
                             <Button
                                 x:Name="MoveSongDown"
-                                x:Uid="/Information/RemovePlaylist2"
+                                x:Uid="/Information/MoveDown2"
                                 Width="36"
                                 Height="36"
                                 Padding="0"

@@ -28,7 +28,7 @@ namespace Rise.App.Views
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            Toggles = ItemGrid.GetChildren<ToggleButton>();
+            //Toggles = ItemGrid.GetChildren<ToggleButton>();
             ApplicationView.GetForCurrentView().Consolidated += PlaylistPropertiesPage_Consolidated;
         }
 
@@ -37,33 +37,33 @@ namespace Rise.App.Views
             base.OnNavigatedTo(e);
             Playlist = e.Parameter as PlaylistViewModel;
 
-            Details.IsChecked = true;
+            //Details.IsChecked = true;
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            Details.IsChecked = false;
-            Songs.IsChecked = false;
+            //Details.IsChecked = false;
+            //Songs.IsChecked = false;
 
-            ToggleButton clicked = (ToggleButton)sender;
-            clicked.Checked -= ToggleButton_Checked;
-            clicked.IsChecked = true;
+            //ToggleButton clicked = (ToggleButton)sender;
+            //clicked.Checked -= ToggleButton_Checked;
+            //clicked.IsChecked = true;
 
-            switch (clicked.Tag.ToString())
-            {
-                case "DetailsItem":
-                    _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), Playlist);
-                    break;
+            //switch (clicked.Tag.ToString())
+            //{
+            //    case "DetailsItem":
+            //        _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), Playlist);
+            //        break;
 
-                case "SongsItem":
-                    _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), Playlist);
-                    break;
+            //    case "SongsItem":
+            //        _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), Playlist);
+            //        break;
 
-                default:
-                    break;
-            }
+            //    default:
+            //        break;
+            //}
 
-            clicked.Checked += ToggleButton_Checked;
+            //clicked.Checked += ToggleButton_Checked;
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -94,6 +94,29 @@ namespace Rise.App.Views
                 {
 
                 }
+            }
+        }
+
+        private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            if (selectedItem != null)
+            {
+                string selectedItemTag = selectedItem.Tag as string;
+                switch (selectedItemTag)
+                {
+                    case "DetailsItem":
+                        _ = PropsFrame.Navigate(typeof(PlaylistDetailsPropertiesPage), Playlist);
+                        break;
+
+                    case "SongsItem":
+                        _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), Playlist);
+                        break;
+
+                    default:
+                        break;
+                }
+
             }
         }
     }
