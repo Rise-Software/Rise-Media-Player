@@ -52,6 +52,16 @@ namespace Rise.App.ViewModels
             }
         }
 
+        private bool _isFocused;
+        /// <summary>
+        /// Gets or sets a value that indicates whether the item is focused.
+        /// </summary>
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set => Set(ref _isFocused, value);
+        }
+
         /// <summary>
         /// Gets or sets the album artist.
         /// </summary>
@@ -208,6 +218,8 @@ namespace Rise.App.ViewModels
             get => _isReleaseYearVisible;
             set => Set(ref _isReleaseYearVisible, value);
         }
+
+        
         #endregion
 
         #region Backend

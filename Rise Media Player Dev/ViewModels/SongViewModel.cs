@@ -287,7 +287,7 @@ namespace Rise.App.ViewModels
 
         private bool _isTrackNumberVisible = true;
         /// <summary>
-        /// Gets or sets a value that indicates whether the ite's track number is visible.
+        /// Gets or sets a value that indicates whether the songs' track number is visible.
         /// </summary>
         public bool IsTrackNumberVisible
         {

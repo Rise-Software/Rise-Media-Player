@@ -328,17 +328,24 @@
                             ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
                             Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
                             <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
-                                <Image
-                                    Width="134"
-                                    Height="134"
-                                    Stretch="UniformToFill">
-                                    <Image.Source>
-                                        <BitmapImage
-                                            DecodePixelHeight="134"
-                                            DecodePixelWidth="134"
-                                            UriSource="{x:Bind Thumbnail}" />
-                                    </Image.Source>
-                                </Image>
+                                <Grid>
+                                    <Image
+                                        Width="134"
+                                        Height="134"
+                                        Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage
+                                                DecodePixelHeight="134"
+                                                DecodePixelWidth="134"
+                                                UriSource="{x:Bind Thumbnail}" />
+                                        </Image.Source>
+                                    </Image>
+                                    <Button HorizontalAlignment="Center" Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, Mode=OneWay}" Style="{StaticResource AccentButtonStyle}" Opacity="1" Padding="8">
+                                        <Button.Content>
+                                            <FontIcon Glyph="&#xF5B0;" FontSize="28" />
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
                             </Border>
                         </Border>
 

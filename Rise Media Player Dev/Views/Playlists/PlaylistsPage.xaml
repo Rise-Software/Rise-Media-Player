@@ -198,13 +198,24 @@
                             </Image>
                         </Border>
 
-                        <TextBlock
+                        <StackPanel>
+                            <TextBlock
                             Padding="0,7,0,0"
                             MaxLines="1"
                             Style="{StaticResource BaseTextBlockStyle}"
                             Text="{x:Bind Title}"
                             TextWrapping="Wrap"
                             ToolTipService.ToolTip="{x:Bind Title}" />
+                            <TextBlock
+                            Padding="0,0,0,0"
+                            MaxLines="1"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind SongsCount}"
+                                FontWeight="Normal"
+                            TextWrapping="Wrap"
+                            ToolTipService.ToolTip="{x:Bind SongsCount}" />
+                        </StackPanel>
+                        
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

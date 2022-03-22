@@ -361,6 +361,8 @@ namespace Rise.App.Views
 
                 AddTo.Items.Add(item);
             }
+
+            TrackCountName.Text = SelectedAlbum.TrackCount + " songs";
         }
 
         private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
@@ -399,6 +401,11 @@ namespace Rise.App.Views
             {
 
             }
+        }
+
+        private async void EditAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedAlbum.StartEditAsync();
         }
     }
 }
