@@ -73,38 +73,50 @@ namespace Rise.App.Views
 
         public static async Task StartMusicPlaybackAsync(int index = 0, bool shuffle = false)
         {
-            if (SelectedSong != null && index == 0)
+            try
             {
-                index = Songs.IndexOf(SelectedSong);
-                SelectedSong = null;
-            }
+                if (SelectedSong != null && index == 0)
+                {
+                    index = Songs.IndexOf(SelectedSong);
+                    SelectedSong = null;
+                }
 
-            var songs = Songs.CloneList<object, SongViewModel>();
-            if (shuffle)
+                var songs = Songs.CloneList<object, SongViewModel>();
+                if (shuffle)
+                {
+                    Random rnd = new();
+                    index = rnd.Next(0, Songs.Count);
+                }
+
+                await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
+            } catch
             {
-                Random rnd = new();
-                index = rnd.Next(0, Songs.Count);
-            }
 
-            await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
+            }
         }
 
         public static async Task StartVideoPlaybackAsync(int index = 0, bool shuffle = false)
         {
-            if (SelectedVideo != null && index == 0)
+            try
             {
-                index = Videos.IndexOf(SelectedVideo);
-                SelectedVideo = null;
-            }
+                if (SelectedVideo != null && index == 0)
+                {
+                    index = Videos.IndexOf(SelectedVideo);
+                    SelectedVideo = null;
+                }
 
-            var videos = Videos.CloneList<object, VideoViewModel>();
-            if (shuffle)
+                var videos = Videos.CloneList<object, VideoViewModel>();
+                if (shuffle)
+                {
+                    Random rnd = new();
+                    index = rnd.Next(0, Videos.Count);
+                }
+
+                await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
+            } catch
             {
-                Random rnd = new();
-                index = rnd.Next(0, Videos.Count);
-            }
 
-            await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
+            }
         }
     }
 }
