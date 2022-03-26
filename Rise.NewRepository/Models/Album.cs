@@ -5,7 +5,7 @@ namespace Rise.Models
     /// <summary>
     /// Represents an album.
     /// </summary>
-    public class Album : DbObject, IEquatable<Album>
+    public class Album1 : IEquatable<Album1>
     {
         public string Title { get; set; }
         public string Artist { get; set; }
@@ -19,7 +19,7 @@ namespace Rise.Models
         /// </summary>
         public override string ToString() => Title;
 
-        public bool Equals(Album other)
+        public bool Equals(Album1 other)
         {
             return Title == other.Title;
         }

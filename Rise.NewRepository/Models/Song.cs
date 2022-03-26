@@ -1,5 +1,4 @@
-﻿using Rise.Common.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +12,7 @@ namespace Rise.Models
     /// <summary>
     /// Represents a song.
     /// </summary>
-    public class Song : DbObject, IEquatable<Song>
+    public class Song1 : IEquatable<Song1>
     {
         public string Title { get; set; }
         public string Artist { get; set; }
@@ -33,7 +32,7 @@ namespace Rise.Models
         /// </summary>
         public override string ToString() => Title;
 
-        public bool Equals(Song other)
+        public bool Equals(Song1 other)
         {
             return Title == other.Title &&
                    Artist == other.Artist &&
@@ -57,7 +56,7 @@ namespace Rise.Models
         /// </summary>
         /// <param name="file">Song file.</param>
         /// <returns>A song based on the file.</returns>
-        public static async Task<Song> GetFromFileAsync(StorageFile file)
+        /*public static async Task<Song> GetFromFileAsync(StorageFile file)
         {
             // Put the value into memory to make sure that the system
             // really fetches the property
@@ -140,6 +139,6 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
-        }
+        }*/
     }
 }

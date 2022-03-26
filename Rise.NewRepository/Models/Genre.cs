@@ -5,7 +5,7 @@ namespace Rise.Models
     /// <summary>
     /// Represents a genre.
     /// </summary>
-    public class Genre : DbObject, IEquatable<Genre>
+    public class Genre1 : IEquatable<Genre1>
     {
         public string Name { get; set; }
 
@@ -14,7 +14,7 @@ namespace Rise.Models
         /// </summary>
         public override string ToString() => Name;
 
-        public bool Equals(Genre other)
+        public bool Equals(Genre1 other)
         {
             return Name == other.Name;
         }

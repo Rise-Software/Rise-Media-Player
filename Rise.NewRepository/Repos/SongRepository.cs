@@ -10,9 +10,9 @@ namespace Rise.NewRepository.Repos
 {
     public static class SongRepository
     {
-        public static List<Song> UpsertQueue { get; private set; } = new List<Song>();
+        public static List<Song1> UpsertQueue { get; private set; } = new List<Song1>();
 
-        public async static Task InsertAsync(Song song)
+        public async static Task InsertAsync(Song1 song)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Files1.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))
@@ -33,12 +33,12 @@ namespace Rise.NewRepository.Repos
             }
         }
 
-        public async static Task UpdateAsync(Song song)
+        public async static Task UpdateAsync(Song1 song)
         {
 
         }
 
-        public async static Task UpsertAsync(Song song)
+        public async static Task UpsertAsync(Song1 song)
         {
             /*
              if (Songs.Contains(song)) 
@@ -48,7 +48,7 @@ namespace Rise.NewRepository.Repos
              */
         }
 
-        public async static Task QueueUpsertAsync(Song song)
+        public async static Task QueueUpsertAsync(Song1 song)
         {
             if (UpsertQueue.Count >= 100)
             {
@@ -56,7 +56,7 @@ namespace Rise.NewRepository.Repos
             }
         }
 
-        public static void Insert(Song song)
+        public static void Insert(Song1 song)
         {
             string dbpath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Files1.db");
             using (SqliteConnection db = new SqliteConnection($"Filename={dbpath}"))

@@ -5,7 +5,7 @@ namespace Rise.Models
     /// <summary>
     /// Represents an Artist.
     /// </summary>
-    public class Artist : DbObject, IEquatable<Artist>
+    public class Artist1 :  IEquatable<Artist1>
     {
         public string Name { get; set; }
         public string Picture { get; set; }
@@ -17,7 +17,7 @@ namespace Rise.Models
         /// </summary>
         public override string ToString() => Name;
 
-        public bool Equals(Artist other)
+        public bool Equals(Artist1 other)
         {
             return Name == other.Name;
         }
