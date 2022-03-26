@@ -181,7 +181,7 @@ namespace Rise.App.ChangeTrackers
             {
                 for (int i = 0; i < ViewModel.Songs.Count; i++)
                 {
-                    if (await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location) != null)
+                    if (await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location) == null)
                     {
                         toRemove.Add(ViewModel.Songs[i]);
                     }
