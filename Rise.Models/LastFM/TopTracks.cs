@@ -8,8 +8,10 @@ namespace Rise.Models
     {
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
+
         [XmlElement(ElementName = "mbid")]
         public string Mbid { get; set; }
+
         [XmlElement(ElementName = "url")]
         public string Url { get; set; }
     }
@@ -19,6 +21,7 @@ namespace Rise.Models
     {
         [XmlAttribute(AttributeName = "size")]
         public string Size { get; set; }
+
         [XmlText]
         public string Text { get; set; }
     }
@@ -28,20 +31,28 @@ namespace Rise.Models
     {
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
+
         [XmlElement(ElementName = "playcount")]
         public string Playcount { get; set; }
+
         [XmlElement(ElementName = "listeners")]
         public string Listeners { get; set; }
+
         [XmlElement(ElementName = "mbid")]
         public string Mbid { get; set; }
+
         [XmlElement(ElementName = "url")]
         public string Url { get; set; }
+
         [XmlElement(ElementName = "streamable")]
         public string Streamable { get; set; }
+
         [XmlElement(ElementName = "artist")]
         public ArtistT Artist { get; set; }
+
         [XmlElement(ElementName = "image")]
         public List<Image> Image { get; set; }
+
         [XmlAttribute(AttributeName = "rank")]
         public string Rank { get; set; }
     }
@@ -51,14 +62,19 @@ namespace Rise.Models
     {
         [XmlElement(ElementName = "track")]
         public List<Track> Track { get; set; }
+
         [XmlAttribute(AttributeName = "artist")]
         public string Artist { get; set; }
+
         [XmlAttribute(AttributeName = "page")]
         public string Page { get; set; }
+
         [XmlAttribute(AttributeName = "perPage")]
         public string PerPage { get; set; }
+
         [XmlAttribute(AttributeName = "totalPages")]
         public string TotalPages { get; set; }
+
         [XmlAttribute(AttributeName = "total")]
         public string Total { get; set; }
     }
@@ -68,6 +84,7 @@ namespace Rise.Models
     {
         [XmlElement(ElementName = "toptracks")]
         public Toptracks Toptracks { get; set; }
+
         [XmlAttribute(AttributeName = "status")]
         public string Status { get; set; }
     }

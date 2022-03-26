@@ -1111,6 +1111,10 @@
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
       <Name>Rise.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rise.NewRepository\Rise.NewRepository.csproj">
+      <Project>{1319ce6d-828f-4024-93c9-4052f3f053ba}</Project>
+      <Name>Rise.NewRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rise.Repository\Rise.Repository.csproj">
       <Project>{c0da58a4-4ebe-4f14-8eb2-f92e99960c52}</Project>
       <Name>Rise.Repository</Name>
