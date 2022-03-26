@@ -5,20 +5,11 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:rd="using:Rise.App.ResourceDictionaries">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <muxc:XamlControlsResources>
-                    <muxc:XamlControlsResources.MergedDictionaries>
-                        <ResourceDictionary Source="/ResourceDictionaries/CustomStyles.xaml" />
-                        <rd:SongTemplates />
-                    </muxc:XamlControlsResources.MergedDictionaries>
-                </muxc:XamlControlsResources>
-                <ResourceDictionary>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontFamily" Value="ms-appx:///Assets/SegUIVar.ttf#Segoe UI Variable Display" />
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <muxc:XamlControlsResources>
+            <muxc:XamlControlsResources.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/CustomStyles.xaml" />
+                <rd:SongTemplates />
+            </muxc:XamlControlsResources.MergedDictionaries>
+        </muxc:XamlControlsResources>
     </Application.Resources>
 </Application>

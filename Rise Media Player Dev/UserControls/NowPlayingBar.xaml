@@ -41,8 +41,8 @@
                 <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark2}" />
             </LinearGradientBrush>
         </ResourceDictionary>
+        
         <converters:DecimalPointToPercentageConverter x:Key="DecimalPointToPercentage" />
-
 
         <MenuFlyout x:Name="MiniMenuFlyout">
             <MenuFlyoutItem
