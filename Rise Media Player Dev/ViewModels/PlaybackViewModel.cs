@@ -97,127 +97,176 @@ namespace Rise.App.ViewModels
 
         public async Task PlaySongAsync(SongViewModel song)
         {
-            CancelTask();
-
-            ClearLists();
-            PlaybackList.ShuffleEnabled = false;
-
-            PlaybackList.Items.Add(await song.AsPlaybackItemAsync());
-
-            CurrentSong = song;
-
-            Player.Play();
-
-            if (App.SViewModel.Color == -3)
+            try
             {
-                App.SViewModel.Color = -1;
-                App.SViewModel.Color = -3;
-            }
+                CancelTask();
 
-            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
-            await CurrentPlaybackItem.NotifyChangesAsync(false);
+                ClearLists();
+                PlaybackList.ShuffleEnabled = false;
+
+                PlaybackList.Items.Add(await song.AsPlaybackItemAsync());
+
+                CurrentSong = song;
+
+                Player.Play();
+
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentSongChanged?.Invoke(this, EventArgs.Empty);
+                await CurrentPlaybackItem.NotifyChangesAsync(false);
+            } catch
+            {
+
+            }
         }
 
         public async Task PlaySongFromUrlAsync(SongViewModel song)
         {
-            CancelTask();
-
-            ClearLists();
-            PlaybackList.ShuffleEnabled = false;
-
-            PlaybackList.Items.Add(song.AsPlaybackItem(new Uri(song.Location)));
-
-            CurrentSong = song;
-
-            Player.Play();
-
-            if (App.SViewModel.Color == -3)
+            try
             {
-                App.SViewModel.Color = -1;
-                App.SViewModel.Color = -3;
+                CancelTask();
+
+                ClearLists();
+                PlaybackList.ShuffleEnabled = false;
+
+                PlaybackList.Items.Add(song.AsPlaybackItem(new Uri(song.Location)));
+
+                CurrentSong = song;
+
+                Player.Play();
+
+                if (App.SViewModel.Color == -3)
+                {
+                    App.SViewModel.Color = -1;
+                    App.SViewModel.Color = -3;
+                }
+
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentSongChanged?.Invoke(this, EventArgs.Empty);
+
+                await CurrentPlaybackItem.NotifyChangesAsync(false);
+            } catch
+            {
+
             }
-
-            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-            CurrentSongChanged?.Invoke(this, EventArgs.Empty);
-
-            await CurrentPlaybackItem.NotifyChangesAsync(false);
         }
 
         public async Task PlayVideoAsync(VideoViewModel video)
         {
-            CancelTask();
+            try
+            {
+                CancelTask();
 
-            ClearLists();
-            PlaybackList.ShuffleEnabled = false;
+                ClearLists();
+                PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
+                PlaybackList.Items.Add(await video.AsPlaybackItemAsync());
 
-            CurrentVideo = video;
+                CurrentVideo = video;
 
-            Player.Play();
+                Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
-            await CurrentPlaybackItem.NotifyChangesAsync(true);
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
+                await CurrentPlaybackItem.NotifyChangesAsync(true);
+            } catch
+            {
+
+            }
         }
 
         public async Task PlayVideoFromUrlAsync(VideoViewModel video)
         {
-            CancelTask();
+            try
+            {
+                CancelTask();
 
-            ClearLists();
-            PlaybackList.ShuffleEnabled = false;
+                ClearLists();
+                PlaybackList.ShuffleEnabled = false;
 
-            PlaybackList.Items.Add(video.AsPlaybackItem(new Uri(video.Location)));
+                PlaybackList.Items.Add(video.AsPlaybackItem(new Uri(video.Location)));
 
-            CurrentVideo = video;
+                CurrentVideo = video;
 
-            Player.Play();
+                Player.Play();
 
-            CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-            CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
-            await CurrentPlaybackItem.NotifyChangesAsync(true);
+                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
+                await CurrentPlaybackItem.NotifyChangesAsync(true);
+            } catch
+            {
+
+            }
         }
 
         public async Task StartVideoPlaybackAsync(IEnumerator<VideoViewModel> videos, int startIndex, int count, bool shuffle = false)
         {
-            CancelTask();
-            PlaybackList.ShuffleEnabled = shuffle;
+            try
+            {
+                CancelTask();
+                PlaybackList.ShuffleEnabled = shuffle;
 
-            await CreatePlaybackListAsync(startIndex, count, videos, Token);
+                await CreatePlaybackListAsync(startIndex, count, videos, Token);
+            } catch
+            {
+
+            }
         }
 
         public async Task StartMusicPlaybackAsync(IEnumerator<SongViewModel> songs, int startIndex, int count, bool shuffle = false)
         {
-            CancelTask();
-            PlaybackList.ShuffleEnabled = shuffle;
+            try
+            {
+                CancelTask();
+                PlaybackList.ShuffleEnabled = shuffle;
 
-            await CreatePlaybackListAsync(startIndex, count, songs, Token);
+                await CreatePlaybackListAsync(startIndex, count, songs, Token);
+            } catch
+            {
+
+            }
         }
 
         public async Task StartMusicPlaybackFromUrlAsync(IEnumerator<SongViewModel> songs, int startIndex, int count, bool shuffle = false)
         {
-            CancelTask();
-            PlaybackList.ShuffleEnabled = shuffle;
+            try
+            {
+                CancelTask();
+                PlaybackList.ShuffleEnabled = shuffle;
 
-            await CreatePlaybackListAsync(startIndex, count, songs, Token);
+                await CreatePlaybackListAsync(startIndex, count, songs, Token);
+            } catch
+            {
+
+            }
         }
 
         public async Task StartMusicPlaybackAsync(IEnumerator<IStorageItem> songs, int startIndex, int count)
         {
-            CancelTask();
-            PlaybackList.ShuffleEnabled = false;
-
-            List<SongViewModel> list = new();
-            while (songs.MoveNext())
+            try
             {
-                var song = await Song.GetFromFileAsync(songs.Current as StorageFile);
-                list.Add(new SongViewModel(song));
-            }
+                CancelTask();
+                PlaybackList.ShuffleEnabled = false;
 
-            songs.Dispose();
-            await CreatePlaybackListAsync(startIndex, count, list.GetEnumerator(), Token);
+                List<SongViewModel> list = new();
+                while (songs.MoveNext())
+                {
+                    var song = await Song.GetFromFileAsync(songs.Current as StorageFile);
+                    list.Add(new SongViewModel(song));
+                }
+
+                songs.Dispose();
+                await CreatePlaybackListAsync(startIndex, count, list.GetEnumerator(), Token);
+
+            } catch
+            {
+
+            }
         }
 
         public async Task CreatePlaybackListAsync(int index, int count, IEnumerator<SongViewModel> songs, CancellationToken token)
@@ -357,39 +406,51 @@ namespace Rise.App.ViewModels
 
         public void SetCurrentSong(int index)
         {
-            if (index >= 0 && index < PlayingSongs.Count)
+            try
             {
-                CurrentVideo = null;
-                CurrentSong = PlayingSongs[index];
-
-                if (App.SViewModel.Color == -3)
+                if (index >= 0 && index < PlayingSongs.Count)
                 {
-                    App.SViewModel.Color = -1;
-                    App.SViewModel.Color = -3;
-                }
+                    CurrentVideo = null;
+                    CurrentSong = PlayingSongs[index];
 
-                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-                CurrentSongChanged?.Invoke(this, EventArgs.Empty);
-                CurrentPlaybackItem.NotifyChanges(false);
+                    if (App.SViewModel.Color == -3)
+                    {
+                        App.SViewModel.Color = -1;
+                        App.SViewModel.Color = -3;
+                    }
+
+                    CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                    CurrentSongChanged?.Invoke(this, EventArgs.Empty);
+                    CurrentPlaybackItem.NotifyChanges(false);
+                }
+            } catch
+            {
+
             }
         }
 
         public void SetCurrentVideo(int index)
         {
-            if (index >= 0 && index < PlayingVideos.Count)
+            try
             {
-                CurrentSong = null;
-                CurrentVideo = PlayingVideos[index];
-
-                if (App.SViewModel.Color == -3)
+                if (index >= 0 && index < PlayingVideos.Count)
                 {
-                    App.SViewModel.Color = -1;
-                    App.SViewModel.Color = -3;
-                }
+                    CurrentSong = null;
+                    CurrentVideo = PlayingVideos[index];
 
-                CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
-                CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
-                CurrentPlaybackItem.NotifyChanges(true);
+                    if (App.SViewModel.Color == -3)
+                    {
+                        App.SViewModel.Color = -1;
+                        App.SViewModel.Color = -3;
+                    }
+
+                    CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
+                    CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
+                    CurrentPlaybackItem.NotifyChanges(true);
+                }
+            } catch
+            {
+
             }
         }
 

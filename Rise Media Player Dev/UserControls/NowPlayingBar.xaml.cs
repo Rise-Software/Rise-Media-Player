@@ -780,7 +780,7 @@ namespace Rise.App.UserControls
         {
             if (Window.Current.Content is Frame rootFrame)
             {
-                _ = rootFrame.Navigate(typeof(Views.FullNowPlayingPage));
+                _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
             }
         }
 

@@ -357,17 +357,26 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task StartEditAsync()
         {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-            if (file != null)
+            if (!IsOnline)
             {
-                SongPropertiesViewModel props = new SongPropertiesViewModel(this, file.DateCreated)
+                try
                 {
-                    FileProps = await file.GetBasicPropertiesAsync()
-                };
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
-                _ = await typeof(SongPropertiesPage).
-                    PlaceInApplicationViewAsync(props, 380, 550, true);
+                    if (file != null)
+                    {
+                        SongPropertiesViewModel props = new(this, file.DateCreated)
+                        {
+                            FileProps = await file.GetBasicPropertiesAsync()
+                        };
+
+                        _ = await typeof(SongPropertiesPage).
+                            PlaceInApplicationViewAsync(props, 380, 550, true);
+                    }
+                } catch
+                {
+
+                }
             }
         }
 
@@ -387,28 +396,35 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-            MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Music;
-
-            props.MusicProperties.Title = Title;
-            props.MusicProperties.Artist = Artist;
-            props.MusicProperties.AlbumTitle = Album;
-            props.MusicProperties.AlbumArtist = AlbumArtist;
-            props.MusicProperties.TrackNumber = Track;
-
-            if (Thumbnail != null)
+            try
             {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
-            }
+                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
 
-            media.ApplyDisplayProperties(props);
-            return media;
+                MediaSource source = MediaSource.CreateFromStorageFile(file);
+                MediaPlaybackItem media = new(source);
+
+                MediaItemDisplayProperties props = media.GetDisplayProperties();
+                props.Type = MediaPlaybackType.Music;
+
+                props.MusicProperties.Title = Title;
+                props.MusicProperties.Artist = Artist;
+                props.MusicProperties.AlbumTitle = Album;
+                props.MusicProperties.AlbumArtist = AlbumArtist;
+                props.MusicProperties.TrackNumber = Track;
+
+                if (Thumbnail != null)
+                {
+                    props.Thumbnail = RandomAccessStreamReference.
+                        CreateFromUri(new Uri(Thumbnail));
+                }
+
+                media.ApplyDisplayProperties(props);
+                return media;
+            } catch
+            {
+
+            }
+            return null;
         }
 
         /// <summary>
@@ -417,26 +433,33 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         public MediaPlaybackItem AsPlaybackItem(Uri url)
         {
-            MediaSource source = MediaSource.CreateFromUri(url);
-            MediaPlaybackItem media = new(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Music;
-
-            props.MusicProperties.Title = Title;
-            props.MusicProperties.Artist = Artist;
-            props.MusicProperties.AlbumTitle = Album;
-            props.MusicProperties.AlbumArtist = AlbumArtist;
-            props.MusicProperties.TrackNumber = Track;
-
-            if (Thumbnail != null)
+            try
             {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
-            }
+                MediaSource source = MediaSource.CreateFromUri(url);
+                MediaPlaybackItem media = new(source);
 
-            media.ApplyDisplayProperties(props);
-            return media;
+                MediaItemDisplayProperties props = media.GetDisplayProperties();
+                props.Type = MediaPlaybackType.Music;
+
+                props.MusicProperties.Title = Title;
+                props.MusicProperties.Artist = Artist;
+                props.MusicProperties.AlbumTitle = Album;
+                props.MusicProperties.AlbumArtist = AlbumArtist;
+                props.MusicProperties.TrackNumber = Track;
+
+                if (Thumbnail != null)
+                {
+                    props.Thumbnail = RandomAccessStreamReference.
+                        CreateFromUri(new Uri(Thumbnail));
+                }
+
+                media.ApplyDisplayProperties(props);
+                return media;
+            } catch
+            {
+
+            }
+            return null;
         }
         #endregion
     }
