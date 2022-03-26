@@ -2,7 +2,6 @@
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : ViewModel<Artist>
     {
-        private ISQLRepository<Artist> Repository => SQLRepository.Repository.Artists;
 
         #region Constructor
         /// <summary>
@@ -136,7 +134,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetArtistAsync(Model.Id);
         }
         #endregion
     }

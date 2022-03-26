@@ -6,7 +6,6 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -549,7 +548,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task UpdateItemsAsync()
         {
-            await SQLRepository.Repository.Songs.UpsertQueuedAsync();
+            /*await SQLRepository.Repository.Songs.UpsertQueuedAsync();
             await SQLRepository.Repository.Albums.UpsertQueuedAsync();
             await SQLRepository.Repository.Artists.UpsertQueuedAsync();
             await SQLRepository.Repository.Genres.UpsertQueuedAsync();
@@ -559,7 +558,7 @@ namespace Rise.App.ViewModels
             await SQLRepository.Repository.Albums.DeleteQueuedAsync();
             await SQLRepository.Repository.Artists.DeleteQueuedAsync();
             await SQLRepository.Repository.Genres.DeleteQueuedAsync();
-            await SQLRepository.Repository.Videos.DeleteQueuedAsync();
+            await SQLRepository.Repository.Videos.DeleteQueuedAsync();*/
         }
 
         /// <summary>

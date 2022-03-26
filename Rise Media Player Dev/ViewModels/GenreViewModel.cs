@@ -2,14 +2,12 @@
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
     public class GenreViewModel : ViewModel<Genre>
     {
-        private ISQLRepository<Genre> Repository => SQLRepository.Repository.Genres;
 
         #region Constructor
         /// <summary>

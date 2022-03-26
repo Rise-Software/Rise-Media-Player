@@ -217,9 +217,6 @@ namespace Rise.App
         /// </summary>
         private async Task InitDataSourcesAsync()
         {
-            // We still have to make sure the file's there
-            _ = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync("Files.db", CreationCollisionOption.OpenIfExists);
-
             await NewRepository.Repository.InitializeDatabaseAsync();
 
             MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);

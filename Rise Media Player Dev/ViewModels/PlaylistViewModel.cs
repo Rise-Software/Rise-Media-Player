@@ -21,6 +21,8 @@ namespace Rise.App.ViewModels
         public PlaylistViewModel(Playlist model = null)
         {
             Model = model ?? new Playlist();
+
+            Songs ??= new();
         }
 
         /// <summary>

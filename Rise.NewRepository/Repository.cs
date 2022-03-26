@@ -94,6 +94,19 @@ namespace Rise.NewRepository
         {
             await _asyncDb.DeleteAsync(song);
         }
+
+        public async static Task<Song> GetSongAsync(Guid id)
+        {
+            foreach (Song song in await GetSongsAsync())
+            {
+                if (song.Id == id)
+                {
+                    return song;
+                }
+            }
+
+            return null;
+        }
         #endregion
 
         #region Artists
@@ -101,6 +114,7 @@ namespace Rise.NewRepository
         {
             return await _asyncDb.Table<Artist>().ToListAsync();
         }
+
         public static void Upsert(Artist artist)
         {
             _db.InsertOrReplace(artist);
@@ -119,6 +133,19 @@ namespace Rise.NewRepository
         public async static Task DeleteAsync(Artist artist)
         {
             await _asyncDb.DeleteAsync(artist);
+        }
+
+        public async static Task<Artist> GetArtistAsync(Guid id)
+        {
+            foreach (Artist artist in await GetArtistsAsync())
+            {
+                if (artist.Id == id)
+                {
+                    return artist;
+                }
+            }
+
+            return null;
         }
         #endregion
 
@@ -147,6 +174,19 @@ namespace Rise.NewRepository
         {
             await _asyncDb.DeleteAsync(album);
         }
+
+        public async static Task<Album> GetAlbumAsync(Guid id)
+        {
+            foreach (Album album in await GetAlbumsAsync())
+            {
+                if (album.Id == id)
+                {
+                    return album;
+                }
+            }
+
+            return null;
+        }
         #endregion
 
         #region Genres
@@ -174,6 +214,19 @@ namespace Rise.NewRepository
         {
             await _asyncDb.DeleteAsync(genre);
         }
+
+        public async static Task<Genre> GetGenreAsync(Guid id)
+        {
+            foreach (Genre genre in await GetGenresAsync())
+            {
+                if (genre.Id == id)
+                {
+                    return genre;
+                }
+            }
+
+            return null;
+        }
         #endregion
 
         #region Videos
@@ -200,6 +253,19 @@ namespace Rise.NewRepository
         public async static Task DeleteAsync(Video video)
         {
             await _asyncDb.DeleteAsync(video);
+        }
+
+        public async static Task<Video> GetVideoAsync(Guid id)
+        {
+            foreach (Video video in await GetVideosAsync())
+            {
+                if (video.Id == id)
+                {
+                    return video;
+                }
+            }
+
+            return null;
         }
         #endregion
     }

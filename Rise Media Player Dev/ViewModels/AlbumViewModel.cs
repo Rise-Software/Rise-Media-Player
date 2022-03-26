@@ -3,7 +3,6 @@ using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +12,6 @@ namespace Rise.App.ViewModels
 {
     public class AlbumViewModel : ViewModel<Album>
     {
-        private ISQLRepository<Album> Repository => SQLRepository.Repository.Albums;
 
         #region Constructor
         /// <summary>
@@ -275,8 +273,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task StartEditAsync()
         {
-            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).
-                ShowInApplicationViewAsync(this, 380, 550, true);
+            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).ShowInApplicationViewAsync(this, 380, 550, true);
         }
 
         /// <summary>
@@ -284,7 +281,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetAlbumAsync(Model.Id);
         }
         #endregion
     }
