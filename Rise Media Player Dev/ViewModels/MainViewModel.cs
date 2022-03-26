@@ -158,14 +158,14 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            IEnumerable<Song> songs = (await SQLRepository.Repository.Songs.GetAsync()).Distinct();
+            IEnumerable<Song> songs = await NewRepository.Repository.GetSongsAsync();
 
             if (songs != null)
             {
-                IEnumerable<Album> albums = (await SQLRepository.Repository.Albums.GetAsync()).Distinct();
-                IEnumerable<Artist> artists = (await SQLRepository.Repository.Artists.GetAsync()).Distinct();
-                IEnumerable<Genre> genres = (await SQLRepository.Repository.Genres.GetAsync()).Distinct();
-                IEnumerable<Video> videos = (await SQLRepository.Repository.Videos.GetAsync()).Distinct();
+                IEnumerable<Album> albums = await NewRepository.Repository.GetAlbumsAsync();
+                IEnumerable<Artist> artists = await NewRepository.Repository.GetArtistsAsync();
+                IEnumerable<Genre> genres = await NewRepository.Repository.GetGenresAsync();
+                IEnumerable<Video> videos = await NewRepository.Repository.GetVideosAsync();
 
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();

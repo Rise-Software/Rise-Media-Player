@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Rise.Models
 {
@@ -10,6 +11,8 @@ namespace Rise.Models
         /// <summary>
         /// Gets or sets the database id.
         /// </summary>
+        [PrimaryKey]
+        [Column(nameof(Id))]
         public Guid Id { get; set; } = Guid.NewGuid();
     }
 }

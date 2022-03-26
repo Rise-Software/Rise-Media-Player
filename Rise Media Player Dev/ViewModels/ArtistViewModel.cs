@@ -88,15 +88,10 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (!App.MViewModel.Artists.Contains(this))
             {
                 App.MViewModel.Artists.Add(this);
-                await Repository.QueueUpsertAsync(Model);
-            }
-            else
-            {
-                await Repository.UpdateAsync(Model);
+                await NewRepository.Repository.UpsertAsync(Model);
             }
         }
 
@@ -105,8 +100,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Artists.Remove(this);
-            await Repository.QueueDeletionAsync(Model);
+            if (App.MViewModel.Artists.Contains(this))
+            {
+                App.MViewModel.Artists.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
         }
 
         /// <summary>

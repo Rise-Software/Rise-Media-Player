@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -9,14 +10,30 @@ namespace Rise.Models
     /// <summary>
     /// Represents a video.
     /// </summary>
+    [Table("Videos")]
     public class Video : DbObject, IEquatable<Video>
     {
+        [Column(nameof(Directors))]
         public string Directors { get; set; }
+
+        [Column(nameof(Length))]
         public TimeSpan Length { get; set; }
+
+        [Column(nameof(Location))]
         public string Location { get; set; }
+
+        [Column(nameof(Rating))]
+        [NotNull]
         public uint Rating { get; set; }
+
+        [Column(nameof(Title))]
         public string Title { get; set; }
+
+        [Column(nameof(Year))]
+        [NotNull]
         public uint Year { get; set; }
+
+        [Column(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
 
         /// <summary>

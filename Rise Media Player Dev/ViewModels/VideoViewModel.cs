@@ -147,15 +147,10 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (!App.MViewModel.Videos.Contains(this))
             {
                 App.MViewModel.Videos.Add(this);
-                await Repository.QueueUpsertAsync(Model);
-            }
-            else
-            {
-                await Repository.UpdateAsync(Model);
+                await NewRepository.Repository.UpsertAsync(Model);
             }
         }
 
@@ -164,9 +159,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Videos.Remove(this);
-
-            await Repository.DeleteAsync(Model);
+            if (App.MViewModel.Videos.Contains(this))
+            {
+                App.MViewModel.Videos.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
         }
         #endregion
 

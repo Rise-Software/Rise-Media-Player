@@ -228,15 +228,10 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (!App.MViewModel.Albums.Contains(this))
             {
                 App.MViewModel.Albums.Add(this);
-                await Repository.QueueUpsertAsync(Model);
-            }
-            else
-            {
-                await Repository.UpdateAsync(Model);
+                await NewRepository.Repository.UpsertAsync(Model);
             }
         }
 
@@ -245,9 +240,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Albums.Remove(this);
-            await Repository.QueueDeletionAsync(Model);
-
+            if (App.MViewModel.Albums.Contains(this))
+            {
+                App.MViewModel.Albums.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
+            
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
 

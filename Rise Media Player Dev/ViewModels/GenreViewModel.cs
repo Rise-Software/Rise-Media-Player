@@ -45,15 +45,22 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (!App.MViewModel.Genres.Contains(this))
             {
                 App.MViewModel.Genres.Add(this);
-                await Repository.QueueUpsertAsync(Model);
+                await NewRepository.Repository.UpsertAsync(Model);
             }
-            else
+        }
+
+        /// <summary>
+        /// Deletes item data from the backend.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            if (App.MViewModel.Genres.Contains(this))
             {
-                await Repository.UpdateAsync(Model);
+                App.MViewModel.Genres.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
             }
         }
         #endregion
