@@ -229,8 +229,8 @@ namespace Rise.App.ViewModels
             if (!App.MViewModel.Albums.Contains(this))
             {
                 App.MViewModel.Albums.Add(this);
-                await NewRepository.Repository.UpsertAsync(Model);
             }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>

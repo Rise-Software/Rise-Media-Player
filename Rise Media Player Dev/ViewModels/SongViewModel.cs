@@ -313,8 +313,8 @@ namespace Rise.App.ViewModels
             if (!App.MViewModel.Songs.Contains(this))
             {
                 App.MViewModel.Songs.Add(this);
-                await NewRepository.Repository.UpsertAsync(Model);
             }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>

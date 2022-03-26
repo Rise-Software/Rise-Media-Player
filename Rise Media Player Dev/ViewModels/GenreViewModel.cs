@@ -46,8 +46,8 @@ namespace Rise.App.ViewModels
             if (!App.MViewModel.Genres.Contains(this))
             {
                 App.MViewModel.Genres.Add(this);
-                await NewRepository.Repository.UpsertAsync(Model);
             }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>
