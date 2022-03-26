@@ -10,7 +10,7 @@ namespace Rise.NewRepository
 {
     public static class Repository
     {
-        public static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Files1.db");
+        public static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Lists.db");
 
         private static SQLiteConnection _db;
         private static SQLiteAsyncConnection _asyncDb;
@@ -57,7 +57,7 @@ namespace Rise.NewRepository
 
         public async static Task InitializeDatabaseAsync()
         {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("Files1.db", CreationCollisionOption.OpenIfExists);
+            await ApplicationData.Current.LocalFolder.CreateFileAsync("Lists.db", CreationCollisionOption.OpenIfExists);
 
             _db = new SQLiteConnection(DbPath);
             _asyncDb = new SQLiteAsyncConnection(DbPath);
