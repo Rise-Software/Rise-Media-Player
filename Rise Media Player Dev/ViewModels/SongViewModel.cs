@@ -326,7 +326,6 @@ namespace Rise.App.ViewModels
             {
                 try
                 {
-                    await (await StorageFile.GetFileFromPathAsync(Location)).DeleteAsync();
                     App.MViewModel.Songs.Remove(this);
 
                     await NewRepository.Repository.DeleteAsync(Model);
