@@ -35,6 +35,12 @@
             </MenuFlyout>
         </ListView.Resources>
 
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+        </ListView.ItemContainerStyle>
+
         <ListView.HeaderTemplate>
             <DataTemplate x:DataType="viewmodels:PlaylistViewModel" x:DefaultBindMode="OneWay">
                 <Border
@@ -108,8 +114,9 @@
                                                 FontSize="18"
                                                 FontWeight="SemiBold"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                Text="{x:Bind SongsCount}" />
+                                                Style="{StaticResource BodyTextBlockStyle}">
+                                                <Run Text="{x:Bind SongsCount}" /> song(s)
+                                            </TextBlock>
                                             <TextBlock
                                                 x:Name="Description"
                                                 Margin="0,0,0,0"

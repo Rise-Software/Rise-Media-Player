@@ -12,8 +12,6 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="Root"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
     Loaded="Root_Loaded"
     mc:Ignorable="d">
 
@@ -64,8 +62,7 @@
 
                     <MenuFlyoutSubItem
                         x:Name="AddTo"
-                        x:Uid="/Information/AddTo"
-                        IsEnabled="True">
+                        x:Uid="/Information/AddTo">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
@@ -85,8 +82,7 @@
                     <MenuFlyoutItem
                         x:Name="AskDiscy"
                         x:Uid="/Information/AskDiscy"
-                        Click="AskDiscy_Click"
-                        IsEnabled="True">
+                        Click="AskDiscy_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE11B;" />
                         </MenuFlyoutItem.Icon>
@@ -95,13 +91,11 @@
                     <MenuFlyoutItem
                         x:Name="ShowinFE"
                         x:Uid="/Information/ShowinFE"
-                        Click="ShowinFE_Click"
-                        IsEnabled="True">
+                        Click="ShowinFE_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEC50;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
 
                     <MenuFlyoutSeparator />
 
@@ -114,15 +108,19 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-
                     <MenuFlyoutItem x:Uid="/MediaData/Properties" Click="Props_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
                 </MenuFlyout>
             </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <ListView.Header>
                 <Border

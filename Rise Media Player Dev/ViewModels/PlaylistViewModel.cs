@@ -231,20 +231,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public string SongsCount
-        {
-            get
-            {
-                if (Songs != null)
-                {
-                    return Songs.Count + " songs";
-                }
-                else
-                {
-                    return "0";
-                }
-            }
-        }
+        public int SongsCount => Songs.Count;
         #endregion
 
         #region Backend

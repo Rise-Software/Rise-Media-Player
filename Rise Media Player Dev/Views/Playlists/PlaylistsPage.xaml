@@ -9,8 +9,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -200,20 +198,21 @@
 
                         <StackPanel>
                             <TextBlock
-                            Padding="0,7,0,0"
-                            MaxLines="1"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind Title}"
-                            TextWrapping="Wrap"
-                            ToolTipService.ToolTip="{x:Bind Title}" />
+                                Padding="0,7,0,0"
+                                MaxLines="1"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="{x:Bind Title}"
+                                TextWrapping="Wrap"
+                                ToolTipService.ToolTip="{x:Bind Title}" />
                             <TextBlock
-                            Padding="0,0,0,0"
-                            MaxLines="1"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind SongsCount}"
+                                Padding="0,0,0,0"
+                                MaxLines="1"
+                                Style="{StaticResource BaseTextBlockStyle}"
                                 FontWeight="Normal"
-                            TextWrapping="Wrap"
-                            ToolTipService.ToolTip="{x:Bind SongsCount}" />
+                                TextWrapping="Wrap"
+                                ToolTipService.ToolTip="{x:Bind SongsCount}">
+                                <Run Text="{x:Bind SongsCount}" /> song(s)
+                            </TextBlock>
                         </StackPanel>
                         
                     </StackPanel>
