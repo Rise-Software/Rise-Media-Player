@@ -279,7 +279,6 @@ namespace Rise.App.ViewModels
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                 PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
-                System.Diagnostics.Debug.WriteLine(song.Path);
                 if (await SaveMusicModelsAsync(song))
                 {
                     IndexedSongs++;
