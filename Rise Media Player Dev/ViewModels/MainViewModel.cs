@@ -311,11 +311,9 @@ namespace Rise.App.ViewModels
         {
             var song = await Song.GetFromFileAsync(file);
 
-            var songProps = await file.Properties.GetMusicPropertiesAsync();
-
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song) || songProps.Title != s.Title);
+                Any(s => s.Model.Equals(song) || s.Location == file.Path);
 
             // Check if album exists.
             bool albumExists = Albums.
