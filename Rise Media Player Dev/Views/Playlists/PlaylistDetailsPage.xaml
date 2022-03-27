@@ -115,7 +115,7 @@
                                                 FontWeight="SemiBold"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                 Style="{StaticResource BodyTextBlockStyle}">
-                                                <Run Text="{x:Bind SongsCount}" /> song(s)
+                                                <Run Text="{x:Bind SongsCount}" /> <Run Text="{x:Bind SongsCountString}" />
                                             </TextBlock>
                                             <TextBlock
                                                 x:Name="Description"

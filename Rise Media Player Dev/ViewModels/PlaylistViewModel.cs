@@ -1,4 +1,5 @@
-﻿using Rise.App.Views;
+﻿using Newtonsoft.Json;
+using Rise.App.Views;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
@@ -231,7 +232,11 @@ namespace Rise.App.ViewModels
             }
         }
 
+        [JsonIgnore]
         public int SongsCount => Songs.Count;
+
+        [JsonIgnore]
+        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
         #endregion
 
         #region Backend

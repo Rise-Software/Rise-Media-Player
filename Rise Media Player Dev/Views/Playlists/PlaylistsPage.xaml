@@ -211,7 +211,7 @@
                                 FontWeight="Normal"
                                 TextWrapping="Wrap"
                                 ToolTipService.ToolTip="{x:Bind SongsCount}">
-                                <Run Text="{x:Bind SongsCount}" /> song(s)
+                                <Run Text="{x:Bind SongsCount}" /> <Run Text="{x:Bind SongsCountString}" />
                             </TextBlock>
                         </StackPanel>
                         
