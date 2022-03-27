@@ -237,7 +237,7 @@ namespace Rise.App
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
         {
             Debug.WriteLine("Definition changes!");
-            await Task.Run(async () => MViewModel.StartFullCrawlAsync());
+            await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
         }
 
         /// <summary>
@@ -445,7 +445,7 @@ namespace Rise.App
         {
             try
             {
-                await MViewModel.StartFullCrawlAsync();
+                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
             }
             catch (Exception)
             {
