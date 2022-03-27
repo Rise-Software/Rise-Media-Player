@@ -311,10 +311,7 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
-
-
-
+                            
                             <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
                                 <Button
                                     Grid.Column="1"
@@ -393,7 +390,7 @@
                                 <TextBlock
                                     x:Name="songtitle"
                                     MaxLines="2"
-                                    Text="{x:Bind Title}"
+                                    Text="{x:Bind Title, Mode=OneWay}"
                                     TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                                 <TextBlock
@@ -458,8 +455,6 @@
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
         </ListView>
     </Grid>
 </Page>

@@ -111,7 +111,7 @@ namespace Rise.App.Views
             };
 
             // This will automatically save the playlist to the db
-            await playlist.AddSongAsync(SelectedSong);
+            await playlist.AddSongAsync(SelectedSong, true);
         }
 
         private async void Item_Click(object sender, RoutedEventArgs e)

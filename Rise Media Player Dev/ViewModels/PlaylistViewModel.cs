@@ -22,7 +22,7 @@ namespace Rise.App.ViewModels
         {
             Model = model ?? new Playlist();
 
-            Songs ??= new();
+            _songs ??= new();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Rise.App.ViewModels
                 if (dirPath.EndsWith(".m3u"))
                 {
                     StorageFile linkedPlaylistFile = await StorageFile.GetFileFromPathAsync(dirPath);
-                    return await PlaylistViewModel.GetFromFileAsync(linkedPlaylistFile);
+                    return await GetFromFileAsync(linkedPlaylistFile);
                 }
 
                 foreach (var songPath in Directory.EnumerateFiles(dirPath))
@@ -217,8 +217,19 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public readonly ThreadSafeCollection<SongViewModel>
-            Songs = new();
+        private ThreadSafeCollection<SongViewModel> _songs;
+
+        public ThreadSafeCollection<SongViewModel> Songs
+        {
+            get => _songs;
+            set
+            {
+                if (_songs != value)
+                {
+                    _songs = value;
+                }
+            }
+        }
 
         public string SongsCount
         {
@@ -273,10 +284,14 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Adds a song to the playlist.
         /// </summary>
-        public async Task AddSongAsync(SongViewModel song)
+        public async Task AddSongAsync(SongViewModel song, bool newPlaylist = false)
         {
             Songs.Add(song);
-            await SaveEditsAsync();
+            if (newPlaylist)
+            {
+                await SaveAsync();
+            }
+            else await SaveEditsAsync();
         }
 
         /// <summary>
@@ -291,7 +306,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Adds multiple songs to the playlist.
         /// </summary>
-        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs)
+        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs, bool newPlaylist = false)
         {
             try
             {
@@ -302,7 +317,11 @@ namespace Rise.App.ViewModels
             }
             finally
             {
-                await SaveEditsAsync();
+                if (newPlaylist)
+                {
+                    await SaveAsync();
+                }
+                else await SaveEditsAsync();
             }
         }
 
