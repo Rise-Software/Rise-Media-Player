@@ -264,20 +264,18 @@
                     <MenuFlyoutItem
                         x:Name="ShowinFE"
                         x:Uid="/Information/ShowinFE"
-                        Click="ShowinFE_Click"
-                        IsEnabled="True">
+                        Click="ShowinFE_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEC50;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
                         x:Name="Remove"
                         x:Uid="/Information/RemoveThing"
-                        IsEnabled="False">
+                        Click="Remove_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE107;" />
                         </MenuFlyoutItem.Icon>

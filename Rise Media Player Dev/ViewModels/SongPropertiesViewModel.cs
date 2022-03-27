@@ -149,6 +149,9 @@ namespace Rise.App.ViewModels
                     // The rename operation will likely complete either way
                     await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
                     Model.Location = songFile.Path;
+
+                    await NewRepository.Repository.DeleteAsync(await NewRepository.Repository.GetSongAsync(Model.Model.Id));
+
                     await Model.SaveAsync();
                 }
             }

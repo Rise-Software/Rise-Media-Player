@@ -279,6 +279,7 @@ namespace Rise.App.ViewModels
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                 PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
+                System.Diagnostics.Debug.WriteLine(song.Path);
                 if (await SaveMusicModelsAsync(song))
                 {
                     IndexedSongs++;
@@ -311,9 +312,11 @@ namespace Rise.App.ViewModels
         {
             var song = await Song.GetFromFileAsync(file);
 
+            var songProps = await file.Properties.GetMusicPropertiesAsync();
+
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song));
+                Any(s => s.Model.Equals(song) || songProps.Title != s.Title);
 
             // Check if album exists.
             bool albumExists = Albums.

@@ -369,5 +369,30 @@ namespace Rise.App.Views
 
             }
         }
+
+        private async void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedSong != null)
+            {
+                ContentDialog dialog = new()
+                {
+                    Title = "Delete song",
+                    Content = $"Are you sure that you want to remove the song \"{SelectedSong.Title}\"?",
+                    PrimaryButtonStyle = Resources["AccentButtonStyle"] as Style,
+                    PrimaryButtonText = "Delete anyway",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                var result = await dialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    await SelectedSong.DeleteAsync();
+                } else
+                {
+                    dialog.Hide();
+                }
+            }
+        }
     }
 }

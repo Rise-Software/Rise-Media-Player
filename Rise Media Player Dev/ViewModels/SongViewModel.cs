@@ -320,21 +320,12 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(bool removeFile = false)
         {
-            if (App.MViewModel.Songs.Contains(this))
-            {
-                try
-                {
-                    App.MViewModel.Songs.Remove(this);
+            App.MViewModel.Songs.Remove(this);
 
-                    await NewRepository.Repository.DeleteAsync(Model);
-                } catch
-                {
+            await NewRepository.Repository.DeleteAsync(Model);
 
-                }
-            }
-            
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
