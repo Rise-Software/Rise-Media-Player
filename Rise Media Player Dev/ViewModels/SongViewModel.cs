@@ -406,6 +406,7 @@ namespace Rise.App.ViewModels
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
 
+
                 if (Thumbnail != null)
                 {
                     props.Thumbnail = RandomAccessStreamReference.

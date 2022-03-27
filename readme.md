@@ -1,13 +1,16 @@
 <p align="center">
   <img src="https://user-images.githubusercontent.com/74561130/139312648-b60842df-9dda-4e31-ba29-649e7571d705.png" />
+  <div class="row" align="center">
+<a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://user-images.githubusercontent.com/74561130/160254559-a457ff95-09a9-4910-9776-5517e2b1ea2f.png'alt='Get it from Microsoft' />
+  <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png'alt='Get it from GitHub' /></a>
+</div>
 </p>
-
-[![Get it from Microsoft](https://user-images.githubusercontent.com/74561130/157766576-d4dcf43b-2b67-4d76-82a7-aade752f2f1c.png)](https://www.microsoft.com/store/r/9PCSZTMTT55Z)
 
 
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
-### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**
+### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**!
+
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
 
@@ -20,7 +23,7 @@ Created with **WinUI and the latest design ideologies**, **Rise Media Player** i
 
 **Note**: This screenshot may not contain all of the features shown in the app itself from GitHub, nor the Insider Previews. Some features are being tested internally. 
 
-## [All Features](https://github.com/Rise-Software/Rise-Media-Player/releases/tag/v0.0.170.0)
+## [All Features](https://github.com/Rise-Software/Rise-Media-Player/releases/tag/v0.0.171.0)
 
 **The basics**
 * Music and video playback
