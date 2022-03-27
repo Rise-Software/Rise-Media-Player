@@ -320,7 +320,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync(bool removeFile = false)
+        public async Task DeleteAsync()
         {
             App.MViewModel.Songs.Remove(this);
 
