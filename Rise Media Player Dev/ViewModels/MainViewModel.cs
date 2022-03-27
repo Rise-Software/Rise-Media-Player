@@ -315,7 +315,7 @@ namespace Rise.App.ViewModels
 
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song) || songProps.Title != s.Title);
+                Any(s => s.Model.Equals(song) || s.Location == file.Path);
 
             // Check if album exists.
             bool albumExists = Albums.
