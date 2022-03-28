@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -176,7 +176,7 @@
             </GridView.Resources>
 
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:PlaylistViewModel" x:DefaultBindMode="OneWay">
+                <DataTemplate x:DataType="viewmodels:PlaylistViewModel">
                     <StackPanel
                         Width="134"
                         Margin="12"
@@ -191,7 +191,7 @@
                                     <BitmapImage
                                         DecodePixelHeight="134"
                                         DecodePixelWidth="134"
-                                        UriSource="{x:Bind Icon}" />
+                                        UriSource="{x:Bind Icon, Mode=OneWay}" />
                                 </Image.Source>
                             </Image>
                         </Border>
@@ -201,20 +201,17 @@
                                 Padding="0,7,0,0"
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
-                                Text="{x:Bind Title}"
+                                Text="{x:Bind Title, Mode=OneWay}"
                                 TextWrapping="Wrap"
-                                ToolTipService.ToolTip="{x:Bind Title}" />
+                                ToolTipService.ToolTip="{x:Bind Title, Mode=OneWay}" />
                             <TextBlock
-                                Padding="0,0,0,0"
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
                                 FontWeight="Normal"
-                                TextWrapping="Wrap"
-                                ToolTipService.ToolTip="{x:Bind SongsCount}">
-                                <Run Text="{x:Bind SongsCount}" /> <Run Text="{x:Bind SongsCountString}" />
+                                TextWrapping="Wrap">
+                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />
                             </TextBlock>
                         </StackPanel>
-                        
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

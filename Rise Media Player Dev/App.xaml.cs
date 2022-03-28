@@ -240,6 +240,16 @@ namespace Rise.App
             await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
         }
 
+        public static string ConcatString(string str1, string str2)
+        {
+            return $"{str1} {str2}";
+        }
+
+        public static string ConcatString(int integer, string str2)
+        {
+            return $"{integer} {str2}";
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.

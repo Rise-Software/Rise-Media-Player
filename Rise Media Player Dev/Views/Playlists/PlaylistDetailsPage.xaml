@@ -115,7 +115,7 @@
                                                 FontWeight="SemiBold"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                 Style="{StaticResource BodyTextBlockStyle}">
-                                                <Run Text="{x:Bind SongsCount}" /> <Run Text="{x:Bind SongsCountString}" />
+                                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />
                                             </TextBlock>
                                             <TextBlock
                                                 x:Name="Description"
@@ -128,7 +128,6 @@
                                                 TextTrimming="CharacterEllipsis" MaxLines="2"/>
                                         </StackPanel>
                                     </RelativePanel>
-
 
                                     <CommandBar
                                         Margin="-12,0"

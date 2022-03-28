@@ -1,4 +1,5 @@
-﻿using Rise.App.Views;
+﻿using Newtonsoft.Json;
+using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
@@ -37,6 +38,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
+
         public bool IsOnline = false;
 
         /// <summary>
@@ -234,11 +236,13 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets the song filename.
         /// </summary>
+        [JsonIgnore]
         public string Filename => Path.GetFileName(Location);
 
         /// <summary>
         /// Gets the song extension.
         /// </summary>
+        [JsonIgnore]
         public string Extension => Path.GetExtension(Location);
 
         /// <summary>
@@ -277,6 +281,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates whether the item is focused.
         /// </summary>
+        [JsonIgnore]
         public bool IsFocused
         {
             get => _isFocused;
@@ -287,6 +292,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates whether the songs' track number is visible.
         /// </summary>
+        [JsonIgnore]
         public bool IsTrackNumberVisible
         {
             get => _isTrackNumberVisible;
@@ -294,9 +300,11 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isDurationVisible = true;
+
         /// <summary>
-        /// Gets or sets a value that indicates whether the ite's track number is visible.
+        /// Gets or sets a value that indicates whether the songs' track number is visible.
         /// </summary>
+        [JsonIgnore]
         public bool IsDurationVisible
         {
             get => _isDurationVisible;
