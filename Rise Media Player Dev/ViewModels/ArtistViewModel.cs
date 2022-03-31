@@ -1,5 +1,4 @@
 ﻿using Rise.Common;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -134,7 +133,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await NewRepository.Repository.GetArtistAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Artist>(Model.Id);
         }
         #endregion
     }

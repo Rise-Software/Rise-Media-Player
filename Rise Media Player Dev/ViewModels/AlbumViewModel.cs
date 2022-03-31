@@ -1,12 +1,10 @@
 ﻿using Rise.Common;
 using Rise.Common.Extensions;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
@@ -87,13 +85,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets the album title + artist together.
         /// </summary>
-        public string TitleWithArtist
-        {
-            get
-            {
-                return $"{Title} - {Artist}";
-            }
-        }
+        public string TitleWithArtist => $"{Title} - {Artist}";
 
         /// <summary>
         /// Gets or sets the album genre.
@@ -217,7 +209,7 @@ namespace Rise.App.ViewModels
             set => Set(ref _isReleaseYearVisible, value);
         }
 
-        
+
         #endregion
 
         #region Backend
@@ -243,7 +235,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Albums.Remove(this);
                 await NewRepository.Repository.DeleteAsync(Model);
             }
-            
+
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
 
@@ -281,7 +273,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await NewRepository.Repository.GetAlbumAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Album>(Model.Id);
         }
         #endregion
     }

@@ -2,7 +2,6 @@
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -14,7 +13,6 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
@@ -375,7 +373,8 @@ namespace Rise.App.ViewModels
                         _ = await typeof(SongPropertiesPage).
                             PlaceInApplicationViewAsync(props, 380, 550, true);
                     }
-                } catch
+                }
+                catch
                 {
 
                 }
@@ -387,7 +386,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await NewRepository.Repository.GetSongAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Song>(Model.Id);
         }
         #endregion
 
@@ -423,7 +422,8 @@ namespace Rise.App.ViewModels
 
                 media.ApplyDisplayProperties(props);
                 return media;
-            } catch
+            }
+            catch
             {
 
             }
@@ -458,7 +458,8 @@ namespace Rise.App.ViewModels
 
                 media.ApplyDisplayProperties(props);
                 return media;
-            } catch
+            }
+            catch
             {
 
             }

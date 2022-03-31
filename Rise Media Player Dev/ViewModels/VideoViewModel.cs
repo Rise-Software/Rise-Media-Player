@@ -1,5 +1,4 @@
-﻿using Rise.Common.Interfaces;
-using Rise.Data.ViewModels;
+﻿using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Threading.Tasks;
@@ -190,7 +189,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await NewRepository.Repository.GetVideoAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Video>(Model.Id);
         }
         #endregion
 

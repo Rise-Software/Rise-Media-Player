@@ -21,8 +21,8 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private XmlDocument xmlDoc = new();
-        private List<string> imagelinks = new();
+        private readonly XmlDocument xmlDoc = new();
+        private readonly List<string> imagelinks = new();
         #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
@@ -157,14 +157,14 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            IEnumerable<Song> songs = await NewRepository.Repository.GetSongsAsync();
+            IList<Song> songs = await NewRepository.Repository.GetItemsAsync<Song>();
 
             if (songs != null)
             {
-                IEnumerable<Album> albums = await NewRepository.Repository.GetAlbumsAsync();
-                IEnumerable<Artist> artists = await NewRepository.Repository.GetArtistsAsync();
-                IEnumerable<Genre> genres = await NewRepository.Repository.GetGenresAsync();
-                IEnumerable<Video> videos = await NewRepository.Repository.GetVideosAsync();
+                IList<Album> albums = await NewRepository.Repository.GetItemsAsync<Album>();
+                IList<Artist> artists = await NewRepository.Repository.GetItemsAsync<Artist>();
+                IList<Genre> genres = await NewRepository.Repository.GetItemsAsync<Genre>();
+                IList<Video> videos = await NewRepository.Repository.GetItemsAsync<Video>();
 
                 ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
@@ -544,29 +544,10 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Upserts and removes all queued items.
-        /// </summary>
-        public async Task UpdateItemsAsync()
-        {
-            /*await SQLRepository.Repository.Songs.UpsertQueuedAsync();
-            await SQLRepository.Repository.Albums.UpsertQueuedAsync();
-            await SQLRepository.Repository.Artists.UpsertQueuedAsync();
-            await SQLRepository.Repository.Genres.UpsertQueuedAsync();
-            await SQLRepository.Repository.Videos.UpsertQueuedAsync();
-
-            await SQLRepository.Repository.Songs.DeleteQueuedAsync();
-            await SQLRepository.Repository.Albums.DeleteQueuedAsync();
-            await SQLRepository.Repository.Artists.DeleteQueuedAsync();
-            await SQLRepository.Repository.Genres.DeleteQueuedAsync();
-            await SQLRepository.Repository.Videos.DeleteQueuedAsync();*/
-        }
-
-        /// <summary>
         /// Saves any modified data and reloads the data lists from the database.
         /// </summary>
         public async Task SyncAsync()
         {
-            await UpdateItemsAsync();
             await GetListsAsync();
         }
     }
