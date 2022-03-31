@@ -167,7 +167,7 @@ namespace Rise.App.ViewModels
             Playlists.Clear();
             Notifications.Clear();
 
-            IList<Song> songs = await NewRepository.Repository.GetItemsAsync<Song>();
+            var songs = await NewRepository.Repository.GetItemsAsync<Song>();
 
             // If we have no songs, we have no albums, artists or genres
             if (songs != null)
@@ -177,7 +177,7 @@ namespace Rise.App.ViewModels
                     Songs.Add(new(item));
                 }
 
-                IList<Album> albums = await NewRepository.Repository.GetItemsAsync<Album>();
+                var albums = await NewRepository.Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
@@ -186,7 +186,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                IList<Artist> artists = await NewRepository.Repository.GetItemsAsync<Artist>();
+                var artists = await NewRepository.Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
@@ -195,7 +195,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                IList<Genre> genres = await NewRepository.Repository.GetItemsAsync<Genre>();
+                var genres = await NewRepository.Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
@@ -205,7 +205,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            IList<Video> videos = await NewRepository.Repository.GetItemsAsync<Video>();
+            var videos = await NewRepository.Repository.GetItemsAsync<Video>();
             if (videos != null)
             {
                 foreach (var item in videos)
@@ -217,7 +217,7 @@ namespace Rise.App.ViewModels
             // Playlists may contain songs or videos
             if (songs != null || videos != null)
             {
-                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
+                var playlists = await App.PBackendController.GetAsync();
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
@@ -227,7 +227,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
+            var notifications = await App.NBackendController.GetAsync();
             if (notifications != null)
             {
                 foreach (var item in notifications)
