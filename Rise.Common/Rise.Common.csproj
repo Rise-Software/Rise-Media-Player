@@ -150,8 +150,8 @@
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
-    <Compile Include="Helpers\ThreadSafeCollection.cs" />
     <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

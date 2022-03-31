@@ -4,11 +4,11 @@ using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -86,51 +86,44 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// The collection of songs in the list. 
         /// </summary>
-        public ObservableCollection<SongViewModel> Songs { get; set; }
-            = new ObservableCollection<SongViewModel>();
-        public AdvancedCollectionView FilteredSongs { get; set; }
+        public readonly SafeObservableCollection<SongViewModel> Songs = new();
+        public readonly AdvancedCollectionView FilteredSongs;
 
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
-        public ObservableCollection<AlbumViewModel> Albums { get; set; }
-            = new ObservableCollection<AlbumViewModel>();
-        public AdvancedCollectionView FilteredAlbums { get; set; }
+        public readonly SafeObservableCollection<AlbumViewModel> Albums = new();
+        public readonly AdvancedCollectionView FilteredAlbums;
 
         /// <summary>
         /// The collection of artists in the list. 
         /// </summary>
-        public ObservableCollection<ArtistViewModel> Artists { get; set; }
-            = new ObservableCollection<ArtistViewModel>();
-        public AdvancedCollectionView FilteredArtists { get; set; }
+        public readonly SafeObservableCollection<ArtistViewModel> Artists = new();
+        public readonly AdvancedCollectionView FilteredArtists;
 
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
-        public ObservableCollection<GenreViewModel> Genres { get; set; }
-            = new ObservableCollection<GenreViewModel>();
-        public AdvancedCollectionView FilteredGenres { get; set; }
+        public readonly SafeObservableCollection<GenreViewModel> Genres = new();
+        public readonly AdvancedCollectionView FilteredGenres;
 
         /// <summary>
         /// The collection of videos in the list. 
         /// </summary>
-        public ObservableCollection<VideoViewModel> Videos { get; set; }
-            = new ObservableCollection<VideoViewModel>();
-        public AdvancedCollectionView FilteredVideos { get; set; }
+        public readonly SafeObservableCollection<VideoViewModel> Videos = new();
+        public readonly AdvancedCollectionView FilteredVideos;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
-        public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
-            = new ObservableCollection<PlaylistViewModel>();
-        public AdvancedCollectionView FilteredPlaylists { get; set; }
+        public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
+        public readonly AdvancedCollectionView FilteredPlaylists;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
-        public ObservableCollection<NotificationViewModel> Notifications { get; set; }
-            = new ObservableCollection<NotificationViewModel>();
-        public AdvancedCollectionView FilteredNotifications { get; set; }
+        public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+        public readonly AdvancedCollectionView FilteredNotifications;
 
         private SongViewModel _selectedSong;
         /// <summary>

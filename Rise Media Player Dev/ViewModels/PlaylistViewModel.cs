@@ -6,7 +6,6 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -147,7 +146,9 @@ namespace Rise.App.ViewModels
 
         done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
+            {
                 playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
+            }
 
             return playlist;
         }
@@ -218,9 +219,9 @@ namespace Rise.App.ViewModels
             }
         }
 
-        private ThreadSafeCollection<SongViewModel> _songs;
+        private SafeObservableCollection<SongViewModel> _songs;
 
-        public ThreadSafeCollection<SongViewModel> Songs
+        public SafeObservableCollection<SongViewModel> Songs
         {
             get => _songs;
             set
@@ -283,7 +284,10 @@ namespace Rise.App.ViewModels
             {
                 await SaveAsync();
             }
-            else await SaveEditsAsync();
+            else
+            {
+                await SaveEditsAsync();
+            }
         }
 
         /// <summary>
@@ -313,7 +317,10 @@ namespace Rise.App.ViewModels
                 {
                     await SaveAsync();
                 }
-                else await SaveEditsAsync();
+                else
+                {
+                    await SaveEditsAsync();
+                }
             }
         }
 
