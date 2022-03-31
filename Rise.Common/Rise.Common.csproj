@@ -154,7 +154,6 @@
     <Compile Include="Helpers\ThreadSafeCollection.cs" />
     <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
-    <Compile Include="Interfaces\ISQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceLoaders.cs" />
     <EmbeddedResource Include="Properties\Rise.Common.rd.xml" />
