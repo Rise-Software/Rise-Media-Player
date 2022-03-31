@@ -16,12 +16,6 @@ namespace Rise.NewRepository
         private static SQLiteConnection _db;
         private static SQLiteAsyncConnection _asyncDb;
 
-        public static List<Song> Songs => _db.Table<Song>().ToList();
-        public static List<Artist> Artists => _db.Table<Artist>().ToList();
-        public static List<Album> Albums => _db.Table<Album>().ToList();
-        public static List<Genre> Genres => _db.Table<Genre>().ToList();
-        public static List<Video> Videos => _db.Table<Video>().ToList();
-
         /// <summary>
         /// Initializes the database and its tables.
         /// </summary>
