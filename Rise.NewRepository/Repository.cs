@@ -43,6 +43,18 @@ namespace Rise.NewRepository
         /// Gets all items from the table which contains
         /// objects of the specified type.
         /// </summary>
+        /// <returns>The list of items.</returns>
+        public static List<T> GetItems<T>()
+            where T : DbObject, new()
+        {
+            var table = _db.Table<T>();
+            return table.ToList();
+        }
+
+        /// <summary>
+        /// Gets all items from the table which contains
+        /// objects of the specified type.
+        /// </summary>
         /// <returns>A Task that represents the get operation.</returns>
         public static Task<List<T>> GetItemsAsync<T>()
             where T : DbObject, new()
@@ -87,6 +99,25 @@ namespace Rise.NewRepository
         public static Task<int> DeleteAsync(DbObject item)
         {
             return _asyncDb.DeleteAsync(item);
+        }
+
+        /// <summary>
+        /// Gets the item with the specified Id.
+        /// </summary>
+        /// <typeparam name="T">Desired item type.</typeparam>
+        /// <returns>The item if found, null otherwise.</returns>
+        public static T GetItem<T>(Guid id)
+            where T : DbObject, new()
+        {
+            foreach (var item in GetItems<T>())
+            {
+                if (item.Id == id)
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
