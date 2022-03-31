@@ -157,25 +157,27 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
+            // Clear the collections
+            Songs.Clear();
+            Albums.Clear();
+            Artists.Clear();
+            Genres.Clear();
+
+            Videos.Clear();
+            Playlists.Clear();
+            Notifications.Clear();
+
             IList<Song> songs = await NewRepository.Repository.GetItemsAsync<Song>();
 
+            // If we have no songs, we have no albums, artists or genres
             if (songs != null)
             {
-                IList<Album> albums = await NewRepository.Repository.GetItemsAsync<Album>();
-                IList<Artist> artists = await NewRepository.Repository.GetItemsAsync<Artist>();
-                IList<Genre> genres = await NewRepository.Repository.GetItemsAsync<Genre>();
-                IList<Video> videos = await NewRepository.Repository.GetItemsAsync<Video>();
-
-                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
-                ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
-
-                Songs.Clear();
                 foreach (var item in songs)
                 {
                     Songs.Add(new(item));
                 }
 
-                Albums.Clear();
+                IList<Album> albums = await NewRepository.Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
@@ -184,7 +186,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                Artists.Clear();
+                IList<Artist> artists = await NewRepository.Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
@@ -193,7 +195,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                Genres.Clear();
+                IList<Genre> genres = await NewRepository.Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
@@ -201,17 +203,21 @@ namespace Rise.App.ViewModels
                         Genres.Add(new(item));
                     }
                 }
+            }
 
-                Videos.Clear();
-                if (videos != null)
+            IList<Video> videos = await NewRepository.Repository.GetItemsAsync<Video>();
+            if (videos != null)
+            {
+                foreach (var item in videos)
                 {
-                    foreach (var item in videos)
-                    {
-                        Videos.Add(new(item));
-                    }
+                    Videos.Add(new(item));
                 }
+            }
 
-                Playlists.Clear();
+            // Playlists may contain songs or videos
+            if (songs != null || videos != null)
+            {
+                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
@@ -219,14 +225,14 @@ namespace Rise.App.ViewModels
                         Playlists.Add(item);
                     }
                 }
+            }
 
-                Notifications.Clear();
-                if (notifications != null)
+            ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
+            if (notifications != null)
+            {
+                foreach (var item in notifications)
                 {
-                    foreach (var item in notifications)
-                    {
-                        Notifications.Add(item);
-                    }
+                    Notifications.Add(item);
                 }
             }
         }
