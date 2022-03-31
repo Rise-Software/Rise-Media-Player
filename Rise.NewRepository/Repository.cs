@@ -10,7 +10,8 @@ namespace Rise.NewRepository
 {
     public static class Repository
     {
-        public static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Lists.db");
+        public static readonly string DbPath =
+            Path.Combine(ApplicationData.Current.LocalFolder.Path, "Lists.db");
 
         private static SQLiteConnection _db;
         private static SQLiteAsyncConnection _asyncDb;
@@ -21,46 +22,78 @@ namespace Rise.NewRepository
         public static List<Genre> Genres => _db.Table<Genre>().ToList();
         public static List<Video> Videos => _db.Table<Video>().ToList();
 
+        /// <summary>
+        /// Initializes the database and its tables.
+        /// </summary>
         public static async Task InitializeDatabaseAsync()
         {
-            await ApplicationData.Current.LocalFolder.CreateFileAsync("Lists.db", CreationCollisionOption.OpenIfExists);
+            _ = await ApplicationData.Current.LocalFolder.CreateFileAsync("Lists.db", CreationCollisionOption.OpenIfExists);
 
             _db = new SQLiteConnection(DbPath);
             _asyncDb = new SQLiteAsyncConnection(DbPath);
 
-            await _asyncDb.CreateTableAsync<Song>();
-            await _asyncDb.CreateTableAsync<Artist>();
-            await _asyncDb.CreateTableAsync<Album>();
-            await _asyncDb.CreateTableAsync<Genre>();
-            await _asyncDb.CreateTableAsync<Video>();
+            _ = await _asyncDb.CreateTableAsync<Song>();
+            _ = await _asyncDb.CreateTableAsync<Artist>();
+            _ = await _asyncDb.CreateTableAsync<Album>();
+            _ = await _asyncDb.CreateTableAsync<Genre>();
+            _ = await _asyncDb.CreateTableAsync<Video>();
         }
 
-        public static async Task<IList<T>> GetItemsAsync<T>()
+        /// <summary>
+        /// Gets all items from the table which contains
+        /// objects of the specified type.
+        /// </summary>
+        /// <returns>A Task that represents the get operation.</returns>
+        public static Task<List<T>> GetItemsAsync<T>()
             where T : DbObject, new()
         {
-            return await _asyncDb.Table<T>().ToListAsync();
+            var table = _asyncDb.Table<T>();
+            return table.ToListAsync();
         }
 
-        public static void Upsert(DbObject item)
+        /// <summary>
+        /// Upserts an item to the database.
+        /// </summary>
+        /// <returns>Amount of modified rows.</returns>
+        public static int Upsert(DbObject item)
         {
-            _db.InsertOrReplace(item);
+            return _db.InsertOrReplace(item);
         }
 
-        public static async Task UpsertAsync(DbObject item)
+        /// <summary>
+        /// Upserts an item to the database asynchronously.
+        /// </summary>
+        /// <returns>A Task that represents the upsert operation,
+        /// with the amount of modified rows.</returns>
+        public static Task<int> UpsertAsync(DbObject item)
         {
-            await _asyncDb.InsertOrReplaceAsync(item);
+            return _asyncDb.InsertOrReplaceAsync(item);
         }
 
-        public static void Delete(DbObject item)
+        /// <summary>
+        /// Removes an item from the database.
+        /// </summary>
+        /// <returns>Amount of rows that were removed.</returns>
+        public static int Delete(DbObject item)
         {
-            _db.Delete(item);
+            return _db.Delete(item);
         }
 
-        public static async Task DeleteAsync(DbObject item)
+        /// <summary>
+        /// Removes an item from the database asynchronously.
+        /// </summary>
+        /// <returns>A Task that represents the removal operation,
+        /// with the amount of rows that were removed.</returns>
+        public static Task<int> DeleteAsync(DbObject item)
         {
-            await _asyncDb.DeleteAsync(item);
+            return _asyncDb.DeleteAsync(item);
         }
 
+        /// <summary>
+        /// Gets the item with the specified Id asynchronously.
+        /// </summary>
+        /// <typeparam name="T">Desired item type.</typeparam>
+        /// <returns>The item if found, null otherwise.</returns>
         public static async Task<T> GetItemAsync<T>(Guid id)
             where T : DbObject, new()
         {
