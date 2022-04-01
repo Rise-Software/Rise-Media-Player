@@ -56,6 +56,21 @@ namespace Rise.Models
             return Location.GetHashCode();
         }
 
+        public MatchLevel Matches(Video other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
+        }
+
         /// <summary>
         /// Creates a <see cref="Video"/> based on a <see cref="StorageFile"/>.
         /// </summary>
@@ -84,21 +99,6 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = videoProperties.Rating
             };
-        }
-
-        public MatchLevel Matches(Video other)
-        {
-            if (Title.Equals(other.Title))
-            {
-                return MatchLevel.Full;
-            }
-
-            if (Title.Contains(other.Title))
-            {
-                return MatchLevel.Partial;
-            }
-
-            return MatchLevel.None;
         }
     }
 }

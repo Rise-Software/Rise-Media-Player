@@ -86,6 +86,21 @@ namespace Rise.Models
                 AlbumArtist, Genres, Length, Year).GetHashCode();
         }
 
+        public MatchLevel Matches(Song other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
+        }
+
         /// <summary>
         /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
         /// </summary>
@@ -174,21 +189,6 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
-        }
-
-        public MatchLevel Matches(Song other)
-        {
-            if (Title.Equals(other.Title))
-            {
-                return MatchLevel.Full;
-            }
-
-            if (Title.Contains(other.Title))
-            {
-                return MatchLevel.Partial;
-            }
-
-            return MatchLevel.None;
         }
     }
 }
