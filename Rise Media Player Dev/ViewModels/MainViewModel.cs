@@ -361,7 +361,7 @@ namespace Rise.App.ViewModels
                 song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
-                await alvm.SaveAsync(false);
+                await alvm.SaveAsync();
             }
             else
             {
@@ -403,7 +403,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveAsync(false);
+                        await alvm.SaveAsync();
                     }
                 }
 
@@ -431,7 +431,7 @@ namespace Rise.App.ViewModels
                 arvm.Name = song.Artist;
                 arvm.Picture = thumb;
 
-                await arvm.SaveAsync(false);
+                await arvm.SaveAsync();
             }
 
             // Check for the album artist as well.
@@ -456,7 +456,7 @@ namespace Rise.App.ViewModels
                 arvm.Name = song.Artist;
                 arvm.Picture = thumb;
 
-                await arvm.SaveAsync(false);
+                await arvm.SaveAsync();
             }
 
             // If genre isn't there already, add it to the database.
@@ -467,14 +467,14 @@ namespace Rise.App.ViewModels
                     Name = song.Genres
                 };
 
-                await gvm.SaveAsync(false);
+                await gvm.SaveAsync();
             }
 
             // If song isn't there already, add it to the database
             if (!songExists)
             {
                 SongViewModel svm = new(song);
-                await svm.SaveAsync(false);
+                await svm.SaveAsync();
             }
 
             return !songExists;
