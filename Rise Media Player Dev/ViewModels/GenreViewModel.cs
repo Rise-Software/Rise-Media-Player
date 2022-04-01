@@ -41,11 +41,14 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public async Task SaveAsync(bool addToList = true)
         {
-            if (!App.MViewModel.Genres.Contains(this))
+            if (addToList)
             {
-                App.MViewModel.Genres.Add(this);
+                if (!App.MViewModel.Genres.Contains(this))
+                {
+                    App.MViewModel.Genres.Add(this);
+                }
             }
             await NewRepository.Repository.UpsertAsync(Model);
         }
