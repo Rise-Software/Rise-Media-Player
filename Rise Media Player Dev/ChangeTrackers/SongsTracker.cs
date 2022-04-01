@@ -111,7 +111,7 @@ namespace Rise.App.ChangeTrackers
                         if (change.PreviousPath == ViewModel.Songs[i].Location)
                         {
                             ViewModel.Songs[i].Location = file.Path;
-                            await ViewModel.Songs[i].SaveAsync();
+                            await ViewModel.Songs[i].SaveAsync(false);
                         }
                     }
                     break;
