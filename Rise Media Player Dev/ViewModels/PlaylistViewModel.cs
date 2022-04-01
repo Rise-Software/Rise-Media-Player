@@ -147,7 +147,7 @@ namespace Rise.App.ViewModels
         done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
             {
-                playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
+                playlist.Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png";
             }
 
             return playlist;
