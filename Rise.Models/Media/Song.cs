@@ -1,4 +1,7 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Enums;
+using Rise.Common.Interfaces;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using SQLite;
 
 namespace Rise.Models
 {
@@ -15,7 +17,7 @@ namespace Rise.Models
     /// Represents a song.
     /// </summary>
     [Table("Songs")]
-    public class Song : DbObject, IEquatable<Song>
+    public class Song : DbObject, IEquatable<Song>, IMatchable<Song>
     {
         [Column(nameof(Title))]
         public string Title { get; set; }
@@ -60,7 +62,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the song title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Song other)
         {
@@ -169,6 +174,21 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
+        }
+
+        public MatchLevel Matches(Song other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
         }
     }
 }

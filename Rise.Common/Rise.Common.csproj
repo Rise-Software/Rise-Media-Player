@@ -132,6 +132,7 @@
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
+    <Compile Include="Enums\MatchLevel.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentDialogExtensions.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Helpers\SuspensionManager.cs" />
     <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\ICancellableTask.cs" />
+    <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceLoaders.cs" />
     <EmbeddedResource Include="Properties\Rise.Common.rd.xml" />

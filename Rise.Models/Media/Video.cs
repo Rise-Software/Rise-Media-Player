@@ -1,4 +1,6 @@
-﻿using SQLite;
+﻿using Rise.Common.Enums;
+using Rise.Common.Interfaces;
+using SQLite;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ namespace Rise.Models
     /// Represents a video.
     /// </summary>
     [Table("Videos")]
-    public class Video : DbObject, IEquatable<Video>
+    public class Video : DbObject, IEquatable<Video>, IMatchable<Video>
     {
         [Column(nameof(Directors))]
         public string Directors { get; set; }
@@ -39,7 +41,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the video title.
         /// </summary>
-        public override string ToString() => Title;
+        public override string ToString()
+        {
+            return Title;
+        }
 
         public bool Equals(Video other)
         {
@@ -79,6 +84,21 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = videoProperties.Rating
             };
+        }
+
+        public MatchLevel Matches(Video other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
         }
     }
 }

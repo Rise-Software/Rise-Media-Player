@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rise.Common.Enums;
+using Rise.Common.Interfaces;
 using SQLite;
+using System;
 
 namespace Rise.Models
 {
@@ -7,7 +9,7 @@ namespace Rise.Models
     /// Represents an Artist.
     /// </summary>
     [Table("Artists")]
-    public class Artist : DbObject, IEquatable<Artist>
+    public class Artist : DbObject, IEquatable<Artist>, IMatchable<Artist>
     {
         [Column(nameof(Name))]
         public string Name { get; set; }
@@ -26,7 +28,10 @@ namespace Rise.Models
         /// <summary>
         /// Returns the Album title.
         /// </summary>
-        public override string ToString() => Name;
+        public override string ToString()
+        {
+            return Name;
+        }
 
         public bool Equals(Artist other)
         {
@@ -36,6 +41,21 @@ namespace Rise.Models
         public override int GetHashCode()
         {
             return Name.GetHashCode();
+        }
+
+        public MatchLevel Matches(Artist other)
+        {
+            if (Name.Equals(other.Name))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Name.Contains(other.Name))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
         }
     }
 }
