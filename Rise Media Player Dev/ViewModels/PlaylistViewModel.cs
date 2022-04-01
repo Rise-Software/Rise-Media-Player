@@ -1,11 +1,11 @@
-﻿using Rise.App.Views;
+﻿using Newtonsoft.Json;
+using Rise.App.Views;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -21,6 +21,8 @@ namespace Rise.App.ViewModels
         public PlaylistViewModel(Playlist model = null)
         {
             Model = model ?? new Playlist();
+
+            _songs ??= new();
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace Rise.App.ViewModels
                 if (dirPath.EndsWith(".m3u"))
                 {
                     StorageFile linkedPlaylistFile = await StorageFile.GetFileFromPathAsync(dirPath);
-                    return await PlaylistViewModel.GetFromFileAsync(linkedPlaylistFile);
+                    return await GetFromFileAsync(linkedPlaylistFile);
                 }
 
                 foreach (var songPath in Directory.EnumerateFiles(dirPath))
@@ -144,7 +146,9 @@ namespace Rise.App.ViewModels
 
         done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
-                playlist.Icon = "ms-appx://Assets/NavigationView/PlaylistsPage/blankplaylist.png";
+            {
+                playlist.Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png";
+            }
 
             return playlist;
         }
@@ -215,23 +219,25 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public readonly ThreadSafeCollection<SongViewModel>
-            Songs = new();
+        private SafeObservableCollection<SongViewModel> _songs;
 
-        public string SongsCount
+        public SafeObservableCollection<SongViewModel> Songs
         {
-            get
+            get => _songs;
+            set
             {
-                if (Songs != null)
+                if (_songs != value)
                 {
-                    return Songs.Count + " songs";
-                }
-                else
-                {
-                    return "0";
+                    _songs = value;
                 }
             }
         }
+
+        [JsonIgnore]
+        public int SongsCount => Songs.Count;
+
+        [JsonIgnore]
+        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
         #endregion
 
         #region Backend
@@ -271,10 +277,17 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Adds a song to the playlist.
         /// </summary>
-        public async Task AddSongAsync(SongViewModel song)
+        public async Task AddSongAsync(SongViewModel song, bool newPlaylist = false)
         {
             Songs.Add(song);
-            await SaveEditsAsync();
+            if (newPlaylist)
+            {
+                await SaveAsync();
+            }
+            else
+            {
+                await SaveEditsAsync();
+            }
         }
 
         /// <summary>
@@ -289,7 +302,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Adds multiple songs to the playlist.
         /// </summary>
-        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs)
+        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs, bool newPlaylist = false)
         {
             try
             {
@@ -300,7 +313,14 @@ namespace Rise.App.ViewModels
             }
             finally
             {
-                await SaveEditsAsync();
+                if (newPlaylist)
+                {
+                    await SaveAsync();
+                }
+                else
+                {
+                    await SaveEditsAsync();
+                }
             }
         }
 

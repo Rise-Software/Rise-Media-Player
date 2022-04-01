@@ -200,7 +200,7 @@
             x:Name="MainList"
             Grid.Row="2"
             Margin="-56,0"
-            Padding="44,0,44,120"
+            Padding="56,0,56,120"
             animations:Connected.ListItemElementName="AlbumThumb"
             animations:Connected.ListItemKey="AlbumArt"
             DoubleTapped="MainList_DoubleTapped"
@@ -264,20 +264,18 @@
                     <MenuFlyoutItem
                         x:Name="ShowinFE"
                         x:Uid="/Information/ShowinFE"
-                        Click="ShowinFE_Click"
-                        IsEnabled="True">
+                        Click="ShowinFE_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEC50;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
                         x:Name="Remove"
                         x:Uid="/Information/RemoveThing"
-                        IsEnabled="False">
+                        Click="Remove_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE107;" />
                         </MenuFlyoutItem.Icon>
@@ -291,15 +289,21 @@
                 </MenuFlyout>
             </ListView.Resources>
 
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
                     <Border
                         Margin="-12,2,-10,2"
-                        Padding="4,0,4,0"
+                        Padding="4,0"
+                        HorizontalAlignment="Stretch"
                         Style="{StaticResource SettingsCard}">
                         <Grid
                             Margin="4,0,0,0"
-                            Padding="0,4"
                             Background="Transparent"
                             ColumnSpacing="12"
                             PointerCanceled="Grid_PointerExited"
@@ -307,14 +311,11 @@
                             PointerExited="Grid_PointerExited">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
-
-
-
+                            
                             <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
                                 <Button
                                     Grid.Column="1"
@@ -393,7 +394,7 @@
                                 <TextBlock
                                     x:Name="songtitle"
                                     MaxLines="2"
-                                    Text="{x:Bind Title}"
+                                    Text="{x:Bind Title, Mode=OneWay}"
                                     TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                                 <TextBlock
@@ -458,8 +459,6 @@
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
         </ListView>
     </Grid>
 </Page>

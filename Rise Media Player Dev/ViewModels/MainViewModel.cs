@@ -4,12 +4,11 @@ using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,8 +21,8 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private XmlDocument xmlDoc = new();
-        private List<string> imagelinks = new();
+        private readonly XmlDocument xmlDoc = new();
+        private readonly List<string> imagelinks = new();
         #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
@@ -87,51 +86,44 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// The collection of songs in the list. 
         /// </summary>
-        public ObservableCollection<SongViewModel> Songs { get; set; }
-            = new ObservableCollection<SongViewModel>();
-        public AdvancedCollectionView FilteredSongs { get; set; }
+        public readonly SafeObservableCollection<SongViewModel> Songs = new();
+        public readonly AdvancedCollectionView FilteredSongs;
 
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
-        public ObservableCollection<AlbumViewModel> Albums { get; set; }
-            = new ObservableCollection<AlbumViewModel>();
-        public AdvancedCollectionView FilteredAlbums { get; set; }
+        public readonly SafeObservableCollection<AlbumViewModel> Albums = new();
+        public readonly AdvancedCollectionView FilteredAlbums;
 
         /// <summary>
         /// The collection of artists in the list. 
         /// </summary>
-        public ObservableCollection<ArtistViewModel> Artists { get; set; }
-            = new ObservableCollection<ArtistViewModel>();
-        public AdvancedCollectionView FilteredArtists { get; set; }
+        public readonly SafeObservableCollection<ArtistViewModel> Artists = new();
+        public readonly AdvancedCollectionView FilteredArtists;
 
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
-        public ObservableCollection<GenreViewModel> Genres { get; set; }
-            = new ObservableCollection<GenreViewModel>();
-        public AdvancedCollectionView FilteredGenres { get; set; }
+        public readonly SafeObservableCollection<GenreViewModel> Genres = new();
+        public readonly AdvancedCollectionView FilteredGenres;
 
         /// <summary>
         /// The collection of videos in the list. 
         /// </summary>
-        public ObservableCollection<VideoViewModel> Videos { get; set; }
-            = new ObservableCollection<VideoViewModel>();
-        public AdvancedCollectionView FilteredVideos { get; set; }
+        public readonly SafeObservableCollection<VideoViewModel> Videos = new();
+        public readonly AdvancedCollectionView FilteredVideos;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
-        public ObservableCollection<PlaylistViewModel> Playlists { get; set; }
-            = new ObservableCollection<PlaylistViewModel>();
-        public AdvancedCollectionView FilteredPlaylists { get; set; }
+        public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
+        public readonly AdvancedCollectionView FilteredPlaylists;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
-        public ObservableCollection<NotificationViewModel> Notifications { get; set; }
-            = new ObservableCollection<NotificationViewModel>();
-        public AdvancedCollectionView FilteredNotifications { get; set; }
+        public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+        public readonly AdvancedCollectionView FilteredNotifications;
 
         private SongViewModel _selectedSong;
         /// <summary>
@@ -158,25 +150,27 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            IEnumerable<Song> songs = (await SQLRepository.Repository.Songs.GetAsync()).Distinct();
+            // Clear the collections
+            Songs.Clear();
+            Albums.Clear();
+            Artists.Clear();
+            Genres.Clear();
 
+            Videos.Clear();
+            Playlists.Clear();
+            Notifications.Clear();
+
+            var songs = await NewRepository.Repository.GetItemsAsync<Song>();
+
+            // If we have no songs, we have no albums, artists or genres
             if (songs != null)
             {
-                IEnumerable<Album> albums = (await SQLRepository.Repository.Albums.GetAsync()).Distinct();
-                IEnumerable<Artist> artists = (await SQLRepository.Repository.Artists.GetAsync()).Distinct();
-                IEnumerable<Genre> genres = (await SQLRepository.Repository.Genres.GetAsync()).Distinct();
-                IEnumerable<Video> videos = (await SQLRepository.Repository.Videos.GetAsync()).Distinct();
-
-                ObservableCollection<PlaylistViewModel> playlists = await App.PBackendController.GetAsync();
-                ObservableCollection<NotificationViewModel> notifications = await App.NBackendController.GetAsync();
-
-                Songs.Clear();
                 foreach (var item in songs)
                 {
                     Songs.Add(new(item));
                 }
 
-                Albums.Clear();
+                var albums = await NewRepository.Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
@@ -185,7 +179,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                Artists.Clear();
+                var artists = await NewRepository.Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
@@ -194,7 +188,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                Genres.Clear();
+                var genres = await NewRepository.Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
@@ -202,17 +196,21 @@ namespace Rise.App.ViewModels
                         Genres.Add(new(item));
                     }
                 }
+            }
 
-                Videos.Clear();
-                if (videos != null)
+            var videos = await NewRepository.Repository.GetItemsAsync<Video>();
+            if (videos != null)
+            {
+                foreach (var item in videos)
                 {
-                    foreach (var item in videos)
-                    {
-                        Videos.Add(new(item));
-                    }
+                    Videos.Add(new(item));
                 }
+            }
 
-                Playlists.Clear();
+            // Playlists may contain songs or videos
+            if (songs != null || videos != null)
+            {
+                var playlists = await App.PBackendController.GetAsync();
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
@@ -220,14 +218,14 @@ namespace Rise.App.ViewModels
                         Playlists.Add(item);
                     }
                 }
+            }
 
-                Notifications.Clear();
-                if (notifications != null)
+            var notifications = await App.NBackendController.GetAsync();
+            if (notifications != null)
+            {
+                foreach (var item in notifications)
                 {
-                    foreach (var item in notifications)
-                    {
-                        Notifications.Add(item);
-                    }
+                    Notifications.Add(item);
                 }
             }
         }
@@ -314,7 +312,7 @@ namespace Rise.App.ViewModels
 
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song));
+                Any(s => s.Model.Equals(song) || s.Location == file.Path);
 
             // Check if album exists.
             bool albumExists = Albums.
@@ -363,7 +361,7 @@ namespace Rise.App.ViewModels
                 song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
-                await alvm.SaveAsync();
+                await alvm.SaveAsync(false);
             }
             else
             {
@@ -405,7 +403,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveAsync();
+                        await alvm.SaveAsync(false);
                     }
                 }
 
@@ -433,7 +431,7 @@ namespace Rise.App.ViewModels
                 arvm.Name = song.Artist;
                 arvm.Picture = thumb;
 
-                await arvm.SaveAsync();
+                await arvm.SaveAsync(false);
             }
 
             // Check for the album artist as well.
@@ -458,7 +456,7 @@ namespace Rise.App.ViewModels
                 arvm.Name = song.Artist;
                 arvm.Picture = thumb;
 
-                await arvm.SaveAsync();
+                await arvm.SaveAsync(false);
             }
 
             // If genre isn't there already, add it to the database.
@@ -469,14 +467,14 @@ namespace Rise.App.ViewModels
                     Name = song.Genres
                 };
 
-                await gvm.SaveAsync();
+                await gvm.SaveAsync(false);
             }
 
             // If song isn't there already, add it to the database
             if (!songExists)
             {
                 SongViewModel svm = new(song);
-                await svm.SaveAsync();
+                await svm.SaveAsync(false);
             }
 
             return !songExists;
@@ -545,29 +543,10 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Upserts and removes all queued items.
-        /// </summary>
-        public async Task UpdateItemsAsync()
-        {
-            await SQLRepository.Repository.Songs.UpsertQueuedAsync();
-            await SQLRepository.Repository.Albums.UpsertQueuedAsync();
-            await SQLRepository.Repository.Artists.UpsertQueuedAsync();
-            await SQLRepository.Repository.Genres.UpsertQueuedAsync();
-            await SQLRepository.Repository.Videos.UpsertQueuedAsync();
-
-            await SQLRepository.Repository.Songs.DeleteQueuedAsync();
-            await SQLRepository.Repository.Albums.DeleteQueuedAsync();
-            await SQLRepository.Repository.Artists.DeleteQueuedAsync();
-            await SQLRepository.Repository.Genres.DeleteQueuedAsync();
-            await SQLRepository.Repository.Videos.DeleteQueuedAsync();
-        }
-
-        /// <summary>
         /// Saves any modified data and reloads the data lists from the database.
         /// </summary>
         public async Task SyncAsync()
         {
-            await UpdateItemsAsync();
             await GetListsAsync();
         }
     }

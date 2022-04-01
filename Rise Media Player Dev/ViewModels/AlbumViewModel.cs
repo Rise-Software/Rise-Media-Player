@@ -1,19 +1,15 @@
 ﻿using Rise.Common;
 using Rise.Common.Extensions;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
     public class AlbumViewModel : ViewModel<Album>
     {
-        private ISQLRepository<Album> Repository => SQLRepository.Repository.Albums;
 
         #region Constructor
         /// <summary>
@@ -89,13 +85,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets the album title + artist together.
         /// </summary>
-        public string TitleWithArtist
-        {
-            get
-            {
-                return $"{Title} - {Artist}";
-            }
-        }
+        public string TitleWithArtist => $"{Title} - {Artist}";
 
         /// <summary>
         /// Gets or sets the album genre.
@@ -219,25 +209,23 @@ namespace Rise.App.ViewModels
             set => Set(ref _isReleaseYearVisible, value);
         }
 
-        
+
         #endregion
 
         #region Backend
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public async Task SaveAsync(bool addToList = true)
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (addToList)
             {
-                App.MViewModel.Albums.Add(this);
-                await Repository.QueueUpsertAsync(Model);
+                if (!App.MViewModel.Albums.Contains(this))
+                {
+                    App.MViewModel.Albums.Add(this);
+                }
             }
-            else
-            {
-                await Repository.UpdateAsync(Model);
-            }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>
@@ -245,8 +233,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Albums.Remove(this);
-            await Repository.QueueDeletionAsync(Model);
+            if (App.MViewModel.Albums.Contains(this))
+            {
+                App.MViewModel.Albums.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
 
             ArtistViewModel artist = App.MViewModel.Artists.
                 FirstOrDefault(a => a.Model.Name == Model.Artist);
@@ -277,8 +268,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task StartEditAsync()
         {
-            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).
-                ShowInApplicationViewAsync(this, 380, 550, true);
+            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).ShowInApplicationViewAsync(this, 380, 550, true);
         }
 
         /// <summary>
@@ -286,7 +276,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Album>(Model.Id);
         }
         #endregion
     }

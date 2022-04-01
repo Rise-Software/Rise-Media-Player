@@ -111,7 +111,7 @@ namespace Rise.App.Views
             };
 
             // This will automatically save the playlist to the db
-            await playlist.AddSongAsync(SelectedSong);
+            await playlist.AddSongAsync(SelectedSong, true);
         }
 
         private async void Item_Click(object sender, RoutedEventArgs e)
@@ -367,6 +367,31 @@ namespace Rise.App.Views
             catch
             {
 
+            }
+        }
+
+        private async void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedSong != null)
+            {
+                ContentDialog dialog = new()
+                {
+                    Title = "Delete song",
+                    Content = $"Are you sure that you want to remove the song \"{SelectedSong.Title}\"?",
+                    PrimaryButtonStyle = Resources["AccentButtonStyle"] as Style,
+                    PrimaryButtonText = "Delete anyway",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                var result = await dialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    await SelectedSong.DeleteAsync();
+                } else
+                {
+                    dialog.Hide();
+                }
             }
         }
     }

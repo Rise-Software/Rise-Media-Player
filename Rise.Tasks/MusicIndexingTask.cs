@@ -5,7 +5,7 @@ using Windows.Storage;
 
 namespace Rise.Tasks
 {
-    public sealed class MusicIndexingTask : IBackgroundTask
+    /*public sealed class MusicIndexingTask : IBackgroundTask
     {
         private BackgroundTaskDeferral deferral;
 
@@ -59,5 +59,5 @@ namespace Rise.Tasks
 
             await reader.AcceptChangesAsync();
         }
-    }
+    }*/
 }

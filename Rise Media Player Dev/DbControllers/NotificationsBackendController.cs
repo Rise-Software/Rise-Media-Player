@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Rise.App.ViewModels;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -26,23 +26,23 @@ namespace Rise.App.DbControllers
             await notification.SaveAsync();
         }
 
-        public async Task<ObservableCollection<NotificationViewModel>> GetAsync()
+        public async Task<List<NotificationViewModel>> GetAsync()
         {
             string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
             if (!string.IsNullOrWhiteSpace(text))
             {
-                ObservableCollection<NotificationViewModel> notifications = JsonConvert.DeserializeObject<ObservableCollection<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile));
+                List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile));
                 return notifications;
             }
             else
             {
-                return new ObservableCollection<NotificationViewModel>();
+                return new List<NotificationViewModel>();
             }
         }
 
         public async Task InsertAsync(NotificationViewModel notification)
         {
-            Collection<NotificationViewModel> notifications = JsonConvert.DeserializeObject<Collection<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new Collection<NotificationViewModel>();
+            List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<NotificationViewModel>();
             notifications.Add(notification);
 
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
@@ -51,7 +51,7 @@ namespace Rise.App.DbControllers
 
         public async Task UpdateAsync(NotificationViewModel notification, int index)
         {
-            Collection<NotificationViewModel> notifications = JsonConvert.DeserializeObject<Collection<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new Collection<NotificationViewModel>();
+            List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<NotificationViewModel>();
             notifications[index] = notification;
 
             string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);

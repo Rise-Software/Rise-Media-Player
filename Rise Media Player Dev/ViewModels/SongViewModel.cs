@@ -1,10 +1,9 @@
-﻿using Rise.App.Views;
+﻿using Newtonsoft.Json;
+using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.IO;
 using System.Linq;
@@ -14,13 +13,11 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.UI.ViewManagement;
 
 namespace Rise.App.ViewModels
 {
     public class SongViewModel : ViewModel<Song>
     {
-        private ISQLRepository<Song> Repository => SQLRepository.Repository.Songs;
 
         #region Constructor
         /// <summary>
@@ -39,6 +36,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
+
         public bool IsOnline = false;
 
         /// <summary>
@@ -236,11 +234,13 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets the song filename.
         /// </summary>
+        [JsonIgnore]
         public string Filename => Path.GetFileName(Location);
 
         /// <summary>
         /// Gets the song extension.
         /// </summary>
+        [JsonIgnore]
         public string Extension => Path.GetExtension(Location);
 
         /// <summary>
@@ -279,6 +279,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates whether the item is focused.
         /// </summary>
+        [JsonIgnore]
         public bool IsFocused
         {
             get => _isFocused;
@@ -289,6 +290,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates whether the songs' track number is visible.
         /// </summary>
+        [JsonIgnore]
         public bool IsTrackNumberVisible
         {
             get => _isTrackNumberVisible;
@@ -296,9 +298,11 @@ namespace Rise.App.ViewModels
         }
 
         private bool _isDurationVisible = true;
+
         /// <summary>
-        /// Gets or sets a value that indicates whether the ite's track number is visible.
+        /// Gets or sets a value that indicates whether the songs' track number is visible.
         /// </summary>
+        [JsonIgnore]
         public bool IsDurationVisible
         {
             get => _isDurationVisible;
@@ -310,18 +314,16 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public async Task SaveAsync(bool addToList = true)
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (addToList)
             {
-                App.MViewModel.Songs.Add(this);
-                await Repository.QueueUpsertAsync(Model);
+                if (!App.MViewModel.Songs.Contains(this))
+                {
+                    App.MViewModel.Songs.Add(this);
+                }
             }
-            else
-            {
-                await Repository.UpdateAsync(Model);
-            }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>
@@ -331,7 +333,8 @@ namespace Rise.App.ViewModels
         {
             App.MViewModel.Songs.Remove(this);
 
-            await Repository.QueueUpsertAsync(Model);
+            await NewRepository.Repository.DeleteAsync(Model);
+
             AlbumViewModel album = App.MViewModel.Albums.
                 FirstOrDefault(a => a.Model.Title == Model.Album &&
                            a.Model.Artist == Model.AlbumArtist);
@@ -373,7 +376,8 @@ namespace Rise.App.ViewModels
                         _ = await typeof(SongPropertiesPage).
                             PlaceInApplicationViewAsync(props, 380, 550, true);
                     }
-                } catch
+                }
+                catch
                 {
 
                 }
@@ -385,7 +389,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Song>(Model.Id);
         }
         #endregion
 
@@ -412,6 +416,7 @@ namespace Rise.App.ViewModels
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
 
+
                 if (Thumbnail != null)
                 {
                     props.Thumbnail = RandomAccessStreamReference.
@@ -420,7 +425,8 @@ namespace Rise.App.ViewModels
 
                 media.ApplyDisplayProperties(props);
                 return media;
-            } catch
+            }
+            catch
             {
 
             }
@@ -455,7 +461,8 @@ namespace Rise.App.ViewModels
 
                 media.ApplyDisplayProperties(props);
                 return media;
-            } catch
+            }
+            catch
             {
 
             }

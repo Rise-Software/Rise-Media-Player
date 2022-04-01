@@ -1,8 +1,6 @@
 ﻿using Rise.Common;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +9,6 @@ namespace Rise.App.ViewModels
 {
     public class ArtistViewModel : ViewModel<Artist>
     {
-        private ISQLRepository<Artist> Repository => SQLRepository.Repository.Artists;
 
         #region Constructor
         /// <summary>
@@ -86,18 +83,16 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public async Task SaveAsync(bool addToList = true)
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (addToList)
             {
-                App.MViewModel.Artists.Add(this);
-                await Repository.QueueUpsertAsync(Model);
+                if (!App.MViewModel.Artists.Contains(this))
+                {
+                    App.MViewModel.Artists.Add(this);
+                }
             }
-            else
-            {
-                await Repository.UpdateAsync(Model);
-            }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>
@@ -105,8 +100,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Artists.Remove(this);
-            await Repository.QueueDeletionAsync(Model);
+            if (App.MViewModel.Artists.Contains(this))
+            {
+                App.MViewModel.Artists.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
         }
 
         /// <summary>
@@ -138,7 +136,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Artist>(Model.Id);
         }
         #endregion
     }

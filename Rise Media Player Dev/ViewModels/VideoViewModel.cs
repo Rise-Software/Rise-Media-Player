@@ -1,7 +1,5 @@
-﻿using Rise.Common.Interfaces;
-using Rise.Data.ViewModels;
+﻿using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System;
 using System.Threading.Tasks;
 using Windows.Media;
@@ -14,7 +12,6 @@ namespace Rise.App.ViewModels
 {
     public class VideoViewModel : ViewModel<Video>
     {
-        private ISQLRepository<Video> Repository => SQLRepository.Repository.Videos;
 
         #region Constructor
         /// <summary>
@@ -147,16 +144,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (!App.MViewModel.Videos.Contains(this))
             {
                 App.MViewModel.Videos.Add(this);
-                await Repository.QueueUpsertAsync(Model);
             }
-            else
-            {
-                await Repository.UpdateAsync(Model);
-            }
+            await NewRepository.Repository.UpsertAsync(Model);
         }
 
         /// <summary>
@@ -164,9 +156,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Videos.Remove(this);
-
-            await Repository.DeleteAsync(Model);
+            if (App.MViewModel.Videos.Contains(this))
+            {
+                App.MViewModel.Videos.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
+            }
         }
         #endregion
 
@@ -195,7 +189,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = await Repository.GetAsync(Model.Id);
+            Model = await NewRepository.Repository.GetItemAsync<Video>(Model.Id);
         }
         #endregion
 

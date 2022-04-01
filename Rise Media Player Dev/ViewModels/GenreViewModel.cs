@@ -2,14 +2,12 @@
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
-using Rise.Repository.SQL;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
     public class GenreViewModel : ViewModel<Genre>
     {
-        private ISQLRepository<Genre> Repository => SQLRepository.Repository.Genres;
 
         #region Constructor
         /// <summary>
@@ -43,17 +41,27 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public async Task SaveAsync(bool addToList = true)
         {
-            bool hasMatch = await Repository.CheckForMatchAsync(Model);
-            if (!hasMatch)
+            if (addToList)
             {
-                App.MViewModel.Genres.Add(this);
-                await Repository.QueueUpsertAsync(Model);
+                if (!App.MViewModel.Genres.Contains(this))
+                {
+                    App.MViewModel.Genres.Add(this);
+                }
             }
-            else
+            await NewRepository.Repository.UpsertAsync(Model);
+        }
+
+        /// <summary>
+        /// Deletes item data from the backend.
+        /// </summary>
+        public async Task DeleteAsync()
+        {
+            if (App.MViewModel.Genres.Contains(this))
             {
-                await Repository.UpdateAsync(Model);
+                App.MViewModel.Genres.Remove(this);
+                await NewRepository.Repository.DeleteAsync(Model);
             }
         }
         #endregion

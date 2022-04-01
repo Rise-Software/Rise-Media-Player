@@ -508,6 +508,13 @@
                                     SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
                                     SelectionMode="Single"
                                     Visibility="Visible">
+                                    
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
                                     <ListView.Resources>
                                         <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
                                             <MenuFlyoutItem x:Uid="/Information/PlayItem" Click="PlayButton_Click">

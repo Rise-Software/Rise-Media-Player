@@ -18,5 +18,15 @@
         {
             return !boolean;
         }
+
+        public static string ConcatString(string str1, string str2)
+        {
+            return $"{str1} {str2}";
+        }
+
+        public static string ConcatString(int integer, string str2)
+        {
+            return $"{integer} {str2}";
+        }
     }
 }

@@ -75,6 +75,8 @@ namespace Rise.App.Views
         {
             try
             {
+                App.PViewModel.PlaybackList.ShuffleEnabled = shuffle;
+
                 if (SelectedSong != null && index == 0)
                 {
                     index = Songs.IndexOf(SelectedSong);
@@ -82,6 +84,7 @@ namespace Rise.App.Views
                 }
 
                 var songs = Songs.CloneList<object, SongViewModel>();
+
                 if (shuffle)
                 {
                     Random rnd = new();
@@ -99,6 +102,8 @@ namespace Rise.App.Views
         {
             try
             {
+                App.PViewModel.PlaybackList.ShuffleEnabled = shuffle;
+
                 if (SelectedVideo != null && index == 0)
                 {
                     index = Videos.IndexOf(SelectedVideo);
@@ -106,6 +111,7 @@ namespace Rise.App.Views
                 }
 
                 var videos = Videos.CloneList<object, VideoViewModel>();
+
                 if (shuffle)
                 {
                     Random rnd = new();

@@ -141,6 +141,7 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EventsLogic.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
@@ -148,7 +149,6 @@
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
-    <Compile Include="Views\EventsLogic.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
@@ -187,7 +187,7 @@
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LastFMHelper.cs" />
-    <Compile Include="Materials_Visualisers\BloomView.xaml.cs">
+    <Compile Include="Visualisers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
@@ -558,7 +558,7 @@
     <Content Include="Assets\SettingsIcons.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
-    <Content Include="Materials_Visualisers\Bloom.html" />
+    <Content Include="Visualisers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-GB\Widgets.resw" />
@@ -605,7 +605,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Materials_Visualisers\BloomView.xaml">
+    <Page Include="Visualisers\BloomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1110,8 +1110,8 @@
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
       <Name>Rise.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rise.Repository\Rise.Repository.csproj">
-      <Project>{c0da58a4-4ebe-4f14-8eb2-f92e99960c52}</Project>
+    <ProjectReference Include="..\Rise.NewRepository\Rise.Repository.csproj">
+      <Project>{1319ce6d-828f-4024-93c9-4052f3f053ba}</Project>
       <Name>Rise.Repository</Name>
     </ProjectReference>
   </ItemGroup>

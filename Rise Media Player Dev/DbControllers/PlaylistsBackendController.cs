@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Rise.App.ViewModels;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -22,7 +22,7 @@ namespace Rise.App.DbControllers
             string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
             if (!string.IsNullOrWhiteSpace(text))
             {
-                ObservableCollection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<ObservableCollection<PlaylistViewModel>>(text);
+                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
                 return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
             }
             else
@@ -31,23 +31,23 @@ namespace Rise.App.DbControllers
             }
         }
 
-        public async Task<ObservableCollection<PlaylistViewModel>> GetAsync()
+        public async Task<List<PlaylistViewModel>> GetAsync()
         {
             string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
             if (!string.IsNullOrWhiteSpace(text))
             {
-                ObservableCollection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<ObservableCollection<PlaylistViewModel>>(text);
+                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
                 return playlists;
             }
             else
             {
-                return new ObservableCollection<PlaylistViewModel>();
+                return new List<PlaylistViewModel>();
             }
         }
 
         public async Task InsertAsync(PlaylistViewModel playlist)
         {
-            Collection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<Collection<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new Collection<PlaylistViewModel>();
+            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
             playlists.Add(playlist);
 
             string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
@@ -56,7 +56,7 @@ namespace Rise.App.DbControllers
 
         public async Task UpsertAsync(PlaylistViewModel playlist)
         {
-            Collection<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<Collection<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new Collection<PlaylistViewModel>();
+            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
 
             bool playlistExists = playlists.Any(p =>
             {

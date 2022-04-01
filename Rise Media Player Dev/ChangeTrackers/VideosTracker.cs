@@ -125,7 +125,7 @@ namespace Rise.App.ChangeTrackers
             {
                 for (int i = 0; i < MViewModel.Videos.Count; i++)
                 {
-                    if (!File.Exists(MViewModel.Videos[i].Location))
+                    if (await StorageFile.GetFileFromPathAsync(MViewModel.Videos[i].Location) == null)
                     {
                         toRemove.Add(MViewModel.Videos[i]);
                     }

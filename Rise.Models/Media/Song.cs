@@ -7,25 +7,54 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using SQLite;
 
 namespace Rise.Models
 {
     /// <summary>
     /// Represents a song.
     /// </summary>
+    [Table("Songs")]
     public class Song : DbObject, IEquatable<Song>
     {
+        [Column(nameof(Title))]
         public string Title { get; set; }
+
+        [Column(nameof(Artist))]
         public string Artist { get; set; }
+
+        [Column(nameof(Track))]
+        [NotNull]
         public uint Track { get; set; }
+
+        [Column(nameof(Disc))]
+        [NotNull]
         public int Disc { get; set; }
+
+        [Column(nameof(Album))]
         public string Album { get; set; }
+
+        [Column(nameof(AlbumArtist))]
         public string AlbumArtist { get; set; }
+
+        [Column(nameof(Genres))]
         public string Genres { get; set; }
+
+        [Column(nameof(Length))]
         public TimeSpan Length { get; set; }
+
+        [Column(nameof(Year))]
+        [NotNull]
         public uint Year { get; set; }
+
+        [Column(nameof(Location))]
         public string Location { get; set; }
+
+        [Column(nameof(Rating))]
+        [NotNull]
         public uint Rating { get; set; }
+
+        [Column(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
 
         /// <summary>

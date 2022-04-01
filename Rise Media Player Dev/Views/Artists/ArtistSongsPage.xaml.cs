@@ -151,7 +151,7 @@ namespace Rise.App.Views
             return "";
         }
 
-        public async Task<List<TopTracks>> GetTopTracks(string artist)
+        public async Task<List<TopTracksViewModel>> GetTopTracks(string artist)
         {
             LFM lfm = null;
             string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
@@ -163,12 +163,12 @@ namespace Rise.App.Views
             XmlTextReader xmlReader = new(stringReader);
             lfm = (LFM)xs.Deserialize(xmlReader);
             List<Track> track = lfm.Toptracks.Track;
-            List<TopTracks> tracks = new();
+            List<TopTracksViewModel> tracks = new();
             foreach (Track trackname in track)
             {
                 // string album = await Task.Run(() => GetTrackAlbum(trackname.Name));
                 tracks.Add(
-                    new TopTracks(
+                    new TopTracksViewModel(
                         trackname.Name,
                         trackname.Rank
                     ));

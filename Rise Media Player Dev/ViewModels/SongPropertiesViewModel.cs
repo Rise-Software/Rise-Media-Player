@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Constants;
 using Rise.Data.ViewModels;
+using Rise.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -149,6 +150,10 @@ namespace Rise.App.ViewModels
                     // The rename operation will likely complete either way
                     await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
                     Model.Location = songFile.Path;
+
+                    var ogSong = await NewRepository.Repository.GetItemAsync<Song>(Model.Model.Id);
+                    await NewRepository.Repository.DeleteAsync(ogSong);
+
                     await Model.SaveAsync();
                 }
             }
