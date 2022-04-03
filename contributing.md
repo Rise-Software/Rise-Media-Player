@@ -7,6 +7,8 @@ Contributing anytime is always welcome, but
 2. In the code (XAML or C#), use proper padding, styles as per [Microsoft's C# coding conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions). You can use a code formatter if you want :)
 3. If you are developing a new feature or fixing a bug, always check if there's an existing user control, extension method for the function you're looking for before adding a new method, and add it to a helper class if you feel like the code is going to be reused in multiple files.
 4. Be familiar with the Model-View-View-Model (MVVM) pattern, it's used in most parts of the app and makes things easier to maintain in the meantime.
+5. Please keep contributions as open as possible (i.e on a pull request, a fork), failing to do so might result in the resulting contribution being reverted.
+6. Open an issue of your contribution before starting work on it. Your PR might get closed if there is no related issue.
 
 ### Guidelines for issues
 1. Make sure the issue is reproducible after many attempts, and if the bug persists even after restart.
@@ -14,3 +16,4 @@ Contributing anytime is always welcome, but
 3. Add screenshots/videos/mockups of your issue so that it becomes clearer.
 4. Properly describe the bug/feature you are talking about, failing to do so for bugs might result in your issue being closed.
 5. Add your Windows version and build number you're currently running RiseMP on, for example: Windows 11 build 22000.318, Windows 10 build 18362.1 etc...
+6. If you are going to work on an issue, comment on it and say that you're going to work on it to prevent duplicated effort.
