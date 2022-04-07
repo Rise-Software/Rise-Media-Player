@@ -374,13 +374,6 @@ namespace Rise.App.UserControls
             }
         }
 
-        public enum NowPlayingBarBackgroundStyles
-        {
-            Transparent,
-            Acrylic,
-            UseAlbumArt
-        }
-
         private void FullScreen_Click(object sender, RoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();

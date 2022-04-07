@@ -4,6 +4,7 @@ using Rise.App.Converters;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common.Enums;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -696,13 +697,6 @@ namespace Rise.App.UserControls
         {
             CoreVirtualKeyStates state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
             return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-        }
-
-        public enum NowPlayingBarBackgroundStyles
-        {
-            Transparent,
-            Acrylic,
-            UseAlbumArt
         }
 
         private void VolumeIcon_Click(object sender, RoutedEventArgs e)
