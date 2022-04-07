@@ -358,8 +358,6 @@
                 BorderBrush="Transparent"
                 Click="RestoreVideoButton_Click"
                 CornerRadius="5"
-                PointerEntered="GoToNowPlaying_PointerEntered"
-                PointerExited="GoToNowPlaying_PointerExited"
                 RightTapped="GoToNowPlaying_RightTapped">
 
                 <RelativePanel Margin="7,0,0,0" RightTapped="RelativePanel_RightTapped">

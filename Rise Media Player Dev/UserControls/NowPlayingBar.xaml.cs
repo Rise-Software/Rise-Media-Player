@@ -5,6 +5,7 @@ using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
+using Rise.Common.Helpers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +28,6 @@ namespace Rise.App.UserControls
 {
     public sealed partial class NowPlayingBar : UserControl
     {
-
         private MainViewModel MViewModel => App.MViewModel;
 
         private SongViewModel SelectedSong
@@ -120,14 +120,14 @@ namespace Rise.App.UserControls
 
         private void NowPlayingBar_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            if (IsCtrlPressed() && args.VirtualKey == VirtualKey.Right)
+            if (KeyboardHelpers.IsCtrlPressed() && args.VirtualKey == VirtualKey.Right)
             {
                 if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1) < App.PViewModel.PlayingSongs.Count && App.PViewModel.CurrentSong != null)
                 {
                     _ = App.PViewModel.PlaybackList.MoveTo((uint)App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) + 1);
                 }
             }
-            else if (IsCtrlPressed() && args.VirtualKey == VirtualKey.Left)
+            else if (KeyboardHelpers.IsCtrlPressed() && args.VirtualKey == VirtualKey.Left)
             {
                 if ((App.PViewModel.PlayingSongs.IndexOf(App.PViewModel.CurrentSong) - 1) > 0 && App.PViewModel.CurrentSong != null)
                 {
@@ -423,7 +423,7 @@ namespace Rise.App.UserControls
                 preferences.CustomSize = new Size(600, 700);
                 _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, preferences);
                 fontIcon.Glyph = "\uEE49";
-                
+
                 MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
                 MainPage.Current.AppTitleBar.SetupTitleBar();
             }
@@ -693,12 +693,6 @@ namespace Rise.App.UserControls
             }
         }
 
-        private bool IsCtrlPressed()
-        {
-            CoreVirtualKeyStates state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
-            return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
-        }
-
         private void VolumeIcon_Click(object sender, RoutedEventArgs e)
         {
             FontIcon volumeIcon = VolumeIconViewBoxMediaControl.Content as FontIcon;
@@ -770,14 +764,6 @@ namespace Rise.App.UserControls
             QueueFrame.Navigate(typeof(NPBarQueuePage));
         }
 
-        private void GoToNowPlaying_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(FullNowPlayingPage));
-            }
-        }
-
         private void GotoArtist_Click(object sender, RoutedEventArgs e)
         {
             if (!App.PViewModel.CurrentPlaybackItem.IsVideo)
@@ -792,19 +778,6 @@ namespace Rise.App.UserControls
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
                 }
             }
-        }
-
-        private void AlbumArtContainer_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            NowPlayingHover.ShowAt(GoToNowPlaying);
-        }
-
-        private void GoToNowPlaying_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-        }
-
-        private void GoToNowPlaying_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
         }
 
         private void GoToNowPlaying_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -832,22 +805,6 @@ namespace Rise.App.UserControls
             NowPlayingHover.ShowAt(GoToNowPlaying);
         }
 
-        private void ArtistFlyoutText_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentSongArtist != null)
-            {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), CurrentSongArtist.Model.Id);
-            }
-        }
-
-        private void AlbumFlyoutText_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentSongAlbum != null)
-            {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), CurrentSongAlbum.Model.Id);
-            }
-        }
-
         private void Forward30_Click(object sender, RoutedEventArgs e)
         {
             _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) + 30);
@@ -857,8 +814,5 @@ namespace Rise.App.UserControls
         {
             _player.PlaybackSession.Position = TimeSpan.FromSeconds(((int)_player.PlaybackSession.Position.TotalSeconds) - 10);
         }
-
-        
-
     }
 }
