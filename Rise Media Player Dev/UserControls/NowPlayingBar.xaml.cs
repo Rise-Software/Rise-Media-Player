@@ -672,7 +672,7 @@ namespace Rise.App.UserControls
             }
         }
 
-        private async void HandleColorStyles()
+        private void HandleColorStyles()
         {
             if (Application.Current.RequestedTheme == ApplicationTheme.Light)
             {

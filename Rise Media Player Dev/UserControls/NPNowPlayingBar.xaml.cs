@@ -161,12 +161,12 @@ namespace Rise.App.UserControls
             TogglePlayPause();
         }
 
-        private async void OverlayButton_Click(object sender, RoutedEventArgs e)
+        private void OverlayButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private async void QueueButton_Click(object sender, RoutedEventArgs e)
+        private void QueueButton_Click(object sender, RoutedEventArgs e)
         {
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
             MainPage.Current.AppTitleBar.Visibility = Visibility.Collapsed;
