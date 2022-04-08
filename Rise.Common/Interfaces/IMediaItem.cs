@@ -30,5 +30,10 @@ namespace Rise.Common.Interfaces
         /// Type of playback item.
         /// </summary>
         MediaPlaybackType ItemType { get; }
+
+        /// <summary>
+        /// Whether the playback item is stored online or offline.
+        /// </summary>
+        bool IsOnline { get; }
     }
 }

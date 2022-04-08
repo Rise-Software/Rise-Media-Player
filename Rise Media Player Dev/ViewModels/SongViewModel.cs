@@ -37,7 +37,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
-        public bool IsOnline = false;
+        public bool IsOnline { get; set; }
 
         /// <summary>
         /// Gets or sets the song title.
@@ -471,12 +471,14 @@ namespace Rise.App.ViewModels
     // IMediaItem implementation
     public partial class SongViewModel : IMediaItem
     {
-        string IMediaItem.Title => this.Title;
+        string IMediaItem.Title => Title;
 
-        string IMediaItem.Subtitle => this.Artist;
+        string IMediaItem.Subtitle => Artist;
 
-        string IMediaItem.Thumbnail => this.Thumbnail;
+        string IMediaItem.Thumbnail => Thumbnail;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
+
+        bool IMediaItem.IsOnline => IsOnline;
     }
 }

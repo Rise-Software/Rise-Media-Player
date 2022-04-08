@@ -137,6 +137,8 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
+        public bool IsOnline { get; set; }
         #endregion
 
         #region Backend
@@ -248,12 +250,14 @@ namespace Rise.App.ViewModels
     // IMediaItem implementation
     public partial class VideoViewModel : IMediaItem
     {
-        string IMediaItem.Title => this.Title;
+        string IMediaItem.Title => Title;
 
-        string IMediaItem.Subtitle => this.Directors;
+        string IMediaItem.Subtitle => Directors;
 
-        string IMediaItem.Thumbnail => this.Thumbnail;
+        string IMediaItem.Thumbnail => Thumbnail;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
+
+        bool IMediaItem.IsOnline => IsOnline;
     }
 }
