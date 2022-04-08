@@ -16,7 +16,7 @@ namespace Rise.App.Dialogs
             InitializeComponent();
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             bool isValidSong;
 
@@ -64,7 +64,7 @@ namespace Rise.App.Dialogs
                 IsOnline = true
             };
 
-            await App.PViewModel.PlaySongFromUrlAsync(song);
+            App.PViewModel.PlaySongFromUrl(song);
         }
     }
 }

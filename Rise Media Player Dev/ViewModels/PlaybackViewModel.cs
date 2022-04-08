@@ -126,7 +126,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public async Task PlaySongFromUrlAsync(SongViewModel song)
+        public void PlaySongFromUrl(SongViewModel song)
         {
             try
             {
