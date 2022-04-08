@@ -153,27 +153,34 @@ namespace Rise.App.Views
 
         public async Task<List<TopTracksViewModel>> GetTopTracks(string artist)
         {
-            LFM lfm = null;
-            string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
-            string xmlStr;
-            WebClient wc = new();
-            xmlStr = wc.DownloadString(m_strFilePath);
-            StringReader stringReader = new(xmlStr);
-            XmlSerializer xs = new(typeof(LFM));
-            XmlTextReader xmlReader = new(stringReader);
-            lfm = (LFM)xs.Deserialize(xmlReader);
-            List<Track> track = lfm.Toptracks.Track;
-            List<TopTracksViewModel> tracks = new();
-            foreach (Track trackname in track)
+            try
             {
-                // string album = await Task.Run(() => GetTrackAlbum(trackname.Name));
-                tracks.Add(
-                    new TopTracksViewModel(
-                        trackname.Name,
-                        trackname.Rank
-                    ));
+                LFM lfm = null;
+                string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
+                string xmlStr;
+                WebClient wc = new();
+                xmlStr = wc.DownloadString(m_strFilePath);
+                StringReader stringReader = new(xmlStr);
+                XmlSerializer xs = new(typeof(LFM));
+                XmlTextReader xmlReader = new(stringReader);
+                lfm = (LFM)xs.Deserialize(xmlReader);
+                List<Track> track = lfm.Toptracks.Track;
+                List<TopTracksViewModel> tracks = new();
+                foreach (Track trackname in track)
+                {
+                    // string album = await Task.Run(() => GetTrackAlbum(trackname.Name));
+                    tracks.Add(
+                        new TopTracksViewModel(
+                            trackname.Name,
+                            trackname.Rank
+                        ));
+                }
+                return tracks;
+            } catch
+            {
+
             }
-            return tracks;
+            return null;
         }
 
         /// <summary>

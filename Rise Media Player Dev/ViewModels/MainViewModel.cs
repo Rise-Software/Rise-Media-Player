@@ -21,8 +21,6 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        private readonly XmlDocument xmlDoc = new();
-        private readonly List<string> imagelinks = new();
         #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
@@ -33,6 +31,9 @@ namespace Rise.App.ViewModels
         // IndexingFinished event.
         private uint IndexedSongs = 0;
         private uint IndexedVideos = 0;
+
+        private readonly XmlDocument xmlDoc = new();
+        private readonly List<string> imagelinks = new();
 
         /// <summary>
         /// Whether or not are we currently indexing. This is to avoid
@@ -427,16 +428,19 @@ namespace Rise.App.ViewModels
                         thumb = imagel.Replace(song.Artist + " - ", "");
                     }
                 }
-                ArtistViewModel arvm = new();
-                arvm.Name = song.Artist;
-                arvm.Picture = thumb;
+
+                ArtistViewModel arvm = new()
+                {
+                    Name = song.Artist,
+                    Picture = thumb
+                };
 
                 await arvm.SaveAsync();
             }
 
             // Check for the album artist as well.
             artistExists = Artists.
-                Any(a => a.Model.Name == song.Artist);
+                Any(a => a.Model.Name == song.Artist || a.Model.Name == song.AlbumArtist);
 
             // If album artist isn't there already, add it to the database.
             if (!artistExists)

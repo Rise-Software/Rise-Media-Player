@@ -43,7 +43,7 @@
                 FontSize="18"
                 FontWeight="SemiBold"
                 Opacity="0.6"
-                Text="Lots of settings are coming. Stay tuned."
+                Text="Themes and presets are coming soon. Stay tuned."
                 TextAlignment="Center"
                 TextTrimming="CharacterEllipsis"
                 TextWrapping="WrapWholeWords" />

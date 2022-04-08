@@ -18,10 +18,7 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistsPage : Page
     {
-        private readonly XmlDocument xmlDoc = new();
-        private readonly List<string> artistnames = new();
-        private readonly List<string> imagelinks = new();
-
+        #region Properties
         /// <summary>
         /// Gets the app-wide MViewModel instance.
         /// </summary>
@@ -53,7 +50,9 @@ namespace Rise.App.Views
         private readonly NavigationHelper _navigationHelper;
 
         private readonly string Label = "Artists";
+        #endregion
 
+        #region Constructor
         public ArtistsPage()
         {
             InitializeComponent();
@@ -62,7 +61,9 @@ namespace Rise.App.Views
             _navigationHelper = new NavigationHelper(this);
             Loaded += ArtistsPage_Loaded;
         }
+        #endregion
 
+        #region Event handlers
         private void ArtistsPage_Loaded(object sender, RoutedEventArgs e)
         {
             // SetArtistPictures();
@@ -147,7 +148,6 @@ namespace Rise.App.Views
             await playlist.AddSongsAsync(songs);
         }
 
-        #region Event handlers
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
@@ -179,27 +179,6 @@ namespace Rise.App.Views
         {
             DiscyOnArtist.IsOpen = true;
         }
-
-        #endregion
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-
-
-        #endregion
 
         private async void PlayItem_Click(object sender, RoutedEventArgs e)
         {
@@ -272,12 +251,34 @@ namespace Rise.App.Views
 
         private async void AddFolders_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Manage local media folders";
-            dialog.CloseButtonText = "Close";
-            dialog.Content = new Settings.MediaSourcesPage();
-            var result = await dialog.ShowAsync();
+            ContentDialog dialog = new()
+            {
+                Title = "Manage local media folders",
+                CloseButtonText = "Close",
+                Content = new Settings.MediaSourcesPage()
+            };
+            await dialog.ShowAsync();
         }
 
+        #endregion
+
+        #region NavigationHelper registration
+        /// <summary>
+        /// The methods provided in this section are simply used to allow
+        /// NavigationHelper to respond to the page's navigation methods.
+        /// Page specific logic should be placed in event handlers for the  
+        /// <see cref="NavigationHelper.LoadState"/>
+        /// and <see cref="NavigationHelper.SaveState"/>.
+        /// The navigation parameter is available in the LoadState method 
+        /// in addition to page state preserved during an earlier session.
+        /// </summary>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+
+
+        #endregion
     }
 }

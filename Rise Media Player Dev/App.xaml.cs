@@ -248,7 +248,7 @@ namespace Rise.App
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
-            if (e.PrelaunchActivated == false)
+            if (!e.PrelaunchActivated)
             {
                 if (rootFrame.Content == null)
                 {
@@ -324,7 +324,7 @@ namespace Rise.App
             _ = await typeof(NowPlaying).
                 ShowInApplicationViewAsync(AppWindowPresentationKind.Default, 320, 300);
 
-            StorageApplicationPermissions.FutureAccessList.Add(args.Files[0] as StorageFile);
+            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
             {
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
@@ -334,7 +334,7 @@ namespace Rise.App
             {
 
             }
-            StorageApplicationPermissions.FutureAccessList.Clear();
+            StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
         }
 
         /// <summary>
@@ -389,8 +389,6 @@ namespace Rise.App
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
                         VideosTracker.VideosLibrary_ContentsChanged);
                 }
-
-                // await MViewModel.StartFullCrawlAsync();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
