@@ -2,6 +2,7 @@
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -16,7 +17,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public class SongViewModel : ViewModel<Song>
+    public partial class SongViewModel : ViewModel<Song>
     {
 
         #region Constructor
@@ -36,7 +37,6 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
-
         public bool IsOnline = false;
 
         /// <summary>
@@ -466,5 +466,17 @@ namespace Rise.App.ViewModels
             return null;
         }
         #endregion
+    }
+
+    // IMediaItem implementation
+    public partial class SongViewModel : IMediaItem
+    {
+        string IMediaItem.Title => this.Title;
+
+        string IMediaItem.Subtitle => this.Artist;
+
+        string IMediaItem.Thumbnail => this.Thumbnail;
+
+        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }

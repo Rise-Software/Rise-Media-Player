@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public class VideoViewModel : ViewModel<Video>
+    public partial class VideoViewModel : ViewModel<Video>
     {
 
         #region Constructor
@@ -242,5 +243,17 @@ namespace Rise.App.ViewModels
             return media;
         }
         #endregion
+    }
+
+    // IMediaItem implementation
+    public partial class VideoViewModel : IMediaItem
+    {
+        string IMediaItem.Title => this.Title;
+
+        string IMediaItem.Subtitle => this.Directors;
+
+        string IMediaItem.Thumbnail => this.Thumbnail;
+
+        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
     }
 }
