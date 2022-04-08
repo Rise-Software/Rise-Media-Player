@@ -118,8 +118,9 @@ namespace Rise.App.ViewModels
 
                 CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
                 CurrentSongChanged?.Invoke(this, EventArgs.Empty);
-                await CurrentPlaybackItem.NotifyChangesAsync(false);
-            } catch
+                CurrentPlaybackItem.NotifyChanges(false);
+            }
+            catch
             {
 
             }
@@ -149,8 +150,9 @@ namespace Rise.App.ViewModels
                 CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
                 CurrentSongChanged?.Invoke(this, EventArgs.Empty);
 
-                await CurrentPlaybackItem.NotifyChangesAsync(false);
-            } catch
+                CurrentPlaybackItem.NotifyChanges(false);
+            }
+            catch
             {
 
             }
@@ -173,7 +175,7 @@ namespace Rise.App.ViewModels
 
                 CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
                 CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
-                await CurrentPlaybackItem.NotifyChangesAsync(true);
+                CurrentPlaybackItem.NotifyChanges(true);
             } catch
             {
 
@@ -197,8 +199,9 @@ namespace Rise.App.ViewModels
 
                 CurrentMediaChanged?.Invoke(this, EventArgs.Empty);
                 CurrentVideoChanged?.Invoke(this, EventArgs.Empty);
-                await CurrentPlaybackItem.NotifyChangesAsync(true);
-            } catch
+                CurrentPlaybackItem.NotifyChanges(true);
+            }
+            catch
             {
 
             }

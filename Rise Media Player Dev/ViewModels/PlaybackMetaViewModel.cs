@@ -23,26 +23,6 @@ namespace Rise.App.ViewModels
 
         public bool IsVideo;
 
-        public async Task NotifyChangesAsync(bool isVideo)
-        {
-            IsVideo = isVideo;
-            if (isVideo)
-            {
-                Title = App.PViewModel.CurrentVideo.Title;
-                Thumbnail = App.PViewModel.CurrentVideo.Thumbnail;
-            }
-            else
-            {
-                Title = App.PViewModel.CurrentSong.Title;
-                Thumbnail = App.PViewModel.CurrentSong.Thumbnail;
-            }
-
-            if (Thumbnail == null)
-            {
-                Thumbnail = "ms-appx:///Assets/Default.png";
-            }
-        }
-
         public void NotifyChanges(bool isVideo)
         {
             IsVideo = isVideo;
