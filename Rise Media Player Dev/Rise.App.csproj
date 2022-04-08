@@ -190,7 +190,7 @@
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LastFMHelper.cs" />
-    <Compile Include="Visualisers\BloomView.xaml.cs">
+    <Compile Include="Visualizers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
@@ -561,7 +561,7 @@
     <Content Include="Assets\SettingsIcons.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
-    <Content Include="Visualisers\Bloom.html" />
+    <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
     <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-GB\Widgets.resw" />
@@ -608,11 +608,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Visualizers\BloomView.xaml">
     <Page Include="UserControls\RiseMediaBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Visualisers\BloomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
