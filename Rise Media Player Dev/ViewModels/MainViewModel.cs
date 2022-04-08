@@ -418,16 +418,6 @@ namespace Rise.App.ViewModels
             if (!artistExists)
             {
                 string thumb = URIs.ArtistThumb;
-                string image;
-                image = await Task.Run(() => GetArtistImage(song.Artist));
-                imagelinks.Add(song.Artist + " - " + image);
-                foreach (string imagel in imagelinks)
-                {
-                    if (imagel.Contains(song.Artist))
-                    {
-                        thumb = imagel.Replace(song.Artist + " - ", "");
-                    }
-                }
 
                 ArtistViewModel arvm = new()
                 {
@@ -436,6 +426,20 @@ namespace Rise.App.ViewModels
                 };
 
                 await arvm.SaveAsync();
+
+                if (App.SViewModel.FetchOnlineData)
+                {
+                    string image;
+                    image = await Task.Run(() => GetArtistImage(song.Artist));
+                    imagelinks.Add(song.Artist + " - " + image);
+                    foreach (string imagel in imagelinks)
+                    {
+                        if (imagel.Contains(song.Artist))
+                        {
+                            thumb = imagel.Replace(song.Artist + " - ", "");
+                        }
+                    }
+                }
             }
 
             // Check for the album artist as well.
@@ -446,19 +450,26 @@ namespace Rise.App.ViewModels
             if (!artistExists)
             {
                 string thumb = URIs.ArtistThumb;
-                string image;
-                image = await Task.Run(() => GetArtistImage(song.Artist));
-                imagelinks.Add(song.Artist + " - " + image);
-                foreach (string imagel in imagelinks)
+
+                if (App.SViewModel.FetchOnlineData)
                 {
-                    if (imagel.Contains(song.Artist))
+                    string image;
+                    image = await Task.Run(() => GetArtistImage(song.Artist));
+                    imagelinks.Add(song.Artist + " - " + image);
+                    foreach (string imagel in imagelinks)
                     {
-                        thumb = imagel.Replace(song.Artist + " - ", "");
+                        if (imagel.Contains(song.Artist))
+                        {
+                            thumb = imagel.Replace(song.Artist + " - ", "");
+                        }
                     }
                 }
-                ArtistViewModel arvm = new();
-                arvm.Name = song.Artist;
-                arvm.Picture = thumb;
+                
+                ArtistViewModel arvm = new()
+                {
+                    Name = song.AlbumArtist,
+                    Picture = thumb
+                };
 
                 await arvm.SaveAsync();
             }
@@ -483,28 +494,33 @@ namespace Rise.App.ViewModels
 
             return !songExists;
         }
+
         public string GetArtistImage(string artist)
         {
-            try
+            if (App.SViewModel.FetchOnlineData)
             {
-                string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-                if (node != null)
+                try
                 {
-                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-                    return yes;
+                    string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
+                    string xmlStr;
+                    WebClient wc = new();
+                    xmlStr = wc.DownloadString(m_strFilePath);
+                    xmlDoc.LoadXml(xmlStr);
+
+                    XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+                    if (node != null)
+                    {
+                        string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                        return yes;
+                    }
+                }
+                catch (Exception)
+                {
+
                 }
             }
-            catch (Exception)
-            {
-
-            }
-            return URIs.ArtistThumb;
+            
+            return Artists.FirstOrDefault(a => a.Name == artist).Picture ?? URIs.ArtistThumb;
         }
 
         /// <summary>

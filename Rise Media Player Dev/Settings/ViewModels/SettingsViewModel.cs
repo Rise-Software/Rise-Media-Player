@@ -24,6 +24,40 @@ namespace Rise.App.ViewModels
             _ = DetectOpenFilesAtStartupAsync();
         }
 
+        public string[] OpenLocations = new string[8]
+        {
+            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
+            "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
+        };
+
+        private readonly string[] _iconPacks = new string[2]
+        {
+            "Default", "Colorful"
+        };
+
+        public List<string> GeneralTags = new()
+        {
+            "HomePage",
+            "PlaylistsPage",
+            "ConnectedDevicesPage",
+            "NowPlayingPage"
+        };
+
+        public List<string> MusicTags = new()
+        {
+            "SongsPage",
+            "ArtistsPage",
+            "AlbumsPage",
+            "GenresPage"
+        };
+
+        public List<string> VideoTags = new()
+        {
+            "LocalVideosPage",
+            "StreamingPage"
+        };
+
+        #region Startup
         public bool OpenInLogin
         {
             get => Get(false, "WindowsBehaviours");
@@ -110,38 +144,7 @@ namespace Rise.App.ViewModels
             return state.State;
         }
 
-        public string[] OpenLocations = new string[8]
-        {
-            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
-            "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
-        };
-
-        private readonly string[] _iconPacks = new string[2]
-        {
-            "Default", "Colorful"
-        };
-
-        public List<string> GeneralTags = new()
-        {
-            "HomePage",
-            "PlaylistsPage",
-            "ConnectedDevicesPage",
-            "NowPlayingPage"
-        };
-
-        public List<string> MusicTags = new()
-        {
-            "SongsPage",
-            "ArtistsPage",
-            "AlbumsPage",
-            "GenresPage"
-        };
-
-        public List<string> VideoTags = new()
-        {
-            "LocalVideosPage",
-            "StreamingPage"
-        };
+        #endregion
 
         #region Appearance
         public int Theme
@@ -220,6 +223,12 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Media Library
+        public bool FetchOnlineData
+        {
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
         public int Deletion
         {
             get => Get(0, "MediaLibrary");
@@ -569,7 +578,7 @@ namespace Rise.App.ViewModels
                 object val = localSettings.Values[setting];
 
                 // Return the setting if type matches
-                if (!(val is Type))
+                if (val is not Type)
                 {
                     throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
                 }
@@ -596,7 +605,7 @@ namespace Rise.App.ViewModels
             object value = composite[setting];
 
             // Return the setting if type matches
-            if (!(value is Type))
+            if (value is not Type)
             {
                 throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
             }

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:local1="using:Rise.App"
     mc:Ignorable="d">
 
     <StackPanel
@@ -40,6 +40,15 @@
                 VerticalAlignment="Center"
                 FontSize="16"
                 Glyph="&#xE00F;" />
+        </uc:ExpanderControl>
+
+        <TextBlock Text="Online data" Style="{StaticResource SubheaderTextBlockStyle}" />
+
+        <uc:ExpanderControl
+            ExpanderStyle="Static"
+            Title="Fetch data from the Internet when needed"
+            Icon="&#xE12B;">
+            <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.FetchOnlineData, Mode=TwoWay}" />
         </uc:ExpanderControl>
     </StackPanel>
 </Page>

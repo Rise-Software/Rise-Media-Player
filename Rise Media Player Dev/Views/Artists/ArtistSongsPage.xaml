@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
     x:Name="Root"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="760"
@@ -722,6 +722,7 @@
                     x:Name="ArtistAbout"
                     Grid.Row="3"
                     Margin="0,12,0,135"
+                    Visibility="{x:Bind local1:App.SViewModel.FetchOnlineData, Mode=OneWay, Converter={StaticResource BoolToVis}}"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
                     <Grid>
