@@ -182,7 +182,7 @@ namespace Rise.App.ViewModels
             }
         }
 
-        public async Task PlayVideoFromUrlAsync(VideoViewModel video)
+        public void PlayVideoFromUrl(VideoViewModel video)
         {
             try
             {

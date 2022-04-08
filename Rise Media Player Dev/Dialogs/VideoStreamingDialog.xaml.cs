@@ -16,7 +16,7 @@ namespace Rise.App.Dialogs
             InitializeComponent();
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             bool isValidVideo;
 
@@ -59,7 +59,7 @@ namespace Rise.App.Dialogs
                 Directors = "None"
             };
 
-            await App.PViewModel.PlayVideoFromUrlAsync(video);
+            App.PViewModel.PlayVideoFromUrl(video);
         }
     }
 }
