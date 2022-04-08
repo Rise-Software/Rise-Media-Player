@@ -609,10 +609,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Visualizers\BloomView.xaml">
-    <Page Include="UserControls\RiseMediaBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\RiseMediaBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
