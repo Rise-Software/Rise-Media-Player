@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
 {
@@ -23,5 +24,31 @@ namespace Rise.Data.ViewModels
             get => _playingItem;
             private set => Set(ref _playingItem, value);
         }
+
+        private MediaPlayer _player;
+        /// <summary>
+        /// Gets the app-wide <see cref="MediaPlayer"/> instance.
+        /// Lazily instantiated to prevent Windows from showing the
+        /// SMTC as soon as the app is opened.
+        /// </summary>
+        public MediaPlayer Player
+        {
+            get
+            {
+                if (_player == null)
+                {
+                    _player = new();
+                    _player.Source = PlaybackList;
+                }
+
+                return _player;
+            }
+        }
+
+        /// <summary>
+        /// The media playback list. It is permanently associated with
+        /// the player, due to the fact that we don't ever dispose it.
+        /// </summary>
+        private readonly MediaPlaybackList PlaybackList = new();
     }
 }
