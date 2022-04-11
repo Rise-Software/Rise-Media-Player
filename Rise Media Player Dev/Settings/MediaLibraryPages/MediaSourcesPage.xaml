@@ -18,7 +18,7 @@
 
     <Grid Margin="-12,-6,-12,-12">
         <muxc:NavigationView
-            Margin="-4,0,0,0"
+            Margin="-3,0,0,0"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             ItemInvoked="NavigationView_ItemInvoked"
@@ -35,6 +35,6 @@
 
             
         </muxc:NavigationView>
-        <Frame x:Name="ContentFrame" Margin="0,48,0,0" />
+        <Frame x:Name="ContentFrame" Margin="0,42,0,0" />
     </Grid>
 </Page>

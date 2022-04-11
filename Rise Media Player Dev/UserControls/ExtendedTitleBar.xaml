@@ -12,6 +12,7 @@
         <StackPanel
             x:Name="AppData"
             Width="Auto"
+            Padding="0,0,0,0"
             Orientation="Horizontal"
             Spacing="12">
             <Button
@@ -34,7 +35,7 @@
                     Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    d:Source="ms-appx:///Assets/App/Titlebar.png"
+                    d:Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png"
                     Source="{x:Bind Icon, Mode=OneWay}"
                     Visibility="{x:Bind ShowIcon, Mode=OneWay}" />
             </Button>

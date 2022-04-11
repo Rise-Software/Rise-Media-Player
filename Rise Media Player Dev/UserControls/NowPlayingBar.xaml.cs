@@ -30,6 +30,8 @@ namespace Rise.App.UserControls
     {
         private MainViewModel MViewModel => App.MViewModel;
 
+        public static NowPlayingBar Current;
+
         private SongViewModel SelectedSong
         {
             get => MViewModel.SelectedSong;
@@ -93,6 +95,7 @@ namespace Rise.App.UserControls
             InitializeComponent();
 
             DataContext = App.PViewModel;
+            Current = this;
             Loaded += NowPlayingBar_Loaded;
             _player.PlaybackSession.PlaybackRate = 1;
             Set1.IsChecked = true;
