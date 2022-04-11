@@ -158,7 +158,7 @@
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Height="40"
-                Margin="48,7,0,0"
+                Margin="54,8,0,0"
                 VerticalAlignment="Top"
                 x:FieldModifier="public"
                 Canvas.ZIndex="1"

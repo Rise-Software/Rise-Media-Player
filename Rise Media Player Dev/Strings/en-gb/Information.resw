@@ -306,6 +306,9 @@
   <data name="RemovePlaylist2.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove from playlist</value>
   </data>
+  <data name="RemoveQueue.Text" xml:space="preserve">
+    <value>Remove from queue</value>
+  </data>
   <data name="RemoveSection.Text" xml:space="preserve">
     <value>Remove whole section</value>
   </data>

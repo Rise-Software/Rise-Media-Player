@@ -729,18 +729,15 @@
                         ToolTipService.ToolTip="Queue">
                         <FontIcon FontSize="16" Glyph="&#xE14C;" />
                         <Button.Flyout>
-                            <Flyout>
-
+                            <Flyout x:Name="QueueFlyout" x:FieldModifier="public">
                                 <Grid Padding="-12">
-                                    <ScrollViewer MaxWidth="350" MaxHeight="500">
-                                        <Frame
+                                    <Frame
                                             x:Name="QueueFrame"
+                                            x:FieldModifier="public"
                                             Margin="12,42,12,4"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch" />
-                                    </ScrollViewer>
                                 </Grid>
-
                             </Flyout>
                         </Button.Flyout>
 

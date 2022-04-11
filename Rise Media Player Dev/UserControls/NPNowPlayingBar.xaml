@@ -461,16 +461,14 @@
                         Click="QueueButton_Click"
                         ToolTipService.ToolTip="Queue">
                         <Button.Flyout>
-                            <Flyout>
+                            <Flyout x:Name="QueueFlyout" >
 
                                 <Grid Padding="-12">
-                                    <ScrollViewer MaxWidth="350" MaxHeight="500">
-                                        <Frame
+                                    <Frame
                                             x:Name="QueueFrame"
                                             Margin="12,42,12,4"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch" />
-                                    </ScrollViewer>
                                 </Grid>
 
                             </Flyout>
