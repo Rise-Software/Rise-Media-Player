@@ -563,6 +563,11 @@
     <Content Include="Assets\Wallpapers\LightBlue.png" />
     <Content Include="Assets\Wallpapers\LightPink.png" />
     <Content Include="Assets\SettingsIcons.ttf" />
+    <None Include="AnimatedVisuals\eulaLottie.json" />
+    <None Include="AnimatedVisuals\localaccountLottie.json" />
+    <None Include="AnimatedVisuals\privacysettingsLottie.json" />
+    <None Include="AnimatedVisuals\updateSettingsLottie.json" />
+    <None Include="AnimatedVisuals\zdpLottie.json" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
@@ -941,6 +946,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Lottie">
+      <Version>7.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
       <Version>7.1.2</Version>

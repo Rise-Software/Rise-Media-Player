@@ -520,7 +520,7 @@ namespace Rise.App.ViewModels
                 }
             }
             
-            return Artists.FirstOrDefault(a => a.Name == artist).Picture ?? URIs.ArtistThumb;
+            return URIs.ArtistThumb;
         }
 
         /// <summary>
