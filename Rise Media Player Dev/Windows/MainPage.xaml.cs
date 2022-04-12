@@ -2,6 +2,7 @@
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -696,9 +697,7 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await typeof(Web.SupportProject).ShowInApplicationViewAsync();
-        }
+        => await URLs.Support.LaunchAsync();
 
         private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

@@ -137,6 +137,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimatedVisuals\EulaLottie.cs" />
+    <Compile Include="AnimatedVisuals\LocalaccountLottie.cs" />
+    <Compile Include="AnimatedVisuals\PrivacysettingsLottie.cs" />
+    <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
+    <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
