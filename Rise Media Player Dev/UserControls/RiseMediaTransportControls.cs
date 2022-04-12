@@ -10,9 +10,30 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
+        private ToggleButton _shuffleButton;
         /// <summary>
-        /// Invoked when the shuffle button is clicked. Event arg corresponds
-        /// to the IsChecked value of the ToggleButton.
+        /// Gets or sets a value that indicates whether a user
+        /// can shuffle the playback of the media.
+        /// </summary>
+        public bool IsShuffleEnabled
+        {
+            get => (bool)GetValue(IsShuffleEnabledProperty);
+            set => SetValue(IsShuffleEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the shuffle
+        /// button is shown.
+        /// </summary>
+        public bool IsShuffleButtonVisible
+        {
+            get => (bool)GetValue(IsShuffleButtonVisibleProperty);
+            set => SetValue(IsShuffleButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Invoked when the shuffle button is clicked. Event arg
+        /// corresponds to the IsChecked value of the ToggleButton.
         /// </summary>
         public event EventHandler<bool> ShufflingChanged;
 
@@ -72,9 +93,60 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty DisplayItemTemplateSelectorProperty =
             DependencyProperty.Register(nameof(DisplayItemTemplateSelector), typeof(DataTemplateSelector),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
+        public readonly static DependencyProperty IsShuffleEnabledProperty =
+            DependencyProperty.Register(nameof(IsShuffleEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleEnabledChanged));
+
+        public readonly static DependencyProperty IsShuffleButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsShuffleButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonVisibleChanged));
     }
 
-    // Constructor
+    // Event handlers
+    public sealed partial class RiseMediaTransportControls : MediaTransportControls
+    {
+        private static void OnShuffleEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                if (rmtc._shuffleButton != null)
+                {
+                    HandleShuffleEnabled(rmtc, (bool)args.NewValue);
+                }
+            }
+        }
+
+        private static void OnShuffleButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                if (rmtc._shuffleButton != null)
+                {
+                    HandleShuffleVisibility(rmtc, (bool)args.NewValue);
+                }
+            }
+        }
+
+        private static void HandleShuffleEnabled(RiseMediaTransportControls rmtc, bool enabled)
+        {
+            rmtc._shuffleButton.IsEnabled = enabled;
+        }
+
+        private static void HandleShuffleVisibility(RiseMediaTransportControls rmtc, bool visible)
+        {
+            if (visible)
+            {
+                rmtc._shuffleButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                rmtc._shuffleButton.Visibility = Visibility.Collapsed;
+            }
+        }
+    }
+
+    // Constructor, Overrides
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
         public RiseMediaTransportControls()
@@ -84,10 +156,13 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
-            var shuffle = GetTemplateChild("ShuffleButton") as ToggleButton;
+            _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
 
-            shuffle.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
-            shuffle.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+            _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
+            _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+
+            HandleShuffleEnabled(this, IsShuffleEnabled);
+            HandleShuffleVisibility(this, IsShuffleButtonVisible);
 
             base.OnApplyTemplate();
         }

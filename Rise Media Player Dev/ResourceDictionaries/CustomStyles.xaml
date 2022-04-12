@@ -299,7 +299,8 @@
                     <AppBarToggleButton
                         x:Name="ShuffleButton"
                         Width="40"
-                        Padding="4">
+                        Padding="4"
+                        Visibility="Collapsed">
                         <AppBarToggleButton.Icon>
                             <SymbolIcon x:Name="ShuffleSymbol" Symbol="Shuffle" />
                         </AppBarToggleButton.Icon>
