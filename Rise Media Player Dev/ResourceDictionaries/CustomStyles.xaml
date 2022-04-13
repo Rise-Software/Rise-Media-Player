@@ -182,7 +182,7 @@
         <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="True" />
-        <Setter Property="Template" Value="{StaticResource RiseMediaTransportControlsTemplate}" />
+        <Setter Property="Template" Value="{StaticResource DefaultRiseMediaTransportControlsTemplate}" />
     </Style>
 
     <ControlTemplate x:Key="DefaultRiseMediaTransportControlsTemplate" TargetType="co:RiseMediaTransportControls">
