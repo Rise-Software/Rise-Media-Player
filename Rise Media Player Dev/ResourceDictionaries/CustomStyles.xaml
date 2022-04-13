@@ -294,6 +294,7 @@
                     Grid.Column="1"
                     Margin="0"
                     HorizontalAlignment="Center"
+                    DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="False"
                     OverflowButtonVisibility="Collapsed">
                     <AppBarToggleButton
@@ -352,6 +353,7 @@
                     x:Name="SecondaryMediaControlsCommandBar"
                     Grid.Column="3"
                     Margin="0"
+                    DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Auto">
                     <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
