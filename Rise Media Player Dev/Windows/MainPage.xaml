@@ -413,7 +413,7 @@
                     Margin="15,0,15,15"
                     VerticalAlignment="Bottom"
                     d:DesignHeight="102"
-                    ui:Effects.Shadow="{StaticResource StrongShadow}"
+                    ui:Effects.Shadow="{StaticResource LightDropShadow}"
                     AreTransportControlsEnabled="True"
                     BorderBrush="{ThemeResource LayerFillColorDefaultBrush}"
                     BorderThickness="1"

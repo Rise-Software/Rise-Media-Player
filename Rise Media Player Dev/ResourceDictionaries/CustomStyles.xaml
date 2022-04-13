@@ -121,6 +121,13 @@
     <!--#endregion-->
 
     <!--#region Shadows-->
+    <media:AttachedCardShadow x:Key="EmptyShadow" Opacity="0" />
+    <media:AttachedCardShadow
+        x:Key="LightDropShadow"
+        BlurRadius="25"
+        CornerRadius="8"
+        Opacity=".15"
+        Offset="0,2" />
     <media:AttachedCardShadow
         x:Key="StrongShadow"
         BlurRadius="20"
