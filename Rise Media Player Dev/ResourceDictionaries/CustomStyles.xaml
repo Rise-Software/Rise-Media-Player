@@ -437,7 +437,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="Auto" MinWidth="20" />
+                        <ColumnDefinition Width="Auto" MinWidth="24" />
                     </Grid.ColumnDefinitions>
 
                     <Button
