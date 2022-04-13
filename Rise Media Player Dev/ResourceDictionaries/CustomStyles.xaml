@@ -254,7 +254,7 @@
                             <FontIcon
                                 x:Name="PlayPauseIconLeft"
                                 FontSize="16"
-                                Glyph="&#xE102;" />
+                                Glyph="&#xF5B0;" />
                         </Button.Content>
                     </Button>
                 </Border>
@@ -313,24 +313,26 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton
-                        x:Name="PreviousTrackButton"
-                        Icon="Previous"
-                        Visibility="Collapsed" />
+                    <AppBarButton x:Name="PreviousTrackButton" Visibility="Collapsed">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xF8AC;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
 
                     <AppBarButton x:Name="PlayPauseButton">
                         <AppBarButton.Icon>
                             <FontIcon
                                 x:Name="PlayPauseIcon"
                                 FontSize="16"
-                                Glyph="&#xE102;" />
+                                Glyph="&#xF5B0;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton
-                        x:Name="NextTrackButton"
-                        Icon="Next"
-                        Visibility="Collapsed" />
+                    <AppBarButton x:Name="NextTrackButton" Visibility="Collapsed">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xF8AD;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
 
                     <AppBarButton x:Name="SkipForwardButton" Visibility="Collapsed">
                         <AppBarButton.Icon>
@@ -593,8 +595,8 @@
                     <VisualState x:Name="PlayState" />
                     <VisualState x:Name="PauseState">
                         <VisualState.Setters>
-                            <Setter Target="PlayPauseIconLeft.Glyph" Value="&#xE103;" />
-                            <Setter Target="PlayPauseIcon.Glyph" Value="&#xE103;" />
+                            <Setter Target="PlayPauseIconLeft.Glyph" Value="&#xF8AE;" />
+                            <Setter Target="PlayPauseIcon.Glyph" Value="&#xF8AE;" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
