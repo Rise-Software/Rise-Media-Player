@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    SizeChanged="Page_SizeChanged"
     mc:Ignorable="d">
 
     <Grid>
@@ -108,22 +109,46 @@
         </Button>
 
         <Grid Grid.Row="1" Margin="16,0,16,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Border
-                Width="301"
+                x:Name="SidebarContainer"
+                Width="114"
+                Margin="0,0,13,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
                 Background="{ThemeResource LayerFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
-                CornerRadius="8">
+                CornerRadius="8"
+                Visibility="Visible">
                 <Grid>
                     <StackPanel Margin="32,32,32,0">
                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                            <Button
+                                x:Name="SmallSettingsButton"
+                                Margin="5.4"
+                                Padding="4"
+                                Visibility="Collapsed"
+                                Background="Transparent"
+                                BorderBrush="Transparent" Flyout="{x:Bind MoreFlyout}">
+                                <Button.Content>
+                                    <FontIcon
+                                        HorizontalAlignment="Center"
+                                        FontSize="28"
+                                        Glyph="" />
+                                </Button.Content>
+                            </Button>
+
                             <TextBlock
+                                x:Name="SettingsTitle"
                                 Margin="5"
                                 FontSize="28"
                                 FontWeight="SemiBold"
-                                Text="Settings" />
+                                Text="Settings"
+                                Visibility="Visible" />
                             <StackPanel
                                 Margin="40,0,0,0"
                                 HorizontalAlignment="Right"
@@ -135,7 +160,7 @@
                                     ToolTipService.ToolTip="More">
                                     <FontIcon FontSize="16" Glyph="" />
                                     <Button.Flyout>
-                                        <MenuFlyout>
+                                        <MenuFlyout x:Name="MoreFlyout">
                                             <MenuFlyoutSubItem Text="Settings menus">
                                                 <MenuFlyoutSubItem.Icon>
                                                     <FontIcon Glyph="&#xE145;" />
@@ -350,7 +375,8 @@
             </Border>
 
             <Border
-                Margin="316,0,0,0"
+                Grid.Column="1"
+                Margin="0,0,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="{ThemeResource LayerFillColorDefaultBrush}"

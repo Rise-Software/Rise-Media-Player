@@ -327,7 +327,7 @@
                             PointerEntered="Border_PointerEntered"
                             ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
                             Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
-                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
+                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}" >
                                 <Grid>
                                     <Image
                                         Width="134"
@@ -385,7 +385,7 @@
         <GridView
             x:Name="MainGrid1"
             Grid.Row="1"
-            Margin="-56,0"
+            Margin="-56,48"
             Padding="44,0,44,120"
             animations:Connected.ListItemElementName="AlbumThumb"
             animations:Connected.ListItemKey="AlbumArt"

@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Helpers;
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -89,12 +90,16 @@ namespace Rise.App.Views
             }
         }
 
-        private void AddMedia_Click(object sender, RoutedEventArgs e)
+        private async void AddMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame)
+            ContentDialog dialog = new()
             {
-                _ = rootFrame.Navigate(typeof(Settings.MediaSourcesPage));
-            }
+                Title = "Manage local media folders",
+                CloseButtonText = "Close",
+                Content = new Settings.MediaSourcesPage()
+            };
+
+            var result = await dialog.ShowAsync();
         }
     }
 }

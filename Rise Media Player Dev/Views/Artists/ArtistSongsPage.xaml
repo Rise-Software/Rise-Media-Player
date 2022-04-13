@@ -81,12 +81,13 @@
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Padding="-1"
+                                    BorderThickness="2"
                                     CornerRadius="250"
                                     IsHitTestVisible="False">
                                     <Border animations:Connected.Key="ArtistArt" CornerRadius="250">
                                         <Image
-                                            Width="172"
-                                            Height="172"
+                                            Width="154"
+                                            Height="154"
                                             Source="{x:Bind SelectedArtist.Picture, Mode=OneWay}"
                                             Stretch="UniformToFill" />
                                     </Border>

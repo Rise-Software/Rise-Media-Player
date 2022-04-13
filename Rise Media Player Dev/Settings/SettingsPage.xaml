@@ -190,6 +190,12 @@
                                     <FontIcon Glyph="&#xE822;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
+
+                            <MenuFlyoutItem Click="MenuFlyoutItem_Click_1" Text="New settings">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>

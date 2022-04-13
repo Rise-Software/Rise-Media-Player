@@ -81,7 +81,6 @@ namespace Rise.App.Views
         {
             if (!_selectedSong.IsOnline)
             {
-                NowPlayingBar.Current.QueueFlyout.Hide();
                 MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), _selectedSong.Artist);
             }
         }
@@ -90,7 +89,6 @@ namespace Rise.App.Views
         {
             if (!_selectedSong.IsOnline)
             {
-                NowPlayingBar.Current.QueueFlyout.Hide();
                 MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), _selectedSong.Album);
             }
         }

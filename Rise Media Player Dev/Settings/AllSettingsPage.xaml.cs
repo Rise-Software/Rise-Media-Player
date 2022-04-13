@@ -204,5 +204,31 @@ namespace Rise.App.Settings
                 rootFrame.GoBack();
             }
         }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width <850 && e.NewSize.Width > 650)
+            {
+                SidebarContainer.Visibility = Visibility.Visible;
+                SidebarContainer.Width = 114;
+                SettingsSidebar.PaneDisplayMode = (Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode)NavigationViewPaneDisplayMode.LeftCompact;
+                SettingsTitle.Visibility = Visibility.Collapsed;
+                SmallSettingsButton.Visibility = Visibility.Visible;
+            }
+            else if (e.NewSize.Width < 650)
+            {
+                SidebarContainer.Visibility = Visibility.Collapsed;
+                SettingsTitle.Visibility = Visibility.Collapsed;
+                SmallSettingsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SidebarContainer.Visibility = Visibility.Visible;
+                SidebarContainer.Width = 301;
+                SettingsSidebar.PaneDisplayMode = (Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode)NavigationViewPaneDisplayMode.Left;
+                SettingsTitle.Visibility = Visibility.Visible;
+                SmallSettingsButton.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

@@ -162,6 +162,12 @@
   <data name="BigSearch.PlaceholderText" xml:space="preserve">
     <value>Search all media on this device</value>
   </data>
+  <data name="BrowseMedia.Description" xml:space="preserve">
+    <value>Use a file browser to look through all of your media in your folders.</value>
+  </data>
+  <data name="BrowseMedia.Title" xml:space="preserve">
+    <value>Browse for media</value>
+  </data>
   <data name="ChangeArtImg.Text" xml:space="preserve">
     <value>Change artist image</value>
   </data>
@@ -276,6 +282,9 @@
   <data name="OpenFileLocation.Text" xml:space="preserve">
     <value>Show in File Explorer</value>
   </data>
+  <data name="PinToSidebar.Label" xml:space="preserve">
+    <value>Pin to sidebar</value>
+  </data>
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Pin to Start</value>
   </data>
@@ -346,6 +355,9 @@
     <value>Show artist</value>
   </data>
   <data name="ShowinFE.Text" xml:space="preserve">
+    <value>Show in File Explorer</value>
+  </data>
+  <data name="ShowinFELabel.Label" xml:space="preserve">
     <value>Show in File Explorer</value>
   </data>
   <data name="Shuffle.Label" xml:space="preserve">

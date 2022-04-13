@@ -30,7 +30,7 @@
                                     <TextBlock
                                     FontSize="12"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Text="Alpha Preview 2" />
+                                    Text="Alpha Preview 3" />
                                 </StackPanel>
                             </StackPanel>
                         </Button>
