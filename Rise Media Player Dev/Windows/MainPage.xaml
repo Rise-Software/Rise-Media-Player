@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -407,11 +408,19 @@
                     Navigated="OnNavigated"
                     NavigationFailed="OnNavigationFailed" />
 
-                <uc:NowPlayingBar
-                    Margin="15"
+                <uc:RiseMediaPlayerElement
+                    Margin="15,0,15,15"
                     VerticalAlignment="Bottom"
-                    BackgroundStyle="UseAlbumArt"
-                    IsArtistShown="True" />
+                    ui:Effects.Shadow="{StaticResource StrongShadow}"
+                    AreTransportControlsEnabled="True"
+                    BorderBrush="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    MediaPlayerVisibility="Collapsed">
+                    <uc:RiseMediaPlayerElement.TransportControls>
+                        <uc:RiseMediaTransportControls />
+                    </uc:RiseMediaPlayerElement.TransportControls>
+                </uc:RiseMediaPlayerElement>
             </Grid>
         </muxc:NavigationView>
 
