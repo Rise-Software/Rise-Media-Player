@@ -414,10 +414,6 @@
                     VerticalAlignment="Bottom"
                     d:DesignHeight="102"
                     ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                    AreTransportControlsEnabled="True"
-                    BorderBrush="{ThemeResource LayerFillColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8"
                     MediaPlayerVisibility="Collapsed">
                     <uc:RiseMediaPlayerElement.TransportControls>
                         <uc:RiseMediaTransportControls />
