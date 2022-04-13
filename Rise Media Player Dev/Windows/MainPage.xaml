@@ -409,8 +409,10 @@
                     NavigationFailed="OnNavigationFailed" />
 
                 <uc:RiseMediaPlayerElement
+                    MaxWidth="1000"
                     Margin="15,0,15,15"
                     VerticalAlignment="Bottom"
+                    d:DesignHeight="102"
                     ui:Effects.Shadow="{StaticResource StrongShadow}"
                     AreTransportControlsEnabled="True"
                     BorderBrush="{ThemeResource LayerFillColorDefaultBrush}"
