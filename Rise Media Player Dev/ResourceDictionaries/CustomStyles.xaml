@@ -421,23 +421,21 @@
                     Grid.Row="1"
                     Grid.Column="3"
                     Margin="12,0"
-                    ColumnSpacing="12">
+                    ColumnSpacing="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="Auto" MinWidth="24" />
+                        <ColumnDefinition Width="Auto" MinWidth="20" />
                     </Grid.ColumnDefinitions>
 
                     <Button
                         x:Name="AudioMuteButton"
-                        Width="36"
-                        Height="36"
-                        Padding="4"
+                        Width="32"
+                        Height="32"
+                        Padding="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        BorderThickness="0">
+                        Style="{StaticResource TransparentButtonStyle}">
                         <Button.Content>
                             <FontIcon
                                 x:Name="AudioMuteIcon"
@@ -455,7 +453,6 @@
                     <TextBlock
                         x:Name="VolumeValue"
                         Grid.Column="2"
-                        MinWidth="24"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Text="{Binding Value, ElementName=VolumeSlider}" />
