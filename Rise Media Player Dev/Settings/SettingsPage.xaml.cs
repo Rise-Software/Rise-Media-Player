@@ -220,5 +220,14 @@ namespace Rise.App.Settings
                 icon.Visibility = coloredIconVisibility;
             }
         }
+
+        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            SettingsDialogContainer.Current.Hide();
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                _ = rootFrame.Navigate(typeof(AllSettingsPage));
+            }
+        }
     }
 }

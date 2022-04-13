@@ -156,7 +156,6 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="188" />
                                     <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="150" />
                                 </Grid.ColumnDefinitions>
 
                                 <Button
@@ -164,6 +163,7 @@
                                     Padding="-1"
                                     ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                     CornerRadius="8"
+                                    BorderThickness="2"
                                     IsHitTestVisible="False">
                                     <Border animations:Connected.Key="PlaylistArt" CornerRadius="8">
                                         <Image
@@ -291,7 +291,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
                     <Border
-                    Margin="-12,2,-10,2"
+                    Margin="-14,2,-10,2"
                     Padding="4,0,4,0"
                     Style="{StaticResource SettingsCard}">
                         <Grid

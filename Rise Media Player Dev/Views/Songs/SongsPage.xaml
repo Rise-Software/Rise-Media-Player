@@ -111,11 +111,11 @@
                 </AppBarButton.Icon>
             </AppBarButton>
 
-            <!--<AppBarButton Label="TestUnavailability" Click="AppBarButton_Click">
+            <AppBarButton Label="TestUnavailability" Visibility="Collapsed" Click="AppBarButton_Click">
             <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE7BA;" />
             </AppBarButton.Icon>
-            </AppBarButton>-->
+            </AppBarButton>
 
             <AppBarSeparator />
 

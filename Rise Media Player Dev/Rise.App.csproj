@@ -194,6 +194,9 @@
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LastFMHelper.cs" />
+    <Compile Include="Views\BrowsePage.xaml.cs">
+      <DependentUpon>BrowsePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Visualizers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
     </Compile>
@@ -516,6 +519,7 @@
     <Content Include="Assets\likedplaylist.png" />
     <Content Include="Assets\lookingformedia.png" />
     <Content Include="Assets\missingperson.png" />
+    <Content Include="Assets\NavigationView\BrowsePage\Colorful.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\blankplaylist.png" />
     <Content Include="Assets\NavigationView\PlaylistsPage\likedplaylist.png" />
     <Content Include="Assets\Settings\Feedback.png" />
@@ -614,6 +618,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowsePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

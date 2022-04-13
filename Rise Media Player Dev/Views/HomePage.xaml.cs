@@ -1,5 +1,6 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.Web;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -25,10 +26,7 @@ namespace Rise.App.Views
         }
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = await typeof(SupportProject).
-                ShowInApplicationViewAsync(null, 500, 600, true);
-        }
+        => await URLs.Support.LaunchAsync();
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
         {
@@ -76,5 +74,10 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+
+        private void BrowseMedia_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(BrowsePage));
+        }
     }
 }

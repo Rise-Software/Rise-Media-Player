@@ -92,6 +92,12 @@
                 ExpanderStyle="Button"
                 Icon="&#xE19C;" />
             <uc:ExpanderControl
+                x:Name="BrowseMedia"
+                x:Uid="/Information/BrowseMedia"
+                Click="BrowseMedia_Click"
+                ExpanderStyle="Button"
+                Icon="&#xE838;" />
+            <uc:ExpanderControl
                 x:Uid="/Information/Support"
                 Click="SupportButton_Click"
                 ExpanderStyle="Button"

@@ -12,7 +12,7 @@
 	<Identity
 	  Name="60499RiseSoftware.RiseMediaPlayer"
 	  Publisher="CN=71DBF32F-E672-41A2-A72F-A610029965F3"
-	  Version="0.0.171.0" />
+	  Version="0.0.172.0" />
 
 	<mp:PhoneIdentity PhoneProductId="44593a67-33b6-429d-a5f8-1a555e798a45" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
