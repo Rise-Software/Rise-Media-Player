@@ -1,6 +1,9 @@
 ﻿using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
@@ -41,6 +44,30 @@ namespace Rise.Data.ViewModels
         private readonly MediaPlaybackList PlaybackList = new();
     }
 
+    // Methods
+    public partial class MediaPlaybackViewModel
+    {
+        /// <summary>
+        /// Begins playback of an <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <param name="item">Item to play.</param>
+        public async Task PlayItemAsync(IMediaItem item)
+        {
+        }
+
+        /// <summary>
+        /// Begins playback of a collection of <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <param name="items">Items to play.</param>
+        /// <param name="cancellationToken">A token for cancellation support.
+        /// In case you want to play a new set of items before this Task is
+        /// done.</param>
+        public async Task PlayItemsAsync(IEnumerable<IMediaItem> items,
+            CancellationToken cancellationToken)
+        {
+        }
+    }
+
     // Events
     public partial class MediaPlaybackViewModel
     {
@@ -51,7 +78,7 @@ namespace Rise.Data.ViewModels
         public event EventHandler<MediaPlayer> MediaPlayerRecreated;
     }
 
-    // Constructors, initializers
+    // Constructors, Initializers
     public partial class MediaPlaybackViewModel
     {
         public MediaPlaybackViewModel()
