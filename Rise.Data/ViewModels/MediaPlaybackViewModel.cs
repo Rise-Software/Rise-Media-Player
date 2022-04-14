@@ -53,6 +53,7 @@ namespace Rise.Data.ViewModels
         /// <param name="item">Item to play.</param>
         public async Task PlayItemAsync(IMediaItem item)
         {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -65,6 +66,7 @@ namespace Rise.Data.ViewModels
         public async Task PlayItemsAsync(IEnumerable<IMediaItem> items,
             CancellationToken cancellationToken)
         {
+            throw new NotImplementedException();
         }
     }
 
