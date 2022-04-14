@@ -395,7 +395,7 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="PlaybackRateButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="PlaybackRateButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEC57;" />
                         </AppBarButton.Icon>
@@ -413,13 +413,13 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="CompactOverlayButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="CompactOverlayButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B9;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="FullWindowButton">
+                    <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed">
                         <AppBarButton.Icon>
                             <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                         </AppBarButton.Icon>
@@ -517,7 +517,7 @@
 
                     <VisualState x:Name="Loading">
                         <VisualState.Setters>
-                            <Setter Target="BufferingProgressBar.Visibility" Value="Visible" />
+                            <Setter Target="BufferingProgressBar.Visibility" Value="Collapsed" />
                         </VisualState.Setters>
                         <Storyboard>
                             <DoubleAnimation

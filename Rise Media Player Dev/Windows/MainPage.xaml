@@ -417,7 +417,17 @@
                     MediaPlayerVisibility="Collapsed"
                     x:Name="MainPlayer">
                     <uc:RiseMediaPlayerElement.TransportControls>
-                        <uc:RiseMediaTransportControls IsShuffleEnabled="True" IsRepeatEnabled="True" ShowAndHideAutomatically="False" />
+                        <uc:RiseMediaTransportControls IsShuffleEnabled="True"
+                                                       IsRepeatEnabled="True"
+                                                       ShowAndHideAutomatically="False"
+                                                       IsNextTrackButtonVisible="True"
+                                                       IsPreviousTrackButtonVisible="True"
+                                                       IsRepeatButtonVisible="True"
+                                                       IsShuffleButtonVisible="True"
+                                                       IsSkipForwardButtonVisible="True"
+                                                       IsSkipBackwardButtonVisible="True" 
+                                                       IsSkipBackwardEnabled="True"
+                                                       IsSkipForwardEnabled="True" />
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
             </Grid>
