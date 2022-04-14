@@ -142,6 +142,8 @@ namespace Rise.App.Views
                 await HandleViewModelColorSettingAsync();
                 UpdateTitleBarItems(NavView);
 
+                MainPlayer.SetMediaPlayer(App.PViewModel.Player);
+
                 try
                 {
                     PasswordVault vault = new();

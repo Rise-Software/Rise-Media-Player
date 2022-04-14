@@ -310,20 +310,19 @@
                     <AppBarToggleButton
                         x:Name="ShuffleButton"
                         Width="40"
-                        Padding="4"
-                        Visibility="Collapsed">
+                        Padding="4">
                         <AppBarToggleButton.Icon>
                             <SymbolIcon x:Name="ShuffleSymbol" Symbol="Shuffle" />
                         </AppBarToggleButton.Icon>
                     </AppBarToggleButton>
 
-                    <AppBarButton x:Name="SkipBackwardButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="SkipBackwardButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED3C;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="PreviousTrackButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="PreviousTrackButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xF8AC;" />
                         </AppBarButton.Icon>
@@ -333,18 +332,18 @@
                         <AppBarButton.Icon>
                             <FontIcon
                                 x:Name="PlayPauseIcon"
-                                FontSize="16"
+                                FontSize="24"
                                 Glyph="&#xF5B0;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="NextTrackButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="NextTrackButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xF8AD;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="SkipForwardButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="SkipForwardButton">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED3D;" />
                         </AppBarButton.Icon>
@@ -353,8 +352,7 @@
                     <AppBarToggleButton
                         x:Name="RepeatButton"
                         Width="40"
-                        Padding="4"
-                        Visibility="Collapsed">
+                        Padding="4">
                         <AppBarToggleButton.Icon>
                             <SymbolIcon x:Name="RepeatSymbol" Symbol="RepeatAll" />
                         </AppBarToggleButton.Icon>

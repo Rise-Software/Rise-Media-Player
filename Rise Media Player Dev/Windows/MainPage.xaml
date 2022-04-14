@@ -414,9 +414,10 @@
                     VerticalAlignment="Bottom"
                     d:DesignHeight="102"
                     ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                    MediaPlayerVisibility="Collapsed">
+                    MediaPlayerVisibility="Collapsed"
+                    x:Name="MainPlayer">
                     <uc:RiseMediaPlayerElement.TransportControls>
-                        <uc:RiseMediaTransportControls />
+                        <uc:RiseMediaTransportControls IsShuffleEnabled="True" IsRepeatEnabled="True" ShowAndHideAutomatically="False" />
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
             </Grid>
