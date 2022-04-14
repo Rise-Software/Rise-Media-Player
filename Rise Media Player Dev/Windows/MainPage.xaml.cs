@@ -139,10 +139,10 @@ namespace Rise.App.Views
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
                 }
 
+                MainPlayer.SetMediaPlayer(App.PViewModel.Player);
+
                 await HandleViewModelColorSettingAsync();
                 UpdateTitleBarItems(NavView);
-
-                MainPlayer.SetMediaPlayer(App.PViewModel.Player);
 
                 try
                 {
