@@ -1,4 +1,6 @@
-﻿using Windows.Media;
+﻿using System.Threading.Tasks;
+using Windows.Media;
+using Windows.Media.Playback;
 
 namespace Rise.Common.Interfaces
 {
@@ -33,13 +35,21 @@ namespace Rise.Common.Interfaces
         string Thumbnail { get; }
 
         /// <summary>
+        /// Whether the playback item is stored online or offline.
+        /// </summary>
+        bool IsOnline { get; }
+
+        /// <summary>
         /// Type of playback item.
         /// </summary>
         MediaPlaybackType ItemType { get; }
 
         /// <summary>
-        /// Whether the playback item is stored online or offline.
+        /// Creates a <see cref="MediaPlaybackItem"/> representation
+        /// of this item.
         /// </summary>
-        bool IsOnline { get; }
+        /// <returns>A Task that represents the conversion
+        /// operation.</returns>
+        Task<MediaPlaybackItem> AsPlaybackItemAsync();
     }
 }

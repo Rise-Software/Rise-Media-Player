@@ -17,7 +17,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public partial class SongViewModel : ViewModel<Song>
+    public partial class SongViewModel : ViewModel<Song>, IMediaItem
     {
 
         #region Constructor
@@ -472,13 +472,17 @@ namespace Rise.App.ViewModels
     public partial class SongViewModel : IMediaItem
     {
         string IMediaItem.Title => Title;
-
         string IMediaItem.Subtitle => Artist;
-
+        string IMediaItem.Location => Location;
         string IMediaItem.Thumbnail => Thumbnail;
+
+        bool IMediaItem.IsOnline => IsOnline;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
 
-        bool IMediaItem.IsOnline => IsOnline;
+        Task<MediaPlaybackItem> IMediaItem.AsPlaybackItemAsync()
+        {
+            return AsPlaybackItemAsync();
+        }
     }
 }

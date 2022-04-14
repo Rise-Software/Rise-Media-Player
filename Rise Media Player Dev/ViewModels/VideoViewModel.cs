@@ -11,7 +11,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public partial class VideoViewModel : ViewModel<Video>
+    public partial class VideoViewModel : ViewModel<Video>, IMediaItem
     {
 
         #region Constructor
@@ -251,13 +251,17 @@ namespace Rise.App.ViewModels
     public partial class VideoViewModel : IMediaItem
     {
         string IMediaItem.Title => Title;
-
         string IMediaItem.Subtitle => Directors;
-
+        string IMediaItem.Location => Location;
         string IMediaItem.Thumbnail => Thumbnail;
+
+        bool IMediaItem.IsOnline => IsOnline;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
 
-        bool IMediaItem.IsOnline => IsOnline;
+        Task<MediaPlaybackItem> IMediaItem.AsPlaybackItemAsync()
+        {
+            return AsPlaybackItemAsync();
+        }
     }
 }
