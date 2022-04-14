@@ -366,6 +366,14 @@
                     DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Auto">
+                    <AppBarButton x:Name="GoToVideoPlaybackPage"
+                                  Visibility="Collapsed"
+                                  ToolTipService.ToolTip="Restore view">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE098;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                    
                     <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED1E;" />
@@ -517,7 +525,7 @@
 
                     <VisualState x:Name="Loading">
                         <VisualState.Setters>
-                            <Setter Target="BufferingProgressBar.Visibility" Value="Collapsed" />
+                            <Setter Target="BufferingProgressBar.Visibility" Value="Visible" />
                         </VisualState.Setters>
                         <Storyboard>
                             <DoubleAnimation

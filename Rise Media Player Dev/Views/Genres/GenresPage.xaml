@@ -31,13 +31,6 @@
                 Style="{StaticResource TitleTextBlockStyle}"
                 Text="Your genres"
                 TextTrimming="WordEllipsis" />
-            <TextBlock
-                Margin="-1,4,0,0"
-                FontSize="16"
-                FontWeight="SemiBold"
-                Opacity="0.6"
-                Text="Only genres are available right now."
-                TextTrimming="WordEllipsis" />
         </StackPanel>
 
         <CommandBar
@@ -65,8 +58,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-
-
 
                 <Border
                     x:Name="GenresCard"

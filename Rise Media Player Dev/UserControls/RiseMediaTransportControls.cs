@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rise.App.Views;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -11,6 +12,7 @@ namespace Rise.App.UserControls
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
         private ToggleButton _shuffleButton;
+        private AppBarButton _videoRestoreBtn;
         /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can shuffle the playback of the media.
@@ -144,6 +146,22 @@ namespace Rise.App.UserControls
                 rmtc._shuffleButton.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void VideoRestoreBtnClick(object sender, RoutedEventArgs e)
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                rootFrame.Navigate(typeof(VideoPlaybackPage));
+            }
+        }
+
+        private void CurrentMediaChanged(object sender, EventArgs e)
+        {
+            if (_videoRestoreBtn != null)
+            {
+                _videoRestoreBtn.Visibility = App.PViewModel.CurrentPlaybackItem.IsVideo ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
     }
 
     // Constructor, Overrides
@@ -151,7 +169,7 @@ namespace Rise.App.UserControls
     {
         public RiseMediaTransportControls()
         {
-            this.DefaultStyleKey = typeof(RiseMediaTransportControls);
+            DefaultStyleKey = typeof(RiseMediaTransportControls);
         }
 
         protected override void OnApplyTemplate()
@@ -160,6 +178,11 @@ namespace Rise.App.UserControls
 
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+
+            _videoRestoreBtn = GetTemplateChild("GoToVideoPlaybackPage") as AppBarButton;
+
+            _videoRestoreBtn.Click += VideoRestoreBtnClick;
+            App.PViewModel.CurrentMediaChanged += CurrentMediaChanged;
 
             HandleShuffleEnabled(this, IsShuffleEnabled);
             HandleShuffleVisibility(this, IsShuffleButtonVisible);
