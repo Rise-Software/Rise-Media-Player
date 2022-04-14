@@ -419,14 +419,6 @@ namespace Rise.App.ViewModels
             {
                 string thumb = URIs.ArtistThumb;
 
-                ArtistViewModel arvm = new()
-                {
-                    Name = song.Artist,
-                    Picture = thumb
-                };
-
-                await arvm.SaveAsync();
-
                 if (App.SViewModel.FetchOnlineData)
                 {
                     string image;
@@ -440,6 +432,14 @@ namespace Rise.App.ViewModels
                         }
                     }
                 }
+
+                ArtistViewModel arvm = new()
+                {
+                    Name = song.Artist,
+                    Picture = thumb
+                };
+
+                await arvm.SaveAsync();
             }
 
             // Check for the album artist as well.
@@ -464,7 +464,7 @@ namespace Rise.App.ViewModels
                         }
                     }
                 }
-                
+
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
