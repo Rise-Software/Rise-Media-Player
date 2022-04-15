@@ -100,5 +100,37 @@ namespace Rise.Data.ViewModels
 
             return player;
         }
+
+        /// <summary>
+        /// Fully resets playback by disposing of the player, clearing
+        /// lists and setting the current item to null.
+        /// </summary>
+        private void ResetPlayback()
+        {
+            DisposePlayerInstance();
+
+            PlaybackList.Items.Clear();
+            QueuedItems.Clear();
+
+            PlayingItem = null;
+        }
+
+        /// <summary>
+        /// Disposes the current instance of the <see cref="MediaPlayer"/>.
+        /// </summary>
+        /// <returns>true if the player was successfully disposed, false
+        /// otherwise.</returns>
+        private bool DisposePlayerInstance()
+        {
+            if (_player.IsValueCreated)
+            {
+                Player.Pause();
+                Player.Dispose();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
