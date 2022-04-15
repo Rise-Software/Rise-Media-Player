@@ -31,7 +31,7 @@ namespace Rise.Data.ViewModels
 
         private readonly Lazy<MediaPlayer> _player;
         /// <summary>
-        /// Gets the app-wide <see cref="MediaPlayer"/> instance.
+        /// Gets the current <see cref="MediaPlayer"/> instance.
         /// Lazily instantiated to prevent Windows from showing the
         /// SMTC as soon as the app is opened.
         /// </summary>
