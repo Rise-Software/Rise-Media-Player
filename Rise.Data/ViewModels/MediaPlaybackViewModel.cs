@@ -112,7 +112,7 @@ namespace Rise.Data.ViewModels
         /// </summary>
         private void ResetPlayback()
         {
-            DisposePlayerInstance();
+            _ = DisposePlayerInstance();
 
             PlaybackList.Items.Clear();
             QueuedItems.Clear();
