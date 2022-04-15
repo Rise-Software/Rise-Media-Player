@@ -71,7 +71,26 @@ namespace Rise.Data.ViewModels
         public async Task PlayItemsAsync(IEnumerable<IMediaItem> items,
             CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            ResetPlayback();
+
+            int i = 0;
+            foreach (var item in items)
+            {
+                var playItem = await item.AsPlaybackItemAsync();
+                PlaybackList.Items.Add(playItem);
+
+                // Start playback right after adding the first item...
+                if (i == 0)
+                {
+                    Player.Source = PlaybackList;
+                    Player.Play();
+
+                    // ...and never again.
+                    i++;
+                }
+
+                cancellationToken.ThrowIfCancellationRequested();
+            }
         }
     }
 
