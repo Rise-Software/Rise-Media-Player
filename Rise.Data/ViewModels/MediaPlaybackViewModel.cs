@@ -53,7 +53,12 @@ namespace Rise.Data.ViewModels
         /// <param name="item">Item to play.</param>
         public async Task PlayItemAsync(IMediaItem item)
         {
-            throw new NotImplementedException();
+            ResetPlayback();
+
+            var playItem = await item.AsPlaybackItemAsync();
+
+            Player.Source = playItem;
+            Player.Play();
         }
 
         /// <summary>
