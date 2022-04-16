@@ -8,6 +8,7 @@ using Rise.Common;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
-using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -80,6 +80,11 @@ namespace Rise.App
         /// Gets the app-wide <see cref="PlaybackViewModel"/> singleton instance.
         /// </summary>
         public static PlaybackViewModel PViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="MediaPlaybackViewModel"/> singleton instance.
+        /// </summary>
+        public static MediaPlaybackViewModel MPViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
@@ -228,6 +233,7 @@ namespace Rise.App
             MViewModel = new MainViewModel();
             LMViewModel = new LastFMViewModel();
             PViewModel = new PlaybackViewModel();
+            MPViewModel = new MediaPlaybackViewModel();
             NavDataSource = new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
