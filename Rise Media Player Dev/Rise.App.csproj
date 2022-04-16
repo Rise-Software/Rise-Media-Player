@@ -249,9 +249,6 @@
     <Compile Include="UserControls\TransparentNowPlayingBar.xaml.cs">
       <DependentUpon>TransparentNowPlayingBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\VideoNowPlayingBar.xaml.cs">
-      <DependentUpon>VideoNowPlayingBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\NowPlayingBar.xaml.cs">
       <DependentUpon>NowPlayingBar.xaml</DependentUpon>
     </Compile>
@@ -706,10 +703,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TransparentNowPlayingBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\VideoNowPlayingBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
