@@ -144,24 +144,5 @@ namespace Rise.Data.ViewModels
 
             PlayingItem = null;
         }
-
-        /// <summary>
-        /// Disposes the current instance of the <see cref="MediaPlayer"/>.
-        /// </summary>
-        /// <returns>true if the player was successfully disposed, false
-        /// otherwise.</returns>
-        private bool DisposePlayerInstance()
-        {
-            if (_player != null)
-            {
-                _player.Pause();
-                _player.Dispose();
-                _player = null;
-
-                return true;
-            }
-
-            return false;
-        }
     }
 }
