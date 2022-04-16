@@ -29,13 +29,24 @@ namespace Rise.Data.ViewModels
             private set => Set(ref _playingItem, value);
         }
 
-        private readonly Lazy<MediaPlayer> _player;
+        private MediaPlayer _player;
         /// <summary>
         /// Gets the current <see cref="MediaPlayer"/> instance.
         /// Lazily instantiated to prevent Windows from showing the
         /// SMTC as soon as the app is opened.
         /// </summary>
-        public MediaPlayer Player => _player.Value;
+        public MediaPlayer Player
+        {
+            get
+            {
+                if (_player == null)
+                {
+                    _player = CreatePlayerInstance();
+                }
+
+                return _player;
+            }
+        }
 
         /// <summary>
         /// The media playback list. It is permanently associated with
@@ -107,10 +118,7 @@ namespace Rise.Data.ViewModels
     // Constructors, Initializers
     public partial class MediaPlaybackViewModel
     {
-        public MediaPlaybackViewModel()
-        {
-            _player = new(CreatePlayerInstance());
-        }
+        public MediaPlaybackViewModel() { }
 
         /// <summary>
         /// Creates a new instance of the <see cref="MediaPlayer"/>,
@@ -146,10 +154,11 @@ namespace Rise.Data.ViewModels
         /// otherwise.</returns>
         private bool DisposePlayerInstance()
         {
-            if (_player.IsValueCreated)
+            if (_player != null)
             {
-                Player.Pause();
-                Player.Dispose();
+                _player.Pause();
+                _player.Dispose();
+                _player = null;
 
                 return true;
             }
