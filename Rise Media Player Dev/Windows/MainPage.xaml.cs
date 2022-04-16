@@ -36,6 +36,7 @@ namespace Rise.App.Views
         #region Variables
         public static MainPage Current;
 
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
@@ -98,7 +99,9 @@ namespace Rise.App.Views
             App.MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
+            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+
             _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
 
@@ -138,8 +141,6 @@ namespace Rise.App.Views
                 {
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
                 }
-
-                MainPlayer.SetMediaPlayer(App.PViewModel.Player);
 
                 await HandleViewModelColorSettingAsync();
                 UpdateTitleBarItems(NavView);
@@ -208,6 +209,9 @@ namespace Rise.App.Views
                 AddedTip.IsOpen = false;
             });
         }
+
+        private void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+            => MainPlayer.SetMediaPlayer(e);
 
         #region TitleBar
         // Update the TitleBar content layout.
