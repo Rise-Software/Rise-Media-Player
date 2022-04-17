@@ -8,21 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
-
-    <Page.Resources>
-        <conv:VideoToString x:Key="VidToStr" />
-
-        <Storyboard x:Name="EnterPointerStoryboard">
-            <FadeInThemeAnimation Storyboard.TargetName="TopGrid" Duration="3" />
-            <FadeInThemeAnimation Storyboard.TargetName="Player" Duration="3" />
-        </Storyboard>
-
-        <Storyboard x:Name="ExitPointerStoryboard">
-            <FadeOutThemeAnimation Storyboard.TargetName="TopGrid" Duration="3" />
-            <FadeOutThemeAnimation Storyboard.TargetName="Player" Duration="3" />
-        </Storyboard>
-    </Page.Resources>
 
     <Grid>
         <Grid.ChildrenTransitions>
@@ -82,12 +69,11 @@
 
         <uc:RiseMediaPlayerElement
             x:Name="Player"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Bottom"
             Canvas.ZIndex="0"
             MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
+                    Margin="15,0,15,15"
                     IsCompact="True"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"

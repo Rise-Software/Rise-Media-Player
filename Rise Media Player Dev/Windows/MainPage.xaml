@@ -409,27 +409,27 @@
                     NavigationFailed="OnNavigationFailed" />
 
                 <uc:RiseMediaPlayerElement
+                    x:Name="MainPlayer"
                     MaxWidth="1000"
                     Margin="15,0,15,15"
-                    VerticalAlignment="Bottom"
                     d:DesignHeight="102"
-                    ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                    MediaPlayerVisibility="Collapsed"
-                    x:Name="MainPlayer">
+                    MediaPlayerVisibility="Collapsed">
                     <uc:RiseMediaPlayerElement.TransportControls>
-                        <uc:RiseMediaTransportControls IsShuffleEnabled="True"
-                                                       IsRepeatEnabled="True"
-                                                       ShowAndHideAutomatically="False"
-                                                       IsNextTrackButtonVisible="True"
-                                                       IsPreviousTrackButtonVisible="True"
-                                                       IsRepeatButtonVisible="True"
-                                                       IsShuffleButtonVisible="True"
-                                                       IsSkipForwardButtonVisible="True"
-                                                       IsSkipBackwardButtonVisible="True" 
-                                                       IsSkipBackwardEnabled="True"
-                                                       IsSkipForwardEnabled="True"
-                                                       IsVideoRestoreButtonEnabled="True"
-                                                       IsVideoRestoreButtonVisible="True" />
+                        <uc:RiseMediaTransportControls
+                            ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            IsNextTrackButtonVisible="True"
+                            IsPreviousTrackButtonVisible="True"
+                            IsRepeatButtonVisible="True"
+                            IsRepeatEnabled="True"
+                            IsShuffleButtonVisible="True"
+                            IsShuffleEnabled="True"
+                            IsSkipBackwardButtonVisible="True"
+                            IsSkipBackwardEnabled="True"
+                            IsSkipForwardButtonVisible="True"
+                            IsSkipForwardEnabled="True"
+                            IsVideoRestoreButtonEnabled="True"
+                            IsVideoRestoreButtonVisible="True"
+                            ShowAndHideAutomatically="False" />
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
             </Grid>

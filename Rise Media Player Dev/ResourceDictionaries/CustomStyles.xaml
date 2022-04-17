@@ -157,15 +157,17 @@
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
     <Style x:Key="DefaultRiseMediaPlayerElementStyle" TargetType="co:RiseMediaPlayerElement">
         <Setter Property="AreTransportControlsEnabled" Value="True" />
-        <Setter Property="BorderBrush" Value="{ThemeResource LayerFillColorDefaultBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="8" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="co:RiseMediaPlayerElement">
-                    <Grid x:Name="LayoutRoot">
+                    <Grid
+                        x:Name="LayoutRoot"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                         <MediaPlayerPresenter
                             x:Name="MediaPlayerPresenter"
                             IsFullWindow="{TemplateBinding IsFullWindow}"
@@ -174,9 +176,7 @@
                             Visibility="{TemplateBinding MediaPlayerVisibility}" />
                         <ContentPresenter
                             x:Name="TransportControlsPresenter"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
+                            VerticalAlignment="Bottom"
                             Visibility="{TemplateBinding AreTransportControlsEnabled}" />
                         <Grid x:Name="TimedTextSourcePresenter" />
                     </Grid>
@@ -187,20 +187,26 @@
 
     <Style BasedOn="{StaticResource DefaultRiseMediaTransportControlsStyle}" TargetType="co:RiseMediaTransportControls" />
     <Style x:Key="DefaultRiseMediaTransportControlsStyle" TargetType="co:RiseMediaTransportControls">
-        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{ThemeResource LayerFillColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template" Value="{StaticResource DefaultRiseMediaTransportControlsTemplate}" />
     </Style>
 
     <ControlTemplate x:Key="DefaultRiseMediaTransportControlsTemplate" TargetType="co:RiseMediaTransportControls">
-        <Grid x:Name="RootGrid" Background="Transparent">
+        <Grid x:Name="RootGrid">
             <Grid
                 x:Name="ControlPanelGrid"
                 Padding="0,0,0,4"
-                Background="{ThemeResource MediaTransportControlsPanelBackground}">
+                Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
                 <Grid.Resources>
                     <Style BasedOn="{StaticResource DefaultAppBarButtonStyle}" TargetType="AppBarButton">
                         <Setter Property="Padding" Value="4" />
@@ -371,7 +377,7 @@
                             <FontIcon Glyph="&#xE098;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-                    
+
                     <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED1E;" />
