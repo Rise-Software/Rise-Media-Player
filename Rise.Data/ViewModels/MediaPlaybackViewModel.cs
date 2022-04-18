@@ -55,7 +55,17 @@ namespace Rise.Data.ViewModels
         private readonly MediaPlaybackList PlaybackList = new();
     }
 
-    // Methods
+    // Events
+    public partial class MediaPlaybackViewModel
+    {
+        /// <summary>
+        /// Occurs when the media player is disposed and recreated. Also
+        /// gets fired when the initial lazy instance takes place.
+        /// </summary>
+        public event EventHandler<MediaPlayer> MediaPlayerRecreated;
+    }
+
+    // Methods, Event handling
     public partial class MediaPlaybackViewModel
     {
         /// <summary>
@@ -67,6 +77,11 @@ namespace Rise.Data.ViewModels
             ResetPlayback();
 
             var playItem = await item.AsPlaybackItemAsync();
+
+            // We add stuff manually here because the playback list
+            // isn't used for single items
+            QueuedItems.Add(item);
+            PlayingItem = item;
 
             Player.Source = playItem;
             Player.Play();
@@ -89,6 +104,7 @@ namespace Rise.Data.ViewModels
             {
                 var playItem = await item.AsPlaybackItemAsync();
                 PlaybackList.Items.Add(playItem);
+                QueuedItems.Add(item);
 
                 // Start playback right after adding the first item...
                 if (i == 0)
@@ -103,22 +119,29 @@ namespace Rise.Data.ViewModels
                 cancellationToken.ThrowIfCancellationRequested();
             }
         }
-    }
 
-    // Events
-    public partial class MediaPlaybackViewModel
-    {
-        /// <summary>
-        /// Occurs when the media player is disposed and recreated. Also
-        /// gets fired when the initial lazy instance takes place.
-        /// </summary>
-        public event EventHandler<MediaPlayer> MediaPlayerRecreated;
+        private void OnCurrentItemChanged(MediaPlaybackList sender, CurrentMediaPlaybackItemChangedEventArgs args)
+        {
+            if (args.Reason == MediaPlaybackItemChangedReason.Error)
+            {
+                System.Diagnostics.Debug.WriteLine("Error when going to next item.");
+                return;
+            }
+
+            if (sender.CurrentItem != null)
+            {
+                PlayingItem = QueuedItems[(int)sender.CurrentItemIndex];
+            }
+        }
     }
 
     // Constructors, Initializers
     public partial class MediaPlaybackViewModel
     {
-        public MediaPlaybackViewModel() { }
+        public MediaPlaybackViewModel()
+        {
+            PlaybackList.CurrentItemChanged += OnCurrentItemChanged;
+        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="MediaPlayer"/>,
