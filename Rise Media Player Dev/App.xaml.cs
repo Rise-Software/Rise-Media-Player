@@ -140,10 +140,10 @@ namespace Rise.App
 
             InitializeComponent();
             Suspending += OnSuspending;
-            UnhandledException += App_UnhandledException;
+            UnhandledException += OnUnhandledException;
         }
 
-        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
@@ -165,7 +165,7 @@ namespace Rise.App
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
-        protected async override void OnActivated(IActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs e)
         {
             switch (e.Kind)
             {
