@@ -16,6 +16,8 @@ namespace Rise.NewRepository
         private static SQLiteConnection _db;
         private static SQLiteAsyncConnection _asyncDb;
 
+        private static Queue<DbObject> _upsertQueue;
+
         /// <summary>
         /// Initializes the database and its tables.
         /// </summary>
@@ -23,14 +25,16 @@ namespace Rise.NewRepository
         {
             _ = await ApplicationData.Current.LocalFolder.CreateFileAsync("Lists.db", CreationCollisionOption.OpenIfExists);
 
-            _db = new SQLiteConnection(DbPath);
-            _asyncDb = new SQLiteAsyncConnection(DbPath);
+            _db ??= new SQLiteConnection(DbPath);
+            _asyncDb ??= new SQLiteAsyncConnection(DbPath);
 
             _ = await _asyncDb.CreateTableAsync<Song>();
             _ = await _asyncDb.CreateTableAsync<Artist>();
             _ = await _asyncDb.CreateTableAsync<Album>();
             _ = await _asyncDb.CreateTableAsync<Genre>();
             _ = await _asyncDb.CreateTableAsync<Video>();
+
+            _upsertQueue ??= new();
         }
 
         /// <summary>
@@ -74,6 +78,36 @@ namespace Rise.NewRepository
         public static Task<int> UpsertAsync(DbObject item)
         {
             return _asyncDb.InsertOrReplaceAsync(item);
+        }
+
+        /// <summary>
+        /// Queues an item to the database for upserting.
+        /// </summary>
+        /// <returns>A <see cref="System.Boolean" /> which provides the state of the operation.</returns>
+        /// <param name="item">The DB object to queue.</param>
+        public static bool QueueUpsert(DbObject item)
+        {
+            if (!_upsertQueue.Contains(item))
+            {
+                _upsertQueue.Enqueue(item);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Upserts all queued items asynchronously.
+        /// </summary>
+        /// <returns>A <see cref="Task" /> which represents the operation.</returns>
+        public static async Task UpsertQueuedAsync()
+        {
+            foreach (var item in _upsertQueue)
+            {
+                _ = await _asyncDb.InsertOrReplaceAsync(item);
+            }
+
+            return;
         }
 
         /// <summary>

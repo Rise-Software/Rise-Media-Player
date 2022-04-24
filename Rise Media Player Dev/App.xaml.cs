@@ -224,17 +224,17 @@ namespace Rise.App
         {
             await NewRepository.Repository.InitializeDatabaseAsync();
 
-            MusicLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
-            VideoLibrary = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
+            MusicLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
+            VideoLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
-            PBackendController = new PlaylistsBackendController();
-            NBackendController = new NotificationsBackendController();
+            PBackendController ??= new PlaylistsBackendController();
+            NBackendController ??= new NotificationsBackendController();
 
-            MViewModel = new MainViewModel();
-            LMViewModel = new LastFMViewModel();
-            PViewModel = new PlaybackViewModel();
-            MPViewModel = new MediaPlaybackViewModel();
-            NavDataSource = new NavViewDataSource();
+            MViewModel ??= new MainViewModel();
+            LMViewModel ??= new LastFMViewModel();
+            PViewModel ??= new PlaybackViewModel();
+            MPViewModel ??= new MediaPlaybackViewModel();
+            NavDataSource ??= new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
@@ -242,8 +242,12 @@ namespace Rise.App
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
         {
-            Debug.WriteLine("Definition changes!");
-            await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
+            // Prevent duplicate calls.
+            if (IsLoaded)
+            {
+                Debug.WriteLine("Definition changes!");
+                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
+            }
         }
 
         /// <summary>

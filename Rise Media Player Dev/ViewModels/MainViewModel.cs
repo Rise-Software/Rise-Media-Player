@@ -245,7 +245,7 @@ namespace Rise.App.ViewModels
             await SongsTracker.HandleMusicFolderChanges();
             await VideosTracker.HandleVideosFolderChanges();
             await IndexLibrariesAsync();
-            await SyncAsync();
+            //await SyncAsync();
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
 
@@ -279,7 +279,7 @@ namespace Rise.App.ViewModels
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                 PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
-                if (await SaveMusicModelsAsync(song))
+                if (await SaveMusicModelsAsync(song, true))
                 {
                     IndexedSongs++;
                 }
@@ -288,13 +288,16 @@ namespace Rise.App.ViewModels
             await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                 PropertyPrefetchOptions.VideoProperties))
             {
-                if (await SaveVideoModelAsync(video))
+                if (await SaveVideoModelAsync(video, true))
                 {
                     IndexedVideos++;
                 }
             }
 
             IsIndexing = false;
+
+            await NewRepository.Repository.UpsertQueuedAsync();
+
             if (QueuedReindex)
             {
                 await IndexLibrariesAsync();
@@ -307,7 +310,7 @@ namespace Rise.App.ViewModels
         /// <param name="file">Song file to add.</param>
         /// <returns>true if the song didn't exist beforehand,
         /// otherwise false.</returns>
-        public async Task<bool> SaveMusicModelsAsync(StorageFile file)
+        public async Task<bool> SaveMusicModelsAsync(StorageFile file, bool queue = false)
         {
             var song = await Song.GetFromFileAsync(file);
 
@@ -362,7 +365,7 @@ namespace Rise.App.ViewModels
                 song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
-                await alvm.SaveAsync();
+                await alvm.SaveAsync(queue);
             }
             else
             {
@@ -404,7 +407,7 @@ namespace Rise.App.ViewModels
 
                     if (save)
                     {
-                        await alvm.SaveAsync();
+                        await alvm.SaveAsync(queue);
                     }
                 }
 
@@ -439,7 +442,7 @@ namespace Rise.App.ViewModels
                     Picture = thumb
                 };
 
-                await arvm.SaveAsync();
+                await arvm.SaveAsync(queue);
             }
 
             // Check for the album artist as well.
@@ -471,7 +474,7 @@ namespace Rise.App.ViewModels
                     Picture = thumb
                 };
 
-                await arvm.SaveAsync();
+                await arvm.SaveAsync(queue);
             }
 
             // If genre isn't there already, add it to the database.
@@ -489,7 +492,7 @@ namespace Rise.App.ViewModels
             if (!songExists)
             {
                 SongViewModel svm = new(song);
-                await svm.SaveAsync();
+                await svm.SaveAsync(queue);
             }
 
             return !songExists;
@@ -529,7 +532,7 @@ namespace Rise.App.ViewModels
         /// <param name="file">Video file to add.</param>
         /// <returns>true if the video didn't exist beforehand,
         /// otherwise false.</returns>
-        public async Task<bool> SaveVideoModelAsync(StorageFile file)
+        public async Task<bool> SaveVideoModelAsync(StorageFile file, bool queue = false)
         {
             var video = await Video.GetFromFileAsync(file);
 
@@ -556,7 +559,7 @@ namespace Rise.App.ViewModels
                 }
 
                 thumbnail?.Dispose();
-                await vid.SaveAsync();
+                await vid.SaveAsync(queue);
             }
 
             return !videoExists;
