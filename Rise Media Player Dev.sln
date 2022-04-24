@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Common", "Rise.Common\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Repository", "Rise.NewRepository\Rise.Repository.csproj", "{1319CE6D-828F-4024-93C9-4052F3F053BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Storage", "Rise.Storage\Rise.Storage.csproj", "{C95910CA-AA49-44A1-9288-B728669DCCDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,26 @@ Global
 		{1319CE6D-828F-4024-93C9-4052F3F053BA}.Release|x64.Build.0 = Release|x64
 		{1319CE6D-828F-4024-93C9-4052F3F053BA}.Release|x86.ActiveCfg = Release|x86
 		{1319CE6D-828F-4024-93C9-4052F3F053BA}.Release|x86.Build.0 = Release|x86
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|x64.Build.0 = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Debug|x86.Build.0 = Debug|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|ARM.Build.0 = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|ARM64.Build.0 = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|x64.ActiveCfg = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|x64.Build.0 = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|x86.ActiveCfg = Release|Any CPU
+		{C95910CA-AA49-44A1-9288-B728669DCCDE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

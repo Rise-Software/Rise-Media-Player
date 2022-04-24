@@ -1,4 +1,7 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
+using Rise.App.ViewModels.FileBrowser;
+using Rise.Storage;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -13,13 +16,22 @@ namespace Rise.App.UserControls.FileBrowser
             this.InitializeComponent();
         }
 
-        public string CurrentPath
+        public IList<BreadcrumbItemViewModel> Items
         {
-            get => (string)GetValue(CurrentPathProperty);
-            set => SetValue(CurrentPathProperty, value);
+            get => (IList<BreadcrumbItemViewModel>)GetValue(ItemsProperty);
+            set => SetValue(ItemsProperty, value);
         }
-        public static readonly DependencyProperty CurrentPathProperty =
-            DependencyProperty.Register(nameof(CurrentPath), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemsProperty =
+            DependencyProperty.Register(nameof(Items), typeof(IList<BreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+
+
+        public IFolder CurrentFolder
+        {
+            get => (IFolder)GetValue(CurrentFolderProperty);
+            set => SetValue(CurrentFolderProperty, value);
+        }
+        public static readonly DependencyProperty CurrentFolderProperty =
+            DependencyProperty.Register(nameof(CurrentFolder), typeof(IFolder), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
         public IRelayCommand SectionClickedCommand

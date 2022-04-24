@@ -30,6 +30,7 @@
     </PackageCertificateThumbprint>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>9.0</LangVersion>
+	<Nullable>enable</Nullable>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -156,6 +157,7 @@
     <Compile Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml.cs">
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FileBrowser\BreadcrumbItemViewModel.cs" />
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -1148,6 +1150,10 @@
     <ProjectReference Include="..\Rise.NewRepository\Rise.Repository.csproj">
       <Project>{1319ce6d-828f-4024-93c9-4052f3f053ba}</Project>
       <Name>Rise.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rise.Storage\Rise.Storage.csproj">
+      <Project>{c95910ca-aa49-44a1-9288-b728669dccde}</Project>
+      <Name>Rise.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
