@@ -21,7 +21,7 @@ namespace Rise.Common.Extensions
         /// Logs an exception's type, HRESULT, source, message, and
         /// stack trace to output.
         /// </summary>
-        public static void LogException(this Exception ex)
+        public static void WriteToOutput(this Exception ex)
         {
             if (Debugger.IsAttached && IsDebugBuild)
             {
