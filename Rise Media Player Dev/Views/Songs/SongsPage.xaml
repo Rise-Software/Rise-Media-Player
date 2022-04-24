@@ -111,10 +111,13 @@
                 </AppBarButton.Icon>
             </AppBarButton>
 
-            <AppBarButton Label="TestUnavailability" Visibility="Collapsed" Click="AppBarButton_Click">
-            <AppBarButton.Icon>
+            <AppBarButton
+                Click="AppBarButton_Click"
+                Label="TestUnavailability"
+                Visibility="Collapsed">
+                <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE7BA;" />
-            </AppBarButton.Icon>
+                </AppBarButton.Icon>
             </AppBarButton>
 
             <AppBarSeparator />
@@ -290,7 +293,7 @@
             </ListView.Resources>
 
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
@@ -315,8 +318,8 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            
-                            <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
+
+                            <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
                                 <Button
                                     Grid.Column="1"
                                     Width="32"

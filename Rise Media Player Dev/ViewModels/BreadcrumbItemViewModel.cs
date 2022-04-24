@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace Rise.App.ViewModels.FileBrowser
+namespace Rise.App.ViewModels
 {
     public sealed class BreadcrumbItemViewModel
     {
+        public bool IsLeading { get; set; }
+
         public int Index { get; }
 
         public Action<BreadcrumbItemViewModel?> NavigationAction { get; }

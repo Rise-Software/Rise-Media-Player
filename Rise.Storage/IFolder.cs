@@ -6,17 +6,17 @@ namespace Rise.Storage
 {
     public interface IFolder : IBaseStorage
     {
-        Task<IFolder> CreateFolderAsync(string desiredName);
-
-        Task<IFolder> CreateFolderAsync(string desiredName, CreationCollisionOption options);
-
         Task<IFile> CreateFileAsync(string desiredName);
 
         Task<IFile> CreateFileAsync(string desiredName, CreationCollisionOption options);
 
-        Task<IFolder?> GetFolderAsync(string folderName);
+        Task<IFolder> CreateFolderAsync(string desiredName);
+
+        Task<IFolder> CreateFolderAsync(string desiredName, CreationCollisionOption options);
 
         Task<IFile?> GetFileAsync(string fileName);
+
+        Task<IFolder?> GetFolderAsync(string folderName);
 
         Task<IEnumerable<IFile>> GetFilesAsync();
 

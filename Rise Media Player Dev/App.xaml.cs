@@ -157,7 +157,8 @@ namespace Rise.App
             var serviceCollection = new ServiceCollection();
 
             serviceCollection
-                .AddSingleton<IFileExplorerService, FileExplorerService>();
+                .AddSingleton<IFileExplorerService, FileExplorerService>()
+                .AddSingleton<IStorageService, UwpStorageService>();
 
             return serviceCollection.BuildServiceProvider();
         }

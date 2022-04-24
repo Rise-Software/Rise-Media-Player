@@ -149,18 +149,25 @@
     </Compile>
     <Compile Include="Helpers\EventsLogic.cs" />
     <Compile Include="ServicesImplementation\FileExplorerService.cs" />
+    <Compile Include="ServicesImplementation\UwpStorageService.cs" />
     <Compile Include="Services\IFileExplorerService.cs" />
+    <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Devices\Win32Drive.cs" />
+    <Compile Include="Storage\UwpBaseStorage.cs" />
+    <Compile Include="Storage\UwpFile.cs" />
+    <Compile Include="Storage\UwpFolder.cs" />
     <Compile Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml.cs">
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\FileBrowser\BreadcrumbItemViewModel.cs" />
+    <Compile Include="ViewModels\BreadcrumbItemViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\FileBrowserHomePageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserPageViewModel.cs" />
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
@@ -204,7 +211,13 @@
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FileBrowserPage.xaml.cs">
+    <Compile Include="Views\FileBrowser\FileBrowserDirectoryPage.xaml.cs">
+      <DependentUpon>FileBrowserDirectoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileBrowser\FileBrowserHomePage.xaml.cs">
+      <DependentUpon>FileBrowserHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileBrowser\FileBrowserPage.xaml.cs">
       <DependentUpon>FileBrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visualizers\BloomView.xaml.cs">
@@ -639,7 +652,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FileBrowserPage.xaml">
+    <Page Include="Views\FileBrowser\FileBrowserDirectoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileBrowser\FileBrowserHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileBrowser\FileBrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,9 +5,10 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -205,9 +206,9 @@
                                 TextWrapping="Wrap"
                                 ToolTipService.ToolTip="{x:Bind Title, Mode=OneWay}" />
                             <TextBlock
+                                FontWeight="Normal"
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
-                                FontWeight="Normal"
                                 TextWrapping="Wrap">
                                 <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />
                             </TextBlock>

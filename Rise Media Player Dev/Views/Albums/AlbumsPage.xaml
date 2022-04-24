@@ -327,7 +327,7 @@
                             PointerEntered="Border_PointerEntered"
                             ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
                             Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
-                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}" >
+                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
                                 <Grid>
                                     <Image
                                         Width="134"
@@ -340,9 +340,14 @@
                                                 UriSource="{x:Bind Thumbnail}" />
                                         </Image.Source>
                                     </Image>
-                                    <Button HorizontalAlignment="Center" Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, Mode=OneWay}" Style="{StaticResource AccentButtonStyle}" Opacity="1" Padding="8">
+                                    <Button
+                                        Padding="8"
+                                        HorizontalAlignment="Center"
+                                        Opacity="1"
+                                        Style="{StaticResource AccentButtonStyle}"
+                                        Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, Mode=OneWay}">
                                         <Button.Content>
-                                            <FontIcon Glyph="&#xF5B0;" FontSize="28" />
+                                            <FontIcon FontSize="28" Glyph="&#xF5B0;" />
                                         </Button.Content>
                                     </Button>
                                 </Grid>
