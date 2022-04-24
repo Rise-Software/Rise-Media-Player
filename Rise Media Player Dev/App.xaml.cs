@@ -19,7 +19,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -327,7 +326,7 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                ShowInApplicationViewAsync(AppWindowPresentationKind.Default, 320, 300);
+                ShowInAppWindowAsync(null, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
