@@ -43,6 +43,7 @@ namespace Rise.Data.Sources
             // Populate the default icon dictionary.
             _defaultIcons.Add("HomePage", "\uECA5");
             _defaultIcons.Add("NowPlayingPage", "\uEA37");
+            _defaultIcons.Add("FileBrowserPage", "\uE8B7");
             _defaultIcons.Add("PlaylistsPage", "\uE8FD");
             _defaultIcons.Add("ConnectedDevicesPage", "\uE8FD");
             _defaultIcons.Add("SongsPage", "\uEC4F");

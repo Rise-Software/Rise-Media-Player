@@ -19,6 +19,15 @@
       "ItemType": 1
     },
     {
+      "Id": "FileBrowserPage",
+      "AccessKey": "F",
+      "HeaderGroup": "General",
+      "Icon": "\uE8B7",
+      "Label": "Browse",
+      "IsVisible": true,
+      "ItemType": 1
+    },
+    {
       "Id": "MHeader",
       "HeaderGroup": "Music",
       "Label": "Music",

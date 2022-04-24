@@ -86,6 +86,20 @@
                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
                 <uc:ExpanderControl
+                    Title="File Browser"
+                    Margin="0,-8"
+                    ExpanderStyle="Transparent"
+                    Icon="&#xE8B7;">
+                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowFileBrowser, Mode=TwoWay}" />
+                </uc:ExpanderControl>
+
+                <Rectangle
+                    Height="1"
+                    Margin="-16,0"
+                    HorizontalAlignment="Stretch"
+                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+
+                <uc:ExpanderControl
                     x:Uid="/Navigation/Playlists"
                     Margin="0,-8"
                     ExpanderStyle="Transparent"

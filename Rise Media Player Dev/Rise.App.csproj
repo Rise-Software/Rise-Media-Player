@@ -153,6 +153,9 @@
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml.cs">
+      <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -194,6 +197,9 @@
     <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileBrowserPage.xaml.cs">
+      <DependentUpon>FileBrowserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visualizers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
@@ -619,7 +625,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BrowsePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileBrowserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -431,6 +431,12 @@ namespace Rise.App.ViewModels
             set => ChangeItemVisibility("HomePage", value);
         }
 
+        public bool ShowFileBrowser
+        {
+            get => SBViewModel.IsItemVisible("FileBrowserPage");
+            set => ChangeItemVisibility("FileBrowserPage", value);
+        }
+
         public bool ShowPlaylists
         {
             get => SBViewModel.IsItemVisible("PlaylistsPage");
