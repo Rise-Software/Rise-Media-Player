@@ -16,6 +16,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <uc:FileBrowserHeaderControl />
+        <uc:FileBrowserHeaderControl
+            CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
+            GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
+            Items="{x:Bind ViewModel.FileBrowserHeaderViewModel.Items}"
+            OpenInFileExplorerCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.OpenInFileExplorerCommand}"
+            PinToSidebarCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.PinToSidebarCommand}" />
     </Grid>
 </Page>

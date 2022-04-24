@@ -1,7 +1,11 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.QueryStringDotNET;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.DbControllers;
+using Rise.App.Services;
+using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
@@ -33,6 +37,8 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+        private IServiceProvider? ServiceProvider { get; set; }
+
         public static bool IsLoaded = false;
 
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
@@ -141,6 +147,19 @@ namespace Rise.App
             InitializeComponent();
             Suspending += OnSuspending;
             UnhandledException += App_UnhandledException;
+
+            ServiceProvider = ConfigureServices();
+            Ioc.Default.ConfigureServices(ServiceProvider);
+        }
+
+        private IServiceProvider ConfigureServices()
+        {
+            var serviceCollection = new ServiceCollection();
+
+            serviceCollection
+                .AddSingleton<IFileExplorerService, FileExplorerService>();
+
+            return serviceCollection.BuildServiceProvider();
         }
 
         private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)

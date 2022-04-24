@@ -1,40 +1,50 @@
 ﻿using Rise.Data.ViewModels;
-using Rise.Storage;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using Microsoft.Toolkit.Mvvm.Input;
 using System.Threading.Tasks;
+using Rise.App.Services;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 namespace Rise.App.ViewModels.FileBrowser
 {
     public sealed class FileBrowserHeaderViewModel : ViewModel
     {
+        private IFileExplorerService FileExplorerService { get; } = Ioc.Default.GetRequiredService<IFileExplorerService>();
+
         public ObservableCollection<BreadcrumbItemViewModel> Items { get; }
-
-        private IFolder _CurrentFolder;
-        public IFolder CurrentFolder
+        
+        private string _CurrentLocation;
+        public string CurrentLocation
         {
-            get => _CurrentFolder;
-            set
-            {
-                if (_CurrentFolder != value)
-                {
-                    _CurrentFolder = value;
-                    OnPropertyChanged(nameof(CurrentFolderName));
-                }
-            }
+            get => CurrentLocation;
+            set => Set(ref _CurrentLocation, value);
         }
 
-        public string CurrentFolderName
-        {
-            get => _CurrentFolder.Name;
-        }
+        public IRelayCommand GoBackCommand { get; }
+
+        public IRelayCommand PinToSidebarCommand { get; }
+
+        public IRelayCommand OpenInFileExplorerCommand { get; }
 
         public FileBrowserHeaderViewModel()
         {
             Items = new();
+
+            GoBackCommand = new RelayCommand(GoBack);
+            PinToSidebarCommand = new RelayCommand(PinToSidebar);
+            OpenInFileExplorerCommand = new AsyncRelayCommand(OpenInFileExplorer);
+        }
+
+        private void GoBack()
+        {
+        }
+
+        private void PinToSidebar()
+        {
+        }
+
+        private async Task OpenInFileExplorer()
+        {
         }
     }
 }

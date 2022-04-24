@@ -37,7 +37,7 @@
             <TextBlock
                 FontSize="24"
                 FontWeight="SemiBold"
-                Text="{x:Bind CurrentFolderName, Mode=OneWay}" />
+                Text="{x:Bind CurrentLocation, Mode=OneWay}" />
         </StackPanel>
 
         <!--  Path  -->
