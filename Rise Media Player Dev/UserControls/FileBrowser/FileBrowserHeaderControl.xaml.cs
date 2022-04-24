@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.ViewModels.FileBrowser;
+using Rise.App.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

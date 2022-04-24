@@ -1,10 +1,9 @@
-﻿using Rise.Storage;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Rise.App.Services
 {
     public interface IFileExplorerService
     {
-        Task<bool> OpenPathInFileExplorerAsync(IPath path);
+        Task<bool> OpenPathInFileExplorerAsync(string path);
     }
 }

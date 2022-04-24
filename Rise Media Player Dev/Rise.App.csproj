@@ -166,6 +166,8 @@
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BreadcrumbItemViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\FileBrowserDirectoryPageViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\FileBrowserDriveItemViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserHomePageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserPageViewModel.cs" />
