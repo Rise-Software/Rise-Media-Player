@@ -328,13 +328,13 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                ShowInApplicationViewAsync(AppWindowPresentationKind.Default, 320, 300);
+                ShowInApplicationViewAsync(320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
             {
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await PViewModel.PlaySongAsync(new SongViewModel(song));
+                await MPViewModel.PlayItemAsync(new SongViewModel(song));
             }
             catch (Exception)
             {
