@@ -148,6 +148,7 @@
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EventsLogic.cs" />
+    <Compile Include="Messages\FileBrowser\CurrentFolderChangedMessage.cs" />
     <Compile Include="ServicesImplementation\FileExplorerService.cs" />
     <Compile Include="ServicesImplementation\UwpStorageService.cs" />
     <Compile Include="Services\IFileExplorerService.cs" />
@@ -166,6 +167,7 @@
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BreadcrumbItemViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\BaseFileBrowserPageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserDirectoryPageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserDriveItemViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />

@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <uc:FileBrowserHeaderControl
-            CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
+            CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation}"
             GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
             Items="{x:Bind ViewModel.FileBrowserHeaderViewModel.Items}"
             OpenInFileExplorerCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.OpenInFileExplorerCommand}"

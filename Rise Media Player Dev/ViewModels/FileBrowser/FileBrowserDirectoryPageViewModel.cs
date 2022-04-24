@@ -1,15 +1,15 @@
-﻿using Rise.Data.ViewModels;
+﻿using Microsoft.Toolkit.Mvvm.Messaging;
 using Rise.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels.FileBrowser
 {
-    public sealed class FileBrowserDirectoryPageViewModel : ViewModel
+    public sealed class FileBrowserDirectoryPageViewModel : BaseFileBrowserPageViewModel
     {
         public IFolder CurrentFolder { get; private set; }
+
+        public FileBrowserDirectoryPageViewModel(IMessenger messenger)
+            : base(messenger)
+        {
+        }
     }
 }

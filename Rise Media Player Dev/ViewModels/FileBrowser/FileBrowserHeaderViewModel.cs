@@ -16,7 +16,7 @@ namespace Rise.App.ViewModels.FileBrowser
         private string _CurrentLocation;
         public string CurrentLocation
         {
-            get => CurrentLocation;
+            get => _CurrentLocation;
             set => Set(ref _CurrentLocation, value);
         }
 

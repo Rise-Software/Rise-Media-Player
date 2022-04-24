@@ -24,13 +24,13 @@ namespace Rise.App.UserControls.FileBrowser
             DependencyProperty.Register(nameof(Items), typeof(IList<BreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
-        public string CurrentLocation
+        public string? CurrentLocation
         {
-            get => (string)GetValue(CurrentLocationProperty);
+            get => (string?)GetValue(CurrentLocationProperty);
             set => SetValue(CurrentLocationProperty, value);
         }
         public static readonly DependencyProperty CurrentLocationProperty =
-            DependencyProperty.Register(nameof(CurrentLocation), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CurrentLocation), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(string.Empty));
 
 
         public IRelayCommand GoBackCommand
