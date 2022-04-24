@@ -19,7 +19,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
-using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -145,6 +144,7 @@ namespace Rise.App
 
         private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
+            e.Exception.WriteToOutput();
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
                 {
@@ -300,8 +300,9 @@ namespace Rise.App
 
                 await SuspensionManager.SaveAsync();
             }
-            catch (SuspensionManagerException)
+            catch (SuspensionManagerException ex)
             {
+                ex.WriteToOutput();
             }
             finally
             {
@@ -334,9 +335,9 @@ namespace Rise.App
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
                 await PViewModel.PlaySongAsync(new SongViewModel(song));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ex.WriteToOutput();
             }
             StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
         }
