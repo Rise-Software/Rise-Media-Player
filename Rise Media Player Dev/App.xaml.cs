@@ -332,7 +332,7 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                ShowInApplicationViewAsync(320, 300);
+                ShowInApplicationViewAsync(null, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
