@@ -11,7 +11,6 @@ namespace Rise.App.ViewModels.FileBrowser
     {
         public async Task EnumerateDrivesAsync()
         {
-            foreach (var item in DriveInfo)
         }
     }
 }
