@@ -34,10 +34,14 @@ namespace Rise.Common.Extensions
                 Debug.Write("Source: ");
                 Debug.WriteLine(ex.Source);
 
-                Debug.Write("Message: ");
+                Debug.WriteLine("");
+
+                Debug.WriteLine("Message:");
                 Debug.WriteLine(ex.Message);
-                Debug.Write("Stack trace: ");
+                Debug.WriteLine("");
+                Debug.WriteLine("Stack trace:");
                 Debug.WriteLine(ex.StackTrace);
+                Debug.WriteLine("-----");
             }
         }
     }
