@@ -30,7 +30,7 @@
     </PackageCertificateThumbprint>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>9.0</LangVersion>
-	<Nullable>enable</Nullable>
+    <Nullable>enable</Nullable>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -158,6 +158,8 @@
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\FileBrowser\BreadcrumbItemViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\FileBrowserPageViewModel.cs" />
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />

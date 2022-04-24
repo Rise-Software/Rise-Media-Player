@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 using Rise.App.ViewModels.FileBrowser;
-using Rise.Storage;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,22 +24,22 @@ namespace Rise.App.UserControls.FileBrowser
             DependencyProperty.Register(nameof(Items), typeof(IList<BreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
-        public IFolder CurrentFolder
+        public string CurrentFolderName
         {
-            get => (IFolder)GetValue(CurrentFolderProperty);
-            set => SetValue(CurrentFolderProperty, value);
+            get => (string)GetValue(CurrentFolderNameProperty);
+            set => SetValue(CurrentFolderNameProperty, value);
         }
-        public static readonly DependencyProperty CurrentFolderProperty =
-            DependencyProperty.Register(nameof(CurrentFolder), typeof(IFolder), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentFolderNameProperty =
+            DependencyProperty.Register(nameof(CurrentFolderName), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
-        public IRelayCommand SectionClickedCommand
+        public IRelayCommand GoBackCommand
         {
-            get => (IRelayCommand)GetValue(SectionClickedCommandProperty);
-            set => SetValue(SectionClickedCommandProperty, value);
+            get => (IRelayCommand)GetValue(GoBackCommandProperty);
+            set => SetValue(GoBackCommandProperty, value);
         }
-        public static readonly DependencyProperty SectionClickedCommandProperty =
-            DependencyProperty.Register(nameof(SectionClickedCommand), typeof(IRelayCommand), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty GoBackCommandProperty =
+            DependencyProperty.Register(nameof(GoBackCommand), typeof(IRelayCommand), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
         public IRelayCommand PinToSidebarCommand
