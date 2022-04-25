@@ -333,34 +333,15 @@ namespace Rise.App.ViewModels
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                string thumb = URIs.AlbumThumb;
-
-                // If the album is unknown, no need to get a thumbnail.
-                if (song.Album != "UnknownAlbumResource")
-                {
-                    // Get song thumbnail and make a PNG out of it.
-                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-
-                    string filename = song.Album.AsValidFileName();
-                    bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                    if (result)
-                        thumb = $@"ms-appdata:///local/{filename}.png";
-
-                    thumbnail?.Dispose();
-                }
-
                 // Set AlbumViewModel data.
                 AlbumViewModel alvm = new()
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
                     Genres = song.Genres,
-                    Thumbnail = thumb,
+                    Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
-
-                song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
                 await alvm.SaveAsync(queue);
@@ -382,19 +363,8 @@ namespace Rise.App.ViewModels
 
                     if (alvm.Thumbnail == URIs.AlbumThumb)
                     {
-                        // Get song thumbnail and make a PNG out of it.
-                        StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
-
-                        string filename = song.Album.AsValidFileName();
-                        bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                        if (result)
-                        {
-                            alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
-                            save = true;
-                        }
-
-                        thumbnail?.Dispose();
+                        alvm.Thumbnail = song.Thumbnail;
+                        save = true;
                     }
 
                     if (alvm.Year == 0)

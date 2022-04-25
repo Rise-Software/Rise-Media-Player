@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Constants;
 using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using SQLite;
 using System;
@@ -175,6 +176,19 @@ namespace Rise.Models
 
             TimeSpan length = musicProperties.Duration;
 
+            string thumb = URIs.AlbumThumb;
+            StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+
+            string filename = albumTitle.AsValidFileName();
+            bool canUseThumb = await thumbnail.SaveToFileAsync($@"{filename}.png");
+
+            if (canUseThumb)
+            {
+                thumb = $@"ms-appdata:///local/{filename}.png";
+            }
+
+            thumbnail?.Dispose();
+
             return new Song
             {
                 Title = title,
@@ -183,6 +197,7 @@ namespace Rise.Models
                 Disc = cd,
                 Album = albumTitle,
                 AlbumArtist = albumArtist,
+                Thumbnail = thumb,
                 Genres = genre,
                 Length = length,
                 Year = musicProperties.Year,
