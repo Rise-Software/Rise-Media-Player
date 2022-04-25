@@ -342,12 +342,10 @@ namespace Rise.App.ViewModels
                     StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
                     string filename = song.Album.AsValidFileName();
-                    filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
+                    bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                    if (filename != "/")
-                    {
+                    if (result)
                         thumb = $@"ms-appdata:///local/{filename}.png";
-                    }
 
                     thumbnail?.Dispose();
                 }
@@ -382,15 +380,15 @@ namespace Rise.App.ViewModels
                         save = true;
                     }
 
-                    if (alvm.Thumbnail == URIs.MusicThumb)
+                    if (alvm.Thumbnail == URIs.AlbumThumb)
                     {
                         // Get song thumbnail and make a PNG out of it.
                         StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
 
                         string filename = song.Album.AsValidFileName();
-                        filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
+                        bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                        if (filename != "/")
+                        if (result)
                         {
                             alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                             save = true;
@@ -522,7 +520,7 @@ namespace Rise.App.ViewModels
 
                 }
             }
-            
+
             return URIs.ArtistThumb;
         }
 
@@ -547,15 +545,15 @@ namespace Rise.App.ViewModels
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
-                filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
+                bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                if (filename != "/")
+                if (result)
                 {
                     vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                 }
                 else
                 {
-                    vid.Thumbnail = URIs.MusicThumb;
+                    vid.Thumbnail = URIs.AlbumThumb;
                 }
 
                 thumbnail?.Dispose();
