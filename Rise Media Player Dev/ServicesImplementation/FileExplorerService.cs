@@ -9,6 +9,11 @@ namespace Rise.App.ServicesImplementation
     {
         public async Task<bool> OpenPathInFileExplorerAsync(string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+
             return await Launcher.LaunchFolderPathAsync(path);
         }
     }

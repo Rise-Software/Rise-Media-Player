@@ -10,7 +10,7 @@ namespace Rise.App.ViewModels.FileBrowser
     {
         private IFileExplorerService FileExplorerService { get; } = Ioc.Default.GetRequiredService<IFileExplorerService>();
 
-        public IFolder CurrentFolder { get; private set; }
+        public IFolder? CurrentFolder { get; private set; }
 
         public FileBrowserDirectoryPageViewModel(IMessenger messenger)
             : base(messenger)
@@ -22,7 +22,7 @@ namespace Rise.App.ViewModels.FileBrowser
         {
             var folder = message.Value ?? CurrentFolder;
 
-            await FileExplorerService.OpenPathInFileExplorerAsync(folder.Path);
+            await FileExplorerService.OpenPathInFileExplorerAsync(folder?.Path ?? string.Empty);
         }
     }
 }
