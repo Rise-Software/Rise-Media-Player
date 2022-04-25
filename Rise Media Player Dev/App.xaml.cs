@@ -24,8 +24,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Notifications;
-using Windows.UI.ViewManagement;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -153,7 +151,7 @@ namespace Rise.App
 
             InitializeComponent();
             Suspending += OnSuspending;
-            UnhandledException += App_UnhandledException;
+            UnhandledException += OnUnhandledException;
 
             ServiceProvider = ConfigureServices();
             Ioc.Default.ConfigureServices(ServiceProvider);
@@ -170,8 +168,9 @@ namespace Rise.App
             return serviceCollection.BuildServiceProvider();
         }
 
-        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
+            e.Exception.WriteToOutput();
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
                 {
@@ -192,7 +191,7 @@ namespace Rise.App
             ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
-        protected async override void OnActivated(IActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs e)
         {
             switch (e.Kind)
             {
@@ -327,8 +326,9 @@ namespace Rise.App
 
                 await SuspensionManager.SaveAsync();
             }
-            catch (SuspensionManagerException)
+            catch (SuspensionManagerException ex)
             {
+                ex.WriteToOutput();
             }
             finally
             {
@@ -353,7 +353,7 @@ namespace Rise.App
             Window.Current.Activate();
 
             _ = await typeof(NowPlaying).
-                ShowInApplicationViewAsync(AppWindowPresentationKind.Default, 320, 300);
+                ShowInAppWindowAsync(null, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
@@ -361,9 +361,9 @@ namespace Rise.App
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
                 await PViewModel.PlaySongAsync(new SongViewModel(song));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ex.WriteToOutput();
             }
             StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
         }
