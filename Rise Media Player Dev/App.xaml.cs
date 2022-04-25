@@ -7,6 +7,7 @@ using Rise.App.DbControllers;
 using Rise.App.Services;
 using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
+using Rise.App.ViewModels.FileBrowser;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
@@ -76,6 +77,12 @@ namespace Rise.App
         /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
         /// </summary>
         public static NotificationsBackendController NBackendController { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="FileBrowserPageViewModel"/> singleton instance.
+        /// </summary>
+        /// <remarks>This is a temporary store, subject to change at any point.</remarks>
+        public static FileBrowserPageViewModel? FileBrowserPageViewModel { get; set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.

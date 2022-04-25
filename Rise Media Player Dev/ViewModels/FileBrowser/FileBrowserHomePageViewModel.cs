@@ -17,6 +17,7 @@ namespace Rise.App.ViewModels.FileBrowser
         public FileBrowserHomePageViewModel(IMessenger messenger)
             : base(messenger)
         {
+            Drives = new();
         }
 
         public async Task EnumerateDrivesAsync()

@@ -6,6 +6,7 @@
     xmlns:local="using:Rise.App.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
+    Loaded="FileBrowserPage_Loaded"
     mc:Ignorable="d">
 
     <Grid>
@@ -17,10 +18,14 @@
         </Grid.RowDefinitions>
 
         <uc:FileBrowserHeaderControl
-            CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation}"
+            CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
             GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
+            IsOpenInFileExplorerEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanOpenInFileExplorer, Mode=OneWay}"
+            IsPinToSidebarEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanPinToSidebar, Mode=OneWay}"
             Items="{x:Bind ViewModel.FileBrowserHeaderViewModel.Items}"
             OpenInFileExplorerCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.OpenInFileExplorerCommand}"
             PinToSidebarCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.PinToSidebarCommand}" />
+
+        <Frame x:Name="ContentFrame" Grid.Row="1" />
     </Grid>
 </Page>

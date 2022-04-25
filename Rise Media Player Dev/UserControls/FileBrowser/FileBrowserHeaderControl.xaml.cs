@@ -33,6 +33,24 @@ namespace Rise.App.UserControls.FileBrowser
             DependencyProperty.Register(nameof(CurrentLocation), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(string.Empty));
 
 
+        public bool IsPinToSidebarEnabled
+        {
+            get => (bool)GetValue(IsPinToSidebarEnabledProperty);
+            set => SetValue(IsPinToSidebarEnabledProperty, value);
+        }
+        public static readonly DependencyProperty IsPinToSidebarEnabledProperty =
+            DependencyProperty.Register(nameof(IsPinToSidebarEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+
+
+        public bool IsOpenInFileExplorerEnabled
+        {
+            get => (bool)GetValue(IsOpenInFileExplorerEnabledProperty);
+            set => SetValue(IsOpenInFileExplorerEnabledProperty, value);
+        }
+        public static readonly DependencyProperty IsOpenInFileExplorerEnabledProperty =
+            DependencyProperty.Register(nameof(IsOpenInFileExplorerEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+
+
         public IRelayCommand GoBackCommand
         {
             get => (IRelayCommand)GetValue(GoBackCommandProperty);

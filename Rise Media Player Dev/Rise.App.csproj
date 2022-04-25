@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Helpers\EventsLogic.cs" />
     <Compile Include="Messages\FileBrowser\CurrentFolderChangedMessage.cs" />
+    <Compile Include="Messages\FileBrowser\OpenInFileExplorerMessage.cs" />
     <Compile Include="ServicesImplementation\FileExplorerService.cs" />
     <Compile Include="ServicesImplementation\UwpStorageService.cs" />
     <Compile Include="Services\IFileExplorerService.cs" />

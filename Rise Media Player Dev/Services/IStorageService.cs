@@ -7,6 +7,8 @@ namespace Rise.App.Services
 {
     public interface IStorageService
     {
+        Task<bool> EnsureFileSystemIsAccessible();
+
         IEnumerable<IDrive> EnumerateDrives();
 
         IEnumerable<IDevice> EnumerateDevices();

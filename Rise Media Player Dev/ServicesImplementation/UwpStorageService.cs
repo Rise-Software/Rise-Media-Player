@@ -13,11 +13,16 @@ namespace Rise.App.ServicesImplementation
 {
     internal sealed class UwpStorageService : IStorageService
     {
+        public Task<bool> EnsureFileSystemIsAccessible()
+        {
+            // TODO: Detect broadFileSystem and show dialog if unavailable
+            return Task.FromResult(false);
+        }
+
         public IEnumerable<IDrive> EnumerateDrives()
         {
             foreach (var item in DriveInfo.GetDrives())
             {
-                if (!item.IsReady) continue;
                 yield return new Win32Drive(item);
             }
         }
