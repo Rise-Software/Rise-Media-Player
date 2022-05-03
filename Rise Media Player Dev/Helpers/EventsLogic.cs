@@ -32,45 +32,11 @@ namespace Rise.App.Views
             get => App.MViewModel.SelectedVideo;
             set => App.MViewModel.SelectedVideo = value;
         }
+    }
 
-        public static void FocusSong(ref SongViewModel song, PointerRoutedEventArgs e)
-        {
-            if (song == null)
-            {
-                if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel s)
-                {
-                    song = s;
-                }
-            }
-
-            song.IsFocused = true;
-        }
-
-        public static void UnfocusSong(ref SongViewModel song, PointerRoutedEventArgs e)
-        {
-            if (song != null)
-            {
-                song.IsFocused = false;
-                song = null;
-            }
-        }
-
-        public static void GoToAlbum(Hyperlink sender)
-        {
-            var run = sender.Inlines.FirstOrDefault() as Run;
-
-            _ = MainPage.Current.ContentFrame.
-                    Navigate(typeof(AlbumSongsPage), run.Text);
-        }
-
-        public static void GoToArtist(Hyperlink sender)
-        {
-            var run = sender.Inlines.FirstOrDefault() as Run;
-
-            _ = MainPage.Current.ContentFrame.
-                    Navigate(typeof(ArtistSongsPage), run.Text);
-        }
-
+    // Playback related
+    public static partial class EventsLogic
+    {
         public static async Task StartMusicPlaybackAsync(int index = 0, bool shuffle = false)
         {
             try
@@ -125,6 +91,52 @@ namespace Rise.App.Views
             {
 
             }
+        }
+    }
+
+    // Focus/unfocus
+    public static partial class EventsLogic
+    {
+        public static void FocusSong(ref SongViewModel song, PointerRoutedEventArgs e)
+        {
+            if (song == null)
+            {
+                if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel s)
+                {
+                    song = s;
+                }
+            }
+
+            song.IsFocused = true;
+        }
+
+        public static void UnfocusSong(ref SongViewModel song, PointerRoutedEventArgs e)
+        {
+            if (song != null)
+            {
+                song.IsFocused = false;
+                song = null;
+            }
+        }
+    }
+
+    // Hyperlink handling
+    public static partial class EventsLogic
+    {
+        public static void GoToAlbum(Hyperlink sender)
+        {
+            var run = sender.Inlines.FirstOrDefault() as Run;
+
+            _ = MainPage.Current.ContentFrame.
+                    Navigate(typeof(AlbumSongsPage), run.Text);
+        }
+
+        public static void GoToArtist(Hyperlink sender)
+        {
+            var run = sender.Inlines.FirstOrDefault() as Run;
+
+            _ = MainPage.Current.ContentFrame.
+                    Navigate(typeof(ArtistSongsPage), run.Text);
         }
     }
 }
