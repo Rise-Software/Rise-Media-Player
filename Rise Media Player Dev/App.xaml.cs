@@ -339,7 +339,7 @@ namespace Rise.App
             try
             {
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await MPViewModel.PlayItemAsync(new SongViewModel(song));
+                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
             }
             catch (Exception ex)
             {

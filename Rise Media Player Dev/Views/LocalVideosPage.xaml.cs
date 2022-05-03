@@ -58,7 +58,7 @@ namespace Rise.App.Views
             {
                 if (!KeyboardHelpers.IsCtrlPressed())
                 {
-                    await MPViewModel.PlayItemAsync(video);
+                    await MPViewModel.PlaySingleItemAsync(video);
                     if (Window.Current.Content is Frame rootFrame)
                     {
                         rootFrame.Navigate(typeof(VideoPlaybackPage));
@@ -79,7 +79,7 @@ namespace Rise.App.Views
             {
                 if (SelectedVideo != null)
                 {
-                    await MPViewModel.PlayItemAsync(SelectedVideo);
+                    await MPViewModel.PlaySingleItemAsync(SelectedVideo);
                 }
                 else
                 {

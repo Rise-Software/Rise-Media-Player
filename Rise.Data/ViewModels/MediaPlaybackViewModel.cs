@@ -77,14 +77,14 @@ namespace Rise.Data.ViewModels
         /// Begins playback of an <see cref="IMediaItem"/>.
         /// </summary>
         /// <param name="item">Item to play.</param>
-        public async Task PlayItemAsync(IMediaItem item)
+        public async Task PlaySingleItemAsync(IMediaItem item)
         {
             var token = new CancellationToken();
             try
             {
                 await PlaybackCancelHelper.CompletePendingAsync(token);
 
-                var task = PlayItemImpl(item, PlaybackCancelHelper.Token);
+                var task = PlaySingleItemImpl(item, PlaybackCancelHelper.Token);
                 await PlaybackCancelHelper.RunAsync(task);
             }
             catch (OperationCanceledException)
@@ -113,7 +113,7 @@ namespace Rise.Data.ViewModels
             }
         }
 
-        private async Task PlayItemImpl(IMediaItem item, CancellationToken token)
+        private async Task PlaySingleItemImpl(IMediaItem item, CancellationToken token)
         {
             ResetPlayback();
 
