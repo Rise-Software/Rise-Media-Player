@@ -148,6 +148,7 @@
     <Compile Include="Extensions\WebHelpers.cs" />
     <Compile Include="Extensions\ViewManagementExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
+    <Compile Include="Helpers\CancellableTaskHelper.cs" />
     <Compile Include="Helpers\CompositionControl.cs" />
     <Compile Include="Helpers\DependencyPropertyWatcher.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
