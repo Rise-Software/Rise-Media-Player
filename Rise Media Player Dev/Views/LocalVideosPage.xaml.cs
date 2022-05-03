@@ -83,7 +83,7 @@ namespace Rise.App.Views
                 }
                 else
                 {
-                    await MPViewModel.PlayItemsAsync(MViewModel.Videos, new CancellationToken());
+                    await MPViewModel.PlayItemsAsync(MViewModel.Videos);
                 }
 
                 if (Window.Current.Content is Frame rootFrame)

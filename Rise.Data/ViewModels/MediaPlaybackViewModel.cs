@@ -1,9 +1,9 @@
-﻿using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
@@ -69,13 +69,55 @@ namespace Rise.Data.ViewModels
     public partial class MediaPlaybackViewModel
     {
         /// <summary>
+        /// Helps cancel a group of Tasks that starts playback.
+        /// </summary>
+        private CancellableTaskHelper PlaybackCancelHelper = new CancellableTaskHelper();
+
+        /// <summary>
         /// Begins playback of an <see cref="IMediaItem"/>.
         /// </summary>
         /// <param name="item">Item to play.</param>
         public async Task PlayItemAsync(IMediaItem item)
         {
+            var token = new CancellationToken();
+            try
+            {
+                await PlaybackCancelHelper.CompletePendingAsync(token);
+
+                var task = PlayItemImpl(item, PlaybackCancelHelper.Token);
+                await PlaybackCancelHelper.RunAsync(task);
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Begins playback of a collection of <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <param name="items">Items to play.</param>
+        public async Task PlayItemsAsync(IEnumerable<IMediaItem> items)
+        {
+            var token = new CancellationToken();
+            try
+            {
+                await PlaybackCancelHelper.CompletePendingAsync(token);
+
+                var task = PlayItemsImpl(items, PlaybackCancelHelper.Token);
+                await PlaybackCancelHelper.RunAsync(task);
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+        }
+
+        private async Task PlayItemImpl(IMediaItem item, CancellationToken token)
+        {
             ResetPlayback();
 
+            token.ThrowIfCancellationRequested();
             var playItem = await item.AsPlaybackItemAsync();
 
             // We add stuff manually here because the playback list
@@ -83,25 +125,20 @@ namespace Rise.Data.ViewModels
             QueuedItems.Add(item);
             PlayingItem = item;
 
+            token.ThrowIfCancellationRequested();
             Player.Source = playItem;
             Player.Play();
         }
 
-        /// <summary>
-        /// Begins playback of a collection of <see cref="IMediaItem"/>.
-        /// </summary>
-        /// <param name="items">Items to play.</param>
-        /// <param name="cancellationToken">A token for cancellation support.
-        /// In case you want to play a new set of items before this Task is
-        /// done.</param>
-        public async Task PlayItemsAsync(IEnumerable<IMediaItem> items,
-            CancellationToken cancellationToken)
+        private async Task PlayItemsImpl(IEnumerable<IMediaItem> items, CancellationToken token)
         {
             ResetPlayback();
 
             int i = 0;
             foreach (var item in items)
             {
+                token.ThrowIfCancellationRequested();
+
                 var playItem = await item.AsPlaybackItemAsync();
                 PlaybackList.Items.Add(playItem);
                 QueuedItems.Add(item);
@@ -109,14 +146,13 @@ namespace Rise.Data.ViewModels
                 // Start playback right after adding the first item...
                 if (i == 0)
                 {
+                    token.ThrowIfCancellationRequested();
                     Player.Source = PlaybackList;
                     Player.Play();
 
                     // ...and never again.
                     i++;
                 }
-
-                cancellationToken.ThrowIfCancellationRequested();
             }
         }
 
