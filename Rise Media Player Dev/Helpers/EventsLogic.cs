@@ -1,9 +1,9 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.ViewModels;
-using Rise.Common.Extensions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
@@ -14,7 +14,7 @@ namespace Rise.App.Views
     /// This contains common logic for event handlers that can
     /// be shared between pages/controls.
     /// </summary>
-    public class EventsLogic
+    public static partial class EventsLogic
     {
         private static AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
         private static AdvancedCollectionView Videos => App.MViewModel.FilteredVideos;
@@ -92,7 +92,8 @@ namespace Rise.App.Views
                 }
 
                 await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
-            } catch
+            }
+            catch
             {
 
             }
@@ -119,7 +120,8 @@ namespace Rise.App.Views
                 }
 
                 await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
-            } catch
+            }
+            catch
             {
 
             }
