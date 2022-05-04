@@ -53,6 +53,16 @@ namespace Rise.Data.ViewModels
         /// the player, due to the fact that we don't ever dispose it.
         /// </summary>
         private readonly MediaPlaybackList PlaybackList = new();
+
+        /// <summary>
+        /// Whether the items in the playback list are played in a random
+        /// order.
+        /// </summary>
+        public bool ShuffleEnabled
+        {
+            get => PlaybackList.ShuffleEnabled;
+            set => PlaybackList.ShuffleEnabled = value;
+        }
     }
 
     // Events
