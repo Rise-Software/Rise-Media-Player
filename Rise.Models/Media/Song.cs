@@ -18,7 +18,7 @@ namespace Rise.Models
     /// Represents a song.
     /// </summary>
     [Table("Songs")]
-    public class Song : DbObject, IEquatable<Song>, IMatchable<Song>
+    public partial class Song : DbObject, IEquatable<Song>, IMatchable<Song>
     {
         [Column(nameof(Title))]
         public string Title { get; set; }
