@@ -285,29 +285,6 @@ namespace Rise.App.ViewModels
             get => _isFocused;
             set => Set(ref _isFocused, value);
         }
-
-        private bool _isTrackNumberVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the songs' track number is visible.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsTrackNumberVisible
-        {
-            get => _isTrackNumberVisible;
-            set => Set(ref _isTrackNumberVisible, value);
-        }
-
-        private bool _isDurationVisible = true;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the songs' track number is visible.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsDurationVisible
-        {
-            get => _isDurationVisible;
-            set => Set(ref _isDurationVisible, value);
-        }
         #endregion
 
         #region Backend
