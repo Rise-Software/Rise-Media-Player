@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:local="using:Rise.App"
     mc:Ignorable="d">
 
     <Grid Margin="-9,-46,-14,0" RowSpacing="12">
@@ -287,7 +288,7 @@
                                         </Hyperlink>
                                     </TextBlock>
                                 </RelativePanel>
-                                
+
                                 <StackPanel
                                     Grid.Column="3"
                                     Orientation="Horizontal"
@@ -309,7 +310,7 @@
                                         Margin="12"
                                         VerticalAlignment="Center"
                                         Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                        Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                        Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                                 </StackPanel>
                             </Grid>
                         </Border>

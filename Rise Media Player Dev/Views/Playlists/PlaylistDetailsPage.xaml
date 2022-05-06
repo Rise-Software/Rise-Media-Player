@@ -8,6 +8,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:local="using:Rise.App"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="320"
     d:Width="500"
@@ -344,7 +345,7 @@
                                 Margin="12"
                                 VerticalAlignment="Center"
                                 Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                         </StackPanel>
                     </Grid>
                 </Border>

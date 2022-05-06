@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:local1="using:Rise.App"
     x:Name="Root"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="760"
@@ -707,7 +708,7 @@
                                                         Margin="12"
                                                         VerticalAlignment="Center"
                                                         Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                                        Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                                        Visibility="{x:Bind local1:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                                                 </StackPanel>
 
                                             </Grid>

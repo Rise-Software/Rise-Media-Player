@@ -5,6 +5,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -111,10 +112,13 @@
                 </AppBarButton.Icon>
             </AppBarButton>
 
-            <AppBarButton Label="TestUnavailability" Visibility="Collapsed" Click="AppBarButton_Click">
-            <AppBarButton.Icon>
+            <AppBarButton
+                Click="AppBarButton_Click"
+                Label="TestUnavailability"
+                Visibility="Collapsed">
+                <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE7BA;" />
-            </AppBarButton.Icon>
+                </AppBarButton.Icon>
             </AppBarButton>
 
             <AppBarSeparator />
@@ -126,14 +130,8 @@
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <ToggleMenuFlyoutItem
-                            Click="ShowTrackNumber_Click"
-                            IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}"
-                            Text="Track number" />
-                        <ToggleMenuFlyoutItem
-                            Click="ShowDuration_Click"
-                            IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}"
-                            Text="Duration" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="Track number" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="Duration" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -290,7 +288,7 @@
             </ListView.Resources>
 
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
@@ -315,8 +313,8 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            
-                            <StackPanel Orientation="Horizontal" Margin="4,0,0,0">
+
+                            <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
                                 <Button
                                     Grid.Column="1"
                                     Width="32"
@@ -326,7 +324,7 @@
                                     CornerRadius="7"
                                     IsHitTestVisible="False"
                                     Style="{StaticResource TransparentButtonStyle}"
-                                    Visibility="{x:Bind IsTrackNumberVisible, Converter={StaticResource BoolToVis}}">
+                                    Visibility="{x:Bind local:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}">
                                     <Border
                                         x:Name="AlbumNum"
                                         Width="32"
@@ -453,7 +451,7 @@
                                     Margin="12"
                                     VerticalAlignment="Center"
                                     Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                    Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                    Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                             </StackPanel>
                         </Grid>
                     </Border>

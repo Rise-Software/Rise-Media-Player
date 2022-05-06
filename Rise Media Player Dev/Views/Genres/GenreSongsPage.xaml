@@ -5,6 +5,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -26,7 +27,6 @@
     <ScrollViewer>
         <Grid Padding="44,44,44,0" d:Padding="20,12">
             <StackPanel>
-
                 <ListView
                     x:Name="MainList"
                     Grid.Row="1"
@@ -119,53 +119,6 @@
                                                         MaxLines="1"
                                                         Style="{StaticResource TitleTextBlockStyle}"
                                                         Text="{x:Bind SelectedGenre.Name, Mode=OneWay}" />
-                                                    <!--<TextBlock Margin="0,0,0,8">-->
-                                                    <!--<Hyperlink
-                                                    Click="Artist_Click"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
-                                                    UnderlineStyle="None">
-                                                    <Run Text="{x:Bind SelectedGenre., Mode=OneWay}" />
-                                                </Hyperlink>
-                                                    </TextBlock>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock
-                                                    x:Name="AlbumYear"
-                                                    Margin="0,0,0,0"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind SelectedAlbum.Year, Mode=OneWay}" />
-                                                        <TextBlock
-                                                    x:Name="Pill"
-                                                    Margin="4,0,4,0"
-                                                    FontSize="18"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Text="•" />
-                                                        <TextBlock
-                                                    x:Name="AlbumGenre"
-                                                    Margin="0,0,0,0"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind SelectedAlbum.Genres, Mode=OneWay}" />
-                                                        <TextBlock
-                                                    x:Name="Pill2"
-                                                    Margin="4,0,4,0"
-                                                    FontSize="18"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Text="•" />
-                                                        <TextBlock
-                                                    x:Name="TrackCountName"
-                                                    Margin="0,0,0,0"
-                                                    FontSize="18"
-                                                    FontWeight="SemiBold"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                    Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind SelectedAlbum.TrackCount, Mode=OneWay}" />-->
-                                                    <!--</StackPanel>-->
                                                 </StackPanel>
                                             </RelativePanel>
 
@@ -338,7 +291,7 @@
                                             Margin="12"
                                             VerticalAlignment="Center"
                                             Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                            Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                            Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
