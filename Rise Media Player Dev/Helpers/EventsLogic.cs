@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
+using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
@@ -18,6 +19,7 @@ namespace Rise.App.Views
     {
         private static AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
         private static AdvancedCollectionView Videos => App.MViewModel.FilteredVideos;
+        private static MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         /// <inheritdoc cref="MainViewModel.SelectedSong"/>
         private static SongViewModel SelectedSong
@@ -37,27 +39,31 @@ namespace Rise.App.Views
     // Playback related
     public static partial class EventsLogic
     {
+        /// <summary>
+        /// Starts playback for the current list of filtered songs.
+        /// </summary>
+        /// <param name="index">The position of the song in
+        /// <see cref="Songs"/> that should be played first.</param>
+        /// <param name="shuffle">Whether shuffling should be enabled.
+        /// This value is ignored if shuffling was enabled beforehand,
+        /// as indicated by the value of
+        /// <see cref="MediaPlaybackViewModel.ShuffleEnabled"/>.</param>
         public static async Task StartMusicPlaybackAsync(int index = 0, bool shuffle = false)
         {
             try
             {
-                App.PViewModel.PlaybackList.ShuffleEnabled = shuffle;
-
+                var songs = Songs.CloneList<object, SongViewModel>();
                 if (SelectedSong != null && index == 0)
                 {
                     index = Songs.IndexOf(SelectedSong);
                     SelectedSong = null;
                 }
+                songs.MoveRangeToEnd(0, index - 1);
 
-                var songs = Songs.CloneList<object, SongViewModel>();
+                if (!MPViewModel.ShuffleEnabled)
+                    MPViewModel.ShuffleEnabled = shuffle;
 
-                if (shuffle)
-                {
-                    Random rnd = new();
-                    index = rnd.Next(0, Songs.Count);
-                }
-
-                await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), index, songs.Count, shuffle);
+                await MPViewModel.PlayItemsAsync(songs);
             }
             catch
             {
