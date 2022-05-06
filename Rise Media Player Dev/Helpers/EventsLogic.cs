@@ -70,34 +70,6 @@ namespace Rise.App.Views
 
             }
         }
-
-        public static async Task StartVideoPlaybackAsync(int index = 0, bool shuffle = false)
-        {
-            try
-            {
-                App.PViewModel.PlaybackList.ShuffleEnabled = shuffle;
-
-                if (SelectedVideo != null && index == 0)
-                {
-                    index = Videos.IndexOf(SelectedVideo);
-                    SelectedVideo = null;
-                }
-
-                var videos = Videos.CloneList<object, VideoViewModel>();
-
-                if (shuffle)
-                {
-                    Random rnd = new();
-                    index = rnd.Next(0, Videos.Count);
-                }
-
-                await App.PViewModel.StartVideoPlaybackAsync(videos.GetEnumerator(), index, videos.Count, shuffle);
-            }
-            catch
-            {
-
-            }
-        }
     }
 
     // Focus/unfocus
