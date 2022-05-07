@@ -9,6 +9,7 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:local="using:Rise.App"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="320"
     d:Width="500"
