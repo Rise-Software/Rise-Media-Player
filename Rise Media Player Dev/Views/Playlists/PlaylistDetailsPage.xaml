@@ -127,8 +127,7 @@
                                                         FontWeight="SemiBold"
                                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                         Style="{StaticResource BodyTextBlockStyle}">
-                                                        <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />
-                                                        ,<Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
+                                                        <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />, <Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
                                                     </TextBlock>
                                                     <TextBlock
                                                         x:Name="Description"
