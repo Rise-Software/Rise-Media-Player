@@ -67,41 +67,11 @@ namespace Rise.Models
         {
             return Title;
         }
+    }
 
-        public bool Equals(Song other)
-        {
-            return Title == other.Title &&
-                   Artist == other.Artist &&
-                   Track == other.Track &&
-                   Disc == other.Disc &&
-                   Album == other.Album &&
-                   AlbumArtist == other.AlbumArtist &&
-                   Genres == other.Genres &&
-                   Length == other.Length &&
-                   Year == other.Year;
-        }
-
-        public override int GetHashCode()
-        {
-            return (Title, Artist, Track, Disc, Album,
-                AlbumArtist, Genres, Length, Year).GetHashCode();
-        }
-
-        public MatchLevel Matches(Song other)
-        {
-            if (Title.Equals(other.Title))
-            {
-                return MatchLevel.Full;
-            }
-
-            if (Title.Contains(other.Title))
-            {
-                return MatchLevel.Partial;
-            }
-
-            return MatchLevel.None;
-        }
-
+    // Constructors/Factory methods
+    public partial class Song
+    {
         /// <summary>
         /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
         /// </summary>
@@ -204,6 +174,48 @@ namespace Rise.Models
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
+        }
+    }
+
+    // IEquatable implementation
+    public partial class Song : IEquatable<Song>
+    {
+        public bool Equals(Song other)
+        {
+            return Title == other.Title &&
+                   Artist == other.Artist &&
+                   Track == other.Track &&
+                   Disc == other.Disc &&
+                   Album == other.Album &&
+                   AlbumArtist == other.AlbumArtist &&
+                   Genres == other.Genres &&
+                   Length == other.Length &&
+                   Year == other.Year;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Title, Artist, Track, Disc, Album,
+                AlbumArtist, Genres, Length, Year).GetHashCode();
+        }
+    }
+
+    // IMatchable implementation
+    public partial class Song : IMatchable<Song>
+    {
+        public MatchLevel Matches(Song other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
         }
     }
 }
