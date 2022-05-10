@@ -142,14 +142,27 @@ namespace Rise.App.UserControls
     // Event handlers
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
+        private static void HandleControlEnabled(Control control, bool enabled)
+        {
+            if (control != null)
+            {
+                control.IsEnabled = enabled;
+            }
+        }
+
+        private static void HandleElementVisibility(FrameworkElement element, bool visible)
+        {
+            if (element != null)
+            {
+                element.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         private static void OnShuffleEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
             {
-                if (rmtc._shuffleButton != null)
-                {
-                    HandleShuffleEnabled(rmtc, (bool)args.NewValue);
-                }
+                HandleControlEnabled(rmtc._shuffleButton, (bool)args.NewValue);
             }
         }
 
@@ -157,31 +170,15 @@ namespace Rise.App.UserControls
         {
             if (sender is RiseMediaTransportControls rmtc)
             {
-                if (rmtc._shuffleButton != null)
-                {
-                    HandleShuffleVisibility(rmtc, (bool)args.NewValue);
-                }
+                HandleElementVisibility(rmtc._shuffleButton, (bool)args.NewValue);
             }
-        }
-
-        private static void HandleShuffleEnabled(RiseMediaTransportControls rmtc, bool enabled)
-        {
-            rmtc._shuffleButton.IsEnabled = enabled;
-        }
-
-        private static void HandleShuffleVisibility(RiseMediaTransportControls rmtc, bool visible)
-        {
-            rmtc._shuffleButton.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void OnRestoreEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
             {
-                if (rmtc._restoreButton != null)
-                {
-                    HandleRestoreEnabled(rmtc, (bool)args.NewValue);
-                }
+                HandleControlEnabled(rmtc._restoreButton, (bool)args.NewValue);
             }
         }
 
@@ -189,27 +186,7 @@ namespace Rise.App.UserControls
         {
             if (sender is RiseMediaTransportControls rmtc)
             {
-                if (rmtc._restoreButton != null)
-                {
-                    HandleRestoreVisibility(rmtc, (bool)args.NewValue);
-                }
-            }
-        }
-
-        private static void HandleRestoreEnabled(RiseMediaTransportControls rmtc, bool enabled)
-        {
-            rmtc._shuffleButton.IsEnabled = enabled;
-        }
-
-        private static void HandleRestoreVisibility(RiseMediaTransportControls rmtc, bool visible)
-        {
-            if (visible)
-            {
-                rmtc._restoreButton.Visibility = App.PViewModel.CurrentPlaybackItem.IsVideo ? Visibility.Visible : Visibility.Collapsed;
-            }
-            else
-            {
-                rmtc._restoreButton.Visibility = Visibility.Collapsed;
+                HandleElementVisibility(rmtc._restoreButton, (bool)args.NewValue);
             }
         }
     }
@@ -231,8 +208,11 @@ namespace Rise.App.UserControls
             _restoreButton = GetTemplateChild("RestoreButton") as AppBarButton;
             _restoreButton.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
 
-            HandleShuffleEnabled(this, IsShuffleEnabled);
-            HandleShuffleVisibility(this, IsShuffleButtonVisible);
+            HandleControlEnabled(this, IsShuffleEnabled);
+            HandleElementVisibility(this, IsShuffleButtonVisible);
+
+            HandleControlEnabled(this, IsRestoreEnabled);
+            HandleElementVisibility(this, IsRestoreButtonVisible);
 
             base.OnApplyTemplate();
         }
