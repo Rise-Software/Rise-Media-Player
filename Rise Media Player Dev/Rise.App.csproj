@@ -243,9 +243,6 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NPNowPlayingBar.xaml.cs">
-      <DependentUpon>NPNowPlayingBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
@@ -271,23 +268,11 @@
     <Compile Include="Views\ConnectedDevicesPage.xaml.cs">
       <DependentUpon>ConnectedDevicesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
-      <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CurrentlyPlayingPageWindow.xaml.cs">
-      <DependentUpon>CurrentlyPlayingPageWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FullNowPlayingPage.xaml.cs">
-      <DependentUpon>FullNowPlayingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NoMediaFound.xaml.cs">
       <DependentUpon>NoMediaFound.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NPBarQueuePage.xaml.cs">
-      <DependentUpon>NPBarQueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
       <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
@@ -348,9 +333,6 @@
     </Compile>
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\QueuePage.xaml.cs">
-      <DependentUpon>QueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ExtendedTitleBar.xaml.cs">
       <DependentUpon>ExtendedTitleBar.xaml</DependentUpon>
@@ -692,10 +674,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\NPNowPlayingBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\TiledImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -716,27 +694,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CurrentlyPlayingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CurrentlyPlayingPageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FullNowPlayingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Genres\GenreSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NoMediaFound.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NPBarQueuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -893,10 +855,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\SongsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\QueuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
