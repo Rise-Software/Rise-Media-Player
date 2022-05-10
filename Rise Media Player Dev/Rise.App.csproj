@@ -393,9 +393,6 @@
     <Compile Include="Views\LocalVideosPage.xaml.cs">
       <DependentUpon>LocalVideosPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\NowPlaying.xaml.cs">
-      <DependentUpon>NowPlaying.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -871,10 +868,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LocalVideosPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\NowPlaying.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
