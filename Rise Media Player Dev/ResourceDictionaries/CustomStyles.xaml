@@ -372,7 +372,7 @@
                     DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Auto">
-                    <AppBarButton x:Name="GoToVideoPlaybackPage" ToolTipService.ToolTip="Restore view">
+                    <AppBarButton x:Name="RestoreButton" ToolTipService.ToolTip="Restore view">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE098;" />
                         </AppBarButton.Icon>

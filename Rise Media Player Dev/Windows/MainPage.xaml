@@ -427,8 +427,8 @@
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardButtonVisible="True"
                             IsSkipForwardEnabled="True"
-                            IsVideoRestoreButtonEnabled="True"
-                            IsVideoRestoreButtonVisible="True"
+                            IsRestoreEnabled="True"
+                            IsRestoreButtonVisible="True"
                             ShowAndHideAutomatically="False" />
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>

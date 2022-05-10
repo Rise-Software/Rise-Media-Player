@@ -12,7 +12,7 @@ namespace Rise.App.UserControls
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
         private ToggleButton _shuffleButton;
-        private AppBarButton _videoRestoreBtn;
+        private AppBarButton _restoreButton;
 
         /// <summary>
         /// Gets or sets a value that indicates whether a user
@@ -38,20 +38,20 @@ namespace Rise.App.UserControls
         /// Gets or sets a value that indicates whether a user
         /// can shuffle the playback of the media.
         /// </summary>
-        public bool IsVideoRestoreButtonEnabled
+        public bool IsRestoreEnabled
         {
-            get => (bool)GetValue(IsVideoResButtonEnabledProperty);
-            set => SetValue(IsVideoResButtonEnabledProperty, value);
+            get => (bool)GetValue(IsRestoreEnabledProperty);
+            set => SetValue(IsRestoreEnabledProperty, value);
         }
 
         /// <summary>
         /// Gets or sets a value that indicates whether the shuffle
         /// button is shown.
         /// </summary>
-        public bool IsVideoRestoreButtonVisible
+        public bool IsRestoreButtonVisible
         {
-            get => (bool)GetValue(IsVideoResButtonVisibleProperty);
-            set => SetValue(IsVideoResButtonVisibleProperty, value);
+            get => (bool)GetValue(IsRestoreVisibleProperty);
+            set => SetValue(IsRestoreVisibleProperty, value);
         }
 
         /// <summary>
@@ -130,13 +130,13 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsShuffleButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonVisibleChanged));
 
-        public readonly static DependencyProperty IsVideoResButtonEnabledProperty =
-            DependencyProperty.Register(nameof(IsShuffleEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleEnabledChanged));
+        public readonly static DependencyProperty IsRestoreEnabledProperty =
+            DependencyProperty.Register(nameof(IsRestoreEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreEnabledChanged));
 
-        public readonly static DependencyProperty IsVideoResButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsShuffleButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnVideoResBtnVisibleChanged));
+        public readonly static DependencyProperty IsRestoreVisibleProperty =
+            DependencyProperty.Register(nameof(IsRestoreButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreButtonVisibleChanged));
     }
 
     // Event handlers
@@ -174,31 +174,42 @@ namespace Rise.App.UserControls
             rmtc._shuffleButton.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private static void OnVideoResBtnVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void OnRestoreEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
             {
-                if (rmtc._videoRestoreBtn != null)
+                if (rmtc._restoreButton != null)
                 {
-                    HandleVideoResBtnVisibility(rmtc, (bool)args.NewValue);
+                    HandleRestoreEnabled(rmtc, (bool)args.NewValue);
                 }
             }
         }
 
-        private static void HandleVideoResBtnEnabled(RiseMediaTransportControls rmtc, bool enabled)
+        private static void OnRestoreButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            rmtc._videoRestoreBtn.IsEnabled = enabled;
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                if (rmtc._restoreButton != null)
+                {
+                    HandleRestoreVisibility(rmtc, (bool)args.NewValue);
+                }
+            }
         }
 
-        private static void HandleVideoResBtnVisibility(RiseMediaTransportControls rmtc, bool visible)
+        private static void HandleRestoreEnabled(RiseMediaTransportControls rmtc, bool enabled)
+        {
+            rmtc._shuffleButton.IsEnabled = enabled;
+        }
+
+        private static void HandleRestoreVisibility(RiseMediaTransportControls rmtc, bool visible)
         {
             if (visible)
             {
-                rmtc._videoRestoreBtn.Visibility = App.PViewModel.CurrentPlaybackItem.IsVideo ? Visibility.Visible : Visibility.Collapsed;
+                rmtc._restoreButton.Visibility = App.PViewModel.CurrentPlaybackItem.IsVideo ? Visibility.Visible : Visibility.Collapsed;
             }
             else
             {
-                rmtc._videoRestoreBtn.Visibility = Visibility.Collapsed;
+                rmtc._restoreButton.Visibility = Visibility.Collapsed;
             }
         }
     }
@@ -217,8 +228,8 @@ namespace Rise.App.UserControls
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
 
-            _videoRestoreBtn = GetTemplateChild("GoToVideoPlaybackPage") as AppBarButton;
-            _videoRestoreBtn.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
+            _restoreButton = GetTemplateChild("RestoreButton") as AppBarButton;
+            _restoreButton.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
 
             HandleShuffleEnabled(this, IsShuffleEnabled);
             HandleShuffleVisibility(this, IsShuffleButtonVisible);
