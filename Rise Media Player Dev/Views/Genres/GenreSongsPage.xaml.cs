@@ -108,11 +108,6 @@ namespace Rise.App.Views
         /// </summary>
         public MainViewModel MViewModel => App.MViewModel;
 
-        /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
-
         private static readonly DependencyProperty SelectedGenreProperty =
             DependencyProperty.Register("SelectedGenre", typeof(GenreViewModel), typeof(GenreSongsPage), null);
 
