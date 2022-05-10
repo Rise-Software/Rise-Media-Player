@@ -81,7 +81,7 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// Helps cancel a group of Tasks that starts playback.
         /// </summary>
-        private CancellableTaskHelper PlaybackCancelHelper = new CancellableTaskHelper();
+        private readonly CancellableTaskHelper PlaybackCancelHelper = new();
 
         /// <summary>
         /// Begins playback of an <see cref="IMediaItem"/>.
