@@ -211,35 +211,23 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-            MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Video;
-
-            props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = Directors;
-
-            if (Thumbnail != null)
+            MediaSource source;
+            var uri = new Uri(Location);
+            
+            if (uri.IsFile)
             {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
+                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                source = MediaSource.CreateFromStorageFile(file);
+            }
+            else
+            {
+                source = MediaSource.CreateFromUri(uri);
             }
 
-            media.ApplyDisplayProperties(props);
-            return media;
-        }
-
-        public MediaPlaybackItem AsPlaybackItem(Uri uri)
-        {
-            MediaSource source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
-
             MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Video;
 
+            props.Type = MediaPlaybackType.Video;
             props.VideoProperties.Title = Title;
             props.VideoProperties.Subtitle = Directors;
 

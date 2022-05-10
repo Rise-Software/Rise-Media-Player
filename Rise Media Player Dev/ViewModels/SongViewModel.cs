@@ -383,56 +383,29 @@ namespace Rise.App.ViewModels
         {
             try
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                MediaSource source;
+                var uri = new Uri(Location);
 
-                MediaSource source = MediaSource.CreateFromStorageFile(file);
-                MediaPlaybackItem media = new(source);
-
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
-
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
+                if (uri.IsFile)
                 {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                    source = MediaSource.CreateFromStorageFile(file);
+                }
+                else
+                {
+                    source = MediaSource.CreateFromUri(uri);
                 }
 
-                media.ApplyDisplayProperties(props);
-                return media;
-            }
-            catch
-            {
-
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
-        /// </summary>
-        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        public MediaPlaybackItem AsPlaybackItem(Uri url)
-        {
-            try
-            {
-                MediaSource source = MediaSource.CreateFromUri(url);
                 MediaPlaybackItem media = new(source);
-
                 MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
 
+                props.Type = MediaPlaybackType.Music;
                 props.MusicProperties.Title = Title;
                 props.MusicProperties.Artist = Artist;
                 props.MusicProperties.AlbumTitle = Album;
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
+
 
                 if (Thumbnail != null)
                 {

@@ -1,7 +1,7 @@
-﻿using Rise.App.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Net;
+using Rise.App.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +16,7 @@ namespace Rise.App.Dialogs
             InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             bool isValidVideo;
 
@@ -59,7 +59,7 @@ namespace Rise.App.Dialogs
                 Directors = "None"
             };
 
-            App.PViewModel.PlayVideoFromUrl(video);
+            await App.MPViewModel.PlaySingleItemAsync(video);
         }
     }
 }

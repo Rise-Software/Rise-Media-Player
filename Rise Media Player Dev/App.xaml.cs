@@ -76,11 +76,6 @@ namespace Rise.App
         public static MainViewModel MViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide <see cref="PlaybackViewModel"/> singleton instance.
-        /// </summary>
-        public static PlaybackViewModel PViewModel { get; private set; }
-
-        /// <summary>
         /// Gets the app-wide <see cref="MediaPlaybackViewModel"/> singleton instance.
         /// </summary>
         public static MediaPlaybackViewModel MPViewModel { get; private set; }
@@ -232,7 +227,6 @@ namespace Rise.App
 
             MViewModel ??= new MainViewModel();
             LMViewModel ??= new LastFMViewModel();
-            PViewModel ??= new PlaybackViewModel();
             MPViewModel ??= new MediaPlaybackViewModel();
             NavDataSource ??= new NavViewDataSource();
 
