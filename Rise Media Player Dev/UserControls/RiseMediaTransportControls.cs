@@ -61,6 +61,11 @@ namespace Rise.App.UserControls
         public event EventHandler<bool> ShufflingChanged;
 
         /// <summary>
+        /// Invoked when the restore button is clicked.
+        /// </summary>
+        public event RoutedEventHandler RestoreButtonClick;
+
+        /// <summary>
         /// The item to display next to the controls. When using
         /// compact mode, it gets hidden.
         /// </summary>
@@ -169,17 +174,6 @@ namespace Rise.App.UserControls
             rmtc._shuffleButton.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private static void OnVideoResBtnEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                if (rmtc._videoRestoreBtn != null)
-                {
-                    HandleVideoResBtnEnabled(rmtc, (bool)args.NewValue);
-                }
-            }
-        }
-
         private static void OnVideoResBtnVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
@@ -207,28 +201,6 @@ namespace Rise.App.UserControls
                 rmtc._videoRestoreBtn.Visibility = Visibility.Collapsed;
             }
         }
-
-        private void VideoRestoreBtnClick(object sender, RoutedEventArgs e)
-        {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                rootFrame.Navigate(typeof(VideoPlaybackPage));
-            }
-        }
-
-        private void CurrentMediaChanged(object sender, EventArgs e)
-        {
-            if (_videoRestoreBtn != null)
-            {
-                if (IsVideoRestoreButtonVisible)
-                {
-                    _videoRestoreBtn.Visibility = App.PViewModel.CurrentPlaybackItem.IsVideo ? Visibility.Visible : Visibility.Collapsed;
-                } else
-                {
-                    _videoRestoreBtn.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
     }
 
     // Constructor, Overrides
@@ -242,14 +214,11 @@ namespace Rise.App.UserControls
         protected override void OnApplyTemplate()
         {
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
-
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
 
             _videoRestoreBtn = GetTemplateChild("GoToVideoPlaybackPage") as AppBarButton;
-
-            _videoRestoreBtn.Click += VideoRestoreBtnClick;
-            App.PViewModel.CurrentMediaChanged += CurrentMediaChanged;
+            _videoRestoreBtn.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
 
             HandleShuffleEnabled(this, IsShuffleEnabled);
             HandleShuffleVisibility(this, IsShuffleButtonVisible);
