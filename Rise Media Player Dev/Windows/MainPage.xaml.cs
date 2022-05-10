@@ -101,8 +101,6 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
-
-            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
         }
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)

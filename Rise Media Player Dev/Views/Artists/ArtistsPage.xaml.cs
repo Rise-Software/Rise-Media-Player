@@ -201,7 +201,7 @@ namespace Rise.App.Views
                         }
                     }
                 }
-                await App.PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), new Random().Next(0, songs.Count), songs.Count, true);
+                await EventsLogic.StartMusicPlaybackAsync(0, true);
             }
             catch (Exception)
             {

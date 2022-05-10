@@ -332,7 +332,7 @@ namespace Rise.App
             // Ensure the current window is active
             Window.Current.Activate();
 
-            _ = await typeof(NowPlaying).
+            _ = await typeof(NowPlayingPage).
                 ShowInApplicationViewAsync(null, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
