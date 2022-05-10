@@ -391,11 +391,11 @@ namespace Rise.App.Views
             switch (SViewModel.Color)
             {
                 case -3:
-                    if (App.PViewModel.CurrentSong != null)
+                    if (MPViewModel.PlayingItem != null)
                     {
-                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
+                        Uri imageUri = new(MPViewModel.PlayingItem.Thumbnail);
                         _Grid.Background = new SolidColorBrush(Colors.Transparent);
-                        if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
+                        if (MPViewModel.PlayingItem.Thumbnail != "ms-appx:///Assets/Default.png")
                         {
                             RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
                             using (IRandomAccessStream stream = await random.OpenReadAsync())
