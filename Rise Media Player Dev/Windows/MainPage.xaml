@@ -471,8 +471,12 @@
                                                     FontWeight="SemiBold"
                                                     MaxLines="2"
                                                     Text="{x:Bind Title}"
+                                                    TextTrimming="CharacterEllipsis"
                                                     TextWrapping="Wrap" />
-                                                <TextBlock Text="{x:Bind Subtitle}" TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Text="{x:Bind Subtitle}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="Wrap" />
                                             </StackPanel>
                                         </Grid>
                                     </Button>
