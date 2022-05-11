@@ -106,13 +106,20 @@ namespace Rise.App.Views
 
         private void ContentFrame_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.NewSize.Width >= 850)
+            switch (e.NewSize.Width)
             {
-                VisualStateManager.GoToState(this, "WideContentAreaLayout", false);
-            }
-            else
-            {
-                VisualStateManager.GoToState(this, "NarrowContentAreaLayout", false);
+                case >= 850:
+                    VisualStateManager.GoToState(this, "WideContentAreaLayout", false);
+                    break;
+                case >= 600:
+                    VisualStateManager.GoToState(this, "LargeContentAreaLayout", false);
+                    break;
+                case >= 525:
+                    VisualStateManager.GoToState(this, "MediumContentAreaLayout", false);
+                    break;
+                default:
+                    VisualStateManager.GoToState(this, "NarrowContentAreaLayout", false);
+                    break;
             }
         }
 

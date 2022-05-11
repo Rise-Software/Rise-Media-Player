@@ -419,7 +419,7 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            DisplayItem="{x:Bind MPViewModel.PlayingItem, Mode=OneWay}"
+                            DisplayItemVisibility="Visible"
                             IsNextTrackButtonVisible="True"
                             IsPreviousTrackButtonVisible="True"
                             IsRepeatButtonVisible="True"
@@ -433,57 +433,60 @@
                             IsSkipForwardButtonVisible="True"
                             IsSkipForwardEnabled="True"
                             ShowAndHideAutomatically="False">
-                            <uc:RiseMediaTransportControls.DisplayItemTemplate>
-                                <DataTemplate x:DataType="interfaces:IMediaItem" x:DefaultBindMode="OneWay">
-                                    <Button
-                                        Width="200"
-                                        Margin="4,0,0,0"
-                                        Padding="4"
-                                        HorizontalContentAlignment="Left"
-                                        Style="{StaticResource TransparentButtonStyle}">
-                                        <Grid Height="75" ColumnSpacing="12">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="75" />
-                                                <ColumnDefinition Width="1*" />
-                                            </Grid.ColumnDefinitions>
+                            <uc:RiseMediaTransportControls.DisplayItem>
+                                <Button
+                                    MaxWidth="200"
+                                    Margin="4,0,0,0"
+                                    Padding="4"
+                                    HorizontalContentAlignment="Left"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid
+                                        x:Name="ItemGrid"
+                                        Width="Auto"
+                                        Height="75"
+                                        x:DefaultBindMode="OneWay"
+                                        ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="ImageDefinition" Width="75" />
+                                            <ColumnDefinition x:Name="TextDefinition" Width="1*" />
+                                        </Grid.ColumnDefinitions>
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="75" />
-                                            </Grid.RowDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="75" />
+                                        </Grid.RowDefinitions>
 
-                                            <Border CornerRadius="4">
-                                                <Image>
-                                                    <Image.Source>
-                                                        <BitmapImage
-                                                            DecodePixelHeight="75"
-                                                            DecodePixelWidth="75"
-                                                            UriSource="{x:Bind Thumbnail}" />
-                                                    </Image.Source>
-                                                </Image>
-                                            </Border>
+                                        <Border CornerRadius="4">
+                                            <Image>
+                                                <Image.Source>
+                                                    <BitmapImage
+                                                        DecodePixelHeight="75"
+                                                        DecodePixelWidth="75"
+                                                        UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </Border>
 
-                                            <StackPanel
-                                                Grid.Column="1"
-                                                VerticalAlignment="Center"
-                                                Orientation="Vertical">
-                                                <TextBlock
-                                                    FontSize="16"
-                                                    FontWeight="SemiBold"
-                                                    MaxLines="2"
-                                                    Text="{x:Bind Title}"
-                                                    TextTrimming="CharacterEllipsis"
-                                                    TextWrapping="Wrap"
-                                                    ToolTipService.ToolTip="{x:Bind Title}" />
-                                                <TextBlock
-                                                    Text="{x:Bind Subtitle}"
-                                                    TextTrimming="CharacterEllipsis"
-                                                    TextWrapping="Wrap"
-                                                    ToolTipService.ToolTip="{x:Bind Subtitle}" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Button>
-                                </DataTemplate>
-                            </uc:RiseMediaTransportControls.DisplayItemTemplate>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Orientation="Vertical">
+                                            <TextBlock
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                MaxLines="2"
+                                                Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                            <TextBlock
+                                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                            </uc:RiseMediaTransportControls.DisplayItem>
                         </uc:RiseMediaTransportControls>
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
@@ -564,14 +567,28 @@
             <VisualStateGroup>
                 <VisualState x:Name="NarrowContentAreaLayout">
                     <VisualState.Setters>
-                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
+                        <Setter Target="ItemGrid.Width" Value="75" />
+                        <Setter Target="TextDefinition.Width" Value="0" />
+                        <Setter Target="ItemGrid.ColumnSpacing" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="MediumContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="ItemGrid.Width" Value="125" />
+                        <Setter Target="ImageDefinition.Width" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="LargeContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="ItemGrid.Width" Value="125" />
+                        <Setter Target="ImageDefinition.Width" Value="0" />
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="WideContentAreaLayout">
-                    <VisualState.Setters>
-                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Visible" />
-                    </VisualState.Setters>
+                    <VisualState.Setters />
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
