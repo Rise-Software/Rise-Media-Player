@@ -5,6 +5,7 @@
     xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:local="using:Rise.App.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -416,20 +417,69 @@
                     MediaPlayerVisibility="Collapsed">
                     <uc:RiseMediaPlayerElement.TransportControls>
                         <uc:RiseMediaTransportControls
+                            x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            DisplayItem="{x:Bind MPViewModel.PlayingItem, Mode=OneWay}"
+                            DisplayItemVisibility="Visible"
                             IsNextTrackButtonVisible="True"
                             IsPreviousTrackButtonVisible="True"
                             IsRepeatButtonVisible="True"
                             IsRepeatEnabled="True"
+                            IsRestoreButtonVisible="True"
+                            IsRestoreEnabled="True"
                             IsShuffleButtonVisible="True"
                             IsShuffleEnabled="True"
                             IsSkipBackwardButtonVisible="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardButtonVisible="True"
                             IsSkipForwardEnabled="True"
-                            IsRestoreEnabled="True"
-                            IsRestoreButtonVisible="True"
-                            ShowAndHideAutomatically="False" />
+                            ShowAndHideAutomatically="False">
+                            <uc:RiseMediaTransportControls.DisplayItemTemplate>
+                                <DataTemplate x:DataType="interfaces:IMediaItem" x:DefaultBindMode="OneWay">
+                                    <Button
+                                        Width="200"
+                                        Margin="4,0,0,0"
+                                        Padding="4"
+                                        HorizontalContentAlignment="Left"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                        <Grid Height="75" ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="75" />
+                                            </Grid.RowDefinitions>
+
+                                            <Border CornerRadius="4">
+                                                <Image>
+                                                    <Image.Source>
+                                                        <BitmapImage
+                                                            DecodePixelHeight="75"
+                                                            DecodePixelWidth="75"
+                                                            UriSource="{x:Bind Thumbnail}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </Border>
+
+                                            <StackPanel
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Orientation="Vertical">
+                                                <TextBlock
+                                                    FontSize="16"
+                                                    FontWeight="SemiBold"
+                                                    MaxLines="2"
+                                                    Text="{x:Bind Title}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock Text="{x:Bind Subtitle}" TextWrapping="Wrap" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </DataTemplate>
+                            </uc:RiseMediaTransportControls.DisplayItemTemplate>
+                        </uc:RiseMediaTransportControls>
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
             </Grid>
@@ -503,12 +553,6 @@
                         <Setter Target="BigSearch.Visibility" Value="Visible" />
                         <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="SmallHeight">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="600" />
-                    </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
