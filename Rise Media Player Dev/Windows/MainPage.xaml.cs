@@ -91,7 +91,6 @@ namespace Rise.App.Views
             SDialog.Content = new SettingsPage();
 
             Loaded += MainPage_Loaded;
-            SizeChanged += MainPage_SizeChanged;
 
             NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
@@ -101,22 +100,6 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
-        }
-
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-            {
-                OverlayModeContentPanel.Visibility = Visibility.Visible;
-                AppTitleBar.Visibility = Visibility.Collapsed;
-                ControlsPanel.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
-                AppTitleBar.Visibility = Visibility.Visible;
-                ControlsPanel.Visibility = Visibility.Visible;
-            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
