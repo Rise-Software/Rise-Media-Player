@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using Windows.Media;
 using Windows.Media.Playback;
 
@@ -8,7 +9,7 @@ namespace Rise.Common.Interfaces
     /// Defines a set of properties suitable for displaying
     /// media items.
     /// </summary>
-    public interface IMediaItem
+    public interface IMediaItem : INotifyPropertyChanged
     {
         /// <summary>
         /// Title of the playback item. Generally a filename, title
