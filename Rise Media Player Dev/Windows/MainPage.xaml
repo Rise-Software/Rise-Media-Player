@@ -420,7 +420,6 @@
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
                             DisplayItem="{x:Bind MPViewModel.PlayingItem, Mode=OneWay}"
-                            DisplayItemVisibility="Visible"
                             IsNextTrackButtonVisible="True"
                             IsPreviousTrackButtonVisible="True"
                             IsRepeatButtonVisible="True"
@@ -542,7 +541,7 @@
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
+                <VisualState x:Name="WideWindow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
@@ -552,6 +551,20 @@
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
                         <Setter Target="BigSearch.Visibility" Value="Visible" />
                         <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -1,4 +1,8 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -8,10 +12,6 @@ using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Security.Credentials;
@@ -100,6 +100,20 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
+
+            ContentFrame.SizeChanged += ContentFrame_SizeChanged;
+        }
+
+        private void ContentFrame_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width >= 850)
+            {
+                VisualStateManager.GoToState(this, "WideContentAreaLayout", false);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "NarrowContentAreaLayout", false);
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
