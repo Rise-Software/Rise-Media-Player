@@ -111,6 +111,9 @@ namespace Rise.App.Views
                 case >= 850:
                     VisualStateManager.GoToState(this, "WideContentAreaLayout", false);
                     break;
+                case >= 700:
+                    VisualStateManager.GoToState(this, "LargerContentAreaLayout", false);
+                    break;
                 case >= 600:
                     VisualStateManager.GoToState(this, "LargeContentAreaLayout", false);
                     break;

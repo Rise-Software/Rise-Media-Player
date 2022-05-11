@@ -428,21 +428,18 @@
                             IsRestoreEnabled="True"
                             IsShuffleButtonVisible="True"
                             IsShuffleEnabled="True"
-                            IsSkipBackwardButtonVisible="True"
                             IsSkipBackwardEnabled="True"
-                            IsSkipForwardButtonVisible="True"
                             IsSkipForwardEnabled="True"
                             ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.DisplayItem>
                                 <Button
-                                    MaxWidth="200"
                                     Margin="4,0,0,0"
                                     Padding="4"
                                     HorizontalContentAlignment="Left"
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Grid
                                         x:Name="ItemGrid"
-                                        Width="Auto"
+                                        Width="200"
                                         Height="75"
                                         x:DefaultBindMode="OneWay"
                                         ColumnSpacing="8">
@@ -587,8 +584,15 @@
                     </VisualState.Setters>
                 </VisualState>
 
-                <VisualState x:Name="WideContentAreaLayout">
+                <VisualState x:Name="LargerContentAreaLayout">
                     <VisualState.Setters />
+                </VisualState>
+
+                <VisualState x:Name="WideContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsSkipBackwardButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsSkipForwardButtonVisible" Value="True" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
