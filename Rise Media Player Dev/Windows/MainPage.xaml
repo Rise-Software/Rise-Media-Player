@@ -472,11 +472,13 @@
                                                     MaxLines="2"
                                                     Text="{x:Bind Title}"
                                                     TextTrimming="CharacterEllipsis"
-                                                    TextWrapping="Wrap" />
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind Title}" />
                                                 <TextBlock
                                                     Text="{x:Bind Subtitle}"
                                                     TextTrimming="CharacterEllipsis"
-                                                    TextWrapping="Wrap" />
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind Subtitle}" />
                                             </StackPanel>
                                         </Grid>
                                     </Button>
