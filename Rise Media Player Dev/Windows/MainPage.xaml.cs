@@ -108,20 +108,14 @@ namespace Rise.App.Views
         {
             switch (e.NewSize.Width)
             {
-                case >= 850:
-                    VisualStateManager.GoToState(this, "WideContentAreaLayout", false);
+                case >= 725:
+                    VisualStateManager.GoToState(this, "WideContentAreaLayout", true);
                     break;
-                case >= 700:
-                    VisualStateManager.GoToState(this, "LargerContentAreaLayout", false);
-                    break;
-                case >= 600:
-                    VisualStateManager.GoToState(this, "LargeContentAreaLayout", false);
-                    break;
-                case >= 525:
-                    VisualStateManager.GoToState(this, "MediumContentAreaLayout", false);
+                case >= 550:
+                    VisualStateManager.GoToState(this, "MediumContentAreaLayout", true);
                     break;
                 default:
-                    VisualStateManager.GoToState(this, "NarrowContentAreaLayout", false);
+                    VisualStateManager.GoToState(this, "NarrowContentAreaLayout", true);
                     break;
             }
         }
