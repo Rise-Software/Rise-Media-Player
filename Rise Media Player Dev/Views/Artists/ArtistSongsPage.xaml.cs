@@ -89,17 +89,18 @@ namespace Rise.App.Views
             SortName = "Title";
             SortButton.Label = "Sort by: " + SortName;
             string name = SelectedArtist.Name;
-            bool isNetworkConnected = NetworkInterface.GetIsNetworkAvailable();
 
             if (name == "Unknown Artist")
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
+                NoListeners.Visibility = Visibility.Collapsed;
             }
-            else if (!isNetworkConnected)
+            else if (!NetworkInterface.GetIsNetworkAvailable())
             {
                 ArtistAbout.Visibility = Visibility.Collapsed;
                 LastFMClickables.Visibility = Visibility.Collapsed;
+                NoListeners.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -107,22 +108,25 @@ namespace Rise.App.Views
                 LastFMClickables.Visibility = Visibility.Visible;
                 try
                 {
-                    string genre = GetGenre(name);
-                    if (SongAlbums.Text.Contains(genre)) { }
-                    else
+                    string genre = await Task.Run(() => GetGenre(name));
+                    string artistName = SelectedArtist.Name;
+
+                    if (!SongAlbums.Text.Contains(genre))
                     {
                         SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
                     }
 
                     ReadMoreAbout.Content = "Read more";
                     TopTracksLis.ItemsSource = await Task.Run(() => GetTopTracks(name));
-                    
+
+                    NoListeners.Text = await Task.Run(() => GetMonthlyListeners(artistName));
+                    AboutArtist.Text = await Task.Run(() => GetArtistInfo(artistName));
                 }
                 catch { }
             }
-
         }
-        public async Task<string> GetTrackAlbum(string track)
+
+        public string GetTrackAlbum(string track)
         {
             try
             {
@@ -143,10 +147,11 @@ namespace Rise.App.Views
             {
 
             }
+
             return "";
         }
 
-        public async Task<List<TopTracksViewModel>> GetTopTracks(string artist)
+        public List<TopTracksViewModel> GetTopTracks(string artist)
         {
             try
             {
@@ -163,12 +168,7 @@ namespace Rise.App.Views
                 List<TopTracksViewModel> tracks = new();
                 foreach (Track trackname in track)
                 {
-                    // string album = await Task.Run(() => GetTrackAlbum(trackname.Name));
-                    tracks.Add(
-                        new TopTracksViewModel(
-                            trackname.Name,
-                            trackname.Rank
-                        ));
+                    tracks.Add(new TopTracksViewModel(trackname.Name, trackname.Rank));
                 }
                 return tracks;
             } catch
@@ -194,10 +194,13 @@ namespace Rise.App.Views
                 xmlDoc.LoadXml(xmlStr);
                 XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
 
-                string url = node.InnerText;
-                node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
-                string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
-                return okay;
+                if (node != null)
+                {
+                    string url = node.InnerText;
+                    node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
+                    string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
+                    return okay;
+                }
             }
             catch
             {
@@ -243,10 +246,14 @@ namespace Rise.App.Views
                 xmlStr = wc.DownloadString(m_strFilePath);
                 xmlDoc.LoadXml(xmlStr);
                 XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
-                string url = node.InnerText;
-                node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
-                string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
-                return okay;
+
+                if (node != null)
+                {
+                    string url = node.InnerText;
+                    node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
+                    string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+                    return okay;
+                }
             }
             catch
             {

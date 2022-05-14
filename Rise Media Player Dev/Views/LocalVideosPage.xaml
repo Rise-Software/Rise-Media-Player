@@ -170,17 +170,16 @@
 
                     <MenuFlyoutSubItem
                         x:Name="AddTo"
-                        x:Uid="/Information/AddTo"
-                        IsEnabled="True">
+                        x:Uid="/Information/AddTo">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
                         <MenuFlyoutItem
                             x:Name="NewPlaylistMenu"
                             x:Uid="/Information/NewPlaylist"
-                            IsEnabled="False">
+                            Click="NewPlaylistMenu_Click">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyoutSubItem>
@@ -199,8 +198,7 @@
                     <MenuFlyoutItem
                         x:Name="AskDiscy"
                         x:Uid="/Information/AskDiscy"
-                        Click="AskDiscy_Click"
-                        IsEnabled="True">
+                        Click="AskDiscy_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE11B;" />
                         </MenuFlyoutItem.Icon>
