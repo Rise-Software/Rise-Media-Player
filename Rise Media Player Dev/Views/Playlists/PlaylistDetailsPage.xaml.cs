@@ -22,10 +22,19 @@ namespace Rise.App.Views
         private static readonly DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(PlaylistDetailsPage), null);
 
+        private static readonly DependencyProperty SelectedVideoProperty =
+            DependencyProperty.Register("SelectedVideo", typeof(VideoViewModel), typeof(PlaylistDetailsPage), null);
+
         private SongViewModel SelectedSong
         {
             get => (SongViewModel)GetValue(SelectedSongProperty);
             set => SetValue(SelectedSongProperty, value);
+        }
+
+        private VideoViewModel SelectedVideo
+        {
+            get => (VideoViewModel)GetValue(SelectedVideoProperty);
+            set => SetValue(SelectedVideoProperty, value);
         }
 
         private static readonly DependencyProperty SelectedPlaylistProperty =
@@ -138,7 +147,7 @@ namespace Rise.App.Views
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
             await SelectedPlaylist.DeleteAsync();
-            this.Frame.GoBack();
+            Frame.GoBack();
         }
 
         private void RemovefromPlaylist_Click(object sender, RoutedEventArgs e)
@@ -178,6 +187,76 @@ namespace Rise.App.Views
                     await SelectedPlaylist.SaveEditsAsync();
                 }
             }
+        }
+
+        private void MainGrid_RightTapped_1(object sender, RightTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
+            {
+                SelectedVideo = video;
+                VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
+            }
+        }
+
+        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (!KeyboardHelpers.IsCtrlPressed())
+            {
+                if (e.ClickedItem is VideoViewModel video)
+                {
+                    await App.PViewModel.PlayVideoAsync(video);
+                    if (Window.Current.Content is Frame rootFrame)
+                    {
+                        rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    }
+                    SelectedVideo = null;
+                }
+            }
+            else
+            {
+                if (e.ClickedItem is VideoViewModel video)
+                {
+                    SelectedVideo = video;
+                }
+            }
+        }
+
+        private async void Play_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.Items.Count > 0)
+            {
+                if (SelectedVideo != null)
+                {
+                    await EventsLogic.StartVideoPlaybackAsync(MainGrid.Items.IndexOf(SelectedVideo));
+                }
+                else
+                {
+                    await EventsLogic.StartVideoPlaybackAsync(0);
+                }
+                if (Window.Current.Content is Frame rootFrame)
+                {
+                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                }
+            }
+        }
+
+        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
+                Description = "",
+                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
+                Duration = "0"
+            };
+
+            await playlist.AddVideoAsync(SelectedVideo, true);
+        }
+
+        private async void Item_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
+            await playlist.AddVideoAsync(SelectedVideo);
         }
     }
 

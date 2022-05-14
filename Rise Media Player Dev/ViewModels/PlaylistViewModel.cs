@@ -23,6 +23,7 @@ namespace Rise.App.ViewModels
             Model = model ?? new Playlist();
 
             _songs ??= new();
+            _videos ??= new();
         }
 
         /// <summary>
@@ -233,11 +234,32 @@ namespace Rise.App.ViewModels
             }
         }
 
+        private SafeObservableCollection<VideoViewModel> _videos;
+
+        public SafeObservableCollection<VideoViewModel> Videos
+        {
+            get => _videos;
+            set
+            {
+                if (_videos != value)
+                {
+                    _videos = value;
+                    OnPropertyChanged(nameof(Videos));
+                }
+            }
+        }
+
         [JsonIgnore]
         public int SongsCount => Songs.Count;
 
         [JsonIgnore]
         public string SongsCountString => SongsCount == 1 ? "song" : "songs";
+
+        [JsonIgnore]
+        public int VideosCount => Videos.Count;
+
+        [JsonIgnore]
+        public string VideosCountString => VideosCount == 1 ? "video" : "videos";
         #endregion
 
         #region Backend
@@ -274,12 +296,14 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Item management
+
         /// <summary>
         /// Adds a song to the playlist.
         /// </summary>
         public async Task AddSongAsync(SongViewModel song, bool newPlaylist = false)
         {
             Songs.Add(song);
+
             if (newPlaylist)
             {
                 await SaveAsync();
@@ -291,11 +315,37 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Removes a song to the playlist.
+        /// Adds a video to the playlist.
+        /// </summary>
+        public async Task AddVideoAsync(VideoViewModel video, bool newPlaylist = false)
+        {
+            Videos.Add(video);
+
+            if (newPlaylist)
+            {
+                await SaveAsync();
+            }
+            else
+            {
+                await SaveEditsAsync();
+            }
+        }
+
+        /// <summary>
+        /// Removes a song from the playlist.
         /// </summary>
         public async Task RemoveSongAsync(SongViewModel song)
         {
             Songs.Remove(song);
+            await SaveEditsAsync();
+        }
+
+        ///<summary>
+        /// Removes a video from the playlist.
+        ///</summary>
+        public async Task RemoveVideoAsync(VideoViewModel video)
+        {
+            Videos.Remove(video);
             await SaveEditsAsync();
         }
 
@@ -324,16 +374,59 @@ namespace Rise.App.ViewModels
             }
         }
 
+        ///<summary>
+        /// Adds multiple videos to the playlist.
+        ///</summary>
+        public async Task AddVideosAsync(IEnumerable<VideoViewModel> videos, bool newPlaylist = false)
+        {
+            try
+            {
+                foreach (VideoViewModel video in videos)
+                {
+                    Videos.Add(video);
+                }
+            }
+            finally
+            {
+                if (newPlaylist)
+                {
+                    await SaveAsync();
+                }
+                else
+                {
+                    await SaveEditsAsync();
+                }
+            }
+        }
+
         /// <summary>
         /// Removes multiple songs from the playlist.
         /// </summary>
-        public async Task RemoveSongsAsync(List<SongViewModel> songs)
+        public async Task RemoveSongsAsync(IEnumerable<SongViewModel> songs)
         {
             try
             {
                 foreach (SongViewModel song in songs)
                 {
                     Songs.Remove(song);
+                }
+            }
+            finally
+            {
+                await SaveEditsAsync();
+            }
+        }
+
+        /// <summary>
+        /// Removes multiple videos from the playlist.
+        /// </summary>
+        public async Task RemoveVideosAsync(IEnumerable<VideoViewModel> videos)
+        {
+            try
+            {
+                foreach (VideoViewModel video in videos)
+                {
+                    Videos.Remove(video);
                 }
             }
             finally
