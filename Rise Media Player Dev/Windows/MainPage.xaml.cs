@@ -123,6 +123,9 @@ namespace Rise.App.Views
         private void PlayerControls_ShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
+        private void PlayerControls_RestoreButtonClick(object sender, RoutedEventArgs e)
+            => Frame.Navigate(typeof(VideoPlaybackPage));
+
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
             if (App.IsLoaded)
