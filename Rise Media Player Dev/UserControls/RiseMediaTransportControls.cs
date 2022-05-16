@@ -35,6 +35,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether the shuffle
+        /// button is checked.
+        /// </summary>
+        public bool IsShuffleButtonChecked
+        {
+            get => (bool)GetValue(IsShuffleButtonCheckedProperty);
+            set => SetValue(IsShuffleButtonCheckedProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can shuffle the playback of the media.
         /// </summary>
@@ -130,6 +140,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsShuffleButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonVisibleChanged));
 
+        public readonly static DependencyProperty IsShuffleButtonCheckedProperty =
+            DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonCheckedChanged));
+
         public readonly static DependencyProperty IsRestoreEnabledProperty =
             DependencyProperty.Register(nameof(IsRestoreEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreEnabledChanged));
@@ -158,6 +172,14 @@ namespace Rise.App.UserControls
             }
         }
 
+        private static void HandleToggleChecked(ToggleButton toggle, bool? isChecked)
+        {
+            if (toggle != null)
+            {
+                toggle.IsChecked = isChecked;
+            }
+        }
+
         private static void OnShuffleEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
@@ -171,6 +193,14 @@ namespace Rise.App.UserControls
             if (sender is RiseMediaTransportControls rmtc)
             {
                 HandleElementVisibility(rmtc._shuffleButton, (bool)args.NewValue);
+            }
+        }
+
+        private static void OnShuffleButtonCheckedChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleToggleChecked(rmtc._shuffleButton, (bool)args.NewValue);
             }
         }
 
