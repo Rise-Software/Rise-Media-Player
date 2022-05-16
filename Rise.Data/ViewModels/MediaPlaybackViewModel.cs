@@ -61,7 +61,11 @@ namespace Rise.Data.ViewModels
         public bool ShuffleEnabled
         {
             get => PlaybackList.ShuffleEnabled;
-            set => PlaybackList.ShuffleEnabled = value;
+            set
+            {
+                PlaybackList.ShuffleEnabled = value;
+                OnPropertyChanged();
+            }
         }
     }
 
