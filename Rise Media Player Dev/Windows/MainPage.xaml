@@ -426,11 +426,13 @@
                             IsRepeatEnabled="True"
                             IsRestoreButtonVisible="True"
                             IsRestoreEnabled="True"
+                            IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                             IsShuffleButtonVisible="True"
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            ShowAndHideAutomatically="False">
+                            ShowAndHideAutomatically="False"
+                            ShufflingChanged="PlayerControls_ShufflingChanged">
                             <uc:RiseMediaTransportControls.DisplayItem>
                                 <Button
                                     Margin="4,0,0,0"
