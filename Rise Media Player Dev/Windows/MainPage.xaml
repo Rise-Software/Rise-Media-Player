@@ -10,7 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:viewmodels="using:Rise.Data.ViewModels"
+    xmlns:viewmodels="using:Rise.Data.ViewModels" xmlns:helpers="using:Rise.Common.Helpers" xmlns:local1="using:Rise.App"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -418,7 +418,7 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            DisplayItemVisibility="Visible"
+                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem), Mode=OneWay}"
                             IsNextTrackButtonVisible="True"
                             IsPreviousTrackButtonVisible="True"
                             IsRepeatButtonVisible="True"

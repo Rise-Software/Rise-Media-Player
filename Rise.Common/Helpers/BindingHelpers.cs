@@ -9,6 +9,11 @@
             return obj != null;
         }
 
+        public static Windows.UI.Xaml.Visibility IsNotNullVis(object obj)
+        {
+            return obj != null ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
         public static bool IsNull(object obj)
         {
             return obj == null;
