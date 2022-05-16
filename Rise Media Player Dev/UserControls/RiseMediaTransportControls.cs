@@ -46,7 +46,7 @@ namespace Rise.App.UserControls
 
         /// <summary>
         /// Gets or sets a value that indicates whether a user
-        /// can shuffle the playback of the media.
+        /// can restore a view of the media.
         /// </summary>
         public bool IsRestoreEnabled
         {
@@ -55,7 +55,7 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the shuffle
+        /// Gets or sets a value that indicates whether the restore
         /// button is shown.
         /// </summary>
         public bool IsRestoreButtonVisible
