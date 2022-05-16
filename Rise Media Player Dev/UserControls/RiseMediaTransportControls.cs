@@ -238,11 +238,12 @@ namespace Rise.App.UserControls
             _restoreButton = GetTemplateChild("RestoreButton") as AppBarButton;
             _restoreButton.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
 
-            HandleControlEnabled(this, IsShuffleEnabled);
-            HandleElementVisibility(this, IsShuffleButtonVisible);
+            HandleControlEnabled(_shuffleButton, IsShuffleEnabled);
+            HandleElementVisibility(_shuffleButton, IsShuffleButtonVisible);
+            HandleToggleChecked(_shuffleButton, IsShuffleButtonChecked);
 
-            HandleControlEnabled(this, IsRestoreEnabled);
-            HandleElementVisibility(this, IsRestoreButtonVisible);
+            HandleControlEnabled(_restoreButton, IsRestoreEnabled);
+            HandleElementVisibility(_restoreButton, IsRestoreButtonVisible);
 
             base.OnApplyTemplate();
         }
