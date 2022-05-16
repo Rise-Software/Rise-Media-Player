@@ -216,7 +216,7 @@ namespace Rise.App.Views
             {
                 if (e.ClickedItem is VideoViewModel video)
                 {
-                    await App.PViewModel.PlayVideoAsync(video);
+                    await MPViewModel.PlaySingleItemAsync(video);
                     if (Window.Current.Content is Frame rootFrame)
                     {
                         rootFrame.Navigate(typeof(VideoPlaybackPage));
@@ -239,12 +239,17 @@ namespace Rise.App.Views
             {
                 if (SelectedVideo != null)
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(MainGrid.Items.IndexOf(SelectedVideo));
+                    int index = MainList.Items.IndexOf(SelectedVideo);
+                    var videos = new List<VideoViewModel>(SelectedPlaylist.Videos);
+
+                    videos.MoveRangeToEnd(0, index - 1);
+                    await MPViewModel.PlayItemsAsync(videos);
                 }
                 else
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(0);
+                    await MPViewModel.PlayItemsAsync(SelectedPlaylist.Videos);
                 }
+
                 if (Window.Current.Content is Frame rootFrame)
                 {
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
