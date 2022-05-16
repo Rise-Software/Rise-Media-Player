@@ -120,6 +120,14 @@ namespace Rise.App.Views
             }
         }
 
+        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                MainPlayer.SetMediaPlayer(e);
+            });
+        }
+
         private void PlayerControls_ShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
@@ -214,9 +222,6 @@ namespace Rise.App.Views
                 AddedTip.IsOpen = false;
             });
         }
-
-        private void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
-            => MainPlayer.SetMediaPlayer(e);
 
         #region TitleBar
         // Update the TitleBar content layout.
