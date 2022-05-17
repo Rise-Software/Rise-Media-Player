@@ -14,7 +14,21 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            TitleBar.SetupTitleBar();
+            switch (App.SViewModel.VisualizerType)
+            {
+                case 0:
+                    LineVis.Visibility = Visibility.Collapsed;
+                    BloomVis.Visibility = Visibility.Collapsed;
+                    break;
+                case 1:
+                    LineVis.Visibility = Visibility.Visible;
+                    BloomVis.Visibility = Visibility.Collapsed;
+                    break;
+                case 2:
+                    BloomVis.Visibility = Visibility.Visible;
+                    LineVis.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
 
         private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)

@@ -8,6 +8,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:visualizers="using:Rise.App.Visualizers"
     xmlns:vm="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="300"
@@ -33,7 +34,10 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:DefaultBindMode="OneWay">
+    <Grid
+        x:Name="RootGrid"
+        x:DefaultBindMode="OneWay"
+        ColumnSpacing="12">
         <Grid.Background>
             <ImageBrush x:Name="ThumbnailBrush" Stretch="UniformToFill">
                 <ImageBrush.ImageSource>
@@ -42,8 +46,14 @@
             </ImageBrush>
         </Grid.Background>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition x:Name="VisualizerColumn" />
+        </Grid.ColumnDefinitions>
+
         <Border
             x:Name="BlurBrushBorder"
+            Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Border.Background>
@@ -54,6 +64,7 @@
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
             Title=""
+            Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             FontSize="14"
@@ -64,9 +75,9 @@
             Grid.Row="1"
             Padding="20"
             VerticalAlignment="Center"
-            Orientation="Vertical"
+            d:Opacity="1"
             Opacity="0"
-            d:Opacity="1">
+            Orientation="Vertical">
             <TextBlock
                 d:Text="Title"
                 FontSize="24"
@@ -86,6 +97,10 @@
                 Style="{StaticResource BodyTextBlockStyle}"
                 Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
         </StackPanel>
+
+        <visualizers:LineVisualizer x:Name="LineVis" Visibility="Collapsed" Grid.Column="1" Height="350" Width="350" />
+
+        <visualizers:BloomView x:Name="BloomVis" Visibility="Collapsed" Grid.Column="1" Height="350" Width="350" />
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PointerStates">
@@ -167,6 +182,28 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="LargeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="1*" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="SmallState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="0" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

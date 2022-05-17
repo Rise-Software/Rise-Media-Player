@@ -135,6 +135,7 @@
     <Compile Include="Enums\MatchLevel.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Enums\NowPlayingBarBackgroundStyles.cs" />
+    <Compile Include="Enums\VisualizerType.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentDialogExtensions.cs" />
     <Compile Include="Extensions\DiagnosticsExtensions.cs" />

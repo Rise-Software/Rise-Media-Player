@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Materials_Visualisers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     SizeChanged="Bloom_SizeChanged"
     mc:Ignorable="d">
@@ -16,6 +15,6 @@
         <WebView
             x:Name="BloomWebView"
             DefaultBackgroundColor="Transparent"
-            Source="ms-appx-web:///Materials/Bloom.html" />
+            Source="ms-appx:///Visualizers/Bloom.html" />
     </Grid>
 </UserControl>

@@ -31,7 +31,7 @@ namespace Rise.App.UserControls
     {
         public RiseMediaPlayerElement()
         {
-            this.DefaultStyleKey = typeof(RiseMediaPlayerElement);
+            DefaultStyleKey = typeof(RiseMediaPlayerElement);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using AudioVisualizer;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,10 +45,7 @@ namespace Rise.Data.ViewModels
         {
             get
             {
-                if (_player == null)
-                {
-                    _player = CreatePlayerInstance();
-                }
+                _player ??= CreatePlayerInstance();
 
                 return _player;
             }
@@ -72,6 +70,8 @@ namespace Rise.Data.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public PlaybackSource VisualizerPlaybackSource { get; set; }
     }
 
     // Events
@@ -212,6 +212,8 @@ namespace Rise.Data.ViewModels
         {
             var player = new MediaPlayer();
             MediaPlayerRecreated?.Invoke(this, player);
+
+            VisualizerPlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
 
             return player;
         }

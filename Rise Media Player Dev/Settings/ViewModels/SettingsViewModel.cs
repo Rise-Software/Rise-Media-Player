@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 using Rise.App.Views;
+using Rise.Common.Enums;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -529,15 +530,23 @@ namespace Rise.App.ViewModels
             set => Set(value, "Playback");
         }
 
-        public bool ShowVisualizer
+        public bool ShowNowPlayingInOverlayMode
         {
             get => Get(false, "Playback");
             set => Set(value, "Playback");
         }
 
-        public bool ShowNowPlayingInOverlayMode
+        /*
+         * Visualizer types:
+         * 
+         * 0: None (don't show it)
+         * 1: Line
+         * 2: Bloom
+        */
+
+        public int VisualizerType
         {
-            get => Get(false, "Playback");
+            get => Get(0, "Playback");
             set => Set(value, "Playback");
         }
         #endregion

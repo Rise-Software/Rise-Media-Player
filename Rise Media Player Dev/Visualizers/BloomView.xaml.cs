@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Rise.App.Visualizers
 {
     public sealed partial class BloomView : UserControl
@@ -10,6 +8,7 @@ namespace Rise.App.Visualizers
         public BloomView()
         {
             InitializeComponent();
+
             BloomWebView.Height = Window.Current.Bounds.Height;
             BloomWebView.Width = Window.Current.Bounds.Width;
         }

@@ -125,7 +125,14 @@ namespace Rise.App.Views
             Songs.Filter = null;
             Songs.SortDescriptions.Clear();
             Songs.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
-            Songs.Refresh();
+            try
+            {
+                Songs.Refresh();
+            }
+            catch
+            {
+
+            }
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
