@@ -4,10 +4,118 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="300"
     d:DesignWidth="320"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    PointerEntered="Page_PointerEntered"
+    PointerExited="Page_PointerExited"
     mc:Ignorable="d">
 
-    <Grid />
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0.5</x:Double>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0.25</x:Double>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0</x:Double>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid x:DefaultBindMode="OneWay">
+        <Grid.Background>
+            <ImageBrush x:Name="ThumbnailBrush" Stretch="UniformToFill">
+                <ImageBrush.ImageSource>
+                    <BitmapImage UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                </ImageBrush.ImageSource>
+            </ImageBrush>
+        </Grid.Background>
+
+        <Border
+            x:Name="BlurBrushBorder"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Border.Background>
+                <media:BackdropBlurBrush x:Name="BlurBrush" />
+            </Border.Background>
+        </Border>
+
+        <uc:ExtendedTitleBar
+            x:Name="TitleBar"
+            Title=""
+            Margin="20,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            FontSize="14"
+            ShowIcon="False" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PointerStates">
+                <VisualState x:Name="PointerInState">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ThumbnailBrush"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource ThumbnailBrushPointerInOpacity}">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="BlurBrush"
+                            Storyboard.TargetProperty="Amount"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="10">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="PointerOutState">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ThumbnailBrush"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="BlurBrush"
+                            Storyboard.TargetProperty="Amount"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
 </Page>
