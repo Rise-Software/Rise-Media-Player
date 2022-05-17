@@ -23,6 +23,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
@@ -146,8 +147,19 @@ namespace Rise.App.Views
 
         private async void PlayerControls_OverlayButtonClick(object sender, RoutedEventArgs e)
         {
-            _ = await typeof(NowPlayingPage).
-                ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
+            if (MPViewModel.PlayingItem != null)
+            {
+                if (SViewModel.ShowNowPlayingInOverlayMode)
+                {
+                    await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+                    (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), true, new SlideNavigationTransitionInfo());
+                }
+                else
+                {
+                    _ = await typeof(NowPlayingPage).
+                    ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
+                }
+            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)

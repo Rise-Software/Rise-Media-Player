@@ -6,29 +6,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:local="using:Rise.App"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-
-        <muxc:InfoBar
-            x:Name="TryRiseEQ"
-            Margin="0,4,0,0"
-            x:FieldModifier="public"
-            IsClosable="False"
-            IsIconVisible="True"
-            IsOpen="True"
-            Message="We are currently working on an Equaliser for Rise Media Player as a separate app. Go to GitHub to contribute and try it out!"
-            Severity="Informational">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton
-                    x:Name="RiseEQLink"
-                    Click="RiseEQLink_Click"
-                    Content="RiseEQ GitHub" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
-
-
         <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
+
+        <uc:ExpanderControl
+            Icon="&#xE9E9;"
+            Title="Show Now Playing in compact overlay mode"
+            ExpanderStyle="Static">
+            <ToggleSwitch IsOn="{x:Bind local:App.SViewModel.ShowNowPlayingInOverlayMode, Mode=TwoWay}" />
+        </uc:ExpanderControl>
+
         <uc:ExpanderControl
             x:Uid="/Playback/EQ"
             ExpanderStyle="Disabled"

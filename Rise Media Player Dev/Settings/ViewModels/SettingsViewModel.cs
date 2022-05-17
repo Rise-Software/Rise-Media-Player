@@ -528,6 +528,18 @@ namespace Rise.App.ViewModels
             get => Get(false, "Playback");
             set => Set(value, "Playback");
         }
+
+        public bool ShowVisualizer
+        {
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
+        }
+
+        public bool ShowNowPlayingInOverlayMode
+        {
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
+        }
         #endregion
 
         #region Setup
