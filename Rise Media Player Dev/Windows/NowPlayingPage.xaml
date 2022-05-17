@@ -98,9 +98,11 @@
                 Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
         </StackPanel>
 
-        <visualizers:LineVisualizer x:Name="LineVis" Visibility="Collapsed" Grid.Column="1" Height="350" Width="350" />
-
-        <visualizers:BloomView x:Name="BloomVis" Visibility="Collapsed" Grid.Column="1" Height="350" Width="350" />
+        <visualizers:LineVisualizer
+            x:Name="LineVis"
+            Grid.Column="1"
+            Width="350"
+            Height="350" />
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PointerStates">

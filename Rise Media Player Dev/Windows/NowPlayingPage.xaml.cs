@@ -17,16 +17,16 @@ namespace Rise.App.Views
             switch (App.SViewModel.VisualizerType)
             {
                 case 0:
-                    LineVis.Visibility = Visibility.Collapsed;
-                    BloomVis.Visibility = Visibility.Collapsed;
+                    LineVis.Opacity = 0;
+                    //BloomVis.Visibility = Visibility.Collapsed;
                     break;
                 case 1:
-                    LineVis.Visibility = Visibility.Visible;
-                    BloomVis.Visibility = Visibility.Collapsed;
+                    LineVis.Opacity = 1;
+                    //BloomVis.Visibility = Visibility.Collapsed;
                     break;
                 case 2:
-                    BloomVis.Visibility = Visibility.Visible;
-                    LineVis.Visibility = Visibility.Collapsed;
+                    //BloomVis.Visibility = Visibility.Visible;
+                    LineVis.Opacity = 0;
                     break;
             }
         }
