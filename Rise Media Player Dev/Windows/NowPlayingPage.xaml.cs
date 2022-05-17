@@ -11,7 +11,9 @@ namespace Rise.App.Views
 
         public NowPlayingPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            TitleBar.SetupTitleBar();
         }
 
         private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)

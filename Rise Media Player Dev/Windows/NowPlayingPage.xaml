@@ -52,7 +52,6 @@
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
             Title=""
-            Margin="20,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             FontSize="14"

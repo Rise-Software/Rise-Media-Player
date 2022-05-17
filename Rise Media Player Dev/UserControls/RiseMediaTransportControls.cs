@@ -12,6 +12,7 @@ namespace Rise.App.UserControls
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
         private ToggleButton _shuffleButton;
+        private AppBarButton _overlayButton;
         private AppBarButton _restoreButton;
 
         /// <summary>
@@ -65,6 +66,26 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether a user
+        /// can open the now playing page.
+        /// </summary>
+        public bool IsOverlayEnabled
+        {
+            get => (bool)GetValue(IsRestoreEnabledProperty);
+            set => SetValue(IsRestoreEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the overlay
+        /// button is shown.
+        /// </summary>
+        public bool IsOverlayButtonVisible
+        {
+            get => (bool)GetValue(IsOverlayButtonVisibleProperty);
+            set => SetValue(IsOverlayButtonVisibleProperty, value);
+        }
+
+        /// <summary>
         /// Invoked when the shuffle button is clicked. Event arg
         /// corresponds to the IsChecked value of the ToggleButton.
         /// </summary>
@@ -74,6 +95,11 @@ namespace Rise.App.UserControls
         /// Invoked when the restore button is clicked.
         /// </summary>
         public event RoutedEventHandler RestoreButtonClick;
+
+        /// <summary>
+        /// Invoked when the overlay button is clicked.
+        /// </summary>
+        public event RoutedEventHandler OverlayButtonClick;
 
         /// <summary>
         /// The item to display next to the controls. When using
@@ -151,6 +177,14 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty IsRestoreVisibleProperty =
             DependencyProperty.Register(nameof(IsRestoreButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreButtonVisibleChanged));
+
+        public readonly static DependencyProperty IsOverlayEnabledProperty =
+            DependencyProperty.Register(nameof(IsRestoreEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayEnabledChanged));
+
+        public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsRestoreButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayButtonVisibleChanged));
     }
 
     // Event handlers
@@ -219,6 +253,22 @@ namespace Rise.App.UserControls
                 HandleElementVisibility(rmtc._restoreButton, (bool)args.NewValue);
             }
         }
+
+        private static void OnOverlayEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleControlEnabled(rmtc._overlayButton, (bool)args.NewValue);
+            }
+        }
+
+        private static void OnOverlayButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleElementVisibility(rmtc._overlayButton, (bool)args.NewValue);
+            }
+        }
     }
 
     // Constructor, Overrides
@@ -234,6 +284,9 @@ namespace Rise.App.UserControls
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+
+            _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
+            _overlayButton.Click += (s, e) => OverlayButtonClick?.Invoke(s, e);
 
             _restoreButton = GetTemplateChild("RestoreButton") as AppBarButton;
             _restoreButton.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);

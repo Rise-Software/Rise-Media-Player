@@ -20,13 +20,18 @@ namespace Rise.Data.ViewModels
         public readonly SafeObservableCollection<IMediaItem> QueuedItems = new();
 
         private IMediaItem _playingItem;
+
         /// <summary>
         /// Gets the media item that is currently playing.
         /// </summary>
         public IMediaItem PlayingItem
         {
             get => _playingItem;
-            private set => Set(ref _playingItem, value);
+            private set
+            {
+                Set(ref _playingItem, value);
+                PlayingItemChanged?.Invoke(this, _playingItem);
+            }
         }
 
         private MediaPlayer _player;
@@ -77,6 +82,11 @@ namespace Rise.Data.ViewModels
         /// gets fired when the initial lazy instance takes place.
         /// </summary>
         public event EventHandler<MediaPlayer> MediaPlayerRecreated;
+
+        /// <summary>
+        /// Occurs when the currently playing item changes.
+        /// </summary>
+        public event EventHandler<IMediaItem> PlayingItemChanged;
     }
 
     // Methods, Event handling

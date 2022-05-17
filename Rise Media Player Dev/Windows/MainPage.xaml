@@ -10,7 +10,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:viewmodels="using:Rise.Data.ViewModels" xmlns:helpers="using:Rise.Common.Helpers" xmlns:local1="using:Rise.App"
+    xmlns:viewmodels="using:Rise.Data.ViewModels"
+    xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:local1="using:Rise.App"
+    xmlns:media="using:Windows.Media"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -423,13 +426,15 @@
                             IsPreviousTrackButtonVisible="True"
                             IsRepeatButtonVisible="True"
                             IsRepeatEnabled="True"
-                            IsRestoreButtonVisible="True"
                             IsRestoreEnabled="True"
                             IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                             IsShuffleButtonVisible="True"
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
+                            IsOverlayEnabled="True"
+                            IsOverlayButtonVisible="True"
+                            OverlayButtonClick="PlayerControls_OverlayButtonClick"
                             RestoreButtonClick="PlayerControls_RestoreButtonClick"
                             ShowAndHideAutomatically="False"
                             ShufflingChanged="PlayerControls_ShufflingChanged">

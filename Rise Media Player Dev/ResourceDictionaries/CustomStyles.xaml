@@ -482,6 +482,12 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
+                    <AppBarButton x:Name="OverlayButton" ToolTipService.ToolTip="Now playing">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE17C;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
                     <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED1E;" />

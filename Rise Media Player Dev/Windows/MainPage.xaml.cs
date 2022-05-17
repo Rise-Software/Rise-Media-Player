@@ -99,9 +99,19 @@ namespace Rise.App.Views
             App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
             MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
 
             ContentFrame.SizeChanged += ContentFrame_SizeChanged;
+        }
+
+        private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                PlayerControls.IsRestoreButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Video;
+            });
         }
 
         private void ContentFrame_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -134,6 +144,12 @@ namespace Rise.App.Views
         private void PlayerControls_RestoreButtonClick(object sender, RoutedEventArgs e)
             => Frame.Navigate(typeof(VideoPlaybackPage));
 
+        private async void PlayerControls_OverlayButtonClick(object sender, RoutedEventArgs e)
+        {
+            _ = await typeof(NowPlayingPage).
+                ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
+        }
+
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
             if (App.IsLoaded)
@@ -146,7 +162,7 @@ namespace Rise.App.Views
                 // Startup setting
                 if (ContentFrame.Content == null)
                 {
-                    this.ContentFrame.Navigate(Destinations[SViewModel.Open]);
+                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
                 }
 
                 App.MViewModel.CanIndex = true;
@@ -218,7 +234,7 @@ namespace Rise.App.Views
                 App.MViewModel.FilteredVideos.Refresh();
                 App.MViewModel.FilteredPlaylists.Refresh();
 
-                await Task.Delay(1000);
+                await Task.Delay(3000);
                 AddedTip.IsOpen = false;
             });
         }
@@ -638,14 +654,14 @@ namespace Rise.App.Views
             ProfileMenu.Hide();
             OpenSync.Visibility = Visibility.Collapsed;
             IsScanning.Visibility = Visibility.Visible;
-            await App.MViewModel.StartFullCrawlAsync();
+            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
             IsScanning.Visibility = Visibility.Collapsed;
             OpenSync.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AllSettingsPage));
+            Frame.Navigate(typeof(AllSettingsPage));
         }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
@@ -825,7 +841,7 @@ namespace Rise.App.Views
             }
             else
             {
-                this.Frame.Navigate(typeof(AllSettingsPage));
+                Frame.Navigate(typeof(AllSettingsPage));
             }
         }
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
