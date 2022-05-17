@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -113,6 +114,18 @@ namespace Rise.App.Views
             {
                 PlayerControls.IsRestoreButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Video;
             });
+
+            if (e?.ItemType == Windows.Media.MediaPlaybackType.Music)
+            {
+                try
+                {
+                    LastFMHelper.ScrobbleTrack(e, App.LMViewModel.SessionKey, result => { });
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         private void ContentFrame_SizeChanged(object sender, SizeChangedEventArgs e)
