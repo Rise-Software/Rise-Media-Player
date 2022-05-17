@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:vm="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="300"
     d:DesignWidth="320"
@@ -57,6 +59,34 @@
             FontSize="14"
             ShowIcon="False" />
 
+        <StackPanel
+            x:Name="InfoText"
+            Grid.Row="1"
+            Padding="20"
+            VerticalAlignment="Center"
+            Orientation="Vertical"
+            Opacity="0"
+            d:Opacity="1">
+            <TextBlock
+                d:Text="Title"
+                FontSize="24"
+                FontWeight="Bold"
+                HorizontalTextAlignment="Center"
+                MaxLines="2"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="{x:Bind MPViewModel.PlayingItem.Title, Mode=OneWay}" />
+            <TextBlock
+                Margin="0,4,0,0"
+                d:Text="Subtitle"
+                FontSize="18"
+                FontWeight="SemiBold"
+                HorizontalTextAlignment="Center"
+                MaxLines="1"
+                Opacity="0.6"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
+        </StackPanel>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PointerStates">
                 <VisualState x:Name="PointerInState">
@@ -67,6 +97,18 @@
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource ThumbnailBrushPointerInOpacity}">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="InfoText"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -95,6 +137,18 @@
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="InfoText"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
