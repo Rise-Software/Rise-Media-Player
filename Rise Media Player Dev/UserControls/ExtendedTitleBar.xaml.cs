@@ -24,9 +24,6 @@ namespace Rise.App.UserControls
 
         private readonly static DependencyProperty ShowIconProperty =
             DependencyProperty.Register(nameof(ShowIcon), typeof(bool), typeof(ExtendedTitleBar), new PropertyMetadata(true));
-
-        private readonly static DependencyProperty ShowTitleProperty =
-            DependencyProperty.Register(nameof(ShowTitle), typeof(bool), typeof(ExtendedTitleBar), new PropertyMetadata(true));
         #endregion
 
         #region Public properties/fields
@@ -66,15 +63,6 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(ShowIconProperty);
             set => SetValue(ShowIconProperty, value);
-        }
-
-        /// <summary>
-        /// Whether or not the title should be visible.
-        /// </summary>
-        public bool ShowTitle
-        {
-            get => (bool)GetValue(ShowTitleProperty);
-            set => SetValue(ShowTitleProperty, value);
         }
 
         /// <summary>
@@ -187,5 +175,10 @@ namespace Rise.App.UserControls
             }
         }
         #endregion
+
+        private void TitleBarIcon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace Rise.Data.ViewModels
         /// The media playback list. It is permanently associated with
         /// the player, due to the fact that we don't ever dispose it.
         /// </summary>
-        public readonly MediaPlaybackList PlaybackList = new();
+        private readonly MediaPlaybackList PlaybackList = new();
 
         /// <summary>
         /// Whether the items in the playback list are played in a random
