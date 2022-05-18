@@ -171,13 +171,6 @@
                 ShowIcon="True" />
 
             <Grid
-                x:Name="OverlayModeContentPanel"
-                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                Visibility="Collapsed">
-                <Frame x:Name="NowPlayingFrame" />
-            </Grid>
-
-            <Grid
                 x:Name="ControlsPanel"
                 Height="32"
                 HorizontalAlignment="Stretch"

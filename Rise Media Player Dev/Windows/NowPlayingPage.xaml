@@ -100,6 +100,31 @@
                 Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
         </StackPanel>
 
+        <uc:RiseMediaPlayerElement
+            x:Name="MainPlayer"
+            MaxWidth="1000"
+            Margin="15,0,15,15"
+            MediaPlayerVisibility="Collapsed"
+            VerticalAlignment="Bottom">
+            <uc:RiseMediaPlayerElement.TransportControls>
+                <uc:RiseMediaTransportControls
+                    x:Name="PlayerControls"
+                    IsCompact="True"
+                    DisplayItemVisibility="Collapsed"
+                    IsNextTrackButtonVisible="True"
+                    IsPreviousTrackButtonVisible="True"
+                    IsRepeatButtonVisible="True"
+                    IsRepeatEnabled="True"
+                    IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                    IsShuffleButtonVisible="True"
+                    IsShuffleEnabled="True"
+                    IsSkipBackwardEnabled="True"
+                    IsSkipForwardEnabled="True"
+                    ShowAndHideAutomatically="False"
+                    ShufflingChanged="PlayerControls_ShufflingChanged" />
+            </uc:RiseMediaPlayerElement.TransportControls>
+        </uc:RiseMediaPlayerElement>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PointerStates">
                 <VisualState x:Name="PointerInState">
