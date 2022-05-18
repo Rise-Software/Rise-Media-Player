@@ -1,6 +1,7 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
 using System;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -66,6 +67,14 @@ namespace Rise.App.Views
             PointerExited -= Page_PointerExited;
 
             MPViewModel.MediaPlayerRecreated -= MPViewModel_MediaPlayerRecreated;
+        }
+
+        private async void ExitOverlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
+            
+            if ((Window.Current.Content as Frame).CanGoBack)
+                (Window.Current.Content as Frame).GoBack();
         }
     }
 }

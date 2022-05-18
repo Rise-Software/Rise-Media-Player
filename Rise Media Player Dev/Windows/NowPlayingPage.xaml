@@ -72,6 +72,19 @@
             FontSize="14"
             ShowIcon="False" />
 
+        <Button
+            VerticalAlignment="Top"
+            Canvas.ZIndex="2"
+            Click="ExitOverlayButton_Click"
+            Margin="12"
+            Width="36"
+            Height="32"
+            Padding="0"
+            Style="{ThemeResource TransparentButtonStyle}"
+            Visibility="{x:Bind local1:App.SViewModel.ShowNowPlayingInOverlayMode, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+            <FontIcon Glyph="&#xEE47;" FontSize="16" />
+        </Button>
+
         <StackPanel
             x:Name="InfoText"
             Grid.Row="1"
@@ -104,13 +117,13 @@
             x:Name="MainPlayer"
             MaxWidth="1000"
             Margin="15,0,15,15"
-            MediaPlayerVisibility="Collapsed"
-            VerticalAlignment="Bottom">
+            VerticalAlignment="Bottom"
+            MediaPlayerVisibility="Collapsed">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    IsCompact="True"
                     DisplayItemVisibility="Collapsed"
+                    IsCompact="True"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
                     IsRepeatButtonVisible="True"
