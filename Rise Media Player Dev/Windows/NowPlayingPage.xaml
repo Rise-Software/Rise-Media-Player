@@ -73,16 +73,16 @@
             ShowIcon="False" />
 
         <Button
+            Width="36"
+            Height="32"
+            Margin="12"
+            Padding="0"
             VerticalAlignment="Top"
             Canvas.ZIndex="2"
             Click="ExitOverlayButton_Click"
-            Margin="12"
-            Width="36"
-            Height="32"
-            Padding="0"
             Style="{ThemeResource TransparentButtonStyle}"
             Visibility="{x:Bind local1:App.SViewModel.ShowNowPlayingInOverlayMode, Mode=OneWay, Converter={StaticResource BoolToVis}}">
-            <FontIcon Glyph="&#xEE47;" FontSize="16" />
+            <FontIcon FontSize="16" Glyph="&#xEE47;" />
         </Button>
 
         <StackPanel
@@ -218,6 +218,29 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="VisualizerStates">
+                <VisualState x:Name="NoVisualizerState">
+                    <VisualState.Setters>
+                        <Setter Target="LineVis.Opacity" Value="0" />
+                        <Setter Target="BloomVis.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="LineVisualizerState">
+                    <VisualState.Setters>
+                        <Setter Target="LineVis.Opacity" Value="1" />
+                        <Setter Target="BloomVis.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="BloomVisualizerState">
+                    <VisualState.Setters>
+                        <Setter Target="LineVis.Opacity" Value="0" />
+                        <Setter Target="BloomVis.Visibility" Value="Visible" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

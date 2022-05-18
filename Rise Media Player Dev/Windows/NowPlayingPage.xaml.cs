@@ -1,6 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using System.ComponentModel;
+using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
-using System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,6 +12,7 @@ namespace Rise.App.Views
     public sealed partial class NowPlayingPage : Page
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private SettingsViewModel SViewModel => App.SViewModel;
 
         private bool _isHovered;
 
@@ -19,25 +21,10 @@ namespace Rise.App.Views
             InitializeComponent();
 
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            _ = ApplyVisualizer(SViewModel.VisualizerType);
 
             MPViewModel.MediaPlayerRecreated += MPViewModel_MediaPlayerRecreated;
-
-            switch (App.SViewModel.VisualizerType)
-            {
-                case 0:
-                    LineVis.Opacity = 0;
-                    BloomVis.Visibility = Visibility.Collapsed;
-                    break;
-                case 1:
-                    LineVis.Opacity = 1;
-                    BloomVis.Visibility = Visibility.Collapsed;
-                    break;
-                case 2:
-                    BloomVis.Visibility = Visibility.Visible;
-                    LineVis.Opacity = 0;
-                    break;
-            }
-
+            SViewModel.PropertyChanged += OnSettingChanged;
             Unloaded += NowPlayingPage_Unloaded;
         }
 
@@ -67,14 +54,28 @@ namespace Rise.App.Views
             PointerExited -= Page_PointerExited;
 
             MPViewModel.MediaPlayerRecreated -= MPViewModel_MediaPlayerRecreated;
+            SViewModel.PropertyChanged -= OnSettingChanged;
         }
 
         private async void ExitOverlayButton_Click(object sender, RoutedEventArgs e)
         {
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
-            
+
             if ((Window.Current.Content as Frame).CanGoBack)
                 (Window.Current.Content as Frame).GoBack();
         }
+
+        private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SViewModel.VisualizerType))
+                _ = ApplyVisualizer(SViewModel.VisualizerType);
+        }
+
+        private bool ApplyVisualizer(int index) => index switch
+        {
+            1 => VisualStateManager.GoToState(this, "LineVisualizerState", false),
+            2 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
+            _ => VisualStateManager.GoToState(this, "NoVisualizerState", false),
+        };
     }
 }
