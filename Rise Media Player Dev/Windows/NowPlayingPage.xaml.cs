@@ -23,41 +23,41 @@ namespace Rise.App.Views
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
             _ = ApplyVisualizer(SViewModel.VisualizerType);
 
-            MPViewModel.MediaPlayerRecreated += MPViewModel_MediaPlayerRecreated;
+            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += OnSettingChanged;
-            Unloaded += NowPlayingPage_Unloaded;
+            Unloaded += OnPageUnloaded;
         }
 
-        private async void MPViewModel_MediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(MPViewModel.Player));
         }
 
-        private void PlayerControls_ShufflingChanged(object sender, bool e)
+        private void OnShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
-        private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
             _isHovered = true;
             VisualStateManager.GoToState(this, "PointerInState", true);
         }
 
-        private void Page_PointerExited(object sender, PointerRoutedEventArgs e)
+        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             _isHovered = false;
             VisualStateManager.GoToState(this, "PointerOutState", true);
         }
 
-        private void NowPlayingPage_Unloaded(object sender, RoutedEventArgs e)
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
-            PointerEntered -= Page_PointerEntered;
-            PointerExited -= Page_PointerExited;
+            PointerEntered -= OnPointerEntered;
+            PointerExited -= OnPointerExited;
 
-            MPViewModel.MediaPlayerRecreated -= MPViewModel_MediaPlayerRecreated;
+            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             SViewModel.PropertyChanged -= OnSettingChanged;
         }
 
-        private async void ExitOverlayButton_Click(object sender, RoutedEventArgs e)
+        private async void OnExitOverlayClick(object sender, RoutedEventArgs e)
         {
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
 

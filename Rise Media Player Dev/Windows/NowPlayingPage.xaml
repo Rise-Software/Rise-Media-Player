@@ -2,20 +2,19 @@
     x:Class="Rise.App.Views.NowPlayingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:visualizers="using:Rise.App.Visualizers"
-    xmlns:vm="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="300"
     d:DesignWidth="320"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    PointerEntered="Page_PointerEntered"
-    PointerExited="Page_PointerExited"
+    PointerEntered="OnPointerEntered"
+    PointerExited="OnPointerExited"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -79,9 +78,9 @@
             Padding="0"
             VerticalAlignment="Top"
             Canvas.ZIndex="2"
-            Click="ExitOverlayButton_Click"
+            Click="OnExitOverlayClick"
             Style="{ThemeResource TransparentButtonStyle}"
-            Visibility="{x:Bind local1:App.SViewModel.ShowNowPlayingInOverlayMode, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+            Visibility="{x:Bind app:App.SViewModel.ShowNowPlayingInOverlayMode, Converter={StaticResource BoolToVis}}">
             <FontIcon FontSize="16" Glyph="&#xEE47;" />
         </Button>
 
@@ -100,7 +99,7 @@
                 HorizontalTextAlignment="Center"
                 MaxLines="2"
                 Style="{StaticResource TitleTextBlockStyle}"
-                Text="{x:Bind MPViewModel.PlayingItem.Title, Mode=OneWay}" />
+                Text="{x:Bind MPViewModel.PlayingItem.Title}" />
             <TextBlock
                 Margin="0,4,0,0"
                 d:Text="Subtitle"
@@ -110,7 +109,7 @@
                 MaxLines="1"
                 Opacity="0.6"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
+                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
         </StackPanel>
 
         <uc:RiseMediaPlayerElement
@@ -134,7 +133,7 @@
                     IsSkipBackwardEnabled="True"
                     IsSkipForwardEnabled="True"
                     ShowAndHideAutomatically="False"
-                    ShufflingChanged="PlayerControls_ShufflingChanged" />
+                    ShufflingChanged="OnShufflingChanged" />
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
