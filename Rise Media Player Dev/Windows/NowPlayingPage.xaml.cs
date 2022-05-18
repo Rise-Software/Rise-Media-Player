@@ -10,6 +10,8 @@ namespace Rise.App.Views
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
+        private bool _isHovered;
+
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -18,14 +20,14 @@ namespace Rise.App.Views
             {
                 case 0:
                     LineVis.Opacity = 0;
-                    //BloomVis.Visibility = Visibility.Collapsed;
+                    BloomVis.Visibility = Visibility.Collapsed;
                     break;
                 case 1:
                     LineVis.Opacity = 1;
-                    //BloomVis.Visibility = Visibility.Collapsed;
+                    BloomVis.Visibility = Visibility.Collapsed;
                     break;
                 case 2:
-                    //BloomVis.Visibility = Visibility.Visible;
+                    BloomVis.Visibility = Visibility.Visible;
                     LineVis.Opacity = 0;
                     break;
             }
@@ -33,11 +35,13 @@ namespace Rise.App.Views
 
         private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
+            _isHovered = true;
             VisualStateManager.GoToState(this, "PointerInState", true);
         }
 
         private void Page_PointerExited(object sender, PointerRoutedEventArgs e)
         {
+            _isHovered = false;
             VisualStateManager.GoToState(this, "PointerOutState", true);
         }
     }

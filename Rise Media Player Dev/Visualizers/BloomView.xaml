@@ -14,7 +14,6 @@
             Canvas.ZIndex="5" />
         <WebView
             x:Name="BloomWebView"
-            DefaultBackgroundColor="Transparent"
-            Source="ms-appx:///Visualizers/Bloom.html" />
+            DefaultBackgroundColor="Transparent" />
     </Grid>
 </UserControl>

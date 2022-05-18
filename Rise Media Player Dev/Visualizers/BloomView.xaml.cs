@@ -9,14 +9,16 @@ namespace Rise.App.Visualizers
         {
             InitializeComponent();
 
-            BloomWebView.Height = Window.Current.Bounds.Height;
-            BloomWebView.Width = Window.Current.Bounds.Width;
+            BloomWebView.Source = new("ms-appx-web:///Visualizers/Bloom.html");
+
+            BloomWebView.Height = ActualHeight;
+            BloomWebView.Width = ActualWidth;
         }
 
         private void Bloom_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            BloomWebView.Height = Window.Current.Bounds.Height;
-            BloomWebView.Width = Window.Current.Bounds.Width;
+            BloomWebView.Height = ActualHeight;
+            BloomWebView.Width = ActualWidth;
         }
     }
 }

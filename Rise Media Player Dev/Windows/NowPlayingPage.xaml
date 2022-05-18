@@ -46,14 +46,17 @@
             </ImageBrush>
         </Grid.Background>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition x:Name="VisualizerColumn" />
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <visualizers:LineVisualizer
+                x:Name="LineVis"
+                MaxWidth="350"
+                MaxHeight="350" />
+
+            <visualizers:BloomView x:Name="BloomVis" Background="#7F000000" />
+        </Grid>
 
         <Border
             x:Name="BlurBrushBorder"
-            Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Border.Background>
@@ -64,7 +67,6 @@
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
             Title=""
-            Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             FontSize="14"
@@ -97,12 +99,6 @@
                 Style="{StaticResource BodyTextBlockStyle}"
                 Text="{x:Bind MPViewModel.PlayingItem.Subtitle, Mode=OneWay}" />
         </StackPanel>
-
-        <visualizers:LineVisualizer
-            x:Name="LineVis"
-            Grid.Column="1"
-            Width="350"
-            Height="350" />
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="PointerStates">
@@ -184,28 +180,6 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-
-            <VisualStateGroup x:Name="SizeStates">
-                <VisualState x:Name="LargeState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="1*" />
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="SmallState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="RootGrid.ColumnDefinitions[1].Width" Value="0" />
-                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
