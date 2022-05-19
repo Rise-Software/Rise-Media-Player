@@ -31,7 +31,9 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
-        public static bool IsLoaded = false;
+        public static bool IsLoaded;
+
+        public static bool MainPageLoaded;
 
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
 

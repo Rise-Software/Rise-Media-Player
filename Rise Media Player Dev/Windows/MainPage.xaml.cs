@@ -120,7 +120,7 @@ namespace Rise.App.Views
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)
         {
-            if (App.IsLoaded)
+            if (!App.MainPageLoaded)
             {
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
@@ -161,7 +161,7 @@ namespace Rise.App.Views
 
                 }
 
-                App.IsLoaded = false;
+                App.MainPageLoaded = true;
             }
         }
 
