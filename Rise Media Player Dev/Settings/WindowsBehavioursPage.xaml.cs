@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Rise.App.ViewModels;
 using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,34 +17,36 @@ namespace Rise.App.Settings
 
         public WindowsBehavioursPage()
         {
-            this.InitializeComponent();
-            var v = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
-            var build = (Convert.ToUInt64(v) & Convert.ToUInt64(0x00000000FFFF0000)) >> 16;
-            Debug.WriteLine(build);
+            InitializeComponent();
 
-            if (build >= 22000)
+            switch (SystemInformation.Instance.OperatingSystemVersion.Build)
             {
-                WindowsLogo.Glyph = "\uE336";
-                WinVer.Text = "You are running Windows 11!";
-                Update.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                InfoString.Text = "All settings should be available.";
-            }
-            else
-            {
-                WindowsLogo.Glyph = "\uF144";
-                WinVer.Text = "You are running Windows 10!";
-                Update.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                InfoString.Text = "Some settings are unavailable. To use them, upgrade your PC to Windows 11.";
+                case >= 22000:
+                    WindowsLogo.Glyph = "\uE336";
+                    WinVer.Text = "You are running Windows 11!";
+                    Update.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    InfoString.Text = "All settings should be available.";
+                    break;
+                case 21996:
+                    WindowsLogo.Glyph = "\uE336";
+                    WinVer.Text = "You are running Windows 11!";
+                    Update.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    InfoString.Text = "Some settings might be unavailable because you are running RiseMP on the leaked build.";
+                    break;
+                default:
+                    WindowsLogo.Glyph = "\uF144";
+                    WinVer.Text = "You are running Windows 10!";
+                    Update.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    InfoString.Text = "Some settings might be unavailable. To use them, upgrade your PC to Windows 11.";
+                    break;
             }
 
             InfoBar();
         }
 
-       
-
         private async void OpenRiseMPinStartup_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await App.SViewModel.OpenFilesAtStartupAsync();
+            await App.SViewModel.OpenAtStartupAsync();
             InfoBar();
         }
 
@@ -52,27 +55,27 @@ namespace Rise.App.Settings
             switch (App.SViewModel.FLGStartupTask)
             {
                 case 0:
-                    //0 => Enabled / Disabled without restrictions
+                    // 0 => Enabled / Disabled without restrictions
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     break;
 
                 case 1:
-                    //1 => Disabled by Policy
+                    // 1 => Disabled by Policy
                     InfoBarStartup.Message = "This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     break;
 
                 case 2:
-                    //2 => Disabled by user
+                    // 2 => Disabled by user
                     InfoBarStartup.Message = "This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     break;
 
                 case 3:
-                    //3 => Enabled by policy
+                    // 3 => Enabled by policy
                     InfoBarStartup.Message = "This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.";
                     InfoBarStartup.Visibility = Windows.UI.Xaml.Visibility.Visible;
                     InfoBarStartupLink.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
