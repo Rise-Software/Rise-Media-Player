@@ -1,6 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using System.ComponentModel;
+using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
-using System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,6 +12,7 @@ namespace Rise.App.Views
     public sealed partial class NowPlayingPage : Page
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private SettingsViewModel SViewModel => App.SViewModel;
 
         private bool _isHovered;
 
@@ -19,62 +21,61 @@ namespace Rise.App.Views
             InitializeComponent();
 
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            _ = ApplyVisualizer(SViewModel.VisualizerType);
 
-            MPViewModel.MediaPlayerRecreated += MPViewModel_MediaPlayerRecreated;
-
-            switch (App.SViewModel.VisualizerType)
-            {
-                case 0:
-                    LineVis.Opacity = 0;
-                    BloomVis.Visibility = Visibility.Collapsed;
-                    break;
-                case 1:
-                    LineVis.Opacity = 1;
-                    BloomVis.Visibility = Visibility.Collapsed;
-                    break;
-                case 2:
-                    BloomVis.Visibility = Visibility.Visible;
-                    LineVis.Opacity = 0;
-                    break;
-            }
-
-            Unloaded += NowPlayingPage_Unloaded;
+            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+            SViewModel.PropertyChanged += OnSettingChanged;
+            Unloaded += OnPageUnloaded;
         }
 
-        private async void MPViewModel_MediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(MPViewModel.Player));
         }
 
-        private void PlayerControls_ShufflingChanged(object sender, bool e)
+        private void OnShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
-        private void Page_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
             _isHovered = true;
             VisualStateManager.GoToState(this, "PointerInState", true);
         }
 
-        private void Page_PointerExited(object sender, PointerRoutedEventArgs e)
+        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             _isHovered = false;
             VisualStateManager.GoToState(this, "PointerOutState", true);
         }
 
-        private void NowPlayingPage_Unloaded(object sender, RoutedEventArgs e)
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
-            PointerEntered -= Page_PointerEntered;
-            PointerExited -= Page_PointerExited;
+            PointerEntered -= OnPointerEntered;
+            PointerExited -= OnPointerExited;
 
-            MPViewModel.MediaPlayerRecreated -= MPViewModel_MediaPlayerRecreated;
+            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+            SViewModel.PropertyChanged -= OnSettingChanged;
         }
 
-        private async void ExitOverlayButton_Click(object sender, RoutedEventArgs e)
+        private async void OnExitOverlayClick(object sender, RoutedEventArgs e)
         {
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
-            
+
             if ((Window.Current.Content as Frame).CanGoBack)
                 (Window.Current.Content as Frame).GoBack();
         }
+
+        private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SViewModel.VisualizerType))
+                _ = ApplyVisualizer(SViewModel.VisualizerType);
+        }
+
+        private bool ApplyVisualizer(int index) => index switch
+        {
+            1 => VisualStateManager.GoToState(this, "LineVisualizerState", false),
+            2 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
+            _ => VisualStateManager.GoToState(this, "NoVisualizerState", false),
+        };
     }
 }
