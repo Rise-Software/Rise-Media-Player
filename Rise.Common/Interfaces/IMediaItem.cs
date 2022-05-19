@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -39,6 +40,11 @@ namespace Rise.Common.Interfaces
         /// Whether the playback item is stored online or offline.
         /// </summary>
         bool IsOnline { get; }
+
+        /// <summary>
+        /// The length of the media item.
+        /// </summary>
+        TimeSpan Length { get; }
 
         /// <summary>
         /// Type of playback item.

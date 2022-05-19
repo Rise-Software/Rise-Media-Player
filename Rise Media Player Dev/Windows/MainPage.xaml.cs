@@ -771,7 +771,7 @@ namespace Rise.App.Views
 
                 case "Song":
                     SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Title.Equals(searchItem.Title));
-                    await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+                    await MPViewModel.PlaySingleItemAsync(song);
                     break;
 
                 case "Artist":
@@ -869,6 +869,7 @@ namespace Rise.App.Views
                 Frame.Navigate(typeof(AllSettingsPage));
             }
         }
+
         private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);

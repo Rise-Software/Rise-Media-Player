@@ -432,8 +432,8 @@ namespace Rise.App.ViewModels
         string IMediaItem.Subtitle => Artist;
         string IMediaItem.Location => Location;
         string IMediaItem.Thumbnail => Thumbnail;
-
         bool IMediaItem.IsOnline => IsOnline;
+        TimeSpan IMediaItem.Length => Length;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
 

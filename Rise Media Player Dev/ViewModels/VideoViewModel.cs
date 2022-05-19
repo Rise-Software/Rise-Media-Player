@@ -250,8 +250,8 @@ namespace Rise.App.ViewModels
         string IMediaItem.Subtitle => Directors;
         string IMediaItem.Location => Location;
         string IMediaItem.Thumbnail => Thumbnail;
-
         bool IMediaItem.IsOnline => IsOnline;
+        TimeSpan IMediaItem.Length => Length;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
 
