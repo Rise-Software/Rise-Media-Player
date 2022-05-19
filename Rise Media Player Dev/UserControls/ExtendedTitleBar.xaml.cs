@@ -81,19 +81,20 @@ namespace Rise.App.UserControls
         public ExtendedTitleBar()
         {
             InitializeComponent();
+
+#if DEBUG
+            DefaultTitleParagraph.Inlines.Add(new Run()
+            {
+                FontWeight = Windows.UI.Text.FontWeights.SemiBold,
+                Text = " [DEBUG]"
+            });
+#endif
+
             Loaded += (s, e) =>
             {
                 SetupTitleBar();
 
                 HandleSizeChanges();
-
-#if DEBUG
-                DefaultTitleParagraph.Inlines.Add(new Run()
-                {
-                    FontWeight = Windows.UI.Text.FontWeights.SemiBold,
-                    Text = " [DEBUG]"
-                });
-#endif
 
                 SizeChanged += (d, r) => HandleSizeChanges();
             };
