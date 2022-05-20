@@ -24,9 +24,13 @@
         
         <uc:ExpanderControl
             Icon="&#xE9E9;"
-            Title="Show Now Playing in compact overlay mode"
+            Title="Show Now Playing"
             ExpanderStyle="Static">
-            <ToggleSwitch IsOn="{x:Bind local:App.SViewModel.ShowNowPlayingInOverlayMode, Mode=TwoWay}" />
+            <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.NowPlayingMode, Mode=TwoWay}">
+                <x:String>In a separate window</x:String>
+                <x:String>In the main window</x:String>
+                <x:String>In compact overlay</x:String>
+            </ComboBox>
         </uc:ExpanderControl>
 
         <uc:ExpanderControl

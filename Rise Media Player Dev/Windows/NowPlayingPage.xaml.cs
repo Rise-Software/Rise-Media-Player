@@ -26,6 +26,18 @@ namespace Rise.App.Views
             MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += OnSettingChanged;
             Unloaded += OnPageUnloaded;
+
+            if (SViewModel.NowPlayingMode == 1)
+            {
+                _isHovered = true;
+                VisualStateManager.GoToState(this, "PointerInState", true);
+                OverlayExitButton.Visibility = Visibility.Collapsed;
+                BackButton.Visibility = Visibility.Visible;
+            } else if (SViewModel.NowPlayingMode == 2)
+            {
+                OverlayExitButton.Visibility = Visibility.Visible;
+                BackButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
@@ -38,14 +50,20 @@ namespace Rise.App.Views
 
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            _isHovered = true;
-            VisualStateManager.GoToState(this, "PointerInState", true);
+            if (SViewModel.NowPlayingMode != 1)
+            {
+                _isHovered = true;
+                VisualStateManager.GoToState(this, "PointerInState", true);
+            }
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            _isHovered = false;
-            VisualStateManager.GoToState(this, "PointerOutState", true);
+            if (SViewModel.NowPlayingMode != 1)
+            {
+                _isHovered = false;
+                VisualStateManager.GoToState(this, "PointerOutState", true);
+            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -61,6 +79,12 @@ namespace Rise.App.Views
         {
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
 
+            if ((Window.Current.Content as Frame).CanGoBack)
+                (Window.Current.Content as Frame).GoBack();
+        }
+
+        private void OnBackButtonClick(object sender, RoutedEventArgs e)
+        {
             if ((Window.Current.Content as Frame).CanGoBack)
                 (Window.Current.Content as Frame).GoBack();
         }

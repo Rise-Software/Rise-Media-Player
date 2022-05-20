@@ -530,9 +530,17 @@ namespace Rise.App.ViewModels
             set => Set(value, "Playback");
         }
 
-        public bool ShowNowPlayingInOverlayMode
+        /*
+         * Now playing modes:
+         * 
+         * 0: Show in separate window
+         * 1: Show in main window
+         * 2: Compact overlay
+        */
+
+        public int NowPlayingMode
         {
-            get => Get(false, "Playback");
+            get => Get(0, "Playback");
             set => Set(value, "Playback");
         }
 

@@ -162,15 +162,19 @@ namespace Rise.App.Views
         {
             if (MPViewModel.PlayingItem != null)
             {
-                if (SViewModel.ShowNowPlayingInOverlayMode)
+                switch (SViewModel.NowPlayingMode)
                 {
-                    await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-                    (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), true, new SlideNavigationTransitionInfo());
-                }
-                else
-                {
-                    _ = await typeof(NowPlayingPage).
-                    ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
+                    case 0:
+                        _ = await typeof(NowPlayingPage).
+                            ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
+                        break;
+                    case 1:
+                        (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), null);
+                        break;
+                    case 2:
+                        await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+                        (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), null);
+                        break;
                 }
             }
         }
