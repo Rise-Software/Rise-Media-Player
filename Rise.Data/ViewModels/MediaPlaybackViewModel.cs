@@ -71,7 +71,10 @@ namespace Rise.Data.ViewModels
             }
         }
 
-        public PlaybackSource VisualizerPlaybackSource { get; set; }
+        /// <summary>
+        /// Playback source for visualizers.
+        /// </summary>
+        public PlaybackSource VisualizerPlaybackSource { get; private set; }
     }
 
     // Events
@@ -214,7 +217,6 @@ namespace Rise.Data.ViewModels
             MediaPlayerRecreated?.Invoke(this, player);
 
             VisualizerPlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
-
             return player;
         }
 
