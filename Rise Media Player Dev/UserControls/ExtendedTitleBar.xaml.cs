@@ -83,11 +83,19 @@ namespace Rise.App.UserControls
             InitializeComponent();
 
 #if DEBUG
-            DefaultTitleParagraph.Inlines.Add(new Run()
+            bool isDebugTagAdded = false;
+
+            if (!isDebugTagAdded)
             {
-                FontWeight = Windows.UI.Text.FontWeights.SemiBold,
-                Text = " [DEBUG]"
-            });
+                DefaultTitleParagraph.Inlines.Add(new Run()
+                {
+                    FontWeight = Windows.UI.Text.FontWeights.SemiBold,
+                    Text = " [DEBUG]"
+                });
+
+                // Never add again.
+                isDebugTagAdded = true;
+            }
 #endif
 
             Loaded += (s, e) =>
