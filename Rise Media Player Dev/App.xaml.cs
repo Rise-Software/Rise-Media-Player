@@ -32,7 +32,9 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
-        public static bool IsLoaded = false;
+        public static bool IsLoaded;
+
+        public static bool MainPageLoaded;
 
         private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
 
@@ -140,29 +142,26 @@ namespace Rise.App
             InitializeComponent();
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
-        private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             e.Exception.WriteToOutput();
-            ToastContent content = new ToastContentBuilder()
-                .AddToastActivationInfo(new QueryString()
-                {
-                     { "stackTrace", e.Exception.StackTrace },
-                     { "message", e.Exception.Message },
-                     { "exceptionName", e.Exception.GetType().ToString() },
-                     { "source", e.Exception.Source },
-                     { "hresult", $"{e.Exception.HResult}" }
-                }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occured!")
-                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
-                .GetToastContent();
+            ShowExceptionToast(e.Exception);
+        }
 
-            string text = $"The exception {e.Exception.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Exception.Message}\n{e.Exception.StackTrace}\nSource: {e.Exception.Source}\nHResult: {e.Exception.HResult}";
-            await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here are some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
+        private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            e.Exception.WriteToOutput();
+            ShowExceptionToast(e.Exception);
+        }
 
-            ToastNotification notification = new(content.GetXml());
-            ToastNotificationManager.CreateToastNotifier().Show(notification);
+        private void OnCurrentDomainUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+        {
+            (e.ExceptionObject as Exception).WriteToOutput();
+            ShowExceptionToast(e.ExceptionObject as Exception);
         }
 
         protected override async void OnActivated(IActivatedEventArgs e)
@@ -191,21 +190,16 @@ namespace Rise.App
                         {
                             QueryString args = QueryString.Parse(toastActivationArgs.Argument);
 
-                            string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
-
-                            Frame rootFrame = await
-                                InitializeWindowAsync(e.PreviousExecutionState);
-
-                            if (rootFrame.Content == null)
+                            // If the exception name equals to null,
+                            // then the toast likely isn't popping up
+                            // as a result of an app crash.
+                            if (args["exceptionName"] != null)
                             {
-                                _ = !SViewModel.SetupCompleted
-                                    ? rootFrame.Navigate(typeof(SetupPage))
-                                    : rootFrame.Navigate(typeof(MainPage));
-                            }
+                                string text = $"The exception {args["exceptionName"]} happened last time the app was launched.\n\nStack trace:\n{args["message"]}\n{args["stackTrace"]}\nSource: {args["source"]}\nHResult: {args["hresult"]}";
 
-                            Window.Current.Activate();
-                            _ = typeof(CrashDetailsPage).
-                                ShowInApplicationViewAsync(text, 600, 600);
+                                _ = typeof(CrashDetailsPage).
+                                    ShowInApplicationViewAsync(text, 600, 600);
+                            }
                         }
                         break;
                     }
@@ -232,6 +226,32 @@ namespace Rise.App
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+        }
+
+        /// <summary>
+        /// Shows a toast when an exception is thrown.
+        /// </summary>
+        private void ShowExceptionToast(Exception e)
+        {
+            ToastContent content = new ToastContentBuilder()
+                .AddToastActivationInfo(new QueryString()
+                {
+                     { "stackTrace", e.StackTrace },
+                     { "message", e.Message },
+                     { "exceptionName", e.GetType().ToString() },
+                     { "source", e.Source },
+                     { "hresult", $"{e.HResult}" }
+                }.ToString(), ToastActivationType.Foreground)
+                .AddText("An error occured!")
+                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
+                .GetToastContent();
+
+            //string text = $"The exception {e.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Message}\n{e.StackTrace}\nSource: {e.Source}\nHResult: {e.HResult}";
+            
+            //await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here is some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
+
+            ToastNotification notification = new(content.GetXml());
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
         private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)

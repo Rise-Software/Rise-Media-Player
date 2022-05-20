@@ -20,9 +20,9 @@ namespace Rise.App.ViewModels
 
         public SettingsViewModel()
         {
-            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenFilesAtStartupAsync);
+            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenAtStartupAsync);
 
-            _ = DetectOpenFilesAtStartupAsync();
+            _ = DetectOpenAtStartupAsync();
         }
 
         public string[] OpenLocations = new string[8]
@@ -77,7 +77,7 @@ namespace Rise.App.ViewModels
             set => Set(value, "WindowsBehaviours");
         }
 
-        public async Task OpenFilesAtStartupAsync()
+        public async Task OpenAtStartupAsync()
         {
             var stateMode = await ReadStateAsync();
 
@@ -101,11 +101,11 @@ namespace Rise.App.ViewModels
                 {
                     startupTask.Disable();
                 }
-                await DetectOpenFilesAtStartupAsync();
+                await DetectOpenAtStartupAsync();
             }
         }
 
-        public async Task DetectOpenFilesAtStartupAsync()
+        public async Task DetectOpenAtStartupAsync()
         {
             var stateMode = await ReadStateAsync();
 
@@ -140,10 +140,7 @@ namespace Rise.App.ViewModels
         }
 
         public async Task<StartupTaskState> ReadStateAsync()
-        {
-            var state = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
-            return state.State;
-        }
+            => (await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB")).State;
 
         #endregion
 

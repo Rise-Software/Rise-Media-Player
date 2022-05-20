@@ -81,19 +81,28 @@ namespace Rise.App.UserControls
         public ExtendedTitleBar()
         {
             InitializeComponent();
-            Loaded += (s, e) =>
-            {
-                SetupTitleBar();
-
-                HandleSizeChanges();
 
 #if DEBUG
+            bool isDebugTagAdded = false;
+
+            if (!isDebugTagAdded)
+            {
                 DefaultTitleParagraph.Inlines.Add(new Run()
                 {
                     FontWeight = Windows.UI.Text.FontWeights.SemiBold,
                     Text = " [DEBUG]"
                 });
+
+                // Never add again.
+                isDebugTagAdded = true;
+            }
 #endif
+
+            Loaded += (s, e) =>
+            {
+                SetupTitleBar();
+
+                HandleSizeChanges();
 
                 SizeChanged += (d, r) => HandleSizeChanges();
             };
