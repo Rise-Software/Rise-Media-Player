@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
 using Windows.UI.ViewManagement;
@@ -21,23 +22,26 @@ namespace Rise.App.Views
             InitializeComponent();
 
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
-            _ = ApplyVisualizer(SViewModel.VisualizerType);
 
-            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
-            SViewModel.PropertyChanged += OnSettingChanged;
-            Unloaded += OnPageUnloaded;
+            Debug.Assert(ApplyVisualizer(SViewModel.VisualizerType));
+            Debug.Assert(ApplyMode(SViewModel.NowPlayingMode));
 
+            // No need for pointer in events when we're in the main window
             if (SViewModel.NowPlayingMode == 1)
             {
                 _isHovered = true;
                 VisualStateManager.GoToState(this, "PointerInState", true);
-                OverlayExitButton.Visibility = Visibility.Collapsed;
-                BackButton.Visibility = Visibility.Visible;
-            } else if (SViewModel.NowPlayingMode == 2)
-            {
-                OverlayExitButton.Visibility = Visibility.Visible;
-                BackButton.Visibility = Visibility.Collapsed;
             }
+            else
+            {
+                PointerEntered += OnPointerEntered;
+                PointerExited += OnPointerExited;
+                PointerCanceled += OnPointerExited;
+            }
+
+            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+            SViewModel.PropertyChanged += OnSettingChanged;
+            Unloaded += OnPageUnloaded;
         }
 
         private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
@@ -50,26 +54,21 @@ namespace Rise.App.Views
 
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if (SViewModel.NowPlayingMode != 1)
-            {
-                _isHovered = true;
-                VisualStateManager.GoToState(this, "PointerInState", true);
-            }
+            _isHovered = true;
+            VisualStateManager.GoToState(this, "PointerInState", true);
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            if (SViewModel.NowPlayingMode != 1)
-            {
-                _isHovered = false;
-                VisualStateManager.GoToState(this, "PointerOutState", true);
-            }
+            _isHovered = false;
+            VisualStateManager.GoToState(this, "PointerOutState", true);
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
             PointerEntered -= OnPointerEntered;
             PointerExited -= OnPointerExited;
+            PointerCanceled -= OnPointerExited;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             SViewModel.PropertyChanged -= OnSettingChanged;
@@ -91,9 +90,20 @@ namespace Rise.App.Views
 
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SViewModel.VisualizerType))
-                _ = ApplyVisualizer(SViewModel.VisualizerType);
+            switch (e.PropertyName)
+            {
+                case nameof(SViewModel.VisualizerType):
+                    Debug.Assert(ApplyVisualizer(SViewModel.VisualizerType));
+                    break;
+            }
         }
+
+        private bool ApplyMode(int index) => index switch
+        {
+            1 => VisualStateManager.GoToState(this, "MainWindowState", true),
+            2 => VisualStateManager.GoToState(this, "CompactOverlayState", true),
+            _ => VisualStateManager.GoToState(this, "SeparateWindowState", true),
+        };
 
         private bool ApplyVisualizer(int index) => index switch
         {
