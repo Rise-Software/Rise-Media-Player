@@ -221,8 +221,8 @@ namespace Rise.Data.ViewModels
         }
 
         /// <summary>
-        /// Fully resets playback by disposing of the player, clearing
-        /// lists and setting the current item to null.
+        /// Fully resets playback by clearing lists and setting the current
+        /// item to null.
         /// </summary>
         private void ResetPlayback()
         {
