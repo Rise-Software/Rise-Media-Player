@@ -24,6 +24,6 @@
         /// The current media thumbnail's dominant color is
         /// used for glaze.
         /// </summary>
-        MediaTHumbnail
+        MediaThumbnail
     }
 }
