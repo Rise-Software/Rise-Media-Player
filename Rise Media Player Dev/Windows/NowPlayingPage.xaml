@@ -90,10 +90,10 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="InfoGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="0" />
             </Grid.ColumnDefinitions>
 
             <StackPanel
@@ -149,8 +149,8 @@
             <visualizers:LineVisualizer
                 x:Name="LineVis"
                 Grid.Column="1"
-                MaxWidth="350"
-                MaxHeight="350" />
+                Width="350"
+                Height="350" />
         </Grid>
 
         <uc:RiseMediaPlayerElement
@@ -304,7 +304,7 @@
             <VisualStateGroup x:Name="SizeStates">
                 <VisualState x:Name="LargeState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="600" />
+                        <AdaptiveTrigger MinWindowHeight="600" MinWindowWidth="720" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -313,6 +313,7 @@
                         <Setter Target="InfoText.VerticalAlignment" Value="Bottom" />
                         <Setter Target="InfoText.Margin" Value="0,0,0,60" />
                         <Setter Target="ThumbBorder.Visibility" Value="Visible" />
+                        <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="1*" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

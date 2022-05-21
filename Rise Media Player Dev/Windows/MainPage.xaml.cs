@@ -126,6 +126,7 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 PlayerControls.IsRestoreButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Video;
+                PlayerControls.IsOverlayButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Music;
             });
 
             if (e?.ItemType == Windows.Media.MediaPlaybackType.Music)
