@@ -1,7 +1,8 @@
-﻿using Rise.App.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Net;
+using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -61,6 +62,7 @@ namespace Rise.App.Dialogs
                 Artist = "UnknownArtistResource",
                 AlbumArtist = "UnknownArtistResource",
                 Location = StreamingTextBox.Text,
+                Thumbnail = URIs.MusicThumb,
                 IsOnline = true
             };
 
