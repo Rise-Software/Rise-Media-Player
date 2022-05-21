@@ -60,11 +60,11 @@
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Title="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}"
+                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                 Height="32"
                 Margin="44,0,0,0"
                 Canvas.ZIndex="1"
-                MinTitleWidth="0"
-                ShowIcon="False" />
+                MinTitleWidth="0" />
         </Grid>
 
         <uc:RiseMediaPlayerElement
