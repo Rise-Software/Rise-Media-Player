@@ -1,4 +1,8 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.Media.Playback;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.UserControls
@@ -26,12 +30,64 @@ namespace Rise.App.UserControls
                 typeof(RiseMediaPlayerElement), new PropertyMetadata(Visibility.Visible));
     }
 
+    // Event handlers
+    public sealed partial class RiseMediaPlayerElement : MediaPlayerElement
+    {
+        private async void OnVolumeChanged(MediaPlayer sender, object args)
+        {
+            if (!sender.IsMuted)
+                await HandleVolumeChangedAsync(sender.Volume);
+        }
+
+        private async void OnIsMutedChanged(MediaPlayer sender, object args)
+        {
+            if (!sender.IsMuted)
+                await HandleVolumeChangedAsync(sender.Volume);
+            else
+                await HandleMutedAsync();
+        }
+
+        private async Task HandleVolumeChangedAsync(double newVolume)
+        {
+            var state = newVolume switch
+            {
+                0 => "NoVolumeState",
+                < 0.33 => "LowVolumeState",
+                < 0.66 => "MidVolumeState",
+                _ => "HighVolumeState",
+            };
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                VisualStateManager.GoToState(TransportControls, state, true);
+            });
+        }
+
+        private async Task HandleMutedAsync()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                VisualStateManager.GoToState(TransportControls, "MuteState", true);
+            });
+        }
+    }
+
     // Constructor
     public sealed partial class RiseMediaPlayerElement : MediaPlayerElement
     {
         public RiseMediaPlayerElement()
         {
             DefaultStyleKey = typeof(RiseMediaPlayerElement);
+        }
+
+        protected override async void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            MediaPlayer.VolumeChanged += OnVolumeChanged;
+            MediaPlayer.IsMutedChanged += OnIsMutedChanged;
+
+            await HandleVolumeChangedAsync(1);
         }
     }
 }

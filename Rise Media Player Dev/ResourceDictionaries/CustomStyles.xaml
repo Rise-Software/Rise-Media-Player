@@ -570,7 +570,7 @@
                             <FontIcon
                                 x:Name="AudioMuteIcon"
                                 FontSize="16"
-                                Glyph="&#xE15D;" />
+                                Glyph="&#xE993;" />
                         </Button.Content>
                     </Button>
 
@@ -734,6 +734,30 @@
                     <VisualState x:Name="MuteState">
                         <VisualState.Setters>
                             <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="NoVolumeState">
+                        <VisualState.Setters>
+                            <Setter Target="AudioMuteIcon.Glyph" Value="&#xE992;" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="LowVolumeState">
+                        <VisualState.Setters>
+                            <Setter Target="AudioMuteIcon.Glyph" Value="&#xE993;" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="MidVolumeState">
+                        <VisualState.Setters>
+                            <Setter Target="AudioMuteIcon.Glyph" Value="&#xE994;" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="HighVolumeState">
+                        <VisualState.Setters>
+                            <Setter Target="AudioMuteIcon.Glyph" Value="&#xE995;" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
