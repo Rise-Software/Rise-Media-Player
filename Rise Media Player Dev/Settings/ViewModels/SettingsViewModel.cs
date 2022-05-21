@@ -1,13 +1,11 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.Views;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.Input;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
@@ -337,11 +335,7 @@ namespace Rise.App.ViewModels
         public int IconPack
         {
             get => Get(0, "Local");
-            set
-            {
-                Set(value, "Local");
-                MainPage.Current.ChangeIconPack(CurrentPack);
-            }
+            set => Set(value, "Local");
         }
 
         public bool ShowAllGeneral

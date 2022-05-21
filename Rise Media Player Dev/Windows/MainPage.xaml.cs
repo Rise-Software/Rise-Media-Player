@@ -24,7 +24,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
@@ -37,6 +36,8 @@ namespace Rise.App.Views
     {
         #region Variables
         public static MainPage Current;
+
+        private readonly NavigationHelper _navigationHelper;
 
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
@@ -93,19 +94,35 @@ namespace Rise.App.Views
             SDialog.Content = new SettingsPage();
 
             Loaded += MainPage_Loaded;
+            Unloaded += MainPage_Unloaded;
 
-            NavigationCacheMode = NavigationCacheMode.Required;
+            _navigationHelper = new(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
+
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             App.MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
-            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
             SViewModel.PropertyChanged += SViewModel_PropertyChanged;
 
             ContentFrame.SizeChanged += ContentFrame_SizeChanged;
+        }
+
+        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            App.MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
+            App.MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+
+            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+            MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            SViewModel.PropertyChanged -= SViewModel_PropertyChanged;
+
+            ContentFrame.SizeChanged -= ContentFrame_SizeChanged;
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
@@ -419,6 +436,19 @@ namespace Rise.App.Views
         #endregion
 
         #region Settings
+        private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Color":
+                    await HandleViewModelColorSettingAsync();
+                    break;
+                case "IconPack":
+                    ChangeIconPack(SViewModel.CurrentPack);
+                    break;
+            }
+        }
+
         public void ChangeIconPack(string newIcons)
         {
             NavDataSource.ChangeIconPack(newIcons);
@@ -429,14 +459,6 @@ namespace Rise.App.Views
 
             NavView.MenuItemsSource = NavDataSource.Items;
             NavView.FooterMenuItemsSource = NavDataSource.FooterItems;
-        }
-
-        private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Color")
-            {
-                await HandleViewModelColorSettingAsync();
-            }
         }
 
         public async Task HandleViewModelColorSettingAsync()
@@ -908,6 +930,38 @@ namespace Rise.App.Views
                 _ = rootFrame.Navigate(typeof(AllSettingsPage));
             }
         }
+    }
+
+    // NavigationHelper
+    public sealed partial class MainPage
+    {
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (MPViewModel.Player != null)
+                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            else
+                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+
+            if (e.PageState != null)
+            {
+                var res = e.PageState.
+                    TryGetValue("ContentFrameState", out object state);
+
+                if (res)
+                    ContentFrame.SetNavigationState(state.ToString());
+            }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+            => e.PageState["ContentFrameState"] = ContentFrame.GetNavigationState();
+
+        #region NavigationHelper registration
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 
     public class NavViewItemTemplateSelector : DataTemplateSelector
