@@ -1,8 +1,9 @@
-﻿using Rise.App.Dialogs;
+﻿using System;
+using System.Collections.Generic;
+using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common;
-using System;
-using System.Collections.Generic;
+using Rise.Common.Enums;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,12 +47,17 @@ namespace Rise.App.Settings
         {
             Border border = (Border)sender;
 
-            ViewModel.Color = RiseColorsPanel.Children.IndexOf(border);
+            var bg = border.Background as SolidColorBrush;
+            var color = bg.Color;
+
+            ViewModel.GlazeColors = new byte[4] { 25, color.R, color.G, color.B };
+
             foreach (Border border1 in RiseColorsPanel.Children)
             {
                 border1.BorderBrush = new SolidColorBrush();
                 border1.BorderThickness = new Thickness(0);
             }
+
             border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
             border.BorderThickness = new Thickness(3);
         }
@@ -73,7 +79,8 @@ namespace Rise.App.Settings
                     Therest.Visibility = Visibility.Collapsed;
                     TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
-                    ViewModel.Color = -1;
+
+                    ViewModel.SelectedGlaze = GlazeTypes.None;
                     break;
 
                 case 1:
@@ -81,7 +88,8 @@ namespace Rise.App.Settings
                     Therest.Visibility = Visibility.Collapsed;
                     TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
-                    ViewModel.Color = -2;
+
+                    ViewModel.SelectedGlaze = GlazeTypes.AccentColor;
                     break;
 
                 case 2:
@@ -89,15 +97,30 @@ namespace Rise.App.Settings
                     Therest.Visibility = Visibility.Visible;
                     TextforGlaze.Visibility = Visibility.Visible;
                     RiseColorsPanel.Visibility = Visibility.Visible;
-                    if (ViewModel.Color < 0)
-                    {
-                        ViewModel.Color = 0;
-                    }
+
+                    ViewModel.SelectedGlaze = GlazeTypes.CustomColor;
                     foreach (Border border in RiseColorsPanel.Children)
                     {
                         border.BorderBrush = new SolidColorBrush();
                         border.BorderThickness = new Thickness(0);
-                        if (ViewModel.Color == RiseColorsPanel.Children.IndexOf(border))
+
+                        var bg = border.Background as SolidColorBrush;
+                        var color = bg.Color;
+
+                        var bytes = new byte[4] { 25, color.R, color.G, color.B };
+                        var glaze = ViewModel.GlazeColors;
+
+                        bool sameColor = true;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (bytes[i] != glaze[i])
+                            {
+                                sameColor = false;
+                                break;
+                            }
+                        }
+
+                        if (sameColor)
                         {
                             border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
                             border.BorderThickness = new Thickness(3);
@@ -110,7 +133,8 @@ namespace Rise.App.Settings
                     Therest.Visibility = Visibility.Collapsed;
                     TextforGlaze.Visibility = Visibility.Collapsed;
                     RiseColorsPanel.Visibility = Visibility.Collapsed;
-                    ViewModel.Color = -3;
+
+                    ViewModel.SelectedGlaze = GlazeTypes.MediaThumbnail;
                     break;
             }
         }
