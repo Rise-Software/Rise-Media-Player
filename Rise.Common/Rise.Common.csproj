@@ -131,6 +131,7 @@
     <Compile Include="Constants\ViewManagement.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
+    <Compile Include="Enums\GlazeTypes.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\MatchLevel.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
