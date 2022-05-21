@@ -71,8 +71,8 @@ namespace Rise.App.UserControls
         /// </summary>
         public bool IsOverlayEnabled
         {
-            get => (bool)GetValue(IsRestoreEnabledProperty);
-            set => SetValue(IsRestoreEnabledProperty, value);
+            get => (bool)GetValue(IsOverlayEnabledProperty);
+            set => SetValue(IsOverlayEnabledProperty, value);
         }
 
         /// <summary>
@@ -179,11 +179,11 @@ namespace Rise.App.UserControls
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreButtonVisibleChanged));
 
         public readonly static DependencyProperty IsOverlayEnabledProperty =
-            DependencyProperty.Register(nameof(IsRestoreEnabled), typeof(bool),
+            DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayEnabledChanged));
 
         public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsRestoreButtonVisible), typeof(bool),
+            DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayButtonVisibleChanged));
     }
 
