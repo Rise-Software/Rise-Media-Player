@@ -107,8 +107,6 @@ namespace Rise.App.Views
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
-            SViewModel.PropertyChanged += SViewModel_PropertyChanged;
-
             ContentFrame.SizeChanged += ContentFrame_SizeChanged;
         }
 
@@ -119,8 +117,6 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
-
-            SViewModel.PropertyChanged -= SViewModel_PropertyChanged;
 
             ContentFrame.SizeChanged -= ContentFrame_SizeChanged;
         }
@@ -436,22 +432,6 @@ namespace Rise.App.Views
         #endregion
 
         #region Settings
-        private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "SelectedGlaze":
-                    await HandleViewModelColorSettingAsync();
-                    break;
-                case "GlazeColors":
-                    await HandleViewModelColorSettingAsync();
-                    break;
-                case "IconPack":
-                    ChangeIconPack(SViewModel.CurrentPack);
-                    break;
-            }
-        }
-
         public void ChangeIconPack(string newIcons)
         {
             NavDataSource.ChangeIconPack(newIcons);
