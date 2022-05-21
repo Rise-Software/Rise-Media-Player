@@ -343,7 +343,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </AppBarButton.Resources>
-                        
+
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED3C;" />
                         </AppBarButton.Icon>
@@ -370,7 +370,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </AppBarButton.Resources>
-                        
+
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xF8AC;" />
                         </AppBarButton.Icon>
@@ -397,11 +397,9 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </AppBarButton.Resources>
-                        
+
                         <AppBarButton.Icon>
-                            <FontIcon
-                                x:Name="PlayPauseIcon"
-                                Glyph="&#xF5B0;" />
+                            <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
@@ -426,7 +424,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </AppBarButton.Resources>
-                        
+
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xF8AD;" />
                         </AppBarButton.Icon>
@@ -453,7 +451,7 @@
                                 </ResourceDictionary.ThemeDictionaries>
                             </ResourceDictionary>
                         </AppBarButton.Resources>
-                        
+
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xED3D;" />
                         </AppBarButton.Icon>
