@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewmodels="using:Rise.App.ViewModels" xmlns:local1="using:Rise.App"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:local1="using:Rise.App"
     x:Name="Root"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="760"
@@ -115,7 +116,7 @@
                                                 FontWeight="SemiBold"
                                                 Opacity="0.6"
                                                 Style="{StaticResource BodyTextBlockStyle}"
-                                                Text="{x:Bind Mode=OneWay, Path=SelectedArtist.SongsNAlbums}" />
+                                                Text="{x:Bind SelectedArtist.SongsNAlbums, Mode=OneWay}" />
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock
                                                     x:Name="NoListeners"
@@ -123,8 +124,7 @@
                                                     FontSize="16"
                                                     FontWeight="Bold"
                                                     Opacity="0.6"
-                                                    Style="{StaticResource BodyTextBlockStyle}"
-                                                    Text="{x:Bind GetMonthlyListeners(SelectedArtist.Name), Mode=OneWay}" />
+                                                    Style="{StaticResource BodyTextBlockStyle}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -229,13 +229,12 @@
                                                 
                                                 <RelativePanel VerticalAlignment="Center">
                                                     <TextBlock
-                                                        x:Name="Topsongtitle"
+                                                        x:Name="TopSongTitle"
                                                         Text="{Binding SongName}"
                                                         FontWeight="Normal"
                                                         FontSize="14" />
                                                     <TextBlock
-                                                        x:Name="Album"
-                                                        RelativePanel.RightOf="Topsongtitle"
+                                                        RelativePanel.RightOf="TopSongTitle"
                                                         Margin="12,0,0,0"
                                                         Text="{Binding ArtistName}"
                                                         FontWeight="SemiBold"/>
@@ -707,7 +706,7 @@
                                                         Margin="12"
                                                         VerticalAlignment="Center"
                                                         Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                                        Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                                        Visibility="{x:Bind local1:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                                                 </StackPanel>
 
                                             </Grid>
@@ -745,7 +744,6 @@
                             <TextBlock
                                 x:Name="AboutArtist"
                                 Margin="0,0,0,8"
-                                Text="{x:Bind GetArtistInfo(SelectedArtist.Name), Mode=OneWay}"
                                 TextWrapping="WrapWholeWords" />
                             <HyperlinkButton
                                 x:Name="ReadMoreAbout"

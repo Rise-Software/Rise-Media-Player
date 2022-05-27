@@ -55,7 +55,7 @@ namespace Rise.App.Views
             Loaded += SongsPage_Loaded;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
-            ApplySettings();
+            //ApplySettings();
         }
 
         private void SongsPage_Loaded(object sender, RoutedEventArgs e)
@@ -244,77 +244,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
-
-        private void ApplySettings()
-        {
-            if (SViewModel.ShowDurationInSongs)
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsDurationVisible = true;
-                }
-            }
-            else
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsDurationVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowTrackNumberInSongs)
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsTrackNumberVisible = true;
-                }
-            }
-            else
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsTrackNumberVisible = false;
-                }
-            }
-        }
-
-        private void ShowTrackNumber_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsTrackNumberVisible = true;
-                }
-            }
-            else
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsTrackNumberVisible = false;
-                }
-            }
-        }
-
-        private void ShowDuration_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsDurationVisible = true;
-                }
-            }
-            else
-            {
-                foreach (SongViewModel song in Songs)
-                {
-                    song.IsDurationVisible = false;
-                }
-            }
-        }
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
         {

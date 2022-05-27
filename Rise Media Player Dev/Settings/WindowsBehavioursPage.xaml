@@ -24,26 +24,30 @@
                     FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons"
                     FontSize="56"
                     Glyph="&#xE336;" />
-                <StackPanel RelativePanel.RightOf="WindowsLogo" Margin="8,0,0,0">
+                <StackPanel Margin="8,0,0,0" RelativePanel.RightOf="WindowsLogo">
                     <TextBlock
-                    x:Name="WinVer"
-                    Padding="8,0,0,0"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    RelativePanel.RightOf="WindowsLogo"
-                    Text="You are running Windows 11!"
-                    TextWrapping="WrapWholeWords" />
+                        x:Name="WinVer"
+                        Padding="8,0,0,0"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        RelativePanel.RightOf="WindowsLogo"
+                        d:Text="You are running Windows 11!"
+                        TextWrapping="WrapWholeWords" />
                     <TextBlock
-                    x:Name="InfoString"
-                    Padding="8,0,0,0"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Opacity="0.6"
-                    RelativePanel.Below="WinVer"
-                    RelativePanel.RightOf="WindowsLogo"
-                    Text="All settings should be available."
-                    TextWrapping="WrapWholeWords" />
-                    <HyperlinkButton x:Name="Update" Margin="-4,8,0,0" Content="Windows Update" Click="Update_Click"/>
+                        x:Name="InfoString"
+                        Padding="8,0,0,0"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Opacity="0.6"
+                        RelativePanel.Below="WinVer"
+                        RelativePanel.RightOf="WindowsLogo"
+                        d:Text="All settings should be available."
+                        TextWrapping="WrapWholeWords" />
+                    <HyperlinkButton
+                        x:Name="Update"
+                        Margin="-4,8,0,0"
+                        Click="Update_Click"
+                        Content="Windows Update" />
 
                 </StackPanel>
             </RelativePanel>

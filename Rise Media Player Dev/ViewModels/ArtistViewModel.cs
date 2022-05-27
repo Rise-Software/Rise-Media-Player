@@ -118,10 +118,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CheckAvailabilityAsync()
         {
-            if (SongCount == 0 && AlbumCount == 0)
+            var songCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Artist == Model.Name);
+            var albumCount = (await NewRepository.Repository.GetItemsAsync<Album>()).Count(a => a.Artist == Model.Name);
+
+            if (songCount == 0 && albumCount == 0)
             {
                 await DeleteAsync();
-                return;
             }
         }
         #endregion

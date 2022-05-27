@@ -5,6 +5,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
 namespace Rise.App.UserControls
@@ -80,11 +81,29 @@ namespace Rise.App.UserControls
         public ExtendedTitleBar()
         {
             InitializeComponent();
+
+#if DEBUG
+            bool isDebugTagAdded = false;
+
+            if (!isDebugTagAdded)
+            {
+                DefaultTitleParagraph.Inlines.Add(new Run()
+                {
+                    FontWeight = Windows.UI.Text.FontWeights.SemiBold,
+                    Text = " [DEBUG]"
+                });
+
+                // Never add again.
+                isDebugTagAdded = true;
+            }
+#endif
+
             Loaded += (s, e) =>
             {
                 SetupTitleBar();
 
                 HandleSizeChanges();
+
                 SizeChanged += (d, r) => HandleSizeChanges();
             };
         }
@@ -175,10 +194,5 @@ namespace Rise.App.UserControls
             }
         }
         #endregion
-
-        private void TitleBarIcon_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

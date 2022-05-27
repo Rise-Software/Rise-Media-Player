@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using Rise.Common.Extensions;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
+using System.IO;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -27,8 +28,6 @@ namespace Rise.App.ChangeTrackers
 
             StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
             IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
-
-            List<SongViewModel> songRemoveQueue = new();
 
             foreach (StorageLibraryChange change in changes)
             {
@@ -53,18 +52,9 @@ namespace Rise.App.ChangeTrackers
                 {
                     if (change.ChangeType == StorageLibraryChangeType.Deleted)
                     {
-                        try
+                        foreach (SongViewModel song in ViewModel.Songs)
                         {
-                            foreach (SongViewModel song in ViewModel.Songs)
-                            {
-                                if (change.PreviousPath == song.Location)
-                                {
-                                    songRemoveQueue.Add(song);
-                                }
-                            }
-                        } finally
-                        {
-                            foreach (SongViewModel song in songRemoveQueue)
+                            if (change.PreviousPath == song.Location)
                             {
                                 await song.DeleteAsync();
                             }
@@ -166,30 +156,63 @@ namespace Rise.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the music library folders.
         /// </summary>
-        public static async Task HandleMusicFolderChanges()
+        public static async Task HandleMusicFolderChangesAsync()
         {
             List<SongViewModel> toRemove = new();
-            /*foreach (SongViewModel song in ViewModel.Songs)
-            {
-                if (!File.Exists(song.Location))
-                {
-                    await song.DeleteAsync();
-                }
-            }*/
 
+            // Check if the song doesn't exist anymore, or if we don't have access to it at all,
+            // if so queue it then remove.
             try
             {
                 for (int i = 0; i < ViewModel.Songs.Count; i++)
                 {
-                    if (await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location) == null)
+                    try
+                    {
+                        _ = await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location);
+                    } catch (FileNotFoundException e)
                     {
                         toRemove.Add(ViewModel.Songs[i]);
+                        e.WriteToOutput();
+                    }
+                    catch (FileLoadException e)
+                    {
+                        toRemove.Add(ViewModel.Songs[i]);
+                        e.WriteToOutput();
+                    }
+                    catch (UnauthorizedAccessException e)
+                    {
+                        toRemove.Add(ViewModel.Songs[i]);
+                        e.WriteToOutput();
                     }
                 }
             }
             finally
             {
                 foreach (SongViewModel song in toRemove)
+                {
+                    await song.DeleteAsync();
+                }
+            }
+
+            List<SongViewModel> duplicates = new();
+
+            // Check for duplicates and remove if any duplicate is found.
+            try
+            {
+                for (int i = 0; i < ViewModel.Songs.Count; i++)
+                {
+                    for (int j = i + 1; j < ViewModel.Songs.Count; j++)
+                    {
+                        if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
+                        {
+                            duplicates.Add(ViewModel.Songs[j]);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                foreach (SongViewModel song in duplicates)
                 {
                     await song.DeleteAsync();
                 }

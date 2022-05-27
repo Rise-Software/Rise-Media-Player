@@ -5,6 +5,7 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -129,14 +130,8 @@
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <ToggleMenuFlyoutItem
-                            Click="ShowTrackNumber_Click"
-                            IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}"
-                            Text="Track number" />
-                        <ToggleMenuFlyoutItem
-                            Click="ShowDuration_Click"
-                            IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}"
-                            Text="Duration" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="Track number" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="Duration" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -329,7 +324,7 @@
                                     CornerRadius="7"
                                     IsHitTestVisible="False"
                                     Style="{StaticResource TransparentButtonStyle}"
-                                    Visibility="{x:Bind IsTrackNumberVisible, Converter={StaticResource BoolToVis}}">
+                                    Visibility="{x:Bind local:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}">
                                     <Border
                                         x:Name="AlbumNum"
                                         Width="32"
@@ -456,7 +451,7 @@
                                     Margin="12"
                                     VerticalAlignment="Center"
                                     Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                    Visibility="{x:Bind IsDurationVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                    Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                             </StackPanel>
                         </Grid>
                     </Border>
