@@ -82,7 +82,7 @@ namespace Rise.App
         /// Gets the app-wide <see cref="FileBrowserPageViewModel"/> singleton instance.
         /// </summary>
         /// <remarks>This is a temporary store, subject to change at any point.</remarks>
-        public static FileBrowserPageViewModel? FileBrowserPageViewModel { get; set; }
+        public static Lazy<FileBrowserPageViewModel> FileBrowserPageViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
@@ -245,6 +245,7 @@ namespace Rise.App
             PBackendController ??= new PlaylistsBackendController();
             NBackendController ??= new NotificationsBackendController();
 
+            FileBrowserPageViewModel ??= new(() => new());
             MViewModel ??= new MainViewModel();
             LMViewModel ??= new LastFMViewModel();
             PViewModel ??= new PlaybackViewModel();

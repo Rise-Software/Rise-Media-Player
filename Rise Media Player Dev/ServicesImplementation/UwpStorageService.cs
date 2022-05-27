@@ -16,7 +16,7 @@ namespace Rise.App.ServicesImplementation
         public Task<bool> EnsureFileSystemIsAccessible()
         {
             // TODO: Detect broadFileSystem and show dialog if unavailable
-            return Task.FromResult(false);
+            return Task.FromResult(true);
         }
 
         public IEnumerable<IDrive> EnumerateDrives()

@@ -3,11 +3,15 @@ using Rise.Storage.Devices;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Rise.App.Services;
 
 namespace Rise.App.Storage.Devices
 {
     internal sealed class Win32Drive : IDrive
     {
+        private IStorageService StorageService { get; } = Ioc.Default.GetRequiredService<IStorageService>();
+
         private readonly DriveInfo _internalDrive;
 
         public string Name => _internalDrive.Name;
@@ -25,9 +29,9 @@ namespace Rise.App.Storage.Devices
             this._internalDrive = internalDrive;
         }
 
-        public Task<IFolder> GetRootFolderAsync()
+        public Task<IFolder?> GetRootFolderAsync()
         {
-            throw new NotImplementedException();
+            return StorageService.GetFolderAsync(Name)!;
         }
     }
 }
