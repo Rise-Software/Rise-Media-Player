@@ -14,8 +14,6 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        private FrameworkElement _timelineElement;
-
         private ToggleButton _shuffleButton;
         private AppBarButton _overlayButton;
         private AppBarButton _restoreButton;
@@ -196,150 +194,43 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsTimelineVisibleProperty =
             DependencyProperty.Register(nameof(IsTimelineVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(true, OnTimelineVisibleChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
 
         public readonly static DependencyProperty IsShuffleEnabledProperty =
             DependencyProperty.Register(nameof(IsShuffleEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleEnabledChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsShuffleButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsShuffleButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonVisibleChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsShuffleButtonCheckedProperty =
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleButtonCheckedChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsRestoreEnabledProperty =
             DependencyProperty.Register(nameof(IsRestoreEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreEnabledChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsRestoreVisibleProperty =
             DependencyProperty.Register(nameof(IsRestoreButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnRestoreButtonVisibleChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayEnabledChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayButtonVisibleChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsPropertiesEnabledProperty =
             DependencyProperty.Register(nameof(IsPropertiesEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnPropertiesEnabledChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsPropertiesButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsPropertiesButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnPropertiesButtonVisibleChanged));
-    }
-
-    // Event handlers
-    public sealed partial class RiseMediaTransportControls : MediaTransportControls
-    {
-        private static void HandleControlEnabled(Control control, bool enabled)
-        {
-            if (control != null)
-            {
-                control.IsEnabled = enabled;
-            }
-        }
-
-        private static void HandleElementVisibility(FrameworkElement element, bool visible)
-        {
-            if (element != null)
-            {
-                element.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
-
-        private static void HandleToggleChecked(ToggleButton toggle, bool? isChecked)
-        {
-            if (toggle != null)
-            {
-                toggle.IsChecked = isChecked;
-            }
-        }
-
-        private static void OnTimelineVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleElementVisibility(rmtc._timelineElement, (bool)args.NewValue);
-            }
-        }
-        private static void OnShuffleEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleControlEnabled(rmtc._shuffleButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnShuffleButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleElementVisibility(rmtc._shuffleButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnShuffleButtonCheckedChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleToggleChecked(rmtc._shuffleButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnRestoreEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleControlEnabled(rmtc._restoreButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnRestoreButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleElementVisibility(rmtc._restoreButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnOverlayEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleControlEnabled(rmtc._overlayButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnOverlayButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleElementVisibility(rmtc._overlayButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnPropertiesEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleControlEnabled(rmtc._propertiesButton, (bool)args.NewValue);
-            }
-        }
-
-        private static void OnPropertiesButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            if (sender is RiseMediaTransportControls rmtc)
-            {
-                HandleElementVisibility(rmtc._propertiesButton, (bool)args.NewValue);
-            }
-        }
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
     }
 
     // Constructor, Overrides
@@ -352,8 +243,6 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
-            _timelineElement = GetTemplateChild("MediaTransportControls_Timeline") as FrameworkElement;
-
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
@@ -390,18 +279,6 @@ namespace Rise.App.UserControls
                     }
                 }
             };
-
-            HandleControlEnabled(_shuffleButton, IsShuffleEnabled);
-            HandleElementVisibility(_shuffleButton, IsShuffleButtonVisible);
-            HandleToggleChecked(_shuffleButton, IsShuffleButtonChecked);
-
-            HandleControlEnabled(_restoreButton, IsRestoreEnabled);
-            HandleElementVisibility(_restoreButton, IsRestoreButtonVisible);
-
-            HandleControlEnabled(_propertiesButton, IsPropertiesEnabled);
-            HandleElementVisibility(_propertiesButton, IsPropertiesButtonVisible);
-
-            base.OnApplyTemplate();
         }
     }
 }

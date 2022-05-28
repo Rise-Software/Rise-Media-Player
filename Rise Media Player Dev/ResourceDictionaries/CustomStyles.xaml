@@ -280,7 +280,8 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="12,0,0,0"
-                    ColumnSpacing="12">
+                    ColumnSpacing="12"
+                    Visibility="{Binding IsTimelineVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
@@ -316,7 +317,10 @@
                     <AppBarToggleButton
                         x:Name="ShuffleButton"
                         Width="40"
-                        Padding="4">
+                        Padding="4"
+                        IsChecked="{TemplateBinding IsShuffleButtonChecked}"
+                        IsEnabled="{TemplateBinding IsShuffleEnabled}"
+                        Visibility="{Binding IsShuffleButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarToggleButton.Icon>
                             <SymbolIcon x:Name="ShuffleSymbol" Symbol="Shuffle" />
                         </AppBarToggleButton.Icon>
@@ -474,13 +478,21 @@
                     DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Auto">
-                    <AppBarButton x:Name="RestoreButton" ToolTipService.ToolTip="Restore view">
+                    <AppBarButton
+                        x:Name="RestoreButton"
+                        IsEnabled="{TemplateBinding IsRestoreEnabled}"
+                        ToolTipService.ToolTip="Restore view"
+                        Visibility="{Binding IsRestoreButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE098;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="OverlayButton" ToolTipService.ToolTip="Now playing">
+                    <AppBarButton
+                        x:Name="OverlayButton"
+                        IsEnabled="{TemplateBinding IsOverlayEnabled}"
+                        ToolTipService.ToolTip="Now playing"
+                        Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE17C;" />
                         </AppBarButton.Icon>
@@ -539,7 +551,11 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="InfoPropertiesButton" Label="Info &amp; Properties">
+                    <AppBarButton
+                        x:Name="InfoPropertiesButton"
+                        IsEnabled="{TemplateBinding IsPropertiesEnabled}"
+                        Label="Info &amp; Properties"
+                        Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE946;" />
                         </AppBarButton.Icon>
