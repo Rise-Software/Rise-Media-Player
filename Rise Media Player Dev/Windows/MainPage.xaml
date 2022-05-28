@@ -156,7 +156,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="_Grid">
+    <Grid Background="{x:Bind MainGridBackground, Mode=OneWay}">
         <Grid Canvas.ZIndex="1">
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
