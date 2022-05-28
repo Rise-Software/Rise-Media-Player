@@ -21,7 +21,10 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            if (MPViewModel.Player != null)
+                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            else
+                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
             Debug.Assert(ApplyVisualizer(SViewModel.VisualizerType));
             Debug.Assert(ApplyMode(SViewModel.NowPlayingMode));
@@ -39,7 +42,6 @@ namespace Rise.App.Views
                 PointerCanceled += OnPointerExited;
             }
 
-            MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
             SViewModel.PropertyChanged += OnSettingChanged;
             Unloaded += OnPageUnloaded;
         }
