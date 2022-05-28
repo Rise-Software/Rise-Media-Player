@@ -581,8 +581,8 @@
                             EnableDependentAnimation="True"
                             Storyboard.TargetName="ItemGrid"
                             Storyboard.TargetProperty="Width"
-                            Duration="0:0:0.6">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="75">
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -603,9 +603,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="-75" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -615,9 +615,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorder"
                             Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -627,9 +627,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorderTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -649,8 +649,8 @@
                             EnableDependentAnimation="True"
                             Storyboard.TargetName="ItemGrid"
                             Storyboard.TargetProperty="Width"
-                            Duration="0:0:0.6">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="125">
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -671,9 +671,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="75" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -683,8 +683,8 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorder"
                             Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.6">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -694,8 +694,8 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorderTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-40">
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-40">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -715,8 +715,8 @@
                             EnableDependentAnimation="True"
                             Storyboard.TargetName="ItemGrid"
                             Storyboard.TargetProperty="Width"
-                            Duration="0:0:0.6">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="200">
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="200">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -726,9 +726,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="-75" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -738,9 +738,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorder"
                             Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -750,9 +750,9 @@
                         <DoubleAnimationUsingKeyFrames
                             Storyboard.TargetName="ImageBorderTranslate"
                             Storyboard.TargetProperty="X"
-                            Duration="0:0:0.6">
+                            Duration="0:0:0.3">
                             <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
