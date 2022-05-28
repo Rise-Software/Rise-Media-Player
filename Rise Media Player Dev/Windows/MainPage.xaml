@@ -426,6 +426,8 @@
                             IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                             IsShuffleButtonVisible="True"
                             IsShuffleEnabled="True"
+                            IsPropertiesButtonVisible="True"
+                            IsPropertiesEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
                             OverlayButtonClick="PlayerControls_OverlayButtonClick"

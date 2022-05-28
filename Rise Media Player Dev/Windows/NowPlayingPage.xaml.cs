@@ -42,6 +42,11 @@ namespace Rise.App.Views
                 PointerCanceled += OnPointerExited;
             }
 
+            if (SViewModel.VisualizerType == 1 && SViewModel.NowPlayingMode != 1)
+            {
+                VisualStateManager.GoToState(this, "NoVisualizerState", true);
+            }
+
             SViewModel.PropertyChanged += OnSettingChanged;
             Unloaded += OnPageUnloaded;
         }
@@ -58,12 +63,22 @@ namespace Rise.App.Views
         {
             _isHovered = true;
             VisualStateManager.GoToState(this, "PointerInState", true);
+
+            if (SViewModel.VisualizerType == 1)
+            {
+                VisualStateManager.GoToState(this, "LineVisualizerState", true);
+            }
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             _isHovered = false;
             VisualStateManager.GoToState(this, "PointerOutState", true);
+
+            if (SViewModel.VisualizerType == 1)
+            {
+                VisualStateManager.GoToState(this, "NoVisualizerState", true);
+            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)

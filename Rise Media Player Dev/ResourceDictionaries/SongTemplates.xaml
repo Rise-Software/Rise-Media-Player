@@ -7,6 +7,7 @@
     x:DefaultBindMode="OneWay">
 
     <conv:BooleanToVisibility x:Key="BoolToVis" />
+    <conv:TooltipToText x:Key="TooltipToText" />
     <conv:TimeSpanToString x:Key="TimeToStr" />
 
     <DataTemplate x:Key="NowPlayingQueueItem" x:DataType="interfaces:IMediaItem">
