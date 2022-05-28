@@ -1,7 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Extensions;
-using System;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,10 +14,22 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
+        private FrameworkElement _timelineElement;
+
         private ToggleButton _shuffleButton;
         private AppBarButton _overlayButton;
         private AppBarButton _restoreButton;
         private AppBarButton _propertiesButton;
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the timeline
+        /// elements are shown.
+        /// </summary>
+        public bool IsTimelineVisible
+        {
+            get => (bool)GetValue(IsTimelineVisibleProperty);
+            set => SetValue(IsTimelineVisibleProperty, value);
+        }
 
         /// <summary>
         /// Gets or sets a value that indicates whether a user
@@ -182,6 +194,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(DisplayItemTemplateSelector), typeof(DataTemplateSelector),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
+        public readonly static DependencyProperty IsTimelineVisibleProperty =
+            DependencyProperty.Register(nameof(IsTimelineVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true, OnTimelineVisibleChanged));
+
         public readonly static DependencyProperty IsShuffleEnabledProperty =
             DependencyProperty.Register(nameof(IsShuffleEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnShuffleEnabledChanged));
@@ -246,6 +262,13 @@ namespace Rise.App.UserControls
             }
         }
 
+        private static void OnTimelineVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleElementVisibility(rmtc._timelineElement, (bool)args.NewValue);
+            }
+        }
         private static void OnShuffleEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             if (sender is RiseMediaTransportControls rmtc)
@@ -329,6 +352,8 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
+            _timelineElement = GetTemplateChild("MediaTransportControls_Timeline") as FrameworkElement;
+
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
