@@ -70,10 +70,17 @@ namespace Rise.App.Storage
             return filesAndFolders.Select<IStorageItem, IBaseStorage>(x => x is StorageFolder folder ? new UwpFolder(folder) : (x is StorageFile file ? new UwpFile(file) : null)).Where(x => x is not null);
         }
 
-        public override async Task<IFolder> GetParentAsync()
+        public override async Task<IFolder?> GetParentAsync()
         {
-            var parent = await storage.GetParentAsync();
-            return new UwpFolder(parent);
+            try
+            {
+                var parent = await storage.GetParentAsync();
+                return new UwpFolder(parent);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -7,18 +7,28 @@ namespace Rise.App.Storage
 {
     internal sealed class UwpFile : UwpBaseStorage<StorageFile>, IFile
     {
-        public string Extension { get; }
+        private string? _Extension;
+        public string Extension
+        {
+            get => _Extension ??= System.IO.Path.GetExtension(storage.Name);
+        }
 
         public UwpFile(StorageFile storage)
             : base(storage)
         {
-            this.Extension = System.IO.Path.GetExtension(storage.Name);
         }
 
-        public override async Task<IFolder> GetParentAsync()
+        public override async Task<IFolder?> GetParentAsync()
         {
-            var parent = await storage.GetParentAsync();
-            return new UwpFolder(parent);
+            try
+            {
+                var parent = await storage.GetParentAsync();
+                return new UwpFolder(parent);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

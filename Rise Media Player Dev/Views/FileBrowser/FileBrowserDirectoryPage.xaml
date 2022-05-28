@@ -5,7 +5,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Views.FileBrowser"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:Rise.App.UserControls.FileBrowser"
+    xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
+    Loaded="FileBrowserDirectoryPage_Loaded"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <ListView ItemsSource="{x:Bind ViewModel.ListingViewModel.Sections}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
+                    <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}">
+                        <uc:FileBrowserListingSectionControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:FileBrowserListingItemViewModel">
+                                <Grid>
+                                    <TextBlock Text="{x:Bind Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </uc:FileBrowserListingSectionControl.ItemTemplate>
+                    </uc:FileBrowserListingSectionControl>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </Page>

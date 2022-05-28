@@ -5,9 +5,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Views.FileBrowser"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Rise.App.ViewModels.FileBrowser"
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="HOME" />
+        <ListView ItemsSource="{x:Bind ViewModel.Drives}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:FileBrowserDriveItemViewModel">
+                    <Grid>
+                        <Button Command="{x:Bind OpenDriveCommand}" Content="{x:Bind Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

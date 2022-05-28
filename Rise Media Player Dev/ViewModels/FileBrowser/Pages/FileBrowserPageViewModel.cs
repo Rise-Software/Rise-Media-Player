@@ -1,9 +1,8 @@
 ﻿using Microsoft.Toolkit.Mvvm.Messaging;
 using Rise.Data.ViewModels;
-using System.Threading.Tasks;
 using Rise.App.Messages.FileBrowser;
 
-namespace Rise.App.ViewModels.FileBrowser
+namespace Rise.App.ViewModels.FileBrowser.Pages
 {
     public sealed class FileBrowserPageViewModel : ViewModel, IRecipient<FileBrowserNavigationRequestedMessage>
     {
@@ -26,7 +25,7 @@ namespace Rise.App.ViewModels.FileBrowser
             CurrentPageViewModel = message.Value;
         }
 
-        public async Task EnsureInitialized()
+        public void EnsureInitialized()
         {
             if (CurrentPageViewModel is null)
             {
@@ -36,7 +35,7 @@ namespace Rise.App.ViewModels.FileBrowser
             if (CurrentPageViewModel is FileBrowserHomePageViewModel homePageViewModel
                 && homePageViewModel.Drives.Count == 0)
             {
-                await homePageViewModel.EnumerateDrivesAsync();
+                homePageViewModel.EnumerateDrives();
             }
         }
     }

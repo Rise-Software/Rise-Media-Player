@@ -9,7 +9,7 @@ namespace Rise.Storage.Devices
         /// Gets unknown root of the device.
         /// </summary>
         /// <returns>Device root</returns>
-        Task<object> GetRootAsync();
+        Task<object?> GetRootAsync();
 
         /// <summary>
         /// Tries to get root of the device as collection of possible storage objects.

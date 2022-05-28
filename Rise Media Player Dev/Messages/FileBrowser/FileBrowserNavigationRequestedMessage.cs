@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.Messaging.Messages;
-using Rise.App.ViewModels.FileBrowser;
+using Rise.App.ViewModels.FileBrowser.Pages;
 
 namespace Rise.App.Messages.FileBrowser
 {

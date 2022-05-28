@@ -13,10 +13,10 @@ namespace Rise.App.Services
 
         IEnumerable<IDevice> EnumerateDevices();
 
-        Task<IFile> GetFileAsync(string path);
+        Task<IFile?> GetFileAsync(string path);
 
-        Task<IFolder> GetFolderAsync(string path);
+        Task<IFolder?> GetFolderAsync(string path);
 
-        Task<TStorage> GetStorageAsync<TStorage>(string path) where TStorage : IBaseStorage;
+        Task<TStorage?> GetStorageAsync<TStorage>(string path) where TStorage : class, IBaseStorage;
     }
 }

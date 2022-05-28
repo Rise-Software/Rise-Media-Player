@@ -1,12 +1,9 @@
 ﻿using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Rise.App.Services;
-using Rise.Storage;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
-namespace Rise.App.ViewModels.FileBrowser
+namespace Rise.App.ViewModels.FileBrowser.Pages
 {
     public sealed class FileBrowserHomePageViewModel : BaseFileBrowserPageViewModel
     {
@@ -20,21 +17,11 @@ namespace Rise.App.ViewModels.FileBrowser
             Drives = new();
         }
 
-        public async Task EnumerateDrivesAsync()
+        public void EnumerateDrives()
         {
-            var driveFoldersTasks = new List<Task<IFolder?>>();
             foreach (var item in StorageService.EnumerateDrives())
             {
-                driveFoldersTasks.Add(item.GetRootFolderAsync());
-            }
-
-            var driveFolders = await Task.WhenAll<IFolder?>(driveFoldersTasks);
-            foreach (var item in driveFolders)
-            {
-                if (item is not null)
-                {
-                    Drives.Add(new(item));
-                }
+                Drives.Add(new(item, Messenger));
             }
         }
     }

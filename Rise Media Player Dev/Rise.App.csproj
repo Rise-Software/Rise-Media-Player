@@ -148,9 +148,12 @@
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EventsLogic.cs" />
-    <Compile Include="Messages\FileBrowser\CurrentFolderChangedMessage.cs" />
+    <Compile Include="Messages\FileBrowser\FileBrowserDirectoryNavigationRequestedMessage.cs" />
     <Compile Include="Messages\FileBrowser\FileBrowserNavigationRequestedMessage.cs" />
     <Compile Include="Messages\FileBrowser\OpenInFileExplorerMessage.cs" />
+    <Compile Include="Models\EnumerationSource.cs" />
+    <Compile Include="Models\FileBrowserEnumerationModel.cs" />
+    <Compile Include="Models\IEnumerationDestination.cs" />
     <Compile Include="ServicesImplementation\FileExplorerService.cs" />
     <Compile Include="ServicesImplementation\UwpStorageService.cs" />
     <Compile Include="Services\IFileExplorerService.cs" />
@@ -168,13 +171,19 @@
     <Compile Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml.cs">
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FileBrowser\FileBrowserListingSectionControl.xaml.cs">
+      <DependentUpon>FileBrowserListingSectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BreadcrumbItemViewModel.cs" />
-    <Compile Include="ViewModels\FileBrowser\BaseFileBrowserPageViewModel.cs" />
-    <Compile Include="ViewModels\FileBrowser\FileBrowserDirectoryPageViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Listing\FileBrowserListingItemViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Listing\FileBrowserListingSectionViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Listing\FileBrowserListingViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Pages\BaseFileBrowserPageViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Pages\FileBrowserDirectoryPageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserDriveItemViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />
-    <Compile Include="ViewModels\FileBrowser\FileBrowserHomePageViewModel.cs" />
-    <Compile Include="ViewModels\FileBrowser\FileBrowserPageViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Pages\FileBrowserHomePageViewModel.cs" />
+    <Compile Include="ViewModels\FileBrowser\Pages\FileBrowserPageViewModel.cs" />
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -651,6 +660,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FileBrowser\FileBrowserListingSectionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

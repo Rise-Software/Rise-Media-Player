@@ -5,7 +5,7 @@ using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
-using Rise.App.ViewModels.FileBrowser;
+using Rise.App.ViewModels.FileBrowser.Pages;
 using Rise.App.Views.FileBrowser;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -38,7 +38,7 @@ namespace Rise.App.Views
 
             if (await StorageService.EnsureFileSystemIsAccessible())
             {
-                await ViewModel.EnsureInitialized();
+                ViewModel.EnsureInitialized();
             }
         }
 

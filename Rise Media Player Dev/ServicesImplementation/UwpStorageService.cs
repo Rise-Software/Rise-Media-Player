@@ -32,30 +32,44 @@ namespace Rise.App.ServicesImplementation
             throw new InvalidOperationException();
         }
 
-        public async Task<IFile> GetFileAsync(string path)
+        public async Task<IFile?> GetFileAsync(string path)
         {
-            var file = await StorageFile.GetFileFromPathAsync(path);
-            return new UwpFile(file);
+            try
+            {
+                var file = await StorageFile.GetFileFromPathAsync(path);
+                return new UwpFile(file);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public async Task<IFolder> GetFolderAsync(string path)
+        public async Task<IFolder?> GetFolderAsync(string path)
         {
-            var folder = await StorageFolder.GetFolderFromPathAsync(path);
-            return new UwpFolder(folder);
+            try
+            {
+                var folder = await StorageFolder.GetFolderFromPathAsync(path);
+                return new UwpFolder(folder);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public async Task<TStorage> GetStorageAsync<TStorage>(string path)
-            where TStorage : IBaseStorage
+        public async Task<TStorage?> GetStorageAsync<TStorage>(string path)
+            where TStorage : class, IBaseStorage
         {
             var storageType = typeof(TStorage);
 
             if (typeof(IFile).IsAssignableFrom(storageType))
             {
-                return (TStorage)(IBaseStorage)await GetFileAsync(path);
+                return (TStorage?)(IBaseStorage?)await GetFileAsync(path);
             }
             else if (typeof(IFolder).IsAssignableFrom(storageType))
             {
-                return (TStorage)(IBaseStorage)await GetFolderAsync(path);
+                return (TStorage?)(IBaseStorage?)await GetFolderAsync(path);
             }
             else
             {

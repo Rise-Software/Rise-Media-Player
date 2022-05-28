@@ -7,7 +7,6 @@ using Rise.App.DbControllers;
 using Rise.App.Services;
 using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
-using Rise.App.ViewModels.FileBrowser;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
@@ -27,6 +26,7 @@ using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Rise.App.ViewModels.FileBrowser.Pages;
 
 namespace Rise.App
 {

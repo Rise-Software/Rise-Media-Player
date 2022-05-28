@@ -26,6 +26,6 @@ namespace Rise.App.Storage
             await storage.DeleteAsync(permanently ? StorageDeleteOption.PermanentDelete : StorageDeleteOption.Default);
         }
 
-        public abstract Task<IFolder> GetParentAsync();
+        public abstract Task<IFolder?> GetParentAsync();
     }
 }

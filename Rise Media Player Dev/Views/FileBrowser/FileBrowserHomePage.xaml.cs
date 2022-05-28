@@ -1,6 +1,6 @@
-﻿using Rise.App.ViewModels.FileBrowser;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Rise.App.ViewModels.FileBrowser.Pages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

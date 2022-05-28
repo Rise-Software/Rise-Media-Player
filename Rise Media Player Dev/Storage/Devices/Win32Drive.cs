@@ -1,6 +1,5 @@
 ﻿using Rise.Storage;
 using Rise.Storage.Devices;
-using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
@@ -31,7 +30,7 @@ namespace Rise.App.Storage.Devices
 
         public Task<IFolder?> GetRootFolderAsync()
         {
-            return StorageService.GetFolderAsync(Name)!;
+            return StorageService.GetFolderAsync(Name);
         }
     }
 }
