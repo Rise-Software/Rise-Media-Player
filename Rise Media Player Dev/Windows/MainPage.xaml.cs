@@ -59,6 +59,12 @@ namespace Rise.App.Views
 
         private NavigationViewItem RightClickedItem { get; set; }
 
+        private SolidColorBrush MainGridBackground
+        {
+            get => (SolidColorBrush)GetValue(MainGridBackgroundProperty);
+            set => SetValue(MainGridBackgroundProperty, value);
+        }
+
         internal string AccountMenuText
         {
             get => Acc.Text.ToString();
@@ -123,13 +129,16 @@ namespace Rise.App.Views
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            bool isMusic = e?.ItemType == Windows.Media.MediaPlaybackType.Music;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                PlayerControls.IsRestoreButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Video;
-                PlayerControls.IsOverlayButtonVisible = e?.ItemType == Windows.Media.MediaPlaybackType.Music;
+                PlayerControls.IsRestoreButtonVisible = !isMusic;
+                PlayerControls.IsOverlayButtonVisible = isMusic;
+
+                await HandleViewModelColorSettingAsync();
             });
 
-            if (e?.ItemType == Windows.Media.MediaPlaybackType.Music)
+            if (isMusic)
             {
                 try
                 {
@@ -214,7 +223,6 @@ namespace Rise.App.Views
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
                 }
 
-                await HandleViewModelColorSettingAsync();
                 UpdateTitleBarItems(NavView);
 
                 try
@@ -447,19 +455,18 @@ namespace Rise.App.Views
 
         public async Task HandleViewModelColorSettingAsync()
         {
+            Color color;
             switch (SViewModel.SelectedGlaze)
             {
                 case GlazeTypes.AccentColor:
                     var uiSettings = new UISettings();
-                    Color accent = uiSettings.GetColorValue(UIColorType.Accent);
-                    accent.A = 25;
-                    _Grid.Background = new SolidColorBrush(accent);
+                    color = uiSettings.GetColorValue(UIColorType.Accent);
+                    color.A = 25;
                     break;
 
                 case GlazeTypes.CustomColor:
                     var glaze = SViewModel.GlazeColors;
-                    var col = Color.FromArgb(glaze[0], glaze[1], glaze[2], glaze[3]);
-                    _Grid.Background = new SolidColorBrush(col);
+                    color = Color.FromArgb(glaze[0], glaze[1], glaze[2], glaze[3]);
                     break;
 
                 case GlazeTypes.MediaThumbnail:
@@ -473,15 +480,17 @@ namespace Rise.App.Views
                         var decoder = await BitmapDecoder.CreateAsync(stream);
                         var colorThief = new ColorThiefDotNet.ColorThief();
 
-                        var color = await colorThief.GetColor(decoder);
-                        _Grid.Background = new SolidColorBrush(Color.FromArgb(25, color.Color.R, color.Color.G, color.Color.B));
+                        var stolen = (await colorThief.GetColor(decoder)).Color;
+                        color = Color.FromArgb(25, stolen.R, stolen.G, stolen.B);
                     }
                     break;
 
                 default:
-                    _Grid.Background = new SolidColorBrush(Colors.Transparent);
+                    color = Colors.Transparent;
                     break;
             }
+
+            MainGridBackground = new SolidColorBrush(color);
         }
         #endregion
 
@@ -726,7 +735,7 @@ namespace Rise.App.Views
     // NavigationHelper
     public sealed partial class MainPage
     {
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (MPViewModel.Player != null)
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
@@ -741,6 +750,8 @@ namespace Rise.App.Views
                 if (res)
                     ContentFrame.SetNavigationState(state.ToString());
             }
+
+            await HandleViewModelColorSettingAsync();
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -753,6 +764,14 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
+    }
+
+    // Dependency properties
+    public sealed partial class MainPage
+    {
+        private readonly static DependencyProperty MainGridBackgroundProperty =
+            DependencyProperty.Register(nameof(MainGridBackground), typeof(SolidColorBrush),
+                typeof(MainPage), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
     }
 
     public class NavViewItemTemplateSelector : DataTemplateSelector
