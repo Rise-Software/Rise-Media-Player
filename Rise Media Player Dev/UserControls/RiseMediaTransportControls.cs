@@ -1,5 +1,8 @@
-﻿using Rise.App.Views;
+﻿using Rise.App.ViewModels;
+using Rise.App.Views;
+using Rise.Common.Extensions;
 using System;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +17,7 @@ namespace Rise.App.UserControls
         private ToggleButton _shuffleButton;
         private AppBarButton _overlayButton;
         private AppBarButton _restoreButton;
+        private AppBarButton _propertiesButton;
 
         /// <summary>
         /// Gets or sets a value that indicates whether a user
@@ -83,6 +87,26 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsOverlayButtonVisibleProperty);
             set => SetValue(IsOverlayButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the properties
+        /// button is enabled.
+        /// </summary>
+        public bool IsPropertiesEnabled
+        {
+            get => (bool)GetValue(IsPropertiesEnabledProperty);
+            set => SetValue(IsPropertiesEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the properties
+        /// button is shown.
+        /// </summary>
+        public bool IsPropertiesButtonVisible
+        {
+            get => (bool)GetValue(IsPropertiesButtonVisibleProperty);
+            set => SetValue(IsPropertiesButtonVisibleProperty, value);
         }
 
         /// <summary>
@@ -185,6 +209,14 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnOverlayButtonVisibleChanged));
+
+        public readonly static DependencyProperty IsPropertiesEnabledProperty =
+            DependencyProperty.Register(nameof(IsPropertiesEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnPropertiesEnabledChanged));
+
+        public readonly static DependencyProperty IsPropertiesButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsPropertiesButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false, OnPropertiesButtonVisibleChanged));
     }
 
     // Event handlers
@@ -269,6 +301,22 @@ namespace Rise.App.UserControls
                 HandleElementVisibility(rmtc._overlayButton, (bool)args.NewValue);
             }
         }
+
+        private static void OnPropertiesEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleControlEnabled(rmtc._propertiesButton, (bool)args.NewValue);
+            }
+        }
+
+        private static void OnPropertiesButtonVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            if (sender is RiseMediaTransportControls rmtc)
+            {
+                HandleElementVisibility(rmtc._propertiesButton, (bool)args.NewValue);
+            }
+        }
     }
 
     // Constructor, Overrides
@@ -291,12 +339,42 @@ namespace Rise.App.UserControls
             _restoreButton = GetTemplateChild("RestoreButton") as AppBarButton;
             _restoreButton.Click += (s, e) => RestoreButtonClick?.Invoke(s, e);
 
+            _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
+            _propertiesButton.Click += async (s, e) =>
+            {
+                if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
+                {
+                    try
+                    {
+                        StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
+
+                        if (file != null)
+                        {
+                            SongPropertiesViewModel props = new(song, file.DateCreated)
+                            {
+                                FileProps = await file.GetBasicPropertiesAsync()
+                            };
+
+                            _ = await typeof(SongPropertiesPage).
+                                PlaceInApplicationViewAsync(props, 380, 550, true);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            };
+
             HandleControlEnabled(_shuffleButton, IsShuffleEnabled);
             HandleElementVisibility(_shuffleButton, IsShuffleButtonVisible);
             HandleToggleChecked(_shuffleButton, IsShuffleButtonChecked);
 
             HandleControlEnabled(_restoreButton, IsRestoreEnabled);
             HandleElementVisibility(_restoreButton, IsRestoreButtonVisible);
+
+            HandleControlEnabled(_propertiesButton, IsPropertiesEnabled);
+            HandleElementVisibility(_propertiesButton, IsPropertiesButtonVisible);
 
             base.OnApplyTemplate();
         }

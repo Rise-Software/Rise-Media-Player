@@ -515,31 +515,37 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="PlaybackRateButton">
+                    <AppBarButton x:Name="PlaybackRateButton" Label="{Binding ElementName=PlaybackRateButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEC57;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="ZoomButton">
+                    <AppBarButton x:Name="ZoomButton" Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE799;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="CastButton">
+                    <AppBarButton x:Name="CastButton" Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEC15;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="CompactOverlayButton">
+                    <AppBarButton x:Name="CompactOverlayButton" Label="Toggle compact overlay">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B9;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed">
+                    <AppBarButton x:Name="InfoPropertiesButton" Label="Info &amp; Properties">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE946;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                    <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                         <AppBarButton.Icon>
                             <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                         </AppBarButton.Icon>

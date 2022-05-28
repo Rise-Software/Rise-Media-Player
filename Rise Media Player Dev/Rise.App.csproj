@@ -143,6 +143,7 @@
     <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
