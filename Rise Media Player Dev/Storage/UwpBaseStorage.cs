@@ -26,6 +26,11 @@ namespace Rise.App.Storage
             await storage.DeleteAsync(permanently ? StorageDeleteOption.PermanentDelete : StorageDeleteOption.Default);
         }
 
+        internal TStorage GetInternalImpl()
+        {
+            return storage;
+        }
+
         public abstract Task<IFolder?> GetParentAsync();
     }
 }

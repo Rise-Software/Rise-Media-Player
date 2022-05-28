@@ -14,10 +14,10 @@
         <ListView ItemsSource="{x:Bind ViewModel.ListingViewModel.Sections}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
-                    <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}">
+                    <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}" SectionName="{x:Bind SectionName}">
                         <uc:FileBrowserListingSectionControl.ItemTemplate>
                             <DataTemplate x:DataType="vm:FileBrowserListingItemViewModel">
-                                <Grid>
+                                <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
                                     <TextBlock Text="{x:Bind Name}" />
                                 </Grid>
                             </DataTemplate>

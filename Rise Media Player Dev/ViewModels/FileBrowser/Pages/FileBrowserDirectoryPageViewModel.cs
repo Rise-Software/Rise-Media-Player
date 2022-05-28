@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.Storage;
@@ -16,13 +17,13 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 
         public FileBrowserListingViewModel ListingViewModel { get; }
 
-        private IFolder? CurrentFolder { get; set; }
+        public IFolder CurrentFolder { get; private set; }
 
-        public FileBrowserDirectoryPageViewModel(IMessenger messenger, IFolder? startingFolder = null)
+        public FileBrowserDirectoryPageViewModel(IMessenger messenger, IFolder startingFolder)
             : base(messenger)
         {
-            this.CurrentFolder = startingFolder;
-            this.ListingViewModel = new();
+            ChangeFolder(startingFolder);
+            this.ListingViewModel = new(messenger);
 
             messenger.Register<OpenInFileExplorerMessage>(this);
             messenger.Register<FileBrowserDirectoryNavigationRequestedMessage>(this);
@@ -36,17 +37,18 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 
         public void Receive(FileBrowserDirectoryNavigationRequestedMessage message)
         {
-            CurrentFolder = message.Value;
+            ChangeFolder(message.Value);
         }
 
-        public Task EnumerateDirectoryAsync()
+        public Task EnumerateDirectoryAsync(CancellationToken cancellationToken)
         {
-            if (CurrentFolder is null)
-            {
-                return Task.CompletedTask;
-            }
+            return ListingViewModel.StartEnumerationAsync(CurrentFolder, cancellationToken);
+        }
 
-            return ListingViewModel.StartEnumerationAsync(CurrentFolder);
+        private void ChangeFolder(IFolder folder)
+        {
+            CurrentFolder = folder;
+            Messenger.Send(new FileBrowserDirectoryEnumerationRequestedMessage(CancellationToken.None));
         }
     }
 }

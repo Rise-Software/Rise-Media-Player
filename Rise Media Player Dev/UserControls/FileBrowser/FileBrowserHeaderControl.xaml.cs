@@ -1,8 +1,9 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.ViewModels;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
+using Rise.App.ViewModels.FileBrowser;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -15,13 +16,13 @@ namespace Rise.App.UserControls.FileBrowser
             this.InitializeComponent();
         }
 
-        public IList<BreadcrumbItemViewModel> Items
+        public IList<FileBrowserBreadcrumbItemViewModel> Items
         {
-            get => (IList<BreadcrumbItemViewModel>)GetValue(ItemsProperty);
+            get => (IList<FileBrowserBreadcrumbItemViewModel>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
         public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register(nameof(Items), typeof(IList<BreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Items), typeof(IList<FileBrowserBreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
 
         public string? CurrentLocation
@@ -76,5 +77,13 @@ namespace Rise.App.UserControls.FileBrowser
         }
         public static readonly DependencyProperty OpenInFileExplorerCommandProperty =
             DependencyProperty.Register(nameof(OpenInFileExplorerCommand), typeof(IRelayCommand), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+
+        private void BreadcrumbBar_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+        {
+            if (args.Item is FileBrowserBreadcrumbItemViewModel itemViewModel)
+            {
+                itemViewModel.ItemClickedCommand?.Execute(itemViewModel);
+            }
+        }
     }
 }

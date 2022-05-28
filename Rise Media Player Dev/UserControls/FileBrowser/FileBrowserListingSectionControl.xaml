@@ -10,7 +10,17 @@
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{x:Bind SectionName, Mode=OneWay}" />
+
         <!--  TODO: Section UI  -->
-        <ListView ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" />
+        <ListView
+            Grid.Row="1"
+            ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
+            ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" />
     </Grid>
 </UserControl>

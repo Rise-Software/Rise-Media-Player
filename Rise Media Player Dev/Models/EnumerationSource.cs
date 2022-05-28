@@ -16,6 +16,11 @@ namespace Rise.App.Models
             this._initializer = initializer;
         }
 
+        public void ResetData()
+        {
+            _destination = null;
+        }
+
         public bool Predicate(TEnumeration enumeration)
         {
             return _predicate(enumeration);

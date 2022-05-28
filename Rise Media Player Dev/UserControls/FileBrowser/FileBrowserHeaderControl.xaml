@@ -6,6 +6,7 @@
     xmlns:local="using:Rise.App.UserControls.FileBrowser"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:Rise.App.ViewModels.FileBrowser"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -44,7 +45,14 @@
         <muxc:BreadcrumbBar
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            ItemsSource="{x:Bind Items, Mode=OneWay}" />
+            ItemClicked="BreadcrumbBar_ItemClicked"
+            ItemsSource="{x:Bind Items, Mode=OneWay}">
+            <muxc:BreadcrumbBar.ItemTemplate>
+                <DataTemplate x:DataType="vm:FileBrowserBreadcrumbItemViewModel">
+                    <TextBlock Text="{x:Bind SectionName}" />
+                </DataTemplate>
+            </muxc:BreadcrumbBar.ItemTemplate>
+        </muxc:BreadcrumbBar>
 
         <!--  Folder options  -->
         <StackPanel

@@ -1,22 +1,17 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Rise.App.ViewModels
 {
-    public sealed class BreadcrumbItemViewModel
+    public class BreadcrumbItemViewModel
     {
-        public bool IsLeading { get; set; }
-
-        public int Index { get; }
-
-        public Action<BreadcrumbItemViewModel?> NavigationAction { get; }
-
         public string SectionName { get; }
 
-        public BreadcrumbItemViewModel(int index, Action<BreadcrumbItemViewModel?> navigationAction, string sectionName)
+        public IRelayCommand? ItemClickedCommand { get; }
+
+        public BreadcrumbItemViewModel(string sectionName, IRelayCommand? itemClickedCommand)
         {
-            this.Index = index;
-            this.NavigationAction = navigationAction;
             this.SectionName = sectionName;
+            this.ItemClickedCommand = itemClickedCommand;
         }
     }
 }

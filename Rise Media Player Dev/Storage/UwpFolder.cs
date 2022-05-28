@@ -67,7 +67,10 @@ namespace Rise.App.Storage
         public async Task<IEnumerable<IBaseStorage>> GetStorageAsync()
         {
             var filesAndFolders = await storage.GetItemsAsync();
-            return filesAndFolders.Select<IStorageItem, IBaseStorage>(x => x is StorageFolder folder ? new UwpFolder(folder) : (x is StorageFile file ? new UwpFile(file) : null)).Where(x => x is not null);
+            return filesAndFolders.Select<IStorageItem, IBaseStorage>(x =>
+                    x is StorageFolder folder ? new UwpFolder(folder)
+                    : (x is StorageFile file ? new UwpFile(file) : null))
+                .Where(x => x is not null);
         }
 
         public override async Task<IFolder?> GetParentAsync()
