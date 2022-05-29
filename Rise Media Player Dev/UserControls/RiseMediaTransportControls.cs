@@ -279,6 +279,8 @@ namespace Rise.App.UserControls
                     }
                 }
             };
+
+            base.OnApplyTemplate();
         }
     }
 }
