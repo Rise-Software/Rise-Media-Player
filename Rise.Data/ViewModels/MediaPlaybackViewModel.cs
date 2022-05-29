@@ -50,10 +50,15 @@ namespace Rise.Data.ViewModels
             }
         }
 
+        private bool _playerCreated;
         /// <summary>
         /// Whether the main player has been created.
         /// </summary>
-        public bool PlayerCreated { get; private set; } = false;
+        public bool PlayerCreated
+        {
+            get => _playerCreated;
+            private set => Set(ref _playerCreated, value);
+        }
 
         /// <summary>
         /// The media playback list. It is permanently associated with
