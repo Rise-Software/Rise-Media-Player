@@ -65,7 +65,6 @@
                 <Grid x:Name="RootGrid">
                     <Grid
                         x:Name="ControlPanelGrid"
-                        Padding="0,0,0,4"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -82,6 +81,7 @@
                         </Grid.RenderTransform>
 
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
@@ -105,7 +105,10 @@
                             IsIndeterminate="True"
                             Visibility="Collapsed" />
 
-                        <Border x:Name="DisplayItemPresenter_Border" Grid.Row="1">
+                        <Border
+                            x:Name="DisplayItemPresenter_Border"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2">
                             <ContentPresenter
                                 x:Name="DisplayItemPresenter"
                                 Content="{TemplateBinding DisplayItem}"
@@ -139,6 +142,7 @@
                         <Grid
                             x:Name="MediaTransportControls_Timeline"
                             Grid.Row="3"
+                            Grid.ColumnSpan="2"
                             Margin="12,0,0,0"
                             ColumnSpacing="12"
                             Visibility="{Binding IsTimelineVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
@@ -169,6 +173,7 @@
                         <CommandBar
                             x:Name="MainMediaControlsCommandBar"
                             Grid.Row="2"
+                            Grid.ColumnSpan="2"
                             Margin="0"
                             HorizontalAlignment="Center"
                             DefaultLabelPosition="Collapsed"
@@ -380,10 +385,11 @@
 
                         <CommandBar
                             x:Name="SecondaryMediaControlsCommandBar"
-                            Margin="0"
+                            Width="52"
+                            Margin="36,0,0,0"
                             DefaultLabelPosition="Collapsed"
                             IsDynamicOverflowEnabled="True"
-                            OverflowButtonVisibility="Auto">
+                            OverflowButtonVisibility="Visible">
                             <AppBarButton
                                 x:Name="RestoreButton"
                                 IsEnabled="{TemplateBinding IsRestoreEnabled}"
@@ -723,9 +729,8 @@
             Canvas.ZIndex="2">
             <Button
                 x:Name="OverlayExitButton"
-                Width="36"
-                Height="32"
-                Padding="0"
+                Width="40"
+                Height="35"
                 Click="OnExitOverlayClick"
                 Style="{StaticResource TransparentButtonStyle}"
                 Visibility="Collapsed">
@@ -734,9 +739,8 @@
 
             <Button
                 x:Name="BackButton"
-                Width="36"
-                Height="32"
-                Padding="0"
+                Width="40"
+                Height="35"
                 Click="OnBackButtonClick"
                 Style="{StaticResource TransparentButtonStyle}"
                 Visibility="Collapsed">
@@ -810,7 +814,7 @@
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
             MaxWidth="1000"
-            Margin="15,0,15,15"
+            Margin="12,4,12,12"
             VerticalAlignment="Stretch"
             MediaPlayerVisibility="Collapsed">
             <uc:RiseMediaPlayerElement.TransportControls>
