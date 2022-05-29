@@ -192,11 +192,11 @@ namespace Rise.App.Views
                             ShowInApplicationViewAsync(null, 400, 420, true, ApplicationViewMode.CompactOverlay);
                         break;
                     case 1:
-                        (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), null);
+                        Frame.Navigate(typeof(NowPlayingPage), null);
                         break;
                     case 2:
+                        Frame.Navigate(typeof(NowPlayingPage), null);
                         await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-                        (Window.Current.Content as Frame).Navigate(typeof(NowPlayingPage), null);
                         break;
                 }
             }
