@@ -962,7 +962,10 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
+                        <Setter Target="MainPlayer.HorizontalAlignment" Value="Left" />
+                        <Setter Target="MainPlayer.Width" Value="700" />
                         <Setter Target="PlayerControls.IsTimelineVisible" Value="True" />
+
                         <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="InfoText.VerticalAlignment" Value="Bottom" />
