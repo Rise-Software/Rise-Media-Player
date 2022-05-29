@@ -479,16 +479,6 @@
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Auto">
                     <AppBarButton
-                        x:Name="RestoreButton"
-                        IsEnabled="{TemplateBinding IsRestoreEnabled}"
-                        ToolTipService.ToolTip="Restore view"
-                        Visibility="{Binding IsRestoreButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                        <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xE098;" />
-                        </AppBarButton.Icon>
-                    </AppBarButton>
-
-                    <AppBarButton
                         x:Name="OverlayButton"
                         IsEnabled="{TemplateBinding IsOverlayEnabled}"
                         ToolTipService.ToolTip="Now playing"

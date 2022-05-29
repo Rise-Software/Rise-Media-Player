@@ -15,6 +15,7 @@ using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
+using Windows.Media;
 using Windows.Security.Credentials;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -129,16 +130,12 @@ namespace Rise.App.Views
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
         {
-            bool isMusic = e?.ItemType == Windows.Media.MediaPlaybackType.Music;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                PlayerControls.IsRestoreButtonVisible = !isMusic;
-                PlayerControls.IsOverlayButtonVisible = isMusic;
-
                 await HandleViewModelColorSettingAsync();
             });
 
-            if (isMusic)
+            if (e?.ItemType == MediaPlaybackType.Music)
             {
                 try
                 {
@@ -178,12 +175,15 @@ namespace Rise.App.Views
         private void PlayerControls_ShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
-        private void PlayerControls_RestoreButtonClick(object sender, RoutedEventArgs e)
-            => Frame.Navigate(typeof(VideoPlaybackPage));
-
         private async void PlayerControls_OverlayButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem != null)
+            if (MPViewModel.PlayingItem == null) return;
+
+            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+            {
+                Frame.Navigate(typeof(VideoPlaybackPage));
+            }
+            else
             {
                 switch (SViewModel.NowPlayingMode)
                 {
