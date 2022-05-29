@@ -701,7 +701,7 @@
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
             Title=""
-            Margin="88,0,0,0"
+            Margin="92,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             Canvas.ZIndex="1"
@@ -962,6 +962,7 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsTimelineVisible" Value="True" />
                         <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="InfoText.VerticalAlignment" Value="Bottom" />
