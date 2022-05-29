@@ -98,7 +98,7 @@ namespace Rise.App.UserControls
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            playerWatcher.Dispose();
+            playerWatcher?.Dispose();
         }
     }
 
