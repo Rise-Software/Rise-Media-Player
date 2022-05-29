@@ -143,7 +143,7 @@
                             x:Name="MediaTransportControls_Timeline"
                             Grid.Row="3"
                             Grid.ColumnSpan="2"
-                            Margin="12,0,0,0"
+                            Margin="12,0"
                             ColumnSpacing="12"
                             Visibility="{Binding IsTimelineVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <Grid.ColumnDefinitions>
@@ -386,7 +386,7 @@
                         <CommandBar
                             x:Name="SecondaryMediaControlsCommandBar"
                             Width="52"
-                            Margin="36,0,0,0"
+                            Margin="35,0,0,0"
                             DefaultLabelPosition="Collapsed"
                             IsDynamicOverflowEnabled="True"
                             OverflowButtonVisibility="Visible">
@@ -592,23 +592,7 @@
 
                         <VisualStateGroup x:Name="MediaTransportControlMode">
                             <VisualState x:Name="NormalMode" />
-                            <VisualState x:Name="CompactMode">
-                                <VisualState.Setters>
-                                    <Setter Target="ControlPanelGrid.Padding" Value="0" />
-                                    <Setter Target="DisplayItemPresenter_Border.Visibility" Value="Collapsed" />
-
-                                    <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
-                                    <Setter Target="LeftSidePlayBorder.Visibility" Value="Visible" />
-
-                                    <Setter Target="MainMediaControlsCommandBar.(Grid.Column)" Value="2" />
-                                    <Setter Target="MediaTransportControls_Timeline.(Grid.Row)" Value="0" />
-                                    <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
-                                    <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
-
-                                    <Setter Target="VolumeMuteButton.Visibility" Value="Collapsed" />
-                                    <Setter Target="SecondaryBarColumn.Width" Value="48" />
-                                </VisualState.Setters>
-                            </VisualState>
+                            <VisualState x:Name="CompactMode" />
                         </VisualStateGroup>
 
                         <VisualStateGroup x:Name="PlayPauseStates">
@@ -717,20 +701,22 @@
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
             Title=""
+            Margin="88,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
+            Canvas.ZIndex="1"
             FontSize="14"
             ShowIcon="False" />
 
         <Grid
-            Margin="12"
+            Margin="4"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Canvas.ZIndex="2">
             <Button
                 x:Name="OverlayExitButton"
                 Width="40"
-                Height="35"
+                Height="36"
                 Click="OnExitOverlayClick"
                 Style="{StaticResource TransparentButtonStyle}"
                 Visibility="Collapsed">
@@ -740,7 +726,7 @@
             <Button
                 x:Name="BackButton"
                 Width="40"
-                Height="35"
+                Height="36"
                 Click="OnBackButtonClick"
                 Style="{StaticResource TransparentButtonStyle}"
                 Visibility="Collapsed">
@@ -748,7 +734,10 @@
             </Button>
         </Grid>
 
-        <Grid x:Name="InfoGrid" Grid.Row="1">
+        <Grid
+            x:Name="InfoGrid"
+            Grid.Row="1"
+            Canvas.ZIndex="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="0" />
@@ -785,17 +774,16 @@
                 <TextBlock
                     x:Name="TitleText"
                     d:Text="Title"
-                    FontSize="24"
-                    FontWeight="Bold"
+                    FontSize="20"
+                    FontWeight="SemiBold"
                     HorizontalTextAlignment="Center"
                     MaxLines="2"
-                    Style="{StaticResource TitleTextBlockStyle}"
                     Text="{x:Bind MPViewModel.PlayingItem.Title}" />
                 <TextBlock
                     x:Name="SubtitleText"
                     Margin="0,4,0,0"
                     d:Text="Subtitle"
-                    FontSize="18"
+                    FontSize="16"
                     FontWeight="SemiBold"
                     HorizontalTextAlignment="Center"
                     MaxLines="1"
@@ -814,8 +802,9 @@
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
             MaxWidth="1000"
-            Margin="12,4,12,12"
+            Margin="4,-3,4,4"
             VerticalAlignment="Stretch"
+            Canvas.ZIndex="0"
             MediaPlayerVisibility="Collapsed">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
@@ -823,14 +812,11 @@
                     DisplayItemVisibility="Collapsed"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
-                    IsRepeatButtonVisible="True"
                     IsRepeatEnabled="True"
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
-                    IsShuffleButtonVisible="True"
                     IsShuffleEnabled="True"
-                    IsSkipBackwardEnabled="True"
-                    IsSkipForwardEnabled="True"
                     IsTimelineVisible="False"
+                    IsVolumeButtonVisible="False"
                     ShowAndHideAutomatically="False"
                     ShufflingChanged="OnShufflingChanged" />
             </uc:RiseMediaPlayerElement.TransportControls>
@@ -960,9 +946,9 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="SizeStates">
-                <VisualState x:Name="MediumState">
+                <VisualState x:Name="MediumSizeState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="400" />
+                        <AdaptiveTrigger MinWindowHeight="260" MinWindowWidth="260" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -970,7 +956,7 @@
                     </VisualState.Setters>
                 </VisualState>
 
-                <VisualState x:Name="LargeState">
+                <VisualState x:Name="LargeSizeState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="600" MinWindowWidth="720" />
                     </VisualState.StateTriggers>
@@ -982,6 +968,35 @@
                         <Setter Target="InfoText.Margin" Value="0,0,0,60" />
                         <Setter Target="ThumbBorder.Visibility" Value="Visible" />
                         <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="1*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="HeightStates">
+                <VisualState x:Name="MediumHeightState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="260" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="TitleText.FontSize" Value="24" />
+                        <Setter Target="TitleText.FontWeight" Value="Bold" />
+                        <Setter Target="SubtitleText.FontSize" Value="18" />
+                        <Setter Target="SubtitleText.FontWeight" Value="SemiBold" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="WidthStates">
+                <VisualState x:Name="MediumWidthState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="260" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsVolumeButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsRepeatButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsShuffleButtonVisible" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
