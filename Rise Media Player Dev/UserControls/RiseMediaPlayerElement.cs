@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -12,6 +13,8 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaPlayerElement : MediaPlayerElement
     {
+        private DependencyPropertyWatcher<MediaPlayer> playerWatcher;
+
         /// <summary>
         /// Gets or sets the player's visibility.
         /// </summary>
@@ -70,6 +73,32 @@ namespace Rise.App.UserControls
                 VisualStateManager.GoToState(TransportControls, "MuteState", true);
             });
         }
+
+        private void RegisterVolumeChangedCallbacks()
+        {
+            MediaPlayer.VolumeChanged += OnVolumeChanged;
+            MediaPlayer.IsMutedChanged += OnIsMutedChanged;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (MediaPlayer != null)
+            {
+                RegisterVolumeChangedCallbacks();
+            }
+            else
+            {
+                playerWatcher = new(this, "MediaPlayer");
+                playerWatcher.PropertyChanged += (s, e) => RegisterVolumeChangedCallbacks();
+            }
+
+            await HandleVolumeChangedAsync(1);
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            playerWatcher.Dispose();
+        }
     }
 
     // Constructor
@@ -78,16 +107,9 @@ namespace Rise.App.UserControls
         public RiseMediaPlayerElement()
         {
             DefaultStyleKey = typeof(RiseMediaPlayerElement);
-        }
 
-        protected override async void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            MediaPlayer.VolumeChanged += OnVolumeChanged;
-            MediaPlayer.IsMutedChanged += OnIsMutedChanged;
-
-            await HandleVolumeChangedAsync(1);
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
     }
 }
