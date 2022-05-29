@@ -737,7 +737,7 @@ namespace Rise.App.Views
     {
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (MPViewModel.Player != null)
+            if (MPViewModel.PlayerCreated)
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;

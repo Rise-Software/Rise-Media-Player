@@ -21,7 +21,7 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            if (MPViewModel.Player != null)
+            if (MPViewModel.PlayerCreated != null)
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
@@ -53,7 +53,7 @@ namespace Rise.App.Views
 
         private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(MPViewModel.Player));
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(e));
         }
 
         private void OnShufflingChanged(object sender, bool e)
@@ -95,14 +95,14 @@ namespace Rise.App.Views
         {
             _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
 
-            if ((Window.Current.Content as Frame).CanGoBack)
-                (Window.Current.Content as Frame).GoBack();
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
 
         private void OnBackButtonClick(object sender, RoutedEventArgs e)
         {
-            if ((Window.Current.Content as Frame).CanGoBack)
-                (Window.Current.Content as Frame).GoBack();
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
 
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)

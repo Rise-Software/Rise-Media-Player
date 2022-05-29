@@ -1,8 +1,8 @@
 ﻿using System;
-using AudioVisualizer;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AudioVisualizer;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Windows.Media.Playback;
@@ -46,10 +46,14 @@ namespace Rise.Data.ViewModels
             get
             {
                 _player ??= CreatePlayerInstance();
-
                 return _player;
             }
         }
+
+        /// <summary>
+        /// Whether the main player has been created.
+        /// </summary>
+        public bool PlayerCreated { get; private set; } = false;
 
         /// <summary>
         /// The media playback list. It is permanently associated with
@@ -214,6 +218,8 @@ namespace Rise.Data.ViewModels
         private MediaPlayer CreatePlayerInstance()
         {
             var player = new MediaPlayer();
+
+            PlayerCreated = true;
             MediaPlayerRecreated?.Invoke(this, player);
 
             VisualizerPlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
