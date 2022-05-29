@@ -10,12 +10,13 @@ using Windows.UI.Xaml.Input;
 
 namespace Rise.App.Views
 {
+    /// <summary>
+    /// A page that shows the current state of playback.
+    /// </summary>
     public sealed partial class NowPlayingPage : Page
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
-
-        private bool _isHovered;
 
         public NowPlayingPage()
         {
@@ -32,7 +33,6 @@ namespace Rise.App.Views
             // No need for pointer in events when we're in the main window
             if (SViewModel.NowPlayingMode == 1)
             {
-                _isHovered = true;
                 VisualStateManager.GoToState(this, "PointerInState", true);
             }
             else
@@ -51,6 +51,34 @@ namespace Rise.App.Views
             Unloaded += OnPageUnloaded;
         }
 
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            PointerEntered -= OnPointerEntered;
+            PointerExited -= OnPointerExited;
+            PointerCanceled -= OnPointerExited;
+
+            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+            SViewModel.PropertyChanged -= OnSettingChanged;
+        }
+    }
+
+    // Event handlers
+    public sealed partial class NowPlayingPage
+    {
+        // Buttons
+        private void OnBackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack) Frame.GoBack();
+        }
+
+        private async void OnExitOverlayClick(object sender, RoutedEventArgs e)
+        {
+            _ = await ApplicationView.GetForCurrentView().
+                TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
+            if (Frame.CanGoBack) Frame.GoBack();
+        }
+
+        // Media playback
         private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(e));
@@ -59,9 +87,9 @@ namespace Rise.App.Views
         private void OnShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
+        // UI
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            _isHovered = true;
             VisualStateManager.GoToState(this, "PointerInState", true);
 
             if (SViewModel.VisualizerType == 1)
@@ -72,7 +100,6 @@ namespace Rise.App.Views
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            _isHovered = false;
             VisualStateManager.GoToState(this, "PointerOutState", true);
 
             if (SViewModel.VisualizerType == 1)
@@ -81,30 +108,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void OnPageUnloaded(object sender, RoutedEventArgs e)
-        {
-            PointerEntered -= OnPointerEntered;
-            PointerExited -= OnPointerExited;
-            PointerCanceled -= OnPointerExited;
-
-            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
-            SViewModel.PropertyChanged -= OnSettingChanged;
-        }
-
-        private async void OnExitOverlayClick(object sender, RoutedEventArgs e)
-        {
-            _ = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default, ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
-
-            if (Frame.CanGoBack)
-                Frame.GoBack();
-        }
-
-        private void OnBackButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-                Frame.GoBack();
-        }
-
+        // Settings
         private void OnSettingChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
