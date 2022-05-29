@@ -21,7 +21,7 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            if (MPViewModel.PlayerCreated != null)
+            if (MPViewModel.PlayerCreated)
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
