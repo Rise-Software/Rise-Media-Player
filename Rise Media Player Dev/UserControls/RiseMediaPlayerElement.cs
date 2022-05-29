@@ -74,25 +74,26 @@ namespace Rise.App.UserControls
             });
         }
 
-        private void RegisterVolumeChangedCallbacks()
+        private async Task RegisterVolumeChangedAsync()
         {
             MediaPlayer.VolumeChanged += OnVolumeChanged;
             MediaPlayer.IsMutedChanged += OnIsMutedChanged;
+
+            await HandleVolumeChangedAsync(MediaPlayer.Volume);
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (MediaPlayer != null)
             {
-                RegisterVolumeChangedCallbacks();
+                await RegisterVolumeChangedAsync();
             }
             else
             {
                 playerWatcher = new(this, "MediaPlayer");
-                playerWatcher.PropertyChanged += (s, e) => RegisterVolumeChangedCallbacks();
+                playerWatcher.PropertyChanged += async (s, e)
+                    => await RegisterVolumeChangedAsync();
             }
-
-            await HandleVolumeChangedAsync(1);
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
