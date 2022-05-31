@@ -440,23 +440,23 @@
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Grid
                                         x:Name="ItemGrid"
-                                        Height="75"
+                                        Height="80"
                                         x:DefaultBindMode="OneWay">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition x:Name="ImageDefinition" Width="75" />
-                                            <ColumnDefinition x:Name="TextDefinition" Width="125" />
+                                            <ColumnDefinition x:Name="ImageDefinition" Width="80" />
+                                            <ColumnDefinition x:Name="TextDefinition" Width="120" />
                                         </Grid.ColumnDefinitions>
 
                                         <Border
                                             x:Name="ImageBorder"
-                                            Width="75"
+                                            Width="80"
                                             HorizontalAlignment="Left"
                                             CornerRadius="4">
                                             <Image>
                                                 <Image.Source>
                                                     <BitmapImage
-                                                        DecodePixelHeight="75"
-                                                        DecodePixelWidth="75"
+                                                        DecodePixelHeight="80"
+                                                        DecodePixelWidth="80"
                                                         UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
                                                 </Image.Source>
                                             </Image>
@@ -582,7 +582,7 @@
                             Storyboard.TargetName="ItemGrid"
                             Storyboard.TargetProperty="Width"
                             Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="75">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="80">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -604,7 +604,7 @@
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
                             Duration="0:0:0.3">
-                            <LinearDoubleKeyFrame KeyTime="0" Value="-75" />
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
@@ -641,7 +641,7 @@
                 <VisualState x:Name="MediumContentAreaLayout">
                     <VisualState.Setters>
                         <Setter Target="TextPanel.(Grid.Column)" Value="0" />
-                        <Setter Target="ImageDefinition.Width" Value="125" />
+                        <Setter Target="ImageDefinition.Width" Value="120" />
                     </VisualState.Setters>
 
                     <Storyboard>
@@ -650,7 +650,7 @@
                             Storyboard.TargetName="ItemGrid"
                             Storyboard.TargetProperty="Width"
                             Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -672,7 +672,7 @@
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
                             Duration="0:0:0.3">
-                            <LinearDoubleKeyFrame KeyTime="0" Value="75" />
+                            <LinearDoubleKeyFrame KeyTime="0" Value="80" />
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
@@ -727,7 +727,7 @@
                             Storyboard.TargetName="TextPanelTranslate"
                             Storyboard.TargetProperty="X"
                             Duration="0:0:0.3">
-                            <LinearDoubleKeyFrame KeyTime="0" Value="-75" />
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
