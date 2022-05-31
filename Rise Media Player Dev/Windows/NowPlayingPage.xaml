@@ -954,6 +954,7 @@
                     <VisualState.Setters>
                         <Setter Target="MainPlayer.HorizontalAlignment" Value="Left" />
                         <Setter Target="MainPlayer.Width" Value="700" />
+                        <Setter Target="PlayerControls.HorizontalControlsAlignment" Value="Left" />
                         <Setter Target="PlayerControls.IsTimelineVisible" Value="True" />
 
                         <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
