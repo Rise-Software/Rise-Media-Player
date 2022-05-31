@@ -127,15 +127,13 @@ namespace Rise.App.ChangeTrackers
                         toRemove.Add(MViewModel.Videos[i]);
                         e.WriteToOutput();
                     }
-                    catch (FileLoadException e)
+                    catch (FileLoadException)
                     {
-                        toRemove.Add(MViewModel.Videos[i]);
-                        e.WriteToOutput();
+
                     }
-                    catch (UnauthorizedAccessException e)
+                    catch (UnauthorizedAccessException)
                     {
-                        toRemove.Add(MViewModel.Videos[i]);
-                        e.WriteToOutput();
+
                     }
                 }
             }

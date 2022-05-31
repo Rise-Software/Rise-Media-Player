@@ -160,8 +160,7 @@ namespace Rise.App.ChangeTrackers
         {
             List<SongViewModel> toRemove = new();
 
-            // Check if the song doesn't exist anymore, or if we don't have access to it at all,
-            // if so queue it then remove.
+            // Check if the song doesn't exist anymore, if so queue it then remove.
             try
             {
                 for (int i = 0; i < ViewModel.Songs.Count; i++)
@@ -174,15 +173,13 @@ namespace Rise.App.ChangeTrackers
                         toRemove.Add(ViewModel.Songs[i]);
                         e.WriteToOutput();
                     }
-                    catch (FileLoadException e)
+                    catch (FileLoadException)
                     {
-                        toRemove.Add(ViewModel.Songs[i]);
-                        e.WriteToOutput();
+
                     }
-                    catch (UnauthorizedAccessException e)
+                    catch (UnauthorizedAccessException)
                     {
-                        toRemove.Add(ViewModel.Songs[i]);
-                        e.WriteToOutput();
+
                     }
                 }
             }
