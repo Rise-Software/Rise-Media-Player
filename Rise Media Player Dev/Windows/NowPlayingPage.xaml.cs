@@ -18,10 +18,30 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
+        /// <summary>
+        /// Whether the Now Playing window is large.
+        /// </summary>
+        private bool IsWindowLarge;
+
+        /// <summary>
+        /// Whether the album art should be fully visible.
+        /// </summary>
+        private bool UseImmersiveArt
+        {
+            get => (bool)GetValue(UseImmersiveArtProperty);
+            set => SetValue(UseImmersiveArtProperty, value);
+        }
+
         public NowPlayingPage()
         {
             InitializeComponent();
 
+            Loaded += OnPageLoaded;
+            Unloaded += OnPageUnloaded;
+        }
+
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
             if (MPViewModel.PlayerCreated)
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
             else
@@ -33,7 +53,7 @@ namespace Rise.App.Views
             // No need for pointer in events when we're in the main window
             if (SViewModel.NowPlayingMode == 1)
             {
-                VisualStateManager.GoToState(this, "PointerInState", true);
+                UseImmersiveArt = false;
             }
             else
             {
@@ -48,7 +68,6 @@ namespace Rise.App.Views
             }
 
             SViewModel.PropertyChanged += OnSettingChanged;
-            Unloaded += OnPageUnloaded;
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -89,22 +108,35 @@ namespace Rise.App.Views
 
         // UI
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(this, "PointerInState", true);
-
-            if (SViewModel.VisualizerType == 1)
-            {
-                VisualStateManager.GoToState(this, "LineVisualizerState", true);
-            }
-        }
+            => UpdatePointerStates(true);
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
+            => UpdatePointerStates(false);
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "PointerOutState", true);
+            IsWindowLarge = e.NewSize.Width >= 720 && e.NewSize.Height >= 600;
+            UpdatePointerStates(IsWindowLarge);
+        }
+
+        private void UpdatePointerStates(bool pointerIn)
+        {
+            string state = "NoVisualizerState";
+            if (pointerIn)
+            {
+                UseImmersiveArt = false;
+            }
+            else
+            {
+                // If the window is large, we don't want the immersive art
+                if (IsWindowLarge)
+                    state = "LineVisualizerState";
+                UseImmersiveArt = !IsWindowLarge;
+            }
 
             if (SViewModel.VisualizerType == 1)
             {
-                VisualStateManager.GoToState(this, "NoVisualizerState", true);
+                VisualStateManager.GoToState(this, state, true);
             }
         }
 
@@ -132,5 +164,13 @@ namespace Rise.App.Views
             2 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
             _ => VisualStateManager.GoToState(this, "NoVisualizerState", false),
         };
+    }
+
+    // Dependency properties
+    public sealed partial class NowPlayingPage
+    {
+        private readonly static DependencyProperty UseImmersiveArtProperty =
+            DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
+                typeof(NowPlayingPage), new PropertyMetadata(true));
     }
 }

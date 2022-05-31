@@ -13,6 +13,7 @@
     d:DesignHeight="300"
     d:DesignWidth="320"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -656,7 +657,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
             <Border.Background>
-                <media:BackdropBlurBrush x:Name="BlurBrush" />
+                <media:BackdropBlurBrush Amount="10" />
             </Border.Background>
         </Border>
 
@@ -788,8 +789,12 @@
         </uc:RiseMediaPlayerElement>
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="PointerStates">
-                <VisualState x:Name="PointerInState">
+            <VisualStateGroup x:Name="ArtStates">
+                <VisualState x:Name="DefaultState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind UseImmersiveArt.Equals(x:False), Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames
                             EnableDependentAnimation="True"
@@ -804,7 +809,6 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
                             Storyboard.TargetName="InfoText"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
@@ -816,11 +820,10 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
-                            Storyboard.TargetName="BlurBrush"
-                            Storyboard.TargetProperty="Amount"
+                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="10">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -829,7 +832,11 @@
                     </Storyboard>
                 </VisualState>
 
-                <VisualState x:Name="PointerOutState">
+                <VisualState x:Name="ImmersiveState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind UseImmersiveArt, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames
                             EnableDependentAnimation="True"
@@ -844,7 +851,6 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
                             Storyboard.TargetName="InfoText"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
@@ -856,9 +862,8 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
-                            Storyboard.TargetName="BlurBrush"
-                            Storyboard.TargetProperty="Amount"
+                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
                                 <EasingDoubleKeyFrame.EasingFunction>
@@ -927,8 +932,11 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
+                        <Setter Target="BlurBrushBorder.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+
                         <Setter Target="MainPlayer.HorizontalAlignment" Value="Left" />
                         <Setter Target="MainPlayer.Width" Value="700" />
+
                         <Setter Target="PlayerControls.HorizontalControlsAlignment" Value="Left" />
                         <Setter Target="PlayerControls.IsTimelineVisible" Value="True" />
 
