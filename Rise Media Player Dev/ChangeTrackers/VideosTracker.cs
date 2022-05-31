@@ -3,10 +3,11 @@ using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using Rise.Common.Extensions;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
+using System.IO;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -105,35 +106,63 @@ namespace Rise.App.ChangeTrackers
         }
 
         /// <summary>
-        /// Handle folders being removed/added from the video library.
-        /// </summary>
-        private static async void VideosLibrary_DefinitionChanged(StorageLibrary sender, object args)
-        {
-            Debug.WriteLine("Video folder changes!");
-            await MViewModel.StartFullCrawlAsync();
-        }
-
-        /// <summary>
         /// Manage changes to the videos library folders.
         /// </summary>
-        /// <param name="folders">Folder changes.</param>
-        public static async Task HandleVideosFolderChanges()
+        public static async Task HandleVideosFolderChangesAsync()
         {
             List<VideoViewModel> toRemove = new();
 
+            // Check if the video doesn't exist anymore, or if we don't have access to it at all,
+            // if so queue it then remove.
             try
             {
                 for (int i = 0; i < MViewModel.Videos.Count; i++)
                 {
-                    if (await StorageFile.GetFileFromPathAsync(MViewModel.Videos[i].Location) == null)
+                    try
+                    {
+                        _ = await StorageFile.GetFileFromPathAsync(MViewModel.Videos[i].Location);
+                    }
+                    catch (FileNotFoundException e)
                     {
                         toRemove.Add(MViewModel.Videos[i]);
+                        e.WriteToOutput();
+                    }
+                    catch (FileLoadException)
+                    {
+
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+
                     }
                 }
             }
             finally
             {
                 foreach (VideoViewModel video in toRemove)
+                {
+                    await video.DeleteAsync();
+                }
+            }
+
+            List<VideoViewModel> duplicates = new();
+
+            // Check for duplicates and remove if any duplicate is found.
+            try
+            {
+                for (int i = 0; i < MViewModel.Videos.Count; i++)
+                {
+                    for (int j = i + 1; j < MViewModel.Videos.Count; j++)
+                    {
+                        if (MViewModel.Videos[i].Location == MViewModel.Videos[j].Location)
+                        {
+                            duplicates.Add(MViewModel.Videos[j]);
+                        }
+                    }
+                }
+            } finally
+            {
+                foreach (VideoViewModel video in duplicates)
                 {
                     await video.DeleteAsync();
                 }

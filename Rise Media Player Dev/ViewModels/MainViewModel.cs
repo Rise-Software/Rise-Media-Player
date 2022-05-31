@@ -242,9 +242,9 @@ namespace Rise.App.ViewModels
 
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
-            await SongsTracker.HandleMusicFolderChanges();
-            await VideosTracker.HandleVideosFolderChanges();
             await IndexLibrariesAsync();
+            await SongsTracker.HandleMusicFolderChangesAsync();
+            await VideosTracker.HandleVideosFolderChangesAsync();
             //await SyncAsync();
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
