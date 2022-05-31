@@ -19,6 +19,16 @@ namespace Rise.App.UserControls
         private AppBarButton _propertiesButton;
 
         /// <summary>
+        /// Gets or sets a value that indicates the horizontal
+        /// alignment for the main playback controls.
+        /// </summary>
+        public HorizontalAlignment HorizontalControlsAlignment
+        {
+            get => (HorizontalAlignment)GetValue(HorizontalControlsAlignmentProperty);
+            set => SetValue(HorizontalControlsAlignmentProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether the timeline
         /// elements are shown.
         /// </summary>
@@ -150,6 +160,10 @@ namespace Rise.App.UserControls
     // Dependency Properties
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
+        public readonly static DependencyProperty HorizontalControlsAlignmentProperty =
+            DependencyProperty.Register(nameof(HorizontalControlsAlignment), typeof(HorizontalAlignment),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Center));
+
         public readonly static DependencyProperty DisplayItemProperty =
             DependencyProperty.Register(nameof(DisplayItem), typeof(object),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));

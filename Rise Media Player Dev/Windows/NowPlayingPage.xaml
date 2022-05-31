@@ -175,7 +175,7 @@
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
                             Margin="0"
-                            HorizontalAlignment="Center"
+                            HorizontalAlignment="{TemplateBinding HorizontalControlsAlignment}"
                             DefaultLabelPosition="Collapsed"
                             IsDynamicOverflowEnabled="False"
                             OverflowButtonVisibility="Collapsed">
