@@ -3,6 +3,7 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -106,8 +107,6 @@ namespace Rise.NewRepository
             {
                 _ = await _asyncDb.InsertOrReplaceAsync(item);
             }
-
-            return;
         }
 
         /// <summary>
@@ -136,17 +135,7 @@ namespace Rise.NewRepository
         /// <returns>The item if found, null otherwise.</returns>
         public static T GetItem<T>(Guid id)
             where T : DbObject, new()
-        {
-            foreach (var item in GetItems<T>())
-            {
-                if (item.Id == id)
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }
+            => GetItems<T>().AsParallel().FirstOrDefault(i => i.Id == id);
 
         /// <summary>
         /// Gets the item with the specified Id asynchronously.
@@ -155,16 +144,6 @@ namespace Rise.NewRepository
         /// <returns>The item if found, null otherwise.</returns>
         public static async Task<T> GetItemAsync<T>(Guid id)
             where T : DbObject, new()
-        {
-            foreach (var item in await GetItemsAsync<T>())
-            {
-                if (item.Id == id)
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }
+            => (await GetItemsAsync<T>()).AsParallel().FirstOrDefault(i => i.Id == id);
     }
 }
