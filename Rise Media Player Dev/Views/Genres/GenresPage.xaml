@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="Rise.App.Views.GenresPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,53 +19,40 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <StackPanel d:Padding="20,12">
+    <Grid Padding="56,56,56,0" d:Padding="20,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
         <TextBlock
-            Margin="56,56,0,0"
             d:Text="Your genres"
             Style="{StaticResource TitleTextBlockStyle}"
             Text="Your genres"
             TextTrimming="WordEllipsis" />
-        <ScrollViewer>
-            <Grid Margin="56,12,56,0">
-                <Grid
-                    x:Name="GenresCard"
-                    CornerRadius="5"
-                    Style="{StaticResource SettingsCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <GridView
-                            Grid.ColumnSpan="2"
-                            Margin="0,2,0,0"
-                            Padding="0"
-                            HorizontalAlignment="Stretch"
-                            animations:Connected.ListItemElementName="GenreThumb"
-                            animations:Connected.ListItemKey="GenreArt"
-                            ItemsSource="{x:Bind Genres}"
-                            SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
-                            SelectionMode="Single"
-                            Tapped="GridView_Tapped">
-                            <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                                    <Grid Width="150" Margin="12,12,12,12">
-
-
-                                        <TextBlock
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            FontSize="18"
-                                            Style="{StaticResource BaseTextBlockStyle}"
-                                            Text="{x:Bind Name}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
+        <GridView
+            Grid.Row="1"
+            Margin="-56,0"
+            Padding="56,0,56,120"
+            HorizontalAlignment="Stretch"
+            animations:Connected.ListItemElementName="GenreThumb"
+            animations:Connected.ListItemKey="GenreArt"
+            ItemsSource="{x:Bind Genres}"
+            SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
+            SelectionMode="Single"
+            Tapped="GridView_Tapped">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:GenreViewModel">
+                    <Grid Width="150" Margin="12,12,12,12">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Name}" />
                     </Grid>
-                </Grid>
-            </Grid>
-        </ScrollViewer>
-    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
 </Page>
