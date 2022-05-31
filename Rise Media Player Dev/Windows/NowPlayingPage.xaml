@@ -30,32 +30,6 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
-            <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="uc:RiseMediaPlayerElement">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="uc:RiseMediaPlayerElement">
-                            <Grid
-                                x:Name="LayoutRoot"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}">
-                                <MediaPlayerPresenter
-                                    x:Name="MediaPlayerPresenter"
-                                    IsFullWindow="{TemplateBinding IsFullWindow}"
-                                    MediaPlayer="{TemplateBinding MediaPlayer}"
-                                    Stretch="{TemplateBinding Stretch}"
-                                    Visibility="{TemplateBinding MediaPlayerVisibility}" />
-                                <ContentPresenter
-                                    x:Name="TransportControlsPresenter"
-                                    VerticalAlignment="Stretch"
-                                    Visibility="{TemplateBinding AreTransportControlsEnabled}" />
-                                <Grid x:Name="TimedTextSourcePresenter" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
             <Style BasedOn="{StaticResource DefaultRiseMediaTransportControlsStyle}" TargetType="uc:RiseMediaTransportControls">
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="Template" Value="{StaticResource NowPlayingTransportControlsTemplate}" />
@@ -794,6 +768,7 @@
             MaxWidth="1000"
             Margin="4,-3,4,4"
             VerticalAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
             Canvas.ZIndex="0"
             MediaPlayerVisibility="Collapsed">
             <uc:RiseMediaPlayerElement.TransportControls>

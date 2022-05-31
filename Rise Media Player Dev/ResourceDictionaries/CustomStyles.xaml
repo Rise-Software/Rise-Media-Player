@@ -157,8 +157,8 @@
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
     <Style x:Key="DefaultRiseMediaPlayerElementStyle" TargetType="co:RiseMediaPlayerElement">
         <Setter Property="AreTransportControlsEnabled" Value="True" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -176,7 +176,8 @@
                             Visibility="{TemplateBinding MediaPlayerVisibility}" />
                         <ContentPresenter
                             x:Name="TransportControlsPresenter"
-                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Visibility="{TemplateBinding AreTransportControlsEnabled}" />
                         <Grid x:Name="TimedTextSourcePresenter" />
                     </Grid>
