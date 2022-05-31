@@ -65,6 +65,7 @@ namespace Rise.App.Views
         {
             { "HomePage", typeof(HomePage) },
             { "PlaylistsPage", typeof(PlaylistsPage) },
+            { "FileBrowserPage", typeof(FileBrowserPage) },
             { "SongsPage", typeof(SongsPage) },
             { "ArtistsPage", typeof(ArtistsPage) },
             { "AlbumsPage", typeof(AlbumsPage) },

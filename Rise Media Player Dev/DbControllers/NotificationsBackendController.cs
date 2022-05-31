@@ -15,7 +15,7 @@ namespace Rise.App.DbControllers
 
         public async Task AddNotificationAsync(string title, string description, string icon)
         {
-            NotificationViewModel notification = new(new Models.Notification
+            NotificationViewModel notification = new(new Rise.Models.Notification
             {
                 Title = title,
                 Description = description,

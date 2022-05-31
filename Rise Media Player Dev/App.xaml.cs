@@ -1,7 +1,11 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.QueryStringDotNET;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.DbControllers;
+using Rise.App.Services;
+using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
@@ -22,6 +26,7 @@ using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Rise.App.ViewModels.FileBrowser.Pages;
 
 namespace Rise.App
 {
@@ -31,6 +36,8 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         #region Variables
+        private IServiceProvider? ServiceProvider { get; set; }
+
         public static bool IsLoaded;
 
         public static bool MainPageLoaded;
@@ -70,6 +77,12 @@ namespace Rise.App
         /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
         /// </summary>
         public static NotificationsBackendController NBackendController { get; private set; }
+
+        /// <summary>
+        /// Gets the app-wide <see cref="FileBrowserPageViewModel"/> singleton instance.
+        /// </summary>
+        /// <remarks>This is a temporary store, subject to change at any point.</remarks>
+        public static Lazy<FileBrowserPageViewModel> FileBrowserPageViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
@@ -143,6 +156,21 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+            ServiceProvider = ConfigureServices();
+            Ioc.Default.ConfigureServices(ServiceProvider);
+        }
+
+        private IServiceProvider ConfigureServices()
+        {
+            var serviceCollection = new ServiceCollection();
+
+            serviceCollection
+                .AddSingleton<IFileSystemShellService, UwpFileSystemShellService>()
+                .AddSingleton<IFileExplorerService, FileExplorerService>()
+                .AddSingleton<IStorageService, UwpStorageService>();
+
+            return serviceCollection.BuildServiceProvider();
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -218,6 +246,7 @@ namespace Rise.App
             PBackendController ??= new PlaylistsBackendController();
             NBackendController ??= new NotificationsBackendController();
 
+            FileBrowserPageViewModel ??= new(() => new());
             MViewModel ??= new MainViewModel();
             LMViewModel ??= new LastFMViewModel();
             PViewModel ??= new PlaybackViewModel();
