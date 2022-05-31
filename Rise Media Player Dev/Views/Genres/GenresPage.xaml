@@ -29,15 +29,6 @@
         <ScrollViewer>
             <Grid Margin="56,12,56,0">
                 <Grid
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-
-
-
-                <Border
                     x:Name="GenresCard"
                     CornerRadius="5"
                     Style="{StaticResource SettingsCard}">
