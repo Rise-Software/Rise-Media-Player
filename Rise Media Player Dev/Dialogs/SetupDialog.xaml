@@ -5,11 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:animatedvisuals="using:AnimatedVisuals"
-    xmlns:animvis="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:lottie="Microsoft.Toolkit.Uwp.UI.Lottie"
     SizeChanged="ContentDialog_SizeChanged"
-    Loaded="ContentDialog_Loaded"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
@@ -33,21 +29,10 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <!--<Image
+            <Image
                 x:Name="SetupIcon"
                 Width="128"
-                HorizontalAlignment="Stretch" />-->
-
-            <muxc:AnimatedVisualPlayer
-                x:Name="SetupIcon"
-                Width="128"
-                Loaded="SetupIcon_Loaded"
-                AutoPlay="False">
-                <muxc:AnimatedVisualPlayer.Source>
-                    <animatedvisuals:EulaLottie/>
-                </muxc:AnimatedVisualPlayer.Source>
-                
-            </muxc:AnimatedVisualPlayer>
+                HorizontalAlignment="Stretch" />
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
