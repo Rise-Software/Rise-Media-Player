@@ -3,33 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:local="using:Rise.App"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
         <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
 
         <uc:ExpanderControl
-            Icon="&#xE8B9;"
             Title="Visualizer"
-            ExpanderStyle="Static">
+            ExpanderStyle="Static"
+            Icon="&#xE8B9;">
             <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">
                 <x:String>None</x:String>
                 <x:String>Line</x:String>
                 <x:String>Bloom</x:String>
-            </ComboBox>
-        </uc:ExpanderControl>
-        
-        <uc:ExpanderControl
-            Icon="&#xE9E9;"
-            Title="Show Now Playing"
-            ExpanderStyle="Static">
-            <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.NowPlayingMode, Mode=TwoWay}">
-                <x:String>In a separate window</x:String>
-                <x:String>In the main window</x:String>
-                <x:String>In compact overlay</x:String>
             </ComboBox>
         </uc:ExpanderControl>
 

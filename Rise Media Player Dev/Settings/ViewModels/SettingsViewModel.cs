@@ -539,20 +539,6 @@ namespace Rise.App.ViewModels
         }
 
         /*
-         * Now playing modes:
-         * 
-         * 0: Show in separate window
-         * 1: Show in main window
-         * 2: Compact overlay
-        */
-
-        public int NowPlayingMode
-        {
-            get => Get(0, "Playback");
-            set => Set(value, "Playback");
-        }
-
-        /*
          * Visualizer types:
          * 
          * 0: None (don't show it)

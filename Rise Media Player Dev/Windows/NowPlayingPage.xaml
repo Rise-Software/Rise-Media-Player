@@ -6,6 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
+    xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:visualizers="using:Rise.App.Visualizers"
@@ -13,7 +15,6 @@
     d:DesignHeight="300"
     d:DesignWidth="320"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-    SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -55,7 +56,11 @@
             </Border.Background>
         </Border>
 
-        <visualizers:BloomView x:Name="BloomVis" Background="#7F000000" />
+        <visualizers:BloomView
+            x:Name="BloomVis"
+            x:Load="False"
+            Background="#7F000000"
+            Visibility="Collapsed" />
 
         <uc:ExtendedTitleBar
             x:Name="TitleBar"
@@ -73,89 +78,15 @@
             VerticalAlignment="Top"
             Canvas.ZIndex="2">
             <Button
-                x:Name="OverlayExitButton"
                 Width="40"
                 Height="36"
-                Click="OnExitOverlayClick"
-                Style="{StaticResource TransparentButtonStyle}"
-                Visibility="Collapsed">
-                <FontIcon FontSize="16" Glyph="&#xEE47;" />
-            </Button>
-
-            <Button
-                x:Name="BackButton"
-                Width="40"
-                Height="36"
-                Click="OnBackButtonClick"
-                Style="{StaticResource TransparentButtonStyle}"
-                Visibility="Collapsed">
-                <FontIcon FontSize="16" Glyph="&#xE112;" />
-            </Button>
-        </Grid>
-
-        <Grid
-            x:Name="InfoGrid"
-            Grid.Row="1"
-            Canvas.ZIndex="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="0" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel
-                x:Name="InfoText"
-                Padding="20"
-                VerticalAlignment="Center"
-                d:Opacity="1"
-                Opacity="0"
-                Orientation="Vertical">
-                <Border
-                    x:Name="ThumbBorder"
-                    Width="300"
-                    Height="300"
-                    Margin="0,0,0,12"
-                    HorizontalAlignment="Left"
-                    ui:Effects.Shadow="{StaticResource StrongShadow}"
-                    BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Visibility="Collapsed">
-                    <Image>
-                        <Image.Source>
-                            <BitmapImage
-                                DecodePixelHeight="300"
-                                DecodePixelWidth="300"
-                                UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                        </Image.Source>
-                    </Image>
-                </Border>
-
-                <TextBlock
-                    x:Name="TitleText"
-                    d:Text="Title"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    HorizontalTextAlignment="Center"
-                    MaxLines="2"
-                    Text="{x:Bind MPViewModel.PlayingItem.Title}" />
-                <TextBlock
-                    x:Name="SubtitleText"
-                    Margin="0,4,0,0"
-                    d:Text="Subtitle"
+                Click="OnExitButtonClick"
+                Style="{StaticResource TransparentButtonStyle}">
+                <FontIcon
+                    x:Name="ExitIcon"
                     FontSize="16"
-                    FontWeight="SemiBold"
-                    HorizontalTextAlignment="Center"
-                    MaxLines="1"
-                    Opacity="0.6"
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
-            </StackPanel>
-
-            <visualizers:LineVisualizer
-                x:Name="LineVis"
-                Grid.Column="1"
-                Width="350"
-                Height="350" />
+                    Glyph="&#xE112;" />
+            </Button>
         </Grid>
 
         <uc:RiseMediaPlayerElement
@@ -169,7 +100,7 @@
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
-                    DisplayItemVisibility="Collapsed"
+                    DisplayItemVisibility="Visible"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
                     IsRepeatEnabled="True"
@@ -179,7 +110,77 @@
                     IsVolumeButtonVisible="False"
                     ShowAndHideAutomatically="False"
                     ShufflingChanged="OnShufflingChanged"
-                    Style="{StaticResource NowPlayingTransportControlsStyle}" />
+                    Style="{StaticResource NowPlayingTransportControlsStyle}">
+                    <uc:RiseMediaTransportControls.DisplayItem>
+                        <Grid
+                            x:Name="InfoGrid"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="0" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Border
+                                x:Name="ThumbBorder"
+                                Width="300"
+                                Height="300"
+                                Margin="0,0,0,4"
+                                HorizontalAlignment="Left"
+                                ui:Effects.Shadow="{StaticResource StrongShadow}"
+                                BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Visibility="Collapsed">
+                                <Image>
+                                    <Image.Source>
+                                        <BitmapImage
+                                            DecodePixelHeight="300"
+                                            DecodePixelWidth="300"
+                                            UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                    </Image.Source>
+                                </Image>
+                            </Border>
+
+                            <TextBlock
+                                x:Name="TitleText"
+                                Grid.Row="1"
+                                d:Text="Title"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                HorizontalTextAlignment="Center"
+                                MaxLines="2"
+                                Text="{x:Bind MPViewModel.PlayingItem.Title}" />
+                            <TextBlock
+                                x:Name="SubtitleText"
+                                Grid.Row="2"
+                                Margin="0,4,0,0"
+                                d:Text="Subtitle"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                HorizontalTextAlignment="Center"
+                                MaxLines="1"
+                                Opacity="0.6"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+
+                            <visualizers:LineVisualizer
+                                x:Name="LineVis"
+                                Grid.RowSpan="3"
+                                Grid.Column="1"
+                                Height="350"
+                                MaxWidth="350"
+                                x:Load="False"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </uc:RiseMediaTransportControls.DisplayItem>
+                </uc:RiseMediaTransportControls>
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
@@ -204,7 +205,7 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoText"
+                            Storyboard.TargetName="InfoGrid"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
@@ -246,7 +247,7 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoText"
+                            Storyboard.TargetName="InfoGrid"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
@@ -271,41 +272,25 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="VisualizerStates">
-                <VisualState x:Name="NoVisualizerState">
-                    <VisualState.Setters>
-                        <Setter Target="LineVis.Opacity" Value="0" />
-                        <Setter Target="BloomVis.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-
+                <VisualState x:Name="NoVisualizerState" />
                 <VisualState x:Name="LineVisualizerState">
                     <VisualState.Setters>
-                        <Setter Target="LineVis.Opacity" Value="1" />
-                        <Setter Target="BloomVis.Visibility" Value="Collapsed" />
+                        <Setter Target="LineVis.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="BloomVisualizerState">
                     <VisualState.Setters>
-                        <Setter Target="LineVis.Opacity" Value="0" />
                         <Setter Target="BloomVis.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="SelectedModeStates">
-                <VisualState x:Name="SeparateWindowState" />
-                <VisualState x:Name="MainWindowState">
-                    <VisualState.Setters>
-                        <Setter Target="OverlayExitButton.Visibility" Value="Collapsed" />
-                        <Setter Target="BackButton.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-
                 <VisualState x:Name="CompactOverlayState">
                     <VisualState.Setters>
-                        <Setter Target="OverlayExitButton.Visibility" Value="Visible" />
-                        <Setter Target="BackButton.Visibility" Value="Collapsed" />
+                        <uac14:Setter Target="ExitIcon.Glyph" Value="&#xEE47;" />
+                        <nouac14:Setter Target="ExitIcon.Glyph" Value="&#xE944;" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -335,12 +320,16 @@
                         <Setter Target="PlayerControls.HorizontalControlsAlignment" Value="Left" />
                         <Setter Target="PlayerControls.IsTimelineVisible" Value="True" />
 
-                        <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
-                        <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
-                        <Setter Target="InfoText.VerticalAlignment" Value="Bottom" />
-                        <Setter Target="InfoText.Margin" Value="0,0,0,60" />
-                        <Setter Target="ThumbBorder.Visibility" Value="Visible" />
                         <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="1*" />
+                        <Setter Target="InfoGrid.HorizontalAlignment" Value="Left" />
+                        <Setter Target="InfoGrid.VerticalAlignment" Value="Bottom" />
+                        <Setter Target="InfoGrid.Padding" Value="16,0,0,8" />
+
+                        <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
+                        <Setter Target="TitleText.Padding" Value="8,0,0,0" />
+                        <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
+                        <Setter Target="SubtitleText.Padding" Value="8,0,0,0" />
+                        <Setter Target="ThumbBorder.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
