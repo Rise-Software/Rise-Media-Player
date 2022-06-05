@@ -175,20 +175,27 @@ namespace Rise.App.Views
         private void PlayerControls_ShufflingChanged(object sender, bool e)
             => MPViewModel.ShuffleEnabled = e;
 
-        private async void PlayerControls_OverlayButtonClick(object sender, RoutedEventArgs e)
+        private async void OnCompactOverlayButtonClick(object sender, RoutedEventArgs e)
         {
             if (MPViewModel.PlayingItem == null) return;
 
+            await ApplicationView.GetForCurrentView().
+                TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+            GoToNowPlaying();
+        }
+
+        private void OnOverlayButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem == null) return;
+            GoToNowPlaying();
+        }
+
+        private void GoToNowPlaying()
+        {
             if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
-            {
                 Frame.Navigate(typeof(VideoPlaybackPage));
-            }
             else
-            {
-                await ApplicationView.GetForCurrentView().
-                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
                 Frame.Navigate(typeof(NowPlayingPage));
-            }
         }
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs args)

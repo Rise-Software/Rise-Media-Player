@@ -415,7 +415,10 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            CompactOverlayButtonClick="OnCompactOverlayButtonClick"
                             DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem), Mode=OneWay}"
+                            IsCompactOverlayButtonVisible="True"
+                            IsCompactOverlayEnabled="True"
                             IsNextTrackButtonVisible="True"
                             IsOverlayButtonVisible="True"
                             IsOverlayEnabled="True"
@@ -429,7 +432,7 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            OverlayButtonClick="PlayerControls_OverlayButtonClick"
+                            OverlayButtonClick="OnOverlayButtonClick"
                             ShowAndHideAutomatically="False"
                             ShufflingChanged="PlayerControls_ShufflingChanged">
                             <uc:RiseMediaTransportControls.DisplayItem>
