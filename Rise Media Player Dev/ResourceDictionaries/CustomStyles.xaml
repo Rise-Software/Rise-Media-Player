@@ -539,12 +539,11 @@
                             <FontIcon Glyph="&#xEC15;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
-
-                    <AppBarButton x:Name="CompactOverlayButton" Visibility="Collapsed" />
+                    
                     <AppBarButton
                         x:Name="MiniViewButton"
                         IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                        Label="{Binding ElementName=CompactOverlayButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                        Label="Enter mini view"
                         Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B9;" />
@@ -602,6 +601,7 @@
                         VerticalAlignment="Center"
                         IsThumbToolTipEnabled="False"
                         Value="50" />
+
                     <TextBlock
                         x:Name="VolumeValue"
                         Grid.Column="2"
@@ -609,9 +609,6 @@
                         VerticalAlignment="Center"
                         Text="{Binding Value, ElementName=VolumeSlider}" />
                 </Grid>
-
-                <!--#region Unused-->
-                <!--#endregion-->
             </Grid>
 
             <VisualStateManager.VisualStateGroups>

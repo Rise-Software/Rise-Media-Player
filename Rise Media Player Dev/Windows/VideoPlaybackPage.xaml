@@ -60,10 +60,10 @@
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Title="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}"
-                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                 Height="32"
                 Margin="44,0,0,0"
                 Canvas.ZIndex="1"
+                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                 MinTitleWidth="0" />
         </Grid>
 
@@ -76,6 +76,8 @@
                     Margin="15,0,15,15"
                     IsCompact="True"
                     IsNextTrackButtonVisible="True"
+                    IsPlaybackRateButtonVisible="True"
+                    IsPlaybackRateEnabled="True"
                     IsPreviousTrackButtonVisible="True"
                     IsRepeatButtonVisible="True"
                     IsRepeatEnabled="True"
