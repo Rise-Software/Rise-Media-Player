@@ -28,7 +28,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+                _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
             }
         }
 
@@ -36,7 +36,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
             {
-                _ = MainPage.Current.ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 

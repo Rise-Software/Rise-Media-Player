@@ -1,9 +1,8 @@
-﻿using Rise.App.Views;
+﻿using System;
+using System.Linq;
+using Rise.App.Dialogs;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using System;
-using System.Linq;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -118,11 +117,15 @@ namespace Rise.App.Settings
 
         private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
+            if (Frame.CanGoBack)
             {
-                rootFrame.GoBack();
+                Frame.GoBack();
             }
-            _ = await MainPage.Current.SDialog.ShowAsync();
+
+            var diag = new SettingsDialogContainer();
+            diag.Content = new SettingsPage();
+
+            _ = await diag.ShowAsync();
             _ = SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
@@ -131,8 +134,6 @@ namespace Rise.App.Settings
             if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.SetupTitleBar();
             }
         }
 
@@ -207,7 +208,7 @@ namespace Rise.App.Settings
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.NewSize.Width <850 && e.NewSize.Width > 650)
+            if (e.NewSize.Width < 850 && e.NewSize.Width > 650)
             {
                 SidebarContainer.Visibility = Visibility.Visible;
                 SidebarContainer.Width = 114;
