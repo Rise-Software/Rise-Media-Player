@@ -48,9 +48,6 @@ namespace Rise.App.Views
         private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
         private AdvancedCollectionView Artists => App.MViewModel.FilteredArtists;
 
-        public SettingsDialogContainer SDialog { get; }
-            = new SettingsDialogContainer();
-
         private IDisposable SongsDefer { get; set; }
         private IDisposable AlbumsDefer { get; set; }
         private IDisposable ArtistsDefer { get; set; }
@@ -98,7 +95,6 @@ namespace Rise.App.Views
             InitializeComponent();
 
             Current = this;
-            SDialog.Content = new SettingsPage();
 
             Loaded += MainPage_Loaded;
             Unloaded += MainPage_Unloaded;
@@ -117,11 +113,16 @@ namespace Rise.App.Views
 
         private void MainPage_Unloaded(object sender, RoutedEventArgs e)
         {
+            _navigationHelper.LoadState -= NavigationHelper_LoadState;
+            _navigationHelper.SaveState -= NavigationHelper_SaveState;
+
             App.MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             App.MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            Bindings.StopTracking();
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
