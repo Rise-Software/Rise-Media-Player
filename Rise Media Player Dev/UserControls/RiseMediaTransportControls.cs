@@ -1,8 +1,10 @@
 ﻿using System;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,13 +32,13 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the timeline
-        /// elements are shown.
+        /// Gets or sets a value that indicates the way timeline
+        /// elements are displayed.
         /// </summary>
-        public bool IsTimelineVisible
+        public SliderDisplayModes TimelineDisplayMode
         {
-            get => (bool)GetValue(IsTimelineVisibleProperty);
-            set => SetValue(IsTimelineVisibleProperty, value);
+            get => (SliderDisplayModes)GetValue(TimelineDisplayModeProperty);
+            set => SetValue(TimelineDisplayModeProperty, value);
         }
 
         /// <summary>
@@ -154,6 +156,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(HorizontalControlsAlignment), typeof(HorizontalAlignment),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Center));
 
+        public readonly static DependencyProperty TimelineDisplayModeProperty =
+            DependencyProperty.Register(nameof(TimelineDisplayMode), typeof(SliderDisplayModes),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(SliderDisplayModes.Full, TimelineDisplayModeChanged));
+
         public readonly static DependencyProperty DisplayItemProperty =
             DependencyProperty.Register(nameof(DisplayItem), typeof(object),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
@@ -169,10 +175,6 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty DisplayItemTemplateSelectorProperty =
             DependencyProperty.Register(nameof(DisplayItemTemplateSelector), typeof(DataTemplateSelector),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty IsTimelineVisibleProperty =
-            DependencyProperty.Register(nameof(IsTimelineVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
 
         public readonly static DependencyProperty IsShuffleEnabledProperty =
             DependencyProperty.Register(nameof(IsShuffleEnabled), typeof(bool),
@@ -260,6 +262,29 @@ namespace Rise.App.UserControls
         /// Invoked when the overlay button is clicked.
         /// </summary>
         public event RoutedEventHandler OverlayButtonClick;
+
+        private static async void TimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RiseMediaTransportControls rmtc)
+                await rmtc.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    switch ((SliderDisplayModes)e.NewValue)
+                    {
+                        case SliderDisplayModes.Hidden:
+                            VisualStateManager.GoToState(rmtc, "HiddenTimelineState", true);
+                            break;
+                        case SliderDisplayModes.Minimal:
+                            VisualStateManager.GoToState(rmtc, "MinimalTimelineState", true);
+                            break;
+                        case SliderDisplayModes.SliderOnly:
+                            VisualStateManager.GoToState(rmtc, "SliderOnlyTimelineState", true);
+                            break;
+                        case SliderDisplayModes.Full:
+                            VisualStateManager.GoToState(rmtc, "FullTimelineState", true);
+                            break;
+                    }
+                });
+        }
 
         private void OnShuffleChecked(object sender, RoutedEventArgs e)
             => ShufflingChanged?.Invoke(sender, true);

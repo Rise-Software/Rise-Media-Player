@@ -281,8 +281,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="12,0,0,0"
-                    ColumnSpacing="12"
-                    Visibility="{Binding IsTimelineVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                    ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
@@ -536,6 +535,7 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
+                    <AppBarButton x:Name="CompactOverlayButton" Visibility="Collapsed" />
                     <AppBarButton
                         x:Name="MiniViewButton"
                         IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
@@ -606,11 +606,6 @@
                 </Grid>
 
                 <!--#region Unused-->
-                <Button
-                    x:Name="CompactOverlayButton"
-                    IsHitTestVisible="False"
-                    IsTabStop="False"
-                    Opacity="0" />
                 <!--#endregion-->
             </Grid>
 
@@ -648,6 +643,29 @@
                                 To="50"
                                 Duration="0:0:0.7" />
                         </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+
+                <VisualStateGroup x:Name="TimelineDisplayStates">
+                    <VisualState x:Name="FullTimelineState" />
+                    <VisualState x:Name="HiddenTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="MediaTransportControls_Timeline.Visibility" Value="Collapsed" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="MinimalTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
+                            <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="SliderOnlyTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
+                            <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
+                        </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
 
@@ -834,10 +852,12 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
                 <Grid.Resources>
-                    <Style BasedOn="{StaticResource DefaultAppBarButtonStyle}" TargetType="AppBarButton">
-                        <Setter Property="Padding" Value="4" />
-                        <Setter Property="Width" Value="40" />
-                    </Style>
+                    <ResourceDictionary>
+                        <Style BasedOn="{StaticResource DefaultAppBarButtonStyle}" TargetType="AppBarButton">
+                            <Setter Property="Padding" Value="4" />
+                            <Setter Property="Width" Value="40" />
+                        </Style>
+                    </ResourceDictionary>
                 </Grid.Resources>
 
                 <Grid.RenderTransform>
@@ -907,9 +927,8 @@
                     x:Name="MediaTransportControls_Timeline"
                     Grid.Row="3"
                     Grid.ColumnSpan="2"
-                    Margin="12,0"
-                    ColumnSpacing="12"
-                    Visibility="{Binding IsTimelineVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                    Margin="12,0,12,4"
+                    ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="1*" />
@@ -1150,7 +1169,7 @@
                 <CommandBar
                     x:Name="SecondaryMediaControlsCommandBar"
                     Width="52"
-                    Margin="35,0,0,0"
+                    Margin="39,0,0,0"
                     DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Visible">
@@ -1270,6 +1289,31 @@
                                 To="50"
                                 Duration="0:0:0.7" />
                         </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+
+                <VisualStateGroup x:Name="TimelineDisplayStates">
+                    <VisualState x:Name="FullTimelineState" />
+                    <VisualState x:Name="HiddenTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="MediaTransportControls_Timeline.Visibility" Value="Collapsed" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="MinimalTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
+                            <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
+
+                            <Setter Target="MediaTransportControls_Timeline.Margin" Value="-8,-12" />
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="SliderOnlyTimelineState">
+                        <VisualState.Setters>
+                            <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
+                            <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
+                        </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
 
