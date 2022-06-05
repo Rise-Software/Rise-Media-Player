@@ -110,22 +110,6 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Invoked when the shuffle button is clicked. Event arg
-        /// corresponds to the IsChecked value of the ToggleButton.
-        /// </summary>
-        public event EventHandler<bool> ShufflingChanged;
-
-        /// <summary>
-        /// Invoked when the compact overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler CompactOverlayButtonClick;
-
-        /// <summary>
-        /// Invoked when the overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler OverlayButtonClick;
-
-        /// <summary>
         /// The item to display next to the controls. When using
         /// compact mode, it gets hidden.
         /// </summary>
@@ -225,48 +209,87 @@ namespace Rise.App.UserControls
         public RiseMediaTransportControls()
         {
             DefaultStyleKey = typeof(RiseMediaTransportControls);
+
+            Unloaded += OnUnloaded;
         }
 
         protected override void OnApplyTemplate()
         {
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
-            _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
-            _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+            _shuffleButton.Checked += OnShuffleChecked;
+            _shuffleButton.Unchecked += OnShuffleUnchecked;
 
             _compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
-            _compactOverlayButton.Click += (s, e) => CompactOverlayButtonClick?.Invoke(s, e);
+            _compactOverlayButton.Click += CompactOverlayButtonClick;
 
             _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            _overlayButton.Click += (s, e) => OverlayButtonClick?.Invoke(s, e);
+            _overlayButton.Click += OverlayButtonClick;
 
             _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
-            _propertiesButton.Click += async (s, e) =>
-            {
-                if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
-                {
-                    try
-                    {
-                        StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
-
-                        if (file != null)
-                        {
-                            SongPropertiesViewModel props = new(song, file.DateCreated)
-                            {
-                                FileProps = await file.GetBasicPropertiesAsync()
-                            };
-
-                            _ = await typeof(SongPropertiesPage).
-                                PlaceInApplicationViewAsync(props, 380, 550, true);
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            };
+            _propertiesButton.Click += PropertiesButtonClick;
 
             base.OnApplyTemplate();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            _shuffleButton.Checked -= OnShuffleChecked;
+            _shuffleButton.Unchecked -= OnShuffleUnchecked;
+
+            _compactOverlayButton.Click -= CompactOverlayButtonClick;
+            _overlayButton.Click -= OverlayButtonClick;
+            _propertiesButton.Click -= PropertiesButtonClick;
+        }
+    }
+
+    // Event handlers
+    public sealed partial class RiseMediaTransportControls : MediaTransportControls
+    {
+        /// <summary>
+        /// Invoked when the shuffle button is clicked. Event arg
+        /// corresponds to the IsChecked value of the ToggleButton.
+        /// </summary>
+        public event EventHandler<bool> ShufflingChanged;
+
+        /// <summary>
+        /// Invoked when the compact overlay button is clicked.
+        /// </summary>
+        public event RoutedEventHandler CompactOverlayButtonClick;
+
+        /// <summary>
+        /// Invoked when the overlay button is clicked.
+        /// </summary>
+        public event RoutedEventHandler OverlayButtonClick;
+
+        private void OnShuffleChecked(object sender, RoutedEventArgs e)
+            => ShufflingChanged?.Invoke(sender, true);
+
+        private void OnShuffleUnchecked(object sender, RoutedEventArgs e)
+            => ShufflingChanged?.Invoke(sender, false);
+
+        private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
+            {
+                try
+                {
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
+                    if (file != null)
+                    {
+                        SongPropertiesViewModel props = new(song, file.DateCreated)
+                        {
+                            FileProps = await file.GetBasicPropertiesAsync()
+                        };
+
+                        _ = await typeof(SongPropertiesPage).
+                            PlaceInApplicationViewAsync(props, 380, 550, true);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 }

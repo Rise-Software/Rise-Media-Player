@@ -81,25 +81,6 @@ namespace Rise.App.UserControls
 
             await HandleVolumeChangedAsync(MediaPlayer.Volume);
         }
-
-        private async void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (MediaPlayer != null)
-            {
-                await RegisterVolumeChangedAsync();
-            }
-            else
-            {
-                playerWatcher = new(this, "MediaPlayer");
-                playerWatcher.PropertyChanged += async (s, e)
-                    => await RegisterVolumeChangedAsync();
-            }
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            playerWatcher?.Dispose();
-        }
     }
 
     // Constructor
@@ -111,6 +92,41 @@ namespace Rise.App.UserControls
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+        }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (MediaPlayer != null)
+            {
+                await RegisterVolumeChangedAsync();
+            }
+            else
+            {
+                playerWatcher = new(this, "MediaPlayer");
+                playerWatcher.PropertyChanged += OnWatcherPropertyChanged;
+            }
+        }
+
+        private async void OnWatcherPropertyChanged(object sender, EventArgs e)
+        {
+            await RegisterVolumeChangedAsync();
+            playerWatcher.PropertyChanged -= OnWatcherPropertyChanged;
+            playerWatcher.Dispose();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (MediaPlayer != null)
+            {
+                MediaPlayer.VolumeChanged -= OnVolumeChanged;
+                MediaPlayer.IsMutedChanged -= OnIsMutedChanged;
+            }
+
+            if (playerWatcher != null)
+            {
+                playerWatcher.PropertyChanged -= OnWatcherPropertyChanged;
+                playerWatcher.Dispose();
+            }
         }
     }
 }
