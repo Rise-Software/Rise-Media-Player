@@ -195,52 +195,12 @@ namespace Rise.App.Views
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
             => EventsLogic.GoToArtist(sender);
 
-        private void AlbumGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                this.AlbumFlyout.ShowAt(AlbumGrid, e.GetPosition(AlbumGrid));
-            }
-        }
-
-        private void ArtistGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                this.ArtistFlyout.ShowAt(ArtistGrid, e.GetPosition(ArtistGrid));
-            }
-        }
-
         private async void PropsHover_Click(object sender, RoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 SelectedSong = song;
                 await SelectedSong.StartEditAsync();
-            }
-        }
-
-        private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
-        {
-            switch (args.InvokedItem)
-            {
-                case "Songs":
-                    this.MainList.Visibility = Visibility.Visible;
-                    this.AlbumGrid.Visibility = Visibility.Collapsed;
-                    this.ArtistGrid.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Albums":
-                    this.MainList.Visibility = Visibility.Collapsed;
-                    this.AlbumGrid.Visibility = Visibility.Visible;
-                    this.ArtistGrid.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Artists":
-                    this.MainList.Visibility = Visibility.Collapsed;
-                    this.AlbumGrid.Visibility = Visibility.Collapsed;
-                    this.ArtistGrid.Visibility = Visibility.Visible;
-                    break;
             }
         }
 
