@@ -10,16 +10,28 @@
             <Style x:Key="Win11Image" TargetType="Image">
                 <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Light).bmp" />
             </Style>
+
+            <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="1" Color="#1affffff" />
+                <GradientStop Offset="0" Color="#CCffffff" />
+            </LinearGradientBrush>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <Style x:Key="Win11Image" TargetType="Image">
                 <Setter Property="Source" Value="ms-appx:///Assets/Unavailable/BG (Dark).bmp" />
             </Style>
+
+            <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Offset="1" Color="#00000000" />
+                <GradientStop Offset="0" Color="#99000000" />
+            </LinearGradientBrush>
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <Style x:Key="Win11Image" TargetType="Image">
                 <Setter Property="Source" Value="{x:Null}" />
             </Style>
+
+            <SolidColorBrush x:Key="GradientBlackToTransparentBrush" Color="#000000" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
@@ -144,13 +156,6 @@
         CornerRadius="8"
         Opacity=".075"
         Offset="0,4,0" />
-    <!--#endregion-->
-
-    <!--#region Gradients-->
-    <LinearGradientBrush x:Key="GradientBlackToTransparentBrush" StartPoint="0.5,0" EndPoint="0.5,1">
-        <GradientStop Offset="1" Color="#00000000" />
-        <GradientStop Offset="0" Color="#99000000" />
-    </LinearGradientBrush>
     <!--#endregion-->
 
     <!--#region Media bar-->
