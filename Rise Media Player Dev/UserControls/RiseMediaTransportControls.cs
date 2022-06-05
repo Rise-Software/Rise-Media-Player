@@ -15,6 +15,7 @@ namespace Rise.App.UserControls
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
         private ToggleButton _shuffleButton;
+        private AppBarButton _compactOverlayButton;
         private AppBarButton _overlayButton;
         private AppBarButton _propertiesButton;
 
@@ -113,6 +114,11 @@ namespace Rise.App.UserControls
         /// corresponds to the IsChecked value of the ToggleButton.
         /// </summary>
         public event EventHandler<bool> ShufflingChanged;
+
+        /// <summary>
+        /// Invoked when the compact overlay button is clicked.
+        /// </summary>
+        public event RoutedEventHandler CompactOverlayButtonClick;
 
         /// <summary>
         /// Invoked when the overlay button is clicked.
@@ -226,6 +232,9 @@ namespace Rise.App.UserControls
             _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
             _shuffleButton.Checked += (s, e) => ShufflingChanged?.Invoke(s, true);
             _shuffleButton.Unchecked += (s, e) => ShufflingChanged?.Invoke(s, false);
+
+            _compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
+            _compactOverlayButton.Click += (s, e) => CompactOverlayButtonClick?.Invoke(s, e);
 
             _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
             _overlayButton.Click += (s, e) => OverlayButtonClick?.Invoke(s, e);

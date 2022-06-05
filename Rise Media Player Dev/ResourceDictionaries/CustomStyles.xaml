@@ -536,7 +536,11 @@
                         </AppBarButton.Icon>
                     </AppBarButton>
 
-                    <AppBarButton x:Name="CompactOverlayButton" Label="Toggle compact overlay">
+                    <AppBarButton
+                        x:Name="MiniViewButton"
+                        IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                        Label="{Binding ElementName=CompactOverlayButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                        Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE8B9;" />
                         </AppBarButton.Icon>
@@ -600,6 +604,14 @@
                         VerticalAlignment="Center"
                         Text="{Binding Value, ElementName=VolumeSlider}" />
                 </Grid>
+
+                <!--#region Unused-->
+                <Button
+                    x:Name="CompactOverlayButton"
+                    IsHitTestVisible="False"
+                    IsTabStop="False"
+                    Opacity="0" />
+                <!--#endregion-->
             </Grid>
 
             <VisualStateManager.VisualStateGroups>
@@ -1142,6 +1154,7 @@
                     DefaultLabelPosition="Collapsed"
                     IsDynamicOverflowEnabled="True"
                     OverflowButtonVisibility="Visible">
+                    <AppBarButton x:Name="MiniViewButton" Visibility="Collapsed" />
                     <AppBarButton
                         x:Name="OverlayButton"
                         IsEnabled="{TemplateBinding IsOverlayEnabled}"
@@ -1149,6 +1162,12 @@
                         Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xE17C;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                    <AppBarButton x:Name="CompactOverlayButton" Label="{Binding ElementName=CompactOverlayButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                        <AppBarButton.Icon>
+                            <FontIcon Glyph="&#xE8B9;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
@@ -1196,12 +1215,6 @@
                     <AppBarButton x:Name="CastButton" Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                         <AppBarButton.Icon>
                             <FontIcon Glyph="&#xEC15;" />
-                        </AppBarButton.Icon>
-                    </AppBarButton>
-
-                    <AppBarButton x:Name="CompactOverlayButton" Label="Toggle compact overlay">
-                        <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xE8B9;" />
                         </AppBarButton.Icon>
                     </AppBarButton>
 
