@@ -113,8 +113,6 @@ namespace Rise.App.Views
             App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
-
-            ContentFrame.SizeChanged += ContentFrame_SizeChanged;
         }
 
         private void MainPage_Unloaded(object sender, RoutedEventArgs e)
@@ -124,8 +122,6 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
-
-            ContentFrame.SizeChanged -= ContentFrame_SizeChanged;
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
@@ -148,7 +144,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void ContentFrame_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnContentFrameSizeChanged(object sender, SizeChangedEventArgs e)
         {
             switch (e.NewSize.Width)
             {

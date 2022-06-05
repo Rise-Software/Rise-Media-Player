@@ -403,7 +403,8 @@
                     x:Name="ContentFrame"
                     x:FieldModifier="public"
                     Navigated="OnNavigated"
-                    NavigationFailed="OnNavigationFailed" />
+                    NavigationFailed="OnNavigationFailed"
+                    SizeChanged="OnContentFrameSizeChanged" />
 
                 <uc:RiseMediaPlayerElement
                     x:Name="MainPlayer"
