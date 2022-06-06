@@ -77,6 +77,8 @@
                     Margin="16"
                     IsCompact="True"
                     IsNextTrackButtonVisible="True"
+                    IsPlaybackRateButtonVisible="True"
+                    IsPlaybackRateEnabled="True"
                     IsPreviousTrackButtonVisible="True"
                     IsRepeatButtonVisible="True"
                     IsRepeatEnabled="True"
