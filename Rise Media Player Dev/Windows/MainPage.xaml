@@ -409,7 +409,7 @@
                 <uc:RiseMediaPlayerElement
                     x:Name="MainPlayer"
                     MaxWidth="1000"
-                    Margin="15,0,15,15"
+                    Margin="16"
                     d:DesignHeight="102"
                     MediaPlayerVisibility="Collapsed">
                     <uc:RiseMediaPlayerElement.TransportControls>
@@ -438,7 +438,7 @@
                             ShufflingChanged="PlayerControls_ShufflingChanged">
                             <uc:RiseMediaTransportControls.DisplayItem>
                                 <Button
-                                    Margin="4,0,0,0"
+                                    Margin="4"
                                     Padding="4"
                                     HorizontalContentAlignment="Left"
                                     Style="{StaticResource TransparentButtonStyle}">

@@ -104,6 +104,7 @@
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
                     DisplayItemVisibility="Visible"
+                    IsFullWindowButtonVisible="False"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
                     IsRepeatEnabled="True"

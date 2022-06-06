@@ -207,7 +207,6 @@
                     <Grid x:Name="RootGrid">
                         <Grid
                             x:Name="ControlPanelGrid"
-                            Padding="0,0,0,4"
                             Background="{ThemeResource MediaTransportControlsPanelBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -283,7 +282,7 @@
                                 x:Name="MediaTransportControls_Timeline"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Margin="12,0,0,0"
+                                Margin="12,0,0,4"
                                 ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -466,8 +465,8 @@
 
                                 <AppBarButton
                                     x:Name="InfoPropertiesButton"
+                                    x:Uid="/Information/Properties"
                                     IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                    Label="Info &amp; Properties"
                                     Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE946;" />
@@ -485,7 +484,7 @@
                                 x:Name="VolumeMuteButton"
                                 Grid.Row="1"
                                 Grid.Column="3"
-                                Margin="12,0"
+                                Margin="12,0,12,4"
                                 ColumnSpacing="6">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
