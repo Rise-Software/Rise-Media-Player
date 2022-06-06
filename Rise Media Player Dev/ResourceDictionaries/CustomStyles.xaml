@@ -317,6 +317,27 @@
                                 DefaultLabelPosition="Collapsed"
                                 IsDynamicOverflowEnabled="False"
                                 OverflowButtonVisibility="Collapsed">
+                                <CommandBar.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
+                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
+                                                    <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
+                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
+                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
+                                                    <GradientStop Color="{StaticResource SystemAccentColor}" />
+                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </CommandBar.Resources>
+
                                 <AppBarToggleButton
                                     x:Name="ShuffleButton"
                                     Width="40"
@@ -330,135 +351,30 @@
                                 </AppBarToggleButton>
 
                                 <AppBarButton x:Name="SkipBackwardButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xED3C;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="PreviousTrackButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xF8AC;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="PlayPauseButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="NextTrackButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xF8AD;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="SkipForwardButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xED3D;" />
                                     </AppBarButton.Icon>
@@ -961,6 +877,27 @@
                                 DefaultLabelPosition="Collapsed"
                                 IsDynamicOverflowEnabled="False"
                                 OverflowButtonVisibility="Collapsed">
+                                <CommandBar.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
+                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
+                                                    <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
+                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
+                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
+                                                    <GradientStop Color="{StaticResource SystemAccentColor}" />
+                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
+                                                </LinearGradientBrush>
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </CommandBar.Resources>
+
                                 <AppBarButton x:Name="VolumeMuteButton">
                                     <AppBarButton.Flyout>
                                         <Flyout>
@@ -1006,6 +943,19 @@
                                     <AppBarButton.Icon>
                                         <FontIcon x:Name="VolumeMuteIcon" Glyph="&#xE993;" />
                                     </AppBarButton.Icon>
+
+                                    <AppBarButton.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Dark">
+                                                    <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TextFillColorPrimaryBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TextFillColorPrimaryBrush" />
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </AppBarButton.Resources>
                                 </AppBarButton>
 
                                 <AppBarToggleButton
@@ -1021,135 +971,30 @@
                                 </AppBarToggleButton>
 
                                 <AppBarButton x:Name="SkipBackwardButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xED3C;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="PreviousTrackButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xF8AC;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="PlayPauseButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="NextTrackButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xF8AD;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="SkipForwardButton">
-                                    <AppBarButton.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Dark">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                        <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                        <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                    </LinearGradientBrush>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </AppBarButton.Resources>
-
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xED3D;" />
                                     </AppBarButton.Icon>
