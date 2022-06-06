@@ -38,12 +38,12 @@
     <!--#region Buttons-->
     <Style
         x:Key="AppBarCompactButtonStyle"
-        BasedOn="{StaticResource CommandBarFlyoutAppBarButtonStyleBase}"
+        BasedOn="{StaticResource DefaultAppBarButtonStyle}"
         TargetType="AppBarButton">
         <Setter Property="LabelPosition" Value="Collapsed" />
-        <Setter Property="Margin" Value="2,0" />
-        <Setter Property="MinWidth" Value="40" />
-        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Width" Value="40" />
     </Style>
 
     <Style
@@ -213,10 +213,9 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
-                                <Style BasedOn="{StaticResource DefaultAppBarButtonStyle}" TargetType="AppBarButton">
-                                    <Setter Property="Padding" Value="4" />
-                                    <Setter Property="Width" Value="40" />
-                                </Style>
+                                <ResourceDictionary>
+                                    <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
+                                </ResourceDictionary>
                             </Grid.Resources>
 
                             <Grid.RenderTransform>
@@ -856,10 +855,7 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
                                 <ResourceDictionary>
-                                    <Style BasedOn="{StaticResource DefaultAppBarButtonStyle}" TargetType="AppBarButton">
-                                        <Setter Property="Padding" Value="4" />
-                                        <Setter Property="Width" Value="40" />
-                                    </Style>
+                                    <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
                                 </ResourceDictionary>
                             </Grid.Resources>
 
