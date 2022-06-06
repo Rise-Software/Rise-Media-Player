@@ -60,20 +60,21 @@
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Title="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}"
-                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                 Height="32"
                 Margin="44,0,0,0"
                 Canvas.ZIndex="1"
+                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
                 MinTitleWidth="0" />
         </Grid>
 
         <uc:RiseMediaPlayerElement
             x:Name="Player"
+            VerticalContentAlignment="Bottom"
             Canvas.ZIndex="0"
             MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
-                    Margin="15,0,15,15"
+                    Margin="16"
                     IsCompact="True"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
