@@ -61,6 +61,8 @@
 
         <visualizers:BloomView
             x:Name="BloomVis"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             x:Load="False"
             Background="#7F000000"
             Visibility="Collapsed" />
