@@ -30,13 +30,6 @@ namespace Rise.App.Views
             set => SetValue(UseImmersiveArtProperty, value);
         }
 
-        private PlaybackSource PlaybackSource = null;
-        public IVisualizationSource VisualizerSource
-        {
-            get => (IVisualizationSource)GetValue(VisualizerSourceProperty);
-            set => SetValue(VisualizerSourceProperty, value);
-        }
-
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -66,6 +59,8 @@ namespace Rise.App.Views
                 PointerCanceled += OnPointerExited;
             }
 
+            LineVis.ShouldVisualize = true;
+
             if (MPViewModel.PlayerCreated)
                 await UpdateSourcesAsync(MPViewModel.Player);
             else
@@ -80,13 +75,10 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
 
-            if (PlaybackSource != null)
-                PlaybackSource.SourceChanged -= OnPlaybackSourceChanged;
-
             if (MPViewModel.PlayerCreated)
                 MPViewModel.Player.RemoveAllEffects();
 
-            Bindings.StopTracking();
+            LineVis.ShouldVisualize = false;
         }
     }
 
@@ -112,21 +104,15 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                LineVis.ShouldVisualize = true;
                 MainPlayer.SetMediaPlayer(player);
 
-                // Source is expensive, only create when necessary
+                // Source is expensive, only set when necessary
                 if (SViewModel.VisualizerType == 1)
                 {
-                    PlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
-                    VisualizerSource = PlaybackSource.Source;
-                    PlaybackSource.SourceChanged += OnPlaybackSourceChanged;
+                    LineVis.VisualizerSource = MPViewModel.VisualizerPlaybackSource.Source;
                 }
             });
-        }
-
-        private async void OnPlaybackSourceChanged(object sender, IVisualizationSource args)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => VisualizerSource = args);
         }
 
         private void OnShufflingChanged(object sender, bool e)
@@ -165,9 +151,5 @@ namespace Rise.App.Views
         private readonly static DependencyProperty UseImmersiveArtProperty =
             DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
                 typeof(NowPlayingPage), new PropertyMetadata(true));
-
-        private readonly static DependencyProperty VisualizerSourceProperty =
-            DependencyProperty.Register(nameof(VisualizerSource), typeof(IVisualizationSource),
-                typeof(NowPlayingPage), new PropertyMetadata(null));
     }
 }

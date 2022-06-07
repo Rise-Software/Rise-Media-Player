@@ -180,10 +180,7 @@
                             <visualizers:LineVisualizer
                                 x:Name="LineVis"
                                 Grid.RowSpan="3"
-                                Grid.Column="1"
-                                x:Load="False"
-                                Visibility="Collapsed"
-                                VisualizerSource="{x:Bind VisualizerSource}" />
+                                Grid.Column="1" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
