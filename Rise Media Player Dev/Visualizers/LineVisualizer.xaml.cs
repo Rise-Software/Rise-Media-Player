@@ -2,22 +2,10 @@
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Media.Playback;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,6 +18,7 @@ namespace Rise.App.Visualizers
         private SpectrumData _previousPeakSpectrum;
 
         private const double fps = 1000d / 60d;
+        private const int NumOfLines = 16;
 
         private static readonly TimeSpan _rmsRiseTime = TimeSpan.FromMilliseconds(12 * fps);
         private static readonly TimeSpan _rmsFallTime = TimeSpan.FromMilliseconds(12 * fps);
@@ -37,9 +26,11 @@ namespace Rise.App.Visualizers
         private static readonly TimeSpan _peakFallTime = TimeSpan.FromMilliseconds(12 * fps);
         private static readonly TimeSpan _frameDuration = TimeSpan.FromMilliseconds(fps);
 
-        private PlaybackSource _src => App.MPViewModel.VisualizerPlaybackSource;
-
-        public int NumOfLines = 16;
+        public IVisualizationSource VisualizerSource
+        {
+            get => (IVisualizationSource)GetValue(VisualizerSourceProperty);
+            set => SetValue(VisualizerSourceProperty, value);
+        }
 
         public LineVisualizer()
         {
@@ -50,9 +41,22 @@ namespace Rise.App.Visualizers
 
         private void LineEqualizer_Loaded(object sender, RoutedEventArgs e)
         {
-            _emptySpectrum = SpectrumData.CreateEmpty(2, (uint)NumOfLines, ScaleType.Linear, ScaleType.Linear, 0, 20000);
-            VUBar.Source = _src.Source;
-            _src.SourceChanged += Src_SourceChanged;
+            _emptySpectrum = SpectrumData.CreateEmpty(2,
+                NumOfLines,
+                ScaleType.Linear,
+                ScaleType.Linear,
+                0,
+                20000);
+        }
+    }
+
+    // Event handlers
+    public sealed partial class LineVisualizer
+    {
+        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null && d is LineVisualizer vis)
+                vis.VUBar.Source = (IVisualizationSource)e.NewValue;
         }
 
         private void VUBar_Draw(object sender, VisualizerDrawEventArgs args)
@@ -79,6 +83,7 @@ namespace Rise.App.Visualizers
                 StartPoint = new Vector2((float)args.ViewExtent.Width, 0),
                 EndPoint = new Vector2(0, (float)args.ViewExtent.Width)
             };
+
             for (int index = 0; index < NumOfLines; index++)
             {
                 float barX = (float)(step * index + flaw);
@@ -86,10 +91,13 @@ namespace Rise.App.Visualizers
                 drawingSession.FillRoundedRectangle(barX, (float)(args.ViewExtent.Height - barWidth - spectrumBarHeight), barSize.X, spectrumBarHeight, barSize.X / 2, barSize.X / 2, brush);
             }
         }
+    }
 
-        private void Src_SourceChanged(object sender, IVisualizationSource args)
-        {
-            VUBar.Source = args;
-        }
+    // Dependency properties
+    public sealed partial class LineVisualizer
+    {
+        private readonly static DependencyProperty VisualizerSourceProperty =
+            DependencyProperty.Register(nameof(VisualizerSource), typeof(IVisualizationSource),
+                typeof(LineVisualizer), new PropertyMetadata(null, OnSourceChanged));
     }
 }

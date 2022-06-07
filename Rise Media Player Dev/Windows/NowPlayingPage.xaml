@@ -119,10 +119,11 @@
                         <Grid
                             x:Name="InfoGrid"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
+                            VerticalAlignment="Center"
+                            ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="0" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -178,10 +179,9 @@
                                 x:Name="LineVis"
                                 Grid.RowSpan="3"
                                 Grid.Column="1"
-                                Height="350"
-                                MaxWidth="350"
                                 x:Load="False"
-                                Visibility="Collapsed" />
+                                Visibility="Collapsed"
+                                VisualizerSource="{x:Bind VisualizerSource}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
@@ -324,7 +324,7 @@
                         <Setter Target="PlayerControls.HorizontalControlsAlignment" Value="Left" />
                         <Setter Target="PlayerControls.TimelineDisplayMode" Value="Full" />
 
-                        <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="1*" />
+                        <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="300" />
                         <Setter Target="InfoGrid.HorizontalAlignment" Value="Left" />
                         <Setter Target="InfoGrid.VerticalAlignment" Value="Bottom" />
                         <Setter Target="InfoGrid.Padding" Value="16,0,0,8" />

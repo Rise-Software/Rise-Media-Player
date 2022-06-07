@@ -1,7 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using AudioVisualizer;
 using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -27,6 +30,13 @@ namespace Rise.App.Views
             set => SetValue(UseImmersiveArtProperty, value);
         }
 
+        private PlaybackSource PlaybackSource = null;
+        public IVisualizationSource VisualizerSource
+        {
+            get => (IVisualizationSource)GetValue(VisualizerSourceProperty);
+            set => SetValue(VisualizerSourceProperty, value);
+        }
+
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -35,19 +45,17 @@ namespace Rise.App.Views
             Unloaded += OnPageUnloaded;
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayerCreated)
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
-            else
-                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
-
             // No need for pointer in events when we're outside compact overlay
             var mode = ApplicationView.GetForCurrentView().ViewMode;
             if (mode == ApplicationViewMode.Default)
             {
                 UseImmersiveArt = false;
-                UpdatePointerStates(true);
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    UpdatePointerStates(true);
+                });
             }
             else
             {
@@ -57,6 +65,11 @@ namespace Rise.App.Views
                 PointerExited += OnPointerExited;
                 PointerCanceled += OnPointerExited;
             }
+
+            if (MPViewModel.PlayerCreated)
+                await UpdateSourcesAsync(MPViewModel.Player);
+            else
+                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -66,6 +79,14 @@ namespace Rise.App.Views
             PointerCanceled -= OnPointerExited;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+
+            if (PlaybackSource != null)
+                PlaybackSource.SourceChanged -= OnPlaybackSourceChanged;
+
+            if (MPViewModel.PlayerCreated)
+                MPViewModel.Player.RemoveAllEffects();
+
+            Bindings.StopTracking();
         }
     }
 
@@ -84,9 +105,28 @@ namespace Rise.App.Views
         }
 
         // Media playback
-        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
+            => await UpdateSourcesAsync(e);
+
+        private async Task UpdateSourcesAsync(MediaPlayer player)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => MainPlayer.SetMediaPlayer(e));
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                MainPlayer.SetMediaPlayer(player);
+
+                // Source is expensive, only create when necessary
+                if (SViewModel.VisualizerType == 1)
+                {
+                    PlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
+                    VisualizerSource = PlaybackSource.Source;
+                    PlaybackSource.SourceChanged += OnPlaybackSourceChanged;
+                }
+            });
+        }
+
+        private async void OnPlaybackSourceChanged(object sender, IVisualizationSource args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => VisualizerSource = args);
         }
 
         private void OnShufflingChanged(object sender, bool e)
@@ -125,5 +165,9 @@ namespace Rise.App.Views
         private readonly static DependencyProperty UseImmersiveArtProperty =
             DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
                 typeof(NowPlayingPage), new PropertyMetadata(true));
+
+        private readonly static DependencyProperty VisualizerSourceProperty =
+            DependencyProperty.Register(nameof(VisualizerSource), typeof(IVisualizationSource),
+                typeof(NowPlayingPage), new PropertyMetadata(null));
     }
 }
