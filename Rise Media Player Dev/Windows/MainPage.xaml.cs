@@ -733,6 +733,28 @@ namespace Rise.App.Views
                 _ = rootFrame.Navigate(typeof(AllSettingsPage));
             }
         }
+
+        private void OnAlbumButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+                return;
+
+            AlbumViewModel album = Albums.AsParallel().FirstOrDefault(a => (a as AlbumViewModel).Title == MPViewModel.PlayingItem.ExtraInfo) as AlbumViewModel;
+            ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+
+            PlayingItemMusicFlyout.Hide();
+        }
+
+        private void OnArtistButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+                return;
+
+            ArtistViewModel artist = Artists.AsParallel().FirstOrDefault(a => (a as ArtistViewModel).Name == MPViewModel.PlayingItem.Subtitle) as ArtistViewModel;
+            ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+
+            PlayingItemMusicFlyout.Hide();
+        }
     }
 
     // NavigationHelper

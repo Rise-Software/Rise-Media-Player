@@ -154,7 +154,10 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}">
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            Click="OnAlbumButtonClick"
+                            Style="{StaticResource AccentButtonStyle}">
                             <Button.Content>
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
@@ -171,6 +174,7 @@
                         <Button
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
+                            Click="OnArtistButtonClick"
                             Style="{StaticResource AccentButtonStyle}">
                             <Button.Content>
                                 <Grid ColumnSpacing="6">
