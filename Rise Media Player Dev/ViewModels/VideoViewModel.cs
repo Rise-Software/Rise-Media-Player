@@ -213,7 +213,7 @@ namespace Rise.App.ViewModels
         {
             MediaSource source;
             var uri = new Uri(Location);
-            
+
             if (uri.IsFile)
             {
                 StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
@@ -246,18 +246,9 @@ namespace Rise.App.ViewModels
     // IMediaItem implementation
     public partial class VideoViewModel : IMediaItem
     {
-        string IMediaItem.Title => Title;
         string IMediaItem.Subtitle => Directors;
-        string IMediaItem.Location => Location;
-        string IMediaItem.Thumbnail => Thumbnail;
-        bool IMediaItem.IsOnline => IsOnline;
-        TimeSpan IMediaItem.Length => Length;
+        string IMediaItem.ExtraInfo => Year.ToString();
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
-
-        Task<MediaPlaybackItem> IMediaItem.AsPlaybackItemAsync()
-        {
-            return AsPlaybackItemAsync();
-        }
     }
 }

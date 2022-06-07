@@ -301,7 +301,8 @@ namespace Rise.App.ViewModels
             if (queue)
             {
                 NewRepository.Repository.QueueUpsert(Model);
-            } else
+            }
+            else
             {
                 await NewRepository.Repository.UpsertAsync(Model);
             }
@@ -428,18 +429,9 @@ namespace Rise.App.ViewModels
     // IMediaItem implementation
     public partial class SongViewModel : IMediaItem
     {
-        string IMediaItem.Title => Title;
         string IMediaItem.Subtitle => Artist;
-        string IMediaItem.Location => Location;
-        string IMediaItem.Thumbnail => Thumbnail;
-        bool IMediaItem.IsOnline => IsOnline;
-        TimeSpan IMediaItem.Length => Length;
+        string IMediaItem.ExtraInfo => Album;
 
         MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
-
-        Task<MediaPlaybackItem> IMediaItem.AsPlaybackItemAsync()
-        {
-            return AsPlaybackItemAsync();
-        }
     }
 }
