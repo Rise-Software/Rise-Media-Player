@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.UI;
+﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -13,6 +9,10 @@ using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
@@ -181,14 +181,15 @@ namespace Rise.App.Views
             GoToNowPlaying();
         }
 
+        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => GoToNowPlaying();
+
         private void OnOverlayButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (MPViewModel.PlayingItem == null) return;
-            GoToNowPlaying();
-        }
+            => GoToNowPlaying();
 
         private void GoToNowPlaying()
         {
+            if (MPViewModel.PlayingItem == null) return;
             if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
                 Frame.Navigate(typeof(VideoPlaybackPage));
             else

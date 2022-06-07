@@ -441,6 +441,7 @@
                                     Margin="4"
                                     Padding="4"
                                     HorizontalContentAlignment="Left"
+                                    Click="OnDisplayItemClick"
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Grid
                                         x:Name="ItemGrid"
