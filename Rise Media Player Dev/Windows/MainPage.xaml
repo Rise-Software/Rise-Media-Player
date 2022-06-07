@@ -85,6 +85,167 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
+            <Flyout
+                x:Name="PlayingItemMusicFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="4"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        MaxLines="1"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <Grid
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        ColumnSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                    <TextBlock Grid.Column="1" Text="Go to album" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                    <TextBlock Grid.Column="1" Text="Go to artist" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Flyout>
+
+            <Flyout
+                x:Name="PlayingItemVideoFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="3"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Flyout>
+
             <!--#region NavView item templates-->
             <DataTemplate
                 x:Key="AssetIconTemplate"
@@ -411,13 +572,14 @@
                     MaxWidth="1000"
                     Margin="16"
                     d:DesignHeight="102"
+                    x:DefaultBindMode="OneWay"
                     MediaPlayerVisibility="Collapsed">
                     <uc:RiseMediaPlayerElement.TransportControls>
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
                             CompactOverlayButtonClick="OnCompactOverlayButtonClick"
-                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem), Mode=OneWay}"
+                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
                             IsNextTrackButtonVisible="True"
@@ -441,11 +603,10 @@
                                     Margin="4"
                                     Padding="4"
                                     HorizontalContentAlignment="Left"
+                                    Click="OnDisplayItemClick"
+                                    RightTapped="OnDisplayItemRightTapped"
                                     Style="{StaticResource TransparentButtonStyle}">
-                                    <Grid
-                                        x:Name="ItemGrid"
-                                        Height="80"
-                                        x:DefaultBindMode="OneWay">
+                                    <Grid x:Name="ItemGrid" Height="80">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition x:Name="ImageDefinition" Width="80" />
                                             <ColumnDefinition x:Name="TextDefinition" Width="120" />

@@ -25,6 +25,12 @@ namespace Rise.Common.Interfaces
         string Subtitle { get; }
 
         /// <summary>
+        /// Extra information for the playback item. Keep it
+        /// short if possible.
+        /// </summary>
+        string ExtraInfo { get; }
+
+        /// <summary>
         /// Path to the playback item. This is simply an URI
         /// stored as a string.
         /// </summary>
