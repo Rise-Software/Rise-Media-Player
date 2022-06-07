@@ -90,52 +90,63 @@
                 x:DefaultBindMode="OneWay"
                 Placement="TopEdgeAlignedLeft">
                 <Grid
-                    MaxWidth="496"
-                    MaxHeight="136"
+                    MaxWidth="412"
+                    MaxHeight="144"
                     ColumnSpacing="12"
                     RowSpacing="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="136" />
-                        <ColumnDefinition MaxWidth="360" />
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
                     <Border
-                        Grid.RowSpan="3"
+                        Grid.RowSpan="4"
                         CornerRadius="8"
                         ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
                         <Image Stretch="Uniform">
                             <Image.Source>
-                                <BitmapImage DecodePixelHeight="136" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
                             </Image.Source>
                         </Image>
                     </Border>
 
                     <TextBlock
                         Grid.Column="1"
+                        HorizontalAlignment="Left"
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
                         Text="{x:Bind MPViewModel.PlayingItem.Title}"
                         TextTrimming="CharacterEllipsis"
-                        TextWrapping="WrapWholeWords" />
+                        TextWrapping="Wrap" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        MaxLines="1"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
                         TextTrimming="CharacterEllipsis" />
 
                     <Grid
-                        Grid.Row="2"
-                        Grid.Column="3"
+                        Grid.Row="3"
+                        Grid.Column="1"
                         VerticalAlignment="Bottom"
                         ColumnSpacing="6">
                         <Grid.ColumnDefinitions>
@@ -143,7 +154,7 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button Style="{StaticResource AccentButtonStyle}">
+                        <Button HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}">
                             <Button.Content>
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
@@ -157,7 +168,10 @@
                             </Button.Content>
                         </Button>
 
-                        <Button Grid.Column="1" Style="{StaticResource AccentButtonStyle}">
+                        <Button
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Style="{StaticResource AccentButtonStyle}">
                             <Button.Content>
                                 <Grid ColumnSpacing="6">
                                     <Grid.ColumnDefinitions>
@@ -179,48 +193,55 @@
                 x:DefaultBindMode="OneWay"
                 Placement="TopEdgeAlignedLeft">
                 <Grid
-                    MaxWidth="496"
-                    MaxHeight="136"
+                    MaxWidth="412"
+                    MaxHeight="144"
                     ColumnSpacing="12"
                     RowSpacing="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="136" />
-                        <ColumnDefinition MaxWidth="360" />
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Border
-                        Grid.RowSpan="2"
+                        Grid.RowSpan="3"
                         CornerRadius="8"
                         ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
                         <Image Stretch="Uniform">
                             <Image.Source>
-                                <BitmapImage DecodePixelHeight="136" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
                             </Image.Source>
                         </Image>
                     </Border>
 
                     <TextBlock
                         Grid.Column="1"
-                        VerticalAlignment="Bottom"
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
                         Text="{x:Bind MPViewModel.PlayingItem.Title}"
                         TextTrimming="CharacterEllipsis"
-                        TextWrapping="WrapWholeWords" />
+                        TextWrapping="Wrap" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
-                        VerticalAlignment="Top"
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
                         TextTrimming="CharacterEllipsis" />
                 </Grid>
             </Flyout>
