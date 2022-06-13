@@ -169,8 +169,8 @@ namespace Rise.Common.Extensions
         /// </summary>
         /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
         /// <param name="filename">Filename of output image.</param>
-        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
-        public static async Task<string> SaveToFileAsync(this StorageItemThumbnail thumbnail,
+        /// <returns>true if the thumbnail could be saved, false otherwise.</returns>
+        public static async Task<bool> SaveToFileAsync(this StorageItemThumbnail thumbnail,
             string filename,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
@@ -189,10 +189,10 @@ namespace Rise.Common.Extensions
                     _ = await strm.WriteAsync(iBuf);
                 }
 
-                return Path.GetFileNameWithoutExtension(destinationFile.Path);
+                return true;
             }
 
-            return "/";
+            return false;
         }
     }
 }

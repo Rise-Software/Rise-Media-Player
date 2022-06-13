@@ -2,7 +2,9 @@
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
 using System;
+using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -21,7 +23,7 @@ namespace Rise.App.Views
         /// <summary>
         /// Gets the app-wide PViewModel instance.
         /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         private static readonly DependencyProperty SelectedVideoProperty =
             DependencyProperty.Register("SelectedVideo", typeof(VideoViewModel), typeof(LocalVideosPage), null);
@@ -41,8 +43,6 @@ namespace Rise.App.Views
 
         private SortDirection CurrentSort = SortDirection.Ascending;
         private string CurrentSortProperty = "Title";
-
-        private bool IsCtrlPressed;
 
         public LocalVideosPage()
         {
@@ -116,21 +116,19 @@ namespace Rise.App.Views
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!KeyboardHelpers.IsCtrlPressed())
+            if (e.ClickedItem is VideoViewModel video)
             {
-                if (e.ClickedItem is VideoViewModel video)
+                if (!KeyboardHelpers.IsCtrlPressed())
                 {
-                    await PViewModel.PlayVideoAsync(video);
+                    await MPViewModel.PlaySingleItemAsync(video);
                     if (Window.Current.Content is Frame rootFrame)
                     {
                         rootFrame.Navigate(typeof(VideoPlaybackPage));
                     }
+
                     SelectedVideo = null;
                 }
-            }
-            else
-            {
-                if (e.ClickedItem is VideoViewModel video)
+                else
                 {
                     SelectedVideo = video;
                 }
@@ -139,16 +137,17 @@ namespace Rise.App.Views
 
         private async void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (MainGrid.Items.Count > 0)
+            if (Videos.Count > 0)
             {
                 if (SelectedVideo != null)
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(MainGrid.Items.IndexOf(SelectedVideo));
+                    await MPViewModel.PlaySingleItemAsync(SelectedVideo);
                 }
                 else
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(0);
+                    await MPViewModel.PlayItemsAsync(MViewModel.Videos);
                 }
+
                 if (Window.Current.Content is Frame rootFrame)
                 {
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
@@ -161,7 +160,7 @@ namespace Rise.App.Views
             DiscyOnVideo.IsOpen = true;
         }
 
-        private void MainGrid_RightTapped_1(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        private void MainGrid_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
             {
@@ -195,6 +194,7 @@ namespace Rise.App.Views
                 default:
                     break;
             }
+
             Videos.SortDescriptions.Add(new SortDescription(CurrentSortProperty, CurrentSort));
             Videos.Refresh();
         }
@@ -213,20 +213,6 @@ namespace Rise.App.Views
             Videos.SortDescriptions.Add(new SortDescription("Year", CurrentSort));
             CurrentSortProperty = "Year";
             Videos.Refresh();
-        }
-
-        private async void ShuffleItem_Click(object sender, RoutedEventArgs e)
-        {
-            await EventsLogic.StartVideoPlaybackAsync(new Random().Next(0, Videos.Count), true);
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
-            }
-        }
-
-        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
-        {
-            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
         }
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)

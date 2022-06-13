@@ -8,6 +8,7 @@ using Rise.Common;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
@@ -77,9 +78,9 @@ namespace Rise.App
         public static MainViewModel MViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the app-wide <see cref="PlaybackViewModel"/> singleton instance.
+        /// Gets the app-wide <see cref="MediaPlaybackViewModel"/> singleton instance.
         /// </summary>
-        public static PlaybackViewModel PViewModel { get; private set; }
+        public static MediaPlaybackViewModel MPViewModel { get; private set; }
 
         /// <summary>
         /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
@@ -220,7 +221,7 @@ namespace Rise.App
 
             MViewModel ??= new MainViewModel();
             LMViewModel ??= new LastFMViewModel();
-            PViewModel ??= new PlaybackViewModel();
+            MPViewModel ??= new MediaPlaybackViewModel();
             NavDataSource ??= new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
@@ -345,14 +346,14 @@ namespace Rise.App
             // Ensure the current window is active
             Window.Current.Activate();
 
-            _ = await typeof(NowPlaying).
-                ShowInAppWindowAsync(null, 320, 300);
+            _ = await typeof(NowPlayingPage).
+                ShowInApplicationViewAsync(null, 320, 300);
 
             StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
             try
             {
                 var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await PViewModel.PlaySongAsync(new SongViewModel(song));
+                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
             }
             catch (Exception ex)
             {

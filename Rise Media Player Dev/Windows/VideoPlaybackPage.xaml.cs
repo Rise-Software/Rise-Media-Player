@@ -1,5 +1,6 @@
-﻿using Rise.App.ViewModels;
-using Rise.Common.Helpers;
+﻿using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,72 +16,14 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
-        private PlaybackViewModel ViewModel => App.PViewModel;
-        private VideoViewModel CurrentVideo => ViewModel.CurrentVideo;
-
-        private bool _currentlyFocusedOnPlaybackControls = false;
-
-        public static VideoPlaybackPage Current;
+        private MediaPlaybackViewModel ViewModel => App.MPViewModel;
 
         public VideoPlaybackPage()
         {
             InitializeComponent();
-
             _navigationHelper = new NavigationHelper(this);
 
-            PlayerElement.SetMediaPlayer(App.PViewModel.Player);
-            DataContext = ViewModel;
-            Current = this;
-        }
-
-        private async void Page_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (Player.Visibility == Visibility.Visible && TopGrid.Visibility == Visibility.Visible && !_currentlyFocusedOnPlaybackControls)
-            {
-                await Task.Run(async () =>
-                {
-                    Thread.Sleep(3500);
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                    {
-                        ExitPointerStoryboard.Begin();
-                        Player.Visibility = Visibility.Collapsed;
-                        TopGrid.Visibility = Visibility.Collapsed;
-                    });
-                });
-            }
-        }
-
-        private async void Page_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (Player.Visibility == Visibility.Collapsed && TopGrid.Visibility == Visibility.Collapsed)
-            {
-                EnterPointerStoryboard.Begin();
-                Player.Visibility = Visibility.Visible;
-                TopGrid.Visibility = Visibility.Visible;
-                if (!_currentlyFocusedOnPlaybackControls)
-                {
-                    await Task.Run(async () =>
-                    {
-                        Thread.Sleep(3500);
-                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                        {
-                            ExitPointerStoryboard.Begin();
-                            Player.Visibility = Visibility.Collapsed;
-                            TopGrid.Visibility = Visibility.Collapsed;
-                        });
-                    });
-                }
-            }
-        }
-
-        private void TopGrid_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            _currentlyFocusedOnPlaybackControls = true;
-        }
-
-        private void TopGrid_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            _currentlyFocusedOnPlaybackControls = false;
+            Player.SetMediaPlayer(ViewModel.Player);
         }
     }
 }

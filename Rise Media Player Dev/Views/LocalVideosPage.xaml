@@ -156,7 +156,7 @@
             IsItemClickEnabled="True"
             ItemClick="GridView_ItemClick"
             ItemsSource="{x:Bind MViewModel.FilteredVideos}"
-            RightTapped="MainGrid_RightTapped_1"
+            RightTapped="MainGrid_RightTapped"
             SelectionMode="Single">
             <GridView.Resources>
                 <MenuFlyout x:Key="VideosFlyout" x:Name="VideosFlyout">

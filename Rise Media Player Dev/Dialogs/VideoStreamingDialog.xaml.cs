@@ -1,7 +1,8 @@
-﻿using Rise.App.ViewModels;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Net;
+using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -56,10 +57,11 @@ namespace Rise.App.Dialogs
             {
                 Title = "Online Video",
                 Location = StreamingTextBox.Text,
+                Thumbnail = URIs.AlbumThumb,
                 Directors = "None"
             };
 
-            await App.PViewModel.PlayVideoFromUrlAsync(video);
+            await App.MPViewModel.PlaySingleItemAsync(video);
         }
     }
 }

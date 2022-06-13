@@ -1,12 +1,12 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.Views;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.Input;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
@@ -156,9 +156,25 @@ namespace Rise.App.ViewModels
             set => Set(value, "Appearance");
         }
 
-        public int Color
+        private byte GlazeType
         {
-            get => Get(-1, "Appearance");
+            get => Get<byte>(0, "Appearance");
+            set => Set(value, "Appearance");
+        }
+
+        public GlazeTypes SelectedGlaze
+        {
+            get => (GlazeTypes)GlazeType;
+            set
+            {
+                GlazeType = (byte)value;
+                OnPropertyChanged();
+            }
+        }
+
+        public byte[] GlazeColors
+        {
+            get => Get(new byte[4] { 0, 255, 255, 255 }, "Appearance");
             set => Set(value, "Appearance");
         }
 
@@ -336,11 +352,7 @@ namespace Rise.App.ViewModels
         public int IconPack
         {
             get => Get(0, "Local");
-            set
-            {
-                Set(value, "Local");
-                MainPage.Current.ChangeIconPack(CurrentPack);
-            }
+            set => Set(value, "Local");
         }
 
         public bool ShowAllGeneral
@@ -523,6 +535,20 @@ namespace Rise.App.ViewModels
         public bool ReplaceFlyouts
         {
             get => Get(false, "Playback");
+            set => Set(value, "Playback");
+        }
+
+        /*
+         * Visualizer types:
+         * 
+         * 0: None (don't show it)
+         * 1: Line
+         * 2: Bloom
+        */
+
+        public int VisualizerType
+        {
+            get => Get(0, "Playback");
             set => Set(value, "Playback");
         }
         #endregion

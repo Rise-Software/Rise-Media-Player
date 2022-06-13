@@ -1,11 +1,14 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.ViewModels;
-using Rise.Common.Helpers;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using Rise.App.ViewModels;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -18,6 +21,8 @@ namespace Rise.App.Views
     public sealed partial class PlaylistDetailsPage : Page
     {
         private SongViewModel _song;
+
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         private static readonly DependencyProperty SelectedSongProperty =
             DependencyProperty.Register("SelectedSong", typeof(SongViewModel), typeof(PlaylistDetailsPage), null);
@@ -91,19 +96,26 @@ namespace Rise.App.Views
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await App.PViewModel.StartMusicPlaybackAsync(SelectedPlaylist.Songs.GetEnumerator(), index, SelectedPlaylist.Songs.Count, false);
+                var songs = new List<SongViewModel>(SelectedPlaylist.Songs);
+
+                songs.MoveRangeToEnd(0, index - 1);
+                await MPViewModel.PlayItemsAsync(songs);
             }
         }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
             {
                 int index = MainList.Items.IndexOf(song);
-                await App.PViewModel.StartMusicPlaybackAsync(SelectedPlaylist.Songs.GetEnumerator(), index, SelectedPlaylist.Songs.Count, false);
+                var songs = new List<SongViewModel>(SelectedPlaylist.Songs);
+
+                songs.MoveRangeToEnd(0, index - 1);
+                await MPViewModel.PlayItemsAsync(songs);
             }
             else
             {
-                await App.PViewModel.StartMusicPlaybackAsync(SelectedPlaylist.Songs.GetEnumerator(), 0, SelectedPlaylist.Songs.Count, false);
+                await MPViewModel.PlayItemsAsync(SelectedPlaylist.Songs);
             }
         }
 
@@ -204,7 +216,7 @@ namespace Rise.App.Views
             {
                 if (e.ClickedItem is VideoViewModel video)
                 {
-                    await App.PViewModel.PlayVideoAsync(video);
+                    await MPViewModel.PlaySingleItemAsync(video);
                     if (Window.Current.Content is Frame rootFrame)
                     {
                         rootFrame.Navigate(typeof(VideoPlaybackPage));
@@ -227,12 +239,17 @@ namespace Rise.App.Views
             {
                 if (SelectedVideo != null)
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(MainGrid.Items.IndexOf(SelectedVideo));
+                    int index = MainList.Items.IndexOf(SelectedVideo);
+                    var videos = new List<VideoViewModel>(SelectedPlaylist.Videos);
+
+                    videos.MoveRangeToEnd(0, index - 1);
+                    await MPViewModel.PlayItemsAsync(videos);
                 }
                 else
                 {
-                    await EventsLogic.StartVideoPlaybackAsync(0);
+                    await MPViewModel.PlayItemsAsync(SelectedPlaylist.Videos);
                 }
+
                 if (Window.Current.Content is Frame rootFrame)
                 {
                     _ = rootFrame.Navigate(typeof(VideoPlaybackPage));

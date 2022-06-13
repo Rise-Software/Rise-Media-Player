@@ -29,11 +29,9 @@ namespace Rise.App.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
+            if (Frame.CanGoBack)
             {
-                rootFrame.GoBack();
-                MainPage.Current.AppTitleBar.Visibility = Visibility.Visible;
-                MainPage.Current.AppTitleBar.SetupTitleBar();
+                Frame.GoBack();
             }
         }
     }

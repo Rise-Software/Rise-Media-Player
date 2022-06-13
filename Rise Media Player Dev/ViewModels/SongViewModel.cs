@@ -2,6 +2,7 @@
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Extensions;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -16,7 +17,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public class SongViewModel : ViewModel<Song>
+    public partial class SongViewModel : ViewModel<Song>, IMediaItem
     {
 
         #region Constructor
@@ -36,8 +37,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
-
-        public bool IsOnline = false;
+        public bool IsOnline { get; set; }
 
         /// <summary>
         /// Gets or sets the song title.
@@ -301,7 +301,8 @@ namespace Rise.App.ViewModels
             if (queue)
             {
                 NewRepository.Repository.QueueUpsert(Model);
-            } else
+            }
+            else
             {
                 await NewRepository.Repository.UpsertAsync(Model);
             }
@@ -383,56 +384,29 @@ namespace Rise.App.ViewModels
         {
             try
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                MediaSource source;
+                var uri = new Uri(Location);
 
-                MediaSource source = MediaSource.CreateFromStorageFile(file);
-                MediaPlaybackItem media = new(source);
-
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
-
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
+                if (uri.IsFile)
                 {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                    source = MediaSource.CreateFromStorageFile(file);
+                }
+                else
+                {
+                    source = MediaSource.CreateFromUri(uri);
                 }
 
-                media.ApplyDisplayProperties(props);
-                return media;
-            }
-            catch
-            {
-
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
-        /// </summary>
-        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        public MediaPlaybackItem AsPlaybackItem(Uri url)
-        {
-            try
-            {
-                MediaSource source = MediaSource.CreateFromUri(url);
                 MediaPlaybackItem media = new(source);
-
                 MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
 
+                props.Type = MediaPlaybackType.Music;
                 props.MusicProperties.Title = Title;
                 props.MusicProperties.Artist = Artist;
                 props.MusicProperties.AlbumTitle = Album;
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
+
 
                 if (Thumbnail != null)
                 {
@@ -450,5 +424,14 @@ namespace Rise.App.ViewModels
             return null;
         }
         #endregion
+    }
+
+    // IMediaItem implementation
+    public partial class SongViewModel : IMediaItem
+    {
+        string IMediaItem.Subtitle => Artist;
+        string IMediaItem.ExtraInfo => Album;
+
+        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }

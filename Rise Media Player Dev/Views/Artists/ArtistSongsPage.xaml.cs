@@ -40,11 +40,6 @@ namespace Rise.App.Views
         public MainViewModel MViewModel => App.MViewModel;
 
         /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
-        private PlaybackViewModel PViewModel => App.PViewModel;
-
-        /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
@@ -718,37 +713,18 @@ namespace Rise.App.Views
             Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count);
+            await EventsLogic.StartMusicPlaybackAsync();
         }
 
         private async void ShuffleAlbumButton_Click(object sender, RoutedEventArgs e)
         {
-
             Songs.Filter = null;
             if (SelectedAlbum != null)
             {
                 Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
             }
 
-            IEnumerator<object> enumerator = Songs.GetEnumerator();
-            List<SongViewModel> songs = new();
-
-            while (enumerator.MoveNext())
-            {
-                songs.Add(enumerator.Current as SongViewModel);
-            }
-
-            enumerator.Dispose();
-            await PViewModel.StartMusicPlaybackAsync(songs.GetEnumerator(), 0, songs.Count, true);
+            await EventsLogic.StartMusicPlaybackAsync(0, true);
         }
 
         private async void PropsAlbum_Click(object sender, RoutedEventArgs e)

@@ -333,36 +333,15 @@ namespace Rise.App.ViewModels
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                string thumb = URIs.AlbumThumb;
-
-                // If the album is unknown, no need to get a thumbnail.
-                if (song.Album != "UnknownAlbumResource")
-                {
-                    // Get song thumbnail and make a PNG out of it.
-                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-
-                    string filename = song.Album.AsValidFileName();
-                    filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                    if (filename != "/")
-                    {
-                        thumb = $@"ms-appdata:///local/{filename}.png";
-                    }
-
-                    thumbnail?.Dispose();
-                }
-
                 // Set AlbumViewModel data.
                 AlbumViewModel alvm = new()
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
                     Genres = song.Genres,
-                    Thumbnail = thumb,
+                    Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
-
-                song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
                 await alvm.SaveAsync(queue);
@@ -382,21 +361,10 @@ namespace Rise.App.ViewModels
                         save = true;
                     }
 
-                    if (alvm.Thumbnail == URIs.MusicThumb)
+                    if (alvm.Thumbnail == URIs.AlbumThumb)
                     {
-                        // Get song thumbnail and make a PNG out of it.
-                        StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
-
-                        string filename = song.Album.AsValidFileName();
-                        filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                        if (filename != "/")
-                        {
-                            alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
-                            save = true;
-                        }
-
-                        thumbnail?.Dispose();
+                        alvm.Thumbnail = song.Thumbnail;
+                        save = true;
                     }
 
                     if (alvm.Year == 0)
@@ -467,7 +435,7 @@ namespace Rise.App.ViewModels
                         }
                     }
                 }
-                
+
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
@@ -522,7 +490,7 @@ namespace Rise.App.ViewModels
 
                 }
             }
-            
+
             return URIs.ArtistThumb;
         }
 
@@ -547,15 +515,15 @@ namespace Rise.App.ViewModels
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
-                filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
+                bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                if (filename != "/")
+                if (result)
                 {
                     vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                 }
                 else
                 {
-                    vid.Thumbnail = URIs.MusicThumb;
+                    vid.Thumbnail = URIs.AlbumThumb;
                 }
 
                 thumbnail?.Dispose();

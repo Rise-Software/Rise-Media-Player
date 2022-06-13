@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Constants;
 using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using SQLite;
 using System;
@@ -17,7 +18,7 @@ namespace Rise.Models
     /// Represents a song.
     /// </summary>
     [Table("Songs")]
-    public class Song : DbObject, IEquatable<Song>, IMatchable<Song>
+    public partial class Song : DbObject, IEquatable<Song>, IMatchable<Song>
     {
         [Column(nameof(Title))]
         public string Title { get; set; }
@@ -66,41 +67,11 @@ namespace Rise.Models
         {
             return Title;
         }
+    }
 
-        public bool Equals(Song other)
-        {
-            return Title == other.Title &&
-                   Artist == other.Artist &&
-                   Track == other.Track &&
-                   Disc == other.Disc &&
-                   Album == other.Album &&
-                   AlbumArtist == other.AlbumArtist &&
-                   Genres == other.Genres &&
-                   Length == other.Length &&
-                   Year == other.Year;
-        }
-
-        public override int GetHashCode()
-        {
-            return (Title, Artist, Track, Disc, Album,
-                AlbumArtist, Genres, Length, Year).GetHashCode();
-        }
-
-        public MatchLevel Matches(Song other)
-        {
-            if (Title.Equals(other.Title))
-            {
-                return MatchLevel.Full;
-            }
-
-            if (Title.Contains(other.Title))
-            {
-                return MatchLevel.Partial;
-            }
-
-            return MatchLevel.None;
-        }
-
+    // Constructors/Factory methods
+    public partial class Song
+    {
         /// <summary>
         /// Creates a <see cref="Song"/> based on a <see cref="StorageFile"/>.
         /// </summary>
@@ -175,6 +146,19 @@ namespace Rise.Models
 
             TimeSpan length = musicProperties.Duration;
 
+            string thumb = URIs.AlbumThumb;
+            StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+
+            string filename = albumTitle.AsValidFileName();
+            bool canUseThumb = await thumbnail.SaveToFileAsync($@"{filename}.png");
+
+            if (canUseThumb)
+            {
+                thumb = $@"ms-appdata:///local/{filename}.png";
+            }
+
+            thumbnail?.Dispose();
+
             return new Song
             {
                 Title = title,
@@ -183,12 +167,55 @@ namespace Rise.Models
                 Disc = cd,
                 Album = albumTitle,
                 AlbumArtist = albumArtist,
+                Thumbnail = thumb,
                 Genres = genre,
                 Length = length,
                 Year = musicProperties.Year,
                 Location = file.Path,
                 Rating = musicProperties.Rating
             };
+        }
+    }
+
+    // IEquatable implementation
+    public partial class Song : IEquatable<Song>
+    {
+        public bool Equals(Song other)
+        {
+            return Title == other.Title &&
+                   Artist == other.Artist &&
+                   Track == other.Track &&
+                   Disc == other.Disc &&
+                   Album == other.Album &&
+                   AlbumArtist == other.AlbumArtist &&
+                   Genres == other.Genres &&
+                   Length == other.Length &&
+                   Year == other.Year;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Title, Artist, Track, Disc, Album,
+                AlbumArtist, Genres, Length, Year).GetHashCode();
+        }
+    }
+
+    // IMatchable implementation
+    public partial class Song : IMatchable<Song>
+    {
+        public MatchLevel Matches(Song other)
+        {
+            if (Title.Equals(other.Title))
+            {
+                return MatchLevel.Full;
+            }
+
+            if (Title.Contains(other.Title))
+            {
+                return MatchLevel.Partial;
+            }
+
+            return MatchLevel.None;
         }
     }
 }

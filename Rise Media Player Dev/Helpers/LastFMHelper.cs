@@ -127,13 +127,13 @@ namespace Rise.App.Helpers
             return Task.FromResult(node.InnerText);
         }
 
-        public static void ScrobbleTrack(string artist, string track, string sessionKey, Action<string> onCompletion)
+        public static void ScrobbleTrack(Rise.Common.Interfaces.IMediaItem item, string sessionKey, Action<string> onCompletion)
         {
             string currentTimestamp = AccountsHelper.GetCurrentUnixTimestamp();
 
             Dictionary<string, string> parameters = new();
-            parameters.Add("artist[0]", artist);
-            parameters.Add("track[0]", track);
+            parameters.Add("artist[0]", item.Subtitle);
+            parameters.Add("track[0]", item.Title);
             parameters.Add("timestamp[0]", currentTimestamp);
             parameters.Add("method", "track.scrobble");
             parameters.Add("api_key", LastFM.key);
@@ -142,7 +142,7 @@ namespace Rise.App.Helpers
             string signature = AccountsHelper.GetSignature(parameters);
 
             string comboUrl = string.Concat("https://ws.audioscrobbler.com/2.0/", "?method=track.scrobble", "&api_key=", LastFM.key,
-            "&artist[0]=", artist, "&track[0]=", track, "&sk=", sessionKey,
+            "&artist[0]=", item.Subtitle, "&track[0]=", item.Title, "&sk=", sessionKey,
             "&timestamp[0]=", currentTimestamp,
             "&api_sig=", signature);
 

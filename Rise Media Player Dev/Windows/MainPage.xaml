@@ -5,10 +5,13 @@
     xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:local="using:Rise.App.Views"
+    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
@@ -82,6 +85,171 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
+            <Flyout
+                x:Name="PlayingItemMusicFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="4"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        MaxLines="1"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <Grid
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        ColumnSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            Click="OnAlbumButtonClick"
+                            Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                    <TextBlock Grid.Column="1" Text="Go to album" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Click="OnArtistButtonClick"
+                            Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                    <TextBlock Grid.Column="1" Text="Go to artist" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Flyout>
+
+            <Flyout
+                x:Name="PlayingItemVideoFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="3"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Flyout>
+
             <!--#region NavView item templates-->
             <DataTemplate
                 x:Key="AssetIconTemplate"
@@ -153,7 +321,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="_Grid">
+    <Grid Background="{x:Bind MainGridBackground, Mode=OneWay}">
         <Grid Canvas.ZIndex="1">
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"
@@ -165,13 +333,6 @@
                 LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
                 MinTitleWidth="800"
                 ShowIcon="True" />
-
-            <Grid
-                x:Name="OverlayModeContentPanel"
-                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                Visibility="Collapsed">
-                <Frame x:Name="NowPlayingFrame" />
-            </Grid>
 
             <Grid
                 x:Name="ControlsPanel"
@@ -391,12 +552,14 @@
             CompactModeThresholdWidth="800"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             ExpandedModeThresholdWidth="800"
+            FooterMenuItemsSource="{x:Bind NavDataSource.FooterItems}"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
+            MenuItemsSource="{x:Bind NavDataSource.Items}"
             OpenPaneLength="260"
             PaneDisplayMode="LeftMinimal"
             RightTapped="NavigationView_RightTapped">
@@ -405,16 +568,109 @@
                     x:Name="ContentFrame"
                     x:FieldModifier="public"
                     Navigated="OnNavigated"
-                    NavigationFailed="OnNavigationFailed" />
+                    NavigationFailed="OnNavigationFailed"
+                    SizeChanged="OnContentFrameSizeChanged" />
 
-                <uc:NowPlayingBar
-                    Margin="15"
-                    VerticalAlignment="Bottom"
-                    BackgroundStyle="UseAlbumArt"
-                    IsArtistShown="True" />
+                <uc:RiseMediaPlayerElement
+                    x:Name="MainPlayer"
+                    MaxWidth="1000"
+                    Margin="16"
+                    d:DesignHeight="102"
+                    x:DefaultBindMode="OneWay"
+                    MediaPlayerVisibility="Collapsed">
+                    <uc:RiseMediaPlayerElement.TransportControls>
+                        <uc:RiseMediaTransportControls
+                            x:Name="PlayerControls"
+                            ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            CompactOverlayButtonClick="OnCompactOverlayButtonClick"
+                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
+                            IsCompactOverlayButtonVisible="True"
+                            IsCompactOverlayEnabled="True"
+                            IsNextTrackButtonVisible="True"
+                            IsOverlayButtonVisible="True"
+                            IsOverlayEnabled="True"
+                            IsPreviousTrackButtonVisible="True"
+                            IsPropertiesButtonVisible="True"
+                            IsPropertiesEnabled="True"
+                            IsRepeatButtonVisible="True"
+                            IsRepeatEnabled="True"
+                            IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                            IsShuffleButtonVisible="True"
+                            IsShuffleEnabled="True"
+                            IsSkipBackwardEnabled="True"
+                            IsSkipForwardEnabled="True"
+                            OverlayButtonClick="OnOverlayButtonClick"
+                            ShowAndHideAutomatically="False"
+                            ShufflingChanged="PlayerControls_ShufflingChanged">
+                            <uc:RiseMediaTransportControls.DisplayItem>
+                                <Button
+                                    Margin="4"
+                                    Padding="4"
+                                    HorizontalContentAlignment="Left"
+                                    Click="OnDisplayItemClick"
+                                    RightTapped="OnDisplayItemRightTapped"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid x:Name="ItemGrid" Height="80">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="ImageDefinition" Width="80" />
+                                            <ColumnDefinition x:Name="TextDefinition" Width="120" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border
+                                            x:Name="ImageBorder"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            CornerRadius="4">
+                                            <Image>
+                                                <Image.Source>
+                                                    <BitmapImage
+                                                        DecodePixelHeight="80"
+                                                        DecodePixelWidth="80"
+                                                        UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                                </Image.Source>
+                                            </Image>
+
+                                            <Border.RenderTransform>
+                                                <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
+                                            </Border.RenderTransform>
+                                        </Border>
+
+                                        <StackPanel
+                                            x:Name="TextPanel"
+                                            Grid.Column="1"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Orientation="Vertical">
+                                            <TextBlock
+                                                x:Name="DisplayTitle"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                MaxLines="2"
+                                                Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                            <TextBlock
+                                                x:Name="DisplaySubtitle"
+                                                MaxLines="2"
+                                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                            <StackPanel.RenderTransform>
+                                                <TranslateTransform x:Name="TextPanelTranslate" />
+                                            </StackPanel.RenderTransform>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                            </uc:RiseMediaTransportControls.DisplayItem>
+                        </uc:RiseMediaTransportControls>
+                    </uc:RiseMediaPlayerElement.TransportControls>
+                </uc:RiseMediaPlayerElement>
             </Grid>
         </muxc:NavigationView>
 
+        <!--#region Indexing tips-->
         <muxc:TeachingTip
             x:Name="IndexingTip"
             x:Uid="/Information/Indexing"
@@ -469,10 +725,11 @@
                 <muxc:FontIconSource Glyph="&#xE8F1;" />
             </muxc:TeachingTip.IconSource>
         </muxc:TeachingTip>
+        <!--#endregion-->
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideWindow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
@@ -484,11 +741,193 @@
                         <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
+            </VisualStateGroup>
 
-                <VisualState x:Name="SmallHeight">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="600" />
-                    </VisualState.StateTriggers>
+            <VisualStateGroup x:Name="ContentAreaStates">
+                <VisualState x:Name="NarrowContentAreaLayout">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="80">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanel"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="MediumContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="TextPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="ImageDefinition.Width" Value="120" />
+                    </VisualState.Setters>
+
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanel"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-40">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="WideContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsSkipBackwardButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsSkipForwardButtonVisible" Value="True" />
+                    </VisualState.Setters>
+
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

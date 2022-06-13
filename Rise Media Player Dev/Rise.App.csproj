@@ -143,6 +143,7 @@
     <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
@@ -153,6 +154,8 @@
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
+    <Compile Include="UserControls\RiseMediaTransportControls.cs" />
     <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -241,25 +244,12 @@
     <Compile Include="UserControls\AdaptiveItemPane.xaml.cs">
       <DependentUpon>AdaptiveItemPane.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\NPNowPlayingBar.xaml.cs">
-      <DependentUpon>NPNowPlayingBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TransparentNowPlayingBar.xaml.cs">
-      <DependentUpon>TransparentNowPlayingBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\VideoNowPlayingBar.xaml.cs">
-      <DependentUpon>VideoNowPlayingBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\NowPlayingBar.xaml.cs">
-      <DependentUpon>NowPlayingBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\TiledImage.xaml.cs">
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
-    <Compile Include="ViewModels\PlaybackMetaViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
@@ -278,23 +268,11 @@
     <Compile Include="Views\ConnectedDevicesPage.xaml.cs">
       <DependentUpon>ConnectedDevicesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CurrentlyPlayingPage.xaml.cs">
-      <DependentUpon>CurrentlyPlayingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CurrentlyPlayingPageWindow.xaml.cs">
-      <DependentUpon>CurrentlyPlayingPageWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FullNowPlayingPage.xaml.cs">
-      <DependentUpon>FullNowPlayingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Genres\GenreSongsPage.xaml.cs">
       <DependentUpon>GenreSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NoMediaFound.xaml.cs">
       <DependentUpon>NoMediaFound.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NPBarQueuePage.xaml.cs">
-      <DependentUpon>NPBarQueuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Playlists\PlaylistDetailsPage.xaml.cs">
       <DependentUpon>PlaylistDetailsPage.xaml</DependentUpon>
@@ -311,6 +289,9 @@
     <Compile Include="Views\SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Visualizers\LineVisualizer.xaml.cs">
+      <DependentUpon>LineVisualizer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Web\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
@@ -319,6 +300,9 @@
     </Compile>
     <Compile Include="Web\WhatsNew.xaml.cs">
       <DependentUpon>WhatsNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NowPlayingPage.xaml.cs">
+      <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PlaylistPropertiesPage.xaml.cs">
       <DependentUpon>PlaylistPropertiesPage.xaml</DependentUpon>
@@ -353,16 +337,12 @@
     <Compile Include="Settings\LanguagePage.xaml.cs">
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\QueuePage.xaml.cs">
-      <DependentUpon>QueuePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ExtendedTitleBar.xaml.cs">
       <DependentUpon>ExtendedTitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
-    <Compile Include="ViewModels\PlaybackViewModel.cs" />
     <Compile Include="Views\Albums\AlbumSongsPage.xaml.cs">
       <DependentUpon>AlbumSongsPage.xaml</DependentUpon>
     </Compile>
@@ -393,9 +373,6 @@
     </Compile>
     <Compile Include="Views\LocalVideosPage.xaml.cs">
       <DependentUpon>LocalVideosPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\NowPlaying.xaml.cs">
-      <DependentUpon>NowPlaying.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -694,22 +671,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\NPNowPlayingBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TransparentNowPlayingBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\VideoNowPlayingBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\NowPlayingBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\TiledImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -730,27 +691,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CurrentlyPlayingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CurrentlyPlayingPageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FullNowPlayingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Genres\GenreSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NoMediaFound.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NPBarQueuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -774,6 +719,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Visualizers\LineVisualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Web\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -783,6 +732,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Web\WhatsNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NowPlayingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -874,10 +827,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\NowPlaying.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -907,10 +856,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\SongsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\QueuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -962,6 +907,9 @@
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="UWPAudioVisualizer">
+      <Version>1.0.38</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
