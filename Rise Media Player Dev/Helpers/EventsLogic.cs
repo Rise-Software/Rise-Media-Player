@@ -97,24 +97,4 @@ namespace Rise.App.Views
             }
         }
     }
-
-    // Hyperlink handling
-    public static partial class EventsLogic
-    {
-        public static void GoToAlbum(Hyperlink sender)
-        {
-            var run = sender.Inlines.FirstOrDefault() as Run;
-
-            _ = MainPage.Current.ContentFrame.
-                    Navigate(typeof(AlbumSongsPage), run.Text);
-        }
-
-        public static void GoToArtist(Hyperlink sender)
-        {
-            var run = sender.Inlines.FirstOrDefault() as Run;
-
-            _ = MainPage.Current.ContentFrame.
-                    Navigate(typeof(ArtistSongsPage), run.Text);
-        }
-    }
 }

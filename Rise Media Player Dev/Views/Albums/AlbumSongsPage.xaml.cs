@@ -222,10 +222,10 @@ namespace Rise.App.Views
             => EventsLogic.UnfocusSong(ref _song, e);
 
         private void Album_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToAlbum(sender);
+            => Frame.Navigate(typeof(AlbumSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
+            => Frame.Navigate(typeof(ArtistSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
         #endregion
 
         #region NavigationHelper registration

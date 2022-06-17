@@ -5,6 +5,7 @@ using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -311,7 +312,7 @@ namespace Rise.App.Views
         #endregion
 
         private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => EventsLogic.GoToArtist(sender);
+            => Frame.Navigate(typeof(ArtistSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
 
         #region NavigationHelper registration
         /// <summary>
