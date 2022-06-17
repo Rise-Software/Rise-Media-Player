@@ -15,9 +15,6 @@ namespace Rise.App.Dialogs
         XmlDocument xmlDoc = new();
         public MainViewModel MViewModel => App.MViewModel;
 
-        private static readonly DependencyProperty SelectedArtistProperty =
-            DependencyProperty.Register("SelectedArtist", typeof(ArtistViewModel), typeof(Views.ArtistSongsPage), null);
-
         private ArtistViewModel SelectedArtist
         {
             get => (ArtistViewModel)GetValue(SelectedArtistProperty);
@@ -29,12 +26,13 @@ namespace Rise.App.Dialogs
             this.InitializeComponent();
             AboutArtistText.Text = aboutArtistBig;
         }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-
-
-        }
     }
 
+    // Dependency properties
+    public sealed partial class AboutArtist : Page
+    {
+        private static readonly DependencyProperty SelectedArtistProperty =
+            DependencyProperty.Register(nameof(SelectedArtist), typeof(ArtistViewModel),
+                typeof(AboutArtist), new PropertyMetadata(null));
+    }
 }

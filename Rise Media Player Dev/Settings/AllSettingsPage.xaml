@@ -131,9 +131,10 @@
                                 x:Name="SmallSettingsButton"
                                 Margin="5.4"
                                 Padding="4"
-                                Visibility="Collapsed"
                                 Background="Transparent"
-                                BorderBrush="Transparent" Flyout="{x:Bind MoreFlyout}">
+                                BorderBrush="Transparent"
+                                Flyout="{x:Bind MoreFlyout}"
+                                Visibility="Collapsed">
                                 <Button.Content>
                                     <FontIcon
                                         HorizontalAlignment="Center"
@@ -203,7 +204,7 @@
                                             <MenuFlyoutSeparator />
 
                                             <MenuFlyoutItem
-                                                x:Name="Language"
+                                                x:Name="LanguageItem"
                                                 Click="Language_Click"
                                                 Text="Language">
                                                 <MenuFlyoutItem.Icon>
