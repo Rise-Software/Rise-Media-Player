@@ -153,14 +153,12 @@
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CancellableTaskHelper.cs" />
     <Compile Include="Helpers\CompositionControl.cs" />
-    <Compile Include="Helpers\DependencyPropertyWatcher.cs" />
     <Compile Include="Helpers\KeyboardHelpers.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
     <Compile Include="IndexingPresets.cs" />
-    <Compile Include="Interfaces\ICancellableTask.cs" />
     <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Interfaces\IMediaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
