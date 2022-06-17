@@ -5,6 +5,7 @@ using Rise.App.DbControllers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
@@ -19,6 +20,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
+using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -128,20 +130,20 @@ namespace Rise.App
         public App()
         {
             SViewModel = new();
-            switch (SViewModel.Theme)
-            {
-                case 0:
-                    RequestedTheme = ApplicationTheme.Light;
-                    break;
+            if (SViewModel.Theme == 0)
+                RequestedTheme = ApplicationTheme.Light;
+            else if (SViewModel.Theme == 1)
+                RequestedTheme = ApplicationTheme.Dark;
 
-                case 1:
-                    RequestedTheme = ApplicationTheme.Dark;
-                    break;
-            }
+            // Reset the glaze color before startup if necessary
+            if (SViewModel.SelectedGlaze == GlazeTypes.MediaThumbnail)
+                SViewModel.GlazeColors = Colors.Transparent;
 
             InitializeComponent();
+
             Suspending += OnSuspending;
             UnhandledException += OnUnhandledException;
+
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
@@ -247,7 +249,7 @@ namespace Rise.App
                 .GetToastContent();
 
             //string text = $"The exception {e.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Message}\n{e.StackTrace}\nSource: {e.Source}\nHResult: {e.HResult}";
-            
+
             //await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here is some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
 
             ToastNotification notification = new(content.GetXml());

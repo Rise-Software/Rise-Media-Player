@@ -321,7 +321,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{x:Bind MainGridBackground, Mode=OneWay}">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{x:Bind SViewModel.GlazeColors, Mode=OneWay}" />
+        </Grid.Background>
+
         <Grid Canvas.ZIndex="1">
             <uc:ExtendedTitleBar
                 x:Name="AppTitleBar"

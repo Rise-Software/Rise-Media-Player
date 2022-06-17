@@ -57,12 +57,6 @@ namespace Rise.App.Views
 
         private NavigationViewItem RightClickedItem { get; set; }
 
-        private SolidColorBrush MainGridBackground
-        {
-            get => (SolidColorBrush)GetValue(MainGridBackgroundProperty);
-            set => SetValue(MainGridBackgroundProperty, value);
-        }
-
         internal string AccountMenuText
         {
             get => Acc.Text.ToString();
@@ -458,42 +452,26 @@ namespace Rise.App.Views
 
         public async Task HandleViewModelColorSettingAsync()
         {
-            Color color;
-            switch (SViewModel.SelectedGlaze)
+            if (SViewModel.SelectedGlaze == GlazeTypes.MediaThumbnail)
             {
-                case GlazeTypes.AccentColor:
-                    var uiSettings = new UISettings();
-                    color = uiSettings.GetColorValue(UIColorType.Accent);
-                    color.A = 25;
-                    break;
+                if (MPViewModel.PlayingItem != null)
+                {
+                    var thumbUri = new Uri(MPViewModel.PlayingItem.Thumbnail);
+                    var thumbStrm = RandomAccessStreamReference.CreateFromUri(thumbUri);
 
-                case GlazeTypes.CustomColor:
-                    var glaze = SViewModel.GlazeColors;
-                    color = Color.FromArgb(glaze[0], glaze[1], glaze[2], glaze[3]);
-                    break;
+                    using var stream = await thumbStrm.OpenReadAsync();
 
-                case GlazeTypes.MediaThumbnail:
-                    if (MPViewModel.PlayingItem != null)
-                    {
-                        var thumbUri = new Uri(MPViewModel.PlayingItem.Thumbnail);
-                        var thumbStrm = RandomAccessStreamReference.CreateFromUri(thumbUri);
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    var colorThief = new ColorThiefDotNet.ColorThief();
 
-                        using var stream = await thumbStrm.OpenReadAsync();
-
-                        var decoder = await BitmapDecoder.CreateAsync(stream);
-                        var colorThief = new ColorThiefDotNet.ColorThief();
-
-                        var stolen = (await colorThief.GetColor(decoder)).Color;
-                        color = Color.FromArgb(25, stolen.R, stolen.G, stolen.B);
-                    }
-                    break;
-
-                default:
-                    color = Colors.Transparent;
-                    break;
+                    var stolen = (await colorThief.GetColor(decoder)).Color;
+                    SViewModel.GlazeColors = Color.FromArgb(25, stolen.R, stolen.G, stolen.B);
+                }
+                else
+                {
+                    SViewModel.GlazeColors = Colors.Transparent;
+                }
             }
-
-            MainGridBackground = new SolidColorBrush(color);
         }
         #endregion
 
@@ -789,14 +767,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
-    }
-
-    // Dependency properties
-    public sealed partial class MainPage
-    {
-        private readonly static DependencyProperty MainGridBackgroundProperty =
-            DependencyProperty.Register(nameof(MainGridBackground), typeof(SolidColorBrush),
-                typeof(MainPage), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
     }
 
     public class NavViewItemTemplateSelector : DataTemplateSelector

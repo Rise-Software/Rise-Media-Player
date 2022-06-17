@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Mvvm.Input;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Toolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
+using Windows.UI;
 
 namespace Rise.App.ViewModels
 {
@@ -156,26 +157,20 @@ namespace Rise.App.ViewModels
             set => Set(value, "Appearance");
         }
 
-        private byte GlazeType
-        {
-            get => Get<byte>(0, "Appearance");
-            set => Set(value, "Appearance");
-        }
-
         public GlazeTypes SelectedGlaze
         {
-            get => (GlazeTypes)GlazeType;
-            set
-            {
-                GlazeType = (byte)value;
-                OnPropertyChanged();
-            }
+            get => (GlazeTypes)Get<byte>(0, "Appearance");
+            set => Set((byte)value, "Appearance");
         }
 
-        public byte[] GlazeColors
+        public Color GlazeColors
         {
-            get => Get(new byte[4] { 0, 255, 255, 255 }, "Appearance");
-            set => Set(value, "Appearance");
+            get
+            {
+                var col = Get(new byte[4] { 0, 255, 255, 255 }, "Appearance");
+                return Color.FromArgb(col[0], col[1], col[2], col[3]);
+            }
+            set => Set(new byte[4] { value.A, value.R, value.G, value.B }, "Appearance");
         }
 
         public bool SquareAlbumArt
@@ -585,9 +580,7 @@ namespace Rise.App.ViewModels
         /// <param name="setting">Setting name.</param>
         /// <returns>App setting value.</returns>
         /// <remarks>If the store parameter is "Local", a local setting will be returned.</remarks>
-        private Type Get<Type>(Type defaultValue,
-            string store = "Local",
-            [CallerMemberName] string setting = null)
+        private Type Get<Type>(Type defaultValue, string store = "Local", [CallerMemberName] string setting = null)
         {
             // If store == "Local", get a local setting
             if (store == "Local")

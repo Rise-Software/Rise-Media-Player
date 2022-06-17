@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common;
 using Rise.Common.Enums;
+using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -50,7 +52,8 @@ namespace Rise.App.Settings
             var bg = border.Background as SolidColorBrush;
             var color = bg.Color;
 
-            ViewModel.GlazeColors = new byte[4] { 25, color.R, color.G, color.B };
+            color.A = 25;
+            ViewModel.GlazeColors = color;
 
             foreach (Border border1 in RiseColorsPanel.Children)
             {
@@ -72,33 +75,25 @@ namespace Rise.App.Settings
 
         private void ColorThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (ColorThemeComboBox.SelectedIndex)
+            ViewModel.SelectedGlaze = (GlazeTypes)ColorThemeComboBox.SelectedIndex;
+
+            string state = "CustomGlazeDisabled";
+            switch (ViewModel.SelectedGlaze)
             {
-                case 0:
-                    Nothing.Visibility = Visibility.Visible;
-                    Therest.Visibility = Visibility.Collapsed;
-                    TextforGlaze.Visibility = Visibility.Collapsed;
-                    RiseColorsPanel.Visibility = Visibility.Collapsed;
-
-                    ViewModel.SelectedGlaze = GlazeTypes.None;
+                case GlazeTypes.None:
+                    ViewModel.GlazeColors = Colors.Transparent;
                     break;
 
-                case 1:
-                    Nothing.Visibility = Visibility.Visible;
-                    Therest.Visibility = Visibility.Collapsed;
-                    TextforGlaze.Visibility = Visibility.Collapsed;
-                    RiseColorsPanel.Visibility = Visibility.Collapsed;
+                case GlazeTypes.AccentColor:
+                    var uiSettings = new UISettings();
+                    var accent = uiSettings.GetColorValue(UIColorType.Accent);
+                    accent.A = 25;
 
-                    ViewModel.SelectedGlaze = GlazeTypes.AccentColor;
+                    ViewModel.GlazeColors = accent;
                     break;
 
-                case 2:
-                    Nothing.Visibility = Visibility.Collapsed;
-                    Therest.Visibility = Visibility.Visible;
-                    TextforGlaze.Visibility = Visibility.Visible;
-                    RiseColorsPanel.Visibility = Visibility.Visible;
-
-                    ViewModel.SelectedGlaze = GlazeTypes.CustomColor;
+                case GlazeTypes.CustomColor:
+                    state = "CustomGlazeEnabled";
                     foreach (Border border in RiseColorsPanel.Children)
                     {
                         border.BorderBrush = new SolidColorBrush();
@@ -106,37 +101,19 @@ namespace Rise.App.Settings
 
                         var bg = border.Background as SolidColorBrush;
                         var color = bg.Color;
+                        color.A = 25;
 
-                        var bytes = new byte[4] { 25, color.R, color.G, color.B };
-                        var glaze = ViewModel.GlazeColors;
-
-                        bool sameColor = true;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            if (bytes[i] != glaze[i])
-                            {
-                                sameColor = false;
-                                break;
-                            }
-                        }
-
-                        if (sameColor)
+                        if (ViewModel.GlazeColors.Equals(color))
                         {
                             border.BorderBrush = (Brush)Resources["SystemControlForegroundChromeWhiteBrush"];
                             border.BorderThickness = new Thickness(3);
+                            break;
                         }
                     }
                     break;
-
-                case 3:
-                    Nothing.Visibility = Visibility.Visible;
-                    Therest.Visibility = Visibility.Collapsed;
-                    TextforGlaze.Visibility = Visibility.Collapsed;
-                    RiseColorsPanel.Visibility = Visibility.Collapsed;
-
-                    ViewModel.SelectedGlaze = GlazeTypes.MediaThumbnail;
-                    break;
             }
+
+            VisualStateManager.GoToState(this, state, false);
         }
 
         private async void ChangeThemeTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
