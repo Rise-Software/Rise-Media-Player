@@ -26,10 +26,9 @@
         </Grid.RowDefinitions>
 
         <TextBlock
-            d:Text="Your genres"
+            d:Text="Genres"
             Style="{StaticResource TitleTextBlockStyle}"
-            Text="Your genres"
-            TextTrimming="WordEllipsis" />
+            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
         <GridView
             Grid.Row="1"
             Margin="-56,0"
