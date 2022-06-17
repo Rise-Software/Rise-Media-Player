@@ -12,7 +12,7 @@ using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
-    public class SettingsViewModel : ViewModel
+    public sealed partial class SettingsViewModel : ViewModel
     {
         private NavViewDataSource SBViewModel => App.NavDataSource;
         public ICommand OpenFilesAtStartupCommand { get; }
@@ -572,8 +572,11 @@ namespace Rise.App.ViewModels
             get => Get(0);
             set => Set(value);
         }
+    }
 
-        #region Methods to get/set app settings
+    // Getting and setting app settings
+    public sealed partial class SettingsViewModel : ViewModel
+    {
         /// <summary>
         /// Gets an app setting.
         /// </summary>
@@ -594,17 +597,13 @@ namespace Rise.App.ViewModels
 
                 // Check if the setting exists
                 if (localSettings.Values[setting] == null)
-                {
                     localSettings.Values[setting] = defaultValue;
-                }
 
                 object val = localSettings.Values[setting];
 
                 // Return the setting if type matches
                 if (val is not Type)
-                {
                     throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
-                }
 
                 return (Type)val;
             }
@@ -615,9 +614,7 @@ namespace Rise.App.ViewModels
 
             // If the store exists, check if the setting does as well
             if (composite == null)
-            {
                 composite = new ApplicationDataCompositeValue();
-            }
 
             if (composite[setting] == null)
             {
@@ -629,9 +626,7 @@ namespace Rise.App.ViewModels
 
             // Return the setting if type matches
             if (value is not Type)
-            {
                 throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
-            }
 
             return (Type)value;
         }
@@ -663,9 +658,7 @@ namespace Rise.App.ViewModels
 
             // Store doesn't exist, create it
             if (composite == null)
-            {
                 composite = new ApplicationDataCompositeValue();
-            }
 
             // Set the setting to the desired value
             composite[setting] = newValue;
@@ -673,6 +666,5 @@ namespace Rise.App.ViewModels
 
             OnPropertyChanged(setting);
         }
-        #endregion
     }
 }
