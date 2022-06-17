@@ -4,81 +4,75 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
 
-    <StackPanel
+    <Grid
         Width="800"
         Height="200"
         HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
-        <Grid ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+        VerticalAlignment="Stretch"
+        x:DefaultBindMode="OneWay"
+        ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-            <ScrollViewer Height="200">
-                <ListView
-                    x:Name="NotificationsList"
-                    IsItemClickEnabled="True"
-                    IsRightTapEnabled="True"
-                    ItemsSource="{x:Bind app:App.MViewModel.FilteredNotifications}"
-                    RightTapped="ListView_RightTapped"
-                    SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
-                    SelectionMode="Single"
-                    Tapped="NotificationsList_Tapped">
-                    <ListView.Resources>
-                        <MenuFlyout x:Key="ListMenu">
-                            <MenuFlyoutItem Click="DeleteMenuFlyoutItem_Click" Text="Delete">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE74D;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </ListView.Resources>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="viewmodels:NotificationViewModel">
-                            <Grid Padding="10" ColumnSpacing="7">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+        <ListView
+            x:Name="NotificationsList"
+            IsItemClickEnabled="True"
+            IsRightTapEnabled="True"
+            ItemsSource="{x:Bind app:App.MViewModel.FilteredNotifications, Mode=OneTime}"
+            RightTapped="ListView_RightTapped"
+            SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
+            SelectionMode="Single"
+            Tapped="NotificationsList_Tapped">
+            <ListView.Resources>
+                <MenuFlyout x:Key="ListMenu">
+                    <MenuFlyoutItem Click="DeleteMenuFlyoutItem_Click" Text="Delete">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE74D;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </ListView.Resources>
 
-                                <FontIcon Glyph="{x:Bind Icon}" />
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:NotificationViewModel">
+                    <Grid Padding="10" ColumnSpacing="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="1" Orientation="Vertical">
-                                    <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{x:Bind Title}" />
-                                    <TextBlock Text="{x:Bind Description}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+                        <FontIcon Glyph="{x:Bind Icon}" />
 
-            <ScrollViewer Grid.Column="1">
-                <StackPanel Spacing="7">
-                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{x:Bind Title}" />
+                            <TextBlock Text="{x:Bind Description}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-                        <FontIcon
-                            Width="32"
-                            Height="32"
-                            Glyph="{x:Bind SelectedNotification.Icon, Mode=OneWay}" />
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Spacing="8">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon
+                        Width="32"
+                        Height="32"
+                        Glyph="{x:Bind SelectedNotification.Icon}" />
 
-                        <TextBlock
-                            x:Name="Title"
-                            FontSize="20"
-                            FontWeight="SemiBold" />
-                    </StackPanel>
-                    <TextBlock x:Name="Description" IsTextSelectionEnabled="True" />
+                    <TextBlock
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Text="{x:Bind SelectedNotification.Title}" />
                 </StackPanel>
-            </ScrollViewer>
-        </Grid>
-    </StackPanel>
-
+                <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind SelectedNotification.Description}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

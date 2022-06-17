@@ -9,7 +9,11 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class MessagesDialog : Page
     {
-        public NotificationViewModel SelectedNotification { get; set; }
+        private NotificationViewModel SelectedNotification
+        {
+            get => (NotificationViewModel)GetValue(SelectedNotificationProperty);
+            set => SetValue(SelectedNotificationProperty, value);
+        }
 
         public MessagesDialog()
         {
@@ -25,16 +29,20 @@ namespace Rise.App.Dialogs
         private async void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedNotification != null)
-            {
                 await SelectedNotification.DeleteAsync();
-            }
         }
 
         private void NotificationsList_Tapped(object sender, TappedRoutedEventArgs e)
         {
             SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
-            Title.Text = SelectedNotification.Title;
-            Description.Text = SelectedNotification.Description;
         }
+    }
+
+    // Dependency properties
+    public sealed partial class MessagesDialog : Page
+    {
+        private static readonly DependencyProperty SelectedNotificationProperty =
+            DependencyProperty.Register(nameof(SelectedNotification), typeof(NotificationViewModel),
+                typeof(MessagesDialog), new PropertyMetadata(null));
     }
 }
