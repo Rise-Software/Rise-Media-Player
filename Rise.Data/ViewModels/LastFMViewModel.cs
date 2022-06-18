@@ -15,6 +15,16 @@ namespace Rise.Data.ViewModels
 {
     public partial class LastFMViewModel : ViewModel
     {
+        private bool _authenticated = false;
+        /// <summary>
+        /// WHether the user has been authenticated.
+        /// </summary>
+        public bool Authenticated
+        {
+            get => _authenticated;
+            private set => Set(ref _authenticated, value);
+        }
+
         /// <summary>
         /// Session key used for the LastFM API.
         /// </summary>
@@ -80,6 +90,8 @@ namespace Rise.Data.ViewModels
 
             this._sessionKey = GetNodeFromResponse(doc, "/lfm/session/key");
             this.Username = GetNodeFromResponse(doc, "/lfm/session/name");
+
+            Authenticated = true;
             return true;
         }
 
@@ -88,6 +100,8 @@ namespace Rise.Data.ViewModels
         /// </summary>
         public void SaveCredentialsToVault(string resource)
         {
+            if (!_authenticated) return;
+
             PasswordVault vault = new();
             vault.Add(new PasswordCredential(resource, Username, _sessionKey));
         }
@@ -110,6 +124,8 @@ namespace Rise.Data.ViewModels
                     Username = credential.UserName;
                     _sessionKey = credential.Password;
                 }
+
+                Authenticated = true;
                 return true;
             }
             catch (Exception)
@@ -125,6 +141,8 @@ namespace Rise.Data.ViewModels
         /// false otherwise.</returns>
         public async Task<bool> TryScrobbleItemAsync(IMediaItem item)
         {
+            if (!_authenticated) return false;
+
             var span = DateTime.UtcNow - new DateTime(1970, 1, 1);
             var curr = ((int)span.TotalSeconds).ToString();
 
@@ -172,6 +190,18 @@ namespace Rise.Data.ViewModels
                     content.Dispose();
                 }
             }
+        }
+
+        /// <summary>
+        /// Logs out of the current session, clearing
+        /// the username and session key.
+        /// </summary>
+        public void LogOut()
+        {
+            Authenticated = false;
+
+            Username = null;
+            _sessionKey = null;
         }
     }
 
