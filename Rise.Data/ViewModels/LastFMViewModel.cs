@@ -69,7 +69,7 @@ namespace Rise.Data.ViewModels
             var result = await WebAuthenticationBroker.
                 AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
 
-            if (result.ResponseStatus != WebAuthenticationStatus.Success)
+            if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
                 return false;
 
             string response;
