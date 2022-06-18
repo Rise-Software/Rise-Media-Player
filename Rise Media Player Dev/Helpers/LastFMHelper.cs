@@ -108,12 +108,6 @@ namespace Rise.App.Helpers
             return stringBuilder.ToString();
         }
 
-        public static async Task<bool> GetFileStatus()
-        {
-            Windows.Storage.StorageFolder appFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.IStorageItem file = await appFolder.TryGetItemAsync("userid.txt");
-            return file != null;
-        }
         public static Task<string> GetSessionKey(string stringxml)
         {
             xmlDoc.LoadXml(stringxml);
