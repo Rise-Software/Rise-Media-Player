@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.Security.Authentication.Web;
+using Windows.Security.Credentials;
 using Windows.Web.Http;
 
 namespace Rise.Data.ViewModels
@@ -81,6 +82,41 @@ namespace Rise.Data.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Saves the username and session key to the vault.
+        /// </summary>
+        public void SaveCredentialsToVault(string resource)
+        {
+            PasswordVault vault = new();
+            vault.Add(new PasswordCredential(resource, Username, _sessionKey));
+        }
+
+        /// <summary>
+        /// Attempts to load credentials from the vault.
+        /// </summary>
+        /// <returns>true if the credentials were loaded successfully,
+        /// false otherwise.</returns>
+        public bool TryLoadCredentials(string resource)
+        {
+            try
+            {
+                PasswordVault vault = new();
+                var credentials = vault.FindAllByResource(resource);
+
+                foreach (var credential in credentials)
+                {
+                    credential.RetrievePassword();
+                    Username = credential.UserName;
+                    _sessionKey = credential.Password;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private async Task<string> GetTokenAsync()
         {
             string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.key;
@@ -107,7 +143,7 @@ namespace Rise.Data.ViewModels
         {
             StringBuilder stringBuilder = new();
             _ = stringBuilder.Append("https://ws.audioscrobbler.com/2.0/?");
-            
+
             foreach (var kvp in args)
                 _ = stringBuilder.AppendFormat("{0}={1}&", kvp.Key, kvp.Value);
 
