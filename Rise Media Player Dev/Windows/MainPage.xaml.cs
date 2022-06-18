@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -16,7 +15,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
-using Windows.Security.Credentials;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -24,7 +22,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
@@ -40,6 +37,7 @@ namespace Rise.App.Views
 
         private readonly NavigationHelper _navigationHelper;
 
+        private LastFMViewModel LMViewModel => App.LMViewModel;
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
         private NavViewDataSource NavDataSource => App.NavDataSource;
@@ -128,14 +126,7 @@ namespace Rise.App.Views
 
             if (e?.ItemType == MediaPlaybackType.Music)
             {
-                try
-                {
-                    LastFMHelper.ScrobbleTrack(e, App.LMViewModel.SessionKey, result => { });
-                }
-                catch
-                {
-
-                }
+                await LMViewModel.TryScrobbleItemAsync(e);
             }
         }
 
@@ -221,26 +212,6 @@ namespace Rise.App.Views
                 }
 
                 UpdateTitleBarItems(NavView);
-
-                try
-                {
-                    PasswordVault vault = new();
-                    IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
-                    foreach (PasswordCredential passwordCredential in credentials)
-                    {
-                        passwordCredential.RetrievePassword();
-                        App.LMViewModel.SessionKey = passwordCredential.Password;
-                        Acc.Text = passwordCredential.UserName;
-                        AccountPic.Glyph = "\uE13D";
-                    }
-
-                    //OnlineServicesPage.Current.AccountMenuText = false;
-                }
-                catch
-                {
-
-                }
-
                 App.MainPageLoaded = true;
             }
         }

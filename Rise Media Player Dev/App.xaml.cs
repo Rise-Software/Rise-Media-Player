@@ -228,6 +228,8 @@ namespace Rise.App
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+
+            LMViewModel.TryLoadCredentials("RiseMP - LastFM account");
         }
 
         /// <summary>

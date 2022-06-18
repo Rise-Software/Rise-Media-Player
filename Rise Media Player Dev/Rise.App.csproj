@@ -194,7 +194,6 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>

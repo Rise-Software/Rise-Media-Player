@@ -1,6 +1,4 @@
-﻿using Rise.App.Helpers;
-using System;
-using System.Diagnostics;
+﻿using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -13,30 +11,20 @@ namespace Rise.App.Settings
     /// </summary>
     public sealed partial class OnlineServicesPage : Page
     {
+        private LastFMViewModel ViewModel => App.LMViewModel;
 
-        internal static OnlineServicesPage Current;
         public OnlineServicesPage()
         {
             InitializeComponent();
-            Current = this;
         }
 
-        public bool AccountMenuText
-        {
-            get => LastFMStatus.IsEnabled;
-            set => LastFMStatus.IsEnabled = value;
-        }
         private async void LastFmFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                await LastFMHelper.LogIn();
-                LastFMStatus.IsEnabled = false;
-            }
-            catch (Exception e1)
-            {
-                Debug.WriteLine(e1.Message);
-            }
+            bool result = await ViewModel.TryAuthenticateAsync();
+            LastFMStatus.IsEnabled = !result;
+
+            if (result)
+                ViewModel.SaveCredentialsToVault("RiseMP - LastFM account");
         }
     }
 }
