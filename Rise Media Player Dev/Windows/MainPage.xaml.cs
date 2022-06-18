@@ -33,8 +33,6 @@ namespace Rise.App.Views
     public sealed partial class MainPage : Page
     {
         #region Variables
-        public static MainPage Current;
-
         private readonly NavigationHelper _navigationHelper;
 
         private LastFMViewModel LMViewModel => App.LMViewModel;
@@ -85,8 +83,6 @@ namespace Rise.App.Views
         public MainPage()
         {
             InitializeComponent();
-
-            Current = this;
 
             Loaded += MainPage_Loaded;
             Unloaded += MainPage_Unloaded;
