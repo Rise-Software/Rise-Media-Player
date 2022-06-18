@@ -1,5 +1,6 @@
 ﻿using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,6 +117,62 @@ namespace Rise.Data.ViewModels
                 return false;
             }
         }
+
+        /// <summary>
+        /// Attempts to scrobble the provided <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <returns>true if the item was successfully scrobbled,
+        /// false otherwise.</returns>
+        public async Task<bool> TryScrobbleItemAsync(IMediaItem item)
+        {
+            var span = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            var curr = ((int)span.TotalSeconds).ToString();
+
+            Dictionary<string, string> parameters = new()
+            {
+                { "artist[0]", item.Subtitle },
+                { "track[0]", item.Title },
+                { "timestamp[0]", curr },
+                { "method", "track.scrobble" },
+                { "api_key", LastFM.key },
+                { "sk", _sessionKey }
+            };
+
+            string signature = GetSignature(parameters);
+
+            var comboBuilder = new StringBuilder();
+            comboBuilder.Append("https://ws.audioscrobbler.com/2.0/?method=track.scrobble&api_key=");
+            comboBuilder.Append(LastFM.key);
+            comboBuilder.Append("&artist[0]=");
+            comboBuilder.Append(item.Subtitle);
+            comboBuilder.Append("&track[0]=");
+            comboBuilder.Append(item.Title);
+            comboBuilder.Append("&sk=");
+            comboBuilder.Append(_sessionKey);
+            comboBuilder.Append("&timestamp[0]=");
+            comboBuilder.Append(curr);
+            comboBuilder.Append("&api_sig=");
+            comboBuilder.Append(signature);
+
+            var uri = new Uri(comboBuilder.ToString());
+            var content = new HttpStringContent("");
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    _ = await client.PostAsync(uri, content);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                finally
+                {
+                    content.Dispose();
+                }
+            }
+        }
     }
 
     // Private methods
@@ -153,6 +210,20 @@ namespace Rise.Data.ViewModels
 
             _ = stringBuilder.Append("api_sig=" + SignCall(args));
             return new Uri(stringBuilder.ToString());
+        }
+
+        private string GetSignature(Dictionary<string, string> parameters)
+        {
+            var resultBuilder = new StringBuilder();
+            var data = parameters.OrderBy(x => x.Key);
+            foreach (var kvp in data)
+            {
+                resultBuilder.Append(kvp.Key);
+                resultBuilder.Append(kvp.Value);
+            }
+
+            resultBuilder.Append(LastFM.secret);
+            return resultBuilder.ToString().GetEncodedHash("MD5");
         }
 
         private string SignCall(Dictionary<string, string> args)
