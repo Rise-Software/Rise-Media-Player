@@ -12,7 +12,7 @@ using Windows.Web.Http;
 
 namespace Rise.Data.ViewModels
 {
-    public class LastFMViewModel : ViewModel
+    public partial class LastFMViewModel : ViewModel
     {
         /// <summary>
         /// Session key used for the LastFM API.
@@ -116,7 +116,11 @@ namespace Rise.Data.ViewModels
                 return false;
             }
         }
+    }
 
+    // Private methods
+    public partial class LastFMViewModel
+    {
         private async Task<string> GetTokenAsync()
         {
             string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.key;
