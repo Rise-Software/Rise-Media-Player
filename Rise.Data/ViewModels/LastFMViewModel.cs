@@ -238,7 +238,9 @@ namespace Rise.Data.ViewModels
             foreach (var kvp in args)
                 _ = stringBuilder.AppendFormat("{0}={1}&", kvp.Key, kvp.Value);
 
-            _ = stringBuilder.Append("api_sig=" + SignCall(args));
+            _ = stringBuilder.Append("api_sig=");
+            _ = stringBuilder.Append(SignCall(args));
+
             return new Uri(stringBuilder.ToString());
         }
 
@@ -248,11 +250,11 @@ namespace Rise.Data.ViewModels
             var data = parameters.OrderBy(x => x.Key);
             foreach (var kvp in data)
             {
-                resultBuilder.Append(kvp.Key);
-                resultBuilder.Append(kvp.Value);
+                _ = resultBuilder.Append(kvp.Key);
+                _ = resultBuilder.Append(kvp.Value);
             }
 
-            resultBuilder.Append(LastFM.secret);
+            _ = resultBuilder.Append(LastFM.secret);
             return resultBuilder.ToString().GetEncodedHash("MD5");
         }
 
