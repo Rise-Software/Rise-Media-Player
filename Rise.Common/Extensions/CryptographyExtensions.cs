@@ -13,7 +13,7 @@ namespace Rise.Common.Extensions
         /// <param name="str">String to hash.</param>
         /// <param name="alg">Algorithm to use. Must be a valid value
         /// from <see cref="HashAlgorithmNames"/>.</param>
-        /// <returns>The encoded hash as a base64 string.</returns>
+        /// <returns>The encoded hash as a hexadecimal string.</returns>
         public static string GetEncodedHash(this string str, string alg)
         {
             // Convert the message string to binary data
@@ -30,7 +30,7 @@ namespace Rise.Common.Extensions
                 throw new Exception("There was an error creating the hash");
 
             // Convert the hash to a string and return it
-            return CryptographicBuffer.EncodeToBase64String(hashBuff);
+            return CryptographicBuffer.EncodeToHexString(hashBuff);
         }
     }
 }
