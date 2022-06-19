@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Constants;
+using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -24,7 +25,7 @@ namespace Rise.App.Settings
             LastFMStatus.IsEnabled = !result;
 
             if (result)
-                ViewModel.SaveCredentialsToVault("RiseMP - LastFM account");
+                ViewModel.SaveCredentialsToVault(LastFM.VaultResource);
         }
     }
 }

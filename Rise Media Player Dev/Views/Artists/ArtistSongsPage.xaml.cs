@@ -156,7 +156,7 @@ namespace Rise.App.Views
             try
             {
                 LFM lfm = null;
-                string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.key + "&limit=8";
+                string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.Key + "&limit=8";
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);
@@ -187,7 +187,7 @@ namespace Rise.App.Views
         {
             try
             {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);
@@ -220,7 +220,7 @@ namespace Rise.App.Views
             try
             {
                 TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);
@@ -240,7 +240,7 @@ namespace Rise.App.Views
         {
             try
             {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key + "&autocorrect=1";
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key + "&autocorrect=1";
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);
@@ -267,7 +267,7 @@ namespace Rise.App.Views
         {
             try
             {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.key;
+                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
                 string xmlStr;
                 WebClient wc = new();
                 xmlStr = wc.DownloadString(m_strFilePath);

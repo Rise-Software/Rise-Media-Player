@@ -5,6 +5,7 @@ using Rise.App.DbControllers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
+using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -229,7 +230,7 @@ namespace Rise.App
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
 
-            LMViewModel.TryLoadCredentials("RiseMP - LastFM account");
+            LMViewModel.TryLoadCredentials(LastFM.VaultResource);
         }
 
         /// <summary>

@@ -51,7 +51,7 @@ namespace Rise.Data.ViewModels
 
             var uriBuilder = new StringBuilder();
             _ = uriBuilder.Append("https://www.last.fm/api/auth?api_key=");
-            _ = uriBuilder.Append(LastFM.key);
+            _ = uriBuilder.Append(LastFM.Key);
             _ = uriBuilder.Append("&token=");
             _ = uriBuilder.Append(token);
             _ = uriBuilder.Append("&redirect_uri=");
@@ -61,7 +61,7 @@ namespace Rise.Data.ViewModels
             Dictionary<string, string> args = new()
             {
                 { "method", "auth.getSession" },
-                { "api_key", LastFM.key },
+                { "api_key", LastFM.Key },
                 { "token", token }
             };
 
@@ -152,7 +152,7 @@ namespace Rise.Data.ViewModels
                 { "track[0]", item.Title },
                 { "timestamp[0]", curr },
                 { "method", "track.scrobble" },
-                { "api_key", LastFM.key },
+                { "api_key", LastFM.Key },
                 { "sk", _sessionKey }
             };
 
@@ -160,7 +160,7 @@ namespace Rise.Data.ViewModels
 
             var comboBuilder = new StringBuilder();
             comboBuilder.Append("https://ws.audioscrobbler.com/2.0/?method=track.scrobble&api_key=");
-            comboBuilder.Append(LastFM.key);
+            comboBuilder.Append(LastFM.Key);
             comboBuilder.Append("&artist[0]=");
             comboBuilder.Append(item.Subtitle);
             comboBuilder.Append("&track[0]=");
@@ -210,7 +210,7 @@ namespace Rise.Data.ViewModels
     {
         private async Task<string> GetTokenAsync()
         {
-            string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.key;
+            string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.Key;
 
             string response;
             using (var client = new HttpClient())
@@ -254,7 +254,7 @@ namespace Rise.Data.ViewModels
                 _ = resultBuilder.Append(kvp.Value);
             }
 
-            _ = resultBuilder.Append(LastFM.secret);
+            _ = resultBuilder.Append(LastFM.Secret);
             return resultBuilder.ToString().GetEncodedHash("MD5");
         }
 
@@ -264,7 +264,7 @@ namespace Rise.Data.ViewModels
 
             string signature = sortedArgs.Select(pair => pair.Key + pair.Value).
                 Aggregate((first, second) => first + second);
-            signature += LastFM.secret;
+            signature += LastFM.Secret;
 
             return signature.GetEncodedHash("MD5");
         }
