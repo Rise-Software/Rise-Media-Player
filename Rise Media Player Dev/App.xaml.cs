@@ -223,7 +223,7 @@ namespace Rise.App
             NBackendController ??= new NotificationsBackendController();
 
             MViewModel ??= new MainViewModel();
-            LMViewModel ??= new LastFMViewModel();
+            LMViewModel ??= new LastFMViewModel(LastFM.Key, LastFM.Secret);
             MPViewModel ??= new MediaPlaybackViewModel();
             NavDataSource ??= new NavViewDataSource();
 
