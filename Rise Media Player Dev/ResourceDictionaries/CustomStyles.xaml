@@ -528,32 +528,57 @@
                             <VisualStateGroup x:Name="ControlPanelVisibilityStates">
                                 <VisualState x:Name="ControlPanelFadeIn">
                                     <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanelGrid" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ControlPanelGrid"
+                                            Storyboard.TargetProperty="Opacity"
+                                            Duration="0:0:0.3">
+                                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimation
+
+                                        <DoubleAnimationUsingKeyFrames
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
-                                            From="50"
-                                            To="0.5"
-                                            Duration="0:0:0.3" />
+                                            Duration="0:0:0.3">
+                                            <LinearDoubleKeyFrame KeyTime="0" Value="20" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
 
                                 <VisualState x:Name="ControlPanelFadeOut">
                                     <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanelGrid" Storyboard.TargetProperty="Opacity">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="ControlPanelGrid"
+                                            Storyboard.TargetProperty="Opacity"
+                                            Duration="0:0:0.3">
+                                            <LinearDoubleKeyFrame KeyTime="0" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
 
-                                        <DoubleAnimation
+                                        <DoubleAnimationUsingKeyFrames
                                             Storyboard.TargetName="TranslateVertical"
                                             Storyboard.TargetProperty="Y"
-                                            From="0.5"
-                                            To="50"
-                                            Duration="0:0:0.3" />
+                                            Duration="0:0:0.3">
+                                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="20">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
