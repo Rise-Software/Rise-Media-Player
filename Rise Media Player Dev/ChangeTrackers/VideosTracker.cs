@@ -176,47 +176,51 @@ namespace Rise.App.ChangeTrackers
         {
             StorageFolder changedFolder = sender.Folder;
             StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
-            folderTracker.Enable();
 
-            StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
-            IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
-
-            foreach (StorageLibraryChange change in changes)
+            if (folderTracker != null)
             {
-                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
-                {
-                    // Change tracker is in an invalid state and must be reset
-                    // This should be a very rare case, but must be handled
-                    folderTracker.Reset();
-                    return;
-                }
+                folderTracker.Enable();
 
-                if (change.IsOfType(StorageItemTypes.File))
+                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
+                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+
+                foreach (StorageLibraryChange change in changes)
                 {
-                    await ManageVideoChange(change);
-                }
-                else if (change.IsOfType(StorageItemTypes.Folder))
-                {
-                    // Not interested in folders
-                }
-                else
-                {
-                    if (change.ChangeType == StorageLibraryChangeType.Deleted)
+                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
                     {
-                        for (int i = 0; i < MViewModel.Videos.Count; i++)
+                        // Change tracker is in an invalid state and must be reset
+                        // This should be a very rare case, but must be handled
+                        folderTracker.Reset();
+                        return;
+                    }
+
+                    if (change.IsOfType(StorageItemTypes.File))
+                    {
+                        await ManageVideoChange(change);
+                    }
+                    else if (change.IsOfType(StorageItemTypes.Folder))
+                    {
+                        // Not interested in folders
+                    }
+                    else
+                    {
+                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
                         {
-                            if (change.PreviousPath == MViewModel.Videos[i].Location)
+                            for (int i = 0; i < MViewModel.Videos.Count; i++)
                             {
-                                await MViewModel.Videos[i].DeleteAsync();
+                                if (change.PreviousPath == MViewModel.Videos[i].Location)
+                                {
+                                    await MViewModel.Videos[i].DeleteAsync();
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            // Mark that all the changes have been seen and for the change tracker
-            // to never return these changes again
-            await changeReader.AcceptChangesAsync();
+                // Mark that all the changes have been seen and for the change tracker
+                // to never return these changes again
+                await changeReader.AcceptChangesAsync();
+            }
         }
     }
 }
