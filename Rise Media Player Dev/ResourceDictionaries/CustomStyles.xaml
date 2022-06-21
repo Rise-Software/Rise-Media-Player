@@ -542,13 +542,10 @@
                                 </VisualState>
 
                                 <VisualState x:Name="ControlPanelFadeOut">
-                                    <VisualState.Setters>
-                                        <Setter Target="ControlPanelGrid.IsHitTestVisible" Value="False" />
-                                    </VisualState.Setters>
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ControlPanelGrid" Storyboard.TargetProperty="Opacity">
                                             <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
                                         </DoubleAnimationUsingKeyFrames>
 
                                         <DoubleAnimation
@@ -556,7 +553,7 @@
                                             Storyboard.TargetProperty="Y"
                                             From="0.5"
                                             To="50"
-                                            Duration="0:0:0.7" />
+                                            Duration="0:0:0.3" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
