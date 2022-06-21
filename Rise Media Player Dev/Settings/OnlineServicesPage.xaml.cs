@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,6 +22,9 @@ namespace Rise.App.Settings
 
         private async void LastFmFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
+            if (!WebHelpers.IsInternetAccessAvailable())
+                return;
+
             bool result = await ViewModel.TryAuthenticateAsync();
             LastFMStatus.IsEnabled = !result;
 

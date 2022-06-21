@@ -3,6 +3,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,8 +82,18 @@ namespace Rise.Data.ViewModels
             };
 
             var endUri = GetSignedUri(args);
-            var result = await WebAuthenticationBroker.
-                AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
+
+            WebAuthenticationResult result;
+            try
+            {
+                result = await WebAuthenticationBroker.
+                    AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
+            }
+            catch (FileNotFoundException)
+            {
+                // FileNotFound generally means no access to the host
+                return false;
+            }
 
             if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
                 return false;
