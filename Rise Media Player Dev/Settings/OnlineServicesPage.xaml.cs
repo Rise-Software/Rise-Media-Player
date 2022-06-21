@@ -1,6 +1,8 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,11 +27,18 @@ namespace Rise.App.Settings
             if (!WebHelpers.IsInternetAccessAvailable())
                 return;
 
-            bool result = await ViewModel.TryAuthenticateAsync();
-            LastFMStatus.IsEnabled = !result;
+            try
+            {
+                bool result = await ViewModel.TryAuthenticateAsync();
+                LastFMStatus.IsEnabled = !result;
 
-            if (result)
-                ViewModel.SaveCredentialsToVault(LastFM.VaultResource);
+                if (result)
+                    ViewModel.SaveCredentialsToVault(LastFM.VaultResource);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteToOutput();
+            }
         }
     }
 }
