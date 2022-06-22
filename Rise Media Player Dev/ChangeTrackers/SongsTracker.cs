@@ -24,50 +24,54 @@ namespace Rise.App.ChangeTrackers
             Debug.WriteLine("New changes!");
             StorageFolder changedFolder = sender.Folder;
             StorageLibraryChangeTracker folderTracker = changedFolder.TryGetChangeTracker();
-            folderTracker.Enable();
 
-            StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
-            IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
-
-            foreach (StorageLibraryChange change in changes)
+            if (folderTracker != null)
             {
-                if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
-                {
-                    // Change tracker is in an invalid state and must be reset
-                    // This should be a very rare case, but must be handled
-                    folderTracker.Reset();
-                    await ViewModel.StartFullCrawlAsync();
-                    return;
-                }
+                folderTracker.Enable();
 
-                if (change.IsOfType(StorageItemTypes.File))
+                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
+                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+
+                foreach (StorageLibraryChange change in changes)
                 {
-                    await ManageSongChange(change);
-                }
-                else if (change.IsOfType(StorageItemTypes.Folder))
-                {
-                    //await ViewModel.StartFullCrawlAsync();
-                }
-                else
-                {
-                    if (change.ChangeType == StorageLibraryChangeType.Deleted)
+                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
                     {
-                        foreach (SongViewModel song in ViewModel.Songs)
+                        // Change tracker is in an invalid state and must be reset
+                        // This should be a very rare case, but must be handled
+                        folderTracker.Reset();
+                        await ViewModel.StartFullCrawlAsync();
+                        return;
+                    }
+
+                    if (change.IsOfType(StorageItemTypes.File))
+                    {
+                        await ManageSongChange(change);
+                    }
+                    else if (change.IsOfType(StorageItemTypes.Folder))
+                    {
+                        //await ViewModel.StartFullCrawlAsync();
+                    }
+                    else
+                    {
+                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
                         {
-                            if (change.PreviousPath == song.Location)
+                            foreach (SongViewModel song in ViewModel.Songs)
                             {
-                                await song.DeleteAsync();
+                                if (change.PreviousPath == song.Location)
+                                {
+                                    await song.DeleteAsync();
+                                }
                             }
                         }
                     }
                 }
+
+                // Mark that all the changes have been seen and for the change tracker
+                // to never return these changes again
+                await changeReader.AcceptChangesAsync();
+
+                sender.ContentsChanged += MusicQueryResultChanged;
             }
-
-            // Mark that all the changes have been seen and for the change tracker
-            // to never return these changes again
-            await changeReader.AcceptChangesAsync();
-
-            sender.ContentsChanged += MusicQueryResultChanged;
         }
 
         /// <summary>
