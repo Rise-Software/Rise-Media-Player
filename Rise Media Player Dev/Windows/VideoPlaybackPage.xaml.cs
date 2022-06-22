@@ -1,10 +1,5 @@
 ﻿using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.Views

@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI;
@@ -130,7 +131,7 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            SViewModel = new();
+            SViewModel ??= new();
             if (SViewModel.Theme == 0)
                 RequestedTheme = ApplicationTheme.Light;
             else if (SViewModel.Theme == 1)
@@ -279,6 +280,7 @@ namespace Rise.App
             Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
             if (!e.PrelaunchActivated)
             {
+                CoreApplication.EnablePrelaunch(true);
                 if (rootFrame.Content == null)
                 {
                     // When the navigation stack isn't restored navigate to the first page,
