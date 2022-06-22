@@ -3,6 +3,7 @@ using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,21 @@ namespace Rise.Data.ViewModels
 {
     public partial class LastFMViewModel : ViewModel
     {
+        private readonly string _key;
+        private readonly string _secret;
+
+        /// <summary>
+        /// Initializes a new instance of this class with the provided
+        /// API keys.
+        /// </summary>
+        /// <param name="key">last.fm API key.</param>
+        /// <param name="secret">last.fm secret key.</param>
+        public LastFMViewModel(string key, string secret)
+        {
+            _key = key;
+            _secret = secret;
+        }
+
         private bool _authenticated = false;
         /// <summary>
         /// WHether the user has been authenticated.
@@ -51,7 +67,7 @@ namespace Rise.Data.ViewModels
 
             var uriBuilder = new StringBuilder();
             _ = uriBuilder.Append("https://www.last.fm/api/auth?api_key=");
-            _ = uriBuilder.Append(LastFM.Key);
+            _ = uriBuilder.Append(_key);
             _ = uriBuilder.Append("&token=");
             _ = uriBuilder.Append(token);
             _ = uriBuilder.Append("&redirect_uri=");
@@ -61,13 +77,23 @@ namespace Rise.Data.ViewModels
             Dictionary<string, string> args = new()
             {
                 { "method", "auth.getSession" },
-                { "api_key", LastFM.Key },
+                { "api_key", _key },
                 { "token", token }
             };
 
             var endUri = GetSignedUri(args);
-            var result = await WebAuthenticationBroker.
-                AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
+
+            WebAuthenticationResult result;
+            try
+            {
+                result = await WebAuthenticationBroker.
+                    AuthenticateAsync(WebAuthenticationOptions.UseTitle, startUri, endUri);
+            }
+            catch (FileNotFoundException)
+            {
+                // FileNotFound generally means no access to the host
+                return false;
+            }
 
             if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
                 return false;
@@ -152,7 +178,7 @@ namespace Rise.Data.ViewModels
                 { "track[0]", item.Title },
                 { "timestamp[0]", curr },
                 { "method", "track.scrobble" },
-                { "api_key", LastFM.Key },
+                { "api_key", _key },
                 { "sk", _sessionKey }
             };
 
@@ -160,7 +186,7 @@ namespace Rise.Data.ViewModels
 
             var comboBuilder = new StringBuilder();
             comboBuilder.Append("https://ws.audioscrobbler.com/2.0/?method=track.scrobble&api_key=");
-            comboBuilder.Append(LastFM.Key);
+            comboBuilder.Append(_key);
             comboBuilder.Append("&artist[0]=");
             comboBuilder.Append(item.Subtitle);
             comboBuilder.Append("&track[0]=");
@@ -210,7 +236,7 @@ namespace Rise.Data.ViewModels
     {
         private async Task<string> GetTokenAsync()
         {
-            string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + LastFM.Key;
+            string m_strFilePath = URLs.LastFM + "auth.gettoken&api_key=" + _key;
 
             string response;
             using (var client = new HttpClient())
@@ -254,7 +280,7 @@ namespace Rise.Data.ViewModels
                 _ = resultBuilder.Append(kvp.Value);
             }
 
-            _ = resultBuilder.Append(LastFM.Secret);
+            _ = resultBuilder.Append(_secret);
             return resultBuilder.ToString().GetEncodedHash("MD5");
         }
 
@@ -264,7 +290,7 @@ namespace Rise.Data.ViewModels
 
             string signature = sortedArgs.Select(pair => pair.Key + pair.Value).
                 Aggregate((first, second) => first + second);
-            signature += LastFM.Secret;
+            signature += _secret;
 
             return signature.GetEncodedHash("MD5");
         }

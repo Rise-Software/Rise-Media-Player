@@ -148,7 +148,6 @@
     <Compile Include="Extensions\IndexingExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
-    <Compile Include="Extensions\WebHelpers.cs" />
     <Compile Include="Extensions\ViewManagementExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
     <Compile Include="Helpers\CancellableTaskHelper.cs" />
@@ -159,6 +158,7 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
+    <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="IndexingPresets.cs" />
     <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Interfaces\IMediaItem.cs" />
