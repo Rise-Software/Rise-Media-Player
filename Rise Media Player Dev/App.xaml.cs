@@ -5,6 +5,7 @@ using Rise.App.DbControllers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
+using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -223,12 +224,14 @@ namespace Rise.App
             NBackendController ??= new NotificationsBackendController();
 
             MViewModel ??= new MainViewModel();
-            LMViewModel ??= new LastFMViewModel();
+            LMViewModel ??= new LastFMViewModel(LastFM.Key, LastFM.Secret);
             MPViewModel ??= new MediaPlaybackViewModel();
             NavDataSource ??= new NavViewDataSource();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
+
+            LMViewModel.TryLoadCredentials(LastFM.VaultResource);
         }
 
         /// <summary>

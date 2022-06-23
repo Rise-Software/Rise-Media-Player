@@ -483,12 +483,12 @@
                         <MenuFlyout x:Name="ProfileMenu">
                             <MenuFlyoutItem
                                 x:Name="Acc"
-                                x:Uid="/Information/Accounts"
                                 Height="44"
                                 Margin="3"
                                 Click="Account_Click"
                                 FontSize="14"
-                                FontWeight="SemiBold">
+                                FontWeight="SemiBold"
+                                Text="{x:Bind LMViewModel.Username, Mode=OneWay}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
                                 </MenuFlyoutItem.Icon>
@@ -933,6 +933,18 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="LastFMStates">
+                <VisualState x:Name="LoggedInState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="AccountPic.Glyph" Value="&#xE13D;" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

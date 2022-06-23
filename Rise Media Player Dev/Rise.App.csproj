@@ -194,7 +194,6 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\LastFMHelper.cs" />
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
@@ -248,7 +247,6 @@
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
