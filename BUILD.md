@@ -5,7 +5,7 @@ Start by cloning the repository:
 git clone https://github.com/Rise-Software/Rise-Media-Player.git
 ```
 
-Rise Media Player uses a single solution, where all the projects (including the app itself) live. To open it, you'll need Visual Studio 2019 or later with the UWP workload, and the Windows 10 SDK (10.0.1904.0).
+Rise Media Player uses a single solution, where all the projects (including the app itself) live. To open it, you'll need Visual Studio 2019 or later with the UWP workload, and the Windows 10 SDK (10.0.19041.0).
 
 ## Pre-build steps
 Before being able to build the app, you need to take care of a few things.
