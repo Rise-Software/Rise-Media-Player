@@ -127,6 +127,7 @@
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\MediaPlaybackViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
+    <Compile Include="ViewModels\SortableCollectionViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <EmbeddedResource Include="Properties\Rise.Data.rd.xml" />
   </ItemGroup>
