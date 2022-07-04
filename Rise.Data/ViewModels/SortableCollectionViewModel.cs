@@ -15,7 +15,7 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// The collection of sorted items.
         /// </summary>
-        public readonly AdvancedCollectionView Items;
+        public AdvancedCollectionView Items { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of this class with
@@ -114,13 +114,13 @@ namespace Rise.Data.ViewModels
         /// A command that allows sorting the <see cref="Items"/>
         /// collection based on a string parameter.
         /// </summary>
-        public readonly RelayCommand SortByCommand;
+        public RelayCommand SortByCommand { get; private set; }
 
         /// <summary>
         /// A command that allows updating the sort direction for
         /// <see cref="Items"/> based on the provided <see cref="SortDirection"/>.
         /// </summary>
-        public readonly RelayCommand UpdateSortDirectionCommand;
+        public RelayCommand UpdateSortDirectionCommand { get; private set; }
 
         /// <summary>
         /// Sorts items based on the given property name and sort direction.
