@@ -2,9 +2,14 @@
 using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
 using Rise.App.Views;
+using Rise.App.Views.Albums.Properties;
 using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using System;
 using System.Collections;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -56,8 +61,73 @@ namespace Rise.App.UserControls
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
+            EditItemCommand = new(EditItemAsync);
             GoToAlbumCommand = new(GoToAlbum);
             GoToArtistCommand = new(GoToArtist);
+        }
+    }
+
+    // Editing
+    public partial class MediaPageBase
+    {
+        /// <summary>
+        /// A command to start editing the provided item.
+        /// </summary>
+        public AsyncRelayCommand<object> EditItemCommand { get; private set; }
+
+        private Task EditItemAsync(object parameter)
+        {
+            if (parameter is SongViewModel song)
+                return EditSongAsync(song);
+            else if (parameter is AlbumViewModel album)
+                return EditAlbumAsync(album);
+            else if (parameter is PlaylistViewModel playlist)
+                return EditPlaylistAsync(playlist);
+            else
+                throw new NotImplementedException("No other item type is supported at the moment.");
+        }
+
+        /// <summary>
+        /// Opens the properties page for the provided song.
+        /// </summary>
+        public async Task EditSongAsync(SongViewModel song)
+        {
+            try
+            {
+                StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
+                if (file != null)
+                {
+                    SongPropertiesViewModel props = new(song, file.DateCreated)
+                    {
+                        FileProps = await file.GetBasicPropertiesAsync()
+                    };
+
+                    _ = await typeof(SongPropertiesPage).
+                        PlaceInApplicationViewAsync(props, 380, 550, true);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Opens the properties page for the provided album.
+        /// </summary>
+        public async Task EditAlbumAsync(AlbumViewModel album)
+        {
+            _ = await typeof(AlbumPropertiesPage).
+                ShowInApplicationViewAsync(album, 380, 550, true);
+        }
+
+        /// <summary>
+        /// Opens the properties page for the provided playlist.
+        /// </summary>
+        public async Task EditPlaylistAsync(PlaylistViewModel playlist)
+        {
+            _ = await typeof(PlaylistPropertiesPage).
+                ShowInApplicationViewAsync(playlist, 380, 550, true);
         }
     }
 
