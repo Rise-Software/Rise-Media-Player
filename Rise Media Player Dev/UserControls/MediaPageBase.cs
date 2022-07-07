@@ -5,6 +5,7 @@ using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Helpers;
 using System.Collections;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -15,6 +16,13 @@ namespace Rise.App.UserControls
     /// </summary>
     public partial class MediaPageBase : Page
     {
+        /// <summary>
+        /// A property that stores the page's selected item.
+        /// </summary>
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem", typeof(object),
+                typeof(MediaPageBase), new PropertyMetadata(null));
+
         /// <summary>
         /// A helper to save session state during navigation.
         /// </summary>
