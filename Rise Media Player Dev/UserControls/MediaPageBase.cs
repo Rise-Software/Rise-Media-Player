@@ -6,10 +6,13 @@ using Rise.App.Views.Albums.Properties;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using System;
 using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -62,6 +65,8 @@ namespace Rise.App.UserControls
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             EditItemCommand = new(EditItemAsync);
+            OpenInExplorerCommand = new(OpenInExplorerAsync);
+
             GoToAlbumCommand = new(GoToAlbum);
             GoToArtistCommand = new(GoToArtist);
         }
@@ -147,6 +152,11 @@ namespace Rise.App.UserControls
         public RelayCommand<string> GoToArtistCommand { get; private set; }
 
         /// <summary>
+        /// Opens the provided item in the file explorer.
+        /// </summary>
+        public AsyncRelayCommand<object> OpenInExplorerCommand { get; private set; }
+
+        /// <summary>
         /// Navigates to the album with the specified name.
         /// </summary>
         protected void GoToAlbum(string name)
@@ -157,6 +167,41 @@ namespace Rise.App.UserControls
         /// </summary>
         protected void GoToArtist(string name)
             => _ = Frame.Navigate(typeof(ArtistSongsPage), name);
+
+        /// <summary>
+        /// Opens the provided item in explorer if possible.
+        /// </summary>
+        private Task OpenInExplorerAsync(object parameter)
+        {
+            if (parameter is IMediaItem item)
+                return OpenItemInExplorerAsync(item);
+            else
+                throw new NotImplementedException("No other item type is supported at the moment.");
+        }
+
+        /// <summary>
+        /// Opens the explorer to the item's location and highlights
+        /// the file.
+        /// </summary>
+        public async Task OpenItemInExplorerAsync(IMediaItem item)
+        {
+            string location = item.Location;
+            string path = Path.GetDirectoryName(location);
+            string filename = Path.GetFileName(location);
+
+            try
+            {
+                var folder = await StorageFolder.GetFolderFromPathAsync(path);
+                var options = new FolderLauncherOptions();
+
+                var stItem = await folder.TryGetItemAsync(filename);
+                if (stItem != null && stItem is StorageFile file)
+                    options.ItemsToSelect.Add(file);
+
+                _ = await Launcher.LaunchFolderAsync(folder, options);
+            }
+            catch { }
+        }
     }
 
     // Session state
