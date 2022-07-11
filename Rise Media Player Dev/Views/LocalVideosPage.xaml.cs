@@ -1,119 +1,83 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
+using Rise.App.Helpers;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    public sealed partial class LocalVideosPage : Page
+    public sealed partial class LocalVideosPage : MediaPageBase
     {
-        /// <summary>
-        /// Gets the app-wide MViewModel instance.
-        /// </summary>
-        private MainViewModel MViewModel => App.MViewModel;
-
-        private AdvancedCollectionView Videos => App.MViewModel.FilteredVideos;
-
-        /// <summary>
-        /// Gets the app-wide PViewModel instance.
-        /// </summary>
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private readonly AddToPlaylistHelper PlaylistHelper;
 
-        private static readonly DependencyProperty SelectedVideoProperty =
-            DependencyProperty.Register("SelectedVideo", typeof(VideoViewModel), typeof(LocalVideosPage), null);
-
-        private VideoViewModel SelectedVideo
+        private VideoViewModel SelectedItem
         {
-            get => (VideoViewModel)GetValue(SelectedVideoProperty);
-            set => SetValue(SelectedVideoProperty, value);
+            get => (VideoViewModel)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
-
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
 
         private readonly string Label = "LocalVideos";
-
-        private SortDirection CurrentSort = SortDirection.Ascending;
-        private string CurrentSortProperty = "Title";
+        private double? _offset = null;
 
         public LocalVideosPage()
+            : base(MediaItemType.Video, App.MViewModel.Videos)
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            _navigationHelper = new NavigationHelper(this);
-            Loaded += LocalVideosPage_Loaded;
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
+            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
         }
 
-        private void LocalVideosPage_Loaded(object sender, RoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            AddTo.Items.Clear();
+            if (_offset != null)
+                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+        }
 
-            MenuFlyoutItem newPlaylistItem = new()
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (e.PageState != null)
             {
-                Text = "New playlist",
-                Icon = new FontIcon
-                {
-                    Glyph = "\uE93F",
-                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                }
-            };
-
-            newPlaylistItem.Click += NewPlaylistItem_Click;
-
-            AddTo.Items.Add(newPlaylistItem);
-
-            if (App.MViewModel.Playlists.Count > 0)
-            {
-                AddTo.Items.Add(new MenuFlyoutSeparator());
-            }
-
-            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
-            {
-                MenuFlyoutItem item = new()
-                {
-                    Text = playlist.Title,
-                    Icon = new FontIcon
-                    {
-                        Glyph = "\uE93F",
-                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                    },
-                    Tag = playlist
-                };
-
-                item.Click += Item_Click;
-
-                AddTo.Items.Add(item);
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
             }
         }
 
-        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            PlaylistViewModel playlist = new()
-            {
-                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
-                Description = "",
-                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                Duration = "0"
-            };
-
-            await playlist.AddVideoAsync(SelectedVideo, true);
+            var scr = MainGrid.FindVisualChild<ScrollViewer>();
+            if (scr != null)
+                e.PageState["Offset"] = scr.VerticalOffset;
         }
+    }
 
-        private async void Item_Click(object sender, RoutedEventArgs e)
+    // Playlists
+    public sealed partial class LocalVideosPage
+    {
+        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
         {
-            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
-            await playlist.AddVideoAsync(SelectedVideo);
+            if (playlist == null)
+                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
+            else
+                return playlist.AddVideoAsync(SelectedItem);
         }
+    }
 
+    // Event handlers
+    public sealed partial class LocalVideosPage
+    {
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is VideoViewModel video)
@@ -122,37 +86,19 @@ namespace Rise.App.Views
                 {
                     await MPViewModel.PlaySingleItemAsync(video);
                     if (Window.Current.Content is Frame rootFrame)
-                    {
                         rootFrame.Navigate(typeof(VideoPlaybackPage));
-                    }
-
-                    SelectedVideo = null;
                 }
                 else
                 {
-                    SelectedVideo = video;
+                    SelectedItem = video;
                 }
             }
         }
 
-        private async void Play_Click(object sender, RoutedEventArgs e)
+        private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (Videos.Count > 0)
-            {
-                if (SelectedVideo != null)
-                {
-                    await MPViewModel.PlaySingleItemAsync(SelectedVideo);
-                }
-                else
-                {
-                    await MPViewModel.PlayItemsAsync(MViewModel.Videos);
-                }
-
-                if (Window.Current.Content is Frame rootFrame)
-                {
-                    _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
-                }
-            }
+            if (Window.Current.Content is Frame rootFrame)
+                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -164,55 +110,9 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
             {
-                SelectedVideo = video;
+                SelectedItem = video;
                 VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
-        }
-
-        private void SortByName_Click(object sender, RoutedEventArgs e)
-        {
-            Videos.SortDescriptions.Clear();
-            Videos.SortDescriptions.Add(new SortDescription("Title", CurrentSort));
-            CurrentSortProperty = "Title";
-            Videos.Refresh();
-        }
-
-        private void AscendingOrDescending_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFlyoutItem item = sender as MenuFlyoutItem;
-            Videos.SortDescriptions.Clear();
-
-            string tag = item.Tag.ToString();
-            switch (tag)
-            {
-                case "Ascending":
-                    CurrentSort = SortDirection.Ascending;
-                    break;
-                case "Descending":
-                    CurrentSort = SortDirection.Descending;
-                    break;
-                default:
-                    break;
-            }
-
-            Videos.SortDescriptions.Add(new SortDescription(CurrentSortProperty, CurrentSort));
-            Videos.Refresh();
-        }
-
-        private void SortByLength_Click(object sender, RoutedEventArgs e)
-        {
-            Videos.SortDescriptions.Clear();
-            Videos.SortDescriptions.Add(new SortDescription("Length", CurrentSort));
-            CurrentSortProperty = "Length";
-            Videos.Refresh();
-        }
-
-        private void SortByYear_Click(object sender, RoutedEventArgs e)
-        {
-            Videos.SortDescriptions.Clear();
-            Videos.SortDescriptions.Add(new SortDescription("Year", CurrentSort));
-            CurrentSortProperty = "Year";
-            Videos.Refresh();
         }
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
@@ -230,19 +130,6 @@ namespace Rise.App.Views
             };
 
             _ = await dialog.ShowAsync();
-        }
-
-        private async void NewPlaylistMenu_Click(object sender, RoutedEventArgs e)
-        {
-            PlaylistViewModel playlist = new()
-            {
-                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
-                Description = "",
-                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                Duration = "0"
-            };
-
-            await playlist.AddVideoAsync(SelectedVideo, true);
         }
     }
 }
