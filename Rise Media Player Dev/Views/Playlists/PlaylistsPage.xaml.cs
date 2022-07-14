@@ -1,72 +1,65 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Dialogs;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    // Constructor, Lifecycle management
-    public sealed partial class PlaylistsPage : Page
+    public sealed partial class PlaylistsPage : MediaPageBase
     {
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
+        private PlaylistViewModel SelectedItem
+        {
+            get => (PlaylistViewModel)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
+        private readonly string Label = "Playlists";
+        private double? _offset = null;
 
         public PlaylistsPage()
+            : base(MediaItemType.Playlist, App.MViewModel.Playlists)
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            _navigationHelper = new NavigationHelper(this);
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            _navigationHelper.OnNavigatedTo(e);
-            App.MViewModel.FilteredPlaylists.Refresh();
+            if (_offset != null)
+                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-    }
-
-    // Fields, properties
-    public sealed partial class PlaylistsPage : Page
-    {
-        private readonly string Label = "Playlists";
-        private AdvancedCollectionView Playlists => App.MViewModel.FilteredPlaylists;
-
-        private static readonly DependencyProperty SelectedPlaylistProperty =
-                DependencyProperty.Register("SelectedPlaylist", typeof(PlaylistViewModel), typeof(PlaylistsPage), null);
-
-        private PlaylistViewModel SelectedPlaylist
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            get => (PlaylistViewModel)GetValue(SelectedPlaylistProperty);
-            set => SetValue(SelectedPlaylistProperty, value);
+            if (e.PageState != null)
+            {
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
+            }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            var scr = MainGrid.FindVisualChild<ScrollViewer>();
+            if (scr != null)
+                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 
     // Event handlers
-    public sealed partial class PlaylistsPage : Page
+    public sealed partial class PlaylistsPage
     {
         private async void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
         {
@@ -75,7 +68,7 @@ namespace Rise.App.Views
 
         private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedPlaylist.DeleteAsync();
+            await SelectedItem.DeleteAsync();
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -87,7 +80,7 @@ namespace Rise.App.Views
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
             {
-                SelectedPlaylist = playlist;
+                SelectedItem = playlist;
                 PlaylistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
             }
         }
@@ -100,40 +93,12 @@ namespace Rise.App.Views
                 {
                     Frame.SetListDataItemForNextConnectedAnimation(playlist);
                     _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
-                    SelectedPlaylist = null;
                 }
                 else
                 {
-                    SelectedPlaylist = playlist;
+                    SelectedItem = playlist;
                 }
             }
-        }
-
-        private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                PlaylistViewModel playlist = MainGrid.Items[MainGrid.SelectedIndex] as PlaylistViewModel;
-                SelectedPlaylist = playlist;
-                System.Diagnostics.Debug.WriteLine($"Playlist info:\n   Title: {SelectedPlaylist.Title}\n   Description: {SelectedPlaylist.Description}");
-            }
-            catch
-            {
-                try
-                {
-                    SelectedPlaylist = MainGrid.Items[0] as PlaylistViewModel;
-                }
-                catch
-                {
-
-                }
-
-            }
-        }
-
-        private async void PlaylistProperties_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedPlaylist.StartEditAsync();
         }
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
@@ -141,7 +106,7 @@ namespace Rise.App.Views
             FileOpenPicker picker = new();
             picker.FileTypeFilter.Add(".m3u");
 
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
             if (file != null)
             {
