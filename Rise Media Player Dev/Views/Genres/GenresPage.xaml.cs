@@ -1,84 +1,75 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    // Constructor, Lifecycle management
-    public sealed partial class GenresPage : Page
+    public sealed partial class GenresPage : MediaPageBase
     {
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
-
-        public GenresPage()
+        public GenreViewModel SelectedItem
         {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            this._navigationHelper = new NavigationHelper(this);
+            get => (GenreViewModel)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => this._navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => this._navigationHelper.OnNavigatedFrom(e);
-        #endregion
-    }
-
-    // Fields, Properties
-    public sealed partial class GenresPage : Page
-    {
         private readonly string Label = "Genres";
+        private double? _offset = null;
 
-        /// <summary>
-        /// Gets the app-wide MViewModel instance.
-        /// </summary>
-        private MainViewModel ViewModel => App.MViewModel;
-
-        private AdvancedCollectionView Genres => ViewModel.FilteredGenres;
-
-        private static readonly DependencyProperty SelectedGenreProperty =
-            DependencyProperty.Register("SelectedGenre", typeof(GenreViewModel), typeof(GenresPage), null);
-
-        private GenreViewModel SelectedGenre
+        public GenresPage()
+            : base(MediaItemType.Genre, App.MViewModel.Genres)
         {
-            get => (GenreViewModel)GetValue(SelectedGenreProperty);
-            set => SetValue(SelectedGenreProperty, value);
+            InitializeComponent();
+
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+        }
+
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_offset != null)
+                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            if (e.PageState != null)
+            {
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
+            }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            var scr = MainGrid.FindVisualChild<ScrollViewer>();
+            if (scr != null)
+                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 
     // Event handlers
-    public sealed partial class GenresPage : Page
+    public sealed partial class GenresPage
     {
         private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
             {
-                this.SelectedGenre = genre;
                 if (!KeyboardHelpers.IsCtrlPressed())
                 {
-                    this.Frame.SetListDataItemForNextConnectedAnimation(genre);
-                    _ = this.Frame.Navigate(typeof(GenreSongsPage), genre.Model.Id);
-                    this.SelectedGenre = null;
+                    Frame.SetListDataItemForNextConnectedAnimation(genre);
+                    _ = Frame.Navigate(typeof(GenreSongsPage), genre.Model.Id);
+                }
+                else
+                {
+                    SelectedItem = genre;
                 }
             }
         }
