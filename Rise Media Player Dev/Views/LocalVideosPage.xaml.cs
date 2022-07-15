@@ -18,7 +18,7 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private readonly AddToPlaylistHelper PlaylistHelper;
 
-        private VideoViewModel SelectedItem
+        public VideoViewModel SelectedItem
         {
             get => (VideoViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
@@ -93,12 +93,6 @@ namespace Rise.App.Views
                     SelectedItem = video;
                 }
             }
-        }
-
-        private void Play_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.Current.Content is Frame rootFrame)
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)

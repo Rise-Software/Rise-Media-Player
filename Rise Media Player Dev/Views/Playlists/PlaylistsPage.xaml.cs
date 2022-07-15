@@ -16,7 +16,7 @@ namespace Rise.App.Views
 {
     public sealed partial class PlaylistsPage : MediaPageBase
     {
-        private PlaylistViewModel SelectedItem
+        public PlaylistViewModel SelectedItem
         {
             get => (PlaylistViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
