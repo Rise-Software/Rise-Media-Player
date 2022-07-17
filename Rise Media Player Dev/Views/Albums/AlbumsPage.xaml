@@ -27,6 +27,148 @@
         <conv:UintToStringConverter x:Key="UintToStringConverter" />
         <conv:BooleanToVisibility x:Key="BoolToVis" />
         <conv:ResourceToString x:Key="StrToRes" />
+
+        <DataTemplate
+            x:Key="VerticalTileItemTemplate"
+            x:DataType="viewmodels:AlbumViewModel"
+            x:DefaultBindMode="OneWay">
+            <StackPanel
+                Width="134"
+                Margin="12"
+                Orientation="Vertical"
+                Spacing="2">
+                <Border
+                    CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
+                    PointerEntered="Border_PointerEntered"
+                    ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                    Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
+                    <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
+                        <Grid>
+                            <Image
+                                Width="134"
+                                Height="134"
+                                Stretch="UniformToFill">
+                                <Image.Source>
+                                    <BitmapImage
+                                        DecodePixelHeight="134"
+                                        DecodePixelWidth="134"
+                                        UriSource="{x:Bind Thumbnail}" />
+                                </Image.Source>
+                            </Image>
+                            <Button
+                                Padding="8"
+                                HorizontalAlignment="Center"
+                                Opacity="1"
+                                Style="{StaticResource AccentButtonStyle}"
+                                Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, Mode=OneWay}">
+                                <Button.Content>
+                                    <FontIcon FontSize="28" Glyph="&#xF5B0;" />
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Border>
+
+                <TextBlock
+                    Padding="0,7,0,0"
+                    FontSize="16"
+                    MaxLines="1"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Text="{x:Bind Title}"
+                    TextWrapping="Wrap"
+                    ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                    Visibility="{x:Bind IsTitleVisible}" />
+
+                <TextBlock
+                    MaxLines="1"
+                    Text="{x:Bind Genres}"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}}" />
+
+                <TextBlock FontSize="13" Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}}">
+                    <Hyperlink
+                        Click="Artist_Click"
+                        ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                        UnderlineStyle="None">
+                        <Run Text="{x:Bind Artist}" />
+                    </Hyperlink>
+                </TextBlock>
+
+                <TextBlock FontSize="13" Visibility="{x:Bind IsReleaseYearVisible, Converter={StaticResource BoolToVis}}">
+                    Release year:<Run Text="{x:Bind Year, Converter={StaticResource UintToStringConverter}}" />
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate
+            x:Key="HorizontalTileItemTemplate"
+            x:DataType="viewmodels:AlbumViewModel"
+            x:DefaultBindMode="OneWay">
+            <Grid
+                Width="250"
+                Margin="15,10,0,10"
+                Padding="0,4,0,4"
+                ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
+                    ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
+                    Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
+                    <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
+                        <Image
+                            Width="65"
+                            Height="65"
+                            Stretch="UniformToFill">
+                            <Image.Source>
+                                <BitmapImage
+                                    DecodePixelHeight="65"
+                                    DecodePixelWidth="65"
+                                    UriSource="{x:Bind Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                </Border>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Spacing="2">
+                    <TextBlock
+                        Padding="0,0,8,0"
+                        FontSize="16"
+                        MaxLines="1"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{x:Bind Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
+                        ToolTipService.ToolTip="{x:Bind Title}"
+                        Visibility="{x:Bind IsTitleVisible}" />
+
+                    <TextBlock
+                        MaxLines="1"
+                        Text="{x:Bind Genres}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}}" />
+
+                    <TextBlock FontSize="13" Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}}">
+                        <Hyperlink
+                            Click="Artist_Click"
+                            ToolTipService.ToolTip="{x:Bind Artist}"
+                            UnderlineStyle="None">
+                            <Run Text="{x:Bind Artist}" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock FontSize="13" Visibility="{x:Bind IsReleaseYearVisible, Converter={StaticResource BoolToVis}}">
+                        Release year:<Run Text="{x:Bind Year, Converter={StaticResource UintToStringConverter}}" />
+                    </TextBlock>
+                </StackPanel>
+
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -130,18 +272,20 @@
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            Click="ViewMode_Click"
-                            IsChecked="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=OneWay}"
-                            Tag="Tiles"
+                            GroupName="ViewModes"
+                            IsChecked="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=TwoWay}"
                             Text="Tiles (Vertical)" />
                         <muxc:RadioMenuFlyoutItem
-                            Click="ViewMode_Click"
-                            IsChecked="{x:Bind SViewModel.IsListInAlbumsPage, Mode=OneWay}"
-                            Tag="Lists"
+                            GroupName="ViewModes"
+                            IsChecked="{x:Bind SViewModel.IsListInAlbumsPage, Mode=TwoWay}"
                             Text="Tiles (Horizontal)" />
+
                         <MenuFlyoutSeparator />
-                        <ToggleMenuFlyoutItem IsEnabled="false" Text="Split online &amp; local media" />
+
+                        <ToggleMenuFlyoutItem IsEnabled="False" Text="Split online &amp; local media" />
+
                         <MenuFlyoutSeparator />
+
                         <ToggleMenuFlyoutItem IsEnabled="False" Text="Card background" />
                         <ToggleMenuFlyoutItem
                             Click="RoundedAlbumArtOption_Click"
@@ -236,8 +380,7 @@
             ItemsSource="{x:Bind Albums}"
             RightTapped="MainGrid_RightTapped"
             SelectionMode="Single"
-            Tapped="GridView_Tapped"
-            Visibility="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+            Tapped="GridView_Tapped">
             <GridView.Resources>
                 <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout">
                     <MenuFlyoutItem x:Uid="/Information/PlayItem" Click="PlayButton_Click">
@@ -301,7 +444,6 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-
                     <MenuFlyoutItem
                         x:Name="Props"
                         x:Uid="/MediaData/Properties"
@@ -311,240 +453,32 @@
                             <FontIcon Glyph="&#xE104;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-
                 </MenuFlyout>
             </GridView.Resources>
-
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:AlbumViewModel" x:DefaultBindMode="OneWay">
-                    <StackPanel
-                        Width="134"
-                        Margin="12"
-                        Orientation="Vertical"
-                        Spacing="2">
-                        <Border
-                            CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
-                            PointerEntered="Border_PointerEntered"
-                            ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
-                            Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
-                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}" >
-                                <Grid>
-                                    <Image
-                                        Width="134"
-                                        Height="134"
-                                        Stretch="UniformToFill">
-                                        <Image.Source>
-                                            <BitmapImage
-                                                DecodePixelHeight="134"
-                                                DecodePixelWidth="134"
-                                                UriSource="{x:Bind Thumbnail}" />
-                                        </Image.Source>
-                                    </Image>
-                                    <Button HorizontalAlignment="Center" Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, Mode=OneWay}" Style="{StaticResource AccentButtonStyle}" Opacity="1" Padding="8">
-                                        <Button.Content>
-                                            <FontIcon Glyph="&#xF5B0;" FontSize="28" />
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </Border>
-
-                        <TextBlock
-                            Padding="0,7,0,0"
-                            FontSize="16"
-                            MaxLines="1"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind Title}"
-                            TextWrapping="Wrap"
-                            ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
-                            Visibility="{x:Bind IsTitleVisible}" />
-
-                        <TextBlock
-                            MaxLines="1"
-                            Text="{x:Bind Genres}"
-                            TextWrapping="Wrap"
-                            Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}}" />
-
-                        <TextBlock FontSize="13" Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}}">
-                            <Hyperlink
-                                Click="Artist_Click"
-                                ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
-                                UnderlineStyle="None">
-                                <Run Text="{x:Bind Artist}" />
-                            </Hyperlink>
-                        </TextBlock>
-
-                        <TextBlock FontSize="13" Visibility="{x:Bind IsReleaseYearVisible, Converter={StaticResource BoolToVis}}">
-                            Release year:<Run Text="{x:Bind Year, Converter={StaticResource UintToStringConverter}}" />
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </GridView.ItemTemplate>
         </GridView>
 
-        <GridView
-            x:Name="MainGrid1"
-            Grid.Row="1"
-            Margin="-56,48"
-            Padding="44,0,44,120"
-            animations:Connected.ListItemElementName="AlbumThumb"
-            animations:Connected.ListItemKey="AlbumArt"
-            ItemsSource="{x:Bind Albums}"
-            RightTapped="MainGrid_RightTapped"
-            SelectionMode="Single"
-            Tapped="GridView_Tapped"
-            Visibility="{x:Bind SViewModel.IsListInAlbumsPage, Mode=OneWay, Converter={StaticResource BoolToVis}}">
-            <GridView.Resources>
-                <MenuFlyout x:Key="AlbumFlyout" x:Name="AlbumFlyout1">
-                    <MenuFlyoutItem x:Uid="/Information/PlayItem" Click="PlayButton_Click">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE102;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AlbumViewStates">
+                <VisualState x:Name="VerticalTileViewState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind SViewModel.IsTilesInAlbumsPage, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
 
-                    <MenuFlyoutItem x:Uid="/Information/ShuffleAlbum" Click="ShuffleButton_Click">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE14B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.ItemTemplate" Value="{StaticResource VerticalTileItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
 
-                    <MenuFlyoutItem x:Uid="/Information/ShowArtist" Click="ShowArtist_Click">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE125;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                <VisualState x:Name="HorizontalTileViewState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind SViewModel.IsListInAlbumsPage, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
 
-                    <MenuFlyoutSeparator />
-
-                    <MenuFlyoutSubItem
-                        x:Name="AddTo1"
-                        x:Uid="/Information/AddTo"
-                        IsEnabled="True">
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon Glyph="&#xECC8;" />
-                        </MenuFlyoutSubItem.Icon>
-                    </MenuFlyoutSubItem>
-
-                    <MenuFlyoutItem
-                        x:Name="Share1"
-                        x:Uid="/Information/Share"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE72D;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutSeparator />
-
-                    <MenuFlyoutItem
-                        x:Name="AskDiscy1"
-                        x:Uid="/Information/AskDiscy"
-                        Click="AskDiscy_Click"
-                        IsEnabled="True">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE11B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutSeparator />
-
-                    <MenuFlyoutItem
-                        x:Name="Remove1"
-                        x:Uid="/Information/RemoveThing"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE107;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-
-                    <MenuFlyoutItem
-                        x:Name="Props1"
-                        x:Uid="/MediaData/Properties"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE104;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-
-                    <MenuFlyoutItem x:Uid="/Information/SelectAlbumorSong">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE1E3;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                </MenuFlyout>
-            </GridView.Resources>
-
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:AlbumViewModel" x:DefaultBindMode="OneWay">
-                    <Grid
-                        Width="250"
-                        Margin="15,10,0,10"
-                        Padding="0,4,0,4"
-                        ColumnSpacing="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="65" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}"
-                            ToolTipService.ToolTip="{x:Bind TitleWithArtist}"
-                            Visibility="{x:Bind IsThumbnailVisible, Converter={StaticResource BoolToVis}}">
-                            <Border x:Name="AlbumThumb" CornerRadius="{x:Bind HasRoundedAlbumArt, Converter={StaticResource BoolToRounded}, ConverterParameter=ForAlbum}">
-                                <Image
-                                    Width="65"
-                                    Height="65"
-                                    Stretch="UniformToFill">
-                                    <Image.Source>
-                                        <BitmapImage
-                                            DecodePixelHeight="65"
-                                            DecodePixelWidth="65"
-                                            UriSource="{x:Bind Thumbnail}" />
-                                    </Image.Source>
-                                </Image>
-                            </Border>
-                        </Border>
-
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Spacing="2">
-                            <TextBlock
-                                Padding="0,0,8,0"
-                                FontSize="16"
-                                MaxLines="1"
-                                Style="{StaticResource BaseTextBlockStyle}"
-                                Text="{x:Bind Title}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="Wrap"
-                                ToolTipService.ToolTip="{x:Bind Title}"
-                                Visibility="{x:Bind IsTitleVisible}" />
-
-                            <TextBlock
-                                MaxLines="1"
-                                Text="{x:Bind Genres}"
-                                TextWrapping="Wrap"
-                                Visibility="{x:Bind IsGenresVisible, Converter={StaticResource BoolToVis}}" />
-
-                            <TextBlock FontSize="13" Visibility="{x:Bind IsArtistVisible, Converter={StaticResource BoolToVis}}">
-                                <Hyperlink
-                                    Click="Artist_Click"
-                                    ToolTipService.ToolTip="{x:Bind Artist}"
-                                    UnderlineStyle="None">
-                                    <Run Text="{x:Bind Artist}" />
-                                </Hyperlink>
-                            </TextBlock>
-
-                            <TextBlock FontSize="13" Visibility="{x:Bind IsReleaseYearVisible, Converter={StaticResource BoolToVis}}">
-                                Release year:<Run Text="{x:Bind Year, Converter={StaticResource UintToStringConverter}}" />
-                            </TextBlock>
-                        </StackPanel>
-
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.ItemTemplate" Value="{StaticResource HorizontalTileItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

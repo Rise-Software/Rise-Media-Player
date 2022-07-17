@@ -551,22 +551,6 @@ namespace Rise.App.Views
             IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
         }
 
-        private void ViewMode_Click(object sender, RoutedEventArgs e)
-        {
-            if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Tiles")
-            {
-                SViewModel.IsListInAlbumsPage = false;
-                SViewModel.IsTilesInAlbumsPage = true;
-                System.Diagnostics.Debug.WriteLine("Tiles");
-            }
-            else if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Lists")
-            {
-                SViewModel.IsTilesInAlbumsPage = false;
-                SViewModel.IsListInAlbumsPage = true;
-                System.Diagnostics.Debug.WriteLine("Lists");
-            }
-        }
-
         private void Border_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
 
