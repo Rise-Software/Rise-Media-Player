@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Microsoft.UI.Xaml.Controls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using System;
@@ -43,8 +42,6 @@ namespace Rise.App.Views
             set => SetValue(SelectedAlbumProperty, value);
         }
 
-        private bool IsCtrlPressed;
-
         private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
         private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
 
@@ -64,8 +61,6 @@ namespace Rise.App.Views
 
         private void AlbumsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplySettingsToView();
-
             ApplyPlaylistItems(AddTo);
             ApplyPlaylistItems(AddTo123);
         }
@@ -332,229 +327,6 @@ namespace Rise.App.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
         #endregion
-
-        private void ApplySettingsToView()
-        {
-            if (SViewModel.ShowTitleInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowGenreInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowArtistInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowThumbnailInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = false;
-                }
-            }
-
-            if (SViewModel.RoundedAlbumArt)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = false;
-                }
-            }
-
-            if (SViewModel.ShowReleaseYearInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = false;
-                }
-            }
-        }
-
-        private void ShowArtistName_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = false;
-                }
-            }
-        }
-
-        private void ShowThumbnail_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = true;
-                }
-                TitleViewOption.IsEnabled = true;
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = false;
-                }
-                TitleViewOption.IsEnabled = false;
-                SViewModel.ShowTitleInAlbums = true;
-            }
-        }
-
-        private void ShowGenres_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = false;
-                }
-            }
-        }
-
-        private void RoundedAlbumArtOption_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = false;
-                }
-            }
-        }
-
-        private void ShowAlbumTitle_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = true;
-                }
-                ThumbnailViewOption.IsEnabled = true;
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = false;
-                }
-                ThumbnailViewOption.IsEnabled = false;
-                SViewModel.ShowThumbnailInAlbums = true;
-            }
-        }
-
-        private void ShowReleaseYear_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = false;
-                }
-            }
-        }
-
-        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
-        }
-
-        private void Border_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-
-        }
 
         private async void AddFolders_Click(object sender, RoutedEventArgs e)
         {
