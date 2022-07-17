@@ -7,7 +7,6 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -16,17 +15,8 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <media:AttachedCardShadow
-            x:Name="DropShadow"
-            BlurRadius="25"
-            CornerRadius="8"
-            Opacity=".15"
-            Offset="0,2" />
-        <media:AttachedCardShadow x:Name="EmptyDropShadow" Opacity="0" />
-
         <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
         <conv:UintToStringConverter x:Key="UintToStringConverter" />
-        <conv:BooleanToVisibility x:Key="BoolToVis" />
         <conv:ResourceToString x:Key="StrToRes" />
 
         <DataTemplate
@@ -61,7 +51,7 @@
                             HorizontalAlignment="Center"
                             Opacity="1"
                             Style="{StaticResource AccentButtonStyle}"
-                            Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}}">
+                            Visibility="{x:Bind IsFocused}">
                             <Button.Content>
                                 <FontIcon FontSize="28" Glyph="&#xF5B0;" />
                             </Button.Content>
