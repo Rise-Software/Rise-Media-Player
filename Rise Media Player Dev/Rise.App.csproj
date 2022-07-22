@@ -155,6 +155,9 @@
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AlbumData.xaml.cs">
+      <DependentUpon>AlbumData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
     <Compile Include="UserControls\RiseMediaTransportControls.cs" />
@@ -589,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AlbumData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
