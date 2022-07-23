@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Rise.App.Views
 {
@@ -18,6 +18,8 @@ namespace Rise.App.Views
     {
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+
+        private readonly RelayCommand<AlbumViewMode> UpdateViewModeCommand;
         private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedItem
@@ -36,6 +38,8 @@ namespace Rise.App.Views
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
+
+            UpdateViewModeCommand = new(UpdateViewMode);
 
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
@@ -88,25 +92,27 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class AlbumsPage
     {
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        private void UpdateViewMode(AlbumViewMode viewMode)
+            => SViewModel.AlbumViewMode = viewMode;
+
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
+            if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
             {
-                if (!KeyboardHelpers.IsCtrlPressed())
-                {
-                    Frame.SetListDataItemForNextConnectedAnimation(album);
-                    _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
-                }
+                Frame.SetListDataItemForNextConnectedAnimation(album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 
-        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                SelectedItem = album;
-                AlbumFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
-            }
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (AlbumViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
