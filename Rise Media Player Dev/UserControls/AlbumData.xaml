@@ -79,8 +79,9 @@
                 <VisualState x:Name="VerticalTile">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.(atch:GridHelper.RowHeights)" Value="Auto,1*" />
-                        <Setter Target="MainGrid.(atch:GridHelper.ColumnWidths)" Value="1*" />
+
                         <Setter Target="InfoPanel.(Grid.Row)" Value="1" />
+                        <Setter Target="InfoPanel.Padding" Value="0,2,0,0" />
 
                         <Setter Target="ThumbContainer.Width" Value="134" />
                         <Setter Target="ThumbContainer.Height" Value="134" />
@@ -91,8 +92,8 @@
 
                 <VisualState x:Name="HorizontalTile">
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.(atch:GridHelper.RowHeights)" Value="1*" />
                         <Setter Target="MainGrid.(atch:GridHelper.ColumnWidths)" Value="Auto,1*" />
+
                         <Setter Target="InfoPanel.(Grid.Column)" Value="1" />
 
                         <Setter Target="ThumbContainer.Width" Value="64" />
