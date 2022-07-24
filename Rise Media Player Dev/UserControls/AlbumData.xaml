@@ -22,21 +22,21 @@
         ColumnSpacing="8"
         RowSpacing="2">
         <Border
-            x:Name="ThumbContainer"
+            x:Name="AlbumThumb"
             CornerRadius="{x:Bind ThumbnailCornerRadius}"
-            ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}">
-            <Image
-                x:Name="AlbumThumb"
-                Stretch="UniformToFill"
-                Visibility="{x:Bind ShowThumbnail}">
-                <Image.Source>
-                    <BitmapImage
-                        DecodePixelHeight="134"
-                        DecodePixelType="Logical"
-                        DecodePixelWidth="134"
-                        UriSource="{x:Bind Album.Thumbnail}" />
-                </Image.Source>
-            </Image>
+            ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}"
+            Visibility="{x:Bind ShowThumbnail}">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage
+                            DecodePixelHeight="134"
+                            DecodePixelType="Logical"
+                            DecodePixelWidth="134"
+                            UriSource="{x:Bind Album.Thumbnail}" />
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
         </Border>
 
         <StackPanel
@@ -70,7 +70,7 @@
             </HyperlinkButton>
 
             <TextBlock FontSize="13" Visibility="{x:Bind ShowReleaseYear}">
-                Release year: <Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
+                Release year:<Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
             </TextBlock>
         </StackPanel>
 
@@ -83,8 +83,8 @@
                         <Setter Target="InfoPanel.(Grid.Row)" Value="1" />
                         <Setter Target="InfoPanel.Padding" Value="0,2,0,0" />
 
-                        <Setter Target="ThumbContainer.Width" Value="134" />
-                        <Setter Target="ThumbContainer.Height" Value="134" />
+                        <Setter Target="AlbumThumb.Width" Value="134" />
+                        <Setter Target="AlbumThumb.Height" Value="134" />
 
                         <Setter Target="MainGrid.Width" Value="158" />
                     </VisualState.Setters>
@@ -96,8 +96,8 @@
 
                         <Setter Target="InfoPanel.(Grid.Column)" Value="1" />
 
-                        <Setter Target="ThumbContainer.Width" Value="64" />
-                        <Setter Target="ThumbContainer.Height" Value="64" />
+                        <Setter Target="AlbumThumb.Width" Value="64" />
+                        <Setter Target="AlbumThumb.Height" Value="64" />
 
                         <Setter Target="MainGrid.Width" Value="256" />
                     </VisualState.Setters>
