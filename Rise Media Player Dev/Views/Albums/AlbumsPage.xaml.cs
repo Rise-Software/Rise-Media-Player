@@ -122,11 +122,13 @@ namespace Rise.App.Views
 
         private async void AddFolders_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Manage local media folders";
-            dialog.CloseButtonText = "Close";
-            dialog.Content = new Settings.MediaSourcesPage();
-            var result = await dialog.ShowAsync();
+            ContentDialog dialog = new()
+            {
+                Title = "Manage local media folders",
+                CloseButtonText = "Close",
+                Content = new Settings.MediaSourcesPage()
+            };
+            _ = await dialog.ShowAsync();
         }
     }
 }

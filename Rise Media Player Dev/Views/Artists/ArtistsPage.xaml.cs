@@ -12,7 +12,6 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Rise.App.Views
 {
@@ -89,29 +88,24 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class ArtistsPage
     {
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
+            if (e.ClickedItem is ArtistViewModel artist && !KeyboardHelpers.IsCtrlPressed())
             {
-                if (!KeyboardHelpers.IsCtrlPressed())
-                {
-                    Frame.SetListDataItemForNextConnectedAnimation(artist);
-                    _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
-                }
-                else
-                {
-                    SelectedItem = artist;
-                }
+                Frame.SetListDataItemForNextConnectedAnimation(artist);
+                _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
             }
         }
 
-        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                SelectedItem = artist;
-                ArtistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
-            }
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (ArtistViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -158,7 +152,7 @@ namespace Rise.App.Views
                 CloseButtonText = "Close",
                 Content = new Settings.MediaSourcesPage()
             };
-            await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
     }
 }

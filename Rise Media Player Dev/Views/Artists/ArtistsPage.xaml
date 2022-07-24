@@ -10,16 +10,14 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
-        <ResourceDictionary>
-            <conv:NullToBoolean x:Key="NullToBool" />
-            <conv:ResourceToString x:Key="StrToRes" />
-        </ResourceDictionary>
+        <conv:NullToBoolean x:Key="NullToBool" />
+        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -47,7 +45,6 @@
             d:Text="Artists"
             Style="{StaticResource TitleTextBlockStyle}"
             Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
-
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -87,9 +84,7 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Name="AddFolders"
                 x:Uid="/MediaLibrary/AddFolders"
-                HorizontalAlignment="Right"
                 Click="AddFolders_Click"
                 Icon="NewFolder" />
         </CommandBar>
@@ -101,30 +96,24 @@
             Padding="44,0,44,120"
             animations:Connected.ListItemElementName="ArtistThumb"
             animations:Connected.ListItemKey="ArtistArt"
+            IsItemClickEnabled="True"
+            ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
-            RightTapped="MainGrid_RightTapped"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single"
-            Tapped="GridView_Tapped">
-            <GridView.Resources>
-                <MenuFlyout x:Key="ArtistFlyout" x:Name="ArtistFlyout">
+            SelectionMode="Single">
+            <GridView.ContextFlyout>
+                <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
                         x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE102;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Icon="Play" />
 
                     <MenuFlyoutItem
                         x:Uid="/Information/ShuffleArtist"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE14B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Icon="Shuffle" />
 
                     <MenuFlyoutSeparator />
 
@@ -141,47 +130,31 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Name="Share"
                         x:Uid="/Information/Share"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE72D;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        Icon="Share"
+                        IsEnabled="False" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="AskDiscy"
                         x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        IsEnabled="True">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE11B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        Icon="Help" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="Remove"
                         x:Uid="/Information/RemoveThing"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE107;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        Icon="Delete"
+                        IsEnabled="False" />
 
-                    <MenuFlyoutItem
-                        x:Name="ChngArtImg"
-                        x:Uid="/Information/ChangeArtImg"
-                        Click="ChngArtImg_Click">
+                    <MenuFlyoutItem x:Uid="/Information/ChangeArtImg" Click="ChngArtImg_Click">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEF1F;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout>
-            </GridView.Resources>
+            </GridView.ContextFlyout>
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel" x:DefaultBindMode="OneWay">
@@ -205,8 +178,9 @@
                                     Stretch="UniformToFill">
                                     <Image.Source>
                                         <BitmapImage
-                                            DecodePixelHeight="500"
-                                            DecodePixelWidth="500"
+                                            DecodePixelHeight="80"
+                                            DecodePixelType="Logical"
+                                            DecodePixelWidth="80"
                                             UriSource="{x:Bind Picture}" />
                                     </Image.Source>
                                 </Image>

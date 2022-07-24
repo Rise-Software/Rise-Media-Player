@@ -7,7 +7,6 @@ using Rise.Common.Helpers;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Rise.App.Views
 {
@@ -58,29 +57,13 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class GenresPage
     {
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is GenreViewModel genre)
+            if (e.ClickedItem is GenreViewModel genre && !KeyboardHelpers.IsCtrlPressed())
             {
-                if (!KeyboardHelpers.IsCtrlPressed())
-                {
-                    Frame.SetListDataItemForNextConnectedAnimation(genre);
-                    _ = Frame.Navigate(typeof(GenreSongsPage), genre.Model.Id);
-                }
-                else
-                {
-                    SelectedItem = genre;
-                }
+                Frame.SetListDataItemForNextConnectedAnimation(genre);
+                _ = Frame.Navigate(typeof(GenreSongsPage), genre.Model.Id);
             }
-        }
-
-        private async void AddFolders_Click(object sender, RoutedEventArgs e)
-        {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Manage local media folders";
-            dialog.CloseButtonText = "Close";
-            dialog.Content = new Settings.MediaSourcesPage();
-            var result = await dialog.ShowAsync();
         }
     }
 }

@@ -10,14 +10,14 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
-        <ResourceDictionary>
-            <conv:NullToBoolean x:Key="NullToBool" />
-            <conv:ResourceToString x:Key="StrToRes" />
-        </ResourceDictionary>
+        <conv:NullToBoolean x:Key="NullToBool" />
+        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -45,7 +45,6 @@
             d:Text="Playlists"
             Style="{StaticResource TitleTextBlockStyle}"
             Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
-
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -54,12 +53,8 @@
             DefaultLabelPosition="Right">
             <AppBarButton
                 Click="CreatePlaylistButton_Click"
-                IsCompact="True"
-                Label="New playlist">
-                <AppBarButton.Icon>
-                    <FontIcon Glyph="&#xE948;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                Icon="Add"
+                Label="New playlist" />
 
             <AppBarSeparator />
 
@@ -96,61 +91,45 @@
             Padding="44,0,44,120"
             animations:Connected.ListItemElementName="PlaylistThumb"
             animations:Connected.ListItemKey="PlaylistArt"
+            IsItemClickEnabled="True"
+            ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
-            RightTapped="MainGrid_RightTapped"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single"
-            Tapped="GridView_Tapped">
-            <GridView.Resources>
-                <MenuFlyout x:Key="PlaylistFlyout" x:Name="PlaylistFlyout">
+            SelectionMode="Single">
+            <GridView.ContextFlyout>
+                <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
                         x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE102;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Icon="Play" />
 
                     <MenuFlyoutItem
                         x:Uid="/MediaLibrary/ShufflePlaylist"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE14B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Icon="Shuffle" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="Share"
                         x:Uid="/Information/Share"
-                        IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE72D;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        Icon="Share"
+                        IsEnabled="False" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="AskDiscy"
                         x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        IsEnabled="True">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE11B;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                        Icon="Help" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Delete playlist">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon Glyph="&#xE107;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
+                    <MenuFlyoutItem
+                        Click="DeletePlaylist_Click"
+                        Icon="Delete"
+                        Text="Delete playlist" />
 
                     <MenuFlyoutItem
                         x:Uid="/Information/EditPlaylistText"
@@ -158,7 +137,7 @@
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                         Icon="Edit" />
                 </MenuFlyout>
-            </GridView.Resources>
+            </GridView.ContextFlyout>
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:PlaylistViewModel">
@@ -175,6 +154,7 @@
                                 <Image.Source>
                                     <BitmapImage
                                         DecodePixelHeight="134"
+                                        DecodePixelType="Logical"
                                         DecodePixelWidth="134"
                                         UriSource="{x:Bind Icon, Mode=OneWay}" />
                                 </Image.Source>
@@ -194,8 +174,8 @@
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
                                 TextWrapping="Wrap">
-                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />,
-                                <Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
+                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />
+                                ,<Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>

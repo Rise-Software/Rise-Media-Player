@@ -78,35 +78,30 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class LocalVideosPage
     {
-        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (e.ClickedItem is VideoViewModel video)
+            if (e.ClickedItem is VideoViewModel video && !KeyboardHelpers.IsCtrlPressed())
             {
-                if (!KeyboardHelpers.IsCtrlPressed())
-                {
-                    await MPViewModel.PlaySingleItemAsync(video);
-                    if (Window.Current.Content is Frame rootFrame)
-                        rootFrame.Navigate(typeof(VideoPlaybackPage));
-                }
-                else
-                {
-                    SelectedItem = video;
-                }
+                await MPViewModel.PlaySingleItemAsync(video);
+                if (Window.Current.Content is Frame rootFrame)
+                    rootFrame.Navigate(typeof(VideoPlaybackPage));
             }
+        }
+
+        private void MenuFlyout_Opening(object sender, object e)
+        {
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (VideoViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {
             DiscyOnVideo.IsOpen = true;
-        }
-
-        private void MainGrid_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
-            {
-                SelectedItem = video;
-                VideosFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
-            }
         }
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
@@ -122,7 +117,6 @@ namespace Rise.App.Views
                 CloseButtonText = "Close",
                 Content = new Settings.MediaSourcesPage()
             };
-
             _ = await dialog.ShowAsync();
         }
     }

@@ -10,7 +10,6 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Rise.App.Views
 {
@@ -61,14 +60,24 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class PlaylistsPage
     {
-        private async void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            await new CreatePlaylistDialog().ShowAsync();
+            if (e.ClickedItem is PlaylistViewModel playlist && !KeyboardHelpers.IsCtrlPressed())
+            {
+                Frame.SetListDataItemForNextConnectedAnimation(playlist);
+                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
+            }
         }
 
-        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            await SelectedItem.DeleteAsync();
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (PlaylistViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -76,29 +85,14 @@ namespace Rise.App.Views
             DiscyOnPlaylist.IsOpen = true;
         }
 
-        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private async void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
-            {
-                SelectedItem = playlist;
-                PlaylistFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
-            }
+            await new CreatePlaylistDialog().ShowAsync();
         }
 
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void DeletePlaylist_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is PlaylistViewModel playlist)
-            {
-                if (!KeyboardHelpers.IsCtrlPressed())
-                {
-                    Frame.SetListDataItemForNextConnectedAnimation(playlist);
-                    _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
-                }
-                else
-                {
-                    SelectedItem = playlist;
-                }
-            }
+            await SelectedItem.DeleteAsync();
         }
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)

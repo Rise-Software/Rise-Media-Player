@@ -9,15 +9,13 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
-        <ResourceDictionary>
-            <conv:ResourceToString x:Key="StrToRes" />
-        </ResourceDictionary>
+        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -34,17 +32,18 @@
             x:Name="MainGrid"
             Grid.Row="1"
             Margin="-56,0"
-            Padding="48,0,48,120"
+            Padding="44,0,44,120"
             HorizontalAlignment="Stretch"
             animations:Connected.ListItemElementName="GenreThumb"
             animations:Connected.ListItemKey="GenreArt"
+            IsItemClickEnabled="True"
+            ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single"
-            Tapped="GridView_Tapped">
+            SelectionMode="Single">
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                    <Grid Width="150" Margin="12,12,12,12">
+                <DataTemplate x:DataType="viewmodels:GenreViewModel" x:DefaultBindMode="OneWay">
+                    <Grid Width="150" Margin="12">
                         <TextBlock
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"

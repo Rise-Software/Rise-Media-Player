@@ -14,8 +14,8 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
@@ -188,9 +188,7 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Name="AddFolders"
                 x:Uid="/MediaLibrary/AddFolders"
-                HorizontalAlignment="Right"
                 Click="AddFolders_Click"
                 Icon="NewFolder" />
         </CommandBar>
@@ -241,7 +239,6 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Name="Share"
                         x:Uid="/Information/Share"
                         Icon="Share"
                         IsEnabled="False" />
@@ -249,16 +246,13 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="AskDiscy"
                         x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help"
-                        IsEnabled="True" />
+                        Icon="Help" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Name="Remove"
                         x:Uid="/Information/RemoveThing"
                         Icon="Delete"
                         IsEnabled="False" />

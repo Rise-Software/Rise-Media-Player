@@ -80,19 +80,18 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class SongsPage
     {
-        private void AskDiscy_Click(object sender, RoutedEventArgs e)
-            => DiscyOnSong.IsOpen = true;
-
         private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
             => MediaViewModel.PlayFromItemCommand.Execute(SelectedItem);
 
-        private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                SelectedItem = song;
-                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
-            }
+            var fl = sender as MenuFlyout;
+            var cont = MainList.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (SongViewModel)cont;
         }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -100,6 +99,11 @@ namespace Rise.App.Views
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
             => EventsLogic.UnfocusSong(ref _song, e);
+
+        private void AskDiscy_Click(object sender, RoutedEventArgs e)
+        {
+            DiscyOnSong.IsOpen = true;
+        }
 
         private async void PlayFromUrl_Click(object sender, RoutedEventArgs e)
         {
