@@ -12,7 +12,7 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class AlbumData : UserControl
     {
-        public static readonly DependencyProperty GoToArtistCommandAlbumProperty
+        public static readonly DependencyProperty GoToArtistCommandProperty
             = DependencyProperty.Register(nameof(GoToArtistCommand), typeof(ICommand),
                 typeof(AlbumData), new PropertyMetadata(null));
 
@@ -22,8 +22,8 @@ namespace Rise.App.UserControls
         /// </summary>
         public ICommand GoToArtistCommand
         {
-            get => (ICommand)GetValue(GoToArtistCommandAlbumProperty);
-            set => SetValue(GoToArtistCommandAlbumProperty, value);
+            get => (ICommand)GetValue(GoToArtistCommandProperty);
+            set => SetValue(GoToArtistCommandProperty, value);
         }
 
         public static readonly DependencyProperty AlbumProperty
