@@ -228,6 +228,8 @@ namespace Rise.App.UserControls
                 CurrentSortDirection == SortDirection.Ascending;
 
             e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
+
+            MediaViewModel.Items.Filter = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
