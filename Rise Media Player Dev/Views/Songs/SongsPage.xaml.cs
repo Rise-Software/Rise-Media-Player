@@ -18,7 +18,6 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private readonly AddToPlaylistHelper PlaylistHelper;
 
-        private SongViewModel _song;
         public SongViewModel SelectedItem
         {
             get => (SongViewModel)GetValue(SelectedItemProperty);
@@ -81,7 +80,10 @@ namespace Rise.App.Views
     public sealed partial class SongsPage
     {
         private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-            => MediaViewModel.PlayFromItemCommand.Execute(SelectedItem);
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+                MediaViewModel.PlayFromItemCommand.Execute(song);
+        }
 
         private void MenuFlyout_Opening(object sender, object e)
         {
@@ -93,12 +95,6 @@ namespace Rise.App.Views
             else
                 SelectedItem = (SongViewModel)cont;
         }
-
-        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
-
-        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {

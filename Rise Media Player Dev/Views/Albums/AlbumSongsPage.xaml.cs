@@ -25,8 +25,6 @@ namespace Rise.App.Views
         private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedAlbum;
-
-        private SongViewModel _song;
         public SongViewModel SelectedItem
         {
             get => (SongViewModel)GetValue(SelectedItemProperty);
@@ -80,7 +78,9 @@ namespace Rise.App.Views
             MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
-            FindAlbumsByArtist(SelectedAlbum.Artist);
+            AlbumsByArtist.Source = MViewModel.Albums;
+            AlbumsByArtist.Filter = a => ((AlbumViewModel)a).Title != SelectedAlbum.Title && ((AlbumViewModel)a).Artist == SelectedAlbum.Artist;
+            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
 
             if (e.PageState != null)
             {
@@ -96,6 +96,7 @@ namespace Rise.App.Views
             if (scr != null)
                 e.PageState["Offset"] = scr.VerticalOffset;
 
+            AlbumsByArtist.Filter = null;
             Frame.SetListDataItemForNextConnectedAnimation(SelectedAlbum);
         }
     }
@@ -160,6 +161,18 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class AlbumSongsPage
     {
+        private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+                MediaViewModel.PlayFromItemCommand.Execute(song);
+        }
+
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is AlbumViewModel album)
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+        }
+
         private void MenuFlyout_Opening(object sender, object e)
         {
             var fl = sender as MenuFlyout;
@@ -175,28 +188,5 @@ namespace Rise.App.Views
         {
             DiscyOnSong.IsOpen = true;
         }
-
-        private void FindAlbumsByArtist(string artist)
-        {
-            AlbumsByArtist.Source = MViewModel.Albums;
-            AlbumsByArtist.Filter = a => ((AlbumViewModel)a).Title != SelectedAlbum.Title && ((AlbumViewModel)a).Artist == artist;
-
-            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
-        }
-
-        private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-            => MediaViewModel.PlayFromItemCommand.Execute(SelectedItem);
-
-        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (e.ClickedItem is AlbumViewModel album)
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
-        }
-
-        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
-
-        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
     }
 }
