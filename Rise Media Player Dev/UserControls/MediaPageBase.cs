@@ -43,23 +43,11 @@ namespace Rise.App.UserControls
         public MediaCollectionViewModel MediaViewModel { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of this class with the specified
-        /// type of items and ViewModel data source.
+        /// Initializes a new instance of this class without initializing
+        /// <see cref="MediaViewModel"/>.
         /// </summary>
-        public MediaPageBase(MediaItemType itemType, IList viewModelSource)
+        public MediaPageBase()
         {
-            if (itemType == MediaItemType.Album ||
-                itemType == MediaItemType.Artist ||
-                itemType == MediaItemType.Genre)
-            {
-                MediaViewModel = new(itemType, viewModelSource,
-                    App.MViewModel.Songs, App.MPViewModel);
-            }
-            else
-            {
-                MediaViewModel = new(itemType, viewModelSource, null, App.MPViewModel);
-            }
-
             NavigationHelper = new(this);
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
@@ -69,6 +57,38 @@ namespace Rise.App.UserControls
 
             GoToAlbumCommand = new(GoToAlbum);
             GoToArtistCommand = new(GoToArtist);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class with the specified
+        /// type of items and ViewModel data source.
+        /// </summary>
+        public MediaPageBase(MediaItemType itemType, IList viewModelSource)
+            : this()
+        {
+            CreateViewModel(itemType, viewModelSource);
+        }
+
+        /// <summary>
+        /// Initializes <see cref="MediaViewModel"/> with the specified
+        /// item type and data source.
+        /// </summary>
+        public void CreateViewModel(MediaItemType itemType, IList dataSource)
+        {
+            if (MediaViewModel == null)
+            {
+                if (itemType == MediaItemType.Album ||
+                    itemType == MediaItemType.Artist ||
+                    itemType == MediaItemType.Genre)
+                {
+                    MediaViewModel = new(itemType, dataSource,
+                        App.MViewModel.Songs, App.MPViewModel);
+                }
+                else
+                {
+                    MediaViewModel = new(itemType, dataSource, null, App.MPViewModel);
+                }
+            }
         }
     }
 
@@ -209,7 +229,7 @@ namespace Rise.App.UserControls
     {
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            if (e.PageState != null)
+            if (e.PageState != null && MediaViewModel != null)
             {
                 bool result = e.PageState.TryGetValue("Ascending", out var asc);
                 if (result)
@@ -224,12 +244,15 @@ namespace Rise.App.UserControls
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["Ascending"] = MediaViewModel.
-                CurrentSortDirection == SortDirection.Ascending;
+            if (MediaViewModel != null)
+            {
+                e.PageState["Ascending"] = MediaViewModel.
+                    CurrentSortDirection == SortDirection.Ascending;
 
-            e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
+                e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
 
-            MediaViewModel.Items.Filter = null;
+                MediaViewModel.Items.Filter = null;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
