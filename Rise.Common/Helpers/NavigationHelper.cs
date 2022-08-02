@@ -118,8 +118,8 @@ namespace Rise.Common.Helpers
                 if (_goBackCommand == null)
                 {
                     _goBackCommand = new RelayCommand(
-                        () => GoBack(),
-                        () => CanGoBack());
+                        (e) => GoBack(),
+                        (e) => CanGoBack());
                 }
                 return _goBackCommand;
             }
@@ -142,8 +142,8 @@ namespace Rise.Common.Helpers
                 if (_goForwardCommand == null)
                 {
                     _goForwardCommand = new RelayCommand(
-                        () => GoForward(),
-                        () => CanGoForward());
+                        (e) => GoForward(),
+                        (e) => CanGoForward());
                 }
                 return _goForwardCommand;
             }

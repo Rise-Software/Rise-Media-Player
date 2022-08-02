@@ -12,10 +12,8 @@ namespace Rise.Common.Helpers
     /// </summary>
     public class RelayCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Action<object> _executeParam;
-
-        private readonly Func<bool> _canExecute;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
         /// <summary>
         /// Raised when RaiseCanExecuteChanged is called.
@@ -24,16 +22,6 @@ namespace Rise.Common.Helpers
 
         /// <summary>
         /// Creates a new command that can always execute.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action execute)
-            : this(execute, null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new command that can always execute and
-        /// allows for a parameter.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         public RelayCommand(Action<object> execute)
@@ -46,20 +34,9 @@ namespace Rise.Common.Helpers
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             _execute = execute ?? throw new ArgumentNullException("execute");
-            _canExecute = canExecute;
-        }
-
-        /// <summary>
-        /// Creates a new command.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<object> execute, Func<bool> canExecute)
-        {
-            _executeParam = execute ?? throw new ArgumentNullException("execute");
             _canExecute = canExecute;
         }
 
@@ -72,7 +49,7 @@ namespace Rise.Common.Helpers
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute();
+            return _canExecute == null || _canExecute(parameter);
         }
 
         /// <summary>
@@ -83,14 +60,7 @@ namespace Rise.Common.Helpers
         /// </param>
         public void Execute(object parameter)
         {
-            if (parameter == null)
-            {
-                _execute();
-            }
-            else
-            {
-                _executeParam(parameter);
-            }
+            _execute(parameter);
         }
 
         /// <summary>

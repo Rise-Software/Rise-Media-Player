@@ -121,6 +121,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Attached\GridHelper.cs" />
     <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
     <Compile Include="Constants\SongProperties.cs" />
@@ -129,11 +130,13 @@
     <Compile Include="Constants\SystemMusic.cs" />
     <Compile Include="Constants\URLs.cs" />
     <Compile Include="Constants\ViewManagement.cs" />
+    <Compile Include="Enums\AlbumViewMode.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\GlazeTypes.cs" />
     <Compile Include="Enums\IndexingMode.cs" />
     <Compile Include="Enums\MatchLevel.cs" />
+    <Compile Include="Enums\MediaItemType.cs" />
     <Compile Include="Enums\NavViewItemType.cs" />
     <Compile Include="Enums\NowPlayingBarBackgroundStyles.cs" />
     <Compile Include="Enums\SliderDisplayModes.cs" />
@@ -177,6 +180,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

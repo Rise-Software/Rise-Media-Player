@@ -1,28 +1,21 @@
-﻿<Page
+﻿<uc:MediaPageBase
     x:Class="Rise.App.Views.GenreSongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    x:Name="Root"
+    x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
+    Loaded="OnPageLoaded"
     mc:Ignorable="d">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <converters:BoolToRoundedCorners x:Key="BoolToRounded" />
-            <converters:UintToStringConverter x:Key="UintToStringConverter" />
-            <converters:NullToBoolean x:Key="NullToBool" />
-        </ResourceDictionary>
-    </Page.Resources>
 
     <ListView
         x:Name="MainList"
@@ -31,131 +24,178 @@
         d:Padding="20,12"
         DoubleTapped="MainList_DoubleTapped"
         IsDoubleTapEnabled="True"
-        ItemsSource="{x:Bind Songs}"
-        RightTapped="MainList_RightTapped"
-        SelectedItem="{x:Bind SelectedSong, Mode=TwoWay}"
+        ItemsSource="{x:Bind MediaViewModel.Items}"
+        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
         SelectionMode="Single">
+        <ListView.ContextFlyout>
+            <MenuFlyout Opening="MenuFlyout_Opening">
+                <MenuFlyoutItem
+                    x:Uid="/Information/PlayItem"
+                    Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
+                    CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                    Icon="Play" />
 
-        <ListView.ItemContainerStyle>
-            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
-        </ListView.ItemContainerStyle>
-
-        <ListView.Resources>
-            <MenuFlyout x:Key="SongFlyout" x:Name="SongFlyout">
-                <MenuFlyoutItem x:Uid="/Information/PlayItem" Click="PlayButton_Click">
+                <MenuFlyoutItem
+                    x:Uid="/Information/ShowAlbum"
+                    Command="{x:Bind GoToAlbumCommand}"
+                    CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE102;" />
+                        <FontIcon Glyph="&#xE93C;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/ShowArtist"
+                    Command="{x:Bind GoToArtistCommand}"
+                    CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
+                    Icon="People" />
+
+                <MenuFlyoutSeparator />
+
+                <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem.Icon>
+                        <FontIcon Glyph="&#xECC8;" />
+                    </MenuFlyoutSubItem.Icon>
+
+                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyoutSubItem>
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/Share"
+                    Icon="Share"
+                    IsEnabled="False" />
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/ShowinFE"
+                    Command="{x:Bind OpenInExplorerCommand}"
+                    CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xEC50;" />
                     </MenuFlyoutItem.Icon>
                 </MenuFlyoutItem>
 
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
-                    x:Name="Props"
+                    x:Uid="/Information/RemoveThing"
+                    Icon="Delete"
+                    IsEnabled="False" />
+
+                <MenuFlyoutItem
                     x:Uid="/MediaData/Properties"
-                    Click="Props_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE104;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                    Command="{x:Bind EditItemCommand}"
+                    CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                    Icon="Edit" />
             </MenuFlyout>
-        </ListView.Resources>
+        </ListView.ContextFlyout>
+
+        <ListView.ItemContainerStyle>
+            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+        </ListView.ItemContainerStyle>
 
         <ListView.Header>
             <Border
                 Height="230"
                 Margin="0,0,0,16"
-                BorderThickness="1"
-                CornerRadius="8"
-                Style="{StaticResource SettingsCard}">
+                x:DefaultBindMode="OneWay"
+                CornerRadius="8">
                 <Grid>
-                    <Grid Margin="-16" CornerRadius="8">
-                        <ParallaxView
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalShift="0"
-                            Source="{x:Bind MainList}"
-                            VerticalShift="500">
-                            <Image
-                                Opacity="0.2"
-                                Source="ms-appx:///Assets/gradientfill.png"
-                                Stretch="UniformToFill" />
-                        </ParallaxView>
-                    </Grid>
+                    <ParallaxView
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalShift="0"
+                        Source="{x:Bind MainList, Mode=OneTime}"
+                        VerticalShift="500">
+                        <Image
+                            Opacity="0.2"
+                            Source="ms-appx:///Assets/gradientfill.png"
+                            Stretch="UniformToFill" />
+                    </ParallaxView>
 
-                    <Grid Margin="-16">
+                    <Grid Padding="24,0" ColumnSpacing="24">
                         <Grid.Background>
                             <media:BackdropBlurBrush Amount="0" />
                         </Grid.Background>
 
-                        <Grid
-                            Margin="16"
-                            Padding="0"
-                            ColumnSpacing="24">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="150" />
-                            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="172" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
 
+                        <Border
+                            Width="172"
+                            Height="172"
+                            ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}">
+                            <Border animations:Connected.Key="AlbumArt" CornerRadius="8">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill">
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage
+                                                DecodePixelHeight="172"
+                                                DecodePixelType="Logical"
+                                                DecodePixelWidth="172"
+                                                UriSource="ms-appx:///Assets/BlankGenre.png" />
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Border.Background>
+                            </Border>
+                        </Border>
 
+                        <StackPanel
+                            Grid.Column="1"
+                            Padding="0,10,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical"
+                            Spacing="8">
+                            <TextBlock
+                                FontSize="36"
+                                MaxLines="1"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="{x:Bind SelectedGenre.Name, Mode=OneWay}" />
 
-                            <StackPanel
-                                Grid.Column="1"
-                                Padding="0,10,0,0"
-                                VerticalAlignment="Center"
-                                Orientation="Vertical"
-                                Spacing="8">
-                                <RelativePanel>
-                                    <StackPanel>
-                                        <TextBlock
-                                            x:Name="GenreName"
-                                            x:FieldModifier="public"
-                                            FontSize="36"
-                                            MaxLines="1"
-                                            Style="{StaticResource TitleTextBlockStyle}"
-                                            Text="{x:Bind SelectedGenre.Name, Mode=OneWay}" />
-                                    </StackPanel>
-                                </RelativePanel>
+                            <CommandBar
+                                Margin="-12,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                DefaultLabelPosition="Right">
+                                <AppBarButton
+                                    Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedItem}"
+                                    Icon="Play"
+                                    Label="Play all" />
 
+                                <AppBarSeparator />
 
-                                <CommandBar
-                                    Margin="-12,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Bottom"
-                                    Background="Transparent"
-                                    DefaultLabelPosition="Right">
-                                    <AppBarButton
-                                        x:Name="PlayItem"
-                                        Click="PlayButton_Click"
-                                        Icon="Play"
-                                        Label="Play all"
-                                        ToolTipService.ToolTip="Play all" />
+                                <AppBarButton
+                                    x:Uid="/Information/Shuffle"
+                                    Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedItem}"
+                                    Icon="Shuffle" />
+                                <AppBarButton x:Uid="/Information/Add">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xECC8;" />
+                                    </AppBarButton.Icon>
 
-                                    <AppBarSeparator />
-
-                                    <AppBarButton
-                                        x:Name="ShuffleItem"
-                                        x:Uid="/Information/Shuffle"
-                                        Click="ShuffleButton_Click"
-                                        Icon="Shuffle" />
-                                    <AppBarButton
-                                        x:Uid="/Information/Add"
-                                        IsCompact="True"
-                                        IsEnabled="True">
-                                        <AppBarButton.Icon>
-                                            <FontIcon Glyph="&#xECC8;" />
-                                        </AppBarButton.Icon>
-
-                                        <AppBarButton.Flyout>
-                                            <MenuFlyout x:Name="AddToCommand" />
-                                        </AppBarButton.Flyout>
-                                    </AppBarButton>
-                                </CommandBar>
-                            </StackPanel>
-                        </Grid>
+                                    <AppBarButton.Flyout>
+                                        <MenuFlyout x:Name="AddToBar">
+                                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand, Mode=OneTime}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </AppBarButton.Flyout>
+                                </AppBarButton>
+                            </CommandBar>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </Border>
@@ -163,138 +203,14 @@
 
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="viewmodels:SongViewModel">
-                <Border
-                    Margin="-12,2,-10,2"
-                    Padding="4,0,4,0"
-                    Style="{StaticResource SettingsCard}">
-                    <Grid
-                        Margin="4,0,0,0"
-                        Padding="0,4"
-                        Background="Transparent"
-                        ColumnSpacing="12"
-                        PointerCanceled="Grid_PointerExited"
-                        PointerEntered="Grid_PointerEntered"
-                        PointerExited="Grid_PointerExited">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="32" />
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Button
-                                x:Uid="/Information/Play"
-                                Width="36"
-                                Height="36"
-                                Margin="2,0,-28,0"
-                                Padding="0"
-                                Click="PlayButton_Click"
-                                Style="{StaticResource TransparentButtonStyle}"
-                                Visibility="{x:Bind IsFocused, Mode=OneWay}">
-                                <FontIcon FontSize="16" Glyph="&#xE102;" />
-                            </Button>
-                        </StackPanel>
-
-                        <Button
-                            Grid.Column="1"
-                            Width="32"
-                            Height="32"
-                            Margin="-8"
-                            Padding="0"
-                            CornerRadius="7"
-                            IsHitTestVisible="False"
-                            Visibility="{x:Bind IsFocused, Converter={StaticResource BoolToVis}, ConverterParameter=Reverse, Mode=OneWay}">
-                            <Border
-                                x:Name="AlbumThumb"
-                                Width="32"
-                                Height="32"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                CornerRadius="3">
-                                <Image Width="32" Height="32">
-                                    <Image.Source>
-                                        <BitmapImage
-                                            DecodePixelHeight="32"
-                                            DecodePixelWidth="32"
-                                            UriSource="{x:Bind Thumbnail}" />
-                                    </Image.Source>
-                                </Image>
-                            </Border>
-                        </Button>
-
-                        <RelativePanel
-                            Grid.Column="2"
-                            Margin="-8,0,0,0"
-                            VerticalAlignment="Center">
-                            <TextBlock
-                                x:Name="songtitle"
-                                MaxLines="2"
-                                Text="{x:Bind Title}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="WrapWholeWords" />
-                            <TextBlock
-                                x:Name="artistname"
-                                Margin="16,0,0,0"
-                                RelativePanel.RightOf="songtitle"
-                                TextTrimming="CharacterEllipsis">
-                                <Hyperlink
-                                    Click="Artist_Click"
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    UnderlineStyle="None">
-                                    <Run Text="{x:Bind Artist, Mode=OneWay}" />
-                                </Hyperlink>
-                            </TextBlock>
-
-                            <TextBlock
-                                x:Name="Pill"
-                                Margin="8,0,0,0"
-                                RelativePanel.RightOf="artistname"
-                                Text="•" />
-
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                RelativePanel.RightOf="Pill"
-                                TextTrimming="CharacterEllipsis">
-                                <Hyperlink
-                                    Click="Album_Click"
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    UnderlineStyle="None">
-                                    <Run Text="{x:Bind Album, Mode=OneWay}" />
-                                </Hyperlink>
-                            </TextBlock>
-
-
-                        </RelativePanel>
-                        <StackPanel
-                            Grid.Column="3"
-                            Orientation="Horizontal"
-                            Spacing="4">
-
-                            <Button
-                                x:Name="PropsHover"
-                                x:Uid="/Information/Props"
-                                Width="36"
-                                Height="36"
-                                Padding="0"
-                                Click="PropsHover_Click"
-                                Style="{StaticResource TransparentButtonStyle}"
-                                Visibility="{x:Bind IsFocused, Mode=OneWay}">
-                                <FontIcon FontSize="16" Glyph="&#xE104;" />
-                            </Button>
-
-                            <TextBlock
-                                Margin="12"
-                                VerticalAlignment="Center"
-                                Text="{x:Bind Length, Converter={StaticResource TimeToStr}}"
-                                Visibility="{x:Bind local:App.SViewModel.ShowDurationInSongs, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <uc:SongData
+                    EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
+                    GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
+                    GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
+                    PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
+                    Song="{x:Bind}" />
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-</Page>
+</uc:MediaPageBase>
 

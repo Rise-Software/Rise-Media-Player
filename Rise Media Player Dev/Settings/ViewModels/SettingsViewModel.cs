@@ -217,16 +217,10 @@ namespace Rise.App.ViewModels
             set => Set(value, "Appearance");
         }
 
-        public bool IsTilesInAlbumsPage
+        public AlbumViewMode AlbumViewMode
         {
-            get => Get(true, "Appearance");
-            set => Set(value, "Appearance");
-        }
-
-        public bool IsListInAlbumsPage
-        {
-            get => Get(false, "Appearance");
-            set => Set(value, "Appearance");
+            get => (AlbumViewMode)Get<byte>(1, "Appearance");
+            set => Set((byte)value, "Appearance");
         }
         #endregion
 
