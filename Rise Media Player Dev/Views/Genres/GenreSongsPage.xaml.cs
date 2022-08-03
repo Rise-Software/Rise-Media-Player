@@ -2,7 +2,6 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -30,7 +29,7 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public GenreSongsPage()
-            : base(MediaItemType.Song, App.MViewModel.Songs)
+            : base("Title", App.MViewModel.Songs)
         {
             InitializeComponent();
 

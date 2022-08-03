@@ -2,12 +2,9 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -66,8 +63,8 @@ namespace Rise.App.Views
                 SelectedPlaylist = App.MViewModel.Playlists.
                     FirstOrDefault(p => p.Model.Id == id);
 
-                CreateViewModel(MediaItemType.Song, SelectedPlaylist.Songs);
-                VideosViewModel = new(MediaItemType.Video, SelectedPlaylist.Videos, null, MPViewModel);
+                CreateViewModel("Title", SelectedPlaylist.Songs);
+                VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
             }
 
             if (e.PageState != null)

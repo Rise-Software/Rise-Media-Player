@@ -2,7 +2,6 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
@@ -28,7 +27,7 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public LocalVideosPage()
-            : base(MediaItemType.Video, App.MViewModel.Videos)
+            : base("Title", App.MViewModel.Videos)
         {
             InitializeComponent();
 

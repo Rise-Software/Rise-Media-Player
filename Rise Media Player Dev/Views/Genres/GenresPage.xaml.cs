@@ -1,10 +1,8 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -22,7 +20,7 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public GenresPage()
-            : base(MediaItemType.Genre, App.MViewModel.Genres)
+            : base("Name", App.MViewModel.Genres)
         {
             InitializeComponent();
 

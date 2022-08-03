@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
@@ -21,34 +20,30 @@ namespace Rise.App.ViewModels
     public partial class MediaCollectionViewModel : SortableCollectionViewModel
     {
         private readonly MediaPlaybackViewModel _player;
-
-        private readonly MediaItemType _itemType;
         private readonly IList<SongViewModel> _songs;
 
         /// <summary>
         /// Initializes a new instance of this ViewModel.
         /// </summary>
-        /// <param name="itemType">Type of items this ViewModel will
-        /// hold. It is important to set this value correctly, otherwise
-        /// the commands will raise exceptions due to casting.</param>
+        /// <param name="defaultProperty">Name of the default property to sort
+        /// the item collection.</param>
         /// <param name="itemSource">Source of items for the underlying
         /// ViewModel.</param>
         /// <param name="songs">The collection of songs to use. Only needed
         /// for albums, artists, and genres.</param>
         /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
         /// responsible for playback management.</param>
-        public MediaCollectionViewModel(MediaItemType itemType,
+        public MediaCollectionViewModel(string defaultProperty,
             IList itemSource,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm)
-            : this(itemType, itemSource, songs, pvm, null) { }
+            : this(defaultProperty, itemSource, songs, pvm, null) { }
 
         /// <summary>
         /// Initializes a new instance of this ViewModel.
         /// </summary>
-        /// <param name="itemType">Type of items this ViewModel will
-        /// hold. It is important to set this value correctly, otherwise
-        /// the commands will raise exceptions due to casting.</param>
+        /// <param name="defaultProperty">Name of the default property to sort
+        /// the item collection.</param>
         /// <param name="itemSource">Source of items for the underlying
         /// ViewModel.</param>
         /// <param name="songs">The collection of songs to use. Only needed
@@ -57,14 +52,13 @@ namespace Rise.App.ViewModels
         /// responsible for playback management.</param>
         /// <param name="canSort">A delegate indicating whether sorting
         /// is possible.</param>
-        public MediaCollectionViewModel(MediaItemType itemType,
+        public MediaCollectionViewModel(string defaultProperty,
             IList itemSource,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm,
             Func<object, bool> canSort)
-            : base(itemSource, canSort, GetDefaultSortProperty(itemType), SortDirection.Ascending)
+            : base(itemSource, canSort, defaultProperty, SortDirection.Ascending)
         {
-            _itemType = itemType;
             _songs = songs;
             _player = pvm;
 
@@ -74,17 +68,6 @@ namespace Rise.App.ViewModels
             ShuffleFromItemCommand = new(ShuffleFromItemAsync);
             ShuffleSingleItemCommand = new(ShuffleSingleItemAsync);
         }
-
-        private static string GetDefaultSortProperty(MediaItemType itemType) => itemType switch
-        {
-            MediaItemType.Album => "Title",
-            MediaItemType.Artist => "Name",
-            MediaItemType.Genre => "Name",
-            MediaItemType.Playlist => "Title",
-            MediaItemType.Song => "Title",
-            MediaItemType.Video => "Title",
-            _ => "Title"
-        };
     }
 
     // Playback
@@ -157,23 +140,33 @@ namespace Rise.App.ViewModels
             return PlaySingleItemAsync(parameter);
         }
 
-        private Task GetPlaySingleTask(object parameter) => _itemType switch
+        private Task GetPlaySingleTask(object parameter)
         {
-            MediaItemType.Album => PlaySingleAlbumAsync((AlbumViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Artist => PlaySingleArtistAsync((ArtistViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Genre => PlaySingleGenreAsync((GenreViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Playlist => PlaySinglePlaylistAsync((PlaylistViewModel)parameter, PlaybackCancelHelper.Token),
-            _ => PlaySingleItemAsync((IMediaItem)parameter, PlaybackCancelHelper.Token),
-        };
+            if (parameter is AlbumViewModel album)
+                return PlaySingleAlbumAsync(album, PlaybackCancelHelper.Token);
+            else if (parameter is ArtistViewModel artist)
+                PlaySingleArtistAsync(artist, PlaybackCancelHelper.Token);
+            else if (parameter is GenreViewModel genre)
+                return PlaySingleGenreAsync(genre, PlaybackCancelHelper.Token);
+            else if (parameter is PlaylistViewModel playlist)
+                PlaySinglePlaylistAsync(playlist, PlaybackCancelHelper.Token);
 
-        private Task GetPlayFromTask(object parameter) => _itemType switch
+            return PlaySingleItemAsync((IMediaItem)parameter, PlaybackCancelHelper.Token);
+        }
+
+        private Task GetPlayFromTask(object parameter)
         {
-            MediaItemType.Album => PlayFromAlbumAsync((AlbumViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Artist => PlayFromArtistAsync((ArtistViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Genre => PlayFromGenreAsync((GenreViewModel)parameter, PlaybackCancelHelper.Token),
-            MediaItemType.Playlist => PlayFromPlaylistAsync((PlaylistViewModel)parameter, PlaybackCancelHelper.Token),
-            _ => PlayFromItemAsync((IMediaItem)parameter, PlaybackCancelHelper.Token),
-        };
+            if (parameter is AlbumViewModel album)
+                return PlayFromAlbumAsync(album, PlaybackCancelHelper.Token);
+            else if (parameter is ArtistViewModel artist)
+                PlayFromArtistAsync(artist, PlaybackCancelHelper.Token);
+            else if (parameter is GenreViewModel genre)
+                return PlayFromGenreAsync(genre, PlaybackCancelHelper.Token);
+            else if (parameter is PlaylistViewModel playlist)
+                PlayFromPlaylistAsync(playlist, PlaybackCancelHelper.Token);
+
+            return PlayFromItemAsync((IMediaItem)parameter, PlaybackCancelHelper.Token);
+        }
     }
 
     // PlaySingle* methods

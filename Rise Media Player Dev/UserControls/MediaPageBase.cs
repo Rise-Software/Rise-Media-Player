@@ -3,7 +3,6 @@ using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Albums.Properties;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
@@ -61,33 +60,24 @@ namespace Rise.App.UserControls
 
         /// <summary>
         /// Initializes a new instance of this class with the specified
-        /// type of items and ViewModel data source.
+        /// property for sorting and ViewModel data source.
         /// </summary>
-        public MediaPageBase(MediaItemType itemType, IList viewModelSource)
+        public MediaPageBase(string defaultProperty, IList viewModelSource)
             : this()
         {
-            CreateViewModel(itemType, viewModelSource);
+            CreateViewModel(defaultProperty, viewModelSource);
         }
 
         /// <summary>
         /// Initializes <see cref="MediaViewModel"/> with the specified
-        /// item type and data source.
+        /// property for sorting and data source.
         /// </summary>
-        public void CreateViewModel(MediaItemType itemType, IList dataSource)
+        public void CreateViewModel(string defaultProperty, IList dataSource)
         {
             if (MediaViewModel == null)
             {
-                if (itemType == MediaItemType.Album ||
-                    itemType == MediaItemType.Artist ||
-                    itemType == MediaItemType.Genre)
-                {
-                    MediaViewModel = new(itemType, dataSource,
-                        App.MViewModel.Songs, App.MPViewModel);
-                }
-                else
-                {
-                    MediaViewModel = new(itemType, dataSource, null, App.MPViewModel);
-                }
+                MediaViewModel = new(defaultProperty, dataSource,
+                    App.MViewModel.Songs, App.MPViewModel);
             }
         }
     }

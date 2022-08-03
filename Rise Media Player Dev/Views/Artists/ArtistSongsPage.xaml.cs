@@ -5,7 +5,6 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common;
 using Rise.Common.Constants;
-using Rise.Common.Enums;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -61,9 +60,9 @@ namespace Rise.App.Views
         private string LongBio;
 
         public ArtistSongsPage()
-            : base(MediaItemType.Song, App.MViewModel.Songs)
+            : base("Title", App.MViewModel.Songs)
         {
-            AlbumsViewModel = new(MediaItemType.Album, MViewModel.Albums, MViewModel.Songs, MPViewModel);
+            AlbumsViewModel = new("Year", MViewModel.Albums, MViewModel.Songs, MPViewModel);
 
             InitializeComponent();
 
@@ -112,8 +111,6 @@ namespace Rise.App.Views
 
                 MediaViewModel.Items.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name;
                 AlbumsViewModel.Items.Filter = a => ((AlbumViewModel)a).Artist == SelectedArtist.Name;
-
-                AlbumsViewModel.SortBy("Year");
             }
             else if (e.NavigationParameter is string str)
             {

@@ -3,7 +3,6 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -35,7 +34,7 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public AlbumSongsPage()
-            : base(MediaItemType.Song, App.MViewModel.Songs)
+            : base("Disc", App.MViewModel.Songs)
         {
             InitializeComponent();
 
@@ -74,8 +73,6 @@ namespace Rise.App.Views
                 MediaViewModel.Items.Filter = s => ((SongViewModel)s).Album == str;
             }
 
-            MediaViewModel.Items.SortDescriptions.Clear();
-            MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
             MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
 
             AlbumsByArtist.Source = MViewModel.Albums;

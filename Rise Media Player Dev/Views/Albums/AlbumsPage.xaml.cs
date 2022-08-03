@@ -32,7 +32,7 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public AlbumsPage()
-            : base(MediaItemType.Album, App.MViewModel.Albums)
+            : base("Title", App.MViewModel.Albums)
         {
             InitializeComponent();
 
