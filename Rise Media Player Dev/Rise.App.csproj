@@ -165,7 +165,6 @@
       <DependentUpon>SongData.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MediaCollectionViewModel.cs" />
-    <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
