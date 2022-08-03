@@ -19,10 +19,12 @@
     </UserControl.Resources>
 
     <Border
-        Padding="12,8"
+        Padding="{x:Bind Padding, Mode=OneWay}"
         HorizontalAlignment="Stretch"
         x:DefaultBindMode="OneWay"
-        Style="{StaticResource SettingsCard}">
+        Background="{x:Bind Background, Mode=OneWay}"
+        BorderBrush="{x:Bind BorderBrush, Mode=OneWay}"
+        BorderThickness="{x:Bind BorderThickness, Mode=OneWay}">
         <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
