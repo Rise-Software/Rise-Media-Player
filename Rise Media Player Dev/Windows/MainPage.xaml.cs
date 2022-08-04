@@ -184,7 +184,6 @@ namespace Rise.App.Views
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
                 }
 
-                App.MViewModel.CanIndex = true;
                 if (SViewModel.AutoIndexingEnabled)
                 {
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());

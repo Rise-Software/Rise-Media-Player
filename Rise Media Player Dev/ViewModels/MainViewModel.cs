@@ -1,15 +1,16 @@
 ﻿using Rise.App.ChangeTrackers;
-using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
@@ -20,12 +21,9 @@ namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
-        #endregion
 
-        #region Fields
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
         private uint IndexedSongs = 0;
@@ -35,29 +33,14 @@ namespace Rise.App.ViewModels
         private readonly List<string> imagelinks = new();
 
         /// <summary>
-        /// Whether or not are we currently indexing. This is to avoid
-        /// unnecessarily indexing concurrently.
+        /// Helps cancel indexing related Tasks.
         /// </summary>
-        private bool IsIndexing = false;
-
-        /// <summary>
-        /// Whether or not is there a recrawl queued. If true,
-        /// <see cref="IndexLibrariesAsync"/> will call itself when necessary.
-        /// </summary>
-        private bool QueuedReindex = false;
-
-        /// <summary>
-        /// Whether or not can indexing start. This is set to true once
-        /// <see cref="MainPage"/> loads up, at which point running from the
-        /// UI thread is possible.
-        /// </summary>
-        public bool CanIndex = false;
+        private readonly CancellableTaskHelper IndexingCancelHelper = new();
 
         /// <summary>
         /// Whether or not the search bar is focused.
         /// </summary>
         public bool IsSearchActive = false;
-        #endregion
 
         /// <summary>
         /// Creates a new MainViewModel.
@@ -125,7 +108,7 @@ namespace Rise.App.ViewModels
             Playlists.Clear();
             Notifications.Clear();
 
-            var songs = await NewRepository.Repository.GetItemsAsync<Song>();
+            var songs = await Repository.GetItemsAsync<Song>();
 
             // If we have no songs, we have no albums, artists or genres
             if (songs != null)
@@ -135,7 +118,7 @@ namespace Rise.App.ViewModels
                     Songs.Add(new(item));
                 }
 
-                var albums = await NewRepository.Repository.GetItemsAsync<Album>();
+                var albums = await Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
@@ -144,7 +127,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                var artists = await NewRepository.Repository.GetItemsAsync<Artist>();
+                var artists = await Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
@@ -153,7 +136,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                var genres = await NewRepository.Repository.GetItemsAsync<Genre>();
+                var genres = await Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
@@ -163,7 +146,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            var videos = await NewRepository.Repository.GetItemsAsync<Video>();
+            var videos = await Repository.GetItemsAsync<Video>();
             if (videos != null)
             {
                 foreach (var item in videos)
@@ -197,19 +180,31 @@ namespace Rise.App.ViewModels
 
         public async Task StartFullCrawlAsync()
         {
-            // There are no direct callers to IndexLibrariesAsync outside of
-            // this function, so we can just check here
-            if (!CanIndex)
+            try
             {
-                return;
+                await StartFullCrawlAsync(new CancellationToken());
             }
+            catch (OperationCanceledException) { }
+        }
 
+        public async Task StartFullCrawlAsync(CancellationToken token)
+        {
+            await IndexingCancelHelper.CompletePendingAsync(token);
+            await IndexingCancelHelper.RunAsync(StartFullCrawlImpl(IndexingCancelHelper.Token));
+        }
+
+        private async Task StartFullCrawlImpl(CancellationToken token)
+        {
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
-            await IndexLibrariesAsync();
+            await IndexLibrariesAsync(token);
+            token.ThrowIfCancellationRequested();
+
             await SongsTracker.HandleMusicFolderChangesAsync();
+            token.ThrowIfCancellationRequested();
+
             await VideosTracker.HandleVideosFolderChangesAsync();
-            //await SyncAsync();
+            token.ThrowIfCancellationRequested();
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
 
@@ -217,55 +212,27 @@ namespace Rise.App.ViewModels
             IndexedVideos = 0;
         }
 
-        private async Task IndexLibrariesAsync()
+        private async Task IndexLibrariesAsync(CancellationToken token)
         {
-            if (IsIndexing && QueuedReindex)
-            {
-                // If we're indexing and a reindex is queued,
-                // don't bother doing anything
-                return;
-            }
-            else if (IsIndexing && !QueuedReindex)
-            {
-                // If we're indexing and a reindex isn't queued,
-                // queue a reindex and return
-                QueuedReindex = true;
-                return;
-            }
-            else if (!IsIndexing && QueuedReindex)
-            {
-                // If we're not indexing and a reindex is queued,
-                // allow adding a reindex to the queue and continue
-                QueuedReindex = false;
-            }
-
-            IsIndexing = true;
             await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                 PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
             {
                 if (await SaveMusicModelsAsync(song, true))
-                {
                     IndexedSongs++;
-                }
+
+                token.ThrowIfCancellationRequested();
             }
 
             await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                 PropertyPrefetchOptions.VideoProperties))
             {
                 if (await SaveVideoModelAsync(video, true))
-                {
                     IndexedVideos++;
-                }
+
+                token.ThrowIfCancellationRequested();
             }
 
-            IsIndexing = false;
-
-            await NewRepository.Repository.UpsertQueuedAsync();
-
-            if (QueuedReindex)
-            {
-                await IndexLibrariesAsync();
-            }
+            await Repository.UpsertQueuedAsync();
         }
 
         /// <summary>
@@ -495,14 +462,6 @@ namespace Rise.App.ViewModels
             }
 
             return !videoExists;
-        }
-
-        /// <summary>
-        /// Saves any modified data and reloads the data lists from the database.
-        /// </summary>
-        public async Task SyncAsync()
-        {
-            await GetListsAsync();
         }
     }
 
