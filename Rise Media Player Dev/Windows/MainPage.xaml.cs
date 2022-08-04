@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -32,32 +31,17 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        #region Variables
         private readonly NavigationHelper _navigationHelper;
 
-        private LastFMViewModel LMViewModel => App.LMViewModel;
-        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private LastFMViewModel LMViewModel => App.LMViewModel;
+
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private AdvancedCollectionView Albums => App.MViewModel.FilteredAlbums;
-        private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
-        private AdvancedCollectionView Artists => App.MViewModel.FilteredArtists;
-
-        private IDisposable SongsDefer { get; set; }
-        private IDisposable AlbumsDefer { get; set; }
-        private IDisposable ArtistsDefer { get; set; }
-        private IDisposable GenresDefer { get; set; }
-        private IDisposable VideosDefer { get; set; }
-        private IDisposable PlaylistsDefer { get; set; }
-
         private NavigationViewItem RightClickedItem { get; set; }
-
-        internal string AccountMenuText
-        {
-            get => Acc.Text.ToString();
-            set => Acc.Text = value;
-        }
 
         private readonly Dictionary<string, Type> Destinations = new()
         {
@@ -78,7 +62,6 @@ namespace Rise.App.Views
             { "AlbumsPage", typeof(AlbumSongsPage) },
             { "GenresPage", typeof(GenreSongsPage) }
         };
-        #endregion
 
         public MainPage()
         {
@@ -93,8 +76,8 @@ namespace Rise.App.Views
 
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
-            App.MViewModel.IndexingStarted += MViewModel_IndexingStarted;
-            App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
+            MViewModel.IndexingStarted += MViewModel_IndexingStarted;
+            MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
         }
@@ -104,8 +87,8 @@ namespace Rise.App.Views
             _navigationHelper.LoadState -= NavigationHelper_LoadState;
             _navigationHelper.SaveState -= NavigationHelper_SaveState;
 
-            App.MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
-            App.MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+            MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
+            MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
@@ -218,13 +201,6 @@ namespace Rise.App.Views
             {
                 AddedTip.IsOpen = false;
                 CheckTip.IsOpen = true;
-
-                SongsDefer = App.MViewModel.FilteredSongs.DeferRefresh();
-                AlbumsDefer = App.MViewModel.FilteredAlbums.DeferRefresh();
-                ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
-                GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
-                VideosDefer = App.MViewModel.FilteredVideos.DeferRefresh();
-                PlaylistsDefer = App.MViewModel.FilteredPlaylists.DeferRefresh();
             });
         }
 
@@ -234,20 +210,6 @@ namespace Rise.App.Views
             {
                 CheckTip.IsOpen = false;
                 AddedTip.IsOpen = true;
-
-                SongsDefer.Dispose();
-                AlbumsDefer.Dispose();
-                ArtistsDefer.Dispose();
-                GenresDefer.Dispose();
-                VideosDefer.Dispose();
-                PlaylistsDefer.Dispose();
-
-                App.MViewModel.FilteredSongs.Refresh();
-                App.MViewModel.FilteredAlbums.Refresh();
-                App.MViewModel.FilteredArtists.Refresh();
-                App.MViewModel.FilteredGenres.Refresh();
-                App.MViewModel.FilteredVideos.Refresh();
-                App.MViewModel.FilteredPlaylists.Refresh();
 
                 await Task.Delay(3000);
                 AddedTip.IsOpen = false;
@@ -318,24 +280,18 @@ namespace Rise.App.Views
         /// <param name="e">Details about the navigation.</param>
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            App.MViewModel.SelectedSong = null;
             var type = this.ContentFrame.CurrentSourcePageType;
-
             bool hasKey = this.Destinations.TryGetKey(type, out var key);
 
             // We need to handle unlisted destinations
             if (!hasKey)
-            {
                 hasKey = this.UnlistedDestinations.TryGetKey(type, out key);
-            }
 
             if (hasKey)
             {
                 bool hasItem = this.NavDataSource.TryGetItem(key, out var item);
                 if (hasItem)
-                {
                     this.NavView.SelectedItem = item;
-                }
             }
         }
 
@@ -568,7 +524,7 @@ namespace Rise.App.Views
 
                 string[] splitText = sender.Text.ToLower().Split(" ");
 
-                foreach (AlbumViewModel album in Albums)
+                foreach (AlbumViewModel album in MViewModel.Albums)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -588,7 +544,7 @@ namespace Rise.App.Views
                     }
                 }
 
-                foreach (SongViewModel song in Songs)
+                foreach (SongViewModel song in MViewModel.Songs)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -608,7 +564,7 @@ namespace Rise.App.Views
                     }
                 }
 
-                foreach (ArtistViewModel artist in Artists)
+                foreach (ArtistViewModel artist in MViewModel.Artists)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -684,7 +640,8 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
                 return;
 
-            AlbumViewModel album = Albums.AsParallel().FirstOrDefault(a => (a as AlbumViewModel).Title == MPViewModel.PlayingItem.ExtraInfo) as AlbumViewModel;
+            AlbumViewModel album = MViewModel.Albums.AsParallel().
+                FirstOrDefault(a => (a as AlbumViewModel).Title == MPViewModel.PlayingItem.ExtraInfo) as AlbumViewModel;
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -695,7 +652,8 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
                 return;
 
-            ArtistViewModel artist = Artists.AsParallel().FirstOrDefault(a => (a as ArtistViewModel).Name == MPViewModel.PlayingItem.Subtitle) as ArtistViewModel;
+            ArtistViewModel artist = MViewModel.Artists.AsParallel().
+                FirstOrDefault(a => (a as ArtistViewModel).Name == MPViewModel.PlayingItem.Subtitle) as ArtistViewModel;
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();

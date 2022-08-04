@@ -24,7 +24,7 @@
             x:Name="NotificationsList"
             IsItemClickEnabled="True"
             IsRightTapEnabled="True"
-            ItemsSource="{x:Bind app:App.MViewModel.FilteredNotifications, Mode=OneTime}"
+            ItemsSource="{x:Bind app:App.MViewModel.Notifications, Mode=OneTime}"
             RightTapped="ListView_RightTapped"
             SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
             SelectionMode="Single"
