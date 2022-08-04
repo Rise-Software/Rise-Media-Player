@@ -640,7 +640,7 @@ namespace Rise.App.Views
                 return;
 
             AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => (a as AlbumViewModel).Title == MPViewModel.PlayingItem.ExtraInfo) as AlbumViewModel;
+                FirstOrDefault(a => a.Title == MPViewModel.PlayingItem.ExtraInfo);
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -652,7 +652,7 @@ namespace Rise.App.Views
                 return;
 
             ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => (a as ArtistViewModel).Name == MPViewModel.PlayingItem.Subtitle) as ArtistViewModel;
+                FirstOrDefault(a => a.Name == MPViewModel.PlayingItem.Subtitle);
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
