@@ -167,7 +167,10 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border x:Name="ArtistThumb" CornerRadius="40">
+                        <Border
+                            x:Name="ArtistThumb"
+                            Height="80"
+                            CornerRadius="40">
                             <Border.Background>
                                 <ImageBrush Stretch="UniformToFill">
                                     <ImageBrush.ImageSource>
