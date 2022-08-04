@@ -284,7 +284,7 @@
                         <MenuFlyoutItem
                             x:Uid="/Information/RemoveThing"
                             Icon="Delete"
-                            IsEnabled="False" />
+                            Click="Remove_Click" />
 
                         <MenuFlyoutItem
                             Icon="Rename"
