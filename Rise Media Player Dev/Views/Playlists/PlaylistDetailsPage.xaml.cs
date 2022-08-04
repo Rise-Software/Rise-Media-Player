@@ -48,6 +48,8 @@ namespace Rise.App.Views
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
+            PlaylistHelper.AddPlaylistsToSubItem(AddToVideo);
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -127,7 +129,14 @@ namespace Rise.App.Views
 
         private async void Remove_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedPlaylist.RemoveSongAsync(SelectedItem);
+            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
+            {
+                await SelectedPlaylist.RemoveSongAsync(SelectedItem);
+            }
+            else if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
+            {
+                await SelectedPlaylist.RemoveVideoAsync(SelectedVideo);
+            }
         }
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)

@@ -13,8 +13,6 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:DesignHeight="320"
-    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
@@ -284,7 +282,7 @@
                         <MenuFlyoutItem
                             x:Uid="/Information/RemoveThing"
                             Icon="Delete"
-                            IsEnabled="False" />
+                            Click="Remove_Click" />
 
                         <MenuFlyoutItem
                             Icon="Rename"
