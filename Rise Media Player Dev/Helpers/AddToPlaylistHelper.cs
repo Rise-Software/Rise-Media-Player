@@ -13,10 +13,8 @@ namespace Rise.App.Helpers
     /// </summary>
     public partial class AddToPlaylistHelper
     {
-        private bool _separatorAdded = false;
-
+        private bool _addSeparator = false;
         private readonly IList<PlaylistViewModel> _items;
-        private readonly List<MenuFlyout> _flyouts = new();
 
         /// <summary>
         /// Initializes the helper with the provided collection.
@@ -27,7 +25,7 @@ namespace Rise.App.Helpers
             Func<PlaylistViewModel, Task> addToDelegate)
         {
             _items = playlists;
-            _separatorAdded = _items.Count > 0;
+            _addSeparator = _items.Count > 0;
 
             AddToPlaylistCommand = new(addToDelegate);
         }
@@ -38,7 +36,7 @@ namespace Rise.App.Helpers
         public void AddPlaylistsToSubItem(MenuFlyoutSubItem subItem)
         {
             var itms = subItem.Items;
-            if (_separatorAdded)
+            if (_addSeparator)
                 itms.Add(new MenuFlyoutSeparator());
 
             foreach (var itm in _items)
@@ -46,15 +44,12 @@ namespace Rise.App.Helpers
         }
 
         /// <summary>
-        /// Adds the current playlists to the flyout, and allows this
-        /// class to add new playlist items to it.
+        /// Adds the current playlists to the flyout.
         /// </summary>
-        public void WatchFlyout(MenuFlyout flyout)
+        public void AddPlaylistsToFlyout(MenuFlyout flyout)
         {
-            _flyouts.Add(flyout);
             var itms = flyout.Items;
-
-            if (_separatorAdded)
+            if (_addSeparator)
                 itms.Add(new MenuFlyoutSeparator());
 
             foreach (var itm in _items)
@@ -115,14 +110,7 @@ namespace Rise.App.Helpers
                     Duration = "0"
                 };
 
-                foreach (var flyout in _flyouts)
-                {
-                    if (!_separatorAdded)
-                        flyout.Items.Add(new MenuFlyoutSeparator());
-                    flyout.Items.Add(CreatePlaylistFlyoutItem(playlist));
-                }
-
-                _separatorAdded = true;
+                _addSeparator = true;
             }
 
             foreach (var item in items)

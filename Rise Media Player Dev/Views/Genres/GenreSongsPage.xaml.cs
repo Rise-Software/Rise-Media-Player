@@ -38,7 +38,7 @@ namespace Rise.App.Views
 
             PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.WatchFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
