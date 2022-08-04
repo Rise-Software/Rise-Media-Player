@@ -148,7 +148,6 @@
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
-    <Compile Include="Helpers\EventsLogic.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
