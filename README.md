@@ -78,12 +78,6 @@ Currently, all users can try out the MSIX packages. When we move to the store, y
 * [**Joseph Beattie (@josephbeattie)**](https://github.com/josephbeattie): **Rise Team Leader and Founder - Design, Occasional Programming, Development. Languages and Translations: English Language & Spanish**.
 * [**Omar Salas (@YourOrdinaryCat)**](https://github.com/yourordinarycat): **Programming & Development.**
 
-**Contributors**
-
-* [**Agnihotra Nath (@AlfarexGuy2019)**](https://github.com/alfarexguy2019)
-* [**Makesh Vineeth (@MakeshVineeth)**](https://github.com/makeshvineeth)
-* [**Dolphin (@dlphinStudios)**](https://github.com/dlphinStudios)
-
 ### Notes
 *1 Any Windows device running Windows 10 1903 or later. Windows Mobile/Windows Phone is not supported.*
 
