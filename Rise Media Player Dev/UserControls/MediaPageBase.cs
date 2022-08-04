@@ -74,11 +74,8 @@ namespace Rise.App.UserControls
         /// </summary>
         public void CreateViewModel(string defaultProperty, IList dataSource)
         {
-            if (MediaViewModel == null)
-            {
-                MediaViewModel = new(defaultProperty, dataSource,
-                    App.MViewModel.Songs, App.MPViewModel);
-            }
+            MediaViewModel ??= new(defaultProperty, dataSource,
+                App.MViewModel.Songs, App.MPViewModel);
         }
     }
 
