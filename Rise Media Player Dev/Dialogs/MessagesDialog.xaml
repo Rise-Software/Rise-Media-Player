@@ -25,19 +25,17 @@
             IsItemClickEnabled="True"
             IsRightTapEnabled="True"
             ItemsSource="{x:Bind app:App.MViewModel.Notifications, Mode=OneTime}"
-            RightTapped="ListView_RightTapped"
             SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
-            SelectionMode="Single"
-            Tapped="NotificationsList_Tapped">
-            <ListView.Resources>
-                <MenuFlyout x:Key="ListMenu">
+            SelectionMode="Single">
+            <ListView.ContextFlyout>
+                <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem Click="DeleteMenuFlyoutItem_Click" Text="Delete">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE74D;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout>
-            </ListView.Resources>
+            </ListView.ContextFlyout>
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:NotificationViewModel">
