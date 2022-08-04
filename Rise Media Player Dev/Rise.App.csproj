@@ -147,16 +147,23 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\EventsLogic.cs" />
+    <Compile Include="Helpers\AddToPlaylistHelper.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AlbumData.xaml.cs">
+      <DependentUpon>AlbumData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
     <Compile Include="UserControls\RiseMediaTransportControls.cs" />
-    <Compile Include="ViewModels\TopTracksViewModel.cs" />
+    <Compile Include="UserControls\SongData.xaml.cs">
+      <DependentUpon>SongData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MediaCollectionViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
     <Compile Include="Converters\NullToBoolean.cs" />
@@ -586,6 +593,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\WidgetsDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AlbumData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SongData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,252 +1,118 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
+﻿using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using Microsoft.UI.Xaml.Controls;
+using Rise.App.Helpers;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    public sealed partial class AlbumsPage : Page
+    public sealed partial class AlbumsPage : MediaPageBase
     {
-        #region Variables
-        /// <summary>
-        /// Gets the app-wide MViewModel instance.
-        /// </summary>
         private MainViewModel MViewModel => App.MViewModel;
-
-        /// <summary>
-        /// Gets the app-wide SViewModel instance.
-        /// </summary>
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
+        private readonly RelayCommand<AlbumViewMode> UpdateViewModeCommand;
+        private readonly AddToPlaylistHelper PlaylistHelper;
+
+        private AlbumViewModel SelectedItem
+        {
+            get => (AlbumViewModel)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
 
         private readonly string Label = "Albums";
-
-        private static readonly DependencyProperty SelectedAlbumProperty =
-            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumsPage), null);
-
-        private AlbumViewModel SelectedAlbum
-        {
-            get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
-            set => SetValue(SelectedAlbumProperty, value);
-        }
-
-        private bool IsCtrlPressed;
-
-        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
-        private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
-
-        public string SortProperty = "Title";
-        public SortDirection CurrentSort = SortDirection.Ascending;
-        #endregion
+        private double? _offset = null;
 
         public AlbumsPage()
+            : base("Title", App.MViewModel.Albums)
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            _navigationHelper = new NavigationHelper(this);
-            _navigationHelper.LoadState += NavigationHelper_LoadState;
-            Loaded += AlbumsPage_Loaded;
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
+            UpdateViewModeCommand = new(UpdateViewMode);
+
+            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
         }
 
-        private void AlbumsPage_Loaded(object sender, RoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            ApplySettingsToView();
-
-            ApplyPlaylistItems(AddTo);
-            ApplyPlaylistItems(AddTo123);
+            if (_offset != null)
+                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
-        private void ApplyPlaylistItems(MenuFlyout addTo)
-        {
-            addTo.Items.Clear();
-
-            MenuFlyoutItem newPlaylistItem = new()
-            {
-                Text = "New playlist",
-                Icon = new FontIcon
-                {
-                    Glyph = "\uE93F",
-                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                }
-            };
-
-            newPlaylistItem.Click += NewPlaylistItem_Click;
-
-            addTo.Items.Add(newPlaylistItem);
-
-            if (App.MViewModel.Playlists.Count > 0)
-            {
-                addTo.Items.Add(new MenuFlyoutSeparator());
-            }
-
-            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
-            {
-                MenuFlyoutItem item = new()
-                {
-                    Text = playlist.Title,
-                    Icon = new FontIcon
-                    {
-                        Glyph = "\uE93F",
-                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                    },
-                    Tag = playlist
-                };
-
-                item.Click += Item_Click;
-
-                addTo.Items.Add(item);
-            }
-        }
-
-        private void ApplyPlaylistItems(MenuFlyoutSubItem addTo)
-        {
-            addTo.Items.Clear();
-
-            MenuFlyoutItem newPlaylistItem = new()
-            {
-                Text = "New playlist",
-                Icon = new FontIcon
-                {
-                    Glyph = "\uE93F",
-                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                }
-            };
-
-            newPlaylistItem.Click += NewPlaylistItem_Click;
-
-            addTo.Items.Add(newPlaylistItem);
-
-            if (App.MViewModel.Playlists.Count > 0)
-            {
-                addTo.Items.Add(new MenuFlyoutSeparator());
-            }
-
-            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
-            {
-                MenuFlyoutItem item = new()
-                {
-                    Text = playlist.Title,
-                    Icon = new FontIcon
-                    {
-                        Glyph = "\uE93F",
-                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                    },
-                    Tag = playlist
-                };
-
-                item.Click += Item_Click;
-
-                addTo.Items.Add(item);
-            }
-        }
-
-        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
-        {
-            List<SongViewModel> songs = new();
-
-            PlaylistViewModel playlist = new()
-            {
-                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
-                Description = "",
-                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                Duration = "0"
-            };
-
-            for (int i = 0; i < MViewModel.Songs.Count; i++)
-            {
-                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
-                {
-                    songs.Add(MViewModel.Songs[i]);
-                }
-            }
-
-            // This will automatically save the playlist to the db
-            await playlist.AddSongsAsync(songs, true);
-        }
-
-        private async void Item_Click(object sender, RoutedEventArgs e)
-        {
-            List<SongViewModel> songs = new();
-            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
-
-            for (int i = 0; i < MViewModel.Songs.Count; i++)
-            {
-                if (MViewModel.Songs[i].Album == SelectedAlbum.Title)
-                {
-                    songs.Add(MViewModel.Songs[i]);
-                }
-            }
-
-            await playlist.AddSongsAsync(songs);
-        }
-
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            Albums.Filter = null;
-            Albums.SortDescriptions.Clear();
-            Albums.SortDescriptions.Add(new SortDescription(SortProperty, CurrentSort));
+            if (e.PageState != null)
+            {
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
+            }
         }
 
-        #region Event handlers
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            if (!KeyboardHelpers.IsCtrlPressed())
-            {
-                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-                {
-                    Frame.SetListDataItemForNextConnectedAnimation(album);
-                    _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            var scr = MainGrid.FindVisualChild<ScrollViewer>();
+            if (scr != null)
+                e.PageState["Offset"] = scr.VerticalOffset;
+        }
+    }
 
-                    SelectedAlbum = null;
-                }
-            }
+    // Playlists
+    public sealed partial class AlbumsPage
+    {
+        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var name = SelectedItem.Title;
+            var items = new List<SongViewModel>();
+
+            foreach (var itm in MViewModel.Songs)
+                if (itm.Album == name)
+                    items.Add(itm);
+
+            if (playlist == null)
+                return PlaylistHelper.CreateNewPlaylistAsync(items);
             else
+                return playlist.AddSongsAsync(items);
+        }
+    }
+
+    // Event handlers
+    public sealed partial class AlbumsPage
+    {
+        private void UpdateViewMode(AlbumViewMode viewMode)
+            => SViewModel.AlbumViewMode = viewMode;
+
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
             {
-                if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-                {
-                    SelectedAlbum = album;
-                }
+                Frame.SetListDataItemForNextConnectedAnimation(album);
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }
 
-        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                SelectedAlbum = album;
-                AlbumFlyout.ShowAt(MainGrid, e.GetPosition(MainGrid));
-            }
-        }
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
 
-        private void ShowArtist_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(ArtistSongsPage), SelectedAlbum.Artist);
-            SelectedAlbum = null;
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (AlbumViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -254,336 +120,15 @@ namespace Rise.App.Views
             DiscyOnAlbum.IsOpen = true;
         }
 
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Songs.Filter = null;
-            Songs.SortDescriptions.Clear();
-
-            if (SelectedAlbum != null)
-            {
-                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-            }
-            else
-            {
-                Songs.SortDescriptions.Add(new SortDescription("Album", CurrentSort));
-            }
-
-            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
-            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
-
-            await EventsLogic.StartMusicPlaybackAsync();
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-        {
-            Songs.Filter = null;
-            if (SelectedAlbum != null)
-            {
-                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-            }
-
-            await EventsLogic.StartMusicPlaybackAsync();
-        }
-
-        private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFlyoutItem item = sender as MenuFlyoutItem;
-
-            Albums.SortDescriptions.Clear();
-            string tag = item.Tag.ToString();
-            switch (tag)
-            {
-                case "Ascending":
-                    CurrentSort = SortDirection.Ascending;
-                    break;
-
-                case "Descending":
-                    CurrentSort = SortDirection.Descending;
-                    break;
-
-                default:
-                    SortProperty = tag;
-                    break;
-            }
-
-            Albums.SortDescriptions.
-                Add(new SortDescription(SortProperty, CurrentSort));
-        }
-        #endregion
-
-        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => Frame.Navigate(typeof(ArtistSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            _navigationHelper.OnNavigatedTo(e);
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-
-        private void ApplySettingsToView()
-        {
-            if (SViewModel.ShowTitleInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowGenreInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowArtistInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = false;
-                }
-            }
-
-            if (SViewModel.ShowThumbnailInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = false;
-                }
-            }
-
-            if (SViewModel.RoundedAlbumArt)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = false;
-                }
-            }
-
-            if (SViewModel.ShowReleaseYearInAlbums)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = false;
-                }
-            }
-        }
-
-        private void ShowArtistName_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsArtistVisible = false;
-                }
-            }
-        }
-
-        private void ShowThumbnail_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = true;
-                }
-                TitleViewOption.IsEnabled = true;
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsThumbnailVisible = false;
-                }
-                TitleViewOption.IsEnabled = false;
-                SViewModel.ShowTitleInAlbums = true;
-            }
-        }
-
-        private void ShowGenres_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsGenresVisible = false;
-                }
-            }
-        }
-
-        private void RoundedAlbumArtOption_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.HasRoundedAlbumArt = false;
-                }
-            }
-        }
-
-        private void ShowAlbumTitle_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = true;
-                }
-                ThumbnailViewOption.IsEnabled = true;
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsTitleVisible = false;
-                }
-                ThumbnailViewOption.IsEnabled = false;
-                SViewModel.ShowThumbnailInAlbums = true;
-            }
-        }
-
-        private void ShowReleaseYear_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleMenuFlyoutItem item = sender as ToggleMenuFlyoutItem;
-            if (item.IsChecked)
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = true;
-                }
-            }
-            else
-            {
-                foreach (AlbumViewModel album in Albums)
-                {
-                    album.IsReleaseYearVisible = false;
-                }
-            }
-        }
-
-        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            IsCtrlPressed = e.Key == Windows.System.VirtualKey.Control;
-        }
-
-        private void ViewMode_Click(object sender, RoutedEventArgs e)
-        {
-            if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Tiles")
-            {
-                SViewModel.IsListInAlbumsPage = false;
-                SViewModel.IsTilesInAlbumsPage = true;
-                System.Diagnostics.Debug.WriteLine("Tiles");
-            }
-            else if (((string)(sender as RadioMenuFlyoutItem).Tag) == "Lists")
-            {
-                SViewModel.IsTilesInAlbumsPage = false;
-                SViewModel.IsListInAlbumsPage = true;
-                System.Diagnostics.Debug.WriteLine("Lists");
-            }
-        }
-
-        private void Border_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-
-        }
-
         private async void AddFolders_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "Manage local media folders";
-            dialog.CloseButtonText = "Close";
-            dialog.Content = new Settings.MediaSourcesPage();
-            var result = await dialog.ShowAsync();
-        }
-
-        private async void Props_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedAlbum.StartEditAsync();
+            ContentDialog dialog = new()
+            {
+                Title = "Manage local media folders",
+                CloseButtonText = "Close",
+                Content = new Settings.MediaSourcesPage()
+            };
+            _ = await dialog.ShowAsync();
         }
     }
 }

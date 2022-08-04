@@ -1,309 +1,107 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Converters;
+using Rise.App.Helpers;
+using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common;
 using Rise.Common.Constants;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using Windows.Storage;
-using Windows.System;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 namespace Rise.App.Views
 {
-    public sealed partial class ArtistSongsPage : Page
+    public sealed partial class ArtistSongsPage : MediaPageBase
     {
-        #region Variables
-        public static ArtistSongsPage Current;
+        private MainViewModel MViewModel => App.MViewModel;
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private SettingsViewModel SViewModel => App.SViewModel;
 
-        XmlDocument xmlDoc = new();
-        /// <summary>
-        /// Gets the app-wide MViewModel instance.
-        /// </summary>
-        public MainViewModel MViewModel => App.MViewModel;
+        private readonly AddToPlaylistHelper PlaylistHelper;
 
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        private readonly NavigationHelper _navigationHelper;
+        private MediaCollectionViewModel AlbumsViewModel;
+        private readonly AddToPlaylistHelper AlbumPlaylistHelper;
 
-        private static readonly DependencyProperty SelectedArtistProperty =
-            DependencyProperty.Register("SelectedArtist", typeof(ArtistViewModel), typeof(ArtistSongsPage), null);
+        public static readonly DependencyProperty SelectedAlbumProperty =
+            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel),
+                typeof(ArtistSongsPage), new PropertyMetadata(null));
 
-        private ArtistViewModel SelectedArtist
+        public SongViewModel SelectedItem
         {
-            get => (ArtistViewModel)GetValue(SelectedArtistProperty);
-            set => SetValue(SelectedArtistProperty, value);
+            get => (SongViewModel)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
 
-        private SongViewModel _song;
-        public SongViewModel SelectedSong
-        {
-            get => MViewModel.SelectedSong;
-            set => MViewModel.SelectedSong = value;
-        }
-
-        private AdvancedCollectionView Songs => MViewModel.FilteredSongs;
-        private AdvancedCollectionView Albums => MViewModel.FilteredAlbums;
-
-        private string SortProperty = "Title";
-        private string SortName = "Title";
-
-        private SortDirection CurrentSort = SortDirection.Ascending;
-        #endregion
-
-        public ArtistSongsPage()
-        {
-            InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            DataContext = this;
-            Current = this;
-
-            _navigationHelper = new(this);
-            _navigationHelper.LoadState += NavigationHelper_LoadState;
-            _navigationHelper.SaveState += NavigationHelper_SaveState;
-
-            Loaded += ArtistSongsPage_Loaded;
-        }
-        
-        private async void ArtistSongsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            SortName = "Title";
-            SortButton.Label = "Sort by: " + SortName;
-            string name = SelectedArtist.Name;
-
-            if (name == "Unknown Artist")
-            {
-                ArtistAbout.Visibility = Visibility.Collapsed;
-                LastFMClickables.Visibility = Visibility.Collapsed;
-                NoListeners.Visibility = Visibility.Collapsed;
-            }
-            else if (!NetworkInterface.GetIsNetworkAvailable())
-            {
-                ArtistAbout.Visibility = Visibility.Collapsed;
-                LastFMClickables.Visibility = Visibility.Collapsed;
-                NoListeners.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ArtistAbout.Visibility = Visibility.Visible;
-                LastFMClickables.Visibility = Visibility.Visible;
-                try
-                {
-                    string genre = await Task.Run(() => GetGenre(name));
-                    string artistName = SelectedArtist.Name;
-
-                    if (!SongAlbums.Text.Contains(genre))
-                    {
-                        SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
-                    }
-
-                    ReadMoreAbout.Content = "Read more";
-                    TopTracksLis.ItemsSource = await Task.Run(() => GetTopTracks(name));
-
-                    NoListeners.Text = await Task.Run(() => GetMonthlyListeners(artistName));
-                    AboutArtist.Text = await Task.Run(() => GetArtistInfo(artistName));
-                }
-                catch { }
-            }
-        }
-
-        public string GetTrackAlbum(string track)
-        {
-            try
-            {
-                string m_strFilePath = URLs.Deezer + "/search/track/?q=" + track + "&output=xml&limit=1";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/track/album/title");
-                if (node != null)
-                {
-                    string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
-                    return yes;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
-            return "";
-        }
-
-        public List<TopTracksViewModel> GetTopTracks(string artist)
-        {
-            try
-            {
-                LFM lfm = null;
-                string m_strFilePath = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.Key + "&limit=8";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                StringReader stringReader = new(xmlStr);
-                XmlSerializer xs = new(typeof(LFM));
-                XmlTextReader xmlReader = new(stringReader);
-                lfm = (LFM)xs.Deserialize(xmlReader);
-                List<Track> track = lfm.Toptracks.Track;
-                List<TopTracksViewModel> tracks = new();
-                foreach (Track trackname in track)
-                {
-                    tracks.Add(new TopTracksViewModel(trackname.Name, trackname.Rank));
-                }
-                return tracks;
-            } catch
-            {
-
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Task to get description about artist.
-        /// </summary>
-        /// <param name="artist">Artist name.</param>
-        /// <returns></returns>
-        public string GetArtistInfo(string artist)
-        {
-            try
-            {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
-
-                if (node != null)
-                {
-                    string url = node.InnerText;
-                    node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
-                    string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "");
-                    return okay;
-                }
-            }
-            catch
-            {
-
-            }
-
-            return "No artist info";
-        }
-
-        /// <summary>
-        /// Task to get the genre of the artist.
-        /// </summary>
-        /// <param name="artist">Artist name.</param>
-        /// <returns></returns>
-        public string GetGenre(string artist)
-        {
-            try
-            {
-                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
-                return node != null ? textInfo.ToTitleCase(node.InnerText) : "Unknown Genre";
-            }
-            catch
-            {
-
-            }
-
-            return "Unknown Genre";
-        }
-
-        public string GetArtistInfoBig(string artist)
-        {
-            try
-            {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key + "&autocorrect=1";
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/url");
-
-                if (node != null)
-                {
-                    string url = node.InnerText;
-                    node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
-                    string okay = node.InnerText.Replace("<a href=\"" + url + "\">Read more on Last.fm</a>", "").Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
-                    return okay;
-                }
-            }
-            catch
-            {
-
-            }
-
-            return "No artist info";
-        }
-
-        public string GetMonthlyListeners(string artist)
-        {
-            try
-            {
-                string m_strFilePath = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
-                string xmlStr;
-                WebClient wc = new();
-                xmlStr = wc.DownloadString(m_strFilePath);
-                xmlDoc.LoadXml(xmlStr);
-                XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
-                _ = long.TryParse(node.InnerText, out long num);
-                return $"{FormatNumber.Format(num)} listeners.";
-            }
-            catch
-            {
-
-            }
-
-            return "";
-        }
-
-        private static readonly DependencyProperty SelectedAlbumProperty =
-            DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel), typeof(AlbumSongsPage), null);
-
-        private AlbumViewModel SelectedAlbum
+        public AlbumViewModel SelectedAlbum
         {
             get => (AlbumViewModel)GetValue(SelectedAlbumProperty);
             set => SetValue(SelectedAlbumProperty, value);
         }
 
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
+        private ArtistViewModel SelectedArtist;
+        private double? _offset = null;
+
+        // These handle the way artist biography is displayed
+        private bool ShowingSummarized = true;
+        private string ShortBio;
+        private string LongBio;
+
+        public ArtistSongsPage()
+            : base("Title", App.MViewModel.Songs)
+        {
+            AlbumsViewModel = new("Year", MViewModel.Albums, MViewModel.Songs, MPViewModel);
+
+            InitializeComponent();
+
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
+
+            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
+            PlaylistHelper.AddPlaylistsToSubItem(AddToList);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+
+            AlbumPlaylistHelper = new(MViewModel.Playlists, AddAlbumToPlaylistAsync);
+            AlbumPlaylistHelper.AddPlaylistsToSubItem(AddTo);
+        }
+
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_offset != null)
+                RootViewer.ChangeView(null, _offset, null);
+
+            string name = SelectedArtist.Name;
+            if (!SViewModel.FetchOnlineData ||
+                !WebHelpers.IsInternetAccessAvailable() ||
+                name == ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource"))
+            {
+                VisualStateManager.GoToState(this, "Unavailable", true);
+            }
+            else
+            {
+                string genre = await GetGenreFromArtistAsync(name);
+                SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
+
+                TopTracks.ItemsSource = await GetTopTracksAsync(name);
+                NoListeners.Text = await GetMonthlyListenersAsync(name);
+
+                ShortBio = await GetArtistBioAsync(name, true);
+                AboutArtist.Text = ShortBio;
+            }
+        }
+
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (e.NavigationParameter is Guid id)
@@ -311,37 +109,108 @@ namespace Rise.App.Views
                 SelectedArtist = App.MViewModel.Artists.
                     FirstOrDefault(a => a.Model.Id == id);
 
-                Songs.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name;
-                Albums.Filter = a => ((AlbumViewModel)a).Artist == SelectedArtist.Name;
-
-                Albums.SortDescriptions.Clear();
-                Albums.SortDescriptions.Add(new SortDescription("Year", SortDirection.Ascending));
+                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Artist == SelectedArtist.Name;
+                AlbumsViewModel.Items.Filter = a => ((AlbumViewModel)a).Artist == SelectedArtist.Name;
             }
             else if (e.NavigationParameter is string str)
             {
-                SelectedArtist = App.MViewModel.Artists.FirstOrDefault(a => a.Name == str);
-                Songs.Filter = s => ((SongViewModel)s).Artist == str
-                    || ((SongViewModel)s).AlbumArtist == str;
+                SelectedArtist = App.MViewModel.Artists.
+                    FirstOrDefault(a => a.Name == str);
 
+                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Artist == str || ((SongViewModel)s).AlbumArtist == str;
             }
 
-            Songs.SortDescriptions.Clear();
-            Songs.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+            if (e.PageState != null)
+            {
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
+            }
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
+            e.PageState["Offset"] = RootViewer.VerticalOffset;
+
+            AlbumsViewModel.Items.Filter = null;
             Frame.SetListDataItemForNextConnectedAnimation(SelectedArtist);
         }
+    }
 
-        #region Event handlers
-        private async void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+    // Playlists
+    public sealed partial class ArtistSongsPage
+    {
+        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            if (SelectedItem == null)
+            {
+                var items = new List<SongViewModel>();
+                foreach (var itm in MediaViewModel.Items)
+                    items.Add((SongViewModel)itm);
+
+                if (playlist == null)
+                    return PlaylistHelper.CreateNewPlaylistAsync(items);
+                else
+                    return playlist.AddSongsAsync(items);
+            }
+
+            if (playlist == null)
+                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
+            else
+                return playlist.AddSongAsync(SelectedItem);
+        }
+
+        private Task AddAlbumToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var name = SelectedAlbum.Title;
+            var items = new List<SongViewModel>();
+
+            foreach (var itm in MViewModel.Songs)
+                if (itm.Album == name)
+                    items.Add(itm);
+
+            if (playlist == null)
+                return AlbumPlaylistHelper.CreateNewPlaylistAsync(items);
+            else
+                return playlist.AddSongsAsync(items);
+        }
+    }
+
+    // Event handlers
+    public sealed partial class ArtistSongsPage
+    {
+        private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await EventsLogic.StartMusicPlaybackAsync(index);
-            }
+                MediaViewModel.PlayFromItemCommand.Execute(song);
+        }
+
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+        }
+
+        private void SongFlyout_Opening(object sender, object e)
+        {
+            var fl = sender as MenuFlyout;
+            var cont = MainList.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedItem = (SongViewModel)cont;
+        }
+
+        private void AlbumsFlyout_Opening(object sender, object e)
+        {
+            var fl = sender as MenuFlyout;
+            var cont = MainGrid.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedAlbum = (AlbumViewModel)cont;
         }
 
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
@@ -349,419 +218,161 @@ namespace Rise.App.Views
             DiscyOnSong.IsOpen = true;
         }
 
-        private void MainList_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                SelectedSong = song;
-                SongFlyout.ShowAt(MainList, e.GetPosition(MainList));
-            }
-        }
-
-        private async void Props_Click(object sender, RoutedEventArgs e)
-            => await SelectedSong.StartEditAsync();
-
-        private void ShowAlbum_Click(object sender, RoutedEventArgs e)
-            => _ = Frame.Navigate(typeof(AlbumSongsPage), SelectedSong.Album);
-
-        private async void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedSong.StartEditAsync();
-            SelectedSong = null;
-        }
-
-        private void SortFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFlyoutItem item = sender as MenuFlyoutItem;
-            Songs.SortDescriptions.Clear();
-
-            string tag = item.Tag.ToString();
-            switch (tag)
-            {
-                case "Ascending":
-                    CurrentSort = SortDirection.Ascending;
-                    break;
-
-                case "Descending":
-                    CurrentSort = SortDirection.Descending;
-                    break;
-
-                case "Track":
-                    Songs.SortDescriptions.
-                        Add(new SortDescription("Disc", CurrentSort));
-                    SortProperty = tag;
-                    SortName = "Track number";
-                    break;
-
-                case "Title":
-                    SortProperty = tag;
-                    SortName = "Title";
-                    break;
-
-                case "Genres":
-                    SortProperty = tag;
-                    SortName = "Genre";
-                    break;
-
-                case "Year":
-                    SortProperty = tag;
-                    SortName = "Year";
-                    break;
-
-                default:
-                    SortProperty = tag;
-                    break;
-            }
-
-            Songs.SortDescriptions.
-                Add(new SortDescription(SortProperty, CurrentSort));
-            SortButton.Label = "Sort by: " + SortName;
-        }
-
-        private void GridView_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
-            }
-        }
-
-        private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                SelectedAlbum = album;
-                AlbumFlyout.ShowAt(AlbumsGrid, e.GetPosition(AlbumsGrid));
-            }
-        }
-
-        #endregion
-
-        #region Common handlers
-        private async void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                int index = MainList.Items.IndexOf(song);
-                await EventsLogic.StartMusicPlaybackAsync(index);
-                return;
-            }
-
-            await EventsLogic.StartMusicPlaybackAsync();
-        }
-
-        private async void ShuffleButton_Click(object sender, RoutedEventArgs e)
-            => await EventsLogic.StartMusicPlaybackAsync(0, true);
-
-        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.FocusSong(ref _song, e);
-
-        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
-            => EventsLogic.UnfocusSong(ref _song, e);
-
-        private void Album_Click(Hyperlink sender, RoutedEventArgs args)
-            => Frame.Navigate(typeof(AlbumSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
-
-        private void Artist_Click(Hyperlink sender, HyperlinkClickEventArgs args)
-            => Frame.Navigate(typeof(ArtistSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
-
-        private void MainList_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
-        {
-            // Check if the list view height is larger than this page's height, if this is true,
-            // try to handle scrolling
-            if (MainList.Height > Height)
-            {
-                (MainList.HeaderTemplate.GetChildren<Border>().FirstOrDefault().Background as ImageBrush).Opacity = MainList.ActualOffset.Y;
-            }
-        }
-        #endregion
-
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (SongsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Visible;
-                AlbumsGrid.Visibility = Visibility.Collapsed;
+                MainGrid.Visibility = Visibility.Collapsed;
             }
             else if (AlbumsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Collapsed;
-                AlbumsGrid.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Visible;
             }
         }
 
-        private void Root_Loaded(object sender, RoutedEventArgs e)
+        private async void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
         {
-            AddToCommand.Items.Clear();
-
-            MenuFlyoutItem newCommandPlaylistItem = new()
+            if (ShowingSummarized)
             {
-                Text = "New playlist",
-                Icon = new FontIcon
-                {
-                    Glyph = "\uE93F",
-                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                }
-            };
+                if (string.IsNullOrEmpty(LongBio))
+                    LongBio = await GetArtistBioAsync(SelectedArtist.Name, false);
 
-            newCommandPlaylistItem.Click += NewCommandPlaylistItem_Click;
-
-            AddToCommand.Items.Add(newCommandPlaylistItem);
-
-            if (App.MViewModel.Playlists.Count > 0)
-            {
-                AddToCommand.Items.Add(new MenuFlyoutSeparator());
-            }
-
-            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
-            {
-                MenuFlyoutItem commanditem = new()
-                {
-                    Text = playlist.Title,
-                    Icon = new FontIcon
-                    {
-                        Glyph = "\uE93F",
-                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                    },
-                    Tag = playlist
-                };
-
-                commanditem.Click += CommandItem_Click;
-
-                AddToCommand.Items.Add(commanditem);
-            }
-
-
-
-            AddTo.Items.Clear();
-
-            MenuFlyoutItem newPlaylistItem = new()
-            {
-                Text = "New playlist",
-                Icon = new FontIcon
-                {
-                    Glyph = "\uE93F",
-                    FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                }
-            };
-
-            newPlaylistItem.Click += NewPlaylistItem_Click;
-
-            AddTo.Items.Add(newPlaylistItem);
-
-            if (App.MViewModel.Playlists.Count > 0)
-            {
-                AddTo.Items.Add(new MenuFlyoutSeparator());
-            }
-
-            foreach (PlaylistViewModel playlist in App.MViewModel.Playlists)
-            {
-                MenuFlyoutItem item = new()
-                {
-                    Text = playlist.Title,
-                    Icon = new FontIcon
-                    {
-                        Glyph = "\uE93F",
-                        FontFamily = new Windows.UI.Xaml.Media.FontFamily("ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons")
-                    },
-                    Tag = playlist
-                };
-
-                item.Click += Item_Click;
-
-                AddTo.Items.Add(item);
-            }
-        }
-        private async void NewPlaylistItem_Click(object sender, RoutedEventArgs e)
-        {
-            PlaylistViewModel playlist = new()
-            {
-                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
-                Description = "",
-                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                Duration = "0"
-            };
-
-            // This will automatically save the playlist to the db
-            await playlist.AddSongAsync(SelectedSong);
-        }
-
-        private async void NewCommandPlaylistItem_Click(object sender, RoutedEventArgs e)
-        {
-            List<SongViewModel> songs = new();
-
-            PlaylistViewModel playlist = new()
-            {
-                Title = $"Untitled Playlist #{App.MViewModel.Playlists.Count + 1}",
-                Description = "",
-                Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                Duration = "0"
-            };
-
-            for (int i = 0; i < MViewModel.Songs.Count; i++)
-            {
-                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
-                {
-                    songs.Add(MViewModel.Songs[i]);
-                }
-            }
-
-            // This will automatically save the playlist to the db
-            await playlist.AddSongsAsync(songs);
-        }
-
-        private async void Item_Click(object sender, RoutedEventArgs e)
-        {
-            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
-            await playlist.AddSongAsync(SelectedSong);
-        }
-
-        private async void ShowinFE_Click(object sender, RoutedEventArgs e)
-        {
-            string folderlocation = SelectedSong.Location;
-            string filename = SelectedSong.Filename;
-            string result = folderlocation.Replace(filename, "");
-            Debug.WriteLine(result);
-
-            try
-            {
-                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(result);
-                await Launcher.LaunchFolderAsync(folder);
-            }
-            catch
-            {
-
-            }
-        }
-
-        private void ReadMoreAbout_Click(object sender, RoutedEventArgs e)
-        {
-            string AboutArtistBig = GetArtistInfoBig(SelectedArtist.Name);
-            string artist = GetArtistInfo(SelectedArtist.Name);
-            string currentinfo = AboutArtist.Text.ToString();
-            if (currentinfo == artist)
-            {
-                AboutArtist.Text = AboutArtistBig;
+                AboutArtist.Text = LongBio;
                 ReadMoreAbout.Content = "Read less";
             }
             else
             {
-                AboutArtist.Text = artist;
+                AboutArtist.Text = ShortBio;
                 ReadMoreAbout.Content = "Read more";
             }
-        }
 
-        private async void CommandItem_Click(object sender, RoutedEventArgs e)
-        {
-            List<SongViewModel> songs = new();
-            PlaylistViewModel playlist = (sender as MenuFlyoutItem).Tag as PlaylistViewModel;
-
-            for (int i = 0; i < MViewModel.Songs.Count; i++)
-            {
-                if (MViewModel.Songs[i].Artist == SelectedArtist.Name)
-                {
-                    songs.Add(MViewModel.Songs[i]);
-                }
-            }
-
-            await playlist.AddSongsAsync(songs);
-        }
-
-        private void HyperlinkButton_Click_1(Hyperlink sender, RoutedEventArgs e)
-           => Frame.Navigate(typeof(AlbumSongsPage), (sender.Inlines.FirstOrDefault() as Run).Text);
-
-        private async void PropsHover_Click(object sender, RoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                SelectedSong = song;
-                await SelectedSong.StartEditAsync();
-            }
-        }
-
-        private async void PlayAlbumButton_Click(object sender, RoutedEventArgs e)
-        {
-            Songs.Filter = null;
-            Songs.SortDescriptions.Clear();
-
-            if (SelectedAlbum != null)
-            {
-                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-            }
-            else
-            {
-                Songs.SortDescriptions.Add(new SortDescription("Album", CurrentSort));
-            }
-
-            Songs.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
-            Songs.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
-
-            await EventsLogic.StartMusicPlaybackAsync();
-        }
-
-        private async void ShuffleAlbumButton_Click(object sender, RoutedEventArgs e)
-        {
-            Songs.Filter = null;
-            if (SelectedAlbum != null)
-            {
-                Songs.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
-            }
-
-            await EventsLogic.StartMusicPlaybackAsync(0, true);
-        }
-
-        private async void PropsAlbum_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedAlbum.StartEditAsync();
+            ShowingSummarized = !ShowingSummarized;
         }
 
         private void UpDown_Click(object sender, RoutedEventArgs e)
         {
             if (UpDown.Label == "Expand")
-            {
-                UpDownIcon.Glyph = "\uE010";
-                SortButton.Visibility = Visibility.Visible;
-                UpDown.Label = "Collapse";
-                Discography.MaxHeight = 50000;
-            }
+                VisualStateManager.GoToState(this, "Expanded", true);
             else
-            {
-                UpDownIcon.Glyph = "\uE011";
-                SortButton.Visibility = Visibility.Collapsed;
-                UpDown.Label = "Expand";
-                Discography.MaxHeight = 18;
-            }
+                VisualStateManager.GoToState(this, "Collapsed", true);
         }
 
-        private async void CustomisePage_Click(object sender, RoutedEventArgs e)
+        private async Task<List<Track>> GetTopTracksAsync(string artist)
         {
-            ContentDialog dialog = new ContentDialog();
+            try
+            {
+                string lfmUrl = URLs.LastFM + "artist.gettoptracks&artist=" + artist + "&api_key=" + LastFM.Key + "&limit=8";
+                using (var client = new HttpClient())
+                {
+                    var result = await client.TryGetStringAsync(new(lfmUrl));
+                    if (result.Succeeded)
+                    {
+                        StringReader strReader = new(result.Value);
+                        XmlSerializer serializer = new(typeof(LFM));
+                        XmlTextReader xmlReader = new(strReader);
 
-            dialog.Title = "Customise this page";
-            dialog.PrimaryButtonText = "Save changes";
-            dialog.CloseButtonText = "Cancel";
+                        var lfm = (LFM)serializer.Deserialize(xmlReader);
+                        return lfm.Toptracks.Track;
+                    }
+                }
+            }
+            catch { }
 
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.Content = new Dialogs.LibraryPageEditDialog();
+            return null;
+        }
 
-            var result = await dialog.ShowAsync();
+        private async Task<string> GetGenreFromArtistAsync(string artist)
+        {
+            try
+            {
+                var textInfo = new CultureInfo(ApplicationLanguages.PrimaryLanguageOverride).TextInfo;
+                string lfmUrl = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
+
+                using (var client = new HttpClient())
+                {
+                    var res = await client.TryGetStringAsync(new(lfmUrl));
+                    if (res.Succeeded)
+                    {
+                        var doc = new XmlDocument();
+                        doc.LoadXml(res.Value);
+
+                        var node = doc.DocumentElement.SelectSingleNode("/lfm/artist/tags/tag/name");
+                        if (node != null)
+                            return textInfo.ToTitleCase(node.InnerText);
+                    }
+                }
+            }
+            catch { }
+
+            return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
+        }
+
+        private async Task<string> GetArtistBioAsync(string artist, bool summarized)
+        {
+            try
+            {
+                var textInfo = new CultureInfo(ApplicationLanguages.PrimaryLanguageOverride).TextInfo;
+                string lfmUrl = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key + "&autocorrect=1";
+
+                using (var client = new HttpClient())
+                {
+                    var res = await client.TryGetStringAsync(new(lfmUrl));
+                    if (res.Succeeded)
+                    {
+                        var doc = new XmlDocument();
+                        doc.LoadXml(res.Value);
+
+                        XmlNode node;
+                        if (summarized)
+                            node = doc.DocumentElement.SelectSingleNode("/lfm/artist/bio/summary");
+                        else
+                            node = doc.DocumentElement.SelectSingleNode("/lfm/artist/bio/content");
+
+                        if (node != null)
+                        {
+                            var url = doc.DocumentElement.SelectSingleNode("/lfm/artist/url");
+                            var noUrl = node.InnerText.
+                                Replace("<a href=\"" + url.InnerText + "\">Read more on Last.fm</a>", "");
+
+                            if (summarized)
+                                return noUrl;
+
+                            return noUrl.Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            return "No artist info.";
+        }
+
+        private async Task<string> GetMonthlyListenersAsync(string artist)
+        {
+            try
+            {
+                var textInfo = new CultureInfo(ApplicationLanguages.PrimaryLanguageOverride).TextInfo;
+                string lfmUrl = URLs.LastFM + "artist.getinfo&artist=" + artist + "&api_key=" + LastFM.Key;
+
+                using (var client = new HttpClient())
+                {
+                    var res = await client.TryGetStringAsync(new(lfmUrl));
+                    if (res.Succeeded)
+                    {
+                        var doc = new XmlDocument();
+                        doc.LoadXml(res.Value);
+
+                        var node = doc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
+                        if (node != null && long.TryParse(node.InnerText, out long num))
+                            return $"{FormatNumber.Format(num)} listeners.";
+                    }
+                }
+            }
+            catch { }
+
+            return "";
         }
     }
 }

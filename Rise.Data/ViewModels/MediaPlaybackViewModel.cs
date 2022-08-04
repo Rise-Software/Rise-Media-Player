@@ -113,40 +113,50 @@ namespace Rise.Data.ViewModels
         /// Begins playback of an <see cref="IMediaItem"/>.
         /// </summary>
         /// <param name="item">Item to play.</param>
+        /// <remarks>This method will automatically be canceled if necessary
+        /// without throwing <see cref="OperationCanceledException"/>.</remarks>
         public async Task PlaySingleItemAsync(IMediaItem item)
         {
-            var token = new CancellationToken();
             try
             {
-                await PlaybackCancelHelper.CompletePendingAsync(token);
-
-                var task = PlaySingleItemImpl(item, PlaybackCancelHelper.Token);
-                await PlaybackCancelHelper.RunAsync(task);
+                await PlaySingleItemAsync(item, new CancellationToken());
             }
-            catch (OperationCanceledException)
-            {
+            catch (OperationCanceledException) { }
+        }
 
-            }
+        /// <summary>
+        /// Begins playback of an <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <param name="item">Item to play.</param>
+        public async Task PlaySingleItemAsync(IMediaItem item, CancellationToken token)
+        {
+            await PlaybackCancelHelper.CompletePendingAsync(token);
+            await PlaybackCancelHelper.RunAsync(PlaySingleItemImpl(item, PlaybackCancelHelper.Token));
         }
 
         /// <summary>
         /// Begins playback of a collection of <see cref="IMediaItem"/>.
         /// </summary>
         /// <param name="items">Items to play.</param>
+        /// <remarks>This method will automatically be canceled if necessary
+        /// without throwing <see cref="OperationCanceledException"/>.</remarks>
         public async Task PlayItemsAsync(IEnumerable<IMediaItem> items)
         {
-            var token = new CancellationToken();
             try
             {
-                await PlaybackCancelHelper.CompletePendingAsync(token);
-
-                var task = PlayItemsImpl(items, PlaybackCancelHelper.Token);
-                await PlaybackCancelHelper.RunAsync(task);
+                await PlayItemsAsync(items, new CancellationToken());
             }
-            catch (OperationCanceledException)
-            {
+            catch (OperationCanceledException) { }
+        }
 
-            }
+        /// <summary>
+        /// Begins playback of a collection of <see cref="IMediaItem"/>.
+        /// </summary>
+        /// <param name="items">Items to play.</param>
+        public async Task PlayItemsAsync(IEnumerable<IMediaItem> items, CancellationToken token)
+        {
+            await PlaybackCancelHelper.CompletePendingAsync(token);
+            await PlaybackCancelHelper.RunAsync(PlayItemsImpl(items, PlaybackCancelHelper.Token));
         }
 
         private async Task PlaySingleItemImpl(IMediaItem item, CancellationToken token)

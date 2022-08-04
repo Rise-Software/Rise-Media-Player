@@ -1,5 +1,4 @@
 ﻿using Rise.Common;
-using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -46,16 +45,6 @@ namespace Rise.App.ViewModels
                     OnPropertyChanged();
                 }
             }
-        }
-
-        private bool _isFocused;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the item is focused.
-        /// </summary>
-        public bool IsFocused
-        {
-            get => _isFocused;
-            set => Set(ref _isFocused, value);
         }
 
         /// <summary>
@@ -269,14 +258,6 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Editing
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public async Task StartEditAsync()
-        {
-            _ = await typeof(Views.Albums.Properties.AlbumPropertiesPage).ShowInApplicationViewAsync(this, 380, 550, true);
-        }
-
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>

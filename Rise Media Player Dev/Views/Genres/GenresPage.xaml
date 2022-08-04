@@ -1,4 +1,4 @@
-<Page
+<uc:MediaPageBase
     x:Class="Rise.App.Views.GenresPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,18 +6,17 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="320"
-    d:Width="500"
+    d:DesignHeight="320"
+    d:DesignWidth="500"
+    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <conv:ResourceToString x:Key="StrToRes" />
-        </ResourceDictionary>
-    </Page.Resources>
+    <uc:MediaPageBase.Resources>
+        <conv:ResourceToString x:Key="StrToRes" />
+    </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
         <Grid.RowDefinitions>
@@ -30,19 +29,21 @@
             Style="{StaticResource TitleTextBlockStyle}"
             Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
         <GridView
+            x:Name="MainGrid"
             Grid.Row="1"
             Margin="-56,0"
-            Padding="56,0,56,120"
+            Padding="44,0,44,120"
             HorizontalAlignment="Stretch"
             animations:Connected.ListItemElementName="GenreThumb"
             animations:Connected.ListItemKey="GenreArt"
-            ItemsSource="{x:Bind Genres}"
-            SelectedItem="{x:Bind SelectedGenre, Mode=TwoWay}"
-            SelectionMode="Single"
-            Tapped="GridView_Tapped">
+            IsItemClickEnabled="True"
+            ItemClick="MainGrid_ItemClick"
+            ItemsSource="{x:Bind MediaViewModel.Items}"
+            SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+            SelectionMode="Single">
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:GenreViewModel">
-                    <Grid Width="150" Margin="12,12,12,12">
+                <DataTemplate x:DataType="viewmodels:GenreViewModel" x:DefaultBindMode="OneWay">
+                    <Grid Width="150" Margin="12">
                         <TextBlock
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -54,4 +55,4 @@
             </GridView.ItemTemplate>
         </GridView>
     </Grid>
-</Page>
+</uc:MediaPageBase>

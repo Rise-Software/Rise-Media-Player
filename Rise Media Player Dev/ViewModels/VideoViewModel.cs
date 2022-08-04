@@ -177,25 +177,6 @@ namespace Rise.App.ViewModels
 
         #region Editing
         /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        /*public async Task StartEditAsync()
-        {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-            if (file != null)
-            {
-                SongPropertiesViewModel props = new SongPropertiesViewModel(this, file.DateCreated)
-                {
-                    FileProps = await file.GetBasicPropertiesAsync()
-                };
-
-                _ = await typeof(PropertiesPage).
-                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
-            }
-        }*/
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()

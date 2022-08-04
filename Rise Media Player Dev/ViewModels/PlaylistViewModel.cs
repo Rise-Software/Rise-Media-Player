@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Rise.App.Views;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
@@ -437,12 +436,6 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Editing
-        public async Task StartEditAsync()
-        {
-            _ = await typeof(PlaylistPropertiesPage).
-                ShowInApplicationViewAsync(this, 380, 550, true);
-        }
-
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>

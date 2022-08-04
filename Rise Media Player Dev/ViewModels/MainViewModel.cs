@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.ChangeTrackers;
+﻿using Rise.App.ChangeTrackers;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
@@ -65,14 +64,6 @@ namespace Rise.App.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            FilteredSongs = new AdvancedCollectionView(Songs);
-            FilteredPlaylists = new AdvancedCollectionView(Playlists);
-            FilteredAlbums = new AdvancedCollectionView(Albums);
-            FilteredArtists = new AdvancedCollectionView(Artists);
-            FilteredGenres = new AdvancedCollectionView(Genres);
-            FilteredVideos = new AdvancedCollectionView(Videos);
-            FilteredNotifications = new AdvancedCollectionView(Notifications);
-
             QueryPresets.SongQueryOptions.
                 SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
             QueryPresets.SongQueryOptions.
@@ -88,63 +79,36 @@ namespace Rise.App.ViewModels
         /// The collection of songs in the list. 
         /// </summary>
         public readonly SafeObservableCollection<SongViewModel> Songs = new();
-        public readonly AdvancedCollectionView FilteredSongs;
 
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
         public readonly SafeObservableCollection<AlbumViewModel> Albums = new();
-        public readonly AdvancedCollectionView FilteredAlbums;
 
         /// <summary>
         /// The collection of artists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<ArtistViewModel> Artists = new();
-        public readonly AdvancedCollectionView FilteredArtists;
 
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
         public readonly SafeObservableCollection<GenreViewModel> Genres = new();
-        public readonly AdvancedCollectionView FilteredGenres;
 
         /// <summary>
         /// The collection of videos in the list. 
         /// </summary>
         public readonly SafeObservableCollection<VideoViewModel> Videos = new();
-        public readonly AdvancedCollectionView FilteredVideos;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
-        public readonly AdvancedCollectionView FilteredPlaylists;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
-        public readonly AdvancedCollectionView FilteredNotifications;
-
-        private SongViewModel _selectedSong;
-        /// <summary>
-        /// Gets or sets the currently selected song.
-        /// </summary>
-        public SongViewModel SelectedSong
-        {
-            get => _selectedSong;
-            set => Set(ref _selectedSong, value);
-        }
-
-        private VideoViewModel _selectedVideo;
-        /// <summary>
-        /// Gets or sets the currently selected video.
-        /// </summary>
-        public VideoViewModel SelectedVideo
-        {
-            get => _selectedVideo;
-            set => Set(ref _selectedVideo, value);
-        }
 
         /// <summary>
         /// Gets the complete list of data from the database.

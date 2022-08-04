@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Rise.App.Views;
 using Rise.Common;
-using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -274,17 +272,6 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        private bool _isFocused;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the item is focused.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsFocused
-        {
-            get => _isFocused;
-            set => Set(ref _isFocused, value);
-        }
         #endregion
 
         #region Backend
@@ -337,35 +324,6 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Editing
-        /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public async Task StartEditAsync()
-        {
-            if (!IsOnline)
-            {
-                try
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-                    if (file != null)
-                    {
-                        SongPropertiesViewModel props = new(this, file.DateCreated)
-                        {
-                            FileProps = await file.GetBasicPropertiesAsync()
-                        };
-
-                        _ = await typeof(SongPropertiesPage).
-                            PlaceInApplicationViewAsync(props, 380, 550, true);
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-        }
-
         /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
