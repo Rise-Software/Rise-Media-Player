@@ -259,20 +259,6 @@ namespace Rise.App.Views
                 VisualStateManager.GoToState(this, "Collapsed", true);
         }
 
-        private async void CustomisePage_Click(object sender, RoutedEventArgs e)
-        {
-            ContentDialog dialog = new()
-            {
-                Title = "Customise this page",
-                PrimaryButtonText = "Save changes",
-                CloseButtonText = "Cancel",
-
-                DefaultButton = ContentDialogButton.Primary,
-                Content = new Dialogs.LibraryPageEditDialog()
-            };
-            _ = await dialog.ShowAsync();
-        }
-
         private async Task<List<Track>> GetTopTracksAsync(string artist)
         {
             try

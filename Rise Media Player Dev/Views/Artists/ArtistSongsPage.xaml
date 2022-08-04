@@ -153,13 +153,6 @@
                                             </MenuFlyout>
                                         </AppBarButton.Flyout>
                                     </AppBarButton>
-
-                                    <AppBarSeparator />
-
-                                    <AppBarButton
-                                        x:Uid="/Information/EditArtist"
-                                        Click="CustomisePage_Click"
-                                        Icon="Edit" />
                                 </CommandBar>
                             </StackPanel>
                         </Grid>
