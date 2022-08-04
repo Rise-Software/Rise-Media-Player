@@ -1,123 +1,128 @@
-﻿using Rise.App.ViewModels;
+﻿using Rise.App.UserControls;
+using Rise.App.ViewModels;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
-    public sealed partial class SearchResultsPage : Page
+    public sealed partial class SearchResultsPage : MediaPageBase
     {
-        private string _searchText = string.Empty;
-        private readonly List<ArtistViewModel> suitableArtists = new();
-        private readonly List<SongViewModel> suitableSongs = new();
-        private readonly List<AlbumViewModel> suitableAlbums = new();
-        private string[] splitText;
-        private bool songFound, albumFound, artistFound;
+        private IEnumerable<IGrouping<string, object>> GroupedItems;
+        private string SearchText;
 
-        private async void SongsGrid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private readonly Dictionary<Type, string> ResourceNames = new()
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
-            }
-        }
+            { typeof(AlbumViewModel), "Albums" },
+            { typeof(ArtistViewModel), "Artists" },
+            { typeof(SongViewModel), "Songs" },
+        };
 
-        private void ArtistsGrid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is ArtistViewModel artist)
-            {
-                _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
-            }
-        }
-
-        private void AlbumsGrid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            if ((e.OriginalSource as FrameworkElement).DataContext is AlbumViewModel album)
-            {
-                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
-            }
-        }
+        private double? _offset = null;
 
         public SearchResultsPage()
+            : base("Title", App.MViewModel.Songs)
         {
             InitializeComponent();
+
+            NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            _searchText = e.Parameter as string;
-            splitText = _searchText.ToLower().Split(" ");
+            if (_offset != null)
+                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+        }
 
-            foreach (AlbumViewModel album in App.MViewModel.FilteredAlbums)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+            SearchText = e.NavigationParameter as string;
+            string[] splitText = SearchText.ToLower().Split(" ");
+
+            var suitableItems = new List<object>();
+            foreach (ArtistViewModel artist in App.MViewModel.Artists)
             {
-                albumFound = splitText.All((key) =>
-                {
-                    return album.Title.ToLower().Contains(key);
-                });
-
-                if (albumFound)
-                {
-                    suitableAlbums.Add(album);
-                }
-            }
-
-            foreach (SongViewModel song in App.MViewModel.FilteredSongs)
-            {
-                songFound = splitText.All((key) =>
-                {
-                    return song.Title.ToLower().Contains(key);
-                });
-
-                if (songFound)
-                {
-                    suitableSongs.Add(song);
-                }
-            }
-
-            foreach (ArtistViewModel artist in App.MViewModel.FilteredArtists)
-            {
-                artistFound = splitText.All((key) =>
+                bool suitable = splitText.All((key) =>
                 {
                     return artist.Name.ToLower().Contains(key);
                 });
 
-                if (artistFound)
+                if (suitable)
+                    suitableItems.Add(artist);
+            }
+
+            MediaViewModel.Items.Filter = e => splitText.All((key) =>
+            {
+                return ((SongViewModel)e).Title.ToLower().Contains(key);
+            });
+            suitableItems.AddRange(MediaViewModel.Items);
+
+            foreach (AlbumViewModel album in App.MViewModel.Albums)
+            {
+                bool suitable = splitText.All((key) =>
                 {
-                    suitableArtists.Add(artist);
-                }
+                    return album.Title.ToLower().Contains(key);
+                });
+
+                if (suitable)
+                    suitableItems.Add(album);
             }
 
-            if (suitableSongs.Count == 0)
+            GroupedItems = suitableItems.GroupBy(e => ResourceNames[e.GetType()]);
+            if (e.PageState != null)
             {
-                songFound = false;
+                bool result = e.PageState.TryGetValue("Offset", out var offset);
+                if (result)
+                    _offset = (double)offset;
             }
+        }
 
-            if (suitableArtists.Count == 0)
-            {
-                artistFound = false;
-            }
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            var scr = MainGrid.FindVisualChild<ScrollViewer>();
+            if (scr != null)
+                e.PageState["Offset"] = scr.VerticalOffset;
+        }
+    }
 
-            if (suitableAlbums.Count == 0)
-            {
-                albumFound = false;
-            }
+    // Event handlers
+    public sealed partial class SearchResultsPage
+    {
+        private void MainGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (e.ClickedItem is SongViewModel song)
+                MediaViewModel.PlayFromItemCommand.Execute(song);
+            else if (e.ClickedItem is AlbumViewModel album)
+                _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+            else if (e.ClickedItem is ArtistViewModel artist)
+                _ = Frame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+        }
+    }
 
-            if (suitableSongs.Count > 0)
-            {
-                songFound = true;
-            }
+    public sealed class SearchResultTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate SongTemplate { get; set; }
+        public DataTemplate AlbumTemplate { get; set; }
+        public DataTemplate ArtistTemplate { get; set; }
 
-            if (suitableArtists.Count > 0)
-            {
-                artistFound = true;
-            }
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            if (item is AlbumViewModel)
+                return AlbumTemplate;
+            else if (item is ArtistViewModel)
+                return ArtistTemplate;
 
-            if (suitableAlbums.Count > 0)
-            {
-                albumFound = true;
-            }
+            return SongTemplate;
+        }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            return SelectTemplateCore(item);
         }
     }
 }
