@@ -18,9 +18,17 @@
     <Grid
         x:Name="MainGrid"
         Padding="12"
-        x:DefaultBindMode="OneWay"
-        ColumnSpacing="8"
-        RowSpacing="4">
+        x:DefaultBindMode="OneWay">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
         <Border
             x:Name="AlbumThumb"
             CornerRadius="{x:Bind ThumbnailCornerRadius}"
@@ -70,7 +78,7 @@
             </HyperlinkButton>
 
             <TextBlock FontSize="13" Visibility="{x:Bind ShowReleaseYear}">
-                Release year: <Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
+                Release year:<Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
             </TextBlock>
         </StackPanel>
 
@@ -79,7 +87,9 @@
                 <VisualState x:Name="VerticalTile">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Width" Value="158" />
-                        <Setter Target="MainGrid.(atch:GridHelper.RowHeights)" Value="Auto,1*" />
+                        <Setter Target="MainGrid.RowSpacing" Value="4" />
+                        <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="134" />
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="0" />
 
                         <Setter Target="InfoPanel.(Grid.Row)" Value="1" />
 
@@ -91,7 +101,8 @@
                 <VisualState x:Name="HorizontalTile">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Width" Value="256" />
-                        <Setter Target="MainGrid.(atch:GridHelper.ColumnWidths)" Value="Auto,1*" />
+                        <Setter Target="MainGrid.ColumnSpacing" Value="8" />
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="0" />
 
                         <Setter Target="InfoPanel.(Grid.Column)" Value="1" />
 
