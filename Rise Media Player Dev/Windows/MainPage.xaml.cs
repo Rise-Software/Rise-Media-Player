@@ -176,8 +176,6 @@ namespace Rise.App.Views
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
 
-                ChangeIconPack(SViewModel.CurrentPack);
-
                 // Startup setting
                 if (ContentFrame.Content == null)
                 {
@@ -359,19 +357,6 @@ namespace Rise.App.Views
         }
         #endregion
 
-        #region Settings
-        public void ChangeIconPack(string newIcons)
-        {
-            NavDataSource.ChangeIconPack(newIcons);
-
-            // Refresh item templates.
-            NavView.MenuItemsSource = null;
-            NavView.FooterMenuItemsSource = null;
-
-            NavView.MenuItemsSource = NavDataSource.Items;
-            NavView.FooterMenuItemsSource = NavDataSource.FooterItems;
-        }
-
         public async Task HandleViewModelColorSettingAsync()
         {
             if (SViewModel.SelectedGlaze == GlazeTypes.MediaThumbnail)
@@ -395,7 +380,6 @@ namespace Rise.App.Views
                 }
             }
         }
-        #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -628,10 +612,7 @@ namespace Rise.App.Views
 
         private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(AllSettingsPage));
-            }
+            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
 
         private void OnAlbumButtonClick(object sender, RoutedEventArgs e)

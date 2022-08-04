@@ -57,7 +57,8 @@
             <ComboBox
                 ItemsSource="{x:Bind IconPacks}"
                 PlaceholderText="Default"
-                SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}" />
+                SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}"
+                SelectionChanged="IconStyle_SelectionChanged" />
         </uc:ExpanderControl>
 
 
