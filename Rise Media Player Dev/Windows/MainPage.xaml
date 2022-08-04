@@ -332,7 +332,6 @@
                 Height="40"
                 Margin="54,8,0,0"
                 VerticalAlignment="Top"
-                x:FieldModifier="public"
                 Canvas.ZIndex="1"
                 LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
                 MinTitleWidth="800"
@@ -570,7 +569,6 @@
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
-                    x:FieldModifier="public"
                     Navigated="OnNavigated"
                     NavigationFailed="OnNavigationFailed"
                     SizeChanged="OnContentFrameSizeChanged" />
