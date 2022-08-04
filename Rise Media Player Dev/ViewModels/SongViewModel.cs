@@ -110,6 +110,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
+        /// Gets the song bitrate.
+        /// </summary>
+        public uint Bitrate => Model.Bitrate / 1000;
+
+        /// <summary>
         /// Gets or sets the song album. 
         /// </summary>
         public string Album

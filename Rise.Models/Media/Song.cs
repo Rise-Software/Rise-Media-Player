@@ -57,6 +57,10 @@ namespace Rise.Models
         [NotNull]
         public uint Rating { get; set; }
 
+        [Column(nameof(Bitrate))]
+        [NotNull]
+        public uint Bitrate { get; set; }
+
         [Column(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
 
@@ -144,6 +148,8 @@ namespace Rise.Models
             string genre = musicProperties.Genre.FirstOrDefault() != null
                 ? musicProperties.Genre.FirstOrDefault() : "UnknownGenreResource";
 
+            uint bitrate = musicProperties.Bitrate;
+
             TimeSpan length = musicProperties.Duration;
 
             string thumb = URIs.AlbumThumb;
@@ -172,7 +178,8 @@ namespace Rise.Models
                 Length = length,
                 Year = musicProperties.Year,
                 Location = file.Path,
-                Rating = musicProperties.Rating
+                Rating = musicProperties.Rating,
+                Bitrate = bitrate
             };
         }
     }

@@ -6,7 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
-    mc:Ignorable="d">
+    d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d"
+    d:DesignWidth="500"
+    d:DesignHeight="600">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -19,7 +22,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <StackPanel Orientation="Vertical" Spacing="4">
+    <StackPanel Orientation="Vertical" Spacing="4" d:Padding="24,0">
         <uc:ExpanderControl
             x:Uid="/Details/AsFile"
             ExpanderStyle="Static"
@@ -69,14 +72,16 @@
                             MaxLines="2"
                             Style="{StaticResource TitleTextBlockStyle}"
                             Text="{x:Bind Props.Title}"
-                            TextTrimming="WordEllipsis" />
+                            d:Text="Title"
+                            TextTrimming="CharacterEllipsis" />
 
                         <TextBlock
                             Margin="3,-4,0,4"
                             FontSize="14"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{x:Bind Props.Artist}"
-                            TextTrimming="WordEllipsis" />
+                            d:Text="Unknown Artist"
+                            TextTrimming="CharacterEllipsis" />
 
                         <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
@@ -123,61 +128,73 @@
                     <TextBlock
                         x:Uid="/Details/SongTitle"
                         Margin="0,-2,0,0"
+                        d:Text="Song title"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Uid="/Details/SongArtist"
                         Grid.Row="1"
                         Margin="0,-2,0,0"
+                        d:Text="Artist(s)"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Uid="/Details/SongAlbum"
                         Grid.Row="2"
                         Margin="0,-2,0,0"
+                        d:Text="Album"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Uid="/Details/Track"
                         Grid.Row="3"
                         Margin="0,-2,0,0"
+                        d:Text="Track number"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Uid="/Details/Genre"
                         Grid.Row="4"
                         Margin="0,-2,0,0"
+                        d:Text="Genre"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Uid="/Details/Year"
                         Grid.Row="5"
                         Margin="0,-2,0,0"
+                        d:Text="Year"
                         VerticalAlignment="Center" />
 
                     <TextBox
                         x:Name="SongTitle"
                         Grid.Column="1"
+                        d:Text="Title"
                         Text="{x:Bind Props.Title, Mode=TwoWay}" />
                     <TextBox
                         x:Name="SongArtist"
                         Grid.Row="1"
                         Grid.Column="1"
+                        d:Text="Unknown Artist"
                         Text="{x:Bind Props.Artist, Mode=TwoWay}" />
                     <TextBox
                         x:Name="SongAlbum"
                         Grid.Row="2"
                         Grid.Column="1"
+                        d:Text="Unknown Album"
                         Text="{x:Bind Props.Album, Mode=TwoWay}" />
                     <TextBox
                         x:Name="SongTrack"
                         Grid.Row="3"
                         Grid.Column="1"
+                        d:Text="0"
                         Text="{x:Bind Props.Track, Mode=TwoWay}" />
                     <TextBox
                         x:Name="SongGenre"
                         Grid.Row="4"
                         Grid.Column="1"
+                        d:Text="Unknown Genre"
                         Text="{x:Bind Props.Genres, Mode=TwoWay}" />
                     <TextBox
                         x:Name="SongYear"
                         Grid.Row="5"
                         Grid.Column="1"
+                        d:Text="2022"
                         Text="{x:Bind Props.Year, Mode=TwoWay}" />
                 </Grid>
             </StackPanel>
@@ -194,21 +211,30 @@
                     <RowDefinition Height="32" />
                     <RowDefinition Height="32" />
                     <RowDefinition Height="32" />
+                    <RowDefinition Height="32" />
                 </Grid.RowDefinitions>
 
                 <TextBlock
                     x:Uid="/Details/SongAlbumArtist"
                     Margin="0,-2,0,0"
+                    d:Text="Album artist"
                     VerticalAlignment="Center" />
                 <TextBlock
                     x:Uid="/Details/Disc"
                     Grid.Row="1"
                     Margin="0,-2,0,0"
+                    d:Text="Disc"
                     VerticalAlignment="Center" />
                 <TextBlock
-                    x:Uid="/Details/Rating"
+                    Text="Bitrate"
                     Grid.Row="2"
                     Margin="0,-2,0,0"
+                    VerticalAlignment="Center" />                
+                <TextBlock
+                    x:Uid="/Details/Rating"
+                    Grid.Row="3"
+                    Margin="0,-2,0,0"
+                    d:Text="Rating"
                     VerticalAlignment="Center" />
 
                 <TextBox
@@ -216,15 +242,26 @@
                     Grid.Column="1"
                     Margin="8,0,0,0"
                     HorizontalAlignment="Stretch"
+                    d:Text="Artist 1"
                     Text="{x:Bind Props.AlbumArtist, Mode=TwoWay}" />
                 <TextBox
                     x:Name="SongDisc"
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="8,0,0,0"
+                    d:Text="1"
                     Text="{x:Bind Props.Disc, Mode=TwoWay}" />
-                <RatingControl
+                <TextBlock
+                    x:Name="SongBitrate"
                     Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="17,0,0,0"
+                    VerticalAlignment="Center">
+                    <Run Text="{x:Bind Props.Bitrate}" d:Text="0" />
+                    <Run Text="kbps" />
+                </TextBlock>
+                <RatingControl
+                    Grid.Row="3"
                     Grid.Column="1"
                     Margin="16,0,0,-4"
                     HorizontalAlignment="Left"
