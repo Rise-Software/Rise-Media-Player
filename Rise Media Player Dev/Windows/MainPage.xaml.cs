@@ -313,16 +313,19 @@ namespace Rise.App.Views
         {
             string tag = args?.InvokedItemContainer?.Tag?.ToString();
 
-            if (tag == "SettingsPage")
+            if (tag != null)
             {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-                return;
-            }
+                if (tag == "SettingsPage")
+                {
+                    this.Frame.Navigate(typeof(AllSettingsPage));
+                    return;
+                }
 
-            if (this.ContentFrame.SourcePageType != Destinations[tag])
-            {
-                this.ContentFrame.Navigate(Destinations[tag],
-                    null, args.RecommendedNavigationTransitionInfo);
+                if (this.ContentFrame.SourcePageType != Destinations[tag])
+                {
+                    this.ContentFrame.Navigate(Destinations[tag],
+                        null, args.RecommendedNavigationTransitionInfo);
+                }
             }
         }
 
@@ -336,15 +339,18 @@ namespace Rise.App.Views
         {
             string tag = ((FrameworkElement)sender).Tag.ToString();
 
-            if (tag == "SettingsPage")
+            if (tag != null)
             {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-                return;
-            }
+                if (tag == "SettingsPage")
+                {
+                    this.Frame.Navigate(typeof(AllSettingsPage));
+                    return;
+                }
 
-            if (this.ContentFrame.SourcePageType != Destinations[tag])
-            {
-                this.ContentFrame.Navigate(Destinations[tag]);
+                if (this.ContentFrame.SourcePageType != Destinations[tag])
+                {
+                    this.ContentFrame.Navigate(Destinations[tag]);
+                }
             }
         }
 

@@ -48,6 +48,8 @@ namespace Rise.App.Views
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
+            PlaylistHelper.AddPlaylistsToSubItem(AddToVideo);
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)

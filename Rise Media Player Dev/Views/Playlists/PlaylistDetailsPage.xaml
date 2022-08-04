@@ -13,8 +13,6 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:DesignHeight="320"
-    d:DesignWidth="500"
     Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
