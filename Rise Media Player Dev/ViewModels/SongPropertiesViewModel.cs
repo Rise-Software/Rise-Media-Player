@@ -45,6 +45,8 @@ namespace Rise.App.ViewModels
             set => Model.Disc = value;
         }
 
+        public uint Bitrate => Model.Bitrate;
+
         public string Album
         {
             get => Model.Album;
