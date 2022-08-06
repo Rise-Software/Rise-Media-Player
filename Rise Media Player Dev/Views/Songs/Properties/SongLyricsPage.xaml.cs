@@ -38,16 +38,22 @@ namespace Rise.App.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            lyrics = await MusixmatchHelper.GetLyricsAsync(Props.Title, Props.Artist);
+            try
+            {
+                lyrics = await MusixmatchHelper.GetLyricsAsync(Props.Title, Props.Artist);
 
-            if (string.IsNullOrEmpty(lyrics.Message.Body.Lyrics.LyricsBody))
-                return;
+                if (string.IsNullOrEmpty(lyrics.Message.Body.Lyrics.LyricsBody))
+                    return;
 
-            System.Diagnostics.Debug.WriteLine("\nCannot find lyrics\n");
-            
-            lyricsText = lyrics.Message.Body.Lyrics.LyricsBody.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                System.Diagnostics.Debug.WriteLine("\nCannot find lyrics\n");
 
-            LyricsListView.ItemsSource = lyricsText;
+                lyricsText = lyrics.Message.Body.Lyrics.LyricsBody.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                LyricsListView.ItemsSource = lyricsText;
+            } catch
+            {
+
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Rise.App.UserControls
         private AppBarButton _compactOverlayButton;
         private AppBarButton _overlayButton;
         private AppBarButton _propertiesButton;
+        private AppBarButton _queueButton;
 
         /// <summary>
         /// Gets or sets a value that indicates the horizontal
@@ -109,6 +110,26 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsPropertiesButtonVisibleProperty);
             set => SetValue(IsPropertiesButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is enabled.
+        /// </summary>
+        public bool IsQueueButtonEnabled
+        {
+            get => (bool)GetValue(IsQueueButtonEnabledProperty);
+            set => SetValue(IsQueueButtonEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the queue
+        /// button is shown.
+        /// </summary>
+        public bool IsQueueButtonVisible
+        {
+            get => (bool)GetValue(IsQueueButtonVisibleProperty);
+            set => SetValue(IsQueueButtonVisibleProperty, value);
         }
 
         /// <summary>
@@ -203,6 +224,14 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty IsPropertiesButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsPropertiesButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsQueueButtonEnabledProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
+
+        public readonly static DependencyProperty IsQueueButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
     }
 
     // Constructor, Overrides
@@ -229,6 +258,24 @@ namespace Rise.App.UserControls
 
             _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
             _propertiesButton.Click += PropertiesButtonClick;
+
+            _queueButton = GetTemplateChild("QueueButton") as AppBarButton;
+
+            if (_queueButton != null)
+            {
+                Flyout queueFlyout = new();
+                _queueButton.Flyout = queueFlyout;
+
+                ListView queue = new()
+                {
+                    Width = 300,
+                    Height = 300,
+                    ItemsSource = App.MPViewModel.QueuedItems,
+                    ItemTemplate = Application.Current.Resources["NowPlayingQueueItem"] as DataTemplate,
+                };
+
+                queueFlyout.Content = queue;
+            }
 
             base.OnApplyTemplate();
         }

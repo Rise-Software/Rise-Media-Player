@@ -601,6 +601,8 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
+                            IsQueueButtonEnabled="True"
+                            IsQueueButtonVisible="True"
                             OverlayButtonClick="OnOverlayButtonClick"
                             ShowAndHideAutomatically="False"
                             ShufflingChanged="PlayerControls_ShufflingChanged">
