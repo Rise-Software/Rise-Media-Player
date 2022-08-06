@@ -148,6 +148,7 @@
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
+    <Compile Include="Helpers\MusixmatchHelper.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
       <DependentUpon>ArtistsCustomisePage.xaml</DependentUpon>
     </Compile>
@@ -203,6 +204,9 @@
     </Compile>
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Songs\Properties\SongLyricsPage.xaml.cs">
+      <DependentUpon>SongLyricsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visualizers\BloomView.xaml.cs">
       <DependentUpon>BloomView.xaml</DependentUpon>
@@ -605,6 +609,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BrowsePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Songs\Properties\SongLyricsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
