@@ -31,8 +31,6 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly NavigationHelper _navigationHelper;
-
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -42,6 +40,11 @@ namespace Rise.App.Views
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private NavigationViewItem RightClickedItem { get; set; }
+
+        // This is static to allow it to persist during an
+        // individual session. When the user exits the app,
+        // state restoration is relegated to SuspensionManager
+        private static string _navState;
 
         private readonly Dictionary<string, Type> Destinations = new()
         {
@@ -70,10 +73,6 @@ namespace Rise.App.Views
             Loaded += MainPage_Loaded;
             Unloaded += MainPage_Unloaded;
 
-            _navigationHelper = new(this);
-            _navigationHelper.LoadState += NavigationHelper_LoadState;
-            _navigationHelper.SaveState += NavigationHelper_SaveState;
-
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
@@ -84,9 +83,6 @@ namespace Rise.App.Views
 
         private void MainPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            _navigationHelper.LoadState -= NavigationHelper_LoadState;
-            _navigationHelper.SaveState -= NavigationHelper_SaveState;
-
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
 
@@ -94,6 +90,24 @@ namespace Rise.App.Views
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
             Bindings.StopTracking();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_navState))
+                ContentFrame.SetNavigationState(_navState);
+
+            if (MPViewModel.PlayerCreated)
+                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            else
+                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+
+            await HandleViewModelColorSettingAsync();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _navState = ContentFrame.GetNavigationState();
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
@@ -175,8 +189,6 @@ namespace Rise.App.Views
             {
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
-
-                ChangeIconPack(SViewModel.CurrentPack);
 
                 // Startup setting
                 if (ContentFrame.Content == null)
@@ -365,19 +377,6 @@ namespace Rise.App.Views
         }
         #endregion
 
-        #region Settings
-        public void ChangeIconPack(string newIcons)
-        {
-            NavDataSource.ChangeIconPack(newIcons);
-
-            // Refresh item templates.
-            NavView.MenuItemsSource = null;
-            NavView.FooterMenuItemsSource = null;
-
-            NavView.MenuItemsSource = NavDataSource.Items;
-            NavView.FooterMenuItemsSource = NavDataSource.FooterItems;
-        }
-
         public async Task HandleViewModelColorSettingAsync()
         {
             if (SViewModel.SelectedGlaze == GlazeTypes.MediaThumbnail)
@@ -401,7 +400,6 @@ namespace Rise.App.Views
                 }
             }
         }
-        #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -634,10 +632,7 @@ namespace Rise.App.Views
 
         private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(AllSettingsPage));
-            }
+            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
 
         private void OnAlbumButtonClick(object sender, RoutedEventArgs e)
@@ -646,7 +641,7 @@ namespace Rise.App.Views
                 return;
 
             AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => (a as AlbumViewModel).Title == MPViewModel.PlayingItem.ExtraInfo) as AlbumViewModel;
+                FirstOrDefault(a => a.Title == MPViewModel.PlayingItem.ExtraInfo);
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -658,45 +653,11 @@ namespace Rise.App.Views
                 return;
 
             ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => (a as ArtistViewModel).Name == MPViewModel.PlayingItem.Subtitle) as ArtistViewModel;
+                FirstOrDefault(a => a.Name == MPViewModel.PlayingItem.Subtitle);
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
         }
-    }
-
-    // NavigationHelper
-    public sealed partial class MainPage
-    {
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (MPViewModel.PlayerCreated)
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
-            else
-                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
-
-            if (e.PageState != null)
-            {
-                var res = e.PageState.
-                    TryGetValue("ContentFrameState", out object state);
-
-                if (res)
-                    ContentFrame.SetNavigationState(state.ToString());
-            }
-
-            await HandleViewModelColorSettingAsync();
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-            => e.PageState["ContentFrameState"] = ContentFrame.GetNavigationState();
-
-        #region NavigationHelper registration
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
     }
 
     public class NavViewItemTemplateSelector : DataTemplateSelector

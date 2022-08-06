@@ -17,10 +17,10 @@ namespace Rise.Common.Attached
             DependencyProperty.RegisterAttached("RowHeights", typeof(string),
                 typeof(GridHelper), new PropertyMetadata(string.Empty, RowHeightsChanged));
 
-        public static string GetRowHeights(Grid obj)
-            => (string)obj.GetValue(RowHeightsProperty);
-        public static void SetRowHeights(Grid obj, string value)
-            => obj.SetValue(RowHeightsProperty, value);
+        public static string GetRowHeights(Grid target)
+            => (string)target.GetValue(RowHeightsProperty);
+        public static void SetRowHeights(Grid target, string value)
+            => target.SetValue(RowHeightsProperty, value);
 
         /// <summary>
         /// A property that contains a string based representation
@@ -30,10 +30,10 @@ namespace Rise.Common.Attached
             DependencyProperty.RegisterAttached("ColumnWidths", typeof(string),
                 typeof(GridHelper), new PropertyMetadata(string.Empty, ColumnWidthsChanged));
 
-        public static string GetColumnWidths(Grid obj)
-            => (string)obj.GetValue(ColumnWidthsProperty);
-        public static void SetColumnWidths(Grid obj, string value)
-            => obj.SetValue(ColumnWidthsProperty, value);
+        public static string GetColumnWidths(Grid target)
+            => (string)target.GetValue(ColumnWidthsProperty);
+        public static void SetColumnWidths(Grid target, string value)
+            => target.SetValue(ColumnWidthsProperty, value);
 
         private static void RowHeightsChanged(DependencyObject d,
             DependencyPropertyChangedEventArgs args)
