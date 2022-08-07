@@ -213,9 +213,6 @@
     <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
       <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceDictionaries\SongTemplates.xaml.cs">
-      <DependentUpon>SongTemplates.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -624,10 +621,6 @@
     <Page Include="ResourceDictionaries\Expanders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ResourceDictionaries\SongTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\AllSettingsPage.xaml">
       <SubType>Designer</SubType>

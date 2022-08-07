@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:Rise.App.UserControls"
+    xmlns:conv="using:Rise.App.Converters"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -221,9 +222,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
-                                <ResourceDictionary>
-                                    <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
-                                </ResourceDictionary>
+                                <conv:TooltipToText x:Key="TooltipToText" />
+                                <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
                             </Grid.Resources>
 
                             <Grid.RenderTransform>
@@ -800,9 +800,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
-                                <ResourceDictionary>
-                                    <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
-                                </ResourceDictionary>
+                                <conv:TooltipToText x:Key="TooltipToText" />
+                                <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
                             </Grid.Resources>
 
                             <Grid.RenderTransform>

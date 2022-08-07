@@ -2,13 +2,11 @@
     x:Class="Rise.App.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:rd="using:Rise.App.ResourceDictionaries">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
     <Application.Resources>
         <muxc:XamlControlsResources>
             <muxc:XamlControlsResources.MergedDictionaries>
                 <ResourceDictionary Source="/ResourceDictionaries/CustomStyles.xaml" />
-                <rd:SongTemplates />
             </muxc:XamlControlsResources.MergedDictionaries>
         </muxc:XamlControlsResources>
     </Application.Resources>
