@@ -13,6 +13,7 @@ namespace Rise.App.Views
         public CrashDetailsPage()
         {
             InitializeComponent();
+            TitleBar.SetTitleBarForCurrentView();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -21,7 +22,7 @@ namespace Rise.App.Views
             base.OnNavigatedTo(e);
         }
 
-        private void SubmitIssueButton_Click(object sender, RoutedEventArgs e) =>
-            _ = URLs.Feedback.LaunchAsync();
+        private void SubmitIssueButton_Click(object sender, RoutedEventArgs e)
+            => _ = URLs.Feedback.LaunchAsync();
     }
 }

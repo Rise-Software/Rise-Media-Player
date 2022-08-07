@@ -5,9 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
+
     <Page.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
@@ -25,20 +26,25 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Image
-            Height="16"
-            Margin="12,5,0,0"
-            HorizontalAlignment="Left"
-            Source="ms-appx:///Assets/NavigationView/SongsPage/Colorful.png" />
-
-        <uc:ExtendedTitleBar
-            x:Uid="/Props/WindowTitle"
-            Height="24"
-            Margin="2,3,0,0"
+        <skuc:ExtendedTitleBar
+            x:Name="TitleBar"
+            Height="32"
+            Margin="12,0,0,0"
             VerticalAlignment="Top"
-            Canvas.ZIndex="1"
-            MinTitleWidth="0"
-            ShowIcon="False" />
+            Canvas.ZIndex="1">
+            <Grid Margin="0,8,0,0" ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Height="16" Source="ms-appx:///Assets/NavigationView/SongsPage/Colorful.png" />
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Song info" />
+            </Grid>
+        </skuc:ExtendedTitleBar>
 
         <ScrollViewer
             Grid.Row="1"

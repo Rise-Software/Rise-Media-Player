@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
@@ -43,14 +44,25 @@
                 </muxc:AnimatedIcon>
             </Button>
 
-            <uc:ExtendedTitleBar
-                x:Name="AppTitleBar"
-                Title="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}"
+            <skuc:ExtendedTitleBar
+                x:Name="TitleBar"
                 Height="32"
                 Margin="44,0,0,0"
-                Canvas.ZIndex="1"
-                Icon="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png"
-                MinTitleWidth="0" />
+                VerticalAlignment="Top"
+                Canvas.ZIndex="1">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Height="16" Source="ms-appx:///Assets/NavigationView/LocalVideosPage/Colorful.png" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}" />
+                </Grid>
+            </skuc:ExtendedTitleBar>
         </Grid>
 
         <uc:RiseMediaPlayerElement

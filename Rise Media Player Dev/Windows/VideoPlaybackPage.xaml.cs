@@ -18,6 +18,7 @@ namespace Rise.App.Views
             InitializeComponent();
             _navigationHelper = new NavigationHelper(this);
 
+            TitleBar.SetTitleBarForCurrentView();
             Player.SetMediaPlayer(ViewModel.Player);
         }
     }

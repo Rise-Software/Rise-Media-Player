@@ -7,6 +7,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
@@ -67,15 +68,13 @@
             Background="#7F000000"
             Visibility="Collapsed" />
 
-        <uc:ExtendedTitleBar
+        <skuc:ExtendedTitleBar
             x:Name="TitleBar"
-            Title=""
+            Height="40"
             Margin="92,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Canvas.ZIndex="1"
-            FontSize="14"
-            ShowIcon="False" />
+            Canvas.ZIndex="1" />
 
         <Grid
             Margin="4"

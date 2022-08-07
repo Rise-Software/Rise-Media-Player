@@ -5,21 +5,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Grid>
-        <Grid Canvas.ZIndex="1">
-            <uc:ExtendedTitleBar
-                x:Name="AppTitleBar"
-                Height="40"
-                Margin="16,8,0,0"
-                VerticalAlignment="Top"
-                Canvas.ZIndex="1"
-                MinTitleWidth="0"
-                ShowIcon="True" />
-        </Grid>
+        <skuc:ExtendedTitleBar
+            x:Name="TitleBar"
+            Height="40"
+            Margin="16,0,0,0"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="1">
+            <Grid Margin="0,8,0,0" ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
+                <RichTextBlock
+                    Grid.Column="1"
+                    FontSize="12"
+                    IsTextSelectionEnabled="False">
+                    <Paragraph x:Name="DefaultTitleParagraph">
+                        <Span FontWeight="SemiBold">Rise</Span>
+                        <Span>Media Player</Span>
+                    </Paragraph>
+                </RichTextBlock>
+            </Grid>
+        </skuc:ExtendedTitleBar>
 
         <StackPanel
             Width="400"

@@ -79,6 +79,13 @@ namespace Rise.App.Views
             MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+
+            AppTitleBar.SetTitleBarForCurrentView();
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            UpdateTitleBarLayout(coreTitleBar);
+
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
         }
 
         private void MainPage_Unloaded(object sender, RoutedEventArgs e)
@@ -227,8 +234,6 @@ namespace Rise.App.Views
             });
         }
 
-        #region TitleBar
-        // Update the TitleBar content layout.
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
             => UpdateTitleBarItems(sender);
 
@@ -242,17 +247,17 @@ namespace Rise.App.Views
         {
             // Ensure the custom title bar does not overlap window caption controls
             Thickness currMargin = AppTitleBar.Margin;
-            ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
 
-            UpdateTitleBarItems(NavView);
+            currMargin = ControlsPanel.Margin;
+            ControlsPanel.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
         }
 
         /// <summary>
         /// Update the TitleBar content layout depending on NavigationView DisplayMode.
         /// </summary>
-        public void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
+        private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            const int topIndent = 16;
             const int expandedIndent = 48;
             int minimalIndent = 104;
 
@@ -265,12 +270,7 @@ namespace Rise.App.Views
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
-            if (navView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
-            {
-                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(topIndent + AppTitleBar.LabelWidth + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
-            }
-            else if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
+            if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
                 AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
                 ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
@@ -278,10 +278,9 @@ namespace Rise.App.Views
             else
             {
                 AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Top, expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
-        #endregion
 
         #region Navigation
         /// <summary>

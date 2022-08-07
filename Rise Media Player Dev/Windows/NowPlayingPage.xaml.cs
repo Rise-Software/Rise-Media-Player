@@ -33,6 +33,7 @@ namespace Rise.App.Views
         public NowPlayingPage()
         {
             InitializeComponent();
+            TitleBar.SetTitleBarForCurrentView();
 
             Loaded += OnPageLoaded;
             Unloaded += OnPageUnloaded;

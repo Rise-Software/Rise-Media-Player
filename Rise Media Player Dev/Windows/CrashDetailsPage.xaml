@@ -2,14 +2,10 @@
     x:Class="Rise.App.Views.CrashDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:PlaybackViewModel}"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -19,15 +15,32 @@
             <RowDefinition />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <Grid x:Name="TopGrid" VerticalAlignment="Top">
-            <uc:ExtendedTitleBar
-                x:Name="AppTitleBar"
-                Height="32"
-                Margin="15,5,0,0"
-                Canvas.ZIndex="1"
-                MinTitleWidth="0"
-                ShowIcon="True" />
-        </Grid>
+
+        <skuc:ExtendedTitleBar
+            x:Name="TitleBar"
+            Height="40"
+            Margin="16,0,0,0"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="1">
+            <Grid Margin="0,8,0,0" ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
+                <RichTextBlock
+                    Grid.Column="1"
+                    FontSize="12"
+                    IsTextSelectionEnabled="False">
+                    <Paragraph x:Name="DefaultTitleParagraph">
+                        <Span FontWeight="SemiBold">Rise</Span>
+                        <Span>Media Player</Span>
+                    </Paragraph>
+                </RichTextBlock>
+            </Grid>
+        </skuc:ExtendedTitleBar>
+
         <ScrollViewer
             Grid.Row="1"
             Padding="20"
@@ -38,16 +51,22 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel>
-                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="We've ran into a problem. Sorry about that." TextWrapping="WrapWholeWords" />
-                    <TextBlock FontSize="16" FontWeight="Normal" Text="RiseMP has crashed. Here's some details." TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Style="{ThemeResource TitleTextBlockStyle}"
+                        Text="We've ran into a problem. Sorry about that."
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Normal"
+                        Text="RiseMP has crashed. Here's some details."
+                        TextWrapping="WrapWholeWords" />
                 </StackPanel>
-                
 
                 <TextBlock
                     Grid.Row="1"
                     Margin="0,12,0,0"
                     IsTextSelectionEnabled="True"
-                    Text="{x:Bind Text, Mode=OneWay}"
+                    Text="{x:Bind Text}"
                     TextWrapping="Wrap" />
             </Grid>
         </ScrollViewer>
