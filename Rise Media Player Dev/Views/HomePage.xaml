@@ -11,38 +11,30 @@
     mc:Ignorable="d">
 
     <ScrollViewer
-        Padding="56,0"
+        Padding="56,56,56,0"
         d:Padding="12"
         VerticalScrollBarVisibility="Auto">
         <StackPanel
-            Padding="0,56,0,0"
+            Padding="0,0,0,120"
             d:Padding="0"
             Orientation="Vertical"
             Spacing="4">
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
                     <Button
-                        Margin="-4,8,-4,-4"
+                        Padding="4"
                         HorizontalContentAlignment="Left"
                         Style="{StaticResource TransparentButtonStyle}">
-                        <Image
-                            Height="42"
-                            Margin="-5"
-                            Source="ms-appx:///Assets/Branding/alphabanner.png" />
+                        <Image Height="42" Source="ms-appx:///Assets/Branding/alphabanner.png" />
                     </Button>
                 </uc:AdaptiveItemPane.LeftPane>
 
                 <uc:AdaptiveItemPane.RightPane>
-                    <StackPanel
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="8">
-                        <Button
-                            x:Name="GlanceManage"
-                            Width="125"
-                            Click="GlanceManage_Click"
-                            Content="Add widgets" />
-                    </StackPanel>
+                    <Button
+                        x:Name="GlanceManage"
+                        Width="125"
+                        Click="GlanceManage_Click"
+                        Content="Add widgets" />
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
@@ -104,7 +96,6 @@
                 Icon="&#xE822;" />
             <uc:ExpanderControl
                 Title="What's New"
-                Margin="0,0,0,120"
                 Click="WhatsNew_Click"
                 Description="Check out the new features in Rise Media Player."
                 ExpanderStyle="Button"
