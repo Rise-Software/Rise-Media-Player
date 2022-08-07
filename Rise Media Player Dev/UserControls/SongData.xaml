@@ -46,7 +46,9 @@
                 <Button
                     x:Name="PlayButton"
                     x:Uid="/Information/Play"
+                    Width="36"
                     Height="36"
+                    Padding="0"
                     Command="{x:Bind PlayCommand}"
                     CommandParameter="{x:Bind Song}"
                     Style="{StaticResource TransparentButtonStyle}"
@@ -56,6 +58,7 @@
 
                 <Border
                     x:Name="AlbumThumb"
+                    Width="36"
                     Height="36"
                     CornerRadius="{x:Bind ThumbnailCornerRadius}"
                     Visibility="{x:Bind ShowThumbnail}">
