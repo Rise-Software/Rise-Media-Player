@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Rise.App"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -1025,6 +1027,7 @@
                                 IsDynamicOverflowEnabled="True"
                                 OverflowButtonVisibility="Visible">
                                 <AppBarButton x:Name="MiniViewButton" Visibility="Collapsed" />
+                                
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
@@ -1101,6 +1104,17 @@
                                 <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton
+                                    x:Name="QueueButton"
+                                    IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
+                                    Label="Play queue"
+                                    ToolTipService.ToolTip="Play queue"
+                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE142;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
                             </CommandBar>

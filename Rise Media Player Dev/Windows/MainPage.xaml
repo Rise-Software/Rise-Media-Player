@@ -522,8 +522,7 @@
 
                             <MenuFlyoutItem
                                 x:Uid="/Information/Notif"
-                                Click="Messages_Click"
-                                IsEnabled="False">
+                                Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -624,6 +623,8 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
+                            IsQueueButtonEnabled="True"
+                            IsQueueButtonVisible="True"
                             OverlayButtonClick="OnOverlayButtonClick"
                             ShowAndHideAutomatically="False"
                             ShufflingChanged="PlayerControls_ShufflingChanged">

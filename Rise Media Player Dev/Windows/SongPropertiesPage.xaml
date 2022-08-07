@@ -74,7 +74,6 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Uid="/Props/LyricsItemNav"
-                        IsEnabled="False"
                         Tag="LyricsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xF12E;" />

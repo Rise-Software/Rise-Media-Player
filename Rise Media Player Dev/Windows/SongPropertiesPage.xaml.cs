@@ -53,6 +53,10 @@ namespace Rise.App.Views
                         _ = PropsFrame.Navigate(typeof(SongDetailsPage), Props);
                         break;
 
+                    case "LyricsItem":
+                        _ = PropsFrame.Navigate(typeof(SongLyricsPage), Props);
+                        break;
+
                     case "FileItem":
                         _ = PropsFrame.Navigate(typeof(SongFilePage), Props);
                         break;
