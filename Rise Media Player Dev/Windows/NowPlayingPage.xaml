@@ -113,6 +113,8 @@
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
+                    IsQueueButtonEnabled="True"
+                    IsQueueButtonVisible="True"
                     ShowAndHideAutomatically="False"
                     ShufflingChanged="OnShufflingChanged"
                     Style="{StaticResource NowPlayingTransportControlsStyle}"

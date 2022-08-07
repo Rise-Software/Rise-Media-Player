@@ -227,11 +227,11 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsQueueButtonEnabledProperty =
             DependencyProperty.Register(nameof(IsQueueButtonEnabled), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsQueueButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
     }
 
     // Constructor, Overrides

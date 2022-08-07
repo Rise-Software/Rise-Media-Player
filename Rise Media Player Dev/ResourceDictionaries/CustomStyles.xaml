@@ -1050,6 +1050,7 @@
                                 IsDynamicOverflowEnabled="True"
                                 OverflowButtonVisibility="Visible">
                                 <AppBarButton x:Name="MiniViewButton" Visibility="Collapsed" />
+                                
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
@@ -1123,6 +1124,12 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
+                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                    <AppBarButton.Icon>
+                                        <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
                                 <AppBarButton
                                     x:Name="QueueButton"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
@@ -1130,16 +1137,7 @@
                                     ToolTipService.ToolTip="Play queue"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
-                                        <SymbolIcon Symbol="Filter" />
-                                    </AppBarButton.Icon>
-                                    <AppBarButton.Flyout>
-                                        <Flyout x:Name="QueueFlyout" />
-                                    </AppBarButton.Flyout>
-                                </AppBarButton>
-
-                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
-                                    <AppBarButton.Icon>
-                                        <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
+                                        <FontIcon Glyph="&#xE142;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
                             </CommandBar>
