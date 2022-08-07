@@ -37,7 +37,7 @@ namespace Rise.App.Settings
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
 
-            SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaSourcesPage));
+            Frame.Navigate(typeof(MediaSourcesPage));
         }
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
