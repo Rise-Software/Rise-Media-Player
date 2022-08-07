@@ -1027,7 +1027,7 @@
                                 IsDynamicOverflowEnabled="True"
                                 OverflowButtonVisibility="Visible">
                                 <AppBarButton x:Name="MiniViewButton" Visibility="Collapsed" />
-                                
+
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
@@ -1116,6 +1116,17 @@
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
                                     </AppBarButton.Icon>
+
+                                    <AppBarButton.Flyout>
+                                        <Flyout>
+                                            <ListView
+                                                Width="300"
+                                                Height="300"
+                                                ItemTemplate="{TemplateBinding QueueFlyoutItemTemplate}"
+                                                ItemTemplateSelector="{TemplateBinding QueueFlyoutItemTemplateSelector}"
+                                                ItemsSource="{TemplateBinding QueueFlyoutItemsSource}" />
+                                        </Flyout>
+                                    </AppBarButton.Flyout>
                                 </AppBarButton>
                             </CommandBar>
                         </Grid>
