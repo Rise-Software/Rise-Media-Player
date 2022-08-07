@@ -26,11 +26,12 @@
         <StackPanel>
             <ListView
                 x:Name="MainList"
-                Padding="44,44,44,0"
+                Padding="56,44,56,0"
                 d:Padding="12"
                 DoubleTapped="MainList_DoubleTapped"
                 ItemsSource="{x:Bind MediaViewModel.Items}"
-                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}">
+                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource SongListViewStyle}">
                 <ListView.ContextFlyout>
                     <MenuFlyout Opening="SongFlyout_Opening">
                         <MenuFlyoutItem
@@ -99,13 +100,6 @@
                     </MenuFlyout>
                 </ListView.ContextFlyout>
 
-                <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="0" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-
                 <ListView.Header>
                     <Border
                         Height="230"
@@ -172,8 +166,8 @@
                                         FontWeight="SemiBold"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}">
-                                        <Run Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />,
-                                        <Run Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
+                                        <Run Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />
+                                        ,<Run Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
                                         x:Name="Description"
@@ -281,8 +275,8 @@
 
                         <MenuFlyoutItem
                             x:Uid="/Information/RemoveThing"
-                            Icon="Delete"
-                            Click="Remove_Click" />
+                            Click="Remove_Click"
+                            Icon="Delete" />
 
                         <MenuFlyoutItem
                             Icon="Rename"

@@ -1,0 +1,36 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:co="using:Rise.App.UserControls">
+
+    <Style
+        x:Key="StretchedListViewItemStyle"
+        BasedOn="{StaticResource DefaultListViewItemStyle}"
+        TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
+    <Style
+        x:Key="SongListViewItemStyle"
+        BasedOn="{StaticResource StretchedListViewItemStyle}"
+        TargetType="ListViewItem">
+        <Setter Property="Padding" Value="0,1" />
+    </Style>
+
+    <Style TargetType="ListView">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource StretchedListViewItemStyle}" />
+    </Style>
+
+    <Style x:Key="SongListViewStyle" TargetType="ListView">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SongListViewItemStyle}" />
+    </Style>
+
+    <Style x:Key="DefaultSongDataStyle" TargetType="co:SongData">
+        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
+        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+        <Setter Property="Padding" Value="12,8" />
+    </Style>
+    <Style BasedOn="{StaticResource DefaultSongDataStyle}" TargetType="co:SongData" />
+</ResourceDictionary>

@@ -358,10 +358,12 @@
                                 <GridView
                                     x:Name="MainGrid"
                                     MaxHeight="400"
-                                    Margin="0,0,0,-8"
+                                    Margin="-16,0,-16,-12"
+                                    Padding="16,0,16,12"
                                     IsItemClickEnabled="True"
                                     ItemClick="MainGrid_ItemClick"
                                     ItemsSource="{x:Bind AlbumsViewModel.Items}"
+                                    ScrollViewer.IsVerticalScrollChainingEnabled="False"
                                     SelectedItem="{x:Bind SelectedAlbum, Mode=TwoWay}"
                                     SelectionMode="Single"
                                     Visibility="Collapsed">
@@ -433,14 +435,15 @@
                                 <ListView
                                     x:Name="MainList"
                                     MaxHeight="400"
-                                    Margin="-56,0"
-                                    Padding="44,0,44,0"
+                                    Margin="-16,0,-16,-12"
+                                    Padding="16,0,16,12"
                                     DoubleTapped="MainList_DoubleTapped"
                                     IsDoubleTapEnabled="True"
                                     ItemsSource="{x:Bind MediaViewModel.Items}"
+                                    ScrollViewer.IsVerticalScrollChainingEnabled="False"
                                     SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
                                     SelectionMode="Single"
-                                    Visibility="Visible">
+                                    Style="{StaticResource SongListViewStyle}">
                                     <ListView.ContextFlyout>
                                         <MenuFlyout Opening="SongFlyout_Opening">
                                             <MenuFlyoutItem
@@ -497,13 +500,6 @@
                                                 Icon="Edit" />
                                         </MenuFlyout>
                                     </ListView.ContextFlyout>
-
-                                    <ListView.ItemContainerStyle>
-                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                            <Setter Property="Padding" Value="0" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
 
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="viewmodels:SongViewModel">

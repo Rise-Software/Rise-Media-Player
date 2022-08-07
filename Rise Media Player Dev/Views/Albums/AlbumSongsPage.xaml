@@ -39,12 +39,13 @@
 
         <ListView
             x:Name="MainList"
-            Padding="44,44,44,120"
+            Padding="56,44,56,120"
             DoubleTapped="MainList_DoubleTapped"
             IsDoubleTapEnabled="True"
             ItemsSource="{x:Bind MediaViewModel.Items}"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionMode="Single">
+            SelectionMode="Single"
+            Style="{StaticResource SongListViewStyle}">
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
@@ -109,13 +110,6 @@
                         Icon="Edit" />
                 </MenuFlyout>
             </ListView.ContextFlyout>
-
-            <ListView.ItemContainerStyle>
-                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="Padding" Value="0" />
-                </Style>
-            </ListView.ItemContainerStyle>
 
             <ListView.Header>
                 <Border
