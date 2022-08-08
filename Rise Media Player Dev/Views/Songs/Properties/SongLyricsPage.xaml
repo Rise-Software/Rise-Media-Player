@@ -9,10 +9,6 @@
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <ListView x:Name="LyricsListView">
-        <ListView.Header>
-            <TextBlock Text="Language: English" Padding="0,8" />
-        </ListView.Header>
-
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="x:String">
                 <TextBlock Text="{x:Bind}" />
