@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Common", "Rise.Common\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Repository", "Rise.NewRepository\Rise.Repository.csproj", "{1319CE6D-828F-4024-93C9-4052F3F053BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Effects", "Rise.Audio\Rise.Effects.csproj", "{5DE7E2F1-4095-45A1-914D-98047CD29736}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rise.Effects", "Rise.Effects\Rise.Effects.csproj", "{5DE7E2F1-4095-45A1-914D-98047CD29736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

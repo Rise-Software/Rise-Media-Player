@@ -1080,10 +1080,6 @@
     <PRIResource Include="Strings\en-GB\Local.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rise.Audio\Rise.Effects.csproj">
-      <Project>{5de7e2f1-4095-45a1-914d-98047cd29736}</Project>
-      <Name>Rise.Effects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
       <Project>{86322C85-900E-4BC8-959B-141CDFD68231}</Project>
       <Name>Rise.Common</Name>
@@ -1091,6 +1087,10 @@
     <ProjectReference Include="..\Rise.Data\Rise.Data.csproj">
       <Project>{5185BB21-8B6A-4C08-8C50-4E1B8F57B2D5}</Project>
       <Name>Rise.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rise.Effects\Rise.Effects.csproj">
+      <Project>{5de7e2f1-4095-45a1-914d-98047cd29736}</Project>
+      <Name>Rise.Effects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
