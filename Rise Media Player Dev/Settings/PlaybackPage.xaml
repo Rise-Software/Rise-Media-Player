@@ -24,7 +24,8 @@
 
         <uc:ExpanderControl
             x:Uid="/Playback/EQ"
-            ExpanderStyle="Disabled"
+            ExpanderStyle="Button"
+            Click="OnEqualizerExpanderClick"
             Icon="&#xE9E9;">
             <FontIcon FontSize="16" Glyph="&#xE00F;" />
         </uc:ExpanderControl>

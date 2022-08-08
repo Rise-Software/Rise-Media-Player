@@ -7,11 +7,13 @@ using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
+using Rise.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Storage.Streams;
@@ -105,7 +107,16 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
+            {
                 MainPlayer.SetMediaPlayer(MPViewModel.Player);
+
+                float[] gainArray = { Convert.ToSingle(App.SViewModel.Gain["0"]), Convert.ToSingle(App.SViewModel.Gain["1"]), Convert.ToSingle(App.SViewModel.Gain["2"]), Convert.ToSingle(App.SViewModel.Gain["3"]), Convert.ToSingle(App.SViewModel.Gain["4"]), Convert.ToSingle(App.SViewModel.Gain["5"]), Convert.ToSingle(App.SViewModel.Gain["6"]), Convert.ToSingle(App.SViewModel.Gain["7"]), Convert.ToSingle(App.SViewModel.Gain["8"]), Convert.ToSingle(App.SViewModel.Gain["9"]) };
+                MPViewModel.Player.AddAudioEffect(typeof(EqualizerEffect).FullName, false, new PropertySet()
+                {
+                    ["Gain"] = gainArray,
+                    ["Enabled"] = App.SViewModel.EqualizerEnabled
+                });
+            }
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -151,6 +162,13 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 MainPlayer.SetMediaPlayer(e);
+
+                float[] gainArray = { Convert.ToSingle(App.SViewModel.Gain["0"]), Convert.ToSingle(App.SViewModel.Gain["1"]), Convert.ToSingle(App.SViewModel.Gain["2"]), Convert.ToSingle(App.SViewModel.Gain["3"]), Convert.ToSingle(App.SViewModel.Gain["4"]), Convert.ToSingle(App.SViewModel.Gain["5"]), Convert.ToSingle(App.SViewModel.Gain["6"]), Convert.ToSingle(App.SViewModel.Gain["7"]), Convert.ToSingle(App.SViewModel.Gain["8"]), Convert.ToSingle(App.SViewModel.Gain["9"]) };
+                e.AddAudioEffect(typeof(EqualizerEffect).FullName, false, new PropertySet()
+                {
+                    ["Gain"] = gainArray,
+                    ["Enabled"] = App.SViewModel.EqualizerEnabled
+                });
             });
         }
 

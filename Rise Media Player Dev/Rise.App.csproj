@@ -144,6 +144,9 @@
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
+    <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
+      <DependentUpon>EqualizerDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
@@ -565,6 +568,10 @@
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EqualizerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
       <SubType>Designer</SubType>
@@ -1073,6 +1080,10 @@
     <PRIResource Include="Strings\en-GB\Local.resw" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rise.Audio\Rise.Effects.csproj">
+      <Project>{5de7e2f1-4095-45a1-914d-98047cd29736}</Project>
+      <Name>Rise.Effects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
       <Project>{86322C85-900E-4BC8-959B-141CDFD68231}</Project>
       <Name>Rise.Common</Name>
