@@ -41,15 +41,17 @@ namespace Rise.App.Views
             try
             {
                 lyrics = await MusixmatchHelper.GetLyricsAsync(Props.Title, Props.Artist);
-
+                
                 if (string.IsNullOrEmpty(lyrics.Message.Body.Lyrics.LyricsBody))
                     return;
 
-                System.Diagnostics.Debug.WriteLine("\nCannot find lyrics\n");
+                System.Diagnostics.Debug.WriteLine("\nCannot find lyrics.\n");
 
                 lyricsText = lyrics.Message.Body.Lyrics.LyricsBody.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 LyricsListView.ItemsSource = lyricsText;
+
+                CopyrightTextBlock.Text = lyrics.Message.Body.Lyrics.LyricsCopyright;
             } catch
             {
 
