@@ -6,6 +6,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:local="using:Rise.App.Views"
     xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,6 +22,8 @@
         <ResourceDictionary>
             <conv:BooleanToVisibility x:Key="BoolToVis" />
             <conv:ResourceToString x:Key="StrToRes" />
+
+            <conv:TimeSpanToString x:Key="TimeToStr" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -520,9 +523,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem
-                                x:Uid="/Information/Notif"
-                                Click="Messages_Click">
+                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -616,6 +617,8 @@
                             IsPreviousTrackButtonVisible="True"
                             IsPropertiesButtonVisible="True"
                             IsPropertiesEnabled="True"
+                            IsQueueButtonEnabled="True"
+                            IsQueueButtonVisible="True"
                             IsRepeatButtonVisible="True"
                             IsRepeatEnabled="True"
                             IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
@@ -623,9 +626,8 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            IsQueueButtonEnabled="True"
-                            IsQueueButtonVisible="True"
                             OverlayButtonClick="OnOverlayButtonClick"
+                            QueueFlyoutItemsSource="{x:Bind MPViewModel.QueuedItems}"
                             ShowAndHideAutomatically="False"
                             ShufflingChanged="PlayerControls_ShufflingChanged">
                             <uc:RiseMediaTransportControls.DisplayItem>
@@ -690,6 +692,29 @@
                                     </Grid>
                                 </Button>
                             </uc:RiseMediaTransportControls.DisplayItem>
+
+                            <uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
+                                <DataTemplate x:DataType="interfaces:IMediaItem" x:DefaultBindMode="OneWay">
+                                    <Grid Padding="12,4" ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{x:Bind Title}" />
+                                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            x:Phase="1"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
                         </uc:RiseMediaTransportControls>
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>

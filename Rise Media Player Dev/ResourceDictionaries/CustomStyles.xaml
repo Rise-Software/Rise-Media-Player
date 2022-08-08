@@ -395,6 +395,28 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
+                                <AppBarButton
+                                    x:Name="QueueButton"
+                                    IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
+                                    Label="Play queue"
+                                    ToolTipService.ToolTip="Play queue"
+                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE142;" />
+                                    </AppBarButton.Icon>
+
+                                    <AppBarButton.Flyout>
+                                        <Flyout>
+                                            <ListView
+                                                Width="300"
+                                                Height="300"
+                                                ItemTemplate="{TemplateBinding QueueFlyoutItemTemplate}"
+                                                ItemTemplateSelector="{TemplateBinding QueueFlyoutItemTemplateSelector}"
+                                                ItemsSource="{TemplateBinding QueueFlyoutItemsSource}" />
+                                        </Flyout>
+                                    </AppBarButton.Flyout>
+                                </AppBarButton>
+
                                 <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xED1E;" />
@@ -1017,6 +1039,28 @@
                                         <SymbolIcon x:Name="RepeatSymbol" Symbol="RepeatAll" />
                                     </AppBarToggleButton.Icon>
                                 </AppBarToggleButton>
+
+                                <AppBarButton
+                                    x:Name="QueueButton"
+                                    IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
+                                    Label="Play queue"
+                                    ToolTipService.ToolTip="Play queue"
+                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE142;" />
+                                    </AppBarButton.Icon>
+
+                                    <AppBarButton.Flyout>
+                                        <Flyout>
+                                            <ListView
+                                                Width="300"
+                                                Height="300"
+                                                ItemTemplate="{TemplateBinding QueueFlyoutItemTemplate}"
+                                                ItemTemplateSelector="{TemplateBinding QueueFlyoutItemTemplateSelector}"
+                                                ItemsSource="{TemplateBinding QueueFlyoutItemsSource}" />
+                                        </Flyout>
+                                    </AppBarButton.Flyout>
+                                </AppBarButton>
                             </CommandBar>
 
                             <CommandBar
@@ -1105,28 +1149,6 @@
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                     </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="QueueButton"
-                                    IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
-                                    Label="Play queue"
-                                    ToolTipService.ToolTip="Play queue"
-                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE142;" />
-                                    </AppBarButton.Icon>
-
-                                    <AppBarButton.Flyout>
-                                        <Flyout>
-                                            <ListView
-                                                Width="300"
-                                                Height="300"
-                                                ItemTemplate="{TemplateBinding QueueFlyoutItemTemplate}"
-                                                ItemTemplateSelector="{TemplateBinding QueueFlyoutItemTemplateSelector}"
-                                                ItemsSource="{TemplateBinding QueueFlyoutItemsSource}" />
-                                        </Flyout>
-                                    </AppBarButton.Flyout>
                                 </AppBarButton>
                             </CommandBar>
                         </Grid>
