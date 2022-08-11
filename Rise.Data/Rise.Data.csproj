@@ -124,6 +124,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\MainDataSource.cs" />
     <Compile Include="Sources\NavViewDataSource.cs" />
+    <Compile Include="ViewModels\EqualizerSliderViewModel.cs" />
     <Compile Include="ViewModels\LastFMViewModel.cs" />
     <Compile Include="ViewModels\MediaPlaybackViewModel.cs" />
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />

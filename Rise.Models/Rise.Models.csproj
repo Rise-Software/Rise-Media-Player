@@ -123,7 +123,6 @@
   <ItemGroup>
     <Compile Include="Crumb.cs" />
     <Compile Include="DbObject.cs" />
-    <Compile Include="EqualizerSliderViewModel.cs" />
     <Compile Include="LastFM\TopTracks.cs" />
     <Compile Include="Media\Album.cs" />
     <Compile Include="Media\Artist.cs" />

@@ -5,7 +5,7 @@
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Rise.Models"
+    xmlns:viewmodels="using:Rise.Data.ViewModels"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="OK"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
@@ -44,18 +44,18 @@
             <ListView
                 x:Name="SlidersList"
                 Height="200"
-                SelectionMode="None"
+                IsEnabled="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=OneWay}"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"
                 ScrollViewer.VerticalScrollMode="Disabled"
-                IsEnabled="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=OneWay}">
+                SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:EqualizerSliderViewModel">
+                    <DataTemplate x:DataType="viewmodels:EqualizerSliderViewModel">
                         <ListViewItem
                             Width="56"
                             MinWidth="0"

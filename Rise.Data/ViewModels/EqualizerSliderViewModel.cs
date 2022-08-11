@@ -1,19 +1,12 @@
-﻿using System.ComponentModel;
-
-namespace Rise.Models
+﻿namespace Rise.Data.ViewModels
 {
-    public class EqualizerSliderViewModel : INotifyPropertyChanged
+    public class EqualizerSliderViewModel : ViewModel
     {
-        private float gain;
-
+        private float _gain;
         public float Gain
         {
-            get => gain;
-            set
-            {
-                gain = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Gain)));
-            }
+            get => _gain;
+            set => Set(ref _gain, value);
         }
 
         public int Index { get; set; }
@@ -32,7 +25,5 @@ namespace Rise.Models
             9 => "20k",
             _ => ""
         };
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

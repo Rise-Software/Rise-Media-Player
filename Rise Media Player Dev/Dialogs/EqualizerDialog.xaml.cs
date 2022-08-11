@@ -1,4 +1,4 @@
-﻿using Rise.Models;
+﻿using Rise.Data.ViewModels;
 using System.Collections.Generic;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
