@@ -162,7 +162,7 @@ namespace Rise.App.Views
         {
             MainPlayer.SetMediaPlayer(player);
 
-            if (MPViewModel.Effects.Count == 0)
+            if (!MPViewModel.Effects.Any(e => e.EffectClassType == typeof(EqualizerEffect)))
             {
                 var config = new PropertySet { ["Gain"] = SViewModel.EqualizerGain, ["Enabled"] = SViewModel.EqualizerEnabled };
                 MPViewModel.AddEffect(new(typeof(EqualizerEffect), false, true, config));
