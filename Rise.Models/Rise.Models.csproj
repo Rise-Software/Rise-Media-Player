@@ -126,6 +126,7 @@
     <Compile Include="LastFM\TopTracks.cs" />
     <Compile Include="Media\Album.cs" />
     <Compile Include="Media\Artist.cs" />
+    <Compile Include="Media\MediaPlayerEffect.cs" />
     <Compile Include="Media\Genre.cs" />
     <Compile Include="Media\Playlist.cs" />
     <Compile Include="Media\Song.cs" />
