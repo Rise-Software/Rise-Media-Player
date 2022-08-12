@@ -17,8 +17,9 @@
         <x:Double x:Key="ContentDialogMaxWidth">900</x:Double>
     </ContentDialog.Resources>
 
-    <Grid>
+    <Grid RowSpacing="12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" MaxHeight="200" />
         </Grid.RowDefinitions>
@@ -36,7 +37,7 @@
                 Toggled="ToggleSwitch_Toggled" />
         </RelativePanel>
 
-        <RelativePanel Margin="0,12,0,0">
+        <RelativePanel Grid.Row="1">
             <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" Text="Preset" />
 
             <ComboBox
@@ -53,16 +54,21 @@
             </ComboBox>
         </RelativePanel>
 
-        <StackPanel Orientation="Horizontal">
-            <StackPanel
-                Height="200"
-                Margin="12,0,12,36"
-                VerticalAlignment="Center">
-                <TextBlock Margin="0,28,0,0" Text="+ 12dB" />
-                <TextBlock Margin="0,12,0,0" Text="+ 6dB" />
-                <TextBlock Margin="0,16,0,0" Text="   0dB" />
-                <TextBlock Margin="0,16,0,0" Text="- 6dB" />
-                <TextBlock Margin="0,12,0,0" Text="- 12dB" />
+        <Grid
+            Grid.Row="2"
+            Margin="12,0,0,0"
+            ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Top" Spacing="12">
+                <TextBlock Text="+ 12dB" />
+                <TextBlock Text="+ 6dB" />
+                <TextBlock Margin="0,4,0,0" Text="   0dB" />
+                <TextBlock Text="- 6dB" />
+                <TextBlock Text="- 12dB" />
             </StackPanel>
 
             <ListView
