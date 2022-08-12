@@ -31,6 +31,23 @@
                 Toggled="ToggleSwitch_Toggled" />
         </RelativePanel>
 
+        <RelativePanel Margin="0,12,0,0">
+            <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" Text="Preset" />
+
+            <ComboBox
+                RelativePanel.AlignRightWithPanel="True"
+                SelectedIndex="{x:Bind SViewModel.SelectedEqualizerPreset, Mode=TwoWay}"
+                SelectionChanged="OnPresetComboBoxSelectionChanged">
+                <x:String>Flat</x:String>
+                <x:String>Custom</x:String>
+                <x:String>Pop</x:String>
+                <x:String>Rock</x:String>
+                <x:String>Vocal</x:String>
+                <x:String>Bass</x:String>
+                <x:String>Air</x:String>
+            </ComboBox>
+        </RelativePanel>
+
         <StackPanel Orientation="Horizontal">
             <StackPanel
                 Height="200"

@@ -52,5 +52,37 @@ namespace Rise.App.Dialogs
             if (MPViewModel.PlayerCreated)
                 EqualizerEffect.Current.IsEnabled = SViewModel.EqualizerEnabled;
         }
+
+        private void OnPresetComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            float[] gains = new float[10];
+
+            switch ((sender as ComboBox).SelectedIndex)
+            {
+                case 0:
+                    gains = new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    gains = new float[10] { 6f, 4f, 2f, 0f, 2f, 3f, 0f, 0f, 0f, 0f };
+                    break;
+                case 3:
+                    gains = new float[10] { 4f, 3f, 2f, 1f, 0f, -1f, 0f, 1f, 2f, 3f };
+                    break;
+                case 4:
+                    gains = new float[10] { 0f, 0f, 0f, 0f, 2f, 2f, 1f, 0f, 0f, 0f };
+                    break;
+                case 5:
+                    gains = new float[10] { 4f, 3f, 2f, 1f, 0f, 0f, 0f, 0f, 0f, 0f };
+                    break;
+                case 6:
+                    gains = new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 1f, 2f, 3f, 4f };
+                    break;
+            }
+
+            for (int i = 0; i < list.Count; i++)
+                list[i].Gain = gains[i];
+        }
     }
 }

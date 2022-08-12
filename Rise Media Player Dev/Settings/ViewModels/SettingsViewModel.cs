@@ -555,6 +555,12 @@ namespace Rise.App.ViewModels
             get => Get(_defaultGain, "Local");
             set => Set(value, "Local");
         }
+
+        public int SelectedEqualizerPreset
+        {
+            get => Get(0, "Local");
+            set => Set(value, "Local");
+        }
         #endregion
 
         #region Setup
