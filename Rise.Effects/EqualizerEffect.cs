@@ -1,12 +1,11 @@
-﻿using System;
+﻿using NAudio.Dsp;
+using System;
 using System.Collections.Generic;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Effects;
 using Windows.Media.MediaProperties;
-using NAudio.Dsp;
-using Windows.Media.Playback;
 
 namespace Rise.Effects
 {
@@ -15,6 +14,12 @@ namespace Rise.Effects
         private static EqualizerEffect current;
 
         public static EqualizerEffect Current => current;
+
+        public bool IsEnabled
+        {
+            get => (bool)configuration["Enabled"];
+            set => configuration["Enabled"] = value;
+        }
 
         public IReadOnlyList<AudioEncodingProperties> SupportedEncodingProperties
         {
@@ -146,11 +151,9 @@ namespace Rise.Effects
             // Check if we don't have the effect enabled in the configuration.
             // This is a workaround for the fact that MediaPlayer does not
             // have a way to remove/disable the effect.
-            if (configuration["Enabled"] == null || (bool)configuration["Enabled"] == false)
-            {
+            if (!IsEnabled)
                 return;
-            }
-            
+
             unsafe
             {
                 AudioFrame inputFrame = context.InputFrame;
