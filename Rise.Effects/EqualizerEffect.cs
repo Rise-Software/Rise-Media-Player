@@ -21,35 +21,40 @@ namespace Rise.Effects
             set => configuration["Enabled"] = value;
         }
 
+        private List<AudioEncodingProperties> _supportedEncodingProperties;
+
         public IReadOnlyList<AudioEncodingProperties> SupportedEncodingProperties
         {
             get
             {
-                var supportedEncodingProperties = new List<AudioEncodingProperties>();
+                if (_supportedEncodingProperties == null)
+                {
+                    _supportedEncodingProperties = new List<AudioEncodingProperties>();
 
-                AudioEncodingProperties encodingProps1 = AudioEncodingProperties.CreatePcm(44100, 1, 32);
-                encodingProps1.Subtype = MediaEncodingSubtypes.Float;
-                AudioEncodingProperties encodingProps2 = AudioEncodingProperties.CreatePcm(48000, 1, 32);
-                encodingProps2.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps1 = AudioEncodingProperties.CreatePcm(44100, 1, 32);
+                    encodingProps1.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps2 = AudioEncodingProperties.CreatePcm(48000, 1, 32);
+                    encodingProps2.Subtype = MediaEncodingSubtypes.Float;
 
-                AudioEncodingProperties encodingProps3 = AudioEncodingProperties.CreatePcm(44100, 2, 32);
-                encodingProps3.Subtype = MediaEncodingSubtypes.Float;
-                AudioEncodingProperties encodingProps4 = AudioEncodingProperties.CreatePcm(48000, 2, 32);
-                encodingProps4.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps3 = AudioEncodingProperties.CreatePcm(44100, 2, 32);
+                    encodingProps3.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps4 = AudioEncodingProperties.CreatePcm(48000, 2, 32);
+                    encodingProps4.Subtype = MediaEncodingSubtypes.Float;
 
-                AudioEncodingProperties encodingProps5 = AudioEncodingProperties.CreatePcm(96000, 2, 32);
-                encodingProps5.Subtype = MediaEncodingSubtypes.Float;
-                AudioEncodingProperties encodingProps6 = AudioEncodingProperties.CreatePcm(192000, 2, 32);
-                encodingProps6.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps5 = AudioEncodingProperties.CreatePcm(96000, 2, 32);
+                    encodingProps5.Subtype = MediaEncodingSubtypes.Float;
+                    AudioEncodingProperties encodingProps6 = AudioEncodingProperties.CreatePcm(192000, 2, 32);
+                    encodingProps6.Subtype = MediaEncodingSubtypes.Float;
 
-                supportedEncodingProperties.Add(encodingProps1);
-                supportedEncodingProperties.Add(encodingProps2);
-                supportedEncodingProperties.Add(encodingProps3);
-                supportedEncodingProperties.Add(encodingProps4);
-                supportedEncodingProperties.Add(encodingProps5);
-                supportedEncodingProperties.Add(encodingProps6);
+                    _supportedEncodingProperties.Add(encodingProps1);
+                    _supportedEncodingProperties.Add(encodingProps2);
+                    _supportedEncodingProperties.Add(encodingProps3);
+                    _supportedEncodingProperties.Add(encodingProps4);
+                    _supportedEncodingProperties.Add(encodingProps5);
+                    _supportedEncodingProperties.Add(encodingProps6);
+                }
 
-                return supportedEncodingProperties;
+                return _supportedEncodingProperties;
             }
         }
 
