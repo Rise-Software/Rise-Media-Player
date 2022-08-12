@@ -2,14 +2,12 @@
 using Rise.Common.Enums;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
-using Rise.Effects;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI;
 
@@ -546,57 +544,16 @@ namespace Rise.App.ViewModels
         public bool EqualizerEnabled
         {
             get => Get(false, "Playback");
-            set
-            {
-                Set(value, "Playback");
-
-                float[] gainArray = { Convert.ToSingle(Gain["0"]), Convert.ToSingle(Gain["1"]), Convert.ToSingle(Gain["2"]), Convert.ToSingle(Gain["3"]), Convert.ToSingle(Gain["4"]), Convert.ToSingle(Gain["5"]), Convert.ToSingle(Gain["6"]), Convert.ToSingle(Gain["7"]), Convert.ToSingle(Gain["8"]), Convert.ToSingle(Gain["9"]) };
-                
-                if (EqualizerEffect.Current != null)
-                {
-                    EqualizerEffect.Current.SetProperties(new PropertySet()
-                    {
-                        { "Gain", gainArray },
-                        { "Enabled", EqualizerEnabled }
-                    });
-                }
-            }
+            set => Set(value, "Playback");
         }
 
-        // Store is set to Local because nested composites aren't supported.
-        public ApplicationDataCompositeValue Gain
+        private static float[] _defaultGain =
+            new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+
+        public float[] EqualizerGain
         {
-            get
-            {
-                ApplicationDataCompositeValue default1 = new();
-
-                default1["0"] = 0f;
-                default1["1"] = 0f;
-                default1["2"] = 0f;
-                default1["3"] = 0f;
-                default1["4"] = 0f;
-                default1["5"] = 0f;
-                default1["6"] = 0f;
-                default1["7"] = 0f;
-                default1["8"] = 0f;
-                default1["9"] = 0f;
-
-                return Get(default1, "Local");
-            }
-            set
-            {
-                Set(value, "Local");
-
-                float[] gainArray = { Convert.ToSingle(value["0"]), Convert.ToSingle(value["1"]), Convert.ToSingle(value["2"]), Convert.ToSingle(value["3"]), Convert.ToSingle(value["4"]), Convert.ToSingle(value["5"]), Convert.ToSingle(value["6"]), Convert.ToSingle(value["7"]), Convert.ToSingle(value["8"]), Convert.ToSingle(value["9"]) };
-                if (EqualizerEffect.Current != null)
-                {
-                    EqualizerEffect.Current.SetProperties(new PropertySet()
-                    {
-                        { "Gain", gainArray },
-                        { "Enabled", EqualizerEnabled }
-                    });
-                }
-            }
+            get => Get(_defaultGain, "Local");
+            set => Set(value, "Local");
         }
         #endregion
 

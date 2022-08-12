@@ -27,7 +27,8 @@
             <ToggleSwitch
                 Margin="0,0,-72,0"
                 IsOn="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=TwoWay}"
-                RelativePanel.AlignRightWithPanel="True" />
+                RelativePanel.AlignRightWithPanel="True"
+                Toggled="ToggleSwitch_Toggled" />
         </RelativePanel>
 
         <StackPanel Orientation="Horizontal">

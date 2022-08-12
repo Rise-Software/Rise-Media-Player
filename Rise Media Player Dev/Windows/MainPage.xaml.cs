@@ -5,6 +5,7 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
@@ -16,6 +17,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
 using Windows.Media;
+using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -107,16 +109,7 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
-            {
-                MainPlayer.SetMediaPlayer(MPViewModel.Player);
-
-                float[] gainArray = { Convert.ToSingle(App.SViewModel.Gain["0"]), Convert.ToSingle(App.SViewModel.Gain["1"]), Convert.ToSingle(App.SViewModel.Gain["2"]), Convert.ToSingle(App.SViewModel.Gain["3"]), Convert.ToSingle(App.SViewModel.Gain["4"]), Convert.ToSingle(App.SViewModel.Gain["5"]), Convert.ToSingle(App.SViewModel.Gain["6"]), Convert.ToSingle(App.SViewModel.Gain["7"]), Convert.ToSingle(App.SViewModel.Gain["8"]), Convert.ToSingle(App.SViewModel.Gain["9"]) };
-                MPViewModel.Player.AddAudioEffect(typeof(EqualizerEffect).FullName, false, new PropertySet()
-                {
-                    ["Gain"] = gainArray,
-                    ["Enabled"] = App.SViewModel.EqualizerEnabled
-                });
-            }
+                UpdatePlayer(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -128,7 +121,7 @@ namespace Rise.App.Views
             _navState = ContentFrame.GetNavigationState();
         }
 
-        private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
+        private async void MPViewModel_PlayingItemChanged(object sender, IMediaItem e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
@@ -157,19 +150,23 @@ namespace Rise.App.Views
             }
         }
 
-        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                MainPlayer.SetMediaPlayer(e);
-
-                float[] gainArray = { Convert.ToSingle(App.SViewModel.Gain["0"]), Convert.ToSingle(App.SViewModel.Gain["1"]), Convert.ToSingle(App.SViewModel.Gain["2"]), Convert.ToSingle(App.SViewModel.Gain["3"]), Convert.ToSingle(App.SViewModel.Gain["4"]), Convert.ToSingle(App.SViewModel.Gain["5"]), Convert.ToSingle(App.SViewModel.Gain["6"]), Convert.ToSingle(App.SViewModel.Gain["7"]), Convert.ToSingle(App.SViewModel.Gain["8"]), Convert.ToSingle(App.SViewModel.Gain["9"]) };
-                e.AddAudioEffect(typeof(EqualizerEffect).FullName, false, new PropertySet()
-                {
-                    ["Gain"] = gainArray,
-                    ["Enabled"] = App.SViewModel.EqualizerEnabled
-                });
+                UpdatePlayer(e);
             });
+        }
+
+        private void UpdatePlayer(MediaPlayer player)
+        {
+            MainPlayer.SetMediaPlayer(player);
+
+            if (MPViewModel.Effects.Count == 0)
+            {
+                var config = new PropertySet { ["Gain"] = SViewModel.EqualizerGain, ["Enabled"] = SViewModel.EqualizerEnabled };
+                MPViewModel.AddEffect(new(typeof(EqualizerEffect), false, true, config));
+            }
         }
 
         private void PlayerControls_ShufflingChanged(object sender, bool e)
