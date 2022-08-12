@@ -3,6 +3,7 @@ using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Media.Playback;
@@ -18,7 +19,7 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// List of media items that are currently queued for playback.
         /// </summary>
-        public readonly SafeObservableCollection<IMediaItem> QueuedItems = new();
+        public readonly ObservableCollection<IMediaItem> QueuedItems = new();
 
         private IMediaItem _playingItem;
 
