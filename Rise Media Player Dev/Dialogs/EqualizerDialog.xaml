@@ -17,7 +17,12 @@
         <x:Double x:Key="ContentDialogMaxWidth">900</x:Double>
     </ContentDialog.Resources>
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" MaxHeight="200" />
+        </Grid.RowDefinitions>
+
         <RelativePanel Margin="0,-12,0,0">
             <TextBlock
                 RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -59,49 +64,54 @@
                 <TextBlock Margin="0,16,0,0" Text="- 6dB" />
                 <TextBlock Margin="0,12,0,0" Text="- 12dB" />
             </StackPanel>
+
             <ListView
                 x:Name="SlidersList"
-                Height="200"
+                Grid.Column="1"
                 IsEnabled="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=OneWay}"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollMode="Enabled"
-                ScrollViewer.VerticalScrollMode="Disabled"
+                ScrollViewer.HorizontalScrollMode="Auto"
                 SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Target="Margin" Value="0" />
+                        <Setter Target="Padding" Value="0" />
+
+                        <Setter Target="MinWidth" Value="0" />
+                        <Setter Target="Width" Value="64" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:EqualizerSliderViewModel">
-                        <ListViewItem
-                            Width="56"
-                            MinWidth="0"
-                            MinHeight="0"
-                            Margin="0"
-                            Padding="0">
-                            <StackPanel>
-                                <Slider
-                                    x:Name="SliderEQ"
-                                    Height="150"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Stretch"
-                                    Maximum="12"
-                                    Minimum="-12"
-                                    Orientation="Vertical"
-                                    StepFrequency="1"
-                                    Tag="{x:Bind Index}"
-                                    TickFrequency="3"
-                                    TickPlacement="BottomRight"
-                                    Value="{x:Bind Gain, Mode=TwoWay}" />
-                                <TextBlock Margin="0,12,0,0" HorizontalTextAlignment="Center">
-                                    <Run Text="{x:Bind HzText}" />Hz
-                                </TextBlock>
-                            </StackPanel>
-                        </ListViewItem>
+                        <StackPanel Spacing="12">
+                            <Slider
+                                x:Name="SliderEQ"
+                                Height="150"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Stretch"
+                                Maximum="12"
+                                Minimum="-12"
+                                Orientation="Vertical"
+                                StepFrequency="1"
+                                Tag="{x:Bind Index}"
+                                TickFrequency="3"
+                                TickPlacement="BottomRight"
+                                Value="{x:Bind Gain, Mode=TwoWay}" />
+
+                            <TextBlock HorizontalTextAlignment="Center">
+                                <Run Text="{x:Bind HzText}" />Hz
+                            </TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
-    </StackPanel>
+        </Grid>
+    </Grid>
 </ContentDialog>
