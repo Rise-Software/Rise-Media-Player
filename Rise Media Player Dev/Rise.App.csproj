@@ -164,6 +164,9 @@
     <Compile Include="UserControls\SongData.xaml.cs">
       <DependentUpon>SongData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\WidgetControl.xaml.cs">
+      <DependentUpon>WidgetControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MediaCollectionViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
     <Compile Include="Converters\BooleanToRoundedCorners.cs" />
@@ -603,6 +606,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SongData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,12 +21,11 @@
             Spacing="4">
             <uc:AdaptiveItemPane>
                 <uc:AdaptiveItemPane.LeftPane>
-                    <Button
-                        Padding="4"
-                        HorizontalContentAlignment="Left"
-                        Style="{StaticResource TransparentButtonStyle}">
-                        <Image Height="42" Source="ms-appx:///Assets/Branding/alphabanner.png" />
-                    </Button>
+                    <Image Height="42">
+                        <Image.Source>
+                            <BitmapImage DecodePixelType="Logical" UriSource="ms-appx:///Assets/Branding/alphabanner.png" />
+                        </Image.Source>
+                    </Image>
                 </uc:AdaptiveItemPane.LeftPane>
 
                 <uc:AdaptiveItemPane.RightPane>
@@ -45,6 +44,7 @@
                 CornerRadius="6"
                 Opacity="1"
                 Style="{StaticResource SettingsCard}">
+                <!--
                 <StackPanel Orientation="Vertical">
                     <StackPanel Padding="0,50,0,20">
                         <Image
@@ -74,6 +74,37 @@
                         TextAlignment="Center"
                         TextWrapping="WrapWholeWords" />
                 </StackPanel>
+                -->
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Auto"
+                    HorizontalScrollMode="Enabled"
+                    VerticalScrollBarVisibility="Disabled"
+                    VerticalScrollMode="Disabled">
+                    <StackPanel Spacing="8">
+                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Your widgets" />
+                        <StackPanel
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <uc:WidgetControl Title="Top tracks" Width="232">
+                                <uc:WidgetControl.Icon>
+                                    <FontIcon Glyph="&#xE128;" />
+                                </uc:WidgetControl.Icon>
+                                <uc:WidgetControl.WidgetContent>
+                                    <StackPanel Padding="16,4,0,12" Orientation="Vertical">
+                                        <TextBlock Text="Hello World!" />
+                                    </StackPanel>
+                                </uc:WidgetControl.WidgetContent>
+                                <uc:WidgetControl.MoreFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Remove widget" />
+                                    </MenuFlyout>
+                                </uc:WidgetControl.MoreFlyout>
+                            </uc:WidgetControl>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
 
             <TextBlock x:Uid="/Information/QuickH" Style="{StaticResource SubheaderTextBlockStyle}" />

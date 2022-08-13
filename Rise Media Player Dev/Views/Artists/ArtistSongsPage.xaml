@@ -210,10 +210,10 @@
                                                 CornerRadius="8">
                                                 <Image>
                                                     <Image.Source>
+                                                        <!-- TODO: Add image here -->
                                                         <BitmapImage
                                                             DecodePixelHeight="32"
-                                                            DecodePixelWidth="32"
-                                                            UriSource="{x:Bind Image[0].Text}" />
+                                                            DecodePixelWidth="32" />
                                                     </Image.Source>
                                                 </Image>
                                             </Border>
