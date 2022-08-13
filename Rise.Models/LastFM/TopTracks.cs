@@ -53,6 +53,8 @@ namespace Rise.Models
         [XmlElement(ElementName = "image")]
         public List<Image> Image { get; set; }
 
+        public Image PreviewSmall => Image[0];
+
         [XmlAttribute(AttributeName = "rank")]
         public string Rank { get; set; }
     }

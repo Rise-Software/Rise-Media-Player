@@ -13,7 +13,7 @@
         Background="{ThemeResource ExpanderHeaderBackground}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
-        CornerRadius="8">
+        CornerRadius="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
@@ -38,7 +38,8 @@
                 Flyout="{x:Bind MoreFlyout, Mode=OneWay}"
                 RelativePanel.AlignRightWithPanel="True"
                 RelativePanel.AlignVerticalCenterWithPanel="True"
-                Style="{StaticResource TransparentButtonStyle}">
+                Style="{StaticResource TransparentButtonStyle}"
+                Visibility="{x:Bind MoreButtonVisibility, Mode=OneWay}">
                 <FontIcon Glyph="&#xE10C;" />
             </Button>
         </RelativePanel>

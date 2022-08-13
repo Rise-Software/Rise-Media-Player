@@ -69,6 +69,19 @@ namespace Rise.App.UserControls
             set => SetValue(TitleProperty, value);
         }
 
+        public static readonly DependencyProperty MoreButtonVisibilityProperty
+            = DependencyProperty.Register(nameof(MoreButtonVisibility), typeof(Visibility),
+                typeof(WidgetControl), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
+        /// Gets or sets the widget more button's visibility.
+        /// </summary>
+        public Visibility MoreButtonVisibility
+        {
+            get => (Visibility)GetValue(MoreButtonVisibilityProperty);
+            set => SetValue(MoreButtonVisibilityProperty, value);
+        }
+
         public WidgetControl()
         {
             InitializeComponent();
