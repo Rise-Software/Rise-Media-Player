@@ -1,11 +1,11 @@
-﻿using AudioVisualizer;
-using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using AudioVisualizer;
+using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
@@ -19,7 +19,8 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// List of media items that are currently queued for playback.
         /// </summary>
-        public readonly ObservableCollection<IMediaItem> QueuedItems = new();
+        public ObservableCollection<IMediaItem> QueuedItems { get; private set; }
+            = new();
 
         private IMediaItem _playingItem;
 
@@ -65,7 +66,8 @@ namespace Rise.Data.ViewModels
         /// The media playback list. It is permanently associated with
         /// the player, due to the fact that we don't ever dispose it.
         /// </summary>
-        private readonly MediaPlaybackList PlaybackList = new();
+        public MediaPlaybackList PlaybackList { get; private set; }
+            = new();
 
         /// <summary>
         /// Whether the items in the playback list are played in a random
