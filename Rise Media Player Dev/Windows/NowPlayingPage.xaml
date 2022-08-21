@@ -118,7 +118,6 @@
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
-                    QueueFlyoutItemsSource="{x:Bind MPViewModel.QueuedItems}"
                     ShowAndHideAutomatically="False"
                     ShufflingChanged="OnShufflingChanged"
                     Style="{StaticResource NowPlayingTransportControlsStyle}"
@@ -189,29 +188,6 @@
                                 Grid.Column="1" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
-
-                    <uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
-                        <DataTemplate x:DataType="interfaces:IMediaItem" x:DefaultBindMode="OneWay">
-                            <Grid Padding="12,4" ColumnSpacing="12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{x:Bind Title}" />
-                                    <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
-                                </StackPanel>
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    x:Phase="1"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
-                            </Grid>
-                        </DataTemplate>
-                    </uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
                 </uc:RiseMediaTransportControls>
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>

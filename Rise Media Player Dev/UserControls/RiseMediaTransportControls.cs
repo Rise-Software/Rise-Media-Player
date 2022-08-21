@@ -1,8 +1,8 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
-using System;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -169,30 +169,12 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// The template for queue items.
+        /// The flyout to display when clicking the queue button.
         /// </summary>
-        public object QueueFlyoutItemsSource
+        public Flyout QueueFlyout
         {
-            get => GetValue(QueueFlyoutItemsSourceProperty);
-            set => SetValue(QueueFlyoutItemsSourceProperty, value);
-        }
-
-        /// <summary>
-        /// The template for queue items.
-        /// </summary>
-        public DataTemplate QueueFlyoutItemTemplate
-        {
-            get => (DataTemplate)GetValue(QueueFlyoutItemTemplateProperty);
-            set => SetValue(QueueFlyoutItemTemplateProperty, value);
-        }
-
-        /// <summary>
-        /// The template selector for queue items.
-        /// </summary>
-        public DataTemplateSelector QueueFlyoutItemTemplateSelector
-        {
-            get => (DataTemplateSelector)GetValue(QueueFlyoutItemTemplateProperty);
-            set => SetValue(QueueFlyoutItemTemplateProperty, value);
+            get => (Flyout)GetValue(QueueFlyoutProperty);
+            set => SetValue(QueueFlyoutProperty, value);
         }
     }
 
@@ -259,16 +241,8 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
-        public readonly static DependencyProperty QueueFlyoutItemsSourceProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemsSource), typeof(object),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty QueueFlyoutItemTemplateProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemTemplate), typeof(DataTemplate),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty QueueFlyoutItemTemplateSelectorProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemTemplateSelector), typeof(DataTemplateSelector),
+        public readonly static DependencyProperty QueueFlyoutProperty =
+            DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
     }
 
