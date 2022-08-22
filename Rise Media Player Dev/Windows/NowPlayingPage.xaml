@@ -124,10 +124,7 @@
                     TimelineDisplayMode="Minimal">
                     <uc:RiseMediaTransportControls.QueueFlyout>
                         <Flyout>
-                            <uc:DefaultQueueFlyout
-                                Width="300"
-                                Height="300"
-                                QueuedItemsSource="{x:Bind MPViewModel.QueuedItems}" />
+                            <uc:DefaultQueueFlyout Width="300" Height="300" />
                         </Flyout>
                     </uc:RiseMediaTransportControls.QueueFlyout>
 

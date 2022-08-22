@@ -12,7 +12,20 @@
         <conv:TimeSpanToString x:Key="TimeToStr" />
     </UserControl.Resources>
 
-    <ListView ItemsSource="{x:Bind QueuedItemsSource, Mode=OneWay}">
+    <ListView
+        x:Name="MainList"
+        ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
+        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+        SelectionMode="Single">
+        <ListView.ContextFlyout>
+            <MenuFlyout Opening="MenuFlyout_Opening">
+                <MenuFlyoutItem
+                    x:Uid="/Information/PlayItem"
+                    Click="PlayItem_Click"
+                    Icon="Play" />
+            </MenuFlyout>
+        </ListView.ContextFlyout>
+
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="interfaces:IMediaItem">
                 <Grid Padding="12,4" ColumnSpacing="12">
