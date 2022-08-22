@@ -1,12 +1,12 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;

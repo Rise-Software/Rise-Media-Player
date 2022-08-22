@@ -1,9 +1,9 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.App.ViewModels;
-using Rise.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
+using Rise.App.ViewModels;
+using Rise.Common.Interfaces;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.Helpers
