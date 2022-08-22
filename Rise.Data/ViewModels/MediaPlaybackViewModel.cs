@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AudioVisualizer;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Models;
 using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
