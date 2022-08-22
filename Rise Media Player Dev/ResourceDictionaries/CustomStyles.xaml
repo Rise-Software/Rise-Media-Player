@@ -397,11 +397,11 @@
 
                                 <AppBarButton
                                     x:Name="QueueButton"
+                                    Flyout="{TemplateBinding QueueFlyout}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
                                     Label="Play queue"
                                     ToolTipService.ToolTip="Play queue"
-                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                    Flyout="{TemplateBinding QueueFlyout}">
+                                    Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
                                     </AppBarButton.Icon>
@@ -1032,10 +1032,10 @@
 
                                 <AppBarButton
                                     x:Name="QueueButton"
+                                    Flyout="{TemplateBinding QueueFlyout}"
                                     IsEnabled="{TemplateBinding IsQueueButtonEnabled}"
                                     Label="Play queue"
                                     ToolTipService.ToolTip="Play queue"
-                                    Flyout="{TemplateBinding QueueFlyout}"
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />

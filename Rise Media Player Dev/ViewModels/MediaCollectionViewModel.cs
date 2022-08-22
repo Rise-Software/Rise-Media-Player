@@ -1,15 +1,15 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI;
-using Rise.Common.Extensions;
-using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
-using Rise.Data.ViewModels;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 
 namespace Rise.App.ViewModels
 {

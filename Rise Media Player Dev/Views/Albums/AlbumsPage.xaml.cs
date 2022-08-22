@@ -1,4 +1,7 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
@@ -6,9 +9,6 @@ using Rise.App.ViewModels;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
