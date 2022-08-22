@@ -1,20 +1,25 @@
-﻿using NAudio.Dsp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using NAudio.Dsp;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Effects;
 using Windows.Media.MediaProperties;
+using Windows.Media.Playback;
 
 namespace Rise.Effects
 {
     public sealed class EqualizerEffect : IBasicAudioEffect
     {
-        private static EqualizerEffect current;
+        /// <summary>
+        /// Gets the current instance of the effect.
+        /// </summary>
+        public static EqualizerEffect Current { get; private set; }
 
-        public static EqualizerEffect Current => current;
-
+        /// <summary>
+        /// Whether the effect should be enabled.
+        /// </summary>
         public bool IsEnabled
         {
             get => (bool)configuration["Enabled"];
@@ -22,7 +27,6 @@ namespace Rise.Effects
         }
 
         private List<AudioEncodingProperties> _supportedEncodingProperties;
-
         public IReadOnlyList<AudioEncodingProperties> SupportedEncodingProperties
         {
             get
@@ -67,9 +71,15 @@ namespace Rise.Effects
         private int bandCount;
         private IPropertySet configuration;
 
+        /// <summary>
+        /// Initializes a new instance of the effect.
+        /// </summary>
+        /// <remarks>You usually don't call this constructor directly.
+        /// When adding the effect to a <see cref="MediaPlayer"/>, the
+        /// instance is created by it.</remarks>
         public EqualizerEffect()
         {
-            current = this;
+            Current = this;
         }
 
         public void UpdateEqualizerBand(IReadOnlyList<float> equalizerBands)
