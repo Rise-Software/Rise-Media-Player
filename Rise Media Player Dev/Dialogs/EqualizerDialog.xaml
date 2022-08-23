@@ -2,13 +2,12 @@
     x:Class="Rise.App.Dialogs.EqualizerDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:effects="using:Rise.Effects"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:Rise.Data.ViewModels"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonClick="OnPrimaryButtonClick"
     PrimaryButtonText="OK"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    SecondaryButtonClick="OnSecondaryButtonClick"
     SecondaryButtonText="Cancel"
     Style="{ThemeResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
@@ -32,18 +31,18 @@
 
             <ToggleSwitch
                 Margin="0,0,-72,0"
-                IsOn="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=TwoWay}"
-                RelativePanel.AlignRightWithPanel="True"
-                Toggled="ToggleSwitch_Toggled" />
+                IsOn="{x:Bind Effect.IsEnabled, Mode=TwoWay}"
+                RelativePanel.AlignRightWithPanel="True" />
         </RelativePanel>
 
         <RelativePanel Grid.Row="1">
             <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" Text="Preset" />
 
             <ComboBox
+                x:Name="Presets"
                 RelativePanel.AlignRightWithPanel="True"
                 SelectedIndex="{x:Bind SViewModel.SelectedEqualizerPreset, Mode=TwoWay}"
-                SelectionChanged="OnPresetComboBoxSelectionChanged">
+                SelectionChanged="OnPresetChanged">
                 <x:String>Flat</x:String>
                 <x:String>Custom</x:String>
                 <x:String>Pop</x:String>
@@ -74,7 +73,8 @@
             <ListView
                 x:Name="SlidersList"
                 Grid.Column="1"
-                IsEnabled="{x:Bind app:App.SViewModel.EqualizerEnabled, Mode=OneWay}"
+                IsEnabled="{x:Bind Effect.IsEnabled, Mode=OneWay}"
+                ItemsSource="{x:Bind Effect.Bands}"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Auto"
                 SelectionMode="None">
@@ -95,7 +95,7 @@
                 </ListView.ItemContainerStyle>
 
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:EqualizerSliderViewModel">
+                    <DataTemplate x:DataType="effects:EqualizerBand">
                         <StackPanel Spacing="12">
                             <Slider
                                 x:Name="SliderEQ"
@@ -109,6 +109,7 @@
                                 Tag="{x:Bind Index}"
                                 TickFrequency="3"
                                 TickPlacement="BottomRight"
+                                ValueChanged="OnBandGainChanged"
                                 Value="{x:Bind Gain, Mode=TwoWay}" />
 
                             <TextBlock HorizontalTextAlignment="Center">

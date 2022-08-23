@@ -1,69 +1,67 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Data.ViewModels;
 using Rise.Effects;
-using System.Collections.Generic;
-using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.Dialogs
 {
     public sealed partial class EqualizerDialog : ContentDialog
     {
-        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+        private EqualizerEffect Effect => EqualizerEffect.Current;
 
-        private readonly List<EqualizerSliderViewModel> list;
+        private int _initialPreset;
+        private int _currPreset;
 
         public EqualizerDialog()
         {
             InitializeComponent();
 
-            list = new();
+            _initialPreset = SViewModel.SelectedEqualizerPreset;
+            _currPreset = _initialPreset;
+        }
+    }
+
+    // Event handlers
+    public sealed partial class EqualizerDialog
+    {
+        private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            SViewModel.EqualizerEnabled = Effect.IsEnabled;
             for (int i = 0; i < 10; i++)
-            {
-                var vm = new EqualizerSliderViewModel
-                {
-                    Gain = SViewModel.EqualizerGain[i],
-                    Index = i
-                };
-                list.Add(vm);
-            }
+                SViewModel.EqualizerGain[i] = Effect.Bands[i].Gain;
 
-            SlidersList.ItemsSource = list;
+            Effect.UpdateAllBands();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void OnSecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            Effect.IsEnabled = SViewModel.EqualizerEnabled;
+
+            Presets.SelectionChanged -= OnPresetChanged;
+            SViewModel.SelectedEqualizerPreset = _initialPreset;
+
+            for (int i = 0; i < 10; i++)
+                Effect.Bands[i].Gain = SViewModel.EqualizerGain[i];
+        }
+
+        private void OnPresetChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int newPreset = (sender as ComboBox).SelectedIndex;
+            if (_currPreset == newPreset)
+                return;
+
+            _currPreset = newPreset;
+
             float[] gains = new float[10];
-            for (int i = 0; i < list.Count; i++)
-                gains[i] = list[i].Gain;
-            SViewModel.EqualizerGain = gains;
-
-            if (MPViewModel.PlayerCreated)
-                EqualizerEffect.Current.SetProperties(new PropertySet() { ["Gain"] = gains, ["Enabled"] = SViewModel.EqualizerEnabled });
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
-        private void ToggleSwitch_Toggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            if (MPViewModel.PlayerCreated)
-                EqualizerEffect.Current.IsEnabled = SViewModel.EqualizerEnabled;
-        }
-
-        private void OnPresetComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            float[] gains = new float[10];
-
-            switch ((sender as ComboBox).SelectedIndex)
+            switch (newPreset)
             {
                 case 0:
                     gains = new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
                     break;
                 case 1:
-                    break;
+                    return;
                 case 2:
                     gains = new float[10] { 6f, 4f, 2f, 0f, 2f, 3f, 0f, 0f, 0f, 0f };
                     break;
@@ -81,8 +79,15 @@ namespace Rise.App.Dialogs
                     break;
             }
 
-            for (int i = 0; i < list.Count; i++)
-                list[i].Gain = gains[i];
+            for (int i = 0; i < 10; i++)
+                Effect.Bands[i].Gain = gains[i];
+        }
+
+        private void OnBandGainChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            var elm = sender as FrameworkElement;
+            if (elm?.DataContext is EqualizerBand band)
+                Effect.UpdateBand(band.Index);
         }
     }
 }

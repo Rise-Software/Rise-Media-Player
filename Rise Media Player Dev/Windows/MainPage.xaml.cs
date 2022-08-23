@@ -1,4 +1,8 @@
-﻿using Rise.App.Dialogs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -8,13 +12,7 @@ using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
-using Rise.Effects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Media.Playback;
@@ -109,7 +107,7 @@ namespace Rise.App.Views
                 ContentFrame.SetNavigationState(_navState);
 
             if (MPViewModel.PlayerCreated)
-                UpdatePlayer(MPViewModel.Player);
+                MainPlayer.SetMediaPlayer(MPViewModel.Player);
             else
                 MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
 
@@ -154,19 +152,8 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                UpdatePlayer(e);
+                MainPlayer.SetMediaPlayer(e);
             });
-        }
-
-        private void UpdatePlayer(MediaPlayer player)
-        {
-            MainPlayer.SetMediaPlayer(player);
-
-            if (!MPViewModel.Effects.Any(e => e.EffectClassType == typeof(EqualizerEffect)))
-            {
-                var config = new PropertySet { ["Gain"] = SViewModel.EqualizerGain, ["Enabled"] = SViewModel.EqualizerEnabled };
-                MPViewModel.AddEffect(new(typeof(EqualizerEffect), false, true, config));
-            }
         }
 
         private void PlayerControls_ShufflingChanged(object sender, bool e)
