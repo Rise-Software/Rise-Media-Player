@@ -11,7 +11,7 @@ namespace Rise.App.Dialogs
         private SettingsViewModel SViewModel => App.SViewModel;
         private EqualizerEffect Effect => EqualizerEffect.Current;
 
-        private int _initialPreset;
+        private readonly int _initialPreset;
         private int _currPreset;
 
         public EqualizerDialog()
@@ -29,9 +29,12 @@ namespace Rise.App.Dialogs
         private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             SViewModel.EqualizerEnabled = Effect.IsEnabled;
-            for (int i = 0; i < 10; i++)
-                SViewModel.EqualizerGain[i] = Effect.Bands[i].Gain;
 
+            var gains = new float[10];
+            for (int i = 0; i < 10; i++)
+                gains[i] = Effect.Bands[i].Gain;
+
+            SViewModel.EqualizerGain = gains;
             Effect.UpdateAllBands();
         }
 
