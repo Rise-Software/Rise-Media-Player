@@ -1,4 +1,8 @@
-﻿using Rise.App.Dialogs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -7,10 +11,6 @@ using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
@@ -70,9 +70,6 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            Loaded += MainPage_Loaded;
-            Unloaded += MainPage_Unloaded;
-
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
@@ -88,15 +85,42 @@ namespace Rise.App.Views
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
         }
 
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            UpdateTitleBarItems(NavView);
+            if (!App.MainPageLoaded)
+            {
+                // Sidebar icons
+                await NavDataSource.PopulateGroupsAsync();
+
+                // Startup setting
+                if (ContentFrame.Content == null)
+                {
+                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
+                }
+
+                if (SViewModel.AutoIndexingEnabled)
+                {
+                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+                }
+
+                App.MainPageLoaded = true;
+            }
+        }
+
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.LayoutMetricsChanged -= CoreTitleBar_LayoutMetricsChanged;
+
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
-            Bindings.StopTracking();
+            PlayerControls.OverlayButtonClick -= OnOverlayButtonClick;
+            PlayerControls.CompactOverlayButtonClick -= OnCompactOverlayButtonClick;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -154,9 +178,6 @@ namespace Rise.App.Views
             });
         }
 
-        private void PlayerControls_ShufflingChanged(object sender, bool e)
-            => MPViewModel.ShuffleEnabled = e;
-
         private void OnDisplayItemClick(object sender, RoutedEventArgs e)
             => GoToNowPlaying();
 
@@ -188,29 +209,6 @@ namespace Rise.App.Views
                 Frame.Navigate(typeof(VideoPlaybackPage));
             else
                 Frame.Navigate(typeof(NowPlayingPage));
-        }
-
-        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
-        {
-            if (!App.MainPageLoaded)
-            {
-                // Sidebar icons
-                await NavDataSource.PopulateGroupsAsync();
-
-                // Startup setting
-                if (ContentFrame.Content == null)
-                {
-                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
-                }
-
-                if (SViewModel.AutoIndexingEnabled)
-                {
-                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-                }
-
-                UpdateTitleBarItems(NavView);
-                App.MainPageLoaded = true;
-            }
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)

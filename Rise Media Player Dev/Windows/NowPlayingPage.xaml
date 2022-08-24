@@ -119,7 +119,6 @@
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
                     ShowAndHideAutomatically="False"
-                    ShufflingChanged="OnShufflingChanged"
                     Style="{StaticResource NowPlayingTransportControlsStyle}"
                     TimelineDisplayMode="Minimal">
                     <uc:RiseMediaTransportControls.QueueFlyout>

@@ -116,9 +116,6 @@ namespace Rise.App.Views
             });
         }
 
-        private void OnShufflingChanged(object sender, bool e)
-            => MPViewModel.ShuffleEnabled = e;
-
         // UI
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
             => UpdatePointerStates(true);

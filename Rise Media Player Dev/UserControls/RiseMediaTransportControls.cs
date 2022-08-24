@@ -7,7 +7,6 @@ using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.UserControls
 {
@@ -16,11 +15,6 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        private ToggleButton _shuffleButton;
-        private AppBarButton _compactOverlayButton;
-        private AppBarButton _overlayButton;
-        private AppBarButton _propertiesButton;
-
         /// <summary>
         /// Gets or sets a value that indicates the horizontal
         /// alignment for the main playback controls.
@@ -252,48 +246,26 @@ namespace Rise.App.UserControls
         public RiseMediaTransportControls()
         {
             DefaultStyleKey = typeof(RiseMediaTransportControls);
-
-            Unloaded += OnUnloaded;
         }
 
         protected override void OnApplyTemplate()
         {
-            _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
-            _shuffleButton.Checked += OnShuffleChecked;
-            _shuffleButton.Unchecked += OnShuffleUnchecked;
+            var compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
+            compactOverlayButton.Click += CompactOverlayButtonClick;
 
-            _compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
-            _compactOverlayButton.Click += CompactOverlayButtonClick;
+            var overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
+            overlayButton.Click += OverlayButtonClick;
 
-            _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            _overlayButton.Click += OverlayButtonClick;
-
-            _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
-            _propertiesButton.Click += PropertiesButtonClick;
+            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
+            propertiesButton.Click += PropertiesButtonClick;
 
             base.OnApplyTemplate();
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            _shuffleButton.Checked -= OnShuffleChecked;
-            _shuffleButton.Unchecked -= OnShuffleUnchecked;
-
-            _compactOverlayButton.Click -= CompactOverlayButtonClick;
-            _overlayButton.Click -= OverlayButtonClick;
-            _propertiesButton.Click -= PropertiesButtonClick;
         }
     }
 
     // Event handlers
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        /// <summary>
-        /// Invoked when the shuffle button is clicked. Event arg
-        /// corresponds to the IsChecked value of the ToggleButton.
-        /// </summary>
-        public event EventHandler<bool> ShufflingChanged;
-
         /// <summary>
         /// Invoked when the compact overlay button is clicked.
         /// </summary>
@@ -326,12 +298,6 @@ namespace Rise.App.UserControls
                     }
                 });
         }
-
-        private void OnShuffleChecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, true);
-
-        private void OnShuffleUnchecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, false);
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {

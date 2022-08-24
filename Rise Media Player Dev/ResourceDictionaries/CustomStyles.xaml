@@ -1,10 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:app="using:Rise.App"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
-    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
@@ -330,7 +328,7 @@
                                     x:Name="ShuffleButton"
                                     Width="40"
                                     Padding="4"
-                                    IsChecked="{TemplateBinding IsShuffleButtonChecked}"
+                                    IsChecked="{Binding IsShuffleButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsShuffleEnabled}"
                                     Visibility="{Binding IsShuffleButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>
@@ -983,7 +981,7 @@
                                     x:Name="ShuffleButton"
                                     Width="40"
                                     Padding="4"
-                                    IsChecked="{TemplateBinding IsShuffleButtonChecked}"
+                                    IsChecked="{Binding IsShuffleButtonChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                     IsEnabled="{TemplateBinding IsShuffleEnabled}"
                                     Visibility="{Binding IsShuffleButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarToggleButton.Icon>

@@ -6,7 +6,6 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
-    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:local="using:Rise.App.Views"
     xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,6 +15,8 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -627,8 +628,7 @@
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
                             OverlayButtonClick="OnOverlayButtonClick"
-                            ShowAndHideAutomatically="False"
-                            ShufflingChanged="PlayerControls_ShufflingChanged">
+                            ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.QueueFlyout>
                                 <Flyout>
                                     <uc:DefaultQueueFlyout Width="300" Height="300" />
