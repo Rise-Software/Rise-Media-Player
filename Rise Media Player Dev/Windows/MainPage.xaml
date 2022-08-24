@@ -377,19 +377,17 @@
                 </Grid.ColumnDefinitions>
 
                 <AutoSuggestBox
-                    x:Name="BigSearch"
+                    x:Name="Search"
                     Height="32"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
-                    GotFocus="BigSearch_GotFocus"
-                    LostFocus="BigSearch_LostFocus"
                     PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
                     QueryIcon="Find"
-                    QuerySubmitted="BigSearch_QuerySubmitted"
-                    SuggestionChosen="BigSearch_SuggestionChosen"
-                    TextChanged="BigSearch_TextChanged">
+                    QuerySubmitted="OnSearchQuerySubmitted"
+                    SuggestionChosen="OnSearchSuggestionChosen"
+                    TextChanged="OnSearchTextChanged">
                     <AutoSuggestBox.ItemTemplate>
                         <DataTemplate x:DataType="appviewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
@@ -761,7 +759,7 @@
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
-                        <Setter Target="BigSearch.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
+                        <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
 
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>

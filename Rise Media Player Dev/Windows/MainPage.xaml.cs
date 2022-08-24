@@ -479,9 +479,27 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
-        private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (Acc.Text != "Add an account")
+            {
+                string url = "https://www.last.fm/user/" + Acc.Text;
+                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            }
+            else
+            {
+                Frame.Navigate(typeof(AllSettingsPage));
+            }
+        }
+
+        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+        }
+
+        private async void OnSearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             SearchItemViewModel searchItem = args.SelectedItem as SearchItemViewModel;
             sender.Text = searchItem.Title;
@@ -506,7 +524,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void BigSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -580,34 +598,6 @@ namespace Rise.App.Views
 
                 sender.ItemsSource = suitableItems;
             }
-        }
-
-        private async void Account_Click(object sender, RoutedEventArgs e)
-        {
-            if (Acc.Text != "Add an account")
-            {
-                string url = "https://www.last.fm/user/" + Acc.Text;
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
-            }
-            else
-            {
-                Frame.Navigate(typeof(AllSettingsPage));
-            }
-        }
-
-        private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
-        }
-
-        private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = true;
-        }
-
-        private void BigSearch_LostFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = false;
         }
 
         public static Visibility IsStringEmpty(string str)
