@@ -9,11 +9,13 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
+using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -141,7 +143,7 @@ namespace Rise.App.Views
             _navState = ContentFrame.GetNavigationState();
         }
 
-        private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
+        private async void MPViewModel_PlayingItemChanged(object sender, IMediaItem e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
@@ -170,7 +172,7 @@ namespace Rise.App.Views
             }
         }
 
-        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {

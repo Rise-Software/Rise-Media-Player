@@ -1,6 +1,7 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using Rise.App.Dialogs;
+using Rise.App.ViewModels;
 using Rise.Common;
-using Rise.Common.Extensions;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -30,10 +31,9 @@ namespace Rise.App.Settings
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        private async void RiseEQLink_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnEqualizerExpanderClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            string uriToLaunch = @"https://github.com/Rise-Software/RiseEQ";
-            await uriToLaunch.LaunchAsync();
+            await new EqualizerDialog().ShowAsync();
         }
     }
 }
