@@ -150,9 +150,6 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>Sobre esta página</value>
   </data>
-  <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>Procurar toda a media neste dispositivo</value>
-  </data>
   <data name="Check.Title" xml:space="preserve">
     <value>A procurar por nova media na tua biblioteca...</value>
   </data>
@@ -278,9 +275,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Barra lateral (Clássica)</value>
-  </data>
-  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>Procurar</value>
   </data>
   <data name="Songs.Text" xml:space="preserve">
     <value>Músicas</value>

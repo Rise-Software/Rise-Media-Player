@@ -8,6 +8,7 @@
     xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:local="using:Rise.App.Views"
     xmlns:local1="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -377,7 +378,6 @@
 
                 <AutoSuggestBox
                     x:Name="BigSearch"
-                    x:Uid="/Information/BigSearch"
                     Height="32"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
@@ -385,11 +385,11 @@
                     AutomationProperties.Name="Search"
                     GotFocus="BigSearch_GotFocus"
                     LostFocus="BigSearch_LostFocus"
+                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
                     QueryIcon="Find"
                     QuerySubmitted="BigSearch_QuerySubmitted"
                     SuggestionChosen="BigSearch_SuggestionChosen"
-                    TextChanged="BigSearch_TextChanged"
-                    Visibility="Collapsed">
+                    TextChanged="BigSearch_TextChanged">
                     <AutoSuggestBox.ItemTemplate>
                         <DataTemplate x:DataType="appviewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
@@ -424,15 +424,6 @@
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
-
-                <AutoSuggestBox
-                    x:Name="SmallSearch"
-                    x:Uid="/Information/SmallSearch"
-                    Height="32"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    QueryIcon="Find" />
 
                 <Button
                     x:Name="SyncCentre"
@@ -770,8 +761,7 @@
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
-                        <Setter Target="BigSearch.Visibility" Value="Visible" />
-                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+                        <Setter Target="BigSearch.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
 
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>

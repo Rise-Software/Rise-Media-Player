@@ -159,9 +159,6 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>इस पृष्ठ के बारे में</value>
   </data>
-  <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>इस उपकरण पर सभी मीडिया खोजें</value>
-  </data>
   <data name="ChangeArtImg.Text" xml:space="preserve">
     <value>रचनाकार चित्र बदलें</value>
   </data>
@@ -311,9 +308,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>साइडबार(क्लासिक)</value>
-  </data>
-  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>खोजें</value>
   </data>
   <data name="Songs.Text" xml:space="preserve">
     <value>गाने</value>

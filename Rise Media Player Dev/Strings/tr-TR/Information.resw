@@ -159,9 +159,6 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>Bu sayfa hakkında</value>
   </data>
-  <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>Bu cihazdaki tüm medyayı ara</value>
-  </data>
   <data name="ChangeArtImg.Text" xml:space="preserve">
     <value>Sanatçı resmini değiştir</value>
   </data>
@@ -311,9 +308,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Kenar çubuğu (Klasik)</value>
-  </data>
-  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>Ara</value>
   </data>
   <data name="Songs.Text" xml:space="preserve">
     <value>Müzikler</value>

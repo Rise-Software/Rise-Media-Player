@@ -555,6 +555,12 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\tr-TR\Resources.resw" />
+    <PRIResource Include="Strings\ro-RO\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Strings\hi-IN\Resources.resw" />
+    <PRIResource Include="Strings\en-GB\Resources.resw" />
     <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-GB\Widgets.resw" />
     <PRIResource Include="Strings\en-GB\HelpTips.resw" />
