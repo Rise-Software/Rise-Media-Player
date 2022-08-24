@@ -4,7 +4,8 @@
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:wuvm="using:Windows.UI.ViewManagement">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ListStyles.xaml" />
@@ -385,6 +386,7 @@
                                 OverflowButtonVisibility="Auto">
                                 <AppBarButton
                                     x:Name="OverlayButton"
+                                    Command="{TemplateBinding OverlayCommand}"
                                     IsEnabled="{TemplateBinding IsOverlayEnabled}"
                                     ToolTipService.ToolTip="Now playing"
                                     Visibility="{Binding IsOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
@@ -454,6 +456,7 @@
 
                                 <AppBarButton
                                     x:Name="MiniViewButton"
+                                    Command="{TemplateBinding OverlayCommand}"
                                     IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
                                     Label="Enter mini view"
                                     Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">

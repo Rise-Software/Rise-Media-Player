@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -121,8 +122,7 @@ namespace Rise.App.Views
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
 
-            PlayerControls.OverlayButtonClick -= OnOverlayButtonClick;
-            PlayerControls.CompactOverlayButtonClick -= OnCompactOverlayButtonClick;
+            Bindings.StopTracking();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -180,8 +180,22 @@ namespace Rise.App.Views
             });
         }
 
-        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
+        [RelayCommand]
+        private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        {
+            if (MPViewModel.PlayingItem == null) return;
+            if (newMode == ApplicationViewMode.CompactOverlay)
+                await ApplicationView.GetForCurrentView().
+                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+
+            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                Frame.Navigate(typeof(VideoPlaybackPage));
+            else
+                Frame.Navigate(typeof(NowPlayingPage));
+        }
+
+        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
 
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -190,27 +204,6 @@ namespace Rise.App.Views
                 PlayingItemVideoFlyout.ShowAt(MainPlayer);
             else
                 PlayingItemMusicFlyout.ShowAt(MainPlayer);
-        }
-
-        private async void OnCompactOverlayButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (MPViewModel.PlayingItem == null) return;
-
-            await ApplicationView.GetForCurrentView().
-                TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-            GoToNowPlaying();
-        }
-
-        private void OnOverlayButtonClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
-
-        private void GoToNowPlaying()
-        {
-            if (MPViewModel.PlayingItem == null) return;
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
-                Frame.Navigate(typeof(VideoPlaybackPage));
-            else
-                Frame.Navigate(typeof(NowPlayingPage));
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)

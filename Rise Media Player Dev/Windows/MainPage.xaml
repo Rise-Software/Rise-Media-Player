@@ -607,7 +607,6 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            CompactOverlayButtonClick="OnCompactOverlayButtonClick"
                             DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
@@ -627,7 +626,7 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            OverlayButtonClick="OnOverlayButtonClick"
+                            OverlayCommand="{x:Bind GoToNowPlayingCommand, Mode=OneTime}"
                             ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.QueueFlyout>
                                 <Flyout>
