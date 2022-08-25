@@ -88,6 +88,8 @@
                             Orientation="Horizontal"
                             Spacing="8">
                             <uc:TopTracksWidget Width="232" />
+                            <uc:AppInfoWidget Width="232" />
+                            <uc:RecentlyPlayedWidget Width="232" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
