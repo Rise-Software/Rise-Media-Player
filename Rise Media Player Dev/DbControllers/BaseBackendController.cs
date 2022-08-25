@@ -11,10 +11,10 @@ namespace Rise.App.DbControllers
 
         public BaseBackendController(string dbName)
         {
-            _ = setupBackend(dbName);
+            _ = SetupBackend(dbName);
         }
 
-        private async Task setupBackend(string dbName)
+        private async Task SetupBackend(string dbName)
         {
             DbFile = await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"{dbName}.json", CreationCollisionOption.OpenIfExists);
             DbName = dbName;
