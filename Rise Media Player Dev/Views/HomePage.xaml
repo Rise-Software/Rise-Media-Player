@@ -87,21 +87,7 @@
                             HorizontalAlignment="Left"
                             Orientation="Horizontal"
                             Spacing="8">
-                            <uc:WidgetControl Title="Top tracks" Width="232">
-                                <uc:WidgetControl.Icon>
-                                    <FontIcon Glyph="&#xE128;" />
-                                </uc:WidgetControl.Icon>
-                                <uc:WidgetControl.WidgetContent>
-                                    <StackPanel Padding="16,4,0,12" Orientation="Vertical">
-                                        <TextBlock Text="Hello World!" />
-                                    </StackPanel>
-                                </uc:WidgetControl.WidgetContent>
-                                <uc:WidgetControl.MoreFlyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Text="Remove widget" />
-                                    </MenuFlyout>
-                                </uc:WidgetControl.MoreFlyout>
-                            </uc:WidgetControl>
+                            <uc:TopTracksWidget Width="232" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
