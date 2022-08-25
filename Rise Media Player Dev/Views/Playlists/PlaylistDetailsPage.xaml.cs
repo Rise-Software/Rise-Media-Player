@@ -1,12 +1,12 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -127,16 +127,14 @@ namespace Rise.App.Views
                 SelectedVideo = (VideoViewModel)cont;
         }
 
-        private async void Remove_Click(object sender, RoutedEventArgs e)
+        private async void RemoveSong_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is SongViewModel song)
-            {
-                await SelectedPlaylist.RemoveSongAsync(SelectedItem);
-            }
-            else if ((e.OriginalSource as FrameworkElement).DataContext is VideoViewModel video)
-            {
-                await SelectedPlaylist.RemoveVideoAsync(SelectedVideo);
-            }
+            await SelectedPlaylist.RemoveSongAsync(SelectedItem);
+        }
+
+        private async void RemoveVideo_Click(object sender, RoutedEventArgs e)
+        {
+            await SelectedPlaylist.RemoveVideoAsync(SelectedVideo);
         }
 
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)

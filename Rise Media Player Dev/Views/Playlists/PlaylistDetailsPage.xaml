@@ -89,7 +89,7 @@
 
                         <MenuFlyoutItem
                             x:Uid="/Information/RemovePlaylist"
-                            Click="Remove_Click"
+                            Click="RemoveSong_Click"
                             Icon="Delete" />
 
                         <MenuFlyoutItem
@@ -166,8 +166,8 @@
                                         FontWeight="SemiBold"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}">
-                                        <Run Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />
-                                        ,<Run Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
+                                        <Run Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />,
+                                        <Run Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
                                         x:Name="Description"
@@ -275,7 +275,7 @@
 
                         <MenuFlyoutItem
                             x:Uid="/Information/RemoveThing"
-                            Click="Remove_Click"
+                            Click="RemoveVideo_Click"
                             Icon="Delete" />
 
                         <MenuFlyoutItem
