@@ -504,8 +504,9 @@
                                 FontWeight="SemiBold"
                                 Text="{x:Bind LMViewModel.Username, Mode=OneWay}">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
+
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
                                 </MenuFlyoutItem.Background>
@@ -955,13 +956,14 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="LastFMStates">
-                <VisualState x:Name="LoggedInState">
+                <VisualState x:Name="LoggedOutState">
                     <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated, Mode=OneWay}" />
+                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated.Equals(x:False), Mode=OneWay}" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="AccountPic.Glyph" Value="&#xE13D;" />
+                        <Setter Target="Acc.Text" Value="{markup:ResourceHelper Name=AddAccount}" />
+                        <Setter Target="AccountPic.Glyph" Value="&#xECC8;" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

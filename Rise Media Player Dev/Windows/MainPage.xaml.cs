@@ -121,8 +121,6 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
-
-            Bindings.StopTracking();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -483,10 +481,10 @@ namespace Rise.App.Views
 
         private async void Account_Click(object sender, RoutedEventArgs e)
         {
-            if (Acc.Text != "Add an account")
+            if (LMViewModel.Authenticated)
             {
-                string url = "https://www.last.fm/user/" + Acc.Text;
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+                string url = "https://www.last.fm/user/" + LMViewModel.Username;
+                _ = await url.LaunchAsync();
             }
             else
             {
