@@ -1,9 +1,11 @@
 ﻿using Rise.App.Dialogs;
+using Rise.App.ViewModels;
 using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -17,12 +19,33 @@ namespace Rise.App.Views
         /// </summary>
         private readonly NavigationHelper _navigationHelper;
 
+        private MainViewModel MViewModel => App.MViewModel;
+
         public HomePage()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
+
+            if (MViewModel.Widgets.Any())
+            {
+                WidgetsScrollViewer.Visibility = Visibility.Visible;
+                NoWidgetsPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                WidgetsScrollViewer.Visibility = Visibility.Collapsed;
+                NoWidgetsPanel.Visibility = Visibility.Visible;
+            }
+
+            WidgetsLoadingRing.IsActive = false;
+            WidgetsLoadingRing.Visibility = Visibility.Collapsed;
+        }
+
+        private void MViewModel_WidgetsLoaded(object sender, EventArgs e)
+        {
+            
         }
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
@@ -69,7 +92,10 @@ namespace Rise.App.Views
         /// in addition to page state preserved during an earlier session.
         /// </summary>
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
+        {
+            _navigationHelper.OnNavigatedTo(e);
+            App.MViewModel.WidgetsLoaded += MViewModel_WidgetsLoaded;
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
             => _navigationHelper.OnNavigatedFrom(e);
@@ -77,7 +103,7 @@ namespace Rise.App.Views
 
         private void BrowseMedia_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(BrowsePage));
+            Frame.Navigate(typeof(BrowsePage));
         }
     }
 }

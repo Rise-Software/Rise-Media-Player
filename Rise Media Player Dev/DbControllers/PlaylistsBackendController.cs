@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Rise.App.ViewModels;
+using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,89 +9,131 @@ using Windows.Storage;
 
 namespace Rise.App.DbControllers
 {
-    public class PlaylistsBackendController : BaseBackendController
+    /// <summary>
+    /// A <see cref="IBackendController"/> for playlists.
+    /// Database file is created lazily.
+    /// </summary>
+    public class PlaylistsBackendController : IBackendController<PlaylistViewModel>
     {
-        public PlaylistsBackendController(string dbName) : base(dbName)
-        {
+        /// <summary>
+        /// The database file name
+        /// </summary>
+        public string DatabaseFileName => "Playlists";
 
+        /// <summary>
+        /// Gets the database file.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public Task<StorageFile> GetDatabaseFileAsync()
+            => ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"{DatabaseFileName}.json", CreationCollisionOption.OpenIfExists).AsTask();
+
+        /// <summary>
+        /// Adds an item to the database.
+        /// </summary>
+        /// <param name="item">The <see cref="PlaylistViewModel"/> to add.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task AddAsync(PlaylistViewModel item)
+        {
+            var file = await GetDatabaseFileAsync();
+            var text = await FileIO.ReadTextAsync(file);
+
+            List<PlaylistViewModel> items = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text) ?? new List<PlaylistViewModel>();
+            items.Add(item);
+
+            string json = JsonConvert.SerializeObject(items, Formatting.Indented);
+            await FileIO.WriteTextAsync(file, json);
         }
 
-        public PlaylistsBackendController() : base("Playlists") { }
-
-        public async Task<PlaylistViewModel> GetAsync(Guid id)
+        /// <summary>
+        /// Adds an item to the database, or updates it if it already exists.
+        /// </summary>
+        /// <param name="item">The <see cref="PlaylistViewModel"/> to add/update.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task AddOrUpdateAsync(PlaylistViewModel item)
         {
-            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
-            if (!string.IsNullOrWhiteSpace(text))
+            var file = await GetDatabaseFileAsync();
+
+            List<PlaylistViewModel> items = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<PlaylistViewModel>();
+
+            bool exists = items.Any(p =>
             {
-                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
-                return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
-            }
+                if (p != null)
+                    return p.Model.Id == item.Model.Id;
+                else
+                    return false;
+            });
+
+            if (exists)
+                await UpdateAsync(item);
             else
-            {
-                return null;
-            }
+                await AddAsync(item);
         }
 
-        public async Task<List<PlaylistViewModel>> GetAsync()
+        /// <summary>
+        /// Deletes an item from the database.
+        /// </summary>
+        /// <param name="item">The <see cref="PlaylistViewModel"/> to remove.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task DeleteAsync(PlaylistViewModel item)
         {
-            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
+            var file = await GetDatabaseFileAsync();
+
+            // It's already deleted in the MViewModel notifications list, so why bother deleting again?
+            string json = JsonConvert.SerializeObject(App.MViewModel.Playlists, Formatting.Indented);
+            await FileIO.WriteTextAsync(file, json);
+        }
+
+        /// <summary>
+        /// Updates an item in the database.
+        /// </summary>
+        /// <param name="item">The <see cref="NotificationViewModel"/> to update.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task UpdateAsync(PlaylistViewModel item)
+        {
+            var file = await GetDatabaseFileAsync();
+
+            List<PlaylistViewModel> items = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<PlaylistViewModel>();
+
+            PlaylistViewModel item1 = items.FirstOrDefault(i => i.Model.Id == item.Model.Id);
+            var index = items.IndexOf(item1);
+
+            if (index < 0)
+                return;
+
+            items[index] = item;
+
+            string json = JsonConvert.SerializeObject(items, Formatting.Indented);
+            await FileIO.WriteTextAsync(file, json);
+        }
+
+        /// <summary>
+        /// Gets an item with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the item to find.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task<PlaylistViewModel> GetItemAsync(string id)
+        {
+            var items = await GetItemsAsync();
+            return items.FirstOrDefault(item => item.Model.Id.ToString() == id);
+        }
+
+        /// <summary>
+        /// Gets the items in the database.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public async Task<IEnumerable<PlaylistViewModel>> GetItemsAsync()
+        {
+            string text = await FileIO.ReadTextAsync(await GetDatabaseFileAsync());
+
             if (!string.IsNullOrWhiteSpace(text))
             {
-                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
-                return playlists;
+                List<PlaylistViewModel> items = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
+                return items;
             }
             else
             {
                 return new List<PlaylistViewModel>();
             }
         }
-
-        public async Task InsertAsync(PlaylistViewModel playlist)
-        {
-            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
-            playlists.Add(playlist);
-
-            string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
-        }
-
-        public async Task UpsertAsync(PlaylistViewModel playlist)
-        {
-            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
-
-            bool playlistExists = playlists.Any(p =>
-            {
-                if (p != null)
-                {
-                    return p.Model.Equals(playlist.Model);
-                }
-                else
-                {
-                    return false;
-                }
-            });
-
-            if (playlistExists)
-            {
-                PlaylistViewModel item = playlists.FirstOrDefault(i => i.Model.Equals(playlist.Model));
-                var oldIndex = playlists.IndexOf(item);
-                playlists[oldIndex] = playlist;
-            }
-            else
-            {
-                await InsertAsync(playlist);
-                return;
-            }
-
-            string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
-        }
-
-        public async Task DeleteAsync(PlaylistViewModel playlist)
-        {
-            string json = JsonConvert.SerializeObject(App.MViewModel.Playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
-        }
-
     }
 }

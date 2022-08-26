@@ -77,6 +77,11 @@ namespace Rise.App
         public static NotificationsBackendController NBackendController { get; private set; }
 
         /// <summary>
+        /// Gets the app-wide <see cref="WidgetsBackendController"/> singleton instance.
+        /// </summary>
+        public static WidgetsBackendController WBackendController { get; private set; }
+
+        /// <summary>
         /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
         /// </summary>
         public static MainViewModel MViewModel { get; private set; }
@@ -220,13 +225,14 @@ namespace Rise.App
             MusicLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
             VideoLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
 
-            PBackendController ??= new PlaylistsBackendController();
-            NBackendController ??= new NotificationsBackendController();
+            PBackendController ??= new();
+            NBackendController ??= new();
+            WBackendController ??= new();
 
-            MViewModel ??= new MainViewModel();
-            LMViewModel ??= new LastFMViewModel(LastFM.Key, LastFM.Secret);
-            MPViewModel ??= new MediaPlaybackViewModel();
-            NavDataSource ??= new NavViewDataSource();
+            MViewModel ??= new();
+            LMViewModel ??= new(LastFM.Key, LastFM.Secret);
+            MPViewModel ??= new();
+            NavDataSource ??= new();
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;

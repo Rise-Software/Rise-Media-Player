@@ -123,7 +123,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Saves notification data that has been edited.
+        /// Saves notification data.
         /// </summary>
         public async Task SaveAsync()
         {
@@ -136,7 +136,7 @@ namespace Rise.App.ViewModels
                 App.MViewModel.Notifications.Add(this);
             }
 
-            await App.NBackendController.InsertAsync(this);
+            await App.NBackendController.AddOrUpdateAsync(this);
         }
 
         /// <summary>

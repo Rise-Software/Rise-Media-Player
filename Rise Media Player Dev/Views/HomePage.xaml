@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:Height="700"
     d:Width="500"
@@ -44,55 +46,86 @@
                 CornerRadius="6"
                 Opacity="1"
                 Style="{StaticResource SettingsCard}">
-                <!--
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Padding="0,50,0,20">
-                        <Image
-                            Width="88"
-                            Height="80"
-                            Source="/Assets/AtAGlance/widgets.png" />
-                    </StackPanel>
-
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="We have nothing to show here."
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="That's pretty sad, so add some widgets!"
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                    <TextBlock
-                        Padding="0,20,0,50"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="Personalise your at a glance page with the things you love."
-                        TextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                </StackPanel>
-                -->
-
-                <ScrollViewer
-                    HorizontalScrollBarVisibility="Auto"
-                    HorizontalScrollMode="Enabled"
-                    VerticalScrollBarVisibility="Disabled"
-                    VerticalScrollMode="Disabled">
-                    <StackPanel Spacing="8">
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Your widgets" />
-                        <StackPanel
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <uc:TopTracksWidget Width="232" />
-                            <uc:AppInfoWidget Width="232" />
-                            <uc:RecentlyPlayedWidget Width="232" />
+                    <StackPanel
+                        x:Name="NoWidgetsPanel"
+                        d:Visibility="Collapsed"
+                        Orientation="Vertical">
+                        <StackPanel Padding="0,50,0,20">
+                            <Image
+                                Width="88"
+                                Height="80"
+                                Source="ms-appx:///Assets/AtAGlance/widgets.png" />
                         </StackPanel>
+
+                        <TextBlock
+                            FontSize="24"
+                            FontWeight="SemiBold"
+                            Text="We have nothing to show here."
+                            TextAlignment="Center"
+                            TextWrapping="WrapWholeWords" />
+                        <TextBlock
+                            FontSize="24"
+                            FontWeight="SemiBold"
+                            Text="That's pretty sad, so add some widgets!"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWholeWords" />
+                        <TextBlock
+                            Padding="0,20,0,32"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Text="Personalise your at a glance page with the things you love."
+                            TextAlignment="Center"
+                            TextWrapping="WrapWholeWords" />
                     </StackPanel>
-                </ScrollViewer>
+
+                    <ScrollViewer
+                        x:Name="WidgetsScrollViewer"
+                        d:Visibility="Collapsed"
+                        Visibility="Visible"
+                        HorizontalScrollBarVisibility="Auto"
+                        HorizontalScrollMode="Enabled"
+                        VerticalScrollBarVisibility="Disabled"
+                        VerticalScrollMode="Disabled">
+                        <StackPanel Spacing="8">
+                            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Your widgets" />
+                            <ListView
+                                x:Name="WidgetsList"
+                                ItemsSource="{x:Bind MViewModel.Widgets}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollMode="Enabled"
+                                ScrollViewer.VerticalScrollMode="Disabled"
+                                Margin="-16,8,0,0"
+                                SelectionMode="None">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsStackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="viewmodels:WidgetViewModel">
+                                        <uc:WidgetControl
+                                            Title="{x:Bind Title, Mode=OneWay}"
+                                            ShowIcon="{x:Bind ShowIcon, Mode=OneWay}"
+                                            ShowTitle="{x:Bind ShowTitle, Mode=OneWay}"
+                                            Width="232"
+                                            WidgetContent="{x:Bind Content, Mode=OneWay}">
+                                            <uc:WidgetControl.Icon>
+                                                <FontIcon Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
+                                            </uc:WidgetControl.Icon>
+                                        </uc:WidgetControl>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <muxc:ProgressRing
+                        x:Name="WidgetsLoadingRing"
+                        HorizontalAlignment="Center"
+                        d:IsActive="True" />
+                </StackPanel>
             </Border>
 
             <TextBlock x:Uid="/Information/QuickH" Style="{StaticResource SubheaderTextBlockStyle}" />

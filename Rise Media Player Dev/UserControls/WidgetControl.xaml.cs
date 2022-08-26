@@ -71,6 +71,32 @@ namespace Rise.App.UserControls
             set => SetValue(MoreButtonVisibilityProperty, value);
         }
 
+        public static readonly DependencyProperty ShowTitleProperty
+            = DependencyProperty.Register(nameof(ShowTitle), typeof(bool),
+                typeof(WidgetControl), new PropertyMetadata(true));
+
+        /// <summary>
+        /// Gets or sets the widget title's visibility.
+        /// </summary>
+        public bool ShowTitle
+        {
+            get => (bool)GetValue(ShowTitleProperty);
+            set => SetValue(ShowTitleProperty, value);
+        }
+
+        public static readonly DependencyProperty ShowIconProperty
+            = DependencyProperty.Register(nameof(ShowTitle), typeof(bool),
+                typeof(WidgetControl), new PropertyMetadata(true));
+
+        /// <summary>
+        /// Gets or sets the widget icon's visibility.
+        /// </summary>
+        public bool ShowIcon
+        {
+            get => (bool)GetValue(ShowIconProperty);
+            set => SetValue(ShowIconProperty, value);
+        }
+
         public WidgetControl()
         {
             InitializeComponent();

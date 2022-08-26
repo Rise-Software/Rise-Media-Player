@@ -24,6 +24,8 @@ namespace Rise.App.ViewModels
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
+        public event EventHandler WidgetsLoaded;
+
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
         private uint IndexedSongs = 0;
@@ -89,9 +91,14 @@ namespace Rise.App.ViewModels
         public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
 
         /// <summary>
-        /// The collection of playlists in the list. 
+        /// The collection of notifications in the list. 
         /// </summary>
         public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+
+        /// <summary>
+        /// The collection of notifications in the list. 
+        /// </summary>
+        public readonly SafeObservableCollection<WidgetViewModel> Widgets = new();
 
         /// <summary>
         /// Gets the complete list of data from the database.
@@ -106,7 +113,32 @@ namespace Rise.App.ViewModels
 
             Videos.Clear();
             Playlists.Clear();
+
             Notifications.Clear();
+            Widgets.Clear();
+
+            /*await App.WBackendController.AddOrUpdateAsync(new()
+            {
+                Model = new()
+                {
+                    Title = "Top Tracks",
+                    IconGlyph = "\uE10B",
+                    WidgetType = Common.Enums.WidgetType.TopTracks,
+                    ShowIcon = true,
+                    ShowTitle = true
+                }
+            });*/
+            
+            var widgets = await App.WBackendController.GetItemsAsync();
+            if (widgets != null)
+            {
+                foreach (var item in widgets)
+                {
+                    Widgets.Add(item);
+                }
+            }
+
+            WidgetsLoaded?.Invoke(this, EventArgs.Empty);
 
             var songs = await Repository.GetItemsAsync<Song>();
 
@@ -158,7 +190,7 @@ namespace Rise.App.ViewModels
             // Playlists may contain songs or videos
             if (songs != null || videos != null)
             {
-                var playlists = await App.PBackendController.GetAsync();
+                var playlists = await App.PBackendController.GetItemsAsync();
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
@@ -168,7 +200,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            var notifications = await App.NBackendController.GetAsync();
+            var notifications = await App.NBackendController.GetItemsAsync();
             if (notifications != null)
             {
                 foreach (var item in notifications)
@@ -310,10 +342,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                if (song.Thumbnail == null)
-                {
-                    song.Thumbnail = alvm.Thumbnail;
-                }
+                song.Thumbnail ??= alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
