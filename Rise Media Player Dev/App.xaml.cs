@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
@@ -11,12 +17,8 @@ using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
+using Rise.Effects;
 using Rise.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -233,6 +235,15 @@ namespace Rise.App
             LMViewModel ??= new(LastFM.Key, LastFM.Secret);
             MPViewModel ??= new();
             NavDataSource ??= new();
+
+            EqualizerEffect.Initialize();
+
+            EqualizerEffect.Current.InitializeBands(SViewModel.EqualizerGain);
+            EqualizerEffect.Current.IsEnabled = SViewModel.EqualizerEnabled;
+
+            MPViewModel ??= new MediaPlaybackViewModel();
+            if (!MPViewModel.Effects.Any(e => e.EffectClassType == typeof(EqualizerEffect)))
+                MPViewModel.AddEffect(new(typeof(EqualizerEffect), false, true, null));
 
             MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
             VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;

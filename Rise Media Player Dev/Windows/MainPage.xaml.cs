@@ -1,19 +1,22 @@
-﻿using Rise.App.Dialogs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
+using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
+using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -70,9 +73,6 @@ namespace Rise.App.Views
         {
             InitializeComponent();
 
-            Loaded += MainPage_Loaded;
-            Unloaded += MainPage_Unloaded;
-
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
@@ -88,15 +88,39 @@ namespace Rise.App.Views
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
         }
 
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            UpdateTitleBarItems(NavView);
+            if (!App.MainPageLoaded)
+            {
+                // Sidebar icons
+                await NavDataSource.PopulateGroupsAsync();
+
+                // Startup setting
+                if (ContentFrame.Content == null)
+                {
+                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
+                }
+
+                if (SViewModel.AutoIndexingEnabled)
+                {
+                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+                }
+
+                App.MainPageLoaded = true;
+            }
+        }
+
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.LayoutMetricsChanged -= CoreTitleBar_LayoutMetricsChanged;
+
             MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
             MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
-
-            Bindings.StopTracking();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -117,7 +141,7 @@ namespace Rise.App.Views
             _navState = ContentFrame.GetNavigationState();
         }
 
-        private async void MPViewModel_PlayingItemChanged(object sender, Rise.Common.Interfaces.IMediaItem e)
+        private async void MPViewModel_PlayingItemChanged(object sender, IMediaItem e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
@@ -146,7 +170,7 @@ namespace Rise.App.Views
             }
         }
 
-        private async void OnMediaPlayerRecreated(object sender, Windows.Media.Playback.MediaPlayer e)
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -154,11 +178,22 @@ namespace Rise.App.Views
             });
         }
 
-        private void PlayerControls_ShufflingChanged(object sender, bool e)
-            => MPViewModel.ShuffleEnabled = e;
+        [RelayCommand]
+        private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        {
+            if (MPViewModel.PlayingItem == null) return;
+            if (newMode == ApplicationViewMode.CompactOverlay)
+                await ApplicationView.GetForCurrentView().
+                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
 
-        private void OnDisplayItemClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
+            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                Frame.Navigate(typeof(VideoPlaybackPage));
+            else
+                Frame.Navigate(typeof(NowPlayingPage));
+        }
+
+        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
 
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -167,50 +202,6 @@ namespace Rise.App.Views
                 PlayingItemVideoFlyout.ShowAt(MainPlayer);
             else
                 PlayingItemMusicFlyout.ShowAt(MainPlayer);
-        }
-
-        private async void OnCompactOverlayButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (MPViewModel.PlayingItem == null) return;
-
-            await ApplicationView.GetForCurrentView().
-                TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-            GoToNowPlaying();
-        }
-
-        private void OnOverlayButtonClick(object sender, RoutedEventArgs e)
-            => GoToNowPlaying();
-
-        private void GoToNowPlaying()
-        {
-            if (MPViewModel.PlayingItem == null) return;
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
-                Frame.Navigate(typeof(VideoPlaybackPage));
-            else
-                Frame.Navigate(typeof(NowPlayingPage));
-        }
-
-        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
-        {
-            if (!App.MainPageLoaded)
-            {
-                // Sidebar icons
-                await NavDataSource.PopulateGroupsAsync();
-
-                // Startup setting
-                if (ContentFrame.Content == null)
-                {
-                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
-                }
-
-                if (SViewModel.AutoIndexingEnabled)
-                {
-                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-                }
-
-                UpdateTitleBarItems(NavView);
-                App.MainPageLoaded = true;
-            }
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
@@ -486,9 +477,27 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
-        private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (LMViewModel.Authenticated)
+            {
+                string url = "https://www.last.fm/user/" + LMViewModel.Username;
+                _ = await url.LaunchAsync();
+            }
+            else
+            {
+                Frame.Navigate(typeof(AllSettingsPage));
+            }
+        }
+
+        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+        }
+
+        private async void OnSearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             SearchItemViewModel searchItem = args.SelectedItem as SearchItemViewModel;
             sender.Text = searchItem.Title;
@@ -513,7 +522,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void BigSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -587,34 +596,6 @@ namespace Rise.App.Views
 
                 sender.ItemsSource = suitableItems;
             }
-        }
-
-        private async void Account_Click(object sender, RoutedEventArgs e)
-        {
-            if (Acc.Text != "Add an account")
-            {
-                string url = "https://www.last.fm/user/" + Acc.Text;
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
-            }
-            else
-            {
-                Frame.Navigate(typeof(AllSettingsPage));
-            }
-        }
-
-        private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
-        }
-
-        private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = true;
-        }
-
-        private void BigSearch_LostFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = false;
         }
 
         public static Visibility IsStringEmpty(string str)

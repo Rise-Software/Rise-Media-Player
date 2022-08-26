@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -333,7 +334,7 @@
                             <AutoSuggestBox
                                 Margin="-12,0,-12,0"
                                 AutomationProperties.Name="Search"
-                                PlaceholderText="Search"
+                                PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
                                 QueryIcon="Find" />
                         </muxc:NavigationView.AutoSuggestBox>
 

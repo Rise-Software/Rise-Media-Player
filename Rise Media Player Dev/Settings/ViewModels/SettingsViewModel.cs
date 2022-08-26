@@ -1,12 +1,12 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;
@@ -539,6 +539,27 @@ namespace Rise.App.ViewModels
         {
             get => Get(0, "Playback");
             set => Set(value, "Playback");
+        }
+
+        public bool EqualizerEnabled
+        {
+            get => Get(false, "Playback");
+            set => Set(value, "Playback");
+        }
+
+        private static float[] _defaultGain =
+            new float[10] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+
+        public float[] EqualizerGain
+        {
+            get => Get(_defaultGain, "Local");
+            set => Set(value, "Local");
+        }
+
+        public int SelectedEqualizerPreset
+        {
+            get => Get(0, "Local");
+            set => Set(value, "Local");
         }
         #endregion
 

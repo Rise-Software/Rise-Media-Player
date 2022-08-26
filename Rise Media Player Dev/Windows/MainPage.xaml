@@ -6,9 +6,9 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
-    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:local="using:Rise.App.Views"
     xmlns:local1="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -16,6 +16,8 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -375,20 +377,17 @@
                 </Grid.ColumnDefinitions>
 
                 <AutoSuggestBox
-                    x:Name="BigSearch"
-                    x:Uid="/Information/BigSearch"
+                    x:Name="Search"
                     Height="32"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
-                    GotFocus="BigSearch_GotFocus"
-                    LostFocus="BigSearch_LostFocus"
+                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
                     QueryIcon="Find"
-                    QuerySubmitted="BigSearch_QuerySubmitted"
-                    SuggestionChosen="BigSearch_SuggestionChosen"
-                    TextChanged="BigSearch_TextChanged"
-                    Visibility="Collapsed">
+                    QuerySubmitted="OnSearchQuerySubmitted"
+                    SuggestionChosen="OnSearchSuggestionChosen"
+                    TextChanged="OnSearchTextChanged">
                     <AutoSuggestBox.ItemTemplate>
                         <DataTemplate x:DataType="appviewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
@@ -423,15 +422,6 @@
                         </DataTemplate>
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
-
-                <AutoSuggestBox
-                    x:Name="SmallSearch"
-                    x:Uid="/Information/SmallSearch"
-                    Height="32"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    QueryIcon="Find" />
 
                 <Button
                     x:Name="SyncCentre"
@@ -514,8 +504,9 @@
                                 FontWeight="SemiBold"
                                 Text="{x:Bind LMViewModel.Username, Mode=OneWay}">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
+
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
                                 </MenuFlyoutItem.Background>
@@ -606,7 +597,6 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            CompactOverlayButtonClick="OnCompactOverlayButtonClick"
                             DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
@@ -626,10 +616,14 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            OverlayButtonClick="OnOverlayButtonClick"
-                            QueueFlyoutItemsSource="{x:Bind MPViewModel.QueuedItems}"
-                            ShowAndHideAutomatically="False"
-                            ShufflingChanged="PlayerControls_ShufflingChanged">
+                            OverlayCommand="{x:Bind GoToNowPlayingCommand, Mode=OneTime}"
+                            ShowAndHideAutomatically="False">
+                            <uc:RiseMediaTransportControls.QueueFlyout>
+                                <Flyout>
+                                    <uc:DefaultQueueFlyout Width="300" Height="300" />
+                                </Flyout>
+                            </uc:RiseMediaTransportControls.QueueFlyout>
+
                             <uc:RiseMediaTransportControls.DisplayItem>
                                 <Button
                                     Margin="4"
@@ -692,29 +686,6 @@
                                     </Grid>
                                 </Button>
                             </uc:RiseMediaTransportControls.DisplayItem>
-
-                            <uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
-                                <DataTemplate x:DataType="interfaces:IMediaItem" x:DefaultBindMode="OneWay">
-                                    <Grid Padding="12,4" ColumnSpacing="12">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="{x:Bind Title}" />
-                                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
-                                        </StackPanel>
-
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            x:Phase="1"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </uc:RiseMediaTransportControls.QueueFlyoutItemTemplate>
                         </uc:RiseMediaTransportControls>
                     </uc:RiseMediaPlayerElement.TransportControls>
                 </uc:RiseMediaPlayerElement>
@@ -789,8 +760,7 @@
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
-                        <Setter Target="BigSearch.Visibility" Value="Visible" />
-                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+                        <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
 
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
@@ -986,13 +956,14 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="LastFMStates">
-                <VisualState x:Name="LoggedInState">
+                <VisualState x:Name="LoggedOutState">
                     <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated, Mode=OneWay}" />
+                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated.Equals(x:False), Mode=OneWay}" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="AccountPic.Glyph" Value="&#xE13D;" />
+                        <Setter Target="Acc.Text" Value="{markup:ResourceHelper Name=AddAccount}" />
+                        <Setter Target="AccountPic.Glyph" Value="&#xECC8;" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

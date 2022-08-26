@@ -4,19 +4,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86322C85-900E-4BC8-959B-141CDFD68231}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{5DE7E2F1-4095-45A1-914D-98047CD29736}</ProjectGuid>
+    <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rise.Common</RootNamespace>
-    <AssemblyName>Rise.Common</AssemblyName>
+    <RootNamespace>Rise.Effects</RootNamespace>
+    <AssemblyName>Rise.Effects</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <LangVersion>9.0</LangVersion>
+    <AllowCrossPlatformRetargeting>false</AllowCrossPlatformRetargeting>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -27,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -46,6 +48,7 @@
     <DebugType>full</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -56,6 +59,7 @@
     <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
@@ -66,6 +70,7 @@
     <DebugType>full</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
@@ -76,6 +81,7 @@
     <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
     <PlatformTarget>ARM64</PlatformTarget>
@@ -86,6 +92,7 @@
     <DebugType>full</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <PlatformTarget>ARM64</PlatformTarget>
@@ -96,6 +103,7 @@
     <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -106,6 +114,7 @@
     <DebugType>full</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -116,75 +125,34 @@
     <DebugType>pdbonly</DebugType>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Attached\GridHelper.cs" />
-    <Compile Include="Constants\InvalidChars.cs" />
-    <Compile Include="Constants\LastFM.cs" />
-    <Compile Include="Constants\SongProperties.cs" />
-    <Compile Include="Constants\SupportedFileTypes.cs" />
-    <Compile Include="Constants\URIs.cs" />
-    <Compile Include="Constants\SystemMusic.cs" />
-    <Compile Include="Constants\URLs.cs" />
-    <Compile Include="Constants\ViewManagement.cs" />
-    <Compile Include="Enums\AlbumViewMode.cs" />
-    <Compile Include="Enums\ExistingDialogOptions.cs" />
-    <Compile Include="Enums\ExpanderStyles.cs" />
-    <Compile Include="Enums\GlazeTypes.cs" />
-    <Compile Include="Enums\IndexingMode.cs" />
-    <Compile Include="Enums\MatchLevel.cs" />
-    <Compile Include="Enums\MediaItemType.cs" />
-    <Compile Include="Enums\NavViewItemType.cs" />
-    <Compile Include="Enums\NowPlayingBarBackgroundStyles.cs" />
-    <Compile Include="Enums\SliderDisplayModes.cs" />
-    <Compile Include="Enums\VisualizerType.cs" />
-    <Compile Include="Enums\WidgetType.cs" />
-    <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Extensions\ContentDialogExtensions.cs" />
-    <Compile Include="Extensions\DiagnosticsExtensions.cs" />
-    <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\FileExtensions.cs" />
-    <Compile Include="Extensions\ImageExtensions.cs" />
-    <Compile Include="Extensions\IndexingExtensions.cs" />
-    <Compile Include="Extensions\JsonExtensions.cs" />
-    <Compile Include="Extensions\Markup\ResourceHelper.cs" />
-    <Compile Include="Extensions\VisualTreeExtensions.cs" />
-    <Compile Include="Extensions\ViewManagementExtensions.cs" />
-    <Compile Include="Helpers\BindingHelpers.cs" />
-    <Compile Include="Helpers\CancellableTaskHelper.cs" />
-    <Compile Include="Helpers\CompositionControl.cs" />
-    <Compile Include="Extensions\CryptographyExtensions.cs" />
-    <Compile Include="Helpers\KeyboardHelpers.cs" />
-    <Compile Include="Helpers\NavigationHelper.cs" />
-    <Compile Include="Helpers\ObservableVector.cs" />
-    <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Helpers\SafeObservableCollection.cs" />
-    <Compile Include="Helpers\SuspensionManager.cs" />
-    <Compile Include="Helpers\WebHelpers.cs" />
-    <Compile Include="IndexingPresets.cs" />
-    <Compile Include="Interfaces\IBackendController.cs" />
-    <Compile Include="Interfaces\IMatchable.cs" />
-    <Compile Include="Interfaces\IMediaItem.cs" />
+    <Compile Include="EqualizerBand.cs" />
+    <Compile Include="EqualizerEffect.cs" />
+    <Compile Include="IMemoryBufferByteAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceLoaders.cs" />
-    <EmbeddedResource Include="Properties\Rise.Common.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
-      <Version>6.0.0</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>7.1.2</Version>
+    <PackageReference Include="NAudio">
+      <Version>1.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">
+      <Project>{86322c85-900e-4bc8-959b-141cdfd68231}</Project>
+      <Name>Rise.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

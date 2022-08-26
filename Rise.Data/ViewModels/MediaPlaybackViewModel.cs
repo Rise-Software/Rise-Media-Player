@@ -1,11 +1,12 @@
-﻿using AudioVisualizer;
-using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using AudioVisualizer;
+using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
+using Rise.Models;
 using Windows.Media.Playback;
 
 namespace Rise.Data.ViewModels
@@ -19,10 +20,16 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// List of media items that are currently queued for playback.
         /// </summary>
-        public readonly ObservableCollection<IMediaItem> QueuedItems = new();
+        public ObservableCollection<IMediaItem> QueuedItems { get; private set; }
+            = new();
+
+        private readonly List<MediaPlayerEffect> _effects = new();
+        /// <summary>
+        /// Gets the added types of effects.
+        /// </summary>
+        public IReadOnlyCollection<MediaPlayerEffect> Effects => _effects.AsReadOnly();
 
         private IMediaItem _playingItem;
-
         /// <summary>
         /// Gets the media item that is currently playing.
         /// </summary>
@@ -46,7 +53,12 @@ namespace Rise.Data.ViewModels
         {
             get
             {
-                _player ??= CreatePlayerInstance();
+                if (_player == null)
+                {
+                    _player = CreatePlayerInstance();
+                    foreach (var eff in _effects)
+                        AddEffectInternal(eff);
+                }
                 return _player;
             }
         }
@@ -65,7 +77,8 @@ namespace Rise.Data.ViewModels
         /// The media playback list. It is permanently associated with
         /// the player, due to the fact that we don't ever dispose it.
         /// </summary>
-        private readonly MediaPlaybackList PlaybackList = new();
+        public MediaPlaybackList PlaybackList { get; private set; }
+            = new();
 
         /// <summary>
         /// Whether the items in the playback list are played in a random
@@ -109,6 +122,39 @@ namespace Rise.Data.ViewModels
         /// Helps cancel a group of Tasks that starts playback.
         /// </summary>
         private readonly CancellableTaskHelper PlaybackCancelHelper = new();
+
+        /// <summary>
+        /// Adds the specified effect to the player.
+        /// </summary>
+        /// <remarks>If the player hasn't yet been created, the effect will still
+        /// be applied as soon as it is.</remarks>
+        public void AddEffect(MediaPlayerEffect effect)
+        {
+            AddEffectInternal(effect);
+            _effects.Add(effect);
+        }
+
+        private void AddEffectInternal(MediaPlayerEffect effect)
+        {
+            if (_player != null)
+            {
+                if (effect.IsAudioEffect)
+                    _player.AddAudioEffect(effect.EffectClassType.FullName, effect.IsOptional, effect.Configuration);
+                else
+                    _player.AddVideoEffect(effect.EffectClassType.FullName, effect.IsOptional, effect.Configuration);
+            }
+        }
+
+        /// <summary>
+        /// Removes all the effects from the player.
+        /// </summary>
+        public void ClearEffects()
+        {
+            if (_playerCreated)
+                _player.RemoveAllEffects();
+
+            _effects.Clear();
+        }
 
         /// <summary>
         /// Begins playback of an <see cref="IMediaItem"/>.

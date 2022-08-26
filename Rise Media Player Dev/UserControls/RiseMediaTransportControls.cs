@@ -1,13 +1,14 @@
-﻿using Rise.App.ViewModels;
+﻿using System;
+using System.Windows.Input;
+using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
-using System;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.UserControls
 {
@@ -16,11 +17,6 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        private ToggleButton _shuffleButton;
-        private AppBarButton _compactOverlayButton;
-        private AppBarButton _overlayButton;
-        private AppBarButton _propertiesButton;
-
         /// <summary>
         /// Gets or sets a value that indicates the horizontal
         /// alignment for the main playback controls.
@@ -69,6 +65,17 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsShuffleButtonCheckedProperty);
             set => SetValue(IsShuffleButtonCheckedProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a command that runs whenever one of the
+        /// overlay buttons is clicked, with the desired view mode
+        /// as a parameter.
+        /// </summary>
+        public ICommand OverlayCommand
+        {
+            get => (ICommand)GetValue(OverlayCommandProperty);
+            set => SetValue(OverlayCommandProperty, value);
         }
 
         /// <summary>
@@ -169,30 +176,12 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// The template for queue items.
+        /// The flyout to display when clicking the queue button.
         /// </summary>
-        public object QueueFlyoutItemsSource
+        public Flyout QueueFlyout
         {
-            get => GetValue(QueueFlyoutItemsSourceProperty);
-            set => SetValue(QueueFlyoutItemsSourceProperty, value);
-        }
-
-        /// <summary>
-        /// The template for queue items.
-        /// </summary>
-        public DataTemplate QueueFlyoutItemTemplate
-        {
-            get => (DataTemplate)GetValue(QueueFlyoutItemTemplateProperty);
-            set => SetValue(QueueFlyoutItemTemplateProperty, value);
-        }
-
-        /// <summary>
-        /// The template selector for queue items.
-        /// </summary>
-        public DataTemplateSelector QueueFlyoutItemTemplateSelector
-        {
-            get => (DataTemplateSelector)GetValue(QueueFlyoutItemTemplateProperty);
-            set => SetValue(QueueFlyoutItemTemplateProperty, value);
+            get => (Flyout)GetValue(QueueFlyoutProperty);
+            set => SetValue(QueueFlyoutProperty, value);
         }
     }
 
@@ -235,6 +224,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
+        public readonly static DependencyProperty OverlayCommandProperty =
+            DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
@@ -259,16 +252,8 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
-        public readonly static DependencyProperty QueueFlyoutItemsSourceProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemsSource), typeof(object),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty QueueFlyoutItemTemplateProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemTemplate), typeof(DataTemplate),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
-
-        public readonly static DependencyProperty QueueFlyoutItemTemplateSelectorProperty =
-            DependencyProperty.Register(nameof(QueueFlyoutItemTemplateSelector), typeof(DataTemplateSelector),
+        public readonly static DependencyProperty QueueFlyoutProperty =
+            DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
     }
 
@@ -278,58 +263,26 @@ namespace Rise.App.UserControls
         public RiseMediaTransportControls()
         {
             DefaultStyleKey = typeof(RiseMediaTransportControls);
-
-            Unloaded += OnUnloaded;
         }
 
         protected override void OnApplyTemplate()
         {
-            _shuffleButton = GetTemplateChild("ShuffleButton") as ToggleButton;
-            _shuffleButton.Checked += OnShuffleChecked;
-            _shuffleButton.Unchecked += OnShuffleUnchecked;
+            var overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
+            overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            _compactOverlayButton = GetTemplateChild("MiniViewButton") as AppBarButton;
-            _compactOverlayButton.Click += CompactOverlayButtonClick;
+            var miniButton = GetTemplateChild("MiniViewButton") as AppBarButton;
+            miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            _overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            _overlayButton.Click += OverlayButtonClick;
-
-            _propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
-            _propertiesButton.Click += PropertiesButtonClick;
+            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
+            propertiesButton.Click += PropertiesButtonClick;
 
             base.OnApplyTemplate();
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            _shuffleButton.Checked -= OnShuffleChecked;
-            _shuffleButton.Unchecked -= OnShuffleUnchecked;
-
-            _compactOverlayButton.Click -= CompactOverlayButtonClick;
-            _overlayButton.Click -= OverlayButtonClick;
-            _propertiesButton.Click -= PropertiesButtonClick;
         }
     }
 
     // Event handlers
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        /// <summary>
-        /// Invoked when the shuffle button is clicked. Event arg
-        /// corresponds to the IsChecked value of the ToggleButton.
-        /// </summary>
-        public event EventHandler<bool> ShufflingChanged;
-
-        /// <summary>
-        /// Invoked when the compact overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler CompactOverlayButtonClick;
-
-        /// <summary>
-        /// Invoked when the overlay button is clicked.
-        /// </summary>
-        public event RoutedEventHandler OverlayButtonClick;
-
         private static async void TimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is RiseMediaTransportControls rmtc)
@@ -352,12 +305,6 @@ namespace Rise.App.UserControls
                     }
                 });
         }
-
-        private void OnShuffleChecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, true);
-
-        private void OnShuffleUnchecked(object sender, RoutedEventArgs e)
-            => ShufflingChanged?.Invoke(sender, false);
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {

@@ -40,11 +40,6 @@ namespace Rise.App.ViewModels
         private readonly CancellableTaskHelper IndexingCancelHelper = new();
 
         /// <summary>
-        /// Whether or not the search bar is focused.
-        /// </summary>
-        public bool IsSearchActive = false;
-
-        /// <summary>
         /// Creates a new MainViewModel.
         /// </summary>
         public MainViewModel()

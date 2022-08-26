@@ -145,6 +145,9 @@
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="DbControllers\WidgetsBackendController.cs" />
+    <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
+      <DependentUpon>EqualizerDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,9 @@
     </Compile>
     <Compile Include="UserControls\AppInfoWidgetContentControl.xaml.cs">
       <DependentUpon>AppInfoWidgetContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DefaultQueueFlyout.xaml.cs">
+      <DependentUpon>DefaultQueueFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RecentlyPlayedWidgetContentControl.xaml.cs">
@@ -562,6 +568,12 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\tr-TR\Resources.resw" />
+    <PRIResource Include="Strings\ro-RO\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Strings\hi-IN\Resources.resw" />
+    <PRIResource Include="Strings\en-GB\Resources.resw" />
     <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-GB\Widgets.resw" />
     <PRIResource Include="Strings\en-GB\HelpTips.resw" />
@@ -578,6 +590,10 @@
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EqualizerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\FeatureDialog.xaml">
       <SubType>Designer</SubType>
@@ -620,6 +636,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\RecentlyPlayedWidgetContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DefaultQueueFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -912,14 +932,14 @@
     <PackageReference Include="AsyncEnumerator">
       <Version>4.0.2</Version>
     </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm">
+      <Version>8.0.0</Version>
+    </PackageReference>
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Mvvm">
-      <Version>7.1.2</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.2</Version>
@@ -937,7 +957,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220118001</Version>
+      <Version>2.8.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -1109,6 +1129,10 @@
     <ProjectReference Include="..\Rise.Data\Rise.Data.csproj">
       <Project>{5185BB21-8B6A-4C08-8C50-4E1B8F57B2D5}</Project>
       <Name>Rise.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rise.Effects\Rise.Effects.csproj">
+      <Project>{5de7e2f1-4095-45a1-914d-98047cd29736}</Project>
+      <Name>Rise.Effects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rise.Models\Rise.Models.csproj">
       <Project>{17d51104-b536-4d03-bd8b-74e0cce49cfb}</Project>
