@@ -168,6 +168,7 @@
     <Compile Include="UserControls\DefaultQueueFlyout.xaml.cs">
       <DependentUpon>DefaultQueueFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HubPart.cs" />
     <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RecentlyPlayedWidgetContentControl.xaml.cs">
       <DependentUpon>RecentlyPlayedWidgetContentControl.xaml</DependentUpon>
