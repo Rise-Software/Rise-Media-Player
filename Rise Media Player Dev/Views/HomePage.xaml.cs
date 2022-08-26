@@ -5,6 +5,7 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
+using System.Collections.Specialized;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +29,25 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
 
+            if (MViewModel.Widgets.Any())
+            {
+                WidgetsScrollViewer.Visibility = Visibility.Visible;
+                NoWidgetsPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                WidgetsScrollViewer.Visibility = Visibility.Collapsed;
+                NoWidgetsPanel.Visibility = Visibility.Visible;
+            }
+
+            WidgetsLoadingRing.IsActive = false;
+            WidgetsLoadingRing.Visibility = Visibility.Collapsed;
+
+            App.MViewModel.Widgets.CollectionChanged += Widgets_CollectionChanged;
+        }
+
+        private void Widgets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             if (MViewModel.Widgets.Any())
             {
                 WidgetsScrollViewer.Visibility = Visibility.Visible;

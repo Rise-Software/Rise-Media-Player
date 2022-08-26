@@ -12,36 +12,27 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <Image
-                x:Name="WidgetsImage"
-                Source="/Assets/ataglance/widgetscomingsoon.png"
-                Stretch="UniformToFill" />
-            <Image
-                x:Name="WidgetsImageDark"
-                Source="/Assets/ataglance/widgetscomingsoondark.png"
-                Stretch="UniformToFill" />
-            <!--<muxc:NavigationView x:Name="ManageFoldersNav" SelectedItem="{x:Bind AllWidgets}"  Margin="-15,-8,0,0" IsSettingsVisible="False"  IsBackButtonVisible="Collapsed" PaneDisplayMode="Top">
-                <muxc:NavigationView.Resources>
-                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
-                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                </muxc:NavigationView.Resources>
+        <StackPanel Spacing="8" Orientation="Vertical">
+            <uc:ExpanderControl
+                Title="Top Tracks"
+                Description="Shows the top tracks for today."
+                ExpanderStyle="Static">
+                <ToggleSwitch x:Name="TopTracksToggleSwitch" Toggled="TopTracksToggleSwitch_Toggled" />
+            </uc:ExpanderControl>
 
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem Content="Show all" Tag="AllWidgets" x:Name="AllWidgets" >
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Web" Tag="Web" >
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Help" Tag="Help" >
-                    </muxc:NavigationViewItem>
-            <muxc:NavigationViewItem Content="Profile Info" Tag="Profile" >
-                    </muxc:NavigationViewItem>
-            <muxc:NavigationViewItem Content="Devices" Tag="Devices" >
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.MenuItems>
+            <uc:ExpanderControl
+                Title="Recently Played"
+                Description="Shows the media you recently played."
+                ExpanderStyle="Static">
+                <ToggleSwitch x:Name="RecentlyPlayedToggleSwitch" Toggled="RecentlyPlayedToggleSwitch_Toggled" />
+            </uc:ExpanderControl>
 
-            </muxc:NavigationView>-->
-
+            <uc:ExpanderControl
+                Title="App Info"
+                Description="Shows info about the app, for example build number."
+                ExpanderStyle="Static">
+                <ToggleSwitch x:Name="AppInfoToggleSwitch" Toggled="AppInfoToggleSwitch_Toggled" />
+            </uc:ExpanderControl>
         </StackPanel>
     </Grid>
 </Page>

@@ -116,18 +116,6 @@ namespace Rise.App.ViewModels
 
             Notifications.Clear();
             Widgets.Clear();
-
-            /*await App.WBackendController.AddOrUpdateAsync(new()
-            {
-                Model = new()
-                {
-                    Title = "Top Tracks",
-                    IconGlyph = "\uE10B",
-                    WidgetType = Common.Enums.WidgetType.TopTracks,
-                    ShowIcon = true,
-                    ShowTitle = true
-                }
-            });*/
             
             var widgets = await App.WBackendController.GetItemsAsync();
             if (widgets != null)
@@ -138,7 +126,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            WidgetsLoaded?.Invoke(this, EventArgs.Empty);
+            //WidgetsLoaded?.Invoke(this, EventArgs.Empty);
 
             var songs = await Repository.GetItemsAsync<Song>();
 
