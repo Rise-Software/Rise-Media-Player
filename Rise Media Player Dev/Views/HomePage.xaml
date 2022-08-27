@@ -4,12 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:Height="700"
-    d:Width="500"
+    d:DesignHeight="572"
+    d:DesignWidth="500"
     mc:Ignorable="d">
 
     <ScrollViewer
@@ -46,11 +45,11 @@
                 CornerRadius="6"
                 Opacity="1"
                 Style="{StaticResource SettingsCard}">
-                <StackPanel Orientation="Vertical">
+                <Grid>
                     <StackPanel
                         x:Name="NoWidgetsPanel"
-                        d:Visibility="Collapsed"
-                        Orientation="Vertical">
+                        Orientation="Vertical"
+                        Visibility="Collapsed">
                         <StackPanel Padding="0,50,0,20">
                             <Image
                                 Width="88"
@@ -80,52 +79,38 @@
                             TextWrapping="WrapWholeWords" />
                     </StackPanel>
 
-                    <ScrollViewer
-                        x:Name="WidgetsScrollViewer"
-                        d:Visibility="Collapsed"
-                        Visibility="Visible"
-                        HorizontalScrollBarVisibility="Auto"
-                        HorizontalScrollMode="Enabled"
-                        VerticalScrollBarVisibility="Disabled"
-                        VerticalScrollMode="Disabled">
-                        <StackPanel Spacing="8">
+                    <Hub
+                        x:Name="WidgetsHub"
+                        Margin="-8"
+                        Orientation="Horizontal">
+                        <Hub.Header>
                             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Your widgets" />
-                            <ListView
+                        </Hub.Header>
+
+                        <uc:HubPart>
+                            <GridView
                                 x:Name="WidgetsList"
                                 ItemsSource="{x:Bind MViewModel.Widgets}"
-                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                ScrollViewer.HorizontalScrollMode="Enabled"
-                                ScrollViewer.VerticalScrollMode="Disabled"
-                                Margin="-16,8,0,0"
                                 SelectionMode="None">
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <ItemsStackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
-                                <ListView.ItemTemplate>
+                                <GridView.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:WidgetViewModel">
                                         <uc:WidgetControl
                                             Title="{x:Bind Title, Mode=OneWay}"
+                                            Width="232"
+                                            Height="96"
                                             ShowIcon="{x:Bind ShowIcon, Mode=OneWay}"
                                             ShowTitle="{x:Bind ShowTitle, Mode=OneWay}"
-                                            Width="232"
                                             WidgetContent="{x:Bind Content, Mode=OneWay}">
                                             <uc:WidgetControl.Icon>
                                                 <FontIcon Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
                                             </uc:WidgetControl.Icon>
                                         </uc:WidgetControl>
                                     </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </ScrollViewer>
-
-                    <muxc:ProgressRing
-                        x:Name="WidgetsLoadingRing"
-                        HorizontalAlignment="Center"
-                        d:IsActive="True" />
-                </StackPanel>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </uc:HubPart>
+                    </Hub>
+                </Grid>
             </Border>
 
             <TextBlock x:Uid="/Information/QuickH" Style="{StaticResource SubheaderTextBlockStyle}" />
@@ -153,5 +138,17 @@
                 ExpanderStyle="Button"
                 Icon="&#xF4A5;" />
         </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidgetStates">
+                <VisualState x:Name="WidgetsAddedState" />
+                <VisualState x:Name="NoWidgetsState">
+                    <VisualState.Setters>
+                        <Setter Target="WidgetsHub.Visibility" Value="Collapsed" />
+                        <Setter Target="NoWidgetsPanel.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </ScrollViewer>
 </Page>

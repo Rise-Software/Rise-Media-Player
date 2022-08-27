@@ -1,12 +1,12 @@
-﻿using Rise.App.Dialogs;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
+using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using System;
-using System.Collections.Specialized;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -29,47 +29,23 @@ namespace Rise.App.Views
 
             _navigationHelper = new NavigationHelper(this);
 
-            if (MViewModel.Widgets.Any())
-            {
-                WidgetsScrollViewer.Visibility = Visibility.Visible;
-                NoWidgetsPanel.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                WidgetsScrollViewer.Visibility = Visibility.Collapsed;
-                NoWidgetsPanel.Visibility = Visibility.Visible;
-            }
-
-            WidgetsLoadingRing.IsActive = false;
-            WidgetsLoadingRing.Visibility = Visibility.Collapsed;
-
-            App.MViewModel.Widgets.CollectionChanged += Widgets_CollectionChanged;
+            UpdateWidgetsVisibility();
+            MViewModel.Widgets.CollectionChanged += Widgets_CollectionChanged;
         }
 
         private void Widgets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            => UpdateWidgetsVisibility();
+
+        private void UpdateWidgetsVisibility()
         {
             if (MViewModel.Widgets.Any())
-            {
-                WidgetsScrollViewer.Visibility = Visibility.Visible;
-                NoWidgetsPanel.Visibility = Visibility.Collapsed;
-            }
+                VisualStateManager.GoToState(this, "WidgetsAddedState", false);
             else
-            {
-                WidgetsScrollViewer.Visibility = Visibility.Collapsed;
-                NoWidgetsPanel.Visibility = Visibility.Visible;
-            }
-
-            WidgetsLoadingRing.IsActive = false;
-            WidgetsLoadingRing.Visibility = Visibility.Collapsed;
-        }
-
-        private void MViewModel_WidgetsLoaded(object sender, EventArgs e)
-        {
-            
+                VisualStateManager.GoToState(this, "NoWidgetsState", false);
         }
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
         {
@@ -101,29 +77,17 @@ namespace Rise.App.Views
             var result = await dialog.ShowAsync();
         }
 
-        #region NavigationHelper registration
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </summary>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            _navigationHelper.OnNavigatedTo(e);
-            App.MViewModel.WidgetsLoaded += MViewModel_WidgetsLoaded;
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
-
         private void BrowseMedia_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(BrowsePage));
         }
+
+        #region NavigationHelper registration
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
     }
 }
