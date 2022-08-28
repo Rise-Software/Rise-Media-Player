@@ -159,7 +159,10 @@
                     </Grid>
                 </Border>
 
-                <Grid Grid.Row="1" ColumnSpacing="12">
+                <Grid
+                    x:Name="LastFMClickables"
+                    Grid.Row="1"
+                    ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -191,7 +194,10 @@
                                                 CornerRadius="8">
                                                 <Image>
                                                     <Image.Source>
-                                                        <BitmapImage DecodePixelHeight="32" DecodePixelWidth="32" />
+                                                        <BitmapImage
+                                                            DecodePixelHeight="32"
+                                                            DecodePixelWidth="32"
+                                                            UriSource="{x:Bind Image[0].Text}" />
                                                     </Image.Source>
                                                 </Image>
                                             </Border>
