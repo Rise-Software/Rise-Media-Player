@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Linq;
+using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.DbControllers;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.App.Web;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -15,30 +17,50 @@ namespace Rise.App.Views
 {
     public sealed partial class HomePage : Page
     {
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
         private readonly NavigationHelper _navigationHelper;
+        private readonly AdvancedCollectionView WidgetCollection;
 
         private MainViewModel MViewModel => App.MViewModel;
+        private WidgetsBackendController WBackendController => App.WBackendController;
 
         public HomePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
 
+            WidgetCollection = new(MViewModel.Widgets, true);
+            WidgetCollection.Filter = w => ((WidgetViewModel)w).Enabled;
+
+            WidgetCollection.VectorChanged += WidgetCollection_VectorChanged;
             UpdateWidgetsVisibility();
-            MViewModel.Widgets.CollectionChanged += Widgets_CollectionChanged;
         }
 
-        private void Widgets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            WidgetCollection.Filter = null;
+            WidgetCollection.VectorChanged -= WidgetCollection_VectorChanged;
+        }
+
+        #region NavigationHelper registration
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedTo(e);
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => _navigationHelper.OnNavigatedFrom(e);
+        #endregion
+    }
+
+    // Event handlers
+    public sealed partial class HomePage
+    {
+        private void WidgetCollection_VectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
             => UpdateWidgetsVisibility();
 
         private void UpdateWidgetsVisibility()
         {
-            if (MViewModel.Widgets.Any())
+            if (WidgetCollection.Count > 0)
                 VisualStateManager.GoToState(this, "WidgetsAddedState", false);
             else
                 VisualStateManager.GoToState(this, "NoWidgetsState", false);
@@ -74,20 +96,16 @@ namespace Rise.App.Views
                 Content = new WidgetsDialogContent()
             };
 
-            var result = await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
+            WidgetCollection.RefreshFilter();
+
+            foreach (var widget in MViewModel.Widgets)
+                await WBackendController.AddOrUpdateAsync(widget);
         }
 
         private void BrowseMedia_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(BrowsePage));
         }
-
-        #region NavigationHelper registration
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedTo(e);
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-            => _navigationHelper.OnNavigatedFrom(e);
-        #endregion
     }
 }

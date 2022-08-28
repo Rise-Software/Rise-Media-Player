@@ -221,7 +221,6 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\WidgetViewModel.cs" />
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
@@ -327,6 +326,9 @@
     <Compile Include="Web\WhatsNew.xaml.cs">
       <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\AppInfoWidget.cs" />
+    <Compile Include="Widgets\RecentlyPlayedWidget.cs" />
+    <Compile Include="Widgets\TopTracksWidget.cs" />
     <Compile Include="Windows\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>

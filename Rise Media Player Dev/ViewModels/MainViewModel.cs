@@ -1,4 +1,13 @@
-﻿using Rise.App.ChangeTrackers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
+using Rise.App.ChangeTrackers;
+using Rise.App.UserControls;
+using Rise.App.Widgets;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -6,13 +15,6 @@ using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Search;
@@ -23,8 +25,6 @@ namespace Rise.App.ViewModels
     {
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
-
-        public event EventHandler WidgetsLoaded;
 
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
@@ -111,17 +111,39 @@ namespace Rise.App.ViewModels
 
             Notifications.Clear();
             Widgets.Clear();
-            
+
             var widgets = await App.WBackendController.GetItemsAsync();
             if (widgets != null)
             {
                 foreach (var item in widgets)
                 {
-                    Widgets.Add(item);
+                    WidgetViewModel widget;
+                    if (item.Id == AppInfoWidget.WidgetId)
+                    {
+                        widget = new AppInfoWidget();
+                        widget.Content = new AppInfoWidgetContentControl();
+                    }
+                    else if (item.Id == RecentlyPlayedWidget.WidgetId)
+                    {
+                        widget = new RecentlyPlayedWidget();
+                        widget.Content = new RecentlyPlayedWidgetContentControl();
+                    }
+                    else if (item.Id == TopTracksWidget.WidgetId)
+                    {
+                        widget = new TopTracksWidget();
+                        widget.Content = new TopTracksWidgetContentControl();
+                    }
+                    else
+                    {
+                        // TODO: Add an app service for other widgets, and
+                        // eventually use it for RiseMP widgets
+                        continue;
+                    }
+
+                    widget.Enabled = item.Enabled;
+                    Widgets.Add(widget);
                 }
             }
-
-            //WidgetsLoaded?.Invoke(this, EventArgs.Empty);
 
             var songs = await Repository.GetItemsAsync<Song>();
 

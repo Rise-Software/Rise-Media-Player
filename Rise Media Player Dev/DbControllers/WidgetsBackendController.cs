@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
-using Rise.App.ViewModels;
-using Rise.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Rise.App.Widgets;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Windows.Storage;
 
 namespace Rise.App.DbControllers
@@ -42,7 +43,13 @@ namespace Rise.App.DbControllers
             }
             else
             {
-                return new List<WidgetViewModel>();
+                var widgets = new List<WidgetViewModel>
+                {
+                    new AppInfoWidget(),
+                    new RecentlyPlayedWidget(),
+                    new TopTracksWidget()
+                };
+                return widgets;
             }
         }
 
@@ -54,7 +61,7 @@ namespace Rise.App.DbControllers
         public async Task<WidgetViewModel> GetItemAsync(string id)
         {
             var items = await GetItemsAsync();
-            return items.FirstOrDefault(item => item.Model.Id.ToString() == id);
+            return items.FirstOrDefault(item => item.Id.ToString() == id);
         }
 
         /// <summary>
@@ -85,7 +92,7 @@ namespace Rise.App.DbControllers
 
             List<WidgetViewModel> items = JsonConvert.DeserializeObject<List<WidgetViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<WidgetViewModel>();
 
-            WidgetViewModel item1 = items.FirstOrDefault(i => i.Model.Id == item.Model.Id);
+            WidgetViewModel item1 = items.FirstOrDefault(i => i.Id == item.Id);
             var index = items.IndexOf(item1);
 
             if (index < 0)
@@ -111,7 +118,7 @@ namespace Rise.App.DbControllers
             bool exists = items.Any(p =>
             {
                 if (p != null)
-                    return p.Model.Id == item.Model.Id;
+                    return p.Id == item.Id;
                 else
                     return false;
             });
