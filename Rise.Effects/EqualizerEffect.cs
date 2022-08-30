@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using NAudio.Dsp;
@@ -14,10 +15,18 @@ namespace Rise.Effects
     public sealed partial class EqualizerEffect : IBasicAudioEffect, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private readonly static Lazy<EqualizerEffect> _current
+            = new Lazy<EqualizerEffect>(() => new EqualizerEffect());
         /// <summary>
         /// Gets the current instance of the effect.
         /// </summary>
-        public static EqualizerEffect Current { get; private set; }
+        public static EqualizerEffect Current => _current.Value;
+
+        /// <summary>
+        /// Whether the effect has been initialized.
+        /// </summary>
+        public static bool Initialized => _current.IsValueCreated;
 
         /// <summary>
         /// Bands available for the equalizer.
@@ -49,17 +58,6 @@ namespace Rise.Effects
         private int channels;
         private int bandCount;
         private IPropertySet configuration;
-
-        /// <summary>
-        /// Initializes the effect. Run this method to update
-        /// properties without having to add the effect to a
-        /// player.
-        /// </summary>
-        public static void Initialize()
-        {
-            if (Current == null)
-                Current = new EqualizerEffect();
-        }
 
         /// <summary>
         /// Initializes the EQ bands with the specified gains.

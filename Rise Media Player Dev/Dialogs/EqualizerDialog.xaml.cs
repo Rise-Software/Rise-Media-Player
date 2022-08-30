@@ -16,6 +16,13 @@ namespace Rise.App.Dialogs
 
         public EqualizerDialog()
         {
+            if (!EqualizerEffect.Initialized)
+            {
+                var eq = EqualizerEffect.Current;
+                eq.InitializeBands(SViewModel.EqualizerGain);
+                eq.IsEnabled = SViewModel.EqualizerEnabled;
+            }
+
             InitializeComponent();
 
             _initialPreset = SViewModel.SelectedEqualizerPreset;
