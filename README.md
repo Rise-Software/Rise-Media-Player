@@ -9,7 +9,7 @@
 
 **Note: The app can only be installed from the store if you are an Insider. To become an insider, [click here](http://bit.ly/rise-insider)**
 
-### **Download the installer from the download link below or clone the repository to build :) Alpha Preview 2 is out now!**!
+### Download the installer from the download link below or [see building instructions](./BUILD.md)
 
 
 **Rise Media Player** brings all of your media to a whole new level. If it's videos, the music stored on your devices, discs or even your favourite streaming services; you'll love our player. One library for everything. Almost infinite customisability with settings that are second to none. Stream, browse and explore with Streaming Services - coming soon.
