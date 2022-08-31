@@ -142,6 +142,7 @@
     <Compile Include="Enums\SliderDisplayModes.cs" />
     <Compile Include="Enums\VisualizerType.cs" />
     <Compile Include="Enums\WidgetType.cs" />
+    <Compile Include="Extensions\AsyncExtensions.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentDialogExtensions.cs" />
     <Compile Include="Extensions\DiagnosticsExtensions.cs" />

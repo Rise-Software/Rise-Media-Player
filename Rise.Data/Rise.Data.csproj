@@ -129,6 +129,7 @@
     <Compile Include="ViewModels\NavViewItemViewModel.cs" />
     <Compile Include="ViewModels\SortableCollectionViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\WidgetViewModel.cs" />
     <EmbeddedResource Include="Properties\Rise.Data.rd.xml" />
   </ItemGroup>
   <ItemGroup>

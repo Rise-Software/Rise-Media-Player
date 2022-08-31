@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.QueryStringDotNET;
@@ -19,6 +17,7 @@ using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.Models;
+using Rise.NewRepository;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -37,7 +36,6 @@ namespace Rise.App
     /// </summary>
     public sealed partial class App : Application
     {
-        #region Variables
         public static bool IsLoaded;
 
         public static bool MainPageLoaded;
@@ -68,69 +66,49 @@ namespace Rise.App
             AutoReset = true
         };
 
-        /// <summary>
-        /// Gets the app-wide <see cref="PlaylistsBackendController"/> singleton instance.
-        /// </summary>
-        public static PlaylistsBackendController PBackendController { get; private set; }
+        // ViewModels
+        private readonly static Lazy<MainViewModel> _mViewModel
+            = new(() => new MainViewModel());
+        public static MainViewModel MViewModel => _mViewModel.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="NotificationsBackendController"/> singleton instance.
-        /// </summary>
-        public static NotificationsBackendController NBackendController { get; private set; }
+        private readonly static Lazy<MediaPlaybackViewModel> _mpViewModel
+            = new(OnMPViewModelRequested);
+        public static MediaPlaybackViewModel MPViewModel => _mpViewModel.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="WidgetsBackendController"/> singleton instance.
-        /// </summary>
-        public static WidgetsBackendController WBackendController { get; private set; }
+        private readonly static Lazy<SettingsViewModel> _sViewModel
+            = new(() => new SettingsViewModel());
+        public static SettingsViewModel SViewModel => _sViewModel.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="MainViewModel"/> singleton instance.
-        /// </summary>
-        public static MainViewModel MViewModel { get; private set; }
+        private readonly static Lazy<LastFMViewModel> _lmViewModel
+            = new(OnLFMRequested);
+        public static LastFMViewModel LMViewModel => _lmViewModel.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="MediaPlaybackViewModel"/> singleton instance.
-        /// </summary>
-        public static MediaPlaybackViewModel MPViewModel { get; private set; }
+        // Backend controllers
+        private readonly static Lazy<PlaylistsBackendController> _pBackendController
+            = new(() => new PlaylistsBackendController());
+        public static PlaylistsBackendController PBackendController => _pBackendController.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="SettingsViewModel"/> singleton instance.
-        /// </summary>
-        public static SettingsViewModel SViewModel { get; private set; }
+        private readonly static Lazy<NotificationsBackendController> _nBackendController
+            = new(() => new NotificationsBackendController());
+        public static NotificationsBackendController NBackendController => _nBackendController.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="NavViewDataSource"/> singleton instance.
-        /// </summary>
-        public static NavViewDataSource NavDataSource { get; private set; }
+        private readonly static Lazy<WidgetsBackendController> _wBackendController
+            = new(() => new WidgetsBackendController());
+        public static WidgetsBackendController WBackendController => _wBackendController.Value;
 
-        /// <summary>
-        /// Gets the app-wide <see cref="LastFMViewModel"/> singleton instance.
-        /// </summary>
-        public static LastFMViewModel LMViewModel { get; private set; }
+        // Data sources
+        private readonly static Lazy<NavViewDataSource> _navDataSource
+            = new(() => new NavViewDataSource());
+        public static NavViewDataSource NavDataSource => _navDataSource.Value;
 
-        /// <summary>
-        /// Gets the music library.
-        /// </summary>
-        public static StorageLibrary MusicLibrary { get; private set; }
+        // Libraries
+        private readonly static Lazy<StorageLibrary> _musicLibrary
+            = new(OnStorageLibraryRequested(KnownLibraryId.Music));
+        public static StorageLibrary MusicLibrary => _musicLibrary.Value;
 
-        /// <summary>
-        /// Gets all the folders in the music library.
-        /// </summary>
-        public static List<StorageFolder> MusicFolders { get; private set; }
-
-        /// <summary>
-        /// Gets the video library.
-        /// </summary>
-        public static StorageLibrary VideoLibrary { get; private set; }
-
-        /// <summary>
-        /// Gets all the folders in the videos library.
-        /// </summary>
-        public static List<StorageFolder> VideoFolders { get; private set; }
-
-        private static List<StorageLibraryChange> Changes { get; set; }
-            = new List<StorageLibraryChange>();
-        #endregion
+        private readonly static Lazy<StorageLibrary> _videoLibrary
+            = new(OnStorageLibraryRequested(KnownLibraryId.Videos));
+        public static StorageLibrary VideoLibrary => _videoLibrary.Value;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -138,7 +116,6 @@ namespace Rise.App
         /// </summary>
         public App()
         {
-            SViewModel ??= new();
             if (SViewModel.Theme == 0)
                 RequestedTheme = ApplicationTheme.Light;
             else if (SViewModel.Theme == 1)
@@ -218,40 +195,6 @@ namespace Rise.App
         }
 
         /// <summary>
-        /// Initializes the app's ViewModels.
-        /// </summary>
-        private async Task InitDataSourcesAsync()
-        {
-            await NewRepository.Repository.InitializeDatabaseAsync();
-
-            MusicLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Music);
-            VideoLibrary ??= await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
-
-            PBackendController ??= new();
-            NBackendController ??= new();
-            WBackendController ??= new();
-
-            MViewModel ??= new();
-            LMViewModel ??= new(LastFM.Key, LastFM.Secret);
-            MPViewModel ??= new();
-            NavDataSource ??= new();
-
-            EqualizerEffect.Initialize();
-
-            EqualizerEffect.Current.InitializeBands(SViewModel.EqualizerGain);
-            EqualizerEffect.Current.IsEnabled = SViewModel.EqualizerEnabled;
-
-            MPViewModel ??= new MediaPlaybackViewModel();
-            if (!MPViewModel.Effects.Any(e => e.EffectClassType == typeof(EqualizerEffect)))
-                MPViewModel.AddEffect(new(typeof(EqualizerEffect), false, true, null));
-
-            MusicLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
-            VideoLibrary.DefinitionChanged += MusicLibrary_DefinitionChanged;
-
-            LMViewModel.TryLoadCredentials(LastFM.VaultResource);
-        }
-
-        /// <summary>
         /// Shows a toast when an exception is thrown.
         /// </summary>
         private void ShowExceptionToast(Exception e)
@@ -275,16 +218,6 @@ namespace Rise.App
 
             ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
-        }
-
-        private async void MusicLibrary_DefinitionChanged(StorageLibrary sender, object args)
-        {
-            // Prevent duplicate calls.
-            if (IsLoaded)
-            {
-                Debug.WriteLine("Definition changes!");
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-            }
         }
 
         /// <summary>
@@ -337,10 +270,8 @@ namespace Rise.App
             {
                 deferral = e?.SuspendingOperation?.GetDeferral();
 
-                if (NavDataSource != null)
-                {
+                if (_navDataSource.IsValueCreated)
                     await NavDataSource.SerializeGroupsAsync();
-                }
 
                 await SuspensionManager.SaveAsync();
             }
@@ -397,12 +328,10 @@ namespace Rise.App
             // just ensure that the window is active
             if (Window.Current.Content is not Frame rootFrame)
             {
-                await InitDataSourcesAsync();
+                await Repository.InitializeDatabaseAsync();
                 await MViewModel.GetListsAsync();
 
                 StartIndexingTimer();
-
-                // LeavingBackground += async (s, e) => await MViewModel.StartFullCrawlAsync();
 
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -437,6 +366,9 @@ namespace Rise.App
                     _ = await KnownFolders.VideosLibrary.
                         TrackForegroundAsync(QueryPresets.VideoQueryOptions,
                         VideosTracker.VideosLibrary_ContentsChanged);
+
+                    MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+                    VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
                 }
 
                 // Place the frame in the current Window
@@ -446,6 +378,13 @@ namespace Rise.App
             IsLoaded = true;
 
             return rootFrame;
+        }
+
+        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
+        {
+            // Prevent duplicate calls.
+            if (IsLoaded)
+                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
         }
 
         public static void StartIndexingTimer()
@@ -498,6 +437,38 @@ namespace Rise.App
             {
                 Debug.WriteLine("An error occured while indexing.");
             }
+        }
+    }
+
+    // Data source/ViewModel initialization
+    public sealed partial class App
+    {
+        private static LastFMViewModel OnLFMRequested()
+        {
+            var lfm = new LastFMViewModel(LastFM.Key, LastFM.Secret);
+            lfm.TryLoadCredentials(LastFM.VaultResource);
+            return lfm;
+        }
+
+        private static MediaPlaybackViewModel OnMPViewModelRequested()
+        {
+            var mpvm = new MediaPlaybackViewModel();
+
+            if (!EqualizerEffect.Initialized)
+            {
+                var eq = EqualizerEffect.Current;
+                eq.InitializeBands(SViewModel.EqualizerGain);
+                eq.IsEnabled = SViewModel.EqualizerEnabled;
+            }
+
+            mpvm.AddEffect(new(typeof(EqualizerEffect), false, true, null));
+            return mpvm;
+        }
+
+        private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
+        {
+            var library = StorageLibrary.GetLibraryAsync(id).Get();
+            return library;
         }
     }
 }

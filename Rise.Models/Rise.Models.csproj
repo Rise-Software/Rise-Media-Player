@@ -140,7 +140,6 @@
     <Compile Include="SyncedLyrics.cs" />
     <Compile Include="UserToken.cs" />
     <Compile Include="Wallpaper.cs" />
-    <Compile Include="Widget.cs" />
     <EmbeddedResource Include="Properties\Rise.Models.rd.xml" />
   </ItemGroup>
   <ItemGroup>
