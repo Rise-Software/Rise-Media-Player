@@ -15,5 +15,7 @@ namespace Rise.Models
         public bool ShowTitle { get; set; }
 
         public bool ShowIcon { get; set; }
+
+        public string WidgetPageTag { get; set; }
     }
 }
