@@ -10,6 +10,7 @@
     xmlns:local1="using:Rise.App"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -22,6 +23,32 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <media:AcrylicBrush
+                        x:Key="MediaTransportControlsPanelBackground"
+                        BackgroundSource="Backdrop"
+                        FallbackColor="#2C2C2C"
+                        TintColor="{x:Bind SViewModel.GlazeColors, Mode=OneWay}"
+                        TintLuminosityOpacity="0"
+                        TintOpacity="0" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <media:AcrylicBrush
+                        x:Key="MediaTransportControlsPanelBackground"
+                        BackgroundSource="Backdrop"
+                        FallbackColor="#F9F9F9"
+                        TintColor="{x:Bind SViewModel.GlazeColors, Mode=OneWay}"
+                        TintLuminosityOpacity="0"
+                        TintOpacity="0" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="{ThemeResource SystemColorWindowColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
             <conv:BooleanToVisibility x:Key="BoolToVis" />
             <conv:ResourceToString x:Key="StrToRes" />
 
