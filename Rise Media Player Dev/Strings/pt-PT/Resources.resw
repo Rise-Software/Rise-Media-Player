@@ -126,4 +126,11 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Procurar</value>
   </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>Lançado:Dezembro (Feriado), 2021
+Versão Interna: 0.0.200.0
+Edição: Bloom
+
+Criado por Joseph Beattie e YourOrdinaryCat</value>
+  </data>
 </root>

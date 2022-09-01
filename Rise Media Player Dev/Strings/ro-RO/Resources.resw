@@ -126,4 +126,12 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Căutare</value>
   </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>Dată de lansare InDev: 24 decembrie 2021
+Dată de lansare finală: 1 ianuarie 2022
+Versiune internă: 0.0.200.0
+Ediție: Bloom
+
+Creat de Joseph Beattie și YourOrdinaryCat</value>
+  </data>
 </root>

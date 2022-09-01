@@ -135,6 +135,7 @@ namespace Rise.App.ViewModels
                     else if (item.Id == TopTracksWidget.WidgetId)
                     {
                         // TODO: Fetch the items for at a glance
+                        // without awaiting.
                         widget = new TopTracksWidget
                         {
                             Content = new TopTracksWidgetContentControl()

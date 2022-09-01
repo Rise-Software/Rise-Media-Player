@@ -126,4 +126,12 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Ara</value>
   </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>InDev Çıkış Tarihi: 24 Aralık 2021
+Son çıkış tarihi: 1 Ocak 2022
+Dahili Sürüm: 0.0.200.0
+Baskı: Bloom
+
+Joseph Beattie &amp; YourOrdinaryCat tarafından düzenlendi</value>
+  </data>
 </root>

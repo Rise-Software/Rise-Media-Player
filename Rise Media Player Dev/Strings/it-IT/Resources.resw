@@ -126,4 +126,10 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Cerca</value>
   </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>Internal Version: 0.0.200.0
+Edition: Bloom
+
+Creato da Joseph Beattie e YourOrdinaryCat</value>
+  </data>
 </root>

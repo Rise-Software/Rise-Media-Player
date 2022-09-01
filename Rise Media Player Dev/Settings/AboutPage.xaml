@@ -81,8 +81,6 @@
             </uc:AdaptiveItemPane>
         </Border>
 
-
-
         <TextBlock
             x:Uid="/About/MoreH"
             Margin="0,-10,0,0"

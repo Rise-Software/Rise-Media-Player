@@ -120,10 +120,36 @@
   <data name="AddAccount" xml:space="preserve">
     <value>अकाउंट जोड़ें</value>
   </data>
+  <data name="AppInfo" xml:space="preserve">
+    <value>App info</value>
+  </data>
+  <data name="RecentlyPlayed" xml:space="preserve">
+    <value>Recently played</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>खोजें</value>
+  </data>
+  <data name="TopTracks" xml:space="preserve">
+    <value>Top tracks</value>
+  </data>
+  <data name="WDAppInfo" xml:space="preserve">
+    <value>Shows info about the app, for example build number</value>
+  </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>इनडेव रिलीज़ दिनांक: डिसंबर 24, 2021
+रिलीज़ दिनांक: जनवरी 1, 2022
+अंदरूनी रूपांतरण: 0.0.200.0
+संस्करण: ब्लूम
+
+जोज़फ बीटी और योरऔरडिनरीकैट के द्वारा सृजित</value>
+  </data>
+  <data name="WDRecentlyPlayed" xml:space="preserve">
+    <value>Shows the media you recently played</value>
+  </data>
+  <data name="WDTopTracks" xml:space="preserve">
+    <value>Shows the top tracks for today</value>
   </data>
 </root>

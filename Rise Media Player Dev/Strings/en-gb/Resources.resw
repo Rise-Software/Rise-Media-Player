@@ -138,6 +138,12 @@
   <data name="WDAppInfo" xml:space="preserve">
     <value>Shows info about the app, for example build number</value>
   </data>
+  <data name="WDAppInfoText" xml:space="preserve">
+    <value>Alpha Preview 3
+Internal Version: 0.0.172.0
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
+  </data>
   <data name="WDRecentlyPlayed" xml:space="preserve">
     <value>Shows the media you recently played</value>
   </data>

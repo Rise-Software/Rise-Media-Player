@@ -102,7 +102,7 @@
                                         <uc:WidgetControl
                                             Title="{x:Bind Title, Converter={StaticResource StrToRes}}"
                                             Width="232"
-                                            Height="96"
+                                            Height="100"
                                             Icon="{x:Bind Icon}"
                                             WidgetContent="{x:Bind Content}" />
                                     </DataTemplate>

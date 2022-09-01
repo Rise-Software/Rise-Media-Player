@@ -10,6 +10,6 @@
     mc:Ignorable="d">
 
     <Grid Padding="16">
-        <TextBlock Text="{markup:ResourceHelper Name=AppInfo}" />
+        <TextBlock Text="{markup:ResourceHelper Name=WDAppInfoText}" />
     </Grid>
 </UserControl>
