@@ -28,7 +28,6 @@ namespace Rise.App.Settings
         private readonly List<string> Startup = new()
         {
             ResourceLoaders.AppearanceLoader.GetString("Home"),
-            ResourceLoaders.AppearanceLoader.GetString("NowPlaying"),
             ResourceLoaders.AppearanceLoader.GetString("Playlists"),
             ResourceLoaders.AppearanceLoader.GetString("Songs"),
             ResourceLoaders.AppearanceLoader.GetString("Artists"),

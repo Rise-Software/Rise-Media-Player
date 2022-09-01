@@ -25,9 +25,9 @@ namespace Rise.App.ViewModels
             _ = DetectOpenAtStartupAsync();
         }
 
-        public string[] OpenLocations = new string[8]
+        public string[] OpenLocations = new string[7]
         {
-            "HomePage", "NowPlayingPage", "PlaylistsPage", "SongsPage",
+            "HomePage", "PlaylistsPage", "SongsPage",
             "ArtistsPage", "AlbumsPage", "GenresPage", "LocalVideosPage"
         };
 
@@ -39,9 +39,7 @@ namespace Rise.App.ViewModels
         public List<string> GeneralTags = new()
         {
             "HomePage",
-            "PlaylistsPage",
-            "ConnectedDevicesPage",
-            "NowPlayingPage"
+            "PlaylistsPage"
         };
 
         public List<string> MusicTags = new()
@@ -621,8 +619,7 @@ namespace Rise.App.ViewModels
             ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
 
             // If the store exists, check if the setting does as well
-            if (composite == null)
-                composite = new ApplicationDataCompositeValue();
+            composite ??= new ApplicationDataCompositeValue();
 
             if (composite[setting] == null)
             {
@@ -665,8 +662,7 @@ namespace Rise.App.ViewModels
             ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)roamingSettings.Values[store];
 
             // Store doesn't exist, create it
-            if (composite == null)
-                composite = new ApplicationDataCompositeValue();
+            composite ??= new ApplicationDataCompositeValue();
 
             // Set the setting to the desired value
             composite[setting] = newValue;
