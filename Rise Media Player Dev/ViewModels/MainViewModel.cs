@@ -120,18 +120,25 @@ namespace Rise.App.ViewModels
                     WidgetViewModel widget;
                     if (item.Id == AppInfoWidget.WidgetId)
                     {
-                        widget = new AppInfoWidget();
-                        widget.Content = new AppInfoWidgetContentControl();
+                        widget = new AppInfoWidget
+                        {
+                            Content = new AppInfoWidgetContentControl()
+                        };
                     }
                     else if (item.Id == RecentlyPlayedWidget.WidgetId)
                     {
-                        widget = new RecentlyPlayedWidget();
-                        widget.Content = new RecentlyPlayedWidgetContentControl();
+                        widget = new RecentlyPlayedWidget
+                        {
+                            Content = new RecentlyPlayedWidgetContentControl()
+                        };
                     }
                     else if (item.Id == TopTracksWidget.WidgetId)
                     {
-                        widget = new TopTracksWidget();
-                        widget.Content = new TopTracksWidgetContentControl();
+                        // TODO: Fetch the items for at a glance
+                        widget = new TopTracksWidget
+                        {
+                            Content = new TopTracksWidgetContentControl()
+                        };
                     }
                     else
                     {
@@ -192,26 +199,16 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            // Playlists may contain songs or videos
-            if (songs != null || videos != null)
+            var playlists = await App.PBackendController.GetItemsAsync();
+            if (playlists != null)
             {
-                var playlists = await App.PBackendController.GetItemsAsync();
-                if (playlists != null)
-                {
-                    foreach (var item in playlists)
-                    {
-                        Playlists.Add(item);
-                    }
-                }
+                Playlists.AddRange(playlists);
             }
 
             var notifications = await App.NBackendController.GetItemsAsync();
             if (notifications != null)
             {
-                foreach (var item in notifications)
-                {
-                    Notifications.Add(item);
-                }
+                Notifications.AddRange(notifications);
             }
         }
 

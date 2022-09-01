@@ -5,11 +5,41 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Rise.Models"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid Padding="16">
-        <TextBlock Text="{markup:ResourceHelper Name=TopTracks}" />
-    </Grid>
+    <ListView ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" Padding="16">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="models:Track">
+                <Grid
+                    Padding="0,10"
+                    VerticalAlignment="Center"
+                    ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border
+                        Width="32"
+                        Height="32"
+                        CornerRadius="8">
+                        <Image>
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="32" DecodePixelWidth="32" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{x:Bind Name}" />
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </UserControl>

@@ -30,8 +30,10 @@ namespace Rise.App.Views
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.SaveState += NavigationHelper_SaveState;
 
-            WidgetCollection = new(MViewModel.Widgets, true);
-            WidgetCollection.Filter = w => ((WidgetViewModel)w).Enabled;
+            WidgetCollection = new(MViewModel.Widgets, true)
+            {
+                Filter = w => ((WidgetViewModel)w).Enabled
+            };
 
             WidgetCollection.VectorChanged += WidgetCollection_VectorChanged;
             UpdateWidgetsVisibility();
@@ -84,7 +86,7 @@ namespace Rise.App.Views
                 Content = new Settings.MediaSourcesPage()
             };
 
-            var result = await dialog.ShowAsync();
+            _ = await dialog.ShowAsync();
         }
 
         private async void GlanceManage_Click(object sender, RoutedEventArgs e)
