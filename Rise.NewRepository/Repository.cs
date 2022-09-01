@@ -126,7 +126,8 @@ namespace Rise.NewRepository
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static T GetItem<T>(Guid id, bool parallel = false) where T : DbObject, new()
+        public static T GetItem<T>(Guid id, bool parallel = false)
+            where T : DbObject, new()
         {
             if (parallel)
                 return GetItems<T>().AsParallel().FirstOrDefault(i => i.Id == id);
@@ -139,7 +140,8 @@ namespace Rise.NewRepository
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static async Task<T> GetItemAsync<T>(Guid id, bool parallel = false) where T : DbObject, new()
+        public static async Task<T> GetItemAsync<T>(Guid id, bool parallel = false)
+            where T : DbObject, new()
         {
             if (parallel)
                 return (await GetItemsAsync<T>()).AsParallel().FirstOrDefault(i => i.Id == id);
