@@ -1,6 +1,7 @@
 ﻿using Rise.Models;
 using SQLite;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Rise.NewRepository
         private static SQLiteConnection _db;
         private static SQLiteAsyncConnection _asyncDb;
 
-        private static Queue<DbObject> _upsertQueue;
+        private static ConcurrentQueue<DbObject> _upsertQueue;
 
         /// <summary>
         /// Initializes the database and its tables.
