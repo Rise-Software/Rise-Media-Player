@@ -67,9 +67,7 @@ namespace Rise.NewRepository
         /// </summary>
         /// <returns>Amount of modified rows.</returns>
         public static int Upsert(DbObject item)
-        {
-            return _db.InsertOrReplace(item);
-        }
+            => _db.InsertOrReplace(item);
 
         /// <summary>
         /// Upserts an item to the database asynchronously.
@@ -77,9 +75,7 @@ namespace Rise.NewRepository
         /// <returns>A Task that represents the upsert operation,
         /// with the amount of modified rows.</returns>
         public static Task<int> UpsertAsync(DbObject item)
-        {
-            return _asyncDb.InsertOrReplaceAsync(item);
-        }
+            => _asyncDb.InsertOrReplaceAsync(item);
 
         /// <summary>
         /// Queues an item to the database for upserting.
@@ -114,9 +110,7 @@ namespace Rise.NewRepository
         /// </summary>
         /// <returns>Amount of rows that were removed.</returns>
         public static int Delete(DbObject item)
-        {
-            return _db.Delete(item);
-        }
+            => _db.Delete(item);
 
         /// <summary>
         /// Removes an item from the database asynchronously.
@@ -124,26 +118,32 @@ namespace Rise.NewRepository
         /// <returns>A Task that represents the removal operation,
         /// with the amount of rows that were removed.</returns>
         public static Task<int> DeleteAsync(DbObject item)
-        {
-            return _asyncDb.DeleteAsync(item);
-        }
+            => _asyncDb.DeleteAsync(item);
 
         /// <summary>
         /// Gets the item with the specified Id.
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static T GetItem<T>(Guid id)
-            where T : DbObject, new()
-            => GetItems<T>().AsParallel().FirstOrDefault(i => i.Id == id);
+        public static T GetItem<T>(Guid id, bool parallel = false) where T : DbObject, new()
+        {
+            if (parallel)
+                return GetItems<T>().AsParallel().FirstOrDefault(i => i.Id == id);
+
+            return GetItems<T>().FirstOrDefault(i => i.Id == id);
+        }
 
         /// <summary>
         /// Gets the item with the specified Id asynchronously.
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static async Task<T> GetItemAsync<T>(Guid id)
-            where T : DbObject, new()
-            => (await GetItemsAsync<T>()).AsParallel().FirstOrDefault(i => i.Id == id);
+        public static async Task<T> GetItemAsync<T>(Guid id, bool parallel = false) where T : DbObject, new()
+        {
+            if (parallel)
+                return (await GetItemsAsync<T>()).AsParallel().FirstOrDefault(i => i.Id == id);
+
+            return (await GetItemsAsync<T>()).FirstOrDefault(i => i.Id == id);
+        }
     }
 }
