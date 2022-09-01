@@ -103,7 +103,7 @@ namespace Rise.NewRepository
         /// <returns>A <see cref="Task" /> which represents the operation.</returns>
         public static async Task UpsertQueuedAsync()
         {
-            foreach (var item in _upsertQueue)
+            while (_upsertQueue.TryDequeue(out DbObject item))
             {
                 _ = await _asyncDb.InsertOrReplaceAsync(item);
             }
