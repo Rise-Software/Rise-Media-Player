@@ -32,12 +32,9 @@ namespace Rise.App.Settings
 
         private void GotoManage_Click(object sender, RoutedEventArgs e)
         {
-            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
             AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-
-            Frame.Navigate(typeof(MediaSourcesPage));
         }
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)

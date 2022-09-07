@@ -267,10 +267,7 @@
                         IsTitleBarAutoPaddingEnabled="False"
                         ItemInvoked="SettingsSidebar_ItemInvoked"
                         PaneDisplayMode="Left"
-                        SelectedItem="{x:Bind Appearance}"
-                        SelectionChanged="SettingsSidebar_SelectionChanged"
-                        SelectionFollowsFocus="Disabled">
-
+                        SelectedItem="{x:Bind Appearance}">
                         <muxc:NavigationView.Resources>
                             <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                             <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
@@ -388,12 +385,11 @@
                         x:FieldModifier="public"
                         Orientation="Horizontal">
                         <Button
-                            x:Name="GOBACKPAGE"
+                            x:Name="GoBackPage"
                             Height="36"
                             Margin="0,4,12,0"
                             Padding="8,4,8,4"
                             VerticalAlignment="Center"
-                            x:FieldModifier="public"
                             AutomationProperties.AutomationId="BackButton1"
                             AutomationProperties.ItemType="Navigation Button"
                             AutomationProperties.Name="Back"
@@ -401,7 +397,7 @@
                             CornerRadius="5"
                             Style="{StaticResource TransparentButtonStyle}"
                             ToolTipService.ToolTip="Back"
-                            Visibility="Collapsed">
+                            Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}">
                             <muxc:AnimatedIcon Width="20" Height="20">
                                 <muxc:AnimatedIcon.Source>
                                     <animatedvisuals:AnimatedBackVisualSource />
@@ -431,26 +427,8 @@
                         <ScrollViewer
                             Margin="0,49,0,0"
                             Padding="37,0,37,0"
-                            CornerRadius="8"
                             VerticalScrollBarVisibility="Auto">
-
-                            <Frame
-                                x:Name="SettingsMainFrame"
-                                HorizontalAlignment="Stretch"
-                                x:FieldModifier="public">
-                                <TextBlock
-                                    FontSize="14"
-                                    FontWeight="SemiBold"
-                                    Opacity="0.6"
-                                    Text="Select an item from the sidebar to continue."
-                                    TextTrimming="CharacterEllipsis"
-                                    TextWrapping="WrapWholeWords" />
-                                <Frame.ContentTransitions>
-                                    <TransitionCollection>
-                                        <NavigationThemeTransition />
-                                    </TransitionCollection>
-                                </Frame.ContentTransitions>
-                            </Frame>
+                            <Frame x:Name="SettingsMainFrame" x:FieldModifier="public" />
                         </ScrollViewer>
                     </Grid>
                 </Grid>
