@@ -165,7 +165,7 @@
     <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
-    <Compile Include="IndexingPresets.cs" />
+    <Compile Include="QueryPresets.cs" />
     <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Interfaces\IMediaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
