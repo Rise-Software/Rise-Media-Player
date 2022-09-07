@@ -40,22 +40,6 @@ namespace Rise.App.ViewModels
         private readonly CancellableTaskHelper IndexingCancelHelper = new();
 
         /// <summary>
-        /// Creates a new MainViewModel.
-        /// </summary>
-        public MainViewModel()
-        {
-            QueryPresets.SongQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
-            QueryPresets.SongQueryOptions.
-                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-
-            QueryPresets.VideoQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
-            QueryPresets.VideoQueryOptions.
-                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-        }
-
-        /// <summary>
         /// The collection of songs in the list. 
         /// </summary>
         public readonly SafeObservableCollection<SongViewModel> Songs = new();
