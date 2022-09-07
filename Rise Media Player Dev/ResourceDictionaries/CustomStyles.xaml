@@ -4,10 +4,10 @@
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:wuvm="using:Windows.UI.ViewManagement">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CardStyles.xaml" />
         <ResourceDictionary Source="ListStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -58,54 +58,6 @@
         TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-    </Style>
-    <!--#endregion-->
-
-    <!--#region Cards-->
-    <Thickness x:Key="ExpanderHeaderPadding">16,8,0,8</Thickness>
-    <Style TargetType="muxc:Expander">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="ExpandDirection" Value="Down" />
-        <Setter Property="Padding" Value="44,12" />
-    </Style>
-
-    <Style x:Key="SettingsCard" TargetType="Border">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="Padding" Value="16,12" />
-    </Style>
-
-    <Style x:Key="TransparentCard" TargetType="Border">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style
-        x:Key="ActionCard"
-        BasedOn="{StaticResource DefaultButtonStyle}"
-        TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="Padding" Value="16,12,16,12" />
-        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
     <!--#endregion-->
 

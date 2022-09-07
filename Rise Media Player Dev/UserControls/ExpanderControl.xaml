@@ -15,13 +15,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ResourceDictionaries/RightAlignedToggleSwitch.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/Expanders.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
             <conv:StringToVisibility x:Key="StrToVis" />
 
+            <Style BasedOn="{StaticResource RightAlignedToggleSwitchStyle}" TargetType="ToggleSwitch" />
             <local:ExpanderTemplateSelector x:Key="ExpanderSelector" Style="{x:Bind ViewModel.ExpanderStyle, Mode=OneWay}">
                 <local:ExpanderTemplateSelector.Button>
                     <DataTemplate x:DataType="viewmodels:ExpanderViewModel" x:DefaultBindMode="OneWay">
