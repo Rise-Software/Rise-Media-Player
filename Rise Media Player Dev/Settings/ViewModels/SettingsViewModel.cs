@@ -344,18 +344,16 @@ namespace Rise.App.ViewModels
 
         public bool ShowAllGeneral
         {
-            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
+            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre;
             set
             {
                 ShowAtAGlance = value;
                 ShowPlaylists = value;
                 ShowHelpCentre = value;
-                ShowNowPlaying = value;
 
                 OnPropertyChanged(nameof(ShowAtAGlance));
                 OnPropertyChanged(nameof(ShowPlaylists));
                 OnPropertyChanged(nameof(ShowHelpCentre));
-                OnPropertyChanged(nameof(ShowNowPlaying));
             }
         }
 
@@ -467,12 +465,6 @@ namespace Rise.App.ViewModels
         {
             get => SBViewModel.IsItemVisible("DiscyPage");
             set => ChangeItemVisibility("DiscyPage", value);
-        }
-
-        public bool ShowNowPlaying
-        {
-            get => SBViewModel.IsItemVisible("NowPlayingPage");
-            set => ChangeItemVisibility("NowPlayingPage", value);
         }
 
         private void ChangeItemVisibility(string tag, bool value)
