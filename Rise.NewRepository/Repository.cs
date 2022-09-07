@@ -126,13 +126,11 @@ namespace Rise.NewRepository
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static T GetItem<T>(Guid id, bool parallel = false)
+        public static T GetItem<T>(Guid id)
             where T : DbObject, new()
         {
-            if (parallel)
-                return GetItems<T>().AsParallel().FirstOrDefault(i => i.Id == id);
-
-            return GetItems<T>().FirstOrDefault(i => i.Id == id);
+            var mapping = _db.GetMapping<T>();
+            return _db.Query<T>(mapping.GetByPrimaryKeySql, new object[1] { id }).FirstOrDefault();
         }
 
         /// <summary>
@@ -140,13 +138,11 @@ namespace Rise.NewRepository
         /// </summary>
         /// <typeparam name="T">Desired item type.</typeparam>
         /// <returns>The item if found, null otherwise.</returns>
-        public static async Task<T> GetItemAsync<T>(Guid id, bool parallel = false)
+        public static async Task<T> GetItemAsync<T>(Guid id)
             where T : DbObject, new()
         {
-            if (parallel)
-                return (await GetItemsAsync<T>()).AsParallel().FirstOrDefault(i => i.Id == id);
-
-            return (await GetItemsAsync<T>()).FirstOrDefault(i => i.Id == id);
+            var mapping = await _asyncDb.GetMappingAsync<T>().ConfigureAwait(false);
+            return _db.Query<T>(mapping.GetByPrimaryKeySql, new object[1] { id }).FirstOrDefault();
         }
     }
 }
