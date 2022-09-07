@@ -249,27 +249,18 @@ namespace Rise.App.Views
         /// </summary>
         private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            // If the back button is not visible, reduce the TitleBar content indent.
-            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
-            {
-                minimalIndent = 48;
-            }
-
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
             if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(104, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(140, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(260, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
 

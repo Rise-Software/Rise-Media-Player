@@ -336,7 +336,6 @@
             <skuc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Height="40"
-                Margin="54,0,0,0"
                 VerticalAlignment="Top"
                 Canvas.ZIndex="1">
                 <Grid
@@ -761,7 +760,6 @@
                         <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
                         <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
-
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
