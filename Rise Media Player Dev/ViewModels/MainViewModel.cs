@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Search;
 
 namespace Rise.App.ViewModels
 {
@@ -23,6 +22,16 @@ namespace Rise.App.ViewModels
     {
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
+
+        private bool _isScanning;
+        /// <summary>
+        /// Whether the app is currently looking for new media.
+        /// </summary>
+        public bool IsScanning
+        {
+            get => _isScanning;
+            private set => Set(ref _isScanning, value);
+        }
 
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
@@ -174,6 +183,7 @@ namespace Rise.App.ViewModels
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
+            IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
             await IndexLibrariesAsync(token);
@@ -186,6 +196,7 @@ namespace Rise.App.ViewModels
             token.ThrowIfCancellationRequested();
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;

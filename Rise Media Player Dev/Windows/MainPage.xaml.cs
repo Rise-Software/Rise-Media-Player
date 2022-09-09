@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -13,6 +9,10 @@ using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
@@ -109,6 +109,9 @@ namespace Rise.App.Views
 
                 App.MainPageLoaded = true;
             }
+
+            if (MViewModel.IsScanning)
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -208,8 +211,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                AddedTip.IsOpen = false;
-                CheckTip.IsOpen = true;
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
 
@@ -217,11 +219,11 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                CheckTip.IsOpen = false;
-                AddedTip.IsOpen = true;
-
+                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
                 await Task.Delay(3000);
-                AddedTip.IsOpen = false;
+
+                if (!MViewModel.IsScanning)
+                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -391,11 +393,7 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            OpenSync.Visibility = Visibility.Collapsed;
-            IsScanning.Visibility = Visibility.Visible;
             await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-            IsScanning.Visibility = Visibility.Collapsed;
-            OpenSync.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
