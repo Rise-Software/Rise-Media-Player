@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <ResourceDictionary.MergedDictionaries>
@@ -71,32 +70,6 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="0,16,0,5" />
     </Style>
-    <!--#endregion-->
-
-    <!--#region Shadows-->
-    <media:AttachedCardShadow x:Key="EmptyShadow" Opacity="0" />
-    <media:AttachedCardShadow
-        x:Key="LightDropShadow"
-        BlurRadius="25"
-        CornerRadius="8"
-        Opacity=".15"
-        Offset="0,2" />
-    <media:AttachedCardShadow
-        x:Key="StrongShadow"
-        BlurRadius="20"
-        CornerRadius="8"
-        Opacity=".4" />
-    <media:AttachedCardShadow
-        x:Key="LightShadow"
-        BlurRadius="8"
-        CornerRadius="8"
-        Opacity=".2" />
-    <media:AttachedCardShadow
-        x:Key="LightShadowBottomOffset"
-        BlurRadius="8"
-        CornerRadius="8"
-        Opacity=".075"
-        Offset="0,4,0" />
     <!--#endregion-->
 
     <!--#region Media bar-->
