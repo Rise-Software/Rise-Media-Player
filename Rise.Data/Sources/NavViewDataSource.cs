@@ -279,6 +279,7 @@ namespace Rise.Data.Sources
         /// Hides a group of NavigationView items and their header.
         /// </summary>
         /// <param name="group">Group to hide.</param>
+        [RelayCommand]
         public void HideGroup(string group)
         {
             foreach (NavViewItemViewModel item in Items)
@@ -319,6 +320,19 @@ namespace Rise.Data.Sources
                     item.IsVisible = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Toggles the visibility of a NavigationView item.
+        /// </summary>
+        /// <param name="id">Id of the item to change.</param>
+        [RelayCommand]
+        public void ToggleItemVisibility(string id)
+        {
+            _ = TryGetItem(id, out var item);
+
+            item.IsVisible = !item.IsVisible;
+            CheckHeaderVisibility(item.HeaderGroup);
         }
 
         /// <summary>

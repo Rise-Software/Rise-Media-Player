@@ -287,17 +287,14 @@
                     x:Name="TopOption"
                     x:Uid="/Information/ToTop"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
-                    CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE11C;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Upload" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
                     x:Uid="/Information/MoveUp"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
-                    CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
@@ -307,7 +304,7 @@
                     x:Name="DownOption"
                     x:Uid="/Information/MoveDown"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
-                    CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
@@ -317,21 +314,21 @@
                     x:Name="BottomOption"
                     x:Uid="/Information/ToBottom"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
-                    CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE118;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Download" />
 
                 <MenuFlyoutSeparator />
 
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
 
-                <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
+                <MenuFlyoutItem
+                    x:Uid="/Information/RemoveSection"
+                    Command="{x:Bind NavDataSource.HideGroupCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
@@ -339,11 +336,11 @@
             </MenuFlyout>
 
             <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
             </MenuFlyout>
         </ResourceDictionary>
     </Page.Resources>

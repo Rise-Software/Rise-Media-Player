@@ -42,13 +42,13 @@ namespace Rise.App.Views
 
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private static readonly DependencyProperty RightClickedItemIdProperty
-            = DependencyProperty.Register(nameof(RightClickedItemId), typeof(string),
+        private static readonly DependencyProperty RightClickedItemProperty
+            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
                 typeof(MainPage), null);
-        private string RightClickedItemId
+        private NavViewItemViewModel RightClickedItem
         {
-            get => (string)GetValue(RightClickedItemIdProperty);
-            set => SetValue(RightClickedItemIdProperty, value);
+            get => (NavViewItemViewModel)GetValue(RightClickedItemProperty);
+            set => SetValue(RightClickedItemProperty, value);
         }
 
         // This is static to allow it to persist during an
@@ -408,23 +408,14 @@ namespace Rise.App.Views
             Frame.Navigate(typeof(AllSettingsPage));
         }
 
-        private void HideItem_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.ChangeItemVisibility(RightClickedItemId, false);
-
-        private void HideSection_Click(object sender, RoutedEventArgs e)
-        {
-            _ = NavDataSource.TryGetItem(RightClickedItemId, out var item);
-            NavDataSource.HideGroup(item.HeaderGroup);
-        }
-
         private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
             var item = sender as NavigationViewItem;
             var tag = item.Tag.ToString();
 
-            if (tag != "SettingsPage")
+            if (tag != "SettingsPage" && NavDataSource.TryGetItem(tag, out var itm))
             {
-                RightClickedItemId = tag;
+                RightClickedItem = itm;
                 bool hasPosition = args.TryGetPosition(item, out var point);
 
                 MenuFlyout flyout;
