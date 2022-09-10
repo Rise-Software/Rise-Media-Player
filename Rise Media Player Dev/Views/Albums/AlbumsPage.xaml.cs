@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
@@ -9,6 +6,9 @@ using Rise.App.ViewModels;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +19,6 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private readonly RelayCommand<AlbumViewMode> UpdateViewModeCommand;
         private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedItem
@@ -38,8 +37,6 @@ namespace Rise.App.Views
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
-
-            UpdateViewModeCommand = new(UpdateViewMode);
 
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
@@ -92,6 +89,7 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class AlbumsPage
     {
+        [RelayCommand]
         private void UpdateViewMode(AlbumViewMode viewMode)
             => SViewModel.AlbumViewMode = viewMode;
 
