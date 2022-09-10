@@ -42,7 +42,14 @@ namespace Rise.App.Views
 
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private NavigationViewItem RightClickedItem { get; set; }
+        private static readonly DependencyProperty RightClickedItemIdProperty
+            = DependencyProperty.Register(nameof(RightClickedItemId), typeof(string),
+                typeof(MainPage), null);
+        private string RightClickedItemId
+        {
+            get => (string)GetValue(RightClickedItemIdProperty);
+            set => SetValue(RightClickedItemIdProperty, value);
+        }
 
         // This is static to allow it to persist during an
         // individual session. When the user exits the app,
@@ -402,39 +409,28 @@ namespace Rise.App.Views
         }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
+            => NavDataSource.ChangeItemVisibility(RightClickedItemId, false);
 
         private void HideSection_Click(object sender, RoutedEventArgs e)
         {
-            _ = NavDataSource.TryGetItem(RightClickedItem.Tag.ToString(), out var item);
+            _ = NavDataSource.TryGetItem(RightClickedItemId, out var item);
             NavDataSource.HideGroup(item.HeaderGroup);
         }
 
-        private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveUp(RightClickedItem.Tag.ToString());
-
-        private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveDown(RightClickedItem.Tag.ToString());
-
-        private void ToTop_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToTop(RightClickedItem.Tag.ToString());
-
-        private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
-            DependencyObject source = e.OriginalSource as DependencyObject;
+            var item = sender as NavigationViewItem;
+            var tag = item.Tag.ToString();
 
-            if (source.FindVisualParent<NavigationViewItem>()
-                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            if (tag != "SettingsPage")
             {
-                RightClickedItem = item;
-                string tag = item.Tag.ToString();
+                RightClickedItemId = tag;
+                bool hasPosition = args.TryGetPosition(item, out var point);
 
-                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                MenuFlyout flyout;
+                if (tag == "LocalVideosPage" || tag == "DiscyPage")
                 {
-                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewLightItemFlyout;
                 }
                 else
                 {
@@ -447,8 +443,13 @@ namespace Rise.App.Views
                     DownOption.IsEnabled = down;
                     BottomOption.IsEnabled = down;
 
-                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewItemFlyout;
                 }
+
+                if (hasPosition)
+                    flyout.ShowAt(item, point);
+                else
+                    flyout.ShowAt(item);
             }
         }
 

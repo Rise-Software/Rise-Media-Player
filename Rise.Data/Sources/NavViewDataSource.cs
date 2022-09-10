@@ -1,4 +1,5 @@
-﻿using Rise.Common.Enums;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using System;
@@ -13,7 +14,7 @@ using Windows.Storage;
 
 namespace Rise.Data.Sources
 {
-    public class NavViewDataSource
+    public partial class NavViewDataSource
     {
         #region Private fields
         private const string _fileName = "ItemData.json";
@@ -407,6 +408,7 @@ namespace Rise.Data.Sources
         /// Moves an item down.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveDown(string id)
         {
             _ = TryGetItem(id, out var item);
@@ -428,6 +430,7 @@ namespace Rise.Data.Sources
         /// Moves an item to the bottom.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveToBottom(string id)
         {
             TryGetItem(id, out var item);
@@ -504,6 +507,7 @@ namespace Rise.Data.Sources
         /// Moves an item up.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveUp(string id)
         {
             _ = TryGetItem(id, out var item);
@@ -525,6 +529,7 @@ namespace Rise.Data.Sources
         /// Moves an item to the top.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveToTop(string id)
         {
             _ = TryGetItem(id, out var item);

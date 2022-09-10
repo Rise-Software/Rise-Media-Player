@@ -21,310 +21,303 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <ResourceDictionary>
-            <conv:BooleanToVisibility x:Key="BoolToVis" />
-            <conv:ResourceToString x:Key="StrToRes" />
+        <conv:BooleanToVisibility x:Key="BoolToVis" />
+        <conv:ResourceToString x:Key="StrToRes" />
 
-            <conv:TimeSpanToString x:Key="TimeToStr" />
+        <conv:TimeSpanToString x:Key="TimeToStr" />
 
-            <!--  This top margin is the height of the custom TitleBar  -->
-            <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
-            <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
+        <!--  This top margin is the height of the custom TitleBar  -->
+        <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+        <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
-            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
-                <MenuFlyoutItem
-                    x:Name="TopOption"
-                    x:Uid="/Information/ToTop"
-                    Click="ToTop_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE11C;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+        <Flyout
+            x:Name="PlayingItemMusicFlyout"
+            x:DefaultBindMode="OneWay"
+            Placement="TopEdgeAlignedLeft">
+            <Grid
+                MaxWidth="412"
+                MaxHeight="144"
+                ColumnSpacing="12"
+                RowSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="144" />
+                    <ColumnDefinition Width="1*" MaxWidth="268" />
+                </Grid.ColumnDefinitions>
 
-                <MenuFlyoutItem
-                    x:Name="UpOption"
-                    x:Uid="/Information/MoveUp"
-                    Click="MoveUp_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE010;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-                <MenuFlyoutItem
-                    x:Name="DownOption"
-                    x:Uid="/Information/MoveDown"
-                    Click="MoveDown_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE011;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <Border
+                    Grid.RowSpan="4"
+                    CornerRadius="8"
+                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                    <Image Stretch="Uniform">
+                        <Image.Source>
+                            <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
 
-                <MenuFlyoutItem
-                    x:Name="BottomOption"
-                    x:Uid="/Information/ToBottom"
-                    Click="ToBottom_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE118;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    MaxLines="2"
+                    Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    MaxLines="1"
+                    Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                    TextTrimming="CharacterEllipsis" />
 
-                <MenuFlyoutSeparator />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                    TextTrimming="CharacterEllipsis" />
 
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xECC9;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-            </MenuFlyout>
-
-            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-            </MenuFlyout>
-
-            <Flyout
-                x:Name="PlayingItemMusicFlyout"
-                x:DefaultBindMode="OneWay"
-                Placement="TopEdgeAlignedLeft">
                 <Grid
-                    MaxWidth="412"
-                    MaxHeight="144"
-                    ColumnSpacing="12"
-                    RowSpacing="4">
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    ColumnSpacing="6">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="144" />
-                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Click="OnAlbumButtonClick"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <Button.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                    <Border
-                        Grid.RowSpan="4"
-                        CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                                <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                <TextBlock Grid.Column="1" Text="Go to album" />
+                            </Grid>
+                        </Button.Content>
+                    </Button>
 
-                    <TextBlock
+                    <Button
                         Grid.Column="1"
-                        HorizontalAlignment="Left"
-                        FontSize="18"
-                        FontWeight="Bold"
-                        MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        MaxLines="1"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
-                        TextTrimming="CharacterEllipsis" />
+                        HorizontalAlignment="Stretch"
+                        Click="OnArtistButtonClick"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <Button.Content>
+                            <Grid ColumnSpacing="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
-                        TextTrimming="CharacterEllipsis" />
-
-                    <Grid
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        VerticalAlignment="Bottom"
-                        ColumnSpacing="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Click="OnAlbumButtonClick"
-                            Style="{StaticResource AccentButtonStyle}">
-                            <Button.Content>
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
-                                    <TextBlock Grid.Column="1" Text="Go to album" />
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-
-                        <Button
-                            Grid.Column="1"
-                            HorizontalAlignment="Stretch"
-                            Click="OnArtistButtonClick"
-                            Style="{StaticResource AccentButtonStyle}">
-                            <Button.Content>
-                                <Grid ColumnSpacing="6">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
-                                    <TextBlock Grid.Column="1" Text="Go to artist" />
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                    </Grid>
+                                <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                <TextBlock Grid.Column="1" Text="Go to artist" />
+                            </Grid>
+                        </Button.Content>
+                    </Button>
                 </Grid>
-            </Flyout>
+            </Grid>
+        </Flyout>
 
-            <Flyout
-                x:Name="PlayingItemVideoFlyout"
-                x:DefaultBindMode="OneWay"
-                Placement="TopEdgeAlignedLeft">
-                <Grid
-                    MaxWidth="412"
-                    MaxHeight="144"
-                    ColumnSpacing="12"
-                    RowSpacing="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="144" />
-                        <ColumnDefinition Width="1*" MaxWidth="268" />
-                    </Grid.ColumnDefinitions>
+        <Flyout
+            x:Name="PlayingItemVideoFlyout"
+            x:DefaultBindMode="OneWay"
+            Placement="TopEdgeAlignedLeft">
+            <Grid
+                MaxWidth="412"
+                MaxHeight="144"
+                ColumnSpacing="12"
+                RowSpacing="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="144" />
+                    <ColumnDefinition Width="1*" MaxWidth="268" />
+                </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <Border
-                        Grid.RowSpan="3"
-                        CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                <Border
+                    Grid.RowSpan="3"
+                    CornerRadius="8"
+                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                    <Image Stretch="Uniform">
+                        <Image.Source>
+                            <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
 
-                    <TextBlock
-                        Grid.Column="1"
-                        FontSize="18"
-                        FontWeight="Bold"
-                        MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
-                        TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    Grid.Column="1"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    MaxLines="2"
+                    Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                    TextTrimming="CharacterEllipsis" />
 
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        FontWeight="SemiBold"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
-                        TextTrimming="CharacterEllipsis" />
-                </Grid>
-            </Flyout>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    FontWeight="SemiBold"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                    TextTrimming="CharacterEllipsis" />
+            </Grid>
+        </Flyout>
 
-            <!--#region NavView item templates-->
-            <DataTemplate
-                x:Key="AssetIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
+        <local:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
+            <local:NavViewItemTemplateSelector.AssetIconTemplate>
+                <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                    <muxc:NavigationViewItem
+                        x:Phase="1"
+                        AccessKey="{x:Bind AccessKey}"
+                        AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                        AutomationProperties.AutomationId="{x:Bind Id}"
+                        AutomationProperties.Name="{x:Bind Label}"
+                        Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        ContextRequested="NavigationViewItem_ContextRequested"
+                        Tag="{x:Bind Id}"
+                        Visibility="{x:Bind IsVisible}">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </local:NavViewItemTemplateSelector.AssetIconTemplate>
 
-            <DataTemplate
-                x:Key="GlyphIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
+            <local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                    <muxc:NavigationViewItem
+                        x:Phase="1"
+                        AccessKey="{x:Bind AccessKey}"
+                        AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                        AutomationProperties.AutomationId="{x:Bind Id}"
+                        AutomationProperties.Name="{x:Bind Label}"
+                        Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        ContextRequested="NavigationViewItem_ContextRequested"
+                        Tag="{x:Bind Id}"
+                        Visibility="{x:Bind IsVisible}">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </DataTemplate>
+            </local:NavViewItemTemplateSelector.GlyphIconTemplate>
 
-            <DataTemplate
-                x:Key="HeaderTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemHeader
-                    x:Phase="1"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
+            <local:NavViewItemTemplateSelector.HeaderTemplate>
+                <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                    <muxc:NavigationViewItemHeader
+                        x:Phase="1"
+                        AutomationProperties.AutomationId="{x:Bind Id}"
+                        Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                        Tag="{x:Bind Id}"
+                        Visibility="{x:Bind IsVisible}" />
+                </DataTemplate>
+            </local:NavViewItemTemplateSelector.HeaderTemplate>
 
-            <DataTemplate
-                x:Key="SeparatorTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemSeparator
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
-            <!--#endregion-->
+            <local:NavViewItemTemplateSelector.SeparatorTemplate>
+                <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                    <muxc:NavigationViewItemSeparator
+                        AutomationProperties.AutomationId="{x:Bind Id}"
+                        Tag="{x:Bind Id}"
+                        Visibility="{x:Bind IsVisible}" />
+                </DataTemplate>
+            </local:NavViewItemTemplateSelector.SeparatorTemplate>
+        </local:NavViewItemTemplateSelector>
 
-            <local:NavViewItemTemplateSelector
-                x:Key="NavViewItemTemplateSelector"
-                AssetIconTemplate="{StaticResource AssetIconTemplate}"
-                GlyphIconTemplate="{StaticResource GlyphIconTemplate}"
-                HeaderTemplate="{StaticResource HeaderTemplate}"
-                SeparatorTemplate="{StaticResource SeparatorTemplate}" />
-        </ResourceDictionary>
+        <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
+            <MenuFlyoutItem
+                x:Name="TopOption"
+                x:Uid="/Information/ToTop"
+                Command="{x:Bind NavDataSource.MoveToTopCommand}"
+                CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE11C;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem
+                x:Name="UpOption"
+                x:Uid="/Information/MoveUp"
+                Command="{x:Bind NavDataSource.MoveUpCommand}"
+                CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE010;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem
+                x:Name="DownOption"
+                x:Uid="/Information/MoveDown"
+                Command="{x:Bind NavDataSource.MoveDownCommand}"
+                CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE011;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem
+                x:Name="BottomOption"
+                x:Uid="/Information/ToBottom"
+                Command="{x:Bind NavDataSource.MoveToBottomCommand}"
+                CommandParameter="{x:Bind RightClickedItemId, Mode=OneWay}">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE118;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutSeparator />
+
+            <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE77A;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xECC9;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+        <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
+            <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE77A;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
     </Page.Resources>
 
     <Grid>
@@ -570,8 +563,7 @@
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.Items}"
             OpenPaneLength="260"
-            PaneDisplayMode="LeftMinimal"
-            RightTapped="NavigationView_RightTapped">
+            PaneDisplayMode="LeftMinimal">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
