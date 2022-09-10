@@ -400,6 +400,15 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
+                                <AppBarButton
+                                    x:Name="EqualizerButton"
+                                    IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
                                 <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
@@ -1048,6 +1057,16 @@
                                     Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE946;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton
+                                    x:Name="EqualizerButton"
+                                    IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    Label="Equalizer">
+                                    <AppBarButton.Icon>
+                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 

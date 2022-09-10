@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
@@ -116,6 +117,26 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsPropertiesButtonVisibleProperty);
             set => SetValue(IsPropertiesButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the equalizer
+        /// button is enabled.
+        /// </summary>
+        public bool IsEqualizerButtonEnabled
+        {
+            get => (bool)GetValue(IsEqualizerButtonEnabledProperty);
+            set => SetValue(IsEqualizerButtonEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the equalizer
+        /// button is shown.
+        /// </summary>
+        public bool IsEqualizerButtonVisible
+        {
+            get => (bool)GetValue(IsEqualizerButtonVisibleProperty);
+            set => SetValue(IsEqualizerButtonVisibleProperty, value);
         }
 
         /// <summary>
@@ -252,6 +273,14 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
+        public readonly static DependencyProperty IsEqualizerButtonEnabledProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsEqualizerButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
         public readonly static DependencyProperty QueueFlyoutProperty =
             DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
@@ -275,6 +304,9 @@ namespace Rise.App.UserControls
 
             var propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
             propertiesButton.Click += PropertiesButtonClick;
+
+            var equalizerButton = GetTemplateChild("EqualizerButton") as AppBarButton;
+            equalizerButton.Click += EqualizerButtonClick;
 
             base.OnApplyTemplate();
         }
@@ -330,5 +362,8 @@ namespace Rise.App.UserControls
                 }
             }
         }
+
+        private void EqualizerButtonClick(object sender, RoutedEventArgs e)
+            => _ = new EqualizerDialog().ShowAsync();
     }
 }

@@ -118,6 +118,8 @@
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
+                    IsEqualizerButtonEnabled="True"
+                    IsEqualizerButtonVisible="True"
                     ShowAndHideAutomatically="False"
                     Style="{StaticResource NowPlayingTransportControlsStyle}"
                     TimelineDisplayMode="Minimal">
