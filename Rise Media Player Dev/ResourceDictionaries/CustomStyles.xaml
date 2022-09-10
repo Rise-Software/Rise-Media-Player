@@ -403,6 +403,7 @@
                                 <AppBarButton
                                     x:Name="EqualizerButton"
                                     IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                    Label="Equalizer"
                                     Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />

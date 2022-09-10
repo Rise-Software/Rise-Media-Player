@@ -30,6 +30,7 @@
                 Text="Equalizer" />
 
             <ToggleSwitch
+                Style="{StaticResource RightAlignedToggleSwitchStyle}"
                 IsOn="{x:Bind Effect.IsEnabled, Mode=TwoWay}"
                 RelativePanel.AlignRightWithPanel="True" />
         </RelativePanel>
