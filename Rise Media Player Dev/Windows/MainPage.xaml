@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:local="using:Rise.App.Views"
-    xmlns:local1="using:Rise.App"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -576,13 +575,13 @@
                     MaxWidth="1000"
                     Margin="16"
                     d:DesignHeight="102"
-                    x:DefaultBindMode="OneWay"
-                    MediaPlayerVisibility="Collapsed">
+                    MediaPlayerVisibility="Collapsed"
+                    Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
                     <uc:RiseMediaPlayerElement.TransportControls>
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
+                            DisplayItemVisibility="Visible"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
                             IsFullWindowButtonVisible="False"
@@ -601,7 +600,7 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            OverlayCommand="{x:Bind GoToNowPlayingCommand, Mode=OneTime}"
+                            OverlayCommand="{x:Bind GoToNowPlayingCommand}"
                             ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.QueueFlyout>
                                 <Flyout>
@@ -617,7 +616,10 @@
                                     Click="OnDisplayItemClick"
                                     RightTapped="OnDisplayItemRightTapped"
                                     Style="{StaticResource TransparentButtonStyle}">
-                                    <Grid x:Name="ItemGrid" Height="80">
+                                    <Grid
+                                        x:Name="ItemGrid"
+                                        Height="80"
+                                        x:DefaultBindMode="OneWay">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition x:Name="ImageDefinition" Width="80" />
                                             <ColumnDefinition x:Name="TextDefinition" Width="120" />
