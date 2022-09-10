@@ -533,8 +533,8 @@ namespace Rise.App.ViewModels
 
         public bool EqualizerEnabled
         {
-            get => Get(false, "Playback");
-            set => Set(value, "Playback");
+            get => Get(false, "Local");
+            set => Set(value, "Local");
         }
 
         private static float[] _defaultGain =
@@ -550,6 +550,24 @@ namespace Rise.App.ViewModels
         {
             get => Get(0, "Local");
             set => Set(value, "Local");
+        }
+
+        public double Volume
+        {
+            get
+            {
+                var value = Get(100, "Playback");
+
+                if (App.MPViewModel.Player.Volume != value)
+                    App.MPViewModel.Player.Volume = value;
+
+                return value;
+            }
+            set
+            {
+                Set(value, "Playback");
+                App.MPViewModel.Player.Volume = value;
+            }
         }
         #endregion
 
