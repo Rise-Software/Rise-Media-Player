@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
+using System.Threading;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -108,64 +109,40 @@ namespace Rise.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the videos library folders.
         /// </summary>
-        public static async Task HandleVideosFolderChangesAsync()
+        public static async Task HandleVideosFolderChangesAsync(CancellationToken token = default)
         {
-            List<VideoViewModel> toRemove = new();
-
-            // Check if the video doesn't exist anymore, or if we don't have access to it at all,
-            // if so queue it then remove.
-            try
-            {
-                for (int i = 0; i < MViewModel.Videos.Count; i++)
-                {
-                    try
-                    {
-                        _ = await StorageFile.GetFileFromPathAsync(MViewModel.Videos[i].Location);
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        toRemove.Add(MViewModel.Videos[i]);
-                        e.WriteToOutput();
-                    }
-                    catch (FileLoadException)
-                    {
-
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-
-                    }
-                }
-            }
-            finally
-            {
-                foreach (VideoViewModel video in toRemove)
-                {
-                    await video.DeleteAsync();
-                }
-            }
+            if (token.IsCancellationRequested)
+                return;
 
             List<VideoViewModel> duplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
-            try
+            for (int i = 0; i < MViewModel.Videos.Count; i++)
             {
-                for (int i = 0; i < MViewModel.Videos.Count; i++)
+                if (token.IsCancellationRequested)
+                    return;
+
+                for (int j = i + 1; j < MViewModel.Videos.Count; j++)
                 {
-                    for (int j = i + 1; j < MViewModel.Videos.Count; j++)
+                    if (token.IsCancellationRequested)
+                        return;
+
+                    if (MViewModel.Videos[i].Location == MViewModel.Videos[j].Location)
                     {
-                        if (MViewModel.Videos[i].Location == MViewModel.Videos[j].Location)
-                        {
-                            duplicates.Add(MViewModel.Videos[j]);
-                        }
+                        duplicates.Add(MViewModel.Videos[j]);
                     }
                 }
-            } finally
+            }
+
+            foreach (VideoViewModel video in duplicates)
             {
-                foreach (VideoViewModel video in duplicates)
-                {
-                    await video.DeleteAsync();
-                }
+                if (token.IsCancellationRequested)
+                    return;
+
+                await video.DeleteAsync();
+
+                if (token.IsCancellationRequested)
+                    return;
             }
         }
 

@@ -714,7 +714,6 @@
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
             HeroContentPlacement="Bottom"
-            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight" />
 

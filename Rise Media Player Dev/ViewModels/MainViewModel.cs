@@ -189,11 +189,8 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token);
             token.ThrowIfCancellationRequested();
 
-            await SongsTracker.HandleMusicFolderChangesAsync();
-            token.ThrowIfCancellationRequested();
-
-            await VideosTracker.HandleVideosFolderChangesAsync();
-            token.ThrowIfCancellationRequested();
+            _ = SongsTracker.HandleMusicFolderChangesAsync(token);
+            _ = VideosTracker.HandleVideosFolderChangesAsync(token);
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
             IsScanning = false;
