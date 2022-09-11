@@ -267,19 +267,12 @@
                     Style="{StaticResource SettingsCard}">
                     <Grid>
                         <CommandBar
-                            Margin="0,-14,-12,0"
+                            Grid.Row="1"
+                            Margin="0,-14,-12,-8"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Background="Transparent"
                             DefaultLabelPosition="Right">
-                            <AppBarButton
-                                x:Name="UpDown"
-                                Click="UpDown_Click"
-                                Label="Collapse">
-                                <AppBarButton.Icon>
-                                    <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;" />
-                                </AppBarButton.Icon>
-                            </AppBarButton>
 
                             <AppBarButton
                                 x:Name="SortButton"
@@ -318,6 +311,15 @@
                                             GroupName="SortDirection" />
                                     </MenuFlyout>
                                 </AppBarButton.Flyout>
+                            </AppBarButton>
+
+                            <AppBarButton
+                                x:Name="UpDown"
+                                Click="UpDown_Click"
+                                Label="Collapse">
+                                <AppBarButton.Icon>
+                                    <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;" />
+                                </AppBarButton.Icon>
                             </AppBarButton>
                         </CommandBar>
 
