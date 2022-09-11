@@ -299,13 +299,13 @@ namespace Rise.App.UserControls
             var overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
             overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            var miniButton = GetTemplateChild("MiniViewButton") as AppBarButton;
+            var miniButton = GetTemplateChild("MiniViewButton") as MenuFlyoutItem;
             miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
+            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as MenuFlyoutItem;
             propertiesButton.Click += PropertiesButtonClick;
 
-            var equalizerButton = GetTemplateChild("EqualizerButton") as AppBarButton;
+            var equalizerButton = GetTemplateChild("EqualizerButton") as MenuFlyoutItem;
             equalizerButton.Click += EqualizerButtonClick;
 
             base.OnApplyTemplate();

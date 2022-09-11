@@ -628,6 +628,10 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
+                            IsPlaybackRateButtonVisible="True"
+                            IsPlaybackRateEnabled="True"
+                            IsZoomButtonVisible="False"
+                            IsZoomEnabled="False"
                             OverlayCommand="{x:Bind GoToNowPlayingCommand}"
                             ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.QueueFlyout>

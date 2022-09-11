@@ -307,8 +307,7 @@
                                 Grid.Column="3"
                                 Margin="0"
                                 DefaultLabelPosition="Collapsed"
-                                IsDynamicOverflowEnabled="True"
-                                OverflowButtonVisibility="Auto">
+                                OverflowButtonVisibility="Collapsed">
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     Command="{TemplateBinding OverlayCommand}"
@@ -361,56 +360,90 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="PlaybackRateButton" Label="{Binding ElementName=PlaybackRateButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton x:Name="PlaybackRateButton">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xEC57;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="ZoomButton" Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton
+                                    x:Name="ZoomButton"
+                                    Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE799;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="CastButton" Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton
+                                    x:Name="CastButton"
+                                    Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xEC15;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton
-                                    x:Name="MiniViewButton"
-                                    Command="{TemplateBinding OverlayCommand}"
-                                    IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                                    Label="Enter mini view"
-                                    Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                <AppBarButton Label="More options" ToolTipService.ToolTip="More options">
                                     <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE8B9;" />
+                                        <FontIcon Glyph="&#xE10C;" />
                                     </AppBarButton.Icon>
+                                    <AppBarButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Name="InfoPropertiesButton"
+                                                IsEnabled="{TemplateBinding IsPropertiesEnabled}"
+                                                Text="Info &amp; Properties"
+                                                Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE946;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <SymbolIcon Symbol="FullScreen" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="CastButton1"
+                                                Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xEC15;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="MiniViewButton"
+                                                Command="{TemplateBinding OverlayCommand}"
+                                                IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                                                Text="Enter mini view"
+                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutSeparator />
+
+                                            <MenuFlyoutItem
+                                                x:Name="EqualizerButton"
+                                                IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                                Text="Equalizer"
+                                                Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </AppBarButton.Flyout>
                                 </AppBarButton>
 
                                 <AppBarButton
-                                    x:Name="InfoPropertiesButton"
-                                    x:Uid="/Information/Properties"
-                                    IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                    Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE946;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="EqualizerButton"
-                                    IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
-                                    Label="Equalizer"
-                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                    x:Name="FullWindowButton"
+                                    Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                     </AppBarButton.Icon>
@@ -1064,8 +1097,8 @@
                                 <AppBarButton
                                     x:Name="EqualizerButton"
                                     IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
-                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                    Label="Equalizer">
+                                    Label="Equalizer"
+                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
                                     </AppBarButton.Icon>
