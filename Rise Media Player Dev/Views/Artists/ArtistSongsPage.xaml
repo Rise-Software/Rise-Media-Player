@@ -267,7 +267,6 @@
                     Style="{StaticResource SettingsCard}">
                     <Grid>
                         <CommandBar
-                            Grid.Row="1"
                             Margin="0,-14,-12,-8"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
