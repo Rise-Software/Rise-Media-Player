@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Helpers;
+using System;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.UI.Helpers;
+using Windows.Foundation;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -50,7 +51,7 @@ namespace Rise.App.UserControls
                 await HandleMutedAsync();
         }
 
-        private async Task HandleVolumeChangedAsync(double newVolume)
+        private IAsyncAction HandleVolumeChangedAsync(double newVolume)
         {
             var state = newVolume switch
             {
@@ -60,17 +61,17 @@ namespace Rise.App.UserControls
                 _ => "HighVolumeState",
             };
 
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            return Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                VisualStateManager.GoToState(TransportControls, state, true);
+                _ = VisualStateManager.GoToState(TransportControls, state, true);
             });
         }
 
-        private async Task HandleMutedAsync()
+        private IAsyncAction HandleMutedAsync()
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            return Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                VisualStateManager.GoToState(TransportControls, "MuteState", true);
+                _ = VisualStateManager.GoToState(TransportControls, "NoVolumeState", true);
             });
         }
 

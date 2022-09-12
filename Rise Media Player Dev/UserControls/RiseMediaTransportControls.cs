@@ -1,15 +1,16 @@
-﻿using System;
-using System.Windows.Input;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using System;
+using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.UserControls
 {
@@ -296,17 +297,17 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
-            var overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            overlayButton.CommandParameter = ApplicationViewMode.Default;
+            if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
+                overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            var miniButton = GetTemplateChild("MiniViewButton") as MenuFlyoutItem;
-            miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
+            if (GetTemplateChild("MiniViewButton") is ButtonBase miniButton)
+                miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as MenuFlyoutItem;
-            propertiesButton.Click += PropertiesButtonClick;
+            if (GetTemplateChild("InfoPropertiesButton") is ButtonBase propertiesButton)
+                propertiesButton.Click += PropertiesButtonClick;
 
-            var equalizerButton = GetTemplateChild("EqualizerButton") as MenuFlyoutItem;
-            equalizerButton.Click += EqualizerButtonClick;
+            if (GetTemplateChild("EqualizerButton") is ButtonBase equalizerButton)
+                equalizerButton.Click += EqualizerButtonClick;
 
             base.OnApplyTemplate();
         }

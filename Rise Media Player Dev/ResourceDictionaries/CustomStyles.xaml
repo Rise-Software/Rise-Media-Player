@@ -406,9 +406,7 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutItem
-                                                x:Name="CastButton1"
-                                                Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                            <MenuFlyoutItem x:Name="CastButton1" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xEC15;" />
                                                 </MenuFlyoutItem.Icon>
@@ -472,9 +470,9 @@
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Button.Content>
                                         <FontIcon
-                                            x:Name="AudioMuteIcon"
+                                            x:Name="VolumeIcon"
                                             FontSize="16"
-                                            Glyph="&#xE993;" />
+                                            Glyph="&#xE995;" />
                                     </Button.Content>
                                 </Button>
 
@@ -681,33 +679,31 @@
 
                             <VisualStateGroup x:Name="VolumeMuteStates">
                                 <VisualState x:Name="VolumeState" />
-                                <VisualState x:Name="MuteState">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                <VisualState x:Name="MuteState" />
+                            </VisualStateGroup>
 
+                            <VisualStateGroup x:Name="VolumeStates">
                                 <VisualState x:Name="NoVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE992;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE198;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="LowVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE993;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE993;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="MidVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE994;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE994;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="HighVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE995;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE995;" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -910,7 +906,7 @@
                                                         <FontIcon
                                                             x:Name="AudioMuteIcon"
                                                             FontSize="16"
-                                                            Glyph="&#xE993;" />
+                                                            Glyph="&#xE995;" />
                                                     </Button.Content>
                                                 </Button>
 
@@ -931,7 +927,7 @@
                                     </AppBarButton.Flyout>
 
                                     <AppBarButton.Icon>
-                                        <FontIcon x:Name="VolumeMuteIcon" Glyph="&#xE993;" />
+                                        <FontIcon x:Name="VolumeIcon" Glyph="&#xE993;" />
                                     </AppBarButton.Icon>
 
                                     <AppBarButton.Resources>
@@ -1263,38 +1259,35 @@
 
                             <VisualStateGroup x:Name="VolumeMuteStates">
                                 <VisualState x:Name="VolumeState" />
-                                <VisualState x:Name="MuteState">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE198;" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                <VisualState x:Name="MuteState" />
+                            </VisualStateGroup>
 
+                            <VisualStateGroup x:Name="VolumeStates">
                                 <VisualState x:Name="NoVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE992;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE992;" />
+                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE198;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="LowVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE993;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE993;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE993;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="MidVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE994;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE994;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE994;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="HighVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE995;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE995;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE995;" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
