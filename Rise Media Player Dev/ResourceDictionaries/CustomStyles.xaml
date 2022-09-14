@@ -40,7 +40,6 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <!--#region Buttons-->
     <Style
         x:Key="AppBarCompactButtonStyle"
         BasedOn="{StaticResource DefaultAppBarButtonStyle}"
@@ -58,9 +57,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-    <!--#endregion-->
 
-    <!--#region Fonts-->
     <Style TargetType="FontIcon">
         <Setter Property="FontSize" Value="16" />
     </Style>
@@ -70,9 +67,7 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="0,16,0,5" />
     </Style>
-    <!--#endregion-->
 
-    <!--#region Media bar-->
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
     <Style x:Key="DefaultRiseMediaPlayerElementStyle" TargetType="co:RiseMediaPlayerElement">
         <Setter Property="AreTransportControlsEnabled" Value="True" />
@@ -375,19 +370,14 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton
-                                    x:Name="CastButton"
-                                    Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
-                                    Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xEC15;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
+                                <AppBarButton x:Name="CastButton" Visibility="Collapsed" />
+                                <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed" />
 
                                 <AppBarButton Label="More options" ToolTipService.ToolTip="More options">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE10C;" />
                                     </AppBarButton.Icon>
+
                                     <AppBarButton.Flyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem
@@ -400,13 +390,13 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutItem Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                            <MenuFlyoutItem x:Name="FullScreenButton" Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <SymbolIcon Symbol="FullScreen" />
+                                                    <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutItem x:Name="CastButton1" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                            <MenuFlyoutItem x:Name="CastToButton" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xEC15;" />
                                                 </MenuFlyoutItem.Icon>
@@ -436,15 +426,6 @@
                                             </MenuFlyoutItem>
                                         </MenuFlyout>
                                     </AppBarButton.Flyout>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="FullWindowButton"
-                                    Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
-                                    Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
-                                    </AppBarButton.Icon>
                                 </AppBarButton>
                             </CommandBar>
 
@@ -1324,5 +1305,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!--#endregion-->
 </ResourceDictionary>
