@@ -36,9 +36,6 @@
 
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
-            <x:Double x:Key="SliderHorizontalThumbWidth">0</x:Double>
-            <x:Double x:Key="SliderHorizontalThumbHeight">0</x:Double>
-
             <conv:TimeSpanToString x:Key="TimeToStr" />
         </ResourceDictionary>
     </Page.Resources>
@@ -109,6 +106,8 @@
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
                     DisplayItemVisibility="Visible"
+                    IsEqualizerButtonEnabled="True"
+                    IsEqualizerButtonVisible="True"
                     IsFullWindowButtonVisible="True"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
@@ -118,8 +117,6 @@
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
-                    IsEqualizerButtonEnabled="True"
-                    IsEqualizerButtonVisible="True"
                     ShowAndHideAutomatically="False"
                     Style="{StaticResource NowPlayingTransportControlsStyle}"
                     TimelineDisplayMode="Minimal">
