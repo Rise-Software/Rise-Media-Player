@@ -64,6 +64,7 @@
                 x:Uid="/Information/Shuffle"
                 Command="{x:Bind MediaViewModel.ShuffleFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                IsEnabled="{x:Bind SelectedItem, Mode=OneWay, Converter={StaticResource NullToBool}}"
                 Icon="Shuffle" />
             <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}">
                 <AppBarButton.Icon>

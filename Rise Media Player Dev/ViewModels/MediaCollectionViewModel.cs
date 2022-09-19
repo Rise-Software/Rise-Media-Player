@@ -157,11 +157,11 @@ namespace Rise.App.ViewModels
             else if (parameter is AlbumViewModel album)
                 return PlayFromAlbumAsync(album, PlaybackCancelHelper.Token);
             else if (parameter is ArtistViewModel artist)
-                PlayFromArtistAsync(artist, PlaybackCancelHelper.Token);
+                return PlayFromArtistAsync(artist, PlaybackCancelHelper.Token);
             else if (parameter is GenreViewModel genre)
                 return PlayFromGenreAsync(genre, PlaybackCancelHelper.Token);
             else if (parameter is PlaylistViewModel playlist)
-                PlayFromPlaylistAsync(playlist, PlaybackCancelHelper.Token);
+                return PlayFromPlaylistAsync(playlist, PlaybackCancelHelper.Token);
 
             return GetDefaultPlayFromTask();
         }
@@ -172,11 +172,11 @@ namespace Rise.App.ViewModels
             if (type == typeof(AlbumViewModel))
                 return PlayFromAlbumAsync(null, PlaybackCancelHelper.Token);
             else if (type == typeof(ArtistViewModel))
-                PlayFromArtistAsync(null, PlaybackCancelHelper.Token);
+                return PlayFromArtistAsync(null, PlaybackCancelHelper.Token);
             else if (type == typeof(GenreViewModel))
                 return PlayFromGenreAsync(null, PlaybackCancelHelper.Token);
             else if (type == typeof(PlaylistViewModel))
-                PlayFromPlaylistAsync(null, PlaybackCancelHelper.Token);
+                return PlayFromPlaylistAsync(null, PlaybackCancelHelper.Token);
 
             return PlayFromItemAsync(null, PlaybackCancelHelper.Token);
         }

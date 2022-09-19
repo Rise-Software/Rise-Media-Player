@@ -213,7 +213,7 @@
                                                         <BitmapImage
                                                             DecodePixelHeight="32"
                                                             DecodePixelWidth="32"
-                                                            UriSource="{x:Bind Image[0].Text}" />
+                                                            UriSource="ms-appx:///Assets/Default.png" />
                                                     </Image.Source>
                                                 </Image>
                                             </Border>
