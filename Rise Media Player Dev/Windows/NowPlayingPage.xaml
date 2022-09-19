@@ -155,7 +155,7 @@
                                 ui:Effects.Shadow="{StaticResource StrongShadow}"
                                 BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
                                 BorderThickness="1"
-                                CornerRadius="8"
+                                CornerRadius="12"
                                 Visibility="Collapsed">
                                 <Image>
                                     <Image.Source>

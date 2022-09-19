@@ -54,8 +54,8 @@ namespace Rise.App.Views
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                RootViewer.ChangeView(null, _offset, null);
+            /*if (_offset != null)
+                MainList.ChangeView(null, _offset, null);*/
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -79,7 +79,7 @@ namespace Rise.App.Views
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["Offset"] = RootViewer.VerticalOffset;
+            //e.PageState["Offset"] = RootViewer.VerticalOffset;
             Frame.SetListDataItemForNextConnectedAnimation(SelectedPlaylist);
         }
     }

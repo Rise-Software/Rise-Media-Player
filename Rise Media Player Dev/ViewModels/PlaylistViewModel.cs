@@ -1,4 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Rise.App.UserControls;
+using Rise.Common;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
@@ -46,12 +49,46 @@ namespace Rise.App.ViewModels
             if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
             {
                 Uri baseUri = new(Path.GetDirectoryName(file.Path));
+
+                if (baseUri.AbsoluteUri.StartsWith("http") || baseUri.AbsoluteUri.StartsWith("https"))
+                {
+                    SongViewModel song = new()
+                    {
+                        Title = "Title",
+                        Track = 0,
+                        Disc = 0,
+                        Album = "UnknownAlbumResource",
+                        Artist = "UnknownArtistResource",
+                        AlbumArtist = "UnknownArtistResource",
+                        Location = baseUri.AbsoluteUri,
+                        Thumbnail = URIs.MusicThumb,
+                        IsOnline = true
+                    };
+
+                    playlist.Songs.Add(song);
+
+                    goto done;
+                }
+
                 string dirPath = refUri.ToAbsoluteUri(baseUri).AbsolutePath;
 
-                if (dirPath.EndsWith(".m3u"))
+                if (dirPath.EndsWith(".m3u") || dirPath.EndsWith(".m3u8"))
                 {
                     StorageFile linkedPlaylistFile = await StorageFile.GetFileFromPathAsync(dirPath);
                     return await GetFromFileAsync(linkedPlaylistFile);
+                }
+
+                foreach (var format in QueryPresets.SongQueryOptions.FileTypeFilter)
+                {
+                    if (dirPath.EndsWith(format))
+                    {
+                        playlist.Songs.Add(new SongViewModel()
+                        {
+                            Location = new Uri(dirPath).ToAbsoluteUri(baseUri).AbsolutePath,
+                        });
+
+                        goto done;
+                    }
                 }
 
                 foreach (var songPath in Directory.EnumerateFiles(dirPath))
@@ -116,11 +153,47 @@ namespace Rise.App.ViewModels
                     }
                     else
                     {
-                        StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
-                        if (songFile != null)
-                        {
-                            var song = await Song.GetFromFileAsync(songFile);
+                        SongViewModel song;
 
+                        try
+                        {
+                            StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+
+                            if (songFile != null)
+                                song = new(await Song.GetFromFileAsync(songFile));
+                            else
+                                song = new()
+                                {
+                                    Title = "Title",
+                                    Track = 0,
+                                    Disc = 0,
+                                    Album = "UnknownAlbumResource",
+                                    Artist = "UnknownArtistResource",
+                                    AlbumArtist = "UnknownArtistResource",
+                                    Location = line,
+                                    Thumbnail = URIs.MusicThumb,
+                                    IsOnline = true
+                                };
+                        } catch (Exception e)
+                        {
+                            e.WriteToOutput();
+
+                            song = new()
+                            {
+                                Title = "Title",
+                                Track = 0,
+                                Disc = 0,
+                                Album = "UnknownAlbumResource",
+                                Artist = "UnknownArtistResource",
+                                AlbumArtist = "UnknownArtistResource",
+                                Location = line,
+                                Thumbnail = URIs.MusicThumb,
+                                IsOnline = true
+                            };
+                        }
+
+                        if (song != null)
+                        {
                             // If the playlist entry includes track info, override the tag data
                             if (title != null)
                             {
@@ -138,7 +211,7 @@ namespace Rise.App.ViewModels
                                 icon = null;
                             }
 
-                            playlist.Songs.Add(new SongViewModel(song));
+                            playlist.Songs.Add(song);
                         }
                     }
                 }
