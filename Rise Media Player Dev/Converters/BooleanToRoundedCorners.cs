@@ -12,7 +12,7 @@ namespace Rise.App.Converters
             {
                 if (param == "ForAlbum" && ((bool)value))
                 {
-                    return new CornerRadius(4);
+                    return new CornerRadius(8);
                 }
             }
 

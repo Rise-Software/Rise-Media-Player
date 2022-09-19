@@ -95,7 +95,7 @@
                                     Width="1"
                                     Margin="4,4,4,4"
                                     Opacity="0.3"
-                                    Height="auto"
+                                    Height="Auto"
                                     Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}" />
                                 <Button
                                     x:Uid="/Information/RemovePlaylist2"
