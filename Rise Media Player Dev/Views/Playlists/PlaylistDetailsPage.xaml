@@ -20,6 +20,7 @@
         <conv:TimeSpanToString x:Key="TimeToStr" />
         <conv:ResourceToString x:Key="StrToRes" />
         <conv:VideoToString x:Key="VidToStr" />
+        <conv:IntToVisibility x:Key="IntToVis" />
     </uc:MediaPageBase.Resources>
 
     <ScrollViewer x:Name="RootViewer">
@@ -234,6 +235,7 @@
 
             <TextBlock
                 Padding="48,12"
+                Visibility="{x:Bind VideosViewModel.Items.Count, Converter={StaticResource IntToVis}}"
                 Style="{StaticResource SubheaderTextBlockStyle}"
                 Text="Videos" />
             <GridView
@@ -243,6 +245,7 @@
                 IsItemClickEnabled="True"
                 ItemClick="GridView_ItemClick"
                 ItemsSource="{x:Bind VideosViewModel.Items}"
+                Visibility="{x:Bind VideosViewModel.Items.Count, Converter={StaticResource IntToVis}}"
                 SelectedItem="{x:Bind SelectedVideo, Mode=TwoWay}"
                 SelectionMode="Single">
                 <GridView.ContextFlyout>
