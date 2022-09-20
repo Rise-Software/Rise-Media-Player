@@ -295,6 +295,62 @@
                                         <SymbolIcon x:Name="RepeatSymbol" Symbol="RepeatAll" />
                                     </AppBarToggleButton.Icon>
                                 </AppBarToggleButton>
+
+                                <AppBarButton Visibility="{Binding IsSecondaryMoreMenuVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" Label="More options" ToolTipService.ToolTip="More options">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE10C;" />
+                                    </AppBarButton.Icon>
+
+                                    <AppBarButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Name="InfoPropertiesButton1"
+                                                IsEnabled="{TemplateBinding IsPropertiesEnabled}"
+                                                Text="Info &amp; Properties"
+                                                Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE946;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Name="FullScreenButton1" Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <SymbolIcon x:Name="FullWindowSymbol1" Symbol="FullScreen" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Name="CastToButton1" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xEC15;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="MiniViewButton1"
+                                                Command="{TemplateBinding OverlayCommand}"
+                                                IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                                                Text="Enter mini view"
+                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutSeparator />
+
+                                            <MenuFlyoutItem
+                                                x:Name="EqualizerButton1"
+                                                IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                                Text="Equalizer"
+                                                Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </AppBarButton.Flyout>
+                                </AppBarButton>
+
                             </CommandBar>
 
                             <CommandBar
@@ -644,6 +700,8 @@
 
                                         <Setter Target="VolumeMuteButton.Visibility" Value="Collapsed" />
                                         <Setter Target="SecondaryBarColumn.Width" Value="48" />
+
+                                        <Setter Target="SecondaryMediaControlsCommandBar.Visibility" Value="Collapsed" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -695,6 +753,7 @@
                                 <VisualState x:Name="FullWindowState">
                                     <VisualState.Setters>
                                         <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />
+                                        <Setter Target="FullWindowSymbol1.Symbol" Value="BackToWindow" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

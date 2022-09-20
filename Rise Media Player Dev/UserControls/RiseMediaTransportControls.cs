@@ -101,6 +101,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether the overlay
+        /// button is shown.
+        /// </summary>
+        public bool IsSecondaryMoreMenuVisible
+        {
+            get => (bool)GetValue(IsSecondaryMoreMenuVisibleProperty);
+            set => SetValue(IsSecondaryMoreMenuVisibleProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether the properties
         /// button is enabled.
         /// </summary>
@@ -282,6 +292,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
+        public readonly static DependencyProperty IsSecondaryMoreMenuVisibleProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
         public readonly static DependencyProperty QueueFlyoutProperty =
             DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
@@ -308,6 +322,15 @@ namespace Rise.App.UserControls
 
             if (GetTemplateChild("EqualizerButton") is ButtonBase equalizerButton)
                 equalizerButton.Click += EqualizerButtonClick;
+
+            if (GetTemplateChild("MiniViewButton1") is ButtonBase miniButton1)
+                miniButton1.CommandParameter = ApplicationViewMode.CompactOverlay;
+
+            if (GetTemplateChild("InfoPropertiesButton1") is ButtonBase propertiesButton1)
+                propertiesButton1.Click += PropertiesButtonClick;
+
+            if (GetTemplateChild("EqualizerButton1") is ButtonBase equalizerButton1)
+                equalizerButton1.Click += EqualizerButtonClick;
 
             base.OnApplyTemplate();
         }
