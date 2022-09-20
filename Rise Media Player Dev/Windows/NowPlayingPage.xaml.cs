@@ -18,9 +18,6 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private readonly bool LoadLine = App.SViewModel.VisualizerType == 1;
-        private readonly bool LoadBloom = App.SViewModel.VisualizerType == 2;
-
         /// <summary>
         /// Whether the album art should be fully visible.
         /// </summary>
