@@ -314,23 +314,65 @@ namespace Rise.App.UserControls
             if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
                 overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            if (GetTemplateChild("MiniViewButton") is ButtonBase miniButton)
+            if (GetTemplateChild("MiniViewButton") is MenuFlyoutItem miniButton)
                 miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            if (GetTemplateChild("InfoPropertiesButton") is ButtonBase propertiesButton)
+            if (GetTemplateChild("InfoPropertiesButton") is MenuFlyoutItem propertiesButton)
                 propertiesButton.Click += PropertiesButtonClick;
 
-            if (GetTemplateChild("EqualizerButton") is ButtonBase equalizerButton)
+            if (GetTemplateChild("EqualizerButton") is MenuFlyoutItem equalizerButton)
                 equalizerButton.Click += EqualizerButtonClick;
 
-            if (GetTemplateChild("MiniViewButton1") is ButtonBase miniButton1)
+            if (GetTemplateChild("MiniViewButton1") is MenuFlyoutItem miniButton1)
                 miniButton1.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            if (GetTemplateChild("InfoPropertiesButton1") is ButtonBase propertiesButton1)
+            if (GetTemplateChild("InfoPropertiesButton1") is MenuFlyoutItem propertiesButton1)
                 propertiesButton1.Click += PropertiesButtonClick;
 
-            if (GetTemplateChild("EqualizerButton1") is ButtonBase equalizerButton1)
+            if (GetTemplateChild("EqualizerButton1") is MenuFlyoutItem equalizerButton1)
                 equalizerButton1.Click += EqualizerButtonClick;
+
+            if (GetTemplateChild("SpeedOption25x") is MenuFlyoutItem speedButton25x)
+                speedButton25x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption25x1") is MenuFlyoutItem speedButton25x1)
+                speedButton25x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption5x") is MenuFlyoutItem speedButton5x)
+                speedButton5x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption5x1") is MenuFlyoutItem speedButton5x1)
+                speedButton5x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption75x") is MenuFlyoutItem speedButton75x)
+                speedButton75x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption75x1") is MenuFlyoutItem speedButton75x1)
+                speedButton75x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption1x") is MenuFlyoutItem speedButton1x)
+                speedButton1x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption1x1") is MenuFlyoutItem speedButton1x1)
+                speedButton1x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption125x") is MenuFlyoutItem speedButton125x)
+                speedButton125x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption125x1") is MenuFlyoutItem speedButton125x1)
+                speedButton125x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption15x") is MenuFlyoutItem speedButton15x)
+                speedButton15x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption15x1") is MenuFlyoutItem speedButton15x1)
+                speedButton15x1.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption2x") is MenuFlyoutItem speedButton2x)
+                speedButton2x.Click += SpeedOptionClick;
+
+            if (GetTemplateChild("SpeedOption2x1") is MenuFlyoutItem speedButton2x1)
+                speedButton2x1.Click += SpeedOptionClick;
 
             base.OnApplyTemplate();
         }
@@ -389,5 +431,8 @@ namespace Rise.App.UserControls
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)
             => _ = new EqualizerDialog().ShowAsync();
+
+        private void SpeedOptionClick(object sender, RoutedEventArgs e)
+            => App.MPViewModel.Player.PlaybackSession.PlaybackRate = Convert.ToDouble((sender as FrameworkElement).Tag as string);
     }
 }

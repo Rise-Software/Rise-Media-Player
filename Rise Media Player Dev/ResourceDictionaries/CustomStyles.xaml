@@ -338,6 +338,21 @@
 
                                             <MenuFlyoutSeparator />
 
+                                            <MenuFlyoutSubItem Text="Playback speed">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xEC4A;" />
+                                                </MenuFlyoutSubItem.Icon>
+
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption25x1" Tag="0.25" Text="0.25x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption5x1" Tag="0.5" Text="0.5x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption75x1" Tag="0.75" Text="0.75x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption1x1" IsChecked="True" Tag="1" Text="1x (Normal)" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption125x1" Tag="1.25" Text="1.25x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption15x1" Tag="1.5" Text="1.5x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption2x1" Tag="2" Text="2x" />
+                                            </MenuFlyoutSubItem>
+
+
                                             <MenuFlyoutItem
                                                 x:Name="EqualizerButton1"
                                                 IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
@@ -463,13 +478,27 @@
                                                 Command="{TemplateBinding OverlayCommand}"
                                                 IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
                                                 Text="Enter mini view"
-                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
                                             <MenuFlyoutSeparator />
+
+                                            <MenuFlyoutSubItem Text="Playback speed">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xEC4A;" />
+                                                </MenuFlyoutSubItem.Icon>
+
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption25x" Tag="0.25" Text="0.25x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption5x" Tag="0.5" Text="0.5x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption75x" Tag="0.75" Text="0.75x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption1x" IsChecked="True" Tag="1" Text="1x (Normal)" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption125x" Tag="1.25" Text="1.25x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption15x" Tag="1.5" Text="1.5x" />
+                                                <muxc:RadioMenuFlyoutItem x:Name="SpeedOption2x" Tag="2" Text="2x" />
+                                            </MenuFlyoutSubItem>
 
                                             <MenuFlyoutItem
                                                 x:Name="EqualizerButton"
