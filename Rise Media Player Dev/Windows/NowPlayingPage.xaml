@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -18,6 +17,8 @@
     d:DesignHeight="300"
     d:DesignWidth="320"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -40,14 +41,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid
-        x:Name="RootGrid"
-        x:DefaultBindMode="OneWay"
-        ColumnSpacing="12">
+    <Grid x:Name="RootGrid" ColumnSpacing="12">
         <Grid.Background>
             <ImageBrush x:Name="ThumbnailBrush" Stretch="UniformToFill">
                 <ImageBrush.ImageSource>
-                    <BitmapImage UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                    <BitmapImage UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail, Mode=OneWay}" />
                 </ImageBrush.ImageSource>
             </ImageBrush>
         </Grid.Background>
@@ -131,10 +129,11 @@
                             x:Name="InfoGrid"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            x:DefaultBindMode="OneWay"
                             ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -154,14 +153,17 @@
                                 BorderThickness="1"
                                 CornerRadius="8"
                                 Visibility="Collapsed">
-                                <Image>
-                                    <Image.Source>
-                                        <BitmapImage
-                                            DecodePixelHeight="300"
-                                            DecodePixelWidth="300"
-                                            UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                                    </Image.Source>
-                                </Image>
+                                <Border.Background>
+                                    <ImageBrush>
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage
+                                                DecodePixelHeight="300"
+                                                DecodePixelType="Logical"
+                                                DecodePixelWidth="300"
+                                                UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Border.Background>
                             </Border>
 
                             <TextBlock
@@ -189,7 +191,11 @@
                             <visualizers:LineVisualizer
                                 x:Name="LineVis"
                                 Grid.RowSpan="3"
-                                Grid.Column="1" />
+                                Grid.Column="1"
+                                Width="100"
+                                x:Load="False"
+                                Visibility="Collapsed"
+                                VisualizerSource="{x:Bind MPViewModel.VisualizerPlaybackSource.Source, Mode=OneTime}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>

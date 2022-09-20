@@ -1,10 +1,7 @@
-﻿using AudioVisualizer;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Rise.Data.ViewModels;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -21,6 +18,9 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
+        private readonly bool LoadLine = App.SViewModel.VisualizerType == 1;
+        private readonly bool LoadBloom = App.SViewModel.VisualizerType == 2;
+
         /// <summary>
         /// Whether the album art should be fully visible.
         /// </summary>
@@ -34,9 +34,6 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
-
-            Loaded += OnPageLoaded;
-            Unloaded += OnPageUnloaded;
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -45,7 +42,6 @@ namespace Rise.App.Views
             var mode = ApplicationView.GetForCurrentView().ViewMode;
             if (mode == ApplicationViewMode.Default)
             {
-                UseImmersiveArt = false;
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     UpdatePointerStates(true);
@@ -60,12 +56,7 @@ namespace Rise.App.Views
                 PointerCanceled += OnPointerExited;
             }
 
-            LineVis.ShouldVisualize = true;
-
-            if (MPViewModel.PlayerCreated)
-                await UpdateSourcesAsync(MPViewModel.Player);
-            else
-                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+            MainPlayer.SetMediaPlayer(MPViewModel.Player);
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -73,13 +64,6 @@ namespace Rise.App.Views
             PointerEntered -= OnPointerEntered;
             PointerExited -= OnPointerExited;
             PointerCanceled -= OnPointerExited;
-
-            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
-
-            if (MPViewModel.PlayerCreated)
-                MPViewModel.Player.RemoveAllEffects();
-
-            LineVis.ShouldVisualize = false;
         }
     }
 
@@ -95,25 +79,6 @@ namespace Rise.App.Views
             if (curr.ViewMode == ApplicationViewMode.CompactOverlay)
                 _ = await curr.TryEnterViewModeAsync(ApplicationViewMode.Default,
                     ViewModePreferences.CreateDefault(ApplicationViewMode.Default));
-        }
-
-        // Media playback
-        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
-            => await UpdateSourcesAsync(e);
-
-        private async Task UpdateSourcesAsync(MediaPlayer player)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                LineVis.ShouldVisualize = true;
-                MainPlayer.SetMediaPlayer(player);
-
-                // Source is expensive, only set when necessary
-                if (SViewModel.VisualizerType == 1)
-                {
-                    LineVis.VisualizerSource = MPViewModel.VisualizerPlaybackSource.Source;
-                }
-            });
         }
 
         // UI
