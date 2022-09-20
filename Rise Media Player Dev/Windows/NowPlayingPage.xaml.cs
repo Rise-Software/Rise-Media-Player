@@ -7,6 +7,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
@@ -17,6 +18,7 @@ namespace Rise.App.Views
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+        private bool FullScreenRequested = false;
 
         /// <summary>
         /// Whether the album art should be fully visible.
@@ -61,6 +63,18 @@ namespace Rise.App.Views
             PointerEntered -= OnPointerEntered;
             PointerExited -= OnPointerExited;
             PointerCanceled -= OnPointerExited;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is bool fs && fs)
+                FullScreenRequested = fs;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (FullScreenRequested)
+                ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
     }
 

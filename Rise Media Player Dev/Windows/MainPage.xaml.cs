@@ -131,6 +131,8 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            goToNowPlayingCommand = null;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -186,6 +188,21 @@ namespace Rise.App.Views
             {
                 MainPlayer.SetMediaPlayer(e);
             });
+        }
+
+        [RelayCommand]
+        private void EnterFullScreen()
+        {
+            if (MPViewModel.PlayingItem == null) return;
+
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
+            {
+                if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                    Frame.Navigate(typeof(VideoPlaybackPage), true);
+                else
+                    Frame.Navigate(typeof(NowPlayingPage), true);
+            }
         }
 
         [RelayCommand]
