@@ -201,23 +201,27 @@ namespace Rise.App.ViewModels
 
         private async Task IndexLibrariesAsync(CancellationToken token)
         {
-            await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
-                PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
+            var songsTask = Task.Run(async () =>
             {
-                if (await SaveMusicModelsAsync(song, true))
-                    IndexedSongs++;
+                await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                    PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
+                {
+                    if (await SaveMusicModelsAsync(song, true))
+                        IndexedSongs++;
+                }
+            }, token);
 
-                token.ThrowIfCancellationRequested();
-            }
-
-            await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
-                PropertyPrefetchOptions.VideoProperties))
+            var videosTask = Task.Run(async () =>
             {
-                if (await SaveVideoModelAsync(video, true))
-                    IndexedVideos++;
+                await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
+                    PropertyPrefetchOptions.VideoProperties))
+                {
+                    if (await SaveVideoModelAsync(video, true))
+                        IndexedVideos++;
+                }
+            }, token);
 
-                token.ThrowIfCancellationRequested();
-            }
+            await Task.WhenAll(songsTask, videosTask);
 
             await Repository.UpsertQueuedAsync();
         }
