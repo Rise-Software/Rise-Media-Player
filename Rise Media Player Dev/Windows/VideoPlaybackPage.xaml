@@ -75,7 +75,8 @@
                     x:Name="PlayerControls"
                     Margin="16"
                     IsCompact="True"
-                    IsSecondaryMoreMenuVisible="True"
+                    IsEqualizerButtonEnabled="True"
+                    IsEqualizerButtonVisible="True"
                     IsNextTrackButtonVisible="True"
                     IsPlaybackRateButtonVisible="True"
                     IsPlaybackRateEnabled="True"
@@ -85,9 +86,7 @@
                     IsSkipBackwardButtonVisible="True"
                     IsSkipBackwardEnabled="True"
                     IsSkipForwardButtonVisible="True"
-                    IsSkipForwardEnabled="True"
-                    IsEqualizerButtonEnabled="True"
-                    IsEqualizerButtonVisible="True" />
+                    IsSkipForwardEnabled="True" />
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
     </Grid>
