@@ -192,7 +192,6 @@
                                 x:Name="LineVis"
                                 Grid.RowSpan="3"
                                 Grid.Column="1"
-                                Width="100"
                                 x:Load="False"
                                 Visibility="Collapsed"
                                 VisualizerSource="{x:Bind MPViewModel.VisualizerPlaybackSource.Source, Mode=OneTime}" />
