@@ -104,7 +104,7 @@ namespace Rise.App.ViewModels
         /// Gets or sets the album song count.
         /// </summary>
         public int TrackCount =>
-            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
+            App.MViewModel.Songs.AsParallel().Count(s => s.Album == Model.Title);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
