@@ -70,6 +70,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a command that runs whenever the full
+        /// window button is clicked.
+        /// </summary>
+        public ICommand FullWindowCommand
+        {
+            get => (ICommand)GetValue(FullWindowCommandProperty);
+            set => SetValue(FullWindowCommandProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a command that runs whenever one of the
         /// overlay buttons is clicked, with the desired view mode
         /// as a parameter.
@@ -255,6 +265,10 @@ namespace Rise.App.UserControls
         public readonly static DependencyProperty IsShuffleButtonCheckedProperty =
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty FullWindowCommandProperty =
+            DependencyProperty.Register(nameof(FullWindowCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
         public readonly static DependencyProperty OverlayCommandProperty =
             DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),

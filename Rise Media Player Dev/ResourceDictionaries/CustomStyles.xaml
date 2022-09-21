@@ -441,9 +441,6 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="CastButton" Visibility="Collapsed" />
-                                <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed" />
-
                                 <AppBarButton Label="More options" ToolTipService.ToolTip="More options">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE10C;" />
@@ -461,7 +458,12 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutItem x:Name="FullScreenButton" Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                            <MenuFlyoutItem
+                                                x:Name="FullScreenButton"
+                                                Command="{TemplateBinding FullWindowCommand}"
+                                                IsEnabled="{TemplateBinding IsFullWindowEnabled}"
+                                                Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                                Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                                 <MenuFlyoutItem.Icon>
                                                     <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                                 </MenuFlyoutItem.Icon>
@@ -512,6 +514,11 @@
                                         </MenuFlyout>
                                     </AppBarButton.Flyout>
                                 </AppBarButton>
+
+                                <!--  Unused controls  -->
+                                <AppBarButton x:Name="CastButton" IsTabStop="False" />
+                                <AppBarButton x:Name="CompactOverlayButton" IsTabStop="False" />
+                                <AppBarButton x:Name="FullWindowButton" IsTabStop="False" />
                             </CommandBar>
 
                             <Grid
@@ -1169,11 +1176,18 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton
+                                    x:Name="FullScreenButton"
+                                    Command="{TemplateBinding FullWindowCommand}"
+                                    IsEnabled="{TemplateBinding IsFullWindowEnabled}"
+                                    Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
+
+                                <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed" />
                             </CommandBar>
                         </Grid>
 

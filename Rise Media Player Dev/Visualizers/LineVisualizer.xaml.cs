@@ -29,25 +29,15 @@ namespace Rise.App.Visualizers
         private float canvasWidth;
         private float canvasHeight;
 
-        bool _shouldVisualize;
-
         public IVisualizationSource VisualizerSource
         {
             get => (IVisualizationSource)GetValue(VisualizerSourceProperty);
             set => SetValue(VisualizerSourceProperty, value);
         }
 
-        public bool ShouldVisualize
-        {
-            get => (bool)GetValue(ShouldVisualizeProperty);
-            set => SetValue(ShouldVisualizeProperty, value);
-        }
-
         public LineVisualizer()
         {
             InitializeComponent();
-
-            Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -67,26 +57,8 @@ namespace Rise.App.Visualizers
     // Event handlers
     public sealed partial class LineVisualizer
     {
-        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue != null && d is LineVisualizer vis)
-                vis.VUBar.Source = (IVisualizationSource)e.NewValue;
-        }
-
-        private static void OnVisualizationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is bool boolean && d is LineVisualizer vis)
-            {
-                vis._shouldVisualize = boolean;
-            }
-        }
-
         private void VUBar_Draw(object sender, VisualizerDrawEventArgs args)
         {
-            // There's no need to draw if the visualizer is unused.
-            if (App.SViewModel.VisualizerType != 1 && !_shouldVisualize)
-                return;
-
             using CanvasDrawingSession drawingSession = (CanvasDrawingSession)args.DrawingSession;
 
             float barWidth = (float)(canvasWidth / (2 * NumOfLines));
@@ -124,10 +96,6 @@ namespace Rise.App.Visualizers
     {
         private readonly static DependencyProperty VisualizerSourceProperty =
             DependencyProperty.Register(nameof(VisualizerSource), typeof(IVisualizationSource),
-                typeof(LineVisualizer), new PropertyMetadata(null, OnSourceChanged));
-
-        private readonly static DependencyProperty ShouldVisualizeProperty =
-            DependencyProperty.Register(nameof(ShouldVisualize), typeof(bool),
-                typeof(LineVisualizer), new PropertyMetadata(false, OnVisualizationChanged));
+                typeof(LineVisualizer), null);
     }
 }
