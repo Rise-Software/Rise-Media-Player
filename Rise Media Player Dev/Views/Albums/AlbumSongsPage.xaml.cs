@@ -46,12 +46,13 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             if (_offset != null)
                 MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
 
-            TrackCountName.Text = SelectedAlbum.TrackCount + " songs";
+            var count = await SelectedAlbum.GetTrackCountAsync();
+            TrackCountName.Text = count + " songs";
 
             // Load more albums by artist only when necessary
             if (AlbumsByArtist.Count > 0)

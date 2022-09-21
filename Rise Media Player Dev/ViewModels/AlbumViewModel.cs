@@ -104,7 +104,7 @@ namespace Rise.App.ViewModels
         /// Gets or sets the album song count.
         /// </summary>
         public int TrackCount =>
-            App.MViewModel.Songs.AsParallel().Count(s => s.Album == Model.Title);
+            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
 
         /// <summary>
         /// Gets or sets the album thumbnail.
@@ -198,6 +198,8 @@ namespace Rise.App.ViewModels
             set => Set(ref _isReleaseYearVisible, value);
         }
 
+        public Task<int> GetTrackCountAsync()
+            => Task.Run(() => App.MViewModel.Songs.Count(s => s.Album == Title));
 
         #endregion
 
