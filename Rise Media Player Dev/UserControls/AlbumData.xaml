@@ -78,7 +78,8 @@
             </HyperlinkButton>
 
             <TextBlock FontSize="13" Visibility="{x:Bind ShowReleaseYear}">
-                Release year:<Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
+                Release year:
+                <Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
             </TextBlock>
         </StackPanel>
 

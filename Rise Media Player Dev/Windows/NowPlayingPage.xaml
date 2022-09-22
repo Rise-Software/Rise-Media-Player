@@ -201,13 +201,19 @@
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
-        <Border x:Name="SidebarBorder" Width="400" Margin="48" HorizontalAlignment="Right" ui:Effects.Shadow="{StaticResource StrongShadow}">
+        <Border
+            x:Name="SidebarBorder"
+            Width="400"
+            Margin="48"
+            HorizontalAlignment="Right"
+            ui:Effects.Shadow="{StaticResource LightShadow}"
+            Visibility="Collapsed">
             <Grid
-                CornerRadius="8"
-                BorderThickness="1"
                 Padding="16"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                BorderThickness="1"
+                CornerRadius="8">
                 <TextBlock Text="Lyrics" />
             </Grid>
         </Border>
