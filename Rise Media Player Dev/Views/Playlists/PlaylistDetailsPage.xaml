@@ -222,7 +222,6 @@
             <GridView
                 x:Name="MainGrid"
                 Grid.Row="2"
-                Padding="48,0,48,120"
                 IsItemClickEnabled="True"
                 ItemClick="GridView_ItemClick"
                 ItemsSource="{x:Bind VideosViewModel.Items}"
@@ -231,7 +230,7 @@
                 Visibility="{x:Bind VideosViewModel.Items.Count, Converter={StaticResource IntToVis}}">
                 <GridView.Header>
                     <TextBlock
-                        Padding="48,12"
+                        Padding="8,4"
                         Style="{StaticResource SubheaderTextBlockStyle}"
                         Text="Videos"
                         Visibility="{x:Bind VideosViewModel.Items.Count, Converter={StaticResource IntToVis}}" />

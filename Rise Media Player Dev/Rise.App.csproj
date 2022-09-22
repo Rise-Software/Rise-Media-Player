@@ -212,6 +212,9 @@
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml.cs">
+      <DependentUpon>PlaylistVideosPropertiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Songs\Properties\SongLyricsPage.xaml.cs">
       <DependentUpon>SongLyricsPage.xaml</DependentUpon>
     </Compile>
@@ -632,6 +635,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BrowsePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -72,6 +72,10 @@ namespace Rise.App.Views
                         _ = PropsFrame.Navigate(typeof(PlaylistSongsPropertiesPage), Playlist);
                         break;
 
+                    case "VideosItem":
+                        _ = PropsFrame.Navigate(typeof(PlaylistVideosPropertiesPage), Playlist);
+                        break;
+
                     default:
                         break;
                 }
