@@ -3,7 +3,6 @@ using Rise.Common;
 using Rise.Data.Sources;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -39,7 +38,6 @@ namespace Rise.App.Settings
         public NavigationPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void IconStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)

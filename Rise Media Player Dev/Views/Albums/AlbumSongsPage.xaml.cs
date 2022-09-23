@@ -1,9 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,7 +29,6 @@ namespace Rise.App.Views
         }
 
         private readonly AdvancedCollectionView AlbumsByArtist = new();
-        private double? _offset = null;
 
         public AlbumSongsPage()
             : base("Disc", App.MViewModel.Songs)
@@ -48,9 +45,6 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-
             var count = await SelectedAlbum.GetTrackCountAsync();
             TrackCountName.Text = count + " songs";
 
@@ -79,23 +73,11 @@ namespace Rise.App.Views
             AlbumsByArtist.Source = MViewModel.Albums;
             AlbumsByArtist.Filter = a => ((AlbumViewModel)a).Title != SelectedAlbum.Title && ((AlbumViewModel)a).Artist == SelectedAlbum.Artist;
             AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
-
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            var scr = MainList.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
-
             AlbumsByArtist.Filter = null;
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedAlbum);
         }
     }
 

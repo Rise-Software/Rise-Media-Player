@@ -4,7 +4,6 @@ using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -26,8 +25,6 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
             Current = this;
-
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void GotoManage_Click(object sender, RoutedEventArgs e)

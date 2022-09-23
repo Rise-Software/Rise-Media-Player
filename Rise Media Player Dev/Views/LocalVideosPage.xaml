@@ -12,7 +12,6 @@
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="320"
     d:DesignWidth="500"
-    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>

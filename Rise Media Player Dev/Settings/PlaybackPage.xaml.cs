@@ -1,10 +1,9 @@
-﻿using System;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.Common;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -28,7 +27,6 @@ namespace Rise.App.Settings
         public PlaybackPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private async void OnEqualizerExpanderClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)

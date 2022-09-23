@@ -24,41 +24,14 @@ namespace Rise.App.Views
         }
 
         private readonly string Label = "LocalVideos";
-        private double? _offset = null;
 
         public LocalVideosPage()
             : base("Title", App.MViewModel.Videos)
         {
             InitializeComponent();
 
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 

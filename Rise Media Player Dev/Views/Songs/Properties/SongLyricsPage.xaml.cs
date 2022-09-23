@@ -21,7 +21,6 @@ namespace Rise.App.Views
         public SongLyricsPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             Loaded += OnLoaded;
         }
@@ -41,7 +40,7 @@ namespace Rise.App.Views
             try
             {
                 lyrics = await MusixmatchHelper.GetLyricsAsync(Props.Title, Props.Artist);
-                
+
                 if (string.IsNullOrEmpty(lyrics.Message.Body.Lyrics.LyricsBody))
                     return;
 
@@ -52,7 +51,8 @@ namespace Rise.App.Views
                 LyricsListView.ItemsSource = lyricsText;
 
                 CopyrightTextBlock.Text = lyrics.Message.Body.Lyrics.LyricsCopyright;
-            } catch
+            }
+            catch
             {
 
             }

@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -28,42 +26,15 @@ namespace Rise.App.Views
         }
 
         private readonly string Label = "Albums";
-        private double? _offset = null;
 
         public AlbumsPage()
             : base("Title", App.MViewModel.Albums)
         {
             InitializeComponent();
 
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 
@@ -97,7 +68,6 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
             {
-                Frame.SetListDataItemForNextConnectedAnimation(album);
                 _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }

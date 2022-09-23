@@ -14,7 +14,6 @@
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="320"
     d:DesignWidth="500"
-    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <ListView
@@ -127,7 +126,7 @@
                             Width="172"
                             Height="172"
                             ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}">
-                            <Border animations:Connected.Key="AlbumArt" CornerRadius="8">
+                            <Border CornerRadius="8">
                                 <Border.Background>
                                     <ImageBrush Stretch="UniformToFill">
                                         <ImageBrush.ImageSource>
