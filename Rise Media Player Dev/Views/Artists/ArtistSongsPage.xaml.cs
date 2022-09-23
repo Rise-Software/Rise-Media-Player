@@ -99,6 +99,9 @@ namespace Rise.App.Views
 
                 ShortBio = await GetArtistBioAsync(name, true);
                 AboutArtist.Text = ShortBio;
+
+                if (ShortBio.Length < 0)
+                    ArtistAbout.Visibility = Visibility.Collapsed;
             }
         }
 
