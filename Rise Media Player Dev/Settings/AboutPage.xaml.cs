@@ -5,7 +5,6 @@ using Rise.Common.Extensions;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -16,7 +15,6 @@ namespace Rise.App.Settings
         public AboutPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             VersionData.RequestedOperation = DataPackageOperation.Copy;
             VersionData.SetText("Alpha Preview 2 - 0.0.170.0");

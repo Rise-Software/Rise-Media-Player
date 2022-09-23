@@ -1,8 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using Windows.Storage;
@@ -21,38 +19,11 @@ namespace Rise.App.Views
         }
 
         private readonly string Label = "Playlists";
-        private double? _offset = null;
 
         public PlaylistsPage()
             : base("Title", App.MViewModel.Playlists)
         {
             InitializeComponent();
-
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 
@@ -63,7 +34,6 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is PlaylistViewModel playlist && !KeyboardHelpers.IsCtrlPressed())
             {
-                Frame.SetListDataItemForNextConnectedAnimation(playlist);
                 _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
             }
         }

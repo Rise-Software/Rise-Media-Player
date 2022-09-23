@@ -24,42 +24,15 @@ namespace Rise.App.Views
         }
 
         private readonly string Label = "Songs";
-        private double? _offset = null;
 
         public SongsPage()
             : base("Title", App.MViewModel.Songs)
         {
             InitializeComponent();
 
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainList.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 

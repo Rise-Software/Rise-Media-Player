@@ -10,7 +10,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -36,7 +35,6 @@ namespace Rise.App.Settings
         public AppearancePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
             ChangeThemeTip.IsOpen = false;
 
             foreach (Border border in RiseColorsPanel.Children)

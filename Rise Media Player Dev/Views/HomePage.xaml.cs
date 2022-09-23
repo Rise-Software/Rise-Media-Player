@@ -20,13 +20,12 @@ namespace Rise.App.Views
         public HomePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
         }
 
         private async void SupportButton_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
         private async void WhatsNew_Click(object sender, RoutedEventArgs e)
         {
