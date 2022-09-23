@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
@@ -54,8 +55,8 @@ namespace Rise.App.Views
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            /*if (_offset != null)
-                MainList.ChangeView(null, _offset, null);*/
+            if (_offset != null)
+                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -79,7 +80,7 @@ namespace Rise.App.Views
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            //e.PageState["Offset"] = RootViewer.VerticalOffset;
+            e.PageState["Offset"] = MainList.FindVisualChild<ScrollViewer>().VerticalOffset;
             Frame.SetListDataItemForNextConnectedAnimation(SelectedPlaylist);
         }
     }
