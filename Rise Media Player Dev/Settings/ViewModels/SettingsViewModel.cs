@@ -1,12 +1,11 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Rise.Common.Enums;
+﻿using Rise.Common.Enums;
+using Rise.Common.Extensions;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;
@@ -16,13 +15,10 @@ namespace Rise.App.ViewModels
     public sealed partial class SettingsViewModel : ViewModel
     {
         private NavViewDataSource SBViewModel => App.NavDataSource;
-        public ICommand OpenFilesAtStartupCommand { get; }
 
         public SettingsViewModel()
         {
-            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenAtStartupAsync);
-
-            _ = DetectOpenAtStartupAsync();
+            UpdateStartupTaskInfo();
         }
 
         public string[] OpenLocations = new string[7]
@@ -57,6 +53,7 @@ namespace Rise.App.ViewModels
         };
 
         #region Startup
+        public const string StartupTaskId = "6VQ93204-N7OY-0258-54G3-385B9X0FUHIB";
         public bool OpenInLogin
         {
             get => Get(false, "WindowsBehaviours");
@@ -77,68 +74,52 @@ namespace Rise.App.ViewModels
 
         public async Task OpenAtStartupAsync()
         {
-            var stateMode = await ReadStateAsync();
-
-            bool state = stateMode switch
+            var task = await StartupTask.GetAsync(StartupTaskId);
+            bool isEnabled = task.State switch
             {
                 StartupTaskState.Enabled => true,
                 StartupTaskState.EnabledByPolicy => true,
-                StartupTaskState.DisabledByPolicy => false,
-                StartupTaskState.DisabledByUser => false,
                 _ => false,
             };
 
-            if (state != OpenInLogin)
-            {
-                StartupTask startupTask = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
-                if (OpenInLogin)
-                {
-                    await startupTask.RequestEnableAsync();
-                }
-                else
-                {
-                    startupTask.Disable();
-                }
-                await DetectOpenAtStartupAsync();
-            }
+            if (!isEnabled)
+                _ = await task.RequestEnableAsync();
+            else
+                task.Disable();
+
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task DetectOpenAtStartupAsync()
+        public void UpdateStartupTaskInfo()
         {
-            var stateMode = await ReadStateAsync();
-
-            switch (stateMode)
-            {
-                case StartupTaskState.Disabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = false;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.Enabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = true;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.DisabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 1;
-                    break;
-                case StartupTaskState.DisabledByUser:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 2;
-                    break;
-                case StartupTaskState.EnabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = true;
-                    FLGStartupTask = 3;
-                    break;
-            }
+            var task = StartupTask.GetAsync(StartupTaskId).Get();
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task<StartupTaskState> ReadStateAsync()
-            => (await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB")).State;
+        private void SetOpenAtStartupInfo(StartupTaskState state)
+        {
+            OpenInLogin = state switch
+            {
+                StartupTaskState.Enabled => true,
+                StartupTaskState.EnabledByPolicy => true,
+                _ => false,
+            };
+
+            CanOpenInLogin = state switch
+            {
+                StartupTaskState.Disabled => true,
+                StartupTaskState.Enabled => true,
+                _ => false,
+            };
+
+            FLGStartupTask = state switch
+            {
+                StartupTaskState.DisabledByPolicy => 1,
+                StartupTaskState.DisabledByUser => 2,
+                StartupTaskState.EnabledByPolicy => 3,
+                _ => 0,
+            };
+        }
 
         #endregion
 
