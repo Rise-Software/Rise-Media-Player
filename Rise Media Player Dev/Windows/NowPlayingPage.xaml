@@ -201,24 +201,6 @@
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
-        <Border
-            x:Name="SidebarBorder"
-            Width="400"
-            Margin="48"
-            HorizontalAlignment="Right"
-            ui:Effects.Shadow="{StaticResource LightShadow}"
-            Visibility="Collapsed">
-            <Grid
-                Padding="16"
-                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
-                <TextBlock Text="Lyrics" />
-            </Grid>
-        </Border>
-
-
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ArtStates">
                 <VisualState x:Name="DefaultState">
@@ -365,8 +347,6 @@
                         <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="SubtitleText.Padding" Value="8,0,0,0" />
                         <Setter Target="ThumbBorder.Visibility" Value="Visible" />
-
-                        <Setter Target="SidebarBorder.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
