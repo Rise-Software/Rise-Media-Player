@@ -56,5 +56,19 @@ namespace Rise.App.UserControls
                 MPViewModel.PlaybackList.MoveTo((uint)index);
             }
         }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            int index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
+
+            if (MPViewModel.PlayingItem == SelectedItem)
+                MPViewModel.PlaybackList.MoveNext();
+
+            if (index >= 0)
+            {
+                MPViewModel.PlaybackList.Items.RemoveAt(index);
+                MPViewModel.QueuedItems.RemoveAt(index);
+            }
+        }
     }
 }

@@ -17,12 +17,20 @@
         ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
         SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
         SelectionMode="Single">
+        <ListView.Header>
+            <TextBlock Padding="0,12" Text="Queue" />
+        </ListView.Header>
         <ListView.ContextFlyout>
             <MenuFlyout Opening="MenuFlyout_Opening">
                 <MenuFlyoutItem
                     x:Uid="/Information/PlayItem"
                     Click="PlayItem_Click"
                     Icon="Play" />
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/RemoveItem"
+                    Click="RemoveItem_Click"
+                    Icon="Remove" />
             </MenuFlyout>
         </ListView.ContextFlyout>
 
