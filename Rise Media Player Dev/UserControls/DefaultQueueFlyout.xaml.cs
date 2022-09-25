@@ -56,5 +56,47 @@ namespace Rise.App.UserControls
                 MPViewModel.PlaybackList.MoveTo((uint)index);
             }
         }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            int index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
+
+            if (MPViewModel.PlayingItem == SelectedItem)
+                MPViewModel.PlaybackList.MoveNext();
+
+            if (index >= 0)
+            {
+                MPViewModel.PlaybackList.Items.RemoveAt(index);
+                MPViewModel.QueuedItems.RemoveAt(index);
+            }
+        }
+
+        private async void MoveItemUp_Click(object sender, RoutedEventArgs e)
+        {
+            if ((MPViewModel.QueuedItems.IndexOf(SelectedItem) - 1) >= 0)
+            {
+                var index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
+
+                MPViewModel.QueuedItems.Remove(SelectedItem);
+                MPViewModel.QueuedItems.Insert(index - 1, SelectedItem);
+
+                MPViewModel.PlaybackList.Items.RemoveAt(index);
+                MPViewModel.PlaybackList.Items.Insert(index - 1, await SelectedItem.AsPlaybackItemAsync());
+            }
+        }
+
+        private async void MoveItemDown_Click(object sender, RoutedEventArgs e)
+        {
+            if ((MPViewModel.QueuedItems.IndexOf(SelectedItem) + 1) < MPViewModel.QueuedItems.Count)
+            {
+                var index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
+
+                MPViewModel.QueuedItems.Remove(SelectedItem);
+                MPViewModel.QueuedItems.Insert(index + 1, SelectedItem);
+
+                MPViewModel.PlaybackList.Items.RemoveAt(index);
+                MPViewModel.PlaybackList.Items.Insert(index + 1, await SelectedItem.AsPlaybackItemAsync());
+            }
+        }
     }
 }

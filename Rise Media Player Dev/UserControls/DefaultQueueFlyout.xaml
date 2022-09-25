@@ -12,41 +12,70 @@
         <conv:TimeSpanToString x:Key="TimeToStr" />
     </UserControl.Resources>
 
-    <ListView
-        x:Name="MainList"
-        ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
-        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-        SelectionMode="Single">
-        <ListView.ContextFlyout>
-            <MenuFlyout Opening="MenuFlyout_Opening">
-                <MenuFlyoutItem
-                    x:Uid="/Information/PlayItem"
-                    Click="PlayItem_Click"
-                    Icon="Play" />
-            </MenuFlyout>
-        </ListView.ContextFlyout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="interfaces:IMediaItem">
-                <Grid Padding="12,4" ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+        <TextBlock Padding="0,0,0,12" Text="Queue" />
 
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{x:Bind Title}" />
-                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
-                    </StackPanel>
+        <ListView
+            x:Name="MainList"
+            Grid.Row="1"
+            ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
+            SelectedItem="{x:Bind SelectedItem, Mode=OneWay}"
+            SelectionMode="Single">
+            <ListView.ContextFlyout>
+                <MenuFlyout Opening="MenuFlyout_Opening">
+                    <MenuFlyoutItem
+                        x:Uid="/Information/PlayItem"
+                        Click="PlayItem_Click"
+                        Icon="Play" />
 
-                    <TextBlock
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        x:Phase="1"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
-                </Grid>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                    <MenuFlyoutItem
+                        Click="RemoveItem_Click"
+                        Icon="Delete"
+                        Text="Remove item" />
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutItem Click="MoveItemUp_Click" Text="Move item up">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE010;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem Click="MoveItemDown_Click" Text="Move item down">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE011;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </ListView.ContextFlyout>
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="interfaces:IMediaItem">
+                    <Grid Padding="12,4" ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Title}" />
+                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
+                        </StackPanel>
+
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            x:Phase="1"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </UserControl>
