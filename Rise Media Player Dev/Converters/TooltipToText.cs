@@ -9,10 +9,9 @@ namespace Rise.App.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is ToolTip tooltip)
-            {
                 return tooltip.Content;
-            }
-            return "";
+
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -105,7 +105,7 @@ namespace Rise.App.Helpers
                 playlist = new()
                 {
                     Title = $"Untitled Playlist #{_items.Count + 1}",
-                    Description = "",
+                    Description = string.Empty,
                     Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
                     Duration = "0"
                 };

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Enums;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;
@@ -619,7 +619,12 @@ namespace Rise.App.ViewModels
 
                 // Return the setting if type matches
                 if (val is not Type)
-                    throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
+                {
+                    string format = "Type mismatch for \"{0}\" in local store. Got {1}";
+                    string message = string.Format(format, setting, val.GetType());
+
+                    throw new ArgumentException(message);
+                }
 
                 return (Type)val;
             }
@@ -641,7 +646,12 @@ namespace Rise.App.ViewModels
 
             // Return the setting if type matches
             if (value is not Type)
-                throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
+            {
+                string format = "Type mismatch for \"{0}\" in local store. Current type is {1}";
+                string message = string.Format(format, setting, value.GetType());
+
+                throw new ArgumentException(message);
+            }
 
             return (Type)value;
         }
