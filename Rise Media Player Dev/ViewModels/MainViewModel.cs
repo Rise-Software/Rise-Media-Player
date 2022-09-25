@@ -321,7 +321,7 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
@@ -353,7 +353,7 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
@@ -403,7 +403,7 @@ namespace Rise.App.ViewModels
                     XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
                     if (node != null)
                     {
-                        string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                        string yes = node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                         return yes;
                     }
                 }

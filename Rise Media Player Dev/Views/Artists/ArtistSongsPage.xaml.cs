@@ -322,12 +322,12 @@ namespace Rise.App.Views
                         {
                             var url = doc.DocumentElement.SelectSingleNode("/lfm/artist/url");
                             var noUrl = node.InnerText.
-                                Replace("<a href=\"" + url.InnerText + "\">Read more on Last.fm</a>", "");
+                                Replace("<a href=\"" + url.InnerText + "\">Read more on Last.fm</a>", string.Empty);
 
                             if (summarized)
                                 return noUrl;
 
-                            return noUrl.Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+                            return noUrl.Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", string.Empty);
                         }
                     }
                 }
@@ -360,7 +360,7 @@ namespace Rise.App.Views
             }
             catch { }
 
-            return "";
+            return string.Empty;
         }
     }
 }

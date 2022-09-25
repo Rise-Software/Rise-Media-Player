@@ -73,10 +73,10 @@
             ExpanderStyle="Static"
             Icon="&#xE102;">
             <ToggleSwitch
-                x:Name="OpenRiseMPinStartup"
+                x:Name="OpenAtStartup"
                 IsEnabled="{x:Bind ViewModel.CanOpenInLogin, Mode=OneWay}"
-                IsOn="{x:Bind ViewModel.OpenInLogin, Mode=TwoWay}"
-                Toggled="OpenRiseMPinStartup_Toggled" />
+                IsOn="{x:Bind ViewModel.OpenInLogin, Mode=OneWay}"
+                Toggled="OpenAtStartup_Toggled" />
         </uc:ExpanderControl>
 
         <VisualStateManager.VisualStateGroups>

@@ -27,7 +27,7 @@ namespace Rise.App.Converters
                 }
             }
 
-            string time = "";
+            string time = string.Empty;
             switch (param)
             {
                 case "D-S":

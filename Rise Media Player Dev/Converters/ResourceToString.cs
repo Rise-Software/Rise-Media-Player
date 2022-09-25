@@ -7,7 +7,7 @@ namespace Rise.App.Converters
     public class ResourceToString : IValueConverter
     {
         private static ResourceLoader _currLoader;
-        private static string _loader = "";
+        private static string _loader = string.Empty;
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -21,14 +21,10 @@ namespace Rise.App.Converters
                     _currLoader = ResourceLoader.GetForViewIndependentUse(loader);
                 }
 
-            }
-            else if (_loader != "")
-            {
-                _loader = "";
-                _currLoader = ResourceLoader.GetForViewIndependentUse();
+                return _currLoader.GetString(resource);
             }
 
-            return _currLoader.GetString(resource);
+            throw new ArgumentException("For resources in the default location, use the ResourceHelper markup extension.", nameof(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
