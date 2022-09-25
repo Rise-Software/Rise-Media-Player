@@ -581,8 +581,7 @@
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.Items}"
-            OpenPaneLength="260"
-            PaneDisplayMode="LeftMinimal">
+            OpenPaneLength="260">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -747,7 +746,6 @@
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-                        <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
                         <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
