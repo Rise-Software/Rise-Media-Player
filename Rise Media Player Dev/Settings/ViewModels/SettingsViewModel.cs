@@ -655,6 +655,8 @@ namespace Rise.App.ViewModels
                 // Get app settings
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                 localSettings.Values[setting] = newValue;
+
+                OnPropertyChanged(setting);
                 return;
             }
 
