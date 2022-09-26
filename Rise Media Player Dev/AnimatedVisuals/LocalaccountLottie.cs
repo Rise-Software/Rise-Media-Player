@@ -53,13 +53,13 @@ using Windows.Graphics;
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace AnimatedVisuals
+namespace Rise.App.AnimatedVisuals
 {
     // Name:        24C - Local Account - Other Users
     // Frame rate:  60 fps
     // Frame count: 210
     // Duration:    3500.0 mS
-    sealed class LocalaccountLottie
+    sealed class LocalAccountLottie
         : Microsoft.UI.Xaml.Controls.IAnimatedVisualSource
     {
         // Animation duration: 3.500 seconds.
