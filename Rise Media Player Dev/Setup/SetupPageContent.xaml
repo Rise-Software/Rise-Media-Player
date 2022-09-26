@@ -1,0 +1,67 @@
+﻿<UserControl
+    x:Class="Rise.App.Setup.SetupPageContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid x:Name="InfoGrid" x:DefaultBindMode="OneWay">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <ContentPresenter
+            x:Name="SetupIcon"
+            Width="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="{x:Bind Icon}" />
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Rectangle
+                    x:Name="PaddingRectangle"
+                    Width="42"
+                    Visibility="{x:Bind IsBackButtonAutoPaddingEnabled}" />
+                <TextBlock
+                    Margin="0,-4,0,4"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{x:Bind Header}" />
+            </StackPanel>
+
+            <ScrollViewer
+                Grid.Row="1"
+                Margin="0,0,-24,0"
+                Padding="0,0,24,0"
+                VerticalScrollBarVisibility="Auto">
+                <ContentPresenter Content="{x:Bind PageContent}" />
+            </ScrollViewer>
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="IconStates">
+                <VisualState x:Name="DoNotShowState" />
+                <VisualState x:Name="ShowState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind ShowIcon}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="PaddingRectangle.Visibility" Value="Collapsed" />
+
+                        <Setter Target="InfoGrid.ColumnSpacing" Value="28" />
+                        <Setter Target="SetupIcon.Width" Value="128" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>

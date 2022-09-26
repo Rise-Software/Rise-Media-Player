@@ -138,8 +138,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedVisuals\EulaLottie.cs" />
-    <Compile Include="AnimatedVisuals\LocalaccountLottie.cs" />
-    <Compile Include="AnimatedVisuals\PrivacysettingsLottie.cs" />
+    <Compile Include="AnimatedVisuals\LocalAccountLottie.cs" />
+    <Compile Include="AnimatedVisuals\PrivacySettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
@@ -151,6 +151,9 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
+      <DependentUpon>SetupDialogContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
     <Compile Include="Helpers\MusixmatchHelper.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
@@ -158,6 +161,9 @@
     </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\SetupPageContent.xaml.cs">
+      <DependentUpon>SetupPageContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
@@ -325,9 +331,6 @@
     </Compile>
     <Compile Include="Windows\SongPropertiesPage.xaml.cs">
       <DependentUpon>SongPropertiesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SetupDialog.xaml.cs">
-      <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongDetailsPage.xaml.cs">
       <DependentUpon>SongDetailsPage.xaml</DependentUpon>
@@ -598,6 +601,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\SetupDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\VideoStreamingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -619,6 +626,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\ListStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\SetupPageContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -787,10 +798,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SongPropertiesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\SetupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -972,6 +979,7 @@
     <Folder Include="Settings\NavigationPages\" />
     <Folder Include="Settings\PlaybackSoundPages\" />
     <Folder Include="Settings\SyncingPages\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-GB\Setup.resw" />
