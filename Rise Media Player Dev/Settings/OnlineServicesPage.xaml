@@ -18,7 +18,8 @@
             Padding="0,-30,0,-30"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Left"
-            Click="LastFmFlyoutItem_Click">
+            Click="LastFmFlyoutItem_Click"
+            IsEnabled="{x:Bind ViewModel.Authenticated.Equals(x:False), Mode=OneWay}">
             <StackPanel
                 Padding="16,0,16,0"
                 HorizontalAlignment="Left"

@@ -44,5 +44,25 @@ namespace Rise.Common.Extensions
                 Debug.WriteLine("-----");
             }
         }
+
+        /// <summary>
+        /// Writes the amount of milliseconds that a stopwatch
+        /// has measured.
+        /// </summary>
+        public static void WriteElapsedMilliseconds(this Stopwatch watch)
+        {
+            Debug.WriteLine("{0}ms", watch.ElapsedMilliseconds);
+        }
+
+        /// <summary>
+        /// Writes the amount of milliseconds that a stopwatch
+        /// has measured.
+        /// </summary>
+        /// <param name="message">A custom message logged before
+        /// the elapsed time.</param>
+        public static void WriteElapsedMilliseconds(this Stopwatch watch, string message)
+        {
+            Debug.WriteLine("{0}: {1}ms", message, watch.ElapsedMilliseconds);
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Rise.App.Views;
 using Rise.Common;
-using Rise.Common.Extensions;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -16,7 +15,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public class SongViewModel : ViewModel<Song>
+    public partial class SongViewModel : ViewModel<Song>, IMediaItem
     {
 
         #region Constructor
@@ -36,8 +35,7 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Checks if the song is played from an online stream, playlist or song.
         /// </summary>
-
-        public bool IsOnline = false;
+        public bool IsOnline { get; set; }
 
         /// <summary>
         /// Gets or sets the song title.
@@ -110,6 +108,11 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the song bitrate.
+        /// </summary>
+        public uint Bitrate => Model.Bitrate / 1000;
 
         /// <summary>
         /// Gets or sets the song album. 
@@ -274,17 +277,6 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        private bool _isFocused;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the item is focused.
-        /// </summary>
-        [JsonIgnore]
-        public bool IsFocused
-        {
-            get => _isFocused;
-            set => Set(ref _isFocused, value);
-        }
         #endregion
 
         #region Backend
@@ -301,7 +293,8 @@ namespace Rise.App.ViewModels
             if (queue)
             {
                 NewRepository.Repository.QueueUpsert(Model);
-            } else
+            }
+            else
             {
                 await NewRepository.Repository.UpsertAsync(Model);
             }
@@ -337,35 +330,6 @@ namespace Rise.App.ViewModels
 
         #region Editing
         /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        public async Task StartEditAsync()
-        {
-            if (!IsOnline)
-            {
-                try
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-                    if (file != null)
-                    {
-                        SongPropertiesViewModel props = new(this, file.DateCreated)
-                        {
-                            FileProps = await file.GetBasicPropertiesAsync()
-                        };
-
-                        _ = await typeof(SongPropertiesPage).
-                            PlaceInApplicationViewAsync(props, 380, 550, true);
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-        }
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()
@@ -383,56 +347,29 @@ namespace Rise.App.ViewModels
         {
             try
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                MediaSource source;
+                var uri = new Uri(Location);
 
-                MediaSource source = MediaSource.CreateFromStorageFile(file);
-                MediaPlaybackItem media = new(source);
-
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
-
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
+                if (uri.IsFile)
                 {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
+                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                    source = MediaSource.CreateFromStorageFile(file);
+                }
+                else
+                {
+                    source = MediaSource.CreateFromUri(uri);
                 }
 
-                media.ApplyDisplayProperties(props);
-                return media;
-            }
-            catch
-            {
-
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="SongViewModel"/>.
-        /// </summary>
-        /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
-        public MediaPlaybackItem AsPlaybackItem(Uri url)
-        {
-            try
-            {
-                MediaSource source = MediaSource.CreateFromUri(url);
                 MediaPlaybackItem media = new(source);
-
                 MediaItemDisplayProperties props = media.GetDisplayProperties();
-                props.Type = MediaPlaybackType.Music;
 
+                props.Type = MediaPlaybackType.Music;
                 props.MusicProperties.Title = Title;
                 props.MusicProperties.Artist = Artist;
                 props.MusicProperties.AlbumTitle = Album;
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
+
 
                 if (Thumbnail != null)
                 {
@@ -450,5 +387,14 @@ namespace Rise.App.ViewModels
             return null;
         }
         #endregion
+    }
+
+    // IMediaItem implementation
+    public partial class SongViewModel : IMediaItem
+    {
+        string IMediaItem.Subtitle => Artist;
+        string IMediaItem.ExtraInfo => Album;
+
+        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }

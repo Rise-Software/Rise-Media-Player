@@ -1,4 +1,5 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
-    public class VideoViewModel : ViewModel<Video>
+    public partial class VideoViewModel : ViewModel<Video>, IMediaItem
     {
 
         #region Constructor
@@ -136,6 +137,8 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
+        public bool IsOnline { get; set; }
         #endregion
 
         #region Backend
@@ -174,25 +177,6 @@ namespace Rise.App.ViewModels
 
         #region Editing
         /// <summary>
-        /// Enables edit mode.
-        /// </summary>
-        /*public async Task StartEditAsync()
-        {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-
-            if (file != null)
-            {
-                SongPropertiesViewModel props = new SongPropertiesViewModel(this, file.DateCreated)
-                {
-                    FileProps = await file.GetBasicPropertiesAsync()
-                };
-
-                _ = await typeof(PropertiesPage).
-                    PlaceInWindowAsync(ApplicationViewMode.Default, 380, 550, true, props);
-            }
-        }*/
-
-        /// <summary>
         /// Discards any edits that have been made, restoring the original values.
         /// </summary>
         public async Task CancelEditsAsync()
@@ -208,35 +192,23 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+            MediaSource source;
+            var uri = new Uri(Location);
 
-            MediaSource source = MediaSource.CreateFromStorageFile(file);
-            MediaPlaybackItem media = new(source);
-
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Video;
-
-            props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = Directors;
-
-            if (Thumbnail != null)
+            if (uri.IsFile)
             {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
+                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
+                source = MediaSource.CreateFromStorageFile(file);
+            }
+            else
+            {
+                source = MediaSource.CreateFromUri(uri);
             }
 
-            media.ApplyDisplayProperties(props);
-            return media;
-        }
-
-        public MediaPlaybackItem AsPlaybackItem(Uri uri)
-        {
-            MediaSource source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
-
             MediaItemDisplayProperties props = media.GetDisplayProperties();
-            props.Type = MediaPlaybackType.Video;
 
+            props.Type = MediaPlaybackType.Video;
             props.VideoProperties.Title = Title;
             props.VideoProperties.Subtitle = Directors;
 
@@ -250,5 +222,14 @@ namespace Rise.App.ViewModels
             return media;
         }
         #endregion
+    }
+
+    // IMediaItem implementation
+    public partial class VideoViewModel : IMediaItem
+    {
+        string IMediaItem.Subtitle => Directors;
+        string IMediaItem.ExtraInfo => Year.ToString();
+
+        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
     }
 }

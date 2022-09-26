@@ -1,32 +1,38 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.ChangeTrackers;
-using Rise.App.Views;
+﻿using Rise.App.ChangeTrackers;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
+using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Search;
 
 namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        #region Events
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
-        #endregion
 
-        #region Fields
+        private bool _isScanning;
+        /// <summary>
+        /// Whether the app is currently looking for new media.
+        /// </summary>
+        public bool IsScanning
+        {
+            get => _isScanning;
+            private set => Set(ref _isScanning, value);
+        }
+
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
         private uint IndexedSongs = 0;
@@ -36,115 +42,44 @@ namespace Rise.App.ViewModels
         private readonly List<string> imagelinks = new();
 
         /// <summary>
-        /// Whether or not are we currently indexing. This is to avoid
-        /// unnecessarily indexing concurrently.
+        /// Helps cancel indexing related Tasks.
         /// </summary>
-        private bool IsIndexing = false;
-
-        /// <summary>
-        /// Whether or not is there a recrawl queued. If true,
-        /// <see cref="IndexLibrariesAsync"/> will call itself when necessary.
-        /// </summary>
-        private bool QueuedReindex = false;
-
-        /// <summary>
-        /// Whether or not can indexing start. This is set to true once
-        /// <see cref="MainPage"/> loads up, at which point running from the
-        /// UI thread is possible.
-        /// </summary>
-        public bool CanIndex = false;
-
-        /// <summary>
-        /// Whether or not the search bar is focused.
-        /// </summary>
-        public bool IsSearchActive = false;
-        #endregion
-
-        /// <summary>
-        /// Creates a new MainViewModel.
-        /// </summary>
-        public MainViewModel()
-        {
-            FilteredSongs = new AdvancedCollectionView(Songs);
-            FilteredPlaylists = new AdvancedCollectionView(Playlists);
-            FilteredAlbums = new AdvancedCollectionView(Albums);
-            FilteredArtists = new AdvancedCollectionView(Artists);
-            FilteredGenres = new AdvancedCollectionView(Genres);
-            FilteredVideos = new AdvancedCollectionView(Videos);
-            FilteredNotifications = new AdvancedCollectionView(Notifications);
-
-            QueryPresets.SongQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.MusicView, 134, ThumbnailOptions.None);
-            QueryPresets.SongQueryOptions.
-                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-
-            QueryPresets.VideoQueryOptions.
-                SetThumbnailPrefetch(ThumbnailMode.VideosView, 238, ThumbnailOptions.None);
-            QueryPresets.VideoQueryOptions.
-                IndexerOption = IndexerOption.UseIndexerWhenAvailable;
-        }
+        private readonly CancellableTaskHelper IndexingCancelHelper = new();
 
         /// <summary>
         /// The collection of songs in the list. 
         /// </summary>
         public readonly SafeObservableCollection<SongViewModel> Songs = new();
-        public readonly AdvancedCollectionView FilteredSongs;
 
         /// <summary>
         /// The collection of albums in the list. 
         /// </summary>
         public readonly SafeObservableCollection<AlbumViewModel> Albums = new();
-        public readonly AdvancedCollectionView FilteredAlbums;
 
         /// <summary>
         /// The collection of artists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<ArtistViewModel> Artists = new();
-        public readonly AdvancedCollectionView FilteredArtists;
 
         /// <summary>
         /// The collection of genres in the list. 
         /// </summary>
         public readonly SafeObservableCollection<GenreViewModel> Genres = new();
-        public readonly AdvancedCollectionView FilteredGenres;
 
         /// <summary>
         /// The collection of videos in the list. 
         /// </summary>
         public readonly SafeObservableCollection<VideoViewModel> Videos = new();
-        public readonly AdvancedCollectionView FilteredVideos;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
-        public readonly AdvancedCollectionView FilteredPlaylists;
 
         /// <summary>
         /// The collection of playlists in the list. 
         /// </summary>
         public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
-        public readonly AdvancedCollectionView FilteredNotifications;
-
-        private SongViewModel _selectedSong;
-        /// <summary>
-        /// Gets or sets the currently selected song.
-        /// </summary>
-        public SongViewModel SelectedSong
-        {
-            get => _selectedSong;
-            set => Set(ref _selectedSong, value);
-        }
-
-        private VideoViewModel _selectedVideo;
-        /// <summary>
-        /// Gets or sets the currently selected video.
-        /// </summary>
-        public VideoViewModel SelectedVideo
-        {
-            get => _selectedVideo;
-            set => Set(ref _selectedVideo, value);
-        }
 
         /// <summary>
         /// Gets the complete list of data from the database.
@@ -161,7 +96,7 @@ namespace Rise.App.ViewModels
             Playlists.Clear();
             Notifications.Clear();
 
-            var songs = await NewRepository.Repository.GetItemsAsync<Song>();
+            var songs = await Repository.GetItemsAsync<Song>();
 
             // If we have no songs, we have no albums, artists or genres
             if (songs != null)
@@ -171,7 +106,7 @@ namespace Rise.App.ViewModels
                     Songs.Add(new(item));
                 }
 
-                var albums = await NewRepository.Repository.GetItemsAsync<Album>();
+                var albums = await Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
@@ -180,7 +115,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                var artists = await NewRepository.Repository.GetItemsAsync<Artist>();
+                var artists = await Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
@@ -189,7 +124,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                var genres = await NewRepository.Repository.GetItemsAsync<Genre>();
+                var genres = await Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
@@ -199,7 +134,7 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            var videos = await NewRepository.Repository.GetItemsAsync<Video>();
+            var videos = await Repository.GetItemsAsync<Video>();
             if (videos != null)
             {
                 foreach (var item in videos)
@@ -233,75 +168,62 @@ namespace Rise.App.ViewModels
 
         public async Task StartFullCrawlAsync()
         {
-            // There are no direct callers to IndexLibrariesAsync outside of
-            // this function, so we can just check here
-            if (!CanIndex)
+            try
             {
-                return;
+                await StartFullCrawlAsync(new CancellationToken());
             }
+            catch (OperationCanceledException) { }
+        }
 
+        public async Task StartFullCrawlAsync(CancellationToken token)
+        {
+            await IndexingCancelHelper.CompletePendingAsync(token);
+            await IndexingCancelHelper.RunAsync(StartFullCrawlImpl(IndexingCancelHelper.Token));
+        }
+
+        private async Task StartFullCrawlImpl(CancellationToken token)
+        {
+            IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
-            await IndexLibrariesAsync();
-            await SongsTracker.HandleMusicFolderChangesAsync();
-            await VideosTracker.HandleVideosFolderChangesAsync();
-            //await SyncAsync();
+            await IndexLibrariesAsync(token);
+            token.ThrowIfCancellationRequested();
+
+            _ = SongsTracker.HandleMusicFolderChangesAsync(token);
+            _ = VideosTracker.HandleVideosFolderChangesAsync(token);
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;
         }
 
-        private async Task IndexLibrariesAsync()
+        private async Task IndexLibrariesAsync(CancellationToken token)
         {
-            if (IsIndexing && QueuedReindex)
+            var songsTask = Task.Run(async () =>
             {
-                // If we're indexing and a reindex is queued,
-                // don't bother doing anything
-                return;
-            }
-            else if (IsIndexing && !QueuedReindex)
-            {
-                // If we're indexing and a reindex isn't queued,
-                // queue a reindex and return
-                QueuedReindex = true;
-                return;
-            }
-            else if (!IsIndexing && QueuedReindex)
-            {
-                // If we're not indexing and a reindex is queued,
-                // allow adding a reindex to the queue and continue
-                QueuedReindex = false;
-            }
-
-            IsIndexing = true;
-            await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
-                PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
-            {
-                if (await SaveMusicModelsAsync(song, true))
+                await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                    PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
-                    IndexedSongs++;
+                    if (await SaveMusicModelsAsync(song, true))
+                        IndexedSongs++;
                 }
-            }
+            }, token);
 
-            await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
-                PropertyPrefetchOptions.VideoProperties))
+            var videosTask = Task.Run(async () =>
             {
-                if (await SaveVideoModelAsync(video, true))
+                await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
+                    PropertyPrefetchOptions.VideoProperties))
                 {
-                    IndexedVideos++;
+                    if (await SaveVideoModelAsync(video, true))
+                        IndexedVideos++;
                 }
-            }
+            }, token);
 
-            IsIndexing = false;
+            await Task.WhenAll(songsTask, videosTask);
 
-            await NewRepository.Repository.UpsertQueuedAsync();
-
-            if (QueuedReindex)
-            {
-                await IndexLibrariesAsync();
-            }
+            await Repository.UpsertQueuedAsync();
         }
 
         /// <summary>
@@ -333,36 +255,15 @@ namespace Rise.App.ViewModels
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
-                string thumb = URIs.AlbumThumb;
-
-                // If the album is unknown, no need to get a thumbnail.
-                if (song.Album != "UnknownAlbumResource")
-                {
-                    // Get song thumbnail and make a PNG out of it.
-                    StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-
-                    string filename = song.Album.AsValidFileName();
-                    filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                    if (filename != "/")
-                    {
-                        thumb = $@"ms-appdata:///local/{filename}.png";
-                    }
-
-                    thumbnail?.Dispose();
-                }
-
                 // Set AlbumViewModel data.
                 AlbumViewModel alvm = new()
                 {
                     Title = song.Album,
                     Artist = song.AlbumArtist,
                     Genres = song.Genres,
-                    Thumbnail = thumb,
+                    Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
-
-                song.Thumbnail = thumb;
 
                 // Add new data to the MViewModel.
                 await alvm.SaveAsync(queue);
@@ -382,21 +283,10 @@ namespace Rise.App.ViewModels
                         save = true;
                     }
 
-                    if (alvm.Thumbnail == URIs.MusicThumb)
+                    if (alvm.Thumbnail == URIs.AlbumThumb)
                     {
-                        // Get song thumbnail and make a PNG out of it.
-                        StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 134);
-
-                        string filename = song.Album.AsValidFileName();
-                        filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
-
-                        if (filename != "/")
-                        {
-                            alvm.Thumbnail = $@"ms-appdata:///local/{filename}.png";
-                            save = true;
-                        }
-
-                        thumbnail?.Dispose();
+                        alvm.Thumbnail = song.Thumbnail;
+                        save = true;
                     }
 
                     if (alvm.Year == 0)
@@ -431,7 +321,7 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
@@ -463,11 +353,11 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
-                
+
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
@@ -513,7 +403,7 @@ namespace Rise.App.ViewModels
                     XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
                     if (node != null)
                     {
-                        string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                        string yes = node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                         return yes;
                     }
                 }
@@ -522,7 +412,7 @@ namespace Rise.App.ViewModels
 
                 }
             }
-            
+
             return URIs.ArtistThumb;
         }
 
@@ -547,15 +437,15 @@ namespace Rise.App.ViewModels
                 StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
-                filename = await thumbnail.SaveToFileAsync($@"{filename}.png");
+                bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                if (filename != "/")
+                if (result)
                 {
                     vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
                 }
                 else
                 {
-                    vid.Thumbnail = URIs.MusicThumb;
+                    vid.Thumbnail = URIs.AlbumThumb;
                 }
 
                 thumbnail?.Dispose();
@@ -563,14 +453,6 @@ namespace Rise.App.ViewModels
             }
 
             return !videoExists;
-        }
-
-        /// <summary>
-        /// Saves any modified data and reloads the data lists from the database.
-        /// </summary>
-        public async Task SyncAsync()
-        {
-            await GetListsAsync();
         }
     }
 

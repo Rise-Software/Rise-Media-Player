@@ -6,44 +6,49 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Loaded="OnControlLoaded"
     SizeChanged="Pane_SizeChanged"
+    Unloaded="OnControlUnloaded"
     mc:Ignorable="d">
 
     <Grid
         HorizontalAlignment="Stretch"
-        ColumnSpacing="12"
+        ColumnSpacing="6"
         RowSpacing="12">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="FirstDefinition" Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ContentPresenter
             x:Name="Left"
             HorizontalAlignment="Left"
-            Content="{x:Bind LeftPane, Mode=OneWay}">
-            <ContentPresenter.Transitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition />
-                </TransitionCollection>
-            </ContentPresenter.Transitions>
-        </ContentPresenter>
+            Content="{x:Bind LeftPane, Mode=OneWay}" />
 
         <ContentPresenter
             x:Name="Right"
-            Grid.Column="1"
+            Grid.Row="0"
+            Grid.Column="2"
             HorizontalAlignment="Right"
-            Content="{x:Bind RightPane, Mode=OneWay}">
-            <ContentPresenter.Transitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition />
-                </TransitionCollection>
-            </ContentPresenter.Transitions>
-        </ContentPresenter>
+            Content="{x:Bind RightPane, Mode=OneWay}" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PaneModes">
+                <VisualState x:Name="SideBySide" />
+                <VisualState x:Name="Stacked">
+                    <VisualState.Setters>
+                        <Setter Target="Right.HorizontalAlignment" Value="Left" />
+                        <Setter Target="Right.(Grid.Column)" Value="0" />
+                        <Setter Target="Right.(Grid.Row)" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </UserControl>

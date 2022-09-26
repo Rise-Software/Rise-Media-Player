@@ -14,8 +14,6 @@
         Margin="0,10,0,0"
         Orientation="Vertical"
         Spacing="4">
-
-
         <muxc:TeachingTip
             x:Name="ChangeThemeTip"
             Title="App theme changed"
@@ -86,7 +84,7 @@
                     FontWeight="Normal"
                     Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown."
                     TextWrapping="WrapWholeWords" />
-                <StackPanel x:Name="TextforGlaze">
+                <StackPanel x:Name="TextForGlaze" Visibility="Collapsed">
                     <TextBlock
                         Padding="30,0,150,0"
                         FontSize="14"
@@ -108,7 +106,8 @@
                     x:Name="RiseColorsPanel"
                     Padding="30,5,150,5"
                     HorizontalSpacing="3"
-                    VerticalSpacing="3">
+                    VerticalSpacing="3"
+                    Visibility="Collapsed">
                     <Border
                         Width="50"
                         Height="50"
@@ -398,7 +397,7 @@
                         CornerRadius="5"
                         ToolTipService.ToolTip="Camouflage" />
                 </controls:WrapPanel>
-                <StackPanel x:Name="Therest">
+                <StackPanel x:Name="TheRest" Visibility="Collapsed">
                     <Rectangle
                         Height="1"
                         Margin="-16,20,-16,0"
@@ -416,5 +415,19 @@
                 </StackPanel>
             </StackPanel>
         </uc:ExpanderControl>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CustomGlazeStates">
+                <VisualState x:Name="CustomGlazeDisabled" />
+                <VisualState x:Name="CustomGlazeEnabled">
+                    <VisualState.Setters>
+                        <Setter Target="Nothing.Visibility" Value="Collapsed" />
+                        <Setter Target="TextForGlaze.Visibility" Value="Visible" />
+                        <Setter Target="RiseColorsPanel.Visibility" Value="Visible" />
+                        <Setter Target="TheRest.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </StackPanel>
 </Page>

@@ -5,37 +5,296 @@
     xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:local="using:Rise.App.Views"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <media:AcrylicBrush
+                        x:Key="MediaTransportControlsPanelBackground"
+                        BackgroundSource="Backdrop"
+                        FallbackColor="#2C2C2C"
+                        TintColor="{x:Bind SViewModel.GlazeColors, Mode=OneWay}"
+                        TintLuminosityOpacity="0"
+                        TintOpacity="0" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <media:AcrylicBrush
+                        x:Key="MediaTransportControlsPanelBackground"
+                        BackgroundSource="Backdrop"
+                        FallbackColor="#F9F9F9"
+                        TintColor="{x:Bind SViewModel.GlazeColors, Mode=OneWay}"
+                        TintLuminosityOpacity="0"
+                        TintOpacity="0" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="{ThemeResource SystemColorWindowColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
             <conv:BooleanToVisibility x:Key="BoolToVis" />
             <conv:ResourceToString x:Key="StrToRes" />
+
+            <conv:TimeSpanToString x:Key="TimeToStr" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
 
+            <Flyout
+                x:Name="PlayingItemMusicFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="4"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        MaxLines="1"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <Grid
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        ColumnSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            Click="OnAlbumButtonClick"
+                            Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE93C;" />
+                                    <TextBlock Grid.Column="1" Text="Go to album" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Click="OnArtistButtonClick"
+                            Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <Grid ColumnSpacing="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <FontIcon FontSize="16" Glyph="&#xE13D;" />
+                                    <TextBlock Grid.Column="1" Text="Go to artist" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Flyout>
+
+            <Flyout
+                x:Name="PlayingItemVideoFlyout"
+                x:DefaultBindMode="OneWay"
+                Placement="TopEdgeAlignedLeft">
+                <Grid
+                    MaxWidth="412"
+                    MaxHeight="144"
+                    ColumnSpacing="12"
+                    RowSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="144" />
+                        <ColumnDefinition Width="1*" MaxWidth="268" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.RowSpan="3"
+                        CornerRadius="8"
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
+                        <Image Stretch="Uniform">
+                            <Image.Source>
+                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        MaxLines="2"
+                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Flyout>
+
+            <local:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
+                <local:NavViewItemTemplateSelector.AssetIconTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccessKey}"
+                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            AutomationProperties.Name="{x:Bind Label}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            ContextRequested="NavigationViewItem_ContextRequested"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}">
+                            <muxc:NavigationViewItem.Icon>
+                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.AssetIconTemplate>
+
+                <local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccessKey}"
+                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            AutomationProperties.Name="{x:Bind Label}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            ContextRequested="NavigationViewItem_ContextRequested"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.GlyphIconTemplate>
+
+                <local:NavViewItemTemplateSelector.HeaderTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItemHeader
+                            x:Phase="1"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}" />
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.HeaderTemplate>
+
+                <local:NavViewItemTemplateSelector.SeparatorTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItemSeparator
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}" />
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.SeparatorTemplate>
+            </local:NavViewItemTemplateSelector>
+
             <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
                     x:Uid="/Information/ToTop"
-                    Click="ToTop_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE11C;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                    Command="{x:Bind NavDataSource.MoveToTopCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Upload" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
                     x:Uid="/Information/MoveUp"
-                    Click="MoveUp_Click">
+                    Command="{x:Bind NavDataSource.MoveUpCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE010;" />
                     </MenuFlyoutItem.Icon>
@@ -44,7 +303,8 @@
                 <MenuFlyoutItem
                     x:Name="DownOption"
                     x:Uid="/Information/MoveDown"
-                    Click="MoveDown_Click">
+                    Command="{x:Bind NavDataSource.MoveDownCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xE011;" />
                     </MenuFlyoutItem.Icon>
@@ -53,21 +313,22 @@
                 <MenuFlyoutItem
                     x:Name="BottomOption"
                     x:Uid="/Information/ToBottom"
-                    Click="ToBottom_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE118;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                    Command="{x:Bind NavDataSource.MoveToBottomCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Download" />
 
                 <MenuFlyoutSeparator />
 
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
 
-                <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
+                <MenuFlyoutItem
+                    x:Uid="/Information/RemoveSection"
+                    Command="{x:Bind NavDataSource.HideGroupCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xECC9;" />
                     </MenuFlyoutItem.Icon>
@@ -75,107 +336,54 @@
             </MenuFlyout>
 
             <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
             </MenuFlyout>
-
-            <!--#region NavView item templates-->
-            <DataTemplate
-                x:Key="AssetIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
-
-            <DataTemplate
-                x:Key="GlyphIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
-
-            <DataTemplate
-                x:Key="HeaderTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemHeader
-                    x:Phase="1"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
-
-            <DataTemplate
-                x:Key="SeparatorTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemSeparator
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
-            <!--#endregion-->
-
-            <local:NavViewItemTemplateSelector
-                x:Key="NavViewItemTemplateSelector"
-                AssetIconTemplate="{StaticResource AssetIconTemplate}"
-                GlyphIconTemplate="{StaticResource GlyphIconTemplate}"
-                HeaderTemplate="{StaticResource HeaderTemplate}"
-                SeparatorTemplate="{StaticResource SeparatorTemplate}" />
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="_Grid">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{x:Bind SViewModel.GlazeColors, Mode=OneWay}" />
+        </Grid.Background>
+
         <Grid Canvas.ZIndex="1">
-            <uc:ExtendedTitleBar
+            <skuc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Height="40"
-                Margin="54,8,0,0"
                 VerticalAlignment="Top"
-                x:FieldModifier="public"
-                Canvas.ZIndex="1"
-                LayoutMetricsChanged="CoreTitleBar_LayoutMetricsChanged"
-                MinTitleWidth="800"
-                ShowIcon="True" />
+                Canvas.ZIndex="1">
+                <Grid
+                    x:Name="AppData"
+                    Margin="0,8,0,0"
+                    ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid
-                x:Name="OverlayModeContentPanel"
-                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                Visibility="Collapsed">
-                <Frame x:Name="NowPlayingFrame" />
-            </Grid>
+                    <Image Height="16" Source="ms-appx:///Assets/App/Square44x44Logo.targetsize-256.png" />
+                    <RichTextBlock
+                        x:Name="AppTitle"
+                        Grid.Column="1"
+                        FontSize="12"
+                        IsTextSelectionEnabled="False"
+                        Visibility="Collapsed">
+                        <Paragraph x:Name="DefaultTitleParagraph">
+                            <Span FontWeight="SemiBold">Rise</Span>
+                            <Span>Media Player</Span>
+                        </Paragraph>
+                    </RichTextBlock>
+                </Grid>
+            </skuc:ExtendedTitleBar>
 
             <Grid
                 x:Name="ControlsPanel"
-                Height="32"
+                Height="40"
+                Padding="0,8,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Canvas.ZIndex="2"
@@ -186,20 +394,17 @@
                 </Grid.ColumnDefinitions>
 
                 <AutoSuggestBox
-                    x:Name="BigSearch"
-                    x:Uid="/Information/BigSearch"
+                    x:Name="Search"
                     Height="32"
                     MaxWidth="530"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     AutomationProperties.Name="Search"
-                    GotFocus="BigSearch_GotFocus"
-                    LostFocus="BigSearch_LostFocus"
+                    PlaceholderText="{markup:ResourceHelper Name=SearchPlaceholder}"
                     QueryIcon="Find"
-                    QuerySubmitted="BigSearch_QuerySubmitted"
-                    SuggestionChosen="BigSearch_SuggestionChosen"
-                    TextChanged="BigSearch_TextChanged"
-                    Visibility="Collapsed">
+                    QuerySubmitted="OnSearchQuerySubmitted"
+                    SuggestionChosen="OnSearchSuggestionChosen"
+                    TextChanged="OnSearchTextChanged">
                     <AutoSuggestBox.ItemTemplate>
                         <DataTemplate x:DataType="appviewmodels:SearchItemViewModel" x:DefaultBindMode="OneWay">
                             <Grid Padding="2,10">
@@ -235,15 +440,6 @@
                     </AutoSuggestBox.ItemTemplate>
                 </AutoSuggestBox>
 
-                <AutoSuggestBox
-                    x:Name="SmallSearch"
-                    x:Uid="/Information/SmallSearch"
-                    Height="32"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    AutomationProperties.Name="Search"
-                    QueryIcon="Find" />
-
                 <Button
                     x:Name="SyncCentre"
                     Grid.Column="1"
@@ -255,22 +451,18 @@
                     Style="{StaticResource TransparentButtonStyle}"
                     ToolTipService.ToolTip="Sync centre">
                     <Button.Content>
-                        <StackPanel>
+                        <Grid>
                             <FontIcon
-                                x:Name="OpenSync"
+                                x:Name="SyncCentreIcon"
                                 Height="24"
                                 Glyph="&#xE117;" />
-                            <FontIcon
-                                x:Name="ScanDone"
-                                Height="24"
-                                Glyph="&#xE001;" />
 
                             <muxc:ProgressRing
-                                x:Name="IsScanning"
+                                x:Name="ScanningRing"
                                 Width="20"
                                 Height="20"
-                                IsActive="True" />
-                        </StackPanel>
+                                IsActive="False" />
+                        </Grid>
                     </Button.Content>
 
                     <Button.Flyout>
@@ -318,15 +510,16 @@
                         <MenuFlyout x:Name="ProfileMenu">
                             <MenuFlyoutItem
                                 x:Name="Acc"
-                                x:Uid="/Information/Accounts"
                                 Height="44"
                                 Margin="3"
                                 Click="Account_Click"
                                 FontSize="14"
-                                FontWeight="SemiBold">
+                                FontWeight="SemiBold"
+                                Text="{x:Bind LMViewModel.Username, Mode=OneWay}">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon x:Name="AccountPic" Glyph="&#xECC8;" />
+                                    <FontIcon x:Name="AccountPic" Glyph="&#xE13D;" />
                                 </MenuFlyoutItem.Icon>
+
                                 <MenuFlyoutItem.Background>
                                     <ImageBrush ImageSource="/Assets/Unavailable/MissingAccPic.png" />
                                 </MenuFlyoutItem.Background>
@@ -334,10 +527,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem
-                                x:Uid="/Information/Notif"
-                                Click="Messages_Click"
-                                IsEnabled="False">
+                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
@@ -349,7 +539,6 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-
                             <MenuFlyoutSeparator />
 
                             <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
@@ -359,13 +548,6 @@
                             </MenuFlyoutItem>
 
                             <MenuFlyoutSeparator />
-
-                            <MenuFlyoutItem IsEnabled="False" Text="Alpha Preview 2">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE946;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-
 
                             <MenuFlyoutItem x:Uid="/Information/Fdb" Click="Button_Click">
                                 <MenuFlyoutItem.Icon>
@@ -391,42 +573,138 @@
             CompactModeThresholdWidth="800"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             ExpandedModeThresholdWidth="800"
+            FooterMenuItemsSource="{x:Bind NavDataSource.FooterItems}"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
-            OpenPaneLength="260"
-            PaneDisplayMode="LeftMinimal"
-            RightTapped="NavigationView_RightTapped">
+            MenuItemsSource="{x:Bind NavDataSource.Items}"
+            OpenPaneLength="260">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
-                    x:FieldModifier="public"
                     Navigated="OnNavigated"
-                    NavigationFailed="OnNavigationFailed" />
+                    NavigationFailed="OnNavigationFailed"
+                    SizeChanged="OnContentFrameSizeChanged" />
 
-                <uc:NowPlayingBar
-                    Margin="15"
-                    VerticalAlignment="Bottom"
-                    BackgroundStyle="UseAlbumArt"
-                    IsArtistShown="True" />
+                <uc:RiseMediaPlayerElement
+                    x:Name="MainPlayer"
+                    MaxWidth="1000"
+                    Margin="16"
+                    d:DesignHeight="102"
+                    MediaPlayerVisibility="Collapsed"
+                    Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
+                    <uc:RiseMediaPlayerElement.TransportControls>
+                        <uc:RiseMediaTransportControls
+                            x:Name="PlayerControls"
+                            ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            DisplayItemVisibility="Visible"
+                            FullWindowCommand="{x:Bind EnterFullScreenCommand}"
+                            IsCompactOverlayButtonVisible="True"
+                            IsCompactOverlayEnabled="True"
+                            IsEqualizerButtonEnabled="True"
+                            IsEqualizerButtonVisible="True"
+                            IsFullWindowButtonVisible="True"
+                            IsFullWindowEnabled="True"
+                            IsNextTrackButtonVisible="True"
+                            IsOverlayButtonVisible="True"
+                            IsOverlayEnabled="True"
+                            IsPlaybackRateButtonVisible="True"
+                            IsPlaybackRateEnabled="True"
+                            IsPreviousTrackButtonVisible="True"
+                            IsPropertiesButtonVisible="True"
+                            IsPropertiesEnabled="True"
+                            IsQueueButtonEnabled="True"
+                            IsQueueButtonVisible="True"
+                            IsRepeatButtonVisible="True"
+                            IsRepeatEnabled="True"
+                            IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                            IsShuffleButtonVisible="True"
+                            IsShuffleEnabled="True"
+                            IsSkipBackwardEnabled="True"
+                            IsSkipForwardEnabled="True"
+                            IsZoomButtonVisible="False"
+                            IsZoomEnabled="False"
+                            OverlayCommand="{x:Bind GoToNowPlayingCommand}"
+                            ShowAndHideAutomatically="False">
+                            <uc:RiseMediaTransportControls.QueueFlyout>
+                                <Flyout>
+                                    <uc:DefaultQueueFlyout Width="300" Height="300" />
+                                </Flyout>
+                            </uc:RiseMediaTransportControls.QueueFlyout>
+
+                            <uc:RiseMediaTransportControls.DisplayItem>
+                                <Button
+                                    Margin="4"
+                                    Padding="4"
+                                    HorizontalContentAlignment="Left"
+                                    Click="OnDisplayItemClick"
+                                    RightTapped="OnDisplayItemRightTapped"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid
+                                        x:Name="ItemGrid"
+                                        Height="80"
+                                        x:DefaultBindMode="OneWay">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="ImageDefinition" Width="80" />
+                                            <ColumnDefinition x:Name="TextDefinition" Width="120" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border
+                                            x:Name="ImageBorder"
+                                            Width="80"
+                                            HorizontalAlignment="Left"
+                                            CornerRadius="4">
+                                            <Image>
+                                                <Image.Source>
+                                                    <BitmapImage
+                                                        DecodePixelHeight="80"
+                                                        DecodePixelWidth="80"
+                                                        UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                                </Image.Source>
+                                            </Image>
+
+                                            <Border.RenderTransform>
+                                                <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
+                                            </Border.RenderTransform>
+                                        </Border>
+
+                                        <StackPanel
+                                            x:Name="TextPanel"
+                                            Grid.Column="1"
+                                            Margin="8,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Orientation="Vertical">
+                                            <TextBlock
+                                                x:Name="DisplayTitle"
+                                                FontSize="16"
+                                                FontWeight="SemiBold"
+                                                MaxLines="2"
+                                                Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                            <TextBlock
+                                                x:Name="DisplaySubtitle"
+                                                MaxLines="2"
+                                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap"
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                            <StackPanel.RenderTransform>
+                                                <TranslateTransform x:Name="TextPanelTranslate" />
+                                            </StackPanel.RenderTransform>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                            </uc:RiseMediaTransportControls.DisplayItem>
+                        </uc:RiseMediaTransportControls>
+                    </uc:RiseMediaPlayerElement.TransportControls>
+                </uc:RiseMediaPlayerElement>
             </Grid>
         </muxc:NavigationView>
-
-        <muxc:TeachingTip
-            x:Name="IndexingTip"
-            x:Uid="/Information/Indexing"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xEA69;" />
-            </muxc:TeachingTip.IconSource>
-            <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
 
         <muxc:TeachingTip
             x:Name="AddedTip"
@@ -435,7 +713,6 @@
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
             HeroContentPlacement="Bottom"
-            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight" />
 
@@ -460,35 +737,238 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <muxc:TeachingTip
-            x:Name="NoNewTip"
-            x:Uid="/Information/NoNew"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xE8F1;" />
-            </muxc:TeachingTip.IconSource>
-        </muxc:TeachingTip>
-
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallWidth">
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideWindow">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-                        <Setter Target="NavView.PaneDisplayMode" Value="Left" />
-                        <Setter Target="BigSearch.Visibility" Value="Visible" />
-                        <Setter Target="SmallSearch.Visibility" Value="Collapsed" />
+
+                        <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
+                        <Setter Target="AppTitle.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="ContentAreaStates">
+                <VisualState x:Name="NarrowContentAreaLayout">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="80">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanel"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="MediumContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="TextPanel.(Grid.Column)" Value="0" />
+                        <Setter Target="ImageDefinition.Width" Value="120" />
+                    </VisualState.Setters>
+
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="120">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanel"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-40">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="WideContentAreaLayout">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.IsSkipBackwardButtonVisible" Value="True" />
+                        <Setter Target="PlayerControls.IsSkipForwardButtonVisible" Value="True" />
+                    </VisualState.Setters>
+
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ItemGrid"
+                            Storyboard.TargetProperty="Width"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="TextPanelTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-80" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="ImageBorderTranslate"
+                            Storyboard.TargetProperty="X"
+                            Duration="0:0:0.3">
+                            <LinearDoubleKeyFrame KeyTime="0" Value="-40" />
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="ScanningStates">
+                <VisualState x:Name="NotScanningState" />
+                <VisualState x:Name="ScanningState">
+                    <VisualState.Setters>
+                        <Setter Target="CheckTip.IsOpen" Value="True" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
 
-                <VisualState x:Name="SmallHeight">
+                <VisualState x:Name="ScanningDoneState">
+                    <VisualState.Setters>
+                        <Setter Target="AddedTip.IsOpen" Value="True" />
+                        <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="LastFMStates">
+                <VisualState x:Name="LoggedOutState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="600" />
+                        <StateTrigger IsActive="{x:Bind LMViewModel.Authenticated.Equals(x:False), Mode=OneWay}" />
                     </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="Acc.Text" Value="{markup:ResourceHelper Name=AddAccount}" />
+                        <Setter Target="AccountPic.Glyph" Value="&#xECC8;" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

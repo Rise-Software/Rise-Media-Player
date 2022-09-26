@@ -11,7 +11,7 @@
     <AssemblyName>Rise.Models</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -126,20 +126,28 @@
     <Compile Include="LastFM\TopTracks.cs" />
     <Compile Include="Media\Album.cs" />
     <Compile Include="Media\Artist.cs" />
+    <Compile Include="Media\MediaPlayerEffect.cs" />
     <Compile Include="Media\Genre.cs" />
     <Compile Include="Media\Playlist.cs" />
     <Compile Include="Media\Song.cs" />
     <Compile Include="Media\Video.cs" />
+    <Compile Include="MusixmatchLyrics.cs" />
+    <Compile Include="MusixmatchTrack.cs" />
     <Compile Include="NavViewItem.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchItem.cs" />
+    <Compile Include="SyncedLyrics.cs" />
+    <Compile Include="UserToken.cs" />
     <Compile Include="Wallpaper.cs" />
     <EmbeddedResource Include="Properties\Rise.Models.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.8.116</Version>

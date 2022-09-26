@@ -169,30 +169,37 @@ namespace Rise.Common.Extensions
         /// </summary>
         /// <param name="thumbnail"><see cref="StorageItemThumbnail"/> to convert.</param>
         /// <param name="filename">Filename of output image.</param>
-        /// <returns>The image's filename. If the item has no thumbnail, returns "/".</returns>
-        public static async Task<string> SaveToFileAsync(this StorageItemThumbnail thumbnail,
+        /// <returns>true if the thumbnail could be saved, false otherwise.</returns>
+        public static async Task<bool> SaveToFileAsync(this StorageItemThumbnail thumbnail,
             string filename,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
+            var result = false;
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
-                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
+                try
+                {
+                    StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                     CreateFileAsync(filename, collisionOption);
 
-                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
-                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
-                    buffer.Capacity, InputStreamOptions.None);
+                    Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
+                    IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                        buffer.Capacity, InputStreamOptions.None);
 
-                using (IRandomAccessStream strm = await
-                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    using (IRandomAccessStream strm = await
+                        destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        _ = await strm.WriteAsync(iBuf);
+                    }
+
+                    result = true;
+                } catch (Exception e)
                 {
-                    _ = await strm.WriteAsync(iBuf);
+                    e.WriteToOutput();
                 }
-
-                return Path.GetFileNameWithoutExtension(destinationFile.Path);
             }
 
-            return "/";
+            return result;
         }
     }
 }

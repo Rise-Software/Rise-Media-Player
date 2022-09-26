@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     mc:Ignorable="d">
@@ -14,22 +15,24 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <uc:ExpanderControl
+        <muxc:InfoBar
             x:Uid="/Details/AsPlaylist"
             Margin="0,0,0,4"
-            ExpanderStyle="Static"
-            Icon="&#xE82F;" />
+            IsOpen="True">
+            <muxc:InfoBar.IconSource>
+                <muxc:FontIconSource Glyph="&#xE82F;" />
+            </muxc:InfoBar.IconSource>
+        </muxc:InfoBar>
 
         <ListView
             Grid.Row="1"
             Margin="-12,0"
             Padding="12,0"
-            ItemContainerStyle="{StaticResource BaseListViewItemStyle}"
             ItemsSource="{x:Bind Playlist.Songs}"
             SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <Border Margin="0,0,0,4" Style="{StaticResource SettingsCard}">
+                    <Border Margin="-16,0,-12,4" Style="{StaticResource SettingsCard}">
                         <Grid
                             Margin="-8,-6,-8,-6"
                             Padding="4"
@@ -72,8 +75,8 @@
                                 Orientation="Horizontal"
                                 Spacing="4">
                                 <Button
-                                    Click="MoveUp_Click"
                                     x:Uid="/Information/MoveUp2"
+                                    Click="MoveUp_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
                                     <FontIcon
@@ -82,8 +85,8 @@
                                         Glyph="&#xE014;" />
                                 </Button>
                                 <Button
-                                    Click="MoveBottom_Click"
                                     x:Uid="/Information/MoveDown2"
+                                    Click="MoveBottom_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
                                     <FontIcon
@@ -94,10 +97,10 @@
                                 <Rectangle
                                     Grid.Column="3"
                                     Width="1"
+                                    Height="Auto"
                                     Margin="4,4,4,4"
-                                    Opacity="0.3"
-                                    Height="auto"
-                                    Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}" />
+                                    Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
+                                    Opacity="0.3" />
                                 <Button
                                     x:Uid="/Information/RemovePlaylist2"
                                     Click="RemoveSong_Click"
@@ -115,6 +118,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </Grid>
-
-
 </Page>

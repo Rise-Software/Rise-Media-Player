@@ -1,12 +1,48 @@
-﻿namespace Rise.Common.Helpers
+﻿using Windows.UI.Xaml;
+
+namespace Rise.Common.Helpers
 {
     public static class BindingHelpers
     {
-        /* TODO: add useful binding functions and variables here */
+        /// <summary>
+        /// If all the provided values are true, this method
+        /// returns <see cref="Visibility.Visible"/>. Otherwise,
+        /// it returns <see cref="Visibility.Collapsed"/>
+        /// </summary>
+        public static Visibility BooleansToVisibility(bool first, bool second)
+        {
+            if (first && second)
+                return Visibility.Visible;
+            else
+                return Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// If all the provided values are true, this method
+        /// returns <see cref="Visibility.Collapsed"/>. Otherwise,
+        /// it returns <see cref="Visibility.Visible"/>
+        /// </summary>
+        public static Visibility InverseBooleansToVisibility(bool first, bool second)
+        {
+            if (first && second)
+                return Visibility.Collapsed;
+            else
+                return Visibility.Visible;
+        }
 
         public static bool IsNotNull(object obj)
         {
             return obj != null;
+        }
+
+        public static bool ObjEquals(object obj, object otherObj)
+        {
+            return obj == otherObj;
+        }
+
+        public static Windows.UI.Xaml.Visibility IsNotNullVis(object obj)
+        {
+            return obj != null ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         public static bool IsNull(object obj)

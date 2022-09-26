@@ -1,5 +1,8 @@
 ## Contributing to Rise Media Player
 
+### Getting started
+Before contributing, you might want to check our [building instructions](BUILD.md), and get familiar with the codebase. This will likely reduce the amount of time spent on getting your contribution checked and/or done.
+
 ### Contributing guidelines
 Contributing anytime is always welcome, but
 

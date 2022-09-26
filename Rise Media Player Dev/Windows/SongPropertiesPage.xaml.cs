@@ -1,11 +1,8 @@
 ﻿using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using System;
-using System.Collections.Generic;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
@@ -13,14 +10,11 @@ namespace Rise.App.Views
     public sealed partial class SongPropertiesPage : Page
     {
         private SongPropertiesViewModel Props { get; set; }
-        private IEnumerable<ToggleButton> Toggles { get; set; }
 
         public SongPropertiesPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-
-            //Toggles = ItemGrid.GetChildren<ToggleButton>();
+            TitleBar.SetTitleBarForCurrentView();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -29,37 +23,6 @@ namespace Rise.App.Views
             {
                 Props = props;
             }
-
-            //Details.IsChecked = true;
-            base.OnNavigatedTo(e);
-        }
-
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            //Details.IsChecked = false;
-            //Lyrics.IsChecked = false;
-            //Profile.IsChecked = false;
-            //File.IsChecked = false;
-
-            //ToggleButton clicked = (ToggleButton)sender;
-            //clicked.Checked -= ToggleButton_Checked;
-            //clicked.IsChecked = true;
-
-            //switch (clicked.Tag.ToString())
-            //{
-            //    case "DetailsItem":
-            //        _ = PropsFrame.Navigate(typeof(SongDetailsPage), Props);
-            //        break;
-
-            //    case "FileItem":
-            //        _ = PropsFrame.Navigate(typeof(SongFilePage), Props);
-            //        break;
-
-            //    default:
-            //        break;
-            //}
-
-            //clicked.Checked += ToggleButton_Checked;
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -88,6 +51,10 @@ namespace Rise.App.Views
                 {
                     case "DetailsItem":
                         _ = PropsFrame.Navigate(typeof(SongDetailsPage), Props);
+                        break;
+
+                    case "LyricsItem":
+                        _ = PropsFrame.Navigate(typeof(SongLyricsPage), Props);
                         break;
 
                     case "FileItem":

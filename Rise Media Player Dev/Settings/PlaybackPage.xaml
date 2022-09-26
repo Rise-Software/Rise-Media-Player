@@ -3,35 +3,29 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
-
-        <muxc:InfoBar
-            x:Name="TryRiseEQ"
-            Margin="0,4,0,0"
-            x:FieldModifier="public"
-            IsClosable="False"
-            IsIconVisible="True"
-            IsOpen="True"
-            Message="We are currently working on an Equaliser for Rise Media Player as a separate app. Go to GitHub to contribute and try it out!"
-            Severity="Informational">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton
-                    x:Name="RiseEQLink"
-                    Click="RiseEQLink_Click"
-                    Content="RiseEQ GitHub" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
-
-
         <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
+
+        <uc:ExpanderControl
+            Title="Visualizer"
+            ExpanderStyle="Static"
+            Icon="&#xE8B9;">
+            <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">
+                <x:String>None</x:String>
+                <x:String>Line</x:String>
+                <x:String>Bloom</x:String>
+            </ComboBox>
+        </uc:ExpanderControl>
+
         <uc:ExpanderControl
             x:Uid="/Playback/EQ"
-            ExpanderStyle="Disabled"
+            ExpanderStyle="Button"
+            Click="OnEqualizerExpanderClick"
             Icon="&#xE9E9;">
             <FontIcon FontSize="16" Glyph="&#xE00F;" />
         </uc:ExpanderControl>

@@ -39,7 +39,7 @@ namespace Rise.App.Dialogs
         {
             InitializeComponent();
             ContentDialog_SizeChanged(null, null);
-            
+
             Navigate();
         }
 
@@ -103,7 +103,7 @@ namespace Rise.App.Dialogs
                 Visibility.Visible : Visibility.Collapsed;
 
             ContentDialog_SizeChanged(null, null);
-            
+
             switch (ViewModel.SetupProgress)
             {
                 case 0:
@@ -111,9 +111,9 @@ namespace Rise.App.Dialogs
                     PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Accept");
                     SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("Decline");
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("PreSetup");
-                    
+
                     SetupProgress.Value = 0;
-                    //SetupIcon.Source = TermsImage;
+                    SetupIcon.Source = TermsImage;
                     _ = SetupFrame.Navigate(typeof(TermsPage));
                     break;
 
@@ -124,7 +124,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step1");
 
                     SetupProgress.Value = 20;
-                    //SetupIcon.Source = ConnectImage;
+                    SetupIcon.Source = ConnectImage;
                     _ = SetupFrame.Navigate(typeof(ConnectPage));
                     break;
 
@@ -135,7 +135,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step2");
 
                     SetupProgress.Value = 40;
-                    //SetupIcon.Source = LocalImage;
+                    SetupIcon.Source = LocalImage;
                     _ = SetupFrame.Navigate(typeof(LocalPage));
                     break;
 
@@ -146,7 +146,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step3");
 
                     SetupProgress.Value = 60;
-                    //SetupIcon.Source = PrivacyImage;
+                    SetupIcon.Source = PrivacyImage;
                     _ = SetupFrame.Navigate(typeof(PrivacyPage));
                     break;
 
@@ -157,7 +157,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step4");
 
                     SetupProgress.Value = 80;
-                    //SetupIcon.Source = AppearanceImage;
+                    SetupIcon.Source = AppearanceImage;
                     _ = SetupFrame.Navigate(typeof(AppearancePage));
                     break;
 
@@ -168,7 +168,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step5");
 
                     SetupProgress.Value = 100;
-                    //SetupIcon.Source = DoneImage;
+                    SetupIcon.Source = DoneImage;
                     _ = SetupFrame.Navigate(typeof(FinishPage));
                     break;
 
@@ -188,7 +188,7 @@ namespace Rise.App.Dialogs
                     SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("PreSetup");
 
                     SetupProgress.Value = 0;
-                    //SetupIcon.Source = TermsImage;
+                    SetupIcon.Source = TermsImage;
                     _ = SetupFrame.Navigate(typeof(TermsPage));
                     break;
             }
@@ -233,16 +233,6 @@ namespace Rise.App.Dialogs
             // The 59 is because for some reason the dialog has a 1px transparent
             // line at the bottom. Don't shoot me, I'm just the messenger.
             RootGrid.Height = windowHeight < 498 ? windowHeight - 59 : 498 - 59;
-        }
-
-        private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private async void SetupIcon_Loaded(object sender, RoutedEventArgs e)
-        {
-            await SetupIcon.PlayAsync(0, 1, false);
         }
     }
 }

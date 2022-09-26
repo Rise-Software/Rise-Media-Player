@@ -1,40 +1,45 @@
 ﻿using Rise.App.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Rise.App.Dialogs
 {
     public sealed partial class MessagesDialog : Page
     {
-        public NotificationViewModel SelectedNotification { get; set; }
+        public static readonly DependencyProperty SelectedNotificationProperty =
+            DependencyProperty.Register(nameof(SelectedNotification), typeof(NotificationViewModel),
+                typeof(MessagesDialog), new PropertyMetadata(null));
+
+        public NotificationViewModel SelectedNotification
+        {
+            get => (NotificationViewModel)GetValue(SelectedNotificationProperty);
+            set => SetValue(SelectedNotificationProperty, value);
+        }
 
         public MessagesDialog()
         {
             InitializeComponent();
         }
+    }
 
-        private void ListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+    // Event handlers
+    public sealed partial class MessagesDialog : Page
+    {
+        private void MenuFlyout_Opening(object sender, object e)
         {
-            (NotificationsList.Resources["ListMenu"] as MenuFlyout).ShowAt(NotificationsList, e.GetPosition(NotificationsList));
-            SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
+            var fl = sender as MenuFlyout;
+            var cont = NotificationsList.ItemFromContainer(fl.Target);
+
+            if (cont == null)
+                fl.Hide();
+            else
+                SelectedNotification = (NotificationViewModel)cont;
         }
 
         private async void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedNotification != null)
-            {
                 await SelectedNotification.DeleteAsync();
-            }
-        }
-
-        private void NotificationsList_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            SelectedNotification = (e.OriginalSource as FrameworkElement).DataContext as NotificationViewModel;
-            Title.Text = SelectedNotification.Title;
-            Description.Text = SelectedNotification.Description;
         }
     }
 }

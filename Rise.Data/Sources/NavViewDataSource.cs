@@ -1,4 +1,5 @@
-﻿using Rise.Common.Enums;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using System;
@@ -13,7 +14,7 @@ using Windows.Storage;
 
 namespace Rise.Data.Sources
 {
-    public class NavViewDataSource
+    public partial class NavViewDataSource
     {
         #region Private fields
         private const string _fileName = "ItemData.json";
@@ -42,10 +43,8 @@ namespace Rise.Data.Sources
         {
             // Populate the default icon dictionary.
             _defaultIcons.Add("HomePage", "\uECA5");
-            _defaultIcons.Add("NowPlayingPage", "\uEA37");
             _defaultIcons.Add("FileBrowserPage", "\uE8B7");
             _defaultIcons.Add("PlaylistsPage", "\uE8FD");
-            _defaultIcons.Add("ConnectedDevicesPage", "\uE8FD");
             _defaultIcons.Add("SongsPage", "\uEC4F");
             _defaultIcons.Add("ArtistsPage", "\uE125");
             _defaultIcons.Add("AlbumsPage", "\uE93C");
@@ -281,6 +280,7 @@ namespace Rise.Data.Sources
         /// Hides a group of NavigationView items and their header.
         /// </summary>
         /// <param name="group">Group to hide.</param>
+        [RelayCommand]
         public void HideGroup(string group)
         {
             foreach (NavViewItemViewModel item in Items)
@@ -321,6 +321,19 @@ namespace Rise.Data.Sources
                     item.IsVisible = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Toggles the visibility of a NavigationView item.
+        /// </summary>
+        /// <param name="id">Id of the item to change.</param>
+        [RelayCommand]
+        public void ToggleItemVisibility(string id)
+        {
+            _ = TryGetItem(id, out var item);
+
+            item.IsVisible = !item.IsVisible;
+            CheckHeaderVisibility(item.HeaderGroup);
         }
 
         /// <summary>
@@ -410,6 +423,7 @@ namespace Rise.Data.Sources
         /// Moves an item down.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveDown(string id)
         {
             _ = TryGetItem(id, out var item);
@@ -431,6 +445,7 @@ namespace Rise.Data.Sources
         /// Moves an item to the bottom.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveToBottom(string id)
         {
             TryGetItem(id, out var item);
@@ -507,6 +522,7 @@ namespace Rise.Data.Sources
         /// Moves an item up.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveUp(string id)
         {
             _ = TryGetItem(id, out var item);
@@ -528,6 +544,7 @@ namespace Rise.Data.Sources
         /// Moves an item to the top.
         /// </summary>
         /// <param name="id">Item's Id.</param>
+        [RelayCommand]
         public void MoveToTop(string id)
         {
             _ = TryGetItem(id, out var item);

@@ -2,19 +2,12 @@
     x:Class="Rise.App.Dialogs.AboutArtist"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Horizontal">
-        <Border animations:Connected.Key="ArtistArt" CornerRadius="77">
+        <Border CornerRadius="77">
             <Image
                 Width="154"
                 Height="154"

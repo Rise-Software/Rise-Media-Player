@@ -3,9 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
@@ -57,7 +55,8 @@
             <ComboBox
                 ItemsSource="{x:Bind IconPacks}"
                 PlaceholderText="Default"
-                SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}" />
+                SelectedIndex="{x:Bind ViewModel.IconPack, Mode=TwoWay}"
+                SelectionChanged="IconStyle_SelectionChanged" />
         </uc:ExpanderControl>
 
 
@@ -79,11 +78,7 @@
                     <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowAtAGlance, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     Title="File Browser"
@@ -107,11 +102,7 @@
                     <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowPlaylists, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/HelpCentre"
@@ -143,11 +134,7 @@
                         IsOn="{x:Bind ViewModel.ShowMusicHeader, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/Songs"
@@ -157,11 +144,7 @@
                     <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowSongs, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/Artists"
@@ -171,11 +154,7 @@
                     <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowArtists, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/Albums"
@@ -185,11 +164,7 @@
                     <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/Genres"
@@ -221,11 +196,7 @@
                         IsOn="{x:Bind ViewModel.ShowVideoHeader, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <Rectangle
-                    Height="1"
-                    Margin="-16,0"
-                    HorizontalAlignment="Stretch"
-                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                 <uc:ExpanderControl
                     x:Uid="/Navigation/Local"

@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -6,6 +6,7 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -14,7 +15,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
-using Windows.Security.Credentials;
+using Windows.Media;
+using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
@@ -22,7 +24,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
@@ -33,33 +34,27 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        #region Variables
-        public static MainPage Current;
-
+        private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
+
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private LastFMViewModel LMViewModel => App.LMViewModel;
+
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private AdvancedCollectionView Albums => App.MViewModel.FilteredAlbums;
-        private AdvancedCollectionView Songs => App.MViewModel.FilteredSongs;
-        private AdvancedCollectionView Artists => App.MViewModel.FilteredArtists;
-
-        public SettingsDialogContainer SDialog { get; }
-            = new SettingsDialogContainer();
-
-        private IDisposable SongsDefer { get; set; }
-        private IDisposable AlbumsDefer { get; set; }
-        private IDisposable ArtistsDefer { get; set; }
-        private IDisposable GenresDefer { get; set; }
-        private IDisposable VideosDefer { get; set; }
-        private IDisposable PlaylistsDefer { get; set; }
-
-        private NavigationViewItem RightClickedItem { get; set; }
-
-        internal string AccountMenuText
+        private static readonly DependencyProperty RightClickedItemProperty
+            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
+                typeof(MainPage), null);
+        private NavViewItemViewModel RightClickedItem
         {
-            get => Acc.Text.ToString();
-            set => Acc.Text = value;
+            get => (NavViewItemViewModel)GetValue(RightClickedItemProperty);
+            set => SetValue(RightClickedItemProperty, value);
         }
+
+        // This is static to allow it to persist during an
+        // individual session. When the user exits the app,
+        // state restoration is relegated to SuspensionManager
+        private static string _navState;
 
         private readonly Dictionary<string, Type> Destinations = new()
         {
@@ -81,104 +76,167 @@ namespace Rise.App.Views
             { "AlbumsPage", typeof(AlbumSongsPage) },
             { "GenresPage", typeof(GenreSongsPage) }
         };
-        #endregion
 
         public MainPage()
         {
             InitializeComponent();
 
-            Current = this;
-            SDialog.Content = new SettingsPage();
-
-            Loaded += MainPage_Loaded;
-            SizeChanged += MainPage_SizeChanged;
-
-            NavigationCacheMode = NavigationCacheMode.Required;
             SuspensionManager.RegisterFrame(ContentFrame, "NavViewFrame");
 
-            App.MViewModel.IndexingStarted += MViewModel_IndexingStarted;
-            App.MViewModel.IndexingFinished += MViewModel_IndexingFinished;
+            MViewModel.IndexingStarted += MViewModel_IndexingStarted;
+            MViewModel.IndexingFinished += MViewModel_IndexingFinished;
 
-            SViewModel.PropertyChanged += SViewModel_PropertyChanged;
-            _ = NowPlayingFrame.Navigate(typeof(NowPlaying));
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+
+            AppTitleBar.SetTitleBarForCurrentView();
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            UpdateTitleBarLayout(coreTitleBar);
+
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
         }
 
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
-            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-            {
-                OverlayModeContentPanel.Visibility = Visibility.Visible;
-                AppTitleBar.Visibility = Visibility.Collapsed;
-                ControlsPanel.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                OverlayModeContentPanel.Visibility = Visibility.Collapsed;
-                AppTitleBar.Visibility = Visibility.Visible;
-                ControlsPanel.Visibility = Visibility.Visible;
-            }
-        }
-
-        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
-        {
+            UpdateTitleBarItems(NavView);
             if (!App.MainPageLoaded)
             {
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
 
-                ChangeIconPack(SViewModel.CurrentPack);
-
                 // Startup setting
                 if (ContentFrame.Content == null)
                 {
-                    this.ContentFrame.Navigate(Destinations[SViewModel.Open]);
+                    ContentFrame.Navigate(Destinations[SViewModel.Open]);
                 }
 
-                App.MViewModel.CanIndex = true;
                 if (SViewModel.AutoIndexingEnabled)
                 {
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
                 }
 
-                await HandleViewModelColorSettingAsync();
-                UpdateTitleBarItems(NavView);
-
-                try
-                {
-                    PasswordVault vault = new();
-                    IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource("RiseMP - LastFM account");
-                    foreach (PasswordCredential passwordCredential in credentials)
-                    {
-                        passwordCredential.RetrievePassword();
-                        App.LMViewModel.SessionKey = passwordCredential.Password;
-                        Acc.Text = passwordCredential.UserName;
-                        AccountPic.Glyph = "\uE13D";
-                    }
-
-                    //OnlineServicesPage.Current.AccountMenuText = false;
-                }
-                catch
-                {
-
-                }
-
                 App.MainPageLoaded = true;
             }
+
+            if (MViewModel.IsScanning)
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+        }
+
+        private void OnPageUnloaded(object sender, RoutedEventArgs e)
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.LayoutMetricsChanged -= CoreTitleBar_LayoutMetricsChanged;
+
+            MViewModel.IndexingStarted -= MViewModel_IndexingStarted;
+            MViewModel.IndexingFinished -= MViewModel_IndexingFinished;
+
+            MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
+            MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            goToNowPlayingCommand = null;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_navState))
+                ContentFrame.SetNavigationState(_navState);
+
+            if (MPViewModel.PlayerCreated)
+                MainPlayer.SetMediaPlayer(MPViewModel.Player);
+            else
+                MPViewModel.MediaPlayerRecreated += OnMediaPlayerRecreated;
+
+            await HandleViewModelColorSettingAsync();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _navState = ContentFrame.GetNavigationState();
+        }
+
+        private async void MPViewModel_PlayingItemChanged(object sender, IMediaItem e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                await HandleViewModelColorSettingAsync();
+            });
+
+            if (e?.ItemType == MediaPlaybackType.Music)
+            {
+                await LMViewModel.TryScrobbleItemAsync(e);
+            }
+        }
+
+        private void OnContentFrameSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            switch (e.NewSize.Width)
+            {
+                case >= 725:
+                    VisualStateManager.GoToState(this, "WideContentAreaLayout", true);
+                    break;
+                case >= 550:
+                    VisualStateManager.GoToState(this, "MediumContentAreaLayout", true);
+                    break;
+                default:
+                    VisualStateManager.GoToState(this, "NarrowContentAreaLayout", true);
+                    break;
+            }
+        }
+
+        private async void OnMediaPlayerRecreated(object sender, MediaPlayer e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                MainPlayer.SetMediaPlayer(e);
+            });
+        }
+
+        [RelayCommand]
+        private void EnterFullScreen()
+        {
+            if (MPViewModel.PlayingItem == null) return;
+
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
+            {
+                if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                    Frame.Navigate(typeof(VideoPlaybackPage), true);
+                else
+                    Frame.Navigate(typeof(NowPlayingPage), true);
+            }
+        }
+
+        [RelayCommand]
+        private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
+        {
+            if (MPViewModel.PlayingItem == null) return;
+            if (newMode == ApplicationViewMode.CompactOverlay)
+                await ApplicationView.GetForCurrentView().
+                    TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+
+            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                Frame.Navigate(typeof(VideoPlaybackPage));
+            else
+                Frame.Navigate(typeof(NowPlayingPage));
+        }
+
+        private async void OnDisplayItemClick(object sender, RoutedEventArgs e)
+            => await GoToNowPlayingAsync(ApplicationViewMode.Default);
+
+        private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem == null) return;
+            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                PlayingItemVideoFlyout.ShowAt(MainPlayer);
+            else
+                PlayingItemMusicFlyout.ShowAt(MainPlayer);
         }
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                AddedTip.IsOpen = false;
-                CheckTip.IsOpen = true;
-
-                SongsDefer = App.MViewModel.FilteredSongs.DeferRefresh();
-                AlbumsDefer = App.MViewModel.FilteredAlbums.DeferRefresh();
-                ArtistsDefer = App.MViewModel.FilteredArtists.DeferRefresh();
-                GenresDefer = App.MViewModel.FilteredGenres.DeferRefresh();
-                VideosDefer = App.MViewModel.FilteredVideos.DeferRefresh();
-                PlaylistsDefer = App.MViewModel.FilteredPlaylists.DeferRefresh();
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
 
@@ -186,30 +244,14 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                CheckTip.IsOpen = false;
-                AddedTip.IsOpen = true;
+                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
+                await Task.Delay(3000);
 
-                SongsDefer.Dispose();
-                AlbumsDefer.Dispose();
-                ArtistsDefer.Dispose();
-                GenresDefer.Dispose();
-                VideosDefer.Dispose();
-                PlaylistsDefer.Dispose();
-
-                App.MViewModel.FilteredSongs.Refresh();
-                App.MViewModel.FilteredAlbums.Refresh();
-                App.MViewModel.FilteredArtists.Refresh();
-                App.MViewModel.FilteredGenres.Refresh();
-                App.MViewModel.FilteredVideos.Refresh();
-                App.MViewModel.FilteredPlaylists.Refresh();
-
-                await Task.Delay(1000);
-                AddedTip.IsOpen = false;
+                if (!MViewModel.IsScanning)
+                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
-        #region TitleBar
-        // Update the TitleBar content layout.
         private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
             => UpdateTitleBarItems(sender);
 
@@ -223,46 +265,31 @@ namespace Rise.App.Views
         {
             // Ensure the custom title bar does not overlap window caption controls
             Thickness currMargin = AppTitleBar.Margin;
-            ControlsPanel.Margin = new Thickness(48 + AppTitleBar.LabelWidth + 132, currMargin.Top, 48 + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
 
-            UpdateTitleBarItems(NavView);
+            currMargin = ControlsPanel.Margin;
+            ControlsPanel.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
         }
 
         /// <summary>
         /// Update the TitleBar content layout depending on NavigationView DisplayMode.
         /// </summary>
-        public void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
+        private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            const int topIndent = 16;
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            // If the back button is not visible, reduce the TitleBar content indent.
-            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
-            {
-                minimalIndent = 48;
-            }
-
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
-            if (navView.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
+            if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
-                AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(topIndent + AppTitleBar.LabelWidth + 48, currMargin.Top, currMargin.Right, currMargin.Bottom);
-            }
-            else if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
-            {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(104, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(140, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Top, expandedIndent + AppTitleBar.LabelWidth + 132, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(260, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
-        #endregion
 
         #region Navigation
         /// <summary>
@@ -272,24 +299,18 @@ namespace Rise.App.Views
         /// <param name="e">Details about the navigation.</param>
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            App.MViewModel.SelectedSong = null;
             var type = this.ContentFrame.CurrentSourcePageType;
-
             bool hasKey = this.Destinations.TryGetKey(type, out var key);
 
             // We need to handle unlisted destinations
             if (!hasKey)
-            {
                 hasKey = this.UnlistedDestinations.TryGetKey(type, out key);
-            }
 
             if (hasKey)
             {
                 bool hasItem = this.NavDataSource.TryGetItem(key, out var item);
                 if (hasItem)
-                {
                     this.NavView.SelectedItem = item;
-                }
             }
         }
 
@@ -312,16 +333,19 @@ namespace Rise.App.Views
         {
             string tag = args?.InvokedItemContainer?.Tag?.ToString();
 
-            if (tag == "SettingsPage")
+            if (tag != null)
             {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-                return;
-            }
+                if (tag == "SettingsPage")
+                {
+                    this.Frame.Navigate(typeof(AllSettingsPage));
+                    return;
+                }
 
-            if (this.ContentFrame.SourcePageType != Destinations[tag])
-            {
-                this.ContentFrame.Navigate(Destinations[tag],
-                    null, args.RecommendedNavigationTransitionInfo);
+                if (this.ContentFrame.SourcePageType != Destinations[tag])
+                {
+                    this.ContentFrame.Navigate(Destinations[tag],
+                        null, args.RecommendedNavigationTransitionInfo);
+                }
             }
         }
 
@@ -335,15 +359,18 @@ namespace Rise.App.Views
         {
             string tag = ((FrameworkElement)sender).Tag.ToString();
 
-            if (tag == "SettingsPage")
+            if (tag != null)
             {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-                return;
-            }
+                if (tag == "SettingsPage")
+                {
+                    this.Frame.Navigate(typeof(AllSettingsPage));
+                    return;
+                }
 
-            if (this.ContentFrame.SourcePageType != Destinations[tag])
-            {
-                this.ContentFrame.Navigate(Destinations[tag]);
+                if (this.ContentFrame.SourcePageType != Destinations[tag])
+                {
+                    this.ContentFrame.Navigate(Destinations[tag]);
+                }
             }
         }
 
@@ -358,259 +385,29 @@ namespace Rise.App.Views
         }
         #endregion
 
-        #region Settings
-        public void ChangeIconPack(string newIcons)
-        {
-            NavDataSource.ChangeIconPack(newIcons);
-
-            // Refresh item templates.
-            NavView.MenuItemsSource = null;
-            NavView.FooterMenuItemsSource = null;
-
-            NavView.MenuItemsSource = NavDataSource.Items;
-            NavView.FooterMenuItemsSource = NavDataSource.FooterItems;
-        }
-
-        private async void SViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Color")
-            {
-                await HandleViewModelColorSettingAsync();
-            }
-        }
-
         public async Task HandleViewModelColorSettingAsync()
         {
-            var uiSettings = new UISettings();
-            Color accentColor = uiSettings.GetColorValue(UIColorType.Accent);
-
-            byte opacity = 25;
-            switch (SViewModel.Color)
+            if (SViewModel.SelectedGlaze == GlazeTypes.MediaThumbnail)
             {
-                case -3:
-                    if (App.PViewModel.CurrentSong != null)
-                    {
-                        Uri imageUri = new Uri(App.PViewModel.CurrentSong.Thumbnail);
-                        _Grid.Background = new SolidColorBrush(Colors.Transparent);
-                        if (App.PViewModel.CurrentSong.Thumbnail != "ms-appx:///Assets/Default.png")
-                        {
-                            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(imageUri);
-                            using (IRandomAccessStream stream = await random.OpenReadAsync())
-                            {
-                                var decoder = await BitmapDecoder.CreateAsync(stream);
-                                var colorThief = new ColorThiefDotNet.ColorThief();
+                if (MPViewModel.PlayingItem != null)
+                {
+                    var thumbUri = new Uri(MPViewModel.PlayingItem.Thumbnail);
+                    var thumbStrm = RandomAccessStreamReference.CreateFromUri(thumbUri);
 
-                                var color = await colorThief.GetColor(decoder);
-                                _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, color.Color.R, color.Color.G, color.Color.B));
-                            }
-                        }
-                    }
-                    break;
+                    using var stream = await thumbStrm.OpenReadAsync();
 
-                case -2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, accentColor.R, accentColor.G, accentColor.B));
-                    break;
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    var colorThief = new ColorThiefDotNet.ColorThief();
 
-                case -1:
-                    _Grid.Background = new SolidColorBrush(Colors.Transparent);
-                    break;
-
-                case 0:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 185, 0));
-                    break;
-
-                case 1:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 140, 0));
-                    break;
-
-                case 2:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 247, 99, 12));
-                    break;
-
-                case 3:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 202, 80, 16));
-                    break;
-
-                case 4:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 218, 59, 1));
-                    break;
-
-                case 5:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 239, 105, 80));
-                    break;
-
-                case 6:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 209, 52, 56));
-                    break;
-
-                case 7:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 255, 67, 67));
-                    break;
-
-                case 8:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 231, 72, 86));
-                    break;
-
-                case 9:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 232, 17, 35));
-                    break;
-
-                case 10:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 234, 0, 94));
-                    break;
-
-                case 11:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 195, 0, 82));
-                    break;
-
-                case 12:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 227, 0, 140));
-                    break;
-
-                case 13:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 191, 0, 119));
-                    break;
-
-                case 14:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 194, 57, 179));
-                    break;
-
-                case 15:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 154, 0, 137));
-                    break;
-
-                case 16:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 120, 212));
-                    break;
-
-                case 17:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 99, 177));
-                    break;
-
-                case 18:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 142, 140, 216));
-                    break;
-
-                case 19:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 107, 105, 214));
-                    break;
-
-                case 20:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 135, 100, 184));
-                    break;
-
-                case 21:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 116, 77, 169));
-                    break;
-
-                case 22:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 177, 70, 194));
-                    break;
-
-                case 23:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 136, 23, 152));
-                    break;
-
-                case 24:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 153, 188));
-                    break;
-
-                case 25:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 45, 125, 154));
-                    break;
-
-                case 26:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 183, 195));
-                    break;
-
-                case 27:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 3, 131, 135));
-                    break;
-
-                case 28:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 178, 148));
-                    break;
-
-
-                case 29:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 1, 133, 116));
-                    break;
-
-                case 30:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 0, 204, 106));
-                    break;
-
-                case 31:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 16, 137, 62));
-                    break;
-
-                case 32:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 122, 117, 116));
-                    break;
-
-                case 33:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 93, 90, 88));
-                    break;
-
-                case 34:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 104, 118, 138));
-                    break;
-
-                case 35:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 81, 92, 107));
-                    break;
-
-                case 36:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 86, 124, 115));
-                    break;
-
-                case 37:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 72, 104, 96));
-                    break;
-
-                case 38:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 73, 130, 5));
-                    break;
-
-                case 39:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 16, 124, 16));
-                    break;
-
-                case 40:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 118, 118, 118));
-                    break;
-
-                case 41:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 76, 74, 72));
-                    break;
-
-                case 42:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 105, 121, 126));
-                    break;
-
-                case 43:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 74, 84, 89));
-                    break;
-
-                case 44:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 100, 124, 100));
-                    break;
-
-                case 45:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 82, 94, 84));
-                    break;
-
-                case 46:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 132, 117, 69));
-                    break;
-
-                case 47:
-                    _Grid.Background = new SolidColorBrush(Color.FromArgb(opacity, 126, 115, 95));
-                    break;
-
+                    var stolen = (await colorThief.GetColor(decoder)).Color;
+                    SViewModel.GlazeColors = Color.FromArgb(25, stolen.R, stolen.G, stolen.B);
+                }
+                else
+                {
+                    SViewModel.GlazeColors = Colors.Transparent;
+                }
             }
         }
-        #endregion
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -621,52 +418,28 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            OpenSync.Visibility = Visibility.Collapsed;
-            IsScanning.Visibility = Visibility.Visible;
-            await App.MViewModel.StartFullCrawlAsync();
-            IsScanning.Visibility = Visibility.Collapsed;
-            OpenSync.Visibility = Visibility.Visible;
+            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AllSettingsPage));
+            Frame.Navigate(typeof(AllSettingsPage));
         }
 
-        private void HideItem_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
-
-        private void HideSection_Click(object sender, RoutedEventArgs e)
+        private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
-            _ = NavDataSource.TryGetItem(RightClickedItem.Tag.ToString(), out var item);
-            NavDataSource.HideGroup(item.HeaderGroup);
-        }
+            var item = sender as NavigationViewItem;
+            var tag = item.Tag.ToString();
 
-        private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveUp(RightClickedItem.Tag.ToString());
-
-        private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveDown(RightClickedItem.Tag.ToString());
-
-        private void ToTop_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToTop(RightClickedItem.Tag.ToString());
-
-        private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            DependencyObject source = e.OriginalSource as DependencyObject;
-
-            if (source.FindVisualParent<NavigationViewItem>()
-                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            if (tag != "SettingsPage" && NavDataSource.TryGetItem(tag, out var itm))
             {
-                RightClickedItem = item;
-                string tag = item.Tag.ToString();
+                RightClickedItem = itm;
+                bool hasPosition = args.TryGetPosition(item, out var point);
 
-                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                MenuFlyout flyout;
+                if (tag == "LocalVideosPage" || tag == "DiscyPage")
                 {
-                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewLightItemFlyout;
                 }
                 else
                 {
@@ -679,8 +452,13 @@ namespace Rise.App.Views
                     DownOption.IsEnabled = down;
                     BottomOption.IsEnabled = down;
 
-                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewItemFlyout;
                 }
+
+                if (hasPosition)
+                    flyout.ShowAt(item, point);
+                else
+                    flyout.ShowAt(item);
             }
         }
 
@@ -698,9 +476,27 @@ namespace Rise.App.Views
         }
 
         private async void Support_Click(object sender, RoutedEventArgs e)
-        => await URLs.Support.LaunchAsync();
+            => await URLs.Support.LaunchAsync();
 
-        private async void BigSearch_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private async void Account_Click(object sender, RoutedEventArgs e)
+        {
+            if (LMViewModel.Authenticated)
+            {
+                string url = "https://www.last.fm/user/" + LMViewModel.Username;
+                _ = await url.LaunchAsync();
+            }
+            else
+            {
+                Frame.Navigate(typeof(AllSettingsPage));
+            }
+        }
+
+        private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
+        }
+
+        private async void OnSearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             SearchItemViewModel searchItem = args.SelectedItem as SearchItemViewModel;
             sender.Text = searchItem.Title;
@@ -715,7 +511,7 @@ namespace Rise.App.Views
 
                 case "Song":
                     SongViewModel song = App.MViewModel.Songs.FirstOrDefault(s => s.Title.Equals(searchItem.Title));
-                    await EventsLogic.StartMusicPlaybackAsync(App.MViewModel.Songs.IndexOf(song), false);
+                    await MPViewModel.PlaySingleItemAsync(song);
                     break;
 
                 case "Artist":
@@ -725,7 +521,7 @@ namespace Rise.App.Views
             }
         }
 
-        private void BigSearch_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -738,7 +534,7 @@ namespace Rise.App.Views
 
                 string[] splitText = sender.Text.ToLower().Split(" ");
 
-                foreach (AlbumViewModel album in Albums)
+                foreach (AlbumViewModel album in MViewModel.Albums)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -758,7 +554,7 @@ namespace Rise.App.Views
                     }
                 }
 
-                foreach (SongViewModel song in Songs)
+                foreach (SongViewModel song in MViewModel.Songs)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -778,7 +574,7 @@ namespace Rise.App.Views
                     }
                 }
 
-                foreach (ArtistViewModel artist in Artists)
+                foreach (ArtistViewModel artist in MViewModel.Artists)
                 {
                     bool found = splitText.All((key) =>
                     {
@@ -801,33 +597,6 @@ namespace Rise.App.Views
             }
         }
 
-        private async void Account_Click(object sender, RoutedEventArgs e)
-        {
-            if (Acc.Text != "Add an account")
-            {
-                string url = "https://www.last.fm/user/" + Acc.Text;
-                _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
-            }
-            else
-            {
-                this.Frame.Navigate(typeof(AllSettingsPage));
-            }
-        }
-        private void BigSearch_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            _ = ContentFrame.Navigate(typeof(SearchResultsPage), sender.Text);
-        }
-
-        private void BigSearch_GotFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = true;
-        }
-
-        private void BigSearch_LostFocus(object sender, RoutedEventArgs e)
-        {
-            App.MViewModel.IsSearchActive = false;
-        }
-
         public static Visibility IsStringEmpty(string str)
         {
             if (string.IsNullOrWhiteSpace(str))
@@ -842,10 +611,31 @@ namespace Rise.App.Views
 
         private void AddedTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
         {
-            if (Window.Current.Content is Frame rootFrame)
-            {
-                _ = rootFrame.Navigate(typeof(AllSettingsPage));
-            }
+            _ = Frame.Navigate(typeof(AllSettingsPage));
+        }
+
+        private void OnAlbumButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+                return;
+
+            AlbumViewModel album = MViewModel.Albums.AsParallel().
+                FirstOrDefault(a => a.Title == MPViewModel.PlayingItem.ExtraInfo);
+            ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
+
+            PlayingItemMusicFlyout.Hide();
+        }
+
+        private void OnArtistButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+                return;
+
+            ArtistViewModel artist = MViewModel.Artists.AsParallel().
+                FirstOrDefault(a => a.Name == MPViewModel.PlayingItem.Subtitle);
+            ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
+
+            PlayingItemMusicFlyout.Hide();
         }
     }
 

@@ -15,7 +15,6 @@ namespace Rise.App.Views
         public SongFilePage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -32,7 +31,7 @@ namespace Rise.App.Views
         {
             string folderlocation = Props.Location;
             string filename = Props.Filename;
-            string result = folderlocation.Replace(filename, "");
+            string result = folderlocation.Replace(filename, string.Empty);
             Debug.WriteLine(result);
 
             try

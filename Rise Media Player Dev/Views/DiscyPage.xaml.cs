@@ -18,7 +18,6 @@ namespace Rise.App.Views
         public DiscyPage()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
 
             _navigationHelper = new NavigationHelper(this);
         }
