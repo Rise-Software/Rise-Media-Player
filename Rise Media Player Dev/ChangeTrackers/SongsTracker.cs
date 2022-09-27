@@ -163,6 +163,33 @@ namespace Rise.App.ChangeTrackers
         /// </summary>
         public static async Task HandleMusicFolderChangesAsync(CancellationToken token = default)
         {
+            if (token.IsCancellationRequested)
+                return;
+
+            List<SongViewModel> toRemove = new();
+
+            // Check if the song doesn't exist anymore, if so queue it then remove.
+            for (int i = 0; i < ViewModel.Songs.Count; i++)
+            {
+                try
+                {
+                    _ = await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location);
+                }
+                catch (FileNotFoundException e)
+                {
+                    toRemove.Add(ViewModel.Songs[i]);
+                    e.WriteToOutput();
+                }
+                catch (FileLoadException e)
+                {
+                    e.WriteToOutput();
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    e.WriteToOutput();
+                }
+            }
+
             List<SongViewModel> duplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
@@ -175,6 +202,11 @@ namespace Rise.App.ChangeTrackers
                         duplicates.Add(ViewModel.Songs[j]);
                     }
                 }
+            }
+
+            foreach (SongViewModel song in toRemove)
+            {
+                await song.DeleteAsync();
             }
 
             foreach (SongViewModel song in duplicates)
