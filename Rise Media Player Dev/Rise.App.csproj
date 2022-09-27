@@ -979,7 +979,6 @@
     <Folder Include="Settings\NavigationPages\" />
     <Folder Include="Settings\PlaybackSoundPages\" />
     <Folder Include="Settings\SyncingPages\" />
-    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-GB\Setup.resw" />
