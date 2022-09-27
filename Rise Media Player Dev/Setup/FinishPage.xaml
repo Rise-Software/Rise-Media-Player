@@ -4,13 +4,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Setup"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="12">
-        <TextBlock x:Uid="/Finish/Header" Style="{StaticResource BaseTextBlockStyle}" />
+    <Grid>
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupDoneH}">
+            <local:SetupPageContent.Icon>
+                <Image Source="ms-appx:///Assets/Setup/Done.png" />
+            </local:SetupPageContent.Icon>
 
-        <TextBlock x:Uid="/Finish/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
-        <TextBlock x:Uid="/Finish/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
-    </StackPanel>
+            <StackPanel Spacing="20">
+                <StackPanel Orientation="Vertical" Spacing="12">
+                    <TextBlock x:Uid="/Finish/Header" Style="{StaticResource BaseTextBlockStyle}" />
+
+                    <TextBlock x:Uid="/Finish/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock x:Uid="/Finish/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
+                </StackPanel>
+            </StackPanel>
+        </local:SetupPageContent>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="LargeSizeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="770" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="SetupRoot.ShowIcon" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
 </Page>
