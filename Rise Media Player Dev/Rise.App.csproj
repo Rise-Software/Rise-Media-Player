@@ -981,9 +981,6 @@
     <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Setup.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\en-GB\Terms.resw" />
   </ItemGroup>
   <ItemGroup>
