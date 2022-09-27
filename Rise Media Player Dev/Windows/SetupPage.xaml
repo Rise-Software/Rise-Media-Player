@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -42,23 +43,23 @@
             Orientation="Vertical"
             Spacing="24">
             <TextBlock
-                x:Uid="/Setup/Welcome"
                 HorizontalAlignment="Center"
-                Style="{StaticResource TitleTextBlockStyle}" />
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=SetupWelcome}" />
             <Image
                 Width="Auto"
                 HorizontalAlignment="Center"
                 Source="ms-appx:///Assets/Branding/AlphaBanner.png" />
             <TextBlock
-                x:Uid="/Setup/Intro"
                 HorizontalAlignment="Center"
                 Style="{StaticResource BodyTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=SetupIntro}"
                 TextAlignment="Center" />
             <Button
-                x:Uid="/Setup/Start"
                 Width="150"
                 HorizontalAlignment="Center"
                 Click="SetupButton_Click"
+                Content="{markup:ResourceHelper Name=SetupStart}"
                 Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>

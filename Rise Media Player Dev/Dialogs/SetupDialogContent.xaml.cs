@@ -1,13 +1,14 @@
 ﻿using Rise.App.Setup;
 using Rise.App.ViewModels;
 using Rise.App.Views;
-using Rise.Common;
+using Rise.Common.Extensions.Markup;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Rise.App.Dialogs
 {
@@ -18,32 +19,36 @@ namespace Rise.App.Dialogs
         public SetupDialogContent()
         {
             InitializeComponent();
-            Navigate();
+            Navigate(SlideNavigationTransitionEffect.FromRight);
         }
+    }
 
+    // Event handlers
+    public sealed partial class SetupDialogContent
+    {
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.SetupProgress > 0)
-            {
-                ViewModel.SetupProgress--;
-            }
-
-            Navigate();
+            ViewModel.SetupProgress--;
+            Navigate(SlideNavigationTransitionEffect.FromLeft);
         }
 
         private void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.SetupProgress++;
-            Navigate();
+            Navigate(SlideNavigationTransitionEffect.FromRight);
         }
 
         private async void SecondaryButton_Click(object sender, RoutedEventArgs e)
         {
             await SecondaryActionAsync();
             ViewModel.SetupProgress++;
-            Navigate();
+            Navigate(SlideNavigationTransitionEffect.FromRight);
         }
+    }
 
+    // Navigation
+    public sealed partial class SetupDialogContent
+    {
         /// <summary>
         /// Action that takes place when secondary dialog button is pressed.
         /// </summary>
@@ -69,81 +74,73 @@ namespace Rise.App.Dialogs
         }
 
         /// <summary>
-        /// Navigate between pages of the setup.
+        /// Navigate between pages of the setup using the
+        /// specified effect for the page transition.
         /// </summary>
-        private void Navigate()
+        private void Navigate(SlideNavigationTransitionEffect effect)
         {
-            BackButton.Visibility = ViewModel.SetupProgress > 1 ?
-                Visibility.Visible : Visibility.Collapsed;
-
-            switch (ViewModel.SetupProgress)
+            int progress = ViewModel.SetupProgress;
+            if (progress == 0)
             {
-                case 1:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Continue");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("OnlyLocal");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step1");
-
-                    _ = SetupFrame.Navigate(typeof(ConnectPage));
-                    break;
-
-                case 2:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Continue");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("OnlyStreaming");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step2");
-
-                    _ = SetupFrame.Navigate(typeof(LocalPage));
-                    break;
-
-                case 3:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Continue");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("Decide");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step3");
-
-                    _ = SetupFrame.Navigate(typeof(PrivacyPage));
-                    break;
-
-                case 4:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Continue");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("Decide");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step4");
-
-                    _ = SetupFrame.Navigate(typeof(AppearancePage));
-                    break;
-
-                case 5:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Continue");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("NotNow");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("Step5");
-
-                    _ = SetupFrame.Navigate(typeof(FinishPage));
-                    break;
-
-                case 6:
-                    ViewModel.SetupCompleted = true;
-                    ViewModel.SetupProgress = 0;
-
-                    var popups = VisualTreeHelper.GetOpenPopups(Window.Current);
-                    foreach (var popup in popups)
-                    {
-                        if (popup.Child is ContentDialog dialog)
-                        {
-                            dialog.Hide();
-                            break;
-                        }
-                    }
-
-                    Frame rootFrame = Window.Current.Content as Frame;
-                    _ = rootFrame.Navigate(typeof(MainPage));
-                    break;
-
-                default:
-                    PrimaryButton.Content = ResourceLoaders.SetupLoader.GetString("Accept");
-                    SecondaryButton.Content = ResourceLoaders.SetupLoader.GetString("Decline");
-                    SetupInfo.Text = ResourceLoaders.SetupLoader.GetString("PreSetup");
-
-                    _ = SetupFrame.Navigate(typeof(TermsPage));
-                    break;
+                SetupInfo.Text = ResourceHelper.GetString("SetupPre");
+                PrimaryButton.Content = ResourceHelper.GetString("Accept");
             }
+            else if (progress < 6)
+            {
+                string format = ResourceHelper.GetString("StepOf");
+                SetupInfo.Text = string.Format(format, progress, 5);
+
+                PrimaryButton.Content = ResourceHelper.GetString("Continue");
+                BackButton.Visibility = progress > 1 ?
+                    Visibility.Visible : Visibility.Collapsed;
+            }
+            else
+            {
+                ViewModel.SetupCompleted = true;
+                ViewModel.SetupProgress = 0;
+
+                var popups = VisualTreeHelper.GetOpenPopups(Window.Current);
+                foreach (var popup in popups)
+                {
+                    if (popup.Child is ContentDialog dialog)
+                    {
+                        dialog.Hide();
+                        break;
+                    }
+                }
+
+                Frame rootFrame = Window.Current.Content as Frame;
+                _ = rootFrame.Navigate(typeof(MainPage));
+                return;
+            }
+
+            string res = GetSecondaryButtonResource(progress);
+            SecondaryButton.Content = ResourceHelper.GetString(res);
+
+            var nextPage = GetCurrentPage(progress);
+            var transition = new SlideNavigationTransitionInfo() { Effect = effect };
+
+            _ = SetupFrame.Navigate(nextPage, null, transition);
         }
+
+        private Type GetCurrentPage(int progress) => progress switch
+        {
+            1 => typeof(ConnectPage),
+            2 => typeof(LocalPage),
+            3 => typeof(PrivacyPage),
+            4 => typeof(AppearancePage),
+            5 => typeof(FinishPage),
+            _ => typeof(TermsPage)
+        };
+
+        private string GetSecondaryButtonResource(int progress) => progress switch
+        {
+            1 => "OnlyLocal",
+            2 => "OnlyStreaming",
+            3 => "DecideForMe",
+            4 => "DecideForMe",
+            5 => "NotNow",
+            _ => "Decline"
+        };
     }
 }

@@ -28,7 +28,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="BackButton_Click"
-            ToolTipService.ToolTip="Back">
+            ToolTipService.ToolTip="Back"
+            Visibility="Collapsed">
             <FontIcon FontSize="12" Glyph="&#xE112;" />
         </Button>
 
