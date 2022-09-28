@@ -14,7 +14,7 @@
     <Grid>
         <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupConnectH}">
             <local:SetupPageContent.Icon>
-                <muxc:AnimatedVisualPlayer AutoPlay="True">
+                <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
                         <visuals:LocalAccountLottie />
                     </muxc:AnimatedVisualPlayer.Source>

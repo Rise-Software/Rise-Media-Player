@@ -16,7 +16,7 @@
             Header="{markup:ResourceHelper Name=SetupTermsH}"
             IsBackButtonAutoPaddingEnabled="False">
             <local:SetupPageContent.Icon>
-                <muxc:AnimatedVisualPlayer AutoPlay="True">
+                <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
                         <visuals:EulaLottie />
                     </muxc:AnimatedVisualPlayer.Source>
