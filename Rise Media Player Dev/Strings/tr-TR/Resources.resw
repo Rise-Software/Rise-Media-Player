@@ -117,13 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Kabul Et</value>
+  </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Bir hesap ekle</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Benim adıma karar ver</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Reddet</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Şimdi Değil (Uygulamadan çık)</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Yalnızca yerel medya dosyalarını kullan</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Yalnızca yayınakışı hizmetlerini kullan</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Bu cihazdaki tüm medyayı ara</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Ara</value>
+  </data>
+  <data name="SetupAppearanceH" xml:space="preserve">
+    <value>Kendin yap</value>
+  </data>
+  <data name="SetupConnectH" xml:space="preserve">
+    <value>Bir internet hesabı bağlayın</value>
+  </data>
+  <data name="SetupDoneH" xml:space="preserve">
+    <value>İşte bu kadar!</value>
+  </data>
+  <data name="SetupIntro" xml:space="preserve">
+    <value>Burada olmandan memnunuz. Sadece birkaç basit adımdan geçmeniz gerekiyor. Bundan sonrası için her şey hazır ve çalışıyor olacak!</value>
+  </data>
+  <data name="SetupLocalH" xml:space="preserve">
+    <value>Kendi medyanız</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Ön kurulum</value>
+  </data>
+  <data name="SetupPrivacyH" xml:space="preserve">
+    <value>Gizlilik &amp; Öneriler</value>
+  </data>
+  <data name="SetupStart" xml:space="preserve">
+    <value>Kurulumu başlat</value>
+  </data>
+  <data name="SetupTermsH" xml:space="preserve">
+    <value>Lisans Sözleşmesi &amp; Koşulları</value>
+  </data>
+  <data name="SetupWelcome" xml:space="preserve">
+    <value>Hoşgeldiniz</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Adım {0}/{1}</value>
   </data>
 </root>

@@ -1053,7 +1053,6 @@
     <PRIResource Include="Strings\ro-RO\About.resw" />
     <PRIResource Include="Strings\tr-TR\Terms.resw" />
     <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
-    <PRIResource Include="Strings\tr-TR\Setup.resw" />
     <PRIResource Include="Strings\tr-TR\Props.resw" />
     <PRIResource Include="Strings\tr-TR\Privacy.resw" />
     <PRIResource Include="Strings\tr-TR\Playback.resw" />
