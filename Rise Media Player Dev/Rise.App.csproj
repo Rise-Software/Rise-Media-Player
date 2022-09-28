@@ -1034,7 +1034,6 @@
     <PRIResource Include="Strings\it-IT\About.resw" />
     <PRIResource Include="Strings\ro-RO\Terms.resw" />
     <PRIResource Include="Strings\ro-RO\Sidebar.resw" />
-    <PRIResource Include="Strings\ro-RO\Setup.resw" />
     <PRIResource Include="Strings\ro-RO\Props.resw" />
     <PRIResource Include="Strings\ro-RO\Privacy.resw" />
     <PRIResource Include="Strings\ro-RO\Playback.resw" />

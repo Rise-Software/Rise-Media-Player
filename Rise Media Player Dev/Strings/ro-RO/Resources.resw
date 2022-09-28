@@ -117,13 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adaugă un cont</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuare</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Decide pentru mine</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Declinare</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Nu acum (Ieșire)</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Utilizează numai fișiere locale</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Utilizează numai servicii de streaming</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Caută toată media de pe acest dispozitiv</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Căutare</value>
+  </data>
+  <data name="SetupAppearanceH" xml:space="preserve">
+    <value>Fă-ți experiența personală</value>
+  </data>
+  <data name="SetupConnectH" xml:space="preserve">
+    <value>Conectează-te cu un cont online</value>
+  </data>
+  <data name="SetupDoneH" xml:space="preserve">
+    <value>Ești gata!</value>
+  </data>
+  <data name="SetupIntro" xml:space="preserve">
+    <value>Suntem bucuroși că ești aici. Doar câțiva pași și vei fi gata!</value>
+  </data>
+  <data name="SetupLocalH" xml:space="preserve">
+    <value>Media ta</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Pre-setup</value>
+  </data>
+  <data name="SetupPrivacyH" xml:space="preserve">
+    <value>Confidențialitate și recomandări</value>
+  </data>
+  <data name="SetupStart" xml:space="preserve">
+    <value>Pornește setup</value>
+  </data>
+  <data name="SetupTermsH" xml:space="preserve">
+    <value>Acord licență și termeni</value>
+  </data>
+  <data name="SetupWelcome" xml:space="preserve">
+    <value>Bun venit la</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Pasul {0} din {1}</value>
   </data>
 </root>
