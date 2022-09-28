@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rise.App</RootNamespace>
     <AssemblyName>Rise Media Player</AssemblyName>
-    <DefaultLanguage>en-gb</DefaultLanguage>
+    <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
@@ -996,7 +996,6 @@
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\pt-PT\Terms.resw" />
     <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
-    <PRIResource Include="Strings\pt-PT\Setup.resw" />
     <PRIResource Include="Strings\pt-PT\Props.resw" />
     <PRIResource Include="Strings\pt-PT\Privacy.resw" />
     <PRIResource Include="Strings\pt-PT\Playback.resw" />
@@ -1016,7 +1015,6 @@
     <PRIResource Include="Strings\pt-PT\About.resw" />
     <PRIResource Include="Strings\it-IT\Terms.resw" />
     <PRIResource Include="Strings\it-IT\Sidebar.resw" />
-    <PRIResource Include="Strings\it-IT\Setup.resw" />
     <PRIResource Include="Strings\it-IT\Props.resw" />
     <PRIResource Include="Strings\it-IT\Privacy.resw" />
     <PRIResource Include="Strings\it-IT\Playback.resw" />
@@ -1076,7 +1074,6 @@
     <PRIResource Include="Strings\tr-TR\About.resw" />
     <PRIResource Include="Strings\hi-IN\Terms.resw" />
     <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
-    <PRIResource Include="Strings\hi-IN\Setup.resw" />
     <PRIResource Include="Strings\hi-IN\Props.resw" />
     <PRIResource Include="Strings\hi-IN\Privacy.resw" />
     <PRIResource Include="Strings\hi-IN\Playback.resw" />
