@@ -1,7 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Timers;
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
@@ -18,6 +14,10 @@ using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.Models;
 using Rise.NewRepository;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -127,25 +127,28 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
 
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
-        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            e.Exception.WriteToOutput();
-            ShowExceptionToast(e.Exception);
-        }
+            Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
+            if (!e.PrelaunchActivated)
+            {
+                CoreApplication.EnablePrelaunch(true);
+                if (rootFrame.Content == null)
+                {
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    _ = !SViewModel.SetupCompleted
+                        ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
+                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                }
 
-        private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
-        {
-            e.Exception.WriteToOutput();
-            ShowExceptionToast(e.Exception);
-        }
-
-        private void OnCurrentDomainUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
-        {
-            (e.ExceptionObject as Exception).WriteToOutput();
-            ShowExceptionToast(e.ExceptionObject as Exception);
+                // Ensure the current window is active
+                Window.Current.Activate();
+            }
         }
 
         protected override async void OnActivated(IActivatedEventArgs e)
@@ -190,97 +193,6 @@ namespace Rise.App
             }
         }
 
-        /// <summary>
-        /// Shows a toast when an exception is thrown.
-        /// </summary>
-        private void ShowExceptionToast(Exception e)
-        {
-            ToastContent content = new ToastContentBuilder()
-                .AddToastActivationInfo(new QueryString()
-                {
-                     { "stackTrace", e.StackTrace },
-                     { "message", e.Message },
-                     { "exceptionName", e.GetType().ToString() },
-                     { "source", e.Source },
-                     { "hresult", $"{e.HResult}" }
-                }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occured!")
-                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
-                .GetToastContent();
-
-            //string text = $"The exception {e.GetType()} happened last time the app was launched.\n\nStack trace:\n{e.Message}\n{e.StackTrace}\nSource: {e.Source}\nHResult: {e.HResult}";
-
-            //await NBackendController.AddNotificationAsync("Rise Media Player unexpectedly crashed.", "Here is some information on what happened:\n\n" + text + "\n\nYou could go to https://github.com/Rise-Software/Rise-Media-Player/issues to report this issue.", "");
-
-            ToastNotification notification = new(content.GetXml());
-            ToastNotificationManager.CreateToastNotifier().Show(notification);
-        }
-
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
-        {
-            Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
-            if (!e.PrelaunchActivated)
-            {
-                CoreApplication.EnablePrelaunch(true);
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    _ = !SViewModel.SetupCompleted
-                        ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
-                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-
-                // Ensure the current window is active
-                Window.Current.Activate();
-            }
-        }
-
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            SuspendingDeferral deferral = null;
-            try
-            {
-                deferral = e?.SuspendingOperation?.GetDeferral();
-
-                if (_navDataSource.IsValueCreated)
-                    await NavDataSource.SerializeGroupsAsync();
-
-                await SuspensionManager.SaveAsync();
-            }
-            catch (SuspensionManagerException ex)
-            {
-                ex.WriteToOutput();
-            }
-            finally
-            {
-                deferral?.Complete();
-            }
-        }
-
         protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
             Frame rootFrame = await InitializeWindowAsync(args.PreviousExecutionState);
@@ -311,6 +223,35 @@ namespace Rise.App
                 ex.WriteToOutput();
             }
             StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
+        }
+
+        /// <summary>
+        /// Invoked when application execution is being suspended.  Application state is saved
+        /// without knowing whether the application will be terminated or resumed with the contents
+        /// of memory still intact.
+        /// </summary>
+        /// <param name="sender">The source of the suspend request.</param>
+        /// <param name="e">Details about the suspend request.</param>
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            SuspendingDeferral deferral = null;
+            try
+            {
+                deferral = e?.SuspendingOperation?.GetDeferral();
+
+                if (_navDataSource.IsValueCreated)
+                    await NavDataSource.SerializeGroupsAsync();
+
+                await SuspensionManager.SaveAsync();
+            }
+            catch (SuspensionManagerException ex)
+            {
+                ex.WriteToOutput();
+            }
+            finally
+            {
+                deferral?.Complete();
+            }
         }
 
         /// <summary>
@@ -375,7 +316,43 @@ namespace Rise.App
 
             return rootFrame;
         }
+    }
 
+    // Data source/ViewModel initialization
+    public sealed partial class App
+    {
+        private static LastFMViewModel OnLFMRequested()
+        {
+            var lfm = new LastFMViewModel(LastFM.Key, LastFM.Secret);
+            lfm.TryLoadCredentials(LastFM.VaultResource);
+            return lfm;
+        }
+
+        private static MediaPlaybackViewModel OnMPViewModelRequested()
+        {
+            var mpvm = new MediaPlaybackViewModel();
+
+            if (!EqualizerEffect.Initialized)
+            {
+                var eq = EqualizerEffect.Current;
+                eq.InitializeBands(SViewModel.EqualizerGain);
+                eq.IsEnabled = SViewModel.EqualizerEnabled;
+            }
+
+            mpvm.AddEffect(new(typeof(EqualizerEffect), false, true, null));
+            return mpvm;
+        }
+
+        private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
+        {
+            var library = StorageLibrary.GetLibraryAsync(id).Get();
+            return library;
+        }
+    }
+
+    // Indexing
+    public sealed partial class App
+    {
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
         {
             // Prevent duplicate calls.
@@ -436,35 +413,57 @@ namespace Rise.App
         }
     }
 
-    // Data source/ViewModel initialization
+    // Error handling
     public sealed partial class App
     {
-        private static LastFMViewModel OnLFMRequested()
+        /// <summary>
+        /// Shows a toast with the provided exception data.
+        /// </summary>
+        private void ShowExceptionToast(Exception e)
         {
-            var lfm = new LastFMViewModel(LastFM.Key, LastFM.Secret);
-            lfm.TryLoadCredentials(LastFM.VaultResource);
-            return lfm;
+            ToastContent content = new ToastContentBuilder()
+                .AddToastActivationInfo(new QueryString()
+                {
+                     { "stackTrace", e.StackTrace },
+                     { "message", e.Message },
+                     { "exceptionName", e.GetType().ToString() },
+                     { "source", e.Source },
+                     { "hresult", $"{e.HResult}" }
+                }.ToString(), ToastActivationType.Foreground)
+                .AddText("An error occured!")
+                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
+                .GetToastContent();
+
+            ToastNotification notification = new(content.GetXml());
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
 
-        private static MediaPlaybackViewModel OnMPViewModelRequested()
+        private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            var mpvm = new MediaPlaybackViewModel();
-
-            if (!EqualizerEffect.Initialized)
-            {
-                var eq = EqualizerEffect.Current;
-                eq.InitializeBands(SViewModel.EqualizerGain);
-                eq.IsEnabled = SViewModel.EqualizerEnabled;
-            }
-
-            mpvm.AddEffect(new(typeof(EqualizerEffect), false, true, null));
-            return mpvm;
+            e.Exception.WriteToOutput();
+            ShowExceptionToast(e.Exception);
         }
 
-        private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
+        private void OnCurrentDomainUnhandledException(object sender, System.UnhandledExceptionEventArgs e)
         {
-            var library = StorageLibrary.GetLibraryAsync(id).Get();
-            return library;
+            (e.ExceptionObject as Exception).WriteToOutput();
+            ShowExceptionToast(e.ExceptionObject as Exception);
+        }
+
+        private void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            e.Exception.WriteToOutput();
+            ShowExceptionToast(e.Exception);
+        }
+
+        /// <summary>
+        /// Invoked when Navigation to a certain page fails.
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation.</param>
+        /// <param name="e">Details about the navigation failure.</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     }
 }
