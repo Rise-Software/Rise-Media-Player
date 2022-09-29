@@ -34,6 +34,8 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static bool _loaded;
+
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -99,23 +101,23 @@ namespace Rise.App.Views
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
             UpdateTitleBarItems(NavView);
-            if (!App.MainPageLoaded)
+            if (!_loaded)
             {
+                _loaded = true;
+
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
 
                 // Startup setting
                 if (ContentFrame.Content == null)
-                {
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
-                }
 
-                if (SViewModel.AutoIndexingEnabled)
-                {
+                // Auto indexing
+                if (SViewModel.IndexingFileTrackingEnabled)
+                    await App.InitializeChangeTrackingAsync();
+
+                if (SViewModel.IndexingAtStartupEnabled)
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-                }
-
-                App.MainPageLoaded = true;
             }
 
             if (MViewModel.IsScanning)
