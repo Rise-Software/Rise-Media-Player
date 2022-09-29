@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 
 namespace Rise.App.ViewModels.FileBrowser
 {
@@ -9,7 +9,7 @@ namespace Rise.App.ViewModels.FileBrowser
         public FileBrowserBreadcrumbItemViewModel(string sectionName, IRelayCommand? itemClickedCommand, string? path)
             : base(sectionName, itemClickedCommand)
         {
-            this.Path = path;
+            Path = path;
         }
     }
 }

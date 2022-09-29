@@ -1,8 +1,8 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
 using Rise.App.ViewModels.FileBrowser.Pages;
@@ -20,13 +20,11 @@ namespace Rise.App.Views
         private IStorageService StorageService { get; } = Ioc.Default.GetRequiredService<IStorageService>();
 
         public FileBrowserPageViewModel ViewModel
-        {
-            get => App.FileBrowserPageViewModel.Value;
-        }
+            => App.FBViewModel;
 
         public FileBrowserPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void FileBrowserPage_Loaded(object sender, RoutedEventArgs e)

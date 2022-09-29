@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
 using Rise.Data.ViewModels;

@@ -8,10 +8,9 @@ namespace Rise.App.Storage
     internal sealed class UwpFile : UwpBaseStorage<StorageFile>, IFile
     {
         private string? _Extension;
+
         public string Extension
-        {
-            get => _Extension ??= System.IO.Path.GetExtension(storage.Name);
-        }
+            => _Extension ??= System.IO.Path.GetExtension(storage.Name);
 
         public UwpFile(StorageFile storage)
             : base(storage)

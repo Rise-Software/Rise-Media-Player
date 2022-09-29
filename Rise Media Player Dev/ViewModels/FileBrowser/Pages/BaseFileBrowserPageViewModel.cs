@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Rise.Data.ViewModels;
 
 namespace Rise.App.ViewModels.FileBrowser.Pages

@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Models;
 using Rise.Data.ViewModels;
 using Rise.Storage;

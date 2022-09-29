@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.ViewModels.FileBrowser.Pages;
 using Rise.Data.ViewModels;

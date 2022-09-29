@@ -1,11 +1,9 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls;
 using Rise.App.ViewModels.FileBrowser;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+using CommunityToolkit.Mvvm.Input;
 
 namespace Rise.App.UserControls.FileBrowser
 {
@@ -13,7 +11,7 @@ namespace Rise.App.UserControls.FileBrowser
     {
         public FileBrowserHeaderControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public IList<FileBrowserBreadcrumbItemViewModel> Items
@@ -21,36 +19,36 @@ namespace Rise.App.UserControls.FileBrowser
             get => (IList<FileBrowserBreadcrumbItemViewModel>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
+
         public static readonly DependencyProperty ItemsProperty =
             DependencyProperty.Register(nameof(Items), typeof(IList<FileBrowserBreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
-
 
         public string? CurrentLocation
         {
             get => (string?)GetValue(CurrentLocationProperty);
             set => SetValue(CurrentLocationProperty, value);
         }
+
         public static readonly DependencyProperty CurrentLocationProperty =
             DependencyProperty.Register(nameof(CurrentLocation), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(string.Empty));
-
 
         public bool IsPinToSidebarEnabled
         {
             get => (bool)GetValue(IsPinToSidebarEnabledProperty);
             set => SetValue(IsPinToSidebarEnabledProperty, value);
         }
+
         public static readonly DependencyProperty IsPinToSidebarEnabledProperty =
             DependencyProperty.Register(nameof(IsPinToSidebarEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
-
 
         public bool IsOpenInFileExplorerEnabled
         {
             get => (bool)GetValue(IsOpenInFileExplorerEnabledProperty);
             set => SetValue(IsOpenInFileExplorerEnabledProperty, value);
         }
+
         public static readonly DependencyProperty IsOpenInFileExplorerEnabledProperty =
             DependencyProperty.Register(nameof(IsOpenInFileExplorerEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
-
 
         public IRelayCommand GoBackCommand
         {

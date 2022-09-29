@@ -1,9 +1,9 @@
 ﻿using Rise.Data.ViewModels;
 using System.Collections.ObjectModel;
 using System.IO;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
 using Rise.App.ViewModels.FileBrowser.Pages;

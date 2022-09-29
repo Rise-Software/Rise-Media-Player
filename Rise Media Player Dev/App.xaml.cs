@@ -1,10 +1,8 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.QueryStringDotNET;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
 using Rise.App.DbControllers;
@@ -33,6 +31,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Rise.App.ViewModels.FileBrowser.Pages;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Rise.App
 {
@@ -51,7 +50,7 @@ namespace Rise.App
         public static MainViewModel MViewModel => _mViewModel.Value;
 
         private readonly static Lazy<FileBrowserPageViewModel> _fbViewModel
-            = new(OnFBViewModelRequested);
+            = new(() => new());
         public static FileBrowserPageViewModel FBViewModel => _fbViewModel.Value;
 
         private readonly static Lazy<MediaPlaybackViewModel> _mpViewModel
@@ -110,7 +109,7 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
 
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
 
             ServiceProvider = ConfigureServices();
             Ioc.Default.ConfigureServices(ServiceProvider);

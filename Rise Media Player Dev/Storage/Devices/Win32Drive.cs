@@ -2,7 +2,7 @@
 using Rise.Storage.Devices;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Rise.App.Services;
 
 namespace Rise.App.Storage.Devices
@@ -25,7 +25,7 @@ namespace Rise.App.Storage.Devices
 
         public Win32Drive(DriveInfo internalDrive)
         {
-            this._internalDrive = internalDrive;
+            _internalDrive = internalDrive;
         }
 
         public Task<IFolder?> GetRootFolderAsync()
