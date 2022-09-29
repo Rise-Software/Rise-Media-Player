@@ -152,7 +152,6 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\EventsLogic.cs" />
     <Compile Include="IsExternalInit.cs" />
     <Compile Include="Messages\FileBrowser\FileBrowserDirectoryEnumerationRequestedMessage.cs" />
     <Compile Include="Messages\FileBrowser\FileBrowserDirectoryNavigationRequestedMessage.cs" />
@@ -196,7 +195,6 @@
     <Compile Include="ViewModels\FileBrowser\FileBrowserHeaderViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\Pages\FileBrowserHomePageViewModel.cs" />
     <Compile Include="ViewModels\FileBrowser\Pages\FileBrowserPageViewModel.cs" />
-    <Compile Include="ViewModels\TopTracksViewModel.cs" />
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
     </Compile>
@@ -706,15 +704,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Visualizers\BloomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Playlists\Properties\PlaylistVideosPropertiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\Properties\SongLyricsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Visualizers\BloomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
