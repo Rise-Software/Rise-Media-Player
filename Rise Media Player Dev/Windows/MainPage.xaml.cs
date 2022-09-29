@@ -34,7 +34,7 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private bool _loaded;
+        private static bool _loaded;
 
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
