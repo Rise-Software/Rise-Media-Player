@@ -15,7 +15,6 @@ using Rise.Effects;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
@@ -36,35 +35,7 @@ namespace Rise.App
     /// </summary>
     public sealed partial class App : Application
     {
-        public static bool IsLoaded;
-
-        public static bool MainPageLoaded;
-
-        private static TimeSpan _indexingInterval = TimeSpan.FromMinutes(5);
-
-        public static TimeSpan IndexingInterval
-        {
-            get
-            {
-                return _indexingInterval;
-            }
-            set
-            {
-                if (value != _indexingInterval)
-                {
-                    _indexingInterval = value;
-                }
-                IndexingTimer = new(value.TotalMilliseconds)
-                {
-                    AutoReset = true
-                };
-            }
-        }
-
-        public static Timer IndexingTimer = new(IndexingInterval.TotalMilliseconds)
-        {
-            AutoReset = true
-        };
+        private static Timer IndexingTimer;
 
         // ViewModels
         private readonly static Lazy<MainViewModel> _mViewModel
@@ -132,23 +103,7 @@ namespace Rise.App
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = await InitializeWindowAsync(e.PreviousExecutionState);
-            if (!e.PrelaunchActivated)
-            {
-                CoreApplication.EnablePrelaunch(true);
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    _ = !SViewModel.SetupCompleted
-                        ? rootFrame.Navigate(typeof(SetupPage), e.Arguments)
-                        : rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-
-                // Ensure the current window is active
-                Window.Current.Activate();
-            }
+            await ActivateAsync(e.PreviousExecutionState, e.PrelaunchActivated);
         }
 
         protected override async void OnActivated(IActivatedEventArgs e)
@@ -157,17 +112,7 @@ namespace Rise.App
             {
                 case ActivationKind.StartupTask:
                     {
-                        Frame rootFrame = await
-                            InitializeWindowAsync(e.PreviousExecutionState);
-
-                        if (rootFrame.Content == null)
-                        {
-                            _ = !SViewModel.SetupCompleted
-                                ? rootFrame.Navigate(typeof(SetupPage))
-                                : rootFrame.Navigate(typeof(MainPage));
-                        }
-
-                        Window.Current.Activate();
+                        await ActivateAsync(e.PreviousExecutionState, false);
                         break;
                     }
 
@@ -195,19 +140,7 @@ namespace Rise.App
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
-            Frame rootFrame = await InitializeWindowAsync(args.PreviousExecutionState);
-            if (rootFrame.Content == null)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                _ = !SViewModel.SetupCompleted
-                    ? rootFrame.Navigate(typeof(SetupPage))
-                    : rootFrame.Navigate(typeof(MainPage));
-            }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
+            await ActivateAsync(args.PreviousExecutionState, false);
 
             _ = await typeof(NowPlayingPage).
                 ShowInApplicationViewAsync(null, 320, 300);
@@ -226,6 +159,68 @@ namespace Rise.App
         }
 
         /// <summary>
+        /// Initializes the main app window.
+        /// </summary>
+        /// <param name="previousState">Previous app execution state.</param>
+        /// <returns>The app window's root frame.</returns>
+        private async Task<Frame> InitializeWindowAsync(ApplicationExecutionState previousState)
+        {
+            var window = Window.Current;
+            if (window.Content is not Frame rootFrame)
+            {
+                await Repository.InitializeDatabaseAsync();
+                await MViewModel.GetListsAsync();
+
+                rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+
+                // Restore the saved session state only when appropriate
+                if ((previousState == ApplicationExecutionState.Terminated) ||
+                    (previousState == ApplicationExecutionState.ClosedByUser &&
+                    SViewModel.PickUp))
+                {
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        e.WriteToOutput();
+                    }
+                }
+
+                window.Content = rootFrame;
+            }
+
+            return rootFrame;
+        }
+
+        /// <summary>
+        /// Activates the app's window and puts content in there
+        /// if necessary.
+        /// </summary>
+        /// <param name="previousState">Previous app execution state.</param>
+        /// <param name="prelaunched">Whether the app was prelaunched.</param>
+        private async Task ActivateAsync(ApplicationExecutionState previousState, bool prelaunched)
+        {
+            var rootFrame = await InitializeWindowAsync(previousState);
+            if (!prelaunched)
+            {
+                CoreApplication.EnablePrelaunch(true);
+                if (rootFrame.Content == null)
+                {
+                    _ = !SViewModel.SetupCompleted
+                        ? rootFrame.Navigate(typeof(SetupPage))
+                        : rootFrame.Navigate(typeof(MainPage));
+                }
+
+                Window.Current.Activate();
+            }
+        }
+
+        /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
         /// of memory still intact.
@@ -234,87 +229,22 @@ namespace Rise.App
         /// <param name="e">Details about the suspend request.</param>
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            SuspendingDeferral deferral = null;
+            var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                deferral = e?.SuspendingOperation?.GetDeferral();
-
                 if (_navDataSource.IsValueCreated)
                     await NavDataSource.SerializeGroupsAsync();
 
                 await SuspensionManager.SaveAsync();
             }
-            catch (SuspensionManagerException ex)
+            catch (Exception ex)
             {
                 ex.WriteToOutput();
             }
             finally
             {
-                deferral?.Complete();
+                deferral.Complete();
             }
-        }
-
-        /// <summary>
-        /// Initializes the main app window.
-        /// </summary>
-        /// <param name="previousState">Previous app execution state.</param>
-        /// <returns>The app window's root frame.</returns>
-        private async Task<Frame> InitializeWindowAsync(ApplicationExecutionState previousState)
-        {
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (Window.Current.Content is not Frame rootFrame)
-            {
-                await Repository.InitializeDatabaseAsync();
-                await MViewModel.GetListsAsync();
-
-                StartIndexingTimer();
-
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-                rootFrame.CacheSize = 1;
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                // Associate the frame with a SuspensionManager key.
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-
-                if ((previousState == ApplicationExecutionState.Terminated) ||
-                    (previousState == ApplicationExecutionState.ClosedByUser &&
-                    SViewModel.PickUp))
-                {
-                    // Restore the saved session state only when appropriate.
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue.
-                    }
-                }
-
-                if (SViewModel.AutoIndexingEnabled)
-                {
-                    _ = await KnownFolders.MusicLibrary.
-                        TrackForegroundAsync(QueryPresets.SongQueryOptions,
-                        SongsTracker.MusicQueryResultChanged);
-
-                    _ = await KnownFolders.VideosLibrary.
-                        TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                        VideosTracker.VideosLibrary_ContentsChanged);
-
-                    MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
-                    VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            IsLoaded = true;
-
-            return rootFrame;
         }
     }
 
@@ -353,51 +283,42 @@ namespace Rise.App
     // Indexing
     public sealed partial class App
     {
-        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
+        public static void RestartIndexingTimer()
         {
-            // Prevent duplicate calls.
-            if (IsLoaded)
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
+            if (IndexingTimer != null && IndexingTimer.Enabled)
+                IndexingTimer.Stop();
+
+            if (!SViewModel.IndexingTimerEnabled)
+                return;
+
+            var span = TimeSpan.FromMinutes(SViewModel.IndexingTimerInterval);
+            IndexingTimer = new(span.TotalMilliseconds)
+            {
+                AutoReset = true
+            };
+
+            IndexingTimer.Elapsed += IndexingTimer_Elapsed;
+            IndexingTimer.Start();
         }
 
-        public static void StartIndexingTimer()
+        public static async Task InitializeChangeTrackingAsync()
         {
-            if (SViewModel.AutoIndexingEnabled)
-            {
-                if (!IndexingTimer.Enabled)
-                {
-                    switch (SViewModel.IndexingMode)
-                    {
-                        case -1:
-                            return;
-                        case 0:
-                            IndexingInterval = TimeSpan.FromMinutes(1);
-                            break;
-                        case 1:
-                            IndexingInterval = TimeSpan.FromMinutes(5);
-                            break;
-                        case 2:
-                            IndexingInterval = TimeSpan.FromMinutes(10);
-                            break;
-                        case 3:
-                            IndexingInterval = TimeSpan.FromMinutes(30);
-                            break;
-                        case 4:
-                            IndexingInterval = TimeSpan.FromHours(1);
-                            break;
-                    }
+            RestartIndexingTimer();
+            _ = await KnownFolders.MusicLibrary.
+                TrackForegroundAsync(QueryPresets.SongQueryOptions,
+                SongsTracker.MusicQueryResultChanged);
 
-                    IndexingTimer.Start();
-                    IndexingTimer.Elapsed += IndexingTimer_Elapsed;
-                }
-                else
-                {
-                    IndexingTimer.Elapsed -= IndexingTimer_Elapsed;
-                    IndexingTimer.Stop();
+            _ = await KnownFolders.VideosLibrary.
+                TrackForegroundAsync(QueryPresets.VideoQueryOptions,
+                VideosTracker.VideosLibrary_ContentsChanged);
 
-                    StartIndexingTimer();
-                }
-            }
+            MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+            VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
+        }
+
+        private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
+        {
+            await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
         }
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -406,9 +327,9 @@ namespace Rise.App
             {
                 await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine("An error occured while indexing.");
+                ex.WriteToOutput();
             }
         }
     }

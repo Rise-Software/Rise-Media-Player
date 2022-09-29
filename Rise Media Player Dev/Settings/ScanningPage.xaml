@@ -3,12 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:Rise.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:system="using:System"
     xmlns:uc="using:Rise.App.UserControls"
-    xmlns:viewmodels="using:Rise.App.ViewModels"
-    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsViewModel}"
     mc:Ignorable="d">
 
     <StackPanel
@@ -41,18 +39,15 @@
                         CornerRadius="3"
                         Style="{StaticResource SettingsCard}">
                         <StackPanel Padding="15,8,15,8" Orientation="Vertical">
+                            <uc:ExpanderControl
+                                x:Uid="/MediaLibrary/AutoScanMedia"
+                                VerticalAlignment="Center"
+                                ExpanderStyle="Transparent"
+                                Icon="&#xE121;">
+                                <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
+                            </uc:ExpanderControl>
 
-                            <StackPanel>
-                                <uc:ExpanderControl
-                                    x:Uid="/MediaLibrary/AutoScanMedia"
-                                    VerticalAlignment="Center"
-                                    ExpanderStyle="Transparent"
-                                    Icon="&#xE121;">
-                                    <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}" />
-                                </uc:ExpanderControl>
-                            </StackPanel>
-
-                            <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
+                            <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
                                 <Rectangle
                                     Height="1"
                                     Margin="-16,8,-16,0"
@@ -69,20 +64,15 @@
                                         Margin="16,3,0,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}"
+                                        ItemsSource="{x:Bind Intervals}"
                                         MaxColumns="7"
-                                        SelectedIndex="{x:Bind local1:App.SViewModel.IndexingMode}"
-                                        SelectionChanged="PeriodicScan_SelectionChanged">
-                                        <x:String>1 minute</x:String>
-                                        <x:String>5 minutes</x:String>
-                                        <x:String>10 minutes</x:String>
-                                        <x:String>30 minutes</x:String>
-                                        <x:String>1 hour</x:String>
-                                    </muxc:RadioButtons>
+                                        SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
+                                        SelectionChanged="PeriodicScan_SelectionChanged" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Border>
+
                     <Border
                         x:Name="EventsBorder"
                         Height="254"
@@ -95,21 +85,15 @@
                         CornerRadius="3"
                         Style="{StaticResource SettingsCard}">
                         <StackPanel Padding="15,8,15,8" Orientation="Vertical">
-                            <StackPanel>
-                                <uc:ExpanderControl
-                                    x:Uid="/MediaLibrary/EventsScan"
-                                    VerticalAlignment="Center"
-                                    ExpanderStyle="Transparent"
-                                    Icon="&#xF78D;"
-                                    IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                    <ToggleSwitch
-                                        x:Name="EventsSwitch"
-                                        IsOn="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=TwoWay}"
-                                        Toggled="PeriodicSwitch_Toggled" />
-                                </uc:ExpanderControl>
-                            </StackPanel>
+                            <uc:ExpanderControl
+                                x:Uid="/MediaLibrary/EventsScan"
+                                VerticalAlignment="Center"
+                                ExpanderStyle="Transparent"
+                                Icon="&#xF78D;">
+                                <ToggleSwitch x:Name="EventsSwitch" IsOn="{x:Bind ViewModel.IndexingEventsEnabled, Mode=TwoWay}" />
+                            </uc:ExpanderControl>
 
-                            <StackPanel x:Name="EventsContent" Visibility="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
+                            <StackPanel x:Name="EventsContent" Visibility="{x:Bind ViewModel.IndexingEventsEnabled, Mode=OneWay}">
                                 <Rectangle
                                     Height="1"
                                     Margin="-16,8,-16,0"
@@ -120,11 +104,9 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/Open"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="OpenSwitch" />
+                                        ExpanderStyle="Transparent">
+                                        <ToggleSwitch x:Name="OpenSwitch" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
                                     </uc:ExpanderControl>
-
                                 </StackPanel>
 
                                 <Rectangle
@@ -137,16 +119,14 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/DeviceConnect"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
+                                        ExpanderStyle="Transparent">
                                         <ToggleSwitch x:Name="DeviceSwitch" />
                                     </uc:ExpanderControl>
-
                                 </StackPanel>
 
                                 <Rectangle
                                     Height="1"
-                                    Margin="-16,0,-16,00"
+                                    Margin="-16,0,-16,0"
                                     HorizontalAlignment="Stretch"
                                     Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
@@ -154,11 +134,9 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/AddLocation"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
+                                        ExpanderStyle="Transparent">
                                         <ToggleSwitch x:Name="LocationSwitch" />
                                     </uc:ExpanderControl>
-
                                 </StackPanel>
 
                                 <Rectangle
@@ -171,25 +149,15 @@
                                     <uc:ExpanderControl
                                         x:Uid="/MediaLibrary/FilesAdd"
                                         Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent"
-                                        IsEnabled="{x:Bind local1:App.SViewModel.AutoIndexingEnabled, Mode=OneWay}">
-                                        <ToggleSwitch x:Name="FilesAddSwitch" />
+                                        ExpanderStyle="Transparent">
+                                        <ToggleSwitch x:Name="FilesAddSwitch" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
                                     </uc:ExpanderControl>
-
                                 </StackPanel>
-
                             </StackPanel>
-
                         </StackPanel>
-
-
                     </Border>
                 </StackPanel>
-
-
             </StackPanel>
         </Grid>
-
     </StackPanel>
-
 </Page>
