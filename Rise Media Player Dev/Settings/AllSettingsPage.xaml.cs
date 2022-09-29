@@ -103,7 +103,6 @@ namespace Rise.App.Settings
             diag.Content = new SettingsPage();
 
             _ = await diag.ShowAsync();
-            _ = SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

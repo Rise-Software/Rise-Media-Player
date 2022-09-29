@@ -31,12 +31,10 @@ namespace Rise.App.Settings
         private double Breakpoint { get; set; }
         #endregion
 
-        internal static SettingsPage Current;
         public SettingsPage()
         {
             InitializeComponent();
             Toggles = ItemGrid.GetChildren<ToggleButton>();
-            Current = this;
 
             foreach (ToggleButton toggle in Toggles)
             {
