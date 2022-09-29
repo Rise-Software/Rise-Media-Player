@@ -190,6 +190,11 @@ namespace Rise.App.ChangeTrackers
                 }
             }
 
+            foreach (SongViewModel song in toRemove)
+            {
+                await song.DeleteAsync();
+            }
+
             List<SongViewModel> duplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
@@ -202,11 +207,6 @@ namespace Rise.App.ChangeTrackers
                         duplicates.Add(ViewModel.Songs[j]);
                     }
                 }
-            }
-
-            foreach (SongViewModel song in toRemove)
-            {
-                await song.DeleteAsync();
             }
 
             foreach (SongViewModel song in duplicates)

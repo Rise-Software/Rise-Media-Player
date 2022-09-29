@@ -139,6 +139,11 @@ namespace Rise.App.ChangeTrackers
                 }
             }
 
+            foreach (VideoViewModel video in toRemove)
+            {
+                await video.DeleteAsync();
+            }
+
             List<VideoViewModel> duplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
@@ -157,11 +162,6 @@ namespace Rise.App.ChangeTrackers
                         duplicates.Add(MViewModel.Videos[j]);
                     }
                 }
-            }
-
-            foreach (VideoViewModel video in toRemove)
-            {
-                await video.DeleteAsync();
             }
 
             foreach (VideoViewModel video in duplicates)
