@@ -13,151 +13,104 @@
         Margin="0,10,0,0"
         Orientation="Vertical"
         Spacing="4">
-        <Grid>
-            <StackPanel>
+        <uc:ExpanderControl
+            x:Uid="/MediaLibrary/ManualScan"
+            ExpanderStyle="Static"
+            Icon="&#xE773;">
+            <Button
+                x:Name="ManualScanButton"
+                MaxWidth="150"
+                Click="ManualScanButton_Click"
+                Content="Scan now" />
+        </uc:ExpanderControl>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <StackPanel Orientation="Vertical">
                 <uc:ExpanderControl
-                    x:Uid="/MediaLibrary/ManualScan"
-                    ExpanderStyle="Static"
-                    Icon="&#xE773;">
-                    <Button
-                        x:Name="ManualScanButton"
-                        MaxWidth="150"
-                        Click="ManualScanButton_Click"
-                        Content="Scan now" />
+                    x:Uid="/MediaLibrary/AutoScanMedia"
+                    VerticalAlignment="Center"
+                    ExpanderStyle="Transparent"
+                    Icon="&#xE121;">
+                    <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <StackPanel x:Name="ScanningStuff">
-                    <Border
-                        x:Name="PeriodicBorder"
-                        Height="120"
-                        Margin="0,4,0,0"
-                        Padding="0"
+                <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
+                    <Rectangle
+                        Height="1"
+                        Margin="-16,8,-16,0"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Style="{StaticResource SettingsCard}">
-                        <StackPanel Padding="15,8,15,8" Orientation="Vertical">
-                            <uc:ExpanderControl
-                                x:Uid="/MediaLibrary/AutoScanMedia"
-                                VerticalAlignment="Center"
-                                ExpanderStyle="Transparent"
-                                Icon="&#xE121;">
-                                <ToggleSwitch x:Name="PeriodicSwitch" IsOn="{x:Bind ViewModel.IndexingTimerEnabled, Mode=TwoWay}" />
-                            </uc:ExpanderControl>
+                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
 
-                            <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,8,-16,0"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Horizontal">
-                                    <TextBlock
-                                        FontWeight="Normal"
-                                        Style="{StaticResource SubheaderTextBlockStyle}"
-                                        Text="Run every:" />
-                                    <muxc:RadioButtons
-                                        x:Name="PeriodicScan"
-                                        Margin="16,3,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        ItemsSource="{x:Bind Intervals}"
-                                        MaxColumns="7"
-                                        SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
-                                        SelectionChanged="PeriodicScan_SelectionChanged" />
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-
-                    <Border
-                        x:Name="EventsBorder"
-                        Height="254"
-                        Margin="0,4,0,0"
-                        Padding="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Style="{StaticResource SettingsCard}">
-                        <StackPanel Padding="15,8,15,8" Orientation="Vertical">
-                            <uc:ExpanderControl
-                                x:Uid="/MediaLibrary/EventsScan"
-                                VerticalAlignment="Center"
-                                ExpanderStyle="Transparent"
-                                Icon="&#xF78D;">
-                                <ToggleSwitch x:Name="EventsSwitch" IsOn="{x:Bind ViewModel.IndexingEventsEnabled, Mode=TwoWay}" />
-                            </uc:ExpanderControl>
-
-                            <StackPanel x:Name="EventsContent" Visibility="{x:Bind ViewModel.IndexingEventsEnabled, Mode=OneWay}">
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,8,-16,0"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/Open"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="OpenSwitch" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
-                                    </uc:ExpanderControl>
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,00"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/DeviceConnect"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="DeviceSwitch" />
-                                    </uc:ExpanderControl>
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,0"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/AddLocation"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="LocationSwitch" />
-                                    </uc:ExpanderControl>
-                                </StackPanel>
-
-                                <Rectangle
-                                    Height="1"
-                                    Margin="-16,0,-16,00"
-                                    HorizontalAlignment="Stretch"
-                                    Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-
-                                <StackPanel Margin="28,0,15,0" Orientation="Vertical">
-                                    <uc:ExpanderControl
-                                        x:Uid="/MediaLibrary/FilesAdd"
-                                        Margin="-13,-2,13,0"
-                                        ExpanderStyle="Transparent">
-                                        <ToggleSwitch x:Name="FilesAddSwitch" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
-                                    </uc:ExpanderControl>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
+                    <StackPanel Margin="28,0,15,0" Orientation="Horizontal">
+                        <TextBlock
+                            FontWeight="Normal"
+                            Style="{StaticResource SubheaderTextBlockStyle}"
+                            Text="Run every:" />
+                        <muxc:RadioButtons
+                            x:Name="PeriodicScan"
+                            Margin="16,3,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            ItemsSource="{x:Bind Intervals}"
+                            MaxColumns="7"
+                            SelectedIndex="{x:Bind system:Array.IndexOf(MinuteIntervals, ViewModel.IndexingTimerInterval)}"
+                            SelectionChanged="PeriodicScan_SelectionChanged" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </Grid>
+        </Border>
+
+        <Border Style="{StaticResource SettingsCard}">
+            <StackPanel Orientation="Vertical">
+                <uc:ExpanderControl
+                    x:Uid="/MediaLibrary/EventsScan"
+                    VerticalAlignment="Center"
+                    ExpanderStyle="Transparent"
+                    Icon="&#xF78D;">
+                    <ToggleSwitch x:Name="EventsSwitch" IsOn="{x:Bind ViewModel.IndexingEventsEnabled, Mode=TwoWay}" />
+                </uc:ExpanderControl>
+
+                <StackPanel
+                    x:Name="EventsContent"
+                    Margin="0,12,0,0"
+                    Visibility="{x:Bind ViewModel.IndexingEventsEnabled, Mode=OneWay}">
+                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+
+                    <uc:ExpanderControl
+                        x:Uid="/MediaLibrary/Open"
+                        Margin="16,0,0,0"
+                        ExpanderStyle="Transparent">
+                        <ToggleSwitch x:Name="OpenSwitch" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
+                    </uc:ExpanderControl>
+
+                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+
+                    <uc:ExpanderControl
+                        x:Uid="/MediaLibrary/DeviceConnect"
+                        Margin="16,0,0,0"
+                        ExpanderStyle="Transparent">
+                        <ToggleSwitch x:Name="DeviceSwitch" />
+                    </uc:ExpanderControl>
+
+                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+
+                    <uc:ExpanderControl
+                        x:Uid="/MediaLibrary/AddLocation"
+                        Margin="16,0,0,0"
+                        ExpanderStyle="Transparent">
+                        <ToggleSwitch x:Name="LocationSwitch" />
+                    </uc:ExpanderControl>
+
+                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+
+                    <uc:ExpanderControl
+                        x:Uid="/MediaLibrary/FilesAdd"
+                        Margin="16,0,0,-8"
+                        ExpanderStyle="Transparent">
+                        <ToggleSwitch x:Name="FilesAddSwitch" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
+                    </uc:ExpanderControl>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </StackPanel>
 </Page>
