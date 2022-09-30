@@ -216,28 +216,33 @@ namespace Rise.App.ViewModels
             set => Set(value, "MediaLibrary");
         }
 
-        public bool AutoIndexingEnabled
+        public bool IndexingTimerEnabled
         {
             get => Get(true, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
-        /* 
-         
-         Indexing modes
-
-         -1: Never
-         0: Every 1 minute
-         1: Every 5 minutes
-         2: Every 10 minutes
-         3: Every 30 minutes
-         4: Every 1 hour
-
-         */
-
-        public int IndexingMode
+        public bool IndexingEventsEnabled
         {
-            get => Get(1, "MediaLibrary");
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public bool IndexingAtStartupEnabled
+        {
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public bool IndexingFileTrackingEnabled
+        {
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public uint IndexingTimerInterval
+        {
+            get => Get((uint)5, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 

@@ -9,6 +9,7 @@ using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
 using System.Threading;
+using Rise.Data.ViewModels;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -113,6 +114,35 @@ namespace Rise.App.ChangeTrackers
         {
             if (token.IsCancellationRequested)
                 return;
+
+            List<VideoViewModel> toRemove = new();
+
+            // Check if the song doesn't exist anymore, if so queue it then remove.
+            for (int i = 0; i < MViewModel.Videos.Count; i++)
+            {
+                try
+                {
+                    _ = await StorageFile.GetFileFromPathAsync(MViewModel.Videos[i].Location);
+                }
+                catch (FileNotFoundException e)
+                {
+                    toRemove.Add(MViewModel.Videos[i]);
+                    e.WriteToOutput();
+                }
+                catch (FileLoadException e)
+                {
+                    e.WriteToOutput();
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    e.WriteToOutput();
+                }
+            }
+
+            foreach (VideoViewModel video in toRemove)
+            {
+                await video.DeleteAsync();
+            }
 
             List<VideoViewModel> duplicates = new();
 
