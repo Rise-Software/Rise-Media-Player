@@ -3,7 +3,6 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Extensions.Markup;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +18,7 @@ namespace Rise.App.Dialogs
         public SetupDialogContent()
         {
             InitializeComponent();
-            Navigate(SlideNavigationTransitionEffect.FromRight);
+            Navigate(SlideNavigationTransitionEffect.FromBottom);
         }
     }
 
@@ -34,31 +33,24 @@ namespace Rise.App.Dialogs
 
         private void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
+            switch (ViewModel.SetupProgress)
+            {
+                case 1:
+                    ViewModel.FetchOnlineData = true;
+                    break;
+            }
+
             ViewModel.SetupProgress++;
             Navigate(SlideNavigationTransitionEffect.FromRight);
         }
 
         private async void SecondaryButton_Click(object sender, RoutedEventArgs e)
         {
-            await SecondaryActionAsync();
-            ViewModel.SetupProgress++;
-            Navigate(SlideNavigationTransitionEffect.FromRight);
-        }
-    }
-
-    // Navigation
-    public sealed partial class SetupDialogContent
-    {
-        /// <summary>
-        /// Action that takes place when secondary dialog button is pressed.
-        /// </summary>
-        private async Task SecondaryActionAsync()
-        {
             switch (ViewModel.SetupProgress)
             {
                 case 0:
-                    ViewModel.SetupProgress--;
-                    break;
+                    HideDialog();
+                    return;
 
                 case 1:
                     ViewModel.FetchOnlineData = false;
@@ -69,10 +61,17 @@ namespace Rise.App.Dialogs
                     ViewModel.SetupProgress = 0;
 
                     _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-                    break;
+                    return;
             }
-        }
 
+            ViewModel.SetupProgress++;
+            Navigate(SlideNavigationTransitionEffect.FromRight);
+        }
+    }
+
+    // Navigation
+    public sealed partial class SetupDialogContent
+    {
         /// <summary>
         /// Navigate between pages of the setup using the
         /// specified effect for the page transition.
@@ -99,15 +98,7 @@ namespace Rise.App.Dialogs
                 ViewModel.SetupCompleted = true;
                 ViewModel.SetupProgress = 0;
 
-                var popups = VisualTreeHelper.GetOpenPopups(Window.Current);
-                foreach (var popup in popups)
-                {
-                    if (popup.Child is ContentDialog dialog)
-                    {
-                        dialog.Hide();
-                        break;
-                    }
-                }
+                HideDialog();
 
                 Frame rootFrame = Window.Current.Content as Frame;
                 _ = rootFrame.Navigate(typeof(MainPage));
@@ -121,6 +112,19 @@ namespace Rise.App.Dialogs
             var transition = new SlideNavigationTransitionInfo() { Effect = effect };
 
             _ = SetupFrame.Navigate(nextPage, null, transition);
+        }
+
+        private void HideDialog()
+        {
+            var popups = VisualTreeHelper.GetOpenPopups(Window.Current);
+            foreach (var popup in popups)
+            {
+                if (popup.Child is ContentDialog dialog)
+                {
+                    dialog.Hide();
+                    break;
+                }
+            }
         }
 
         private Type GetCurrentPage(int progress) => progress switch
