@@ -16,46 +16,78 @@ namespace Rise.Data.Sources
 {
     public partial class NavViewDataSource
     {
-        #region Private fields
         private const string _fileName = "ItemData.json";
         private const string _tmpFileName = "ItemData.json.~tmp";
 
-        private readonly Dictionary<string, string> _defaultIcons =
-            new Dictionary<string, string>();
-        #endregion
-
-        #region Public properties
         /// <summary>
         /// Contains the NavView items.
         /// </summary>
-        public ObservableCollection<NavViewItemViewModel> Items { get; } =
-            new ObservableCollection<NavViewItemViewModel>();
+        public ObservableCollection<NavViewItemViewModel> Items { get; } = new();
 
         /// <summary>
         /// Contains the footer NavView items.
         /// </summary>
-        public ObservableCollection<NavViewItemViewModel> FooterItems { get; } =
-            new ObservableCollection<NavViewItemViewModel>();
-        #endregion
+        public ObservableCollection<NavViewItemViewModel> FooterItems { get; } = new();
+    }
 
-        #region Constructor
-        public NavViewDataSource()
+    // Icons
+    public partial class NavViewDataSource
+    {
+        private readonly Dictionary<string, string> _defaultIcons = new()
         {
-            // Populate the default icon dictionary.
-            _defaultIcons.Add("HomePage", "\uECA5");
-            _defaultIcons.Add("PlaylistsPage", "\uE8FD");
-            _defaultIcons.Add("SongsPage", "\uEC4F");
-            _defaultIcons.Add("ArtistsPage", "\uE125");
-            _defaultIcons.Add("AlbumsPage", "\uE93C");
-            _defaultIcons.Add("GenresPage", "\uE138");
-            _defaultIcons.Add("LocalVideosPage", "\uE8B2");
-            _defaultIcons.Add("VideoPlaybackPage", "\uE1D9");
-            _defaultIcons.Add("DiscyPage", "\uE9CE");
-            _defaultIcons.Add("SettingsPage", "\uE115");
-        }
-        #endregion
+            { "HomePage", "\uECA5" },
+            { "PlaylistsPage", "\uE8FD" },
+            { "SongsPage", "\uEC4F" },
+            { "ArtistsPage", "\uE125" },
+            { "AlbumsPage", "\uE93C" },
+            { "GenresPage", "\uE138" },
+            { "LocalVideosPage", "\uE8B2" },
+            { "VideoPlaybackPage", "\uE1D9" },
+            { "DiscyPage", "\uE9CE" },
+            { "SettingsPage", "\uE115" }
+        };
 
-        #region Data
+        /// <summary>
+        /// Changes the currently applied icon pack.
+        /// </summary>
+        /// <param name="newName">Name of the new icon pack. If null or "Default",
+        /// go back to the default icons.</param>
+        public void ChangeIconPack(string newName = null)
+        {
+            if (!string.IsNullOrEmpty(newName) && newName != "Default")
+            {
+                foreach (NavViewItemViewModel item in Items)
+                {
+                    if (item.ItemType == NavViewItemType.Item)
+                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
+                }
+
+                foreach (NavViewItemViewModel item in FooterItems)
+                {
+                    if (item.ItemType == NavViewItemType.Item)
+                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
+                }
+            }
+            else
+            {
+                foreach (NavViewItemViewModel item in Items)
+                {
+                    if (item.ItemType == NavViewItemType.Item)
+                        item.Icon = _defaultIcons[item.Id];
+                }
+
+                foreach (NavViewItemViewModel item in FooterItems)
+                {
+                    if (item.ItemType == NavViewItemType.Item)
+                        item.Icon = _defaultIcons[item.Id];
+                }
+            }
+        }
+    }
+
+    // Saving/restoring item state
+    public partial class NavViewDataSource
+    {
         /// <summary>
         /// Populates <see cref="Items"/> and <see cref="FooterItems"/>
         /// with data from a JSON file.
@@ -151,78 +183,11 @@ namespace Rise.Data.Sources
 
             await FileIO.WriteTextAsync(file, builder.ToString());
         }
-        #endregion
+    }
 
-        /// <summary>
-        /// Changes the visibility of NavigationView headers based
-        /// on the visibility of its items.
-        /// </summary>
-        /// <param name="group">Header group to check.</param>
-        /// <param name="inFooter">Whether or not the header and its
-        /// items are in the footer.</param>
-        public void CheckHeaderVisibility(string group, bool inFooter = false)
-        {
-            if (group == "General")
-                return;
-
-            var items = GetItemCollection(inFooter);
-            var header = items.FirstOrDefault(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
-
-            if (header != null)
-            {
-                foreach (NavViewItemViewModel item in items)
-                {
-                    if (item.ItemType == NavViewItemType.Item &&
-                        item.HeaderGroup == group &&
-                        item.IsVisible)
-                    {
-                        // An item is visible, no need to hide header
-                        header.IsVisible = true;
-                        return;
-                    }
-                }
-
-                header.IsVisible = false;
-            }
-        }
-
-        /// <summary>
-        /// Changes the currently applied icon pack.
-        /// </summary>
-        /// <param name="newName">Name of the new icon pack. If null or "Default",
-        /// go back to the default icons.</param>
-        public void ChangeIconPack(string newName = null)
-        {
-            if (!string.IsNullOrEmpty(newName) && newName != "Default")
-            {
-                foreach (NavViewItemViewModel item in Items)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
-                }
-
-                foreach (NavViewItemViewModel item in FooterItems)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
-                }
-            }
-            else
-            {
-                foreach (NavViewItemViewModel item in Items)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = _defaultIcons[item.Id];
-                }
-
-                foreach (NavViewItemViewModel item in FooterItems)
-                {
-                    if (item.ItemType == NavViewItemType.Item)
-                        item.Icon = _defaultIcons[item.Id];
-                }
-            }
-        }
-
+    // Hiding/showing items
+    public partial class NavViewDataSource
+    {
         /// <summary>
         /// Hides a group of NavigationView items and their header.
         /// </summary>
@@ -289,6 +254,39 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
+        /// Changes the visibility of NavigationView headers based
+        /// on the visibility of its items.
+        /// </summary>
+        /// <param name="group">Header group to check.</param>
+        /// <param name="inFooter">Whether or not the header and its
+        /// items are in the footer.</param>
+        public void CheckHeaderVisibility(string group, bool inFooter = false)
+        {
+            if (group == "General")
+                return;
+
+            var items = GetItemCollection(inFooter);
+            var header = items.FirstOrDefault(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
+
+            if (header != null)
+            {
+                foreach (NavViewItemViewModel item in items)
+                {
+                    if (item.ItemType == NavViewItemType.Item &&
+                        item.HeaderGroup == group &&
+                        item.IsVisible)
+                    {
+                        // An item is visible, no need to hide header
+                        header.IsVisible = true;
+                        return;
+                    }
+                }
+
+                header.IsVisible = false;
+            }
+        }
+
+        /// <summary>
         /// Changes the visibility of a NavigationView header.
         /// </summary>
         /// <param name="groupName">Group name of the header to change.</param>
@@ -314,27 +312,11 @@ namespace Rise.Data.Sources
         /// <returns>Whether or not is the item visible.</returns>
         public bool IsHeaderVisible(string groupName)
             => HeaderFromGroupName(groupName).IsVisible;
+    }
 
-        #region Moving
-        /// <summary>
-        /// Checks if an item can be moved down.
-        /// </summary>
-        /// <param name="id">Item's Id.</param>
-        /// <returns>True if the item can be moved down,
-        /// false otherwise.</returns>
-        public bool CanMoveDown(string id)
-        {
-            _ = TryGetItem(id, out var item);
-            var items = GetItemCollection(item.IsFooter);
-
-            int index = items.IndexOf(item) + 1;
-            if (index == items.Count)
-                return false;
-
-            var elm = items.ElementAt(index);
-            return elm.HeaderGroup == item.HeaderGroup;
-        }
-
+    // Moving items
+    public partial class NavViewDataSource
+    {
         private void MoveItem(string id, int offset)
         {
             _ = TryGetItem(id, out var item);
@@ -342,30 +324,6 @@ namespace Rise.Data.Sources
 
             int index = items.IndexOf(item);
             items.Move(index, index + offset);
-        }
-
-        /// <summary>
-        /// Moves an item down.
-        /// </summary>
-        /// <param name="id">Item's Id.</param>
-        [RelayCommand]
-        public void MoveDown(string id)
-            => MoveItem(id, 1);
-
-        /// <summary>
-        /// Moves an item to the bottom.
-        /// </summary>
-        /// <param name="id">Item's Id.</param>
-        [RelayCommand]
-        public void MoveToBottom(string id)
-        {
-            _ = TryGetItem(id, out var item);
-            var items = GetItemCollection(item.IsFooter);
-
-            int index = items.IndexOf(item);
-
-            var lastInGroup = items.Where(i => i.HeaderGroup == item.HeaderGroup).LastOrDefault();
-            items.Move(index, items.IndexOf(lastInGroup));
         }
 
         /// <summary>
@@ -391,12 +349,39 @@ namespace Rise.Data.Sources
         }
 
         /// <summary>
+        /// Checks if an item can be moved down.
+        /// </summary>
+        /// <param name="id">Item's Id.</param>
+        /// <returns>True if the item can be moved down,
+        /// false otherwise.</returns>
+        public bool CanMoveDown(string id)
+        {
+            _ = TryGetItem(id, out var item);
+            var items = GetItemCollection(item.IsFooter);
+
+            int index = items.IndexOf(item) + 1;
+            if (index == items.Count)
+                return false;
+
+            var elm = items.ElementAt(index);
+            return elm.HeaderGroup == item.HeaderGroup;
+        }
+
+        /// <summary>
         /// Moves an item up.
         /// </summary>
         /// <param name="id">Item's Id.</param>
         [RelayCommand]
         public void MoveUp(string id)
             => MoveItem(id, -1);
+
+        /// <summary>
+        /// Moves an item down.
+        /// </summary>
+        /// <param name="id">Item's Id.</param>
+        [RelayCommand]
+        public void MoveDown(string id)
+            => MoveItem(id, 1);
 
         /// <summary>
         /// Moves an item to the top.
@@ -419,9 +404,27 @@ namespace Rise.Data.Sources
                 items.Move(index, items.IndexOf(header) + 1);
             }
         }
-        #endregion
 
-        #region Finding items
+        /// <summary>
+        /// Moves an item to the bottom.
+        /// </summary>
+        /// <param name="id">Item's Id.</param>
+        [RelayCommand]
+        public void MoveToBottom(string id)
+        {
+            _ = TryGetItem(id, out var item);
+            var items = GetItemCollection(item.IsFooter);
+
+            int index = items.IndexOf(item);
+
+            var lastInGroup = items.Where(i => i.HeaderGroup == item.HeaderGroup).LastOrDefault();
+            items.Move(index, items.IndexOf(lastInGroup));
+        }
+    }
+
+    // Getting items
+    public partial class NavViewDataSource
+    {
         /// <summary>
         /// Tries to get an item with the specified ID.
         /// </summary>
@@ -461,6 +464,5 @@ namespace Rise.Data.Sources
                 return FooterItems;
             return Items;
         }
-        #endregion
     }
 }
