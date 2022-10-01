@@ -80,14 +80,14 @@ namespace Rise.Data.Sources
             }
             else
             {
-                Uri dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
+                var dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
                 file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             }
 
             string jsonText = await FileIO.ReadTextAsync(file);
 
             // So, why check for this? The file should have the info, right?
-            if (jsonText == null || jsonText.Length == 0)
+            if (string.IsNullOrWhiteSpace(jsonText))
             {
                 // For some unexplainable reason, Windows will sometimes save
                 // stuff to a tmp file and call it a day. We have to account
@@ -99,12 +99,12 @@ namespace Rise.Data.Sources
                 jsonText = await FileIO.ReadTextAsync(file);
             }
 
-            JsonObject jsonObject = JsonObject.Parse(jsonText);
+            var obj = JsonObject.Parse(jsonText);
 
-            JsonArray itemArray = jsonObject["Items"].GetArray();
-            JsonArray footerArray = jsonObject["FooterItems"].GetArray();
+            var itemArray = obj["Items"].GetArray();
+            var footerArray = obj["FooterItems"].GetArray();
 
-            foreach (JsonValue groupValue in itemArray)
+            foreach (var groupValue in itemArray)
             {
                 var item = new NavViewItemViewModel(groupValue.GetObject());
                 item.IsFooter = false;
@@ -112,7 +112,7 @@ namespace Rise.Data.Sources
                 Items.Add(item);
             }
 
-            foreach (JsonValue groupValue in footerArray)
+            foreach (var groupValue in footerArray)
             {
                 var item = new NavViewItemViewModel(groupValue.GetObject());
                 item.IsFooter = true;
