@@ -3,6 +3,7 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Extensions.Markup;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,13 +32,17 @@ namespace Rise.App.Dialogs
             Navigate(SlideNavigationTransitionEffect.FromLeft);
         }
 
-        private void PrimaryButton_Click(object sender, RoutedEventArgs e)
+        private async void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
             switch (ViewModel.SetupProgress)
             {
                 case 1:
                     ViewModel.FetchOnlineData = true;
                     break;
+
+                case 5:
+                    await FinishSetupAsync(false);
+                    return;
             }
 
             ViewModel.SetupProgress++;
@@ -57,10 +62,7 @@ namespace Rise.App.Dialogs
                     break;
 
                 case 5:
-                    ViewModel.SetupCompleted = true;
-                    ViewModel.SetupProgress = 0;
-
-                    _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                    await FinishSetupAsync(true);
                     return;
             }
 
@@ -84,7 +86,7 @@ namespace Rise.App.Dialogs
                 SetupInfo.Text = ResourceHelper.GetString("SetupPre");
                 PrimaryButton.Content = ResourceHelper.GetString("Accept");
             }
-            else if (progress < 6)
+            else
             {
                 string format = ResourceHelper.GetString("StepOf");
                 SetupInfo.Text = string.Format(format, progress, 5);
@@ -93,25 +95,31 @@ namespace Rise.App.Dialogs
                 BackButton.Visibility = progress > 1 ?
                     Visibility.Visible : Visibility.Collapsed;
             }
-            else
-            {
-                ViewModel.SetupCompleted = true;
-                ViewModel.SetupProgress = 0;
-
-                HideDialog();
-
-                Frame rootFrame = Window.Current.Content as Frame;
-                _ = rootFrame.Navigate(typeof(MainPage));
-                return;
-            }
 
             string res = GetSecondaryButtonResource(progress);
             SecondaryButton.Content = ResourceHelper.GetString(res);
 
             var nextPage = GetCurrentPage(progress);
             var transition = new SlideNavigationTransitionInfo() { Effect = effect };
-
             _ = SetupFrame.Navigate(nextPage, null, transition);
+        }
+
+        private async Task FinishSetupAsync(bool closeApp)
+        {
+            ViewModel.SetupCompleted = true;
+            ViewModel.SetupProgress = 0;
+
+            if (closeApp)
+            {
+                _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+            }
+            else
+            {
+                HideDialog();
+
+                var rootFrame = Window.Current.Content as Frame;
+                _ = rootFrame.Navigate(typeof(MainPage));
+            }
         }
 
         private void HideDialog()
