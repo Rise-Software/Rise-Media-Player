@@ -162,64 +162,27 @@ namespace Rise.Data.Sources
         /// items are in the footer.</param>
         public void CheckHeaderVisibility(string group, bool inFooter = false)
         {
-            if (group.Equals("General"))
-            {
+            if (group == "General")
                 return;
-            }
 
-            if (!inFooter)
+            var items = GetItemCollection(inFooter);
+            var header = items.FirstOrDefault(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
+
+            if (header != null)
             {
-                NavViewItemViewModel header = Items.
-                    First(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
-
-                if (header != null)
+                foreach (NavViewItemViewModel item in items)
                 {
-                    foreach (NavViewItemViewModel item in Items)
+                    if (item.ItemType == NavViewItemType.Item &&
+                        item.HeaderGroup == group &&
+                        item.IsVisible)
                     {
-                        // Make sure the item is a normal item
-                        if (item.ItemType == NavViewItemType.Item)
-                        {
-                            if (item.HeaderGroup.Equals(group))
-                            {
-                                if (item.IsVisible)
-                                {
-                                    // An item is visible, no need to hide header
-                                    header.IsVisible = true;
-                                    return;
-                                }
-                            }
-                        }
+                        // An item is visible, no need to hide header
+                        header.IsVisible = true;
+                        return;
                     }
-
-                    header.IsVisible = false;
                 }
-            }
-            else
-            {
-                NavViewItemViewModel header = FooterItems.
-                    First(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
 
-                if (header != null)
-                {
-                    foreach (NavViewItemViewModel item in FooterItems)
-                    {
-                        // Make sure the item is a normal item
-                        if (item.ItemType == NavViewItemType.Item)
-                        {
-                            if (item.HeaderGroup.Equals(group))
-                            {
-                                if (item.IsVisible)
-                                {
-                                    // An item is visible, no need to hide header
-                                    header.IsVisible = true;
-                                    return;
-                                }
-                            }
-                        }
-                    }
-
-                    header.IsVisible = false;
-                }
+                header.IsVisible = false;
             }
         }
 
@@ -230,47 +193,32 @@ namespace Rise.Data.Sources
         /// go back to the default icons.</param>
         public void ChangeIconPack(string newName = null)
         {
-            if (newName != null && !newName.Equals("Default"))
+            if (!string.IsNullOrEmpty(newName) && newName != "Default")
             {
-                string startingUri = "ms-appx:///Assets/NavigationView/";
                 foreach (NavViewItemViewModel item in Items)
                 {
-                    // Make sure the item is a normal item
                     if (item.ItemType == NavViewItemType.Item)
-                    {
-                        string newUri = startingUri + item.Id + "/" + newName + ".png";
-                        item.Icon = newUri;
-                    }
+                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
                 }
 
                 foreach (NavViewItemViewModel item in FooterItems)
                 {
-                    // Make sure the item is a normal item
                     if (item.ItemType == NavViewItemType.Item)
-                    {
-                        string newUri = startingUri + item.Id + "/" + newName + ".png";
-                        item.Icon = newUri;
-                    }
+                        item.Icon = $"ms-appx:///Assets/NavigationView/{item.Id}/{newName}.png";
                 }
             }
             else
             {
                 foreach (NavViewItemViewModel item in Items)
                 {
-                    // Make sure the item is a normal item
                     if (item.ItemType == NavViewItemType.Item)
-                    {
                         item.Icon = _defaultIcons[item.Id];
-                    }
                 }
 
                 foreach (NavViewItemViewModel item in FooterItems)
                 {
-                    // Make sure the item is a normal item
                     if (item.ItemType == NavViewItemType.Item)
-                    {
                         item.Icon = _defaultIcons[item.Id];
-                    }
                 }
             }
         }
@@ -284,18 +232,14 @@ namespace Rise.Data.Sources
         {
             foreach (NavViewItemViewModel item in Items)
             {
-                if (item.HeaderGroup.Equals(group))
-                {
+                if (item.HeaderGroup == group)
                     item.IsVisible = false;
-                }
             }
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
-                if (item?.HeaderGroup?.Equals(group) ?? false)
-                {
+                if (item.HeaderGroup == group)
                     item.IsVisible = false;
-                }
             }
         }
 
@@ -307,18 +251,14 @@ namespace Rise.Data.Sources
         {
             foreach (NavViewItemViewModel item in Items)
             {
-                if (item.HeaderGroup.Equals(group))
-                {
+                if (item.HeaderGroup == group)
                     item.IsVisible = true;
-                }
             }
 
             foreach (NavViewItemViewModel item in FooterItems)
             {
-                if (item.HeaderGroup.Equals(group))
-                {
+                if (item.HeaderGroup == group)
                     item.IsVisible = true;
-                }
             }
         }
 
@@ -385,37 +325,23 @@ namespace Rise.Data.Sources
         public bool CanMoveDown(string id)
         {
             _ = TryGetItem(id, out var item);
-            int index;
+            var items = GetItemCollection(item.IsFooter);
 
-            if (!item.IsFooter)
-            {
-                index = Items.IndexOf(item);
-                if (index + 1 == Items.Count)
-                {
-                    return false;
-                }
+            int index = items.IndexOf(item) + 1;
+            if (index == items.Count)
+                return false;
 
-                if (Items.ElementAt(index + 1).HeaderGroup != item.HeaderGroup)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                index = FooterItems.IndexOf(item);
-                if (index + 1 == FooterItems.Count)
-                {
-                    return false;
-                }
+            var elm = items.ElementAt(index);
+            return elm.HeaderGroup == item.HeaderGroup;
+        }
 
-                if (FooterItems.ElementAt(index + 1).HeaderGroup !=
-                    item.HeaderGroup)
-                {
-                    return false;
-                }
-            }
+        private void MoveItem(string id, int offset)
+        {
+            _ = TryGetItem(id, out var item);
+            var items = GetItemCollection(item.IsFooter);
 
-            return true;
+            int index = items.IndexOf(item);
+            items.Move(index, index + offset);
         }
 
         /// <summary>
@@ -424,21 +350,7 @@ namespace Rise.Data.Sources
         /// <param name="id">Item's Id.</param>
         [RelayCommand]
         public void MoveDown(string id)
-        {
-            _ = TryGetItem(id, out var item);
-            int index;
-
-            if (!item.IsFooter)
-            {
-                index = Items.IndexOf(item);
-                Items.MoveItemInCollection(item, index + 1);
-            }
-            else
-            {
-                index = FooterItems.IndexOf(item);
-                FooterItems.MoveItemInCollection(item, index + 1);
-            }
-        }
+            => MoveItem(id, 1);
 
         /// <summary>
         /// Moves an item to the bottom.
@@ -447,29 +359,13 @@ namespace Rise.Data.Sources
         [RelayCommand]
         public void MoveToBottom(string id)
         {
-            TryGetItem(id, out var item);
-            int index;
+            _ = TryGetItem(id, out var item);
+            var items = GetItemCollection(item.IsFooter);
 
-            if (!item.IsFooter)
-            {
-                index = Items.IndexOf(item);
-                while (index < Items.Count &&
-                    Items.ElementAt(index + 1).ItemType != NavViewItemType.Header)
-                {
-                    Items.Move(index, index + 1);
-                    index++;
-                }
-            }
-            else
-            {
-                index = FooterItems.IndexOf(item);
-                while (index < FooterItems.Count &&
-                    FooterItems.ElementAt(index + 1).ItemType != NavViewItemType.Header)
-                {
-                    FooterItems.Move(index, index + 1);
-                    index++;
-                }
-            }
+            int index = items.IndexOf(item);
+
+            var lastInGroup = items.Where(i => i.HeaderGroup == item.HeaderGroup).LastOrDefault();
+            items.Move(index, items.IndexOf(lastInGroup));
         }
 
         /// <summary>
@@ -481,40 +377,17 @@ namespace Rise.Data.Sources
         public bool CanMoveUp(string id)
         {
             _ = TryGetItem(id, out var item);
-            int index;
+            var items = GetItemCollection(item.IsFooter);
 
-            if (!item.IsFooter)
-            {
-                index = Items.IndexOf(item);
-                if (index - 1 == -1)
-                {
-                    return false;
-                }
+            int index = items.IndexOf(item);
+            if (index == 0)
+                return false;
 
-                if (Items.ElementAt(index - 1).HeaderGroup != item.HeaderGroup ||
-                    (Items.ElementAt(index - 1).HeaderGroup == item.HeaderGroup &&
-                    Items.ElementAt(index - 1).ItemType == NavViewItemType.Header))
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                index = FooterItems.IndexOf(item);
-                if (index - 1 == -1)
-                {
-                    return false;
-                }
+            var elm = items.ElementAt(index - 1);
+            bool sameGroup = elm.HeaderGroup == item.HeaderGroup;
+            bool directlyBelowHeader = sameGroup && elm.ItemType == NavViewItemType.Header;
 
-                if (FooterItems.ElementAt(index - 1).HeaderGroup != item.HeaderGroup ||
-                    (FooterItems.ElementAt(index - 1).HeaderGroup == item.HeaderGroup &&
-                    FooterItems.ElementAt(index - 1).ItemType == NavViewItemType.Header))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return sameGroup && !directlyBelowHeader;
         }
 
         /// <summary>
@@ -523,21 +396,7 @@ namespace Rise.Data.Sources
         /// <param name="id">Item's Id.</param>
         [RelayCommand]
         public void MoveUp(string id)
-        {
-            _ = TryGetItem(id, out var item);
-            int index;
-
-            if (!item.IsFooter)
-            {
-                index = Items.IndexOf(item);
-                Items.MoveItemInCollection(item, index - 1);
-            }
-            else
-            {
-                index = FooterItems.IndexOf(item);
-                FooterItems.MoveItemInCollection(item, index - 1);
-            }
-        }
+            => MoveItem(id, -1);
 
         /// <summary>
         /// Moves an item to the top.
@@ -547,22 +406,17 @@ namespace Rise.Data.Sources
         public void MoveToTop(string id)
         {
             _ = TryGetItem(id, out var item);
+            var items = GetItemCollection(item.IsFooter);
+            int index = items.IndexOf(item);
 
             if (item.HeaderGroup == "General")
             {
-                Items.MoveItemInCollection(item, 0);
+                items.Move(index, 0);
             }
             else
             {
-                NavViewItemViewModel header = HeaderFromGroupName(item.HeaderGroup);
-                if (!item.IsFooter)
-                {
-                    Items.MoveItemInCollection(item, Items.IndexOf(header) + 1);
-                }
-                else
-                {
-                    FooterItems.MoveItemInCollection(item, FooterItems.IndexOf(header) + 1);
-                }
+                var header = HeaderFromGroupName(item.HeaderGroup);
+                items.Move(index, items.IndexOf(header) + 1);
             }
         }
         #endregion
@@ -577,17 +431,9 @@ namespace Rise.Data.Sources
         public bool TryGetItem(string id, out NavViewItemViewModel item)
         {
             item = this.Items.FirstOrDefault(i => i.Id.Equals(id));
-            if (item == null)
-            {
-                item = this.FooterItems.FirstOrDefault(i => i.Id.Equals(id));
-            }
+            item ??= this.FooterItems.FirstOrDefault(i => i.Id.Equals(id));
 
-            if (item == null)
-            {
-                return false;
-            }
-
-            return true;
+            return item != null;
         }
 
         /// <summary>
@@ -597,21 +443,23 @@ namespace Rise.Data.Sources
         /// <returns>The header with the specified group name.</returns>
         public NavViewItemViewModel HeaderFromGroupName(string group)
         {
-            var match = this.Items.
-                FirstOrDefault(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
+            bool predicate(NavViewItemViewModel i)
+                => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group;
+
+            var match = this.Items.FirstOrDefault(predicate);
+            match ??= this.FooterItems.FirstOrDefault(predicate);
 
             if (match == null)
-            {
-                match = this.FooterItems.
-                    FirstOrDefault(i => i.ItemType == NavViewItemType.Header && i.HeaderGroup == group);
-            }
-
-            if (match == null)
-            {
-                throw new ArgumentException("Provided group name (" + group + ") was not found.");
-            }
+                throw new ArgumentException($"Provided group name ({group}) was not found.");
 
             return match;
+        }
+
+        private Collection<NavViewItemViewModel> GetItemCollection(bool getFooter)
+        {
+            if (getFooter)
+                return FooterItems;
+            return Items;
         }
         #endregion
     }
