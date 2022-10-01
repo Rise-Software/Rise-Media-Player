@@ -12,7 +12,10 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupConnectH}">
+        <local:SetupPageContent
+            x:Name="SetupRoot"
+            Header="{markup:ResourceHelper Name=SetupConnectH}"
+            IsBackButtonAutoPaddingEnabled="False">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
