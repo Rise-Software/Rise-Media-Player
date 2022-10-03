@@ -373,7 +373,7 @@
 
                     <ScrollViewer
                         Grid.Row="1"
-                        Padding="48,0"
+                        Padding="48,12,48,0"
                         VerticalScrollBarVisibility="Auto">
                         <Frame x:Name="SettingsMainFrame" x:FieldModifier="public" />
                     </ScrollViewer>
