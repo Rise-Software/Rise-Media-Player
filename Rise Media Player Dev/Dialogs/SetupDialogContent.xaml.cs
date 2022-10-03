@@ -19,7 +19,7 @@ namespace Rise.App.Dialogs
         public SetupDialogContent()
         {
             InitializeComponent();
-            Navigate(SlideNavigationTransitionEffect.FromBottom);
+            Navigate(SlideNavigationTransitionEffect.FromRight);
         }
     }
 
