@@ -7,11 +7,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <x:Double x:Key="ContentDialogMaxWidth">762</x:Double>
-        <x:Double x:Key="ContentDialogMaxHeight">490</x:Double>
-    </Page.Resources>
-
     <Grid x:Name="RootGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
