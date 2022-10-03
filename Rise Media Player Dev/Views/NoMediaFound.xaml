@@ -65,28 +65,27 @@
 
         <StackPanel
             Padding="56,0,56,0"
-            HorizontalAlignment="left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Image
                 Height="96"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Source="/Assets/FileIcons/MUFILE.png" />
             <TextBlock
                 Padding="0,16,0,0"
                 Style="{StaticResource TitleTextBlockStyle}"
-                Text="We couldn't find any media to display. Add more media sources to continue."
-                TextAlignment="Left" />
+                Text="We couldn't find any media to display. Add more media sources to continue." />
             <TextBlock
                 FontSize="15"
                 FontWeight="SemiBold"
                 Opacity="0.6"
                 Style="{StaticResource SubheaderTextBlockStyle}"
                 Text="If you want to, we can hide this message, but there still won't be any media to display."
-                TextAlignment="Left"
+                TextAlignment="Center"
                 TextWrapping="WrapWholeWords" />
             <StackPanel
                 Margin="0,24,0,0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button Width="180" Content="Dismiss this message" />
                 <Button

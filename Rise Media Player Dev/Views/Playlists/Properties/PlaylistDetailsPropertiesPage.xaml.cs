@@ -1,28 +1,22 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using System;
+using System.Collections.Generic;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Rise.App.Views
 {
-
-
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class PlaylistDetailsPropertiesPage : Page
     {
         private PlaylistViewModel Playlist;
 
         public PlaylistDetailsPropertiesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -33,21 +27,19 @@ namespace Rise.App.Views
 
         private async void exportPlaylistArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile =
-                await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(Playlist.Icon));
+            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Playlist.Icon));
 
-            FolderPicker folderPicker = new FolderPicker
+            FileSavePicker filePicker = new()
             {
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
             };
-            folderPicker.FileTypeFilter.Add("*");
 
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                await picFile.CopyAsync(folder);
-            }
+            filePicker.FileTypeChoices.Add("Portable Network Graphics", new List<string>() { ".png" });
+
+            StorageFile file = await filePicker.PickSaveFileAsync();
+
+            if (file != null)
+                await picFile.CopyAndReplaceAsync(file);
         }
 
         private async void EditPlaylistIcon_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)

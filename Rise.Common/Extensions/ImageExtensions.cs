@@ -174,25 +174,32 @@ namespace Rise.Common.Extensions
             string filename,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
+            var result = false;
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
-                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
+                try
+                {
+                    StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
                     CreateFileAsync(filename, collisionOption);
 
-                Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
-                IBuffer iBuf = await thumbnail.ReadAsync(buffer,
-                    buffer.Capacity, InputStreamOptions.None);
+                    Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
+                    IBuffer iBuf = await thumbnail.ReadAsync(buffer,
+                        buffer.Capacity, InputStreamOptions.None);
 
-                using (IRandomAccessStream strm = await
-                    destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    using (IRandomAccessStream strm = await
+                        destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        _ = await strm.WriteAsync(iBuf);
+                    }
+
+                    result = true;
+                } catch (Exception e)
                 {
-                    _ = await strm.WriteAsync(iBuf);
+                    e.WriteToOutput();
                 }
-
-                return true;
             }
 
-            return false;
+            return result;
         }
     }
 }

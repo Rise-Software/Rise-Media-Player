@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Helpers;
+﻿using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -45,7 +45,6 @@ namespace Rise.App.Views
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
@@ -55,7 +54,7 @@ namespace Rise.App.Views
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             if (_offset != null)
-                RootViewer.ChangeView(null, _offset, null);
+                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -68,19 +67,6 @@ namespace Rise.App.Views
                 CreateViewModel("Title", SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
             }
-
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            e.PageState["Offset"] = RootViewer.VerticalOffset;
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedPlaylist);
         }
     }
 

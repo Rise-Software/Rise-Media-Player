@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +17,6 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private readonly RelayCommand<AlbumViewMode> UpdateViewModeCommand;
         private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedItem
@@ -29,44 +26,15 @@ namespace Rise.App.Views
         }
 
         private readonly string Label = "Albums";
-        private double? _offset = null;
 
         public AlbumsPage()
             : base("Title", App.MViewModel.Albums)
         {
             InitializeComponent();
 
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-
-            UpdateViewModeCommand = new(UpdateViewMode);
-
             PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
             PlaylistHelper.AddPlaylistsToSubItem(AddTo);
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
-        }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 
@@ -92,6 +60,7 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class AlbumsPage
     {
+        [RelayCommand]
         private void UpdateViewMode(AlbumViewMode viewMode)
             => SViewModel.AlbumViewMode = viewMode;
 
@@ -99,7 +68,6 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is AlbumViewModel album && !KeyboardHelpers.IsCtrlPressed())
             {
-                Frame.SetListDataItemForNextConnectedAnimation(album);
                 _ = Frame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
             }
         }

@@ -1,6 +1,8 @@
 ﻿using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
@@ -12,6 +14,7 @@ namespace Rise.App.Views
         private readonly NavigationHelper _navigationHelper;
 
         private MediaPlaybackViewModel ViewModel => App.MPViewModel;
+        private bool FullScreenRequested = false;
 
         public VideoPlaybackPage()
         {
@@ -20,6 +23,18 @@ namespace Rise.App.Views
 
             TitleBar.SetTitleBarForCurrentView();
             Player.SetMediaPlayer(ViewModel.Player);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is bool fs && fs)
+                FullScreenRequested = fs;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (FullScreenRequested)
+                ApplicationView.GetForCurrentView().ExitFullScreenMode();
         }
     }
 }

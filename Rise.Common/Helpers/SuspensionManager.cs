@@ -54,33 +54,26 @@ namespace Rise.Common.Helpers
         /// <returns>An asynchronous task that reflects when session state has been saved.</returns>
         public static async Task SaveAsync()
         {
-            try
+            // Save the navigation state for all registered frames
+            foreach (var weakFrameReference in _registeredFrames)
             {
-                // Save the navigation state for all registered frames
-                foreach (var weakFrameReference in _registeredFrames)
+                if (weakFrameReference.TryGetTarget(out Frame frame))
                 {
-                    if (weakFrameReference.TryGetTarget(out Frame frame))
-                    {
-                        SaveFrameNavigationState(frame);
-                    }
+                    SaveFrameNavigationState(frame);
                 }
-
-                // Serialize the session state synchronously to avoid asynchronous access to shared
-                // state
-                MemoryStream sessionData = new();
-                DataContractSerializer serializer = new(typeof(Dictionary<string, object>), _knownTypes);
-                serializer.WriteObject(sessionData, _sessionState);
-
-                // Get an output stream for the SessionState file and write the state asynchronously
-                StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(sessionStateFilename, CreationCollisionOption.ReplaceExisting);
-                using Stream fileStream = await file.OpenStreamForWriteAsync();
-                sessionData.Seek(0, SeekOrigin.Begin);
-                await sessionData.CopyToAsync(fileStream);
             }
-            catch (Exception e)
-            {
-                throw new SuspensionManagerException(e);
-            }
+
+            // Serialize the session state synchronously to avoid asynchronous access to shared
+            // state
+            MemoryStream sessionData = new();
+            DataContractSerializer serializer = new(typeof(Dictionary<string, object>), _knownTypes);
+            serializer.WriteObject(sessionData, _sessionState);
+
+            // Get an output stream for the SessionState file and write the state asynchronously
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(sessionStateFilename, CreationCollisionOption.ReplaceExisting);
+            using Stream fileStream = await file.OpenStreamForWriteAsync();
+            sessionData.Seek(0, SeekOrigin.Begin);
+            await sessionData.CopyToAsync(fileStream);
         }
 
         /// <summary>
@@ -98,30 +91,23 @@ namespace Rise.Common.Helpers
         {
             _sessionState = new Dictionary<string, object>();
 
-            try
+            // Get the input stream for the SessionState file
+            StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(sessionStateFilename);
+            using (IInputStream inStream = await file.OpenSequentialReadAsync())
             {
-                // Get the input stream for the SessionState file
-                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(sessionStateFilename);
-                using (IInputStream inStream = await file.OpenSequentialReadAsync())
-                {
-                    // Deserialize the Session State
-                    DataContractSerializer serializer = new(typeof(Dictionary<string, object>), _knownTypes);
-                    _sessionState = (Dictionary<string, object>)serializer.ReadObject(inStream.AsStreamForRead());
-                }
-
-                // Restore any registered frames to their saved state
-                foreach (var weakFrameReference in _registeredFrames)
-                {
-                    if (weakFrameReference.TryGetTarget(out Frame frame) && (string)frame.GetValue(FrameSessionBaseKeyProperty) == sessionBaseKey)
-                    {
-                        frame.ClearValue(FrameSessionStateProperty);
-                        RestoreFrameNavigationState(frame);
-                    }
-                }
+                // Deserialize the Session State
+                DataContractSerializer serializer = new(typeof(Dictionary<string, object>), _knownTypes);
+                _sessionState = (Dictionary<string, object>)serializer.ReadObject(inStream.AsStreamForRead());
             }
-            catch (Exception e)
+
+            // Restore any registered frames to their saved state
+            foreach (var weakFrameReference in _registeredFrames)
             {
-                throw new SuspensionManagerException(e);
+                if (weakFrameReference.TryGetTarget(out Frame frame) && (string)frame.GetValue(FrameSessionBaseKeyProperty) == sessionBaseKey)
+                {
+                    frame.ClearValue(FrameSessionStateProperty);
+                    RestoreFrameNavigationState(frame);
+                }
             }
         }
 
@@ -244,18 +230,6 @@ namespace Rise.Common.Helpers
         {
             var frameState = SessionStateForFrame(frame);
             frameState["Navigation"] = frame.GetNavigationState();
-        }
-    }
-    public class SuspensionManagerException : Exception
-    {
-        public SuspensionManagerException()
-        {
-        }
-
-        public SuspensionManagerException(Exception e)
-            : base("SuspensionManager failed", e)
-        {
-
         }
     }
 }

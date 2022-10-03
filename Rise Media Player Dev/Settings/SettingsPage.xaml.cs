@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -32,12 +31,10 @@ namespace Rise.App.Settings
         private double Breakpoint { get; set; }
         #endregion
 
-        internal static SettingsPage Current;
         public SettingsPage()
         {
             InitializeComponent();
             Toggles = ItemGrid.GetChildren<ToggleButton>();
-            Current = this;
 
             foreach (ToggleButton toggle in Toggles)
             {
@@ -52,8 +49,6 @@ namespace Rise.App.Settings
 
             Loaded += SettingsDialog_Loaded;
             SizeChanged += (s, a) => ResizeDialog(Window.Current.Bounds.Height, Window.Current.Bounds.Width);
-
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void SettingsDialog_Loaded(object sender, RoutedEventArgs e)

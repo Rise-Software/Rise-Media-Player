@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using System;
+using Rise.App.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,18 @@ namespace Rise.App.Settings
     /// </summary>
     public sealed partial class ScanningPage : Page
     {
+        private SettingsViewModel ViewModel => App.SViewModel;
+
+        private readonly uint[] MinuteIntervals = new uint[] { 1, 5, 10, 30, 60 };
+        private readonly List<string> Intervals = new()
+        {
+            "1 minute",
+            "5 minutes",
+            "10 minutes",
+            "30 minutes",
+            "1 hour"
+        };
+
         public ScanningPage()
         {
             InitializeComponent();
@@ -20,49 +33,17 @@ namespace Rise.App.Settings
 
         private void PeriodicScan_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch ((sender as RadioButtons).SelectedIndex)
+            int index = (sender as RadioButtons).SelectedIndex;
+            if (index >= 0)
             {
-                case 0:
-                    // Index every 1 minute
-                    App.SViewModel.IndexingMode = 0;
-                    App.IndexingInterval = TimeSpan.FromMinutes(1);
-                    break;
-                case 1:
-                    // Index every 5 minutes
-                    App.SViewModel.IndexingMode = 1;
-                    App.IndexingInterval = TimeSpan.FromMinutes(5);
-                    break;
-                case 2:
-                    // Index every 10 minutes
-                    App.SViewModel.IndexingMode = 2;
-                    App.IndexingInterval = TimeSpan.FromMinutes(10);
-                    break;
-                case 3:
-                    // Index every 30 minutes
-                    App.SViewModel.IndexingMode = 3;
-                    App.IndexingInterval = TimeSpan.FromMinutes(30);
-                    break;
-                case 4:
-                    // Index every hour
-                    App.SViewModel.IndexingMode = 4;
-                    App.IndexingInterval = TimeSpan.FromHours(1);
-                    break;
-                default:
-                    break;
+                ViewModel.IndexingTimerInterval = MinuteIntervals[index];
+                App.RestartIndexingTimer();
             }
-            App.StartIndexingTimer();
         }
 
         private void PeriodicSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            //if (PeriodicContent.Visibility == Visibility.Visible)
-            //{
-            //    PeriodicBorder.Height = 120;
-            //}
-            //else
-            //{
-            //    PeriodicBorder.Height = 64;
-            //}
+            App.RestartIndexingTimer();
         }
 
         private async void ManualScanButton_Click(object sender, RoutedEventArgs e)

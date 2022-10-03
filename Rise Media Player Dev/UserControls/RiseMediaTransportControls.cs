@@ -1,14 +1,18 @@
-﻿using System;
-using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
+using Rise.App.Dialogs;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using System;
+using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.UserControls
 {
@@ -68,6 +72,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a command that runs whenever the full
+        /// window button is clicked.
+        /// </summary>
+        public ICommand FullWindowCommand
+        {
+            get => (ICommand)GetValue(FullWindowCommandProperty);
+            set => SetValue(FullWindowCommandProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a command that runs whenever one of the
         /// overlay buttons is clicked, with the desired view mode
         /// as a parameter.
@@ -116,6 +130,26 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsPropertiesButtonVisibleProperty);
             set => SetValue(IsPropertiesButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the equalizer
+        /// button is enabled.
+        /// </summary>
+        public bool IsEqualizerButtonEnabled
+        {
+            get => (bool)GetValue(IsEqualizerButtonEnabledProperty);
+            set => SetValue(IsEqualizerButtonEnabledProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the equalizer
+        /// button is shown.
+        /// </summary>
+        public bool IsEqualizerButtonVisible
+        {
+            get => (bool)GetValue(IsEqualizerButtonVisibleProperty);
+            set => SetValue(IsEqualizerButtonVisibleProperty, value);
         }
 
         /// <summary>
@@ -224,6 +258,10 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsShuffleButtonChecked), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
+        public readonly static DependencyProperty FullWindowCommandProperty =
+            DependencyProperty.Register(nameof(FullWindowCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
         public readonly static DependencyProperty OverlayCommandProperty =
             DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
@@ -252,6 +290,14 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(IsQueueButtonVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
+        public readonly static DependencyProperty IsEqualizerButtonEnabledProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonEnabled), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsEqualizerButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsEqualizerButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
         public readonly static DependencyProperty QueueFlyoutProperty =
             DependencyProperty.Register(nameof(QueueFlyout), typeof(Flyout),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
@@ -267,14 +313,32 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
-            var overlayButton = GetTemplateChild("OverlayButton") as AppBarButton;
-            overlayButton.CommandParameter = ApplicationViewMode.Default;
+            if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
+                overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            var miniButton = GetTemplateChild("MiniViewButton") as AppBarButton;
-            miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
+            if (GetTemplateChild("MiniViewButton") is MenuFlyoutItem miniButton)
+                miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            var propertiesButton = GetTemplateChild("InfoPropertiesButton") as AppBarButton;
-            propertiesButton.Click += PropertiesButtonClick;
+            if (GetTemplateChild("InfoPropertiesButton") is MenuFlyoutItem propertiesButton)
+                propertiesButton.Click += PropertiesButtonClick;
+
+            if (GetTemplateChild("EqualizerButton") is MenuFlyoutItem equalizerButton)
+                equalizerButton.Click += EqualizerButtonClick;
+
+            if (GetTemplateChild("PlaybackSpeedButton") is MenuFlyoutSubItem speedButton)
+            {
+                for (double i = 0.25; i <= 2; i += 0.25)
+                {
+                    var itm = new RadioMenuFlyoutItem
+                    {
+                        Text = $"{i}x",
+                        Command = UpdatePlaybackSpeedCommand,
+                        CommandParameter = i
+                    };
+
+                    speedButton.Items.Add(itm);
+                }
+            }
 
             base.OnApplyTemplate();
         }
@@ -330,5 +394,12 @@ namespace Rise.App.UserControls
                 }
             }
         }
+
+        private void EqualizerButtonClick(object sender, RoutedEventArgs e)
+            => _ = new EqualizerDialog().ShowAsync();
+
+        [RelayCommand]
+        private void UpdatePlaybackSpeed(double speed)
+            => App.MPViewModel.Player.PlaybackSession.PlaybackRate = speed;
     }
 }

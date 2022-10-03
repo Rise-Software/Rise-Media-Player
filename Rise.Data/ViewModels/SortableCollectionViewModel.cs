@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.Common.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI;
 using System;
 using System.Collections;
 
@@ -12,6 +12,12 @@ namespace Rise.Data.ViewModels
     /// </summary>
     public partial class SortableCollectionViewModel : ViewModel
     {
+        private Func<object, bool> CanSort { get; set; }
+        private bool CanSortBy(string parameter)
+            => CanSort != null ? CanSort(parameter) : true;
+        private bool CanUpdateDirection(SortDirection parameter)
+            => CanSort != null ? CanSort(parameter) : true;
+
         /// <summary>
         /// The collection of sorted items.
         /// </summary>
@@ -55,9 +61,7 @@ namespace Rise.Data.ViewModels
         public SortableCollectionViewModel(IList itemSource, Func<object, bool> canSort)
         {
             Items = new AdvancedCollectionView(itemSource);
-
-            SortByCommand = new(SortBy, canSort);
-            UpdateSortDirectionCommand = new(UpdateSortDirection, canSort);
+            CanSort = canSort;
         }
 
         /// <summary>
@@ -111,18 +115,6 @@ namespace Rise.Data.ViewModels
         }
 
         /// <summary>
-        /// A command that allows sorting the <see cref="Items"/>
-        /// collection based on a string parameter.
-        /// </summary>
-        public RelayCommand SortByCommand { get; private set; }
-
-        /// <summary>
-        /// A command that allows updating the sort direction for
-        /// <see cref="Items"/> based on the provided <see cref="SortDirection"/>.
-        /// </summary>
-        public RelayCommand UpdateSortDirectionCommand { get; private set; }
-
-        /// <summary>
         /// Sorts items based on the given property name and sort direction.
         /// </summary>
         public void Sort(string prop, SortDirection direction)
@@ -137,6 +129,7 @@ namespace Rise.Data.ViewModels
         /// <summary>
         /// Sorts items based on the given property name.
         /// </summary>
+        [RelayCommand(CanExecute = nameof(CanSortBy))]
         public void SortBy(string prop)
         {
             Items.SortDescriptions.Clear();
@@ -148,17 +141,12 @@ namespace Rise.Data.ViewModels
         /// Updates the sort direction of items.
         /// </summary>
         /// <param name="direction">New sort direction to use.</param>
+        [RelayCommand(CanExecute = nameof(CanUpdateDirection))]
         public void UpdateSortDirection(SortDirection direction)
         {
             Items.SortDescriptions.Clear();
             Items.SortDescriptions.Add(new SortDescription(_currentSortProperty, direction));
             CurrentSortDirection = direction;
         }
-
-        private void SortBy(object prop)
-            => SortBy(prop.ToString());
-
-        private void UpdateSortDirection(object direction)
-            => UpdateSortDirection((SortDirection)direction);
     }
 }

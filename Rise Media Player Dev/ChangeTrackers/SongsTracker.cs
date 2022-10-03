@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
+using System.Threading;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -160,63 +161,57 @@ namespace Rise.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the music library folders.
         /// </summary>
-        public static async Task HandleMusicFolderChangesAsync()
+        public static async Task HandleMusicFolderChangesAsync(CancellationToken token = default)
         {
+            if (token.IsCancellationRequested)
+                return;
+
             List<SongViewModel> toRemove = new();
 
             // Check if the song doesn't exist anymore, if so queue it then remove.
-            try
+            for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
-                for (int i = 0; i < ViewModel.Songs.Count; i++)
+                try
                 {
-                    try
-                    {
-                        _ = await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location);
-                    } catch (FileNotFoundException e)
-                    {
-                        toRemove.Add(ViewModel.Songs[i]);
-                        e.WriteToOutput();
-                    }
-                    catch (FileLoadException)
-                    {
-
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-
-                    }
+                    _ = await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location);
+                }
+                catch (FileNotFoundException e)
+                {
+                    toRemove.Add(ViewModel.Songs[i]);
+                    e.WriteToOutput();
+                }
+                catch (FileLoadException e)
+                {
+                    e.WriteToOutput();
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    e.WriteToOutput();
                 }
             }
-            finally
+
+            foreach (SongViewModel song in toRemove)
             {
-                foreach (SongViewModel song in toRemove)
-                {
-                    await song.DeleteAsync();
-                }
+                await song.DeleteAsync();
             }
 
             List<SongViewModel> duplicates = new();
 
             // Check for duplicates and remove if any duplicate is found.
-            try
+            for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
-                for (int i = 0; i < ViewModel.Songs.Count; i++)
+                for (int j = i + 1; j < ViewModel.Songs.Count; j++)
                 {
-                    for (int j = i + 1; j < ViewModel.Songs.Count; j++)
+                    if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
                     {
-                        if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
-                        {
-                            duplicates.Add(ViewModel.Songs[j]);
-                        }
+                        duplicates.Add(ViewModel.Songs[j]);
                     }
                 }
             }
-            finally
+
+            foreach (SongViewModel song in duplicates)
             {
-                foreach (SongViewModel song in duplicates)
-                {
-                    await song.DeleteAsync();
-                }
+                await song.DeleteAsync();
             }
         }
     }

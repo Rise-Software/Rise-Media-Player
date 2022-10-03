@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Rise.Common.Enums;
+using Rise.Common.Extensions;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using Rise.Common.Enums;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI;
@@ -16,13 +15,10 @@ namespace Rise.App.ViewModels
     public sealed partial class SettingsViewModel : ViewModel
     {
         private NavViewDataSource SBViewModel => App.NavDataSource;
-        public ICommand OpenFilesAtStartupCommand { get; }
 
         public SettingsViewModel()
         {
-            OpenFilesAtStartupCommand = new AsyncRelayCommand(OpenAtStartupAsync);
-
-            _ = DetectOpenAtStartupAsync();
+            UpdateStartupTaskInfo();
         }
 
         public string[] OpenLocations = new string[7]
@@ -57,6 +53,7 @@ namespace Rise.App.ViewModels
         };
 
         #region Startup
+        public const string StartupTaskId = "6VQ93204-N7OY-0258-54G3-385B9X0FUHIB";
         public bool OpenInLogin
         {
             get => Get(false, "WindowsBehaviours");
@@ -77,68 +74,52 @@ namespace Rise.App.ViewModels
 
         public async Task OpenAtStartupAsync()
         {
-            var stateMode = await ReadStateAsync();
-
-            bool state = stateMode switch
+            var task = await StartupTask.GetAsync(StartupTaskId);
+            bool isEnabled = task.State switch
             {
                 StartupTaskState.Enabled => true,
                 StartupTaskState.EnabledByPolicy => true,
-                StartupTaskState.DisabledByPolicy => false,
-                StartupTaskState.DisabledByUser => false,
                 _ => false,
             };
 
-            if (state != OpenInLogin)
-            {
-                StartupTask startupTask = await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB");
-                if (OpenInLogin)
-                {
-                    await startupTask.RequestEnableAsync();
-                }
-                else
-                {
-                    startupTask.Disable();
-                }
-                await DetectOpenAtStartupAsync();
-            }
+            if (!isEnabled)
+                _ = await task.RequestEnableAsync();
+            else
+                task.Disable();
+
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task DetectOpenAtStartupAsync()
+        public void UpdateStartupTaskInfo()
         {
-            var stateMode = await ReadStateAsync();
-
-            switch (stateMode)
-            {
-                case StartupTaskState.Disabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = false;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.Enabled:
-                    CanOpenInLogin = true;
-                    OpenInLogin = true;
-                    FLGStartupTask = 0;
-                    break;
-                case StartupTaskState.DisabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 1;
-                    break;
-                case StartupTaskState.DisabledByUser:
-                    CanOpenInLogin = false;
-                    OpenInLogin = false;
-                    FLGStartupTask = 2;
-                    break;
-                case StartupTaskState.EnabledByPolicy:
-                    CanOpenInLogin = false;
-                    OpenInLogin = true;
-                    FLGStartupTask = 3;
-                    break;
-            }
+            var task = StartupTask.GetAsync(StartupTaskId).Get();
+            SetOpenAtStartupInfo(task.State);
         }
 
-        public async Task<StartupTaskState> ReadStateAsync()
-            => (await StartupTask.GetAsync("6VQ93204-N7OY-0258-54G3-385B9X0FUHIB")).State;
+        private void SetOpenAtStartupInfo(StartupTaskState state)
+        {
+            OpenInLogin = state switch
+            {
+                StartupTaskState.Enabled => true,
+                StartupTaskState.EnabledByPolicy => true,
+                _ => false,
+            };
+
+            CanOpenInLogin = state switch
+            {
+                StartupTaskState.Disabled => true,
+                StartupTaskState.Enabled => true,
+                _ => false,
+            };
+
+            FLGStartupTask = state switch
+            {
+                StartupTaskState.DisabledByPolicy => 1,
+                StartupTaskState.DisabledByUser => 2,
+                StartupTaskState.EnabledByPolicy => 3,
+                _ => 0,
+            };
+        }
 
         #endregion
 
@@ -235,28 +216,33 @@ namespace Rise.App.ViewModels
             set => Set(value, "MediaLibrary");
         }
 
-        public bool AutoIndexingEnabled
+        public bool IndexingTimerEnabled
         {
             get => Get(true, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
-        /* 
-         
-         Indexing modes
-
-         -1: Never
-         0: Every 1 minute
-         1: Every 5 minutes
-         2: Every 10 minutes
-         3: Every 30 minutes
-         4: Every 1 hour
-
-         */
-
-        public int IndexingMode
+        public bool IndexingEventsEnabled
         {
-            get => Get(1, "MediaLibrary");
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public bool IndexingAtStartupEnabled
+        {
+            get => Get(true, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public bool IndexingFileTrackingEnabled
+        {
+            get => Get(false, "MediaLibrary");
+            set => Set(value, "MediaLibrary");
+        }
+
+        public uint IndexingTimerInterval
+        {
+            get => Get((uint)5, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 
@@ -344,18 +330,16 @@ namespace Rise.App.ViewModels
 
         public bool ShowAllGeneral
         {
-            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre || ShowNowPlaying;
+            get => ShowAtAGlance || ShowPlaylists || ShowHelpCentre;
             set
             {
                 ShowAtAGlance = value;
                 ShowPlaylists = value;
                 ShowHelpCentre = value;
-                ShowNowPlaying = value;
 
                 OnPropertyChanged(nameof(ShowAtAGlance));
                 OnPropertyChanged(nameof(ShowPlaylists));
                 OnPropertyChanged(nameof(ShowHelpCentre));
-                OnPropertyChanged(nameof(ShowNowPlaying));
             }
         }
 
@@ -469,12 +453,6 @@ namespace Rise.App.ViewModels
             set => ChangeItemVisibility("DiscyPage", value);
         }
 
-        public bool ShowNowPlaying
-        {
-            get => SBViewModel.IsItemVisible("NowPlayingPage");
-            set => ChangeItemVisibility("NowPlayingPage", value);
-        }
-
         private void ChangeItemVisibility(string tag, bool value)
         {
             SBViewModel.ChangeItemVisibility(tag, value);
@@ -541,8 +519,8 @@ namespace Rise.App.ViewModels
 
         public bool EqualizerEnabled
         {
-            get => Get(false, "Playback");
-            set => Set(value, "Playback");
+            get => Get(false, "Local");
+            set => Set(value, "Local");
         }
 
         private static float[] _defaultGain =
@@ -558,6 +536,24 @@ namespace Rise.App.ViewModels
         {
             get => Get(0, "Local");
             set => Set(value, "Local");
+        }
+
+        public double Volume
+        {
+            get
+            {
+                var value = Get(100, "Playback");
+
+                if (App.MPViewModel.Player.Volume != value)
+                    App.MPViewModel.Player.Volume = value;
+
+                return value;
+            }
+            set
+            {
+                Set(value, "Playback");
+                App.MPViewModel.Player.Volume = value;
+            }
         }
         #endregion
 
@@ -609,7 +605,12 @@ namespace Rise.App.ViewModels
 
                 // Return the setting if type matches
                 if (val is not Type)
-                    throw new ArgumentException("Type mismatch for \"" + setting + "\" in local store. Got " + val.GetType());
+                {
+                    string format = "Type mismatch for \"{0}\" in local store. Got {1}";
+                    string message = string.Format(format, setting, val.GetType());
+
+                    throw new ArgumentException(message);
+                }
 
                 return (Type)val;
             }
@@ -631,7 +632,12 @@ namespace Rise.App.ViewModels
 
             // Return the setting if type matches
             if (value is not Type)
-                throw new ArgumentException("Type mismatch for \"" + setting + "\" in store \"" + store + "\". Current type is " + value.GetType());
+            {
+                string format = "Type mismatch for \"{0}\" in local store. Current type is {1}";
+                string message = string.Format(format, setting, value.GetType());
+
+                throw new ArgumentException(message);
+            }
 
             return (Type)value;
         }
@@ -654,6 +660,8 @@ namespace Rise.App.ViewModels
                 // Get app settings
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                 localSettings.Values[setting] = newValue;
+
+                OnPropertyChanged(setting);
                 return;
             }
 

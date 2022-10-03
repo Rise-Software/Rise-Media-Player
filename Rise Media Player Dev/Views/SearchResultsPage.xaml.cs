@@ -22,21 +22,12 @@ namespace Rise.App.Views
             { typeof(SongViewModel), "Songs" },
         };
 
-        private double? _offset = null;
-
         public SearchResultsPage()
             : base("Title", App.MViewModel.Songs)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
-            NavigationHelper.SaveState += NavigationHelper_SaveState;
-        }
-
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            if (_offset != null)
-                MainGrid.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -74,19 +65,6 @@ namespace Rise.App.Views
             }
 
             GroupedItems = suitableItems.GroupBy(e => ResourceNames[e.GetType()]);
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            var scr = MainGrid.FindVisualChild<ScrollViewer>();
-            if (scr != null)
-                e.PageState["Offset"] = scr.VerticalOffset;
         }
     }
 

@@ -24,7 +24,7 @@ namespace Rise.App.Converters
                 return _currLoader.GetString(resource);
             }
 
-            return ResourceHelper.GetString(resource);
+            throw new ArgumentException("For resources in the default location, use the ResourceHelper markup extension.", nameof(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

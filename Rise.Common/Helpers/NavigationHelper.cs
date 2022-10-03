@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using Windows.Foundation.Metadata;
 using Windows.System;
@@ -54,7 +55,7 @@ namespace Rise.Common.Helpers
     /// </code>
     /// </example>
     [WebHostHidden]
-    public class NavigationHelper : DependencyObject
+    public partial class NavigationHelper : DependencyObject
     {
         private Page Page { get; set; }
         private Frame Frame => Page.Frame;
@@ -100,55 +101,6 @@ namespace Rise.Common.Helpers
 
         #region Navigation support
 
-        RelayCommand _goBackCommand;
-        RelayCommand _goForwardCommand;
-
-        /// <summary>
-        /// <see cref="RelayCommand"/> used to bind to the back Button's Command property
-        /// for navigating to the most recent item in back navigation history, if a Frame
-        /// manages its own navigation history.
-        /// 
-        /// The <see cref="RelayCommand"/> is set up to use the virtual method <see cref="GoBack"/>
-        /// as the Execute Action and <see cref="CanGoBack"/> for CanExecute.
-        /// </summary>
-        public RelayCommand GoBackCommand
-        {
-            get
-            {
-                if (_goBackCommand == null)
-                {
-                    _goBackCommand = new RelayCommand(
-                        (e) => GoBack(),
-                        (e) => CanGoBack());
-                }
-                return _goBackCommand;
-            }
-            set
-            {
-                _goBackCommand = value;
-            }
-        }
-        /// <summary>
-        /// <see cref="RelayCommand"/> used for navigating to the most recent item in 
-        /// the forward navigation history, if a Frame manages its own navigation history.
-        /// 
-        /// The <see cref="RelayCommand"/> is set up to use the virtual method <see cref="GoForward"/>
-        /// as the Execute Action and <see cref="CanGoForward"/> for CanExecute.
-        /// </summary>
-        public RelayCommand GoForwardCommand
-        {
-            get
-            {
-                if (_goForwardCommand == null)
-                {
-                    _goForwardCommand = new RelayCommand(
-                        (e) => GoForward(),
-                        (e) => CanGoForward());
-                }
-                return _goForwardCommand;
-            }
-        }
-
         /// <summary>
         /// Virtual method used by the <see cref="GoBackCommand"/> property
         /// to determine if the <see cref="Frame"/> can go back.
@@ -178,14 +130,17 @@ namespace Rise.Common.Helpers
         /// Virtual method used by the <see cref="GoBackCommand"/> property
         /// to invoke the <see cref="Views.UI.Xaml.Controls.Frame.GoBack"/> method.
         /// </summary>
+        [RelayCommand(CanExecute = nameof(CanGoBack))]
         public virtual void GoBack()
         {
             if (Frame != null && Frame.CanGoBack) Frame.GoBack();
         }
+
         /// <summary>
         /// Virtual method used by the <see cref="GoForwardCommand"/> property
         /// to invoke the <see cref="Views.UI.Xaml.Controls.Frame.GoForward"/> method.
         /// </summary>
+        [RelayCommand(CanExecute = nameof(CanGoForward))]
         public virtual void GoForward()
         {
             if (Frame != null && Frame.CanGoForward) Frame.GoForward();

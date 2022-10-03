@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -13,6 +9,10 @@ using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
@@ -34,6 +34,8 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static bool _loaded;
+
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -42,7 +44,14 @@ namespace Rise.App.Views
 
         private NavViewDataSource NavDataSource => App.NavDataSource;
 
-        private NavigationViewItem RightClickedItem { get; set; }
+        private static readonly DependencyProperty RightClickedItemProperty
+            = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
+                typeof(MainPage), null);
+        private NavViewItemViewModel RightClickedItem
+        {
+            get => (NavViewItemViewModel)GetValue(RightClickedItemProperty);
+            set => SetValue(RightClickedItemProperty, value);
+        }
 
         // This is static to allow it to persist during an
         // individual session. When the user exits the app,
@@ -91,24 +100,27 @@ namespace Rise.App.Views
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
             UpdateTitleBarItems(NavView);
-            if (!App.MainPageLoaded)
+            if (!_loaded)
             {
+                _loaded = true;
+
                 // Sidebar icons
                 await NavDataSource.PopulateGroupsAsync();
 
                 // Startup setting
                 if (ContentFrame.Content == null)
-                {
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
-                }
 
-                if (SViewModel.AutoIndexingEnabled)
-                {
+                // Auto indexing
+                if (SViewModel.IndexingFileTrackingEnabled)
+                    await App.InitializeChangeTrackingAsync();
+
+                if (SViewModel.IndexingAtStartupEnabled)
                     await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-                }
-
-                App.MainPageLoaded = true;
             }
+
+            if (MViewModel.IsScanning)
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -121,6 +133,8 @@ namespace Rise.App.Views
 
             MPViewModel.MediaPlayerRecreated -= OnMediaPlayerRecreated;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
+
+            goToNowPlayingCommand = null;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -179,6 +193,21 @@ namespace Rise.App.Views
         }
 
         [RelayCommand]
+        private void EnterFullScreen()
+        {
+            if (MPViewModel.PlayingItem == null) return;
+
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
+            {
+                if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                    Frame.Navigate(typeof(VideoPlaybackPage), true);
+                else
+                    Frame.Navigate(typeof(NowPlayingPage), true);
+            }
+        }
+
+        [RelayCommand]
         private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
         {
             if (MPViewModel.PlayingItem == null) return;
@@ -208,8 +237,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                AddedTip.IsOpen = false;
-                CheckTip.IsOpen = true;
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
 
@@ -217,11 +245,11 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                CheckTip.IsOpen = false;
-                AddedTip.IsOpen = true;
-
+                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
                 await Task.Delay(3000);
-                AddedTip.IsOpen = false;
+
+                if (!MViewModel.IsScanning)
+                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -249,27 +277,18 @@ namespace Rise.App.Views
         /// </summary>
         private void UpdateTitleBarItems(Microsoft.UI.Xaml.Controls.NavigationView navView)
         {
-            const int expandedIndent = 48;
-            int minimalIndent = 104;
-
-            // If the back button is not visible, reduce the TitleBar content indent.
-            if (navView.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
-            {
-                minimalIndent = 48;
-            }
-
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
             if (navView.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
             {
-                AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(minimalIndent + 36, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(104, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(140, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
             else
             {
-                AppTitleBar.Margin = new Thickness(expandedIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                ControlsPanel.Margin = new Thickness(expandedIndent + AppData.DesiredSize.Width + 132, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                AppTitleBar.Margin = new Thickness(48, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                ControlsPanel.Margin = new Thickness(260, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
         }
 
@@ -400,11 +419,7 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            OpenSync.Visibility = Visibility.Collapsed;
-            IsScanning.Visibility = Visibility.Visible;
             await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
-            IsScanning.Visibility = Visibility.Collapsed;
-            OpenSync.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -412,40 +427,20 @@ namespace Rise.App.Views
             Frame.Navigate(typeof(AllSettingsPage));
         }
 
-        private void HideItem_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.ChangeItemVisibility(RightClickedItem.Tag.ToString(), false);
-
-        private void HideSection_Click(object sender, RoutedEventArgs e)
+        private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
-            _ = NavDataSource.TryGetItem(RightClickedItem.Tag.ToString(), out var item);
-            NavDataSource.HideGroup(item.HeaderGroup);
-        }
+            var item = sender as NavigationViewItem;
+            var tag = item.Tag.ToString();
 
-        private void MoveUp_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveUp(RightClickedItem.Tag.ToString());
-
-        private void MoveDown_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveDown(RightClickedItem.Tag.ToString());
-
-        private void ToTop_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToTop(RightClickedItem.Tag.ToString());
-
-        private void ToBottom_Click(object sender, RoutedEventArgs e)
-            => NavDataSource.MoveToBottom(RightClickedItem.Tag.ToString());
-
-        private void NavigationView_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            DependencyObject source = e.OriginalSource as DependencyObject;
-
-            if (source.FindVisualParent<NavigationViewItem>()
-                is NavigationViewItem item && !item.Tag.ToString().Equals("SettingsPage"))
+            if (tag != "SettingsPage" && NavDataSource.TryGetItem(tag, out var itm))
             {
-                RightClickedItem = item;
-                string tag = item.Tag.ToString();
+                RightClickedItem = itm;
+                bool hasPosition = args.TryGetPosition(item, out var point);
 
-                if (tag.Equals("LocalVideosPage") || tag.Equals("DiscyPage"))
+                MenuFlyout flyout;
+                if (tag == "LocalVideosPage" || tag == "DiscyPage")
                 {
-                    NavViewLightItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewLightItemFlyout;
                 }
                 else
                 {
@@ -458,8 +453,13 @@ namespace Rise.App.Views
                     DownOption.IsEnabled = down;
                     BottomOption.IsEnabled = down;
 
-                    NavViewItemFlyout.ShowAt(NavView, e.GetPosition(NavView));
+                    flyout = NavViewItemFlyout;
                 }
+
+                if (hasPosition)
+                    flyout.ShowAt(item, point);
+                else
+                    flyout.ShowAt(item);
             }
         }
 

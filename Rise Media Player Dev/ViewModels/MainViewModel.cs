@@ -17,7 +17,6 @@ using Rise.Models;
 using Rise.NewRepository;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.Storage.Search;
 
 namespace Rise.App.ViewModels
 {
@@ -25,6 +24,16 @@ namespace Rise.App.ViewModels
     {
         public event EventHandler IndexingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
+
+        private bool _isScanning;
+        /// <summary>
+        /// Whether the app is currently looking for new media.
+        /// </summary>
+        public bool IsScanning
+        {
+            get => _isScanning;
+            private set => Set(ref _isScanning, value);
+        }
 
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
@@ -214,18 +223,17 @@ namespace Rise.App.ViewModels
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
+            IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
             await IndexLibrariesAsync(token);
             token.ThrowIfCancellationRequested();
 
-            await SongsTracker.HandleMusicFolderChangesAsync();
-            token.ThrowIfCancellationRequested();
-
-            await VideosTracker.HandleVideosFolderChangesAsync();
-            token.ThrowIfCancellationRequested();
+            _ = SongsTracker.HandleMusicFolderChangesAsync(token);
+            _ = VideosTracker.HandleVideosFolderChangesAsync(token);
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;
@@ -233,23 +241,27 @@ namespace Rise.App.ViewModels
 
         private async Task IndexLibrariesAsync(CancellationToken token)
         {
-            await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
-                PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
+            var songsTask = Task.Run(async () =>
             {
-                if (await SaveMusicModelsAsync(song, true))
-                    IndexedSongs++;
+                await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
+                    PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
+                {
+                    if (await SaveMusicModelsAsync(song, true))
+                        IndexedSongs++;
+                }
+            }, token);
 
-                token.ThrowIfCancellationRequested();
-            }
-
-            await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
-                PropertyPrefetchOptions.VideoProperties))
+            var videosTask = Task.Run(async () =>
             {
-                if (await SaveVideoModelAsync(video, true))
-                    IndexedVideos++;
+                await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
+                    PropertyPrefetchOptions.VideoProperties))
+                {
+                    if (await SaveVideoModelAsync(video, true))
+                        IndexedVideos++;
+                }
+            }, token);
 
-                token.ThrowIfCancellationRequested();
-            }
+            await Task.WhenAll(songsTask, videosTask);
 
             await Repository.UpsertQueuedAsync();
         }
@@ -346,7 +358,7 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
@@ -378,7 +390,7 @@ namespace Rise.App.ViewModels
                     {
                         if (imagel.Contains(song.Artist))
                         {
-                            thumb = imagel.Replace(song.Artist + " - ", "");
+                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
                         }
                     }
                 }
@@ -428,7 +440,7 @@ namespace Rise.App.ViewModels
                     XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
                     if (node != null)
                     {
-                        string yes = node.InnerText.Replace("<![CDATA[ ", "").Replace(" ]]>", "");
+                        string yes = node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                         return yes;
                     }
                 }

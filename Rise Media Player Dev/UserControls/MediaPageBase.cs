@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.ViewModels;
 using Rise.App.Views;
@@ -10,6 +6,10 @@ using Rise.App.Views.Albums.Properties;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using System;
+using System.Collections;
+using System.IO;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -50,12 +50,6 @@ namespace Rise.App.UserControls
             NavigationHelper = new(this);
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
-
-            EditItemCommand = new(EditItemAsync);
-            OpenInExplorerCommand = new(OpenInExplorerAsync);
-
-            GoToAlbumCommand = new(GoToAlbum);
-            GoToArtistCommand = new(GoToArtist);
         }
 
         /// <summary>
@@ -82,11 +76,7 @@ namespace Rise.App.UserControls
     // Editing
     public partial class MediaPageBase
     {
-        /// <summary>
-        /// A command to start editing the provided item.
-        /// </summary>
-        public AsyncRelayCommand<object> EditItemCommand { get; private set; }
-
+        [RelayCommand]
         private Task EditItemAsync(object parameter)
         {
             if (parameter is SongViewModel song)
@@ -147,37 +137,20 @@ namespace Rise.App.UserControls
     public partial class MediaPageBase
     {
         /// <summary>
-        /// A command to navigate to the album with the
-        /// specified name.
-        /// </summary>
-        public RelayCommand<string> GoToAlbumCommand { get; private set; }
-
-        /// <summary>
-        /// A command to navigate to the artist with the
-        /// specified name.
-        /// </summary>
-        public RelayCommand<string> GoToArtistCommand { get; private set; }
-
-        /// <summary>
-        /// Opens the provided item in the file explorer.
-        /// </summary>
-        public AsyncRelayCommand<object> OpenInExplorerCommand { get; private set; }
-
-        /// <summary>
         /// Navigates to the album with the specified name.
         /// </summary>
+        [RelayCommand]
         protected void GoToAlbum(string name)
             => _ = Frame.Navigate(typeof(AlbumSongsPage), name);
 
         /// <summary>
         /// Navigates to the artist with the specified name.
         /// </summary>
+        [RelayCommand]
         protected void GoToArtist(string name)
             => _ = Frame.Navigate(typeof(ArtistSongsPage), name);
 
-        /// <summary>
-        /// Opens the provided item in explorer if possible.
-        /// </summary>
+        [RelayCommand]
         private Task OpenInExplorerAsync(object parameter)
         {
             if (parameter is IMediaItem item)

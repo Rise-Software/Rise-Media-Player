@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using Rise.App.Converters;
+﻿using Rise.App.Converters;
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
@@ -52,7 +51,6 @@ namespace Rise.App.Views
         }
 
         private ArtistViewModel SelectedArtist;
-        private double? _offset = null;
 
         // These handle the way artist biography is displayed
         private bool ShowingSummarized = true;
@@ -79,9 +77,6 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                RootViewer.ChangeView(null, _offset, null);
-
             string name = SelectedArtist.Name;
             if (!SViewModel.FetchOnlineData ||
                 !WebHelpers.IsInternetAccessAvailable() ||
@@ -99,6 +94,9 @@ namespace Rise.App.Views
 
                 ShortBio = await GetArtistBioAsync(name, true);
                 AboutArtist.Text = ShortBio;
+
+                if (!string.IsNullOrWhiteSpace(ShortBio))
+                    ArtistAbout.Visibility = Visibility.Visible;
             }
         }
 
@@ -119,21 +117,11 @@ namespace Rise.App.Views
 
                 MediaViewModel.Items.Filter = s => ((SongViewModel)s).Artist == str || ((SongViewModel)s).AlbumArtist == str;
             }
-
-            if (e.PageState != null)
-            {
-                bool result = e.PageState.TryGetValue("Offset", out var offset);
-                if (result)
-                    _offset = (double)offset;
-            }
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            e.PageState["Offset"] = RootViewer.VerticalOffset;
-
             AlbumsViewModel.Items.Filter = null;
-            Frame.SetListDataItemForNextConnectedAnimation(SelectedArtist);
         }
     }
 
@@ -334,12 +322,12 @@ namespace Rise.App.Views
                         {
                             var url = doc.DocumentElement.SelectSingleNode("/lfm/artist/url");
                             var noUrl = node.InnerText.
-                                Replace("<a href=\"" + url.InnerText + "\">Read more on Last.fm</a>", "");
+                                Replace("<a href=\"" + url.InnerText + "\">Read more on Last.fm</a>", string.Empty);
 
                             if (summarized)
                                 return noUrl;
 
-                            return noUrl.Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", "");
+                            return noUrl.Replace(". User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.", string.Empty);
                         }
                     }
                 }
@@ -372,7 +360,7 @@ namespace Rise.App.Views
             }
             catch { }
 
-            return "";
+            return string.Empty;
         }
     }
 }

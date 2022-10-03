@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:local="using:Rise.App.Views"
-    xmlns:local1="using:Rise.App"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
@@ -57,66 +56,6 @@
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
             <Thickness x:Key="NavigationViewHeaderMargin">0,0,0,0</Thickness>
-
-            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
-                <MenuFlyoutItem
-                    x:Name="TopOption"
-                    x:Uid="/Information/ToTop"
-                    Click="ToTop_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE11C;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutItem
-                    x:Name="UpOption"
-                    x:Uid="/Information/MoveUp"
-                    Click="MoveUp_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE010;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutItem
-                    x:Name="DownOption"
-                    x:Uid="/Information/MoveDown"
-                    Click="MoveDown_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE011;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutItem
-                    x:Name="BottomOption"
-                    x:Uid="/Information/ToBottom"
-                    Click="ToBottom_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE118;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutSeparator />
-
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-
-                <MenuFlyoutItem x:Uid="/Information/RemoveSection" Click="HideSection_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xECC9;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-            </MenuFlyout>
-
-            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
-                <MenuFlyoutItem x:Uid="/Information/Remove" Click="HideItem_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE77A;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-            </MenuFlyout>
 
             <Flyout
                 x:Name="PlayingItemMusicFlyout"
@@ -283,74 +222,126 @@
                 </Grid>
             </Flyout>
 
-            <!--#region NavView item templates-->
-            <DataTemplate
-                x:Key="AssetIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
+            <local:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
+                <local:NavViewItemTemplateSelector.AssetIconTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccessKey}"
+                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            AutomationProperties.Name="{x:Bind Label}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            ContextRequested="NavigationViewItem_ContextRequested"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}">
+                            <muxc:NavigationViewItem.Icon>
+                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.AssetIconTemplate>
 
-            <DataTemplate
-                x:Key="GlyphIconTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItem
-                    x:Phase="1"
-                    AccessKey="{x:Bind AccessKey}"
-                    AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    AutomationProperties.Name="{x:Bind Label}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </DataTemplate>
+                <local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem
+                            x:Phase="1"
+                            AccessKey="{x:Bind AccessKey}"
+                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            AutomationProperties.Name="{x:Bind Label}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            ContextRequested="NavigationViewItem_ContextRequested"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.GlyphIconTemplate>
 
-            <DataTemplate
-                x:Key="HeaderTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemHeader
-                    x:Phase="1"
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
+                <local:NavViewItemTemplateSelector.HeaderTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItemHeader
+                            x:Phase="1"
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}" />
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.HeaderTemplate>
 
-            <DataTemplate
-                x:Key="SeparatorTemplate"
-                x:DataType="viewmodels:NavViewItemViewModel"
-                x:DefaultBindMode="OneWay">
-                <muxc:NavigationViewItemSeparator
-                    AutomationProperties.AutomationId="{x:Bind Id}"
-                    Tag="{x:Bind Id}"
-                    Visibility="{x:Bind IsVisible}" />
-            </DataTemplate>
-            <!--#endregion-->
+                <local:NavViewItemTemplateSelector.SeparatorTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItemSeparator
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible}" />
+                    </DataTemplate>
+                </local:NavViewItemTemplateSelector.SeparatorTemplate>
+            </local:NavViewItemTemplateSelector>
 
-            <local:NavViewItemTemplateSelector
-                x:Key="NavViewItemTemplateSelector"
-                AssetIconTemplate="{StaticResource AssetIconTemplate}"
-                GlyphIconTemplate="{StaticResource GlyphIconTemplate}"
-                HeaderTemplate="{StaticResource HeaderTemplate}"
-                SeparatorTemplate="{StaticResource SeparatorTemplate}" />
+            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
+                <MenuFlyoutItem
+                    x:Name="TopOption"
+                    x:Uid="/Information/ToTop"
+                    Command="{x:Bind NavDataSource.MoveToTopCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Upload" />
+
+                <MenuFlyoutItem
+                    x:Name="UpOption"
+                    x:Uid="/Information/MoveUp"
+                    Command="{x:Bind NavDataSource.MoveUpCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE010;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem
+                    x:Name="DownOption"
+                    x:Uid="/Information/MoveDown"
+                    Command="{x:Bind NavDataSource.MoveDownCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE011;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+
+                <MenuFlyoutItem
+                    x:Name="BottomOption"
+                    x:Uid="/Information/ToBottom"
+                    Command="{x:Bind NavDataSource.MoveToBottomCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="Download" />
+
+                <MenuFlyoutSeparator />
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
+
+                <MenuFlyoutItem
+                    x:Uid="/Information/RemoveSection"
+                    Command="{x:Bind NavDataSource.HideGroupCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xECC9;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+
+            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
+                <MenuFlyoutItem
+                    x:Uid="/Information/Remove"
+                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
+                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Icon="UnPin" />
+            </MenuFlyout>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -363,7 +354,6 @@
             <skuc:ExtendedTitleBar
                 x:Name="AppTitleBar"
                 Height="40"
-                Margin="54,0,0,0"
                 VerticalAlignment="Top"
                 Canvas.ZIndex="1">
                 <Grid
@@ -461,22 +451,18 @@
                     Style="{StaticResource TransparentButtonStyle}"
                     ToolTipService.ToolTip="Sync centre">
                     <Button.Content>
-                        <StackPanel>
+                        <Grid>
                             <FontIcon
-                                x:Name="OpenSync"
+                                x:Name="SyncCentreIcon"
                                 Height="24"
                                 Glyph="&#xE117;" />
-                            <FontIcon
-                                x:Name="ScanDone"
-                                Height="24"
-                                Glyph="&#xE001;" />
 
                             <muxc:ProgressRing
-                                x:Name="IsScanning"
+                                x:Name="ScanningRing"
                                 Width="20"
                                 Height="20"
-                                IsActive="True" />
-                        </StackPanel>
+                                IsActive="False" />
+                        </Grid>
                     </Button.Content>
 
                     <Button.Flyout>
@@ -553,7 +539,6 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-
                             <MenuFlyoutSeparator />
 
                             <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
@@ -563,13 +548,6 @@
                             </MenuFlyoutItem>
 
                             <MenuFlyoutSeparator />
-
-                            <MenuFlyoutItem IsEnabled="False" Text="Alpha Preview 2">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE946;" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-
 
                             <MenuFlyoutItem x:Uid="/Information/Fdb" Click="Button_Click">
                                 <MenuFlyoutItem.Icon>
@@ -603,9 +581,7 @@
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.Items}"
-            OpenPaneLength="260"
-            PaneDisplayMode="LeftMinimal"
-            RightTapped="NavigationView_RightTapped">
+            OpenPaneLength="260">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -618,19 +594,25 @@
                     MaxWidth="1000"
                     Margin="16"
                     d:DesignHeight="102"
-                    x:DefaultBindMode="OneWay"
-                    MediaPlayerVisibility="Collapsed">
+                    MediaPlayerVisibility="Collapsed"
+                    Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
                     <uc:RiseMediaPlayerElement.TransportControls>
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            DisplayItemVisibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(local1:App.MPViewModel.PlayingItem)}"
+                            DisplayItemVisibility="Visible"
+                            FullWindowCommand="{x:Bind EnterFullScreenCommand}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
-                            IsFullWindowButtonVisible="False"
+                            IsEqualizerButtonEnabled="True"
+                            IsEqualizerButtonVisible="True"
+                            IsFullWindowButtonVisible="True"
+                            IsFullWindowEnabled="True"
                             IsNextTrackButtonVisible="True"
                             IsOverlayButtonVisible="True"
                             IsOverlayEnabled="True"
+                            IsPlaybackRateButtonVisible="True"
+                            IsPlaybackRateEnabled="True"
                             IsPreviousTrackButtonVisible="True"
                             IsPropertiesButtonVisible="True"
                             IsPropertiesEnabled="True"
@@ -643,7 +625,9 @@
                             IsShuffleEnabled="True"
                             IsSkipBackwardEnabled="True"
                             IsSkipForwardEnabled="True"
-                            OverlayCommand="{x:Bind GoToNowPlayingCommand, Mode=OneTime}"
+                            IsZoomButtonVisible="False"
+                            IsZoomEnabled="False"
+                            OverlayCommand="{x:Bind GoToNowPlayingCommand}"
                             ShowAndHideAutomatically="False">
                             <uc:RiseMediaTransportControls.QueueFlyout>
                                 <Flyout>
@@ -659,7 +643,10 @@
                                     Click="OnDisplayItemClick"
                                     RightTapped="OnDisplayItemRightTapped"
                                     Style="{StaticResource TransparentButtonStyle}">
-                                    <Grid x:Name="ItemGrid" Height="80">
+                                    <Grid
+                                        x:Name="ItemGrid"
+                                        Height="80"
+                                        x:DefaultBindMode="OneWay">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition x:Name="ImageDefinition" Width="80" />
                                             <ColumnDefinition x:Name="TextDefinition" Width="120" />
@@ -719,20 +706,6 @@
             </Grid>
         </muxc:NavigationView>
 
-        <!--#region Indexing tips-->
-        <muxc:TeachingTip
-            x:Name="IndexingTip"
-            x:Uid="/Information/Indexing"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xEA69;" />
-            </muxc:TeachingTip.IconSource>
-            <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
-
         <muxc:TeachingTip
             x:Name="AddedTip"
             Title="Updated your library."
@@ -740,7 +713,6 @@
             ActionButtonContent="Change when we scan"
             ActionButtonStyle="{StaticResource AccentButtonStyle}"
             HeroContentPlacement="Bottom"
-            IsLightDismissEnabled="True"
             PlacementMargin="0,24,-26,0"
             PreferredPlacement="TopRight" />
 
@@ -765,17 +737,6 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <muxc:TeachingTip
-            x:Name="NoNewTip"
-            x:Uid="/Information/NoNew"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.IconSource>
-                <muxc:FontIconSource Glyph="&#xE8F1;" />
-            </muxc:TeachingTip.IconSource>
-        </muxc:TeachingTip>
-        <!--#endregion-->
-
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
                 <VisualState x:Name="WideWindow">
@@ -785,10 +746,8 @@
 
                     <VisualState.Setters>
                         <Setter Target="NavView.IsPaneToggleButtonVisible" Value="False" />
-                        <Setter Target="NavView.PaneDisplayMode" Value="Left" />
 
                         <Setter Target="Search.PlaceholderText" Value="{markup:ResourceHelper Name=SearchMediaPlaceholder}" />
-
                         <Setter Target="AppTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
@@ -979,6 +938,24 @@
                             </EasingDoubleKeyFrame>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="ScanningStates">
+                <VisualState x:Name="NotScanningState" />
+                <VisualState x:Name="ScanningState">
+                    <VisualState.Setters>
+                        <Setter Target="CheckTip.IsOpen" Value="True" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="ScanningDoneState">
+                    <VisualState.Setters>
+                        <Setter Target="AddedTip.IsOpen" Value="True" />
+                        <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
 

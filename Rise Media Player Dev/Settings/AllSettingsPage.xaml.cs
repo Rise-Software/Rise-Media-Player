@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using Rise.App.Dialogs;
+﻿using Rise.App.Dialogs;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,48 +25,9 @@ namespace Rise.App.Settings
             Current = this;
 
             TitleBar.SetTitleBarForCurrentView();
-        }
 
-        private void SettingsSidebar_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
-            if (selectedItem != null)
-            {
-                string selectedItemTag = selectedItem.Tag as string;
-
-                switch (selectedItemTag)
-                {
-                    case "Appearance":
-                        SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
-                        break;
-                    case "MediaLibrary":
-                        SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
-                        break;
-                    case "Navigation":
-                        SettingsMainFrame.Navigate(typeof(NavigationPage));
-                        break;
-                    case "Playback":
-                        SettingsMainFrame.Navigate(typeof(PlaybackPage));
-                        break;
-                    case "Sync":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
-                        break;
-                    case "Behaviour":
-                        SettingsMainFrame.Navigate(typeof(WindowsBehavioursPage));
-                        break;
-                    case "Components":
-                        SettingsMainFrame.Navigate(typeof(ComingSoonPage));
-                        break;
-                    case "About":
-                        SettingsMainFrame.Navigate(typeof(AboutPage));
-                        break;
-                    default:
-                        SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-                        break;
-                }
-
-                FinishNavigation();
-            }
+            SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
+            FinishNavigation();
         }
 
         private async void FeedbackSettings_Click(object sender, RoutedEventArgs e)
@@ -89,58 +50,68 @@ namespace Rise.App.Settings
 
         private void SettingsSidebar_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            //var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.InvokedItem;
-            //string selectedItemTag = selectedItem.Tag as string;
+            string tag = args?.InvokedItemContainer?.Tag?.ToString();
+            if (tag != null)
+            {
+                Type page;
+                switch (tag)
+                {
+                    case "Appearance":
+                        page = typeof(AppearanceBasePage);
+                        break;
+                    case "MediaLibrary":
+                        page = typeof(MediaLibraryBasePage);
+                        break;
+                    case "Navigation":
+                        page = typeof(NavigationPage);
+                        break;
+                    case "Playback":
+                        page = typeof(PlaybackPage);
+                        break;
+                    case "Sync":
+                        page = typeof(ComingSoonPage);
+                        break;
+                    case "Behaviour":
+                        page = typeof(WindowsBehavioursPage);
+                        break;
+                    case "Components":
+                        page = typeof(ComingSoonPage);
+                        break;
+                    case "About":
+                        page = typeof(AboutPage);
+                        break;
+                    default:
+                        page = typeof(MediaSourcesPage);
+                        break;
+                }
 
-            //switch (selectedItemTag)
-            //{
-            //    case "Appearance":
-            //        MainSettingsHeaderIcon.Glyph = "\uE771";
-            //        MainSettingsHeader.Text = "Appearance";
-            //        SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
-            //        break;
-            //    case "MediaLibrary":
-            //        MainSettingsHeaderIcon.Glyph = "\uEA69";
-            //        MainSettingsHeader.Text = "Media library";
-            //        SettingsMainFrame.Navigate(typeof(MediaLibraryBasePage));
-            //        break;
-            //    case "Navigation":
-            //        MainSettingsHeaderIcon.Glyph = "\uE8B0";
-            //        MainSettingsHeader.Text = "Navigation";
-            //        SettingsMainFrame.Navigate(typeof(NavigationPage));
-            //        break;
-            //    case "Playback":
-            //        MainSettingsHeaderIcon.Glyph = "\uF4C3";
-            //        MainSettingsHeader.Text = "Playback & sound";
-            //        SettingsMainFrame.Navigate(typeof(PlaybackPage));
-            //        break;
+                if (SettingsMainFrame.CurrentSourcePageType != page)
+                {
+                    SettingsMainFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
+                    SettingsMainFrame.BackStack.Clear();
+
+                    FinishNavigation();
+                }
+            }
         }
 
         private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();
-            }
+            Frame.GoBack();
 
             var diag = new SettingsDialogContainer();
             diag.Content = new SettingsPage();
 
             _ = await diag.ShowAsync();
-            _ = SettingsPage.Current.SettingsFrame.Navigate(typeof(MediaLibraryPage));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.Current.Content is Frame rootFrame && rootFrame.CanGoBack)
-            {
-                rootFrame.GoBack();
-            }
+            Frame.GoBack();
         }
 
         private void FinishNavigation()
         {
-            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Collapsed;
             string type = SettingsMainFrame.CurrentSourcePageType.ToString();
             string tag = type.Split('.').Last();
 
@@ -195,7 +166,6 @@ namespace Rise.App.Settings
             {
                 SettingsMainFrame.GoBack();
                 FinishNavigation();
-                GOBACKPAGE.Visibility = Visibility.Collapsed;
             }
         }
 

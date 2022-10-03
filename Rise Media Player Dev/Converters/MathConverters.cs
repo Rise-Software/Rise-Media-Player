@@ -7,16 +7,11 @@ namespace Rise.App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            double actualValue = (double)value;
-            bool isPercentageVisible = false;
-            if (parameter is string param)
-            {
-                if (param == "WithPercentage")
-                {
-                    isPercentageVisible = true;
-                }
-            }
-            return $"{Math.Floor(actualValue * 100)}{(isPercentageVisible ? "%" : "")}";
+            double val = Math.Floor((double)value * 100);
+            if (parameter is string param && param == "WithPercentage")
+                return val + "%";
+
+            return val;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

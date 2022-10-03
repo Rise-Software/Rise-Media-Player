@@ -75,6 +75,8 @@
                     x:Name="PlayerControls"
                     Margin="16"
                     IsCompact="True"
+                    IsEqualizerButtonEnabled="True"
+                    IsEqualizerButtonVisible="True"
                     IsNextTrackButtonVisible="True"
                     IsPlaybackRateButtonVisible="True"
                     IsPlaybackRateEnabled="True"

@@ -3,11 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:wuvm="using:Windows.UI.ViewManagement">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CardStyles.xaml" />
         <ResourceDictionary Source="ListStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -191,57 +190,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-    <!--#endregion-->
 
-    <!--#region Cards-->
-    <Thickness x:Key="ExpanderHeaderPadding">16,8,0,8</Thickness>
-    <Style TargetType="muxc:Expander">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="ExpandDirection" Value="Down" />
-        <Setter Property="Padding" Value="44,12" />
-    </Style>
-
-    <Style x:Key="SettingsCard" TargetType="Border">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="Padding" Value="16,12" />
-    </Style>
-
-    <Style x:Key="TransparentCard" TargetType="Border">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style
-        x:Key="ActionCard"
-        BasedOn="{StaticResource DefaultButtonStyle}"
-        TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-        <Setter Property="Padding" Value="16,12,16,12" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-    <!--#endregion-->
-
-    <!--#region Fonts-->
     <Style TargetType="FontIcon">
         <Setter Property="FontSize" Value="16" />
     </Style>
@@ -251,35 +200,7 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Padding" Value="0,16,0,5" />
     </Style>
-    <!--#endregion-->
 
-    <!--#region Shadows-->
-    <media:AttachedCardShadow x:Key="EmptyShadow" Opacity="0" />
-    <media:AttachedCardShadow
-        x:Key="LightDropShadow"
-        BlurRadius="25"
-        CornerRadius="8"
-        Opacity=".15"
-        Offset="0,2" />
-    <media:AttachedCardShadow
-        x:Key="StrongShadow"
-        BlurRadius="20"
-        CornerRadius="8"
-        Opacity=".4" />
-    <media:AttachedCardShadow
-        x:Key="LightShadow"
-        BlurRadius="8"
-        CornerRadius="8"
-        Opacity=".2" />
-    <media:AttachedCardShadow
-        x:Key="LightShadowBottomOffset"
-        BlurRadius="8"
-        CornerRadius="8"
-        Opacity=".075"
-        Offset="0,4,0" />
-    <!--#endregion-->
-
-    <!--#region Media bar-->
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
     <Style x:Key="DefaultRiseMediaPlayerElementStyle" TargetType="co:RiseMediaPlayerElement">
         <Setter Property="AreTransportControlsEnabled" Value="True" />
@@ -345,7 +266,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition x:Name="SecondaryBarColumn" MaxWidth="182" />
+                                <ColumnDefinition x:Name="SecondaryBarColumn" MaxWidth="168" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -514,8 +435,7 @@
                                 Grid.Column="3"
                                 Margin="0"
                                 DefaultLabelPosition="Collapsed"
-                                IsDynamicOverflowEnabled="True"
-                                OverflowButtonVisibility="Auto">
+                                OverflowButtonVisibility="Collapsed">
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     Command="{TemplateBinding OverlayCommand}"
@@ -568,50 +488,90 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="PlaybackRateButton" Label="{Binding ElementName=PlaybackRateButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xEC57;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton x:Name="ZoomButton" Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton
+                                    x:Name="ZoomButton"
+                                    Label="{Binding ElementName=ZoomButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="Collapsed">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE799;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="CastButton" Label="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton Label="More options" ToolTipService.ToolTip="More options">
                                     <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xEC15;" />
+                                        <FontIcon Glyph="&#xE10C;" />
                                     </AppBarButton.Icon>
+
+                                    <AppBarButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                x:Name="InfoPropertiesButton"
+                                                IsEnabled="{TemplateBinding IsPropertiesEnabled}"
+                                                Text="Info &amp; Properties"
+                                                Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xE946;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="FullScreenButton"
+                                                Command="{TemplateBinding FullWindowCommand}"
+                                                IsEnabled="{TemplateBinding IsFullWindowEnabled}"
+                                                Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                                Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem x:Name="CastToButton" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon Glyph="&#xEC15;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="MiniViewButton"
+                                                Command="{TemplateBinding OverlayCommand}"
+                                                IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                                                Text="Enter mini view"
+                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+
+                                            <MenuFlyoutSeparator />
+
+                                            <MenuFlyoutSubItem
+                                                x:Name="PlaybackSpeedButton"
+                                                IsEnabled="{TemplateBinding IsPlaybackRateEnabled}"
+                                                Text="Playback speed"
+                                                Visibility="{Binding IsPlaybackRateButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xEC4A;" />
+                                                </MenuFlyoutSubItem.Icon>
+                                            </MenuFlyoutSubItem>
+
+                                            <MenuFlyoutItem
+                                                x:Name="EqualizerButton"
+                                                IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                                Text="Equalizer"
+                                                Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </AppBarButton.Flyout>
                                 </AppBarButton>
 
-                                <AppBarButton
-                                    x:Name="MiniViewButton"
-                                    Command="{TemplateBinding OverlayCommand}"
-                                    IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                                    Label="Enter mini view"
-                                    Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE8B9;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="InfoPropertiesButton"
-                                    x:Uid="/Information/Properties"
-                                    IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                    Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE946;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
-                                    <AppBarButton.Icon>
-                                        <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
+                                <!--  Unused controls  -->
+                                <AppBarButton x:Name="CastButton" IsTabStop="False" />
+                                <AppBarButton x:Name="CompactOverlayButton" IsTabStop="False" />
+                                <AppBarButton x:Name="FullWindowButton" IsTabStop="False" />
+                                <AppBarButton x:Name="PlaybackRateButton" IsTabStop="False" />
                             </CommandBar>
 
                             <Grid
@@ -636,9 +596,9 @@
                                     Style="{StaticResource TransparentButtonStyle}">
                                     <Button.Content>
                                         <FontIcon
-                                            x:Name="AudioMuteIcon"
+                                            x:Name="VolumeIcon"
                                             FontSize="16"
-                                            Glyph="&#xE993;" />
+                                            Glyph="&#xE995;" />
                                     </Button.Content>
                                 </Button>
 
@@ -828,7 +788,7 @@
                                         <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
 
                                         <Setter Target="VolumeMuteButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="SecondaryBarColumn.Width" Value="48" />
+                                        <Setter Target="SecondaryBarColumn.Width" Value="92" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -845,33 +805,31 @@
 
                             <VisualStateGroup x:Name="VolumeMuteStates">
                                 <VisualState x:Name="VolumeState" />
-                                <VisualState x:Name="MuteState">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                <VisualState x:Name="MuteState" />
+                            </VisualStateGroup>
 
+                            <VisualStateGroup x:Name="VolumeStates">
                                 <VisualState x:Name="NoVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE992;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE198;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="LowVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE993;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE993;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="MidVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE994;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE994;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="HighVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE995;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE995;" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -882,6 +840,7 @@
                                 <VisualState x:Name="FullWindowState">
                                     <VisualState.Setters>
                                         <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />
+                                        <Setter Target="FullWindowSymbol1.Symbol" Value="BackToWindow" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1074,7 +1033,7 @@
                                                         <FontIcon
                                                             x:Name="AudioMuteIcon"
                                                             FontSize="16"
-                                                            Glyph="&#xE993;" />
+                                                            Glyph="&#xE995;" />
                                                     </Button.Content>
                                                 </Button>
 
@@ -1095,7 +1054,7 @@
                                     </AppBarButton.Flyout>
 
                                     <AppBarButton.Icon>
-                                        <FontIcon x:Name="VolumeMuteIcon" Glyph="&#xE993;" />
+                                        <FontIcon x:Name="VolumeIcon" Glyph="&#xE993;" />
                                     </AppBarButton.Icon>
 
                                     <AppBarButton.Resources>
@@ -1258,11 +1217,28 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="FullWindowButton" Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
+                                <AppBarButton
+                                    x:Name="EqualizerButton"
+                                    IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                    Label="Equalizer"
+                                    Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton
+                                    x:Name="FullScreenButton"
+                                    Command="{TemplateBinding FullWindowCommand}"
+                                    IsEnabled="{TemplateBinding IsFullWindowEnabled}"
+                                    Label="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
+                                    Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
+
+                                <AppBarButton x:Name="FullWindowButton" Visibility="Collapsed" />
                             </CommandBar>
                         </Grid>
 
@@ -1417,38 +1393,35 @@
 
                             <VisualStateGroup x:Name="VolumeMuteStates">
                                 <VisualState x:Name="VolumeState" />
-                                <VisualState x:Name="MuteState">
-                                    <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE198;" />
-                                    </VisualState.Setters>
-                                </VisualState>
+                                <VisualState x:Name="MuteState" />
+                            </VisualStateGroup>
 
+                            <VisualStateGroup x:Name="VolumeStates">
                                 <VisualState x:Name="NoVolumeState">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE992;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE992;" />
+                                        <Setter Target="AudioMuteIcon.Glyph" Value="&#xE198;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE198;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="LowVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE993;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE993;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE993;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="MidVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE994;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE994;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE994;" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState x:Name="HighVolumeState">
                                     <VisualState.Setters>
                                         <Setter Target="AudioMuteIcon.Glyph" Value="&#xE995;" />
-                                        <Setter Target="VolumeMuteIcon.Glyph" Value="&#xE995;" />
+                                        <Setter Target="VolumeIcon.Glyph" Value="&#xE995;" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1485,5 +1458,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!--#endregion-->
 </ResourceDictionary>

@@ -8,7 +8,7 @@ namespace Rise.App.Views
 {
     public sealed partial class CrashDetailsPage : Page
     {
-        private string Text = "";
+        private string Text;
 
         public CrashDetailsPage()
         {

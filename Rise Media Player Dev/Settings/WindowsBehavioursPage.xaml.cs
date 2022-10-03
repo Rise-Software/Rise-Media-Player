@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Rise.App.ViewModels;
 using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -44,13 +45,13 @@ namespace Rise.App.Settings
             VisualStateManager.GoToState(this, GetInfoBarState(), false);
         }
 
-        private async void OpenRiseMPinStartup_Toggled(object sender, RoutedEventArgs e)
+        private async void OpenAtStartup_Toggled(object sender, RoutedEventArgs e)
         {
-            await App.SViewModel.OpenAtStartupAsync();
+            await ViewModel.OpenAtStartupAsync();
             VisualStateManager.GoToState(this, GetInfoBarState(), false);
         }
 
-        private string GetInfoBarState() => App.SViewModel.FLGStartupTask switch
+        private string GetInfoBarState() => ViewModel.FLGStartupTask switch
         {
             1 => "DisabledByPolicy",
             2 => "DisabledByUser",
@@ -60,12 +61,12 @@ namespace Rise.App.Settings
 
         private async void InfoBarStartupLink_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(@"ms-settings:startupapps"));
+            await Launcher.LaunchUriAsync(new Uri(@"ms-settings:startupapps"));
         }
 
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(@"ms-settings:windowsupdate"));
+            await Launcher.LaunchUriAsync(new Uri(@"ms-settings:windowsupdate"));
         }
     }
 }

@@ -198,6 +198,8 @@ namespace Rise.App.ViewModels
             set => Set(ref _isReleaseYearVisible, value);
         }
 
+        public Task<int> GetTrackCountAsync()
+            => Task.Run(() => App.MViewModel.Songs.Count(s => s.Album == Title));
 
         #endregion
 

@@ -1,22 +1,15 @@
 ﻿using System;
-using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace Rise.App.Converters
 {
-    public class TooltipToText : IValueConverter
+    public class IntToVisibility : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is ToolTip tooltip)
-                return tooltip.Content;
-
-            return string.Empty;
-        }
+            => (int)value > 0 ? Visibility.Visible : Visibility.Collapsed;
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
     }
 }

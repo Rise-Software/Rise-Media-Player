@@ -4,7 +4,6 @@ using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Settings
 {
@@ -26,18 +25,13 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
             Current = this;
-
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void GotoManage_Click(object sender, RoutedEventArgs e)
         {
-            AllSettingsPage.Current.GOBACKPAGE.Visibility = Visibility.Visible;
             AllSettingsPage.Current.MainSettingsHeader.Text = "Manage local media folders";
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
-
-            Frame.Navigate(typeof(MediaSourcesPage));
         }
 
         private void CommandBarButton_Click(object sender, RoutedEventArgs e)
