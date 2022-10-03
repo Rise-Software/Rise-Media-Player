@@ -34,15 +34,15 @@ namespace Rise.App.Dialogs
 
         private async void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (ViewModel.SetupProgress)
+            int progress = ViewModel.SetupProgress;
+            if (progress == 1)
             {
-                case 1:
-                    ViewModel.FetchOnlineData = true;
-                    break;
-
-                case 5:
-                    await FinishSetupAsync(false);
-                    return;
+                ViewModel.FetchOnlineData = true;
+            }
+            else if (progress == 5)
+            {
+                await FinishSetupAsync(false);
+                return;
             }
 
             ViewModel.SetupProgress++;
@@ -51,19 +51,19 @@ namespace Rise.App.Dialogs
 
         private async void SecondaryButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (ViewModel.SetupProgress)
+            int progress = ViewModel.SetupProgress;
+            if (progress == 0)
             {
-                case 0:
-                    HideDialog();
-                    return;
-
-                case 1:
-                    ViewModel.FetchOnlineData = false;
-                    break;
-
-                case 5:
-                    await FinishSetupAsync(true);
-                    return;
+                HideDialog();
+            }
+            if (progress == 1)
+            {
+                ViewModel.FetchOnlineData = false;
+            }
+            else if (progress == 5)
+            {
+                await FinishSetupAsync(true);
+                return;
             }
 
             ViewModel.SetupProgress++;
