@@ -2,27 +2,25 @@
     x:Class="Rise.App.Settings.MediaLibraryBasePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:control="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Web"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+        <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+    </Page.Resources>
 
     <Grid>
         <muxc:NavigationView
             x:Name="MediaNav"
-            Margin="-15,-8,0,0"
+            Margin="-16,-8,-16,0"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
+            ItemInvoked="MediaNav_ItemInvoked"
             PaneDisplayMode="Top"
-            SelectedItem="{x:Bind Local}"
-            SelectionChanged="MediaNav_SelectionChanged">
-            <muxc:NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
-                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-            </muxc:NavigationView.Resources>
+            SelectedItem="{x:Bind Local}">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
                     x:Name="Overview"
@@ -45,26 +43,10 @@
                     Content="Scanning"
                     Tag="Scanning" />
             </muxc:NavigationView.MenuItems>
-            <Frame x:Name="contentFrame" />
+
+            <ScrollViewer Margin="0,-4,0,0" Padding="16,0">
+                <Frame x:Name="MediaFrame" HorizontalAlignment="Stretch" />
+            </ScrollViewer>
         </muxc:NavigationView>
-        <ScrollViewer Margin="0,36">
-            <Frame x:Name="MediaFrame" HorizontalAlignment="Stretch">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="28"
-                    FontWeight="SemiBold"
-                    Opacity="0.6"
-                    Text="This page is coming soon"
-                    TextAlignment="Center"
-                    TextTrimming="CharacterEllipsis"
-                    TextWrapping="WrapWholeWords" />
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition />
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
-        </ScrollViewer>
     </Grid>
 </Page>
