@@ -1,4 +1,5 @@
 ﻿using Rise.App.Dialogs;
+using Rise.App.Views;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -40,6 +41,16 @@ namespace Rise.App.Settings
         {
             SettingsMainFrame.Navigate(typeof(InsiderPage));
             FinishNavigation();
+        }
+
+        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMainPage();
+
+            var diag = new SettingsDialogContainer();
+            diag.Content = new SettingsPage();
+
+            _ = await diag.ShowAsync();
         }
 
         private void Language_Click(object sender, RoutedEventArgs e)
@@ -93,21 +104,6 @@ namespace Rise.App.Settings
                     FinishNavigation();
                 }
             }
-        }
-
-        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
-
-            var diag = new SettingsDialogContainer();
-            diag.Content = new SettingsPage();
-
-            _ = await diag.ShowAsync();
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
         }
 
         private void FinishNavigation()
@@ -169,9 +165,17 @@ namespace Rise.App.Settings
             }
         }
 
-        private void GoBackToMain_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
+            GoToMainPage();
+        }
+
+        private void GoToMainPage()
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+            else
+                _ = Frame.Navigate(typeof(MainPage));
         }
     }
 }
