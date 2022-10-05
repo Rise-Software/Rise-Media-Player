@@ -53,7 +53,7 @@ using Windows.Graphics;
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace AnimatedVisuals
+namespace Rise.App.AnimatedVisuals
 {
     // Name:        07 - EULA
     // Frame rate:  60 fps
