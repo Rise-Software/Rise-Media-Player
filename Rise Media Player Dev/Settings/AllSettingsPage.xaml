@@ -331,21 +331,21 @@
                     <StackPanel
                         x:Name="HeaderArea"
                         Padding="48,0"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Spacing="12">
                         <Button
                             x:Name="GoBackPage"
                             Height="36"
-                            Padding="8,8,0,0"
+                            Padding="8"
                             VerticalAlignment="Center"
                             AutomationProperties.AutomationId="BackButton1"
                             AutomationProperties.ItemType="Navigation Button"
                             AutomationProperties.Name="Back"
                             Click="GoBackAPage_Click"
-                            CornerRadius="5"
                             Style="{StaticResource TransparentButtonStyle}"
                             ToolTipService.ToolTip="Back"
                             Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}">
-                            <muxc:AnimatedIcon Width="20" Height="20">
+                            <muxc:AnimatedIcon>
                                 <muxc:AnimatedIcon.Source>
                                     <animatedvisuals:AnimatedBackVisualSource />
                                 </muxc:AnimatedIcon.Source>
@@ -363,7 +363,6 @@
                             Glyph="" />
                         <TextBlock
                             x:Name="MainSettingsHeader"
-                            Margin="12,0,0,0"
                             x:FieldModifier="public"
                             Style="{StaticResource TitleTextBlockStyle}"
                             Text="No page selected"
