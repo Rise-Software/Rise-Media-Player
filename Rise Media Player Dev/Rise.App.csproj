@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rise.App</RootNamespace>
     <AssemblyName>Rise Media Player</AssemblyName>
-    <DefaultLanguage>en-gb</DefaultLanguage>
+    <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
@@ -138,8 +138,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedVisuals\EulaLottie.cs" />
-    <Compile Include="AnimatedVisuals\LocalaccountLottie.cs" />
-    <Compile Include="AnimatedVisuals\PrivacysettingsLottie.cs" />
+    <Compile Include="AnimatedVisuals\LocalAccountLottie.cs" />
+    <Compile Include="AnimatedVisuals\PrivacySettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
@@ -151,6 +151,9 @@
     <Compile Include="Dialogs\LibraryPageEditDialog.xaml.cs">
       <DependentUpon>LibraryPageEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SetupDialogContent.xaml.cs">
+      <DependentUpon>SetupDialogContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AddToPlaylistHelper.cs" />
     <Compile Include="Helpers\MusixmatchHelper.cs" />
     <Compile Include="Settings\LibraryCustomise\ArtistsCustomisePage.xaml.cs">
@@ -158,6 +161,9 @@
     </Compile>
     <Compile Include="Settings\MediaLibraryPages\MediaSourcesListsPage.xaml.cs">
       <DependentUpon>MediaSourcesListsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\SetupPageContent.xaml.cs">
+      <DependentUpon>SetupPageContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
@@ -325,9 +331,6 @@
     </Compile>
     <Compile Include="Windows\SongPropertiesPage.xaml.cs">
       <DependentUpon>SongPropertiesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SetupDialog.xaml.cs">
-      <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Songs\Properties\SongDetailsPage.xaml.cs">
       <DependentUpon>SongDetailsPage.xaml</DependentUpon>
@@ -598,6 +601,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\SetupDialogContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\VideoStreamingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -619,6 +626,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\ListStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\SetupPageContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -787,10 +798,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SongPropertiesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\SetupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -974,9 +981,6 @@
     <Folder Include="Settings\SyncingPages\" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Setup.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\en-GB\Terms.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -992,7 +996,6 @@
     <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\pt-PT\Terms.resw" />
     <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
-    <PRIResource Include="Strings\pt-PT\Setup.resw" />
     <PRIResource Include="Strings\pt-PT\Props.resw" />
     <PRIResource Include="Strings\pt-PT\Privacy.resw" />
     <PRIResource Include="Strings\pt-PT\Playback.resw" />
@@ -1012,7 +1015,6 @@
     <PRIResource Include="Strings\pt-PT\About.resw" />
     <PRIResource Include="Strings\it-IT\Terms.resw" />
     <PRIResource Include="Strings\it-IT\Sidebar.resw" />
-    <PRIResource Include="Strings\it-IT\Setup.resw" />
     <PRIResource Include="Strings\it-IT\Props.resw" />
     <PRIResource Include="Strings\it-IT\Privacy.resw" />
     <PRIResource Include="Strings\it-IT\Playback.resw" />
@@ -1032,7 +1034,6 @@
     <PRIResource Include="Strings\it-IT\About.resw" />
     <PRIResource Include="Strings\ro-RO\Terms.resw" />
     <PRIResource Include="Strings\ro-RO\Sidebar.resw" />
-    <PRIResource Include="Strings\ro-RO\Setup.resw" />
     <PRIResource Include="Strings\ro-RO\Props.resw" />
     <PRIResource Include="Strings\ro-RO\Privacy.resw" />
     <PRIResource Include="Strings\ro-RO\Playback.resw" />
@@ -1052,7 +1053,6 @@
     <PRIResource Include="Strings\ro-RO\About.resw" />
     <PRIResource Include="Strings\tr-TR\Terms.resw" />
     <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
-    <PRIResource Include="Strings\tr-TR\Setup.resw" />
     <PRIResource Include="Strings\tr-TR\Props.resw" />
     <PRIResource Include="Strings\tr-TR\Privacy.resw" />
     <PRIResource Include="Strings\tr-TR\Playback.resw" />
@@ -1072,7 +1072,6 @@
     <PRIResource Include="Strings\tr-TR\About.resw" />
     <PRIResource Include="Strings\hi-IN\Terms.resw" />
     <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
-    <PRIResource Include="Strings\hi-IN\Setup.resw" />
     <PRIResource Include="Strings\hi-IN\Props.resw" />
     <PRIResource Include="Strings\hi-IN\Privacy.resw" />
     <PRIResource Include="Strings\hi-IN\Playback.resw" />
