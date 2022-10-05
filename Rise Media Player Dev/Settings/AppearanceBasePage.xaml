@@ -15,7 +15,7 @@
     <Grid>
         <muxc:NavigationView
             x:Name="AppearanceNav"
-            Margin="-16,-8,-16,0"
+            Margin="32,4,32,0"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             ItemInvoked="AppearanceNav_ItemInvoked"
@@ -48,7 +48,10 @@
                     Tag="Controls" />
             </muxc:NavigationView.MenuItems>
 
-            <ScrollViewer Margin="0,-4,0,0" Padding="16,0">
+            <ScrollViewer
+                Margin="-32,0"
+                Padding="48,0"
+                VerticalScrollBarVisibility="Auto">
                 <Frame x:Name="AppearanceFrame" HorizontalAlignment="Stretch" />
             </ScrollViewer>
         </muxc:NavigationView>

@@ -21,9 +21,9 @@
                 </muxc:AnimatedVisualPlayer>
             </local:SetupPageContent.Icon>
 
-            <StackPanel Spacing="20">
+            <StackPanel>
                 <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
-                <settings:MediaSourcesPage />
+                <settings:MediaSourcesPage Margin="-48,0" />
             </StackPanel>
         </local:SetupPageContent>
 
