@@ -57,8 +57,8 @@
                     <VisualState.Setters>
                         <Setter Target="PaddingRectangle.Visibility" Value="Collapsed" />
 
-                        <Setter Target="InfoGrid.ColumnSpacing" Value="28" />
-                        <Setter Target="SetupIcon.Width" Value="128" />
+                        <Setter Target="InfoGrid.ColumnSpacing" Value="24" />
+                        <Setter Target="SetupIcon.Width" Value="192" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

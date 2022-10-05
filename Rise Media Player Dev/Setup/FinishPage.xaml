@@ -11,7 +11,7 @@
     <Grid>
         <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupDoneH}">
             <local:SetupPageContent.Icon>
-                <Image Source="ms-appx:///Assets/Setup/Done.png" />
+                <Image Margin="32" Source="ms-appx:///Assets/Setup/Done.png" />
             </local:SetupPageContent.Icon>
 
             <StackPanel Spacing="20">
