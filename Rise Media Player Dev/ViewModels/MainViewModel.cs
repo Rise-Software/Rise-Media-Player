@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.ViewModels
 {
@@ -39,7 +40,6 @@ namespace Rise.App.ViewModels
         private uint IndexedVideos = 0;
 
         private readonly XmlDocument xmlDoc = new();
-        private readonly List<string> imagelinks = new();
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -189,6 +189,9 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token);
             token.ThrowIfCancellationRequested();
 
+            if (App.SViewModel.FetchOnlineData)
+                _ = FetchArtistsArtAsync(token);
+
             _ = SongsTracker.HandleMusicFolderChangesAsync(token);
             _ = VideosTracker.HandleVideosFolderChangesAsync(token);
 
@@ -224,6 +227,17 @@ namespace Rise.App.ViewModels
             await Task.WhenAll(songsTask, videosTask);
 
             await Repository.UpsertQueuedAsync();
+        }
+
+        private async Task FetchArtistsArtAsync(CancellationToken token)
+        {
+            foreach (var artist in Artists)
+            {
+                if (token.IsCancellationRequested)
+                    return;
+
+                artist.Picture = await Task.Run(() => GetArtistImage(artist.Name));
+            }
         }
 
         /// <summary>
@@ -310,26 +324,10 @@ namespace Rise.App.ViewModels
             // If artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                string thumb = URIs.ArtistThumb;
-
-                if (App.SViewModel.FetchOnlineData)
-                {
-                    string image;
-                    image = await Task.Run(() => GetArtistImage(song.Artist));
-                    imagelinks.Add(song.Artist + " - " + image);
-                    foreach (string imagel in imagelinks)
-                    {
-                        if (imagel.Contains(song.Artist))
-                        {
-                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
-                        }
-                    }
-                }
-
                 ArtistViewModel arvm = new()
                 {
                     Name = song.Artist,
-                    Picture = thumb
+                    Picture = URIs.ArtistThumb
                 };
 
                 await arvm.SaveAsync(queue);
@@ -342,26 +340,10 @@ namespace Rise.App.ViewModels
             // If album artist isn't there already, add it to the database.
             if (!artistExists)
             {
-                string thumb = URIs.ArtistThumb;
-
-                if (App.SViewModel.FetchOnlineData)
-                {
-                    string image;
-                    image = await Task.Run(() => GetArtistImage(song.Artist));
-                    imagelinks.Add(song.Artist + " - " + image);
-                    foreach (string imagel in imagelinks)
-                    {
-                        if (imagel.Contains(song.Artist))
-                        {
-                            thumb = imagel.Replace(song.Artist + " - ", string.Empty);
-                        }
-                    }
-                }
-
                 ArtistViewModel arvm = new()
                 {
                     Name = song.AlbumArtist,
-                    Picture = thumb
+                    Picture = URIs.ArtistThumb
                 };
 
                 await arvm.SaveAsync(queue);
@@ -390,7 +372,7 @@ namespace Rise.App.ViewModels
 
         public string GetArtistImage(string artist)
         {
-            if (App.SViewModel.FetchOnlineData)
+            if (App.SViewModel.FetchOnlineData && artist != "Unknown Artist")
             {
                 try
                 {
@@ -401,11 +383,9 @@ namespace Rise.App.ViewModels
                     xmlDoc.LoadXml(xmlStr);
 
                     XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
+
                     if (node != null)
-                    {
-                        string yes = node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
-                        return yes;
-                    }
+                        return node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                 }
                 catch (Exception)
                 {
