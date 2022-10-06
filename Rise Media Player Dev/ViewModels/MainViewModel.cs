@@ -390,7 +390,7 @@ namespace Rise.App.ViewModels
 
         public string GetArtistImage(string artist)
         {
-            if (App.SViewModel.FetchOnlineData)
+            if (App.SViewModel.FetchOnlineData && artist != "Unknown Artist")
             {
                 try
                 {
