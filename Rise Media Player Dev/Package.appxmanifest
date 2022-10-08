@@ -133,7 +133,6 @@
 		<Capability Name="internetClient" />
 		<uap3:Capability Name="backgroundMediaPlayback"/>
 		<uap:Capability Name="videosLibrary"/>
-		<rescap:Capability Name="confirmAppClose"/>
 		<uap:Capability Name="removableStorage" />
 		<uap:Capability Name="musicLibrary"/>
 	</Capabilities>

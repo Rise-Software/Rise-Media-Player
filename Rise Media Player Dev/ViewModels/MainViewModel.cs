@@ -7,7 +7,6 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -15,7 +14,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Rise.App.ViewModels
 {
@@ -38,8 +36,6 @@ namespace Rise.App.ViewModels
         // IndexingFinished event.
         private uint IndexedSongs = 0;
         private uint IndexedVideos = 0;
-
-        private readonly XmlDocument xmlDoc = new();
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -377,13 +373,14 @@ namespace Rise.App.ViewModels
                 try
                 {
                     string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
-                    string xmlStr;
-                    WebClient wc = new();
-                    xmlStr = wc.DownloadString(m_strFilePath);
+
+                    using var wc = new WebClient();
+                    string xmlStr = wc.DownloadString(m_strFilePath);
+
+                    var xmlDoc = new XmlDocument();
                     xmlDoc.LoadXml(xmlStr);
 
-                    XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
-
+                    var node = xmlDoc.DocumentElement.SelectSingleNode("/root/data/artist/picture_medium");
                     if (node != null)
                         return node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                 }
