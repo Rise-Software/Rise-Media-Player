@@ -9,17 +9,21 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI;
@@ -173,6 +177,9 @@ namespace Rise.App
 
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.AllowDrop = true;
+                rootFrame.DragOver += OnDragOver;
+                rootFrame.Drop += OnDrop;
 
                 SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
@@ -195,6 +202,37 @@ namespace Rise.App
             }
 
             return rootFrame;
+        }
+
+        private async void OnDrop(object sender, DragEventArgs e)
+        {
+            if (!e.DataView.Contains(StandardDataFormats.StorageItems))
+                return;
+
+            var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
+            var mediaItems = new List<IMediaItem>();
+
+            foreach (var file in files)
+            {
+                if (QueryPresets.SongQueryOptions.FileTypeFilter.Contains(file.FileType))
+                    mediaItems.Add(new SongViewModel(await Song.GetFromFileAsync(file)));
+                else if (QueryPresets.VideoQueryOptions.FileTypeFilter.Contains(file.FileType))
+                    mediaItems.Add(new VideoViewModel(await Video.GetFromFileAsync(file)));
+            }
+
+            if (mediaItems.Any())
+                await MPViewModel.PlayItemsAsync(mediaItems);
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Link;
+
+            if (e.DragUIOverride != null)
+            {
+                e.DragUIOverride.Caption = "Play media";
+                e.DragUIOverride.IsContentVisible = true;
+            }
         }
 
         /// <summary>
