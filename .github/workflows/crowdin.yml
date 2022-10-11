@@ -7,13 +7,13 @@ on:
 jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
 
     steps:
-
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: crowdin action
+    - name: Run Crowdin action
       uses: crowdin/github-action@1.4.14
       with:
         upload_translations: true
