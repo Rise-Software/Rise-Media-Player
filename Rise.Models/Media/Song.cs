@@ -81,7 +81,7 @@ namespace Rise.Models
         public static async Task<Song> GetFromFileAsync(StorageFile file)
         {
             // Put the value into memory to make sure that the system
-            // really fetches the property
+            // really fetches the properties
             var musicProperties = await file.Properties.GetMusicPropertiesAsync();
 
             int cd = 1;
@@ -129,7 +129,7 @@ namespace Rise.Models
 
             return new Song
             {
-                Title = musicProperties.Title.ReplaceIfNullOrWhiteSpace(file.FileType),
+                Title = musicProperties.Title.ReplaceIfNullOrWhiteSpace(file.DisplayName),
                 Artist = musicProperties.Artist.ReplaceIfNullOrWhiteSpace("UnknownArtistResource"),
                 Album = albumTitle,
                 AlbumArtist = musicProperties.AlbumArtist.ReplaceIfNullOrWhiteSpace("UnknownArtistResource"),
