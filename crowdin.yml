@@ -1,3 +1,6 @@
+api_token_env: CROWDIN_PERSONAL_TOKEN
+project_id_env: CROWDIN_PROJECT_ID
+
 commit_message: 'fix: new translations in %original_file_name% (%original_file_name%) from Crowdin'
 append_commit_message: false
 files:
