@@ -95,22 +95,25 @@ namespace Rise.Models
             else if (extraProps.ContainsKey(SystemMusic.PartOfSet))
                 prop = SystemMusic.PartOfSet;
 
-            disc = extraProps[prop].ToString();
-            if (int.TryParse(disc, out int result))
+            if (!string.IsNullOrEmpty(prop))
             {
-                cd = result;
-            }
-            else if (disc.TryGetUntil('/', out string setPart))
-            {
-                // iTunes uses the part of set property to store the
-                // disc number, using the {Disc}/{Number of discs in album}
-                // format - main reason why this second check exists
-                if (int.TryParse(setPart, out int part))
-                    cd = part;
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Couldn't parse {0} property with value {1}", prop, disc);
+                disc = extraProps[prop].ToString();
+                if (int.TryParse(disc, out int result))
+                {
+                    cd = result;
+                }
+                else if (disc.TryGetUntil('/', out string setPart))
+                {
+                    // iTunes uses the part of set property to store the
+                    // disc number, using the {Disc}/{Number of discs in album}
+                    // format - main reason why this second check exists
+                    if (int.TryParse(setPart, out int part))
+                        cd = part;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Couldn't parse {0} property with value {1}", prop, disc);
+                }
             }
 
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
