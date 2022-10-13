@@ -152,6 +152,7 @@
     <Compile Include="Extensions\IndexingExtensions.cs" />
     <Compile Include="Extensions\JsonExtensions.cs" />
     <Compile Include="Extensions\Markup\ResourceHelper.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Extensions\ViewManagementExtensions.cs" />
     <Compile Include="Helpers\BindingHelpers.cs" />
