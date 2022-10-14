@@ -144,6 +144,7 @@
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
+    <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
