@@ -9,14 +9,12 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
@@ -24,6 +22,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI;
@@ -210,18 +209,29 @@ namespace Rise.App
                 return;
 
             var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
-            var mediaItems = new List<IMediaItem>();
 
+            int i = 0;
             foreach (var file in files)
             {
+                MediaPlaybackItem itm = null;
                 if (QueryPresets.SongQueryOptions.FileTypeFilter.Contains(file.FileType))
-                    mediaItems.Add(new SongViewModel(await Song.GetFromFileAsync(file)));
+                    itm = await file.GetSongAsync();
                 else if (QueryPresets.VideoQueryOptions.FileTypeFilter.Contains(file.FileType))
-                    mediaItems.Add(new VideoViewModel(await Video.GetFromFileAsync(file)));
-            }
+                    itm = await file.GetVideoAsync();
 
-            if (mediaItems.Any())
-                await MPViewModel.PlayItemsAsync(mediaItems);
+                if (itm != null)
+                {
+                    if (i == 0)
+                    {
+                        MPViewModel.ResetPlayback();
+                        MPViewModel.Player.Play();
+
+                        i++;
+                    }
+
+                    MPViewModel.PlaybackList.Items.Add(itm);
+                }
+            }
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
