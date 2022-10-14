@@ -145,20 +145,30 @@ namespace Rise.App
         {
             await ActivateAsync(args.PreviousExecutionState, false);
 
-            _ = await typeof(NowPlayingPage).
-                ShowInApplicationViewAsync(null, 320, 300);
+            var files = args.Files.OfType<StorageFile>();
 
-            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
-            try
+            int i = 0;
+            foreach (var file in files)
             {
-                var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
+                MediaPlaybackItem itm = null;
+                if (QueryPresets.SongQueryOptions.FileTypeFilter.Contains(file.FileType))
+                    itm = await file.GetSongAsync();
+                else if (QueryPresets.VideoQueryOptions.FileTypeFilter.Contains(file.FileType))
+                    itm = await file.GetVideoAsync();
+
+                if (itm != null)
+                {
+                    if (i == 0)
+                    {
+                        MPViewModel.ResetPlayback();
+                        MPViewModel.Player.Play();
+
+                        i++;
+                    }
+
+                    MPViewModel.PlaybackList.Items.Add(itm);
+                }
             }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-            StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
         }
 
         /// <summary>
