@@ -37,17 +37,17 @@
 
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
+            <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid x:Name="RootGrid" ColumnSpacing="12">
         <Grid.Background>
-            <ImageBrush x:Name="ThumbnailBrush" Stretch="UniformToFill">
-                <ImageBrush.ImageSource>
-                    <BitmapImage UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail, Mode=OneWay}" />
-                </ImageBrush.ImageSource>
-            </ImageBrush>
+            <ImageBrush
+                x:Name="ThumbnailBrush"
+                ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
+                Stretch="UniformToFill" />
         </Grid.Background>
 
         <Border
@@ -154,15 +154,7 @@
                                 CornerRadius="12"
                                 Visibility="Collapsed">
                                 <Border.Background>
-                                    <ImageBrush>
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage
-                                                DecodePixelHeight="300"
-                                                DecodePixelType="Logical"
-                                                DecodePixelWidth="300"
-                                                UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
+                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" />
                                 </Border.Background>
                             </Border>
 
@@ -174,7 +166,7 @@
                                 FontWeight="SemiBold"
                                 HorizontalTextAlignment="Center"
                                 MaxLines="2"
-                                Text="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}" />
                             <TextBlock
                                 x:Name="SubtitleText"
                                 Grid.Row="2"
@@ -186,7 +178,7 @@
                                 MaxLines="1"
                                 Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}" />
 
                             <visualizers:LineVisualizer
                                 x:Name="LineVis"

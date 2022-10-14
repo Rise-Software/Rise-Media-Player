@@ -49,8 +49,10 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <conv:BooleanToVisibility x:Key="BoolToVis" />
-            <conv:ResourceToString x:Key="StrToRes" />
+            <conv:UintToStringConverter x:Key="UIntToStr" />
+            <conv:StreamToBitmap x:Key="StrmToBmp" />
 
+            <conv:ResourceToString x:Key="StrToRes" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
@@ -81,12 +83,8 @@
                     <Border
                         Grid.RowSpan="4"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -95,7 +93,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -105,7 +103,7 @@
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         MaxLines="1"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        Text="{x:Bind MPViewModel.PlayingItemDisplayProperties.MusicProperties.AlbumTitle}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -113,7 +111,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
                         TextTrimming="CharacterEllipsis" />
 
                     <Grid
@@ -187,12 +185,8 @@
                     <Border
                         Grid.RowSpan="3"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -200,7 +194,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -209,7 +203,7 @@
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -217,7 +211,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Year'], Converter={StaticResource UIntToStr}}"
                         TextTrimming="CharacterEllipsis" />
                 </Grid>
             </Flyout>
@@ -657,14 +651,9 @@
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             CornerRadius="4">
-                                            <Image>
-                                                <Image.Source>
-                                                    <BitmapImage
-                                                        DecodePixelHeight="80"
-                                                        DecodePixelWidth="80"
-                                                        UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                                                </Image.Source>
-                                            </Image>
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                                            </Border.Background>
 
                                             <Border.RenderTransform>
                                                 <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
@@ -682,17 +671,17 @@
                                                 FontSize="16"
                                                 FontWeight="SemiBold"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Title']}" />
                                             <TextBlock
                                                 x:Name="DisplaySubtitle"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}" />
                                             <StackPanel.RenderTransform>
                                                 <TranslateTransform x:Name="TextPanelTranslate" />
                                             </StackPanel.RenderTransform>

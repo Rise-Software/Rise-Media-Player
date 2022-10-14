@@ -60,7 +60,7 @@
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PlayingItem.Title, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.PlayingItemProperties['Title'], Mode=OneWay}" />
                 </Grid>
             </skuc:ExtendedTitleBar>
         </Grid>

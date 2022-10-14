@@ -1,13 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Rise.App.Dialogs;
-using Rise.App.ViewModels;
-using Rise.App.Views;
 using Rise.Common.Enums;
-using Rise.Common.Extensions;
 using System;
 using System.Windows.Input;
-using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -370,9 +366,9 @@ namespace Rise.App.UserControls
                 });
         }
 
-        private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
+        private void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {
-            if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
+            /*if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
             {
                 try
                 {
@@ -392,7 +388,7 @@ namespace Rise.App.UserControls
                 {
 
                 }
-            }
+            }*/
         }
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)
