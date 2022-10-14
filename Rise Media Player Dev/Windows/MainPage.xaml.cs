@@ -161,9 +161,7 @@ namespace Rise.App.Views
             });
 
             if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
-            {
-                //await LMViewModel.TryScrobbleItemAsync(e);
-            }
+                _ = await LMViewModel.TryScrobbleItemAsync(e);
         }
 
         private void OnContentFrameSizeChanged(object sender, SizeChangedEventArgs e)

@@ -1,6 +1,5 @@
 ﻿using Rise.Common.Constants;
 using Rise.Common.Extensions;
-using Rise.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Windows.Media.Playback;
 using Windows.Security.Authentication.Web;
 using Windows.Security.Credentials;
 using Windows.Web.Http;
@@ -161,21 +161,25 @@ namespace Rise.Data.ViewModels
         }
 
         /// <summary>
-        /// Attempts to scrobble the provided <see cref="IMediaItem"/>.
+        /// Attempts to scrobble the provided <see cref="MediaPlaybackItem"/>.
         /// </summary>
         /// <returns>true if the item was successfully scrobbled,
         /// false otherwise.</returns>
-        public async Task<bool> TryScrobbleItemAsync(IMediaItem item)
+        public async Task<bool> TryScrobbleItemAsync(MediaPlaybackItem item)
         {
             if (!_authenticated) return false;
 
             var span = DateTime.UtcNow - new DateTime(1970, 1, 1);
             var curr = ((int)span.TotalSeconds).ToString();
 
+            var props = item.GetDisplayProperties().MusicProperties;
+            string title = props.Title;
+            string artist = props.Artist;
+
             Dictionary<string, string> parameters = new()
             {
-                { "artist[0]", item.Subtitle },
-                { "track[0]", item.Title },
+                { "artist[0]", artist },
+                { "track[0]", title },
                 { "timestamp[0]", curr },
                 { "method", "track.scrobble" },
                 { "api_key", _key },
@@ -188,9 +192,9 @@ namespace Rise.Data.ViewModels
             comboBuilder.Append("https://ws.audioscrobbler.com/2.0/?method=track.scrobble&api_key=");
             comboBuilder.Append(_key);
             comboBuilder.Append("&artist[0]=");
-            comboBuilder.Append(item.Subtitle);
+            comboBuilder.Append(artist);
             comboBuilder.Append("&track[0]=");
-            comboBuilder.Append(item.Title);
+            comboBuilder.Append(title);
             comboBuilder.Append("&sk=");
             comboBuilder.Append(_sessionKey);
             comboBuilder.Append("&timestamp[0]=");
