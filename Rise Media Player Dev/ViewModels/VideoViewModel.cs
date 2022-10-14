@@ -1,4 +1,5 @@
-﻿using Rise.Common.Interfaces;
+﻿using Rise.Common.Extensions;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -192,19 +193,14 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            MediaSource source;
             var uri = new Uri(Location);
-
             if (uri.IsFile)
             {
                 StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                source = MediaSource.CreateFromStorageFile(file);
-            }
-            else
-            {
-                source = MediaSource.CreateFromUri(uri);
+                return await file.GetVideoAsync();
             }
 
+            var source = MediaSource.CreateFromUri(uri);
             MediaPlaybackItem media = new(source);
             MediaItemDisplayProperties props = media.GetDisplayProperties();
 
@@ -222,14 +218,5 @@ namespace Rise.App.ViewModels
             return media;
         }
         #endregion
-    }
-
-    // IMediaItem implementation
-    public partial class VideoViewModel : IMediaItem
-    {
-        string IMediaItem.Subtitle => Directors;
-        string IMediaItem.ExtraInfo => Year.ToString();
-
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Video;
     }
 }

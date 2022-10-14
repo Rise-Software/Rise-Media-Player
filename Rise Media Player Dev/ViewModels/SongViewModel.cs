@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Rise.Common;
+using Rise.Common.Extensions;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -347,19 +348,14 @@ namespace Rise.App.ViewModels
         {
             try
             {
-                MediaSource source;
                 var uri = new Uri(Location);
-
                 if (uri.IsFile)
                 {
                     StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                    source = MediaSource.CreateFromStorageFile(file);
-                }
-                else
-                {
-                    source = MediaSource.CreateFromUri(uri);
+                    return await file.GetSongAsync();
                 }
 
+                var source = MediaSource.CreateFromUri(uri);
                 MediaPlaybackItem media = new(source);
                 MediaItemDisplayProperties props = media.GetDisplayProperties();
 
@@ -369,7 +365,6 @@ namespace Rise.App.ViewModels
                 props.MusicProperties.AlbumTitle = Album;
                 props.MusicProperties.AlbumArtist = AlbumArtist;
                 props.MusicProperties.TrackNumber = Track;
-
 
                 if (Thumbnail != null)
                 {
@@ -387,14 +382,5 @@ namespace Rise.App.ViewModels
             return null;
         }
         #endregion
-    }
-
-    // IMediaItem implementation
-    public partial class SongViewModel : IMediaItem
-    {
-        string IMediaItem.Subtitle => Artist;
-        string IMediaItem.ExtraInfo => Album;
-
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }
