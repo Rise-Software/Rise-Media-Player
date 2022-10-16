@@ -208,7 +208,7 @@ namespace Rise.App.ViewModels
             props.VideoProperties.Title = Title;
             props.VideoProperties.Subtitle = Directors;
 
-            if (Thumbnail != null)
+            if (!string.IsNullOrEmpty(Thumbnail))
             {
                 props.Thumbnail = RandomAccessStreamReference.
                     CreateFromUri(new Uri(Thumbnail));
