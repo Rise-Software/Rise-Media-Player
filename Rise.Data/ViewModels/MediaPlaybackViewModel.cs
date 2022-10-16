@@ -1,15 +1,19 @@
 using AudioVisualizer;
+using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Playback;
+using Windows.Storage;
 
 namespace Rise.Data.ViewModels
 {
@@ -190,7 +194,7 @@ namespace Rise.Data.ViewModels
         {
             try
             {
-                await PlaySingleItemAsync(item, new CancellationToken());
+                await PlaySingleItemAsync(item, CancellationToken.None);
             }
             catch (OperationCanceledException) { }
         }
@@ -215,7 +219,7 @@ namespace Rise.Data.ViewModels
         {
             try
             {
-                await PlayItemsAsync(items, new CancellationToken());
+                await PlayItemsAsync(items, CancellationToken.None);
             }
             catch (OperationCanceledException) { }
         }
@@ -228,6 +232,31 @@ namespace Rise.Data.ViewModels
         {
             await PlaybackCancelHelper.CompletePendingAsync(token);
             await PlaybackCancelHelper.RunAsync(PlayItemsImpl(items, PlaybackCancelHelper.Token));
+        }
+
+        /// <summary>
+        /// Begins playback of a collection of <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="files">Files to play.</param>
+        /// <remarks>This method will automatically be canceled if necessary
+        /// without throwing <see cref="OperationCanceledException"/>.</remarks>
+        public async Task PlayFilesAsync(IEnumerable<StorageFile> files)
+        {
+            try
+            {
+                await PlayFilesAsync(files, CancellationToken.None);
+            }
+            catch (OperationCanceledException) { }
+        }
+
+        /// <summary>
+        /// Begins playback of a collection of <see cref="StorageFile"/>.
+        /// </summary>
+        /// <param name="files">Files to play.</param>
+        public async Task PlayFilesAsync(IEnumerable<StorageFile> files, CancellationToken token)
+        {
+            await PlaybackCancelHelper.CompletePendingAsync(token);
+            await PlaybackCancelHelper.RunAsync(PlayFilesImpl(files, PlaybackCancelHelper.Token));
         }
 
         private Task PlaySingleItemImpl(IMediaItem item, CancellationToken token)
@@ -255,6 +284,40 @@ namespace Rise.Data.ViewModels
 
                     // ...and never again.
                     i++;
+                }
+            }
+        }
+
+        private async Task PlayFilesImpl(IEnumerable<StorageFile> files, CancellationToken token)
+        {
+            int i = 0;
+            foreach (var file in files)
+            {
+                token.ThrowIfCancellationRequested();
+                string extension = file.FileType;
+
+                MediaPlaybackItem itm = null;
+                if (SupportedFileTypes.MusicFiles.Contains(extension))
+                    itm = await file.GetSongAsync();
+                else if (SupportedFileTypes.VideoFiles.Contains(extension))
+                    itm = await file.GetVideoAsync();
+
+                token.ThrowIfCancellationRequested();
+                if (itm != null)
+                {
+                    // Start playback right after adding the first item...
+                    if (i == 0)
+                    {
+                        token.ThrowIfCancellationRequested();
+
+                        ResetPlayback();
+                        Player.Play();
+
+                        // ...and never again.
+                        i++;
+                    }
+
+                    PlaybackList.Items.Add(itm);
                 }
             }
         }
@@ -327,7 +390,7 @@ namespace Rise.Data.ViewModels
         /// Fully resets playback by clearing lists and setting the current
         /// item to null.
         /// </summary>
-        public void ResetPlayback()
+        private void ResetPlayback()
         {
             PlaybackList.Items.Clear();
             PlayingItem = null;
