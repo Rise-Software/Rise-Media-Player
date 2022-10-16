@@ -93,7 +93,10 @@ namespace Rise.Common.Extensions
             props.MusicProperties.TrackNumber = mediaProps.TrackNumber;
 
             var thumb = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 500);
-            props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            if (thumb?.Type == ThumbnailType.Image)
+                props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            else
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
 
             media.ApplyDisplayProperties(props);
             return media;
@@ -126,7 +129,10 @@ namespace Rise.Common.Extensions
             props.VideoProperties.Subtitle = directors;
 
             var thumb = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 500);
-            props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            if (thumb?.Type == ThumbnailType.Image)
+                props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            else
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
 
             media.ApplyDisplayProperties(props);
             return media;
