@@ -80,6 +80,7 @@ namespace Rise.Common.Extensions
             source.CustomProperties["Title"] = title;
             source.CustomProperties["Artists"] = artist;
             source.CustomProperties["Length"] = mediaProps.Duration;
+            source.CustomProperties["Location"] = file.Path;
             source.CustomProperties["Year"] = mediaProps.Year;
 
             var media = new MediaPlaybackItem(source);
@@ -119,6 +120,7 @@ namespace Rise.Common.Extensions
             source.CustomProperties["Title"] = title;
             source.CustomProperties["Artists"] = directors;
             source.CustomProperties["Length"] = mediaProps.Duration;
+            source.CustomProperties["Location"] = file.Path;
             source.CustomProperties["Year"] = mediaProps.Year;
 
             var media = new MediaPlaybackItem(source);
