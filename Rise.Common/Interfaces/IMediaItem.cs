@@ -1,27 +1,19 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using Windows.Media;
+﻿using System.Threading.Tasks;
 using Windows.Media.Playback;
 
 namespace Rise.Common.Interfaces
 {
     /// <summary>
-    /// Defines a set of properties suitable for displaying
-    /// media items.
+    /// Defines a simple contract for classes that encapsulate
+    /// playable media.
     /// </summary>
-    public interface IMediaItem : INotifyPropertyChanged
+    public interface IMediaItem
     {
         /// <summary>
-        /// Path to the playback item. This is simply an URI
+        /// Path to the item. This is simply an URI
         /// stored as a string.
         /// </summary>
         string Location { get; }
-
-        /// <summary>
-        /// Whether the playback item is stored online or offline.
-        /// </summary>
-        bool IsOnline { get; }
 
         /// <summary>
         /// Creates a <see cref="MediaPlaybackItem"/> representation
