@@ -1,14 +1,12 @@
 ﻿using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Threading.Tasks;
-using Windows.Media;
-using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -191,31 +189,16 @@ namespace Rise.App.ViewModels
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="VideoViewModel"/>.
         /// </summary>
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
-        public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
+        public Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
             var uri = new Uri(Location);
             if (uri.IsFile)
             {
-                StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                return await file.GetVideoAsync();
+                var file = StorageFile.GetFileFromPathAsync(Location).Get();
+                return file.GetVideoAsync();
             }
 
-            var source = MediaSource.CreateFromUri(uri);
-            MediaPlaybackItem media = new(source);
-            MediaItemDisplayProperties props = media.GetDisplayProperties();
-
-            props.Type = MediaPlaybackType.Video;
-            props.VideoProperties.Title = Title;
-            props.VideoProperties.Subtitle = Directors;
-
-            if (!string.IsNullOrEmpty(Thumbnail))
-            {
-                props.Thumbnail = RandomAccessStreamReference.
-                    CreateFromUri(new Uri(Thumbnail));
-            }
-
-            media.ApplyDisplayProperties(props);
-            return media;
+            return Task.FromResult(WebHelpers.GetVideoFromUri(uri));
         }
         #endregion
     }
