@@ -190,23 +190,18 @@ namespace Rise.Data.ViewModels
         /// <param name="item">Item to play.</param>
         /// <remarks>This method will automatically be canceled if necessary
         /// without throwing <see cref="OperationCanceledException"/>.</remarks>
-        public async Task PlaySingleItemAsync(IMediaItem item)
+        public Task PlaySingleItemAsync(IMediaItem item)
         {
-            try
-            {
-                await PlaySingleItemAsync(item, CancellationToken.None);
-            }
-            catch (OperationCanceledException) { }
+            return PlayItemsAsync(new IMediaItem[] { item });
         }
 
         /// <summary>
         /// Begins playback of an <see cref="IMediaItem"/>.
         /// </summary>
         /// <param name="item">Item to play.</param>
-        public async Task PlaySingleItemAsync(IMediaItem item, CancellationToken token)
+        public Task PlaySingleItemAsync(IMediaItem item, CancellationToken token)
         {
-            await PlaybackCancelHelper.CompletePendingAsync(token);
-            await PlaybackCancelHelper.RunAsync(PlaySingleItemImpl(item, PlaybackCancelHelper.Token));
+            return PlayItemsAsync(new IMediaItem[] { item }, token);
         }
 
         /// <summary>
@@ -257,11 +252,6 @@ namespace Rise.Data.ViewModels
         {
             await PlaybackCancelHelper.CompletePendingAsync(token);
             await PlaybackCancelHelper.RunAsync(PlayFilesImpl(files, PlaybackCancelHelper.Token));
-        }
-
-        private Task PlaySingleItemImpl(IMediaItem item, CancellationToken token)
-        {
-            return PlayItemsImpl(new IMediaItem[] { item }, token);
         }
 
         private async Task PlayItemsImpl(IEnumerable<IMediaItem> items, CancellationToken token)
@@ -322,6 +312,55 @@ namespace Rise.Data.ViewModels
             }
         }
 
+        /// <summary>
+        /// Adds the provided item to the queue.
+        /// </summary>
+        public void AddSingleItemToQueue(MediaPlaybackItem item)
+        {
+            AddItemsToQueue(new MediaPlaybackItem[] { item });
+        }
+
+        /// <summary>
+        /// Adds the provided items to the queue.
+        /// </summary>
+        public void AddItemsToQueue(IEnumerable<MediaPlaybackItem> items)
+        {
+            foreach (var itm in items)
+                PlaybackList.Items.Add(itm);
+        }
+
+        /// <summary>
+        /// Forces completion of all pending operations.
+        /// </summary>
+        public async Task CompletePendingAsync()
+        {
+            try
+            {
+                await PlaybackCancelHelper.CompletePendingAsync(CancellationToken.None);
+            }
+            catch (OperationCanceledException) { }
+        }
+
+        /// <summary>
+        /// Fully resets playback by completing all pending operations,
+        /// clearing lists, and setting the current item to null.
+        /// </summary>
+        public async Task ResetPlaybackAsync()
+        {
+            await CompletePendingAsync();
+            ResetPlayback();
+        }
+
+        /// <summary>
+        /// Fully resets playback by clearing lists and setting the current
+        /// item to null.
+        /// </summary>
+        private void ResetPlayback()
+        {
+            PlaybackList.Items.Clear();
+            PlayingItem = null;
+        }
+
         private void OnCurrentItemChanged(MediaPlaybackList sender, CurrentMediaPlaybackItemChangedEventArgs args)
         {
             if (args.Reason == MediaPlaybackItemChangedReason.Error)
@@ -330,8 +369,9 @@ namespace Rise.Data.ViewModels
                 return;
             }
 
-            if (sender.CurrentItem != null)
-                PlayingItem = sender.CurrentItem;
+            var itm = sender.CurrentItem;
+            if (itm != null)
+                PlayingItem = itm;
         }
 
         private void OnItemsVectorChanged(IObservableVector<MediaPlaybackItem> sender, IVectorChangedEventArgs args)
@@ -384,16 +424,6 @@ namespace Rise.Data.ViewModels
             VisualizerPlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
 
             return player;
-        }
-
-        /// <summary>
-        /// Fully resets playback by clearing lists and setting the current
-        /// item to null.
-        /// </summary>
-        private void ResetPlayback()
-        {
-            PlaybackList.Items.Clear();
-            PlayingItem = null;
         }
     }
 }
