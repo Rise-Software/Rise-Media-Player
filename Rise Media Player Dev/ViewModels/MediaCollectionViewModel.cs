@@ -94,7 +94,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         private readonly CancellableTaskHelper PlaybackCancelHelper = new();
 
-        [RelayCommand(CanExecute = nameof(CanPlay))]
+        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
         private async Task PlayFromItemAsync(object parameter)
         {
             try
@@ -105,7 +105,7 @@ namespace Rise.App.ViewModels
             catch (OperationCanceledException) { }
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay))]
+        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
         private async Task PlaySingleItemAsync(object parameter)
         {
             if (parameter == null)
@@ -122,14 +122,14 @@ namespace Rise.App.ViewModels
             catch (OperationCanceledException) { }
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay))]
+        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
         private Task ShuffleFromItemAsync(object parameter)
         {
             _player.ShuffleEnabled = true;
             return PlayFromItemAsync(parameter);
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay))]
+        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
         private Task ShuffleSingleItemAsync(object parameter)
         {
             _player.ShuffleEnabled = true;
