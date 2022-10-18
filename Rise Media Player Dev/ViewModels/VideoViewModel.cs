@@ -187,16 +187,16 @@ namespace Rise.App.ViewModels
         /// Creates a <see cref="MediaPlaybackItem"/> from this <see cref="VideoViewModel"/>.
         /// </summary>
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the video.</returns>
-        public Task<MediaPlaybackItem> AsPlaybackItemAsync()
+        public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
             var uri = new Uri(Location);
             if (uri.IsFile)
             {
-                var file = StorageFile.GetFileFromPathAsync(Location).Get();
-                return file.GetVideoAsync();
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                return await file.GetVideoAsync();
             }
 
-            return Task.FromResult(WebHelpers.GetVideoFromUri(uri));
+            return WebHelpers.GetVideoFromUri(uri);
         }
         #endregion
     }
