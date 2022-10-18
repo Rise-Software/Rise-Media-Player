@@ -136,8 +136,6 @@ namespace Rise.App.ViewModels
                 }
             }
         }
-
-        public bool IsOnline { get; set; }
         #endregion
 
         #region Backend

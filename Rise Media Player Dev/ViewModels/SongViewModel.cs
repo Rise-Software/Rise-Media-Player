@@ -32,11 +32,6 @@ namespace Rise.App.ViewModels
 
         #region Properties
         /// <summary>
-        /// Checks if the song is played from an online stream, playlist or song.
-        /// </summary>
-        public bool IsOnline { get; set; }
-
-        /// <summary>
         /// Gets or sets the song title.
         /// </summary>
         public string Title
