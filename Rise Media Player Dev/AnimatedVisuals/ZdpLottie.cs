@@ -53,7 +53,7 @@ using Windows.Graphics;
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace AnimatedVisuals
+namespace Rise.App.AnimatedVisuals
 {
     // Name:        06 - Zero Day Patch
     // Frame rate:  60 fps

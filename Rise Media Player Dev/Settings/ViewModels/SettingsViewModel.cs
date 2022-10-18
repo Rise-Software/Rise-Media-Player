@@ -222,12 +222,6 @@ namespace Rise.App.ViewModels
             set => Set(value, "MediaLibrary");
         }
 
-        public bool IndexingEventsEnabled
-        {
-            get => Get(true, "MediaLibrary");
-            set => Set(value, "MediaLibrary");
-        }
-
         public bool IndexingAtStartupEnabled
         {
             get => Get(true, "MediaLibrary");
@@ -513,8 +507,7 @@ namespace Rise.App.ViewModels
          * Visualizer types:
          * 
          * 0: None (don't show it)
-         * 1: Line
-         * 2: Bloom
+         * 1: Bloom
         */
 
         public int VisualizerType

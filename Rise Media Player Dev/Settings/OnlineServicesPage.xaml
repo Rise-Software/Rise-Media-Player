@@ -4,40 +4,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <StackPanel
-        Margin="0,10,0,0"
-        Orientation="Vertical"
-        Spacing="4">
-
+    <StackPanel Orientation="Vertical" Spacing="4">
         <Button
             x:Name="LastFMStatus"
-            Height="140"
-            Padding="0,-30,0,-30"
+            Padding="24"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Left"
             Click="LastFmFlyoutItem_Click"
             IsEnabled="{x:Bind ViewModel.Authenticated.Equals(x:False), Mode=OneWay}">
-            <StackPanel
-                Padding="16,0,16,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Orientation="Vertical">
-                <Image
-                    Height="32"
-                    HorizontalAlignment="Left"
-                    Source="/Assets/web/lastfm.png" />
-                <StackPanel Padding="0,8,0,0">
-                    <TextBlock
-                        FontSize="24"
-                        FontWeight="SemiBold"
-                        Text="Connect to last.fm" />
-                    <TextBlock FontSize="16" Text="Discover your recently played, listening history and scrobble to the internet." />
-                </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            </StackPanel>
+                <Image HorizontalAlignment="Left" Source="ms-appx:///Assets/Web/LastFM.png" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="Connect to last.fm" />
+                <TextBlock
+                    Grid.Row="2"
+                    FontSize="16"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="Discover your recently played, listening history and scrobble to the internet." />
+            </Grid>
         </Button>
     </StackPanel>
 </Page>

@@ -7,64 +7,66 @@
     xmlns:models="using:Rise.Models"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="4">
-        <FlipView
-            x:Name="WallsView"
-            Width="330"
-            Height="186"
-            Margin="0,10,0,0"
-            HorizontalAlignment="Left"
-            ItemsSource="{x:Bind Walls}"
-            SelectionChanged="WallsView_SelectionChanged">
-            <FlipView.ItemTemplate>
-                <DataTemplate x:DataType="models:Wallpaper">
-                    <Image Source="{x:Bind Source}" />
-                </DataTemplate>
-            </FlipView.ItemTemplate>
-        </FlipView>
+    <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <FlipView
+                x:Name="WallsView"
+                Width="330"
+                Height="186"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Left"
+                ItemsSource="{x:Bind Walls}"
+                SelectionChanged="WallsView_SelectionChanged">
+                <FlipView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Wallpaper">
+                        <Image Source="{x:Bind Source}" />
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+            </FlipView>
 
-        <StackPanel
-            Padding="0,20,0,0"
-            Orientation="Horizontal"
-            Spacing="4">
-            <TextBlock x:Name="CurrentWall" FontWeight="SemiBold" />
-            <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" />
-            <TextBlock FontWeight="SemiBold" Text="{x:Bind Walls.Count}" />
+            <StackPanel
+                Padding="0,20,0,0"
+                Orientation="Horizontal"
+                Spacing="4">
+                <TextBlock x:Name="CurrentWall" FontWeight="SemiBold" />
+                <TextBlock x:Uid="/About/Of" FontWeight="SemiBold" />
+                <TextBlock FontWeight="SemiBold" Text="{x:Bind Walls.Count}" />
+            </StackPanel>
+
+            <StackPanel
+                Padding="0,10,0,0"
+                Orientation="Horizontal"
+                Spacing="4">
+                <TextBlock x:Name="WallName" FontWeight="SemiBold" />
+                <TextBlock Text="-" />
+                <TextBlock x:Name="WallShortDesc" Style="{StaticResource BodyTextBlockStyle}" />
+            </StackPanel>
+
+            <TextBlock
+                x:Name="WallDesc"
+                MaxWidth="360"
+                HorizontalAlignment="Left"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                TextWrapping="Wrap" />
+
+            <StackPanel
+                Padding="0,10,0,0"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button Click="Button_Click" Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xE159;" />
+                        <TextBlock x:Uid="/About/Save" />
+                    </StackPanel>
+                </Button>
+
+                <Button>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xF6FA;" />
+                        <TextBlock x:Uid="/About/Learn" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel
-            Padding="0,10,0,0"
-            Orientation="Horizontal"
-            Spacing="4">
-            <TextBlock x:Name="WallName" FontWeight="SemiBold" />
-            <TextBlock Text="-" />
-            <TextBlock x:Name="WallShortDesc" Style="{StaticResource BodyTextBlockStyle}" />
-        </StackPanel>
-
-        <TextBlock
-            x:Name="WallDesc"
-            MaxWidth="360"
-            HorizontalAlignment="Left"
-            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            TextWrapping="Wrap" />
-
-        <StackPanel
-            Padding="0,10,0,0"
-            Orientation="Horizontal"
-            Spacing="8">
-            <Button Click="Button_Click" Style="{StaticResource AccentButtonStyle}">
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <FontIcon Glyph="&#xE159;" />
-                    <TextBlock x:Uid="/About/Save" />
-                </StackPanel>
-            </Button>
-
-            <Button>
-                <StackPanel Orientation="Horizontal" Spacing="6">
-                    <FontIcon Glyph="&#xF6FA;" />
-                    <TextBlock x:Uid="/About/Learn" />
-                </StackPanel>
-            </Button>
-        </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

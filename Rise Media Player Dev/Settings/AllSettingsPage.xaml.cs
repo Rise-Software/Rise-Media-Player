@@ -1,4 +1,5 @@
 ﻿using Rise.App.Dialogs;
+using Rise.App.Views;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
@@ -26,7 +27,7 @@ namespace Rise.App.Settings
 
             TitleBar.SetTitleBarForCurrentView();
 
-            SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
+            _ = SettingsMainFrame.Navigate(typeof(AppearanceBasePage));
             FinishNavigation();
         }
 
@@ -38,13 +39,23 @@ namespace Rise.App.Settings
 
         private void Insider_Click(object sender, RoutedEventArgs e)
         {
-            SettingsMainFrame.Navigate(typeof(InsiderPage));
+            _ = SettingsMainFrame.Navigate(typeof(InsiderPage));
             FinishNavigation();
+        }
+
+        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMainPage();
+
+            var diag = new SettingsDialogContainer();
+            diag.Content = new SettingsPage();
+
+            _ = await diag.ShowAsync();
         }
 
         private void Language_Click(object sender, RoutedEventArgs e)
         {
-            SettingsMainFrame.Navigate(typeof(LanguagePage));
+            _ = SettingsMainFrame.Navigate(typeof(LanguagePage));
             FinishNavigation();
         }
 
@@ -53,61 +64,27 @@ namespace Rise.App.Settings
             string tag = args?.InvokedItemContainer?.Tag?.ToString();
             if (tag != null)
             {
-                Type page;
-                switch (tag)
+                Type page = tag switch
                 {
-                    case "Appearance":
-                        page = typeof(AppearanceBasePage);
-                        break;
-                    case "MediaLibrary":
-                        page = typeof(MediaLibraryBasePage);
-                        break;
-                    case "Navigation":
-                        page = typeof(NavigationPage);
-                        break;
-                    case "Playback":
-                        page = typeof(PlaybackPage);
-                        break;
-                    case "Sync":
-                        page = typeof(ComingSoonPage);
-                        break;
-                    case "Behaviour":
-                        page = typeof(WindowsBehavioursPage);
-                        break;
-                    case "Components":
-                        page = typeof(ComingSoonPage);
-                        break;
-                    case "About":
-                        page = typeof(AboutPage);
-                        break;
-                    default:
-                        page = typeof(MediaSourcesPage);
-                        break;
-                }
+                    "Appearance" => typeof(AppearanceBasePage),
+                    "MediaLibrary" => typeof(MediaLibraryBasePage),
+                    "Navigation" => typeof(NavigationPage),
+                    "Playback" => typeof(PlaybackPage),
+                    "Sync" => typeof(ComingSoonPage),
+                    "Behaviour" => typeof(WindowsBehavioursPage),
+                    "Components" => typeof(ComingSoonPage),
+                    "About" => typeof(AboutPage),
+                    _ => typeof(MediaSourcesPage),
+                };
 
                 if (SettingsMainFrame.CurrentSourcePageType != page)
                 {
-                    SettingsMainFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
+                    _ = SettingsMainFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
                     SettingsMainFrame.BackStack.Clear();
 
                     FinishNavigation();
                 }
             }
-        }
-
-        private async void ClassicDialog_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
-
-            var diag = new SettingsDialogContainer();
-            diag.Content = new SettingsPage();
-
-            _ = await diag.ShowAsync();
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
         }
 
         private void FinishNavigation()
@@ -169,9 +146,17 @@ namespace Rise.App.Settings
             }
         }
 
-        private void GoBackToMain_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
+            GoToMainPage();
+        }
+
+        private void GoToMainPage()
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+            else
+                _ = Frame.Navigate(typeof(MainPage));
         }
     }
 }

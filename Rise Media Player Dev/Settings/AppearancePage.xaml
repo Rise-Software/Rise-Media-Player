@@ -9,7 +9,6 @@
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-
     <StackPanel
         Margin="0,10,0,0"
         Orientation="Vertical"
