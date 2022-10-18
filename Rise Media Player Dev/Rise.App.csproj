@@ -165,6 +165,7 @@
     <Compile Include="Setup\SetupPageContent.xaml.cs">
       <DependentUpon>SetupPageContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\TemplateSelectorBase.cs" />
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
     </Compile>
