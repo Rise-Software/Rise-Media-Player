@@ -18,7 +18,6 @@
                 Icon="&#xE8B9;">
                 <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">
                     <x:String>None</x:String>
-                    <x:String>Line</x:String>
                     <x:String>Bloom</x:String>
                 </ComboBox>
             </uc:ExpanderControl>
