@@ -179,14 +179,6 @@
                                 Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}" />
-
-                            <visualizers:LineVisualizer
-                                x:Name="LineVis"
-                                Grid.RowSpan="3"
-                                Grid.Column="1"
-                                x:Load="False"
-                                Visibility="Collapsed"
-                                VisualizerSource="{x:Bind MPViewModel.VisualizerPlaybackSource.Source, Mode=OneTime}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>

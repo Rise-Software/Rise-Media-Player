@@ -138,9 +138,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
-    <PackageReference Include="UWPAudioVisualizer">
-      <Version>1.0.38</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

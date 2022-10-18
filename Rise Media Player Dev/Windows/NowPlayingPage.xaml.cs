@@ -35,20 +35,17 @@ namespace Rise.App.Views
             TitleBar.SetTitleBarForCurrentView();
         }
 
-        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             // No need for pointer in events when we're outside compact overlay
             var mode = ApplicationView.GetForCurrentView().ViewMode;
             if (mode == ApplicationViewMode.Default)
             {
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    UpdatePointerStates(true);
-                });
+                UpdatePointerStates(true);
             }
             else
             {
-                Debug.Assert(VisualStateManager.GoToState(this, "CompactOverlayState", true));
+                VisualStateManager.GoToState(this, "CompactOverlayState", true);
 
                 PointerEntered += OnPointerEntered;
                 PointerExited += OnPointerExited;
@@ -113,8 +110,7 @@ namespace Rise.App.Views
         // Settings
         private bool ApplyVisualizer(int index) => index switch
         {
-            1 => VisualStateManager.GoToState(this, "LineVisualizerState", false),
-            2 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
+            1 => VisualStateManager.GoToState(this, "BloomVisualizerState", false),
             _ => VisualStateManager.GoToState(this, "NoVisualizerState", false),
         };
     }
