@@ -501,8 +501,7 @@ namespace Rise.App.ViewModels
          * Visualizer types:
          * 
          * 0: None (don't show it)
-         * 1: Line
-         * 2: Bloom
+         * 1: Bloom
         */
 
         public int VisualizerType

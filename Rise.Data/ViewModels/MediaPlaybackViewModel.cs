@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using AudioVisualizer;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Models;
@@ -93,11 +92,6 @@ namespace Rise.Data.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        /// <summary>
-        /// Playback source for visualizers.
-        /// </summary>
-        public PlaybackSource VisualizerPlaybackSource { get; private set; }
     }
 
     // Events
@@ -283,8 +277,6 @@ namespace Rise.Data.ViewModels
 
             PlayerCreated = true;
             MediaPlayerRecreated?.Invoke(this, player);
-
-            VisualizerPlaybackSource = PlaybackSource.CreateFromMediaPlayer(player);
 
             return player;
         }
