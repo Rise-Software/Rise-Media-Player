@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
     Loaded="FileBrowserPage_Loaded"
@@ -20,7 +19,7 @@
         <uc:FileBrowserHeaderControl
             Margin="56,56,56,0"
             CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
-            GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
+            GoBackCommand="{x:Bind GoBackCommand}"
             IsOpenInFileExplorerEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanOpenInFileExplorer, Mode=OneWay}"
             IsPinToSidebarEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanPinToSidebar, Mode=OneWay}"
             Items="{x:Bind ViewModel.FileBrowserHeaderViewModel.Items}"

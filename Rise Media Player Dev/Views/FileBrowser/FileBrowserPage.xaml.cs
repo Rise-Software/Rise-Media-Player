@@ -1,12 +1,13 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
 using Rise.App.ViewModels.FileBrowser.Pages;
 using Rise.App.Views.FileBrowser;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,6 +39,13 @@ namespace Rise.App.Views
             {
                 ViewModel.EnsureInitialized();
             }
+        }
+
+        [RelayCommand]
+        private void GoBack()
+        {
+            if (ContentFrame.CanGoBack)
+                ContentFrame.GoBack();
         }
 
         public void Receive(FileBrowserNavigationRequestedMessage message)
