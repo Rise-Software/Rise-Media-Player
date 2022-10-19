@@ -44,31 +44,28 @@ namespace Rise.Data.ViewModels
             private set
             {
                 Set(ref _playingItem, value);
-                OnPropertyChanged("PlayingItemType");
-                OnPropertyChanged("PlayingItemDisplayProperties");
-                OnPropertyChanged("PlayingItemProperties");
+                OnPropertyChanged(nameof(PlayingItemType));
+                OnPropertyChanged(nameof(PlayingItemProperties));
 
                 PlayingItemChanged?.Invoke(this, _playingItem);
             }
         }
 
+        private NowPlayingDisplayProperties _playingItemProperties;
         /// <summary>
-        /// Gets a set of custom properties for the current item.
+        /// Gets the media item that is currently playing.
         /// </summary>
-        public ValueSet PlayingItemProperties
-            => PlayingItem?.Source.CustomProperties;
-
-        /// <summary>
-        /// Gets the display properties for the current item.
-        /// </summary>
-        public MediaItemDisplayProperties PlayingItemDisplayProperties
-            => PlayingItem?.GetDisplayProperties();
+        public NowPlayingDisplayProperties PlayingItemProperties
+        {
+            get => _playingItemProperties;
+            private set => Set(ref _playingItemProperties, value);
+        }
 
         /// <summary>
         /// Gets the type of item that's currently playing.
         /// </summary>
         public MediaPlaybackType? PlayingItemType
-            => PlayingItem?.GetDisplayProperties().Type;
+            => PlayingItemProperties?.ItemType;
 
         private MediaPlayer _player;
         /// <summary>
@@ -363,9 +360,12 @@ namespace Rise.Data.ViewModels
                 return;
             }
 
-            var itm = sender.CurrentItem;
+            var itm = args.NewItem;
             if (itm != null)
+            {
                 PlayingItem = itm;
+                PlayingItemProperties = NowPlayingDisplayProperties.GetFromPlaybackItem(itm);
+            }
         }
 
         private void OnItemsVectorChanged(IObservableVector<MediaPlaybackItem> sender, IVectorChangedEventArgs args)

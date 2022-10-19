@@ -84,8 +84,8 @@
                     <Border
                         Grid.RowSpan="4"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -94,7 +94,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -104,7 +104,7 @@
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         MaxLines="1"
-                        Text="{x:Bind MPViewModel.PlayingItemDisplayProperties.MusicProperties.AlbumTitle}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Album}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -112,7 +112,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <Grid
@@ -186,8 +186,8 @@
                     <Border
                         Grid.RowSpan="3"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
-                        <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -195,7 +195,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -204,7 +204,7 @@
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -212,7 +212,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Year'], Converter={StaticResource UIntToStr}}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Year, Converter={StaticResource UIntToStr}}"
                         TextTrimming="CharacterEllipsis" />
                 </Grid>
             </Flyout>
@@ -653,7 +653,7 @@
                                             HorizontalAlignment="Left"
                                             CornerRadius="4">
                                             <Border.Background>
-                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                                             </Border.Background>
 
                                             <Border.RenderTransform>
@@ -672,17 +672,17 @@
                                                 FontSize="16"
                                                 FontWeight="SemiBold"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Title']}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
                                             <TextBlock
                                                 x:Name="DisplaySubtitle"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                                             <StackPanel.RenderTransform>
                                                 <TranslateTransform x:Name="TextPanelTranslate" />
                                             </StackPanel.RenderTransform>

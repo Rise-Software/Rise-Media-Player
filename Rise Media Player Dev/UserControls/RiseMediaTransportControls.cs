@@ -378,32 +378,27 @@ namespace Rise.App.UserControls
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
+            var currProps = MPViewModel.PlayingItemProperties;
+            if (currProps == null || currProps.ItemType != MediaPlaybackType.Music)
                 return;
 
-            var currProps = MPViewModel.PlayingItemProperties;
-            if (currProps != null &&
-                currProps.TryGetValue("Location", out var location))
+            string loc = currProps.Location;
+            try
             {
-                try
+                var song = MViewModel.Songs.FirstOrDefault(s => s.Location == loc);
+                if (song != null)
                 {
-                    string loc = location.ToString();
-                    var song = MViewModel.Songs.FirstOrDefault(s => s.Location == loc);
-
-                    if (song != null)
+                    var file = await StorageFile.GetFileFromPathAsync(loc);
+                    var props = new SongPropertiesViewModel(song, file.DateCreated)
                     {
-                        var file = await StorageFile.GetFileFromPathAsync(loc);
-                        var props = new SongPropertiesViewModel(song, file.DateCreated)
-                        {
-                            FileProps = await file.GetBasicPropertiesAsync()
-                        };
+                        FileProps = await file.GetBasicPropertiesAsync()
+                    };
 
-                        _ = await typeof(SongPropertiesPage).
-                            PlaceInApplicationViewAsync(props, 380, 550, true);
-                    }
+                    _ = await typeof(SongPropertiesPage).
+                        PlaceInApplicationViewAsync(props, 380, 550, true);
                 }
-                catch { }
             }
+            catch { }
         }
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)

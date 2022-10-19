@@ -46,7 +46,7 @@
         <Grid.Background>
             <ImageBrush
                 x:Name="ThumbnailBrush"
-                ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
+                ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
                 Stretch="UniformToFill" />
         </Grid.Background>
 
@@ -154,7 +154,7 @@
                                 CornerRadius="12"
                                 Visibility="Collapsed">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" />
+                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" />
                                 </Border.Background>
                             </Border>
 
@@ -166,7 +166,7 @@
                                 FontWeight="SemiBold"
                                 HorizontalTextAlignment="Center"
                                 MaxLines="2"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties['Title']}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
                             <TextBlock
                                 x:Name="SubtitleText"
                                 Grid.Row="2"
@@ -178,7 +178,7 @@
                                 MaxLines="1"
                                 Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>

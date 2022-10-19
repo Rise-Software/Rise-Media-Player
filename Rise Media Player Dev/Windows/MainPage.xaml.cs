@@ -389,7 +389,7 @@ namespace Rise.App.Views
                 if (MPViewModel.PlayingItem != null)
                 {
                     using var stream = await MPViewModel.
-                        PlayingItemDisplayProperties.Thumbnail.OpenReadAsync();
+                        PlayingItemProperties.Thumbnail.OpenReadAsync();
 
                     var decoder = await BitmapDecoder.CreateAsync(stream);
                     var colorThief = new ColorThiefDotNet.ColorThief();
@@ -615,7 +615,7 @@ namespace Rise.App.Views
                 return;
 
             AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => a.Title == MPViewModel.PlayingItemDisplayProperties.MusicProperties.AlbumTitle);
+                FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -627,7 +627,7 @@ namespace Rise.App.Views
                 return;
 
             ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => a.Name == MPViewModel.PlayingItemDisplayProperties.MusicProperties.Artist);
+                FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
