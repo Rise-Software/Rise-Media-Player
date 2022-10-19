@@ -1,12 +1,11 @@
-﻿using System.Threading;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.ViewModels.FileBrowser.Listing;
 using Rise.App.ViewModels.FileBrowser.Pages;
+using System.Threading;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,12 +52,10 @@ namespace Rise.App.Views.FileBrowser
             await ViewModel.EnumerateDirectoryAsync(CancellationToken.None);
         }
 
-        private async void FileBrowserListingItem_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if ((sender as FrameworkElement)?.DataContext is FileBrowserListingItemViewModel listingItemViewModel)
-            {
-                await listingItemViewModel.OpenAsync();
-            }
+            var item = e.ClickedItem as FileBrowserListingItemViewModel;
+            await item?.OpenAsync();
         }
     }
 }

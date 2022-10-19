@@ -3,26 +3,37 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.Views.FileBrowser"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls.FileBrowser"
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
     Loaded="FileBrowserDirectoryPage_Loaded"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <CollectionViewSource
+            x:Name="StorageItemsSource"
+            IsSourceGrouped="True"
+            ItemsPath="Items"
+            Source="{x:Bind ViewModel.ListingViewModel.Sections}" />
+    </Page.Resources>
+
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.ListingViewModel.Sections}">
+        <ListView
+            IsItemClickEnabled="True"
+            ItemClick="ListView_ItemClick"
+            ItemsSource="{x:Bind StorageItemsSource.View}">
+            <ListView.GroupStyle>
+                <GroupStyle HidesIfEmpty="True">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
+                            <TextBlock Text="{x:Bind SectionName}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
-                    <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}" SectionName="{x:Bind SectionName}">
-                        <uc:FileBrowserListingSectionControl.ItemTemplate>
-                            <DataTemplate x:DataType="vm:FileBrowserListingItemViewModel">
-                                <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
-                                    <TextBlock Text="{x:Bind Name}" />
-                                </Grid>
-                            </DataTemplate>
-                        </uc:FileBrowserListingSectionControl.ItemTemplate>
-                    </uc:FileBrowserListingSectionControl>
+                <DataTemplate x:DataType="vm:FileBrowserListingItemViewModel">
+                    <TextBlock Text="{x:Bind Name}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
