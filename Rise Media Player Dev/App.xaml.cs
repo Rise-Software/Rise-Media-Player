@@ -1,6 +1,4 @@
-using System;
-using System.Threading.Tasks;
-using System.Timers;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -9,6 +7,7 @@ using Rise.App.DbControllers;
 using Rise.App.Services;
 using Rise.App.ServicesImplementation;
 using Rise.App.ViewModels;
+using Rise.App.ViewModels.FileBrowser.Pages;
 using Rise.App.Views;
 using Rise.Common;
 using Rise.Common.Constants;
@@ -37,8 +36,6 @@ using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Rise.App.ViewModels.FileBrowser.Pages;
-using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Rise.App
 {
@@ -48,7 +45,7 @@ namespace Rise.App
     public sealed partial class App : Application
     {
         private IServiceProvider? ServiceProvider { get; set; }
-        
+
         private static Timer IndexingTimer;
 
         // ViewModels
