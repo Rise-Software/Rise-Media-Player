@@ -117,13 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>स्वीकार करें</value>
+  </data>
   <data name="AddAccount" xml:space="preserve">
     <value>अकाउंट जोड़ें</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>जारी रखें</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>मेरे लिए फैसला लें</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>अस्वीकार करें</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>अभी नहीं(ऐप से बाहर निकलें)</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>केवल लोकल मीडिया फाइलें इस्तेमाल करें</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>केवल स्ट्रीमिंग सुविधाएँ इस्तेमाल करें</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>खोजें</value>
+  </data>
+  <data name="SetupAppearanceH" xml:space="preserve">
+    <value>इसे अपना बनाएँ</value>
+  </data>
+  <data name="SetupConnectH" xml:space="preserve">
+    <value>एक इन्टरनेट अकाउंट बनाएँ</value>
+  </data>
+  <data name="SetupDoneH" xml:space="preserve">
+    <value>आपका काम समाप्त हुआ</value>
+  </data>
+  <data name="SetupIntro" xml:space="preserve">
+    <value>हमे खुशी है कि आप यहाँ हैं। सिर्फ़ कुछ सरल चरणों को संपन्न करना है और आप तैयार हो जाएंगे!</value>
+  </data>
+  <data name="SetupLocalH" xml:space="preserve">
+    <value>आपके खुद की मीडिया</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>पूर्व-सेटअप</value>
+  </data>
+  <data name="SetupPrivacyH" xml:space="preserve">
+    <value>गोपनीयता और सिफारिशें</value>
+  </data>
+  <data name="SetupStart" xml:space="preserve">
+    <value>सेटअप शुरू करें</value>
+  </data>
+  <data name="SetupTermsH" xml:space="preserve">
+    <value>लाइसेंस एग्रीमेंट और नियम</value>
+  </data>
+  <data name="SetupWelcome" xml:space="preserve">
+    <value>आपका इनमें स्वागत है</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>{1} में से चरण {0}</value>
   </data>
 </root>

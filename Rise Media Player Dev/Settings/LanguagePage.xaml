@@ -8,104 +8,106 @@
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="4">
-        <uc:AdaptiveItemPane Margin="0,10,0,0">
-            <uc:AdaptiveItemPane.LeftPane>
-                <StackPanel Orientation="Horizontal" Spacing="20">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon VerticalAlignment="Center" Glyph="&#xE128;" />
+    <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <uc:AdaptiveItemPane Margin="0,10,0,0">
+                <uc:AdaptiveItemPane.LeftPane>
+                    <StackPanel Orientation="Horizontal" Spacing="20">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon VerticalAlignment="Center" Glyph="&#xE128;" />
 
-                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                            <TextBlock x:Uid="/Language/System" FontWeight="SemiBold" />
+                            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                                <TextBlock x:Uid="/Language/System" FontWeight="SemiBold" />
+                                <TextBlock
+                                    x:Name="SysLang"
+                                    FontSize="12"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Rectangle
+                            Width="1"
+                            Height="36"
+                            Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon VerticalAlignment="Center" Glyph="&#xF2B7;" />
                             <TextBlock
-                                x:Name="SysLang"
-                                FontSize="12"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                        </StackPanel>
-                    </StackPanel>
-
-                    <Rectangle
-                        Width="1"
-                        Height="36"
-                        Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" />
-
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon VerticalAlignment="Center" Glyph="&#xF2B7;" />
-                        <TextBlock
-                            x:Uid="/Language/Translations"
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold" />
-                    </StackPanel>
-                </StackPanel>
-            </uc:AdaptiveItemPane.LeftPane>
-
-            <uc:AdaptiveItemPane.RightPane>
-                <StackPanel Orientation="Horizontal" Spacing="12">
-                    <Button Click="ReportButton_Click" Style="{StaticResource TransparentButtonStyle}">
-                        <StackPanel
-                            IsHitTestVisible="False"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <FontIcon
+                                x:Uid="/Language/Translations"
                                 VerticalAlignment="Center"
-                                Foreground="{ThemeResource SystemAccentColor}"
-                                Glyph="&#xE7BA;" />
-                            <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                                FontWeight="SemiBold" />
                         </StackPanel>
-                    </Button>
+                    </StackPanel>
+                </uc:AdaptiveItemPane.LeftPane>
+
+                <uc:AdaptiveItemPane.RightPane>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Click="ReportButton_Click" Style="{StaticResource TransparentButtonStyle}">
+                            <StackPanel
+                                IsHitTestVisible="False"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <FontIcon
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource SystemAccentColor}"
+                                    Glyph="&#xE7BA;" />
+                                <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                            </StackPanel>
+                        </Button>
 
 
-                    <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButtonStyle}">
-                        <StackPanel
-                            IsHitTestVisible="False"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
-                            <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </uc:AdaptiveItemPane.RightPane>
-        </uc:AdaptiveItemPane>
+                        <Button Click="TranslateButton_Click" Style="{StaticResource TransparentButtonStyle}">
+                            <StackPanel
+                                IsHitTestVisible="False"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
+                                <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </uc:AdaptiveItemPane.RightPane>
+            </uc:AdaptiveItemPane>
 
-        <TextBlock x:Uid="/Language/Options" Style="{StaticResource SubheaderTextBlockStyle}" />
-        <muxc:InfoBar
-            Title="English is currently the only available language"
-            IsClosable="False"
-            IsOpen="True"
-            Message="Other languages and regions will be available soon."
-            Severity="Informational" />
-        <uc:ExpanderControl
-            x:Uid="/Language/Match"
-            ExpanderStyle="Disabled"
-            Icon="&#xE923;" />
+            <TextBlock x:Uid="/Language/Options" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <muxc:InfoBar
+                Title="English is currently the only available language"
+                IsClosable="False"
+                IsOpen="True"
+                Message="Other languages and regions will be available soon."
+                Severity="Informational" />
+            <uc:ExpanderControl
+                x:Uid="/Language/Match"
+                ExpanderStyle="Disabled"
+                Icon="&#xE923;" />
 
-        <uc:ExpanderControl
-            x:Uid="/Language/Select"
-            ExpanderStyle="Disabled"
-            Icon="&#xE12B;">
-            <ComboBox
-                VerticalAlignment="Center"
-                PlaceholderText="Use system language"
-                SelectedIndex="{x:Bind ViewModel.Language, Mode=TwoWay}">
-                <x:String>Use system setting</x:String>
-                <x:String>中国人</x:String>
-                <x:String>हिंदी</x:String>
-                <x:String>한국인</x:String>
-                <x:String>Ελληνικά</x:String>
-                <x:String>Deutsch</x:String>
-                <x:String>English</x:String>
-                <x:String>English (United Kingdom)</x:String>
-                <x:String>English (United States)</x:String>
-                <x:String>Español</x:String>
-                <x:String>Français</x:String>
-                <x:String>Italiano</x:String>
-                <x:String>Melayu</x:String>
-                <x:String>Polskie</x:String>
-                <x:String>Português (Brasil)</x:String>
-                <x:String>Português (Portugal)</x:String>
-                <x:String>Română</x:String>
-            </ComboBox>
-        </uc:ExpanderControl>
-    </StackPanel>
+            <uc:ExpanderControl
+                x:Uid="/Language/Select"
+                ExpanderStyle="Disabled"
+                Icon="&#xE12B;">
+                <ComboBox
+                    VerticalAlignment="Center"
+                    PlaceholderText="Use system language"
+                    SelectedIndex="{x:Bind ViewModel.Language, Mode=TwoWay}">
+                    <x:String>Use system setting</x:String>
+                    <x:String>中国人</x:String>
+                    <x:String>हिंदी</x:String>
+                    <x:String>한국인</x:String>
+                    <x:String>Ελληνικά</x:String>
+                    <x:String>Deutsch</x:String>
+                    <x:String>English</x:String>
+                    <x:String>English (United Kingdom)</x:String>
+                    <x:String>English (United States)</x:String>
+                    <x:String>Español</x:String>
+                    <x:String>Français</x:String>
+                    <x:String>Italiano</x:String>
+                    <x:String>Melayu</x:String>
+                    <x:String>Polskie</x:String>
+                    <x:String>Português (Brasil)</x:String>
+                    <x:String>Português (Portugal)</x:String>
+                    <x:String>Română</x:String>
+                </ComboBox>
+            </uc:ExpanderControl>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

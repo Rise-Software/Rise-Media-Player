@@ -3,6 +3,7 @@ using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Rise.App.UserControls
 {
@@ -97,6 +98,14 @@ namespace Rise.App.UserControls
                 MPViewModel.PlaybackList.Items.RemoveAt(index);
                 MPViewModel.PlaybackList.Items.Insert(index + 1, await SelectedItem.AsPlaybackItemAsync());
             }
+        }
+
+        private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var index = MPViewModel.QueuedItems.IndexOf((e.OriginalSource as FrameworkElement).DataContext as IMediaItem);
+
+            if (index >= 0)
+                MPViewModel.PlaybackList.MoveTo((uint)index);
         }
     }
 }

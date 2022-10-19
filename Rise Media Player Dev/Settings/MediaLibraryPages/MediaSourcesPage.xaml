@@ -16,25 +16,27 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Margin="-12,-6,-12,-12">
-        <muxc:NavigationView
-            Margin="-3,0,0,0"
-            IsBackButtonVisible="Collapsed"
-            IsSettingsVisible="False"
-            ItemInvoked="NavigationView_ItemInvoked"
-            PaneDisplayMode="Top"
-            SelectedItem="{x:Bind AllMedia}">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem
-                    x:Name="AllMedia"
-                    Content="Show all"
-                    Tag="AllMedia" />
-                <muxc:NavigationViewItem Content="Music" Tag="Music" />
-                <muxc:NavigationViewItem Content="Videos" Tag="Videos" />
-            </muxc:NavigationView.MenuItems>
+    <muxc:NavigationView
+        Margin="32,4,32,0"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        ItemInvoked="NavigationView_ItemInvoked"
+        PaneDisplayMode="Top"
+        SelectedItem="{x:Bind AllMedia}">
+        <muxc:NavigationView.MenuItems>
+            <muxc:NavigationViewItem
+                x:Name="AllMedia"
+                Content="Show all"
+                Tag="AllMedia" />
+            <muxc:NavigationViewItem Content="Music" Tag="Music" />
+            <muxc:NavigationViewItem Content="Videos" Tag="Videos" />
+        </muxc:NavigationView.MenuItems>
 
-            
-        </muxc:NavigationView>
-        <Frame x:Name="ContentFrame" Margin="0,42,0,0" />
-    </Grid>
+        <ScrollViewer
+            Margin="-32,0"
+            Padding="48,0"
+            VerticalScrollBarVisibility="Auto">
+            <Frame x:Name="ContentFrame" />
+        </ScrollViewer>
+    </muxc:NavigationView>
 </Page>

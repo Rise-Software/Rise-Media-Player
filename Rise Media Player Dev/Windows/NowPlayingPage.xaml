@@ -160,7 +160,7 @@
                                                 DecodePixelHeight="300"
                                                 DecodePixelType="Logical"
                                                 DecodePixelWidth="300"
-                                                UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
+                                                UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail, Mode=OneWay}" />
                                         </ImageBrush.ImageSource>
                                     </ImageBrush>
                                 </Border.Background>
@@ -187,14 +187,6 @@
                                 Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
-
-                            <visualizers:LineVisualizer
-                                x:Name="LineVis"
-                                Grid.RowSpan="3"
-                                Grid.Column="1"
-                                x:Load="False"
-                                Visibility="Collapsed"
-                                VisualizerSource="{x:Bind MPViewModel.VisualizerPlaybackSource.Source, Mode=OneTime}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>

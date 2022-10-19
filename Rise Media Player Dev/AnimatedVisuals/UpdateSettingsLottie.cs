@@ -53,7 +53,7 @@ using Windows.Graphics;
 using Windows.UI;
 using Windows.UI.Composition;
 
-namespace AnimatedVisuals
+namespace Rise.App.AnimatedVisuals
 {
     // Name:        23 - CHN Security
     // Frame rate:  60 fps

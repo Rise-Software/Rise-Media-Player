@@ -60,57 +60,49 @@
             </StackPanel>
         </Border>
 
-        <Border Style="{StaticResource SettingsCard}">
-            <StackPanel Orientation="Vertical">
+        <uc:ExpanderControl
+            x:Uid="/MediaLibrary/EventsScan"
+            VerticalAlignment="Center"
+            ExpanderStyle="Default"
+            Icon="&#xF78D;">
+            <StackPanel
+                HorizontalAlignment="Stretch"
+                Orientation="Vertical"
+                Spacing="8">
                 <uc:ExpanderControl
-                    x:Uid="/MediaLibrary/EventsScan"
-                    VerticalAlignment="Center"
-                    ExpanderStyle="Transparent"
-                    Icon="&#xF78D;">
-                    <ToggleSwitch x:Name="EventsSwitch" IsOn="{x:Bind ViewModel.IndexingEventsEnabled, Mode=TwoWay}" />
+                    x:Uid="/MediaLibrary/Open"
+                    Margin="16,-16,0,-8"
+                    ExpanderStyle="Transparent">
+                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
 
-                <StackPanel
-                    x:Name="EventsContent"
-                    Margin="0,12,0,0"
-                    Visibility="{x:Bind ViewModel.IndexingEventsEnabled, Mode=OneWay}">
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
-                    <uc:ExpanderControl
-                        x:Uid="/MediaLibrary/Open"
-                        Margin="16,0,0,0"
-                        ExpanderStyle="Transparent">
-                        <ToggleSwitch x:Name="OpenSwitch" IsOn="{x:Bind ViewModel.IndexingAtStartupEnabled, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
+                <uc:ExpanderControl
+                    x:Uid="/MediaLibrary/DeviceConnect"
+                    Margin="16,-8,0,-8"
+                    ExpanderStyle="Transparent">
+                    <ToggleSwitch Margin="0,2,0,0" />
+                </uc:ExpanderControl>
 
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
-                    <uc:ExpanderControl
-                        x:Uid="/MediaLibrary/DeviceConnect"
-                        Margin="16,0,0,0"
-                        ExpanderStyle="Transparent">
-                        <ToggleSwitch x:Name="DeviceSwitch" />
-                    </uc:ExpanderControl>
+                <uc:ExpanderControl
+                    x:Uid="/MediaLibrary/AddLocation"
+                    Margin="16,-8,0,-8"
+                    ExpanderStyle="Transparent">
+                    <ToggleSwitch Margin="0,2,0,0" />
+                </uc:ExpanderControl>
 
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
+                <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
-                    <uc:ExpanderControl
-                        x:Uid="/MediaLibrary/AddLocation"
-                        Margin="16,0,0,0"
-                        ExpanderStyle="Transparent">
-                        <ToggleSwitch x:Name="LocationSwitch" />
-                    </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        x:Uid="/MediaLibrary/FilesAdd"
-                        Margin="16,0,0,-8"
-                        ExpanderStyle="Transparent">
-                        <ToggleSwitch x:Name="FilesAddSwitch" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
-                    </uc:ExpanderControl>
-                </StackPanel>
+                <uc:ExpanderControl
+                    x:Uid="/MediaLibrary/FilesAdd"
+                    Margin="16,-8,0,-16"
+                    ExpanderStyle="Transparent">
+                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
+                </uc:ExpanderControl>
             </StackPanel>
-        </Border>
+        </uc:ExpanderControl>
     </StackPanel>
 </Page>

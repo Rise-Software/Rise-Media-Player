@@ -40,12 +40,6 @@ namespace Rise.Common
             ResourceLoader.GetForViewIndependentUse("Playback");
 
         /// <summary>
-        /// Loads Setup resources.
-        /// </summary>
-        public static ResourceLoader SetupLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("Setup");
-
-        /// <summary>
         /// Loads Sidebar resources.
         /// </summary>
         public static ResourceLoader SidebarLoader { get; } =

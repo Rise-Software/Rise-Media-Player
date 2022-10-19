@@ -25,6 +25,8 @@
             Grid.Row="1"
             ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
             SelectedItem="{x:Bind SelectedItem, Mode=OneWay}"
+            IsDoubleTapEnabled="True"
+            DoubleTapped="MainList_DoubleTapped"
             SelectionMode="Single">
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
