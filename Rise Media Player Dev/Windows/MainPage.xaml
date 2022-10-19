@@ -104,7 +104,7 @@
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         MaxLines="1"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties.Album}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Album, Converter={StaticResource ResFallback}, ConverterParameter=UnknownAlbumResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
