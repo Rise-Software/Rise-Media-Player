@@ -126,6 +126,7 @@
     <Compile Include="LastFM\TopTracks.cs" />
     <Compile Include="Media\Album.cs" />
     <Compile Include="Media\Artist.cs" />
+    <Compile Include="Media\NowPlayingDisplayProperties.cs" />
     <Compile Include="Media\MediaPlayerEffect.cs" />
     <Compile Include="Media\Genre.cs" />
     <Compile Include="Media\Playlist.cs" />
@@ -143,6 +144,11 @@
     <EmbeddedResource Include="Properties\Rise.Models.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="IsExternalInit">
+      <Version>1.0.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
