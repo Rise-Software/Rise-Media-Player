@@ -53,6 +53,7 @@
             <conv:StreamToBitmap x:Key="StrmToBmp" />
 
             <conv:ResourceToString x:Key="StrToRes" />
+            <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
@@ -83,7 +84,7 @@
                     <Border
                         Grid.RowSpan="4"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}">
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
                         <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
@@ -111,7 +112,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <Grid
@@ -185,7 +186,7 @@
                     <Border
                         Grid.RowSpan="3"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}">
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
                         <Image Source="{x:Bind MPViewModel.PlayingItemDisplayProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
@@ -203,7 +204,7 @@
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -678,10 +679,10 @@
                                             <TextBlock
                                                 x:Name="DisplaySubtitle"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists']}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists']}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                                             <StackPanel.RenderTransform>
                                                 <TranslateTransform x:Name="TextPanelTranslate" />
                                             </StackPanel.RenderTransform>

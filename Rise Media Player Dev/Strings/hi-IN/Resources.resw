@@ -180,4 +180,13 @@
   <data name="StepOf" xml:space="preserve">
     <value>{1} में से चरण {0}</value>
   </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>अनजान ऐल्बम</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>अनजान रचनाकार</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>अनजान शैली</value>
+  </data>
 </root>

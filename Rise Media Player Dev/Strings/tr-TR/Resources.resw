@@ -180,4 +180,13 @@
   <data name="StepOf" xml:space="preserve">
     <value>Adım {0}/{1}</value>
   </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Bilinmeyen Albüm</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Bilinmeyen Sanatçı</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Bilinmeyen Tür</value>
+  </data>
 </root>
