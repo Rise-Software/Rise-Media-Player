@@ -24,10 +24,10 @@ namespace Rise.App.ViewModels.FileBrowser
             this.Drive = drive;
             this.Name = drive.Name;
 
-            OpenDriveCommand = new AsyncRelayCommand(OpenDrive);
+            OpenDriveCommand = new AsyncRelayCommand(OpenAsync);
         }
 
-        private async Task OpenDrive()
+        public async Task OpenAsync()
         {
             var driveFolder = await Drive.GetRootFolderAsync();
             Messenger.Send(new FileBrowserNavigationRequestedMessage(new FileBrowserDirectoryPageViewModel(Messenger, driveFolder)));

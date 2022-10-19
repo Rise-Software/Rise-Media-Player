@@ -9,14 +9,20 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ListView ItemsSource="{x:Bind ViewModel.Drives}">
-            <ListView.ItemTemplate>
+        <GridView
+            Padding="56,0,56,120"
+            IsItemClickEnabled="True"
+            ItemClick="GridView_ItemClick"
+            ItemsSource="{x:Bind ViewModel.Drives}"
+            SelectionMode="None">
+            <GridView.ItemTemplate>
                 <DataTemplate x:DataType="vm:FileBrowserDriveItemViewModel">
-                    <Grid>
-                        <Button Command="{x:Bind OpenDriveCommand}" Content="{x:Bind Name}" />
-                    </Grid>
+                    <TextBlock
+                        Padding="24,8"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="{x:Bind Name}" />
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>

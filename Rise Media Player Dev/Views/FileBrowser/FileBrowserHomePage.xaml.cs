@@ -1,6 +1,7 @@
-﻿using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+﻿using Rise.App.ViewModels.FileBrowser;
 using Rise.App.ViewModels.FileBrowser.Pages;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,6 +31,12 @@ namespace Rise.App.Views.FileBrowser
             {
                 ViewModel = viewModel;
             }
+        }
+
+        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as FileBrowserDriveItemViewModel;
+            await item?.OpenAsync();
         }
     }
 }
