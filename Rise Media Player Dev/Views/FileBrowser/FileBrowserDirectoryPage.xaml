@@ -18,9 +18,11 @@
 
     <Grid>
         <ListView
+            Padding="56,0,56,120"
             IsItemClickEnabled="True"
             ItemClick="ListView_ItemClick"
-            ItemsSource="{x:Bind StorageItemsSource.View}">
+            ItemsSource="{x:Bind StorageItemsSource.View}"
+            SelectionMode="None">
             <ListView.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.HeaderTemplate>

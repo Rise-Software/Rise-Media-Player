@@ -2,8 +2,8 @@
     x:Class="Rise.App.UserControls.FileBrowser.FileBrowserHeaderControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Rise.App.UserControls.FileBrowser"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser"
@@ -27,18 +27,30 @@
         </Grid.ColumnDefinitions>
 
         <!--  Folder name  -->
-        <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel Orientation="Horizontal" Spacing="6">
             <Button
-                Background="Transparent"
-                BorderThickness="0"
-                Command="{x:Bind GoBackCommand, Mode=OneWay}" />
+                Height="36"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"
+                AutomationProperties.Name="Back"
+                Command="{x:Bind GoBackCommand, Mode=OneWay}"
+                Style="{StaticResource TransparentButtonStyle}">
+                <muxc:AnimatedIcon
+                    x:Name="BackAnimatedIcon"
+                    Width="16"
+                    Height="16">
+                    <muxc:AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource />
+                    </muxc:AnimatedIcon.Source>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back" />
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
 
             <FontIcon />
 
-            <TextBlock
-                FontSize="24"
-                FontWeight="SemiBold"
-                Text="{x:Bind CurrentLocation, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind CurrentLocation, Mode=OneWay}" />
         </StackPanel>
 
         <!--  Path  -->

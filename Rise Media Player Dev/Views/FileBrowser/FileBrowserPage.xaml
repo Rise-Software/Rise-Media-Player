@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
 
         <uc:FileBrowserHeaderControl
+            Margin="56,56,56,0"
             CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
             GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
             IsOpenInFileExplorerEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanOpenInFileExplorer, Mode=OneWay}"
