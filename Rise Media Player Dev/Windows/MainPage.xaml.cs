@@ -6,7 +6,6 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -17,7 +16,6 @@ using Windows.ApplicationModel.Core;
 using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Media.Playback;
-using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -155,17 +153,15 @@ namespace Rise.App.Views
             _navState = ContentFrame.GetNavigationState();
         }
 
-        private async void MPViewModel_PlayingItemChanged(object sender, IMediaItem e)
+        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await HandleViewModelColorSettingAsync();
             });
 
-            if (e?.ItemType == MediaPlaybackType.Music)
-            {
-                await LMViewModel.TryScrobbleItemAsync(e);
-            }
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                _ = await LMViewModel.TryScrobbleItemAsync(e);
         }
 
         private void OnContentFrameSizeChanged(object sender, SizeChangedEventArgs e)
@@ -200,7 +196,7 @@ namespace Rise.App.Views
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
             {
-                if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+                if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
                     Frame.Navigate(typeof(VideoPlaybackPage), true);
                 else
                     Frame.Navigate(typeof(NowPlayingPage), true);
@@ -215,7 +211,7 @@ namespace Rise.App.Views
                 await ApplicationView.GetForCurrentView().
                     TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
 
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
                 Frame.Navigate(typeof(VideoPlaybackPage));
             else
                 Frame.Navigate(typeof(NowPlayingPage));
@@ -227,7 +223,7 @@ namespace Rise.App.Views
         private void OnDisplayItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (MPViewModel.PlayingItem == null) return;
-            if (MPViewModel.PlayingItem.ItemType == MediaPlaybackType.Video)
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
                 PlayingItemVideoFlyout.ShowAt(MainPlayer);
             else
                 PlayingItemMusicFlyout.ShowAt(MainPlayer);
@@ -392,10 +388,8 @@ namespace Rise.App.Views
             {
                 if (MPViewModel.PlayingItem != null)
                 {
-                    var thumbUri = new Uri(MPViewModel.PlayingItem.Thumbnail);
-                    var thumbStrm = RandomAccessStreamReference.CreateFromUri(thumbUri);
-
-                    using var stream = await thumbStrm.OpenReadAsync();
+                    using var stream = await MPViewModel.
+                        PlayingItemProperties.Thumbnail.OpenReadAsync();
 
                     var decoder = await BitmapDecoder.CreateAsync(stream);
                     var colorThief = new ColorThiefDotNet.ColorThief();
@@ -617,11 +611,11 @@ namespace Rise.App.Views
 
         private void OnAlbumButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+            if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
             AlbumViewModel album = MViewModel.Albums.AsParallel().
-                FirstOrDefault(a => a.Title == MPViewModel.PlayingItem.ExtraInfo);
+                FirstOrDefault(a => a.Title == MPViewModel.PlayingItemProperties.Album);
             ContentFrame.Navigate(typeof(AlbumSongsPage), album.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
@@ -629,11 +623,11 @@ namespace Rise.App.Views
 
         private void OnArtistButtonClick(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem.ItemType != MediaPlaybackType.Music)
+            if (MPViewModel.PlayingItemType != MediaPlaybackType.Music)
                 return;
 
             ArtistViewModel artist = MViewModel.Artists.AsParallel().
-                FirstOrDefault(a => a.Name == MPViewModel.PlayingItem.Subtitle);
+                FirstOrDefault(a => a.Name == MPViewModel.PlayingItemProperties.Artist);
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();

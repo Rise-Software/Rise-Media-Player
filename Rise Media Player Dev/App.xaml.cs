@@ -9,14 +9,11 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
-using Rise.Models;
 using Rise.NewRepository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
@@ -25,7 +22,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -146,20 +142,8 @@ namespace Rise.App
         {
             await ActivateAsync(args.PreviousExecutionState, false);
 
-            _ = await typeof(NowPlayingPage).
-                ShowInApplicationViewAsync(null, 320, 300);
-
-            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
-            try
-            {
-                var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
-            }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-            StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
+            var files = args.Files.OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
         }
 
         /// <summary>
@@ -210,18 +194,7 @@ namespace Rise.App
                 return;
 
             var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
-            var mediaItems = new List<IMediaItem>();
-
-            foreach (var file in files)
-            {
-                if (QueryPresets.SongQueryOptions.FileTypeFilter.Contains(file.FileType))
-                    mediaItems.Add(new SongViewModel(await Song.GetFromFileAsync(file)));
-                else if (QueryPresets.VideoQueryOptions.FileTypeFilter.Contains(file.FileType))
-                    mediaItems.Add(new VideoViewModel(await Video.GetFromFileAsync(file)));
-            }
-
-            if (mediaItems.Any())
-                await MPViewModel.PlayItemsAsync(mediaItems);
+            await MPViewModel.PlayFilesAsync(files);
         }
 
         private void OnDragOver(object sender, DragEventArgs e)

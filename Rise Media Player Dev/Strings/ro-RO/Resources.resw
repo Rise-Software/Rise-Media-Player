@@ -180,4 +180,13 @@
   <data name="StepOf" xml:space="preserve">
     <value>Pasul {0} din {1}</value>
   </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Album necunoscut</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Artist necunoscut</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Gen necunoscut</value>
+  </data>
 </root>

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Rise.Common.Helpers;
+using Rise.Data.ViewModels;
+using System;
 using System.Globalization;
 using System.Net;
-using Rise.App.ViewModels;
-using Rise.Common.Constants;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Rise.App.Dialogs
 {
     public sealed partial class MusicStreamingDialog : ContentDialog
     {
+        private MediaPlaybackViewModel ViewModel => App.MPViewModel;
+
         public MusicStreamingDialog()
         {
             InitializeComponent();
@@ -19,54 +19,35 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            bool isValidSong;
+            string url = StreamingTextBox.Text;
 
+            bool isValidSong = false;
             try
             {
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(StreamingTextBox.Text);
+                var req = WebRequest.Create(url);
                 req.Method = "HEAD";
+
                 using var resp = req.GetResponse();
                 isValidSong = resp.ContentType.ToLower(CultureInfo.InvariantCulture)
-                           .StartsWith("audio/", StringComparison.OrdinalIgnoreCase);
+                    .StartsWith("audio/", StringComparison.OrdinalIgnoreCase);
             }
-            catch (Exception)
-            {
-                isValidSong = false;
-            }
+            catch { }
 
-            if (!(Uri.IsWellFormedUriString(StreamingTextBox.Text, UriKind.Absolute) && isValidSong))
+            if (!isValidSong || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
             {
-                // Not a well formed URL, show error and don't continue.
-                if (InvalidUrlText.Visibility == Visibility.Collapsed)
-                {
-                    InvalidUrlText.Visibility = Visibility.Visible;
-                }
+                args.Cancel = true;
+                InvalidUrlText.Visibility = Visibility.Visible;
                 return;
             }
 
-            // Well formed URL (if it isn't then we already stopped calling this function at this point)
-            // TODO: create a song view model based on the information found in the file and play it
-            if (InvalidUrlText.Visibility == Visibility.Visible)
-            {
-                InvalidUrlText.Visibility = Visibility.Collapsed;
-            }
-
+            // Well formed URL (if it isn't we've already returned anyways)
             Hide();
 
-            SongViewModel song = new()
-            {
-                Title = "title",
-                Track = 0,
-                Disc = 0,
-                Album = "UnknownAlbumResource",
-                Artist = "UnknownArtistResource",
-                AlbumArtist = "UnknownArtistResource",
-                Location = StreamingTextBox.Text,
-                Thumbnail = URIs.MusicThumb,
-                IsOnline = true
-            };
+            await ViewModel.ResetPlaybackAsync();
 
-            await App.MPViewModel.PlaySingleItemAsync(song);
+            var song = WebHelpers.GetSongFromUri(new(url));
+            ViewModel.AddSingleItemToQueue(song);
+            ViewModel.Player.Play();
         }
     }
 }

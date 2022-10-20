@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:interfaces="using:Rise.Common.Interfaces"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:playback="using:Windows.Media.Playback"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <conv:TimeSpanToString x:Key="TimeToStr" />
+        <conv:ResourceFallback x:Key="ResFallback" />
     </UserControl.Resources>
 
     <Grid>
@@ -23,10 +24,10 @@
         <ListView
             x:Name="MainList"
             Grid.Row="1"
-            ItemsSource="{x:Bind MPViewModel.QueuedItems, Mode=OneWay}"
-            SelectedItem="{x:Bind SelectedItem, Mode=OneWay}"
-            IsDoubleTapEnabled="True"
             DoubleTapped="MainList_DoubleTapped"
+            IsDoubleTapEnabled="True"
+            ItemsSource="{x:Bind MPViewModel.QueuedItems}"
+            SelectedItem="{x:Bind SelectedItem, Mode=OneWay}"
             SelectionMode="Single">
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
@@ -57,7 +58,7 @@
             </ListView.ContextFlyout>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="interfaces:IMediaItem">
+                <DataTemplate x:DataType="playback:MediaPlaybackItem">
                     <Grid Padding="12,4" ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -65,8 +66,8 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{x:Bind Title}" />
-                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Subtitle}" />
+                            <TextBlock Text="{x:Bind Source.CustomProperties['Title']}" />
+                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Source.CustomProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                         </StackPanel>
 
                         <TextBlock
@@ -74,7 +75,7 @@
                             VerticalAlignment="Center"
                             x:Phase="1"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="{x:Bind Length, Converter={StaticResource TimeToStr}}" />
+                            Text="{x:Bind Source.CustomProperties['Length'], Converter={StaticResource TimeToStr}}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
