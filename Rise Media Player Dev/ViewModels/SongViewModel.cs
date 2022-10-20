@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Rise.Common;
+using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -7,11 +9,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Media;
-using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -32,11 +31,6 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Checks if the song is played from an online stream, playlist or song.
-        /// </summary>
-        public bool IsOnline { get; set; }
-
         /// <summary>
         /// Gets or sets the song title.
         /// </summary>
@@ -345,56 +339,15 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            try
+            var uri = new Uri(Location);
+            if (uri.IsFile)
             {
-                MediaSource source;
-                var uri = new Uri(Location);
-
-                if (uri.IsFile)
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                    source = MediaSource.CreateFromStorageFile(file);
-                }
-                else
-                {
-                    source = MediaSource.CreateFromUri(uri);
-                }
-
-                MediaPlaybackItem media = new(source);
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-
-                props.Type = MediaPlaybackType.Music;
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
-                {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
-                }
-
-                media.ApplyDisplayProperties(props);
-                return media;
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                return await file.GetSongAsync();
             }
-            catch
-            {
 
-            }
-            return null;
+            return WebHelpers.GetSongFromUri(uri);
         }
         #endregion
-    }
-
-    // IMediaItem implementation
-    public partial class SongViewModel : IMediaItem
-    {
-        string IMediaItem.Subtitle => Artist;
-        string IMediaItem.ExtraInfo => Album;
-
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }

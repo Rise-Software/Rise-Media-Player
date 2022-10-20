@@ -125,17 +125,64 @@
 							</uap:SupportedFileTypes>
 						</uap:FileTypeAssociation>
 					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mp4">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mp4</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="avi">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.avi</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mov">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mov</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="avchd">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.avchd</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mkv">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mkv</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="flv">
+							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
+							<uap:SupportedFileTypes>
+								<uap:FileType>.flv</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
 			</Extensions>
 		</Application>
 	</Applications>
 
 	<Capabilities>
 		<Capability Name="internetClient" />
-		<uap3:Capability Name="backgroundMediaPlayback"/>
-		<uap:Capability Name="videosLibrary"/>
+		<uap3:Capability Name="backgroundMediaPlayback" />
+		<uap:Capability Name="videosLibrary" />
 		<uap:Capability Name="removableStorage" />
 		<uap:Capability Name="musicLibrary"/>
-		<rescap:Capability Name="confirmAppClose"/>
 		<rescap:Capability Name="broadFileSystemAccess" />
 	</Capabilities>
 </Package>

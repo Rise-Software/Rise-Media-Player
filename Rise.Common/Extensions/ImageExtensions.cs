@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -174,7 +173,6 @@ namespace Rise.Common.Extensions
             string filename,
             CreationCollisionOption collisionOption = CreationCollisionOption.ReplaceExisting)
         {
-            var result = false;
             if (thumbnail != null && thumbnail.Type == ThumbnailType.Image)
             {
                 try
@@ -192,14 +190,15 @@ namespace Rise.Common.Extensions
                         _ = await strm.WriteAsync(iBuf);
                     }
 
-                    result = true;
-                } catch (Exception e)
+                    return true;
+                }
+                catch (Exception e)
                 {
                     e.WriteToOutput();
                 }
             }
 
-            return result;
+            return false;
         }
     }
 }

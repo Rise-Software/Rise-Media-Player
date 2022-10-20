@@ -5,8 +5,11 @@ using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Data.ViewModels;
 using System;
+using System.Linq;
 using System.Windows.Input;
+using Windows.Media;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -21,6 +24,9 @@ namespace Rise.App.UserControls
     /// </summary>
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
+        private MainViewModel MViewModel => App.MViewModel;
+        private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+
         /// <summary>
         /// Gets or sets a value that indicates the horizontal
         /// alignment for the main playback controls.
@@ -372,27 +378,27 @@ namespace Rise.App.UserControls
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)
         {
-            if (App.MPViewModel.PlayingItem is SongViewModel song && !App.MPViewModel.PlayingItem.IsOnline)
+            var currProps = MPViewModel.PlayingItemProperties;
+            if (currProps == null || currProps.ItemType != MediaPlaybackType.Music)
+                return;
+
+            string loc = currProps.Location;
+            try
             {
-                try
+                var song = MViewModel.Songs.FirstOrDefault(s => s.Location == loc);
+                if (song != null)
                 {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(song.Location);
-                    if (file != null)
+                    var file = await StorageFile.GetFileFromPathAsync(loc);
+                    var props = new SongPropertiesViewModel(song, file.DateCreated)
                     {
-                        SongPropertiesViewModel props = new(song, file.DateCreated)
-                        {
-                            FileProps = await file.GetBasicPropertiesAsync()
-                        };
+                        FileProps = await file.GetBasicPropertiesAsync()
+                    };
 
-                        _ = await typeof(SongPropertiesPage).
-                            PlaceInApplicationViewAsync(props, 380, 550, true);
-                    }
-                }
-                catch
-                {
-
+                    _ = await typeof(SongPropertiesPage).
+                        PlaceInApplicationViewAsync(props, 380, 550, true);
                 }
             }
+            catch { }
         }
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)
@@ -400,6 +406,6 @@ namespace Rise.App.UserControls
 
         [RelayCommand]
         private void UpdatePlaybackSpeed(double speed)
-            => App.MPViewModel.Player.PlaybackSession.PlaybackRate = speed;
+            => MPViewModel.Player.PlaybackSession.PlaybackRate = speed;
     }
 }
