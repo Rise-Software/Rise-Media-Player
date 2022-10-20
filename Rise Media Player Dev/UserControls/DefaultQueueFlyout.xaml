@@ -10,6 +10,7 @@
 
     <UserControl.Resources>
         <conv:TimeSpanToString x:Key="TimeToStr" />
+        <conv:ResourceFallback x:Key="ResFallback" />
     </UserControl.Resources>
 
     <Grid>
@@ -66,7 +67,7 @@
 
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{x:Bind Source.CustomProperties['Title']}" />
-                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Source.CustomProperties['Artists']}" />
+                            <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Source.CustomProperties['Artists'], Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                         </StackPanel>
 
                         <TextBlock

@@ -39,6 +39,7 @@
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
+            <conv:ResourceFallback x:Key="ResFallback" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -178,7 +179,7 @@
                                 MaxLines="1"
                                 Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
