@@ -169,6 +169,8 @@ namespace Rise.Data.ViewModels
         {
             if (!_authenticated) return false;
 
+            if (item == null) return false;
+
             var span = DateTime.UtcNow - new DateTime(1970, 1, 1);
             var curr = ((int)span.TotalSeconds).ToString();
 
