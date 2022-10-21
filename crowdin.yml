@@ -4,8 +4,8 @@ api_token_env: CROWDIN_PERSONAL_TOKEN
 commit_message: 'fix: new translations in %original_file_name% (%original_file_name%) from Crowdin'
 append_commit_message: false
 files:
-  - source: /src/Rise Media Player Dev/Strings/en-gb/*.resw
-    translation: /src/Rise Media Player Dev/Strings/%locale%/%original_file_name%
+  - source: /src/Rise-Media-Player/Rise Media Player Dev/Strings/en-gb/*.resw
+    translation: /src/Rise-Media-Player/Rise Media Player Dev/Strings/%locale%/%original_file_name%
     languages_mapping:
       locale:
         af: af
