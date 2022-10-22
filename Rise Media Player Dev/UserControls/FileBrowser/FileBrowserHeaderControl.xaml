@@ -48,20 +48,28 @@
                 </muxc:AnimatedIcon>
             </Button>
 
-            <FontIcon />
+            <Image Width="32" Height="32">
+                <Image.Source>
+                    <BitmapImage
+                        DecodePixelHeight="32"
+                        DecodePixelWidth="32"
+                        UriSource="ms-appx:///Assets/FileBrowser/FolderIcon.png" />
+                </Image.Source>
+            </Image>
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind CurrentLocation, Mode=OneWay}" />
+            <TextBlock Margin="12,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Text="Browse" />
         </StackPanel>
 
         <!--  Path  -->
         <muxc:BreadcrumbBar
             Grid.Row="1"
             Grid.ColumnSpan="2"
+            Margin="8,8,0,0"
             ItemClicked="BreadcrumbBar_ItemClicked"
             ItemsSource="{x:Bind Items, Mode=OneWay}">
             <muxc:BreadcrumbBar.ItemTemplate>
                 <DataTemplate x:DataType="vm:FileBrowserBreadcrumbItemViewModel">
-                    <TextBlock Text="{x:Bind SectionName}" />
+                    <TextBlock Text="{x:Bind SectionName}" FontSize="18" />
                 </DataTemplate>
             </muxc:BreadcrumbBar.ItemTemplate>
         </muxc:BreadcrumbBar>

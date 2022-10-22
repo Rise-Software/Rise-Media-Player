@@ -547,6 +547,7 @@
     <Content Include="Assets\DefaultPlaylistIcon.png" />
     <Content Include="Assets\Discy.png" />
     <Content Include="Assets\Discy.svg" />
+    <Content Include="Assets\FileBrowser\FolderIcon.png" />
     <Content Include="Assets\FileIcons\MUFILE.png" />
     <Content Include="Assets\FileIcons\VIDFILE.png" />
     <Content Include="Assets\gradientfill.png" />
