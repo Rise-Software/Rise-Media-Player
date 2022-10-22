@@ -1,7 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using Rise.Common.Enums;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Rise.App.UserControls.FileBrowser
 {
@@ -9,7 +8,7 @@ namespace Rise.App.UserControls.FileBrowser
     {
         public FileBrowserListingSectionControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public string SectionName
@@ -19,6 +18,30 @@ namespace Rise.App.UserControls.FileBrowser
         }
         public static readonly DependencyProperty SectionNameProperty =
             DependencyProperty.Register(nameof(SectionName), typeof(string), typeof(FileBrowserListingSectionControl), new PropertyMetadata(null));
+
+        public Visibility SectionHeaderVisibility
+        {
+            get => (Visibility)GetValue(SectionHeaderVisibilityProperty);
+            set => SetValue(SectionHeaderVisibilityProperty, value);
+        }
+        public static readonly DependencyProperty SectionHeaderVisibilityProperty =
+            DependencyProperty.Register(nameof(SectionHeaderVisibility), typeof(Visibility), typeof(FileBrowserListingSectionControl), new PropertyMetadata(Visibility.Visible));
+
+        public DisplayMode DisplayMode
+        {
+            get => (DisplayMode)GetValue(DisplayModeProperty);
+            set => SetValue(DisplayModeProperty, value);
+        }
+        public static readonly DependencyProperty DisplayModeProperty =
+            DependencyProperty.Register(nameof(DisplayMode), typeof(DisplayMode), typeof(FileBrowserListingSectionControl), new PropertyMetadata(DisplayMode.List));
+
+        public IconElement Icon
+        {
+            get => (IconElement)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register(nameof(Icon), typeof(IconElement), typeof(FileBrowserListingSectionControl), new PropertyMetadata(null));
 
         public object ItemsSource
         {
