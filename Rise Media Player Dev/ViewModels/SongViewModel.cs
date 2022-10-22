@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Rise.Common;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
@@ -55,10 +55,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Artist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Artist;
             }
             set
@@ -116,10 +113,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Album == "UnknownAlbumResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownAlbumResource");
                 return Model.Album;
             }
             set
@@ -140,10 +134,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.AlbumArtist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.AlbumArtist;
             }
             set
@@ -164,10 +155,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Genres == "UnknownGenreResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownGenreResource");
                 return Model.Genres;
             }
             set

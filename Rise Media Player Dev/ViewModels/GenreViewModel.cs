@@ -1,5 +1,4 @@
-﻿using Rise.Common;
-using Rise.Common.Interfaces;
+﻿using Rise.Common.Extensions.Markup;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System.Threading.Tasks;
@@ -25,7 +24,12 @@ namespace Rise.App.ViewModels
         /// </summary>
         public string Name
         {
-            get => Model.Name == "UnknownGenreResource" ? ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource") : Model.Name;
+            get
+            {
+                if (Model.Name == "UnknownGenreResource")
+                    return ResourceHelper.GetString("UnknownGenreResource");
+                return Model.Name;
+            }
             set
             {
                 if (value != Model.Name)
