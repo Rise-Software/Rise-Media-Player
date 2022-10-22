@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Rise.Storage;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Rise.Storage;
 
 namespace Rise.App.Models
 {
@@ -11,7 +11,7 @@ namespace Rise.App.Models
 
         public FileBrowserEnumerationModel(IReadOnlyCollection<EnumerationSource<IBaseStorage>> enumerationSources)
         {
-            this._enumerationSources = enumerationSources;
+            _enumerationSources = enumerationSources;
         }
 
         public void ResetSources()
@@ -22,16 +22,14 @@ namespace Rise.App.Models
             }
         }
 
-        public async Task EnumerateFolderAsync(IFolder folder, CancellationToken token)
+        public async Task EnumerateFolderAsync(IFolder folder, CancellationToken cancellationToken)
         {
             foreach (var storage in await folder.GetStorageAsync())
             {
                 foreach (var item in _enumerationSources)
                 {
-                    if (token.IsCancellationRequested)
-                    {
+                    if (cancellationToken.IsCancellationRequested)
                         return;
-                    }
 
                     if (item.Predicate(storage))
                     {

@@ -1,6 +1,4 @@
-﻿using Rise.Data.ViewModels;
-using System.Collections.ObjectModel;
-using System.IO;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -8,68 +6,65 @@ using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
 using Rise.App.ViewModels.FileBrowser.Pages;
 using Rise.Storage;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace Rise.App.ViewModels.FileBrowser
 {
-    public sealed class FileBrowserHeaderViewModel : ViewModel,
-        IRecipient<FileBrowserNavigationRequestedMessage>,
-        IRecipient<FileBrowserDirectoryNavigationRequestedMessage>
+    [ObservableObject]
+    public sealed partial class FileBrowserHeaderViewModel : IRecipient<FileBrowserNavigationRequestedMessage>, IRecipient<FileBrowserDirectoryNavigationRequestedMessage>
     {
-        private IMessenger Messenger { get; }
+        private readonly IMessenger _messenger;
+        private IFolder? _currentFolder;
 
         public ObservableCollection<FileBrowserBreadcrumbItemViewModel> Items { get; }
-        
+
+        [ObservableProperty]
         private string? _CurrentLocation;
-        public string? CurrentLocation
-        {
-            get => _CurrentLocation;
-            set => Set(ref _CurrentLocation, value);
-        }
-
+        
+        [ObservableProperty]
         private bool _CanPinToSidebar;
-        public bool CanPinToSidebar
-        {
-            get => _CanPinToSidebar;
-            set => Set(ref _CanPinToSidebar, value);
-        }
-
+       
+        [ObservableProperty]
         private bool _CanOpenInFileExplorer;
-        public bool CanOpenInFileExplorer
-        {
-            get => _CanOpenInFileExplorer;
-            set => Set(ref _CanOpenInFileExplorer, value);
-        }
 
-        public IRelayCommand GoBackCommand { get; }
-
-        public IRelayCommand PinToSidebarCommand { get; }
-
-        public IRelayCommand OpenInFileExplorerCommand { get; }
+        [ObservableProperty]
+        private bool _CanGoBack;
 
         public FileBrowserHeaderViewModel(IMessenger messenger)
         {
-            this.Messenger = messenger;
+            this._messenger = messenger;
             this.Items = new();
 
-            Messenger.Register<FileBrowserNavigationRequestedMessage>(this);
-            Messenger.Register<FileBrowserDirectoryNavigationRequestedMessage>(this);
-
-            GoBackCommand = new RelayCommand(GoBack);
-            PinToSidebarCommand = new RelayCommand(PinToSidebar);
-            OpenInFileExplorerCommand = new RelayCommand(OpenInFileExplorer);
+            _messenger.Register<FileBrowserNavigationRequestedMessage>(this);
+            _messenger.Register<FileBrowserDirectoryNavigationRequestedMessage>(this);
         }
 
+        [RelayCommand]
         private void GoBack()
         {
+            if (Items.Count == 1)
+            {
+                // Root drive, go to homepage
+                _messenger.Send(new FileBrowserNavigationRequestedMessage(FileBrowserHomePageViewModel.GetOrCreate(_messenger)));
+            }
+            else
+            {
+                // Execute breadcrumb item command (that is a hack and could be done better, but it works :D)
+                var breadcrumbItem = Items[Items.Count - 2];
+                breadcrumbItem.ItemClickedCommand?.Execute(breadcrumbItem);
+            }
         }
 
+        [RelayCommand]
         private void PinToSidebar()
         {
         }
 
+        [RelayCommand]
         private void OpenInFileExplorer()
         {
-            Messenger.Send(new OpenInFileExplorerMessage(null));
+            _messenger.Send(new OpenInFileExplorerMessage(_currentFolder));
         }
 
         public void Receive(FileBrowserNavigationRequestedMessage message)
@@ -93,26 +88,39 @@ namespace Rise.App.ViewModels.FileBrowser
 
         private void SetCurrentLocation(IFolder? folder)
         {
+            CurrentLocation = folder?.Name ?? "Home";
+            _currentFolder = folder;
+
             Items.Clear();
             if (folder is null)
             {
                 Items.Add(new("Home", null, null));
-                CurrentLocation = "Home";
+                CanOpenInFileExplorer = false;
+                CanGoBack = false;
                 return;
             }
 
-            CurrentLocation = folder.Name;
-
+            CanOpenInFileExplorer = true;
+            CanGoBack = true;
             var path = string.Empty;
+
             foreach (var item in folder.Path.Split(Path.DirectorySeparatorChar))
             {
-                path += $"{item}{Path.DirectorySeparatorChar}";
-                Items.Add(new(item, new AsyncRelayCommand<FileBrowserBreadcrumbItemViewModel>(async item =>
-                {
-                    var storageService = Ioc.Default.GetRequiredService<IStorageService>(); // TODO: Move it somewhere else?
-                    var folderToNavigate = await storageService.GetFolderAsync(item.Path);
+                if (string.IsNullOrEmpty(item))
+                    continue; // Will trigger when attempting to split root path, e.g.: "C:\\"
 
-                    Messenger.Send(new FileBrowserDirectoryNavigationRequestedMessage(folderToNavigate));
+                path += $"{item}{Path.DirectorySeparatorChar}";
+                Items.Add(new(item, new AsyncRelayCommand<FileBrowserBreadcrumbItemViewModel>(async x =>
+                {
+                    if (x?.Path is null)
+                        return;
+
+                    var storageService = Ioc.Default.GetRequiredService<IStorageService>(); // TODO: Move it somewhere else?
+                    var folderToNavigate = await storageService.GetFolderAsync(x.Path);
+                    if (folderToNavigate is null)
+                        return;
+
+                    _messenger.Send(new FileBrowserDirectoryNavigationRequestedMessage(folderToNavigate));
                 }), path));
             }
         }

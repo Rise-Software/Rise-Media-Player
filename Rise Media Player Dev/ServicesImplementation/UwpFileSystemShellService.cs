@@ -4,14 +4,18 @@ using Windows.System;
 using Rise.App.Services;
 using Rise.App.Storage;
 using Rise.Storage;
+using System.Threading;
 
 namespace Rise.App.ServicesImplementation
 {
     internal sealed class UwpFileSystemShellService : IFileSystemShellService
     {
-        public async Task OpenFileAsync(IFile file)
+        public Task OpenFileAsync(IFile file, CancellationToken cancellationToken = default)
         {
-            await Launcher.LaunchFileAsync((file as UwpFile)!.GetInternalImpl());
+            if (file is not UwpFile uwpFile)
+                return Task.CompletedTask;
+
+            return Launcher.LaunchFileAsync(uwpFile.GetInternalImpl()).AsTask(cancellationToken);
         }
     }
 }

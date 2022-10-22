@@ -19,7 +19,6 @@ namespace Rise.App.UserControls.FileBrowser
             get => (IList<FileBrowserBreadcrumbItemViewModel>)GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
-
         public static readonly DependencyProperty ItemsProperty =
             DependencyProperty.Register(nameof(Items), typeof(IList<FileBrowserBreadcrumbItemViewModel>), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
@@ -28,7 +27,6 @@ namespace Rise.App.UserControls.FileBrowser
             get => (string?)GetValue(CurrentLocationProperty);
             set => SetValue(CurrentLocationProperty, value);
         }
-
         public static readonly DependencyProperty CurrentLocationProperty =
             DependencyProperty.Register(nameof(CurrentLocation), typeof(string), typeof(FileBrowserHeaderControl), new PropertyMetadata(string.Empty));
 
@@ -37,7 +35,6 @@ namespace Rise.App.UserControls.FileBrowser
             get => (bool)GetValue(IsPinToSidebarEnabledProperty);
             set => SetValue(IsPinToSidebarEnabledProperty, value);
         }
-
         public static readonly DependencyProperty IsPinToSidebarEnabledProperty =
             DependencyProperty.Register(nameof(IsPinToSidebarEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
@@ -46,9 +43,16 @@ namespace Rise.App.UserControls.FileBrowser
             get => (bool)GetValue(IsOpenInFileExplorerEnabledProperty);
             set => SetValue(IsOpenInFileExplorerEnabledProperty, value);
         }
-
         public static readonly DependencyProperty IsOpenInFileExplorerEnabledProperty =
             DependencyProperty.Register(nameof(IsOpenInFileExplorerEnabled), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
+
+        public bool CanGoBack
+        {
+            get => (bool)GetValue(CanGoBackProperty);
+            set => SetValue(CanGoBackProperty, value);
+        }
+        public static readonly DependencyProperty CanGoBackProperty =
+            DependencyProperty.Register(nameof(CanGoBack), typeof(bool), typeof(FileBrowserHeaderControl), new PropertyMetadata(false));
 
         public IRelayCommand GoBackCommand
         {
@@ -58,7 +62,6 @@ namespace Rise.App.UserControls.FileBrowser
         public static readonly DependencyProperty GoBackCommandProperty =
             DependencyProperty.Register(nameof(GoBackCommand), typeof(IRelayCommand), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
 
-
         public IRelayCommand PinToSidebarCommand
         {
             get => (IRelayCommand)GetValue(PinToSidebarCommandProperty);
@@ -66,7 +69,6 @@ namespace Rise.App.UserControls.FileBrowser
         }
         public static readonly DependencyProperty PinToSidebarCommandProperty =
             DependencyProperty.Register(nameof(PinToSidebarCommand), typeof(IRelayCommand), typeof(FileBrowserHeaderControl), new PropertyMetadata(null));
-
 
         public IRelayCommand OpenInFileExplorerCommand
         {

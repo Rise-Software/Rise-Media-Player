@@ -1,28 +1,37 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Models;
-using Rise.Data.ViewModels;
+using Rise.Common.Enums;
 using Rise.Storage;
+using System.Collections.ObjectModel;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
-    public sealed class FileBrowserListingSectionViewModel : ViewModel, IEnumerationDestination<IBaseStorage>
+    [ObservableObject]
+    public sealed partial class FileBrowserListingSectionViewModel : IEnumerationDestination<IBaseStorage>
     {
-        private IMessenger Messenger { get; }
+        private readonly IMessenger _messenger;
 
-        public ObservableCollection<FileBrowserListingItemViewModel> Items { get; }
+        [ObservableProperty]
+        private ObservableCollection<FileBrowserListingItemViewModel> _Items;
 
-        public string? SectionName { get; init; }
+        [ObservableProperty]
+        private string _SectionName;
 
-        public FileBrowserListingSectionViewModel(IMessenger messenger)
+        [ObservableProperty]
+        private FileBrowserSectionType _SectionType;
+
+        public FileBrowserListingSectionViewModel(IMessenger messenger, string sectionName, FileBrowserSectionType sectionType)
         {
-            Messenger = messenger;
-            Items = new();
+            _messenger = messenger;
+            _SectionName = sectionName;
+            _SectionType = sectionType;
+            _Items = new();
         }
 
         public void AddFromEnumeration(IBaseStorage enumeration)
         {
-            Items.Add(new(enumeration, Messenger));
+            Items.Add(new(enumeration, _messenger, _SectionType));
         }
     }
 }

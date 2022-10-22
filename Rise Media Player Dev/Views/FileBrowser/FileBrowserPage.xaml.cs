@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
@@ -39,13 +38,6 @@ namespace Rise.App.Views
             {
                 ViewModel.EnsureInitialized();
             }
-        }
-
-        [RelayCommand]
-        private void GoBack()
-        {
-            if (ContentFrame.CanGoBack)
-                ContentFrame.GoBack();
         }
 
         public void Receive(FileBrowserNavigationRequestedMessage message)

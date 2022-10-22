@@ -1,30 +1,29 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Rise.App.Models;
+using Rise.Common.Constants;
+using Rise.Common.Enums;
+using Rise.Data.ViewModels;
+using Rise.Storage;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
-using Rise.App.Models;
-using Rise.Common.Constants;
-using Rise.Data.ViewModels;
-using Rise.Storage;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
     public sealed class FileBrowserListingViewModel : ViewModel
     {
-        private IMessenger Messenger { get; }
-
-        private FileBrowserEnumerationModel EnumerationModel { get; }
+        private readonly IMessenger _messenger;
+        private readonly FileBrowserEnumerationModel _enumerationModel;
 
         public ObservableCollection<FileBrowserListingSectionViewModel> Sections { get; }
 
         public FileBrowserListingViewModel(IMessenger messenger)
         {
-            this.Messenger = messenger;
+            this._messenger = messenger;
             this.Sections = new();
-
-            this.EnumerationModel = GetModel();
+            this._enumerationModel = GetModel();
         }
 
         public Task StartEnumerationAsync(IFolder folder, CancellationToken cancellationToken)
@@ -35,10 +34,10 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
                 item.Items.Clear();
             }
             Sections.Clear();
-            EnumerationModel.ResetSources();
+            _enumerationModel.ResetSources();
 
             // Enumerate
-            return EnumerationModel.EnumerateFolderAsync(folder, cancellationToken);
+            return _enumerationModel.EnumerateFolderAsync(folder, cancellationToken);
         }
 
         private FileBrowserEnumerationModel GetModel()
@@ -48,10 +47,7 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
                 // Folders
                 new(baseStorage => baseStorage is IFolder, () =>
                 {
-                    var section = new FileBrowserListingSectionViewModel(Messenger)
-                    {
-                        SectionName = "Folders"
-                    };
+                    var section = new FileBrowserListingSectionViewModel(_messenger, "Folders", FileBrowserSectionType.Folders);
                     Sections.Insert(0, section);
                     return section;
                 }),
@@ -59,10 +55,7 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
                 // Music
                 new(baseStorage => baseStorage is IFile file && SupportedFileTypes.MusicFiles.Contains(file.Extension), () =>
                 {
-                    var section = new FileBrowserListingSectionViewModel(Messenger)
-                    {
-                        SectionName = "Music"
-                    };
+                    var section = new FileBrowserListingSectionViewModel(_messenger, "Music", FileBrowserSectionType.Music);
                     Sections.Insert(Math.Min(Sections.Count, 1), section);
                     return section;
                 }),
@@ -70,10 +63,7 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
                 // Videos
                 new(baseStorage => baseStorage is IFile file && SupportedFileTypes.VideoFiles.Contains(file.Extension), () =>
                 {
-                    var section = new FileBrowserListingSectionViewModel(Messenger)
-                    {
-                        SectionName = "Videos"
-                    };
+                    var section = new FileBrowserListingSectionViewModel(_messenger, "Videos", FileBrowserSectionType.Videos);
                     Sections.Insert(Math.Min(Sections.Count, 2), section);
                     return section;
                 })

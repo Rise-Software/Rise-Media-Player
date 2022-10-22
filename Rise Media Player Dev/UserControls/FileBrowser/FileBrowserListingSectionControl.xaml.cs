@@ -1,5 +1,4 @@
-﻿using Rise.Common.Enums;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.UserControls.FileBrowser
@@ -27,14 +26,6 @@ namespace Rise.App.UserControls.FileBrowser
         public static readonly DependencyProperty SectionHeaderVisibilityProperty =
             DependencyProperty.Register(nameof(SectionHeaderVisibility), typeof(Visibility), typeof(FileBrowserListingSectionControl), new PropertyMetadata(Visibility.Visible));
 
-        public DisplayMode DisplayMode
-        {
-            get => (DisplayMode)GetValue(DisplayModeProperty);
-            set => SetValue(DisplayModeProperty, value);
-        }
-        public static readonly DependencyProperty DisplayModeProperty =
-            DependencyProperty.Register(nameof(DisplayMode), typeof(DisplayMode), typeof(FileBrowserListingSectionControl), new PropertyMetadata(DisplayMode.List));
-
         public IconElement Icon
         {
             get => (IconElement)GetValue(IconProperty);
@@ -51,13 +42,12 @@ namespace Rise.App.UserControls.FileBrowser
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(FileBrowserListingSectionControl), new PropertyMetadata(null));
 
-
-        public DataTemplate ItemTemplate
+        public DataTemplateSelector ItemTemplateSelector
         {
-            get => (DataTemplate)GetValue(ItemTemplateProperty);
-            set => SetValue(ItemTemplateProperty, value);
+            get => (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty);
+            set => SetValue(ItemTemplateSelectorProperty, value);
         }
-        public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(FileBrowserListingSectionControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(FileBrowserListingSectionControl), new PropertyMetadata(null));
     }
 }

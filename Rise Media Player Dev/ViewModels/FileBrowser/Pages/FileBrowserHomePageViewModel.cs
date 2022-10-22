@@ -7,11 +7,13 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 {
     public sealed class FileBrowserHomePageViewModel : BaseFileBrowserPageViewModel
     {
+        private static FileBrowserHomePageViewModel? Instance { get; set; }
+
         private IStorageService StorageService { get; } = Ioc.Default.GetRequiredService<IStorageService>();
 
         public ObservableCollection<FileBrowserDriveItemViewModel> Drives { get; }
 
-        public FileBrowserHomePageViewModel(IMessenger messenger)
+        private FileBrowserHomePageViewModel(IMessenger messenger)
             : base(messenger)
         {
             Drives = new();
@@ -19,10 +21,17 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
 
         public void EnumerateDrives()
         {
+            Drives.Clear();
             foreach (var item in StorageService.EnumerateDrives())
             {
                 Drives.Add(new(item, Messenger));
             }
+        }
+
+        public static FileBrowserHomePageViewModel GetOrCreate(IMessenger messenger)
+        {
+            Instance ??= new(messenger);
+            return Instance;
         }
     }
 }

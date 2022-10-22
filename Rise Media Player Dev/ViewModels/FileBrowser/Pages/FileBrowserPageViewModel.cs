@@ -28,15 +28,10 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
         public void EnsureInitialized()
         {
             if (CurrentPageViewModel is null)
-            {
-                Messenger.Send(new FileBrowserNavigationRequestedMessage(new FileBrowserHomePageViewModel(Messenger)));
-            }
+                Messenger.Send(new FileBrowserNavigationRequestedMessage(FileBrowserHomePageViewModel.GetOrCreate(Messenger)));
 
-            if (CurrentPageViewModel is FileBrowserHomePageViewModel homePageViewModel
-                && homePageViewModel.Drives.Count == 0)
-            {
+            if (CurrentPageViewModel is FileBrowserHomePageViewModel homePageViewModel && homePageViewModel.Drives.Count == 0)
                 homePageViewModel.EnumerateDrives();
-            }
         }
     }
 }

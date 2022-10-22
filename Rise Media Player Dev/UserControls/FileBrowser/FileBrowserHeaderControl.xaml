@@ -34,6 +34,7 @@
                 AutomationProperties.ItemType="Navigation Button"
                 AutomationProperties.Name="Back"
                 Command="{x:Bind GoBackCommand, Mode=OneWay}"
+                IsEnabled="{x:Bind CanGoBack, Mode=OneWay}"
                 Style="{StaticResource TransparentButtonStyle}">
                 <muxc:AnimatedIcon
                     x:Name="BackAnimatedIcon"
@@ -57,7 +58,10 @@
                 </Image.Source>
             </Image>
 
-            <TextBlock Margin="12,0,0,0" Style="{StaticResource TitleTextBlockStyle}" Text="Browse" />
+            <TextBlock
+                Margin="12,0,0,0"
+                Style="{StaticResource TitleTextBlockStyle}"
+                Text="Browse" />
         </StackPanel>
 
         <!--  Path  -->
@@ -69,7 +73,7 @@
             ItemsSource="{x:Bind Items, Mode=OneWay}">
             <muxc:BreadcrumbBar.ItemTemplate>
                 <DataTemplate x:DataType="vm:FileBrowserBreadcrumbItemViewModel">
-                    <TextBlock Text="{x:Bind SectionName}" FontSize="18" />
+                    <TextBlock FontSize="18" Text="{x:Bind SectionName}" />
                 </DataTemplate>
             </muxc:BreadcrumbBar.ItemTemplate>
         </muxc:BreadcrumbBar>

@@ -30,22 +30,13 @@
             Orientation="Horizontal"
             Spacing="8">
             <ContentPresenter Content="{x:Bind Icon, Mode=OneWay}" />
-
             <TextBlock Text="{x:Bind SectionName, Mode=OneWay}" Visibility="{x:Bind SectionHeaderVisibility, Mode=OneWay}" />
         </StackPanel>
 
-        <ListView
-            x:Name="SectionList"
-            Grid.Row="1"
-            x:Load="{x:Bind DisplayMode, Mode=OneWay, Converter={StaticResource DisplayModeToBoolean}, ConverterParameter=List}"
-            ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
-            ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" />
-
         <GridView
-            x:Name="SectionGrid"
             Grid.Row="1"
-            x:Load="{x:Bind DisplayMode, Mode=OneWay, Converter={StaticResource DisplayModeToBoolean}, ConverterParameter=Grid}"
-            ItemTemplate="{x:Bind ItemTemplate, Mode=OneWay}"
+            Padding="8"
+            ItemTemplateSelector="{x:Bind ItemTemplateSelector, Mode=OneWay}"
             ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" />
     </Grid>
 </UserControl>

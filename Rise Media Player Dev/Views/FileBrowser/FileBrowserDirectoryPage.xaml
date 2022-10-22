@@ -4,10 +4,58 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ts="using:Rise.App.TemplateSelectors"
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
     Loaded="FileBrowserDirectoryPage_Loaded"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="FoldersDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
+            <Grid
+                MinWidth="164"
+                Padding="12"
+                ColumnSpacing="12"
+                DoubleTapped="FileBrowserListingItem_DoubleTapped">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Grid.Column="0"
+                    Width="24"
+                    Height="24"
+                    VerticalAlignment="Center">
+                    <Image.Source>
+                        <BitmapImage
+                            DecodePixelHeight="24"
+                            DecodePixelWidth="24"
+                            UriSource="ms-appx:///Assets/FileBrowser/FolderIcon.png" />
+                    </Image.Source>
+                </Image>
+
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="{x:Bind Name, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTipService.ToolTip="{x:Bind Name, Mode=OneWay}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MusicDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
+            <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
+                <TextBlock Text="{x:Bind Name}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="VideosDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
+            <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
+                <TextBlock Text="{x:Bind Name}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
     <ListView
         Padding="48,8,48,120"
@@ -16,13 +64,12 @@
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
                 <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}" SectionName="{x:Bind SectionName}">
-                    <uc:FileBrowserListingSectionControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:FileBrowserListingItemViewModel">
-                            <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
-                                <TextBlock Text="{x:Bind Name}" />
-                            </Grid>
-                        </DataTemplate>
-                    </uc:FileBrowserListingSectionControl.ItemTemplate>
+                    <uc:FileBrowserListingSectionControl.ItemTemplateSelector>
+                        <ts:FileBrowserSectionTemplateSelector
+                            FoldersSectionDataTemplate="{StaticResource FoldersDataTemplate}"
+                            MusicSectionDataTemplate="{StaticResource MusicDataTemplate}"
+                            VideosSectionDataTemplate="{StaticResource VideosDataTemplate}" />
+                    </uc:FileBrowserListingSectionControl.ItemTemplateSelector>
                 </uc:FileBrowserListingSectionControl>
             </DataTemplate>
         </ListView.ItemTemplate>

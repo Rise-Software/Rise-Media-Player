@@ -183,6 +183,7 @@
     <Compile Include="Storage\UwpBaseStorage.cs" />
     <Compile Include="Storage\UwpFile.cs" />
     <Compile Include="Storage\UwpFolder.cs" />
+    <Compile Include="TemplateSelectors\FileBrowserSectionTemplateSelector.cs" />
     <Compile Include="UserControls\FileBrowser\FileBrowserHeaderControl.xaml.cs">
       <DependentUpon>FileBrowserHeaderControl.xaml</DependentUpon>
     </Compile>

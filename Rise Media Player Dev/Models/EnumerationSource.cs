@@ -5,15 +5,13 @@ namespace Rise.App.Models
     public sealed class EnumerationSource<TEnumeration>
     {
         private readonly Func<TEnumeration, bool> _predicate;
-
         private readonly Func<IEnumerationDestination<TEnumeration>> _initializer;
-
         private IEnumerationDestination<TEnumeration>? _destination;
 
         public EnumerationSource(Func<TEnumeration, bool> predicate, Func<IEnumerationDestination<TEnumeration>> initializer)
         {
-            this._predicate = predicate;
-            this._initializer = initializer;
+            _predicate = predicate;
+            _initializer = initializer;
         }
 
         public void ResetData()

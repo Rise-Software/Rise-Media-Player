@@ -1,40 +1,46 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
 using Rise.App.Services;
-using Rise.Data.ViewModels;
 using Rise.Storage;
+using System.Threading.Tasks;
+using Rise.Common.Enums;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
-    public sealed class FileBrowserListingItemViewModel : ViewModel
+    [ObservableObject]
+    public sealed partial class FileBrowserListingItemViewModel
     {
-        private IBaseStorage _storage;
+        private readonly IMessenger _messenger;
+        private readonly IBaseStorage _storage;
 
         private IFileSystemShellService FileSystemShellService { get; } = Ioc.Default.GetRequiredService<IFileSystemShellService>();
 
-        private IMessenger Messenger { get; }
+        [ObservableProperty]
+        private FileBrowserSectionType _SectionType;
 
-        public string Name { get; }
+        [ObservableProperty]
+        private string _Name;
 
-        public FileBrowserListingItemViewModel(IBaseStorage storage, IMessenger messenger)
+        public FileBrowserListingItemViewModel(IBaseStorage storage, IMessenger messenger, FileBrowserSectionType sectionType)
         {
-            this._storage = storage;
-            this.Messenger = messenger;
-            this.Name = storage.Name;
+            _storage = storage;
+            _messenger = messenger;
+            _SectionType = sectionType;
+            _Name = storage.Name;
         }
 
-        public async Task OpenAsync()
+        public Task OpenAsync(CancellationToken cancellationToken = default)
         {
             if (_storage is IFile file)
-            {
-                await FileSystemShellService.OpenFileAsync(file);
-            }
-            else if (_storage is IFolder folder)
-            {
-                Messenger.Send(new FileBrowserDirectoryNavigationRequestedMessage(folder));
-            }
+                return FileSystemShellService.OpenFileAsync(file, cancellationToken); 
+
+            if (_storage is IFolder folder)
+                _messenger.Send(new FileBrowserDirectoryNavigationRequestedMessage(folder));
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -9,9 +9,7 @@ using Rise.App.ViewModels.FileBrowser.Listing;
 
 namespace Rise.App.ViewModels.FileBrowser.Pages
 {
-    public sealed class FileBrowserDirectoryPageViewModel : BaseFileBrowserPageViewModel,
-        IRecipient<OpenInFileExplorerMessage>,
-        IRecipient<FileBrowserDirectoryNavigationRequestedMessage>
+    public sealed class FileBrowserDirectoryPageViewModel : BaseFileBrowserPageViewModel, IRecipient<OpenInFileExplorerMessage>, IRecipient<FileBrowserDirectoryNavigationRequestedMessage>
     {
         private IFileExplorerService FileExplorerService { get; } = Ioc.Default.GetRequiredService<IFileExplorerService>();
 

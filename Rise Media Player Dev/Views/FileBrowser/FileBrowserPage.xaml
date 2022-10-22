@@ -18,8 +18,9 @@
 
         <uc:FileBrowserHeaderControl
             Margin="56,56,56,0"
+            CanGoBack="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanGoBack, Mode=OneWay}"
             CurrentLocation="{x:Bind ViewModel.FileBrowserHeaderViewModel.CurrentLocation, Mode=OneWay}"
-            GoBackCommand="{x:Bind GoBackCommand}"
+            GoBackCommand="{x:Bind ViewModel.FileBrowserHeaderViewModel.GoBackCommand}"
             IsOpenInFileExplorerEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanOpenInFileExplorer, Mode=OneWay}"
             IsPinToSidebarEnabled="{x:Bind ViewModel.FileBrowserHeaderViewModel.CanPinToSidebar, Mode=OneWay}"
             Items="{x:Bind ViewModel.FileBrowserHeaderViewModel.Items}"

@@ -3,7 +3,6 @@ using Rise.App.Messages.FileBrowser;
 using Rise.App.ViewModels.FileBrowser.Listing;
 using Rise.App.ViewModels.FileBrowser.Pages;
 using System.Threading;
-using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -57,8 +56,10 @@ namespace Rise.App.Views.FileBrowser
 
         private async void FileBrowserListingItem_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            var item = (sender as FrameworkElement).DataContext as FileBrowserListingItemViewModel;
-            await item?.OpenAsync();
+            if ((sender as FrameworkElement)?.DataContext is not FileBrowserListingItemViewModel item)
+                return;
+
+            await item.OpenAsync();
         }
     }
 }
