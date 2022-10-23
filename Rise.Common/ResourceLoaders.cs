@@ -22,12 +22,6 @@ namespace Rise.Common
             ResourceLoader.GetForViewIndependentUse("MediaLibrary");
 
         /// <summary>
-        /// Loads MediaData resources.
-        /// </summary>
-        public static ResourceLoader MediaDataLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("MediaData");
-
-        /// <summary>
         /// Loads Navigation resources.
         /// </summary>
         public static ResourceLoader NavigationLoader { get; } =
@@ -38,11 +32,5 @@ namespace Rise.Common
         /// </summary>
         public static ResourceLoader PlaybackLoader { get; } =
             ResourceLoader.GetForViewIndependentUse("Playback");
-
-        /// <summary>
-        /// Loads Sidebar resources.
-        /// </summary>
-        public static ResourceLoader SidebarLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("Sidebar");
     }
 }
