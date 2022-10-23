@@ -164,7 +164,7 @@
                             <TextBlock
                                 FontSize="16"
                                 Style="{StaticResource SubheaderTextBlockStyle}"
-                                Text="{Binding Key, ConverterParameter=Sidebar, Converter={StaticResource ResToStr}, Mode=OneTime}" />
+                                Text="{Binding Key, Converter={StaticResource ResToStr}, Mode=OneTime}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
