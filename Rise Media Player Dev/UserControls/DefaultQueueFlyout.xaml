@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:playback="using:Windows.Media.Playback"
     mc:Ignorable="d">
@@ -19,7 +20,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Padding="0,0,0,12" Text="Queue" />
+        <TextBlock Padding="0,0,0,12" Text="{markup:ResourceHelper Name=Queue}" />
 
         <ListView
             x:Name="MainList"
