@@ -1,9 +1,9 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Rise.App.Dialogs;
 using Rise.App.ViewModels;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
@@ -105,22 +105,22 @@ namespace Rise.App.Settings
             {
                 case "LibraryItem":
                     _ = SettingsFrame.Navigate(typeof(MediaLibraryPage));
-                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Lib"));
+                    Breadcrumbs.Add(ResourceHelper.GetString("Library"));
                     break;
 
                 case "PlaybackItem":
                     _ = SettingsFrame.Navigate(typeof(PlaybackPage));
-                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Play"));
+                    Breadcrumbs.Add(ResourceHelper.GetString("Playback"));
                     break;
 
                 case "AppearanceItem":
                     _ = SettingsFrame.Navigate(typeof(AppearancePage));
-                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Pers"));
+                    Breadcrumbs.Add(ResourceHelper.GetString("Personalise"));
                     break;
 
                 case "AboutItem":
                     _ = SettingsFrame.Navigate(typeof(AboutPage));
-                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Abt"));
+                    Breadcrumbs.Add(ResourceHelper.GetString("About"));
                     break;
 
                 default:
@@ -150,19 +150,19 @@ namespace Rise.App.Settings
             string tag = item.Tag.ToString();
             switch (tag)
             {
-                case "Langs":
+                case "Language":
                     _ = SettingsFrame.Navigate(typeof(LanguagePage));
                     break;
 
-                case "Ins":
+                case "InsiderHub":
                     _ = SettingsFrame.Navigate(typeof(InsiderPage));
-                    Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString("Abt"));
+                    Breadcrumbs.Add(ResourceHelper.GetString("About"));
                     break;
                 default:
                     break;
             }
 
-            Breadcrumbs.Add(ResourceLoaders.SidebarLoader.GetString(tag));
+            Breadcrumbs.Add(ResourceHelper.GetString(tag));
         }
 
         private void UncheckToggleButtons()
