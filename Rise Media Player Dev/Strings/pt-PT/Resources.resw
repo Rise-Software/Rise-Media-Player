@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Aceitar</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adicionar a conta</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Álbuns</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Artistas</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
@@ -132,6 +141,30 @@
   <data name="Decline" xml:space="preserve">
     <value>Recusar</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Centro de Ajuda</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Géneros</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Página Principal</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Linguagem</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Biblioteca</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Todos os vídeos</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Música</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Agora não (Fechar aplicação)</value>
   </data>
@@ -141,11 +174,26 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Usar apenas serviços de streaming</value>
   </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Reprodução</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Listas de reprodução</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Fila de reprodução</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Procurar toda a media neste dispositivo</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Procurar</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Definições</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
     <value>Molda-o à tua imagem</value>
@@ -177,6 +225,9 @@
   <data name="SetupWelcome" xml:space="preserve">
     <value>Bem-vindo(a) ao</value>
   </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Músicas</value>
+  </data>
   <data name="StepOf" xml:space="preserve">
     <value>Passo {0} de {1}</value>
   </data>
@@ -188,5 +239,11 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Género desconhecido</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Vídeos</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Papéis de parede</value>
   </data>
 </root>

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Kabul Et</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Bir hesap ekle</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Albümler</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Sanatçılar</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
@@ -132,6 +141,30 @@
   <data name="Decline" xml:space="preserve">
     <value>Reddet</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Yardım Merkezi</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Türler</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Genel bakış</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Kütüphane</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Tüm Videolar</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Müzik</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Şimdi Değil (Uygulamadan çık)</value>
   </data>
@@ -141,11 +174,26 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Yalnızca yayınakışı hizmetlerini kullan</value>
   </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Kişiselleştirme</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Yürütme</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Çalma listeleri</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Kuyruk</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Bu cihazdaki tüm medyayı ara</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Ara</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
     <value>Kendin yap</value>
@@ -177,6 +225,9 @@
   <data name="SetupWelcome" xml:space="preserve">
     <value>Hoşgeldiniz</value>
   </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Müzikler</value>
+  </data>
   <data name="StepOf" xml:space="preserve">
     <value>Adım {0}/{1}</value>
   </data>
@@ -188,5 +239,11 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Bilinmeyen Tür</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videolar</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Duvar kağıtları</value>
   </data>
 </root>

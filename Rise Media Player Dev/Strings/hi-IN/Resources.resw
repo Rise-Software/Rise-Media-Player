@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>अबाउट</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>स्वीकार करें</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>अकाउंट जोड़ें</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>ऐल्बम</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>रचनाकार</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>जारी रखें</value>
@@ -132,6 +141,30 @@
   <data name="Decline" xml:space="preserve">
     <value>अस्वीकार करें</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>सहायता केंद्र</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>शैलियाँ</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>ऐट ए ग्लान्स</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>इनसाइडर</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>भाषा</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>लाइब्रेरी</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>सभी विडियो</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>संगीत</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>अभी नहीं(ऐप से बाहर निकलें)</value>
   </data>
@@ -141,11 +174,26 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>केवल स्ट्रीमिंग सुविधाएँ इस्तेमाल करें</value>
   </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>व्यक्तिगत करें</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>प्लेबैक</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>प्लेलिस्ट</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>कतार</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>खोजें</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>सेटिंग्स</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
     <value>इसे अपना बनाएँ</value>
@@ -177,6 +225,9 @@
   <data name="SetupWelcome" xml:space="preserve">
     <value>आपका इनमें स्वागत है</value>
   </data>
+  <data name="Songs" xml:space="preserve">
+    <value>गाने</value>
+  </data>
   <data name="StepOf" xml:space="preserve">
     <value>{1} में से चरण {0}</value>
   </data>
@@ -188,5 +239,11 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>अनजान शैली</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>विडियो</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>वॉलपेपर</value>
   </data>
 </root>

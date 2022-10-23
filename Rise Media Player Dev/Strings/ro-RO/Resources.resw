@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Despre</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Accept</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adaugă un cont</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Albume</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Artiști</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuare</value>
@@ -132,6 +141,30 @@
   <data name="Decline" xml:space="preserve">
     <value>Declinare</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Centru de ajutor</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Genuri</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Dintr-o privire</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Limbă</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Librărie</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Toate videoclipurile</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Muzică</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Nu acum (Ieșire)</value>
   </data>
@@ -141,11 +174,26 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Utilizează numai servicii de streaming</value>
   </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personalizare</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Redare</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlist-uri</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Coadă</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Caută toată media de pe acest dispozitiv</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Căutare</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Setări</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
     <value>Fă-ți experiența personală</value>
@@ -177,6 +225,9 @@
   <data name="SetupWelcome" xml:space="preserve">
     <value>Bun venit la</value>
   </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Melodii</value>
+  </data>
   <data name="StepOf" xml:space="preserve">
     <value>Pasul {0} din {1}</value>
   </data>
@@ -188,5 +239,11 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Gen necunoscut</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videoclipuri</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Imagini de fundal</value>
   </data>
 </root>
