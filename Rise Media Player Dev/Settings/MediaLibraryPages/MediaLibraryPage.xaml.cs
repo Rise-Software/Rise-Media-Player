@@ -1,5 +1,4 @@
-﻿using Rise.App.Dialogs;
-using Rise.App.ViewModels;
+﻿using Rise.App.ViewModels;
 using Rise.Common;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -12,8 +11,6 @@ namespace Rise.App.Settings
         #region Variables
         private SettingsViewModel ViewModel => App.SViewModel;
 
-        internal static MediaLibraryPage Current;
-
         private readonly List<string> Deletion = new()
         {
             ResourceLoaders.MediaLibraryLoader.GetString("OnlyApp"),
@@ -24,7 +21,6 @@ namespace Rise.App.Settings
         public MediaLibraryPage()
         {
             InitializeComponent();
-            Current = this;
         }
 
         private void GotoManage_Click(object sender, RoutedEventArgs e)
@@ -33,26 +29,5 @@ namespace Rise.App.Settings
             AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uE838";
             AllSettingsPage.Current.SettingsMainFrame.Navigate(typeof(MediaSourcesPage));
         }
-
-        private void CommandBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            switch (button.Tag.ToString())
-            {
-                case "Insider":
-                    _ = Frame.Navigate(typeof(InsiderPage));
-                    SettingsDialogContainer.Breadcrumbs.Add
-                        (ResourceLoaders.SidebarLoader.GetString("Ins"));
-                    break;
-
-                case "OnlineServices":
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
-
     }
 }

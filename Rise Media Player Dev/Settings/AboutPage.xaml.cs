@@ -1,7 +1,7 @@
 ﻿using Rise.App.Dialogs;
-using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,8 +39,7 @@ namespace Rise.App.Settings
                     {
 
                     }
-                    SettingsDialogContainer.Breadcrumbs.Add
-                        (ResourceLoaders.SidebarLoader.GetString("Ins"));
+                    SettingsDialogContainer.Breadcrumbs.Add(ResourceHelper.GetString("InsiderHub"));
                     break;
 
                 case "Version":

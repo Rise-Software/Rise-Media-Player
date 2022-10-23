@@ -63,14 +63,6 @@ namespace Rise.App.Settings
             border.BorderThickness = new Thickness(3);
         }
 
-        private void SidebarCustomize_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(NavigationPage));
-
-            SettingsDialogContainer.Breadcrumbs.
-                Add(ResourceLoaders.AppearanceLoader.GetString("Sidebar"));
-        }
-
         private void ColorThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.SelectedGlaze = (GlazeTypes)ColorThemeComboBox.SelectedIndex;

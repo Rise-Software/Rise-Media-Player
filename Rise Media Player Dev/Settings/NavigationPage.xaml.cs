@@ -1,5 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common;
+using Rise.Common.Extensions.Markup;
 using Rise.Data.Sources;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
@@ -26,13 +27,13 @@ namespace Rise.App.Settings
 
         private readonly List<string> Startup = new()
         {
-            ResourceLoaders.AppearanceLoader.GetString("Home"),
-            ResourceLoaders.AppearanceLoader.GetString("Playlists"),
-            ResourceLoaders.AppearanceLoader.GetString("Songs"),
-            ResourceLoaders.AppearanceLoader.GetString("Artists"),
-            ResourceLoaders.AppearanceLoader.GetString("Albums"),
-            ResourceLoaders.AppearanceLoader.GetString("Genres"),
-            ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
+            ResourceHelper.GetString("Home"),
+            ResourceHelper.GetString("Playlists"),
+            ResourceHelper.GetString("Songs"),
+            ResourceHelper.GetString("Artists"),
+            ResourceHelper.GetString("Albums"),
+            ResourceHelper.GetString("Genres"),
+            ResourceHelper.GetString("LocalVideos"),
         };
 
         public NavigationPage()
