@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Albume</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Aspect aplicație</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artiști</value>
   </data>
   <data name="AtAGlance.Description" xml:space="preserve">
     <value>Adaugă widget-uri pentru a-ți face experiența mai personală.</value>
@@ -162,17 +156,11 @@
   <data name="DesignUnavailable.Title" xml:space="preserve">
     <value>Această funcție nu este disponibilă</value>
   </data>
-  <data name="Devices" xml:space="preserve">
-    <value>Dispozitive</value>
-  </data>
   <data name="FullArt.Description" xml:space="preserve">
     <value>Colțurile nu se vor mai rotunji pe aceste elemente.</value>
   </data>
   <data name="FullArt.Title" xml:space="preserve">
     <value>Arată artă de album și miniaturi complete</value>
-  </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Genuri</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
     <value>Personalizează-ți experiența cu stiluri de pictograme, culori, moduri și multe alte funcții care nu numai îți fac experiența personală, dar și mai prietenoasă.</value>
@@ -180,32 +168,17 @@
   <data name="History.Title" xml:space="preserve">
     <value>Urmărește istoricul media și obiceiurile</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Dintr-o privire</value>
-  </data>
   <data name="Light" xml:space="preserve">
     <value>Luminos</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Toate videoclipurile</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigație</value>
   </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Coadă</value>
-  </data>
   <data name="PickUp.Title" xml:space="preserve">
     <value>Revino de unde ai plecat</value>
   </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlist-uri</value>
-  </data>
   <data name="PrivacyH.Text" xml:space="preserve">
     <value>Confidențialitate și recomandări</value>
-  </data>
-  <data name="Sidebar" xml:space="preserve">
-    <value>Sidebar</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
     <value>Adaugă și elimină elemente din sidebar, schimbă stilul pictogramelor și comportamente generale.</value>
@@ -213,17 +186,11 @@
   <data name="SidebarItems.Title" xml:space="preserve">
     <value>Personalizează-ți sidebar-ul</value>
   </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Melodii</value>
-  </data>
   <data name="Startup.Description" xml:space="preserve">
     <value>Selectează pagina de pornire.</value>
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>La pornire</value>
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>Servicii streamind</value>
   </data>
   <data name="System" xml:space="preserve">
     <value>Folosește setările sistemului</value>

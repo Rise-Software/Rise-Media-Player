@@ -117,109 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Despre</value>
-  </data>
-  <data name="Abt" xml:space="preserve">
-    <value>Despre</value>
-  </data>
   <data name="Account.Content" xml:space="preserve">
     <value>Cont</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>Albume</value>
-  </data>
-  <data name="Appearance.Text" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
-  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artiști</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>Dispozitive</value>
   </data>
-  <data name="Discy" xml:space="preserve">
-    <value>Centru de ajutor</value>
-  </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Feedback</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Genuri</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Dintr-o privire</value>
-  </data>
-  <data name="Ins" xml:space="preserve">
-    <value>Insider</value>
-  </data>
-  <data name="Insider.Text" xml:space="preserve">
-    <value>Hub Insider</value>
-  </data>
-  <data name="Lang.Text" xml:space="preserve">
-    <value>Limbă</value>
-  </data>
-  <data name="Langs" xml:space="preserve">
-    <value>Limbă</value>
-  </data>
-  <data name="Language.Content" xml:space="preserve">
-    <value>Limbă</value>
-  </data>
-  <data name="Lib" xml:space="preserve">
-    <value>Librărie</value>
-  </data>
-  <data name="Library.Text" xml:space="preserve">
-    <value>Librărie</value>
-  </data>
-  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Librărie</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Toate videoclipurile</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>Muzică</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>Navigație</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Coadă</value>
-  </data>
-  <data name="Pers" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Redare</value>
-  </data>
-  <data name="Playback.Text" xml:space="preserve">
-    <value>Redare</value>
-  </data>
-  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Redare</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlist-uri</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Setări</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Melodii</value>
   </data>
   <data name="Streaming" xml:space="preserve">
     <value>Servicii de streaming</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
     <value>Restaurare video</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>Videoclipuri</value>
-  </data>
-  <data name="Walls" xml:space="preserve">
-    <value>Imagini de fundal</value>
   </data>
 </root>

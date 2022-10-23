@@ -117,109 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Hakkında</value>
-  </data>
-  <data name="Abt" xml:space="preserve">
-    <value>Hakkında</value>
-  </data>
   <data name="Account.Content" xml:space="preserve">
     <value>Hesap</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>Albümler</value>
-  </data>
-  <data name="Appearance.Text" xml:space="preserve">
-    <value>Kişiselleştirme</value>
-  </data>
-  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Kişiselleştirme</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Sanatçılar</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>Cihazlar</value>
   </data>
-  <data name="Discy" xml:space="preserve">
-    <value>Yardım Merkezi</value>
-  </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Geri bildirim</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Türler</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Genel bakış</value>
-  </data>
-  <data name="Ins" xml:space="preserve">
-    <value>Insider</value>
-  </data>
-  <data name="Insider.Text" xml:space="preserve">
-    <value>Insider Merkezi</value>
-  </data>
-  <data name="Lang.Text" xml:space="preserve">
-    <value>Dil</value>
-  </data>
-  <data name="Langs" xml:space="preserve">
-    <value>Dil</value>
-  </data>
-  <data name="Language.Content" xml:space="preserve">
-    <value>Dil</value>
-  </data>
-  <data name="Lib" xml:space="preserve">
-    <value>Kütüphane</value>
-  </data>
-  <data name="Library.Text" xml:space="preserve">
-    <value>Kütüphane</value>
-  </data>
-  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Kütüphane</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Tüm Videolar</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>Müzik</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>Navigasyon</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Kuyruk</value>
-  </data>
-  <data name="Pers" xml:space="preserve">
-    <value>Kişiselleştirme</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Yürütme</value>
-  </data>
-  <data name="Playback.Text" xml:space="preserve">
-    <value>Yürütme</value>
-  </data>
-  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Yürütme</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Çalma listeleri</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ayarlar</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Müzikler</value>
   </data>
   <data name="Streaming" xml:space="preserve">
     <value>Yayınakışı Hizmetleri</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
     <value>Videoyu geri yükle</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>Videolar</value>
-  </data>
-  <data name="Walls" xml:space="preserve">
-    <value>Duvar kağıtları</value>
   </data>
 </root>

@@ -120,26 +120,14 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>Kenar çubuğu öğelerini ekle/kaldır</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Albümler</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Görünüm</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Sanatçılar</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Genel bakış</value>
   </data>
   <data name="Colorful" xml:space="preserve">
     <value>Renkli</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Varsayılan</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Cihazlar</value>
   </data>
   <data name="Everything" xml:space="preserve">
     <value>Her şeyi göster</value>
@@ -150,14 +138,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>Genel öğeler</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Türler</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>Hamburger düğmesini göster</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Yardım Merkezi</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>Kenar çubuğunuz için çeşitli güzel simge kümeleri arasından seçim yaptınız.</value>
@@ -165,23 +147,14 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>Simge stili</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Tüm Videolar</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Müzik</value>
   </data>
   <data name="NoIcons" xml:space="preserve">
     <value>Kenar çubuğunu gösterme</value>
   </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Kuyruk</value>
-  </data>
   <data name="OnlyIcons" xml:space="preserve">
     <value>Yalnızca simgeleri göster</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Çalma listeleri</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Pencere küçültüldüğünde kenar çubuğuyla ne yapacağınızı seçin.</value>
@@ -191,12 +164,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>Başlığı göster</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Müzikler</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Yayınakışı Hizmetleri</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>Video</value>

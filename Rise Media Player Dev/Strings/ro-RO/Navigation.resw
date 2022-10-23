@@ -120,26 +120,14 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>Add/remove sidebar items</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Albume</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Aspect</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Artiști</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Dintr-o privire</value>
   </data>
   <data name="Colorful" xml:space="preserve">
     <value>Colorat</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Prestabilit</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Dispozitive</value>
   </data>
   <data name="Everything" xml:space="preserve">
     <value>Afișează tot</value>
@@ -150,14 +138,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>Elemente generale</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Genuri</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>Afișează butonul de meniu (hamburger menu)</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Centru de ajutor</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>Selectează dintr-o varietate de seturi minunate de pictograme pentru sidebar.</value>
@@ -165,23 +147,14 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>Stil pictograme</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Toate videoclipurile</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Muzică</value>
   </data>
   <data name="NoIcons" xml:space="preserve">
     <value>Nu afișa sidebar-ul</value>
   </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Coadă</value>
-  </data>
   <data name="OnlyIcons" xml:space="preserve">
     <value>Afișează doar pictogramele</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Playlist-uri</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Alege ce să facem cu sidebar-ul când fereastra este micșorată.</value>
@@ -191,12 +164,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>Afișează titlu</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Melodii</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Servicii de streaming</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>Video</value>

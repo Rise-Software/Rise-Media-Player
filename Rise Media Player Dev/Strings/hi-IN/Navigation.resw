@@ -120,26 +120,14 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>साइडबार आइटम जोडे़ं/हटाएँ</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>ऐल्बम</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>दिखावट</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>रचनाकार</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>ऐट ए ग्लान्स</value>
   </data>
   <data name="Colorful" xml:space="preserve">
     <value>रंगीन</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>डिफ़ॉल्ट</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>उपकरण</value>
   </data>
   <data name="Everything" xml:space="preserve">
     <value>सब कुछ दिखाएँ</value>
@@ -150,14 +138,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>जनरल आइटम</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>शैलियाँ</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>हैमबर्गर बटन दिखाएँ</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>सहायता केंद्र</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>अपने साइडबार के लिए विभिन्न रंगीन आइकन सेट में से चुनें।</value>
@@ -165,23 +147,14 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>आइकन स्टाईल</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>All Videos सभी विडियो</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>संगीत</value>
   </data>
   <data name="NoIcons" xml:space="preserve">
     <value>साइडबार न दिखाएँ</value>
   </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>कतार</value>
-  </data>
   <data name="OnlyIcons" xml:space="preserve">
     <value>केवल आइकन दिखाएँ</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>प्लेलिस्ट</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>चुनें कि विंडो को छोटा करने पर साइडबार का क्या करना है।</value>
@@ -191,12 +164,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>शीर्षणी दिखाएँ</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>गाने</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>स्ट्रीमिंग सेवाएँ</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>विडियो</value>

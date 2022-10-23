@@ -120,26 +120,14 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>Adicionar/Remover itens da barra lateral</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Álbuns</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Aparência</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Artistas</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Página Inicial</value>
   </data>
   <data name="Colorful" xml:space="preserve">
     <value>Colorido</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Padrão</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Dispositivos</value>
   </data>
   <data name="Everything" xml:space="preserve">
     <value>Mostrar tudo</value>
@@ -150,14 +138,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>Itens gerais</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Géneros</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>Mostrar o botão hambúrguer</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Centro de Ajuda</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>Seleciona através de uma variedade de belos conjuntos de ícones para a tua barra lateral.</value>
@@ -165,23 +147,14 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>Estilo do ícone</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Todos os Vídeos</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Música</value>
   </data>
   <data name="NoIcons" xml:space="preserve">
     <value>Não mostrar a barra lateral</value>
   </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Fila de Reprodução</value>
-  </data>
   <data name="OnlyIcons" xml:space="preserve">
     <value>Mostrar apenas ícones</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Listas de Reprodução</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Escolhe o que fazer com a barra lateral quando a janela fica menor.</value>
@@ -191,12 +164,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>Mostrar Cabeçalho</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Músicas</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Serviços de Streaming</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>Vídeo</value>

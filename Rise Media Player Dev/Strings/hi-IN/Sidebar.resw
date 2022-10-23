@@ -117,109 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>अबाउट</value>
-  </data>
-  <data name="Abt" xml:space="preserve">
-    <value>अबाउट</value>
-  </data>
   <data name="Account.Content" xml:space="preserve">
     <value>अकाउंट</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>ऐल्बम</value>
-  </data>
-  <data name="Appearance.Text" xml:space="preserve">
-    <value>व्यक्तिगत करें</value>
-  </data>
-  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>व्यक्तिगत करें</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>रचनाकार</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>उपकरण</value>
   </data>
-  <data name="Discy" xml:space="preserve">
-    <value>सहायता केंद्र</value>
-  </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>प्रतिक्रिया</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>शैलियाँ</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>ऐट ए ग्लान्स</value>
-  </data>
-  <data name="Ins" xml:space="preserve">
-    <value>इनसाइडर</value>
-  </data>
-  <data name="Insider.Text" xml:space="preserve">
-    <value>इनसाइडर हब</value>
-  </data>
-  <data name="Lang.Text" xml:space="preserve">
-    <value>भाषा</value>
-  </data>
-  <data name="Langs" xml:space="preserve">
-    <value>भाषा</value>
-  </data>
-  <data name="Language.Content" xml:space="preserve">
-    <value>भाषा</value>
-  </data>
-  <data name="Lib" xml:space="preserve">
-    <value>लाइब्रेरी</value>
-  </data>
-  <data name="Library.Text" xml:space="preserve">
-    <value>लाइब्रेरी</value>
-  </data>
-  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>लाइब्रेरी</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>सभी विडियो</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>संगीत</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>नेविगेशन</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>कतार</value>
-  </data>
-  <data name="Pers" xml:space="preserve">
-    <value>व्यक्तिगत करें</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>प्लेबैक</value>
-  </data>
-  <data name="Playback.Text" xml:space="preserve">
-    <value>प्लेबैक</value>
-  </data>
-  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>प्लेबैक</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>प्लेलिस्ट</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>सेटिंग्स</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>गाने</value>
   </data>
   <data name="Streaming" xml:space="preserve">
     <value>स्ट्रीमिंग सुविधाएँ</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
     <value>विडियो पुनर्स्थापित करें</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>विडियो</value>
-  </data>
-  <data name="Walls" xml:space="preserve">
-    <value>वॉलपेपर</value>
   </data>
 </root>

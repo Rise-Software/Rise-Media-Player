@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>ऐल्बम</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>रचनाकार</value>
-  </data>
   <data name="Properties.Text" xml:space="preserve">
     <value>गुण और जानकारी</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>गाने</value>
-  </data>
-  <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>अनजान ऐल्बम</value>
-  </data>
-  <data name="UnknownArtistResource" xml:space="preserve">
-    <value>अनजान रचनाकार</value>
-  </data>
-  <data name="UnknownGenreResource" xml:space="preserve">
-    <value>अनजान शैली</value>
   </data>
 </root>

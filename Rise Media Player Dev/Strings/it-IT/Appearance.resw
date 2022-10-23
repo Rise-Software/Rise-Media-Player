@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Album</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Aspetto</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artisti</value>
   </data>
   <data name="AtAGlance.Description" xml:space="preserve">
     <value>Aggiungi widget per personalizzare la tua esperienza</value>
@@ -162,17 +156,11 @@
   <data name="DesignUnavailable.Title" xml:space="preserve">
     <value>Non disponibile</value>
   </data>
-  <data name="Devices" xml:space="preserve">
-    <value>Dispositivi</value>
-  </data>
   <data name="FullArt.Description" xml:space="preserve">
     <value>Gli angoli non saranno più arrotondati con quest'opzione.</value>
   </data>
   <data name="FullArt.Title" xml:space="preserve">
     <value>Mostra copertine di tracce ed album</value>
-  </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Generi</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
     <value>Personalizza lo stile delle icone per personalizzare la tue esperienza.</value>
@@ -180,32 +168,17 @@
   <data name="History.Title" xml:space="preserve">
     <value>Cronologia media</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>In primo piano</value>
-  </data>
   <data name="Light" xml:space="preserve">
     <value>Chiaro</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Tutti i video</value>
   </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigazione</value>
   </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Coda</value>
-  </data>
   <data name="PickUp.Title" xml:space="preserve">
     <value>Riprendi da dove eri rimasto</value>
   </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlist</value>
-  </data>
   <data name="PrivacyH.Text" xml:space="preserve">
     <value>Privacy e raccomandazioni</value>
-  </data>
-  <data name="Sidebar" xml:space="preserve">
-    <value>Sidebar</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
     <value>Aggiungi o rimuovi elementi dalla sidebar e personalizzane lo stile.</value>
@@ -213,17 +186,11 @@
   <data name="SidebarItems.Title" xml:space="preserve">
     <value>Personalizza sidebar</value>
   </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Tracce</value>
-  </data>
   <data name="Startup.Description" xml:space="preserve">
     <value>Seleziona la pagina predefinita da mostrare all'apertura dell'app.</value>
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>All'avvio</value>
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>Servizi di Streaming</value>
   </data>
   <data name="System" xml:space="preserve">
     <value>Predefinito di Sistema</value>
