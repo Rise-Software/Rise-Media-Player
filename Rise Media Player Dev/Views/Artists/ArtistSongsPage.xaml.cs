@@ -2,8 +2,8 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common;
 using Rise.Common.Constants;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -80,7 +80,7 @@ namespace Rise.App.Views
             string name = SelectedArtist.Name;
             if (!SViewModel.FetchOnlineData ||
                 !WebHelpers.IsInternetAccessAvailable() ||
-                name == ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource"))
+                name == ResourceHelper.GetString("UnknownArtistResource"))
             {
                 VisualStateManager.GoToState(this, "Unavailable", true);
             }
@@ -294,7 +294,7 @@ namespace Rise.App.Views
             }
             catch { }
 
-            return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
+            return ResourceHelper.GetString("UnknownGenreResource");
         }
 
         private async Task<string> GetArtistBioAsync(string artist, bool summarized)

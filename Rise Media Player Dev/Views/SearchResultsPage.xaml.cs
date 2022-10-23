@@ -1,6 +1,5 @@
 ﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;

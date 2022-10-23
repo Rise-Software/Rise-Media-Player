@@ -1,4 +1,5 @@
 ﻿using Rise.Common;
+using Rise.Common.Extensions.Markup;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -29,10 +30,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Name == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Name;
             }
             set

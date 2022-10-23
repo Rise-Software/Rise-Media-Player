@@ -146,7 +146,8 @@ namespace Rise.App
                     {
                         if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
                         {
-                            QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                            await ActivateAsync(e.PreviousExecutionState, false);
+                            var args = QueryString.Parse(toastActivationArgs.Argument);
 
                             // If the exception name equals to null,
                             // then the toast likely isn't popping up
