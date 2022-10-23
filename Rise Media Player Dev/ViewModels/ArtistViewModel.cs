@@ -63,13 +63,13 @@ namespace Rise.App.ViewModels
         /// Gets or sets the artist's song count.
         /// </summary>
         public int SongCount => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
-        public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
+        public string Songs => SongCount.ToString() + " " + ResourceHelper.GetString("Songs");
 
         /// <summary>
         /// Gets or sets the artist's album count.
         /// </summary>
         public int AlbumCount => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
-        public string Albums => AlbumCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Albums");
+        public string Albums => AlbumCount.ToString() + " " + ResourceHelper.GetString("Albums");
 
         /// <summary>
         /// Combination of artist's song count and album count.
