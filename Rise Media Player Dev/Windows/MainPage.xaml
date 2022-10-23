@@ -52,7 +52,6 @@
             <conv:UintToStringConverter x:Key="UIntToStr" />
             <conv:StreamToBitmap x:Key="StrmToBmp" />
 
-            <conv:ResourceToString x:Key="StrToRes" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
 
@@ -226,7 +225,7 @@
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             AutomationProperties.Name="{x:Bind Label}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
@@ -245,7 +244,7 @@
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             AutomationProperties.Name="{x:Bind Label}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
@@ -261,7 +260,7 @@
                         <muxc:NavigationViewItemHeader
                             x:Phase="1"
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}" />
                     </DataTemplate>
