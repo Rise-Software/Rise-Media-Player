@@ -2,7 +2,6 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
@@ -22,8 +21,6 @@ namespace Rise.App.Views
             get => (VideoViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "LocalVideos";
 
         public LocalVideosPage()
             : base("Title", App.MViewModel.Videos)

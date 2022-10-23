@@ -24,8 +24,6 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Artists";
-
         public ArtistsPage()
             : base("Name", App.MViewModel.Artists)
         {

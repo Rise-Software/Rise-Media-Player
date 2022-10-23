@@ -6,6 +6,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Rise.Common.Enums"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
@@ -20,8 +21,6 @@
     <uc:MediaPageBase.Resources>
         <conv:BoolToRoundedCorners x:Key="BoolToRounded" />
         <conv:NullToBoolean x:Key="NullToBool" />
-
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -45,10 +44,7 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Albums"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Albums}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"

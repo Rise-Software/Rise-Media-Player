@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -15,7 +16,6 @@
 
     <uc:MediaPageBase.Resources>
         <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -39,10 +39,7 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Playlists"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Playlists}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"

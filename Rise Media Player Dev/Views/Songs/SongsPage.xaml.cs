@@ -2,8 +2,6 @@
 using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
-using Rise.Common.Helpers;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -22,8 +20,6 @@ namespace Rise.App.Views
             get => (SongViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "Songs";
 
         public SongsPage()
             : base("Title", App.MViewModel.Songs)

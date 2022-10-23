@@ -16,7 +16,6 @@
 
     <uc:MediaPageBase.Resources>
         <conv:TimeSpanToString x:Key="TimeToStr" />
-        <conv:ResourceToString x:Key="StrToRes" />
         <conv:VideoToString x:Key="VidToStr" />
         <conv:IntToVisibility x:Key="IntToVis" />
     </uc:MediaPageBase.Resources>

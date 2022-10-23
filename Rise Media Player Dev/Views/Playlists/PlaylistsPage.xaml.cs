@@ -18,8 +18,6 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Playlists";
-
         public PlaylistsPage()
             : base("Title", App.MViewModel.Playlists)
         {
