@@ -39,9 +39,7 @@ namespace Rise.App.ViewModels.FileBrowser.Pages
         }
 
         public Task EnumerateDirectoryAsync(CancellationToken cancellationToken)
-        {
-            return ListingViewModel.StartEnumerationAsync(CurrentFolder, cancellationToken);
-        }
+            => ListingViewModel.StartEnumerationAsync(CurrentFolder, cancellationToken);
 
         private void ChangeFolder(IFolder folder)
         {

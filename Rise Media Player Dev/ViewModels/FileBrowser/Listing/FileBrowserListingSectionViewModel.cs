@@ -4,6 +4,7 @@ using Rise.App.Models;
 using Rise.Common.Enums;
 using Rise.Storage;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
@@ -31,7 +32,10 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
 
         public void AddFromEnumeration(IBaseStorage enumeration)
         {
-            Items.Add(new(enumeration, _messenger, _SectionType));
+            var item = new FileBrowserListingItemViewModel(enumeration, _messenger, _SectionType);
+
+            if (!Items.Contains(item))
+                Items.Add(item);
         }
     }
 }

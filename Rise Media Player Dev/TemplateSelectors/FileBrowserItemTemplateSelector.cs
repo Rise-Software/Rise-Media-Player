@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 
 namespace Rise.App.TemplateSelectors
 {
-    internal sealed class FileBrowserSectionTemplateSelector : TemplateSelectorBase<FileBrowserListingSectionViewModel>
+    internal sealed class FileBrowserItemTemplateSelector : TemplateSelectorBase<FileBrowserListingItemViewModel>
     {
         public DataTemplate FoldersSectionDataTemplate { get; set; }
 
@@ -13,7 +13,7 @@ namespace Rise.App.TemplateSelectors
         public DataTemplate VideosSectionDataTemplate { get; set; }
 
         /// <inheritdoc/>
-        protected override DataTemplate SelectTemplateCore(FileBrowserListingSectionViewModel item)
+        protected override DataTemplate SelectTemplateCore(FileBrowserListingItemViewModel item)
         {
             return item.SectionType switch
             {

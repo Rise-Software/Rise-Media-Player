@@ -13,14 +13,15 @@
     <Page.Resources>
         <DataTemplate x:Key="FoldersDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
             <Grid
-                MinWidth="164"
+                MinWidth="128"
                 Padding="12"
+                HorizontalAlignment="Left"
                 ColumnSpacing="12"
                 DoubleTapped="FileBrowserListingItem_DoubleTapped">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
+                    <ColumnDefinition MaxWidth="100" />
                 </Grid.ColumnDefinitions>
 
                 <Image
@@ -55,23 +56,47 @@
                 <TextBlock Text="{x:Bind Name}" />
             </Grid>
         </DataTemplate>
+
+        <DataTemplate x:Key="FoldersSectionTemplate" x:DataType="vm:FileBrowserListingSectionViewModel">
+            <uc:FileBrowserListingSectionControl
+                DisplayMode="Grid"
+                ItemTemplate="{StaticResource FoldersDataTemplate}"
+                ItemsSource="{x:Bind Items}"
+                SectionHeaderVisibility="Collapsed" />
+        </DataTemplate>
+        <DataTemplate x:Key="MusicSectionTemplate" x:DataType="vm:FileBrowserListingSectionViewModel">
+            <uc:FileBrowserListingSectionControl
+                Margin="0,8,0,0"
+                ItemTemplate="{StaticResource MusicDataTemplate}"
+                ItemsSource="{x:Bind Items}"
+                SectionName="Music">
+                <uc:FileBrowserListingSectionControl.Icon>
+                    <FontIcon Glyph="&#xEC4F;" />
+                </uc:FileBrowserListingSectionControl.Icon>
+            </uc:FileBrowserListingSectionControl>
+        </DataTemplate>
+        <DataTemplate x:Key="VideosSectionTemplate" x:DataType="vm:FileBrowserListingSectionViewModel">
+            <uc:FileBrowserListingSectionControl
+                Margin="0,8,0,0"
+                ItemTemplate="{StaticResource VideosDataTemplate}"
+                ItemsSource="{x:Bind Items}"
+                SectionName="Videos">
+                <uc:FileBrowserListingSectionControl.Icon>
+                    <FontIcon Glyph="&#xE8B2;" />
+                </uc:FileBrowserListingSectionControl.Icon>
+            </uc:FileBrowserListingSectionControl>
+        </DataTemplate>
+
+        <ts:FileBrowserSectionTemplateSelector
+            x:Key="SectionItemSelector"
+            FoldersSectionDataTemplate="{StaticResource FoldersSectionTemplate}"
+            MusicSectionDataTemplate="{StaticResource MusicSectionTemplate}"
+            VideosSectionDataTemplate="{StaticResource VideosSectionTemplate}" />
     </Page.Resources>
 
     <ListView
         Padding="48,8,48,120"
+        ItemTemplateSelector="{StaticResource SectionItemSelector}"
         ItemsSource="{x:Bind ViewModel.ListingViewModel.Sections}"
-        SelectionMode="None">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="vm:FileBrowserListingSectionViewModel">
-                <uc:FileBrowserListingSectionControl ItemsSource="{x:Bind Items}" SectionName="{x:Bind SectionName}">
-                    <uc:FileBrowserListingSectionControl.ItemTemplateSelector>
-                        <ts:FileBrowserSectionTemplateSelector
-                            FoldersSectionDataTemplate="{StaticResource FoldersDataTemplate}"
-                            MusicSectionDataTemplate="{StaticResource MusicDataTemplate}"
-                            VideosSectionDataTemplate="{StaticResource VideosDataTemplate}" />
-                    </uc:FileBrowserListingSectionControl.ItemTemplateSelector>
-                </uc:FileBrowserListingSectionControl>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        SelectionMode="None" />
 </Page>
