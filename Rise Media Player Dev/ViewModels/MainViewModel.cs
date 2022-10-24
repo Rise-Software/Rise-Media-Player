@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.ViewModels
 {
@@ -182,7 +186,7 @@ namespace Rise.App.ViewModels
             IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
-            await IndexLibrariesAsync(token);
+            await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
             if (App.SViewModel.FetchOnlineData)
@@ -205,7 +209,7 @@ namespace Rise.App.ViewModels
                 await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
-                    if (await SaveMusicModelsAsync(song, true))
+                    if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
                         IndexedSongs++;
                 }
             }, token);
@@ -215,7 +219,7 @@ namespace Rise.App.ViewModels
                 await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
-                    if (await SaveVideoModelAsync(video, true))
+                    if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
                         IndexedVideos++;
                 }
             }, token);

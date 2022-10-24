@@ -31,7 +31,7 @@ namespace Rise.Common.Extensions
             // Index library.
             foreach (StorageFolder folder in library.Folders)
             {
-                await foreach (var file in folder.IndexAsync(queryOptions))
+                await foreach (var file in folder.IndexAsync(queryOptions).ConfigureAwait(false))
                 {
                     yield return file;
                 }
@@ -72,9 +72,6 @@ namespace Rise.Common.Extensions
             // Start crawling data
             while (fileList.Count != 0)
             {
-                Task<IReadOnlyList<StorageFile>> fileTask =
-                    folderQueryResult.GetFilesAsync(index, stepSize).AsTask();
-
                 // Process files
                 foreach (StorageFile file in fileList)
                 {
@@ -82,7 +79,7 @@ namespace Rise.Common.Extensions
                     yield return file;
                 }
 
-                fileList = await fileTask;
+                fileList = await folderQueryResult.GetFilesAsync(index, stepSize).AsTask().ConfigureAwait(false);
                 index += 10;
             }
         }
