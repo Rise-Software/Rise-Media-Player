@@ -183,6 +183,9 @@
   <data name="Playlists" xml:space="preserve">
     <value>Playlist</value>
   </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Proprietà e Informazioni</value>
+  </data>
   <data name="Queue" xml:space="preserve">
     <value>Coda</value>
   </data>

@@ -183,6 +183,9 @@
   <data name="Playlists" xml:space="preserve">
     <value>प्लेलिस्ट</value>
   </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>गुण और जानकारी</value>
+  </data>
   <data name="Queue" xml:space="preserve">
     <value>कतार</value>
   </data>

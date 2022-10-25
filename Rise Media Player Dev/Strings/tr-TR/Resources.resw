@@ -183,6 +183,9 @@
   <data name="Playlists" xml:space="preserve">
     <value>Çalma listeleri</value>
   </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Properties &amp; Info</value>
+  </data>
   <data name="Queue" xml:space="preserve">
     <value>Kuyruk</value>
   </data>
