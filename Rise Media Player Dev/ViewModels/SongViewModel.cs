@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Newtonsoft.Json;
+using Rise.App.Helpers;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
@@ -9,6 +11,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TagLib;
 using Windows.Media.Playback;
 using Windows.Storage;
 
@@ -220,7 +223,7 @@ namespace Rise.App.ViewModels
         /// Gets the song filename.
         /// </summary>
         [JsonIgnore]
-        public string Filename => Path.GetFileName(Location);
+        public string FileName => Path.GetFileName(Location);
 
         /// <summary>
         /// Gets the song extension.
@@ -256,6 +259,52 @@ namespace Rise.App.ViewModels
                 {
                     Model.Thumbnail = value;
                     OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fetches lyrics for the song.
+        /// </summary>
+        /// <param name="fromOnlineService">Specifies whether to fetch lyrics from Musixmatch or from file metadata.</param>
+        /// <returns>A string with the song lyrics.</returns>
+        public async Task<string> GetLyricsAsync(bool fromOnlineService = true)
+        {
+            if (fromOnlineService)
+            {
+                try
+                {
+                    var lyrics = await MusixmatchHelper.GetLyricsAsync(Title, Artist);
+
+                    if (lyrics == null)
+                        return null;
+
+                    var lyricsString = lyrics.Message.Body.Lyrics.LyricsBody;
+
+                    lyricsString += lyrics;
+                    lyricsString += "\n\n";
+                    lyricsString += lyrics.Message.Body.Lyrics.LyricsCopyright;
+                    lyricsString += "\nPowered by Musixmatch.";
+
+                    return lyricsString;
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return null;
+                }
+            } else
+            {
+                try
+                {
+                    var file = await StorageFile.GetFileFromPathAsync(Location);
+                    var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                    return (await Task.Run(() => taglibFile.Tag)).Lyrics;
+                } catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return null;
                 }
             }
         }
@@ -317,6 +366,32 @@ namespace Rise.App.ViewModels
         public async Task CancelEditsAsync()
         {
             Model = await NewRepository.Repository.GetItemAsync<Song>(Model.Id);
+        }
+
+        /// <summary>
+        /// Edits lyrics of a song in the file metadata.
+        /// </summary>
+        /// <param name="lyrics">The lyrics to save.</param>
+        /// <returns>A task which represents the operation.</returns>
+        public async Task<bool> SaveLyricsAsync(string lyrics)
+        {
+            try
+            {
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                var tag = await Task.Run(() => taglibFile.Tag);
+
+                tag.Lyrics = lyrics;
+                await Task.Run(() => taglibFile.Save());
+
+                return true;
+            } catch (Exception e)
+            {
+                e.WriteToOutput();
+            }
+
+            return false;
         }
         #endregion
 

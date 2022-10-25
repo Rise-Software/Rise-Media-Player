@@ -12,11 +12,7 @@ namespace Rise.App.Views
 {
     public sealed partial class SongLyricsPage : Page
     {
-        private MusixmatchLyrics lyrics;
-
         private SongPropertiesViewModel Props { get; set; }
-
-        private List<string> lyricsText;
 
         public SongLyricsPage()
         {
@@ -28,34 +24,17 @@ namespace Rise.App.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is SongPropertiesViewModel props)
-            {
                 Props = props;
-            }
 
             base.OnNavigatedTo(e);
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                lyrics = await MusixmatchHelper.GetLyricsAsync(Props.Title, Props.Artist);
+            Lyrics.Text = await Props.Model.GetLyricsAsync() ?? "No lyrics found.";
 
-                if (string.IsNullOrEmpty(lyrics.Message.Body.Lyrics.LyricsBody))
-                    return;
-
-                System.Diagnostics.Debug.WriteLine("\nCannot find lyrics.\n");
-
-                lyricsText = lyrics.Message.Body.Lyrics.LyricsBody.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-                LyricsListView.ItemsSource = lyricsText;
-
-                CopyrightTextBlock.Text = lyrics.Message.Body.Lyrics.LyricsCopyright;
-            }
-            catch
-            {
-
-            }
+            LoadingRing.IsActive = false;
+            LoadingRing.Visibility = Visibility.Collapsed;
         }
     }
 }
