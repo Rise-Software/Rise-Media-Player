@@ -5,6 +5,7 @@
     xmlns:app="using:Rise.App"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:uc="using:Rise.App.UserControls"
@@ -89,10 +90,10 @@
                     Icon="Delete" />
 
                 <MenuFlyoutItem
-                    x:Uid="/MediaData/Properties"
                     Command="{x:Bind EditItemCommand}"
                     CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                    Icon="Edit" />
+                    Icon="Edit"
+                    Text="{markup:ResourceHelper Name=PropertiesInfo}" />
             </MenuFlyout>
         </ListView.ContextFlyout>
 
@@ -204,10 +205,10 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton
-                                    x:Uid="/Information/Properties"
                                     Command="{x:Bind EditItemCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedPlaylist}"
-                                    Icon="Edit" />
+                                    Icon="Edit"
+                                    Label="{markup:ResourceHelper Name=PropertiesInfo}" />
                             </CommandBar>
                         </StackPanel>
                     </Grid>

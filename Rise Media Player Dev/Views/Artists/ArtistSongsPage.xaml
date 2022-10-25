@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:models="using:Rise.Models"
@@ -414,10 +415,10 @@
                                                 IsEnabled="False" />
 
                                             <MenuFlyoutItem
-                                                x:Uid="/MediaData/Properties"
                                                 Command="{x:Bind EditItemCommand}"
                                                 CommandParameter="{x:Bind SelectedAlbum, Mode=OneWay}"
-                                                Icon="Edit" />
+                                                Icon="Edit"
+                                                Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                                         </MenuFlyout>
                                     </GridView.ContextFlyout>
 
@@ -494,10 +495,10 @@
                                             <MenuFlyoutSeparator />
 
                                             <MenuFlyoutItem
-                                                x:Uid="/MediaData/Properties"
                                                 Command="{x:Bind EditItemCommand}"
                                                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                                                Icon="Edit" />
+                                                Icon="Edit"
+                                                Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                                         </MenuFlyout>
                                     </ListView.ContextFlyout>
 
@@ -523,8 +524,8 @@
                     x:Name="ArtistAbout"
                     Grid.Row="3"
                     Margin="0,12,0,0"
-                    Visibility="Collapsed"
-                    Style="{StaticResource SettingsCard}">
+                    Style="{StaticResource SettingsCard}"
+                    Visibility="Collapsed">
                     <Grid>
                         <StackPanel>
                             <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">

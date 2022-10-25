@@ -64,7 +64,6 @@
                 IsEnabled="False"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Icon="Rename"
                 IsEnabled="False"
                 Style="{StaticResource AppBarCompactButtonStyle}" />

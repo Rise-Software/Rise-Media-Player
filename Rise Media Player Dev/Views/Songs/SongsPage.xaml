@@ -89,12 +89,12 @@
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Command="{x:Bind EditItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Edit"
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}" />
 
             <AppBarSeparator />
 
@@ -248,10 +248,10 @@
                         Icon="Delete" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaData/Properties"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                 </MenuFlyout>
             </ListView.ContextFlyout>
 
