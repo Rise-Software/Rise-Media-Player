@@ -198,12 +198,6 @@
   <data name="Descending.Text" xml:space="preserve">
     <value>Descending</value>
   </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>Properties and Info</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Properties and Info</value>
-  </data>
   <data name="EditArtist.Label" xml:space="preserve">
     <value>Customise this page</value>
   </data>
@@ -287,9 +281,6 @@
   </data>
   <data name="PlayItem.Text" xml:space="preserve">
     <value>Play</value>
-  </data>
-  <data name="Properties.Label" xml:space="preserve">
-    <value>Info &amp; Properties</value>
   </data>
   <data name="Props.ToolTipService.ToolTip" xml:space="preserve">
     <value>Song info</value>

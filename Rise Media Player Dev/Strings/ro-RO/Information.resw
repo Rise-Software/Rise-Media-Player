@@ -186,12 +186,6 @@
   <data name="Descending.Text" xml:space="preserve">
     <value>Descendent</value>
   </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>Proprietăți și info</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Proprietăți și info</value>
-  </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Feedback</value>
   </data>

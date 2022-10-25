@@ -186,12 +186,6 @@
   <data name="Descending.Text" xml:space="preserve">
     <value>Azalan</value>
   </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>Özellikler ve Bilgi</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Özellikler ve Bilgi</value>
-  </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Geri bildirim</value>
   </data>

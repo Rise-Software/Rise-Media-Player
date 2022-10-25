@@ -186,12 +186,6 @@
   <data name="Descending.Text" xml:space="preserve">
     <value>अवरोही</value>
   </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>गुण और जानकारी</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>गुण और जानकारी</value>
-  </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>प्रतिक्रिया</value>
   </data>
