@@ -166,6 +166,7 @@
     <Compile Include="Helpers\ObservableVector.cs" />
     <Compile Include="Helpers\SafeObservableCollection.cs" />
     <Compile Include="Helpers\SuspensionManager.cs" />
+    <Compile Include="Helpers\UwpStorageFileAbstraction.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
     <Compile Include="QueryPresets.cs" />
     <Compile Include="Interfaces\IMatchable.cs" />
@@ -186,6 +187,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
       <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="TagLibSharp">
+      <Version>2.3.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RiseStartup.Description" xml:space="preserve">
-    <value>Open Rise Media Player when you login to your device.</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
   </data>
-  <data name="RiseStartup.Title" xml:space="preserve">
-    <value>Start with Windows</value>
+  <data name="Soon.Title" xml:space="preserve">
+    <value>Internet accounts &amp; services are coming soon.</value>
+  </data>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>*Music streaming requires a premium level account to function. Only one music streaming service can be enabled at a time.</value>
   </data>
 </root>

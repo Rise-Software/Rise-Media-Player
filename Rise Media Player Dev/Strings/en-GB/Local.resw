@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Created.Text" xml:space="preserve">
-    <value>Created</value>
+  <data name="Header.Text" xml:space="preserve">
+    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
   </data>
-  <data name="DefaultApp.Text" xml:space="preserve">
-    <value>Opens with</value>
-  </data>
-  <data name="Filename.Text" xml:space="preserve">
-    <value>File name</value>
-  </data>
-  <data name="FileType.Text" xml:space="preserve">
-    <value>File type</value>
-  </data>
-  <data name="Location.Text" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="Modified.Text" xml:space="preserve">
-    <value>Modified</value>
-  </data>
-  <data name="Size.Text" xml:space="preserve">
-    <value>File size</value>
+  <data name="Tip.Text" xml:space="preserve">
+    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
   </data>
 </root>

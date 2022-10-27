@@ -117,7 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
+  <data name="AlbumWindowTitle.Title" xml:space="preserve">
+    <value>Album info</value>
+  </data>
+  <data name="Cancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DetailItem.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DetailItemNav.Content" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="Error.CloseButtonContent" xml:space="preserve">
+    <value>Got it</value>
+  </data>
+  <data name="Error.Subtitle" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="FileItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileItemNav.Content" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="LyricsItem.Text" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="LyricsItemNav.Content" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="MoreItem.Text" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="PlaylistWindowTitle.Title" xml:space="preserve">
+    <value>Edit playlist</value>
+  </data>
+  <data name="ProfileItem.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Save.Content" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="SongsItem.Text" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="SongsItemNav.Content" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="StayHere" xml:space="preserve">
+    <value>oops</value>
+  </data>
+  <data name="WindowTitle.Title" xml:space="preserve">
+    <value>Song info</value>
   </data>
 </root>

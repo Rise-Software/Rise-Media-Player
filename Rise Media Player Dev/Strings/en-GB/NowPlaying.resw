@@ -117,88 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddRemoveH.Text" xml:space="preserve">
-    <value>Add/remove sidebar items</value>
+  <data name="AlbumQueueItem.Text" xml:space="preserve">
+    <value>Album</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Albums</value>
+  <data name="Back.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="AppearanceH.Text" xml:space="preserve">
-    <value>Appearance</value>
+  <data name="Overlay.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Expand</value>
   </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Artists</value>
+  <data name="PlayingItem.Text" xml:space="preserve">
+    <value>Playing</value>
   </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>At a glance</value>
-  </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Colourful</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Devices</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Show everything</value>
-  </data>
-  <data name="GeneralH.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="GeneralItems.Title" xml:space="preserve">
-    <value>General items</value>
-  </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Genres</value>
-  </data>
-  <data name="Hamburger.Title" xml:space="preserve">
-    <value>Show the hamburger button</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Help Centre</value>
-  </data>
-  <data name="IconStyle.Description" xml:space="preserve">
-    <value>Select through a variety of beautiful icon sets for your sidebar.</value>
-  </data>
-  <data name="IconStyle.Title" xml:space="preserve">
-    <value>Icon style</value>
-  </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>All Videos</value>
-  </data>
-  <data name="MusicItems.Title" xml:space="preserve">
-    <value>Music</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Don't show the sidebar</value>
-  </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
+  <data name="Queue.ToolTipService.ToolTip" xml:space="preserve">
     <value>Queue</value>
   </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Only show icons</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Playlists</value>
-  </data>
-  <data name="Resize.Description" xml:space="preserve">
-    <value>Choose what to do with the sidebar when the window is made smaller.</value>
-  </data>
-  <data name="Resize.Title" xml:space="preserve">
-    <value>Window resize changes</value>
-  </data>
-  <data name="ShowHeader.Title" xml:space="preserve">
-    <value>Show header</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Songs</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Streaming Services</value>
-  </data>
-  <data name="VideoItems.Title" xml:space="preserve">
-    <value>Video</value>
+  <data name="QueueItem.Text" xml:space="preserve">
+    <value>Up next</value>
   </data>
 </root>
