@@ -192,9 +192,6 @@
   <data name="Streaming.Text" xml:space="preserve">
     <value>Servizio di Streaming</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Scegli da dove reperire i video</value>
   </data>

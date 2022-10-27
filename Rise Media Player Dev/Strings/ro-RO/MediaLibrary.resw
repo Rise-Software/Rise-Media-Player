@@ -192,9 +192,6 @@
   <data name="Streaming.Text" xml:space="preserve">
     <value>Serviciu streaming</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Alege unde ne uităm pentru fișiere video.</value>
   </data>

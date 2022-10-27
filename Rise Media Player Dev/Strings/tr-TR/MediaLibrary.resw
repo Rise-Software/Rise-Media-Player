@@ -192,9 +192,6 @@
   <data name="Streaming.Text" xml:space="preserve">
     <value>Yayınakışı Hizmeti</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Video dosyalarınızı nerede arayacağımızı seçin.</value>
   </data>
