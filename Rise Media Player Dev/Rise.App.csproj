@@ -1192,7 +1192,7 @@
       <Name>Rise.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rise.Storage\Rise.Storage.csproj">
-      <Project>{c95910ca-aa49-44a1-9288-b728669dccde}</Project>
+      <Project>{ea707371-2d34-4839-8187-8e2b0a405af1}</Project>
       <Name>Rise.Storage</Name>
     </ProjectReference>
   </ItemGroup>

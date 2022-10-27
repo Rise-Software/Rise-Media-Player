@@ -7,6 +7,8 @@ using Rise.App.Services;
 using Rise.Storage;
 using System.Threading.Tasks;
 using Rise.Common.Enums;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
@@ -23,6 +25,12 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
 
         [ObservableProperty]
         private string _Name;
+
+        public MusicProperties MusicProperties => (_storage as IFile).MusicProperties;
+
+        public VideoProperties VideoProperties => (_storage as IFile).VideoProperties;
+
+        public IRandomAccessStream Thumbnail => (_storage as IFile).Thumbnail;
 
         public FileBrowserListingItemViewModel(IBaseStorage storage, IMessenger messenger, FileBrowserSectionType sectionType)
         {

@@ -29,8 +29,6 @@ namespace Rise.App.Storage.Devices
         }
 
         public Task<IFolder?> GetRootFolderAsync()
-        {
-            return StorageService.GetFolderAsync(Name);
-        }
+            => StorageService.GetFolderAsync(Name);
     }
 }

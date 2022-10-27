@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
-
+using Windows.Storage.BulkAccess;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Search;
 using CreationCollisionOption = Rise.Storage.Enums.CreationCollisionOption;
 
 namespace Rise.App.Storage

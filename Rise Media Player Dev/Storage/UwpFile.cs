@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using System;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
+using Rise.Common.Extensions;
+using Windows.Storage.Streams;
 
 namespace Rise.App.Storage
 {
@@ -11,6 +14,12 @@ namespace Rise.App.Storage
 
         public string Extension
             => _Extension ??= System.IO.Path.GetExtension(storage.Name);
+
+        public MusicProperties MusicProperties => storage.Properties.GetMusicPropertiesAsync().Get();
+
+        public VideoProperties VideoProperties => storage.Properties.GetVideoPropertiesAsync().Get();
+
+        public IRandomAccessStream Thumbnail => storage.GetThumbnailAsync(ThumbnailMode.ListView, 500).Get();
 
         public UwpFile(StorageFile storage)
             : base(storage)
@@ -29,5 +38,11 @@ namespace Rise.App.Storage
                 return null;
             }
         }
+
+        public Task<MusicProperties> GetMusicPropertiesAsync()
+            => storage.Properties.GetMusicPropertiesAsync().AsTask();
+
+        public Task<VideoProperties> GetVideoPropertiesAsync()
+            => storage.Properties.GetVideoPropertiesAsync().AsTask();
     }
 }
