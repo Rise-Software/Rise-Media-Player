@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Globalization;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Rise.Models
 {
@@ -69,6 +71,47 @@ namespace Rise.Models
 
         [JsonProperty("updated_time")]
         public DateTimeOffset UpdatedTime { get; set; }
+
+        [JsonIgnore]
+        public IReadOnlyList<SyncedLyricItem> Subtitles => Array.AsReadOnly(JsonConvert.DeserializeObject<SyncedLyricItem[]>(SubtitleBody));
+    }
+
+    public class SyncedLyricItem
+    {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("time")]
+        public SyncedLyricTime Time { get; set; }
+
+        [JsonIgnore]
+        public TimeSpan TimeSpan => Time.ToTimeSpan();
+
+        public override string ToString()
+            => $"{Text} - {TimeSpan}"; 
+    }
+
+    public class SyncedLyricTime
+    {
+        [JsonProperty("seconds")]
+        public int Seconds { get; set; }
+
+        [JsonProperty("minutes")]
+        public int Minutes { get; set; }
+
+        [JsonProperty("hundredths")]
+        public int Hundredths { get; set; }
+
+        [JsonProperty("total")]
+        public double TotalTime { get; set; }
+
+        public TimeSpan ToTimeSpan()
+        {
+            if (TimeSpan.TryParse($"00:{Minutes}:{Seconds}", out var timeSpan))
+                return timeSpan;
+
+            return TimeSpan.Zero;
+        }
     }
 
     public class SyncedHeader
@@ -85,12 +128,13 @@ namespace Rise.Models
 
     public partial class SyncedLyrics
     {
-        public static SyncedLyrics FromJson(string json) => JsonConvert.DeserializeObject<SyncedLyrics>(json, SyncedConverter.Settings);
+        public static SyncedLyrics FromJson(string json)
+            => JsonConvert.DeserializeObject<SyncedLyrics>(json, SyncedConverter.Settings);
     }
 
     internal static class SyncedConverter
     {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings Settings = new()
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,

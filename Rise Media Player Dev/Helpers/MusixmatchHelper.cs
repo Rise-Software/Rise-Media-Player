@@ -38,7 +38,7 @@ namespace Rise.App.Helpers
                 userToken = token.Message.Body.Token;
             }
 
-            Uri url = new($@"https://apic-desktop.musixmatch.com/ws/1.1/matcher.lyrics.get?format=json&q_track={Uri.EscapeDataString(trackName)}&q_artist={Uri.EscapeDataString(artistName)}&user_language=en&subtitle_format=mxm&app_id=web-desktop-app-v1.0&usertoken={userToken}");
+            Uri url = new($@"https://apic-desktop.musixmatch.com/ws/1.1/matcher.lyrics.get?format=json&q_track={Uri.EscapeDataString(trackName)}&q_artist={Uri.EscapeDataString(artistName)}&user_language=en&subtitle_format=lrc&app_id=web-desktop-app-v1.0&usertoken={userToken}");
 
             string response = await GetStringAsync(url);
 
