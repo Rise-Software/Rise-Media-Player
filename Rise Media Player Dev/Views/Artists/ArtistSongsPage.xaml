@@ -144,7 +144,7 @@
 
                                         <AppBarButton.Flyout>
                                             <MenuFlyout x:Name="AddToBar">
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand, Mode=OneTime}">
+                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -387,7 +387,7 @@
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
 
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand}">
+                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddAlbumToPlaylistCommand}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -468,7 +468,7 @@
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
 
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AlbumPlaylistHelper.AddToPlaylistCommand}">
+                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -523,8 +523,8 @@
                     x:Name="ArtistAbout"
                     Grid.Row="3"
                     Margin="0,12,0,0"
-                    Visibility="Collapsed"
-                    Style="{StaticResource SettingsCard}">
+                    Style="{StaticResource SettingsCard}"
+                    Visibility="Collapsed">
                     <Grid>
                         <StackPanel>
                             <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">

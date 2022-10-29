@@ -57,7 +57,7 @@
                         <FontIcon Glyph="&#xECC8;" />
                     </MenuFlyoutSubItem.Icon>
 
-                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand}">
+                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                         </MenuFlyoutItem.Icon>
@@ -179,7 +179,7 @@
 
                                     <AppBarButton.Flyout>
                                         <MenuFlyout x:Name="AddToBar">
-                                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand, Mode=OneTime}">
+                                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                 </MenuFlyoutItem.Icon>

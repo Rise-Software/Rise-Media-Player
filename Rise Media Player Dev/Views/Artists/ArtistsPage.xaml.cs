@@ -1,4 +1,4 @@
-﻿using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
@@ -16,7 +16,6 @@ namespace Rise.App.Views
     public sealed partial class ArtistsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         public ArtistViewModel SelectedItem
         {
@@ -27,19 +26,19 @@ namespace Rise.App.Views
         private readonly string Label = "Artists";
 
         public ArtistsPage()
-            : base("Name", App.MViewModel.Artists)
+            : base("Name", App.MViewModel.Artists, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
         }
     }
 
     // Playlists
     public sealed partial class ArtistsPage
     {
+        [RelayCommand]
         private Task AddToPlaylistAsync(PlaylistViewModel playlist)
         {
             var name = SelectedItem.Name;

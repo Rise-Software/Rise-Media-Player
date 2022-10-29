@@ -1,12 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -19,7 +17,6 @@ namespace Rise.App.Views
     public sealed partial class AlbumSongsPage : MediaPageBase
     {
         public MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         private AlbumViewModel SelectedAlbum;
         public SongViewModel SelectedItem
@@ -31,16 +28,15 @@ namespace Rise.App.Views
         private readonly AdvancedCollectionView AlbumsByArtist = new();
 
         public AlbumSongsPage()
-            : base("Disc", App.MViewModel.Songs)
+            : base("Disc", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -84,19 +80,6 @@ namespace Rise.App.Views
     // Playlists
     public sealed partial class AlbumSongsPage
     {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            var items = new List<SongViewModel>();
-
-            foreach (var itm in MediaViewModel.Items)
-                items.Add((SongViewModel)itm);
-
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(items);
-            else
-                return playlist.AddSongsAsync(items);
-        }
-
         private async void LikeAlbum_Checked(object sender, RoutedEventArgs e)
         {
             var songs = new List<SongViewModel>();
