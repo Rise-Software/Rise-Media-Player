@@ -1,16 +1,12 @@
-﻿using Opportunity.LrcParser;
-using Rise.App.Helpers;
+﻿using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TagLib.Ape;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -66,14 +62,16 @@ namespace Rise.App.Views
 
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
 
-            _timer = new()
+            if (SViewModel.FetchOnlineData)
             {
-                Interval = TimeSpan.FromMilliseconds(150)
-            };
+                _timer = new()
+                {
+                    Interval = TimeSpan.FromMilliseconds(150)
+                };
 
-            await FetchLyricsForCurrentItemAsync();
-
-            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+                await FetchLyricsForCurrentItemAsync();
+                MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+            }
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Windows.Media.Playback.MediaPlaybackItem e)
@@ -165,18 +163,16 @@ namespace Rise.App.Views
                     _timer.Tick += OnTimerTick;
                 }
             }
-            catch (Exception e1)
+            catch (Exception e)
             {
-                e1.WriteToOutput();
+                e.WriteToOutput();
             }
         }
 
         private void StopTimer()
         {
-            _timer.Stop();
-
-            if (_lyrics != null)
-                _lyrics.Clear();
+            _timer?.Stop();
+            _lyrics?.Clear();
         }
 
         // Settings
