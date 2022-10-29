@@ -202,6 +202,7 @@
                         HorizontalTextAlignment="Center"
                         TextWrapping="WrapWholeWords"
                         Text="{x:Bind Text}"
+                        Margin="0,4"
                         FontSize="20"
                         FontWeight="SemiBold" />
                 </DataTemplate>

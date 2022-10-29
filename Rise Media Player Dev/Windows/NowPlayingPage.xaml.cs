@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TagLib.Ape;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -70,57 +71,13 @@ namespace Rise.App.Views
                 Interval = TimeSpan.FromMilliseconds(150)
             };
 
-            try
-            {
-                var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
-                var body = lyricsObj.Message.Body;
-
-                if (body != null)
-                {
-                    _lyrics = await Task.Run(() => new ObservableCollection<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
-                    LyricsList.ItemsSource = _lyrics;
-
-                    _timer.Start();
-
-                    _timer.Tick += OnTimerTick;
-                }
-            }
-            catch (Exception e1)
-            {
-                e1.WriteToOutput();
-
-                _timer.Stop();
-                _lyrics.Clear();
-            }
+            await FetchLyricsForCurrentItemAsync();
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
         }
 
         private async void MPViewModel_PlayingItemChanged(object sender, Windows.Media.Playback.MediaPlaybackItem e)
-        {
-            try
-            {
-                var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
-                var body = lyricsObj.Message.Body;
-
-                if (body != null)
-                {
-                    _lyrics = await Task.Run(() => new ObservableCollection<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
-                    LyricsList.ItemsSource = _lyrics;
-
-                    _timer.Start();
-
-                    _timer.Tick += OnTimerTick;
-                }
-            }
-            catch (Exception e1)
-            {
-                e1.WriteToOutput();
-
-                _timer.Stop();
-                _lyrics.Clear();
-            }
-        }
+            => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await FetchLyricsForCurrentItemAsync());
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
@@ -135,26 +92,12 @@ namespace Rise.App.Views
                 FullScreenRequested = fs;
         }
 
-        private void OnTimerTick(object sender, object e)
-        {
-            if (LyricsList.SelectedIndex + 1 >= _lyrics.Count)
-                return;
-
-            if (LyricsList.SelectedIndex >= 0)
-            {
-                var item = _lyrics[LyricsList.SelectedIndex + 1];
-
-                if (MPViewModel.Player.PlaybackSession.Position >= item.TimeSpan)
-                    LyricsList.SelectedIndex++;
-            }
-        }
-
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             if (FullScreenRequested)
                 ApplicationView.GetForCurrentView().ExitFullScreenMode();
 
-            _timer.Stop();
+            StopTimer();
         }
     }
 
@@ -188,6 +131,52 @@ namespace Rise.App.Views
                     _ = ApplyVisualizer(SViewModel.VisualizerType);
                 else
                     _ = ApplyVisualizer(0);
+        }
+
+        private void OnTimerTick(object sender, object e)
+        {
+            var mediaPlayerPosition = MPViewModel.Player.PlaybackSession.Position;
+
+            var lyricsItem = _lyrics.OrderBy(item => Math.Abs(mediaPlayerPosition.TotalSeconds - item.TimeSpan.TotalSeconds)).FirstOrDefault();
+
+            if (lyricsItem != null && mediaPlayerPosition.TotalSeconds - lyricsItem.TimeSpan.TotalSeconds >= 0)
+            {
+                LyricsList.SelectedItem = lyricsItem;
+                LyricsList.ScrollIntoView(lyricsItem);
+            }
+        }
+
+        private async Task FetchLyricsForCurrentItemAsync()
+        {
+            StopTimer();
+
+            try
+            {
+                var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
+                var body = lyricsObj.Message.Body;
+
+                if (body != null)
+                {
+                    _lyrics = await Task.Run(() => new ObservableCollection<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
+                    LyricsList.ItemsSource = _lyrics;
+
+                    _timer.Start();
+
+                    _timer.Tick += OnTimerTick;
+                }
+            }
+            catch (Exception e1)
+            {
+                e1.WriteToOutput();
+            }
+        }
+
+        private void StopTimer()
+        {
+            _timer.Stop();
+
+            if (_lyrics != null)
+                _lyrics.Clear();
         }
 
         // Settings
