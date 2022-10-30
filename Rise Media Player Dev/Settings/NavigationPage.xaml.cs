@@ -31,7 +31,6 @@ namespace Rise.App.Settings
             ResourceLoaders.AppearanceLoader.GetString("Songs"),
             ResourceLoaders.AppearanceLoader.GetString("Artists"),
             ResourceLoaders.AppearanceLoader.GetString("Albums"),
-            ResourceLoaders.AppearanceLoader.GetString("Genres"),
             ResourceLoaders.AppearanceLoader.GetString("LocalVideos"),
         };
 

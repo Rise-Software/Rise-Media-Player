@@ -329,21 +329,10 @@ namespace Rise.App
         }
 
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
-        {
-            await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-        }
+            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-            }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-        }
+            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
     }
 
     // Error handling

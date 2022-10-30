@@ -341,7 +341,7 @@ namespace Rise.App.ViewModels
         {
             get
             {
-                bool vis = ShowSongs || ShowArtists || ShowAlbums || ShowGenres;
+                bool vis = ShowSongs || ShowArtists || ShowAlbums;
                 if (!vis)
                 {
                     ShowMusicHeader = false;
@@ -356,12 +356,10 @@ namespace Rise.App.ViewModels
                 ShowSongs = value;
                 ShowArtists = value;
                 ShowAlbums = value;
-                ShowGenres = value;
 
                 OnPropertyChanged(nameof(ShowSongs));
                 OnPropertyChanged(nameof(ShowArtists));
                 OnPropertyChanged(nameof(ShowAlbums));
-                OnPropertyChanged(nameof(ShowGenres));
             }
         }
 
@@ -427,12 +425,6 @@ namespace Rise.App.ViewModels
         {
             get => SBViewModel.IsItemVisible("AlbumsPage");
             set => ChangeItemVisibility("AlbumsPage", value);
-        }
-
-        public bool ShowGenres
-        {
-            get => SBViewModel.IsItemVisible("GenresPage");
-            set => ChangeItemVisibility("GenresPage", value);
         }
 
         public bool ShowLocalVideos

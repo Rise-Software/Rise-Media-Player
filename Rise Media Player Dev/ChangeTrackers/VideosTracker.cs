@@ -117,7 +117,7 @@ namespace Rise.App.ChangeTrackers
 
             List<VideoViewModel> toRemove = new();
 
-            // Check if the song doesn't exist anymore, if so queue it then remove.
+            // Check if the video doesn't exist anymore, if so queue it then remove.
             for (int i = 0; i < MViewModel.Videos.Count; i++)
             {
                 try
@@ -170,9 +170,6 @@ namespace Rise.App.ChangeTrackers
                     return;
 
                 await video.DeleteAsync();
-
-                if (token.IsCancellationRequested)
-                    return;
             }
         }
 
