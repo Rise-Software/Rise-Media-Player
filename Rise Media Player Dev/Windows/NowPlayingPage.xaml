@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -186,6 +187,28 @@
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
+        <ListView
+            x:Name="LyricsList"
+            Width="400"
+            Margin="0,32"
+            Padding="16"
+            HorizontalAlignment="Right"
+            Visibility="Collapsed"
+            ItemContainerStyle="{StaticResource StretchedListViewItemStyle}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:SyncedLyricItem">
+                    <TextBlock
+                        HorizontalAlignment="Stretch"
+                        HorizontalTextAlignment="Center"
+                        TextWrapping="WrapWholeWords"
+                        Text="{x:Bind Text}"
+                        Margin="0,4"
+                        FontSize="20"
+                        FontWeight="SemiBold" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ArtStates">
                 <VisualState x:Name="DefaultState">
@@ -332,6 +355,8 @@
                         <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
                         <Setter Target="SubtitleText.Padding" Value="8,0,0,0" />
                         <Setter Target="ThumbBorder.Visibility" Value="Visible" />
+
+                        <Setter Target="LyricsList.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

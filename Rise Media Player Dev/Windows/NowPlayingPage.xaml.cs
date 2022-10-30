@@ -1,7 +1,12 @@
-﻿using Rise.App.ViewModels;
+﻿using Rise.App.Helpers;
+using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
+using Rise.Models;
 using System;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -20,6 +25,9 @@ namespace Rise.App.Views
         private SettingsViewModel SViewModel => App.SViewModel;
         private bool FullScreenRequested = false;
 
+        private ObservableCollection<SyncedLyricItem> _lyrics;
+        private DispatcherTimer _timer;
+
         /// <summary>
         /// Whether the album art should be fully visible.
         /// </summary>
@@ -35,7 +43,7 @@ namespace Rise.App.Views
             TitleBar.SetTitleBarForCurrentView();
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             // No need for pointer in events when we're outside compact overlay
             var mode = ApplicationView.GetForCurrentView().ViewMode;
@@ -53,7 +61,21 @@ namespace Rise.App.Views
             }
 
             MainPlayer.SetMediaPlayer(MPViewModel.Player);
+
+            if (SViewModel.FetchOnlineData)
+            {
+                _timer = new()
+                {
+                    Interval = TimeSpan.FromMilliseconds(150)
+                };
+
+                await FetchLyricsForCurrentItemAsync();
+                MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+            }
         }
+
+        private async void MPViewModel_PlayingItemChanged(object sender, Windows.Media.Playback.MediaPlaybackItem e)
+            => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await FetchLyricsForCurrentItemAsync());
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
         {
@@ -72,6 +94,8 @@ namespace Rise.App.Views
         {
             if (FullScreenRequested)
                 ApplicationView.GetForCurrentView().ExitFullScreenMode();
+
+            StopTimer();
         }
     }
 
@@ -105,6 +129,50 @@ namespace Rise.App.Views
                     _ = ApplyVisualizer(SViewModel.VisualizerType);
                 else
                     _ = ApplyVisualizer(0);
+        }
+
+        private void OnTimerTick(object sender, object e)
+        {
+            var mediaPlayerPosition = MPViewModel.Player.PlaybackSession.Position;
+
+            var lyricsItem = _lyrics.OrderBy(item => Math.Abs(mediaPlayerPosition.TotalSeconds - item.TimeSpan.TotalSeconds)).FirstOrDefault();
+
+            if (lyricsItem != null && mediaPlayerPosition.TotalSeconds - lyricsItem.TimeSpan.TotalSeconds >= 0)
+            {
+                LyricsList.SelectedItem = lyricsItem;
+                LyricsList.ScrollIntoView(lyricsItem);
+            }
+        }
+
+        private async Task FetchLyricsForCurrentItemAsync()
+        {
+            StopTimer();
+
+            try
+            {
+                var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
+                var body = lyricsObj.Message.Body;
+
+                if (body != null)
+                {
+                    _lyrics = await Task.Run(() => new ObservableCollection<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
+                    LyricsList.ItemsSource = _lyrics;
+
+                    _timer.Start();
+
+                    _timer.Tick += OnTimerTick;
+                }
+            }
+            catch (Exception e)
+            {
+                e.WriteToOutput();
+            }
+        }
+
+        private void StopTimer()
+        {
+            _timer?.Stop();
+            _lyrics?.Clear();
         }
 
         // Settings

@@ -1,5 +1,5 @@
-﻿using Rise.App.Converters;
-using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
@@ -29,10 +29,7 @@ namespace Rise.App.Views
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private readonly AddToPlaylistHelper PlaylistHelper;
-
-        private MediaCollectionViewModel AlbumsViewModel;
-        private readonly AddToPlaylistHelper AlbumPlaylistHelper;
+        private readonly MediaCollectionViewModel AlbumsViewModel;
 
         public static readonly DependencyProperty SelectedAlbumProperty =
             DependencyProperty.Register("SelectedAlbum", typeof(AlbumViewModel),
@@ -58,7 +55,7 @@ namespace Rise.App.Views
         private string LongBio;
 
         public ArtistSongsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             AlbumsViewModel = new("Year", MViewModel.Albums, MViewModel.Songs, MPViewModel);
 
@@ -67,12 +64,9 @@ namespace Rise.App.Views
             NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddToList);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-
-            AlbumPlaylistHelper = new(MViewModel.Playlists, AddAlbumToPlaylistAsync);
-            AlbumPlaylistHelper.AddPlaylistsToSubItem(AddTo);
+            PlaylistHelper.AddPlaylistsToSubItem(AddToList, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddAlbumToPlaylistCommand);
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -128,26 +122,7 @@ namespace Rise.App.Views
     // Playlists
     public sealed partial class ArtistSongsPage
     {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            if (SelectedItem == null)
-            {
-                var items = new List<SongViewModel>();
-                foreach (var itm in MediaViewModel.Items)
-                    items.Add((SongViewModel)itm);
-
-                if (playlist == null)
-                    return PlaylistHelper.CreateNewPlaylistAsync(items);
-                else
-                    return playlist.AddSongsAsync(items);
-            }
-
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
-            else
-                return playlist.AddSongAsync(SelectedItem);
-        }
-
+        [RelayCommand]
         private Task AddAlbumToPlaylistAsync(PlaylistViewModel playlist)
         {
             var name = SelectedAlbum.Title;
@@ -158,7 +133,7 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
-                return AlbumPlaylistHelper.CreateNewPlaylistAsync(items);
+                return PlaylistHelper.CreateNewPlaylistAsync(items);
             else
                 return playlist.AddSongsAsync(items);
         }

@@ -1,4 +1,4 @@
-﻿using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
@@ -18,7 +18,6 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
-        private readonly AddToPlaylistHelper PlaylistHelper;
         private MediaCollectionViewModel VideosViewModel;
 
         public static readonly DependencyProperty SelectedVideoProperty =
@@ -41,14 +40,14 @@ namespace Rise.App.Views
         private double? _offset = null;
 
         public PlaylistDetailsPage()
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToSubItem(AddToVideo);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -73,12 +72,13 @@ namespace Rise.App.Views
     // Playlists
     public sealed partial class PlaylistDetailsPage
     {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        [RelayCommand]
+        private Task AddVideoToPlaylistAsync(PlaylistViewModel playlist)
         {
             if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
+                return PlaylistHelper.CreateNewPlaylistAsync(SelectedVideo);
             else
-                return playlist.AddSongAsync(SelectedItem);
+                return playlist.AddVideoAsync(SelectedVideo);
         }
     }
 

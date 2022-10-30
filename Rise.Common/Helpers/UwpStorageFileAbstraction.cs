@@ -5,6 +5,9 @@ using static TagLib.File;
 
 namespace Rise.Common.Helpers
 {
+    /// <summary>
+    /// TagLib file abstraction for <see cref="StorageFile"/>s.
+    /// </summary>
     public class UwpStorageFileAbstraction : IFileAbstraction
     {
         private readonly StorageFile file;
