@@ -98,6 +98,7 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
 
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
+            CoreApplication.UnhandledErrorDetected += OnUnhandledErrorDetected;
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
@@ -358,6 +359,26 @@ namespace Rise.App
 
             ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
+
+        private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
+        {
+            // We can't recover in this case, so logging and throwing is
+            // all we can do
+            if (!e.UnhandledError.Handled)
+            {
+                try
+                {
+                    e.UnhandledError.Propagate();
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteToOutput();
+                    ShowExceptionToast(ex);
+
+                    throw;
+                }
+            }
         }
 
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
