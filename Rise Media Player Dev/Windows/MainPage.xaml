@@ -222,7 +222,6 @@
                 <selectors:NavViewItemTemplateSelector.AssetIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -232,7 +231,7 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                                <muxc:ImageIcon x:Phase="1" Source="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
@@ -241,7 +240,6 @@
                 <selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -251,7 +249,7 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                                <FontIcon x:Phase="1" Glyph="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
@@ -260,7 +258,6 @@
                 <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
-                            x:Phase="1"
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
                             Tag="{x:Bind Id}"
