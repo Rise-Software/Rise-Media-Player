@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Creează playlist-uri personalizate</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Întunecat</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Preseturi de design și așezare</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>Urmărește istoricul media și obiceiurile</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Luminos</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigație</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>La pornire</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Folosește setările sistemului</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*Setările modului compact nu vor lua efect până când setup-ul nu este finalizat.</value>

@@ -10,12 +10,6 @@ namespace Rise.Common
     public class ResourceLoaders
     {
         /// <summary>
-        /// Loads Appearance resources.
-        /// </summary>
-        public static ResourceLoader AppearanceLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("Appearance");
-
-        /// <summary>
         /// Loads MediaLibrary resources.
         /// </summary>
         public static ResourceLoader MediaLibraryLoader { get; } =

@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Make curated playlists</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Design and layout presets</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>Track media history and habits</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Light</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigation</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>On startup</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Use system setting</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*Compact mode changes won't take effect until after setup has completed.</value>

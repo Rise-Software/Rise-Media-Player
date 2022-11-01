@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Faz listas de reprodução selecionadas</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Escuro</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Predefinições de design e layout</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>Rastreia o histórico e os hábitos da media</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Claro</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navegação</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>No arranque</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Usa as definições do sistema</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*As alterações do modo compacto não terão efeito até que a instalação seja concluída.</value>

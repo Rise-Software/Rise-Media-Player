@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>क्यूरेटेड प्लेलिस्ट्स बनाएँ</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>डार्क</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>डिज़ाइन और लेआउट प्रीसेट्स</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>मीडिया इतिहास और आदतें ट्रैक करें</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>लाइट</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>नेविगेशन</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>शुरूआत होने पर</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>सिस्टम सेटिंग का उपयोग करें</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*संक्षिप्त मोड के बदलाव सेटअप के बाद तक प्रभावी नहीं होंगे</value>

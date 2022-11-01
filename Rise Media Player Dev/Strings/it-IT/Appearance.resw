@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Crea playlist personalizzate</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Scuro</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Preset per Design e Layout</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>Cronologia media</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Chiaro</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigazione</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>All'avvio</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Predefinito di Sistema</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*Le modifiche saranno apportata al riavvio dell'app.</value>

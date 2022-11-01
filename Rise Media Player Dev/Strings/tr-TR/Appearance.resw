@@ -144,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Seçilmiş çalma listeleri oluşturun</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Karanlık</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Tasarım ve düzen ön ayarları</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="History.Title" xml:space="preserve">
     <value>Medya geçmişini ve alışkanlıklarını izleme</value>
   </data>
-  <data name="Light" xml:space="preserve">
-    <value>Aydınlık</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigasyon</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>Karşılama</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Sistem ayarını kullan</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>*Kompakt mod değişiklikleri, kurulum tamamlanana kadar geçerli olmayacaktır.</value>
