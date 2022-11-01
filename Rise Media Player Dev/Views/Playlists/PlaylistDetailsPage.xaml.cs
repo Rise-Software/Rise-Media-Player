@@ -45,6 +45,7 @@ namespace Rise.App.Views
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
@@ -66,6 +67,11 @@ namespace Rise.App.Views
                 CreateViewModel("Title", SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
             }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            VideosViewModel.Dispose();
         }
     }
 

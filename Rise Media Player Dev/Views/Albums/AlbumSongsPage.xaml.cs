@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ namespace Rise.App.Views
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            AlbumsByArtist.Filter = null;
+            AlbumsByArtist.ClearFilter();
         }
     }
 

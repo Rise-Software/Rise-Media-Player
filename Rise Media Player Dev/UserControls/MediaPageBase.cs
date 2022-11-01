@@ -289,7 +289,7 @@ namespace Rise.App.UserControls
 
                 e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
 
-                MediaViewModel.Items.Filter = null;
+                MediaViewModel.Dispose();
             }
         }
 

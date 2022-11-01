@@ -115,7 +115,7 @@ namespace Rise.App.Views
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            AlbumsViewModel.Items.Filter = null;
+            AlbumsViewModel.Dispose();
         }
     }
 
