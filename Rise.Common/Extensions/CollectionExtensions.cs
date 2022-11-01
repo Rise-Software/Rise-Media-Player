@@ -2,11 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace Rise.Common.Extensions
 {
     public static class CollectionExtensions
     {
+        private static FieldInfo _acvFilterProp;
+        /// <summary>
+        /// Clears the filter of the provided <see cref="AdvancedCollectionView"/>
+        /// without forcing a refresh. Used to prevent a memory leak due to the filter
+        /// predicate staying in memory.
+        /// </summary>
+        public static void ClearFilter(this AdvancedCollectionView acv)
+        {
+            _acvFilterProp ??= typeof(AdvancedCollectionView).GetField("_filter", BindingFlags.NonPublic | BindingFlags.Instance);
+            _acvFilterProp.SetValue(acv, null);
+        }
+
         /// <summary>
         /// Move item at oldIndex to newIndex.
         /// </summary>
