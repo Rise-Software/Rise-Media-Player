@@ -135,6 +135,9 @@
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Decidir por mim</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Library" xml:space="preserve">
     <value>Biblioteca</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Claro</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
     <value>Todos os vídeos</value>
@@ -242,6 +248,9 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Género desconhecido</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Usa as definições do sistema</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Vídeos</value>

@@ -135,6 +135,9 @@
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Karanlık</value>
+  </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Benim adıma karar ver</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Library" xml:space="preserve">
     <value>Kütüphane</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Aydınlık</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
     <value>Tüm Videolar</value>
@@ -242,6 +248,9 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Bilinmeyen Tür</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Sistem ayarını kullan</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Videolar</value>

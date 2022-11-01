@@ -135,6 +135,9 @@
   <data name="Continue" xml:space="preserve">
     <value>Continuare</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Întunecat</value>
+  </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Decide pentru mine</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Library" xml:space="preserve">
     <value>Librărie</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Luminos</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
     <value>Toate videoclipurile</value>
@@ -242,6 +248,9 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Gen necunoscut</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Folosește setările sistemului</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Videoclipuri</value>
