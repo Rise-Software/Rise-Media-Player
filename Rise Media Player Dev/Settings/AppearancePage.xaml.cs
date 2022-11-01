@@ -1,7 +1,6 @@
-﻿using Rise.App.Dialogs;
-using Rise.App.ViewModels;
-using Rise.Common;
+﻿using Rise.App.ViewModels;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
 using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Core;
@@ -19,9 +18,9 @@ namespace Rise.App.Settings
 
         private readonly List<string> Themes = new()
         {
-            ResourceLoaders.AppearanceLoader.GetString("Light"),
-            ResourceLoaders.AppearanceLoader.GetString("Dark"),
-            ResourceLoaders.AppearanceLoader.GetString("System")
+            ResourceHelper.GetString("Light"),
+            ResourceHelper.GetString("Dark"),
+            ResourceHelper.GetString("UseSystemSetting")
         };
 
         private readonly List<string> ColorThemes = new()
