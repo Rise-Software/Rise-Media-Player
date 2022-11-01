@@ -171,8 +171,14 @@
   <data name="Music" xml:space="preserve">
     <value>Müzik</value>
   </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Çapraz geçiş yok</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Şimdi Değil (Uygulamadan çık)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} saniye</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Yalnızca yerel medya dosyalarını kullan</value>

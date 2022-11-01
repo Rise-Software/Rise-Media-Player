@@ -171,8 +171,14 @@
   <data name="Music" xml:space="preserve">
     <value>Muzică</value>
   </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Niciun crossfade</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Nu acum (Ieșire)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} secunde</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Utilizează numai fișiere locale</value>

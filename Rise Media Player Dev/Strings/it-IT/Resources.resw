@@ -171,8 +171,14 @@
   <data name="Music" xml:space="preserve">
     <value>Musica</value>
   </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Disattivato</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Non adesso (esci dall'app)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} secondi</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Usa solo file locali</value>

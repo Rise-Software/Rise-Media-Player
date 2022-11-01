@@ -171,8 +171,14 @@
   <data name="Music" xml:space="preserve">
     <value>संगीत</value>
   </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>क्रॉसफेड न करें</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>अभी नहीं(ऐप से बाहर निकलें)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} सेकंड</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>केवल लोकल मीडिया फाइलें इस्तेमाल करें</value>
