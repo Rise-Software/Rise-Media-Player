@@ -59,7 +59,7 @@
                         <FontIcon Glyph="&#xECC8;" />
                     </MenuFlyoutSubItem.Icon>
 
-                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand}">
+                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                         </MenuFlyoutItem.Icon>
@@ -164,8 +164,8 @@
                                 FontWeight="SemiBold"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run d:Text="0" Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run d:Text="songs" Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />
-                                ,<Run d:Text="0" Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run d:Text="videos" Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
+                                <Run d:Text="0" Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run d:Text="songs" Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />,
+                                <Run d:Text="0" Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run d:Text="videos" Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
                             </TextBlock>
                             <TextBlock
                                 x:Name="Description"
@@ -196,11 +196,6 @@
                                     Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedItem}"
                                     Icon="Shuffle" />
-                                <AppBarButton x:Uid="/Information/Add" IsEnabled="False">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xECC8;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
 
                                 <AppBarSeparator />
 
@@ -248,7 +243,7 @@
                                 <FontIcon Glyph="&#xECC8;" />
                             </MenuFlyoutSubItem.Icon>
 
-                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind PlaylistHelper.AddToPlaylistCommand}">
+                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddVideoToPlaylistCommand}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                 </MenuFlyoutItem.Icon>

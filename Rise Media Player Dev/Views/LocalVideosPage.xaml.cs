@@ -1,11 +1,9 @@
 ﻿using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -14,7 +12,6 @@ namespace Rise.App.Views
     public sealed partial class LocalVideosPage : MediaPageBase
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         public VideoViewModel SelectedItem
         {
@@ -23,24 +20,11 @@ namespace Rise.App.Views
         }
 
         public LocalVideosPage()
-            : base("Title", App.MViewModel.Videos)
+            : base("Title", App.MViewModel.Videos, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-        }
-    }
-
-    // Playlists
-    public sealed partial class LocalVideosPage
-    {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
-            else
-                return playlist.AddVideoAsync(SelectedItem);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
         }
     }
 

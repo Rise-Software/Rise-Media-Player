@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:selectors="using:Rise.App.TemplateSelectors"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
@@ -216,11 +217,10 @@
                 </Grid>
             </Flyout>
 
-            <local:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
-                <local:NavViewItemTemplateSelector.AssetIconTemplate>
+            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
+                <selectors:NavViewItemTemplateSelector.AssetIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -230,16 +230,15 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                                <muxc:ImageIcon x:Phase="1" Source="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.AssetIconTemplate>
+                </selectors:NavViewItemTemplateSelector.AssetIconTemplate>
 
-                <local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                <selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -249,32 +248,31 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                                <FontIcon x:Phase="1" Glyph="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                </selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
 
-                <local:NavViewItemTemplateSelector.HeaderTemplate>
+                <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
-                            x:Phase="1"
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}" />
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.HeaderTemplate>
+                </selectors:NavViewItemTemplateSelector.HeaderTemplate>
 
-                <local:NavViewItemTemplateSelector.SeparatorTemplate>
+                <selectors:NavViewItemTemplateSelector.SeparatorTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemSeparator
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}" />
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.SeparatorTemplate>
-            </local:NavViewItemTemplateSelector>
+                </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
+            </selectors:NavViewItemTemplateSelector>
 
             <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
                 <MenuFlyoutItem

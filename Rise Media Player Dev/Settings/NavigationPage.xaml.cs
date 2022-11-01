@@ -32,7 +32,6 @@ namespace Rise.App.Settings
             ResourceHelper.GetString("Songs"),
             ResourceHelper.GetString("Artists"),
             ResourceHelper.GetString("Albums"),
-            ResourceHelper.GetString("Genres"),
             ResourceHelper.GetString("LocalVideos"),
         };
 

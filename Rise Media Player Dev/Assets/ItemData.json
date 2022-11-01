@@ -53,15 +53,6 @@
       "ItemType": 1
     },
     {
-      "Id": "GenresPage",
-      "AccessKey": "G",
-      "HeaderGroup": "Music",
-      "Icon": "\uE138",
-      "Label": "Genres",
-      "IsVisible": true,
-      "ItemType": 1
-    },
-    {
       "Id": "VHeader",
       "HeaderGroup": "Videos",
       "Label": "Videos",

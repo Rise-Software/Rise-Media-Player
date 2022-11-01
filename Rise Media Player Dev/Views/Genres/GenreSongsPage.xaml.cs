@@ -1,11 +1,8 @@
-﻿using Rise.App.Helpers;
-using Rise.App.UserControls;
+﻿using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,7 +12,6 @@ namespace Rise.App.Views
     public sealed partial class GenreSongsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         private GenreViewModel SelectedGenre;
         public SongViewModel SelectedItem
@@ -25,15 +21,14 @@ namespace Rise.App.Views
         }
 
         public GenreSongsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
 
-            PlaylistHelper = new(MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -52,23 +47,6 @@ namespace Rise.App.Views
 
                 MediaViewModel.Items.Filter = s => ((SongViewModel)s).Genres.Contains(str);
             }
-        }
-    }
-
-    // Playlists
-    public sealed partial class GenreSongsPage
-    {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            var items = new List<SongViewModel>();
-
-            foreach (var itm in MediaViewModel.Items)
-                items.Add((SongViewModel)itm);
-
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(items);
-            else
-                return playlist.AddSongsAsync(items);
         }
     }
 

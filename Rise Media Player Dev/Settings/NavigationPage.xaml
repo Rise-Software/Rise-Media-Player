@@ -151,16 +151,6 @@
                         Icon="&#xE93C;">
                         <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowAlbums, Mode=TwoWay}" />
                     </uc:ExpanderControl>
-
-                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
-
-                    <uc:ExpanderControl
-                        Title="{markup:ResourceHelper Name=Genres}"
-                        Margin="0,-8,0,-16"
-                        ExpanderStyle="Transparent"
-                        Icon="&#xE138;">
-                        <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.ShowGenres, Mode=TwoWay}" />
-                    </uc:ExpanderControl>
                 </StackPanel>
             </uc:ExpanderControl>
 

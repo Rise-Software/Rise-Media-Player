@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
@@ -17,8 +16,6 @@ namespace Rise.App.Views
         private MainViewModel MViewModel => App.MViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
-        private readonly AddToPlaylistHelper PlaylistHelper;
-
         private AlbumViewModel SelectedItem
         {
             get => (AlbumViewModel)GetValue(SelectedItemProperty);
@@ -26,19 +23,19 @@ namespace Rise.App.Views
         }
 
         public AlbumsPage()
-            : base("Title", App.MViewModel.Albums)
+            : base("Title", App.MViewModel.Albums, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddToPlaylistCommand);
         }
     }
 
     // Playlists
     public sealed partial class AlbumsPage
     {
+        [RelayCommand]
         private Task AddToPlaylistAsync(PlaylistViewModel playlist)
         {
             var name = SelectedItem.Title;
