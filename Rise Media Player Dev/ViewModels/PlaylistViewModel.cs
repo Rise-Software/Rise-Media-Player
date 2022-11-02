@@ -61,8 +61,7 @@ namespace Rise.App.ViewModels
                         Artist = "UnknownArtistResource",
                         AlbumArtist = "UnknownArtistResource",
                         Location = baseUri.AbsoluteUri,
-                        Thumbnail = URIs.MusicThumb,
-                        IsOnline = true
+                        Thumbnail = URIs.MusicThumb
                     };
 
                     playlist.Songs.Add(song);
@@ -171,8 +170,7 @@ namespace Rise.App.ViewModels
                                     Artist = "UnknownArtistResource",
                                     AlbumArtist = "UnknownArtistResource",
                                     Location = line,
-                                    Thumbnail = URIs.MusicThumb,
-                                    IsOnline = true
+                                    Thumbnail = URIs.MusicThumb
                                 };
                         } catch (Exception e)
                         {
@@ -187,8 +185,7 @@ namespace Rise.App.ViewModels
                                 Artist = "UnknownArtistResource",
                                 AlbumArtist = "UnknownArtistResource",
                                 Location = line,
-                                Thumbnail = URIs.MusicThumb,
-                                IsOnline = true
+                                Thumbnail = URIs.MusicThumb
                             };
                         }
 

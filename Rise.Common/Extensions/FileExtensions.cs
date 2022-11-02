@@ -4,6 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
+using Windows.Storage.Streams;
 using Windows.System;
 
 namespace Rise.Common.Extensions
@@ -56,6 +62,82 @@ namespace Rise.Common.Extensions
             return relativeUri.IsAbsoluteUri
                 ? relativeUri
                 : new Uri(baseUri, relativeUri);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="MediaPlaybackItem"/> directly from a <see cref="StorageFile"/>
+        /// using its music properties.
+        /// </summary>
+        /// <param name="file">The file to get the playback item from.</param>
+        public static async Task<MediaPlaybackItem> GetSongAsync(this StorageFile file)
+        {
+            var source = MediaSource.CreateFromStorageFile(file);
+            var mediaProps = await file.Properties.GetMusicPropertiesAsync();
+
+            string title = mediaProps.Title.ReplaceIfNullOrWhiteSpace(file.DisplayName);
+            string artist = mediaProps.Artist.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
+
+            source.CustomProperties["Title"] = title;
+            source.CustomProperties["Artists"] = artist;
+            source.CustomProperties["Length"] = mediaProps.Duration;
+            source.CustomProperties["Location"] = file.Path;
+            source.CustomProperties["Year"] = mediaProps.Year;
+
+            var media = new MediaPlaybackItem(source);
+            var props = media.GetDisplayProperties();
+
+            props.Type = MediaPlaybackType.Music;
+            props.MusicProperties.Title = title;
+            props.MusicProperties.Artist = artist;
+            props.MusicProperties.AlbumTitle = mediaProps.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
+            props.MusicProperties.AlbumArtist = mediaProps.AlbumArtist.ReplaceIfNullOrWhiteSpace("UnknownArtistResource");
+            props.MusicProperties.TrackNumber = mediaProps.TrackNumber;
+
+            var thumb = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 500);
+            if (thumb?.Type == ThumbnailType.Image)
+                props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            else
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+
+            media.ApplyDisplayProperties(props);
+            return media;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="MediaPlaybackItem"/> directly from a <see cref="StorageFile"/>
+        /// using its video properties.
+        /// </summary>
+        /// <param name="file">The file to get the playback item from.</param>
+        public static async Task<MediaPlaybackItem> GetVideoAsync(this StorageFile file)
+        {
+            var source = MediaSource.CreateFromStorageFile(file);
+            var mediaProps = await file.Properties.GetVideoPropertiesAsync();
+
+            string title = mediaProps.Title.ReplaceIfNullOrWhiteSpace(file.DisplayName);
+            string directors = mediaProps.Directors.Count > 0
+                ? string.Join(";", mediaProps.Directors) : "UnknownArtistResource";
+
+            source.CustomProperties["Title"] = title;
+            source.CustomProperties["Artists"] = directors;
+            source.CustomProperties["Length"] = mediaProps.Duration;
+            source.CustomProperties["Location"] = file.Path;
+            source.CustomProperties["Year"] = mediaProps.Year;
+
+            var media = new MediaPlaybackItem(source);
+            var props = media.GetDisplayProperties();
+
+            props.Type = MediaPlaybackType.Video;
+            props.VideoProperties.Title = title;
+            props.VideoProperties.Subtitle = directors;
+
+            var thumb = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 500);
+            if (thumb?.Type == ThumbnailType.Image)
+                props.Thumbnail = RandomAccessStreamReference.CreateFromStream(thumb);
+            else
+                props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+
+            media.ApplyDisplayProperties(props);
+            return media;
         }
 
         /// <summary>

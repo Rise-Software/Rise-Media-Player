@@ -65,7 +65,7 @@
         Opacity=".075"
         Offset="0,4,0" />
 
-    <Thickness x:Key="ExpanderHeaderPadding">16,8,0,8</Thickness>
+    <Thickness x:Key="ExpanderHeaderPadding">16,12,0,12</Thickness>
     <Style TargetType="muxc:Expander">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Top" />

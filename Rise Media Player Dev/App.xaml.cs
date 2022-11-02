@@ -12,16 +12,16 @@ using Rise.Common.Helpers;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
-using Rise.Models;
 using Rise.NewRepository;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using Windows.Storage.AccessCache;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -102,6 +102,7 @@ namespace Rise.App
             UnhandledException += OnUnhandledException;
 
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
+            CoreApplication.UnhandledErrorDetected += OnUnhandledErrorDetected;
             TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         }
 
@@ -124,7 +125,8 @@ namespace Rise.App
                     {
                         if (e is ToastNotificationActivatedEventArgs toastActivationArgs)
                         {
-                            QueryString args = QueryString.Parse(toastActivationArgs.Argument);
+                            await ActivateAsync(e.PreviousExecutionState, false);
+                            var args = QueryString.Parse(toastActivationArgs.Argument);
 
                             // If the exception name equals to null,
                             // then the toast likely isn't popping up
@@ -146,20 +148,8 @@ namespace Rise.App
         {
             await ActivateAsync(args.PreviousExecutionState, false);
 
-            _ = await typeof(NowPlayingPage).
-                ShowInApplicationViewAsync(null, 320, 300);
-
-            StorageApplicationPermissions.FutureAccessList.AddOrReplace("CurrentlyPlayingFile", args.Files[0] as StorageFile);
-            try
-            {
-                var song = await Song.GetFromFileAsync(args.Files[0] as StorageFile);
-                await MPViewModel.PlaySingleItemAsync(new SongViewModel(song));
-            }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-            StorageApplicationPermissions.FutureAccessList.Remove("CurrentlyPlayingFile");
+            var files = args.Files.OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
         }
 
         /// <summary>
@@ -177,6 +167,9 @@ namespace Rise.App
 
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.AllowDrop = true;
+                rootFrame.DragOver += OnDragOver;
+                rootFrame.Drop += OnDrop;
 
                 SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
@@ -199,6 +192,26 @@ namespace Rise.App
             }
 
             return rootFrame;
+        }
+
+        private async void OnDrop(object sender, DragEventArgs e)
+        {
+            if (!e.DataView.Contains(StandardDataFormats.StorageItems))
+                return;
+
+            var files = (await e.DataView.GetStorageItemsAsync()).OfType<StorageFile>();
+            await MPViewModel.PlayFilesAsync(files);
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Link;
+
+            if (e.DragUIOverride != null)
+            {
+                e.DragUIOverride.Caption = "Play media";
+                e.DragUIOverride.IsContentVisible = true;
+            }
         }
 
         /// <summary>
@@ -321,21 +334,10 @@ namespace Rise.App
         }
 
         private static async void OnLibraryDefinitionChanged(StorageLibrary sender, object args)
-        {
-            await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-        }
+            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
 
         private static async void IndexingTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
-            }
-            catch (Exception ex)
-            {
-                ex.WriteToOutput();
-            }
-        }
+            => await Task.Run(async () => await MViewModel.StartFullCrawlAsync());
     }
 
     // Error handling
@@ -361,6 +363,26 @@ namespace Rise.App
 
             ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
+
+        private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
+        {
+            // We can't recover in this case, so logging and throwing is
+            // all we can do
+            if (!e.UnhandledError.Handled)
+            {
+                try
+                {
+                    e.UnhandledError.Propagate();
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteToOutput();
+                    ShowExceptionToast(ex);
+
+                    throw;
+                }
+            }
         }
 
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)

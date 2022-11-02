@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add.Content" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
+  <data name="AddAccount.Description" xml:space="preserve">
+    <value>Login to your services securely</value>
+  </data>
+  <data name="AddAccount.Title" xml:space="preserve">
+    <value>Add an account</value>
+  </data>
+  <data name="AddFolders.Label" xml:space="preserve">
+    <value>Add media folders</value>
+  </data>
+  <data name="AddFolders.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add media folders</value>
+  </data>
+  <data name="AdditionalH.Text" xml:space="preserve">
+    <value>Additional settings</value>
+  </data>
+  <data name="AddLocation.Title" xml:space="preserve">
+    <value>Scan when you add a new media location</value>
+  </data>
+  <data name="Automatic.Description" xml:space="preserve">
+    <value>Enable for periodic scanning and smart event scan.</value>
+  </data>
+  <data name="Automatic.Title" xml:space="preserve">
+    <value>Automatic scanning</value>
+  </data>
+  <data name="AutoScanMedia.Description" xml:space="preserve">
+    <value>Scan per a specified period of time when the app is open.</value>
+  </data>
+  <data name="AutoScanMedia.Title" xml:space="preserve">
+    <value>Periodic scanning</value>
+  </data>
+  <data name="ChooseFolders.Description" xml:space="preserve">
+    <value>Choose where we look for your music files.</value>
+  </data>
+  <data name="ChooseFolders.Title" xml:space="preserve">
+    <value>Add/remove music library folders</value>
+  </data>
+  <data name="Deletion.Title" xml:space="preserve">
+    <value>When removing local media:</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Delete from device</value>
+  </data>
+  <data name="DeviceConnect.Title" xml:space="preserve">
+    <value>Scan when a removable device or drive is connected</value>
+  </data>
+  <data name="Devices.Text" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DisableLocal.Title" xml:space="preserve">
+    <value>Disable all local files and devices</value>
+  </data>
+  <data name="DisableOnline.Title" xml:space="preserve">
+    <value>Disable all online services and networks</value>
+  </data>
+  <data name="Done.Content" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="EventsScan.Description" xml:space="preserve">
+    <value>Scan for new media after an event or events take place.</value>
+  </data>
+  <data name="EventsScan.Title" xml:space="preserve">
+    <value>Smart event scan</value>
+  </data>
+  <data name="FilesAdd.Title" xml:space="preserve">
+    <value>Scan when adding files to your media sources</value>
+  </data>
+  <data name="FolderInfo.Text" xml:space="preserve">
+    <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Media sources</value>
+  </data>
+  <data name="LastFM.Text" xml:space="preserve">
+    <value>Last.fm</value>
+  </data>
+  <data name="ManageFolders.Description" xml:space="preserve">
+    <value>Videos, music and more</value>
+  </data>
+  <data name="ManageFolders.Title" xml:space="preserve">
+    <value>Manage local media folders</value>
+  </data>
+  <data name="ManualScan.Description" xml:space="preserve">
+    <value>Scans the folders you've already added for music and videos to add to your library.</value>
+  </data>
+  <data name="ManualScan.Title" xml:space="preserve">
+    <value>Manual scan</value>
+  </data>
+  <data name="OnlineH.Text" xml:space="preserve">
+    <value>Online media &amp; services</value>
+  </data>
+  <data name="OnlineServices.Text" xml:space="preserve">
+    <value>Online services</value>
+  </data>
+  <data name="OnlyApp" xml:space="preserve">
+    <value>Only remove from app</value>
+  </data>
+  <data name="Open.Title" xml:space="preserve">
+    <value>Scan when the app is opened</value>
+  </data>
+  <data name="OwnH.Text" xml:space="preserve">
+    <value>Local media &amp; devices</value>
+  </data>
+  <data name="Ripping.Description" xml:space="preserve">
+    <value>Choose what you want to happen when you rip a disc.</value>
+  </data>
+  <data name="Ripping.Title" xml:space="preserve">
+    <value>Disc ripping options</value>
+  </data>
+  <data name="SeparateLocal.Description" xml:space="preserve">
+    <value>Create a seperate sidebar entry for your local music, rather than merging online and local music together in one place.</value>
+  </data>
+  <data name="SeparateLocal.Title" xml:space="preserve">
+    <value>Split local &amp; online library in sidebar</value>
+  </data>
+  <data name="ShufflePlaylist.Text" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="Streaming.Text" xml:space="preserve">
+    <value>Streaming Service</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VChooseFolders.Description" xml:space="preserve">
+    <value>Choose where we look for your video files.</value>
+  </data>
+  <data name="VChooseFolders.Title" xml:space="preserve">
+    <value>Add/remove video library folders</value>
+  </data>
+</root>

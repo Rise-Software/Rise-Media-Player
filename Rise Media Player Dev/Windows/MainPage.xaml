@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.UI.Xaml.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:selectors="using:Rise.App.TemplateSelectors"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
@@ -49,8 +50,11 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <conv:BooleanToVisibility x:Key="BoolToVis" />
-            <conv:ResourceToString x:Key="StrToRes" />
+            <conv:UintToStringConverter x:Key="UIntToStr" />
+            <conv:StreamToBitmap x:Key="StrmToBmp" />
 
+            <conv:ResourceToString x:Key="StrToRes" />
+            <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
@@ -81,12 +85,8 @@
                     <Border
                         Grid.RowSpan="4"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -95,7 +95,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -105,7 +105,7 @@
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         MaxLines="1"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Album, Converter={StaticResource ResFallback}, ConverterParameter=UnknownAlbumResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -113,7 +113,7 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <Grid
@@ -187,12 +187,8 @@
                     <Border
                         Grid.RowSpan="3"
                         CornerRadius="8"
-                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}">
-                        <Image Stretch="Uniform">
-                            <Image.Source>
-                                <BitmapImage DecodePixelHeight="144" UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                            </Image.Source>
-                        </Image>
+                        ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}">
+                        <Image Source="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
                     </Border>
 
                     <TextBlock
@@ -200,7 +196,7 @@
                         FontSize="18"
                         FontWeight="Bold"
                         MaxLines="2"
-                        Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="Wrap" />
                     <TextBlock
@@ -209,7 +205,7 @@
                         FontSize="16"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                         TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
@@ -217,16 +213,15 @@
                         Grid.Column="1"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="{x:Bind MPViewModel.PlayingItem.ExtraInfo}"
+                        Text="{x:Bind MPViewModel.PlayingItemProperties.Year, Converter={StaticResource UIntToStr}}"
                         TextTrimming="CharacterEllipsis" />
                 </Grid>
             </Flyout>
 
-            <local:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
-                <local:NavViewItemTemplateSelector.AssetIconTemplate>
+            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
+                <selectors:NavViewItemTemplateSelector.AssetIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -236,16 +231,15 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="2" Source="{x:Bind Icon}" />
+                                <muxc:ImageIcon x:Phase="1" Source="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.AssetIconTemplate>
+                </selectors:NavViewItemTemplateSelector.AssetIconTemplate>
 
-                <local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                <selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            x:Phase="1"
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
@@ -255,32 +249,31 @@
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}">
                             <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="2" Glyph="{x:Bind Icon}" />
+                                <FontIcon x:Phase="1" Glyph="{x:Bind Icon}" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.GlyphIconTemplate>
+                </selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
 
-                <local:NavViewItemTemplateSelector.HeaderTemplate>
+                <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
-                            x:Phase="1"
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}" />
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.HeaderTemplate>
+                </selectors:NavViewItemTemplateSelector.HeaderTemplate>
 
-                <local:NavViewItemTemplateSelector.SeparatorTemplate>
+                <selectors:NavViewItemTemplateSelector.SeparatorTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemSeparator
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible}" />
                     </DataTemplate>
-                </local:NavViewItemTemplateSelector.SeparatorTemplate>
-            </local:NavViewItemTemplateSelector>
+                </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
+            </selectors:NavViewItemTemplateSelector>
 
             <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
                 <MenuFlyoutItem
@@ -657,14 +650,9 @@
                                             Width="80"
                                             HorizontalAlignment="Left"
                                             CornerRadius="4">
-                                            <Image>
-                                                <Image.Source>
-                                                    <BitmapImage
-                                                        DecodePixelHeight="80"
-                                                        DecodePixelWidth="80"
-                                                        UriSource="{x:Bind MPViewModel.PlayingItem.Thumbnail}" />
-                                                </Image.Source>
-                                            </Image>
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                                            </Border.Background>
 
                                             <Border.RenderTransform>
                                                 <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
@@ -682,17 +670,17 @@
                                                 FontSize="16"
                                                 FontWeight="SemiBold"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItem.Title}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Title}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
                                             <TextBlock
                                                 x:Name="DisplaySubtitle"
                                                 MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItem.Subtitle}"
+                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
                                                 TextTrimming="CharacterEllipsis"
                                                 TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItem.Subtitle}" />
+                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
                                             <StackPanel.RenderTransform>
                                                 <TranslateTransform x:Name="TextPanelTranslate" />
                                             </StackPanel.RenderTransform>

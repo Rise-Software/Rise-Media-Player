@@ -1,6 +1,5 @@
 ﻿using Rise.App.Dialogs;
-using Rise.Common.Enums;
-using Rise.Common.Extensions;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,8 +10,6 @@ namespace Rise.App.Views
     /// </summary>
     public sealed partial class SetupPage : Page
     {
-        private readonly SetupDialog Dialog = new SetupDialog();
-
         public SetupPage()
         {
             InitializeComponent();
@@ -20,6 +17,17 @@ namespace Rise.App.Views
         }
 
         private async void SetupButton_Click(object sender, RoutedEventArgs e)
-            => _ = await Dialog.ShowAsync(ExistingDialogOptions.CloseExisting);
+        {
+            var dialog = new ContentDialog
+            {
+                Content = new SetupDialogContent(),
+                FullSizeDesired = true,
+            };
+
+            dialog.Resources["ContentDialogMaxWidth"] = (double)762;
+            dialog.Resources["ContentDialogMaxHeight"] = (double)490;
+
+            _ = await dialog.ShowAsync();
+        }
     }
 }

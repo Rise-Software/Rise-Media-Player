@@ -87,7 +87,9 @@ namespace Rise.App.Converters
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            TimeSpan span = (TimeSpan)value;
+            var span = value is TimeSpan time ?
+                time : TimeSpan.Zero;
+
             if (parameter == null)
             {
                 if (span.TotalHours >= 1 && span.TotalHours <= 9)

@@ -17,7 +17,7 @@
         <conv:ResourceToString x:Key="ResToStr" />
 
         <CollectionViewSource
-            x:Key="MatchingItemsSource"
+            x:Name="MatchingItemsSource"
             IsSourceGrouped="True"
             Source="{x:Bind GroupedItems}" />
 
@@ -155,7 +155,7 @@
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemTemplateSelector="{StaticResource ResultTemplateSelector}"
-            ItemsSource="{Binding Source={StaticResource MatchingItemsSource}}"
+            ItemsSource="{x:Bind MatchingItemsSource.View}"
             SelectionMode="Single">
             <GridView.GroupStyle>
                 <GroupStyle>

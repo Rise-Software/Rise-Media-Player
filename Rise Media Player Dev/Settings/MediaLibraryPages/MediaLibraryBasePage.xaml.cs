@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -9,34 +10,28 @@ namespace Rise.App.Settings
     /// </summary>
     public sealed partial class MediaLibraryBasePage : Page
     {
-        public static MediaLibraryBasePage Current;
         public MediaLibraryBasePage()
         {
             this.InitializeComponent();
-            Current = this;
+
+            _ = MediaFrame.Navigate(typeof(MediaLibraryPage));
         }
 
-        private void MediaNav_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void MediaNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            var selectedItem = args.InvokedItemContainer;
             string selectedItemTag = selectedItem.Tag as string;
 
-            switch (selectedItemTag)
+            Type page = selectedItemTag switch
             {
-                case "Local":
-                    MediaFrame.Navigate(typeof(MediaLibraryPage));
-                    break;
-                case "Services":
-                    MediaFrame.Navigate(typeof(OnlineServicesPage));
-                    break;
-                case "Scanning":
-                    MediaFrame.Navigate(typeof(ScanningPage));
-                    break;
-                default:
-                    MediaFrame.Navigate(typeof(ComingSoonPage));
-                    break;
+                "Local" => typeof(MediaLibraryPage),
+                "Services" => typeof(OnlineServicesPage),
+                "Scanning" => typeof(ScanningPage),
+                _ => typeof(ComingSoonPage),
+            };
 
-            }
+            if (MediaFrame.CurrentSourcePageType != page)
+                _ = MediaFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using Rise.Common.Extensions.Markup;
+﻿using Rise.Common.Extensions.Markup;
+using System;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
 
@@ -13,18 +13,19 @@ namespace Rise.App.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string resource = value.ToString();
-            if (parameter is string param)
+            if (parameter != null)
             {
-                if (param != _loader)
+                string loader = parameter.ToString();
+                if (loader != _loader)
                 {
-                    _loader = param;
-                    _currLoader = ResourceLoader.GetForViewIndependentUse(param);
+                    _loader = loader;
+                    _currLoader = ResourceLoader.GetForViewIndependentUse(loader);
                 }
 
                 return _currLoader.GetString(resource);
             }
 
-            throw new ArgumentException("For resources in the default location, use the ResourceHelper markup extension.", nameof(parameter));
+            return ResourceHelper.GetString(resource);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

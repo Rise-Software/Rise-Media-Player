@@ -63,7 +63,6 @@
 					<!-- File associations for audio files -->
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="mp3">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.mp3</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -71,7 +70,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="m4a">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.m4a</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -79,7 +77,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="wma">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.wma</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -87,7 +84,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="wav">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.wav</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -95,7 +91,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="flac">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.flac</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -103,7 +98,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="ogg">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.ogg</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -111,7 +105,6 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="aac">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.aac</uap:FileType>
 							</uap:SupportedFileTypes>
@@ -119,9 +112,51 @@
 					</uap:Extension>
 					<uap:Extension Category="windows.fileTypeAssociation">
 						<uap:FileTypeAssociation Name="aiff">
-							<uap:Logo>Assets\App\Titlebar.png</uap:Logo>
 							<uap:SupportedFileTypes>
 								<uap:FileType>.aiff</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<!-- File associations for video files -->
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mp4">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mp4</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="avi">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.avi</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mov">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mov</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="avchd">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.avchd</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="mkv">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.mkv</uap:FileType>
+							</uap:SupportedFileTypes>
+						</uap:FileTypeAssociation>
+					</uap:Extension>
+					<uap:Extension Category="windows.fileTypeAssociation">
+						<uap:FileTypeAssociation Name="flv">
+							<uap:SupportedFileTypes>
+								<uap:FileType>.flv</uap:FileType>
 							</uap:SupportedFileTypes>
 						</uap:FileTypeAssociation>
 					</uap:Extension>
@@ -131,10 +166,9 @@
 
 	<Capabilities>
 		<Capability Name="internetClient" />
-		<uap3:Capability Name="backgroundMediaPlayback"/>
-		<uap:Capability Name="videosLibrary"/>
-		<rescap:Capability Name="confirmAppClose"/>
+		<uap3:Capability Name="backgroundMediaPlayback" />
+		<uap:Capability Name="videosLibrary" />
 		<uap:Capability Name="removableStorage" />
-		<uap:Capability Name="musicLibrary"/>
+		<uap:Capability Name="musicLibrary" />
 	</Capabilities>
 </Package>

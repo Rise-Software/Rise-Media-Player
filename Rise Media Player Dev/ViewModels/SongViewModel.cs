@@ -1,5 +1,9 @@
-﻿using Newtonsoft.Json;
-using Rise.Common;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Newtonsoft.Json;
+using Rise.App.Helpers;
+using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
+using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
@@ -7,11 +11,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Media;
-using Windows.Media.Core;
+using TagLib;
 using Windows.Media.Playback;
 using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -32,11 +34,6 @@ namespace Rise.App.ViewModels
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Checks if the song is played from an online stream, playlist or song.
-        /// </summary>
-        public bool IsOnline { get; set; }
-
         /// <summary>
         /// Gets or sets the song title.
         /// </summary>
@@ -61,10 +58,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Artist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.Artist;
             }
             set
@@ -122,10 +116,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Album == "UnknownAlbumResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownAlbumResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownAlbumResource");
                 return Model.Album;
             }
             set
@@ -146,10 +137,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.AlbumArtist == "UnknownArtistResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownArtistResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownArtistResource");
                 return Model.AlbumArtist;
             }
             set
@@ -170,10 +158,7 @@ namespace Rise.App.ViewModels
             get
             {
                 if (Model.Genres == "UnknownGenreResource")
-                {
-                    return ResourceLoaders.MediaDataLoader.GetString("UnknownGenreResource");
-                }
-
+                    return ResourceHelper.GetString("UnknownGenreResource");
                 return Model.Genres;
             }
             set
@@ -238,7 +223,7 @@ namespace Rise.App.ViewModels
         /// Gets the song filename.
         /// </summary>
         [JsonIgnore]
-        public string Filename => Path.GetFileName(Location);
+        public string FileName => Path.GetFileName(Location);
 
         /// <summary>
         /// Gets the song extension.
@@ -274,6 +259,52 @@ namespace Rise.App.ViewModels
                 {
                     Model.Thumbnail = value;
                     OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fetches lyrics for the song.
+        /// </summary>
+        /// <param name="fromOnlineService">Specifies whether to fetch lyrics from Musixmatch or from file metadata.</param>
+        /// <returns>A string with the song lyrics.</returns>
+        public async Task<string> GetLyricsAsync(bool fromOnlineService = true)
+        {
+            if (fromOnlineService)
+            {
+                try
+                {
+                    var lyrics = await MusixmatchHelper.GetLyricsAsync(Title, Artist);
+
+                    if (lyrics == null)
+                        return null;
+
+                    var lyricsString = lyrics.Message.Body.Lyrics.LyricsBody;
+
+                    lyricsString += lyrics;
+                    lyricsString += "\n\n";
+                    lyricsString += lyrics.Message.Body.Lyrics.LyricsCopyright;
+                    lyricsString += "\nPowered by Musixmatch.";
+
+                    return lyricsString;
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return null;
+                }
+            } else
+            {
+                try
+                {
+                    var file = await StorageFile.GetFileFromPathAsync(Location);
+                    var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                    return (await Task.Run(() => taglibFile.Tag)).Lyrics;
+                } catch (Exception e)
+                {
+                    e.WriteToOutput();
+                    return null;
                 }
             }
         }
@@ -336,6 +367,32 @@ namespace Rise.App.ViewModels
         {
             Model = await NewRepository.Repository.GetItemAsync<Song>(Model.Id);
         }
+
+        /// <summary>
+        /// Edits lyrics of a song in the file metadata.
+        /// </summary>
+        /// <param name="lyrics">The lyrics to save.</param>
+        /// <returns>A task which represents the operation.</returns>
+        public async Task<bool> SaveLyricsAsync(string lyrics)
+        {
+            try
+            {
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
+
+                var tag = await Task.Run(() => taglibFile.Tag);
+
+                tag.Lyrics = lyrics;
+                await Task.Run(() => taglibFile.Save());
+
+                return true;
+            } catch (Exception e)
+            {
+                e.WriteToOutput();
+            }
+
+            return false;
+        }
         #endregion
 
         #region Playback
@@ -345,56 +402,15 @@ namespace Rise.App.ViewModels
         /// <returns>A <see cref="MediaPlaybackItem"/> based on the song.</returns>
         public async Task<MediaPlaybackItem> AsPlaybackItemAsync()
         {
-            try
+            var uri = new Uri(Location);
+            if (uri.IsFile)
             {
-                MediaSource source;
-                var uri = new Uri(Location);
-
-                if (uri.IsFile)
-                {
-                    StorageFile file = await StorageFile.GetFileFromPathAsync(Location);
-                    source = MediaSource.CreateFromStorageFile(file);
-                }
-                else
-                {
-                    source = MediaSource.CreateFromUri(uri);
-                }
-
-                MediaPlaybackItem media = new(source);
-                MediaItemDisplayProperties props = media.GetDisplayProperties();
-
-                props.Type = MediaPlaybackType.Music;
-                props.MusicProperties.Title = Title;
-                props.MusicProperties.Artist = Artist;
-                props.MusicProperties.AlbumTitle = Album;
-                props.MusicProperties.AlbumArtist = AlbumArtist;
-                props.MusicProperties.TrackNumber = Track;
-
-
-                if (Thumbnail != null)
-                {
-                    props.Thumbnail = RandomAccessStreamReference.
-                        CreateFromUri(new Uri(Thumbnail));
-                }
-
-                media.ApplyDisplayProperties(props);
-                return media;
+                var file = await StorageFile.GetFileFromPathAsync(Location);
+                return await file.GetSongAsync();
             }
-            catch
-            {
 
-            }
-            return null;
+            return WebHelpers.GetSongFromUri(uri);
         }
         #endregion
-    }
-
-    // IMediaItem implementation
-    public partial class SongViewModel : IMediaItem
-    {
-        string IMediaItem.Subtitle => Artist;
-        string IMediaItem.ExtraInfo => Album;
-
-        MediaPlaybackType IMediaItem.ItemType => MediaPlaybackType.Music;
     }
 }

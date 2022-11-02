@@ -1,26 +1,28 @@
-﻿using System;
-using Rise.Common.Interfaces;
-using Rise.Data.ViewModels;
+﻿using Rise.Data.ViewModels;
+using System;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Rise.App.UserControls
 {
     /// <summary>
     /// A flyout that shows queued media. Supports displaying queues with
-    /// <see cref="IMediaItem"/>.
+    /// <see cref="MediaPlaybackItem"/>.
     /// </summary>
     public sealed partial class DefaultQueueFlyout : UserControl
     {
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private MediaPlaybackList PlaybackList => App.MPViewModel.PlaybackList;
 
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(nameof(SelectedItem), typeof(IMediaItem),
+            DependencyProperty.Register(nameof(SelectedItem), typeof(MediaPlaybackItem),
                 typeof(DefaultQueueFlyout), new PropertyMetadata(null));
 
-        public IMediaItem SelectedItem
+        public MediaPlaybackItem SelectedItem
         {
-            get => (IMediaItem)GetValue(SelectedItemProperty);
+            get => (MediaPlaybackItem)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
 
@@ -41,62 +43,60 @@ namespace Rise.App.UserControls
             if (cont == null)
                 fl.Hide();
             else
-                SelectedItem = (IMediaItem)cont;
+                SelectedItem = (MediaPlaybackItem)cont;
         }
 
         private void PlayItem_Click(object sender, RoutedEventArgs e)
         {
-            if (MPViewModel.PlayingItem == SelectedItem)
+            if (PlaybackList.CurrentItem == SelectedItem)
             {
                 MPViewModel.Player.PlaybackSession.Position = new TimeSpan(0);
             }
             else
             {
                 int index = MainList.SelectedIndex;
-                MPViewModel.PlaybackList.MoveTo((uint)index);
+                PlaybackList.MoveTo((uint)index);
             }
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            int index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
-
-            if (MPViewModel.PlayingItem == SelectedItem)
-                MPViewModel.PlaybackList.MoveNext();
+            int index = PlaybackList.Items.IndexOf(SelectedItem);
+            if (PlaybackList.CurrentItem == SelectedItem)
+                PlaybackList.MoveNext();
 
             if (index >= 0)
+                PlaybackList.Items.RemoveAt(index);
+        }
+
+        private void MoveItemUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(-1);
+        }
+
+        private void MoveItemDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(1);
+        }
+
+        private void MoveItem(int offset)
+        {
+            int index = PlaybackList.Items.IndexOf(SelectedItem);
+            if (index + offset < PlaybackList.Items.Count &&
+                index + offset >= 0)
             {
-                MPViewModel.PlaybackList.Items.RemoveAt(index);
-                MPViewModel.QueuedItems.RemoveAt(index);
+                PlaybackList.Items.RemoveAt(index);
+                PlaybackList.Items.Insert(index + offset, SelectedItem);
             }
         }
 
-        private async void MoveItemUp_Click(object sender, RoutedEventArgs e)
+        private void MainList_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if ((MPViewModel.QueuedItems.IndexOf(SelectedItem) - 1) >= 0)
-            {
-                var index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
+            var itm = (e.OriginalSource as FrameworkElement).DataContext as MediaPlaybackItem;
 
-                MPViewModel.QueuedItems.Remove(SelectedItem);
-                MPViewModel.QueuedItems.Insert(index - 1, SelectedItem);
-
-                MPViewModel.PlaybackList.Items.RemoveAt(index);
-                MPViewModel.PlaybackList.Items.Insert(index - 1, await SelectedItem.AsPlaybackItemAsync());
-            }
-        }
-
-        private async void MoveItemDown_Click(object sender, RoutedEventArgs e)
-        {
-            if ((MPViewModel.QueuedItems.IndexOf(SelectedItem) + 1) < MPViewModel.QueuedItems.Count)
-            {
-                var index = MPViewModel.QueuedItems.IndexOf(SelectedItem);
-
-                MPViewModel.QueuedItems.Remove(SelectedItem);
-                MPViewModel.QueuedItems.Insert(index + 1, SelectedItem);
-
-                MPViewModel.PlaybackList.Items.RemoveAt(index);
-                MPViewModel.PlaybackList.Items.Insert(index + 1, await SelectedItem.AsPlaybackItemAsync());
-            }
+            int index = PlaybackList.Items.IndexOf(itm);
+            if (index >= 0)
+                PlaybackList.MoveTo((uint)index);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rise.Common.Extensions;
+using Rise.Common.Helpers;
+using System;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -16,76 +18,58 @@ namespace Rise.App.Settings
 
         public MediaSourcesListsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is string param)
-            {
-                this._currTag = param;
-                if (param == "Music")
-                {
-                    this.MusicList.Visibility = Visibility.Visible;
-                    this.VideoList.Visibility = Visibility.Collapsed;
-                }
-                else if (param == "Videos")
-                {
-                    this.MusicList.Visibility = Visibility.Collapsed;
-                    this.VideoList.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    this.MusicList.Visibility = Visibility.Visible;
-                    this.VideoList.Visibility = Visibility.Visible;
-                }
-            }
+                _currTag = param;
+
+            VisualStateManager.GoToState(this, $"{_currTag}State", false);
         }
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this._currTag == "Music")
-            {
-                _ = await this.MusicLibrary.RequestAddFolderAsync();
-            }
-            else if (this._currTag == "Videos")
-            {
-                _ = await this.VideoLibrary.RequestAddFolderAsync();
-            }
+            if (_currTag == "Music")
+                _ = await MusicLibrary.RequestAddFolderAsync();
+            else if (_currTag == "Videos")
+                _ = await VideoLibrary.RequestAddFolderAsync();
             else
-            {
-                this.AddFlyout.ShowAt(AddButton);
-            }
+                AddFlyout.ShowAt(AddButton);
         }
 
         private async void AddMusicFolder_Click(object sender, RoutedEventArgs e)
-            => _ = await this.MusicLibrary.RequestAddFolderAsync();
+            => _ = await MusicLibrary.RequestAddFolderAsync();
 
         private async void AddVideoFolder_Click(object sender, RoutedEventArgs e)
-            => _ = await this.VideoLibrary.RequestAddFolderAsync();
+            => _ = await VideoLibrary.RequestAddFolderAsync();
 
         private async void RemoveMusicFolder_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is StorageFolder folder)
-            {
-                _ = await this.MusicLibrary.RequestRemoveFolderAsync(folder);
-            }
+            var elm = sender as FrameworkElement;
+            var content = elm.FindVisualParent<CompositionControl>();
+
+            if (content.DataContext is StorageFolder folder)
+                _ = await MusicLibrary.RequestRemoveFolderAsync(folder);
         }
 
         private async void RemoveVideoFolder_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is StorageFolder folder)
-            {
-                _ = await this.VideoLibrary.RequestRemoveFolderAsync(folder);
-            }
+            var elm = sender as FrameworkElement;
+            var content = elm.FindVisualParent<CompositionControl>();
+
+            if (content.DataContext is StorageFolder folder)
+                _ = await VideoLibrary.RequestRemoveFolderAsync(folder);
         }
 
         private async void OpenFolder_Click(object sender, RoutedEventArgs e)
         {
-            if ((e.OriginalSource as FrameworkElement).DataContext is StorageFolder folder)
-            {
+            var elm = sender as FrameworkElement;
+            var content = elm.FindVisualParent<CompositionControl>();
+
+            if (content.DataContext is StorageFolder folder)
                 _ = await Launcher.LaunchFolderAsync(folder);
-            }
         }
     }
 }

@@ -8,104 +8,106 @@
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Vertical" Spacing="4">
-        <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
-            <RelativePanel Margin="0,4,0,0">
-                <FontIcon
-                    x:Name="WindowsLogo"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons"
-                    FontSize="56"
-                    Glyph="&#xE336;" />
-                <StackPanel Margin="8,0,0,0" RelativePanel.RightOf="WindowsLogo">
-                    <TextBlock
-                        x:Name="WinVer"
-                        Padding="8,0,0,0"
-                        d:Text="You are running Windows 11!"
-                        FontSize="22"
-                        FontWeight="SemiBold"
-                        RelativePanel.RightOf="WindowsLogo"
-                        TextWrapping="WrapWholeWords" />
-                    <TextBlock
-                        x:Name="InfoString"
-                        Padding="8,0,0,0"
-                        d:Text="All settings should be available."
-                        FontSize="17"
-                        FontWeight="SemiBold"
-                        Opacity="0.6"
-                        RelativePanel.Below="WinVer"
-                        RelativePanel.RightOf="WindowsLogo"
-                        TextWrapping="WrapWholeWords" />
+    <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="4">
+            <Border Margin="0,4,0,0" Style="{StaticResource SettingsCard}">
+                <RelativePanel Margin="0,4,0,0">
+                    <FontIcon
+                        x:Name="WindowsLogo"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons"
+                        FontSize="56"
+                        Glyph="&#xE336;" />
+                    <StackPanel Margin="8,0,0,0" RelativePanel.RightOf="WindowsLogo">
+                        <TextBlock
+                            x:Name="WinVer"
+                            Padding="8,0,0,0"
+                            d:Text="You are running Windows 11!"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            RelativePanel.RightOf="WindowsLogo"
+                            TextWrapping="WrapWholeWords" />
+                        <TextBlock
+                            x:Name="InfoString"
+                            Padding="8,0,0,0"
+                            d:Text="All settings should be available."
+                            FontSize="17"
+                            FontWeight="SemiBold"
+                            Opacity="0.6"
+                            RelativePanel.Below="WinVer"
+                            RelativePanel.RightOf="WindowsLogo"
+                            TextWrapping="WrapWholeWords" />
+                        <HyperlinkButton
+                            x:Name="Update"
+                            Margin="-4,8,0,0"
+                            Click="Update_Click"
+                            Content="Windows Update" />
+                    </StackPanel>
+                </RelativePanel>
+            </Border>
+
+            <TextBlock
+                x:Uid="/Playback/GeneralH"
+                Margin="0,0,0,-4"
+                Style="{StaticResource SubheaderTextBlockStyle}" />
+
+            <muxc:InfoBar
+                x:Name="InfoBarStartup"
+                Title="Warning"
+                IsClosable="False"
+                IsIconVisible="True"
+                IsOpen="True"
+                Severity="Warning">
+                <muxc:InfoBar.ActionButton>
                     <HyperlinkButton
-                        x:Name="Update"
-                        Margin="-4,8,0,0"
-                        Click="Update_Click"
-                        Content="Windows Update" />
-                </StackPanel>
-            </RelativePanel>
-        </Border>
+                        x:Name="InfoBarStartupLink"
+                        Click="InfoBarStartupLink_Click"
+                        Content="Startup Settings"
+                        Visibility="Collapsed" />
+                </muxc:InfoBar.ActionButton>
+            </muxc:InfoBar>
 
-        <TextBlock
-            x:Uid="/Playback/GeneralH"
-            Margin="0,0,0,-4"
-            Style="{StaticResource SubheaderTextBlockStyle}" />
+            <uc:ExpanderControl
+                x:Uid="/WindowsBehaviours/RiseStartup"
+                ExpanderStyle="Static"
+                Icon="&#xE102;">
+                <ToggleSwitch
+                    x:Name="OpenAtStartup"
+                    IsEnabled="{x:Bind ViewModel.CanOpenInLogin, Mode=OneWay}"
+                    IsOn="{x:Bind ViewModel.OpenInLogin, Mode=OneWay}"
+                    Toggled="OpenAtStartup_Toggled" />
+            </uc:ExpanderControl>
 
-        <muxc:InfoBar
-            x:Name="InfoBarStartup"
-            Title="Warning"
-            IsClosable="False"
-            IsIconVisible="True"
-            IsOpen="True"
-            Severity="Warning">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton
-                    x:Name="InfoBarStartupLink"
-                    Click="InfoBarStartupLink_Click"
-                    Content="Startup Settings"
-                    Visibility="Collapsed" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="StartupTaskRestrictionStates">
+                    <VisualState x:Name="NoRestrictions">
+                        <VisualState.Setters>
+                            <Setter Target="InfoBarStartup.IsOpen" Value="False" />
+                        </VisualState.Setters>
+                    </VisualState>
 
-        <uc:ExpanderControl
-            x:Uid="/WindowsBehaviours/RiseStartup"
-            ExpanderStyle="Static"
-            Icon="&#xE102;">
-            <ToggleSwitch
-                x:Name="OpenAtStartup"
-                IsEnabled="{x:Bind ViewModel.CanOpenInLogin, Mode=OneWay}"
-                IsOn="{x:Bind ViewModel.OpenInLogin, Mode=OneWay}"
-                Toggled="OpenAtStartup_Toggled" />
-        </uc:ExpanderControl>
+                    <VisualState x:Name="DisabledByPolicy">
+                        <VisualState.Setters>
+                            <Setter Target="InfoBarStartup.Message" Value="This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator." />
+                        </VisualState.Setters>
+                    </VisualState>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="StartupTaskRestrictionStates">
-                <VisualState x:Name="NoRestrictions">
-                    <VisualState.Setters>
-                        <Setter Target="InfoBarStartup.IsOpen" Value="False" />
-                    </VisualState.Setters>
-                </VisualState>
+                    <VisualState x:Name="DisabledByUser">
+                        <VisualState.Setters>
+                            <Setter Target="InfoBarStartup.Message" Value="This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app." />
+                            <Setter Target="InfoBarStartupLink.Visibility" Value="Visible" />
+                        </VisualState.Setters>
+                    </VisualState>
 
-                <VisualState x:Name="DisabledByPolicy">
-                    <VisualState.Setters>
-                        <Setter Target="InfoBarStartup.Message" Value="This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator." />
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="DisabledByUser">
-                    <VisualState.Setters>
-                        <Setter Target="InfoBarStartup.Message" Value="This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app." />
-                        <Setter Target="InfoBarStartupLink.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="EnabledByPolicy">
-                    <VisualState.Setters>
-                        <Setter Target="InfoBarStartup.Message" Value="This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator." />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-    </StackPanel>
+                    <VisualState x:Name="EnabledByPolicy">
+                        <VisualState.Setters>
+                            <Setter Target="InfoBarStartup.Message" Value="This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator." />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

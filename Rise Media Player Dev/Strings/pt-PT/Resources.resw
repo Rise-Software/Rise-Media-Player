@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Aceitar</value>
+  </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adicionar a conta</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Decidir por mim</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Recusar</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Agora não (Fechar aplicação)</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Usar apenas ficheiros locais de media</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Usar apenas serviços de streaming</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Procurar toda a media neste dispositivo</value>
@@ -126,11 +147,46 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Procurar</value>
   </data>
-  <data name="WDAppInfoText" xml:space="preserve">
-    <value>Lançado:Dezembro (Feriado), 2021
-Versão Interna: 0.0.200.0
-Edição: Bloom
-
-Criado por Joseph Beattie e YourOrdinaryCat</value>
+  <data name="SetupAppearanceH" xml:space="preserve">
+    <value>Molda-o à tua imagem</value>
+  </data>
+  <data name="SetupConnectH" xml:space="preserve">
+    <value>Conecta uma conta da Internet</value>
+  </data>
+  <data name="SetupDoneH" xml:space="preserve">
+    <value>Está feito!</value>
+  </data>
+  <data name="SetupIntro" xml:space="preserve">
+    <value>Estamos felizes por estares aqui. Só precisas de seguir alguns passos simples e estarás pronto e a funcionar!</value>
+  </data>
+  <data name="SetupLocalH" xml:space="preserve">
+    <value>A tua media</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Pré-configuração</value>
+  </data>
+  <data name="SetupPrivacyH" xml:space="preserve">
+    <value>Privacidade e recomendações</value>
+  </data>
+  <data name="SetupStart" xml:space="preserve">
+    <value>Começar configuração</value>
+  </data>
+  <data name="SetupTermsH" xml:space="preserve">
+    <value>Acordo da licença e Termos</value>
+  </data>
+  <data name="SetupWelcome" xml:space="preserve">
+    <value>Bem-vindo(a) ao</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Passo {0} de {1}</value>
+  </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Álbum desconhecido</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Artista desconhecido</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Género desconhecido</value>
   </data>
 </root>

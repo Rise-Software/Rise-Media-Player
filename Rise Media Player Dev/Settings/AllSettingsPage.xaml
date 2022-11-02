@@ -335,17 +335,17 @@
                         <Button
                             x:Name="GoBackPage"
                             Height="36"
-                            Padding="8,8,0,0"
+                            Margin="0,0,12,0"
+                            Padding="8"
                             VerticalAlignment="Center"
                             AutomationProperties.AutomationId="BackButton1"
                             AutomationProperties.ItemType="Navigation Button"
                             AutomationProperties.Name="Back"
                             Click="GoBackAPage_Click"
-                            CornerRadius="5"
                             Style="{StaticResource TransparentButtonStyle}"
                             ToolTipService.ToolTip="Back"
                             Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}">
-                            <muxc:AnimatedIcon Width="20" Height="20">
+                            <muxc:AnimatedIcon>
                                 <muxc:AnimatedIcon.Source>
                                     <animatedvisuals:AnimatedBackVisualSource />
                                 </muxc:AnimatedIcon.Source>
@@ -357,13 +357,12 @@
 
                         <FontIcon
                             x:Name="MainSettingsHeaderIcon"
-                            Margin="0,4,0,0"
+                            Margin="0,4,12,0"
                             x:FieldModifier="public"
                             FontSize="28"
                             Glyph="" />
                         <TextBlock
                             x:Name="MainSettingsHeader"
-                            Margin="12,0,0,0"
                             x:FieldModifier="public"
                             Style="{StaticResource TitleTextBlockStyle}"
                             Text="No page selected"
@@ -371,12 +370,10 @@
                             TextWrapping="WrapWholeWords" />
                     </StackPanel>
 
-                    <ScrollViewer
+                    <Frame
+                        x:Name="SettingsMainFrame"
                         Grid.Row="1"
-                        Padding="48,12,48,0"
-                        VerticalScrollBarVisibility="Auto">
-                        <Frame x:Name="SettingsMainFrame" x:FieldModifier="public" />
-                    </ScrollViewer>
+                        x:FieldModifier="public" />
                 </Grid>
             </Border>
         </Grid>

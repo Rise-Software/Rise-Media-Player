@@ -1,16 +1,21 @@
-﻿using Rise.App.ViewModels;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.Setup
 {
     public sealed partial class PrivacyPage : Page
     {
-        private SettingsViewModel ViewModel => App.SViewModel;
-
         public PrivacyPage()
         {
             InitializeComponent();
-            DataContext = ViewModel;
+        }
+
+        private async void OnIconLoaded(object sender, RoutedEventArgs e)
+        {
+            var player = sender as AnimatedVisualPlayer;
+            await player.PlayAsync(0, 0.5, false);
         }
     }
 }

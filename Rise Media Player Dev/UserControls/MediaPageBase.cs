@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Albums.Properties;
@@ -8,7 +9,9 @@ using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.System;
@@ -42,6 +45,11 @@ namespace Rise.App.UserControls
         public MediaCollectionViewModel MediaViewModel { get; private set; }
 
         /// <summary>
+        /// A helper to handle adding items to playlists.
+        /// </summary>
+        public AddToPlaylistHelper PlaylistHelper { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of this class without initializing
         /// <see cref="MediaViewModel"/>.
         /// </summary>
@@ -60,6 +68,27 @@ namespace Rise.App.UserControls
             : this()
         {
             CreateViewModel(defaultProperty, viewModelSource);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class with a data
+        /// source for <see cref="PlaylistHelper"/>.
+        /// </summary>
+        public MediaPageBase(IList<PlaylistViewModel> playlists)
+            : this()
+        {
+            PlaylistHelper = new(playlists);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class with the specified
+        /// property for sorting, a ViewModel data source, and a data
+        /// source for <see cref="PlaylistHelper"/>.
+        /// </summary>
+        public MediaPageBase(string defaultProperty, IList viewModelSource, IList<PlaylistViewModel> playlists)
+            : this(defaultProperty, viewModelSource)
+        {
+            PlaylistHelper = new(playlists);
         }
 
         /// <summary>
@@ -184,6 +213,55 @@ namespace Rise.App.UserControls
         }
     }
 
+    // Playlists
+    public partial class MediaPageBase
+    {
+        [RelayCommand]
+        private Task AddSelectedItemToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var itm = GetValue(SelectedItemProperty);
+            if (playlist != null)
+            {
+                if (itm is SongViewModel song)
+                    return playlist.AddSongAsync(song);
+                else if (itm is VideoViewModel video)
+                    return playlist.AddVideoAsync(video);
+            }
+            else if (itm is IMediaItem media)
+            {
+                return PlaylistHelper.CreateNewPlaylistAsync(media);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task AddMediaItemsToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var first = MediaViewModel.Items.FirstOrDefault();
+            if (playlist != null)
+            {
+                if (first is SongViewModel)
+                {
+                    var items = MediaViewModel.Items.Cast<SongViewModel>();
+                    return playlist.AddSongsAsync(items);
+                }
+                else if (first is VideoViewModel)
+                {
+                    var items = MediaViewModel.Items.Cast<VideoViewModel>();
+                    return playlist.AddVideosAsync(items);
+                }
+            }
+            else if (first is IMediaItem)
+            {
+                var items = MediaViewModel.Items.Cast<IMediaItem>();
+                return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
+
+            return Task.CompletedTask;
+        }
+    }
+
     // Session state
     public partial class MediaPageBase
     {
@@ -211,7 +289,7 @@ namespace Rise.App.UserControls
 
                 e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
 
-                MediaViewModel.Items.Filter = null;
+                MediaViewModel.Dispose();
             }
         }
 

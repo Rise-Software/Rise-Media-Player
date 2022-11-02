@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,23 +13,23 @@ namespace Rise.App.Settings
         public AppearanceBasePage()
         {
             this.InitializeComponent();
+
+            _ = AppearanceFrame.Navigate(typeof(AppearancePage));
         }
 
-        private void AppearanceNav_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void AppearanceNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            var selectedItem = (Microsoft.UI.Xaml.Controls.NavigationViewItem)args.SelectedItem;
+            var selectedItem = args.InvokedItemContainer;
             string selectedItemTag = selectedItem.Tag as string;
 
-            switch (selectedItemTag)
+            Type page = selectedItemTag switch
             {
-                case "Window":
-                    AppearanceFrame.Navigate(typeof(AppearancePage));
-                    break;
-                default:
-                    AppearanceFrame.Navigate(typeof(ComingSoonPage));
-                    break;
+                "Window" => typeof(AppearancePage),
+                _ => typeof(ComingSoonPage),
+            };
 
-            }
+            if (AppearanceFrame.CurrentSourcePageType != page)
+                _ = AppearanceFrame.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
         }
     }
 }

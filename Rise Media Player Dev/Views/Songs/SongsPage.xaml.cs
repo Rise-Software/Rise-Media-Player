@@ -1,11 +1,7 @@
 ﻿using Rise.App.Dialogs;
-using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions;
-using Rise.Common.Helpers;
 using System;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,7 +11,6 @@ namespace Rise.App.Views
     public sealed partial class SongsPage : MediaPageBase
     {
         private SettingsViewModel SViewModel => App.SViewModel;
-        private readonly AddToPlaylistHelper PlaylistHelper;
 
         public SongViewModel SelectedItem
         {
@@ -26,25 +21,12 @@ namespace Rise.App.Views
         private readonly string Label = "Songs";
 
         public SongsPage()
-            : base("Title", App.MViewModel.Songs)
+            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             InitializeComponent();
 
-            PlaylistHelper = new(App.MViewModel.Playlists, AddToPlaylistAsync);
-            PlaylistHelper.AddPlaylistsToSubItem(AddTo);
-            PlaylistHelper.AddPlaylistsToFlyout(AddToBar);
-        }
-    }
-
-    // Playlists
-    public sealed partial class SongsPage
-    {
-        private Task AddToPlaylistAsync(PlaylistViewModel playlist)
-        {
-            if (playlist == null)
-                return PlaylistHelper.CreateNewPlaylistAsync(SelectedItem);
-            else
-                return playlist.AddSongAsync(SelectedItem);
+            PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
+            PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddSelectedItemToPlaylistCommand);
         }
     }
 

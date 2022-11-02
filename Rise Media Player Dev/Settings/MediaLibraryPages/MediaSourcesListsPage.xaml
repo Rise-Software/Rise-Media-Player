@@ -6,27 +6,36 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:storage="using:Windows.Storage"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <ResourceDictionary>
-            <MenuFlyout x:Name="AddFlyout">
-                <MenuFlyoutItem Click="AddMusicFolder_Click" Text="Contains music">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE189;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
+        <MenuFlyout x:Name="AddFlyout">
+            <MenuFlyoutItem Click="AddMusicFolder_Click" Text="Contains music">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE189;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
 
-                <MenuFlyoutItem Click="AddVideoFolder_Click" Text="Contains videos">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xE8B2;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
-            </MenuFlyout>
-        </ResourceDictionary>
+            <MenuFlyoutItem Click="AddVideoFolder_Click" Text="Contains videos">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon Glyph="&#xE8B2;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+        </MenuFlyout>
+
+        <Style TargetType="ListView">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0,4,0,0" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
-    <Grid Margin="12" RowSpacing="12">
+    <Grid RowSpacing="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
@@ -55,7 +64,7 @@
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <muxc:InfoBar
                 x:Name="Info"
-                Margin="0,4,0,8"
+                Margin="0,4"
                 IsClosable="False"
                 IsIconVisible="True"
                 IsOpen="True"
@@ -63,151 +72,109 @@
                 Severity="Informational" />
             <ListView
                 x:Name="MusicList"
-                Grid.Row="1"
                 VerticalAlignment="Top"
+                x:Load="False"
                 IsItemClickEnabled="False"
                 ItemsSource="{x:Bind MusicLibrary.Folders}"
+                ScrollViewer.VerticalScrollMode="Disabled"
                 SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="0,0,0,4" />
-                        <Setter Property="UseSystemFocusVisuals" Value="False" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
-                            <Grid VerticalAlignment="Center" ColumnSpacing="12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <uc:ExpanderControl
+                            Title="{x:Bind DisplayName}"
+                            Description="{x:Bind Path}"
+                            ExpanderStyle="Static"
+                            Icon="&#xE189;">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button
+                                    Padding="8"
+                                    Click="OpenFolder_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <FontIcon FontSize="16" Glyph="&#xE838;" />
+                                            <TextBlock Margin="8,0,0,0" Text="Open folder location" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
 
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    Glyph="&#xE189;" />
-
-                                <StackPanel
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Orientation="Vertical">
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind DisplayName}" />
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{x:Bind Path}" />
-                                </StackPanel>
-
-                                <StackPanel
-                                    Grid.Column="2"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button
-                                        Padding="8"
-                                        Click="OpenFolder_Click"
-                                        Style="{StaticResource TransparentButtonStyle}">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <FontIcon FontSize="16" Glyph="&#xE838;" />
-                                                <TextBlock Margin="8,0,0,0" Text="Open folder location" />
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button
-                                        x:Uid="/Information/RemoveFolder"
-                                        Padding="8"
-                                        Click="RemoveMusicFolder_Click">
-                                        <FontIcon FontSize="16" Glyph="&#xE106;" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
+                                <Button
+                                    x:Uid="/Information/RemoveFolder"
+                                    Padding="8"
+                                    Click="RemoveMusicFolder_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <FontIcon FontSize="16" Glyph="&#xE106;" />
+                                </Button>
+                            </StackPanel>
+                        </uc:ExpanderControl>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
             <ListView
                 x:Name="VideoList"
-                Grid.Row="1"
                 VerticalAlignment="Top"
+                x:Load="False"
                 IsItemClickEnabled="False"
                 ItemsSource="{x:Bind VideoLibrary.Folders}"
+                ScrollViewer.VerticalScrollMode="Disabled"
                 SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="0,0,0,4" />
-                        <Setter Property="UseSystemFocusVisuals" Value="False" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="storage:StorageFolder">
-                        <Border Style="{StaticResource SettingsCard}">
-                            <Grid VerticalAlignment="Center" ColumnSpacing="12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <uc:ExpanderControl
+                            Title="{x:Bind DisplayName}"
+                            Description="{x:Bind Path}"
+                            ExpanderStyle="Static"
+                            Icon="&#xE8B2;">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Button
+                                    Padding="8"
+                                    Click="OpenFolder_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <FontIcon FontSize="16" Glyph="&#xE838;" />
+                                            <TextBlock Margin="8,0,0,0" Text="Open folder location" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
 
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontSize="16"
-                                    Glyph="&#xE8B2;" />
-
-                                <StackPanel
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Orientation="Vertical">
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind DisplayName}" />
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{x:Bind Path}" />
-                                </StackPanel>
-
-                                <StackPanel
-                                    Grid.Column="2"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button
-                                        Padding="8"
-                                        Click="OpenFolder_Click"
-                                        Style="{StaticResource TransparentButtonStyle}">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <FontIcon FontSize="16" Glyph="&#xE838;" />
-                                                <TextBlock Margin="8,0,0,0" Text="Open folder location" />
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button
-                                        x:Uid="/Information/RemoveFolder"
-                                        Padding="8"
-                                        Click="RemoveVideoFolder_Click">
-                                        <FontIcon FontSize="16" Glyph="&#xE106;" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
+                                <Button
+                                    x:Uid="/Information/RemoveFolder"
+                                    Padding="8"
+                                    Click="RemoveVideoFolder_Click"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                    <FontIcon FontSize="16" Glyph="&#xE106;" />
+                                </Button>
+                            </StackPanel>
+                        </uc:ExpanderControl>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DisplayedLibraryStates">
+                <VisualState x:Name="NoLibraryState" />
+                <VisualState x:Name="AllMediaState">
+                    <VisualState.Setters>
+                        <Setter Target="MusicList.Visibility" Value="Visible" />
+                        <Setter Target="VideoList.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="MusicState">
+                    <VisualState.Setters>
+                        <Setter Target="MusicList.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="VideosState">
+                    <VisualState.Setters>
+                        <Setter Target="VideoList.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

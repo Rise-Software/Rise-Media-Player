@@ -5,24 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Views.Songs.Properties"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
 
-    <ListView x:Name="LyricsListView">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="x:String">
-                <TextBlock Text="{x:Bind}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
+    <ScrollViewer d:Padding="16">
+        <StackPanel>
+            <muxc:ProgressRing
+                x:Name="LoadingRing"
+                IsActive="True"
+                Visibility="Visible" />
 
-        <ListView.Footer>
-            <StackPanel
-                Padding="16,4"
-                Orientation="Vertical"
-                Spacing="4">
-                <TextBlock x:Name="CopyrightTextBlock" TextWrapping="Wrap" />
-                <TextBlock Text="Powered by Musixmatch." />
-            </StackPanel>
-        </ListView.Footer>
-    </ListView>
+            <TextBlock
+                x:Name="Lyrics"
+                d:Text="Lyrics"
+                TextWrapping="WrapWholeWords" />
+        </StackPanel>
+    </ScrollViewer>
 </Page>
