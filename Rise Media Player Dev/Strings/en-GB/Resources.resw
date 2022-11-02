@@ -174,6 +174,15 @@
   <data name="Music" xml:space="preserve">
     <value>Music</value>
   </data>
+  <data name="NDays" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
+  <data name="NHours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="NMinutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
   <data name="NoCrossfade" xml:space="preserve">
     <value>No crossfade</value>
   </data>
@@ -182,6 +191,18 @@
   </data>
   <data name="NSeconds" xml:space="preserve">
     <value>{0} seconds</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Use local media files only</value>
