@@ -16,6 +16,8 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
 
+            vTip.Subtitle = string.Format(ResourceHelper.GetString("/About/VersionTemplate"), AppVersion.VersionName, AppVersion.Version);
+
             VersionData.RequestedOperation = DataPackageOperation.Copy;
             VersionData.SetText($"{AppVersion.VersionName} - {AppVersion.Version}");
         }
@@ -37,7 +39,6 @@ namespace Rise.App.Settings
 
                 case "Version":
                     vTip.IsOpen = true;
-                    vTip.Subtitle = string.Format(ResourceHelper.GetString("VersionTemplate"), AppVersion.VersionName, AppVersion.Version);
                     break;
             }
         }
