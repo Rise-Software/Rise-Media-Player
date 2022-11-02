@@ -35,11 +35,7 @@
                 </uc:ExpanderControl>
 
                 <StackPanel x:Name="PeriodicContent" Visibility="{x:Bind ViewModel.IndexingTimerEnabled, Mode=OneWay}">
-                    <Rectangle
-                        Height="1"
-                        Margin="-16,8,-16,0"
-                        HorizontalAlignment="Stretch"
-                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                    <Rectangle Style="{StaticResource ExpanderDividerStyle}" />
 
                     <StackPanel Margin="28,0,15,0" Orientation="Horizontal">
                         <TextBlock

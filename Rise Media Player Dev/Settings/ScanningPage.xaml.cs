@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -19,16 +20,23 @@ namespace Rise.App.Settings
         private readonly uint[] MinuteIntervals = new uint[] { 1, 5, 10, 30, 60 };
         private readonly List<string> Intervals = new()
         {
-            "1 minute",
-            "5 minutes",
-            "10 minutes",
-            "30 minutes",
-            "1 hour"
+            ResourceHelper.GetString("OneMinute")
         };
 
         public ScanningPage()
         {
             InitializeComponent();
+
+            string format = ResourceHelper.GetString("NMinutes");
+
+            Intervals.Add(FormatMinutes("5"));
+            Intervals.Add(FormatMinutes("10"));
+            Intervals.Add(FormatMinutes("30"));
+
+            Intervals.Add(ResourceHelper.GetString("OneHour"));
+
+            string FormatMinutes(string min)
+                => string.Format(format, min);
         }
 
         private void PeriodicScan_SelectionChanged(object sender, SelectionChangedEventArgs e)
