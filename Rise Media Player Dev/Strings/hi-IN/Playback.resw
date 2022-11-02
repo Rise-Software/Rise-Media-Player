@@ -123,18 +123,6 @@
   <data name="Crossfade.Title" xml:space="preserve">
     <value>क्रॉसफेड करें</value>
   </data>
-  <data name="Duration0" xml:space="preserve">
-    <value>क्रॉसफेड न करें</value>
-  </data>
-  <data name="Duration10s" xml:space="preserve">
-    <value>10 सेकंड</value>
-  </data>
-  <data name="Duration3s" xml:space="preserve">
-    <value>3 सेकंड</value>
-  </data>
-  <data name="Duration5s" xml:space="preserve">
-    <value>5 सेकंड</value>
-  </data>
   <data name="EQ.Description" xml:space="preserve">
     <value>अपने मीडिया प्रकार के आधार पर भिन्न ध्वनि प्रोफ़ाइल चुनें। </value>
   </data>
@@ -155,9 +143,6 @@
   </data>
   <data name="GoDevice.Title" xml:space="preserve">
     <value>जब आप कोई ऑडियो उपकरण जोड़ें तब नाउ प्लेइंग पर जाएँ</value>
-  </data>
-  <data name="MatchRes" xml:space="preserve">
-    <value>हमेशा रेज़ोल्यूशन मैच करें</value>
   </data>
   <data name="MusicH.Text" xml:space="preserve">
     <value>संगीत</value>
@@ -185,8 +170,5 @@
   </data>
   <data name="VideoH.Text" xml:space="preserve">
     <value>विडियो</value>
-  </data>
-  <data name="WindowSize" xml:space="preserve">
-    <value>विंडो आकार पर मापें</value>
   </data>
 </root>

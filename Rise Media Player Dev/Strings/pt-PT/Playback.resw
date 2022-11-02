@@ -123,18 +123,6 @@
   <data name="Crossfade.Title" xml:space="preserve">
     <value>Crossfade</value>
   </data>
-  <data name="Duration0" xml:space="preserve">
-    <value>Sem crossfade</value>
-  </data>
-  <data name="Duration10s" xml:space="preserve">
-    <value>10 segundos</value>
-  </data>
-  <data name="Duration3s" xml:space="preserve">
-    <value>3 segundos</value>
-  </data>
-  <data name="Duration5s" xml:space="preserve">
-    <value>5 segundos</value>
-  </data>
   <data name="EQ.Description" xml:space="preserve">
     <value>Escolhe diferentes perfis de som dependendo do teu tipo de media.</value>
   </data>
@@ -155,9 +143,6 @@
   </data>
   <data name="GoDevice.Title" xml:space="preserve">
     <value>Vai para o Agora a Reproduzir quando conectares um dispositivo de áudio</value>
-  </data>
-  <data name="MatchRes" xml:space="preserve">
-    <value>Coincidir sempre com a resolução</value>
   </data>
   <data name="MusicH.Text" xml:space="preserve">
     <value>Música</value>
@@ -185,8 +170,5 @@
   </data>
   <data name="VideoH.Text" xml:space="preserve">
     <value>Vídeo</value>
-  </data>
-  <data name="WindowSize" xml:space="preserve">
-    <value>Dimensionar para o tamanho da janela</value>
   </data>
 </root>

@@ -20,11 +20,5 @@ namespace Rise.Common
         /// </summary>
         public static ResourceLoader NavigationLoader { get; } =
             ResourceLoader.GetForViewIndependentUse("Navigation");
-
-        /// <summary>
-        /// Loads Playback resources.
-        /// </summary>
-        public static ResourceLoader PlaybackLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("Playback");
     }
 }
