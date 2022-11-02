@@ -168,6 +168,9 @@
   <data name="LocalVideos" xml:space="preserve">
     <value>Tüm Videolar</value>
   </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Çözünürlüğü her zaman eşleştir</value>
+  </data>
   <data name="Music" xml:space="preserve">
     <value>Müzik</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Queue" xml:space="preserve">
     <value>Kuyruk</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Pencere boyutuna göre ölçeklendir</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Bu cihazdaki tüm medyayı ara</value>

@@ -168,6 +168,9 @@
   <data name="LocalVideos" xml:space="preserve">
     <value>All videos</value>
   </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Always match resolution</value>
+  </data>
   <data name="Music" xml:space="preserve">
     <value>Music</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Queue" xml:space="preserve">
     <value>Queue</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Scale to window size</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Search all media on this device</value>

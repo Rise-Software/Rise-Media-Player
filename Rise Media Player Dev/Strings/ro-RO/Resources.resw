@@ -168,6 +168,9 @@
   <data name="LocalVideos" xml:space="preserve">
     <value>Toate videoclipurile</value>
   </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Potrivește întotdeauna cu rezoluția</value>
+  </data>
   <data name="Music" xml:space="preserve">
     <value>Muzică</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Queue" xml:space="preserve">
     <value>Coadă</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Scalează la mărimea ferestrei</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Caută toată media de pe acest dispozitiv</value>

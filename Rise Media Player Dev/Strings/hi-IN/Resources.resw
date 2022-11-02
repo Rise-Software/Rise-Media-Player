@@ -168,6 +168,9 @@
   <data name="LocalVideos" xml:space="preserve">
     <value>सभी विडियो</value>
   </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>हमेशा रेज़ोल्यूशन मैच करें</value>
+  </data>
   <data name="Music" xml:space="preserve">
     <value>संगीत</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Queue" xml:space="preserve">
     <value>कतार</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>विंडो आकार पर मापें</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
