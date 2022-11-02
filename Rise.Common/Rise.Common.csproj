@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Attached\GridHelper.cs" />
+    <Compile Include="Constants\AppVersion.cs" />
     <Compile Include="Constants\InvalidChars.cs" />
     <Compile Include="Constants\LastFM.cs" />
     <Compile Include="Constants\SongProperties.cs" />

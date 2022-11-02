@@ -82,8 +82,6 @@
                 </uc:AdaptiveItemPane>
             </Border>
 
-
-
             <TextBlock
                 x:Uid="/About/MoreH"
                 Margin="0,-10,0,0"
@@ -121,7 +119,6 @@
 
             <muxc:TeachingTip
                 x:Name="vTip"
-                x:Uid="/About/More"
                 ActionButtonClick="VTip_ActionButtonClick"
                 CloseButtonClick="VTip_CloseButtonClick"
                 IsLightDismissEnabled="True"

@@ -144,13 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copiar versão</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Lançado:Dezembro (Feriado), 2021
-Versão Interna: 0.0.13.0
-Edição: Bloom
-
-Criado por Joseph Beattie e YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>Mais informações da versão</value>
   </data>
@@ -183,6 +176,12 @@ Criado por Joseph Beattie e YourOrdinaryCat</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Versão</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Versão interna: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Informação da versão</value>

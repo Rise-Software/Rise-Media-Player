@@ -144,12 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copy version</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Alpha Preview 3
-Internal Version: 0.0.172.0
-
-Rise Software - Discy &amp; YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>More version info</value>
   </data>
@@ -182,6 +176,12 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Internal Version: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Version Info</value>

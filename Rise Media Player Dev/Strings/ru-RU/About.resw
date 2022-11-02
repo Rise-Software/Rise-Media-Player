@@ -144,12 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Скопировать версию</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Alpha Preview 2
-Внутренняя версия: 0.0.170.0
-
-Создана Joseph'ом Beattie и YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>Подробности о версии</value>
   </data>
@@ -182,6 +176,12 @@
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Версия</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Внутренняя версия: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Информация о версии</value>

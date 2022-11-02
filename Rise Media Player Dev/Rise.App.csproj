@@ -637,14 +637,20 @@
     <PRIResource Include="Strings\hi-IN\Connect.resw" />
     <PRIResource Include="Strings\hi-IN\Appearance.resw" />
     <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\fr-FR\Terms.resw" />
+    <PRIResource Include="Strings\fr-FR\Terms.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\fr-FR\Sidebar.resw" />
     <PRIResource Include="Strings\fr-FR\Setup.resw" />
     <PRIResource Include="Strings\fr-FR\Props.resw" />
     <PRIResource Include="Strings\fr-FR\Privacy.resw" />
-    <PRIResource Include="Strings\fr-FR\Playback.resw" />
+    <PRIResource Include="Strings\fr-FR\Playback.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\fr-FR\NowPlaying.resw" />
-    <PRIResource Include="Strings\fr-FR\Navigation.resw" />
+    <PRIResource Include="Strings\fr-FR\Navigation.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\fr-FR\MediaLibrary.resw" />
     <PRIResource Include="Strings\fr-FR\MediaData.resw" />
     <PRIResource Include="Strings\fr-FR\Local.resw" />
@@ -654,7 +660,9 @@
     <PRIResource Include="Strings\fr-FR\Finish.resw" />
     <PRIResource Include="Strings\fr-FR\File.resw" />
     <PRIResource Include="Strings\fr-FR\Details.resw" />
-    <PRIResource Include="Strings\fr-FR\Connect.resw" />
+    <PRIResource Include="Strings\fr-FR\Connect.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\fr-FR\Appearance.resw" />
     <PRIResource Include="Strings\fr-FR\About.resw" />
     <PRIResource Include="Strings\tr-TR\Terms.resw" />

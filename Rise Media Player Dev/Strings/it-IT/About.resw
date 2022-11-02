@@ -144,12 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copia versione</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Internal Version: 0.0.160.0
-Edition: Bloom
-
-Creato da Joseph Beattie e YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>Di più</value>
   </data>
@@ -182,6 +176,12 @@ Creato da Joseph Beattie e YourOrdinaryCat</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Versione</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Versione interna: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Info versione</value>

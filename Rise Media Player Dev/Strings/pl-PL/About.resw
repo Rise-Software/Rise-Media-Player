@@ -144,14 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Skopiuj wersję</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Data wydanie InDev: December 24th, 2021
-Finalna data wydania: January 1st, 2022
-Wewnętrzna wersja: 0.0.135.0
-Edycja: Bloom
-
-Stworzona przez Joseph'a Beattie i YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>Więcej informacji o wersji</value>
   </data>
@@ -184,6 +176,12 @@ Stworzona przez Joseph'a Beattie i YourOrdinaryCat</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Wersja</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Wersja wewnętrzna: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Informacje o wersji</value>

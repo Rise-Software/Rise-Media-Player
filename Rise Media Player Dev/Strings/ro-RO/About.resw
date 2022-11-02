@@ -144,14 +144,6 @@
   <data name="More.CloseButtonContent" xml:space="preserve">
     <value>Copiere versiune</value>
   </data>
-  <data name="More.Subtitle" xml:space="preserve">
-    <value>Dată de lansare InDev: 24 decembrie 2021
-Dată de lansare finală: 1 ianuarie 2022
-Versiune internă: 0.0.135.0
-Ediție: Bloom
-
-Creat de Joseph Beattie și YourOrdinaryCat</value>
-  </data>
   <data name="More.Title" xml:space="preserve">
     <value>Mai multe informații despre versiune</value>
   </data>
@@ -184,6 +176,12 @@ Creat de Joseph Beattie și YourOrdinaryCat</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Versiune</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Versiune internă: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="vInfoH.Text" xml:space="preserve">
     <value>Informații versiune</value>
