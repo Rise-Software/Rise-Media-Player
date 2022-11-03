@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
@@ -7,17 +8,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Storage;
 
 namespace Rise.Data.Sources
 {
-    public partial class NavViewDataSource
+    public sealed partial class NavViewDataSource
     {
-        private const string _fileName = "ItemData.json";
-        private const string _tmpFileName = "ItemData.json.~tmp";
+        private const string _fileName = "NavViewItemData.json";
+        private const string _tmpFileName = "NavViewItemData.json.~tmp";
 
         /// <summary>
         /// Contains the NavView items.
@@ -96,9 +95,7 @@ namespace Rise.Data.Sources
         {
             // No need to populate groups more than once
             if (Items.Count != 0 || FooterItems.Count != 0)
-            {
                 return;
-            }
 
             StorageFile file;
             string path = Path.Combine(ApplicationData.
@@ -131,25 +128,13 @@ namespace Rise.Data.Sources
                 jsonText = await FileIO.ReadTextAsync(file);
             }
 
-            var obj = JsonObject.Parse(jsonText);
-
-            var itemArray = obj["Items"].GetArray();
-            var footerArray = obj["FooterItems"].GetArray();
-
-            foreach (var groupValue in itemArray)
+            var items = JsonConvert.DeserializeObject<List<NavViewItemViewModel>>(jsonText);
+            foreach (var item in items)
             {
-                var item = new NavViewItemViewModel(groupValue.GetObject());
-                item.IsFooter = false;
-
-                Items.Add(item);
-            }
-
-            foreach (var groupValue in footerArray)
-            {
-                var item = new NavViewItemViewModel(groupValue.GetObject());
-                item.IsFooter = true;
-
-                FooterItems.Add(item);
+                if (item.IsFooter)
+                    FooterItems.Add(item);
+                else
+                    Items.Add(item);
             }
         }
 
@@ -159,29 +144,13 @@ namespace Rise.Data.Sources
         /// </summary>
         public async Task SerializeGroupsAsync()
         {
-            JsonArray array = new JsonArray();
-            foreach (var item in Items)
-            {
-                array.Add(item.Model.GetJson());
-            }
+            var allItems = new List<NavViewItemViewModel>(Items);
+            allItems.AddRange(FooterItems);
 
-            JsonArray footerArray = new JsonArray();
-            foreach (var item in FooterItems)
-            {
-                footerArray.Add(item.Model.GetJson());
-            }
-
-            var builder = new StringBuilder(array.ToString());
-
-            builder.Insert(0, "{\"Items\":");
-            builder.Append(",\"FooterItems\":");
-            builder.Append(footerArray.ToString());
-            builder.Append("}");
-
-            StorageFile file = await ApplicationData.Current.LocalFolder.
+            var file = await ApplicationData.Current.LocalFolder.
                 CreateFileAsync(_fileName, CreationCollisionOption.ReplaceExisting);
 
-            await FileIO.WriteTextAsync(file, builder.ToString());
+            await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(allItems));
         }
     }
 

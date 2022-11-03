@@ -987,7 +987,7 @@
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\ItemData.json">
+    <Content Include="Assets\NavViewItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
