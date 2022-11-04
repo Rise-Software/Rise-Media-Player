@@ -13,7 +13,8 @@
     "HeaderGroup": "General",
     "Icon": "\uE8FD",
     "Label": "Playlists",
-    "ItemType": 1
+    "ItemType": 1,
+    "SubItems": []
   },
   {
     "Id": "MHeader",

@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Enums;
+using System.Collections.ObjectModel;
 
 namespace Rise.Data.ViewModels
 {
@@ -62,5 +63,10 @@ namespace Rise.Data.ViewModels
             get => _isVisible;
             set => Set(ref _isVisible, value);
         }
+
+        /// <summary>
+        /// A set of items contained within this item.
+        /// </summary>
+        public ObservableCollection<NavViewItemViewModel> SubItems { get; init; }
     }
 }

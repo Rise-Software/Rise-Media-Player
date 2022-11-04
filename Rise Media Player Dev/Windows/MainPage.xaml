@@ -230,10 +230,24 @@
                             Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            MenuItemsSource="{x:Bind SubItems}"
                             Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.ItemTemplate>
+
+                <selectors:NavViewItemTemplateSelector.SubItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
+                        <muxc:NavigationViewItem
+                            AutomationProperties.AutomationId="{x:Bind Id}"
+                            AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
+                            Content="{x:Bind Label, Mode=OneWay}"
+                            ContextRequested="NavigationViewItem_ContextRequested"
+                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            Tag="{x:Bind Id}"
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
+                    </DataTemplate>
+                </selectors:NavViewItemTemplateSelector.SubItemTemplate>
 
                 <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
