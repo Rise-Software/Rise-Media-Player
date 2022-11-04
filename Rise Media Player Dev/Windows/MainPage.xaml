@@ -56,6 +56,7 @@
             <conv:ResourceToString x:Key="StrToRes" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
+            <conv:StringToIconElement x:Key="StrToIcon" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -218,50 +219,29 @@
                 </Grid>
             </Flyout>
 
-            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
-                <selectors:NavViewItemTemplateSelector.AssetIconTemplate>
+            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector">
+                <selectors:NavViewItemTemplateSelector.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            AutomationProperties.Name="{x:Bind Label}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
                             ContextRequested="NavigationViewItem_ContextRequested"
+                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
                             Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}">
-                            <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="1" Source="{x:Bind Icon}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.AssetIconTemplate>
-
-                <selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
-                    <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItem
-                            AccessKey="{x:Bind AccessKey}"
-                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
-                            AutomationProperties.AutomationId="{x:Bind Id}"
-                            AutomationProperties.Name="{x:Bind Label}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
-                            ContextRequested="NavigationViewItem_ContextRequested"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}">
-                            <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="1" Glyph="{x:Bind Icon}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
-                    </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
+                </selectors:NavViewItemTemplateSelector.ItemTemplate>
 
                 <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}"
+                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
                             Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}" />
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.HeaderTemplate>
 
@@ -270,7 +250,7 @@
                         <muxc:NavigationViewItemSeparator
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}" />
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
             </selectors:NavViewItemTemplateSelector>
