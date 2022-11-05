@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace Rise.App.Views
     {
         private MainViewModel MViewModel => App.MViewModel;
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
+        private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private MediaCollectionViewModel VideosViewModel;
 
@@ -144,6 +147,24 @@ namespace Rise.App.Views
             await MPViewModel.PlaySingleItemAsync(SelectedVideo);
             if (Window.Current.Content is Frame rootFrame)
                 _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+        }
+
+        private void PinToSidebar_Click(object sender, RoutedEventArgs e)
+        {
+            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
+            if (hasItem)
+            {
+                var itm = new NavViewItemViewModel
+                {
+                    Id = SelectedPlaylist.Model.Id.ToString(),
+                    ItemType = NavViewItemType.SubItem,
+                    Icon = SelectedPlaylist.Icon,
+                    Label = SelectedPlaylist.Title,
+                    Parent = item,
+                    FlyoutId = "RemoveItemFlyout"
+                };
+                item.SubItems.Add(itm);
+            }
         }
     }
 }

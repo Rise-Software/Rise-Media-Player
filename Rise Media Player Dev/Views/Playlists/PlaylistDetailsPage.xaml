@@ -171,8 +171,8 @@
                                 x:Name="Description"
                                 d:Text="Description"
                                 FontWeight="SemiBold"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 MaxLines="2"
-                                Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind SelectedPlaylist.Description}"
                                 TextTrimming="CharacterEllipsis" />
@@ -199,6 +199,10 @@
 
                                 <AppBarSeparator />
 
+                                <AppBarButton
+                                    x:Uid="/Information/PinToSidebar"
+                                    Click="PinToSidebar_Click"
+                                    Icon="Pin" />
                                 <AppBarButton
                                     x:Uid="/Information/Properties"
                                     Command="{x:Bind EditItemCommand, Mode=OneTime}"

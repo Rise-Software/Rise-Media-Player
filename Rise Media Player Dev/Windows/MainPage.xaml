@@ -231,7 +231,7 @@
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
                             MenuItemsSource="{x:Bind SubItems}"
-                            Tag="{x:Bind Id}"
+                            Tag="{x:Bind}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.ItemTemplate>
@@ -244,7 +244,7 @@
                             Content="{x:Bind Label, Mode=OneWay}"
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
-                            Tag="{x:Bind Id}"
+                            Tag="{x:Bind}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.SubItemTemplate>
@@ -254,22 +254,18 @@
                         <muxc:NavigationViewItemHeader
                             AutomationProperties.AutomationId="{x:Bind Id}"
                             Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
-                            Tag="{x:Bind Id}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.HeaderTemplate>
 
                 <selectors:NavViewItemTemplateSelector.SeparatorTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItemSeparator
-                            AutomationProperties.AutomationId="{x:Bind Id}"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
+                        <muxc:NavigationViewItemSeparator AutomationProperties.AutomationId="{x:Bind Id}" Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
             </selectors:NavViewItemTemplateSelector>
 
-            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
+            <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
                     x:Uid="/Information/ToTop"
@@ -322,11 +318,10 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
-            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
+            <MenuFlyout x:Key="RemoveItemFlyout">
                 <MenuFlyoutItem
                     x:Uid="/Information/Remove"
-                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
+                    Click="RemoveItem_Click"
                     Icon="UnPin" />
             </MenuFlyout>
         </ResourceDictionary>
