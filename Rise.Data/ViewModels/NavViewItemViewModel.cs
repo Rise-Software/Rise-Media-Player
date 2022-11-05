@@ -45,6 +45,11 @@ namespace Rise.Data.ViewModels
         public string AccessKey { get; init; }
 
         /// <summary>
+        /// An identifier for the flyout this item requests.
+        /// </summary>
+        public string FlyoutId { get; init; }
+
+        /// <summary>
         /// Header group this item belongs to.
         /// </summary>
         public string HeaderGroup { get; init; }
@@ -63,6 +68,12 @@ namespace Rise.Data.ViewModels
             get => _isVisible;
             set => Set(ref _isVisible, value);
         }
+
+        /// <summary>
+        /// The item's parent. Only applies if <see cref="ItemType"/> is
+        /// <see cref="NavViewItemType.SubItem"/>.
+        /// </summary>
+        public NavViewItemViewModel Parent { get; init; }
 
         /// <summary>
         /// A set of items contained within this item.

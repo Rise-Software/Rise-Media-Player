@@ -5,7 +5,8 @@
     "HeaderGroup": "General",
     "Icon": "\uECA5",
     "Label": "Home",
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "DefaultItemFlyout"
   },
   {
     "Id": "PlaylistsPage",
@@ -14,7 +15,8 @@
     "Icon": "\uE8FD",
     "Label": "Playlists",
     "ItemType": 1,
-    "SubItems": []
+    "SubItems": [],
+    "FlyoutId": "DefaultItemFlyout"
   },
   {
     "Id": "MHeader",
@@ -28,7 +30,8 @@
     "HeaderGroup": "Music",
     "Icon": "\uEC4F",
     "Label": "Songs",
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "DefaultItemFlyout"
   },
   {
     "Id": "ArtistsPage",
@@ -36,7 +39,8 @@
     "HeaderGroup": "Music",
     "Icon": "\uE125",
     "Label": "Artists",
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "DefaultItemFlyout"
   },
   {
     "Id": "AlbumsPage",
@@ -44,7 +48,8 @@
     "HeaderGroup": "Music",
     "Icon": "\uE93C",
     "Label": "Albums",
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "DefaultItemFlyout"
   },
   {
     "Id": "VHeader",
@@ -58,7 +63,8 @@
     "HeaderGroup": "Videos",
     "Icon": "\uE8B2",
     "Label": "LocalVideos",
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "RemoveItemFlyout"
   },
   {
     "Id": "DiscyPage",
@@ -67,7 +73,8 @@
     "Icon": "\uE9CE",
     "Label": "Discy",
     "IsFooter": true,
-    "ItemType": 1
+    "ItemType": 1,
+    "FlyoutId": "RemoveItemFlyout"
   },
   {
     "Id": "SettingsPage",
