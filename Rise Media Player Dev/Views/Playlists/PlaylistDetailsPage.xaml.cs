@@ -160,7 +160,7 @@ namespace Rise.App.Views
                     ItemType = NavViewItemType.SubItem,
                     Icon = SelectedPlaylist.Icon,
                     Label = SelectedPlaylist.Title,
-                    Parent = item,
+                    ParentId = item.Id,
                     FlyoutId = "RemoveItemFlyout"
                 };
                 item.SubItems.Add(itm);

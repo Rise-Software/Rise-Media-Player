@@ -70,10 +70,10 @@ namespace Rise.Data.ViewModels
         }
 
         /// <summary>
-        /// The item's parent. Only applies if <see cref="ItemType"/> is
+        /// The parent item's Id. Only applies if <see cref="ItemType"/> is
         /// <see cref="NavViewItemType.SubItem"/>.
         /// </summary>
-        public NavViewItemViewModel Parent { get; init; }
+        public string ParentId { get; init; }
 
         /// <summary>
         /// A set of items contained within this item.

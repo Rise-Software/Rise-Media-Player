@@ -461,8 +461,8 @@ namespace Rise.App.Views
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             var item = RightClickedItem;
-            if (item.Parent != null)
-                _ = item.Parent.SubItems.Remove(item);
+            if (NavDataSource.TryGetItem(item.ParentId, out var parent))
+                _ = parent.SubItems.Remove(item);
             else
                 NavDataSource.ToggleItemVisibility(item.Id);
         }
