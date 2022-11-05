@@ -6,7 +6,6 @@ using Rise.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -97,17 +96,11 @@ namespace Rise.Data.Sources
             if (Items.Count != 0 || FooterItems.Count != 0)
                 return;
 
-            StorageFile file;
-            string path = Path.Combine(ApplicationData.
-                Current.LocalFolder.Path, _fileName);
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.TryGetItemAsync(_fileName) as StorageFile;
 
             // If the file doesn't exist, get data from the placeholder
-            if (File.Exists(path))
-            {
-                file = await ApplicationData.Current.LocalFolder.
-                    GetFileAsync(_fileName);
-            }
-            else
+            if (file == null)
             {
                 var dataUri = new Uri($"ms-appx:///Assets/{_fileName}");
                 file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
@@ -122,9 +115,7 @@ namespace Rise.Data.Sources
                 // stuff to a tmp file and call it a day. We have to account
                 // for that. I'm not joking when I say not checking for this
                 // can crash the app, every single time it starts up.
-                file = await ApplicationData.Current.LocalFolder.
-                    GetFileAsync(_tmpFileName);
-
+                file = await localFolder.GetFileAsync(_tmpFileName);
                 jsonText = await FileIO.ReadTextAsync(file);
             }
 
