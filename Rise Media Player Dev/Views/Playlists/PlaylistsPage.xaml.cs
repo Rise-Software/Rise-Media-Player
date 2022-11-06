@@ -1,7 +1,10 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Enums;
 using Rise.Common.Helpers;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using System;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -12,6 +15,8 @@ namespace Rise.App.Views
 {
     public sealed partial class PlaylistsPage : MediaPageBase
     {
+        private NavViewDataSource NavDataSource => App.NavDataSource;
+
         public PlaylistViewModel SelectedItem
         {
             get => (PlaylistViewModel)GetValue(SelectedItemProperty);
@@ -62,6 +67,25 @@ namespace Rise.App.Views
         private async void DeletePlaylist_Click(object sender, RoutedEventArgs e)
         {
             await SelectedItem.DeleteAsync();
+        }
+
+        private void PinToSidebar_Click(object sender, RoutedEventArgs e)
+        {
+            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
+            if (hasItem)
+            {
+                var playlist = SelectedItem;
+                var itm = new NavViewItemViewModel
+                {
+                    Id = playlist.Model.Id.ToString(),
+                    ItemType = NavViewItemType.SubItem,
+                    Icon = playlist.Icon,
+                    Label = playlist.Title,
+                    ParentId = item.Id,
+                    FlyoutId = "RemoveItemFlyout"
+                };
+                item.SubItems.Add(itm);
+            }
         }
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
