@@ -1,4 +1,5 @@
-﻿using Rise.Common.Extensions;
+﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
@@ -196,8 +197,28 @@ namespace Rise.App.ViewModels
                 return await file.GetVideoAsync();
             }
 
-            return WebHelpers.GetVideoFromUri(uri);
+            return WebHelpers.GetVideoFromUri(uri, Title, Directors, Thumbnail);
         }
         #endregion
+    }
+
+    public static class VideoViewModelExtensions
+    {
+        public static Task<VideoViewModel> AsVideoAsync(this MediaPlaybackItem item)
+        {
+            var displayProps = item.GetDisplayProperties();
+
+            var video = new VideoViewModel
+            {
+                Title = displayProps.VideoProperties.Title,
+                Directors = item.Source.CustomProperties["Artists"] as string,
+                Location = item.Source.Uri.ToString(),
+                Year = (uint)item.Source.CustomProperties["Year"],
+                Length = (TimeSpan)item.Source.Duration,
+                Thumbnail = URIs.MusicThumb
+            };
+
+            return Task.FromResult(video);
+        }
     }
 }

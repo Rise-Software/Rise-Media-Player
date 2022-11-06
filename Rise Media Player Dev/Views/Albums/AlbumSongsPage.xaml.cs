@@ -103,7 +103,7 @@ namespace Rise.App.Views
             foreach (var song in MediaViewModel.Items)
                 songs.Add((SongViewModel)song);
 
-            await playlist.AddSongsAsync(songs, create);
+            await playlist.AddItemsAsync(songs, create);
         }
 
         private async void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
@@ -118,7 +118,7 @@ namespace Rise.App.Views
             foreach (var song in MediaViewModel.Items)
                 songs.Add((SongViewModel)song);
 
-            await playlist.RemoveSongsAsync(songs);
+            await playlist.RemoveItemsAsync(songs);
         }
     }
 

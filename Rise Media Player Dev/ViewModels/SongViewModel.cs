@@ -1,6 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Newtonsoft.Json;
 using Rise.App.Helpers;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
@@ -409,8 +410,30 @@ namespace Rise.App.ViewModels
                 return await file.GetSongAsync();
             }
 
-            return WebHelpers.GetSongFromUri(uri);
+            return WebHelpers.GetSongFromUri(uri, Title, Artist, Thumbnail);
         }
         #endregion
+    }
+
+    public static class SongViewModelExtensions
+    {
+        public static Task<SongViewModel> AsSongAsync(this MediaPlaybackItem item)
+        {
+            var displayProps = item.GetDisplayProperties();
+
+            var song = new SongViewModel
+            {
+                Title = displayProps.MusicProperties.Title,
+                Artist = displayProps.MusicProperties.Artist,
+                Album = displayProps.MusicProperties.AlbumTitle,
+                AlbumArtist = displayProps.MusicProperties.AlbumArtist,
+                Genres = string.Join(";", displayProps.MusicProperties.Genres),
+                Location = item.Source.Uri.ToString(),
+                Length = (TimeSpan)item.Source.Duration,
+                Thumbnail = URIs.MusicThumb
+            };
+
+            return Task.FromResult(song);
+        }
     }
 }

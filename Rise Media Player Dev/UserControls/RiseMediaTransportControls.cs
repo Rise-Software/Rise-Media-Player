@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
@@ -99,6 +100,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a command that runs whenever one of the
+        /// playlists in the "Add to menu" is clicked.
+        /// </summary>
+        public ICommand AddToPlaylistCommand
+        {
+            get => (ICommand)GetValue(AddToPlaylistCommandProperty);
+            set => SetValue(AddToPlaylistCommandProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can open the now playing page.
         /// </summary>
@@ -119,8 +130,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is enabled.
+        /// Gets or sets a value that indicates whether the
+        /// properties button is enabled.
         /// </summary>
         public bool IsPropertiesEnabled
         {
@@ -129,8 +140,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is shown.
+        /// Gets or sets a value that indicates whether the
+        /// properties button is shown.
         /// </summary>
         public bool IsPropertiesButtonVisible
         {
@@ -139,8 +150,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the equalizer
-        /// button is enabled.
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is enabled.
         /// </summary>
         public bool IsEqualizerButtonEnabled
         {
@@ -149,8 +160,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the equalizer
-        /// button is shown.
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is shown.
         /// </summary>
         public bool IsEqualizerButtonVisible
         {
@@ -176,6 +187,16 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsQueueButtonVisibleProperty);
             set => SetValue(IsQueueButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the add to
+        /// playlist button is shown.
+        /// </summary>
+        public bool IsAddToMenuVisible
+        {
+            get => (bool)GetValue(IsAddToMenuVisibleProperty);
+            set => SetValue(IsAddToMenuVisibleProperty, value);
         }
 
         /// <summary>
@@ -272,12 +293,20 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
+        public readonly static DependencyProperty AddToPlaylistCommandProperty =
+            DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsAddToMenuVisibleProperty =
+            DependencyProperty.Register(nameof(IsAddToMenuVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsPropertiesEnabledProperty =
@@ -344,6 +373,12 @@ namespace Rise.App.UserControls
 
                     speedButton.Items.Add(itm);
                 }
+            }
+
+            if (GetTemplateChild("AddToPlaylistMenu") is MenuFlyoutSubItem addToPlaylistMenu)
+            {
+                var helper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+                helper.AddPlaylistsToSubItem(addToPlaylistMenu, AddToPlaylistCommand);
             }
 
             base.OnApplyTemplate();

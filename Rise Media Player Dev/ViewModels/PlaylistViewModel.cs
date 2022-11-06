@@ -4,12 +4,14 @@ using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using TagLib.Ape;
 using Windows.Storage;
 
 namespace Rise.App.ViewModels
@@ -367,135 +369,71 @@ namespace Rise.App.ViewModels
         #region Item management
 
         /// <summary>
-        /// Adds a song to the playlist.
+        /// Adds a <see cref="IMediaItem" /> to the playlist.
         /// </summary>
-        public async Task AddSongAsync(SongViewModel song, bool newPlaylist = false)
+        public async Task AddItemAsync(IMediaItem item, bool newPlaylist = false)
         {
-            Songs.Add(song);
+            if (item is SongViewModel song)
+                Songs.Add(song);
+            else if (item is VideoViewModel video)
+                Videos.Add(video);
 
             if (newPlaylist)
-            {
                 await SaveAsync();
-            }
             else
-            {
                 await SaveEditsAsync();
-            }
         }
 
         /// <summary>
-        /// Adds a video to the playlist.
+        /// Removes a <see cref="IMediaItem" /> from the playlist.
         /// </summary>
-        public async Task AddVideoAsync(VideoViewModel video, bool newPlaylist = false)
+        public async Task RemoveItemAsync(IMediaItem item)
         {
-            Videos.Add(video);
+            if (item is SongViewModel song)
+                Songs.Remove(song);
+            else if (item is VideoViewModel video)
+                Videos.Remove(video);
 
-            if (newPlaylist)
-            {
-                await SaveAsync();
-            }
-            else
-            {
-                await SaveEditsAsync();
-            }
-        }
-
-        /// <summary>
-        /// Removes a song from the playlist.
-        /// </summary>
-        public async Task RemoveSongAsync(SongViewModel song)
-        {
-            Songs.Remove(song);
-            await SaveEditsAsync();
-        }
-
-        ///<summary>
-        /// Removes a video from the playlist.
-        ///</summary>
-        public async Task RemoveVideoAsync(VideoViewModel video)
-        {
-            Videos.Remove(video);
             await SaveEditsAsync();
         }
 
         /// <summary>
-        /// Adds multiple songs to the playlist.
+        /// Adds multiple <see cref="IMediaItem"/>s to the playlist.
         /// </summary>
-        public async Task AddSongsAsync(IEnumerable<SongViewModel> songs, bool newPlaylist = false)
+        public async Task AddItemsAsync(IEnumerable<IMediaItem> items, bool newPlaylist = false)
         {
             try
             {
-                foreach (SongViewModel song in songs)
+                foreach (IMediaItem item in items)
                 {
-                    Songs.Add(song);
+                    if (item is SongViewModel song)
+                        Songs.Add(song);
+                    else if (item is VideoViewModel video)
+                        Videos.Add(video);
                 }
             }
             finally
             {
                 if (newPlaylist)
-                {
                     await SaveAsync();
-                }
                 else
-                {
                     await SaveEditsAsync();
-                }
-            }
-        }
-
-        ///<summary>
-        /// Adds multiple videos to the playlist.
-        ///</summary>
-        public async Task AddVideosAsync(IEnumerable<VideoViewModel> videos, bool newPlaylist = false)
-        {
-            try
-            {
-                foreach (VideoViewModel video in videos)
-                {
-                    Videos.Add(video);
-                }
-            }
-            finally
-            {
-                if (newPlaylist)
-                {
-                    await SaveAsync();
-                }
-                else
-                {
-                    await SaveEditsAsync();
-                }
             }
         }
 
         /// <summary>
-        /// Removes multiple songs from the playlist.
+        /// Removes multiple <see cref="IMediaItem"/>s from the playlist.
         /// </summary>
-        public async Task RemoveSongsAsync(IEnumerable<SongViewModel> songs)
+        public async Task RemoveItemsAsync(IEnumerable<IMediaItem> items)
         {
             try
             {
-                foreach (SongViewModel song in songs)
+                foreach (IMediaItem item in items)
                 {
-                    Songs.Remove(song);
-                }
-            }
-            finally
-            {
-                await SaveEditsAsync();
-            }
-        }
-
-        /// <summary>
-        /// Removes multiple videos from the playlist.
-        /// </summary>
-        public async Task RemoveVideosAsync(IEnumerable<VideoViewModel> videos)
-        {
-            try
-            {
-                foreach (VideoViewModel video in videos)
-                {
-                    Videos.Remove(video);
+                    if (item is SongViewModel song)
+                        Songs.Remove(song);
+                    else if (item is VideoViewModel video)
+                        Videos.Remove(video);
                 }
             }
             finally

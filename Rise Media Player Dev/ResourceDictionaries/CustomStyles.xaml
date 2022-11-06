@@ -392,6 +392,17 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
+                                            <MenuFlyoutSubItem x:Uid="/Information/AddTo" x:Name="AddToPlaylistMenu">
+                                                <MenuFlyoutSubItem.Icon>
+                                                    <FontIcon Glyph="&#xECC8;" />
+                                                </MenuFlyoutSubItem.Icon>
+                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{TemplateBinding AddToPlaylistCommand}">
+                                                    <MenuFlyoutItem.Icon>
+                                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                                    </MenuFlyoutItem.Icon>
+                                                </MenuFlyoutItem>
+                                            </MenuFlyoutSubItem>
+
                                             <MenuFlyoutItem x:Name="CastToButton" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xEC15;" />

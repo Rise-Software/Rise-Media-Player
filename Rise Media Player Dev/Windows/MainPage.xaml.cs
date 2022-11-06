@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -201,6 +203,32 @@ namespace Rise.App.Views
                 else
                     Frame.Navigate(typeof(NowPlayingPage), true);
             }
+        }
+
+        [RelayCommand]
+        private async Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var playlistHelper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+
+            IMediaItem mediaItem = null;
+
+            if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                mediaItem = App.MViewModel.Songs.FirstOrDefault(s => s.Location == App.MPViewModel.PlayingItemProperties.Location);
+            else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                mediaItem = App.MViewModel.Videos.FirstOrDefault(v => v.Location == App.MPViewModel.PlayingItemProperties.Location);
+
+            if (mediaItem == null)
+            {
+                if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                    mediaItem = await App.MPViewModel.PlayingItem.AsSongAsync();
+                else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                    mediaItem = await App.MPViewModel.PlayingItem.AsVideoAsync();
+            }
+
+            if (playlist == null)
+                await playlistHelper.CreateNewPlaylistAsync(mediaItem);
+            else
+                await playlist.AddItemAsync(mediaItem);
         }
 
         [RelayCommand]
