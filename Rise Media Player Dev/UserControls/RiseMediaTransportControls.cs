@@ -10,9 +10,12 @@ using Rise.Data.ViewModels;
 using System;
 using System.Linq;
 using System.Windows.Input;
+using Windows.Foundation;
 using Windows.Media;
+using Windows.Media.Casting;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -360,6 +363,9 @@ namespace Rise.App.UserControls
             if (GetTemplateChild("EqualizerButton") is MenuFlyoutItem equalizerButton)
                 equalizerButton.Click += EqualizerButtonClick;
 
+            if (GetTemplateChild("CastToButton") is MenuFlyoutItem castButton)
+                castButton.Click += CastButtonClick;
+
             if (GetTemplateChild("PlaybackSpeedButton") is MenuFlyoutSubItem speedButton)
             {
                 for (double i = 0.25; i <= 2; i += 0.25)
@@ -438,6 +444,49 @@ namespace Rise.App.UserControls
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)
             => _ = new EqualizerDialog().ShowAsync();
+
+        private void CastButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayerCreated)
+            {
+                // The picker is created every time to avoid a memory leak
+                // TODO: Create our own flyout to avoid this issue
+                var picker = new CastingDevicePicker();
+                picker.Filter.SupportsAudio = true;
+                picker.Filter.SupportsVideo = true;
+
+                picker.CastingDeviceSelected += OnCastingDeviceSelected;
+                picker.CastingDevicePickerDismissed += OnCastingDevicePickerDismissed;
+
+                var btn = sender as MenuFlyoutItem;
+
+                // Retrieve the location of the casting button
+                var transform = btn.TransformToVisual(Window.Current.Content);
+                var pt = transform.TransformPoint(new Point(0, 0));
+
+                // Show the picker above the button
+                var area = new Rect(pt.X, pt.Y, btn.ActualWidth, btn.ActualHeight);
+                picker.Show(area, Placement.Above);
+            }
+        }
+
+        private async void OnCastingDeviceSelected(CastingDevicePicker sender, CastingDeviceSelectedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var connection = args.SelectedCastingDevice.CreateCastingConnection();
+                await connection.RequestStartCastingAsync(MPViewModel.Player.GetAsCastingSource());
+
+                sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+                sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+            });
+        }
+
+        private void OnCastingDevicePickerDismissed(CastingDevicePicker sender, object args)
+        {
+            sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+            sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+        }
 
         [RelayCommand]
         private void UpdatePlaybackSpeed(double speed)
