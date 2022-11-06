@@ -276,9 +276,6 @@
   <data name="OpenFileLocation.Text" xml:space="preserve">
     <value>Show in File Explorer</value>
   </data>
-  <data name="PinToSidebar.Label" xml:space="preserve">
-    <value>Pin to sidebar</value>
-  </data>
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Pin to Start</value>
   </data>

@@ -5,6 +5,7 @@
     xmlns:app="using:Rise.App"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:uc="using:Rise.App.UserControls"
@@ -200,9 +201,9 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton
-                                    x:Uid="/Information/PinToSidebar"
                                     Click="PinToSidebar_Click"
-                                    Icon="Pin" />
+                                    Icon="Pin"
+                                    Label="{markup:ResourceHelper Name=PinToSidebar}" />
                                 <AppBarButton
                                     x:Uid="/Information/Properties"
                                     Command="{x:Bind EditItemCommand, Mode=OneTime}"
