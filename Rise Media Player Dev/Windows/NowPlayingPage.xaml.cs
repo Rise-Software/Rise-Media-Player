@@ -151,7 +151,20 @@ namespace Rise.App.Views
 
         private IAsyncAction UpdateCurrentLyricAsync(TimeSpan playerPosition)
         {
-            var lyricsItem = _lyrics?.FirstOrDefault(item => item.TimeSpan.TotalSeconds - playerPosition.TotalSeconds >= 0);
+            var lyricsItem = new SyncedLyricItem();
+
+            if (_lyrics != null)
+            {
+                foreach (var item in _lyrics)
+                {
+                    if (item.TimeSpan.TotalMilliseconds < playerPosition.TotalMilliseconds)
+                    {
+                        lyricsItem = item;
+                    }
+                    else
+                        break;
+                }
+            }
 
             // The dispatcher call starts here due to wrong thread exceptions when
             // trying to access the lyric list's SelectedItem normally
