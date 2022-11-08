@@ -110,6 +110,7 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
+                        x:Name="PinPlaylist"
                         Command="{x:Bind SwitchPlaylistPinningStateCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                         Icon="Pin"
@@ -185,5 +186,21 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PlaylistPinningStates">
+                <VisualState x:Name="UnpinnedPlaylistState" />
+                <VisualState x:Name="PinnedPlaylistState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind SelectedItem.IsPinned, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="PinPlaylist.Icon" Value="UnPin" />
+                        <Setter Target="PinPlaylist.Text" Value="{markup:ResourceHelper Name=RemoveFromSidebar}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </uc:MediaPageBase>

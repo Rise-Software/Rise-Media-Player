@@ -201,10 +201,20 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton
-                                    Command="{x:Bind SwitchPlaylistPinningStateCommand}"
-                                    CommandParameter="{x:Bind SelectedPlaylist}"
+                                    x:Name="PinPlaylist"
+                                    x:Load="{x:Bind SelectedPlaylist.IsPinned.Equals(x:False)}"
+                                    Command="{x:Bind SwitchPlaylistPinningStateCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedPlaylist, Mode=OneTime}"
                                     Icon="Pin"
                                     Label="{markup:ResourceHelper Name=PinToSidebar}" />
+                                <AppBarButton
+                                    x:Name="UnPinPlaylist"
+                                    x:Load="{x:Bind SelectedPlaylist.IsPinned}"
+                                    Command="{x:Bind SwitchPlaylistPinningStateCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedPlaylist, Mode=OneTime}"
+                                    Icon="UnPin"
+                                    Label="{markup:ResourceHelper Name=RemoveFromSidebar}" />
+
                                 <AppBarButton
                                     x:Uid="/Information/Properties"
                                     Command="{x:Bind EditItemCommand, Mode=OneTime}"
