@@ -251,7 +251,7 @@ namespace Rise.App.UserControls
         }
 
         [RelayCommand]
-        private void SwitchPlaylistPinningState(PlaylistViewModel playlist)
+        private Task SwitchPlaylistPinningState(PlaylistViewModel playlist)
         {
             bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
             if (hasItem)
@@ -281,6 +281,8 @@ namespace Rise.App.UserControls
                     playlist.IsPinned = true;
                 }
             }
+
+            return playlist.SaveEditsAsync();
         }
     }
 
