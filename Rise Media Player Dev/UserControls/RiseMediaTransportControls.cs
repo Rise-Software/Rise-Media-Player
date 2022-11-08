@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common.Enums;
@@ -9,9 +10,12 @@ using Rise.Data.ViewModels;
 using System;
 using System.Linq;
 using System.Windows.Input;
+using Windows.Foundation;
 using Windows.Media;
+using Windows.Media.Casting;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -99,6 +103,16 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// Gets or sets a command that runs whenever one of the
+        /// playlists in the "Add to menu" is clicked.
+        /// </summary>
+        public ICommand AddToPlaylistCommand
+        {
+            get => (ICommand)GetValue(AddToPlaylistCommandProperty);
+            set => SetValue(AddToPlaylistCommandProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value that indicates whether a user
         /// can open the now playing page.
         /// </summary>
@@ -119,8 +133,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is enabled.
+        /// Gets or sets a value that indicates whether the
+        /// properties button is enabled.
         /// </summary>
         public bool IsPropertiesEnabled
         {
@@ -129,8 +143,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the properties
-        /// button is shown.
+        /// Gets or sets a value that indicates whether the
+        /// properties button is shown.
         /// </summary>
         public bool IsPropertiesButtonVisible
         {
@@ -139,8 +153,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the equalizer
-        /// button is enabled.
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is enabled.
         /// </summary>
         public bool IsEqualizerButtonEnabled
         {
@@ -149,8 +163,8 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the equalizer
-        /// button is shown.
+        /// Gets or sets a value that indicates whether the
+        /// equalizer button is shown.
         /// </summary>
         public bool IsEqualizerButtonVisible
         {
@@ -176,6 +190,16 @@ namespace Rise.App.UserControls
         {
             get => (bool)GetValue(IsQueueButtonVisibleProperty);
             set => SetValue(IsQueueButtonVisibleProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether the add to
+        /// playlist button is shown.
+        /// </summary>
+        public bool IsAddToMenuVisible
+        {
+            get => (bool)GetValue(IsAddToMenuVisibleProperty);
+            set => SetValue(IsAddToMenuVisibleProperty, value);
         }
 
         /// <summary>
@@ -272,12 +296,20 @@ namespace Rise.App.UserControls
             DependencyProperty.Register(nameof(OverlayCommand), typeof(ICommand),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
 
+        public readonly static DependencyProperty AddToPlaylistCommandProperty =
+            DependencyProperty.Register(nameof(AddToPlaylistCommand), typeof(ICommand),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
         public readonly static DependencyProperty IsOverlayEnabledProperty =
             DependencyProperty.Register(nameof(IsOverlayEnabled), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsOverlayButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsOverlayButtonVisible), typeof(bool),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+
+        public readonly static DependencyProperty IsAddToMenuVisibleProperty =
+            DependencyProperty.Register(nameof(IsAddToMenuVisible), typeof(bool),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(false));
 
         public readonly static DependencyProperty IsPropertiesEnabledProperty =
@@ -331,6 +363,9 @@ namespace Rise.App.UserControls
             if (GetTemplateChild("EqualizerButton") is MenuFlyoutItem equalizerButton)
                 equalizerButton.Click += EqualizerButtonClick;
 
+            if (GetTemplateChild("CastToButton") is MenuFlyoutItem castButton)
+                castButton.Click += CastButtonClick;
+
             if (GetTemplateChild("PlaybackSpeedButton") is MenuFlyoutSubItem speedButton)
             {
                 for (double i = 0.25; i <= 2; i += 0.25)
@@ -344,6 +379,12 @@ namespace Rise.App.UserControls
 
                     speedButton.Items.Add(itm);
                 }
+            }
+
+            if (GetTemplateChild("AddToPlaylistMenu") is MenuFlyoutSubItem addToPlaylistMenu)
+            {
+                var helper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+                helper.AddPlaylistsToSubItem(addToPlaylistMenu, AddToPlaylistCommand);
             }
 
             base.OnApplyTemplate();
@@ -403,6 +444,49 @@ namespace Rise.App.UserControls
 
         private void EqualizerButtonClick(object sender, RoutedEventArgs e)
             => _ = new EqualizerDialog().ShowAsync();
+
+        private void CastButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (MPViewModel.PlayerCreated)
+            {
+                // The picker is created every time to avoid a memory leak
+                // TODO: Create our own flyout to avoid this issue
+                var picker = new CastingDevicePicker();
+                picker.Filter.SupportsAudio = true;
+                picker.Filter.SupportsVideo = true;
+
+                picker.CastingDeviceSelected += OnCastingDeviceSelected;
+                picker.CastingDevicePickerDismissed += OnCastingDevicePickerDismissed;
+
+                var btn = sender as MenuFlyoutItem;
+
+                // Retrieve the location of the casting button
+                var transform = btn.TransformToVisual(Window.Current.Content);
+                var pt = transform.TransformPoint(new Point(0, 0));
+
+                // Show the picker above the button
+                var area = new Rect(pt.X, pt.Y, btn.ActualWidth, btn.ActualHeight);
+                picker.Show(area, Placement.Above);
+            }
+        }
+
+        private async void OnCastingDeviceSelected(CastingDevicePicker sender, CastingDeviceSelectedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var connection = args.SelectedCastingDevice.CreateCastingConnection();
+                await connection.RequestStartCastingAsync(MPViewModel.Player.GetAsCastingSource());
+
+                sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+                sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+            });
+        }
+
+        private void OnCastingDevicePickerDismissed(CastingDevicePicker sender, object args)
+        {
+            sender.CastingDeviceSelected -= OnCastingDeviceSelected;
+            sender.CastingDevicePickerDismissed -= OnCastingDevicePickerDismissed;
+        }
 
         [RelayCommand]
         private void UpdatePlaybackSpeed(double speed)

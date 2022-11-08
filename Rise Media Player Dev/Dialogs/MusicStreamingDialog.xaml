@@ -13,12 +13,13 @@
     mc:Ignorable="d">
 
     <StackPanel Width="300" Spacing="6">
-        <TextBox x:Name="StreamingTextBox" Header="URL to stream" />
+        <TextBox x:Name="StreamingTextBox" Header="URL" />
         <TextBlock FontSize="13" TextWrapping="Wrap">
-            Note: not a YouTube Music URL for example, but a direct link to a song file, stream, or playlist.<LineBreak /><LineBreak />
             Examples of direct links include:<LineBreak />
             https://www.example.com/song.mp3<LineBreak />
-            https://www.example.com/song_playlist.m3u</TextBlock>
+            https://www.example.com/song_playlist.m3u<LineBreak />
+            https://www.youtube.com/watch?v=dQw4w9Wg
+        </TextBlock>
         <TextBlock
             x:Name="InvalidUrlText"
             FontSize="13"

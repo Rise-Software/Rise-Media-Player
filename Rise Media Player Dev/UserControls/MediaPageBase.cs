@@ -221,12 +221,7 @@ namespace Rise.App.UserControls
         {
             var itm = GetValue(SelectedItemProperty);
             if (playlist != null)
-            {
-                if (itm is SongViewModel song)
-                    return playlist.AddSongAsync(song);
-                else if (itm is VideoViewModel video)
-                    return playlist.AddVideoAsync(video);
-            }
+                return playlist.AddItemAsync(itm as IMediaItem);
             else if (itm is IMediaItem media)
             {
                 return PlaylistHelper.CreateNewPlaylistAsync(media);
@@ -240,18 +235,7 @@ namespace Rise.App.UserControls
         {
             var first = MediaViewModel.Items.FirstOrDefault();
             if (playlist != null)
-            {
-                if (first is SongViewModel)
-                {
-                    var items = MediaViewModel.Items.Cast<SongViewModel>();
-                    return playlist.AddSongsAsync(items);
-                }
-                else if (first is VideoViewModel)
-                {
-                    var items = MediaViewModel.Items.Cast<VideoViewModel>();
-                    return playlist.AddVideosAsync(items);
-                }
-            }
+                return playlist.AddItemsAsync(MediaViewModel.Items.Cast<IMediaItem>());
             else if (first is IMediaItem)
             {
                 var items = MediaViewModel.Items.Cast<IMediaItem>();

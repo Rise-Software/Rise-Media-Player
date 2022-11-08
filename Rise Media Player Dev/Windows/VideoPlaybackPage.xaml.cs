@@ -1,5 +1,7 @@
-﻿using Rise.Common.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
+using Windows.Media;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,6 +25,19 @@ namespace Rise.App.Views
 
             TitleBar.SetTitleBarForCurrentView();
             Player.SetMediaPlayer(ViewModel.Player);
+        }
+
+        [RelayCommand]
+        private void EnterFullScreen()
+        {
+            var view = ApplicationView.GetForCurrentView();
+
+            FullScreenRequested = view.IsFullScreenMode;
+
+            if (!view.IsFullScreenMode)
+                view.TryEnterFullScreenMode();
+            else
+                view.ExitFullScreenMode();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -584,6 +584,7 @@
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
                             DisplayItemVisibility="Visible"
                             FullWindowCommand="{x:Bind EnterFullScreenCommand}"
+                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
                             IsEqualizerButtonEnabled="True"

@@ -13,11 +13,12 @@
     mc:Ignorable="d">
 
     <StackPanel Width="300" Spacing="6">
-        <TextBox x:Name="StreamingTextBox" Header="URL to stream" />
+        <TextBox x:Name="StreamingTextBox" Header="URL" />
         <TextBlock FontSize="13" TextWrapping="Wrap">
-            Note: not a YouTube video URL (which leads to a webpage) for example, but a direct link to a video file.<LineBreak /><LineBreak />
-            Examples of direct links include:<LineBreak />
-            https://www.example.com/video.mp4</TextBlock>
+            Examples of links include:<LineBreak />
+            https://www.example.com/video.mp4<LineBreak />
+            https://www.youtube.com/watch?v=p7YXXieghto
+        </TextBlock>
         <TextBlock
             x:Name="InvalidUrlText"
             FontSize="13"

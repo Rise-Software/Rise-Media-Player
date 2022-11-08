@@ -75,6 +75,7 @@
                     x:Name="PlayerControls"
                     Margin="16"
                     IsCompact="True"
+                    FullWindowCommand="{x:Bind EnterFullScreenCommand}"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
                     IsNextTrackButtonVisible="True"
