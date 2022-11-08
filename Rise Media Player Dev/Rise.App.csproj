@@ -1122,6 +1122,10 @@
       <Project>{1319ce6d-828f-4024-93c9-4052f3f053ba}</Project>
       <Name>Rise.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rise.Plugins\Rise.Plugins.csproj">
+      <Project>{df7a3a9a-da88-416a-a675-fec8d3d9687b}</Project>
+      <Name>Rise.Plugins</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
