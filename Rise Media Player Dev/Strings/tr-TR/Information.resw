@@ -252,9 +252,6 @@
   <data name="QuickH.Text" xml:space="preserve">
     <value>Hızlı bağlantılar</value>
   </data>
-  <data name="Remove.Text" xml:space="preserve">
-    <value>Kenar çubuğundan kaldır</value>
-  </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Klasörü kaldır</value>
   </data>

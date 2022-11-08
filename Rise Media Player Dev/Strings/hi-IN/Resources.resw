@@ -141,6 +141,9 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>केवल स्ट्रीमिंग सुविधाएँ इस्तेमाल करें</value>
   </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>साइडबार से हटाएँ</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
   </data>

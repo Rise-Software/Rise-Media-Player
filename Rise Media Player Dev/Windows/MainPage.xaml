@@ -303,10 +303,10 @@
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/Remove"
                     Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="UnPin" />
+                    Icon="UnPin"
+                    Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
                     x:Uid="/Information/RemoveSection"
@@ -320,9 +320,9 @@
 
             <MenuFlyout x:Key="RemoveItemFlyout">
                 <MenuFlyoutItem
-                    x:Uid="/Information/Remove"
                     Click="RemoveItem_Click"
-                    Icon="UnPin" />
+                    Icon="UnPin"
+                    Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>
         </ResourceDictionary>
     </Page.Resources>
@@ -582,9 +582,9 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
                             DisplayItemVisibility="Visible"
                             FullWindowCommand="{x:Bind EnterFullScreenCommand}"
-                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
                             IsCompactOverlayButtonVisible="True"
                             IsCompactOverlayEnabled="True"
                             IsEqualizerButtonEnabled="True"

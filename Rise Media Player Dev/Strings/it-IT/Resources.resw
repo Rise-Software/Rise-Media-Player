@@ -141,6 +141,9 @@
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Usa solo servizi di streaming</value>
   </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Rimuovi dalla sidebar</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Cerca media sul dispositivo</value>
   </data>
