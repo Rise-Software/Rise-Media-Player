@@ -340,7 +340,7 @@ namespace Rise.App.ViewModels
         public async Task SaveAsync()
         {
             App.MViewModel.Playlists.Add(this);
-            await App.PBackendController.UpsertAsync(this);
+            await App.PBackendController.AddOrUpdateAsync(this);
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace Rise.App.ViewModels
         public async Task SaveEditsAsync()
         {
             await App.PBackendController.DeleteAsync(this);
-            await App.PBackendController.UpsertAsync(this);
+            await App.PBackendController.AddOrUpdateAsync(this);
         }
 
         /// <summary>
@@ -458,7 +458,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = (await App.PBackendController.GetAsync(Model.Id)).Model;
+            Model = (await App.PBackendController.GetItemAsync(Model.Id.ToString())).Model;
         }
         #endregion
     }

@@ -40,6 +40,139 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <Style TargetType="co:HubPart">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Padding" Value="12,10,12,0" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="co:HubPart">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Resources>
+                            <ControlTemplate x:Key="HeaderButtonTemplate" TargetType="Button">
+                                <Grid x:Name="ButtonRoot" Background="Transparent">
+                                    <ContentPresenter
+                                        x:Name="ContentPresenter"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        OpticalMarginAlignment="TrimSideBearings" />
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="ButtonRoot" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="PointerOver">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HubSectionHeaderButtonForegroundPointerOver}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="ButtonRoot" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Pressed">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HubSectionHeaderButtonForegroundPressed}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <PointerDownThemeAnimation Storyboard.TargetName="ButtonRoot" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HubSectionHeaderButtonForegroundDisabled}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="ImitatedTextBlock">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HubSectionHeaderForeground}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                            </ControlTemplate>
+                        </Border.Resources>
+
+                        <Grid
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Rectangle x:Name="HubHeaderPlaceholder" Grid.Row="0" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    x:Name="HeaderButton"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="{ThemeResource HubSectionHeaderThemeMargin}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="Bottom"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
+                                    FontWeight="{ThemeResource HubSectionHeaderThemeFontWeight}"
+                                    Foreground="{ThemeResource HubSectionHeaderButtonForeground}"
+                                    IsHitTestVisible="False"
+                                    IsTabStop="False"
+                                    Template="{StaticResource HeaderButtonTemplate}"
+                                    UseSystemFocusVisuals="{StaticResource UseSystemFocusVisuals}" />
+                                <Button
+                                    x:Name="SeeMoreButton"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="{ThemeResource HubSectionHeaderSeeMoreThemeMargin}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    FontSize="{ThemeResource HubSectionHeaderSeeMoreThemeFontSize}"
+                                    FontWeight="{ThemeResource HubSectionHeaderThemeFontWeight}"
+                                    Foreground="{ThemeResource HubSectionHeaderButtonForeground}"
+                                    Template="{StaticResource HeaderButtonTemplate}"
+                                    UseSystemFocusVisuals="{StaticResource UseSystemFocusVisuals}"
+                                    Visibility="Collapsed" />
+                            </Grid>
+
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Grid.Row="2"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}" />
+                        </Grid>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#region Buttons-->
     <Style
         x:Key="AppBarCompactButtonStyle"
         BasedOn="{StaticResource DefaultAppBarButtonStyle}"

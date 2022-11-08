@@ -63,6 +63,10 @@ namespace Rise.App
             = new(() => new NotificationsBackendController());
         public static NotificationsBackendController NBackendController => _nBackendController.Value;
 
+        private readonly static Lazy<WidgetsBackendController> _wBackendController
+            = new(() => new WidgetsBackendController());
+        public static WidgetsBackendController WBackendController => _wBackendController.Value;
+
         // Data sources
         private readonly static Lazy<NavViewDataSource> _navDataSource
             = new(() => new NavViewDataSource());

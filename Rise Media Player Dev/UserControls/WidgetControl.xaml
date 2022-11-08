@@ -1,0 +1,60 @@
+﻿<UserControl
+    x:Class="Rise.App.UserControls.WidgetControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Rise.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:BooleanToVisibility x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid
+        d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+        Background="{ThemeResource ExpanderHeaderBackground}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <RelativePanel Padding="16,0">
+            <StackPanel
+                Orientation="Horizontal"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Spacing="16">
+                <ContentPresenter Content="{x:Bind Icon, Mode=OneWay}" Visibility="{x:Bind ShowIcon, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+                    <d:ContentPresenter.Content>
+                        <FontIcon d:Glyph="&#xE00B;" />
+                    </d:ContentPresenter.Content>
+                </ContentPresenter>
+                <TextBlock
+                    d:Text="Placeholder"
+                    Text="{x:Bind Title, Mode=OneWay}"
+                    Visibility="{x:Bind ShowTitle, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+            </StackPanel>
+
+            <Button
+                Width="25"
+                Height="25"
+                Padding="0"
+                Flyout="{x:Bind MoreFlyout, Mode=OneWay}"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Style="{StaticResource TransparentButtonStyle}"
+                Visibility="{x:Bind MoreButtonVisibility, Mode=OneWay}">
+                <FontIcon Glyph="&#xE10C;" />
+            </Button>
+        </RelativePanel>
+
+        <ContentPresenter
+            x:Name="WidgetContentPresenter"
+            Grid.Row="1"
+            Content="{x:Bind WidgetContent, Mode=OneWay}" />
+    </Grid>
+</UserControl>

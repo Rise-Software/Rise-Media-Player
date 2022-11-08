@@ -141,6 +141,7 @@
     <Compile Include="Enums\NowPlayingBarBackgroundStyles.cs" />
     <Compile Include="Enums\SliderDisplayModes.cs" />
     <Compile Include="Enums\VisualizerType.cs" />
+    <Compile Include="Enums\WidgetType.cs" />
     <Compile Include="Extensions\AsyncExtensions.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ContentDialogExtensions.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Helpers\SuspensionManager.cs" />
     <Compile Include="Helpers\UwpStorageFileAbstraction.cs" />
     <Compile Include="Helpers\WebHelpers.cs" />
+	<Compile Include="Interfaces\IBackendController.cs" />
     <Compile Include="QueryPresets.cs" />
     <Compile Include="Interfaces\IMatchable.cs" />
     <Compile Include="Interfaces\IMediaItem.cs" />

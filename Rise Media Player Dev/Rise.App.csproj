@@ -147,6 +147,7 @@
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
+    <Compile Include="DbControllers\WidgetsBackendController.cs" />
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
     </Compile>
@@ -172,14 +173,27 @@
     <Compile Include="UserControls\AlbumData.xaml.cs">
       <DependentUpon>AlbumData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AppInfoWidgetContentControl.xaml.cs">
+      <DependentUpon>AppInfoWidgetContentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DefaultQueueFlyout.xaml.cs">
       <DependentUpon>DefaultQueueFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HubPart.cs" />
     <Compile Include="UserControls\MediaPageBase.cs" />
+    <Compile Include="UserControls\RecentlyPlayedWidgetContentControl.xaml.cs">
+      <DependentUpon>RecentlyPlayedWidgetContentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
     <Compile Include="UserControls\RiseMediaTransportControls.cs" />
     <Compile Include="UserControls\SongData.xaml.cs">
       <DependentUpon>SongData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TopTracksWidgetContentControl.xaml.cs">
+      <DependentUpon>TopTracksWidgetContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WidgetControl.xaml.cs">
+      <DependentUpon>WidgetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MediaCollectionViewModel.cs" />
     <Compile Include="Converters\AdditionSubtraction.cs" />
@@ -192,7 +206,6 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="DbControllers\BaseBackendController.cs" />
     <Compile Include="DbControllers\NotificationsBackendController.cs" />
     <Compile Include="DbControllers\PlaylistsBackendController.cs" />
     <Compile Include="Dialogs\AboutArtist.xaml.cs">
@@ -324,6 +337,9 @@
     <Compile Include="Web\WhatsNew.xaml.cs">
       <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\AppInfoWidget.cs" />
+    <Compile Include="Widgets\RecentlyPlayedWidget.cs" />
+    <Compile Include="Widgets\TopTracksWidget.cs" />
     <Compile Include="Windows\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
@@ -638,11 +654,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AppInfoWidgetContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RecentlyPlayedWidgetContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DefaultQueueFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SongData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TopTracksWidgetContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WidgetControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

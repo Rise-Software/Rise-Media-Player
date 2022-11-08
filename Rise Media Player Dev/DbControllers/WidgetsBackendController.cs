@@ -1,24 +1,25 @@
-﻿using Newtonsoft.Json;
-using Rise.App.ViewModels;
-using Rise.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Rise.App.Widgets;
+using Rise.Common.Interfaces;
+using Rise.Data.ViewModels;
 using Windows.Storage;
 
 namespace Rise.App.DbControllers
 {
     /// <summary>
-    /// A <see cref="IBackendController"/> for notifications.
+    /// A <see cref="IBackendController"/> for widgets.
     /// Database file is created lazily.
     /// </summary>
-    public class NotificationsBackendController : IBackendController<NotificationViewModel>
+    public class WidgetsBackendController : IBackendController<WidgetViewModel>
     {
         /// <summary>
         /// The database file name
         /// </summary>
-        public string DatabaseFileName => "Notifications";
+        public string DatabaseFileName => "Widgets";
 
         /// <summary>
         /// Gets the database file.
@@ -31,18 +32,24 @@ namespace Rise.App.DbControllers
         /// Gets the items in the database.
         /// </summary>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task<IEnumerable<NotificationViewModel>> GetItemsAsync()
+        public async Task<IEnumerable<WidgetViewModel>> GetItemsAsync()
         {
             string text = await FileIO.ReadTextAsync(await GetDatabaseFileAsync());
 
             if (!string.IsNullOrWhiteSpace(text))
             {
-                List<NotificationViewModel> items = JsonConvert.DeserializeObject<List<NotificationViewModel>>(text);
+                List<WidgetViewModel> items = JsonConvert.DeserializeObject<List<WidgetViewModel>>(text);
                 return items;
             }
             else
             {
-                return new List<NotificationViewModel>();
+                var widgets = new List<WidgetViewModel>
+                {
+                    new AppInfoWidget(),
+                    new RecentlyPlayedWidget(),
+                    new TopTracksWidget()
+                };
+                return widgets;
             }
         }
 
@@ -51,23 +58,23 @@ namespace Rise.App.DbControllers
         /// </summary>
         /// <param name="id">The ID of the item to find.</param>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task<NotificationViewModel> GetItemAsync(string id)
+        public async Task<WidgetViewModel> GetItemAsync(string id)
         {
             var items = await GetItemsAsync();
-            return items.FirstOrDefault(item => item.Model.Id.ToString() == id);
+            return items.FirstOrDefault(item => item.Id.ToString() == id);
         }
 
         /// <summary>
         /// Adds an item to the database.
         /// </summary>
-        /// <param name="item">The <see cref="NotificationViewModel"/> to add.</param>
+        /// <param name="item">The <see cref="WidgetViewModel"/> to add.</param>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task AddAsync(NotificationViewModel item)
+        public async Task AddAsync(WidgetViewModel item)
         {
             var file = await GetDatabaseFileAsync();
             var text = await FileIO.ReadTextAsync(file);
 
-            List<NotificationViewModel> items = JsonConvert.DeserializeObject<List<NotificationViewModel>>(text) ?? new List<NotificationViewModel>();
+            List<WidgetViewModel> items = JsonConvert.DeserializeObject<List<WidgetViewModel>>(text) ?? new List<WidgetViewModel>();
             items.Add(item);
 
             string json = JsonConvert.SerializeObject(items, Formatting.Indented);
@@ -77,15 +84,15 @@ namespace Rise.App.DbControllers
         /// <summary>
         /// Updates an item in the database.
         /// </summary>
-        /// <param name="item">The <see cref="NotificationViewModel"/> to update.</param>
+        /// <param name="item">The <see cref="WidgetViewModel"/> to update.</param>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task UpdateAsync(NotificationViewModel item)
+        public async Task UpdateAsync(WidgetViewModel item)
         {
             var file = await GetDatabaseFileAsync();
 
-            List<NotificationViewModel> items = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<NotificationViewModel>();
+            List<WidgetViewModel> items = JsonConvert.DeserializeObject<List<WidgetViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<WidgetViewModel>();
 
-            NotificationViewModel item1 = items.FirstOrDefault(i => i.Model.Id == item.Model.Id);
+            WidgetViewModel item1 = items.FirstOrDefault(i => i.Id == item.Id);
             var index = items.IndexOf(item1);
 
             if (index < 0)
@@ -100,18 +107,18 @@ namespace Rise.App.DbControllers
         /// <summary>
         /// Adds an item to the database, or updates it if it already exists.
         /// </summary>
-        /// <param name="item">The <see cref="NotificationViewModel"/> to add/update.</param>
+        /// <param name="item">The <see cref="WidgetViewModel"/> to add/update.</param>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task AddOrUpdateAsync(NotificationViewModel item)
+        public async Task AddOrUpdateAsync(WidgetViewModel item)
         {
             var file = await GetDatabaseFileAsync();
 
-            List<NotificationViewModel> items = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<NotificationViewModel>();
+            List<WidgetViewModel> items = JsonConvert.DeserializeObject<List<WidgetViewModel>>(await FileIO.ReadTextAsync(file)) ?? new List<WidgetViewModel>();
 
             bool exists = items.Any(p =>
             {
                 if (p != null)
-                    return p.Model.Id == item.Model.Id;
+                    return p.Id == item.Id;
                 else
                     return false;
             });
@@ -125,14 +132,14 @@ namespace Rise.App.DbControllers
         /// <summary>
         /// Deletes an item from the database.
         /// </summary>
-        /// <param name="item">The <see cref="NotificationViewModel"/> to remove.</param>
+        /// <param name="item">The <see cref="WidgetViewModel"/> to remove.</param>
         /// <returns>A <see cref="Task"/> which represents the operation.</returns>
-        public async Task DeleteAsync(NotificationViewModel item)
+        public async Task DeleteAsync(WidgetViewModel item)
         {
             var file = await GetDatabaseFileAsync();
 
-            // It's already deleted in the MViewModel notifications list, so why bother deleting again?
-            string json = JsonConvert.SerializeObject(App.MViewModel.Notifications, Formatting.Indented);
+            // It's already deleted in the MViewModel widgets list, so why bother deleting again?
+            string json = JsonConvert.SerializeObject(App.MViewModel.Widgets, Formatting.Indented);
             await FileIO.WriteTextAsync(file, json);
         }
     }

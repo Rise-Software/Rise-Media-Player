@@ -1,4 +1,13 @@
-﻿using Rise.App.ChangeTrackers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
+using Rise.App.ChangeTrackers;
+using Rise.App.UserControls;
+using Rise.App.Widgets;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -77,9 +86,14 @@ namespace Rise.App.ViewModels
         public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
 
         /// <summary>
-        /// The collection of playlists in the list. 
+        /// The collection of notifications in the list. 
         /// </summary>
         public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+
+        /// <summary>
+        /// The collection of notifications in the list. 
+        /// </summary>
+        public readonly SafeObservableCollection<WidgetViewModel> Widgets = new();
 
         /// <summary>
         /// Gets the complete list of data from the database.
@@ -94,7 +108,50 @@ namespace Rise.App.ViewModels
 
             Videos.Clear();
             Playlists.Clear();
+
             Notifications.Clear();
+            Widgets.Clear();
+
+            var widgets = await App.WBackendController.GetItemsAsync();
+            if (widgets != null)
+            {
+                foreach (var item in widgets)
+                {
+                    WidgetViewModel widget;
+                    if (item.Id == AppInfoWidget.WidgetId)
+                    {
+                        widget = new AppInfoWidget
+                        {
+                            Content = new AppInfoWidgetContentControl()
+                        };
+                    }
+                    else if (item.Id == RecentlyPlayedWidget.WidgetId)
+                    {
+                        widget = new RecentlyPlayedWidget
+                        {
+                            Content = new RecentlyPlayedWidgetContentControl()
+                        };
+                    }
+                    else if (item.Id == TopTracksWidget.WidgetId)
+                    {
+                        // TODO: Fetch the items for at a glance
+                        // without awaiting.
+                        widget = new TopTracksWidget
+                        {
+                            Content = new TopTracksWidgetContentControl()
+                        };
+                    }
+                    else
+                    {
+                        // TODO: Add an app service for other widgets, and
+                        // eventually use it for RiseMP widgets
+                        continue;
+                    }
+
+                    widget.Enabled = item.Enabled;
+                    Widgets.Add(widget);
+                }
+            }
 
             var songs = await Repository.GetItemsAsync<Song>();
 
@@ -143,26 +200,16 @@ namespace Rise.App.ViewModels
                 }
             }
 
-            // Playlists may contain songs or videos
-            if (songs != null || videos != null)
+            var playlists = await App.PBackendController.GetItemsAsync();
+            if (playlists != null)
             {
-                var playlists = await App.PBackendController.GetAsync();
-                if (playlists != null)
-                {
-                    foreach (var item in playlists)
-                    {
-                        Playlists.Add(item);
-                    }
-                }
+                Playlists.AddRange(playlists);
             }
 
-            var notifications = await App.NBackendController.GetAsync();
+            var notifications = await App.NBackendController.GetItemsAsync();
             if (notifications != null)
             {
-                foreach (var item in notifications)
-                {
-                    Notifications.Add(item);
-                }
+                Notifications.AddRange(notifications);
             }
         }
 
@@ -315,10 +362,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                if (song.Thumbnail == null)
-                {
-                    song.Thumbnail = alvm.Thumbnail;
-                }
+                song.Thumbnail ??= alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
