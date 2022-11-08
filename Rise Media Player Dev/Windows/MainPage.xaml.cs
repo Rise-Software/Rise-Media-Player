@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Rise.App.DbControllers;
 using Rise.App.Dialogs;
 using Rise.App.Helpers;
 using Rise.App.Settings;
@@ -43,7 +42,6 @@ namespace Rise.App.Views
         private LastFMViewModel LMViewModel => App.LMViewModel;
 
         private NavViewDataSource NavDataSource => App.NavDataSource;
-        private PlaylistsBackendController PlaylistController => App.PBackendController;
 
         private static readonly DependencyProperty RightClickedItemProperty
             = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
@@ -496,9 +494,12 @@ namespace Rise.App.Views
                 _ = parent.SubItems.Remove(item);
                 if (Guid.TryParse(item.Id, out var id))
                 {
-                    var playlist = await PlaylistController.GetAsync(id);
+                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Model.Id == id);
                     if (playlist != null)
+                    {
                         playlist.IsPinned = false;
+                        await playlist.SaveEditsAsync();
+                    }
                 }
             }
             else
