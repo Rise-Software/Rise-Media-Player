@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
-using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
@@ -19,7 +17,6 @@ namespace Rise.App.Views
     {
         private MainViewModel MViewModel => App.MViewModel;
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
-        private NavViewDataSource NavDataSource => App.NavDataSource;
 
         private MediaCollectionViewModel VideosViewModel;
 

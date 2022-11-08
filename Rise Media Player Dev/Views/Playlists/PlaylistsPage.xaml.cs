@@ -1,10 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
-using Rise.Common.Enums;
 using Rise.Common.Helpers;
-using Rise.Data.Sources;
-using Rise.Data.ViewModels;
 using System;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -15,8 +12,6 @@ namespace Rise.App.Views
 {
     public sealed partial class PlaylistsPage : MediaPageBase
     {
-        private NavViewDataSource NavDataSource => App.NavDataSource;
-
         public PlaylistViewModel SelectedItem
         {
             get => (PlaylistViewModel)GetValue(SelectedItemProperty);
