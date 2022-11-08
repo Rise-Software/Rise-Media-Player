@@ -110,7 +110,8 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Click="PinToSidebar_Click"
+                        Command="{x:Bind SwitchPlaylistPinningStateCommand}"
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                         Icon="Pin"
                         Text="{markup:ResourceHelper Name=PinToSidebar}" />
 

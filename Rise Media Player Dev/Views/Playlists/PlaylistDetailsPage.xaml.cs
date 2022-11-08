@@ -143,25 +143,5 @@ namespace Rise.App.Views
             if (Window.Current.Content is Frame rootFrame)
                 _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
         }
-
-        private void PinToSidebar_Click(object sender, RoutedEventArgs e)
-        {
-            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
-            if (hasItem)
-            {
-                var itm = new NavViewItemViewModel
-                {
-                    Id = SelectedPlaylist.Model.Id.ToString(),
-                    ItemType = NavViewItemType.SubItem,
-                    Icon = SelectedPlaylist.Icon,
-                    Label = SelectedPlaylist.Title,
-                    ParentId = item.Id,
-                    FlyoutId = "RemoveItemFlyout"
-                };
-
-                item.SubItems.Add(itm);
-                SelectedPlaylist.IsPinned = true;
-            }
-        }
     }
 }

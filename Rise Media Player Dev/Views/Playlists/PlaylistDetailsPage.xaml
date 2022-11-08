@@ -201,7 +201,8 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton
-                                    Click="PinToSidebar_Click"
+                                    Command="{x:Bind SwitchPlaylistPinningStateCommand}"
+                                    CommandParameter="{x:Bind SelectedPlaylist}"
                                     Icon="Pin"
                                     Label="{markup:ResourceHelper Name=PinToSidebar}" />
                                 <AppBarButton

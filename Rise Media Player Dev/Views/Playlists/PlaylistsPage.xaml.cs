@@ -69,27 +69,6 @@ namespace Rise.App.Views
             await SelectedItem.DeleteAsync();
         }
 
-        private void PinToSidebar_Click(object sender, RoutedEventArgs e)
-        {
-            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
-            if (hasItem)
-            {
-                var playlist = SelectedItem;
-                var itm = new NavViewItemViewModel
-                {
-                    Id = playlist.Model.Id.ToString(),
-                    ItemType = NavViewItemType.SubItem,
-                    Icon = playlist.Icon,
-                    Label = playlist.Title,
-                    ParentId = item.Id,
-                    FlyoutId = "RemoveItemFlyout"
-                };
-
-                item.SubItems.Add(itm);
-                playlist.IsPinned = true;
-            }
-        }
-
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker picker = new();
