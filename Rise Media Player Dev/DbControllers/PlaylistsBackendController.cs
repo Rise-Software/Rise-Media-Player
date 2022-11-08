@@ -8,72 +8,52 @@ using Windows.Storage;
 
 namespace Rise.App.DbControllers
 {
-    public class PlaylistsBackendController : BaseBackendController
+    public sealed class PlaylistsBackendController : BaseBackendController
     {
-        public PlaylistsBackendController(string dbName) : base(dbName)
-        {
-
-        }
-
+        private MainViewModel ViewModel => App.MViewModel;
         public PlaylistsBackendController() : base("Playlists") { }
 
         public async Task<PlaylistViewModel> GetAsync(Guid id)
         {
-            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
+            string text = await FileIO.ReadTextAsync(DbFile);
             if (!string.IsNullOrWhiteSpace(text))
             {
-                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
+                var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
                 return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
         public async Task<List<PlaylistViewModel>> GetAsync()
         {
-            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
+            string text = await FileIO.ReadTextAsync(DbFile);
             if (!string.IsNullOrWhiteSpace(text))
             {
-                List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
+                var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
                 return playlists;
             }
-            else
-            {
-                return new List<PlaylistViewModel>();
-            }
+
+            return new List<PlaylistViewModel>();
         }
 
         public async Task InsertAsync(PlaylistViewModel playlist)
         {
-            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
+            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<PlaylistViewModel>();
             playlists.Add(playlist);
 
             string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
+            await FileIO.WriteTextAsync(DbFile, json);
         }
 
         public async Task UpsertAsync(PlaylistViewModel playlist)
         {
-            List<PlaylistViewModel> playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists))) ?? new List<PlaylistViewModel>();
+            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<PlaylistViewModel>();
 
-            bool playlistExists = playlists.Any(p =>
+            var item = playlists.FirstOrDefault(i => i.Model.Equals(playlist.Model));
+            if (item != null)
             {
-                if (p != null)
-                {
-                    return p.Model.Equals(playlist.Model);
-                }
-                else
-                {
-                    return false;
-                }
-            });
-
-            if (playlistExists)
-            {
-                PlaylistViewModel item = playlists.FirstOrDefault(i => i.Model.Equals(playlist.Model));
-                var oldIndex = playlists.IndexOf(item);
+                int oldIndex = playlists.IndexOf(item);
                 playlists[oldIndex] = playlist;
             }
             else
@@ -83,14 +63,13 @@ namespace Rise.App.DbControllers
             }
 
             string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
+            await FileIO.WriteTextAsync(DbFile, json);
         }
 
         public async Task DeleteAsync(PlaylistViewModel playlist)
         {
-            string json = JsonConvert.SerializeObject(App.MViewModel.Playlists, Formatting.Indented);
-            await FileIO.WriteTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists), json);
+            string json = JsonConvert.SerializeObject(ViewModel.Playlists, Formatting.Indented);
+            await FileIO.WriteTextAsync(DbFile, json);
         }
-
     }
 }
