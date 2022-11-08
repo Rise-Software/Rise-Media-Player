@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.DbControllers;
 using Rise.App.Dialogs;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
@@ -40,6 +41,7 @@ namespace Rise.App.Views
         private LastFMViewModel LMViewModel => App.LMViewModel;
 
         private NavViewDataSource NavDataSource => App.NavDataSource;
+        private PlaylistsBackendController PlaylistController => App.PBackendController;
 
         private static readonly DependencyProperty RightClickedItemProperty
             = DependencyProperty.Register(nameof(RightClickedItem), typeof(NavViewItemViewModel),
@@ -458,13 +460,23 @@ namespace Rise.App.Views
             args.Handled = true;
         }
 
-        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        private async void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             var item = RightClickedItem;
             if (NavDataSource.TryGetItem(item.ParentId, out var parent))
+            {
                 _ = parent.SubItems.Remove(item);
+                if (Guid.TryParse(item.Id, out var id))
+                {
+                    var playlist = await PlaylistController.GetAsync(id);
+                    if (playlist != null)
+                        playlist.IsPinned = false;
+                }
+            }
             else
+            {
                 NavDataSource.ToggleItemVisibility(item.Id);
+            }
         }
 
         private async void Messages_Click(object sender, RoutedEventArgs e)

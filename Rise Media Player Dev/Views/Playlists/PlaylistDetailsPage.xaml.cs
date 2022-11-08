@@ -163,7 +163,9 @@ namespace Rise.App.Views
                     ParentId = item.Id,
                     FlyoutId = "RemoveItemFlyout"
                 };
+
                 item.SubItems.Add(itm);
+                SelectedPlaylist.IsPinned = true;
             }
         }
     }
