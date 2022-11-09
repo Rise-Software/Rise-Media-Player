@@ -564,6 +564,9 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\pl-PL\Resources.resw" />
+    <PRIResource Include="Strings\fr-FR\Resources.resw" />
     <PRIResource Include="Strings\pt-PT\Terms.resw" />
     <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
     <PRIResource Include="Strings\pt-PT\Resources.resw" />

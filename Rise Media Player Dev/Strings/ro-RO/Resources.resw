@@ -273,4 +273,7 @@
   <data name="Wallpapers" xml:space="preserve">
     <value>Imagini de fundal</value>
   </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
 </root>
