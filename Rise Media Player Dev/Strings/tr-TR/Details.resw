@@ -135,6 +135,12 @@
   <data name="Local.Title" xml:space="preserve">
     <value>Yerel Müzik</value>
   </data>
+  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
+    <value>Yukarı ve aşağı düğmelerini tıklayarak şarkıları hareket ettirin.</value>
+  </data>
+  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
+    <value>Yukarı ve aşağı düğmelerini tıklayarak videoları hareket ettirin.</value>
+  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Değerlendirme</value>
   </data>

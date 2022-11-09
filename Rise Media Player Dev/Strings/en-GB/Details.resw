@@ -123,9 +123,6 @@
   <data name="AsFile.Title" xml:space="preserve">
     <value>This song is stored as a file on your device.</value>
   </data>
-  <data name="AsPlaylist.Title" xml:space="preserve">
-    <value>Move songs by clicking the up and down buttons.</value>
-  </data>
   <data name="Disc.Text" xml:space="preserve">
     <value>Disc</value>
   </data>
@@ -147,8 +144,14 @@
   <data name="PlaylistDescription.Text" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
+    <value>Move songs by clicking the up and down buttons.</value>
+  </data>
   <data name="PlaylistTitle.Text" xml:space="preserve">
     <value>Playlist name</value>
+  </data>
+  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
+    <value>Move videos by clicking the up and down buttons.</value>
   </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Rating</value>

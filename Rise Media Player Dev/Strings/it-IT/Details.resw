@@ -135,6 +135,12 @@
   <data name="Local.Title" xml:space="preserve">
     <value>Traccia locale</value>
   </data>
+  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
+    <value>Sposta i brani facendo clic sui pulsanti su e giù.</value>
+  </data>
+  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
+    <value>Sposta i video facendo clic sui pulsanti su e giù.</value>
+  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Valutazione</value>
   </data>

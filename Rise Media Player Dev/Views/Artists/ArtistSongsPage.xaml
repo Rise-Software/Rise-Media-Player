@@ -256,7 +256,7 @@
                                 FontSize="28"
                                 FontWeight="SemiBold"
                                 Opacity="0.6"
-                                Text="Coming soon" />
+                                Text="{markup:ResourceHelper Name=ComingSoon}" />
                         </Grid>
                     </Border>
                 </Grid>

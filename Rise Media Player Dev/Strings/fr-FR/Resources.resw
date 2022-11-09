@@ -117,49 +117,187 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AsFile.Title" xml:space="preserve">
-    <value>Această melodie este stocată ca un fișier pe dispozitivul tău.</value>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="Disc.Text" xml:space="preserve">
-    <value>Disc</value>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
   </data>
-  <data name="EditAlbum.Text" xml:space="preserve">
-    <value>Editare artă album</value>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Add an account</value>
   </data>
-  <data name="Genre.Text" xml:space="preserve">
-    <value>Gen</value>
+  <data name="Albums" xml:space="preserve">
+    <value>Albums</value>
   </data>
-  <data name="Local.Subtitle" xml:space="preserve">
-    <value>Această melodie este locală, ceea ce înseamnă că este stocată direct pe stocarea dispozitivului tău, spre deosebire de cloud sau online. Schimbarea proprietăților aici va afecta alte playere media.</value>
+  <data name="Artists" xml:space="preserve">
+    <value>Artists</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Muzică locală</value>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
-  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
-    <value>Mutați melodiile făcând clic pe butoanele sus și jos.</value>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
   </data>
-  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
-    <value>Mutați videoclipuri făcând clic pe butoanele sus și jos.</value>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Decide for me</value>
   </data>
-  <data name="Rating.Text" xml:space="preserve">
-    <value>Evaluare</value>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
   </data>
-  <data name="SongAlbum.Text" xml:space="preserve">
-    <value>Album</value>
+  <data name="Discy" xml:space="preserve">
+    <value>Help Centre</value>
   </data>
-  <data name="SongAlbumArtist.Text" xml:space="preserve">
-    <value>Artist album</value>
+  <data name="Genres" xml:space="preserve">
+    <value>Genres</value>
   </data>
-  <data name="SongArtist.Text" xml:space="preserve">
-    <value>Artist (artiști)</value>
+  <data name="Home" xml:space="preserve">
+    <value>At a glance</value>
   </data>
-  <data name="SongTitle.Text" xml:space="preserve">
-    <value>Titlu melodie</value>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider Hub</value>
   </data>
-  <data name="Track.Text" xml:space="preserve">
-    <value>Număr piesă</value>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
   </data>
-  <data name="Year.Text" xml:space="preserve">
-    <value>An de lansare</value>
+  <data name="Library" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>All Videos</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Always match resolution</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="NDays" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
+  <data name="NHours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="NMinutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>No crossfade</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Not now (Exit app)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} seconds</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Use local media files only</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Use streaming services only</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personalise</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlists</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Properties &amp; Info</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Queue</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Scale to window size</value>
+  </data>
+  <data name="PinToSidebar" xml:space="preserve">
+    <value>Pin to sidebar</value>
+  </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Remove from sidebar</value>
+  </data>
+  <data name="SearchMediaPlaceholder" xml:space="preserve">
+    <value>Search all media on this device</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SetupAppearanceH" xml:space="preserve">
+    <value>Make it yours</value>
+  </data>
+  <data name="SetupConnectH" xml:space="preserve">
+    <value>Connect an internet account</value>
+  </data>
+  <data name="SetupDoneH" xml:space="preserve">
+    <value>You're done!</value>
+  </data>
+  <data name="SetupIntro" xml:space="preserve">
+    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+  </data>
+  <data name="SetupLocalH" xml:space="preserve">
+    <value>Add your personal media</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Pre-setup</value>
+  </data>
+  <data name="SetupPrivacyH" xml:space="preserve">
+    <value>Privacy &amp; recommendations</value>
+  </data>
+  <data name="SetupStart" xml:space="preserve">
+    <value>Start setup</value>
+  </data>
+  <data name="SetupTermsH" xml:space="preserve">
+    <value>License Agreement &amp; Terms</value>
+  </data>
+  <data name="SetupWelcome" xml:space="preserve">
+    <value>Welcome to</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Step {0} of {1}</value>
+  </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Unknown Album</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Unknown Artist</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Unknown Genre</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Use system setting</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Wallpapers</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming soon</value>
   </data>
 </root>

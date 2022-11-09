@@ -166,7 +166,7 @@
     <value>Light</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All videos</value>
+    <value>All Videos</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
     <value>Always match resolution</value>
@@ -314,5 +314,8 @@
   </data>
   <data name="OneVideo" xml:space="preserve">
     <value>1 video</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming soon</value>
   </data>
 </root>
