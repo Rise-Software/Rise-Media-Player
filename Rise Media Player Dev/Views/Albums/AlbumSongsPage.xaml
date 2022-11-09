@@ -211,7 +211,7 @@
                                         FontWeight="SemiBold"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.TrackCount}" />
+                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
                                 </StackPanel>
 
                                 <CommandBar

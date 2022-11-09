@@ -28,9 +28,6 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-
-            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
         #endregion
 

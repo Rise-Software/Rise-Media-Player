@@ -110,7 +110,7 @@
                                     FontWeight="SemiBold"
                                     Opacity="0.6"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind SelectedArtist.SongsNAlbums, Mode=OneWay}" />
+                                    Text="{x:Bind SelectedArtist.LocalizedSongsAndAlbums, Mode=OneWay}" />
                                 <TextBlock
                                     x:Name="NoListeners"
                                     Margin="0,0,0,0"

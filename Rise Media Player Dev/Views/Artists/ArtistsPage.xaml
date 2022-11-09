@@ -192,11 +192,11 @@
                             <TextBlock
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind Songs}" />
+                                Text="{x:Bind LocalizedSongCount}" />
                             <TextBlock
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind Albums}" />
+                                Text="{x:Bind LocalizedAlbumCount}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
