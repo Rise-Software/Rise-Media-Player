@@ -24,7 +24,7 @@
 
     <ListView
         x:Name="MainList"
-        Padding="56,44,56,0"
+        Padding="56,44,56,120"
         d:Padding="12"
         DoubleTapped="MainList_DoubleTapped"
         ItemsSource="{x:Bind MediaViewModel.Items}"
