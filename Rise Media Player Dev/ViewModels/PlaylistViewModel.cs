@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Rise.App.UserControls;
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -174,7 +173,8 @@ namespace Rise.App.ViewModels
                                     Location = line,
                                     Thumbnail = URIs.MusicThumb
                                 };
-                        } catch (Exception e)
+                        }
+                        catch (Exception e)
                         {
                             e.WriteToOutput();
 
@@ -289,6 +289,16 @@ namespace Rise.App.ViewModels
                     OnPropertyChanged(nameof(Duration));
                 }
             }
+        }
+
+        private bool _isPinned = false;
+        /// <summary>
+        /// Whether this playlist is pinned to the sidebar.
+        /// </summary>
+        public bool IsPinned
+        {
+            get => _isPinned;
+            set => Set(ref _isPinned, value);
         }
 
         private SafeObservableCollection<SongViewModel> _songs;

@@ -13,6 +13,6 @@ namespace Rise.Models
         /// </summary>
         [PrimaryKey]
         [Column(nameof(Id))]
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();
     }
 }

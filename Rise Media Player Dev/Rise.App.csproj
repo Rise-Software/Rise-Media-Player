@@ -146,6 +146,7 @@
     <Compile Include="Converters\IntToVisibility.cs" />
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
+    <Compile Include="Converters\StringToIconElement.cs" />
     <Compile Include="Converters\TooltipToText.cs" />
     <Compile Include="Dialogs\EqualizerDialog.xaml.cs">
       <DependentUpon>EqualizerDialog.xaml</DependentUpon>
@@ -993,7 +994,7 @@
     <Content Include="Assets\MediaPlayerIcons.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\ItemData.json">
+    <Content Include="Assets\NavViewItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />

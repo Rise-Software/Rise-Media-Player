@@ -4,9 +4,12 @@ using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.App.Views.Albums.Properties;
+using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Sources;
+using Rise.Data.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +29,8 @@ namespace Rise.App.UserControls
     /// </summary>
     public partial class MediaPageBase : Page
     {
+        private NavViewDataSource NavDataSource => App.NavDataSource;
+
         /// <summary>
         /// A property that stores the page's selected item.
         /// </summary>
@@ -243,6 +248,41 @@ namespace Rise.App.UserControls
             }
 
             return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task SwitchPlaylistPinningState(PlaylistViewModel playlist)
+        {
+            bool hasItem = NavDataSource.TryGetItem("PlaylistsPage", out var item);
+            if (hasItem)
+            {
+                if (playlist.IsPinned)
+                {
+                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Model.Id.ToString());
+                    if (itm != null)
+                    {
+                        item.SubItems.Remove(itm);
+                        playlist.IsPinned = false;
+                    }
+                }
+                else
+                {
+                    var itm = new NavViewItemViewModel
+                    {
+                        Id = playlist.Model.Id.ToString(),
+                        ItemType = NavViewItemType.SubItem,
+                        Icon = playlist.Icon,
+                        Label = playlist.Title,
+                        ParentId = item.Id,
+                        FlyoutId = "RemoveItemFlyout"
+                    };
+
+                    item.SubItems.Add(itm);
+                    playlist.IsPinned = true;
+                }
+            }
+
+            return playlist.SaveEditsAsync();
         }
     }
 
