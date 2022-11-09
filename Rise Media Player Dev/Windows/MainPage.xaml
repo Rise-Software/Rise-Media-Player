@@ -55,6 +55,7 @@
 
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
+            <conv:StringToIconElement x:Key="StrToIcon" />
 
             <!--  This top margin is the height of the custom TitleBar  -->
             <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
@@ -217,8 +218,8 @@
                 </Grid>
             </Flyout>
 
-            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector" x:DefaultBindMode="OneWay">
-                <selectors:NavViewItemTemplateSelector.AssetIconTemplate>
+            <selectors:NavViewItemTemplateSelector x:Key="NavViewItemTemplateSelector">
+                <selectors:NavViewItemTemplateSelector.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
                             AccessKey="{x:Bind AccessKey}"
@@ -227,54 +228,43 @@
                             AutomationProperties.Name="{x:Bind Label}"
                             Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}">
-                            <muxc:NavigationViewItem.Icon>
-                                <muxc:ImageIcon x:Phase="1" Source="{x:Bind Icon}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
+                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            MenuItemsSource="{x:Bind SubItems}"
+                            Tag="{x:Bind}"
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.AssetIconTemplate>
+                </selectors:NavViewItemTemplateSelector.ItemTemplate>
 
-                <selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
+                <selectors:NavViewItemTemplateSelector.SubItemTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItem
-                            AccessKey="{x:Bind AccessKey}"
-                            AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            AutomationProperties.Name="{x:Bind Label}"
-                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
+                            AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
+                            Content="{x:Bind Label, Mode=OneWay}"
                             ContextRequested="NavigationViewItem_ContextRequested"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}">
-                            <muxc:NavigationViewItem.Icon>
-                                <FontIcon x:Phase="1" Glyph="{x:Bind Icon}" />
-                            </muxc:NavigationViewItem.Icon>
-                        </muxc:NavigationViewItem>
+                            Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
+                            Tag="{x:Bind}"
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
-                </selectors:NavViewItemTemplateSelector.GlyphIconTemplate>
+                </selectors:NavViewItemTemplateSelector.SubItemTemplate>
 
                 <selectors:NavViewItemTemplateSelector.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}" />
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label), Mode=OneWay}"
+                            Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.HeaderTemplate>
 
                 <selectors:NavViewItemTemplateSelector.SeparatorTemplate>
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
-                        <muxc:NavigationViewItemSeparator
-                            AutomationProperties.AutomationId="{x:Bind Id}"
-                            Tag="{x:Bind Id}"
-                            Visibility="{x:Bind IsVisible}" />
+                        <muxc:NavigationViewItemSeparator AutomationProperties.AutomationId="{x:Bind Id}" Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.SeparatorTemplate>
             </selectors:NavViewItemTemplateSelector>
 
-            <MenuFlyout x:Key="NavViewItemFlyout" x:Name="NavViewItemFlyout">
+            <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
                     x:Uid="/Information/ToTop"
@@ -312,10 +302,10 @@
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/Remove"
                     Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="UnPin" />
+                    Icon="UnPin"
+                    Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
                     x:Uid="/Information/RemoveSection"
@@ -327,12 +317,11 @@
                 </MenuFlyoutItem>
             </MenuFlyout>
 
-            <MenuFlyout x:Key="NavViewLightItemFlyout" x:Name="NavViewLightItemFlyout">
+            <MenuFlyout x:Key="RemoveItemFlyout">
                 <MenuFlyoutItem
-                    x:Uid="/Information/Remove"
-                    Command="{x:Bind NavDataSource.ToggleItemVisibilityCommand}"
-                    CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
-                    Icon="UnPin" />
+                    Click="RemoveItem_Click"
+                    Icon="UnPin"
+                    Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
             </MenuFlyout>
         </ResourceDictionary>
     </Page.Resources>
@@ -592,6 +581,7 @@
                         <uc:RiseMediaTransportControls
                             x:Name="PlayerControls"
                             ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
                             DisplayItemVisibility="Visible"
                             FullWindowCommand="{x:Bind EnterFullScreenCommand}"
                             IsCompactOverlayButtonVisible="True"

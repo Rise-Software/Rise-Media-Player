@@ -207,6 +207,9 @@
   <data name="ScaleToWindow" xml:space="preserve">
     <value>विंडो आकार पर मापें</value>
   </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>साइडबार से हटाएँ</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>इस उपकरण पर सभी मीडिया खोजें</value>
   </data>

@@ -46,11 +46,11 @@ namespace Rise.Common.Extensions
         /// <param name="str"><see cref="string"/> to check.</param>
         /// <param name="kind">The kind of <see cref="Uri"/> to check.
         /// Won't check for a specific type by default.</param>
-        /// <returns>Whether or not the <see cref="string"/> is
+        /// <returns>Whether the <see cref="string"/> is
         /// a valid <see cref="Uri"/>.</returns>
         public static bool IsValidUri(this string str,
             UriKind kind = UriKind.RelativeOrAbsolute)
-            => Uri.TryCreate(str, kind, out _);
+            => Uri.IsWellFormedUriString(str, kind);
 
         /// <summary>
         /// Uses the provided <paramref name="baseUri"/> to make <paramref name="relativeUri"/>

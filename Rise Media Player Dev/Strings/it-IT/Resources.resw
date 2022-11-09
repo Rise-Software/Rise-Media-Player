@@ -207,6 +207,9 @@
   <data name="ScaleToWindow" xml:space="preserve">
     <value>Scale to window size</value>
   </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Rimuovi dalla sidebar</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Cerca media sul dispositivo</value>
   </data>

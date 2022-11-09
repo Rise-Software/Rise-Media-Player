@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.Dialogs;
+using Rise.App.Helpers;
 using Rise.App.Settings;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using System;
@@ -23,7 +25,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 
 namespace Rise.App.Views
 {
@@ -204,6 +205,32 @@ namespace Rise.App.Views
         }
 
         [RelayCommand]
+        private async Task AddToPlaylistAsync(PlaylistViewModel playlist)
+        {
+            var playlistHelper = new AddToPlaylistHelper(App.MViewModel.Playlists);
+
+            IMediaItem mediaItem = null;
+
+            if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                mediaItem = App.MViewModel.Songs.FirstOrDefault(s => s.Location == App.MPViewModel.PlayingItemProperties.Location);
+            else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                mediaItem = App.MViewModel.Videos.FirstOrDefault(v => v.Location == App.MPViewModel.PlayingItemProperties.Location);
+
+            if (mediaItem == null)
+            {
+                if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Music)
+                    mediaItem = await App.MPViewModel.PlayingItem.AsSongAsync();
+                else if (App.MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                    mediaItem = await App.MPViewModel.PlayingItem.AsVideoAsync();
+            }
+
+            if (playlist == null)
+                await playlistHelper.CreateNewPlaylistAsync(mediaItem);
+            else
+                await playlist.AddItemAsync(mediaItem);
+        }
+
+        [RelayCommand]
         private async Task GoToNowPlayingAsync(ApplicationViewMode newMode)
         {
             if (MPViewModel.PlayingItem == null) return;
@@ -296,18 +323,21 @@ namespace Rise.App.Views
         /// <param name="e">Details about the navigation.</param>
         private void OnNavigated(object sender, NavigationEventArgs e)
         {
-            var type = this.ContentFrame.CurrentSourcePageType;
-            bool hasKey = this.Destinations.TryGetKey(type, out var key);
+            if (e.NavigationMode == NavigationMode.New)
+                return;
+
+            var type = ContentFrame.CurrentSourcePageType;
+            bool hasKey = Destinations.TryGetKey(type, out string key);
 
             // We need to handle unlisted destinations
             if (!hasKey)
-                hasKey = this.UnlistedDestinations.TryGetKey(type, out key);
+                hasKey = UnlistedDestinations.TryGetKey(type, out key);
 
             if (hasKey)
             {
-                bool hasItem = this.NavDataSource.TryGetItem(key, out var item);
+                bool hasItem = NavDataSource.TryGetItem(key, out var item);
                 if (hasItem)
-                    this.NavView.SelectedItem = item;
+                    NavView.SelectedItem = item;
             }
         }
 
@@ -328,19 +358,23 @@ namespace Rise.App.Views
         /// <param name="args">Details about the item invocation.</param>
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            string tag = args?.InvokedItemContainer?.Tag?.ToString();
+            var item = args.InvokedItemContainer?.Tag as NavViewItemViewModel;
 
-            if (tag != null)
+            string id = item?.Id;
+            if (!string.IsNullOrEmpty(id))
             {
-                if (tag == "SettingsPage")
+                if (id == "SettingsPage")
                 {
-                    this.Frame.Navigate(typeof(AllSettingsPage));
-                    return;
+                    Frame.Navigate(typeof(AllSettingsPage));
                 }
-
-                if (this.ContentFrame.SourcePageType != Destinations[tag])
+                else if (Guid.TryParse(id, out var guid))
                 {
-                    this.ContentFrame.Navigate(Destinations[tag],
+                    ContentFrame.Navigate(typeof(PlaylistDetailsPage),
+                        guid, args.RecommendedNavigationTransitionInfo);
+                }
+                else if (ContentFrame.SourcePageType != Destinations[id])
+                {
+                    ContentFrame.Navigate(Destinations[id],
                         null, args.RecommendedNavigationTransitionInfo);
                 }
             }
@@ -354,20 +388,19 @@ namespace Rise.App.Views
         /// <param name="args">Details about the key invocation.</param>
         private void NavigationViewItem_AccessKeyInvoked(UIElement sender, AccessKeyInvokedEventArgs args)
         {
-            string tag = ((FrameworkElement)sender).Tag.ToString();
-
-            if (tag != null)
+            var elm = sender as FrameworkElement;
+            if (elm?.Tag is NavViewItemViewModel item)
             {
-                if (tag == "SettingsPage")
+                string id = item.Id;
+                if (id == "SettingsPage")
                 {
-                    this.Frame.Navigate(typeof(AllSettingsPage));
+                    Frame.Navigate(typeof(AllSettingsPage));
                     return;
                 }
 
-                if (this.ContentFrame.SourcePageType != Destinations[tag])
-                {
-                    this.ContentFrame.Navigate(Destinations[tag]);
-                }
+                var pageType = Destinations[id];
+                if (ContentFrame.SourcePageType != pageType)
+                    ContentFrame.Navigate(pageType);
             }
         }
 
@@ -378,7 +411,7 @@ namespace Rise.App.Views
         /// <param name="args">Details about the button click.</param>
         private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
         {
-            this.ContentFrame.GoBack();
+            ContentFrame.GoBack();
         }
         #endregion
 
@@ -423,37 +456,55 @@ namespace Rise.App.Views
 
         private void NavigationViewItem_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
         {
-            var item = sender as NavigationViewItem;
-            var tag = item.Tag.ToString();
+            var elm = sender as FrameworkElement;
+            var item = elm?.Tag as NavViewItemViewModel;
 
-            if (tag != "SettingsPage" && NavDataSource.TryGetItem(tag, out var itm))
+            string flyoutId = item?.FlyoutId;
+            if (!string.IsNullOrEmpty(flyoutId))
             {
-                RightClickedItem = itm;
-                bool hasPosition = args.TryGetPosition(item, out var point);
+                RightClickedItem = item;
+                if (flyoutId == "DefaultItemFlyout")
+                {
+                    string id = item.Id;
 
-                MenuFlyout flyout;
-                if (tag == "LocalVideosPage" || tag == "DiscyPage")
-                {
-                    flyout = NavViewLightItemFlyout;
-                }
-                else
-                {
-                    bool up = NavDataSource.CanMoveUp(tag);
-                    bool down = NavDataSource.CanMoveDown(tag);
+                    bool up = NavDataSource.CanMoveUp(id);
+                    bool down = NavDataSource.CanMoveDown(id);
 
                     TopOption.IsEnabled = up;
                     UpOption.IsEnabled = up;
-
                     DownOption.IsEnabled = down;
                     BottomOption.IsEnabled = down;
-
-                    flyout = NavViewItemFlyout;
                 }
 
-                if (hasPosition)
-                    flyout.ShowAt(item, point);
+                var flyout = Resources[flyoutId] as MenuFlyout;
+                if (args.TryGetPosition(sender, out var point))
+                    flyout.ShowAt(sender, point);
                 else
-                    flyout.ShowAt(item);
+                    flyout.ShowAt(elm);
+            }
+
+            args.Handled = true;
+        }
+
+        private async void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = RightClickedItem;
+            if (NavDataSource.TryGetItem(item.ParentId, out var parent))
+            {
+                _ = parent.SubItems.Remove(item);
+                if (Guid.TryParse(item.Id, out var id))
+                {
+                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Model.Id == id);
+                    if (playlist != null)
+                    {
+                        playlist.IsPinned = false;
+                        await playlist.SaveEditsAsync();
+                    }
+                }
+            }
+            else
+            {
+                NavDataSource.ToggleItemVisibility(item.Id);
             }
         }
 

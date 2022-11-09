@@ -23,7 +23,7 @@
 
     <ListView
         x:Name="MainList"
-        Padding="56,44,56,0"
+        Padding="56,44,56,120"
         d:Padding="12"
         DoubleTapped="MainList_DoubleTapped"
         ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -171,8 +171,8 @@
                                 x:Name="Description"
                                 d:Text="Description"
                                 FontWeight="SemiBold"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 MaxLines="2"
-                                Opacity="0.6"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind SelectedPlaylist.Description}"
                                 TextTrimming="CharacterEllipsis" />
@@ -198,6 +198,21 @@
                                     Icon="Shuffle" />
 
                                 <AppBarSeparator />
+
+                                <AppBarButton
+                                    x:Name="PinPlaylist"
+                                    x:Load="{x:Bind SelectedPlaylist.IsPinned.Equals(x:False)}"
+                                    Command="{x:Bind SwitchPlaylistPinningStateCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedPlaylist, Mode=OneTime}"
+                                    Icon="Pin"
+                                    Label="{markup:ResourceHelper Name=PinToSidebar}" />
+                                <AppBarButton
+                                    x:Name="UnPinPlaylist"
+                                    x:Load="{x:Bind SelectedPlaylist.IsPinned}"
+                                    Command="{x:Bind SwitchPlaylistPinningStateCommand, Mode=OneTime}"
+                                    CommandParameter="{x:Bind SelectedPlaylist, Mode=OneTime}"
+                                    Icon="UnPin"
+                                    Label="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                                 <AppBarButton
                                     Command="{x:Bind EditItemCommand, Mode=OneTime}"

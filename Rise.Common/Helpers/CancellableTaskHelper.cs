@@ -46,7 +46,9 @@ namespace Rise.Common.Helpers
             {
                 // Cancel the previous session and wait for its termination
                 previousCts.Cancel();
-                try { await this._pendingTask; } catch { }
+
+                if (_pendingTask != null)
+                    try { await this._pendingTask; } catch { }
             }
 
             // We need to check if we've been canceled

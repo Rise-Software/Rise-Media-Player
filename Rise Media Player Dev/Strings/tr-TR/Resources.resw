@@ -207,6 +207,9 @@
   <data name="ScaleToWindow" xml:space="preserve">
     <value>Pencere boyutuna göre ölçeklendir</value>
   </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Kenar çubuğundan kaldır</value>
+  </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
     <value>Bu cihazdaki tüm medyayı ara</value>
   </data>

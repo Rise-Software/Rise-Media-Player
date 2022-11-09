@@ -225,9 +225,6 @@
   <data name="QuickH.Text" xml:space="preserve">
     <value>Ligações rápidas</value>
   </data>
-  <data name="Remove.Text" xml:space="preserve">
-    <value>Remover da barra lateral</value>
-  </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Remover pasta</value>
   </data>

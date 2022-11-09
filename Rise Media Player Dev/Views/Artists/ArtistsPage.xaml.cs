@@ -49,7 +49,7 @@ namespace Rise.App.Views
             if (playlist == null)
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
             else
-                return playlist.AddSongsAsync(items);
+                return playlist.AddItemsAsync(items);
         }
     }
 
