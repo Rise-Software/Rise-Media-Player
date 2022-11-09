@@ -59,7 +59,7 @@
                                     VerticalAlignment="Center"
                                     MaxLines="2"
                                     Text="{x:Bind Title}"
-                                    TextTrimming="WordEllipsis"
+                                    TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                                 <TextBlock
                                     VerticalAlignment="Center"
@@ -67,7 +67,7 @@
                                     FontWeight="SemiBold"
                                     MaxLines="2"
                                     Text="{x:Bind Directors}"
-                                    TextTrimming="WordEllipsis"
+                                    TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                             </StackPanel>
 
