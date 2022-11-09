@@ -135,6 +135,12 @@
   <data name="Local.Title" xml:space="preserve">
     <value>Muzică locală</value>
   </data>
+  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
+    <value>Mutați melodiile făcând clic pe butoanele sus și jos.</value>
+  </data>
+  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
+    <value>Mutați videoclipuri făcând clic pe butoanele sus și jos.</value>
+  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Evaluare</value>
   </data>

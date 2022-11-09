@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <muxc:InfoBar
-            x:Uid="/Details/AsPlaylist"
+            x:Uid="/Details/PlaylistVideosDetailsTip"
             Margin="0,0,0,4"
             IsOpen="True">
             <muxc:InfoBar.IconSource>

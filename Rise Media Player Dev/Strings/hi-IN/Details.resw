@@ -135,6 +135,12 @@
   <data name="Local.Title" xml:space="preserve">
     <value>लोकल गाने</value>
   </data>
+  <data name="PlaylistSongsDetailsTip.Title" xml:space="preserve">
+    <value>ऊपर और नीचे बटन पर क्लिक करके गानों को मूव करें।</value>
+  </data>
+  <data name="PlaylistVideosDetailsTip.Title" xml:space="preserve">
+    <value>ऊपर और नीचे बटन पर क्लिक करके वीडियो ले जाएं।</value>
+  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>रेटिंग</value>
   </data>
