@@ -17,8 +17,6 @@ namespace Rise.App.ViewModels
         public AlbumViewModel(Album model = null)
         {
             Model = model ?? new Album();
-
-            OnPropertyChanged(nameof(ArtistViewModel.AlbumCount));
         }
         #endregion
 
@@ -92,12 +90,6 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the album song count.
-        /// </summary>
-        public int TrackCount =>
-            App.MViewModel.Songs.Count(s => s.Album == Model.Title);
-
-        /// <summary>
         /// Gets or sets the album thumbnail.
         /// </summary>
         public string Thumbnail
@@ -128,6 +120,11 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
+        public int TrackCount
+            => App.MViewModel.Songs.Count(s => s.Album == Model.Title);
+        public string LocalizedTrackCount
+            => ResourceHelper.GetLocalizedCount("Song", TrackCount);
 
         private bool _isArtistVisible = true;
         /// <summary>
@@ -188,10 +185,6 @@ namespace Rise.App.ViewModels
             get => _isReleaseYearVisible;
             set => Set(ref _isReleaseYearVisible, value);
         }
-
-        public Task<int> GetTrackCountAsync()
-            => Task.Run(() => App.MViewModel.Songs.Count(s => s.Album == Title));
-
         #endregion
 
         #region Backend

@@ -40,11 +40,8 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToFlyout(AddToBar, AddMediaItemsToPlaylistCommand);
         }
 
-        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            var count = await SelectedAlbum.GetTrackCountAsync();
-            TrackCountName.Text = count + " songs";
-
             // Load more albums by artist only when necessary
             if (AlbumsByArtist.Count > 0)
                 _ = FindName("MoreAlbumsByArtist");

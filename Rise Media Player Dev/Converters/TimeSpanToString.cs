@@ -37,68 +37,42 @@ namespace Rise.App.Converters
         private static string GetLongFormat(ref TimeSpan value, string format)
         {
             var timeBuilder = new StringBuilder();
+            void AppendToBuilder(string resource, int count, bool addComma)
+            {
+                if (count <= 0) return;
+
+                string txt = ResourceHelper.GetLocalizedCount(resource, count);
+                timeBuilder.Append(txt);
+
+                if (addComma)
+                    timeBuilder.Append(", ");
+            }
+
             switch (format[0])
             {
                 case 'D':
-                    if (value.Days == 1)
-                    {
-                        timeBuilder.Append(ResourceHelper.GetString("OneDay"));
-                        timeBuilder.Append(", ");
-                    }
-                    else if (value.Days > 0)
-                    {
-                        string formatStr = ResourceHelper.GetString("NDays");
-                        timeBuilder.Append(string.Format(formatStr, value.Days));
-                        timeBuilder.Append(", ");
-                    }
+                    AppendToBuilder("Day", value.Days, true);
 
                     if (format[2] != 'D') goto case 'H';
                     break;
 
                 case 'H':
-                    if (value.Hours == 1)
-                    {
-                        timeBuilder.Append(ResourceHelper.GetString("OneHour"));
-                        timeBuilder.Append(", ");
-                    }
-                    else if (value.Hours > 0)
-                    {
-                        string formatStr = ResourceHelper.GetString("NHours");
-                        timeBuilder.Append(string.Format(formatStr, value.Hours));
-                        timeBuilder.Append(", ");
-                    }
+                    AppendToBuilder("Hour", value.Hours, true);
 
                     if (format[2] != 'H') goto case 'M';
                     break;
 
                 case 'M':
-                    if (value.Minutes == 1)
-                    {
-                        timeBuilder.Append(ResourceHelper.GetString("OneMinute"));
-                        timeBuilder.Append(", ");
-                    }
-                    else if (value.Minutes > 0)
-                    {
-                        string formatStr = ResourceHelper.GetString("NMinutes");
-                        timeBuilder.Append(string.Format(formatStr, value.Minutes));
-                        timeBuilder.Append(", ");
-                    }
+                    AppendToBuilder("Minute", value.Minutes, true);
 
                     if (format[2] != 'M') goto case 'S';
                     break;
 
                 case 'S':
-                    if (value.Seconds == 1)
-                    {
-                        timeBuilder.Append(ResourceHelper.GetString("OneSecond"));
-                    }
-                    else if (value.Seconds > 0)
-                    {
-                        string formatStr = ResourceHelper.GetString("NSeconds");
-                        timeBuilder.Append(string.Format(formatStr, value.Seconds));
-                    }
+                    AppendToBuilder("Second", value.Seconds, false);
                     break;
             }
+
             return timeBuilder.ToString();
         }
 

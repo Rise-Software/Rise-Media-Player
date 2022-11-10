@@ -2,6 +2,7 @@
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using TagLib.Ape;
 using Windows.Storage;
 
 namespace Rise.App.ViewModels
@@ -331,16 +331,16 @@ namespace Rise.App.ViewModels
         }
 
         [JsonIgnore]
-        public int SongsCount => Songs.Count;
+        public string LocalizedSongCount
+            => ResourceHelper.GetLocalizedCount("Song", Songs.Count);
 
         [JsonIgnore]
-        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
+        public string LocalizedVideoCount
+            => ResourceHelper.GetLocalizedCount("Video", Videos.Count);
 
         [JsonIgnore]
-        public int VideosCount => Videos.Count;
-
-        [JsonIgnore]
-        public string VideosCountString => VideosCount == 1 ? "video" : "videos";
+        public string LocalizedSongsAndVideos
+            => $"{LocalizedSongCount}, {LocalizedVideoCount}";
         #endregion
 
         #region Backend

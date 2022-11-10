@@ -163,10 +163,8 @@
                                 FontSize="16"
                                 FontWeight="SemiBold"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}">
-                                <Run d:Text="0" Text="{x:Bind SelectedPlaylist.SongsCount, Mode=OneWay}" /> <Run d:Text="songs" Text="{x:Bind SelectedPlaylist.SongsCountString, Mode=OneWay}" />,
-                                <Run d:Text="0" Text="{x:Bind SelectedPlaylist.VideosCount, Mode=OneWay}" /> <Run d:Text="videos" Text="{x:Bind SelectedPlaylist.VideosCountString, Mode=OneWay}" />
-                            </TextBlock>
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind SelectedPlaylist.LocalizedSongsAndVideos}" />
                             <TextBlock
                                 x:Name="Description"
                                 d:Text="Description"

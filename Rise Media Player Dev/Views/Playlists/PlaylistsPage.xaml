@@ -173,10 +173,8 @@
                                 FontWeight="Normal"
                                 MaxLines="1"
                                 Style="{StaticResource BaseTextBlockStyle}"
-                                TextWrapping="Wrap">
-                                <Run Text="{x:Bind SongsCount, Mode=OneWay}" /> <Run Text="{x:Bind SongsCountString, Mode=OneWay}" />,
-                                <Run Text="{x:Bind VideosCount, Mode=OneWay}" /> <Run Text="{x:Bind VideosCountString, Mode=OneWay}" />
-                            </TextBlock>
+                                Text="{x:Bind LocalizedSongsAndVideos}"
+                                TextWrapping="Wrap" />
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
