@@ -20,22 +20,6 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical" Spacing="4">
-        <!--<uc:ExpanderControl
-            x:Uid="/Details/AsFile"
-            ExpanderStyle="Static"
-            Icon="&#xE8B7;">
-            <Button
-                x:Name="LocalButton"
-                Padding="0"
-                Background="Transparent"
-                BorderThickness="0"
-                Click="LocalButton_Click">
-                <Button.Content>
-                    <FontIcon FontSize="16" Glyph="&#xE946;" />
-                </Button.Content>
-            </Button>
-        </uc:ExpanderControl>-->
-
         <Border Style="{StaticResource SettingsCard}">
             <StackPanel
                 Padding="0,4,0,0"
