@@ -267,6 +267,9 @@
   <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
     <value>Воспроизвести</value>
   </data>
+  <data name="PlayAll.Label" xml:space="preserve">
+    <value>Играть все</value>
+  </data>
   <data name="PlayItem.Text" xml:space="preserve">
     <value>Воспроизвести</value>
   </data>
