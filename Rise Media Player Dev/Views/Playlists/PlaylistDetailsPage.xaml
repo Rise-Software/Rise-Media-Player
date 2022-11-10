@@ -184,10 +184,10 @@
                                 Background="Transparent"
                                 DefaultLabelPosition="Right">
                                 <AppBarButton
+                                    x:Uid="/Information/PlayAll"
                                     Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedItem}"
-                                    Icon="Play"
-                                    Label="Play all" />
+                                    Icon="Play" />
 
                                 <AppBarSeparator />
 
