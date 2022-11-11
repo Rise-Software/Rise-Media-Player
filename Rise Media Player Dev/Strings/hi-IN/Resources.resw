@@ -279,4 +279,7 @@
   <data name="AlbumInfo" xml:space="preserve">
     <value>एल्बम की जानकारी</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>बजाएँ</value>
+  </data>
 </root>

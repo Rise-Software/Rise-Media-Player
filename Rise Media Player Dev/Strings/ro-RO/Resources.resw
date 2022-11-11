@@ -279,4 +279,7 @@
   <data name="AlbumInfo" xml:space="preserve">
     <value>Informații album</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>

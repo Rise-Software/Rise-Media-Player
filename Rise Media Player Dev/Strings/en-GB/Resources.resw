@@ -321,4 +321,7 @@
   <data name="AlbumInfo" xml:space="preserve">
     <value>Album info</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>
