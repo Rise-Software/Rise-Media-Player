@@ -125,66 +125,6 @@ namespace Rise.App.ViewModels
             => App.MViewModel.Songs.Count(s => s.Album == Model.Title);
         public string LocalizedTrackCount
             => ResourceHelper.GetLocalizedCount("Song", TrackCount);
-
-        private bool _isArtistVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album title is displayed or not.
-        /// </summary>
-        public bool IsArtistVisible
-        {
-            get => _isArtistVisible;
-            set => Set(ref _isArtistVisible, value);
-        }
-
-        private bool _isThumbnailVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album art is displayed or not.
-        /// </summary>
-        public bool IsThumbnailVisible
-        {
-            get => _isThumbnailVisible;
-            set => Set(ref _isThumbnailVisible, value);
-        }
-
-        private bool _isGenresVisible = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album genre is displayed or not.
-        /// </summary>
-        public bool IsGenresVisible
-        {
-            get => _isGenresVisible;
-            set => Set(ref _isGenresVisible, value);
-        }
-
-        private bool _isTitleVisible = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album title is displayed or not.
-        /// </summary>
-        public bool IsTitleVisible
-        {
-            get => _isTitleVisible;
-            set => Set(ref _isTitleVisible, value);
-        }
-
-        private bool _hasRoundedAlbumArt = true;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album art is rounded or not.
-        /// </summary>
-        public bool HasRoundedAlbumArt
-        {
-            get => _hasRoundedAlbumArt;
-            set => Set(ref _hasRoundedAlbumArt, value);
-        }
-
-        private bool _isReleaseYearVisible = false;
-        /// <summary>
-        /// Gets or sets a value that indicates whether the album release year is rounded or not.
-        /// </summary>
-        public bool IsReleaseYearVisible
-        {
-            get => _isReleaseYearVisible;
-            set => Set(ref _isReleaseYearVisible, value);
-        }
         #endregion
 
         #region Backend
