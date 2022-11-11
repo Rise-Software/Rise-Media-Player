@@ -51,11 +51,11 @@
             Background="Transparent"
             DefaultLabelPosition="Right">
             <AppBarButton
-                x:Uid="/Information/Play"
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
 
@@ -185,10 +185,10 @@
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
                         x:Uid="/Information/ShowAlbum"

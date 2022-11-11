@@ -33,9 +33,9 @@
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Click="PlayItem_Click"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
                         Click="RemoveItem_Click"
