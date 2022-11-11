@@ -216,14 +216,8 @@
   <data name="NoNew.Title" xml:space="preserve">
     <value>Nenhuma media nova foi encontrada na tua biblioteca</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Reproduzir</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Reproduzir todos</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Reproduzir</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Ligações rápidas</value>

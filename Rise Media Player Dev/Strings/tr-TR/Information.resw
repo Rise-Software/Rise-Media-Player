@@ -237,14 +237,8 @@
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Başlangıça Sabitle</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Yürüt</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Hepsini Oynat</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Yürüt</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Hızlı bağlantılar</value>

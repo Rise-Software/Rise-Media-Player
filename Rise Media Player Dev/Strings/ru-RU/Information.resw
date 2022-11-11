@@ -264,14 +264,8 @@
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Закрепить на начальном экране</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Воспроизвести</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Играть все</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Воспроизвести</value>
   </data>
   <data name="Properties.Label" xml:space="preserve">
     <value>Информация и свойства</value>

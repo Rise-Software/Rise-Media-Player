@@ -249,14 +249,8 @@
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Przypnij do menu Start</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Odtwórz</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Odtwórz wszystko</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Odtwórz</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Szybkie linki</value>
