@@ -32,6 +32,16 @@ namespace Rise.App.Views
         private List<SyncedLyricItem> _lyrics;
 
         /// <summary>
+        /// The count of the lyrics in the current playback item,
+        /// default value is 0.
+        /// </summary>
+        public int LyricsCount
+        {
+            get => (int)GetValue(LyricsCountProperty);
+            set => SetValue(LyricsCountProperty, value);
+        }
+
+        /// <summary>
         /// Whether the album art should be fully visible.
         /// </summary>
         private bool UseImmersiveArt
@@ -188,6 +198,7 @@ namespace Rise.App.Views
                 if (body != null)
                 {
                     _lyrics = await Task.Run(() => new List<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
+                    LyricsCount = _lyrics.Count;
                     LyricsList.ItemsSource = _lyrics;
                 }
             }
@@ -204,5 +215,9 @@ namespace Rise.App.Views
         private readonly static DependencyProperty UseImmersiveArtProperty =
             DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
                 typeof(NowPlayingPage), new PropertyMetadata(true));
+
+        private readonly static DependencyProperty LyricsCountProperty =
+            DependencyProperty.Register(nameof(LyricsCount), typeof(int),
+                typeof(NowPlayingPage), new PropertyMetadata(0));
     }
 }
