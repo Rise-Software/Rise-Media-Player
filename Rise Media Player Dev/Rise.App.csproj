@@ -176,6 +176,9 @@
     <Compile Include="UserControls\DefaultQueueFlyout.xaml.cs">
       <DependentUpon>DefaultQueueFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LyricItem.xaml.cs">
+      <DependentUpon>LyricItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MediaPageBase.cs" />
     <Compile Include="UserControls\RiseMediaPlayerElement.cs" />
     <Compile Include="UserControls\RiseMediaTransportControls.cs" />
@@ -640,6 +643,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DefaultQueueFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LyricItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

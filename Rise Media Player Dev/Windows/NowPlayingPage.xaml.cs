@@ -5,7 +5,9 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Playback;
@@ -159,7 +161,17 @@ namespace Rise.App.Views
             {
                 if (lyricsItem != null && lyricsItem != LyricsList.SelectedItem)
                 {
-                    LyricsList.SelectedItem = lyricsItem;
+                    var currentlySelectedLyric = _lyrics.FirstOrDefault(item => item.IsSelected);
+
+                    if (currentlySelectedLyric != null)
+                    {
+                        var currentlySelectedLyricIndex = _lyrics.IndexOf(currentlySelectedLyric);
+                        _lyrics[currentlySelectedLyricIndex].IsSelected = false;
+                    }
+
+                    var selectedLyricIndex = _lyrics.IndexOf(lyricsItem);
+                    _lyrics[selectedLyricIndex].IsSelected = true;
+
                     LyricsList.ScrollIntoView(lyricsItem);
                 }
             });
