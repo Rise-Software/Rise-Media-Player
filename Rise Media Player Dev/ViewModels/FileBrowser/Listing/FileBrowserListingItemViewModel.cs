@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Rise.Common.Enums;
 using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
+using Rise.App.Storage;
+using System;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
@@ -30,7 +32,22 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
 
         public VideoProperties VideoProperties => (_storage as IFile).VideoProperties;
 
-        public IRandomAccessStream Thumbnail => (_storage as IFile).Thumbnail;
+        public IRandomAccessStream Thumbnail
+        {
+            get
+            {
+                if (_storage is not UwpFile file)
+                    throw new NotSupportedException();
+
+                if (_SectionType == FileBrowserSectionType.Music)
+                    return file.MusicThumbnail;
+
+                if (_SectionType == FileBrowserSectionType.Videos)
+                    return file.VideoThumbnail;
+
+                return file.Thumbnail;
+            }
+        }
 
         public FileBrowserListingItemViewModel(IBaseStorage storage, IMessenger messenger, FileBrowserSectionType sectionType)
         {

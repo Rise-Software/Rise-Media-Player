@@ -21,6 +21,10 @@ namespace Rise.App.Storage
 
         public IRandomAccessStream Thumbnail => storage.GetThumbnailAsync(ThumbnailMode.ListView, 500).Get();
 
+        public IRandomAccessStream MusicThumbnail => storage.GetThumbnailAsync(ThumbnailMode.MusicView, 500).Get();
+
+        public IRandomAccessStream VideoThumbnail => storage.GetThumbnailAsync(ThumbnailMode.VideosView, 500).Get();
+
         public UwpFile(StorageFile storage)
             : base(storage)
         {
