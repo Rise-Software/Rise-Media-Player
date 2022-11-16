@@ -9,10 +9,10 @@ namespace Rise.Models
     public class DbObject
     {
         /// <summary>
-        /// Gets or sets the database id.
+        /// Gets a unique identifier for the item.
         /// </summary>
         [PrimaryKey]
         [Column(nameof(Id))]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();
     }
 }

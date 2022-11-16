@@ -363,8 +363,8 @@ namespace Rise.Data.ViewModels
             var itm = args.NewItem;
             if (itm != null)
             {
-                PlayingItem = itm;
                 PlayingItemProperties = NowPlayingDisplayProperties.GetFromPlaybackItem(itm);
+                PlayingItem = itm;
             }
         }
 

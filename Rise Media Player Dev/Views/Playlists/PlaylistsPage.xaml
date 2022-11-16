@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local1="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -110,6 +110,13 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
+                        x:Name="PinPlaylist"
+                        Command="{x:Bind SwitchPlaylistPinningStateCommand}"
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Icon="Pin"
+                        Text="{markup:ResourceHelper Name=PinToSidebar}" />
+
+                    <MenuFlyoutItem
                         x:Uid="/Information/Share"
                         Icon="Share"
                         IsEnabled="False" />
@@ -179,5 +186,21 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PlaylistPinningStates">
+                <VisualState x:Name="UnpinnedPlaylistState" />
+                <VisualState x:Name="PinnedPlaylistState">
+                    <VisualState.StateTriggers>
+                        <StateTrigger IsActive="{x:Bind SelectedItem.IsPinned, Mode=OneWay}" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="PinPlaylist.Icon" Value="UnPin" />
+                        <Setter Target="PinPlaylist.Text" Value="{markup:ResourceHelper Name=RemoveFromSidebar}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </uc:MediaPageBase>

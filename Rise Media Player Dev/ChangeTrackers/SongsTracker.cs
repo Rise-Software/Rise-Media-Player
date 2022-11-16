@@ -192,6 +192,9 @@ namespace Rise.App.ChangeTrackers
 
             foreach (SongViewModel song in toRemove)
             {
+                if (token.IsCancellationRequested)
+                    return;
+
                 await song.DeleteAsync();
             }
 
@@ -200,6 +203,9 @@ namespace Rise.App.ChangeTrackers
             // Check for duplicates and remove if any duplicate is found.
             for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
+                if (token.IsCancellationRequested)
+                    return;
+
                 for (int j = i + 1; j < ViewModel.Songs.Count; j++)
                 {
                     if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
@@ -211,6 +217,9 @@ namespace Rise.App.ChangeTrackers
 
             foreach (SongViewModel song in duplicates)
             {
+                if (token.IsCancellationRequested)
+                    return;
+
                 await song.DeleteAsync();
             }
         }

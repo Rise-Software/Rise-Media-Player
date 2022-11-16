@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.UI;
+using Rise.Common.Extensions;
 using System;
 using System.Collections;
 
@@ -10,13 +11,13 @@ namespace Rise.Data.ViewModels
     /// of data. Allows for sorting through commands
     /// and methods, thanks to <see cref="AdvancedCollectionView"/>.
     /// </summary>
-    public partial class SortableCollectionViewModel : ViewModel
+    public partial class SortableCollectionViewModel : ViewModel, IDisposable
     {
         private Func<object, bool> CanSort { get; set; }
         private bool CanSortBy(string parameter)
-            => CanSort != null ? CanSort(parameter) : true;
+            => CanSort == null || CanSort(parameter);
         private bool CanUpdateDirection(SortDirection parameter)
-            => CanSort != null ? CanSort(parameter) : true;
+            => CanSort == null || CanSort(parameter);
 
         /// <summary>
         /// The collection of sorted items.
@@ -87,6 +88,11 @@ namespace Rise.Data.ViewModels
 
             CurrentSortProperty = defaultProperty;
             CurrentSortDirection = defaultDirection;
+        }
+
+        public void Dispose()
+        {
+            Items.ClearFilter();
         }
     }
 

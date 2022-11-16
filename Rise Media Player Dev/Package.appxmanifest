@@ -166,10 +166,12 @@
 
 	<Capabilities>
 		<Capability Name="internetClient" />
+		<Capability Name="internetClientServer" />
 		<uap3:Capability Name="backgroundMediaPlayback" />
 		<uap:Capability Name="videosLibrary" />
 		<uap:Capability Name="removableStorage" />
 		<uap:Capability Name="musicLibrary"/>
 		<rescap:Capability Name="broadFileSystemAccess" />
+		<uap:Capability Name="enterpriseAuthentication" />
 	</Capabilities>
 </Package>

@@ -45,6 +45,7 @@ namespace Rise.App.Views
             InitializeComponent();
 
             NavigationHelper.LoadState += NavigationHelper_LoadState;
+            NavigationHelper.SaveState += NavigationHelper_SaveState;
 
             PlaylistHelper.AddPlaylistsToSubItem(AddTo, AddSelectedItemToPlaylistCommand);
             PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
@@ -60,12 +61,17 @@ namespace Rise.App.Views
         {
             if (e.NavigationParameter is Guid id)
             {
-                SelectedPlaylist = App.MViewModel.Playlists.
+                SelectedPlaylist = MViewModel.Playlists.
                     FirstOrDefault(p => p.Model.Id == id);
 
                 CreateViewModel("Title", SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
             }
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        {
+            VideosViewModel.Dispose();
         }
     }
 
@@ -78,7 +84,7 @@ namespace Rise.App.Views
             if (playlist == null)
                 return PlaylistHelper.CreateNewPlaylistAsync(SelectedVideo);
             else
-                return playlist.AddVideoAsync(SelectedVideo);
+                return playlist.AddItemAsync(SelectedVideo);
         }
     }
 
@@ -114,15 +120,10 @@ namespace Rise.App.Views
         }
 
         private async void RemoveSong_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedPlaylist.RemoveSongAsync(SelectedItem);
-        }
+            => await SelectedPlaylist.RemoveItemAsync(SelectedItem);
 
         private async void RemoveVideo_Click(object sender, RoutedEventArgs e)
-        {
-            await SelectedPlaylist.RemoveVideoAsync(SelectedVideo);
-        }
-
+            => await SelectedPlaylist.RemoveItemAsync(SelectedVideo);
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is VideoViewModel video && !KeyboardHelpers.IsCtrlPressed())

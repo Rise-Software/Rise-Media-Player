@@ -4,6 +4,7 @@
     {
         Header = 0,
         Item = 1,
-        Separator = 2
+        SubItem = 2,
+        Separator = 3
     }
 }

@@ -67,7 +67,7 @@ namespace Rise.Common.Extensions
             uint index = 0;
 
             IReadOnlyList<StorageFile> fileList = await folderQueryResult.GetFilesAsync(index, stepSize);
-            index += 10;
+            index += stepSize;
 
             // Start crawling data
             while (fileList.Count != 0)
@@ -80,7 +80,7 @@ namespace Rise.Common.Extensions
                 }
 
                 fileList = await folderQueryResult.GetFilesAsync(index, stepSize).AsTask().ConfigureAwait(false);
-                index += 10;
+                index += stepSize;
             }
         }
         #endregion

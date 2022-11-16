@@ -25,15 +25,15 @@ namespace Rise.Common.Helpers
         /// <summary>
         /// Gets a <see cref="MediaPlaybackItem"/> from the provided song Uri.
         /// </summary>
-        public static MediaPlaybackItem GetSongFromUri(Uri uri)
+        public static MediaPlaybackItem GetSongFromUri(Uri uri, string title = null, string subtitle = null, string thumbnail = null)
         {
-            var media = GetMediaFromUri(uri, "Online song");
+            var media = GetMediaFromUri(uri, title ?? "Online song");
             var props = media.GetDisplayProperties();
 
             props.Type = MediaPlaybackType.Music;
-            props.MusicProperties.Title = "Online song";
-            props.MusicProperties.Artist = "UnknownArtistResource";
-            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+            props.MusicProperties.Title = title ?? "Online song";
+            props.MusicProperties.Artist = subtitle ?? "UnknownArtistResource";
+            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.MusicThumb));
 
             media.ApplyDisplayProperties(props);
             return media;
@@ -42,15 +42,15 @@ namespace Rise.Common.Helpers
         /// <summary>
         /// Gets a <see cref="MediaPlaybackItem"/> from the provided video Uri.
         /// </summary>
-        public static MediaPlaybackItem GetVideoFromUri(Uri uri)
+        public static MediaPlaybackItem GetVideoFromUri(Uri uri, string title = null, string subtitle = null, string thumbnail = null)
         {
-            var media = GetMediaFromUri(uri, "Online video");
+            var media = GetMediaFromUri(uri, title ?? "Online video");
             var props = media.GetDisplayProperties();
 
             props.Type = MediaPlaybackType.Video;
-            props.VideoProperties.Title = "Online video";
-            props.VideoProperties.Subtitle = "UnknownArtistResource";
-            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(URIs.MusicThumb));
+            props.VideoProperties.Title = title ?? "Online video";
+            props.VideoProperties.Subtitle = subtitle ?? "UnknownArtistResource";
+            props.Thumbnail = RandomAccessStreamReference.CreateFromUri(new(thumbnail ?? URIs.MusicThumb));
 
             media.ApplyDisplayProperties(props);
             return media;
