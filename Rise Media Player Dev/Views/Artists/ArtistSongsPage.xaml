@@ -510,7 +510,15 @@
                                                 GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                                                 PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                                                 ShowArtist="False"
-                                                Song="{x:Bind}" />
+                                                Song="{x:Bind}">
+                                                <uc:SongData.ThumbnailSource>
+                                                    <BitmapImage
+                                                        DecodePixelHeight="36"
+                                                        DecodePixelType="Logical"
+                                                        DecodePixelWidth="36"
+                                                        UriSource="{x:Bind Thumbnail}" />
+                                                </uc:SongData.ThumbnailSource>
+                                            </uc:SongData>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>

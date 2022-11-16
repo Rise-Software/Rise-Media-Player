@@ -11,6 +11,8 @@ using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Rise.App.Storage;
 using System;
+using Rise.Common.Interfaces;
+using Rise.Models;
 
 namespace Rise.App.ViewModels.FileBrowser.Listing
 {
@@ -31,6 +33,19 @@ namespace Rise.App.ViewModels.FileBrowser.Listing
         public MusicProperties MusicProperties => (_storage as IFile).MusicProperties;
 
         public VideoProperties VideoProperties => (_storage as IFile).VideoProperties;
+
+        public IMediaItem MediaItem
+        {
+            get
+            {
+                if (_storage is not UwpFile file)
+                    return null;
+
+                var isSong = SectionType == FileBrowserSectionType.Music;
+
+                return isSong ? new SongViewModel(Song.GetFromFileAsync(file.GetInternalImpl(), false).Result) : new VideoViewModel(Video.GetFromFileAsync(file.GetInternalImpl()).Result);
+            }
+        }
 
         public IRandomAccessStream Thumbnail
         {

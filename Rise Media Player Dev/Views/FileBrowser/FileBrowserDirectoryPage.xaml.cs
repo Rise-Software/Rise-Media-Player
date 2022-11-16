@@ -1,8 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Rise.App.Messages.FileBrowser;
+using Rise.App.ViewModels;
 using Rise.App.ViewModels.FileBrowser.Listing;
 using Rise.App.ViewModels.FileBrowser.Pages;
+using Rise.Common.Interfaces;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -60,6 +64,13 @@ namespace Rise.App.Views.FileBrowser
                 return;
 
             await item.OpenAsync();
+        }
+
+        [RelayCommand(AllowConcurrentExecutions = true)]
+        private async Task PlayItemAsync(SongViewModel item)
+        {
+            App.MPViewModel.AddSingleItemToQueue(await item.AsPlaybackItemAsync());
+            App.MPViewModel.Player.Play();
         }
     }
 }

@@ -63,15 +63,7 @@
                     CornerRadius="{x:Bind ThumbnailCornerRadius}"
                     Visibility="{x:Bind ShowThumbnail}">
                     <Border.Background>
-                        <ImageBrush Stretch="UniformToFill">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage
-                                    DecodePixelHeight="36"
-                                    DecodePixelType="Logical"
-                                    DecodePixelWidth="36"
-                                    UriSource="{x:Bind Song.Thumbnail}" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
+                        <ImageBrush ImageSource="{x:Bind ThumbnailSource, Mode=OneWay}" Stretch="UniformToFill" />
                     </Border.Background>
                 </Border>
             </Grid>

@@ -5,10 +5,13 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ruc="using:Rise.App.UserControls"
     xmlns:ts="using:Rise.App.TemplateSelectors"
     xmlns:uc="using:Rise.App.UserControls.FileBrowser"
+    xmlns:viewmodels="using:Rise.App.ViewModels"
     xmlns:vm="using:Rise.App.ViewModels.FileBrowser.Listing"
     Loaded="FileBrowserDirectoryPage_Loaded"
+    x:Name="PageRoot"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -50,14 +53,9 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MusicDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
-            <StackPanel DoubleTapped="FileBrowserListingItem_DoubleTapped" Spacing="8">
-                <Image
-                    Width="134"
-                    Height="134"
-                    Source="{x:Bind Thumbnail, Converter={StaticResource StreamToBitmap}}" />
-
-                <TextBlock Text="{x:Bind MusicProperties.Title}" />
-            </StackPanel>
+            <ListViewItem Padding="0" Margin="0,2" DoubleTapped="FileBrowserListingItem_DoubleTapped">
+                <ruc:SongData PlayCommand="{Binding PlayItemCommand, ElementName=PageRoot}" Song="{x:Bind (viewmodels:SongViewModel)MediaItem}" ThumbnailSource="{x:Bind Thumbnail, Converter={StaticResource StreamToBitmap}}" />
+            </ListViewItem>
         </DataTemplate>
         <DataTemplate x:Key="VideosDataTemplate" x:DataType="vm:FileBrowserListingItemViewModel">
             <Grid DoubleTapped="FileBrowserListingItem_DoubleTapped">
@@ -79,7 +77,7 @@
         <DataTemplate x:Key="MusicSectionTemplate" x:DataType="vm:FileBrowserListingSectionViewModel">
             <uc:FileBrowserListingSectionControl
                 Margin="0,8,0,0"
-                DisplayMode="Grid"
+                DisplayMode="List"
                 ItemTemplate="{StaticResource MusicDataTemplate}"
                 ItemsSource="{x:Bind Items}"
                 SectionName="Music">

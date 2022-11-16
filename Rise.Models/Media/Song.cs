@@ -78,11 +78,11 @@ namespace Rise.Models
         /// </summary>
         /// <param name="file">Song file.</param>
         /// <returns>A song based on the file.</returns>
-        public static async Task<Song> GetFromFileAsync(StorageFile file)
+        public static async Task<Song> GetFromFileAsync(StorageFile file, bool fetchThumbnail = true)
         {
             // Put the value into memory to make sure that the system
             // really fetches the properties
-            var musicProperties = await file.Properties.GetMusicPropertiesAsync();
+            var musicProperties = await file.Properties.GetMusicPropertiesAsync().AsTask().ConfigureAwait(false);
 
             int cd = 1;
             var extraProps = await file.Properties.
@@ -119,13 +119,19 @@ namespace Rise.Models
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
             string thumb = URIs.AlbumThumb;
 
-            var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-            string filename = albumTitle.AsValidFileName();
+            StorageItemThumbnail thumbnail;
 
-            if (await thumbnail.SaveToFileAsync($@"{filename}.png"))
-                thumb = $@"ms-appdata:///local/{filename}.png";
+            if (fetchThumbnail)
+            {
+                thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
 
-            thumbnail?.Dispose();
+                string filename = albumTitle.AsValidFileName();
+
+                if (await thumbnail.SaveToFileAsync($@"{filename}.png"))
+                    thumb = $@"ms-appdata:///local/{filename}.png";
+
+                thumbnail?.Dispose();
+            }
 
             return new Song
             {

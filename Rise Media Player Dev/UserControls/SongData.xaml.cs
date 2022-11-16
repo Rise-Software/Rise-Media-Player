@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Rise.App.UserControls
 {
@@ -51,6 +52,19 @@ namespace Rise.App.UserControls
         {
             get => (SongViewModel)GetValue(SongProperty);
             set => SetValue(SongProperty, value);
+        }
+
+        public static readonly DependencyProperty ThumbnailSourceProperty
+            = DependencyProperty.Register(nameof(ThumbnailSource), typeof(ImageSource),
+                typeof(SongData), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the thumbnail to show.
+        /// </summary>
+        public ImageSource ThumbnailSource
+        {
+            get => (ImageSource)GetValue(ThumbnailSourceProperty);
+            set => SetValue(ThumbnailSourceProperty, value);
         }
 
         public static readonly DependencyProperty ThumbnailCornerRadiusProperty
