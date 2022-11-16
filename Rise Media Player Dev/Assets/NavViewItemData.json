@@ -19,6 +19,16 @@
     "FlyoutId": "DefaultItemFlyout"
   },
   {
+    "Id": "FileBrowserPage",
+    "AccessKey": "F",
+    "HeaderGroup": "General",
+    "Icon": "\uE8B7",
+    "Label": "Browse",
+    "ItemType": 1,
+    "SubItems": [],
+    "FlyoutId": "DefaultItemFlyout"
+  },
+  {
     "Id": "MHeader",
     "HeaderGroup": "Music",
     "Label": "Music",
