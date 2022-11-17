@@ -189,17 +189,21 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            if (App.SViewModel.FetchOnlineData)
-                _ = FetchArtistsArtAsync(token);
-
-            _ = SongsTracker.HandleMusicFolderChangesAsync(token);
-            _ = VideosTracker.HandleVideosFolderChangesAsync(token);
-
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+
+            await Task.WhenAll(
+                SongsTracker.HandleMusicFolderChangesAsync(token),
+                VideosTracker.HandleVideosFolderChangesAsync(token),
+                OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData)
+            );
+
             IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;
+
+            static Task OptionalTask(Task task, bool condition)
+                => condition ? task : Task.CompletedTask;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
@@ -231,10 +235,12 @@ namespace Rise.App.ViewModels
 
         private async Task FetchArtistsArtAsync(CancellationToken token)
         {
-            foreach (var artist in Artists)
+            for (int i = 0; i < Artists.Count; i++)
             {
                 if (token.IsCancellationRequested)
                     return;
+
+                var artist = Artists[i];
 
                 artist.Picture = await Task.Run(() => GetArtistImage(artist.Name));
             }
