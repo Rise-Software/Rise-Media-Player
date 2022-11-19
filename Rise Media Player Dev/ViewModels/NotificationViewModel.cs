@@ -1,6 +1,5 @@
 ﻿using Rise.Data.ViewModels;
 using Rise.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
@@ -12,15 +11,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         public NotificationViewModel(Notification model = null)
         {
-            if (model != null)
-            {
-                Model = model;
-            }
-            else
-            {
-                Model = new Notification();
-                IsNew = true;
-            }
+            Model = model ?? new Notification();
         }
 
         /// <summary>
@@ -37,7 +28,6 @@ namespace Rise.App.ViewModels
                 if (value != Model.Title)
                 {
                     Model.Title = value;
-                    IsModified = true;
                     OnPropertyChanged(nameof(Title));
                 }
             }
@@ -57,7 +47,6 @@ namespace Rise.App.ViewModels
                 if (value != Model.Description)
                 {
                     Model.Description = value;
-                    IsModified = true;
                     OnPropertyChanged(nameof(Description));
                 }
             }
@@ -77,49 +66,9 @@ namespace Rise.App.ViewModels
                 if (value != Model.Icon)
                 {
                     Model.Icon = value;
-                    IsModified = true;
                     OnPropertyChanged(nameof(Icon));
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the underlying model has been modified. 
-        /// </summary>
-        /// <remarks>
-        /// Used to reduce load and only upsert the models that have changed.
-        /// </remarks>
-        public bool IsModified { get; set; }
-
-        private bool _isLoading;
-        /// <summary>
-        /// Gets or sets a value that indicates whether to show a progress bar. 
-        /// </summary>
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set => Set(ref _isLoading, value);
-        }
-
-        private bool _isNew;
-        /// <summary>
-        /// Gets or sets a value that indicates whether this is a new item.
-        /// </summary>
-        public bool IsNew
-        {
-            get => _isNew;
-            set => Set(ref _isNew, value);
-        }
-
-        private bool _isInEdit = false;
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether the notification data is being edited.
-        /// </summary>
-        public bool IsInEdit
-        {
-            get => _isInEdit;
-            set => Set(ref _isInEdit, value);
         }
 
         /// <summary>
@@ -127,16 +76,10 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            IsInEdit = false;
-            IsModified = false;
-
-            if (IsNew)
-            {
-                IsNew = false;
+            if (!App.MViewModel.Notifications.Contains(this))
                 App.MViewModel.Notifications.Add(this);
-            }
 
-            await App.NBackendController.InsertAsync(this);
+            await App.NBackendController.InsertAsync(Model);
         }
 
         /// <summary>
@@ -144,10 +87,8 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            IsModified = true;
-
-            App.MViewModel.Notifications.Remove(this);
-            await App.NBackendController.DeleteAsync(this);
+            _ = App.MViewModel.Notifications.Remove(this);
+            await App.NBackendController.DeleteAsync(Model);
         }
     }
 }

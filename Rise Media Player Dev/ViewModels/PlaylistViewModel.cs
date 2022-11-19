@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using TagLib.Ape;
 using Windows.Storage;
 
 namespace Rise.App.ViewModels
@@ -309,9 +308,7 @@ namespace Rise.App.ViewModels
             set
             {
                 if (_songs != value)
-                {
                     _songs = value;
-                }
             }
         }
 
@@ -323,10 +320,8 @@ namespace Rise.App.ViewModels
             set
             {
                 if (_videos != value)
-                {
                     _videos = value;
                     OnPropertyChanged(nameof(Videos));
-                }
             }
         }
 
@@ -349,7 +344,8 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Playlists.Add(this);
+            if (!App.MViewModel.Playlists.Contains(this))
+                App.MViewModel.Playlists.Add(this);
             await App.PBackendController.UpsertAsync(this);
         }
 
@@ -358,22 +354,9 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Playlists.Remove(this);
+            _ = App.MViewModel.Playlists.Remove(this);
             await App.PBackendController.DeleteAsync(this);
         }
-
-        /// <summary>
-        /// Checks whether or not the item is available. If it's not,
-        /// delete it.
-        /// </summary>
-        /*public async Task CheckAvailabilityAsync()
-        {
-            if (TrackCount == 0)
-            {
-                await DeleteAsync();
-                return;
-            }
-        }*/
         #endregion
 
         #region Item management

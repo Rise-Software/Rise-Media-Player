@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,55 +11,53 @@ namespace Rise.App.DbControllers
 {
     public sealed class PlaylistsBackendController : BaseBackendController
     {
-        private MainViewModel ViewModel => App.MViewModel;
         public PlaylistsBackendController() : base("Playlists") { }
 
         public async Task<PlaylistViewModel> GetAsync(Guid id)
         {
             string text = await FileIO.ReadTextAsync(DbFile);
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
-                return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
-            }
 
-            return null;
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+
+            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
+            return playlists.FirstOrDefault(p => p.Model.Id.Equals(id));
         }
 
-        public async Task<List<PlaylistViewModel>> GetAsync()
+        public async Task<IEnumerable<PlaylistViewModel>> GetAsync()
         {
             string text = await FileIO.ReadTextAsync(DbFile);
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text);
-                return playlists;
-            }
 
-            return new List<PlaylistViewModel>();
+            if (!string.IsNullOrWhiteSpace(text))
+                return JsonConvert.DeserializeObject<IEnumerable<PlaylistViewModel>>(text);
+
+            return Enumerable.Empty<PlaylistViewModel>();
         }
 
-        public async Task InsertAsync(PlaylistViewModel playlist)
+        public async Task InsertAsync(PlaylistViewModel PlaylistViewModel)
         {
-            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<PlaylistViewModel>();
-            playlists.Add(playlist);
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text) ?? new List<PlaylistViewModel>();
+            playlists.Add(PlaylistViewModel);
 
             string json = JsonConvert.SerializeObject(playlists, Formatting.Indented);
             await FileIO.WriteTextAsync(DbFile, json);
         }
 
-        public async Task UpsertAsync(PlaylistViewModel playlist)
+        public async Task UpsertAsync(PlaylistViewModel PlaylistViewModel)
         {
-            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<PlaylistViewModel>();
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var playlists = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text) ?? new List<PlaylistViewModel>();
 
-            var item = playlists.FirstOrDefault(i => i.Model.Equals(playlist.Model));
+            var item = playlists.FirstOrDefault(i => i.Equals(PlaylistViewModel));
             if (item != null)
             {
                 int oldIndex = playlists.IndexOf(item);
-                playlists[oldIndex] = playlist;
+                playlists[oldIndex] = PlaylistViewModel;
             }
             else
             {
-                await InsertAsync(playlist);
+                await InsertAsync(PlaylistViewModel);
                 return;
             }
 
@@ -66,9 +65,14 @@ namespace Rise.App.DbControllers
             await FileIO.WriteTextAsync(DbFile, json);
         }
 
-        public async Task DeleteAsync(PlaylistViewModel playlist)
+        public async Task DeleteAsync(PlaylistViewModel item)
         {
-            string json = JsonConvert.SerializeObject(ViewModel.Playlists, Formatting.Indented);
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var list = JsonConvert.DeserializeObject<List<PlaylistViewModel>>(text) ?? new List<PlaylistViewModel>();
+
+            _ = list.Remove(item);
+
+            string json = JsonConvert.SerializeObject(list, Formatting.Indented);
             await FileIO.WriteTextAsync(DbFile, json);
         }
     }
