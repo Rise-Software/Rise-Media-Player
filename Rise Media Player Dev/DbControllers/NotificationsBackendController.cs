@@ -13,16 +13,14 @@ namespace Rise.App.DbControllers
     {
         public NotificationsBackendController() : base("Notifications") { }
 
-        public async Task AddItemAsync(string title, string description, string icon)
+        public Task AddItemAsync(string title, string description, string icon)
         {
-            NotificationViewModel notification = new(new Notification
+            return InsertAsync(new()
             {
                 Title = title,
                 Description = description,
                 Icon = icon
             });
-
-            await notification.SaveAsync();
         }
 
         public async Task<IEnumerable<Notification>> GetAsync()
