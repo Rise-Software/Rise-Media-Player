@@ -138,14 +138,8 @@
   <data name="Album.Text" xml:space="preserve">
     <value>Альбом</value>
   </data>
-  <data name="Albums.Text" xml:space="preserve">
-    <value>Альбомы</value>
-  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Исполнитель</value>
-  </data>
-  <data name="Artists.Text" xml:space="preserve">
-    <value>Исполнители</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
     <value>По возрастанию</value>

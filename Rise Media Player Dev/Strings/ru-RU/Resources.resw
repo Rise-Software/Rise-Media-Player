@@ -127,10 +127,10 @@
     <value>Add an account</value>
   </data>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>Альбомы</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Исполнители</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>

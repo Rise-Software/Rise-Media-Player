@@ -135,13 +135,7 @@
   <data name="Album.Text" xml:space="preserve">
     <value>ऐल्बम</value>
   </data>
-  <data name="Albums.Text" xml:space="preserve">
-    <value>ऐल्बम</value>
-  </data>
   <data name="Artist.Text" xml:space="preserve">
-    <value>रचनाकार</value>
-  </data>
-  <data name="Artists.Text" xml:space="preserve">
     <value>रचनाकार</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
