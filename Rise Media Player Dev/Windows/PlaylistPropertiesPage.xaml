@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     d:Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -48,7 +49,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Edit playlist" />
+                    Text="{markup:ResourceHelper Name=EditPlaylist}" />
             </Grid>
         </skuc:ExtendedTitleBar>
 
