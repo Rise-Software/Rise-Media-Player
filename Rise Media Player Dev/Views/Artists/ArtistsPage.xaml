@@ -27,7 +27,7 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnArtist"
-            Title="Artists"
+            Title="{markup:ResourceHelper Name=Artists}"
             ActionButtonContent="Learn more"
             CloseButtonContent="Got it!"
             IsLightDismissEnabled="True"

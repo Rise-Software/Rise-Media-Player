@@ -343,15 +343,15 @@
                                 IsSettingsVisible="False"
                                 ItemInvoked="NavigationView_ItemInvoked"
                                 PaneDisplayMode="Top"
-                                SelectedItem="{x:Bind AlbumsItem}">
+                                SelectedItem="{x:Bind SongsItem}">
                                 <muxc:NavigationView.Resources>
                                     <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                                 </muxc:NavigationView.Resources>
 
                                 <muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationViewItem x:Name="SongsItem" Content="Albums" />
-                                    <muxc:NavigationViewItem x:Name="AlbumsItem" Content="All songs" />
+                                    <muxc:NavigationViewItem x:Name="AlbumsItem" Content="{markup:ResourceHelper Name=Albums}" />
+                                    <muxc:NavigationViewItem x:Name="SongsItem" Content="{markup:ResourceHelper Name=Songs}" />
                                 </muxc:NavigationView.MenuItems>
                             </muxc:NavigationView>
 

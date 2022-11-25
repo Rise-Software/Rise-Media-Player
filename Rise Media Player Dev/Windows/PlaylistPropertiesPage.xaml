@@ -77,7 +77,7 @@
                             <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="{markup:ResourceHelper Name=Songs}" Tag="SongsItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Songs}" Tag="SongsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xEC4F;" />
                         </muxc:NavigationViewItem.Icon>
