@@ -147,7 +147,4 @@
   <data name="Save.Content" xml:space="preserve">
     <value>Enregistrer les changements</value>
   </data>
-  <data name="WindowTitle.Title" xml:space="preserve">
-    <value>Informations sur la piste</value>
-  </data>
 </root>
