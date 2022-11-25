@@ -348,9 +348,6 @@
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>
   </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Songs</value>
-  </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sort</value>
   </data>

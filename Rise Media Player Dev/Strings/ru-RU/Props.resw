@@ -147,7 +147,4 @@
   <data name="Save.Content" xml:space="preserve">
     <value>Сохранить изменения</value>
   </data>
-  <data name="SongsItem.Text" xml:space="preserve">
-    <value>Песни</value>
-  </data>
 </root>

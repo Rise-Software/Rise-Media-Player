@@ -336,9 +336,6 @@
   <data name="SmallSearch.PlaceholderText" xml:space="preserve">
     <value>Поиск</value>
   </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Песни</value>
-  </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Сортировать</value>
   </data>

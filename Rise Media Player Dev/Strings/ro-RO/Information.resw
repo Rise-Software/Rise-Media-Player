@@ -294,9 +294,6 @@
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Clasic)</value>
   </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Melodii</value>
-  </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sortare</value>
   </data>

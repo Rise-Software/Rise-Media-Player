@@ -312,9 +312,6 @@
   <data name="SmallSearch.PlaceholderText" xml:space="preserve">
     <value>Wyszukaj</value>
   </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Utwory</value>
-  </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sortuj</value>
   </data>

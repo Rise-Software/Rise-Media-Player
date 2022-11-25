@@ -274,7 +274,7 @@
     <value>Welcome to</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Песни</value>
   </data>
   <data name="StepOf" xml:space="preserve">
     <value>Step {0} of {1}</value>

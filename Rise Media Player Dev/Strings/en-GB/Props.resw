@@ -159,12 +159,6 @@
   <data name="Save.Content" xml:space="preserve">
     <value>Save changes</value>
   </data>
-  <data name="SongsItem.Text" xml:space="preserve">
-    <value>Songs</value>
-  </data>
-  <data name="SongsItemNav.Content" xml:space="preserve">
-    <value>Songs</value>
-  </data>
   <data name="StayHere" xml:space="preserve">
     <value>oops</value>
   </data>
