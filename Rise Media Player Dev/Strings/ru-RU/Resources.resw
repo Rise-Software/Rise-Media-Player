@@ -306,4 +306,10 @@
   <data name="Play" xml:space="preserve">
     <value>Воспроизвести</value>
   </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Изменить плейлист</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Информация о песне</value>
+  </data>
 </root>

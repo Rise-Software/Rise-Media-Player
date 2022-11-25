@@ -282,4 +282,7 @@
   <data name="Play" xml:space="preserve">
     <value>Reproduzir</value>
   </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informações da música</value>
+  </data>
 </root>

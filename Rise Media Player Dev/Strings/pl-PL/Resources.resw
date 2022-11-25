@@ -306,4 +306,7 @@
   <data name="Play" xml:space="preserve">
     <value>Odtwórz</value>
   </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informacje o utworze</value>
+  </data>
 </root>

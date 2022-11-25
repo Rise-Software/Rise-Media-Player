@@ -324,4 +324,10 @@
   <data name="Play" xml:space="preserve">
     <value>Play</value>
   </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Edit playlist</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Song info</value>
+  </data>
 </root>
