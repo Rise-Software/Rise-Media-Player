@@ -23,9 +23,6 @@ namespace Rise.App.ViewModels
         public PlaylistViewModel(Playlist model = null)
         {
             Model = model ?? new Playlist();
-
-            _songs ??= new();
-            _videos ??= new();
         }
 
         /// <summary>
@@ -300,30 +297,9 @@ namespace Rise.App.ViewModels
             set => Set(ref _isPinned, value);
         }
 
-        private SafeObservableCollection<SongViewModel> _songs;
+        public SafeObservableCollection<SongViewModel> Songs { get; set; } = new();
 
-        public SafeObservableCollection<SongViewModel> Songs
-        {
-            get => _songs;
-            set
-            {
-                if (_songs != value)
-                    _songs = value;
-            }
-        }
-
-        private SafeObservableCollection<VideoViewModel> _videos;
-
-        public SafeObservableCollection<VideoViewModel> Videos
-        {
-            get => _videos;
-            set
-            {
-                if (_videos != value)
-                    _videos = value;
-                    OnPropertyChanged(nameof(Videos));
-            }
-        }
+        public SafeObservableCollection<VideoViewModel> Videos { get; set; } = new();
 
         [JsonIgnore]
         public int SongsCount => Songs.Count;
