@@ -24,7 +24,7 @@
             x:Name="NotificationsList"
             IsItemClickEnabled="True"
             IsRightTapEnabled="True"
-            ItemsSource="{x:Bind app:App.MViewModel.Notifications, Mode=OneTime}"
+            ItemsSource="{x:Bind MViewModel.Notifications}"
             SelectedItem="{x:Bind SelectedNotification, Mode=TwoWay}"
             SelectionMode="Single">
             <ListView.ContextFlyout>
