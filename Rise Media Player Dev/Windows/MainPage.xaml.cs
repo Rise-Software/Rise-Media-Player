@@ -110,6 +110,8 @@ namespace Rise.App.Views
                 if (ContentFrame.Content == null)
                     ContentFrame.Navigate(Destinations[SViewModel.Open]);
 
+                System.Diagnostics.Debug.WriteLine("FileTrackingEnabled: " + SViewModel.IndexingFileTrackingEnabled);
+
                 // Auto indexing
                 if (SViewModel.IndexingFileTrackingEnabled)
                     await App.InitializeChangeTrackingAsync();

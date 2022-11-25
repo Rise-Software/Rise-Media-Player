@@ -8,6 +8,8 @@ using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
 using System.Threading;
+using System.Linq;
+using Rise.Common;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -46,7 +48,7 @@ namespace Rise.App.ChangeTrackers
 
                     if (change.IsOfType(StorageItemTypes.File))
                     {
-                        await ManageSongChange(change);
+                        await ManageSongChangeAsync(change);
                     }
                     else if (change.IsOfType(StorageItemTypes.Folder))
                     {
@@ -75,11 +77,58 @@ namespace Rise.App.ChangeTrackers
             }
         }
 
+        public static async Task HandleLibraryChangesAsync()
+        {
+            Debug.WriteLine("New changes!");
+            StorageLibraryChangeTracker folderTracker = App.MusicLibrary.ChangeTracker;
+
+            if (folderTracker != null)
+            {
+                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
+                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+
+                foreach (StorageLibraryChange change in changes)
+                {
+                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
+                    {
+                        // Change tracker is in an invalid state and must be reset.
+                        // This should be a very rare case, but must be handled.
+                        folderTracker.Reset();
+                        await ViewModel.StartFullCrawlAsync();
+                        return;
+                    }
+
+                    if (change.IsOfType(StorageItemTypes.File))
+                    {
+                        await ManageSongChangeAsync(change);
+                    }
+                    else if (change.IsOfType(StorageItemTypes.Folder))
+                    {
+                        await ManageFolderChangeAsync(change);
+                    }
+                    else
+                    {
+                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
+                        {
+                            var songOccurrences = ViewModel.Songs.Where(s => s.Location == change.PreviousPath);
+
+                            foreach (var song in songOccurrences)
+                                await song.DeleteAsync();
+                        }
+                    }
+                }
+
+                // Mark that all the changes have been seen and for the change tracker
+                // to never return these changes again
+                await changeReader.AcceptChangesAsync();
+            }
+        }
+
         /// <summary>
-        /// Manage changes to the music library.
+        /// Manage changes to a song using the <see cref="StorageLibraryChange" /> provided.
         /// </summary>
-        /// <param name="change">Change that ocurred.</param>
-        public static async Task ManageSongChange(StorageLibraryChange change)
+        /// <param name="change">Change that occurred.</param>
+        public static async Task ManageSongChangeAsync(StorageLibraryChange change)
         {
             StorageFile file;
 
@@ -154,6 +203,45 @@ namespace Rise.App.ChangeTrackers
                 case StorageLibraryChangeType.IndexingStatusChanged:
                 default:
                     // These are safe to ignore, I think
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Manage changes to a folder in the music library using the <see cref="StorageLibraryChange" /> provided.
+        /// </summary>
+        /// <param name="change">Change that occurred.</param>
+        public static async Task ManageFolderChangeAsync(StorageLibraryChange change)
+        {
+            StorageFolder folder = await change.GetStorageItemAsync() as StorageFolder;
+
+            switch (change.ChangeType)
+            {
+                case StorageLibraryChangeType.MovedIntoLibrary:
+                    await foreach (var file in folder.IndexAsync(QueryPresets.SongQueryOptions))
+                        await ViewModel.SaveMusicModelsAsync(file);
+                    break;
+                case StorageLibraryChangeType.MovedOutOfLibrary:
+                case StorageLibraryChangeType.Deleted:
+                    for (int i = 0; i < ViewModel.Songs.Count; i++)
+                    {
+                        string folderPath = Path.GetDirectoryName(ViewModel.Songs[i].Location);
+
+                        if (change.PreviousPath == folderPath)
+                            await ViewModel.Songs[i].DeleteAsync();
+                    }
+                    break;
+                case StorageLibraryChangeType.MovedOrRenamed:
+                    for (int i = 0; i < ViewModel.Songs.Count; i++)
+                    {
+                        string folderPath = Path.GetDirectoryName(ViewModel.Songs[i].Location);
+
+                        if (change.PreviousPath == folderPath)
+                        {
+                            ViewModel.Songs[i].Location = Path.Combine(folder.Path, ViewModel.Songs[i].FileName);
+                            await ViewModel.Songs[i].SaveAsync();
+                        }
+                    }
                     break;
             }
         }

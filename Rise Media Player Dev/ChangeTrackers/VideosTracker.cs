@@ -9,7 +9,8 @@ using Windows.Storage;
 using Windows.Storage.Search;
 using System.IO;
 using System.Threading;
-using Rise.Data.ViewModels;
+using System.Linq;
+using Rise.Common;
 
 namespace Rise.App.ChangeTrackers
 {
@@ -207,6 +208,92 @@ namespace Rise.App.ChangeTrackers
                 // Mark that all the changes have been seen and for the change tracker
                 // to never return these changes again
                 await changeReader.AcceptChangesAsync();
+            }
+        }
+
+        public static async Task HandleLibraryChangesAsync()
+        {
+            Debug.WriteLine("New changes!");
+            StorageLibraryChangeTracker folderTracker = App.VideoLibrary.ChangeTracker;
+
+            if (folderTracker != null)
+            {
+                StorageLibraryChangeReader changeReader = folderTracker.GetChangeReader();
+                IReadOnlyList<StorageLibraryChange> changes = await changeReader.ReadBatchAsync();
+
+                foreach (StorageLibraryChange change in changes)
+                {
+                    if (change.ChangeType == StorageLibraryChangeType.ChangeTrackingLost)
+                    {
+                        // Change tracker is in an invalid state and must be reset.
+                        // This should be a very rare case, but must be handled.
+                        folderTracker.Reset();
+                        await MViewModel.StartFullCrawlAsync();
+                        return;
+                    }
+
+                    if (change.IsOfType(StorageItemTypes.File))
+                    {
+                        await ManageVideoChange(change);
+                    }
+                    else if (change.IsOfType(StorageItemTypes.Folder))
+                    {
+                        await ManageFolderChangeAsync(change);
+                    }
+                    else
+                    {
+                        if (change.ChangeType == StorageLibraryChangeType.Deleted)
+                        {
+                            var videoOccurrences = MViewModel.Videos.Where(v => v.Location == change.PreviousPath);
+
+                            foreach (var video in videoOccurrences)
+                                await video.DeleteAsync();
+                        }
+                    }
+                }
+
+                // Mark that all the changes have been seen and for the change tracker
+                // to never return these changes again
+                await changeReader.AcceptChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Manage changes to a folder in the video library using the <see cref="StorageLibraryChange" /> provided.
+        /// </summary>
+        /// <param name="change">Change that occurred.</param>
+        public static async Task ManageFolderChangeAsync(StorageLibraryChange change)
+        {
+            StorageFolder folder = await change.GetStorageItemAsync() as StorageFolder;
+
+            switch (change.ChangeType)
+            {
+                case StorageLibraryChangeType.MovedIntoLibrary:
+                    await foreach (var file in folder.IndexAsync(QueryPresets.SongQueryOptions))
+                        await MViewModel.SaveVideoModelAsync(file);
+                    break;
+                case StorageLibraryChangeType.MovedOutOfLibrary:
+                case StorageLibraryChangeType.Deleted:
+                    for (int i = 0; i < MViewModel.Videos.Count; i++)
+                    {
+                        string folderPath = Path.GetDirectoryName(MViewModel.Videos[i].Location);
+
+                        if (change.PreviousPath == folderPath)
+                            await MViewModel.Videos[i].DeleteAsync();
+                    }
+                    break;
+                case StorageLibraryChangeType.MovedOrRenamed:
+                    for (int i = 0; i < MViewModel.Videos.Count; i++)
+                    {
+                        string folderPath = Path.GetDirectoryName(MViewModel.Videos[i].Location);
+
+                        if (change.PreviousPath == folderPath)
+                        {
+                            MViewModel.Songs[i].Location = Path.Combine(folder.Path, MViewModel.Videos[i].FileName);
+                            await MViewModel.Videos[i].SaveAsync();
+                        }
+                    }
+                    break;
             }
         }
     }

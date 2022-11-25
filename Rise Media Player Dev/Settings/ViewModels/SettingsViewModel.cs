@@ -230,7 +230,7 @@ namespace Rise.App.ViewModels
 
         public bool IndexingFileTrackingEnabled
         {
-            get => Get(false, "MediaLibrary");
+            get => Get(true, "MediaLibrary");
             set => Set(value, "MediaLibrary");
         }
 

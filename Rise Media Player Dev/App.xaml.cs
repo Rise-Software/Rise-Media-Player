@@ -14,11 +14,13 @@ using Rise.Data.ViewModels;
 using Rise.Effects;
 using Rise.NewRepository;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -259,6 +261,26 @@ namespace Rise.App
                 deferral.Complete();
             }
         }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+
+            var deferral = args.TaskInstance.GetDeferral();
+
+            Debug.WriteLine("Task Triggered!");
+
+            // Check whether the task was triggered for the music or the video library.
+            if (args.TaskInstance.Task.Name.Contains(nameof(MusicLibrary)))
+            {
+                await SongsTracker.HandleLibraryChangesAsync();
+            } else if (args.TaskInstance.Task.Name.Contains(nameof(VideoLibrary)))
+            {
+                await VideosTracker.HandleLibraryChangesAsync();
+            }
+
+            deferral?.Complete();
+        }
     }
 
     // Data source/ViewModel initialization
@@ -317,13 +339,30 @@ namespace Rise.App
         public static async Task InitializeChangeTrackingAsync()
         {
             RestartIndexingTimer();
-            _ = await KnownFolders.MusicLibrary.
-                TrackForegroundAsync(QueryPresets.SongQueryOptions,
-                SongsTracker.MusicQueryResultChanged);
 
-            _ = await KnownFolders.VideosLibrary.
-                TrackForegroundAsync(QueryPresets.VideoQueryOptions,
-                VideosTracker.VideosLibrary_ContentsChanged);
+            var result = await MusicLibrary.TrackBackgroundAsync($"{nameof(MusicLibrary)} background tracker");
+
+            Debug.WriteLine(result);
+
+            if (!(result == BackgroundTaskRegistrationStatus.Successful
+                || result == BackgroundTaskRegistrationStatus.AlreadyExists))
+            {
+                _ = await KnownFolders.MusicLibrary.
+                    TrackForegroundAsync(QueryPresets.SongQueryOptions,
+                    SongsTracker.MusicQueryResultChanged);
+            }
+
+            result = await VideoLibrary.TrackBackgroundAsync($"{nameof(VideoLibrary)} background tracker");
+
+            Debug.WriteLine(result);
+
+            if (!(result == BackgroundTaskRegistrationStatus.Successful
+                || result == BackgroundTaskRegistrationStatus.AlreadyExists))
+            {
+                _ = await KnownFolders.VideosLibrary.
+                    TrackForegroundAsync(QueryPresets.VideoQueryOptions,
+                    VideosTracker.VideosLibrary_ContentsChanged);
+            }
 
             MusicLibrary.DefinitionChanged += OnLibraryDefinitionChanged;
             VideoLibrary.DefinitionChanged += OnLibraryDefinitionChanged;

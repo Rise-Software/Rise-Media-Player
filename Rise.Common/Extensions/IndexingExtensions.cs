@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rise.Common.Enums;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
@@ -122,17 +124,23 @@ namespace Rise.Common.Extensions
         /// <param name="entryPoint">The <see cref="BackgroundTaskBuilder.TaskEntryPoint"/>.
         /// If not provided, the single process model will be used for the background
         /// task.</param>
-        /// <returns>Whether or not the registration was successful.</returns>
-        public static async Task<bool> TrackBackgroundAsync(this StorageLibrary library,
+        /// <returns>A <see cref="BackgroundTaskRegistrationStatus" /> which represents the status.</returns>
+        public static async Task<BackgroundTaskRegistrationStatus> TrackBackgroundAsync(this StorageLibrary library,
             string taskName, string entryPoint = null)
         {
             // Check if there's access to the background.
             var requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
 
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == taskName)
+                    task.Value.Unregister(false);
+            }
+
             if (!(requestStatus == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
                 requestStatus == BackgroundAccessStatus.AlwaysAllowed))
             {
-                return false;
+                return BackgroundTaskRegistrationStatus.NotAllowed;
             }
 
             // Build up the trigger to fire when something changes in the library.
@@ -146,12 +154,14 @@ namespace Rise.Common.Extensions
                 builder.TaskEntryPoint = entryPoint;
             }
 
+            library.ChangeTracker.Enable();
+
             var libraryTrigger = StorageLibraryContentChangedTrigger.Create(library);
 
             builder.SetTrigger(libraryTrigger);
             _ = builder.Register();
 
-            return true;
+            return BackgroundTaskRegistrationStatus.Successful;
         }
         #endregion
     }

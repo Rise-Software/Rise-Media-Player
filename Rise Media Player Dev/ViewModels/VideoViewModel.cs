@@ -1,10 +1,12 @@
-﻿using Rise.Common.Constants;
+﻿using Newtonsoft.Json;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Media.Playback;
 using Windows.Storage;
@@ -137,6 +139,9 @@ namespace Rise.App.ViewModels
                 }
             }
         }
+
+        [JsonIgnore]
+        public string FileName => Path.GetFileName(Location);
         #endregion
 
         #region Backend
