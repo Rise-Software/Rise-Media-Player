@@ -38,8 +38,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="18"
-                FontWeight="SemiBold"
-                Opacity="0.6"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                 Text="Themes and presets are coming soon. Stay tuned."
                 TextAlignment="Center"
                 TextTrimming="CharacterEllipsis"
@@ -75,344 +74,348 @@
                     SelectionChanged="ColorThemeComboBox_SelectionChanged" />
             </uc:ExpanderControl.HeaderControls>
 
-            <StackPanel>
+            <Grid>
                 <TextBlock
                     x:Name="Nothing"
-                    Padding="30,0,0,0"
+                    HorizontalAlignment="Center"
+                    HorizontalTextAlignment="Center"
                     FontSize="14"
                     FontWeight="Normal"
                     Text="There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown."
                     TextWrapping="WrapWholeWords" />
-                <StackPanel x:Name="TextForGlaze" Visibility="Collapsed">
-                    <TextBlock
-                        Padding="30,0,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Recent colours" />
-                    <TextBlock
-                        Padding="30,0,150,0"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Text="Coming soon" />
-                    <TextBlock
-                        Padding="30,20,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Windows colours" />
-                </StackPanel>
 
-                <controls:WrapPanel
-                    x:Name="RiseColorsPanel"
-                    Padding="30,5,150,5"
-                    HorizontalSpacing="3"
-                    VerticalSpacing="3"
-                    Visibility="Collapsed">
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FFB900"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Yellow gold" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FF8C00"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Gold" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#F7630C"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orange bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#CA5010"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orange dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#DA3B01"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rust" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#EF6950"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale rust" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#D13438"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Brick red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#FF4343"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mod red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E74856"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E81123"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#EA005E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rose bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#C30052"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Rose" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#E3008C"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Plum light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#BF0077"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Plum" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#C239B3"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orchid light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#9A0089"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Orchid" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0078D4"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0063B1"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Navy blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#8E8CD8"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Purple shadow" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#6B69D6"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Purple shadow dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#8764B8"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Iris pastel" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#744DA9"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Iris Spring" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#B146C2"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Violet red light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#881798"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Violet red" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#0099BC"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Cool blue bright" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#2D7D9A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Cool blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00B7C3"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Seafoam" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#038387"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Seafoam teal" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00B294"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mint light" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#018574"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Mint dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#00CC6A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Turf green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#10893E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Sport green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#7A7574"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#5D5A58"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey brown" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#68768A"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Steel blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#515C6B"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Metal blue" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#567C73"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Pale moss" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#486860"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Moss" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#498205"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Meadow green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#107C10"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#767676"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Overcast" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#4C4A48"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Storm" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#69797E"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Blue grey" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#4A5459"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Grey dark" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#647C64"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Liddy green" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#525E54"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Sage" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#847545"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Camouflage desert" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Background="#7E735F"
-                        CornerRadius="5"
-                        ToolTipService.ToolTip="Camouflage" />
-                </controls:WrapPanel>
-                <StackPanel x:Name="TheRest" Visibility="Collapsed">
-                    <Rectangle
-                        Height="1"
-                        Margin="-16,20,-16,0"
-                        HorizontalAlignment="Stretch"
-                        Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
-                    <TextBlock
-                        Padding="30,16,150,0"
-                        FontSize="14"
-                        FontWeight="Normal"
-                        Text="Customised colours" />
-                    <Button
-                        Margin="0,-25,0,0"
-                        HorizontalAlignment="right"
-                        Content="View colours" />
+                <StackPanel>
+                    <StackPanel x:Name="TextForGlaze" Visibility="Collapsed">
+                        <TextBlock
+                            Padding="30,0,150,0"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="Recent colours" />
+                        <TextBlock
+                            Padding="30,0,150,0"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Text="Coming soon" />
+                        <TextBlock
+                            Padding="30,20,150,0"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="Windows colours" />
+                    </StackPanel>
+
+                    <controls:WrapPanel
+                        x:Name="RiseColorsPanel"
+                        Padding="30,5,150,5"
+                        HorizontalSpacing="3"
+                        VerticalSpacing="3"
+                        Visibility="Collapsed">
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#FFB900"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Yellow gold" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#FF8C00"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Gold" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#F7630C"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Orange bright" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#CA5010"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Orange dark" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#DA3B01"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Rust" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#EF6950"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Pale rust" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#D13438"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Brick red" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#FF4343"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Mod red" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#E74856"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Pale red" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#E81123"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Red" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#EA005E"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Rose bright" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#C30052"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Rose" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#E3008C"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Plum light" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#BF0077"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Plum" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#C239B3"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Orchid light" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#9A0089"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Orchid" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#0078D4"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Blue" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#0063B1"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Navy blue" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#8E8CD8"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Purple shadow" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#6B69D6"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Purple shadow dark" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#8764B8"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Iris pastel" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#744DA9"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Iris Spring" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#B146C2"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Violet red light" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#881798"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Violet red" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#0099BC"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Cool blue bright" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#2D7D9A"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Cool blue" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#00B7C3"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Seafoam" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#038387"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Seafoam teal" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#00B294"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Mint light" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#018574"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Mint dark" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#00CC6A"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Turf green" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#10893E"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Sport green" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#7A7574"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Grey" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#5D5A58"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Grey brown" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#68768A"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Steel blue" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#515C6B"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Metal blue" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#567C73"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Pale moss" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#486860"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Moss" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#498205"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Meadow green" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#107C10"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Green" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#767676"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Overcast" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#4C4A48"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Storm" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#69797E"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Blue grey" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#4A5459"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Grey dark" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#647C64"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Liddy green" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#525E54"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Sage" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#847545"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Camouflage desert" />
+                        <Border
+                            Width="50"
+                            Height="50"
+                            Background="#7E735F"
+                            CornerRadius="5"
+                            ToolTipService.ToolTip="Camouflage" />
+                    </controls:WrapPanel>
+                    <StackPanel x:Name="CustomColorsPanel" Visibility="Collapsed">
+                        <Rectangle
+                            Height="1"
+                            Margin="-16,20,-16,0"
+                            HorizontalAlignment="Stretch"
+                            Fill="{ThemeResource ExpanderHeaderBorderBrush}" />
+                        <TextBlock
+                            Padding="30,16,150,0"
+                            FontSize="14"
+                            FontWeight="Normal"
+                            Text="Customised colours" />
+                        <Button
+                            Margin="0,-25,0,0"
+                            HorizontalAlignment="right"
+                            Content="View colours" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </uc:ExpanderControl>
 
         <VisualStateManager.VisualStateGroups>
@@ -423,7 +426,7 @@
                         <Setter Target="Nothing.Visibility" Value="Collapsed" />
                         <Setter Target="TextForGlaze.Visibility" Value="Visible" />
                         <Setter Target="RiseColorsPanel.Visibility" Value="Visible" />
-                        <Setter Target="TheRest.Visibility" Value="Visible" />
+                        <Setter Target="CustomColorsPanel.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
