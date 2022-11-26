@@ -117,109 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>O aplikacji</value>
-  </data>
-  <data name="Abt" xml:space="preserve">
-    <value>O aplikacji</value>
-  </data>
   <data name="Account.Content" xml:space="preserve">
     <value>Konto</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>Albumy</value>
-  </data>
-  <data name="Appearance.Text" xml:space="preserve">
-    <value>Personalizuj</value>
-  </data>
-  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Personalizuj</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artyści</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>Urządzenia</value>
   </data>
-  <data name="Discy" xml:space="preserve">
-    <value>Centrum pomocy</value>
-  </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Kontakt</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Gatunki</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>W skrócie</value>
-  </data>
-  <data name="Ins" xml:space="preserve">
-    <value>Insider</value>
-  </data>
-  <data name="Insider.Text" xml:space="preserve">
-    <value>Centrum Insiderów</value>
-  </data>
-  <data name="Lang.Text" xml:space="preserve">
-    <value>Język</value>
-  </data>
-  <data name="Langs" xml:space="preserve">
-    <value>Język</value>
-  </data>
-  <data name="Language.Content" xml:space="preserve">
-    <value>Język</value>
-  </data>
-  <data name="Lib" xml:space="preserve">
-    <value>Biblioteka</value>
-  </data>
-  <data name="Library.Text" xml:space="preserve">
-    <value>Biblioteka</value>
-  </data>
-  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Biblioteka</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Wszystkie filmy</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>Muzyka</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>Nawigacja</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Kolejka</value>
-  </data>
-  <data name="Pers" xml:space="preserve">
-    <value>Personalizuj</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Odtwarzanie</value>
-  </data>
-  <data name="Playback.Text" xml:space="preserve">
-    <value>Odtwarzanie</value>
-  </data>
-  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Odtwarzanie</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlisty</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ustawienia</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Utwory</value>
   </data>
   <data name="Streaming" xml:space="preserve">
     <value>Serwisy streamingowe</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
     <value>Przywróć wideo</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>Wideo</value>
-  </data>
-  <data name="Walls" xml:space="preserve">
-    <value>Tapety</value>
   </data>
 </root>

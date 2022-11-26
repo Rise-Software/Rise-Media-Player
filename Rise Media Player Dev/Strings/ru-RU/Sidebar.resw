@@ -117,26 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.ToolTipService.ToolTip" xml:space="preserve">
-    <value>О приложении</value>
-  </data>
-  <data name="Abt" xml:space="preserve">
-    <value>О приложении</value>
-  </data>
   <data name="Account.Content" xml:space="preserve">
     <value>Аккаунт</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>Альбомы</value>
-  </data>
-  <data name="Appearance.Text" xml:space="preserve">
-    <value>Персонализация</value>
-  </data>
-  <data name="Appearance.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Персонализация</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Исполнители</value>
   </data>
   <data name="ConnectedDevices" xml:space="preserve">
     <value>Подключённые устройства</value>
@@ -144,85 +126,16 @@
   <data name="Devices" xml:space="preserve">
     <value>Устройства</value>
   </data>
-  <data name="Discy" xml:space="preserve">
-    <value>Справочный центр</value>
-  </data>
   <data name="Feedback.Content" xml:space="preserve">
     <value>Обратная связь</value>
   </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Жанры</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Самое главное</value>
-  </data>
-  <data name="Ins" xml:space="preserve">
-    <value>Инсайдер</value>
-  </data>
-  <data name="Insider.Text" xml:space="preserve">
-    <value>Центр инсайдеров</value>
-  </data>
-  <data name="Lang.Text" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="Langs" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="Language.Content" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="Lib" xml:space="preserve">
-    <value>Библиотека</value>
-  </data>
-  <data name="Library.Text" xml:space="preserve">
-    <value>Библиотека</value>
-  </data>
-  <data name="Library.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Библиотека</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Все видео</value>
-  </data>
-  <data name="Music" xml:space="preserve">
-    <value>Музыка</value>
-  </data>
   <data name="Navigation.Content" xml:space="preserve">
     <value>Навигация</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Очередь</value>
-  </data>
-  <data name="Pers" xml:space="preserve">
-    <value>Персонализация</value>
-  </data>
-  <data name="Play" xml:space="preserve">
-    <value>Плэйбек</value>
-  </data>
-  <data name="Playback.Text" xml:space="preserve">
-    <value>Плэйбек</value>
-  </data>
-  <data name="Playback.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Плэйбек</value>
-  </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Плейлисты</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Песни</value>
   </data>
   <data name="Streaming" xml:space="preserve">
     <value>Стриминговые сервисы</value>
   </data>
   <data name="VideoPlayback" xml:space="preserve">
     <value>Восстановить видео</value>
-  </data>
-  <data name="Videos" xml:space="preserve">
-    <value>Видео</value>
-  </data>
-  <data name="Walls" xml:space="preserve">
-    <value>Обои</value>
   </data>
 </root>
