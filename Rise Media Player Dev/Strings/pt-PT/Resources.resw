@@ -306,4 +306,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>Remover do dispositivo</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
 </root>

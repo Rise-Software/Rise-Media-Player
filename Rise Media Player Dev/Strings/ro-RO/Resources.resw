@@ -306,4 +306,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>Șterge de pe dispozitiv</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Înapoi</value>
+  </data>
 </root>

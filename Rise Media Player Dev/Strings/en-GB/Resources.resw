@@ -351,4 +351,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>Delete from device</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

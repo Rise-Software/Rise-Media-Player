@@ -306,4 +306,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>उपकरण से डिलीट करें</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>पीछे</value>
+  </data>
 </root>

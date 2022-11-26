@@ -306,4 +306,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>Cihazdan sil</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Geri</value>
+  </data>
 </root>

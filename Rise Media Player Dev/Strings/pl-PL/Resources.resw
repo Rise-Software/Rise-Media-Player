@@ -330,4 +330,7 @@
   <data name="RemoveFromDevice" xml:space="preserve">
     <value>Usuń z urządzenia</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Wróć</value>
+  </data>
 </root>
