@@ -136,7 +136,7 @@
     <value>Продолжить</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Тёмная</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Решите за меня</value>
@@ -163,7 +163,7 @@
     <value>Библиотека</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Светлая</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
     <value>Все видео</value>
@@ -289,7 +289,7 @@
     <value>Неизвестный жанр</value>
   </data>
   <data name="UseSystemSetting" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>Использовать системные настройки</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Видео</value>

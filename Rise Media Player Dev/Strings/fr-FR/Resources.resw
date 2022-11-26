@@ -136,7 +136,7 @@
     <value>Continuer</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Sombre</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Décider pour moi</value>
@@ -163,7 +163,7 @@
     <value>Bibliothèque</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Clair</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
     <value>Toutes les vidéos</value>
@@ -289,7 +289,7 @@
     <value>Genre incunnu</value>
   </data>
   <data name="UseSystemSetting" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>Utiliser les paramètres système</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Vidéos</value>
