@@ -30,11 +30,11 @@
             VerticalAlignment="Top"
             AutomationProperties.AutomationId="BackButton"
             AutomationProperties.ItemType="Navigation Button"
-            AutomationProperties.Name="Back"
+            AutomationProperties.Name="{markup:ResourceHelper Name=Back}"
             Click="BackButton_Click"
             CornerRadius="5"
             Style="{StaticResource TransparentButtonStyle}"
-            ToolTipService.ToolTip="Back">
+            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
             <muxc:AnimatedIcon
                 x:Name="BackAnimatedIcon"
                 Width="16"
@@ -340,10 +340,10 @@
                             VerticalAlignment="Center"
                             AutomationProperties.AutomationId="BackButton1"
                             AutomationProperties.ItemType="Navigation Button"
-                            AutomationProperties.Name="Back"
+                            AutomationProperties.Name="{markup:ResourceHelper Name=Back}"
                             Click="GoBackAPage_Click"
                             Style="{StaticResource TransparentButtonStyle}"
-                            ToolTipService.ToolTip="Back"
+                            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}"
                             Visibility="{x:Bind SettingsMainFrame.CanGoBack, Mode=OneWay}">
                             <muxc:AnimatedIcon>
                                 <muxc:AnimatedIcon.Source>
