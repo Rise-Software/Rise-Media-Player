@@ -324,4 +324,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>Tout afficher</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Supprimer uniquement de l'application</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Supprimer sur l'appareil</value>
+  </data>
 </root>

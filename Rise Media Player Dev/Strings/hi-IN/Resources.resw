@@ -300,4 +300,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>सब कुछ दिखाएँ</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>केवल ऐप से हटाएँ</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>उपकरण से डिलीट करें</value>
+  </data>
 </root>

@@ -345,4 +345,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>Show everything</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Only remove from app</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Delete from device</value>
+  </data>
 </root>

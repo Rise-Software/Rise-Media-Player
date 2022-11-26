@@ -327,4 +327,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>Показать все</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Удалить только из приложения</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Удалить с устройства</value>
+  </data>
 </root>

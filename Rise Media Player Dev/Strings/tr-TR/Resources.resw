@@ -300,4 +300,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>Her şeyi göster</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Yalnızca uygulamadan kaldır</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Cihazdan sil</value>
+  </data>
 </root>

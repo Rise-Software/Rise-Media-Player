@@ -300,4 +300,10 @@
   <data name="ShowEverything" xml:space="preserve">
     <value>Afișează tot</value>
   </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Șterge doar din aplicație</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Șterge de pe dispozitiv</value>
+  </data>
 </root>
