@@ -186,12 +186,6 @@
   <data name="Descending.Text" xml:space="preserve">
     <value>По убыванию</value>
   </data>
-  <data name="EditPlaylist.Label" xml:space="preserve">
-    <value>Изменить плейлист</value>
-  </data>
-  <data name="EditPlaylistText.Text" xml:space="preserve">
-    <value>Изменить плейлист</value>
-  </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Обратная связь</value>
   </data>

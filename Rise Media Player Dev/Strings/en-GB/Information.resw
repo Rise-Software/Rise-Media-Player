@@ -198,12 +198,6 @@
   <data name="EditArtist.ToolTipService.ToolTip" xml:space="preserve">
     <value>Customise this page</value>
   </data>
-  <data name="EditPlaylist.Label" xml:space="preserve">
-    <value>Edit playlist</value>
-  </data>
-  <data name="EditPlaylistText.Text" xml:space="preserve">
-    <value>Edit playlist</value>
-  </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Feedback</value>
   </data>
