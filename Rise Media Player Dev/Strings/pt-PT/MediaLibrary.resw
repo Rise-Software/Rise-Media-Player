@@ -126,9 +126,6 @@
   <data name="AddAccount.Title" xml:space="preserve">
     <value>Adicionar uma conta</value>
   </data>
-  <data name="AdvancedH.Text" xml:space="preserve">
-    <value>Avançado</value>
-  </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
     <value>Escolhe onde queres que procuremos os teus ficheiros de música.</value>
   </data>
