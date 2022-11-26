@@ -169,7 +169,7 @@
     <value>Все видео</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>Всегда соответствовать разрешению</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Музыка</value>
@@ -184,13 +184,13 @@
     <value>{0} minutes</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>Без плавного переключения</value>
   </data>
   <data name="NotNow" xml:space="preserve">
     <value>Не сейчас (Выйти из приложения)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
-    <value>{0} seconds</value>
+    <value>{0} секунд</value>
   </data>
   <data name="OneDay" xml:space="preserve">
     <value>1 day</value>
@@ -226,7 +226,7 @@
     <value>Очередь</value>
   </data>
   <data name="ScaleToWindow" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>Масштабировать до размера окна</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
     <value>Pin to sidebar</value>

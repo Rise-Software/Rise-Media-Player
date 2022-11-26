@@ -169,7 +169,7 @@
     <value>Toutes les vidéos</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>Toujours faire correspondre la résolution</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Musique</value>
@@ -184,13 +184,13 @@
     <value>{0} minutes</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>Pas de fondu</value>
   </data>
   <data name="NotNow" xml:space="preserve">
     <value>Pas maintenant (quitter l'application)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
-    <value>{0} seconds</value>
+    <value>{0} secondes</value>
   </data>
   <data name="OneDay" xml:space="preserve">
     <value>1 day</value>
@@ -226,7 +226,7 @@
     <value>Liste d'attente</value>
   </data>
   <data name="ScaleToWindow" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>S'adapte à la taille de la fenêtre</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
     <value>Pin to sidebar</value>

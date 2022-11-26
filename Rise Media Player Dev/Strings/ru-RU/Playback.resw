@@ -123,18 +123,6 @@
   <data name="Crossfade.Title" xml:space="preserve">
     <value>Плавное переключение</value>
   </data>
-  <data name="Duration0" xml:space="preserve">
-    <value>Без плавного переключения</value>
-  </data>
-  <data name="Duration10s" xml:space="preserve">
-    <value>10 секунд</value>
-  </data>
-  <data name="Duration3s" xml:space="preserve">
-    <value>3 секунды</value>
-  </data>
-  <data name="Duration5s" xml:space="preserve">
-    <value>5 секунд</value>
-  </data>
   <data name="EQ.Description" xml:space="preserve">
     <value>Выберите различные звуковые профили в зависимости от типа медиа.</value>
   </data>
@@ -155,9 +143,6 @@
   </data>
   <data name="GoDevice.Title" xml:space="preserve">
     <value>Переход к текущему воспроизведению при подключении аудиоустройства</value>
-  </data>
-  <data name="MatchRes" xml:space="preserve">
-    <value>Всегда соответствовать разрешению</value>
   </data>
   <data name="MusicH.Text" xml:space="preserve">
     <value>Музыка</value>
@@ -185,8 +170,5 @@
   </data>
   <data name="VideoH.Text" xml:space="preserve">
     <value>Видео</value>
-  </data>
-  <data name="WindowSize" xml:space="preserve">
-    <value>Масштабировать до размера окна</value>
   </data>
 </root>

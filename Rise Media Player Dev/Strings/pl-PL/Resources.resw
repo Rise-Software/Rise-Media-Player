@@ -169,7 +169,7 @@
     <value>Wszystkie filmy</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>Zawsze dopasowuj rozdzielczość</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Muzyka</value>
@@ -184,13 +184,13 @@
     <value>{0} minutes</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>Brak przenikania</value>
   </data>
   <data name="NotNow" xml:space="preserve">
     <value>Nie teraz (Wyjdź)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
-    <value>{0} seconds</value>
+    <value>{0} sekund</value>
   </data>
   <data name="OneDay" xml:space="preserve">
     <value>1 day</value>
@@ -226,7 +226,7 @@
     <value>Kolejka</value>
   </data>
   <data name="ScaleToWindow" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>Skaluj do rozmiaru okna</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
     <value>Pin to sidebar</value>
