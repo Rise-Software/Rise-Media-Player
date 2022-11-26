@@ -684,7 +684,6 @@
     <PRIResource Include="Strings\tr-TR\Connect.resw" />
     <PRIResource Include="Strings\tr-TR\Appearance.resw" />
     <PRIResource Include="Strings\tr-TR\About.resw" />
-    <PRIResource Include="Strings\ru-RU\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\ru-RU\Widgets.resw" />
     <PRIResource Include="Strings\ru-RU\Terms.resw" />
     <PRIResource Include="Strings\ru-RU\Sidebar.resw" />
