@@ -30,11 +30,11 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Creates a <see cref="Playlist"/> based on a <see cref="StorageFile"/>.
+        /// Creates a <see cref="Playlist"/> based on a <see cref="IStorageFile"/>.
         /// </summary>
         /// <param name="file">Playlist file.</param>
         /// <returns>A playlist based on the file.</returns>
-        public static async Task<PlaylistViewModel> GetFromFileAsync(StorageFile file)
+        public static async Task<PlaylistViewModel> GetFromFileAsync(IStorageFile file)
         {
             // Read playlist file
             var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
