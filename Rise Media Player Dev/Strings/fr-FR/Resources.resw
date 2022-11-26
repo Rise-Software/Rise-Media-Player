@@ -333,4 +333,10 @@
   <data name="Back" xml:space="preserve">
     <value>Précédent</value>
   </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Ouvrez Rise Media Player lorsque vous vous connectez à votre appareil.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Commence avec Windows</value>
+  </data>
 </root>

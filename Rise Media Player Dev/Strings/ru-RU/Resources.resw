@@ -336,4 +336,10 @@
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Откройте Rise Media Player при входе в систему на своем устройстве..</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Начните с Windows</value>
+  </data>
 </root>

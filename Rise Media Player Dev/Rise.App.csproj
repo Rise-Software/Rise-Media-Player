@@ -722,7 +722,6 @@
     <PRIResource Include="Strings\ro-RO\Appearance.resw" />
     <PRIResource Include="Strings\ro-RO\About.resw" />
     <PRIResource Include="Strings\en-GB\Resources.resw" />
-    <PRIResource Include="Strings\en-GB\WindowsBehaviours.resw" />
     <PRIResource Include="Strings\en-GB\Widgets.resw" />
     <PRIResource Include="Strings\en-GB\HelpTips.resw" />
   </ItemGroup>

@@ -309,4 +309,10 @@
   <data name="Back" xml:space="preserve">
     <value>पीछे</value>
   </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>जब आप अपने डिवाइस में लॉग इन करते हैं तो राइज मीडिया प्लेयर खोलें.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>विंडो के साथ शुरू करें</value>
+  </data>
 </root>
