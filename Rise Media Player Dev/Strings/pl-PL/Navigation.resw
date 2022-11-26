@@ -120,29 +120,8 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>Dodaj/usuń elementy paska bocznego</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Albumy</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Wygląd</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Artyści</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>W skrócie</value>
-  </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Kolorowy</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Domyślny</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Urządzenia</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Pokaż wszystko</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Ogólne</value>
@@ -150,14 +129,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>Ogólne elementy</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Gatunki</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>Pokaż przycisk hamburgera</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Centrum pomocy</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>Wybierz spośród wielu pięknych zestawów ikon na pasku bocznym.</value>
@@ -165,23 +138,8 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>Styl ikon</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Wszystkie filmy</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Muzyka</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Nie pokazuj paska bocznego</value>
-  </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Kolejka</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Pokaż tylko ikony</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Playlisty</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Wybierz, co zrobić z paskiem bocznym, gdy okno jest mniejsze.</value>
@@ -191,12 +149,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>Pokaż nagłówek</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Utwory</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Usługi przesyłania strumieniowego</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>Wideo</value>

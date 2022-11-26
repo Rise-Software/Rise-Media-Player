@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accounts.Text" xml:space="preserve">
-    <value>Ajouter un compte</value>
-  </data>
   <data name="Add.Label" xml:space="preserve">
     <value>Ajouter à</value>
   </data>
@@ -138,14 +135,8 @@
   <data name="Album.Text" xml:space="preserve">
     <value>Album</value>
   </data>
-  <data name="Albums.Text" xml:space="preserve">
-    <value>Albums</value>
-  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Artiste</value>
-  </data>
-  <data name="Artists.Text" xml:space="preserve">
-    <value>Artistes</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
     <value>Croissant</value>
@@ -158,9 +149,6 @@
   </data>
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>A propos de cette page</value>
-  </data>
-  <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>Rechercher des médias</value>
   </data>
   <data name="ChangeArtImg.Text" xml:space="preserve">
     <value>Changer l'image de l'artiste</value>
@@ -191,12 +179,6 @@
   </data>
   <data name="Descending.Text" xml:space="preserve">
     <value>Décroissant</value>
-  </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>Propriétés et infos</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Propriétés et infos</value>
   </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Feedback</value>
@@ -249,20 +231,11 @@
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Epingler au menu démarrer</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Lecture</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Jouer à tous</value>
   </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Lecture</value>
-  </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Liens rapides</value>
-  </data>
-  <data name="Remove.Text" xml:space="preserve">
-    <value>Supprimer de la barre latérale</value>
   </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Supprimer le dossier</value>
@@ -314,12 +287,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Barre latérale (Classique)</value>
-  </data>
-  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>Rechercher</value>
-  </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Musques</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Trier</value>

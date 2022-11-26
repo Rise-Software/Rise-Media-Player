@@ -32,10 +32,10 @@
         <ListView.ContextFlyout>
             <MenuFlyout Opening="SongFlyout_Opening">
                 <MenuFlyoutItem
-                    x:Uid="/Information/PlayItem"
                     Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                     CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                    Icon="Play" />
+                    Icon="Play"
+                    Text="{markup:ResourceHelper Name=Play}" />
 
                 <MenuFlyoutItem
                     x:Uid="/Information/ShowAlbum"
@@ -245,9 +245,9 @@
                 <GridView.ContextFlyout>
                     <MenuFlyout Opening="VideoFlyout_Opening">
                         <MenuFlyoutItem
-                            x:Uid="/Information/PlayItem"
                             Click="PlayVideo_Click"
-                            Icon="Play" />
+                            Icon="Play"
+                            Text="{markup:ResourceHelper Name=Play}" />
 
                         <MenuFlyoutSeparator />
 

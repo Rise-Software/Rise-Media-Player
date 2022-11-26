@@ -123,9 +123,6 @@
   <data name="DetailItem.Text" xml:space="preserve">
     <value>Подробности</value>
   </data>
-  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Скоро</value>
-  </data>
   <data name="Error.CloseButtonContent" xml:space="preserve">
     <value>Понятно</value>
   </data>
@@ -141,19 +138,10 @@
   <data name="LyricsItem.Text" xml:space="preserve">
     <value>Текст песни</value>
   </data>
-  <data name="PlaylistWindowTitle.Title" xml:space="preserve">
-    <value>Изменить плейлист</value>
-  </data>
   <data name="ProfileItem.Text" xml:space="preserve">
     <value>Профиль</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
     <value>Сохранить изменения</value>
-  </data>
-  <data name="SongsItem.Text" xml:space="preserve">
-    <value>Песни</value>
-  </data>
-  <data name="WindowTitle.Title" xml:space="preserve">
-    <value>Информация о песне</value>
   </data>
 </root>

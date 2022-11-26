@@ -123,9 +123,6 @@
   <data name="DetailItem.Text" xml:space="preserve">
     <value>विवरण</value>
   </data>
-  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
-    <value>जल्द आ रहा है</value>
-  </data>
   <data name="Error.CloseButtonContent" xml:space="preserve">
     <value>समझ गया</value>
   </data>
@@ -146,8 +143,5 @@
   </data>
   <data name="Save.Content" xml:space="preserve">
     <value>बदलाव सेव करें</value>
-  </data>
-  <data name="WindowTitle.Title" xml:space="preserve">
-    <value>गाने की जानकारी</value>
   </data>
 </root>

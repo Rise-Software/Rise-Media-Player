@@ -274,9 +274,39 @@
     <value>Imagini de fundal</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>În curând</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>Informații album</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Info melodie</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorat</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Prestabilit</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Nu afișa sidebar-ul</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Afișează doar pictogramele</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Afișează tot</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Șterge doar din aplicație</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Șterge de pe dispozitiv</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Înapoi</value>
   </data>
 </root>

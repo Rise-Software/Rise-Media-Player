@@ -123,15 +123,6 @@
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Aparência</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Colorido</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Padrão</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Mostrar tudo</value>
-  </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Geral</value>
   </data>
@@ -149,12 +140,6 @@
   </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Música</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Não mostrar a barra lateral</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Mostrar apenas ícones</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Escolhe o que fazer com a barra lateral quando a janela fica menor.</value>

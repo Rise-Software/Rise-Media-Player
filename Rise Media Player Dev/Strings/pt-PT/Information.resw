@@ -132,14 +132,8 @@
   <data name="Album.Text" xml:space="preserve">
     <value>Álbum</value>
   </data>
-  <data name="Albums.Text" xml:space="preserve">
-    <value>Álbuns</value>
-  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Artista</value>
-  </data>
-  <data name="Artists.Text" xml:space="preserve">
-    <value>Artistas</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
     <value>Ascendente</value>
@@ -216,14 +210,8 @@
   <data name="NoNew.Title" xml:space="preserve">
     <value>Nenhuma media nova foi encontrada na tua biblioteca</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Reproduzir</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Reproduzir todos</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Reproduzir</value>
   </data>
   <data name="QuickH.Text" xml:space="preserve">
     <value>Ligações rápidas</value>
@@ -241,9 +229,6 @@
     <value>Selecionar</value>
   </data>
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Selecionar</value>
-  </data>
-  <data name="SelectAlbum.Text" xml:space="preserve">
     <value>Selecionar</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
@@ -269,9 +254,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Barra lateral (Clássica)</value>
-  </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Músicas</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Ordenar</value>

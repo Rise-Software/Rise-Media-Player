@@ -274,9 +274,39 @@
     <value>Sfondi</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>Presto disponibile</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>Informazioni sull'album</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Riproduci</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informazioni traccia</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorate</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Predefinito</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Non mostrare la sidebar</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Mostra solo icone</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Mostra tutto</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Rimuovi solo dall'app</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Elimina dal dispositivo</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Indietro</value>
   </data>
 </root>

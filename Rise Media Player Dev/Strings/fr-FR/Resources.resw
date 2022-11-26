@@ -118,61 +118,61 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>A propos</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Accepter</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Ajouter un compte</value>
   </data>
   <data name="Albums" xml:space="preserve">
     <value>Albums</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Artistes</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Continuer</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Sombre</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
-    <value>Decide for me</value>
+    <value>Décider pour moi</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
+    <value>Refuser</value>
   </data>
   <data name="Discy" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>Centre d'aide</value>
   </data>
   <data name="Genres" xml:space="preserve">
     <value>Genres</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>Accueil</value>
   </data>
   <data name="InsiderHub" xml:space="preserve">
     <value>Insider Hub</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Langue</value>
   </data>
   <data name="Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Bibliothèque</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Clair</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>Toutes les vidéos</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>Toujours faire correspondre la résolution</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>Music</value>
+    <value>Musique</value>
   </data>
   <data name="NDays" xml:space="preserve">
     <value>{0} days</value>
@@ -184,13 +184,13 @@
     <value>{0} minutes</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>Pas de fondu</value>
   </data>
   <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
+    <value>Pas maintenant (quitter l'application)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
-    <value>{0} seconds</value>
+    <value>{0} secondes</value>
   </data>
   <data name="OneDay" xml:space="preserve">
     <value>1 day</value>
@@ -205,102 +205,132 @@
     <value>1 second</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
+    <value>Utiliser mes médias locaux uniquement</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
+    <value>Utiliser seulement les services en ligne</value>
   </data>
   <data name="Personalise" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Personnaliser</value>
   </data>
   <data name="Playback" xml:space="preserve">
-    <value>Playback</value>
+    <value>Lecture</value>
   </data>
   <data name="Playlists" xml:space="preserve">
     <value>Playlists</value>
   </data>
   <data name="PropertiesInfo" xml:space="preserve">
-    <value>Properties &amp; Info</value>
+    <value>Propriétés &amp; Infos</value>
   </data>
   <data name="Queue" xml:space="preserve">
-    <value>Queue</value>
+    <value>Liste d'attente</value>
   </data>
   <data name="ScaleToWindow" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>S'adapte à la taille de la fenêtre</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
     <value>Pin to sidebar</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
-    <value>Remove from sidebar</value>
+    <value>Supprimer de la barre latérale</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Rechercher des médias</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Search</value>
+    <value>Rechercher</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Paramètres</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Personnalisez votre expérience</value>
   </data>
   <data name="SetupConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Ajouter des service en ligne</value>
   </data>
   <data name="SetupDoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Vous avez terminé !</value>
   </data>
   <data name="SetupIntro" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Nous sommes hereux de vous voir. Vous avez juste besoin de configurer quelques éléments avant de pouvoir utiliser l'application. Promis, ce sera rapide.</value>
   </data>
   <data name="SetupLocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Vos médias</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Pré-configurations</value>
   </data>
   <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Confidentialité &amp; Recommandations</value>
   </data>
   <data name="SetupStart" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Commencer la configuration</value>
   </data>
   <data name="SetupTermsH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Contrat de licence &amp; conditions</value>
   </data>
   <data name="SetupWelcome" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Bienvenur sur</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Musiques</value>
   </data>
   <data name="StepOf" xml:space="preserve">
-    <value>Step {0} of {1}</value>
+    <value>Etape {0} sur {1}</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>Unknown Album</value>
+    <value>Album incunnu</value>
   </data>
   <data name="UnknownArtistResource" xml:space="preserve">
-    <value>Unknown Artist</value>
+    <value>Artiste incunnu</value>
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
-    <value>Unknown Genre</value>
+    <value>Genre incunnu</value>
   </data>
   <data name="UseSystemSetting" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>Utiliser les paramètres système</value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+    <value>Vidéos</value>
   </data>
   <data name="Wallpapers" xml:space="preserve">
-    <value>Wallpapers</value>
+    <value>Fond d'écrans</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>Bientôt disponnible</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>Album info</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Lecture</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informations sur la piste</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Coloré</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Defaut</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Ne pas afficher la barre latérale</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Afficher uniquement les icônes</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Tout afficher</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Supprimer uniquement de l'application</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Supprimer sur l'appareil</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Précédent</value>
   </data>
 </root>

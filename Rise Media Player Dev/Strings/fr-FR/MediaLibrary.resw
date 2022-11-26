@@ -138,9 +138,6 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>Lors de la suppression des musiques téléchargées:</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>Supprimer sur l'appareil</value>
-  </data>
   <data name="Devices.Text" xml:space="preserve">
     <value>Appareils</value>
   </data>
@@ -168,9 +165,6 @@
   <data name="OnlineServices.Text" xml:space="preserve">
     <value>Services en ligne</value>
   </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Supprimer uniquement de l'application</value>
-  </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>Médias &amp; appareils en local</value>
   </data>
@@ -191,9 +185,6 @@
   </data>
   <data name="Streaming.Text" xml:space="preserve">
     <value>Services de Streaming</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Choisissez les dossiers que nous scrutons pour trouver vos vidéos.</value>

@@ -118,61 +118,61 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>О приложении</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Принять</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Добавить аккаунт</value>
   </data>
   <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
+    <value>Альбомы</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Исполнители</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Продолжить</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Тёмная</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
-    <value>Decide for me</value>
+    <value>Решите за меня</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
+    <value>Отклонить</value>
   </data>
   <data name="Discy" xml:space="preserve">
-    <value>Help Centre</value>
+    <value>Справочный центр</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>Жанры</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>At a glance</value>
+    <value>Самое главное</value>
   </data>
   <data name="InsiderHub" xml:space="preserve">
-    <value>Insider Hub</value>
+    <value>Центр инсайдеров</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
   </data>
   <data name="Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Библиотека</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Светлая</value>
   </data>
   <data name="LocalVideos" xml:space="preserve">
-    <value>All Videos</value>
+    <value>Все видео</value>
   </data>
   <data name="MatchResolution" xml:space="preserve">
-    <value>Always match resolution</value>
+    <value>Всегда соответствовать разрешению</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>Music</value>
+    <value>Музыка</value>
   </data>
   <data name="NDays" xml:space="preserve">
     <value>{0} days</value>
@@ -184,13 +184,13 @@
     <value>{0} minutes</value>
   </data>
   <data name="NoCrossfade" xml:space="preserve">
-    <value>No crossfade</value>
+    <value>Без плавного переключения</value>
   </data>
   <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
+    <value>Не сейчас (Выйти из приложения)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
-    <value>{0} seconds</value>
+    <value>{0} секунд</value>
   </data>
   <data name="OneDay" xml:space="preserve">
     <value>1 day</value>
@@ -205,102 +205,135 @@
     <value>1 second</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
+    <value>Использовать только локальные медиафайлы</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
+    <value>Использовать только стриминговые сервисы</value>
   </data>
   <data name="Personalise" xml:space="preserve">
-    <value>Personalise</value>
+    <value>Персонализация</value>
   </data>
   <data name="Playback" xml:space="preserve">
-    <value>Playback</value>
+    <value>Плэйбек</value>
   </data>
   <data name="Playlists" xml:space="preserve">
-    <value>Playlists</value>
+    <value>Плейлисты</value>
   </data>
   <data name="PropertiesInfo" xml:space="preserve">
-    <value>Properties &amp; Info</value>
+    <value>Свойства и информация</value>
   </data>
   <data name="Queue" xml:space="preserve">
-    <value>Queue</value>
+    <value>Очередь</value>
   </data>
   <data name="ScaleToWindow" xml:space="preserve">
-    <value>Scale to window size</value>
+    <value>Масштабировать до размера окна</value>
   </data>
   <data name="PinToSidebar" xml:space="preserve">
     <value>Pin to sidebar</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
-    <value>Remove from sidebar</value>
+    <value>Удалить из боковой панели</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Искать все медиафайлы на этом устройстве</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Search</value>
+    <value>Поиск</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Сделайте его своим</value>
   </data>
   <data name="SetupConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Подключите интернет-аккаунт</value>
   </data>
   <data name="SetupDoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Готово!</value>
   </data>
   <data name="SetupIntro" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Мы рады, что вы здесь. Просто нужно пройти несколько простых шагов, и всё будет в порядке!</value>
   </data>
   <data name="SetupLocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Добавить свои персональные медиа</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Предварительная настройка</value>
   </data>
   <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Конфиденциальность и рекомендации</value>
   </data>
   <data name="SetupStart" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Начать настройку</value>
   </data>
   <data name="SetupTermsH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Лицензионное соглашение и условия</value>
   </data>
   <data name="SetupWelcome" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Добро пожаловать в</value>
   </data>
   <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
+    <value>Песни</value>
   </data>
   <data name="StepOf" xml:space="preserve">
-    <value>Step {0} of {1}</value>
+    <value>Шаг {0} из {1}</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>Unknown Album</value>
+    <value>Неизвестный альбом</value>
   </data>
   <data name="UnknownArtistResource" xml:space="preserve">
-    <value>Unknown Artist</value>
+    <value>Неизвестный исполнитель</value>
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
-    <value>Unknown Genre</value>
+    <value>Неизвестный жанр</value>
   </data>
   <data name="UseSystemSetting" xml:space="preserve">
-    <value>Use system setting</value>
+    <value>Использовать системные настройки</value>
   </data>
   <data name="Videos" xml:space="preserve">
-    <value>Videos</value>
+    <value>Видео</value>
   </data>
   <data name="Wallpapers" xml:space="preserve">
-    <value>Wallpapers</value>
+    <value>Обои</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>Скоро</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>Album info</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Воспроизвести</value>
+  </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Изменить плейлист</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Информация о песне</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Цветной</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Не показывать боковую панель</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Показывать только иконки</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Показать все</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Удалить только из приложения</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Удалить с устройства</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
   </data>
 </root>

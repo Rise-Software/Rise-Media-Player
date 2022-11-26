@@ -343,15 +343,15 @@
                                 IsSettingsVisible="False"
                                 ItemInvoked="NavigationView_ItemInvoked"
                                 PaneDisplayMode="Top"
-                                SelectedItem="{x:Bind AlbumsItem}">
+                                SelectedItem="{x:Bind SongsItem}">
                                 <muxc:NavigationView.Resources>
                                     <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                                 </muxc:NavigationView.Resources>
 
                                 <muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationViewItem x:Name="SongsItem" Content="Albums" />
-                                    <muxc:NavigationViewItem x:Name="AlbumsItem" Content="All songs" />
+                                    <muxc:NavigationViewItem x:Name="AlbumsItem" Content="{markup:ResourceHelper Name=Albums}" />
+                                    <muxc:NavigationViewItem x:Name="SongsItem" Content="{markup:ResourceHelper Name=Songs}" />
                                 </muxc:NavigationView.MenuItems>
                             </muxc:NavigationView>
 
@@ -371,10 +371,10 @@
                                     <GridView.ContextFlyout>
                                         <MenuFlyout Opening="AlbumsFlyout_Opening">
                                             <MenuFlyoutItem
-                                                x:Uid="/Information/PlayItem"
                                                 Command="{x:Bind AlbumsViewModel.PlaySingleItemCommand}"
                                                 CommandParameter="{x:Bind SelectedAlbum, Mode=OneWay}"
-                                                Icon="Play" />
+                                                Icon="Play"
+                                                Text="{markup:ResourceHelper Name=Play}" />
                                             <MenuFlyoutItem
                                                 x:Uid="/Information/ShuffleAlbum"
                                                 Command="{x:Bind AlbumsViewModel.ShuffleSingleItemCommand}"
@@ -448,10 +448,10 @@
                                     <ListView.ContextFlyout>
                                         <MenuFlyout Opening="SongFlyout_Opening">
                                             <MenuFlyoutItem
-                                                x:Uid="/Information/PlayItem"
                                                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                                                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                                                Icon="Play" />
+                                                Icon="Play"
+                                                Text="{markup:ResourceHelper Name=Play}" />
 
                                             <MenuFlyoutItem
                                                 x:Uid="/Information/ShowAlbum"

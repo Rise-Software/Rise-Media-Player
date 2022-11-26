@@ -321,4 +321,37 @@
   <data name="AlbumInfo" xml:space="preserve">
     <value>Album info</value>
   </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Edit playlist</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Song info</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colourful</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Don't show the sidebar</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Only show icons</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Show everything</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Only remove from app</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Delete from device</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

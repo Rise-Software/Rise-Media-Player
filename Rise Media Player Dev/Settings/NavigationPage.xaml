@@ -20,7 +20,7 @@
                 Icon="&#xE7E8;">
                 <ComboBox
                     ItemsSource="{x:Bind Startup}"
-                    PlaceholderText="Songs"
+                    PlaceholderText="{markup:ResourceHelper Name=Songs}"
                     SelectedIndex="{x:Bind ViewModel.OpenTo, Mode=TwoWay}" />
             </uc:ExpanderControl>
 

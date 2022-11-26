@@ -183,12 +183,12 @@ namespace Rise.App.Views
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            if (SongsItem.IsSelected)
+            if (AlbumsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Visible;
                 MainGrid.Visibility = Visibility.Collapsed;
             }
-            else if (AlbumsItem.IsSelected)
+            else if (SongsItem.IsSelected)
             {
                 MainList.Visibility = Visibility.Collapsed;
                 MainGrid.Visibility = Visibility.Visible;

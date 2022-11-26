@@ -123,15 +123,6 @@
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Görünüm</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Renkli</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Varsayılan</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Her şeyi göster</value>
-  </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Genel</value>
   </data>
@@ -149,12 +140,6 @@
   </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Müzik</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Kenar çubuğunu gösterme</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Yalnızca simgeleri göster</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Pencere küçültüldüğünde kenar çubuğuyla ne yapacağınızı seçin.</value>

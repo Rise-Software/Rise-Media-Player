@@ -126,9 +126,6 @@
   <data name="AddAccount.Title" xml:space="preserve">
     <value>Adicionar uma conta</value>
   </data>
-  <data name="AdvancedH.Text" xml:space="preserve">
-    <value>Avançado</value>
-  </data>
   <data name="ChooseFolders.Description" xml:space="preserve">
     <value>Escolhe onde queres que procuremos os teus ficheiros de música.</value>
   </data>
@@ -137,9 +134,6 @@
   </data>
   <data name="Deletion.Title" xml:space="preserve">
     <value>Ao remover media local:</value>
-  </data>
-  <data name="Device" xml:space="preserve">
-    <value>Remover do dispositivo</value>
   </data>
   <data name="DisableLocal.Title" xml:space="preserve">
     <value>Desativar todos os ficheiros locais e dispositivos</value>
@@ -158,9 +152,6 @@
   </data>
   <data name="OnlineH.Text" xml:space="preserve">
     <value>Media e serviços online</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Remover apenas do aplicação</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>A tua própria media e dispositivos</value>

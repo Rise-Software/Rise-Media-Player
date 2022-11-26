@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Albumy</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Wygląd aplikacji</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artyści</value>
   </data>
   <data name="AtAGlance.Description" xml:space="preserve">
     <value>Dodaj widżety, by spersonalizować swoje doświadczenie.</value>
@@ -150,9 +144,6 @@
   <data name="CuratedPlaylists.Title" xml:space="preserve">
     <value>Twórz wyselekcjonowane playlisty</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Ciemny</value>
-  </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Twórz wstępne ustwienia układu</value>
   </data>
@@ -162,17 +153,11 @@
   <data name="DesignUnavailable.Title" xml:space="preserve">
     <value>Ta funkcja jest niedostępna</value>
   </data>
-  <data name="Devices" xml:space="preserve">
-    <value>Urządzenia</value>
-  </data>
   <data name="FullArt.Description" xml:space="preserve">
     <value>Rogi nie będą zaokrąglone na tych elementach.</value>
   </data>
   <data name="FullArt.Title" xml:space="preserve">
     <value>Pokaż pełną okładkę albumu i miniaturki.</value>
-  </data>
-  <data name="Genres" xml:space="preserve">
-    <value>Gatunki</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
     <value>Personalizuj ze stylami ikon, kolorami, trybami i wiele więcej, które mogą nie tylko sprawić, że Twoje wrażenia będą bardziej osobiste, ale także bardziej przyjazne dla oka.</value>
@@ -180,32 +165,14 @@
   <data name="History.Title" xml:space="preserve">
     <value>Sprawdź swoją historię słuchania i zwyczaje.</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>W skrócie</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Jasny</value>
-  </data>
-  <data name="LocalVideos" xml:space="preserve">
-    <value>Wszystkie filmy</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Nawigacja</value>
-  </data>
-  <data name="NowPlaying" xml:space="preserve">
-    <value>Kolejka</value>
   </data>
   <data name="PickUp.Title" xml:space="preserve">
     <value>Wróć tam, gdzie wcześniej skończyłeś.</value>
   </data>
-  <data name="Playlists" xml:space="preserve">
-    <value>Playlisty</value>
-  </data>
   <data name="PrivacyH.Text" xml:space="preserve">
     <value>Prywatność i rekomendacje</value>
-  </data>
-  <data name="Sidebar" xml:space="preserve">
-    <value>Pasek boczny</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
     <value>Dodaj/usuń przyciski na pasku bocznym, zmień styl ikon i ogólne zachowania.</value>
@@ -213,20 +180,11 @@
   <data name="SidebarItems.Title" xml:space="preserve">
     <value>Dostosuj swój pasek boczny</value>
   </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Utwory</value>
-  </data>
   <data name="Startup.Description" xml:space="preserve">
     <value>Wybierz, którą stronę wyświelać, gdy uruchomisz aplikację.</value>
   </data>
   <data name="Startup.Title" xml:space="preserve">
     <value>Przy uruchomieniu</value>
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>Serwisy streamingowe</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Używaj ustawienia systemowego</value>
   </data>
   <data name="Tip.Text" xml:space="preserve">
     <value>Pokaż pełen obraz albumu i miniaturki.</value>

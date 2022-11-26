@@ -5,6 +5,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="64"
     d:DesignWidth="600"
@@ -45,13 +46,13 @@
             <Grid Grid.Column="1">
                 <Button
                     x:Name="PlayButton"
-                    x:Uid="/Information/Play"
                     Width="36"
                     Height="36"
                     Padding="0"
                     Command="{x:Bind PlayCommand}"
                     CommandParameter="{x:Bind Song}"
                     Style="{StaticResource TransparentButtonStyle}"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}"
                     Visibility="Collapsed">
                     <FontIcon FontSize="16" Glyph="&#xE102;" />
                 </Button>

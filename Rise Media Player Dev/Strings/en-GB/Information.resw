@@ -135,14 +135,8 @@
   <data name="Album.Text" xml:space="preserve">
     <value>Album</value>
   </data>
-  <data name="Albums.Text" xml:space="preserve">
-    <value>Albums</value>
-  </data>
   <data name="Artist.Text" xml:space="preserve">
     <value>Artist</value>
-  </data>
-  <data name="Artists.Text" xml:space="preserve">
-    <value>Artists</value>
   </data>
   <data name="Ascending.Text" xml:space="preserve">
     <value>Ascending</value>
@@ -273,14 +267,8 @@
   <data name="PinToStart.Text" xml:space="preserve">
     <value>Pin to Start</value>
   </data>
-  <data name="Play.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Play</value>
-  </data>
   <data name="PlayAll.Label" xml:space="preserve">
     <value>Play all</value>
-  </data>
-  <data name="PlayItem.Text" xml:space="preserve">
-    <value>Play</value>
   </data>
   <data name="Props.ToolTipService.ToolTip" xml:space="preserve">
     <value>Song info</value>
@@ -353,9 +341,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Sidebar (Classic)</value>
-  </data>
-  <data name="Songs.Text" xml:space="preserve">
-    <value>Songs</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sort</value>

@@ -274,9 +274,39 @@
     <value>वॉलपेपर</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>जल्द आ रहा है</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>एल्बम की जानकारी</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>बजाएँ</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>गाने की जानकारी</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>रंगीन</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>डिफ़ॉल्ट</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>साइडबार न दिखाएँ</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>केवल आइकन दिखाएँ</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>सब कुछ दिखाएँ</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>केवल ऐप से हटाएँ</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>उपकरण से डिलीट करें</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>पीछे</value>
   </data>
 </root>

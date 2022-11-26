@@ -274,9 +274,39 @@
     <value>Papéis de parede</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>Brevemente</value>
   </data>
   <data name="AlbumInfo" xml:space="preserve">
     <value>Informações do álbum</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Reproduzir</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Informações da música</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorido</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Não mostrar a barra lateral</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Mostrar apenas ícones</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Mostrar tudo</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Remover apenas do aplicação</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Remover do dispositivo</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Voltar</value>
   </data>
 </root>

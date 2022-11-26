@@ -120,29 +120,8 @@
   <data name="AddRemoveH.Text" xml:space="preserve">
     <value>Ajouter/supprimer les éléments de la barre latérale</value>
   </data>
-  <data name="Albums.Title" xml:space="preserve">
-    <value>Albums</value>
-  </data>
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Apparance</value>
-  </data>
-  <data name="Artists.Title" xml:space="preserve">
-    <value>Artistes</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Accueil</value>
-  </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Coloré</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Defaut</value>
-  </data>
-  <data name="Devices.Title" xml:space="preserve">
-    <value>Appareils</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Tout afficher</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Generale</value>
@@ -150,14 +129,8 @@
   <data name="GeneralItems.Title" xml:space="preserve">
     <value>Elements généraux</value>
   </data>
-  <data name="Genres.Title" xml:space="preserve">
-    <value>Genres</value>
-  </data>
   <data name="Hamburger.Title" xml:space="preserve">
     <value>Afficher le boutton dit hamburger</value>
-  </data>
-  <data name="HelpCentre.Title" xml:space="preserve">
-    <value>Centre d'aide</value>
   </data>
   <data name="IconStyle.Description" xml:space="preserve">
     <value>Choissez parmi une séléction de magnifiques icônes pour votre barre latérale.</value>
@@ -165,23 +138,8 @@
   <data name="IconStyle.Title" xml:space="preserve">
     <value>Style des icônes</value>
   </data>
-  <data name="Local.Title" xml:space="preserve">
-    <value>Toutes les vidéos</value>
-  </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Musique</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Ne pas afficher la barre latérale</value>
-  </data>
-  <data name="NowPlaying.Title" xml:space="preserve">
-    <value>Liste d'attente</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Afficher uniquement les icônes</value>
-  </data>
-  <data name="Playlists.Title" xml:space="preserve">
-    <value>Playlistes</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Choissez ce que vous voulez faire de la barre latérale lorsque la fenêtre est plus petite.</value>
@@ -191,12 +149,6 @@
   </data>
   <data name="ShowHeader.Title" xml:space="preserve">
     <value>Afficher l'en-tête</value>
-  </data>
-  <data name="Songs.Title" xml:space="preserve">
-    <value>Musiques</value>
-  </data>
-  <data name="Streaming.Title" xml:space="preserve">
-    <value>Services de Streaming</value>
   </data>
   <data name="VideoItems.Title" xml:space="preserve">
     <value>Vidéo</value>
