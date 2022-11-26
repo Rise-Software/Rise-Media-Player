@@ -330,4 +330,19 @@
   <data name="SongInfo" xml:space="preserve">
     <value>Song info</value>
   </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colourful</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Don't show the sidebar</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Only show icons</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Show everything</value>
+  </data>
 </root>

@@ -312,4 +312,19 @@
   <data name="SongInfo" xml:space="preserve">
     <value>Информация о песне</value>
   </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Цветной</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Не показывать боковую панель</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Показывать только иконки</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Показать все</value>
+  </data>
 </root>

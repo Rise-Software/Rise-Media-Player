@@ -285,4 +285,19 @@
   <data name="SongInfo" xml:space="preserve">
     <value>Müzik Bilgisi</value>
   </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Renkli</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Kenar çubuğunu gösterme</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Yalnızca simgeleri göster</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Her şeyi göster</value>
+  </data>
 </root>

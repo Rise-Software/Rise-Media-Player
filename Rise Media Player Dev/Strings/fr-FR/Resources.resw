@@ -309,4 +309,19 @@
   <data name="SongInfo" xml:space="preserve">
     <value>Informations sur la piste</value>
   </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Coloré</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Defaut</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Ne pas afficher la barre latérale</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Afficher uniquement les icônes</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Tout afficher</value>
+  </data>
 </root>

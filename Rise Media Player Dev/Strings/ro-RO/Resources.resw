@@ -285,4 +285,19 @@
   <data name="SongInfo" xml:space="preserve">
     <value>Info melodie</value>
   </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorat</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Prestabilit</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Nu afișa sidebar-ul</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Afișează doar pictogramele</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Afișează tot</value>
+  </data>
 </root>
