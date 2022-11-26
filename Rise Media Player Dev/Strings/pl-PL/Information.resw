@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accounts.Text" xml:space="preserve">
-    <value>Dodaj konto</value>
-  </data>
   <data name="Add.Label" xml:space="preserve">
     <value>Dodaj do</value>
   </data>
@@ -153,9 +150,6 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>O tej stronie</value>
   </data>
-  <data name="BigSearch.PlaceholderText" xml:space="preserve">
-    <value>Szzukaj wszystkich mediów na tym urządzeniu</value>
-  </data>
   <data name="ChangeArtImg.Text" xml:space="preserve">
     <value>Zmień ikonę artysty</value>
   </data>
@@ -185,12 +179,6 @@
   </data>
   <data name="Descending.Text" xml:space="preserve">
     <value>Malejąco</value>
-  </data>
-  <data name="Edit.Label" xml:space="preserve">
-    <value>Właściwości i informacje</value>
-  </data>
-  <data name="Edit.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Właściwości i informacje</value>
   </data>
   <data name="Fdb.Text" xml:space="preserve">
     <value>Kontakt</value>
@@ -249,9 +237,6 @@
   <data name="QuickH.Text" xml:space="preserve">
     <value>Szybkie linki</value>
   </data>
-  <data name="Remove.Text" xml:space="preserve">
-    <value>Usuń z paska bocznego</value>
-  </data>
   <data name="RemoveFolder.ToolTipService.ToolTip" xml:space="preserve">
     <value>Usuń folder</value>
   </data>
@@ -302,9 +287,6 @@
   </data>
   <data name="Sidebar.Text" xml:space="preserve">
     <value>Pasek boczny (klasyczny)</value>
-  </data>
-  <data name="SmallSearch.PlaceholderText" xml:space="preserve">
-    <value>Wyszukaj</value>
   </data>
   <data name="Sort.Label" xml:space="preserve">
     <value>Sortuj</value>

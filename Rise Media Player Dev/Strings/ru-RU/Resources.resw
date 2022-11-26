@@ -124,7 +124,7 @@
     <value>Принять</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Добавить аккаунт</value>
   </data>
   <data name="Albums" xml:space="preserve">
     <value>Альбомы</value>
@@ -232,13 +232,13 @@
     <value>Pin to sidebar</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
-    <value>Remove from sidebar</value>
+    <value>Удалить из боковой панели</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Искать все медиафайлы на этом устройстве</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Search</value>
+    <value>Поиск</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>

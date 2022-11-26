@@ -231,9 +231,6 @@
   <data name="Select.ToolTipService.ToolTip" xml:space="preserve">
     <value>Selecionar</value>
   </data>
-  <data name="SelectAlbum.Text" xml:space="preserve">
-    <value>Selecionar</value>
-  </data>
   <data name="Settings.Text" xml:space="preserve">
     <value>Definições da aplicação</value>
   </data>

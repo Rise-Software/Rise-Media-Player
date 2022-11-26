@@ -124,7 +124,7 @@
     <value>Akceptuj</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add an account</value>
+    <value>Dodaj konto</value>
   </data>
   <data name="Albums" xml:space="preserve">
     <value>Albumy</value>
@@ -232,13 +232,13 @@
     <value>Pin to sidebar</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
-    <value>Remove from sidebar</value>
+    <value>Usuń z paska bocznego</value>
   </data>
   <data name="SearchMediaPlaceholder" xml:space="preserve">
-    <value>Search all media on this device</value>
+    <value>Szzukaj wszystkich mediów na tym urządzeniu</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Search</value>
+    <value>Wyszukaj</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ustawienia</value>
