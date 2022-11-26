@@ -220,7 +220,7 @@
     <value>Playlists</value>
   </data>
   <data name="PropertiesInfo" xml:space="preserve">
-    <value>Properties &amp; Info</value>
+    <value>Właściwości i informacje</value>
   </data>
   <data name="Queue" xml:space="preserve">
     <value>Queue</value>
@@ -280,13 +280,13 @@
     <value>Step {0} of {1}</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
-    <value>Unknown Album</value>
+    <value>Nieznany album</value>
   </data>
   <data name="UnknownArtistResource" xml:space="preserve">
-    <value>Unknown Artist</value>
+    <value>Nieznany artysta</value>
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
-    <value>Unknown Genre</value>
+    <value>Nieznany gatunek</value>
   </data>
   <data name="UseSystemSetting" xml:space="preserve">
     <value>Use system setting</value>
