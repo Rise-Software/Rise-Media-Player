@@ -159,9 +159,6 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>When removing local media:</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>Delete from device</value>
-  </data>
   <data name="DeviceConnect.Title" xml:space="preserve">
     <value>Scan when a removable device or drive is connected</value>
   </data>
@@ -212,9 +209,6 @@
   </data>
   <data name="OnlineServices.Text" xml:space="preserve">
     <value>Online services</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Only remove from app</value>
   </data>
   <data name="Open.Title" xml:space="preserve">
     <value>Scan when the app is opened</value>

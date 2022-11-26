@@ -138,9 +138,6 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>Când se șterge media locală:</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>Șterge de pe dispozitiv</value>
-  </data>
   <data name="Devices.Text" xml:space="preserve">
     <value>Dispozitive</value>
   </data>
@@ -167,9 +164,6 @@
   </data>
   <data name="OnlineServices.Text" xml:space="preserve">
     <value>Servicii online</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Șterge doar din aplicație</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>Media locală și dispozitive</value>

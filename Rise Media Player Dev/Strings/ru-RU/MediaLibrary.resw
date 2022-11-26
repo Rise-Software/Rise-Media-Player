@@ -159,9 +159,6 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>При удалении локального медиа:</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>Удалить с устройства</value>
-  </data>
   <data name="DeviceConnect.Title" xml:space="preserve">
     <value>Сканировать при подключении съёмного устройства или диска</value>
   </data>
@@ -213,9 +210,6 @@
   <data name="OnlineServices.Text" xml:space="preserve">
     <value>Сетевые сервисы</value>
   </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>Удалить только из приложения</value>
-  </data>
   <data name="Open.Title" xml:space="preserve">
     <value>Сканировать при открытии приложения</value>
   </data>
@@ -239,9 +233,6 @@
   </data>
   <data name="Streaming.Text" xml:space="preserve">
     <value>Стриминговые сервисы</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="VChooseFolders.Description" xml:space="preserve">
     <value>Выберите, где нам искать ваши видеофайлы.</value>

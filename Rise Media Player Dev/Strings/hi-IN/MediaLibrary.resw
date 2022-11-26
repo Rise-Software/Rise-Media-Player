@@ -138,9 +138,6 @@
   <data name="Deletion.Title" xml:space="preserve">
     <value>लोकल मीडिया हटाने पर:</value>
   </data>
-  <data name="Device" xml:space="preserve">
-    <value>उपकरण से डिलीट करें</value>
-  </data>
   <data name="Devices.Text" xml:space="preserve">
     <value>उपकरण</value>
   </data>
@@ -167,9 +164,6 @@
   </data>
   <data name="OnlineServices.Text" xml:space="preserve">
     <value>ऑनलाईन सेवाएँ</value>
-  </data>
-  <data name="OnlyApp" xml:space="preserve">
-    <value>केवल ऐप से हटाएँ</value>
   </data>
   <data name="OwnH.Text" xml:space="preserve">
     <value>आपके खुद के मीडिया और उपकरण</value>
