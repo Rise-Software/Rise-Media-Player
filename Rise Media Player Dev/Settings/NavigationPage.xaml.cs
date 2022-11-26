@@ -14,15 +14,15 @@ namespace Rise.App.Settings
 
         private readonly List<string> IconPacks = new()
         {
-            ResourceLoaders.NavigationLoader.GetString("Default"),
-            ResourceLoaders.NavigationLoader.GetString("Colorful")
+            ResourceHelper.GetString("Default"),
+            ResourceHelper.GetString("Colorful")
         };
 
         private readonly List<string> Show = new()
         {
-            ResourceLoaders.NavigationLoader.GetString("NoIcons"),
-            ResourceLoaders.NavigationLoader.GetString("OnlyIcons"),
-            ResourceLoaders.NavigationLoader.GetString("Everything")
+            ResourceHelper.GetString("NoIcons"),
+            ResourceHelper.GetString("OnlyIcons"),
+            ResourceHelper.GetString("Everything")
         };
 
         private readonly List<string> Startup = new()
