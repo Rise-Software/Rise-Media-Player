@@ -591,7 +591,6 @@
     <PRIResource Include="Strings\pl-PL\Props.resw" />
     <PRIResource Include="Strings\pl-PL\Privacy.resw" />
     <PRIResource Include="Strings\pl-PL\Playback.resw" />
-    <PRIResource Include="Strings\pl-PL\NowPlaying.resw" />
     <PRIResource Include="Strings\pl-PL\Navigation.resw" />
     <PRIResource Include="Strings\pl-PL\MediaLibrary.resw" />
     <PRIResource Include="Strings\pl-PL\Local.resw" />
@@ -650,7 +649,6 @@
     <PRIResource Include="Strings\fr-FR\Playback.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\fr-FR\NowPlaying.resw" />
     <PRIResource Include="Strings\fr-FR\Navigation.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -693,7 +691,6 @@
     <PRIResource Include="Strings\ru-RU\Props.resw" />
     <PRIResource Include="Strings\ru-RU\Privacy.resw" />
     <PRIResource Include="Strings\ru-RU\Playback.resw" />
-    <PRIResource Include="Strings\ru-RU\NowPlaying.resw" />
     <PRIResource Include="Strings\ru-RU\Navigation.resw" />
     <PRIResource Include="Strings\ru-RU\MediaLibrary.resw" />
     <PRIResource Include="Strings\ru-RU\Local.resw" />
