@@ -123,9 +123,6 @@
   <data name="DetailItem.Text" xml:space="preserve">
     <value>Detalii</value>
   </data>
-  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
-    <value>În curând</value>
-  </data>
   <data name="Error.CloseButtonContent" xml:space="preserve">
     <value>Am înțeles</value>
   </data>

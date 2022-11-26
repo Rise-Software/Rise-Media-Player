@@ -123,9 +123,6 @@
   <data name="DetailItem.Text" xml:space="preserve">
     <value>Подробности</value>
   </data>
-  <data name="DisabledTip.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Скоро</value>
-  </data>
   <data name="Error.CloseButtonContent" xml:space="preserve">
     <value>Понятно</value>
   </data>
