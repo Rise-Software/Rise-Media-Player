@@ -171,32 +171,12 @@ namespace Rise.App.ChangeTrackers
             // Check if the song doesn't exist anymore, if so queue it then remove.
             for (int i = 0; i < ViewModel.Songs.Count; i++)
             {
-                try
-                {
-                    _ = await StorageFile.GetFileFromPathAsync(ViewModel.Songs[i].Location);
-                }
-                catch (FileNotFoundException e)
-                {
+                if (!File.Exists(ViewModel.Songs[i].Location))
                     toRemove.Add(ViewModel.Songs[i]);
-                    e.WriteToOutput();
-                }
-                catch (FileLoadException e)
-                {
-                    e.WriteToOutput();
-                }
-                catch (UnauthorizedAccessException e)
-                {
-                    e.WriteToOutput();
-                }
             }
 
             foreach (SongViewModel song in toRemove)
-            {
-                if (token.IsCancellationRequested)
-                    return;
-
                 await song.DeleteAsync();
-            }
 
             List<SongViewModel> duplicates = new();
 
@@ -208,10 +188,11 @@ namespace Rise.App.ChangeTrackers
 
                 for (int j = i + 1; j < ViewModel.Songs.Count; j++)
                 {
+                    if (token.IsCancellationRequested)
+                        return;
+
                     if (ViewModel.Songs[i].Location == ViewModel.Songs[j].Location)
-                    {
                         duplicates.Add(ViewModel.Songs[j]);
-                    }
                 }
             }
 

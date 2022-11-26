@@ -102,35 +102,27 @@ namespace Rise.App.ViewModels
             if (songs != null)
             {
                 foreach (var item in songs)
-                {
                     Songs.Add(new(item));
-                }
 
                 var albums = await Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
-                    {
                         Albums.Add(new(item));
-                    }
                 }
 
                 var artists = await Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
-                    {
                         Artists.Add(new(item));
-                    }
                 }
 
                 var genres = await Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
-                    {
                         Genres.Add(new(item));
-                    }
                 }
             }
 
@@ -138,9 +130,7 @@ namespace Rise.App.ViewModels
             if (videos != null)
             {
                 foreach (var item in videos)
-                {
                     Videos.Add(new(item));
-                }
             }
 
             // Playlists may contain songs or videos
@@ -150,9 +140,7 @@ namespace Rise.App.ViewModels
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
-                    {
                         Playlists.Add(item);
-                    }
                 }
             }
 
@@ -160,9 +148,7 @@ namespace Rise.App.ViewModels
             if (notifications != null)
             {
                 foreach (var item in notifications)
-                {
-                    Notifications.Add(item);
-                }
+                    Notifications.Add(new(item));
             }
         }
 
@@ -189,17 +175,21 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            if (App.SViewModel.FetchOnlineData)
-                _ = FetchArtistsArtAsync(token);
-
-            _ = SongsTracker.HandleMusicFolderChangesAsync(token);
-            _ = VideosTracker.HandleVideosFolderChangesAsync(token);
-
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+
+            await Task.WhenAll(
+                SongsTracker.HandleMusicFolderChangesAsync(token),
+                VideosTracker.HandleVideosFolderChangesAsync(token),
+                OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData)
+            );
+
             IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;
+
+            static Task OptionalTask(Task task, bool condition)
+                => condition ? task : Task.CompletedTask;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
@@ -231,10 +221,12 @@ namespace Rise.App.ViewModels
 
         private async Task FetchArtistsArtAsync(CancellationToken token)
         {
-            foreach (var artist in Artists)
+            for (int i = 0; i < Artists.Count; i++)
             {
                 if (token.IsCancellationRequested)
                     return;
+
+                var artist = Artists[i];
 
                 artist.Picture = await Task.Run(() => GetArtistImage(artist.Name));
             }

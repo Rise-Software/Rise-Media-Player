@@ -41,6 +41,7 @@
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
             <conv:ResourceFallback x:Key="ResFallback" />
+            <conv:IntToVisibility x:Key="IntToVis" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -195,19 +196,20 @@
             HorizontalAlignment="Right"
             ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
             Loaded="OnLyricsListLoaded"
+            SelectionMode="None"
             Visibility="Collapsed">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:SyncedLyricItem">
-                    <TextBlock
-                        Margin="0,4"
-                        HorizontalAlignment="Stretch"
-                        FontSize="20"
-                        FontWeight="SemiBold"
-                        HorizontalTextAlignment="Center"
-                        Text="{x:Bind Text}"
-                        TextWrapping="WrapWholeWords" />
+                    <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Footer>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Padding="0,12"
+                    Text="Licensed and provided by Musixmatch."
+                    Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+            </ListView.Footer>
         </ListView>
 
         <VisualStateManager.VisualStateGroups>

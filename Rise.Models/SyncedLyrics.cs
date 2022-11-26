@@ -4,6 +4,7 @@ using Newtonsoft.Json.Converters;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Rise.Models
 {
@@ -76,7 +77,7 @@ namespace Rise.Models
         public IReadOnlyList<SyncedLyricItem> Subtitles => Array.AsReadOnly(JsonConvert.DeserializeObject<SyncedLyricItem[]>(SubtitleBody));
     }
 
-    public class SyncedLyricItem
+    public class SyncedLyricItem : INotifyPropertyChanged
     {
         [JsonProperty("text")]
         public string Text { get; set; }
@@ -86,6 +87,20 @@ namespace Rise.Models
 
         [JsonIgnore]
         public TimeSpan TimeSpan => Time.ToTimeSpan();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                PropertyChanged?.Invoke(this, new(nameof(IsSelected)));
+            }
+        }
 
         public override string ToString()
             => $"{Text} - {TimeSpan}"; 

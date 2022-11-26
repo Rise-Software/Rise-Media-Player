@@ -5,7 +5,9 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Playback;
@@ -28,6 +30,16 @@ namespace Rise.App.Views
         private bool FullScreenRequested = false;
 
         private List<SyncedLyricItem> _lyrics;
+
+        /// <summary>
+        /// The count of the lyrics in the current playback item,
+        /// default value is 0.
+        /// </summary>
+        public int LyricsCount
+        {
+            get => (int)GetValue(LyricsCountProperty);
+            set => SetValue(LyricsCountProperty, value);
+        }
 
         /// <summary>
         /// Whether the album art should be fully visible.
@@ -159,7 +171,17 @@ namespace Rise.App.Views
             {
                 if (lyricsItem != null && lyricsItem != LyricsList.SelectedItem)
                 {
-                    LyricsList.SelectedItem = lyricsItem;
+                    var currentlySelectedLyric = _lyrics.FirstOrDefault(item => item.IsSelected);
+
+                    if (currentlySelectedLyric != null)
+                    {
+                        var currentlySelectedLyricIndex = _lyrics.IndexOf(currentlySelectedLyric);
+                        _lyrics[currentlySelectedLyricIndex].IsSelected = false;
+                    }
+
+                    var selectedLyricIndex = _lyrics.IndexOf(lyricsItem);
+                    _lyrics[selectedLyricIndex].IsSelected = true;
+
                     LyricsList.ScrollIntoView(lyricsItem);
                 }
             });
@@ -176,6 +198,7 @@ namespace Rise.App.Views
                 if (body != null)
                 {
                     _lyrics = await Task.Run(() => new List<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
+                    LyricsCount = _lyrics.Count;
                     LyricsList.ItemsSource = _lyrics;
                 }
             }
@@ -192,5 +215,9 @@ namespace Rise.App.Views
         private readonly static DependencyProperty UseImmersiveArtProperty =
             DependencyProperty.Register(nameof(UseImmersiveArt), typeof(bool),
                 typeof(NowPlayingPage), new PropertyMetadata(true));
+
+        private readonly static DependencyProperty LyricsCountProperty =
+            DependencyProperty.Register(nameof(LyricsCount), typeof(int),
+                typeof(NowPlayingPage), new PropertyMetadata(0));
     }
 }
