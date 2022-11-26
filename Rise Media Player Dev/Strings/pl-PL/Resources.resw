@@ -121,7 +121,7 @@
     <value>O aplikacji</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>Akceptuj</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Add an account</value>
@@ -133,16 +133,16 @@
     <value>Artyści</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Kontynuuj</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
-    <value>Decide for me</value>
+    <value>Zadecyduj za mnie</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Decline</value>
+    <value>Nie zgadzam się</value>
   </data>
   <data name="Discy" xml:space="preserve">
     <value>Centrum pomocy</value>
@@ -187,7 +187,7 @@
     <value>No crossfade</value>
   </data>
   <data name="NotNow" xml:space="preserve">
-    <value>Not now (Exit app)</value>
+    <value>Nie teraz (Wyjdź)</value>
   </data>
   <data name="NSeconds" xml:space="preserve">
     <value>{0} seconds</value>
@@ -205,10 +205,10 @@
     <value>1 second</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
-    <value>Use local media files only</value>
+    <value>Uzyj tylko lokalnych plików</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
-    <value>Use streaming services only</value>
+    <value>Uzyj tylko serwisów streamingowych</value>
   </data>
   <data name="Personalise" xml:space="preserve">
     <value>Personalizuj</value>
@@ -244,40 +244,40 @@
     <value>Ustawienia</value>
   </data>
   <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Make it yours</value>
+    <value>Personalizuj</value>
   </data>
   <data name="SetupConnectH" xml:space="preserve">
-    <value>Connect an internet account</value>
+    <value>Polącz konto internetowe</value>
   </data>
   <data name="SetupDoneH" xml:space="preserve">
-    <value>You're done!</value>
+    <value>Gotowe!</value>
   </data>
   <data name="SetupIntro" xml:space="preserve">
-    <value>We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!</value>
+    <value>Cieszymy się że tu jesteś. Wystarczy wykonać kilka prostych kroków, a wszystko będzie gotowe!</value>
   </data>
   <data name="SetupLocalH" xml:space="preserve">
-    <value>Add your personal media</value>
+    <value>Twoje media</value>
   </data>
   <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
+    <value>Konfiguracja wstępna</value>
   </data>
   <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
+    <value>Prywatność i rekomendacje</value>
   </data>
   <data name="SetupStart" xml:space="preserve">
-    <value>Start setup</value>
+    <value>Rozpocznij konfigurację</value>
   </data>
   <data name="SetupTermsH" xml:space="preserve">
-    <value>License Agreement &amp; Terms</value>
+    <value>Umowa licencyjna i warunki</value>
   </data>
   <data name="SetupWelcome" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Witaj w</value>
   </data>
   <data name="Songs" xml:space="preserve">
     <value>Utwory</value>
   </data>
   <data name="StepOf" xml:space="preserve">
-    <value>Step {0} of {1}</value>
+    <value>Krok {0} z {1}</value>
   </data>
   <data name="UnknownAlbumResource" xml:space="preserve">
     <value>Nieznany album</value>
