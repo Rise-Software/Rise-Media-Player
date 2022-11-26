@@ -123,15 +123,6 @@
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>दिखावट</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>रंगीन</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>डिफ़ॉल्ट</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>सब कुछ दिखाएँ</value>
-  </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>जनरल</value>
   </data>
@@ -149,12 +140,6 @@
   </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>संगीत</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>साइडबार न दिखाएँ</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>केवल आइकन दिखाएँ</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>चुनें कि विंडो को छोटा करने पर साइडबार का क्या करना है।</value>

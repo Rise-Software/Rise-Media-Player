@@ -123,15 +123,6 @@
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>Appearance</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Colourful</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Show everything</value>
-  </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>General</value>
   </data>
@@ -149,12 +140,6 @@
   </data>
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Music</value>
-  </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Don't show the sidebar</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Only show icons</value>
   </data>
   <data name="Resize.Description" xml:space="preserve">
     <value>Choose what to do with the sidebar when the window is made smaller.</value>

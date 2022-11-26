@@ -14,11 +14,5 @@ namespace Rise.Common
         /// </summary>
         public static ResourceLoader MediaLibraryLoader { get; } =
             ResourceLoader.GetForViewIndependentUse("MediaLibrary");
-
-        /// <summary>
-        /// Loads Navigation resources.
-        /// </summary>
-        public static ResourceLoader NavigationLoader { get; } =
-            ResourceLoader.GetForViewIndependentUse("Navigation");
     }
 }

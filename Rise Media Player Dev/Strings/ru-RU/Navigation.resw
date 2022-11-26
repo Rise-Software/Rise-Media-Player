@@ -132,17 +132,8 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>Самое главное</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Цветной</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>По умолчанию</value>
-  </data>
   <data name="Devices.Title" xml:space="preserve">
     <value>Устройства</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Показать все</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Общие</value>
@@ -171,14 +162,8 @@
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Музыка</value>
   </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Не показывать боковую панель</value>
-  </data>
   <data name="NowPlaying.Title" xml:space="preserve">
     <value>Очередь</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Показывать только иконки</value>
   </data>
   <data name="Playlists.Title" xml:space="preserve">
     <value>Плейлисты</value>

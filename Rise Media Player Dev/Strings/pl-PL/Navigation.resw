@@ -132,17 +132,8 @@
   <data name="AtAGlance.Title" xml:space="preserve">
     <value>W skrócie</value>
   </data>
-  <data name="Colorful" xml:space="preserve">
-    <value>Kolorowy</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Domyślny</value>
-  </data>
   <data name="Devices.Title" xml:space="preserve">
     <value>Urządzenia</value>
-  </data>
-  <data name="Everything" xml:space="preserve">
-    <value>Pokaż wszystko</value>
   </data>
   <data name="GeneralH.Text" xml:space="preserve">
     <value>Ogólne</value>
@@ -171,14 +162,8 @@
   <data name="MusicItems.Title" xml:space="preserve">
     <value>Muzyka</value>
   </data>
-  <data name="NoIcons" xml:space="preserve">
-    <value>Nie pokazuj paska bocznego</value>
-  </data>
   <data name="NowPlaying.Title" xml:space="preserve">
     <value>Kolejka</value>
-  </data>
-  <data name="OnlyIcons" xml:space="preserve">
-    <value>Pokaż tylko ikony</value>
   </data>
   <data name="Playlists.Title" xml:space="preserve">
     <value>Playlisty</value>
