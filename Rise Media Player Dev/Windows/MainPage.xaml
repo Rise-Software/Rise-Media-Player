@@ -571,116 +571,153 @@
                     NavigationFailed="OnNavigationFailed"
                     SizeChanged="OnContentFrameSizeChanged" />
 
-                <uc:RiseMediaPlayerElement
-                    x:Name="MainPlayer"
+                <Grid
                     MaxWidth="1000"
                     Margin="16"
+                    VerticalAlignment="Bottom"
                     d:DesignHeight="102"
-                    MediaPlayerVisibility="Collapsed"
-                    Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
-                    <uc:RiseMediaPlayerElement.TransportControls>
-                        <uc:RiseMediaTransportControls
-                            x:Name="PlayerControls"
-                            ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
-                            DisplayItemVisibility="Visible"
-                            FullWindowCommand="{x:Bind EnterFullScreenCommand}"
-                            IsCompactOverlayButtonVisible="True"
-                            IsCompactOverlayEnabled="True"
-                            IsEqualizerButtonEnabled="True"
-                            IsEqualizerButtonVisible="True"
-                            IsFullWindowButtonVisible="True"
-                            IsFullWindowEnabled="True"
-                            IsNextTrackButtonVisible="True"
-                            IsOverlayButtonVisible="True"
-                            IsOverlayEnabled="True"
-                            IsPlaybackRateButtonVisible="True"
-                            IsPlaybackRateEnabled="True"
-                            IsPreviousTrackButtonVisible="True"
-                            IsPropertiesButtonVisible="True"
-                            IsPropertiesEnabled="True"
-                            IsQueueButtonEnabled="True"
-                            IsQueueButtonVisible="True"
-                            IsRepeatButtonVisible="True"
-                            IsRepeatEnabled="True"
-                            IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
-                            IsShuffleButtonVisible="True"
-                            IsShuffleEnabled="True"
-                            IsSkipBackwardEnabled="True"
-                            IsSkipForwardEnabled="True"
-                            IsZoomButtonVisible="False"
-                            IsZoomEnabled="False"
-                            OverlayCommand="{x:Bind GoToNowPlayingCommand}"
-                            ShowAndHideAutomatically="False">
-                            <uc:RiseMediaTransportControls.QueueFlyout>
-                                <Flyout>
-                                    <uc:DefaultQueueFlyout Width="300" Height="300" />
-                                </Flyout>
-                            </uc:RiseMediaTransportControls.QueueFlyout>
+                    RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="44" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid
+                        x:Name="IndexingTip"
+                        Padding="0,12"
+                        ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        CornerRadius="4">
+                        <Grid.RenderTransform>
+                            <TranslateTransform x:Name="IndexingTipTransform" Y="0" />
+                        </Grid.RenderTransform>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <FontIcon
+                                x:Name="StatusFontIcon"
+                                Margin="0,0,16,0"
+                                FontSize="20"
+                                Glyph="&#xE73E;"
+                                Visibility="Collapsed" />
+                            <muxc:ProgressRing
+                                x:Name="StatusProgressRing"
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,16,0" />
+                            <TextBlock
+                                x:Name="StatusTextBlock"
+                                FontWeight="SemiBold"
+                                Text="Indexing your library. Please wait." />
+                        </StackPanel>
+                    </Grid>
 
-                            <uc:RiseMediaTransportControls.DisplayItem>
-                                <Button
-                                    Margin="4"
-                                    Padding="4"
-                                    HorizontalContentAlignment="Left"
-                                    Click="OnDisplayItemClick"
-                                    RightTapped="OnDisplayItemRightTapped"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                    <Grid
-                                        x:Name="ItemGrid"
-                                        Height="80"
-                                        x:DefaultBindMode="OneWay">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition x:Name="ImageDefinition" Width="80" />
-                                            <ColumnDefinition x:Name="TextDefinition" Width="120" />
-                                        </Grid.ColumnDefinitions>
+                    <uc:RiseMediaPlayerElement
+                        x:Name="MainPlayer"
+                        Grid.Row="1"
+                        MediaPlayerVisibility="Collapsed"
+                        Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
+                        <uc:RiseMediaPlayerElement.TransportControls>
+                            <uc:RiseMediaTransportControls
+                                x:Name="PlayerControls"
+                                ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                                AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
+                                DisplayItemVisibility="Visible"
+                                FullWindowCommand="{x:Bind EnterFullScreenCommand}"
+                                IsCompactOverlayButtonVisible="True"
+                                IsCompactOverlayEnabled="True"
+                                IsEqualizerButtonEnabled="True"
+                                IsEqualizerButtonVisible="True"
+                                IsFullWindowButtonVisible="True"
+                                IsFullWindowEnabled="True"
+                                IsNextTrackButtonVisible="True"
+                                IsOverlayButtonVisible="True"
+                                IsOverlayEnabled="True"
+                                IsPlaybackRateButtonVisible="True"
+                                IsPlaybackRateEnabled="True"
+                                IsPreviousTrackButtonVisible="True"
+                                IsPropertiesButtonVisible="True"
+                                IsPropertiesEnabled="True"
+                                IsQueueButtonEnabled="True"
+                                IsQueueButtonVisible="True"
+                                IsRepeatButtonVisible="True"
+                                IsRepeatEnabled="True"
+                                IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                                IsShuffleButtonVisible="True"
+                                IsShuffleEnabled="True"
+                                IsSkipBackwardEnabled="True"
+                                IsSkipForwardEnabled="True"
+                                IsZoomButtonVisible="False"
+                                IsZoomEnabled="False"
+                                OverlayCommand="{x:Bind GoToNowPlayingCommand}"
+                                ShowAndHideAutomatically="False">
+                                <uc:RiseMediaTransportControls.QueueFlyout>
+                                    <Flyout>
+                                        <uc:DefaultQueueFlyout Width="300" Height="300" />
+                                    </Flyout>
+                                </uc:RiseMediaTransportControls.QueueFlyout>
 
-                                        <Border
-                                            x:Name="ImageBorder"
-                                            Width="80"
-                                            HorizontalAlignment="Left"
-                                            CornerRadius="4">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                                            </Border.Background>
+                                <uc:RiseMediaTransportControls.DisplayItem>
+                                    <Button
+                                        Margin="4"
+                                        Padding="4"
+                                        HorizontalContentAlignment="Left"
+                                        Click="OnDisplayItemClick"
+                                        RightTapped="OnDisplayItemRightTapped"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                        <Grid
+                                            x:Name="ItemGrid"
+                                            Height="80"
+                                            x:DefaultBindMode="OneWay">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition x:Name="ImageDefinition" Width="80" />
+                                                <ColumnDefinition x:Name="TextDefinition" Width="120" />
+                                            </Grid.ColumnDefinitions>
 
-                                            <Border.RenderTransform>
-                                                <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
-                                            </Border.RenderTransform>
-                                        </Border>
+                                            <Border
+                                                x:Name="ImageBorder"
+                                                Width="80"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="4">
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                                                </Border.Background>
 
-                                        <StackPanel
-                                            x:Name="TextPanel"
-                                            Grid.Column="1"
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Orientation="Vertical">
-                                            <TextBlock
-                                                x:Name="DisplayTitle"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
-                                            <TextBlock
-                                                x:Name="DisplaySubtitle"
-                                                MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
-                                            <StackPanel.RenderTransform>
-                                                <TranslateTransform x:Name="TextPanelTranslate" />
-                                            </StackPanel.RenderTransform>
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                            </uc:RiseMediaTransportControls.DisplayItem>
-                        </uc:RiseMediaTransportControls>
-                    </uc:RiseMediaPlayerElement.TransportControls>
-                </uc:RiseMediaPlayerElement>
+                                                <Border.RenderTransform>
+                                                    <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
+                                                </Border.RenderTransform>
+                                            </Border>
+
+                                            <StackPanel
+                                                x:Name="TextPanel"
+                                                Grid.Column="1"
+                                                Margin="8,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Orientation="Vertical">
+                                                <TextBlock
+                                                    x:Name="DisplayTitle"
+                                                    FontSize="16"
+                                                    FontWeight="SemiBold"
+                                                    MaxLines="2"
+                                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                                                <TextBlock
+                                                    x:Name="DisplaySubtitle"
+                                                    MaxLines="2"
+                                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                                <StackPanel.RenderTransform>
+                                                    <TranslateTransform x:Name="TextPanelTranslate" />
+                                                </StackPanel.RenderTransform>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </uc:RiseMediaTransportControls.DisplayItem>
+                            </uc:RiseMediaTransportControls>
+                        </uc:RiseMediaPlayerElement.TransportControls>
+                    </uc:RiseMediaPlayerElement>
+                </Grid>
             </Grid>
         </muxc:NavigationView>
 
@@ -920,18 +957,110 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="ScanningStates">
-                <VisualState x:Name="NotScanningState" />
-                <VisualState x:Name="ScanningState">
+                <VisualState x:Name="NotScanningState">
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTipTransform"
+                                Storyboard.TargetProperty="Y"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTip"
+                                Storyboard.TargetProperty="Opacity"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="1" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+
                     <VisualState.Setters>
-                        <Setter Target="CheckTip.IsOpen" Value="True" />
+                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
+                        <Setter Target="StatusFontIcon.Visibility" Value="Visible" />
+                        <Setter Target="StatusProgressRing.Visibility" Value="Collapsed" />
+                        <Setter Target="StatusTextBlock.Text" Value="Indexing complete." />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="ScanningState">
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTipTransform"
+                                Storyboard.TargetProperty="Y"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="48" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTip"
+                                Storyboard.TargetProperty="Opacity"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                    <VisualState.Setters>
+                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
                         <Setter Target="ScanningRing.IsActive" Value="True" />
                         <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="ScanningDoneState">
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTipTransform"
+                                Storyboard.TargetProperty="Y"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="44" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="IndexingTip"
+                                Storyboard.TargetProperty="Opacity"
+                                Duration="0:0:0.3">
+                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
                     <VisualState.Setters>
-                        <Setter Target="AddedTip.IsOpen" Value="True" />
+                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
+                        <Setter Target="StatusFontIcon.Visibility" Value="Visible" />
+                        <Setter Target="StatusProgressRing.Visibility" Value="Collapsed" />
+                        <Setter Target="StatusTextBlock.Text" Value="Indexing complete." />
                         <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
                     </VisualState.Setters>
                 </VisualState>

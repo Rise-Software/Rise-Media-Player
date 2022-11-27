@@ -98,6 +98,7 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
             if (!_loaded)
             {
@@ -269,10 +270,14 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
+
                 await Task.Delay(3000);
 
-                if (!MViewModel.IsScanning)
-                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+
+                await Task.Delay(1000);
+
+                IndexingTip.Visibility = Visibility.Collapsed;
             });
         }
 
