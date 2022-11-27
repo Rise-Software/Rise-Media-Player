@@ -2,6 +2,7 @@
     x:Class="Rise.App.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -563,7 +564,7 @@
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.Items}"
-            OpenPaneLength="260">
+            OpenPaneLength="200">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -572,7 +573,6 @@
                     SizeChanged="OnContentFrameSizeChanged" />
 
                 <Grid
-                    MaxWidth="1000"
                     Margin="16"
                     VerticalAlignment="Bottom"
                     d:DesignHeight="102"
@@ -581,37 +581,12 @@
                         <RowDefinition Height="44" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid
-                        x:Name="IndexingTip"
-                        Padding="0,12"
-                        ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        CornerRadius="4">
-                        <Grid.RenderTransform>
-                            <TranslateTransform x:Name="IndexingTipTransform" Y="0" />
-                        </Grid.RenderTransform>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <FontIcon
-                                x:Name="StatusFontIcon"
-                                Margin="0,0,16,0"
-                                FontSize="20"
-                                Glyph="&#xE73E;"
-                                Visibility="Collapsed" />
-                            <muxc:ProgressRing
-                                x:Name="StatusProgressRing"
-                                Width="20"
-                                Height="20"
-                                Margin="0,0,16,0" />
-                            <TextBlock
-                                x:Name="StatusTextBlock"
-                                FontWeight="SemiBold"
-                                Text="Indexing your library. Please wait." />
-                        </StackPanel>
-                    </Grid>
+
 
                     <uc:RiseMediaPlayerElement
                         x:Name="MainPlayer"
                         Grid.Row="1"
+                        MaxWidth="1000"
                         MediaPlayerVisibility="Collapsed"
                         Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
                         <uc:RiseMediaPlayerElement.TransportControls>
@@ -717,40 +692,117 @@
                             </uc:RiseMediaTransportControls>
                         </uc:RiseMediaPlayerElement.TransportControls>
                     </uc:RiseMediaPlayerElement>
+                    <Border
+                        x:Name="IndexingTip"
+                        Height="50"
+                        Margin="-16,0,-16,-25"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Visible">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0, 0, 0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0,0,0"
+                                To="0, 56, 0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1.0"
+                                To="0.0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+                                <TextBlock
+                                    Margin="12,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Indexing your library. Please wait." />
+
+                            </StackPanel>
+                            <Button
+                                x:Name="GoToScanningSettings"
+                                Click="GoToScanningSettings_Click"
+                                ToolTipService.ToolTip="Scanning settings"
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <FontIcon FontSize="16" Glyph="&#xE115;"/>
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="SuccessTip"
+                        Height="50"
+                        Margin="-16,0,-16,-25"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Style="{StaticResource SettingsCard}">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0, 0, 0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0,0,0"
+                                To="0, 56, 0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1.0"
+                                To="0.0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <StackPanel
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <muxc:InfoBadge
+                                x:Name="infoBadge2"
+                                Margin="0,1,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
+
+                            <TextBlock
+                                Margin="12,0,12,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="Indexing complete!" />
+                        </StackPanel>
+
+                    </Border>
                 </Grid>
             </Grid>
         </muxc:NavigationView>
 
-        <muxc:TeachingTip
-            x:Name="AddedTip"
-            Title="Updated your library."
-            ActionButtonClick="AddedTip_ActionButtonClick"
-            ActionButtonContent="Change when we scan"
-            ActionButtonStyle="{StaticResource AccentButtonStyle}"
-            HeroContentPlacement="Bottom"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight" />
 
-        <muxc:TeachingTip
-            x:Name="CheckTip"
-            Title="Looking for new media on your device."
-            HorizontalAlignment="Center"
-            ActionButtonClick="AddedTip_ActionButtonClick"
-            ActionButtonContent="Change when we scan"
-            ActionButtonStyle="{StaticResource AccentButtonStyle}"
-            HeroContentPlacement="Bottom"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.HeroContent>
-                <muxc:ProgressBar
-                    Width="270"
-                    Margin="2,0,10,10"
-                    CornerRadius="7"
-                    IsIndeterminate="True"
-                    ShowError="False"
-                    ShowPaused="False" />
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
@@ -956,115 +1008,6 @@
                 </VisualState>
             </VisualStateGroup>
 
-            <VisualStateGroup x:Name="ScanningStates">
-                <VisualState x:Name="NotScanningState">
-                    <VisualState.Storyboard>
-                        <Storyboard>
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTipTransform"
-                                Storyboard.TargetProperty="Y"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTip"
-                                Storyboard.TargetProperty="Opacity"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="1" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState.Storyboard>
-
-                    <VisualState.Setters>
-                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
-                        <Setter Target="StatusFontIcon.Visibility" Value="Visible" />
-                        <Setter Target="StatusProgressRing.Visibility" Value="Collapsed" />
-                        <Setter Target="StatusTextBlock.Text" Value="Indexing complete." />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="ScanningState">
-                    <VisualState.Storyboard>
-                        <Storyboard>
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTipTransform"
-                                Storyboard.TargetProperty="Y"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="48" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTip"
-                                Storyboard.TargetProperty="Opacity"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState.Storyboard>
-                    <VisualState.Setters>
-                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
-                        <Setter Target="ScanningRing.IsActive" Value="True" />
-                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-
-                <VisualState x:Name="ScanningDoneState">
-                    <VisualState.Storyboard>
-                        <Storyboard>
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTipTransform"
-                                Storyboard.TargetProperty="Y"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="44" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-
-                            <DoubleAnimationUsingKeyFrames
-                                Storyboard.TargetName="IndexingTip"
-                                Storyboard.TargetProperty="Opacity"
-                                Duration="0:0:0.3">
-                                <LinearDoubleKeyFrame KeyTime="0" Value="0" />
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut" />
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState.Storyboard>
-                    <VisualState.Setters>
-                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
-                        <Setter Target="StatusFontIcon.Visibility" Value="Visible" />
-                        <Setter Target="StatusProgressRing.Visibility" Value="Collapsed" />
-                        <Setter Target="StatusTextBlock.Text" Value="Indexing complete." />
-                        <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
 
             <VisualStateGroup x:Name="LastFMStates">
                 <VisualState x:Name="LoggedOutState">

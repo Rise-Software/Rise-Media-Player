@@ -261,7 +261,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+                IndexingTip.Visibility = Visibility.Visible;
             });
         }
 
@@ -269,15 +269,15 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
+                IndexingTip.Visibility= Visibility.Collapsed;
 
-                await Task.Delay(3000);
+                await Task.Delay(500);
 
-                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+                SuccessTip.Visibility = Visibility.Visible;
 
-                await Task.Delay(1000);
+                await Task.Delay(2500);
 
-                IndexingTip.Visibility = Visibility.Collapsed;
+                SuccessTip.Visibility = Visibility.Collapsed;
             });
         }
 
@@ -687,6 +687,11 @@ namespace Rise.App.Views
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
+        }
+
+        private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
