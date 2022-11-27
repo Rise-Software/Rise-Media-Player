@@ -564,7 +564,7 @@
             ItemInvoked="NavigationView_ItemInvoked"
             MenuItemTemplateSelector="{StaticResource NavViewItemTemplateSelector}"
             MenuItemsSource="{x:Bind NavDataSource.Items}"
-            OpenPaneLength="200">
+            OpenPaneLength="260">
             <Grid>
                 <Frame
                     x:Name="ContentFrame"
@@ -575,17 +575,119 @@
                 <Grid
                     Margin="16"
                     VerticalAlignment="Bottom"
-                    d:DesignHeight="102"
-                    RowSpacing="8">
+                    d:DesignHeight="102">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="44" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
+                    <Border
+                        x:Name="IndexingTip"
+                        Grid.Row="1"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0,0,0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1.0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Indexing your library. Please wait." />
+                            </StackPanel>
+                            <Button
+                                x:Name="GoToScanningSettings"
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Click="GoToScanningSettings_Click"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                ToolTipService.ToolTip="Scanning settings">
+                                <FontIcon FontSize="16" Glyph="&#xE115;" />
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="SuccessTip"
+                        Grid.Row="1"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0,0,0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0,0,0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1.0"
+                                To="0.0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <muxc:InfoBadge
+                                Margin="0,1,0,0"
+                                VerticalAlignment="Center"
+                                Style="{ThemeResource SuccessIconInfoBadgeStyle}" />
+
+                            <TextBlock
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="Indexing complete!" />
+                        </StackPanel>
+                    </Border>
 
                     <uc:RiseMediaPlayerElement
                         x:Name="MainPlayer"
-                        Grid.Row="1"
                         MaxWidth="1000"
                         MediaPlayerVisibility="Collapsed"
                         Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
@@ -692,117 +794,9 @@
                             </uc:RiseMediaTransportControls>
                         </uc:RiseMediaPlayerElement.TransportControls>
                     </uc:RiseMediaPlayerElement>
-                    <Border
-                        x:Name="IndexingTip"
-                        Height="50"
-                        Margin="-16,0,-16,-25"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                        Style="{StaticResource SettingsCard}"
-                        Visibility="Visible">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0, 0, 0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
-
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0,0,0"
-                                To="0, 56, 0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1.0"
-                                To="0.0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <StackPanel
-                                Margin="0,0,0,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:ProgressRing
-                                    Width="18"
-                                    Height="18"
-                                    IsActive="True" />
-                                <TextBlock
-                                    Margin="12,0,12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Indexing your library. Please wait." />
-
-                            </StackPanel>
-                            <Button
-                                x:Name="GoToScanningSettings"
-                                Click="GoToScanningSettings_Click"
-                                ToolTipService.ToolTip="Scanning settings"
-                                Margin="0,0,12,0"
-                                Padding="8"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <FontIcon FontSize="16" Glyph="&#xE115;"/>
-                            </Button>
-                        </RelativePanel>
-                    </Border>
-                    <Border
-                        x:Name="SuccessTip"
-                        Height="50"
-                        Margin="-16,0,-16,-25"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                        Style="{StaticResource SettingsCard}">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0, 0, 0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
-
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0,0,0"
-                                To="0, 56, 0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1.0"
-                                To="0.0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <StackPanel
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <muxc:InfoBadge
-                                x:Name="infoBadge2"
-                                Margin="0,1,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
-
-                            <TextBlock
-                                Margin="12,0,12,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BaseTextBlockStyle}"
-                                Text="Indexing complete!" />
-                        </StackPanel>
-
-                    </Border>
                 </Grid>
             </Grid>
         </muxc:NavigationView>
-
-
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
@@ -1008,6 +1002,23 @@
                 </VisualState>
             </VisualStateGroup>
 
+            <VisualStateGroup x:Name="ScanningStates">
+                <VisualState x:Name="NotScanningState" />
+                <VisualState x:Name="ScanningState">
+                    <VisualState.Setters>
+                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="ScanningDoneState">
+                    <VisualState.Setters>
+                        <Setter Target="SuccessTip.Visibility" Value="Visible" />
+                        <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
 
             <VisualStateGroup x:Name="LastFMStates">
                 <VisualState x:Name="LoggedOutState">

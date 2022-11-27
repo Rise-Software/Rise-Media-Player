@@ -261,7 +261,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                IndexingTip.Visibility = Visibility.Visible;
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
 
@@ -269,15 +269,11 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                IndexingTip.Visibility= Visibility.Collapsed;
-
-                await Task.Delay(500);
-
-                SuccessTip.Visibility = Visibility.Visible;
+                _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
 
                 await Task.Delay(2500);
 
-                SuccessTip.Visibility = Visibility.Collapsed;
+                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -451,7 +447,7 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+            await Task.Run(App.MViewModel.StartFullCrawlAsync);
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -691,7 +687,7 @@ namespace Rise.App.Views
 
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
         {
-
+            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
     }
 }
