@@ -98,6 +98,7 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
             if (!_loaded)
             {
@@ -269,10 +270,10 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
-                await Task.Delay(3000);
 
-                if (!MViewModel.IsScanning)
-                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+                await Task.Delay(2500);
+
+                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -446,7 +447,7 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+            await Task.Run(App.MViewModel.StartFullCrawlAsync);
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -682,6 +683,11 @@ namespace Rise.App.Views
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
+        }
+
+        private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
     }
 }
