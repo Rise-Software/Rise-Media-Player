@@ -142,6 +142,12 @@ namespace Rise.App.ViewModels
             set => Set((byte)value, "Appearance");
         }
 
+        public int GlazeColorIndex
+        {
+            get => Get(0, "Appearance");
+            set => Set(value, "Appearance");
+        }
+
         public Color GlazeColors
         {
             get
