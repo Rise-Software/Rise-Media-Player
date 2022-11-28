@@ -143,6 +143,8 @@ namespace Rise.Common.Extensions
                 return BackgroundTaskRegistrationStatus.NotAllowed;
             }
 
+            library.ChangeTracker.Enable();
+
             // Build up the trigger to fire when something changes in the library.
             var builder = new BackgroundTaskBuilder
             {
@@ -153,8 +155,6 @@ namespace Rise.Common.Extensions
             {
                 builder.TaskEntryPoint = entryPoint;
             }
-
-            library.ChangeTracker.Enable();
 
             var libraryTrigger = StorageLibraryContentChangedTrigger.Create(library);
 
