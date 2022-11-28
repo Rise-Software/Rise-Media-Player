@@ -14,16 +14,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.System;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
         public event EventHandler IndexingStarted;
+        public event EventHandler MetadataFetchingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
@@ -175,13 +172,16 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            if (App.SViewModel.FetchOnlineData)
+                MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
 
             await Task.WhenAll(
                 SongsTracker.HandleMusicFolderChangesAsync(token),
                 VideosTracker.HandleVideosFolderChangesAsync(token),
                 OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData)
             );
+
+            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
 
             IsScanning = false;
 

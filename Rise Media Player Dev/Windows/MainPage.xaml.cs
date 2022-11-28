@@ -85,6 +85,7 @@ namespace Rise.App.Views
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             MViewModel.IndexingFinished += MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted += MViewModel_MetadataFetchingStarted;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
@@ -116,7 +117,7 @@ namespace Rise.App.Views
                     await App.InitializeChangeTrackingAsync();
 
                 if (SViewModel.IndexingAtStartupEnabled)
-                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+                    await Task.Run(App.MViewModel.StartFullCrawlAsync);
             }
 
             if (MViewModel.IsScanning)
@@ -262,6 +263,14 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
+            });
+        }
+
+        private async void MViewModel_MetadataFetchingStarted(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
             });
         }
 

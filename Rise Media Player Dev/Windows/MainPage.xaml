@@ -625,7 +625,62 @@
                             </StackPanel>
 
                             <Button
-                                x:Name="GoToScanningSettings"
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                Click="GoToScanningSettings_Click"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                Style="{ThemeResource TransparentButtonStyle}"
+                                ToolTipService.ToolTip="Scanning settings">
+                                <FontIcon FontSize="16" Glyph="&#xE115;" />
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="FetchingMetadataTip"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Fetching artist info..." />
+                            </StackPanel>
+
+                            <Button
                                 Margin="0,0,12,0"
                                 Padding="8"
                                 Click="GoToScanningSettings_Click"
@@ -1006,7 +1061,13 @@
                         <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
-
+                <VisualState x:Name="FetchingMetadataState">
+                    <VisualState.Setters>
+                        <Setter Target="FetchingMetadataTip.Visibility" Value="Visible" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
                 <VisualState x:Name="ScanningDoneState">
                     <VisualState.Setters>
                         <Setter Target="SuccessTip.Visibility" Value="Visible" />
