@@ -14,16 +14,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
-using Windows.System;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Rise.App.ViewModels
 {
     public class MainViewModel : ViewModel
     {
         public event EventHandler IndexingStarted;
+        public event EventHandler MetadataFetchingStarted;
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
@@ -102,35 +99,27 @@ namespace Rise.App.ViewModels
             if (songs != null)
             {
                 foreach (var item in songs)
-                {
                     Songs.Add(new(item));
-                }
 
                 var albums = await Repository.GetItemsAsync<Album>();
                 if (albums != null)
                 {
                     foreach (var item in albums)
-                    {
                         Albums.Add(new(item));
-                    }
                 }
 
                 var artists = await Repository.GetItemsAsync<Artist>();
                 if (artists != null)
                 {
                     foreach (var item in artists)
-                    {
                         Artists.Add(new(item));
-                    }
                 }
 
                 var genres = await Repository.GetItemsAsync<Genre>();
                 if (genres != null)
                 {
                     foreach (var item in genres)
-                    {
                         Genres.Add(new(item));
-                    }
                 }
             }
 
@@ -138,9 +127,7 @@ namespace Rise.App.ViewModels
             if (videos != null)
             {
                 foreach (var item in videos)
-                {
                     Videos.Add(new(item));
-                }
             }
 
             // Playlists may contain songs or videos
@@ -150,9 +137,7 @@ namespace Rise.App.ViewModels
                 if (playlists != null)
                 {
                     foreach (var item in playlists)
-                    {
                         Playlists.Add(item);
-                    }
                 }
             }
 
@@ -160,9 +145,7 @@ namespace Rise.App.ViewModels
             if (notifications != null)
             {
                 foreach (var item in notifications)
-                {
-                    Notifications.Add(item);
-                }
+                    Notifications.Add(new(item));
             }
         }
 
@@ -189,9 +172,12 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
+            if (App.SViewModel.FetchOnlineData)
+                MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
 
             await OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData);
+
+            IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
 
             IsScanning = false;
 

@@ -177,18 +177,15 @@ namespace Rise.Common.Extensions
             {
                 try
                 {
-                    StorageFile destinationFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync(filename, collisionOption);
+                    StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(filename, collisionOption);
 
                     Buffer buffer = new(Convert.ToUInt32(thumbnail.Size));
                     IBuffer iBuf = await thumbnail.ReadAsync(buffer,
                         buffer.Capacity, InputStreamOptions.None);
 
-                    using (IRandomAccessStream strm = await
-                        destinationFile.OpenAsync(FileAccessMode.ReadWrite))
-                    {
-                        _ = await strm.WriteAsync(iBuf);
-                    }
+                    using IRandomAccessStream strm = await destinationFile.OpenAsync(FileAccessMode.ReadWrite);
+
+                    _ = await strm.WriteAsync(iBuf);
 
                     return true;
                 }

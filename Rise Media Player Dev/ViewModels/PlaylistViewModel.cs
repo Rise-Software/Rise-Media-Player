@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using TagLib.Ape;
 using Windows.Storage;
 
 namespace Rise.App.ViewModels
@@ -24,17 +23,14 @@ namespace Rise.App.ViewModels
         public PlaylistViewModel(Playlist model = null)
         {
             Model = model ?? new Playlist();
-
-            _songs ??= new();
-            _videos ??= new();
         }
 
         /// <summary>
-        /// Creates a <see cref="Playlist"/> based on a <see cref="StorageFile"/>.
+        /// Creates a <see cref="Playlist"/> based on a <see cref="IStorageFile"/>.
         /// </summary>
         /// <param name="file">Playlist file.</param>
         /// <returns>A playlist based on the file.</returns>
-        public static async Task<PlaylistViewModel> GetFromFileAsync(StorageFile file)
+        public static async Task<PlaylistViewModel> GetFromFileAsync(IStorageFile file)
         {
             // Read playlist file
             var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
@@ -301,34 +297,9 @@ namespace Rise.App.ViewModels
             set => Set(ref _isPinned, value);
         }
 
-        private SafeObservableCollection<SongViewModel> _songs;
+        public SafeObservableCollection<SongViewModel> Songs { get; set; } = new();
 
-        public SafeObservableCollection<SongViewModel> Songs
-        {
-            get => _songs;
-            set
-            {
-                if (_songs != value)
-                {
-                    _songs = value;
-                }
-            }
-        }
-
-        private SafeObservableCollection<VideoViewModel> _videos;
-
-        public SafeObservableCollection<VideoViewModel> Videos
-        {
-            get => _videos;
-            set
-            {
-                if (_videos != value)
-                {
-                    _videos = value;
-                    OnPropertyChanged(nameof(Videos));
-                }
-            }
-        }
+        public SafeObservableCollection<VideoViewModel> Videos { get; set; } = new();
 
         [JsonIgnore]
         public int SongsCount => Songs.Count;
@@ -349,7 +320,8 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task SaveAsync()
         {
-            App.MViewModel.Playlists.Add(this);
+            if (!App.MViewModel.Playlists.Contains(this))
+                App.MViewModel.Playlists.Add(this);
             await App.PBackendController.UpsertAsync(this);
         }
 
@@ -358,22 +330,9 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task DeleteAsync()
         {
-            App.MViewModel.Playlists.Remove(this);
+            _ = App.MViewModel.Playlists.Remove(this);
             await App.PBackendController.DeleteAsync(this);
         }
-
-        /// <summary>
-        /// Checks whether or not the item is available. If it's not,
-        /// delete it.
-        /// </summary>
-        /*public async Task CheckAvailabilityAsync()
-        {
-            if (TrackCount == 0)
-            {
-                await DeleteAsync();
-                return;
-            }
-        }*/
         #endregion
 
         #region Item management
