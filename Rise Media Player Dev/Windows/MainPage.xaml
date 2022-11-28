@@ -586,7 +586,7 @@
                         Margin="-16,8,-16,-16"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         Style="{StaticResource SettingsCard}"
                         Visibility="Collapsed">
                         <animations:Implicit.ShowAnimations>
@@ -642,7 +642,7 @@
                         Margin="-16,8,-16,-16"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         Style="{StaticResource SettingsCard}"
                         Visibility="Collapsed">
                         <animations:Implicit.ShowAnimations>
