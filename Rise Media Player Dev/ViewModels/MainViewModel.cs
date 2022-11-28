@@ -175,11 +175,7 @@ namespace Rise.App.ViewModels
             if (App.SViewModel.FetchOnlineData)
                 MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
 
-            await Task.WhenAll(
-                SongsTracker.HandleMusicFolderChangesAsync(token),
-                VideosTracker.HandleVideosFolderChangesAsync(token),
-                OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData)
-            );
+            await OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData);
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
 
