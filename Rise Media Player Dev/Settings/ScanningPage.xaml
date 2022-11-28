@@ -100,7 +100,7 @@
                     x:Uid="/MediaLibrary/FilesAdd"
                     Margin="16,-8,0,-16"
                     ExpanderStyle="Transparent">
-                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled}" />
+                    <ToggleSwitch Margin="0,2,0,0" IsOn="{x:Bind ViewModel.IndexingFileTrackingEnabled, Mode=TwoWay}" />
                 </uc:ExpanderControl>
             </StackPanel>
         </uc:ExpanderControl>
