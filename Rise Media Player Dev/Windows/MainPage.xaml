@@ -486,7 +486,7 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButtonStyle}">
                     <Button.Content>
-                        <FontIcon Height="24" Glyph="" />
+                        <FontIcon Height="24" Glyph="&#xE13D;" />
                     </Button.Content>
 
                     <Button.Flyout>
@@ -580,10 +580,65 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
                     <Border
                         x:Name="IndexingTip"
-                        Grid.Row="1"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Indexing your library. Please wait." />
+                            </StackPanel>
+
+                            <Button
+                                x:Name="GoToScanningSettings"
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                Click="GoToScanningSettings_Click"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                Style="{ThemeResource TransparentButtonStyle}"
+                                ToolTipService.ToolTip="Scanning settings">
+                                <FontIcon FontSize="16" Glyph="&#xE115;" />
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="SuccessTip"
                         Height="50"
                         Margin="-16,8,-16,-16"
                         Padding="0"
@@ -601,72 +656,12 @@
 
                         <animations:Implicit.HideAnimations>
                             <animations:TranslationAnimation
-                                From="0,0,0"
+                                From="0"
                                 To="0,56,0"
                                 Duration="0:0:0.75" />
                             <animations:OpacityAnimation
                                 From="1.0"
                                 To="0"
-                                Duration="0:0:0.5" />
-                        </animations:Implicit.HideAnimations>
-                        <RelativePanel>
-                            <StackPanel
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <muxc:ProgressRing
-                                    Width="18"
-                                    Height="18"
-                                    IsActive="True" />
-
-                                <TextBlock
-                                    Margin="12,0"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Indexing your library. Please wait." />
-                            </StackPanel>
-                            <Button
-                                x:Name="GoToScanningSettings"
-                                Margin="0,0,12,0"
-                                Padding="8"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Click="GoToScanningSettings_Click"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                ToolTipService.ToolTip="Scanning settings">
-                                <FontIcon FontSize="16" Glyph="&#xE115;" />
-                            </Button>
-                        </RelativePanel>
-                    </Border>
-                    <Border
-                        x:Name="SuccessTip"
-                        Grid.Row="1"
-                        Height="50"
-                        Margin="-16,8,-16,-16"
-                        VerticalAlignment="Bottom"
-                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
-                        Style="{StaticResource SettingsCard}"
-                        Visibility="Collapsed">
-                        <animations:Implicit.ShowAnimations>
-                            <animations:TranslationAnimation
-                                From="0,56,0"
-                                To="0,0,0"
-                                Duration="0:0:0.5" />
-                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
-                        </animations:Implicit.ShowAnimations>
-
-                        <animations:Implicit.HideAnimations>
-                            <animations:TranslationAnimation
-                                From="0,0,0"
-                                To="0,56,0"
-                                Duration="0:0:0.75" />
-                            <animations:OpacityAnimation
-                                From="1.0"
-                                To="0.0"
                                 Duration="0:0:0.5" />
                         </animations:Implicit.HideAnimations>
                         <StackPanel
@@ -676,7 +671,7 @@
                             <muxc:InfoBadge
                                 Margin="0,1,0,0"
                                 VerticalAlignment="Center"
-                                Style="{ThemeResource SuccessIconInfoBadgeStyle}" />
+                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
 
                             <TextBlock
                                 Margin="12,0"
