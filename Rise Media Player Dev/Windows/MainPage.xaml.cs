@@ -260,8 +260,9 @@ namespace Rise.App.Views
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
+                await Task.Delay(30);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
