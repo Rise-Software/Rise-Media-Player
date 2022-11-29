@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewmodels:SongPropertiesViewModel}"
@@ -39,19 +40,19 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock
-                            x:Uid="/File/Filename"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileName}"/>
                         <TextBlock
-                            x:Uid="/File/FileType"
                             Grid.Row="1"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileType}"/>
                         <TextBlock
-                            x:Uid="/File/DefaultApp"
                             Grid.Row="2"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileOpensWith}"/>
 
                         <TextBox
                             x:Name="SongFilename"
@@ -92,15 +93,15 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock
-                            x:Uid="/File/Location"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            TextTrimming="WordEllipsis" />
+                            TextTrimming="WordEllipsis"
+                            Text="{markup:ResourceHelper Name=FileLocation}" />
                         <TextBlock
-                            x:Uid="/File/Size"
                             Grid.Row="1"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileSize}"/>
 
                         <TextBlock
                             Grid.Column="1"
@@ -133,15 +134,14 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock
-                            x:Uid="/File/Created"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileCreated}" />
                         <TextBlock
-                            x:Uid="/File/Modified"
                             Grid.Row="1"
                             Margin="0,-2,0,0"
-                            VerticalAlignment="Center" />
-
+                            VerticalAlignment="Center"
+                            Text="{markup:ResourceHelper Name=FileModified}"/>
                         <TextBlock
                             Grid.Column="1"
                             Margin="38,0,0,0"
@@ -167,14 +167,11 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="16" Glyph="&#xE197;" />
-                            <TextBlock Margin="8,0,0,0" Text="Open file location" />
+                            <TextBlock Margin="8,0,0,0" Text="{markup:ResourceHelper Name=FileOpenLocation}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
             </Grid>
         </StackPanel>
-
-
-
     </Grid>
 </Page>

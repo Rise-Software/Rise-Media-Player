@@ -339,4 +339,28 @@
   <data name="OpenRiseOnStartupH" xml:space="preserve">
     <value>Commence avec Windows</value>
   </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Créé</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>S'ouvre avec</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Nom de fichier</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Type de fichier</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>Emplacement</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Modifié</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Taille du fichier</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Lieu de fichier ouvert</value>
+  </data>
 </root>

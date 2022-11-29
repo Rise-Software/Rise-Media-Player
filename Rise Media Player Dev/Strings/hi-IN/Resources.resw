@@ -315,4 +315,28 @@
   <data name="OpenRiseOnStartupH" xml:space="preserve">
     <value>विंडो के साथ शुरू करें</value>
   </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>बनाया था</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>से खुलता है</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>फ़ाइल का नाम</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>फाइल का प्रकार</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>स्थान</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>संशोधित</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>फाइल का आकार</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>फ़ाइल के स्थान को खोलें</value>
+  </data>
 </root>

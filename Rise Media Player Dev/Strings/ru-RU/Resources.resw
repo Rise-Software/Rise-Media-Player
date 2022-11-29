@@ -342,4 +342,28 @@
   <data name="OpenRiseOnStartupH" xml:space="preserve">
     <value>Начните с Windows</value>
   </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Созданный</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>Открывается с</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Имя файла</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Тип файла</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>местонахождение</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Изменено</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Размер файла</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Местонахождение открытого файла</value>
+  </data>
 </root>
