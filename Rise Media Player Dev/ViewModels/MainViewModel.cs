@@ -1,5 +1,4 @@
-﻿using Rise.App.ChangeTrackers;
-using Rise.Common;
+﻿using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
@@ -8,7 +7,6 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -72,8 +70,8 @@ namespace Rise.App.ViewModels
 
         private JsonBackendController<PlaylistViewModel> _pBackend;
         public JsonBackendController<PlaylistViewModel> PBackend
-            => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("Playlists");
-        public ObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
+            => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
+        public SafeObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
 
         /// <summary>
         /// The collection of playlists in the list. 

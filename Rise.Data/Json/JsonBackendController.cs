@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Rise.Common.Extensions;
+using Rise.Common.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -89,7 +89,7 @@ namespace Rise.Data.Json
         /// <summary>
         /// The collection of items in the controller.
         /// </summary>
-        public ObservableCollection<T> Items { get; } = new();
+        public SafeObservableCollection<T> Items { get; } = new();
 
         /// <summary>
         /// Gets the items currently saved in the JSON file.
