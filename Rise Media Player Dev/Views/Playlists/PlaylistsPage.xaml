@@ -132,10 +132,10 @@
                         Text="Delete playlist" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/EditPlaylistText"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=EditPlaylist}" />
                 </MenuFlyout>
             </GridView.ContextFlyout>
 

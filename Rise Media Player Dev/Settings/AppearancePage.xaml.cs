@@ -1,5 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
