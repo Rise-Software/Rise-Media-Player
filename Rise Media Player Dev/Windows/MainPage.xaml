@@ -2,6 +2,7 @@
     x:Class="Rise.App.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:appviewmodels="using:Rise.App.ViewModels"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -484,7 +485,7 @@
                     VerticalAlignment="Center"
                     Style="{StaticResource TransparentButtonStyle}">
                     <Button.Content>
-                        <FontIcon Height="24" Glyph="" />
+                        <FontIcon Height="24" Glyph="&#xE13D;" />
                     </Button.Content>
 
                     <Button.Flyout>
@@ -570,149 +571,284 @@
                     NavigationFailed="OnNavigationFailed"
                     SizeChanged="OnContentFrameSizeChanged" />
 
-                <uc:RiseMediaPlayerElement
-                    x:Name="MainPlayer"
-                    MaxWidth="1000"
+                <Grid
                     Margin="16"
-                    d:DesignHeight="102"
-                    MediaPlayerVisibility="Collapsed"
-                    Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
-                    <uc:RiseMediaPlayerElement.TransportControls>
-                        <uc:RiseMediaTransportControls
-                            x:Name="PlayerControls"
-                            ui:Effects.Shadow="{StaticResource LightDropShadow}"
-                            AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
-                            DisplayItemVisibility="Visible"
-                            FullWindowCommand="{x:Bind EnterFullScreenCommand}"
-                            IsCompactOverlayButtonVisible="True"
-                            IsCompactOverlayEnabled="True"
-                            IsEqualizerButtonEnabled="True"
-                            IsEqualizerButtonVisible="True"
-                            IsFullWindowButtonVisible="True"
-                            IsFullWindowEnabled="True"
-                            IsNextTrackButtonVisible="True"
-                            IsOverlayButtonVisible="True"
-                            IsOverlayEnabled="True"
-                            IsPlaybackRateButtonVisible="True"
-                            IsPlaybackRateEnabled="True"
-                            IsPreviousTrackButtonVisible="True"
-                            IsPropertiesButtonVisible="True"
-                            IsPropertiesEnabled="True"
-                            IsQueueButtonEnabled="True"
-                            IsQueueButtonVisible="True"
-                            IsRepeatButtonVisible="True"
-                            IsRepeatEnabled="True"
-                            IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
-                            IsShuffleButtonVisible="True"
-                            IsShuffleEnabled="True"
-                            IsSkipBackwardEnabled="True"
-                            IsSkipForwardEnabled="True"
-                            IsZoomButtonVisible="False"
-                            IsZoomEnabled="False"
-                            OverlayCommand="{x:Bind GoToNowPlayingCommand}"
-                            ShowAndHideAutomatically="False">
-                            <uc:RiseMediaTransportControls.QueueFlyout>
-                                <Flyout>
-                                    <uc:DefaultQueueFlyout Width="300" Height="300" />
-                                </Flyout>
-                            </uc:RiseMediaTransportControls.QueueFlyout>
+                    VerticalAlignment="Bottom"
+                    d:DesignHeight="102">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        x:Name="IndexingTip"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
 
-                            <uc:RiseMediaTransportControls.DisplayItem>
-                                <Button
-                                    Margin="4"
-                                    Padding="4"
-                                    HorizontalContentAlignment="Left"
-                                    Click="OnDisplayItemClick"
-                                    RightTapped="OnDisplayItemRightTapped"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                    <Grid
-                                        x:Name="ItemGrid"
-                                        Height="80"
-                                        x:DefaultBindMode="OneWay">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition x:Name="ImageDefinition" Width="80" />
-                                            <ColumnDefinition x:Name="TextDefinition" Width="120" />
-                                        </Grid.ColumnDefinitions>
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
 
-                                        <Border
-                                            x:Name="ImageBorder"
-                                            Width="80"
-                                            HorizontalAlignment="Left"
-                                            CornerRadius="4">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
-                                            </Border.Background>
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Indexing your library. Please wait." />
+                            </StackPanel>
 
-                                            <Border.RenderTransform>
-                                                <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
-                                            </Border.RenderTransform>
-                                        </Border>
+                            <Button
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                Click="GoToScanningSettings_Click"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                Style="{ThemeResource TransparentButtonStyle}"
+                                ToolTipService.ToolTip="Scanning settings">
+                                <FontIcon FontSize="16" Glyph="&#xE115;" />
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="FetchingMetadataTip"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
 
-                                        <StackPanel
-                                            x:Name="TextPanel"
-                                            Grid.Column="1"
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            Orientation="Vertical">
-                                            <TextBlock
-                                                x:Name="DisplayTitle"
-                                                FontSize="16"
-                                                FontWeight="SemiBold"
-                                                MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
-                                            <TextBlock
-                                                x:Name="DisplaySubtitle"
-                                                MaxLines="2"
-                                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="Wrap"
-                                                ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
-                                            <StackPanel.RenderTransform>
-                                                <TranslateTransform x:Name="TextPanelTranslate" />
-                                            </StackPanel.RenderTransform>
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                            </uc:RiseMediaTransportControls.DisplayItem>
-                        </uc:RiseMediaTransportControls>
-                    </uc:RiseMediaPlayerElement.TransportControls>
-                </uc:RiseMediaPlayerElement>
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:ProgressRing
+                                    Width="18"
+                                    Height="18"
+                                    IsActive="True" />
+
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Fetching artist info..." />
+                            </StackPanel>
+
+                            <Button
+                                Margin="0,0,12,0"
+                                Padding="8"
+                                Click="GoToScanningSettings_Click"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                Style="{ThemeResource TransparentButtonStyle}"
+                                ToolTipService.ToolTip="Scanning settings">
+                                <FontIcon FontSize="16" Glyph="&#xE115;" />
+                            </Button>
+                        </RelativePanel>
+                    </Border>
+                    <Border
+                        x:Name="SuccessTip"
+                        Height="50"
+                        Margin="-16,8,-16,-16"
+                        Padding="0"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource MediaTransportControlsPanelBackground}"
+                        Style="{StaticResource SettingsCard}"
+                        Visibility="Collapsed">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:TranslationAnimation
+                                From="0,56,0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                            <animations:OpacityAnimation To="1.0" Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+
+                        <animations:Implicit.HideAnimations>
+                            <animations:TranslationAnimation
+                                From="0"
+                                To="0,56,0"
+                                Duration="0:0:0.75" />
+                            <animations:OpacityAnimation
+                                From="1.0"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <muxc:InfoBadge
+                                Margin="0,1,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
+
+                            <TextBlock
+                                Margin="12,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BaseTextBlockStyle}"
+                                Text="Indexing complete!" />
+                        </StackPanel>
+                    </Border>
+
+                    <uc:RiseMediaPlayerElement
+                        x:Name="MainPlayer"
+                        MaxWidth="1000"
+                        MediaPlayerVisibility="Collapsed"
+                        Visibility="{x:Bind helpers:BindingHelpers.IsNotNullVis(MPViewModel.PlayingItem), Mode=OneWay}">
+                        <uc:RiseMediaPlayerElement.TransportControls>
+                            <uc:RiseMediaTransportControls
+                                x:Name="PlayerControls"
+                                ui:Effects.Shadow="{StaticResource LightDropShadow}"
+                                AddToPlaylistCommand="{x:Bind AddToPlaylistCommand}"
+                                DisplayItemVisibility="Visible"
+                                FullWindowCommand="{x:Bind EnterFullScreenCommand}"
+                                IsCompactOverlayButtonVisible="True"
+                                IsCompactOverlayEnabled="True"
+                                IsEqualizerButtonEnabled="True"
+                                IsEqualizerButtonVisible="True"
+                                IsFullWindowButtonVisible="True"
+                                IsFullWindowEnabled="True"
+                                IsNextTrackButtonVisible="True"
+                                IsOverlayButtonVisible="True"
+                                IsOverlayEnabled="True"
+                                IsPlaybackRateButtonVisible="True"
+                                IsPlaybackRateEnabled="True"
+                                IsPreviousTrackButtonVisible="True"
+                                IsPropertiesButtonVisible="True"
+                                IsPropertiesEnabled="True"
+                                IsQueueButtonEnabled="True"
+                                IsQueueButtonVisible="True"
+                                IsRepeatButtonVisible="True"
+                                IsRepeatEnabled="True"
+                                IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                                IsShuffleButtonVisible="True"
+                                IsShuffleEnabled="True"
+                                IsSkipBackwardEnabled="True"
+                                IsSkipForwardEnabled="True"
+                                IsZoomButtonVisible="False"
+                                IsZoomEnabled="False"
+                                OverlayCommand="{x:Bind GoToNowPlayingCommand}"
+                                ShowAndHideAutomatically="False">
+                                <uc:RiseMediaTransportControls.QueueFlyout>
+                                    <Flyout>
+                                        <uc:DefaultQueueFlyout Width="300" Height="300" />
+                                    </Flyout>
+                                </uc:RiseMediaTransportControls.QueueFlyout>
+
+                                <uc:RiseMediaTransportControls.DisplayItem>
+                                    <Button
+                                        Margin="4"
+                                        Padding="4"
+                                        HorizontalContentAlignment="Left"
+                                        Click="OnDisplayItemClick"
+                                        RightTapped="OnDisplayItemRightTapped"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                        <Grid
+                                            x:Name="ItemGrid"
+                                            Height="80"
+                                            x:DefaultBindMode="OneWay">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition x:Name="ImageDefinition" Width="80" />
+                                                <ColumnDefinition x:Name="TextDefinition" Width="120" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border
+                                                x:Name="ImageBorder"
+                                                Width="80"
+                                                HorizontalAlignment="Left"
+                                                CornerRadius="4">
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="Uniform" />
+                                                </Border.Background>
+
+                                                <Border.RenderTransform>
+                                                    <TranslateTransform x:Name="ImageBorderTranslate" X="0" />
+                                                </Border.RenderTransform>
+                                            </Border>
+
+                                            <StackPanel
+                                                x:Name="TextPanel"
+                                                Grid.Column="1"
+                                                Margin="8,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Orientation="Vertical">
+                                                <TextBlock
+                                                    x:Name="DisplayTitle"
+                                                    FontSize="16"
+                                                    FontWeight="SemiBold"
+                                                    MaxLines="2"
+                                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                                                <TextBlock
+                                                    x:Name="DisplaySubtitle"
+                                                    MaxLines="2"
+                                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="Wrap"
+                                                    ToolTipService.ToolTip="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                                <StackPanel.RenderTransform>
+                                                    <TranslateTransform x:Name="TextPanelTranslate" />
+                                                </StackPanel.RenderTransform>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </uc:RiseMediaTransportControls.DisplayItem>
+                            </uc:RiseMediaTransportControls>
+                        </uc:RiseMediaPlayerElement.TransportControls>
+                    </uc:RiseMediaPlayerElement>
+                </Grid>
             </Grid>
         </muxc:NavigationView>
-
-        <muxc:TeachingTip
-            x:Name="AddedTip"
-            Title="Updated your library."
-            ActionButtonClick="AddedTip_ActionButtonClick"
-            ActionButtonContent="Change when we scan"
-            ActionButtonStyle="{StaticResource AccentButtonStyle}"
-            HeroContentPlacement="Bottom"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight" />
-
-        <muxc:TeachingTip
-            x:Name="CheckTip"
-            Title="Looking for new media on your device."
-            HorizontalAlignment="Center"
-            ActionButtonClick="AddedTip_ActionButtonClick"
-            ActionButtonContent="Change when we scan"
-            ActionButtonStyle="{StaticResource AccentButtonStyle}"
-            HeroContentPlacement="Bottom"
-            PlacementMargin="0,24,-26,0"
-            PreferredPlacement="TopRight">
-            <muxc:TeachingTip.HeroContent>
-                <muxc:ProgressBar
-                    Width="270"
-                    Margin="2,0,10,10"
-                    CornerRadius="7"
-                    IsIndeterminate="True"
-                    ShowError="False"
-                    ShowPaused="False" />
-            </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
@@ -922,15 +1058,21 @@
                 <VisualState x:Name="NotScanningState" />
                 <VisualState x:Name="ScanningState">
                     <VisualState.Setters>
-                        <Setter Target="CheckTip.IsOpen" Value="True" />
+                        <Setter Target="IndexingTip.Visibility" Value="Visible" />
                         <Setter Target="ScanningRing.IsActive" Value="True" />
                         <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
-
+                <VisualState x:Name="FetchingMetadataState">
+                    <VisualState.Setters>
+                        <Setter Target="FetchingMetadataTip.Visibility" Value="Visible" />
+                        <Setter Target="ScanningRing.IsActive" Value="True" />
+                        <Setter Target="SyncCentreIcon.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
                 <VisualState x:Name="ScanningDoneState">
                     <VisualState.Setters>
-                        <Setter Target="AddedTip.IsOpen" Value="True" />
+                        <Setter Target="SuccessTip.Visibility" Value="Visible" />
                         <Setter Target="SyncCentreIcon.Glyph" Value="&#xE001;" />
                     </VisualState.Setters>
                 </VisualState>

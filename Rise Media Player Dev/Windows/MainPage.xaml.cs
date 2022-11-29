@@ -85,6 +85,7 @@ namespace Rise.App.Views
 
             MViewModel.IndexingStarted += MViewModel_IndexingStarted;
             MViewModel.IndexingFinished += MViewModel_IndexingFinished;
+            MViewModel.MetadataFetchingStarted += MViewModel_MetadataFetchingStarted;
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
 
@@ -98,6 +99,7 @@ namespace Rise.App.Views
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            IndexingTip.Visibility = Visibility.Collapsed;
             UpdateTitleBarItems(NavView);
             if (!_loaded)
             {
@@ -115,7 +117,7 @@ namespace Rise.App.Views
                     await App.InitializeChangeTrackingAsync();
 
                 if (SViewModel.IndexingAtStartupEnabled)
-                    await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+                    await Task.Run(App.MViewModel.StartFullCrawlAsync);
             }
 
             if (MViewModel.IsScanning)
@@ -258,9 +260,18 @@ namespace Rise.App.Views
 
         private async void MViewModel_IndexingStarted(object sender, EventArgs e)
         {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                await Task.Delay(30);
+                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+            });
+        }
+
+        private async void MViewModel_MetadataFetchingStarted(object sender, EventArgs e)
+        {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                _ = VisualStateManager.GoToState(this, "ScanningState", false);
+                _ = VisualStateManager.GoToState(this, "FetchingMetadataState", false);
             });
         }
 
@@ -269,10 +280,10 @@ namespace Rise.App.Views
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 _ = VisualStateManager.GoToState(this, "ScanningDoneState", false);
-                await Task.Delay(3000);
 
-                if (!MViewModel.IsScanning)
-                    _ = VisualStateManager.GoToState(this, "NotScanningState", false);
+                await Task.Delay(2500);
+
+                _ = VisualStateManager.GoToState(this, "NotScanningState", false);
             });
         }
 
@@ -446,7 +457,7 @@ namespace Rise.App.Views
         private async void StartScan_Click(object sender, RoutedEventArgs e)
         {
             ProfileMenu.Hide();
-            await Task.Run(async () => await App.MViewModel.StartFullCrawlAsync());
+            await Task.Run(App.MViewModel.StartFullCrawlAsync);
         }
 
         private void OpenSettings_Click(object sender, RoutedEventArgs e)
@@ -682,6 +693,11 @@ namespace Rise.App.Views
             ContentFrame.Navigate(typeof(ArtistSongsPage), artist.Model.Id);
 
             PlayingItemMusicFlyout.Hide();
+        }
+
+        private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(AllSettingsPage));
         }
     }
 }
