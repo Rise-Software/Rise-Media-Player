@@ -56,10 +56,6 @@ namespace Rise.App
         public static LastFMViewModel LMViewModel => _lmViewModel.Value;
 
         // Backend controllers
-        private readonly static Lazy<PlaylistsBackendController> _pBackendController
-            = new(() => new PlaylistsBackendController());
-        public static PlaylistsBackendController PBackendController => _pBackendController.Value;
-
         private readonly static Lazy<NotificationsBackendController> _nBackendController
             = new(() => new NotificationsBackendController());
         public static NotificationsBackendController NBackendController => _nBackendController.Value;

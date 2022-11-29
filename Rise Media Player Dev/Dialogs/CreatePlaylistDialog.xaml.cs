@@ -1,7 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using System;
-using System.Threading.Tasks;
 using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -33,8 +32,7 @@ namespace Rise.App.Dialogs
                 Duration = "0"
             };
 
-            await Task.Run(async () => await plViewModel.SaveAsync());
-
+            await plViewModel.SaveAsync();
             Hide();
         }
 

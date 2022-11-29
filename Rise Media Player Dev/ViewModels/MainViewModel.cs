@@ -3,10 +3,12 @@ using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -68,10 +70,10 @@ namespace Rise.App.ViewModels
         /// </summary>
         public readonly SafeObservableCollection<VideoViewModel> Videos = new();
 
-        /// <summary>
-        /// The collection of playlists in the list. 
-        /// </summary>
-        public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
+        private JsonBackendController<PlaylistViewModel> _pBackend;
+        public JsonBackendController<PlaylistViewModel> PBackend
+            => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("Playlists");
+        public ObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
 
         /// <summary>
         /// The collection of playlists in the list. 
@@ -90,7 +92,6 @@ namespace Rise.App.ViewModels
             Genres.Clear();
 
             Videos.Clear();
-            Playlists.Clear();
             Notifications.Clear();
 
             var songs = await Repository.GetItemsAsync<Song>();
@@ -131,16 +132,6 @@ namespace Rise.App.ViewModels
             }
 
             // Playlists may contain songs or videos
-            if (songs != null || videos != null)
-            {
-                var playlists = await App.PBackendController.GetAsync();
-                if (playlists != null)
-                {
-                    foreach (var item in playlists)
-                        Playlists.Add(item);
-                }
-            }
-
             var notifications = await App.NBackendController.GetAsync();
             if (notifications != null)
             {

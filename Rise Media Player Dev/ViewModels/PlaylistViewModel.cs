@@ -4,11 +4,13 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -16,6 +18,10 @@ namespace Rise.App.ViewModels
 {
     public class PlaylistViewModel : ViewModel<Playlist>
     {
+        private static JsonBackendController<PlaylistViewModel> _controller;
+        private static JsonBackendController<PlaylistViewModel> Controller
+            => _controller ??= JsonBackendController<PlaylistViewModel>.Get("Playlists");
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the PlaylistViewModel class that wraps a Playlist object.
@@ -297,9 +303,8 @@ namespace Rise.App.ViewModels
             set => Set(ref _isPinned, value);
         }
 
-        public SafeObservableCollection<SongViewModel> Songs { get; set; } = new();
-
-        public SafeObservableCollection<VideoViewModel> Videos { get; set; } = new();
+        public SafeObservableCollection<SongViewModel> Songs { get; } = new();
+        public SafeObservableCollection<VideoViewModel> Videos { get; } = new();
 
         [JsonIgnore]
         public int SongsCount => Songs.Count;
@@ -318,20 +323,20 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves item data to the backend.
         /// </summary>
-        public async Task SaveAsync()
+        public Task SaveAsync()
         {
-            if (!App.MViewModel.Playlists.Contains(this))
-                App.MViewModel.Playlists.Add(this);
-            await App.PBackendController.UpsertAsync(this);
+            if (!Controller.Items.Contains(this))
+                Controller.Items.Add(this);
+            return Controller.SaveAsync();
         }
 
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public Task DeleteAsync()
         {
-            _ = App.MViewModel.Playlists.Remove(this);
-            await App.PBackendController.DeleteAsync(this);
+            Controller.Items.Remove(this);
+            return Controller.SaveAsync();
         }
         #endregion
 
@@ -416,10 +421,9 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Saves any edits that have been made.
         /// </summary>
-        public async Task SaveEditsAsync()
+        public Task SaveEditsAsync()
         {
-            await App.PBackendController.DeleteAsync(this);
-            await App.PBackendController.UpsertAsync(this);
+            return Controller.SaveAsync();
         }
 
         /// <summary>
@@ -427,7 +431,11 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task CancelEditsAsync()
         {
-            Model = (await App.PBackendController.GetAsync(Model.Id)).Model;
+            var items = await Controller.GetStoredItemsAsync();
+            var item = items.FirstOrDefault(i => i == this);
+
+            if (item != null)
+                Model = item.Model;
         }
         #endregion
     }
