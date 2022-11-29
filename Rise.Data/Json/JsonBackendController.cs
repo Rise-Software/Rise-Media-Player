@@ -1,6 +1,12 @@
-﻿using Rise.Common.Extensions;
+﻿using Newtonsoft.Json;
+using Rise.Common.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using TagLib.Ape;
+using Windows.Foundation;
 using Windows.Storage;
 
 namespace Rise.Data.Json
@@ -9,7 +15,7 @@ namespace Rise.Data.Json
     /// Represents a JSON based data store.
     /// </summary>
     /// <typeparam name="T">Type of items to store.</typeparam>
-    public sealed class JsonBackendController<T>
+    public sealed partial class JsonBackendController<T>
     {
         private static StorageFolder _dataFolder;
         private static readonly StorageFolder dataFolder
@@ -45,6 +51,85 @@ namespace Rise.Data.Json
         {
             var file = await dataFolder.CreateFileAsync($"{filename}.json", CreationCollisionOption.OpenIfExists);
             return new JsonBackendController<T>(file);
+        }
+    }
+
+    // JSON handling
+    public sealed partial class JsonBackendController<T>
+    {
+        /// <summary>
+        /// The collection of items in the controller. To load items
+        /// from the data store, call <see cref="LoadStoredItems"/> or
+        /// <see cref="LoadStoredItemsAsync"/>.
+        /// </summary>
+        public ObservableCollection<T> Items { get; } = new();
+
+        /// <summary>
+        /// Gets the items currently saved in the JSON file.
+        /// </summary>
+        public IEnumerable<T> GetStoredItems()
+        {
+            var text = FileIO.ReadTextAsync(BackingFile).Get();
+            if (!string.IsNullOrWhiteSpace(text))
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(text);
+
+            return Enumerable.Empty<T>();
+        }
+
+        /// <summary>
+        /// Adds the items currently saved in the JSON file to the
+        /// <see cref="Items"/> collection.
+        /// </summary>
+        public bool LoadStoredItems()
+        {
+            var items = GetStoredItems();
+            if (items.Count() == 0)
+            {
+                foreach (var itm in items)
+                    Items.Add(itm);
+
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the items currently saved in the JSON file.
+        /// </summary>
+        public async Task<IEnumerable<T>> GetStoredItemsAsync()
+        {
+            var text = await FileIO.ReadTextAsync(BackingFile);
+            if (!string.IsNullOrWhiteSpace(text))
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(text);
+
+            return Enumerable.Empty<T>();
+        }
+
+        /// <summary>
+        /// Adds the items currently saved in the JSON file to the
+        /// <see cref="Items"/> collection.
+        /// </summary>
+        public async Task<bool> LoadStoredItemsAsync()
+        {
+            var items = await GetStoredItemsAsync();
+            if (items.Count() == 0)
+            {
+                foreach (var itm in items)
+                    Items.Add(itm);
+
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Saves the item list to the JSON file.
+        /// </summary>
+        /// <returns>An action representing the write operation.</returns>
+        public IAsyncAction SaveAsync()
+        {
+            string json = JsonConvert.SerializeObject(Items);
+            return FileIO.WriteTextAsync(BackingFile, json);
         }
     }
 }
