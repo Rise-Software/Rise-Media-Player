@@ -62,7 +62,7 @@ namespace Rise.App.Views
             if (e.NavigationParameter is Guid id)
             {
                 SelectedPlaylist = MViewModel.Playlists.
-                    FirstOrDefault(p => p.Model.Id == id);
+                    FirstOrDefault(p => p.Id == id);
 
                 CreateViewModel("Title", SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);

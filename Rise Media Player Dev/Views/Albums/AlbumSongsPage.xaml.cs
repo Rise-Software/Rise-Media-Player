@@ -95,8 +95,7 @@ namespace Rise.App.Views
                 {
                     Title = $"Liked",
                     Description = "Your liked songs, albums and artists' songs go here.",
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
                 };
             }
 

@@ -28,8 +28,7 @@ namespace Rise.App.Dialogs
             {
                 Title = title,
                 Description = description,
-                Icon = _imagePath.OriginalString,
-                Duration = "0"
+                Icon = _imagePath.OriginalString
             };
 
             await plViewModel.SaveAsync();

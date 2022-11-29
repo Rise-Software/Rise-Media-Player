@@ -97,8 +97,7 @@ namespace Rise.App.Helpers
                 {
                     Title = $"Untitled Playlist #{_items.Count + 1}",
                     Description = string.Empty,
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
                 };
 
                 _addSeparator = true;

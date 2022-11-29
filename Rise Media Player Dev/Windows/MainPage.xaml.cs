@@ -505,11 +505,11 @@ namespace Rise.App.Views
                 _ = parent.SubItems.Remove(item);
                 if (Guid.TryParse(item.Id, out var id))
                 {
-                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Model.Id == id);
+                    var playlist = MViewModel.Playlists.FirstOrDefault(p => p.Id == id);
                     if (playlist != null)
                     {
                         playlist.IsPinned = false;
-                        await playlist.SaveEditsAsync();
+                        await MViewModel.PBackend.SaveAsync();
                     }
                 }
             }

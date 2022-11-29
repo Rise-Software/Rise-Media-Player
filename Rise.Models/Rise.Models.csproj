@@ -129,7 +129,6 @@
     <Compile Include="Media\NowPlayingDisplayProperties.cs" />
     <Compile Include="Media\MediaPlayerEffect.cs" />
     <Compile Include="Media\Genre.cs" />
-    <Compile Include="Media\Playlist.cs" />
     <Compile Include="Media\Song.cs" />
     <Compile Include="Media\Video.cs" />
     <Compile Include="MusixmatchLyrics.cs" />

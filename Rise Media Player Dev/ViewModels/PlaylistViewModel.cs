@@ -10,29 +10,182 @@ using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Rise.App.ViewModels
 {
-    public class PlaylistViewModel : ViewModel<Playlist>
+    /// <summary>
+    /// Represents a playlist with songs and videos.
+    /// </summary>
+    public sealed partial class PlaylistViewModel : ViewModel
     {
-        private static JsonBackendController<PlaylistViewModel> _controller;
-        private static JsonBackendController<PlaylistViewModel> Controller
-            => _controller ??= JsonBackendController<PlaylistViewModel>.Get("Playlists");
-
-        #region Constructor
         /// <summary>
-        /// Initializes a new instance of the PlaylistViewModel class that wraps a Playlist object.
+        /// A unique identifier for the playlist.
         /// </summary>
-        public PlaylistViewModel(Playlist model = null)
+        public Guid Id { get; init; } = Guid.NewGuid();
+
+        private string _title;
+        /// <summary>
+        /// Gets or sets the playlist title.
+        /// </summary>
+        public string Title
         {
-            Model = model ?? new Playlist();
+            get => _title;
+            set => Set(ref _title, value);
+        }
+
+        private string _icon;
+        /// <summary>
+        /// Gets or sets an icon for the playlist.
+        /// </summary>
+        public string Icon
+        {
+            get => _icon;
+            set => Set(ref _icon, value);
+        }
+
+        private string _description;
+        /// <summary>
+        /// Gets or sets the playlist title.
+        /// </summary>
+        public string Description
+        {
+            get => _description;
+            set => Set(ref _description, value);
         }
 
         /// <summary>
-        /// Creates a <see cref="Playlist"/> based on a <see cref="IStorageFile"/>.
+        /// Gets the combined duration of the items
+        /// in the playlist.
+        /// </summary>
+        public TimeSpan Duration { get; private set; } = TimeSpan.Zero;
+
+        private bool _isPinned = false;
+        /// <summary>
+        /// Whether this playlist is pinned to the sidebar.
+        /// </summary>
+        public bool IsPinned
+        {
+            get => _isPinned;
+            set => Set(ref _isPinned, value);
+        }
+    }
+
+    // UI related properties
+    public sealed partial class PlaylistViewModel
+    {
+        [JsonIgnore]
+        public int SongsCount => Songs.Count;
+
+        [JsonIgnore]
+        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
+
+        [JsonIgnore]
+        public int VideosCount => Videos.Count;
+
+        [JsonIgnore]
+        public string VideosCountString => VideosCount == 1 ? "video" : "videos";
+    }
+
+    // Backend and item management
+    public sealed partial class PlaylistViewModel
+    {
+        private static JsonBackendController<PlaylistViewModel> _controller;
+        private static JsonBackendController<PlaylistViewModel> Controller
+            => _controller ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
+
+        public SafeObservableCollection<SongViewModel> Songs { get; init; } = new();
+        public SafeObservableCollection<VideoViewModel> Videos { get; init; } = new();
+
+        /// <summary>
+        /// Adds a <see cref="IMediaItem" /> to the playlist.
+        /// </summary>
+        public Task AddItemAsync(IMediaItem item, bool newPlaylist = false)
+        {
+            if (item is SongViewModel song)
+                Songs.Add(song);
+            else if (item is VideoViewModel video)
+                Videos.Add(video);
+
+            if (newPlaylist)
+                return SaveAsync();
+            else
+                return Controller.SaveAsync();
+        }
+
+        /// <summary>
+        /// Removes a <see cref="IMediaItem" /> from the playlist.
+        /// </summary>
+        public Task RemoveItemAsync(IMediaItem item)
+        {
+            if (item is SongViewModel song)
+                Songs.Remove(song);
+            else if (item is VideoViewModel video)
+                Videos.Remove(video);
+
+            return Controller.SaveAsync();
+        }
+
+        /// <summary>
+        /// Adds multiple <see cref="IMediaItem"/>s to the playlist.
+        /// </summary>
+        public Task AddItemsAsync(IEnumerable<IMediaItem> items, bool newPlaylist = false)
+        {
+            foreach (IMediaItem item in items)
+            {
+                if (item is SongViewModel song)
+                    Songs.Add(song);
+                else if (item is VideoViewModel video)
+                    Videos.Add(video);
+            }
+
+            if (newPlaylist)
+                return SaveAsync();
+            else
+                return Controller.SaveAsync();
+        }
+
+        /// <summary>
+        /// Removes multiple <see cref="IMediaItem"/>s from the playlist.
+        /// </summary>
+        public Task RemoveItemsAsync(IEnumerable<IMediaItem> items)
+        {
+            foreach (IMediaItem item in items)
+            {
+                if (item is SongViewModel song)
+                    Songs.Remove(song);
+                else if (item is VideoViewModel video)
+                    Videos.Remove(video);
+            }
+            return Controller.SaveAsync();
+        }
+
+        /// <summary>
+        /// Saves item data to the backend.
+        /// </summary>
+        public Task SaveAsync()
+        {
+            if (!Controller.Items.Contains(this))
+                Controller.Items.Add(this);
+            return Controller.SaveAsync();
+        }
+
+        /// <summary>
+        /// Deletes item data from the backend.
+        /// </summary>
+        public Task DeleteAsync()
+        {
+            Controller.Items.Remove(this);
+            return Controller.SaveAsync();
+        }
+    }
+
+    // Playlist importing (requires improvements)
+    public sealed partial class PlaylistViewModel
+    {
+        /// <summary>
+        /// Creates a <see cref="PlaylistViewModel"/> based on a <see cref="IStorageFile"/>.
         /// </summary>
         /// <param name="file">Playlist file.</param>
         /// <returns>A playlist based on the file.</returns>
@@ -44,7 +197,6 @@ namespace Rise.App.ViewModels
             {
                 Title = string.Empty,
                 Description = string.Empty,
-                Duration = string.Empty,
                 Icon = string.Empty
             };
 
@@ -129,7 +281,6 @@ namespace Rise.App.ViewModels
                         if (prop == "#EXTINF")
                         {
                             string[] inf = value.Split(new[] { ',', '-' }, 3);
-                            string duration = inf[0].Trim();
                             artist = inf[1].Trim();
                             title = inf[2].Trim();
                         }
@@ -140,10 +291,6 @@ namespace Rise.App.ViewModels
                         else if (prop == "#EXTIMG")
                         {
                             playlist.Icon = lines[++i];
-                        }
-                        else if (prop == "#EXTDURATION" || prop == "#DURATION")
-                        {
-                            playlist.Duration = value;
                         }
                         else if (prop == "#PLAYLIST")
                         {
@@ -226,217 +373,5 @@ namespace Rise.App.ViewModels
 
             return playlist;
         }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the playlist title.
-        /// </summary>
-        public string Title
-        {
-            get => Model.Title;
-            set
-            {
-                if (value != Model.Title)
-                {
-                    Model.Title = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the playlist description.
-        /// </summary>
-        public string Description
-        {
-            get => Model.Description;
-            set
-            {
-                if (value != Model.Description)
-                {
-                    Model.Description = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the playlist icon.
-        /// </summary>
-        public string Icon
-        {
-            get => Model.Icon;
-            set
-            {
-                if (value != Model.Icon)
-                {
-                    Model.Icon = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the playlist duration.
-        /// </summary>
-        public string Duration
-        {
-            get => Model.Duration;
-            set
-            {
-                if (value != Model.Duration)
-                {
-                    Model.Duration = value;
-                    OnPropertyChanged(nameof(Duration));
-                }
-            }
-        }
-
-        private bool _isPinned = false;
-        /// <summary>
-        /// Whether this playlist is pinned to the sidebar.
-        /// </summary>
-        public bool IsPinned
-        {
-            get => _isPinned;
-            set => Set(ref _isPinned, value);
-        }
-
-        public SafeObservableCollection<SongViewModel> Songs { get; } = new();
-        public SafeObservableCollection<VideoViewModel> Videos { get; } = new();
-
-        [JsonIgnore]
-        public int SongsCount => Songs.Count;
-
-        [JsonIgnore]
-        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
-
-        [JsonIgnore]
-        public int VideosCount => Videos.Count;
-
-        [JsonIgnore]
-        public string VideosCountString => VideosCount == 1 ? "video" : "videos";
-        #endregion
-
-        #region Backend
-        /// <summary>
-        /// Saves item data to the backend.
-        /// </summary>
-        public Task SaveAsync()
-        {
-            if (!Controller.Items.Contains(this))
-                Controller.Items.Add(this);
-            return Controller.SaveAsync();
-        }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public Task DeleteAsync()
-        {
-            Controller.Items.Remove(this);
-            return Controller.SaveAsync();
-        }
-        #endregion
-
-        #region Item management
-
-        /// <summary>
-        /// Adds a <see cref="IMediaItem" /> to the playlist.
-        /// </summary>
-        public async Task AddItemAsync(IMediaItem item, bool newPlaylist = false)
-        {
-            if (item is SongViewModel song)
-                Songs.Add(song);
-            else if (item is VideoViewModel video)
-                Videos.Add(video);
-
-            if (newPlaylist)
-                await SaveAsync();
-            else
-                await SaveEditsAsync();
-        }
-
-        /// <summary>
-        /// Removes a <see cref="IMediaItem" /> from the playlist.
-        /// </summary>
-        public async Task RemoveItemAsync(IMediaItem item)
-        {
-            if (item is SongViewModel song)
-                Songs.Remove(song);
-            else if (item is VideoViewModel video)
-                Videos.Remove(video);
-
-            await SaveEditsAsync();
-        }
-
-        /// <summary>
-        /// Adds multiple <see cref="IMediaItem"/>s to the playlist.
-        /// </summary>
-        public async Task AddItemsAsync(IEnumerable<IMediaItem> items, bool newPlaylist = false)
-        {
-            try
-            {
-                foreach (IMediaItem item in items)
-                {
-                    if (item is SongViewModel song)
-                        Songs.Add(song);
-                    else if (item is VideoViewModel video)
-                        Videos.Add(video);
-                }
-            }
-            finally
-            {
-                if (newPlaylist)
-                    await SaveAsync();
-                else
-                    await SaveEditsAsync();
-            }
-        }
-
-        /// <summary>
-        /// Removes multiple <see cref="IMediaItem"/>s from the playlist.
-        /// </summary>
-        public async Task RemoveItemsAsync(IEnumerable<IMediaItem> items)
-        {
-            try
-            {
-                foreach (IMediaItem item in items)
-                {
-                    if (item is SongViewModel song)
-                        Songs.Remove(song);
-                    else if (item is VideoViewModel video)
-                        Videos.Remove(video);
-                }
-            }
-            finally
-            {
-                await SaveEditsAsync();
-            }
-        }
-        #endregion
-
-        #region Editing
-        /// <summary>
-        /// Saves any edits that have been made.
-        /// </summary>
-        public Task SaveEditsAsync()
-        {
-            return Controller.SaveAsync();
-        }
-
-        /// <summary>
-        /// Discards any edits that have been made, restoring the original values.
-        /// </summary>
-        public async Task CancelEditsAsync()
-        {
-            var items = await Controller.GetStoredItemsAsync();
-            var item = items.FirstOrDefault(i => i == this);
-
-            if (item != null)
-                Model = item.Model;
-        }
-        #endregion
     }
 }

@@ -258,7 +258,7 @@ namespace Rise.App.UserControls
             {
                 if (playlist.IsPinned)
                 {
-                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Model.Id.ToString());
+                    var itm = item.SubItems.FirstOrDefault(i => i.Id == playlist.Id.ToString());
                     if (itm != null)
                     {
                         item.SubItems.Remove(itm);
@@ -269,7 +269,7 @@ namespace Rise.App.UserControls
                 {
                     var itm = new NavViewItemViewModel
                     {
-                        Id = playlist.Model.Id.ToString(),
+                        Id = playlist.Id.ToString(),
                         ItemType = NavViewItemType.SubItem,
                         Icon = playlist.Icon,
                         Label = playlist.Title,
@@ -282,7 +282,7 @@ namespace Rise.App.UserControls
                 }
             }
 
-            return playlist.SaveEditsAsync();
+            return App.MViewModel.PBackend.SaveAsync();
         }
     }
 

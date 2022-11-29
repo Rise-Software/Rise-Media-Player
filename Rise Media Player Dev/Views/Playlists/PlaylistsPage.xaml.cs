@@ -34,7 +34,7 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is PlaylistViewModel playlist && !KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
+                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Id);
             }
         }
 
