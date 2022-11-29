@@ -108,6 +108,7 @@ namespace SQLite
         Task<int> InsertOrReplaceAsync(object obj);
         Task<int> InsertOrReplaceAsync(object obj, Type objType);
         Task<int> InsertOrReplaceAllAsync(IEnumerable objects, bool runInTransaction = true);
+        Task<int> RemoveAllAsync(IEnumerable objects, bool runInTransaction = true);
         Task<List<T>> QueryAsync<T>(string query, params object[] args) where T : new();
         Task<List<object>> QueryAsync(TableMapping map, string query, params object[] args);
         Task<List<T>> QueryScalarsAsync<T>(string query, params object[] args);
@@ -1066,6 +1067,23 @@ namespace SQLite
         public Task<int> InsertOrReplaceAllAsync(IEnumerable objects, bool runInTransaction = true)
         {
             return WriteAsync(conn => conn.InsertOrReplaceAll(objects, runInTransaction));
+        }
+
+        /// <summary>
+        /// Deletes all specified objects.
+        /// </summary>
+        /// <param name="objects">
+        /// An <see cref="IEnumerable"/> of the objects to insert.
+        /// </param>
+        /// <param name="runInTransaction">
+        /// A boolean indicating if the inserts should be wrapped in a transaction.
+        /// </param>
+        /// <returns>
+        /// The number of rows added to the table.
+        /// </returns>
+        public Task<int> RemoveAllAsync(IEnumerable objects, bool runInTransaction = true)
+        {
+            return WriteAsync(conn => conn.RemoveAll(objects, runInTransaction));
         }
 
         /// <summary>

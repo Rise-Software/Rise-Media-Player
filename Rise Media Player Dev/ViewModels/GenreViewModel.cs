@@ -65,12 +65,16 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(bool queue = false)
         {
             if (App.MViewModel.Genres.Contains(this))
             {
                 App.MViewModel.Genres.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
+
+                if (queue)
+                    NewRepository.Repository.QueueRemove(Model);
+                else
+                    await NewRepository.Repository.DeleteAsync(Model);
             }
         }
         #endregion
