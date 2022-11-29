@@ -73,10 +73,9 @@ namespace Rise.App.ViewModels
             => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
         public SafeObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
 
-        /// <summary>
-        /// The collection of playlists in the list. 
-        /// </summary>
-        public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+        private JsonBackendController<NotificationViewModel> _nBackend;
+        public JsonBackendController<NotificationViewModel> NBackend
+            => _nBackend ??= JsonBackendController<NotificationViewModel>.Get("Notifications");
 
         /// <summary>
         /// Gets the complete list of data from the database.
@@ -88,9 +87,7 @@ namespace Rise.App.ViewModels
             Albums.Clear();
             Artists.Clear();
             Genres.Clear();
-
             Videos.Clear();
-            Notifications.Clear();
 
             var songs = await Repository.GetItemsAsync<Song>();
 
@@ -127,14 +124,6 @@ namespace Rise.App.ViewModels
             {
                 foreach (var item in videos)
                     Videos.Add(new(item));
-            }
-
-            // Playlists may contain songs or videos
-            var notifications = await App.NBackendController.GetAsync();
-            if (notifications != null)
-            {
-                foreach (var item in notifications)
-                    Notifications.Add(new(item));
             }
         }
 

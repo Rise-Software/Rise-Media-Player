@@ -1,6 +1,5 @@
 ﻿using Rise.Data.ViewModels;
 using Rise.Models;
-using System.Threading.Tasks;
 
 namespace Rise.App.ViewModels
 {
@@ -69,26 +68,6 @@ namespace Rise.App.ViewModels
                     OnPropertyChanged(nameof(Icon));
                 }
             }
-        }
-
-        /// <summary>
-        /// Saves notification data that has been edited.
-        /// </summary>
-        public async Task SaveAsync()
-        {
-            if (!App.MViewModel.Notifications.Contains(this))
-                App.MViewModel.Notifications.Add(this);
-
-            await App.NBackendController.InsertAsync(Model);
-        }
-
-        /// <summary>
-        /// Delete notification from repository and MViewModel.
-        /// </summary>
-        public async Task DeleteAsync()
-        {
-            _ = App.MViewModel.Notifications.Remove(this);
-            await App.NBackendController.DeleteAsync(Model);
         }
     }
 }

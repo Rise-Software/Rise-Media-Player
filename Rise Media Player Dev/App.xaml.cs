@@ -55,11 +55,6 @@ namespace Rise.App
             = new(OnLFMRequested);
         public static LastFMViewModel LMViewModel => _lmViewModel.Value;
 
-        // Backend controllers
-        private readonly static Lazy<NotificationsBackendController> _nBackendController
-            = new(() => new NotificationsBackendController());
-        public static NotificationsBackendController NBackendController => _nBackendController.Value;
-
         // Data sources
         private readonly static Lazy<NavViewDataSource> _navDataSource
             = new(() => new NavViewDataSource());
@@ -356,6 +351,7 @@ namespace Rise.App
 
             var builder = new StringBuilder();
 
+            builder.Append("Rise Media Player has crashed.\n\n");
             builder.AppendLine("-----");
             builder.Append("Exception type: ");
             builder.AppendLine(e.GetType().ToString());
@@ -374,7 +370,15 @@ namespace Rise.App
             builder.AppendLine(e.StackTrace);
             builder.AppendLine("-----");
 
-            NBackendController.AddItemAsync("An error occurred!", "Rise Media Player has crashed.\n\n" + builder.ToString(), "\uE8BB").Wait();
+            var notif = new NotificationViewModel
+            {
+                Title = "An error occurred!",
+                Description = builder.ToString(),
+                Icon = "\uE8BB"
+            };
+
+            MViewModel.NBackend.Items.Add(notif);
+            MViewModel.NBackend.Save();
         }
 
         private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
