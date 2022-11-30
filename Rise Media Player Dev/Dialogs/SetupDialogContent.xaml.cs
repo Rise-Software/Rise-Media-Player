@@ -83,7 +83,7 @@ namespace Rise.App.Dialogs
             int progress = ViewModel.SetupProgress;
             if (progress == 0)
             {
-                SetupInfo.Text = ResourceHelper.GetString("SetupPre");
+                SetupInfo.Text = ResourceHelper.GetString("/Setup/SetupPre");
                 PrimaryButton.Content = ResourceHelper.GetString("Accept");
             }
             else
