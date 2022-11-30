@@ -28,7 +28,7 @@
                 <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/ConnectDesc}" />
 
                 <uc:ExpanderControl
-                    Description="{markup:ResourceHelper Name=/Setup/ConnectSoonText}"
+                    Title="{markup:ResourceHelper Name=/Setup/ConnectSoonText}"
                     ExpanderStyle="Static"
                     Icon="&#xE13D;" />
 

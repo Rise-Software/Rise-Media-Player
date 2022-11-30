@@ -18,8 +18,8 @@
                 <StackPanel Orientation="Vertical" Spacing="12">
                     <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishDesc}" />
 
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/BodyPart1}" />
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/BodyPart2}" />
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishBodyPart1}" />
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishBodyPart2}" />
                 </StackPanel>
             </StackPanel>
         </local:SetupPageContent>
