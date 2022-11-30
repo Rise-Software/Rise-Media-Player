@@ -120,12 +120,6 @@
   <data name="AppearanceH.Text" xml:space="preserve">
     <value>App appearance</value>
   </data>
-  <data name="AtAGlance.Description" xml:space="preserve">
-    <value>Add widgets to make your experience more personal.</value>
-  </data>
-  <data name="AtAGlance.Title" xml:space="preserve">
-    <value>Customise your at a glance page</value>
-  </data>
   <data name="ChooseColor.Title" xml:space="preserve">
     <value>Choose your window glaze</value>
   </data>
@@ -137,12 +131,6 @@
   </data>
   <data name="CompactMode.Title" xml:space="preserve">
     <value>Compact mode</value>
-  </data>
-  <data name="CuratedPlaylists.Description" xml:space="preserve">
-    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
-  </data>
-  <data name="CuratedPlaylists.Title" xml:space="preserve">
-    <value>Make curated playlists</value>
   </data>
   <data name="DesignPresetsH.Text" xml:space="preserve">
     <value>Design and layout presets</value>
@@ -159,20 +147,11 @@
   <data name="FullArt.Title" xml:space="preserve">
     <value>Show full album art &amp; thumbnails</value>
   </data>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Personalize with icon styles, colors, modes and more that can not only maake your experience more personal, but more user friendly.</value>
-  </data>
-  <data name="History.Title" xml:space="preserve">
-    <value>Track media history and habits</value>
-  </data>
   <data name="NavigationH.Text" xml:space="preserve">
     <value>Navigation</value>
   </data>
   <data name="PickUp.Title" xml:space="preserve">
     <value>Pick up where you left off</value>
-  </data>
-  <data name="PrivacyH.Text" xml:space="preserve">
-    <value>Privacy &amp; recommendations</value>
   </data>
   <data name="SidebarItems.Description" xml:space="preserve">
     <value>Add/remove sidebar items, change icon style and general behaviours.</value>

@@ -14,7 +14,7 @@
     <Grid>
         <local:SetupPageContent
             x:Name="SetupRoot"
-            Header="{markup:ResourceHelper Name=SetupConnectH}"
+            Header="{markup:ResourceHelper Name=/Setup/ConnectH}"
             IsBackButtonAutoPaddingEnabled="False">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
@@ -25,17 +25,17 @@
             </local:SetupPageContent.Icon>
 
             <StackPanel Spacing="20">
-                <TextBlock x:Uid="/Connect/Header" Style="{StaticResource BaseTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/ConnectDesc}" />
 
                 <uc:ExpanderControl
-                    x:Uid="/Connect/Soon"
+                    Description="{markup:ResourceHelper Name=/Setup/ConnectSoonText}"
                     ExpanderStyle="Static"
                     Icon="&#xE13D;" />
 
                 <TextBlock
-                    x:Uid="/Connect/Tip"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}" />
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{markup:ResourceHelper Name=/Setup/ConnectTip}" />
             </StackPanel>
         </local:SetupPageContent>
 

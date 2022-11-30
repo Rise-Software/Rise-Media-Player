@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupAppearanceH}">
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=/Setup/AppearanceH}">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
@@ -22,7 +22,7 @@
             </local:SetupPageContent.Icon>
 
             <StackPanel Spacing="20">
-                <TextBlock x:Uid="/Appearance/Header" Style="{StaticResource BaseTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/AppearanceDesc}" />
                 <settings:AppearancePage />
             </StackPanel>
         </local:SetupPageContent>

@@ -159,10 +159,10 @@
   <data name="TermsStart" xml:space="preserve">
     <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
   </data>
-  <data name="SetupBaseH" xml:space="preserve">
+  <data name="TermsBaseH" xml:space="preserve">
     <value>Base Software &amp; Copyright</value>
   </data>
-  <data name="SetupBodyPart1" xml:space="preserve">
+  <data name="TermsBodyPart1" xml:space="preserve">
     <value>GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 Copyright © 2007 Free Software Foundation, Inc. 
@@ -285,5 +285,47 @@ By default, you give the software access to track your listening history and hab
 By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
 
 Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
+  </data>
+  <data name="AppearanceAtAGlanceDesc" xml:space="preserve">
+    <value>Add widgets to make your experience more personal.</value>
+  </data>
+  <data name="AppearanceAtAGlanceTitle" xml:space="preserve">
+    <value>Customise your at a glance page</value>
+  </data>
+  <data name="AppearanceCuratedPlaylistsDesc" xml:space="preserve">
+    <value>Playlists are made for you based on your habits and favourites, including songs you like.</value>
+  </data>
+  <data name="AppearanceCuratedPlaylistsTitle" xml:space="preserve">
+    <value>Make curated playlists</value>
+  </data>
+  <data name="AppearanceDesc" xml:space="preserve">
+    <value>Personalize with icon styles, colors, modes and more that can not only make your experience more personal, but more user friendly.</value>
+  </data>
+  <data name="AppearanceHistoryTitle" xml:space="preserve">
+    <value>Track media history and habits</value>
+  </data>
+  <data name="ConnectDesc" xml:space="preserve">
+    <value>Streaming services are here! Connect all the accounts you use for streaming media*. We use these for recommendations and playing your stuff.</value>
+  </data>
+  <data name="ConnectSoonText" xml:space="preserve">
+    <value>More internet accounts &amp; services are coming soon.</value>
+  </data>
+  <data name="ConnectTip" xml:space="preserve">
+    <value>*Music streaming requires a premium level account to function. Only one music streaming service can be enabled at a time.</value>
+  </data>
+  <data name="FinishBodyPart1" xml:space="preserve">
+    <value>Depending on how much you have added and changed, this process can take several minutes. If you want to continue this process later, just click not now. This will exit the app.</value>
+  </data>
+  <data name="FinishBodyPart2" xml:space="preserve">
+    <value>If you want to start this process now, select continue. The whole process is automatic and doesn't require any user input.</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Your part is finished. We just need to add your local media files and make sure all of your settings have been applied.</value>
+  </data>
+  <data name="LocalDesc" xml:space="preserve">
+    <value>Whether that's media you've ripped from CD's and DVD's, bought or downloaded from the internet, customise what we do with it.</value>
+  </data>
+  <data name="LocalTip" xml:space="preserve">
+    <value>Your video library is already split into 'Local and Purchased' and sections for your streaming services.</value>
   </data>
 </root>

@@ -45,7 +45,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Style="{StaticResource TitleTextBlockStyle}"
-                Text="{markup:ResourceHelper Name=SetupWelcome}" />
+                Text="{markup:ResourceHelper Name=/Setup/Welcome}" />
             <Image
                 Width="Auto"
                 HorizontalAlignment="Center"
@@ -53,13 +53,13 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="{markup:ResourceHelper Name=SetupIntro}"
+                Text="{markup:ResourceHelper Name=/Setup/Intro}"
                 TextAlignment="Center" />
             <Button
                 Width="150"
                 HorizontalAlignment="Center"
                 Click="SetupButton_Click"
-                Content="{markup:ResourceHelper Name=SetupStart}"
+                Content="{markup:ResourceHelper Name=/Setup/Start}"
                 Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>
