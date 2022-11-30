@@ -585,7 +585,6 @@
     <PRIResource Include="Strings\fr-FR\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
     <PRIResource Include="Strings\pt-PT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -599,7 +598,6 @@
     <PRIResource Include="Strings\pt-PT\Details.resw" />
     <PRIResource Include="Strings\pt-PT\Appearance.resw" />
     <PRIResource Include="Strings\pt-PT\About.resw" />
-    <PRIResource Include="Strings\pl-PL\Sidebar.resw" />
     <PRIResource Include="Strings\pl-PL\Props.resw" />
     <PRIResource Include="Strings\pl-PL\Playback.resw" />
     <PRIResource Include="Strings\pl-PL\Navigation.resw" />
@@ -610,7 +608,6 @@
     <PRIResource Include="Strings\pl-PL\Details.resw" />
     <PRIResource Include="Strings\pl-PL\Appearance.resw" />
     <PRIResource Include="Strings\pl-PL\About.resw" />
-    <PRIResource Include="Strings\it-IT\Sidebar.resw" />
     <PRIResource Include="Strings\it-IT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -624,7 +621,6 @@
     <PRIResource Include="Strings\it-IT\Details.resw" />
     <PRIResource Include="Strings\it-IT\Appearance.resw" />
     <PRIResource Include="Strings\it-IT\About.resw" />
-    <PRIResource Include="Strings\hi-IN\Sidebar.resw" />
     <PRIResource Include="Strings\hi-IN\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -638,7 +634,6 @@
     <PRIResource Include="Strings\hi-IN\Details.resw" />
     <PRIResource Include="Strings\hi-IN\Appearance.resw" />
     <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\fr-FR\Sidebar.resw" />
     <PRIResource Include="Strings\fr-FR\Props.resw" />
     <PRIResource Include="Strings\fr-FR\Playback.resw">
       <SubType>Designer</SubType>
@@ -653,7 +648,6 @@
     <PRIResource Include="Strings\fr-FR\Details.resw" />
     <PRIResource Include="Strings\fr-FR\Appearance.resw" />
     <PRIResource Include="Strings\fr-FR\About.resw" />
-    <PRIResource Include="Strings\tr-TR\Sidebar.resw" />
     <PRIResource Include="Strings\tr-TR\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -667,7 +661,6 @@
     <PRIResource Include="Strings\tr-TR\Details.resw" />
     <PRIResource Include="Strings\tr-TR\Appearance.resw" />
     <PRIResource Include="Strings\tr-TR\About.resw" />
-    <PRIResource Include="Strings\ru-RU\Sidebar.resw" />
     <PRIResource Include="Strings\ru-RU\Props.resw" />
     <PRIResource Include="Strings\ru-RU\Playback.resw" />
     <PRIResource Include="Strings\ru-RU\Navigation.resw" />
@@ -678,7 +671,6 @@
     <PRIResource Include="Strings\ru-RU\Details.resw" />
     <PRIResource Include="Strings\ru-RU\Appearance.resw" />
     <PRIResource Include="Strings\ru-RU\About.resw" />
-    <PRIResource Include="Strings\ro-RO\Sidebar.resw" />
     <PRIResource Include="Strings\ro-RO\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -1099,7 +1091,6 @@
     <PRIResource Include="Strings\en-GB\Appearance.resw" />
     <PRIResource Include="Strings\en-GB\MediaLibrary.resw" />
     <PRIResource Include="Strings\en-GB\Information.resw" />
-    <PRIResource Include="Strings\en-GB\Sidebar.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
