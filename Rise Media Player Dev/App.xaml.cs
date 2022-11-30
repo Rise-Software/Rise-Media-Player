@@ -1,7 +1,6 @@
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
-using Rise.App.DbControllers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
@@ -9,6 +8,7 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Messages;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
@@ -370,12 +370,7 @@ namespace Rise.App
             builder.AppendLine(e.StackTrace);
             builder.AppendLine("-----");
 
-            var notif = new NotificationViewModel
-            {
-                Title = "An error occurred!",
-                Description = builder.ToString(),
-                Icon = "\uE8BB"
-            };
+            var notif = new BasicNotification("An error occurred!", builder.ToString(), "\uE8BB");
 
             MViewModel.NBackend.Items.Add(notif);
             MViewModel.NBackend.Save();

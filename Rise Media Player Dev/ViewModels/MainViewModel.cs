@@ -3,6 +3,7 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Data.Json;
+using Rise.Data.Messages;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
@@ -73,9 +74,9 @@ namespace Rise.App.ViewModels
             => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
         public SafeObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
 
-        private JsonBackendController<NotificationViewModel> _nBackend;
-        public JsonBackendController<NotificationViewModel> NBackend
-            => _nBackend ??= JsonBackendController<NotificationViewModel>.Get("Notifications");
+        private JsonBackendController<BasicNotification> _nBackend;
+        public JsonBackendController<BasicNotification> NBackend
+            => _nBackend ??= JsonBackendController<BasicNotification>.Get("Messages");
 
         /// <summary>
         /// Gets the complete list of data from the database.
