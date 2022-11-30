@@ -72,29 +72,25 @@
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Name="SongDetails"
-                        x:Uid="/Props/DetailItemNav"
+                        Content="{markup:ResourceHelper Name=Details}"
                         Tag="DetailsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="/Props/LyricsItemNav" Tag="LyricsItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Lyrics}" Tag="LyricsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xF12E;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="/Props/FileItemNav" Tag="FileItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=File}" Tag="FileItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE130;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-
                 </muxc:NavigationView.MenuItems>
-
-
             </muxc:NavigationView>
         </ScrollViewer>
-
 
         <ScrollViewer
             Grid.Row="2"
@@ -123,12 +119,12 @@
 
             <Rectangle />
             <Button
-                x:Uid="/Props/Save"
+                Content="{markup:ResourceHelper Name=PropsSave}"
                 HorizontalAlignment="Stretch"
                 Click="SaveButton_Click"
                 Style="{StaticResource AccentButtonStyle}" />
             <Button
-                x:Uid="/Props/Cancel"
+                Content="{markup:ResourceHelper Name=Cancel}"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 Click="CancelButton_Click" />
@@ -136,7 +132,8 @@
 
         <muxc:TeachingTip
             x:Name="ErrorTip"
-            x:Uid="/Props/Error"
-            PreferredPlacement="Bottom" />
+            Title="{markup:ResourceHelper Name=PropsErrorTitle}"
+            PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=PropsErrorContent}" />
     </Grid>
 </Page>

@@ -67,7 +67,7 @@
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Name="SongDetails"
-                        x:Uid="/Props/DetailItemNav"
+                        Content="{markup:ResourceHelper Name=Details}"
                         Tag="DetailsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE946;" />
@@ -81,13 +81,9 @@
                             <FontIcon Glyph="&#xEC4F;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-
                 </muxc:NavigationView.MenuItems>
-
-
             </muxc:NavigationView>
         </ScrollViewer>
-
 
         <ScrollViewer
             Grid.Row="2"
@@ -116,20 +112,21 @@
 
             <Rectangle />
             <Button
-                x:Uid="/Props/Save"
                 HorizontalAlignment="Stretch"
                 Click="SaveButton_Click"
+                Content="{markup:ResourceHelper Name=PropsSave}"
                 Style="{StaticResource AccentButtonStyle}" />
             <Button
-                x:Uid="/Props/Cancel"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
-                Click="CancelButton_Click" />
+                Click="CancelButton_Click"
+                Content="{markup:ResourceHelper Name=Cancel}" />
         </Grid>
 
         <muxc:TeachingTip
             x:Name="ErrorTip"
-            x:Uid="/Props/Error"
-            PreferredPlacement="Bottom" />
+            Title="{markup:ResourceHelper Name=PropsErrorTitle}"
+            PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=PropsErrorContent}" />
     </Grid>
 </Page>

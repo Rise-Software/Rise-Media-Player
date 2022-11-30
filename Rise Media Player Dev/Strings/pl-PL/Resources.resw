@@ -336,4 +336,25 @@
   <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
     <value>Artist news feed</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
 </root>
