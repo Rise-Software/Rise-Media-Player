@@ -117,10 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BaseH.Text" xml:space="preserve">
-    <value>आधार सॉफ्टवेयर और कॉपीराइट</value>
+  <data name="AppearanceH" xml:space="preserve">
+    <value>Make it yours</value>
   </data>
-  <data name="BodyPart1.Text" xml:space="preserve">
+  <data name="ConnectH" xml:space="preserve">
+    <value>Connect an internet account</value>
+  </data>
+  <data name="DoneH" xml:space="preserve">
+    <value>You're done!</value>
+  </data>
+  <data name="Intro" xml:space="preserve">
+    <value>We're glad you're here. You just need to go through a few simple steps and you'll be all up and running!</value>
+  </data>
+  <data name="LocalH" xml:space="preserve">
+    <value>Add your personal media</value>
+  </data>
+  <data name="PrivacyH" xml:space="preserve">
+    <value>Privacy &amp; recommendations</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Pre-setup</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start setup</value>
+  </data>
+  <data name="TermsH" xml:space="preserve">
+    <value>License Agreement &amp; Terms</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to</value>
+  </data>
+  <data name="TermsLastUpdated" xml:space="preserve">
+    <value>Last Updated December 2021 - GPL License 3.0</value>
+  </data>
+  <data name="TermsLocalH" xml:space="preserve">
+    <value>Local Media Handling</value>
+  </data>
+  <data name="TermsStreamingH" xml:space="preserve">
+    <value>Streaming &amp; Online Services</value>
+  </data>
+  <data name="TermsStart" xml:space="preserve">
+    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
+  </data>
+  <data name="SetupBaseH" xml:space="preserve">
+    <value>Base Software &amp; Copyright</value>
+  </data>
+  <data name="SetupBodyPart1" xml:space="preserve">
     <value>GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 Copyright © 2007 Free Software Foundation, Inc. 
@@ -232,32 +274,16 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 17. Interpretation of Sections 15 and 16.
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.</value>
   </data>
-  <data name="BodyPart2.Text" xml:space="preserve">
-    <value>इस सॉफ़्टवेयर का उपयोग करके और अपने फ़ाइल जोड़कर आप राईज़ मीडिया प्लेयर को मीडिया के मेटाडाटा को संपादित करने, फ़ाइलें देखने, डिलीट करने, आदि, की पूर्ण अनुमति देते हैं। आप डिफ़ॉल्ट रूप से मीडिया (संगीत और वीडियो) के लिए अपने डिफ़ॉल्ट लाइब्रेरी स्थानों की अनुमति भी देते हैं।
+  <data name="TermsBodyPart2" xml:space="preserve">
+    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
 
-आप डिफ़ॉल्ट रूप से सॉफ़्टवेयर को आपके सुनने का इतिहास और आदतों को ट्रैक करने की अनुमति देते हैं, आपको व्यक्तिगत सिफारिशें प्रदान करने के लिए। इसे बंद किया जा सकता है।</value>
+By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
   </data>
-  <data name="BodyPart3.Text" xml:space="preserve">
-    <value>अपने ऑनलाइन अकाउंट में लॉग इन करना और उनका उपयोग करना इस सॉफ़्टवेयर को आपकी ऑनलाइन लाइब्रेरी का प्रबंधन करने, आपकी चुनी हुई सेवा (सेवाओं) से खरीदारी और सुनने का इतिहास देखने की अनुमति देता है।
+  <data name="TermsBodyPart3" xml:space="preserve">
+    <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).
 
-ऐप में उपलब्ध स्ट्रीमिंग सेवाओं में से किसी एक का उपयोग करके, आप सेवा के खुद के नियम और शर्तों को स्वीकार करते हैं। ये उनकी संबंधित वेबसाइटों पर उपलब्ध होंगे।
+By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
 
-बधाई हो अगर आपने इसे पढ़ा! एक कुकी लें :) सर्वोत्तम अनुभव और कम से कम मुद्दों के लिए कृपया इन सभी शर्तों का पालन करें।
-</value>
-  </data>
-  <data name="LastUpdated.Text" xml:space="preserve">
-    <value>पिछला अद्यतन दिसंबर 2021 - जी पी एल लाइसेंस 3.0</value>
-  </data>
-  <data name="LocalH.Text" xml:space="preserve">
-    <value>लोकल मीडिया हैंडलिंग</value>
-  </data>
-  <data name="StreamingH.Text" xml:space="preserve">
-    <value>स्ट्रीमिंग और ऑनलाईन सेवाएँ</value>
-  </data>
-  <data name="TermsStart.Text" xml:space="preserve">
-    <value>राईज़ मीडिया प्लेयर - लाइसेंस एग्रीमेंट और उपयोगिता शर्तें</value>
-  </data>
-  <data name="UNUSED" xml:space="preserve">
-    <value />
+Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
   </data>
 </root>

@@ -219,36 +219,6 @@
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Kendin yap</value>
-  </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Bir internet hesabı bağlayın</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>İşte bu kadar!</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Burada olmandan memnunuz. Sadece birkaç basit adımdan geçmeniz gerekiyor. Bundan sonrası için her şey hazır ve çalışıyor olacak!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Kendi medyanız</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Ön kurulum</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Gizlilik &amp; Öneriler</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Kurulumu başlat</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Lisans Sözleşmesi &amp; Koşulları</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Hoşgeldiniz</value>
-  </data>
   <data name="Songs" xml:space="preserve">
     <value>Müzikler</value>
   </data>
@@ -338,5 +308,8 @@
   </data>
   <data name="FileOpenLocation" xml:space="preserve">
     <value>Dosya konumunu aç</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
   </data>
 </root>

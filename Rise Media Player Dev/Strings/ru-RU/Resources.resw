@@ -243,36 +243,6 @@
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Сделайте его своим</value>
-  </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Подключите интернет-аккаунт</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>Готово!</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Мы рады, что вы здесь. Просто нужно пройти несколько простых шагов, и всё будет в порядке!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Добавить свои персональные медиа</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Предварительная настройка</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Конфиденциальность и рекомендации</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Начать настройку</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Лицензионное соглашение и условия</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Добро пожаловать в</value>
-  </data>
   <data name="Songs" xml:space="preserve">
     <value>Песни</value>
   </data>
@@ -365,5 +335,8 @@
   </data>
   <data name="FileOpenLocation" xml:space="preserve">
     <value>Местонахождение открытого файла</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
   </data>
 </root>

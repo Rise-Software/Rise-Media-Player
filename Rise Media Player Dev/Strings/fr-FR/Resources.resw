@@ -243,36 +243,6 @@
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Personnalisez votre expérience</value>
-  </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Ajouter des service en ligne</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>Vous avez terminé !</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Nous sommes hereux de vous voir. Vous avez juste besoin de configurer quelques éléments avant de pouvoir utiliser l'application. Promis, ce sera rapide.</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Vos médias</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Pré-configurations</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Confidentialité &amp; Recommandations</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Commencer la configuration</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Contrat de licence &amp; conditions</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Bienvenur sur</value>
-  </data>
   <data name="Songs" xml:space="preserve">
     <value>Musiques</value>
   </data>
@@ -362,5 +332,8 @@
   </data>
   <data name="FileOpenLocation" xml:space="preserve">
     <value>Lieu de fichier ouvert</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
   </data>
 </root>

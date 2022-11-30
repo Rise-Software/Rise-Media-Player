@@ -243,36 +243,6 @@
   <data name="Settings" xml:space="preserve">
     <value>Ustawienia</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Personalizuj</value>
-  </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Polącz konto internetowe</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>Gotowe!</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Cieszymy się że tu jesteś. Wystarczy wykonać kilka prostych kroków, a wszystko będzie gotowe!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Twoje media</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Konfiguracja wstępna</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Prywatność i rekomendacje</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Rozpocznij konfigurację</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Umowa licencyjna i warunki</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Witaj w</value>
-  </data>
   <data name="Songs" xml:space="preserve">
     <value>Utwory</value>
   </data>
@@ -362,5 +332,8 @@
   </data>
   <data name="FileOpenLocation" xml:space="preserve">
     <value>Otwórz lokalizację pliku</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
   </data>
 </root>

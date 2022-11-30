@@ -219,36 +219,6 @@
   <data name="Settings" xml:space="preserve">
     <value>सेटिंग्स</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>इसे अपना बनाएँ</value>
-  </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>एक इन्टरनेट अकाउंट बनाएँ</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>आपका काम समाप्त हुआ</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>हमे खुशी है कि आप यहाँ हैं। सिर्फ़ कुछ सरल चरणों को संपन्न करना है और आप तैयार हो जाएंगे!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>आपके खुद की मीडिया</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>पूर्व-सेटअप</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>गोपनीयता और सिफारिशें</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>सेटअप शुरू करें</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>लाइसेंस एग्रीमेंट और नियम</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>आपका इनमें स्वागत है</value>
-  </data>
   <data name="Songs" xml:space="preserve">
     <value>गाने</value>
   </data>
@@ -338,5 +308,8 @@
   </data>
   <data name="FileOpenLocation" xml:space="preserve">
     <value>फ़ाइल के स्थान को खोलें</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
   </data>
 </root>

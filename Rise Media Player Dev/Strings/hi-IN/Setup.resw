@@ -117,10 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BaseH.Text" xml:space="preserve">
-    <value>Базовое программное обеспечение и авторские права</value>
+  <data name="AppearanceH" xml:space="preserve">
+    <value>Make it yours</value>
   </data>
-  <data name="BodyPart1.Text" xml:space="preserve">
+  <data name="ConnectH" xml:space="preserve">
+    <value>Connect an internet account</value>
+  </data>
+  <data name="DoneH" xml:space="preserve">
+    <value>You're done!</value>
+  </data>
+  <data name="Intro" xml:space="preserve">
+    <value>We're glad you're here. You just need to go through a few simple steps and you'll be all up and running!</value>
+  </data>
+  <data name="LocalH" xml:space="preserve">
+    <value>Add your personal media</value>
+  </data>
+  <data name="PrivacyH" xml:space="preserve">
+    <value>Privacy &amp; recommendations</value>
+  </data>
+  <data name="SetupPre" xml:space="preserve">
+    <value>Pre-setup</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start setup</value>
+  </data>
+  <data name="TermsH" xml:space="preserve">
+    <value>License Agreement &amp; Terms</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to</value>
+  </data>
+  <data name="TermsLastUpdated" xml:space="preserve">
+    <value>Last Updated December 2021 - GPL License 3.0</value>
+  </data>
+  <data name="TermsLocalH" xml:space="preserve">
+    <value>Local Media Handling</value>
+  </data>
+  <data name="TermsStreamingH" xml:space="preserve">
+    <value>Streaming &amp; Online Services</value>
+  </data>
+  <data name="TermsStart" xml:space="preserve">
+    <value>Rise Media Player - Licence Agreement &amp; Terms for Use</value>
+  </data>
+  <data name="SetupBaseH" xml:space="preserve">
+    <value>Base Software &amp; Copyright</value>
+  </data>
+  <data name="SetupBodyPart1" xml:space="preserve">
     <value>GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 Copyright © 2007 Free Software Foundation, Inc. 
@@ -232,31 +274,16 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 17. Interpretation of Sections 15 and 16.
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.</value>
   </data>
-  <data name="BodyPart2.Text" xml:space="preserve">
-    <value>Используя это программное обеспечение и добавляя свои папки, вы предоставляете Rise Media Player полный доступ к редактированию метаданных мультимедиа, просмотру файлов, удалению и т.д. Вы также по умолчанию предоставляете доступ к расположению вашей библиотеки по умолчанию для мультимедиа (музыки и видео).
+  <data name="TermsBodyPart2" xml:space="preserve">
+    <value>By using this software and adding your folders, you give Rise Media Player full access to edit the media's metadata, view the files, delete etc. You also give access to your default library locations for media (Music &amp; Videos) by default.
 
-По умолчанию вы предоставляете программе доступ к отслеживанию вашей истории прослушивания и привычек, чтобы предоставлять вам персональные рекомендации. Это можно отключить.</value>
+By default, you give the software access to track your listening history and habits to serve you personalised recommendations. This can be turned off.</value>
   </data>
-  <data name="BodyPart3.Text" xml:space="preserve">
-    <value>Вход в систему и использование ваших учетных записей в Интернете позволяет этому программному обеспечению управлять вашей онлайн-библиотекой, просматривать покупки и историю прослушивания выбранной вами службы (служб).
+  <data name="TermsBodyPart3" xml:space="preserve">
+    <value>Logging in and using your online accounts allows this software to manage your online library, view purchases and listening history from your chosen service(s).
 
-Используя любой из потоковых сервисов, доступных в приложении, вы принимаете их собственные условия обслуживания. Они будут доступны на соответствующих сайтах.
+By using any one of the streaming services available in the app, you accept their own terms and conditions for service. These will be available at their respective websites.
 
-Поздравляю, если вы читаете это! Возьмите печенье :) Пожалуйста, соблюдайте все эти условия для наилучшего опыта и наименьшего количества проблем.</value>
-  </data>
-  <data name="LastUpdated.Text" xml:space="preserve">
-    <value>Последнее обновление: декабрь 2021г. - Лицензия GPL 3.0</value>
-  </data>
-  <data name="LocalH.Text" xml:space="preserve">
-    <value>Обработка локальных медиа</value>
-  </data>
-  <data name="StreamingH.Text" xml:space="preserve">
-    <value>Стриминговые и онлайн-сервисы</value>
-  </data>
-  <data name="TermsStart.Text" xml:space="preserve">
-    <value>Rise Media Player - Лицензионное соглашение и условия использования</value>
-  </data>
-  <data name="UNUSED" xml:space="preserve">
-    <value />
+Congrats if you read this! Have a cookie :) Please follow all of these terms for the best experience and least issues.</value>
   </data>
 </root>
