@@ -14,7 +14,7 @@
             <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/PlaybackGeneralH}" />
 
             <uc:ExpanderControl
-                Title="{markup:ResourceHelper Name=/Settings/VisualizerTitle}"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackVisualizerTitle}"
                 ExpanderStyle="Static"
                 Icon="&#xE8B9;">
                 <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">

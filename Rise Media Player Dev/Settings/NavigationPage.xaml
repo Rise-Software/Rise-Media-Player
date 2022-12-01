@@ -154,7 +154,7 @@
                 </StackPanel>
             </uc:ExpanderControl>
 
-            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Video}" Icon="&#xE8B2;">
+            <uc:ExpanderControl Title="{markup:ResourceHelper Name=Videos}" Icon="&#xE8B2;">
                 <uc:ExpanderControl.HeaderControls>
                     <ToggleSwitch IsOn="{x:Bind ViewModel.ShowAllVideo, Mode=TwoWay}" />
                 </uc:ExpanderControl.HeaderControls>
