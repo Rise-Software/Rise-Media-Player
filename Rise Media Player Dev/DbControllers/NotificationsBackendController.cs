@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Rise.App.ViewModels;
+using Rise.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -9,61 +11,59 @@ namespace Rise.App.DbControllers
 {
     public class NotificationsBackendController : BaseBackendController
     {
-        public NotificationsBackendController(string dbName) : base(dbName) { }
-
         public NotificationsBackendController() : base("Notifications") { }
 
-        public async Task AddNotificationAsync(string title, string description, string icon)
+        public Task AddItemAsync(string title, string description, string icon)
         {
-            NotificationViewModel notification = new(new Rise.Models.Notification
+            return InsertAsync(new()
             {
                 Title = title,
                 Description = description,
                 Icon = icon
             });
-
-            notification.IsNew = true;
-            await notification.SaveAsync();
         }
 
-        public async Task<List<NotificationViewModel>> GetAsync()
+        public async Task<IEnumerable<Notification>> GetAsync()
         {
-            string text = await FileIO.ReadTextAsync(await ApplicationData.Current.LocalCacheFolder.CreateFileAsync($"Playlists.json", CreationCollisionOption.OpenIfExists));
+            var text = await FileIO.ReadTextAsync(DbFile);
+
             if (!string.IsNullOrWhiteSpace(text))
-            {
-                List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile));
-                return notifications;
-            }
-            else
-            {
-                return new List<NotificationViewModel>();
-            }
+                return JsonConvert.DeserializeObject<IEnumerable<Notification>>(text);
+
+            return Enumerable.Empty<Notification>();
         }
 
-        public async Task InsertAsync(NotificationViewModel notification)
+        public async Task InsertAsync(Notification item)
         {
-            List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<NotificationViewModel>();
-            notifications.Add(notification);
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var list = JsonConvert.DeserializeObject<List<Notification>>(text) ?? new List<Notification>();
 
-            string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
+            list.Add(item);
+
+            string json = JsonConvert.SerializeObject(list, Formatting.Indented);
             await FileIO.WriteTextAsync(DbFile, json);
         }
 
-        public async Task UpdateAsync(NotificationViewModel notification, int index)
+        public async Task UpdateAsync(Notification item, int index)
         {
-            List<NotificationViewModel> notifications = JsonConvert.DeserializeObject<List<NotificationViewModel>>(await FileIO.ReadTextAsync(DbFile)) ?? new List<NotificationViewModel>();
-            notifications[index] = notification;
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var list = JsonConvert.DeserializeObject<List<Notification>>(text) ?? new List<Notification>();
 
-            string json = JsonConvert.SerializeObject(notifications, Formatting.Indented);
+            list[index] = item;
+
+            string json = JsonConvert.SerializeObject(list, Formatting.Indented);
             await FileIO.WriteTextAsync(DbFile, json);
         }
 
-        public async Task DeleteAsync(NotificationViewModel notification)
+        public async Task DeleteAsync(Notification item)
         {
-            // It's already deleted in the MViewModel notifications list, so why bother deleting again?
-            string json = JsonConvert.SerializeObject(App.MViewModel.Notifications, Formatting.Indented);
+            var text = await FileIO.ReadTextAsync(DbFile);
+            var items = JsonConvert.DeserializeObject<List<Notification>>(text) ?? new List<Notification>();
+
+            _ = items.Remove(item);
+
+            string json = JsonConvert.SerializeObject(items, Formatting.Indented);
             await FileIO.WriteTextAsync(DbFile, json);
         }
-
     }
 }

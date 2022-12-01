@@ -6,6 +6,8 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class MessagesDialog : Page
     {
+        private MainViewModel MViewModel => App.MViewModel;
+
         public static readonly DependencyProperty SelectedNotificationProperty =
             DependencyProperty.Register(nameof(SelectedNotification), typeof(NotificationViewModel),
                 typeof(MessagesDialog), new PropertyMetadata(null));

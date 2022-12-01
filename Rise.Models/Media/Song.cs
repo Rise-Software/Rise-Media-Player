@@ -119,19 +119,11 @@ namespace Rise.Models
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
             string thumb = URIs.AlbumThumb;
 
-            StorageItemThumbnail thumbnail;
-
-            if (fetchThumbnail)
-            {
-                thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-
-                string filename = albumTitle.AsValidFileName();
+            using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+            string filename = albumTitle.AsValidFileName();
 
                 if (await thumbnail.SaveToFileAsync($@"{filename}.png"))
                     thumb = $@"ms-appdata:///local/{filename}.png";
-
-                thumbnail?.Dispose();
-            }
 
             return new Song
             {

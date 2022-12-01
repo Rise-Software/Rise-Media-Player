@@ -20,6 +20,7 @@ using Rise.Effects;
 using Rise.NewRepository;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Windows.ApplicationModel;
@@ -313,10 +314,7 @@ namespace Rise.App
         }
 
         private static StorageLibrary OnStorageLibraryRequested(KnownLibraryId id)
-        {
-            var library = StorageLibrary.GetLibraryAsync(id).Get();
-            return library;
-        }
+            => StorageLibrary.GetLibraryAsync(id).Get();
     }
 
     // Indexing
@@ -379,12 +377,34 @@ namespace Rise.App
                      { "source", e.Source },
                      { "hresult", $"{e.HResult}" }
                 }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occured!")
+                .AddText("An error occurred!")
                 .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
                 .GetToastContent();
 
             ToastNotification notification = new(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+
+            var builder = new StringBuilder();
+
+            builder.AppendLine("-----");
+            builder.Append("Exception type: ");
+            builder.AppendLine(e.GetType().ToString());
+
+            builder.Append("HRESULT: ");
+            builder.AppendLine(e.HResult.ToString());
+            builder.Append("Source: ");
+            builder.AppendLine(e.Source);
+
+            builder.AppendLine();
+
+            builder.AppendLine("Message:");
+            builder.AppendLine(e.Message);
+            builder.AppendLine();
+            builder.AppendLine("Stack trace:");
+            builder.AppendLine(e.StackTrace);
+            builder.AppendLine("-----");
+
+            NBackendController.AddItemAsync("An error occurred!", "Rise Media Player has crashed.\n\n" + builder.ToString(), "\uE8BB").Wait();
         }
 
         private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
