@@ -1,6 +1,8 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
+using Rise.Data.Json;
 using System;
+using System.Linq;
 using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,6 +12,8 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class CreatePlaylistDialog : ContentDialog
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private Uri _imagePath = new("ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png");
 
         public CreatePlaylistDialog()
@@ -19,7 +23,7 @@ namespace Rise.App.Dialogs
 
         #region Events/Methods
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             string title = string.IsNullOrWhiteSpace(TitleTextBox.Text) ? "Untitled" : TitleTextBox.Text;
             string description = string.IsNullOrWhiteSpace(DescriptionTextBox.Text) ? "No description." : DescriptionTextBox.Text;
@@ -31,7 +35,13 @@ namespace Rise.App.Dialogs
                 Icon = _imagePath.OriginalString
             };
 
-            await plViewModel.SaveAsync();
+            var pl = PBackend.Items.FirstOrDefault(p => p.Title == title);
+            if (pl == null)
+            {
+                PBackend.Items.Add(plViewModel);
+                PBackend.Save();
+            }
+
             Hide();
         }
 

@@ -3,6 +3,8 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using System;
 using System.Linq;
@@ -16,6 +18,9 @@ namespace Rise.App.Views
     public sealed partial class PlaylistDetailsPage : MediaPageBase
     {
         private MainViewModel MViewModel => App.MViewModel;
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
 
         private MediaCollectionViewModel VideosViewModel;
@@ -83,8 +88,9 @@ namespace Rise.App.Views
         {
             if (playlist == null)
                 return PlaylistHelper.CreateNewPlaylistAsync(SelectedVideo);
-            else
-                return playlist.AddItemAsync(SelectedVideo);
+
+            playlist.AddItem(SelectedVideo);
+            return PBackend.SaveAsync();
         }
     }
 
@@ -119,11 +125,13 @@ namespace Rise.App.Views
                 SelectedVideo = (VideoViewModel)cont;
         }
 
-        private async void RemoveSong_Click(object sender, RoutedEventArgs e)
-            => await SelectedPlaylist.RemoveItemAsync(SelectedItem);
+        [RelayCommand]
+        private Task RemoveItemAsync(IMediaItem item)
+        {
+            SelectedPlaylist.RemoveItem(item);
+            return PBackend.SaveAsync();
+        }
 
-        private async void RemoveVideo_Click(object sender, RoutedEventArgs e)
-            => await SelectedPlaylist.RemoveItemAsync(SelectedVideo);
         private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is VideoViewModel video && !KeyboardHelpers.IsCtrlPressed())

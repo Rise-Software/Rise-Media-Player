@@ -4,7 +4,6 @@ using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
-using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -88,49 +87,38 @@ namespace Rise.App.ViewModels
         public string VideosCountString => VideosCount == 1 ? "video" : "videos";
     }
 
-    // Backend and item management
+    // Item management
     public sealed partial class PlaylistViewModel
     {
-        private static JsonBackendController<PlaylistViewModel> _controller;
-        private static JsonBackendController<PlaylistViewModel> Controller
-            => _controller ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
-
         public SafeObservableCollection<SongViewModel> Songs { get; init; } = new();
         public SafeObservableCollection<VideoViewModel> Videos { get; init; } = new();
 
         /// <summary>
         /// Adds a <see cref="IMediaItem" /> to the playlist.
         /// </summary>
-        public Task AddItemAsync(IMediaItem item, bool newPlaylist = false)
+        public void AddItem(IMediaItem item)
         {
             if (item is SongViewModel song)
                 Songs.Add(song);
             else if (item is VideoViewModel video)
                 Videos.Add(video);
-
-            if (newPlaylist)
-                return SaveAsync();
-            else
-                return Controller.SaveAsync();
         }
 
         /// <summary>
         /// Removes a <see cref="IMediaItem" /> from the playlist.
         /// </summary>
-        public Task RemoveItemAsync(IMediaItem item)
+        public void RemoveItem(IMediaItem item)
         {
             if (item is SongViewModel song)
-                Songs.Remove(song);
+                _ = Songs.Remove(song);
             else if (item is VideoViewModel video)
-                Videos.Remove(video);
-
-            return Controller.SaveAsync();
+                _ = Videos.Remove(video);
         }
 
         /// <summary>
         /// Adds multiple <see cref="IMediaItem"/>s to the playlist.
         /// </summary>
-        public Task AddItemsAsync(IEnumerable<IMediaItem> items, bool newPlaylist = false)
+        public void AddItems(IEnumerable<IMediaItem> items)
         {
             foreach (IMediaItem item in items)
             {
@@ -139,45 +127,20 @@ namespace Rise.App.ViewModels
                 else if (item is VideoViewModel video)
                     Videos.Add(video);
             }
-
-            if (newPlaylist)
-                return SaveAsync();
-            else
-                return Controller.SaveAsync();
         }
 
         /// <summary>
         /// Removes multiple <see cref="IMediaItem"/>s from the playlist.
         /// </summary>
-        public Task RemoveItemsAsync(IEnumerable<IMediaItem> items)
+        public void RemoveItems(IEnumerable<IMediaItem> items)
         {
             foreach (IMediaItem item in items)
             {
                 if (item is SongViewModel song)
-                    Songs.Remove(song);
+                    _ = Songs.Remove(song);
                 else if (item is VideoViewModel video)
-                    Videos.Remove(video);
+                    _ = Videos.Remove(video);
             }
-            return Controller.SaveAsync();
-        }
-
-        /// <summary>
-        /// Saves item data to the backend.
-        /// </summary>
-        public Task SaveAsync()
-        {
-            if (!Controller.Items.Contains(this))
-                Controller.Items.Add(this);
-            return Controller.SaveAsync();
-        }
-
-        /// <summary>
-        /// Deletes item data from the backend.
-        /// </summary>
-        public Task DeleteAsync()
-        {
-            Controller.Items.Remove(this);
-            return Controller.SaveAsync();
         }
     }
 
