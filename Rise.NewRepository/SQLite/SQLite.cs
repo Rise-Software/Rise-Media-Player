@@ -244,6 +244,7 @@ namespace SQLite
         int InsertOrReplace(object obj);
         int InsertOrReplace(object obj, Type objType);
         int InsertOrReplaceAll(IEnumerable objects, bool runInTransaction = true);
+        int RemoveAll(IEnumerable objects, bool runInTransaction = true);
         List<T> Query<T>(string query, params object[] args) where T : new();
         List<object> Query(TableMapping map, string query, params object[] args);
         List<T> QueryScalars<T>(string query, params object[] args);
@@ -1821,6 +1822,39 @@ namespace SQLite
             {
                 foreach (var r in objects)
                     c += InsertOrReplace(r);
+            }
+            return c;
+        }
+
+        /// <summary>
+        /// Deletes all specified objects.
+        /// </summary>
+        /// <param name="objects">
+        /// An <see cref="IEnumerable"/> of the objects to insert.
+        /// </param>
+        /// <param name="extra">
+        /// Literal SQL code that gets placed into the command. INSERT {extra} INTO ...
+        /// </param>
+        /// <param name="runInTransaction">
+        /// A boolean indicating if the inserts should be wrapped in a transaction.
+        /// </param>
+        /// <returns>
+        /// The number of rows added to the table.
+        /// </returns>
+        public int RemoveAll(IEnumerable objects, bool runInTransaction = true)
+        {
+            var c = 0;
+            if (runInTransaction)
+            {
+                RunInTransaction(() => {
+                    foreach (var r in objects)
+                        c += Delete(r);
+                });
+            }
+            else
+            {
+                foreach (var r in objects)
+                    c += Delete(r);
             }
             return c;
         }

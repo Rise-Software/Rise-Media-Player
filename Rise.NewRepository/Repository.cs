@@ -19,6 +19,7 @@ namespace Rise.NewRepository
         private static SQLiteAsyncConnection _asyncDb;
 
         private static ConcurrentQueue<DbObject> _upsertQueue;
+        private static ConcurrentQueue<DbObject> _removeQueue;
 
         /// <summary>
         /// Initializes the database and its tables.
@@ -37,6 +38,7 @@ namespace Rise.NewRepository
             _ = await _asyncDb.CreateTableAsync<Video>();
 
             _upsertQueue ??= new();
+            _removeQueue ??= new();
         }
 
         /// <summary>
@@ -95,12 +97,38 @@ namespace Rise.NewRepository
         }
 
         /// <summary>
+        /// Queues an item to the database for deleting.
+        /// </summary>
+        /// <returns>A <see cref="System.Boolean" /> which provides the state of the operation.</returns>
+        /// <param name="item">The DB object to queue.</param>
+        public static bool QueueRemove(DbObject item)
+        {
+            if (!_removeQueue.Contains(item))
+            {
+                _removeQueue.Enqueue(item);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Upserts all queued items asynchronously.
         /// </summary>
         /// <returns>A <see cref="Task" /> which represents the operation.</returns>
         public static async Task UpsertQueuedAsync()
         {
             _ = await _asyncDb.InsertOrReplaceAllAsync(_upsertQueue);
+            _upsertQueue.Clear();
+        }
+
+        /// <summary>
+        /// Deletes all queued items asynchronously.
+        /// </summary>
+        /// <returns>A <see cref="Task" /> which represents the operation.</returns>
+        public static async Task DeleteQueuedAsync()
+        {
+            _ = await _asyncDb.RemoveAllAsync(_removeQueue);
             _upsertQueue.Clear();
         }
 

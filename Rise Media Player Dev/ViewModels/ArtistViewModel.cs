@@ -101,12 +101,16 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(bool queue)
         {
             if (App.MViewModel.Artists.Contains(this))
             {
                 App.MViewModel.Artists.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
+
+                if (queue)
+                    NewRepository.Repository.QueueRemove(Model);
+                else
+                    await NewRepository.Repository.DeleteAsync(Model);
             }
         }
 
@@ -114,15 +118,13 @@ namespace Rise.App.ViewModels
         /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
-        public async Task CheckAvailabilityAsync()
+        public async Task CheckAvailabilityAsync(bool queue)
         {
             var songCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Artist == Model.Name);
             var albumCount = (await NewRepository.Repository.GetItemsAsync<Album>()).Count(a => a.Artist == Model.Name);
 
             if (songCount == 0 && albumCount == 0)
-            {
-                await DeleteAsync();
-            }
+                await DeleteAsync(queue);
         }
         #endregion
 

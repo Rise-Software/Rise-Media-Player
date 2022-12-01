@@ -110,22 +110,10 @@ namespace Rise.App.ChangeTrackers
         /// <summary>
         /// Manage changes to the videos library folders.
         /// </summary>
-        public static async Task HandleVideosFolderChangesAsync(CancellationToken token = default)
+        public static async Task CheckDuplicatesAsync(CancellationToken token = default)
         {
             if (token.IsCancellationRequested)
                 return;
-
-            List<VideoViewModel> toRemove = new();
-
-            // Check if the video doesn't exist anymore, if so queue it then remove.
-            for (int i = 0; i < MViewModel.Videos.Count; i++)
-            {
-                if (!File.Exists(MViewModel.Videos[i].Location))
-                    toRemove.Add(MViewModel.Videos[i]);
-            }
-
-            foreach (VideoViewModel video in toRemove)
-                await video.DeleteAsync();
 
             List<VideoViewModel> duplicates = new();
 
@@ -152,7 +140,7 @@ namespace Rise.App.ChangeTrackers
                 if (token.IsCancellationRequested)
                     return;
 
-                await video.DeleteAsync();
+                await video.DeleteAsync(true);
             }
         }
 
