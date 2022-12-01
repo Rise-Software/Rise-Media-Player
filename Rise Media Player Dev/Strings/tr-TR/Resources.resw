@@ -333,4 +333,7 @@
   <data name="PropsSave" xml:space="preserve">
     <value>Save changes</value>
   </data>
+  <data name="ShufflePlaylistText" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
 </root>

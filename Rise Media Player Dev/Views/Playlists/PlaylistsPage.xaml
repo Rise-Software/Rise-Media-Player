@@ -98,7 +98,7 @@
                         Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaLibrary/ShufflePlaylist"
+                        Text="{markup:ResourceHelper Name=ShufflePlaylistText}"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                         Icon="Shuffle" />

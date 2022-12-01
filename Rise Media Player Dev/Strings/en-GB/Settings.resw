@@ -117,127 +117,187 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add.Content" xml:space="preserve">
-    <value>Add folder</value>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>Insider Extras</value>
   </data>
-  <data name="AddAccount.Description" xml:space="preserve">
-    <value>Login to your services securely</value>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>Copy version</value>
   </data>
-  <data name="AddAccount.Title" xml:space="preserve">
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>More version info</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>Save to my device</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>Keep up with the latest updates.</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>Social media</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>Desktop wallpapers &amp; themes</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
     <value>Add an account</value>
   </data>
-  <data name="AddFolders.Label" xml:space="preserve">
-    <value>Add media folders</value>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add folder</value>
   </data>
-  <data name="AddFolders.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Add media folders</value>
+  <data name="AddFolders" xml:space="preserve">
+    <value>Add folders</value>
   </data>
-  <data name="AdditionalH.Text" xml:space="preserve">
-    <value>Additional settings</value>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>Choose your window glaze</value>
   </data>
-  <data name="AddLocation.Title" xml:space="preserve">
-    <value>Scan when you add a new media location</value>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>Choose your colour</value>
   </data>
-  <data name="Automatic.Description" xml:space="preserve">
-    <value>Enable for periodic scanning and smart event scan.</value>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>Pick up where you left off</value>
   </data>
-  <data name="Automatic.Title" xml:space="preserve">
-    <value>Automatic scanning</value>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>On startup</value>
   </data>
-  <data name="AutoScanMedia.Description" xml:space="preserve">
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>Match system &amp; app languages</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
     <value>Scan per a specified period of time when the app is open.</value>
   </data>
-  <data name="AutoScanMedia.Title" xml:space="preserve">
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
     <value>Periodic scanning</value>
   </data>
-  <data name="ChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your music files.</value>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>When removing local media</value>
   </data>
-  <data name="ChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove music library folders</value>
-  </data>
-  <data name="Deletion.Title" xml:space="preserve">
-    <value>When removing local media:</value>
-  </data>
-  <data name="DeviceConnect.Title" xml:space="preserve">
-    <value>Scan when a removable device or drive is connected</value>
-  </data>
-  <data name="Devices.Text" xml:space="preserve">
-    <value>Devices</value>
-  </data>
-  <data name="DisableLocal.Title" xml:space="preserve">
-    <value>Disable all local files and devices</value>
-  </data>
-  <data name="DisableOnline.Title" xml:space="preserve">
-    <value>Disable all online services and networks</value>
-  </data>
-  <data name="Done.Content" xml:space="preserve">
+  <data name="MediaLibraryDone" xml:space="preserve">
     <value>Clear all</value>
   </data>
-  <data name="EventsScan.Description" xml:space="preserve">
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
     <value>Scan for new media after an event or events take place.</value>
   </data>
-  <data name="EventsScan.Title" xml:space="preserve">
-    <value>Smart event scan</value>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>Scan when a removable device or drive is connected</value>
   </data>
-  <data name="FilesAdd.Title" xml:space="preserve">
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
     <value>Scan when adding files to your media sources</value>
   </data>
-  <data name="FolderInfo.Text" xml:space="preserve">
-    <value>We already look for your media files in your default user folders. You can add additional folders that we can use to populate your library.</value>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>Scan when you add a new media location</value>
   </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Media sources</value>
-  </data>
-  <data name="LastFM.Text" xml:space="preserve">
-    <value>Last.fm</value>
-  </data>
-  <data name="ManageFolders.Description" xml:space="preserve">
-    <value>Videos, music and more</value>
-  </data>
-  <data name="ManageFolders.Title" xml:space="preserve">
-    <value>Manage local media folders</value>
-  </data>
-  <data name="ManualScan.Description" xml:space="preserve">
-    <value>Scans the folders you've already added for music and videos to add to your library.</value>
-  </data>
-  <data name="ManualScan.Title" xml:space="preserve">
-    <value>Manual scan</value>
-  </data>
-  <data name="OnlineH.Text" xml:space="preserve">
-    <value>Online media &amp; services</value>
-  </data>
-  <data name="OnlineServices.Text" xml:space="preserve">
-    <value>Online services</value>
-  </data>
-  <data name="Open.Title" xml:space="preserve">
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
     <value>Scan when the app is opened</value>
   </data>
-  <data name="OwnH.Text" xml:space="preserve">
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>Smart event scan</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>Fetch data from the Internet when needed</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
     <value>Local media &amp; devices</value>
   </data>
-  <data name="Ripping.Description" xml:space="preserve">
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>Videos, music and more</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>Manage local media folders</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>Scans the folders you've already added for music and videos to add to your library.</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>Manual scan</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>Online data</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
     <value>Choose what you want to happen when you rip a disc.</value>
   </data>
-  <data name="Ripping.Title" xml:space="preserve">
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
     <value>Disc ripping options</value>
   </data>
-  <data name="SeparateLocal.Description" xml:space="preserve">
-    <value>Create a seperate sidebar entry for your local music, rather than merging online and local music together in one place.</value>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>Add/remove sidebar items</value>
   </data>
-  <data name="SeparateLocal.Title" xml:space="preserve">
-    <value>Split local &amp; online library in sidebar</value>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>Appearance</value>
   </data>
-  <data name="ShufflePlaylist.Text" xml:space="preserve">
-    <value>Shuffle playlist</value>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>General items</value>
   </data>
-  <data name="Streaming.Text" xml:space="preserve">
-    <value>Streaming Service</value>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>Show the hamburger button</value>
   </data>
-  <data name="VChooseFolders.Description" xml:space="preserve">
-    <value>Choose where we look for your video files.</value>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>Icon style</value>
   </data>
-  <data name="VChooseFolders.Title" xml:space="preserve">
-    <value>Add/remove video library folders</value>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>Window resize changes</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>Show header</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>Blend the end &amp; beginning of your music tracks.</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>Crossfade</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>Choose different sound profiles depending on your media type.</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>Equaliser</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>We will instantly move to your next track without waiting.</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>Gapless playback</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>Adjust how your video scales depending on window size.</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>Change video resolution and music bitrate.</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>Manage streaming quality</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>Visualiser</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Select language</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>Choose your language manually from a list.</value>
   </data>
 </root>

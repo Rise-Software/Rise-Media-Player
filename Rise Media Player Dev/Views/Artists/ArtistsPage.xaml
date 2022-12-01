@@ -80,9 +80,10 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/MediaLibrary/AddFolders"
                 Click="AddFolders_Click"
-                Icon="NewFolder" />
+                Icon="NewFolder"
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
         <GridView

@@ -4,16 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
-            <TextBlock x:Uid="/Playback/GeneralH" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/PlaybackGeneralH}" />
 
             <uc:ExpanderControl
-                Title="Visualizer"
+                Title="{markup:ResourceHelper Name=/Settings/VisualizerTitle}"
                 ExpanderStyle="Static"
                 Icon="&#xE8B9;">
                 <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">
@@ -23,31 +24,35 @@
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Playback/EQ"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
                 Click="OnEqualizerExpanderClick"
+                Description="{markup:ResourceHelper Name=/Settings/PlaybackEQDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xE9E9;">
                 <FontIcon FontSize="16" Glyph="&#xE00F;" />
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Playback/StreamingQuality"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackStreamingQualityTitle}"
+                Description="{markup:ResourceHelper Name=/Settings/PlaybackStreamingQualityDesc}"
                 ExpanderStyle="Disabled"
                 Icon="&#xEA69;">
                 <FontIcon FontSize="16" Glyph="&#xE00F;" />
             </uc:ExpanderControl>
 
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/PlaybackMusicH}" />
 
-            <TextBlock x:Uid="/Playback/MusicH" Style="{StaticResource SubheaderTextBlockStyle}" />
             <uc:ExpanderControl
-                x:Uid="/Playback/Gapless"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackGaplessTitle}"
+                Description="{markup:ResourceHelper Name=/Settings/PlaybackGaplessDesc}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE101;">
                 <ToggleSwitch IsOn="{x:Bind ViewModel.Gapless, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/Playback/Crossfade"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackCrossfadeTitle}"
+                Description="{markup:ResourceHelper Name=/Settings/PlaybackCrossfadeDesc}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE13C;">
                 <ComboBox
@@ -56,10 +61,11 @@
                     SelectedIndex="{x:Bind ViewModel.CrossfadeDuration, Mode=TwoWay}" />
             </uc:ExpanderControl>
 
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/PlaybackVideoH}" />
 
-            <TextBlock x:Uid="/Playback/VideoH" Style="{StaticResource SubheaderTextBlockStyle}" />
             <uc:ExpanderControl
-                x:Uid="/Playback/Scaling"
+                Title="{markup:ResourceHelper Name=/Settings/PlaybackScalingTitle}"
+                Description="{markup:ResourceHelper Name=/Settings/PlaybackScalingDesc}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE1D9;">
                 <ComboBox

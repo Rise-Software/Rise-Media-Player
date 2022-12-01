@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -11,15 +12,14 @@
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" Spacing="4">
             <Border
-                Height="Auto"
-                Margin="0,10,0,0"
+                Margin="0,12,0,0"
                 Padding="12,0,12,0"
                 Style="{StaticResource SettingsCard}">
                 <uc:AdaptiveItemPane Margin="0,12,0,0" VerticalAlignment="Center">
                     <uc:AdaptiveItemPane.LeftPane>
                         <Image
                             Width="262"
-                            Height="45"
+                            Height="48"
                             Source="ms-appx:///Assets/Branding/AlphaBanner.png" />
                     </uc:AdaptiveItemPane.LeftPane>
 
@@ -34,7 +34,7 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xE946;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock x:Uid="/About/Version" FontWeight="SemiBold" />
+                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourcesHelper Name=Version}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -51,7 +51,7 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xECA7;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock FontWeight="SemiBold" Text="Insider Hub" />
+                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=InsiderHub}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -71,7 +71,7 @@
                                                 FontSize="12"
                                                 NavigateUri="https://github.com/Rise-Software/Rise-Media-Player"
                                                 UnderlineStyle="None">
-                                                <Run x:Uid="/About/Contribute" />
+                                                <Run Text="{markup:ResourceHelper Name=Contribute}" />
                                             </Hyperlink>
                                         </TextBlock>
                                     </StackPanel>
@@ -83,11 +83,12 @@
             </Border>
 
             <TextBlock
-                x:Uid="/About/MoreH"
                 Margin="0,-10,0,0"
-                Style="{StaticResource SubheaderTextBlockStyle}" />
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="{markup:ResourceHelper Name=/Settings/AboutMoreH}" />
             <uc:ExpanderControl
-                x:Uid="/About/Social"
+                Title="{markup:ResourceHelper Name=/Settings/AboutSocialTitle}"
+                Description="{markup:ResourceHelper Name=/Settings/AboutSocialDesc}"
                 ExpanderStyle="Static"
                 Icon="&#xE15F;">
                 <StackPanel Orientation="Horizontal">
@@ -107,7 +108,7 @@
             </uc:ExpanderControl>
 
             <uc:ExpanderControl
-                x:Uid="/About/TermsAndConditions"
+                Title="{markup:ResourceHelper Name=TermsAndConditions}"
                 Click="ExpanderControl_Click"
                 ExpanderStyle="Button"
                 Icon="&#xF28B;">

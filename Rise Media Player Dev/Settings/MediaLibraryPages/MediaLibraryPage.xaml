@@ -3,8 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="using:Rise.App"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uc="using:Rise.App.UserControls" xmlns:local1="using:Rise.App"
+    xmlns:uc="using:Rise.App.UserControls"
     mc:Ignorable="d">
 
     <StackPanel
@@ -13,17 +15,18 @@
         Spacing="4">
         <uc:ExpanderControl
             x:Name="GotoManage"
-            x:Uid="/MediaLibrary/ManageFolders"
+            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryManageFoldersTitle}"
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryManageFoldersDesc}"
             Click="GotoManage_Click"
             ExpanderStyle="Button"
             Icon="&#xE19C;">
             <FontIcon Glyph="&#xE00F;" />
         </uc:ExpanderControl>
 
-        <TextBlock x:Uid="/MediaLibrary/OwnH" Style="{StaticResource SubheaderTextBlockStyle}" />
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/MediaLibraryLocalMediaH}" />
 
         <uc:ExpanderControl
-            x:Uid="/MediaLibrary/Deletion"
+            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryDeletionTitle}"
             ExpanderStyle="Disabled"
             Icon="&#xE74D;">
             <ComboBox
@@ -33,7 +36,8 @@
         </uc:ExpanderControl>
 
         <uc:ExpanderControl
-            x:Uid="/MediaLibrary/Ripping"
+            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryRippingTitle}"
+            Description="{markup:ResourceHelper Name=/Settings/MediaLibraryRippingDesc}"
             ExpanderStyle="Disabled"
             Icon="&#xE958;">
             <FontIcon
@@ -42,11 +46,11 @@
                 Glyph="&#xE00F;" />
         </uc:ExpanderControl>
 
-        <TextBlock Text="Online data" Style="{StaticResource SubheaderTextBlockStyle}" />
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=/Settings/MediaLibraryOnlineDataH}" />
 
         <uc:ExpanderControl
+            Title="{markup:ResourceHelper Name=/Settings/MediaLibraryFetchOnlineData}"
             ExpanderStyle="Static"
-            Title="Fetch data from the Internet when needed"
             Icon="&#xE12B;">
             <ToggleSwitch IsOn="{x:Bind local1:App.SViewModel.FetchOnlineData, Mode=TwoWay}" />
         </uc:ExpanderControl>

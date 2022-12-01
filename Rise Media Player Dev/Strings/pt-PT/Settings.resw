@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutExtrasH" xml:space="preserve">
+    <value>Insider Extras</value>
+  </data>
+  <data name="AboutMoreCopyVersion" xml:space="preserve">
+    <value>Copy version</value>
+  </data>
+  <data name="AboutMoreH" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="AboutMoreReleases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="AboutMoreTitle" xml:space="preserve">
+    <value>More version info</value>
+  </data>
+  <data name="AboutSave" xml:space="preserve">
+    <value>Save to my device</value>
+  </data>
+  <data name="AboutSocialDesc" xml:space="preserve">
+    <value>Keep up with the latest updates.</value>
+  </data>
+  <data name="AboutSocialTitle" xml:space="preserve">
+    <value>Social media</value>
+  </data>
+  <data name="AboutWallsDesc" xml:space="preserve">
+    <value>Access some exclusive RiseMP branded wallpapers.</value>
+  </data>
+  <data name="AboutWallsTitle" xml:space="preserve">
+    <value>Desktop wallpapers &amp; themes</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Add an account</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
+  <data name="AddFolders" xml:space="preserve">
+    <value>Add folders</value>
+  </data>
+  <data name="AppearanceChooseColor" xml:space="preserve">
+    <value>Choose your window glaze</value>
+  </data>
+  <data name="AppearanceChooseTheme" xml:space="preserve">
+    <value>Choose your colour</value>
+  </data>
+  <data name="AppearancePickUp" xml:space="preserve">
+    <value>Pick up where you left off</value>
+  </data>
+  <data name="AppearanceStartupTitle" xml:space="preserve">
+    <value>On startup</value>
+  </data>
+  <data name="AppearanceTip" xml:space="preserve">
+    <value>*Compact mode changes won't take effect until after setup has completed.</value>
+  </data>
+  <data name="MatchSystemAppLang" xml:space="preserve">
+    <value>Match system &amp; app languages</value>
+  </data>
+  <data name="MediaLibraryAutoScanDesc" xml:space="preserve">
+    <value>Scan per a specified period of time when the app is open.</value>
+  </data>
+  <data name="MediaLibraryAutoScanTitle" xml:space="preserve">
+    <value>Periodic scanning</value>
+  </data>
+  <data name="MediaLibraryDeletionTitle" xml:space="preserve">
+    <value>When removing local media</value>
+  </data>
+  <data name="MediaLibraryDone" xml:space="preserve">
+    <value>Clear all</value>
+  </data>
+  <data name="MediaLibraryEventsScanDesc" xml:space="preserve">
+    <value>Scan for new media after an event or events take place.</value>
+  </data>
+  <data name="MediaLibraryEventsScanDeviceConnect" xml:space="preserve">
+    <value>Scan when a removable device or drive is connected</value>
+  </data>
+  <data name="MediaLibraryEventsScanFilesAdd" xml:space="preserve">
+    <value>Scan when adding files to your media sources</value>
+  </data>
+  <data name="MediaLibraryEventsScanLocation" xml:space="preserve">
+    <value>Scan when you add a new media location</value>
+  </data>
+  <data name="MediaLibraryEventsScanOpen" xml:space="preserve">
+    <value>Scan when the app is opened</value>
+  </data>
+  <data name="MediaLibraryEventsScanTitle" xml:space="preserve">
+    <value>Smart event scan</value>
+  </data>
+  <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
+    <value>Fetch data from the Internet when needed</value>
+  </data>
+  <data name="MediaLibraryLocalMediaH" xml:space="preserve">
+    <value>Local media &amp; devices</value>
+  </data>
+  <data name="MediaLibraryManageFoldersDesc" xml:space="preserve">
+    <value>Videos, music and more</value>
+  </data>
+  <data name="MediaLibraryManageFoldersTitle" xml:space="preserve">
+    <value>Manage local media folders</value>
+  </data>
+  <data name="MediaLibraryManualScanDesc" xml:space="preserve">
+    <value>Scans the folders you've already added for music and videos to add to your library.</value>
+  </data>
+  <data name="MediaLibraryManualScanTitle" xml:space="preserve">
+    <value>Manual scan</value>
+  </data>
+  <data name="MediaLibraryOnlineDataH" xml:space="preserve">
+    <value>Online data</value>
+  </data>
+  <data name="MediaLibraryRippingDesc" xml:space="preserve">
+    <value>Choose what you want to happen when you rip a disc.</value>
+  </data>
+  <data name="MediaLibraryRippingTitle" xml:space="preserve">
+    <value>Disc ripping options</value>
+  </data>
+  <data name="NavigationAddRemoveH" xml:space="preserve">
+    <value>Add/remove sidebar items</value>
+  </data>
+  <data name="NavigationAppearanceH" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="NavigationGeneralItems" xml:space="preserve">
+    <value>General items</value>
+  </data>
+  <data name="NavigationHamburgerTitle" xml:space="preserve">
+    <value>Show the hamburger button</value>
+  </data>
+  <data name="NavigationIconStyle" xml:space="preserve">
+    <value>Icon style</value>
+  </data>
+  <data name="NavigationResize" xml:space="preserve">
+    <value>Window resize changes</value>
+  </data>
+  <data name="NavigationShowHeader" xml:space="preserve">
+    <value>Show header</value>
+  </data>
+  <data name="PlaybackCrossfadeDesc" xml:space="preserve">
+    <value>Blend the end &amp; beginning of your music tracks.</value>
+  </data>
+  <data name="PlaybackCrossfadeTitle" xml:space="preserve">
+    <value>Crossfade</value>
+  </data>
+  <data name="PlaybackEQDesc" xml:space="preserve">
+    <value>Choose different sound profiles depending on your media type.</value>
+  </data>
+  <data name="PlaybackEQTitle" xml:space="preserve">
+    <value>Equaliser</value>
+  </data>
+  <data name="PlaybackGaplessDesc" xml:space="preserve">
+    <value>We will instantly move to your next track without waiting.</value>
+  </data>
+  <data name="PlaybackGaplessTitle" xml:space="preserve">
+    <value>Gapless playback</value>
+  </data>
+  <data name="PlaybackGeneralH" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="PlaybackMusicH" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="PlaybackScalingDesc" xml:space="preserve">
+    <value>Adjust how your video scales depending on window size.</value>
+  </data>
+  <data name="PlaybackScalingTitle" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="PlaybackStreamingQualityDesc" xml:space="preserve">
+    <value>Change video resolution and music bitrate.</value>
+  </data>
+  <data name="PlaybackStreamingQualityTitle" xml:space="preserve">
+    <value>Manage streaming quality</value>
+  </data>
+  <data name="PlaybackVideoH" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="PlaybackVisualizerTitle" xml:space="preserve">
+    <value>Visualiser</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Select language</value>
+  </data>
+  <data name="SelectLanguageDesc" xml:space="preserve">
+    <value>Choose your language manually from a list.</value>
+  </data>
+</root>

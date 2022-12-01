@@ -16,7 +16,7 @@ namespace Rise.App.Settings
         {
             InitializeComponent();
 
-            vTip.Subtitle = string.Format(ResourceHelper.GetString("/About/VersionTemplate"), AppVersion.VersionName, AppVersion.Version);
+            vTip.Subtitle = string.Format(ResourceHelper.GetString("VersionTemplate"), AppVersion.VersionName, AppVersion.Version);
 
             VersionData.RequestedOperation = DataPackageOperation.Copy;
             VersionData.SetText($"{AppVersion.VersionName} - {AppVersion.Version}");
@@ -33,7 +33,7 @@ namespace Rise.App.Settings
                 case "Insider":
                     _ = Frame.Navigate(typeof(InsiderPage));
                     AllSettingsPage.Current.MainSettingsHeaderIcon.Glyph = "\uF1AD";
-                    AllSettingsPage.Current.MainSettingsHeader.Text = "Insider Hub";
+                    AllSettingsPage.Current.MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
                     SettingsDialogContainer.Breadcrumbs.Add(ResourceHelper.GetString("InsiderHub"));
                     break;
 
