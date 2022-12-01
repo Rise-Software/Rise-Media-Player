@@ -34,7 +34,7 @@
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xE946;" />
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourcesHelper Name=Version}" />
+                                        <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=Version}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"

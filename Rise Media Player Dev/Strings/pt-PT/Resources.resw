@@ -336,4 +336,34 @@
   <data name="ShufflePlaylistText" xml:space="preserve">
     <value>Shuffle playlist</value>
   </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albums</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} songs</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 album</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 song</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
+  </data>
 </root>

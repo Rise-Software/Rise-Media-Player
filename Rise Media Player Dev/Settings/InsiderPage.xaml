@@ -15,9 +15,9 @@
                 Margin="0,-10,0,0"
                 Style="{StaticResource SubheaderTextBlockStyle}" />
             <uc:ExpanderControl
-                Title="{markup:ResourcesHelper Name=/Settings/AboutWallsTitle}"
+                Title="{markup:ResourceHelper Name=/Settings/AboutWallsTitle}"
                 Click="ExpanderControl_Click"
-                Description="{markup:ResourcesHelper Name=/Settings/AboutWallsDesc}"
+                Description="{markup:ResourceHelper Name=/Settings/AboutWallsDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xE8B9;">
                 <FontIcon Glyph="&#xE00F;" />

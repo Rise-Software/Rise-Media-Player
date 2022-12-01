@@ -567,12 +567,12 @@
     <Content Include="Assets\Web\LASTFM.png" />
     <Content Include="Visualizers\Bloom.html" />
     <Content Include="Properties\Default.rd.xml" />
-    <PRIResource Include="Strings\it-IT\Settings.resw" />
-    <PRIResource Include="Strings\pl-PL\Settings.resw" />
-    <PRIResource Include="Strings\pt-PT\Settings.resw" />
-    <PRIResource Include="Strings\ro-RO\Settings.resw" />
-    <PRIResource Include="Strings\ru-RU\Settings.resw" />
     <PRIResource Include="Strings\tr-TR\Settings.resw" />
+    <PRIResource Include="Strings\ru-RU\Settings.resw" />
+    <PRIResource Include="Strings\ro-RO\Settings.resw" />
+    <PRIResource Include="Strings\pt-PT\Settings.resw" />
+    <PRIResource Include="Strings\pl-PL\Settings.resw" />
+    <PRIResource Include="Strings\it-IT\Settings.resw" />
     <PRIResource Include="Strings\hi-IN\Settings.resw" />
     <PRIResource Include="Strings\fr-FR\Settings.resw" />
     <PRIResource Include="Strings\en-GB\Settings.resw" />
@@ -597,76 +597,34 @@
     <PRIResource Include="Strings\pt-PT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\pt-PT\Navigation.resw" />
-    <PRIResource Include="Strings\pt-PT\Language.resw" />
     <PRIResource Include="Strings\pt-PT\Information.resw" />
     <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
-    <PRIResource Include="Strings\pt-PT\Details.resw" />
-    <PRIResource Include="Strings\pt-PT\Appearance.resw" />
-    <PRIResource Include="Strings\pt-PT\About.resw" />
-    <PRIResource Include="Strings\pl-PL\Navigation.resw" />
-    <PRIResource Include="Strings\pl-PL\Language.resw" />
     <PRIResource Include="Strings\pl-PL\Information.resw" />
     <PRIResource Include="Strings\pl-PL\HelpTips.resw" />
-    <PRIResource Include="Strings\pl-PL\Details.resw" />
-    <PRIResource Include="Strings\pl-PL\Appearance.resw" />
-    <PRIResource Include="Strings\pl-PL\About.resw" />
     <PRIResource Include="Strings\it-IT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\it-IT\Navigation.resw" />
-    <PRIResource Include="Strings\it-IT\Language.resw" />
     <PRIResource Include="Strings\it-IT\Information.resw" />
     <PRIResource Include="Strings\it-IT\HelpTips.resw" />
-    <PRIResource Include="Strings\it-IT\Details.resw" />
-    <PRIResource Include="Strings\it-IT\Appearance.resw" />
-    <PRIResource Include="Strings\it-IT\About.resw" />
     <PRIResource Include="Strings\hi-IN\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\hi-IN\Navigation.resw" />
-    <PRIResource Include="Strings\hi-IN\Language.resw" />
     <PRIResource Include="Strings\hi-IN\Information.resw" />
     <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
-    <PRIResource Include="Strings\hi-IN\Details.resw" />
-    <PRIResource Include="Strings\hi-IN\Appearance.resw" />
-    <PRIResource Include="Strings\hi-IN\About.resw" />
-    <PRIResource Include="Strings\fr-FR\Navigation.resw">
-      <SubType>Designer</SubType>
-    </PRIResource>
-    <PRIResource Include="Strings\fr-FR\Language.resw" />
     <PRIResource Include="Strings\fr-FR\Information.resw" />
     <PRIResource Include="Strings\fr-FR\HelpTips.resw" />
-    <PRIResource Include="Strings\fr-FR\Details.resw" />
-    <PRIResource Include="Strings\fr-FR\Appearance.resw" />
-    <PRIResource Include="Strings\fr-FR\About.resw" />
     <PRIResource Include="Strings\tr-TR\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\tr-TR\Navigation.resw" />
-    <PRIResource Include="Strings\tr-TR\Language.resw" />
     <PRIResource Include="Strings\tr-TR\Information.resw" />
     <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
-    <PRIResource Include="Strings\tr-TR\Details.resw" />
-    <PRIResource Include="Strings\tr-TR\Appearance.resw" />
-    <PRIResource Include="Strings\tr-TR\About.resw" />
-    <PRIResource Include="Strings\ru-RU\Navigation.resw" />
-    <PRIResource Include="Strings\ru-RU\Language.resw" />
     <PRIResource Include="Strings\ru-RU\Information.resw" />
     <PRIResource Include="Strings\ru-RU\HelpTips.resw" />
-    <PRIResource Include="Strings\ru-RU\Details.resw" />
-    <PRIResource Include="Strings\ru-RU\Appearance.resw" />
-    <PRIResource Include="Strings\ru-RU\About.resw" />
     <PRIResource Include="Strings\ro-RO\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\ro-RO\Navigation.resw" />
-    <PRIResource Include="Strings\ro-RO\Language.resw" />
     <PRIResource Include="Strings\ro-RO\Information.resw" />
     <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
-    <PRIResource Include="Strings\ro-RO\Details.resw" />
-    <PRIResource Include="Strings\ro-RO\Appearance.resw" />
-    <PRIResource Include="Strings\ro-RO\About.resw" />
     <PRIResource Include="Strings\en-GB\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -1067,10 +1025,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Language.resw" />
-    <PRIResource Include="Strings\en-GB\About.resw" />
-    <PRIResource Include="Strings\en-GB\Navigation.resw" />
-    <PRIResource Include="Strings\en-GB\Appearance.resw" />
     <PRIResource Include="Strings\en-GB\Information.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -1091,7 +1045,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Rise.App_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\en-GB\Details.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rise.Common\Rise.Common.csproj">

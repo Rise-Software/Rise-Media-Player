@@ -35,7 +35,7 @@
                 <TextBlock
                     Padding="12,8,0,0"
                     FontWeight="SemiBold"
-                    Text="{markup:ResourcesHelper Name=Of}" />
+                    Text="{markup:ResourceHelper Name=Of}" />
                 <TextBlock
                     Padding="30,8,4,0"
                     FontWeight="SemiBold"

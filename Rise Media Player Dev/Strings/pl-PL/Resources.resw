@@ -360,4 +360,133 @@
   <data name="ShufflePlaylistText" xml:space="preserve">
     <value>Shuffle playlist</value>
   </data>
+  <data name="Contribute" xml:space="preserve">
+    <value>Contribute</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="VersionTemplate" xml:space="preserve">
+    <value>{0}
+Internal Version: {1}
+
+Rise Software - Discy &amp; YourOrdinaryCat</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Learn" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="Album" xml:space="preserve">
+    <value>Album</value>
+  </data>
+  <data name="AlbumArtist" xml:space="preserve">
+    <value>Album artist</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Artist(s)</value>
+  </data>
+  <data name="BecomeTranslator" xml:space="preserve">
+    <value>Become a translator </value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DetailsAlbumTitle" xml:space="preserve">
+    <value>Album title</value>
+  </data>
+  <data name="Disc" xml:space="preserve">
+    <value>Disc</value>
+  </data>
+  <data name="EditAlbum" xml:space="preserve">
+    <value>Edit album art</value>
+  </data>
+  <data name="ExportAlbumArt" xml:space="preserve">
+    <value>Export album art</value>
+  </data>
+  <data name="ExportPlaylistIcon" xml:space="preserve">
+    <value>Export playlist icon</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="MediaLocalDesc" xml:space="preserve">
+    <value>This song is local, meaning it is stored directly on to your device's storage, rather than the cloud or online. Changing properties here will change them for the file itself, meaning it will affect other media players.</value>
+  </data>
+  <data name="MediaLocalTitle" xml:space="preserve">
+    <value>Local Music</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="PlaylistSongsDetailsTipTitle" xml:space="preserve">
+    <value>Move songs by clicking the up and down buttons.</value>
+  </data>
+  <data name="PlaylistTitle" xml:space="preserve">
+    <value>Playlist name</value>
+  </data>
+  <data name="PlaylistVideosDetailsTipTitle" xml:space="preserve">
+    <value>Move videos by clicking the up and down buttons.</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ReleaseYear" xml:space="preserve">
+    <value>Release year</value>
+  </data>
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Report an issue</value>
+  </data>
+  <data name="SongTitle" xml:space="preserve">
+    <value>Song title</value>
+  </data>
+  <data name="StoredAsFile" xml:space="preserve">
+    <value>This song is stored as a file on your device.</value>
+  </data>
+  <data name="SystemLanguage" xml:space="preserve">
+    <value>System language</value>
+  </data>
+  <data name="TrackNumber" xml:space="preserve">
+    <value>Track number</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Translations</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albums</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} songs</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 album</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 song</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
+  </data>
 </root>
