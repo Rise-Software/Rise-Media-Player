@@ -1,4 +1,5 @@
-﻿using Rise.Models;
+﻿using Rise.Common.Extensions;
+using Rise.Models;
 using SQLite;
 using System;
 using System.Collections.Concurrent;
@@ -129,7 +130,7 @@ namespace Rise.NewRepository
         public static async Task DeleteQueuedAsync()
         {
             _ = await _asyncDb.RemoveAllAsync(_removeQueue);
-            _upsertQueue.Clear();
+            _removeQueue.Clear();
         }
 
         /// <summary>
