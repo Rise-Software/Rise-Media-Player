@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:co="using:Rise.App.UserControls"
     xmlns:conv="using:Rise.App.Converters"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <ResourceDictionary.MergedDictionaries>
@@ -392,11 +393,11 @@
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
 
-                                            <MenuFlyoutSubItem x:Uid="/Information/AddTo" x:Name="AddToPlaylistMenu">
+                                            <MenuFlyoutSubItem x:Name="AddToPlaylistMenu" Text="{markup:ResourceHelper Name=AddTo}">
                                                 <MenuFlyoutSubItem.Icon>
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{TemplateBinding AddToPlaylistCommand}">
+                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{TemplateBinding AddToPlaylistCommand}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>

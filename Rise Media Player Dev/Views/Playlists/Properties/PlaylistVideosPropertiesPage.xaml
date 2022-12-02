@@ -77,7 +77,7 @@
                                 Orientation="Horizontal"
                                 Spacing="4">
                                 <Button
-                                    x:Uid="/Information/MoveUp2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveUp}"
                                     Click="MoveUp_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
@@ -87,7 +87,7 @@
                                         Glyph="&#xE014;" />
                                 </Button>
                                 <Button
-                                    x:Uid="/Information/MoveDown2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveDown}"
                                     Click="MoveBottom_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
@@ -104,7 +104,7 @@
                                     Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
                                     Opacity="0.3" />
                                 <Button
-                                    x:Uid="/Information/RemovePlaylist2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=RemoveFromPlaylist}"
                                     Click="RemoveSong_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">

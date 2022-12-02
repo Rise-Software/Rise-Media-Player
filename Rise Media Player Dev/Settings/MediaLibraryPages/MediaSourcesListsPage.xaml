@@ -100,7 +100,7 @@
                                 </Button>
 
                                 <Button
-                                    x:Uid="/Information/RemoveFolder"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryRemoveFolder}"
                                     Padding="8"
                                     Click="RemoveMusicFolder_Click"
                                     Style="{StaticResource TransparentButtonStyle}">
@@ -141,7 +141,7 @@
                                 </Button>
 
                                 <Button
-                                    x:Uid="/Information/RemoveFolder"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryRemoveFolder}"
                                     Padding="8"
                                     Click="RemoveVideoFolder_Click"
                                     Style="{StaticResource TransparentButtonStyle}">

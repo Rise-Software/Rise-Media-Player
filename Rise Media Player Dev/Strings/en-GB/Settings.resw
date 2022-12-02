@@ -171,6 +171,12 @@
   <data name="AppearanceTip" xml:space="preserve">
     <value>*Compact mode changes won't take effect until after setup has completed.</value>
   </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>Colourful Icons</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>High Contrast Icons</value>
+  </data>
   <data name="MatchSystemAppLang" xml:space="preserve">
     <value>Match system &amp; app languages</value>
   </data>
@@ -224,6 +230,9 @@
   </data>
   <data name="MediaLibraryOnlineDataH" xml:space="preserve">
     <value>Online data</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>Remove folder</value>
   </data>
   <data name="MediaLibraryRippingDesc" xml:space="preserve">
     <value>Choose what you want to happen when you rip a disc.</value>
@@ -299,5 +308,14 @@
   </data>
   <data name="SelectLanguageDesc" xml:space="preserve">
     <value>Choose your language manually from a list.</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>Menu bar</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>Sidebar (Classic)</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>Settings style</value>
   </data>
 </root>

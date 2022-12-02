@@ -38,7 +38,7 @@
                     Text="{markup:ResourceHelper Name=Play}" />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/ShowAlbum"
+                    Text="{markup:ResourceHelper Name=ShowAlbum}"
                     Command="{x:Bind GoToAlbumCommand}"
                     CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
@@ -47,19 +47,19 @@
                 </MenuFlyoutItem>
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/ShowArtist"
+                    Text="{markup:ResourceHelper Name=ShowArtist}"
                     Command="{x:Bind GoToArtistCommand}"
                     CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
                     Icon="People" />
 
                 <MenuFlyoutSeparator />
 
-                <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                     <MenuFlyoutSubItem.Icon>
                         <FontIcon Glyph="&#xECC8;" />
                     </MenuFlyoutSubItem.Icon>
 
-                    <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                    <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                         </MenuFlyoutItem.Icon>
@@ -67,14 +67,14 @@
                 </MenuFlyoutSubItem>
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/Share"
+                    Text="{markup:ResourceHelper Name=Share}"
                     Icon="Share"
                     IsEnabled="False" />
 
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/ShowinFE"
+                    Text="{markup:ResourceHelper Name=ShowInFileExplorer}"
                     Command="{x:Bind OpenInExplorerCommand}"
                     CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
@@ -85,7 +85,7 @@
                 <MenuFlyoutSeparator />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/RemovePlaylist"
+                    Text="{markup:ResourceHelper Name=RemovePlaylist}"
                     Click="RemoveSong_Click"
                     Icon="Delete" />
 
@@ -182,7 +182,7 @@
                                 Background="Transparent"
                                 DefaultLabelPosition="Right">
                                 <AppBarButton
-                                    x:Uid="/Information/PlayAll"
+                                    Label="{markup:ResourceHelper Name=PlayAll}"
                                     Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedItem}"
                                     Icon="Play" />
@@ -190,7 +190,7 @@
                                 <AppBarSeparator />
 
                                 <AppBarButton
-                                    x:Uid="/Information/Shuffle"
+                                    Label="{markup:ResourceHelper Name=Shuffle}"
                                     Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedItem}"
                                     Icon="Shuffle" />
@@ -251,12 +251,12 @@
 
                         <MenuFlyoutSeparator />
 
-                        <MenuFlyoutSubItem x:Name="AddToVideo" x:Uid="/Information/AddTo">
+                        <MenuFlyoutSubItem x:Name="AddToVideo" Text="{markup:ResourceHelper Name=AddTo}">
                             <MenuFlyoutSubItem.Icon>
                                 <FontIcon Glyph="&#xECC8;" />
                             </MenuFlyoutSubItem.Icon>
 
-                            <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddVideoToPlaylistCommand}">
+                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddVideoToPlaylistCommand}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                 </MenuFlyoutItem.Icon>
@@ -264,14 +264,14 @@
                         </MenuFlyoutSubItem>
 
                         <MenuFlyoutItem
-                            x:Uid="/Information/Share"
+                            Text="{markup:ResourceHelper Name=Share}"
                             Icon="Share"
                             IsEnabled="False" />
 
                         <MenuFlyoutSeparator />
 
                         <MenuFlyoutItem
-                            x:Uid="/Information/RemoveThing"
+                            Text="{markup:ResourceHelper Name=RemoveThing}"
                             Click="RemoveVideo_Click"
                             Icon="Delete" />
 

@@ -52,7 +52,7 @@
                     <FontIcon Glyph="&#xE141;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Uid="/Information/ShowinFELabel">
+            <AppBarButton Label="{markup:ResourceHelper Name=ShowInFileExplorer}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="" />
                 </AppBarButton.Icon>

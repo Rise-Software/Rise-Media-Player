@@ -59,7 +59,7 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Icon="Delete"
                 IsEnabled="False"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
@@ -70,7 +70,7 @@
 
             <AppBarSeparator />
 
-            <AppBarButton Click="PlayFromUrl_Click" Label="Play from URL">
+            <AppBarButton Click="PlayFromUrl_Click" Label="{markup:ResourceHelper Name=PlayFromUrl}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE704;" />
                 </AppBarButton.Icon>
@@ -78,7 +78,7 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View" IsEnabled="False">
+            <AppBarButton Label="{markup:ResourceHelper Name=View}" IsEnabled="False">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -94,31 +94,31 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+            <AppBarButton Label="{markup:ResourceHelper Name=Sort}" Icon="Sort">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Title"
+                            Text="{markup:ResourceHelper Name=Title}"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Title" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Year"
+                            Text="{markup:ResourceHelper Name=ReleaseYear}"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Year" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Length"
-                            Text="Length" />
+                            Text="{markup:ResourceHelper Name=Length}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Ascending"
+                            Text="{markup:ResourceHelper Name=Ascending}"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
                             GroupName="SortDirection" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Descending"
+                            Text="{markup:ResourceHelper Name=Descending}"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
                             GroupName="SortDirection" />
@@ -154,12 +154,12 @@
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -167,21 +167,21 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
+                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
                         IsEnabled="False" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
+                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
                         Icon="Help" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
+                        Text="{markup:ResourceHelper Name=RemoveThing}"
                         Icon="Delete"
                         IsEnabled="False" />
 

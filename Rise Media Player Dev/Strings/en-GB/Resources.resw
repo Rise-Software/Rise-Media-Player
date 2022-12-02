@@ -480,4 +480,136 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Translations" xml:space="preserve">
     <value>Translations</value>
   </data>
+  <data name="AddRemoveDesc" xml:space="preserve">
+    <value>Let us find music and videos by adding folders and files on your device.</value>
+  </data>
+  <data name="AddRemoveTitle" xml:space="preserve">
+    <value>Add/remove media sources</value>
+  </data>
+  <data name="AddTo" xml:space="preserve">
+    <value>Add to</value>
+  </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>App settings</value>
+  </data>
+  <data name="Artist1" xml:space="preserve">
+    <value>Artist</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="AskDiscy" xml:space="preserve">
+    <value>Ask Discy about this</value>
+  </data>
+  <data name="BrowseMediaDesc" xml:space="preserve">
+    <value>Use a file browser to look through all of your media in your folders.</value>
+  </data>
+  <data name="BrowseMediaTitle" xml:space="preserve">
+    <value>Browse for media</value>
+  </data>
+  <data name="ChangeArtistImage" xml:space="preserve">
+    <value>Change artist image</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="MessagesAndReports" xml:space="preserve">
+    <value>Messages &amp; reports</value>
+  </data>
+  <data name="MoreSettings" xml:space="preserve">
+    <value>More settings</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="MoveToBottom" xml:space="preserve">
+    <value>Move to bottom</value>
+  </data>
+  <data name="MoveToTop" xml:space="preserve">
+    <value>Move to top</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="NewPlaylist" xml:space="preserve">
+    <value>New playlist</value>
+  </data>
+  <data name="PlayAll" xml:space="preserve">
+    <value>Play all</value>
+  </data>
+  <data name="PlayFromUrl" xml:space="preserve">
+    <value>Play from URL</value>
+  </data>
+  <data name="QuickH" xml:space="preserve">
+    <value>Quick links</value>
+  </data>
+  <data name="RemoveFromPlaylist" xml:space="preserve">
+    <value>Remove from playlist</value>
+  </data>
+  <data name="RemovePlaylist" xml:space="preserve">
+    <value>Remove playlist</value>
+  </data>
+  <data name="RemoveSection" xml:space="preserve">
+    <value>Remove whole section</value>
+  </data>
+  <data name="RemoveThing" xml:space="preserve">
+    <value>Remove...</value>
+  </data>
+  <data name="Scan" xml:space="preserve">
+    <value>Scan for new media</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="ShowAlbum" xml:space="preserve">
+    <value>Show album</value>
+  </data>
+  <data name="ShowArtist" xml:space="preserve">
+    <value>Show artist</value>
+  </data>
+  <data name="ShowInFileExplorer" xml:space="preserve">
+    <value>Show in File Explorer</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Shuffle</value>
+  </data>
+  <data name="ShuffleAlbum" xml:space="preserve">
+    <value>Shuffle album</value>
+  </data>
+  <data name="ShuffleArtist" xml:space="preserve">
+    <value>Shuffle artist</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="SupportDevDesc" xml:space="preserve">
+    <value>Become a patron and enjoy exclusive benefits and merch, while helping this project move forward.</value>
+  </data>
+  <data name="SupportDevTitle" xml:space="preserve">
+    <value>Support development</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Track</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="WhatsNewDesc" xml:space="preserve">
+    <value>Check out the new features in Rise Media Player.</value>
+  </data>
+  <data name="WhatsNewTitle" xml:space="preserve">
+    <value>What's New</value>
+  </data>
 </root>

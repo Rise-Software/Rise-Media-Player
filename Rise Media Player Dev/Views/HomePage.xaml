@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:Rise.App.UserControls"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -76,28 +77,31 @@
                 </StackPanel>
             </Border>
 
-            <TextBlock x:Uid="/Information/QuickH" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{markup:ResourceHelper Name=QuickH}" />
 
             <uc:ExpanderControl
-                x:Uid="/Information/AddRemove"
+                Title="{markup:ResourceHelper Name=AddRemoveTitle}"
+                Description="{markup:ResourceHelper Name=AddRemoveDesc}"
                 Click="FoldersButton_Click"
                 ExpanderStyle="Button"
                 Icon="&#xE19C;" />
             <uc:ExpanderControl
                 x:Name="BrowseMedia"
-                x:Uid="/Information/BrowseMedia"
+                Title="{markup:ResourceHelper Name=BrowseMediaTitle}"
+                Description="{markup:ResourceHelper Name=BrowseMediaDesc}"
                 Click="BrowseMedia_Click"
                 ExpanderStyle="Button"
                 Icon="&#xE838;" />
             <uc:ExpanderControl
-                x:Uid="/Information/Support"
+                Title="{markup:ResourceHelper Name=SupportDevTitle}"
+                Description="{markup:ResourceHelper Name=SupportDevDesc}"
                 Click="SupportButton_Click"
                 ExpanderStyle="Button"
                 Icon="&#xE822;" />
             <uc:ExpanderControl
-                Title="What's New"
+                Title="{markup:ResourceHelper Name=WhatsNewTitle}"
                 Click="WhatsNew_Click"
-                Description="Check out the new features in Rise Media Player."
+                Description="{markup:ResourceHelper Name=WhatsNewDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xF4A5;" />
         </StackPanel>

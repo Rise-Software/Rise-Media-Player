@@ -54,7 +54,7 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Icon="Delete"
                 IsEnabled="False"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
@@ -113,14 +113,14 @@
                         Text="{markup:ResourceHelper Name=PinToSidebar}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
+                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
                         IsEnabled="False" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
+                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
                         Icon="Help" />
 

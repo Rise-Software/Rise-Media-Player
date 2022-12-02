@@ -132,7 +132,7 @@
 
                 <Button
                     x:Name="MoreButton"
-                    x:Uid="/Information/More"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                     Width="32"
                     Height="32"
                     Padding="0">
@@ -142,19 +142,19 @@
 
                     <Button.Flyout>
                         <MenuFlyout>
-                            <MenuFlyoutSubItem x:Uid="/Information/Style">
+                            <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=/Settings/SettingsStyle}">
                                 <MenuFlyoutSubItem.Icon>
                                     <FontIcon Glyph="&#xE771;" />
                                 </MenuFlyoutSubItem.Icon>
 
                                 <muxc:RadioMenuFlyoutItem
-                                    x:Uid="/Information/HC"
+                                    Text="{markup:ResourceHelper Name=/Settings/HighContrastIcons}"
                                     Click="IconFlyoutItem_Click"
                                     GroupName="Icons"
                                     IsChecked="{x:Bind ViewModel.ColoredSettingsIcons.Equals(x:False)}"
                                     Tag="HC" />
                                 <muxc:RadioMenuFlyoutItem
-                                    x:Uid="/Information/Colorful"
+                                    Text="{markup:ResourceHelper Name=/Settings/ColorfulIcons}"
                                     Click="IconFlyoutItem_Click"
                                     GroupName="Icons"
                                     IsChecked="{x:Bind ViewModel.ColoredSettingsIcons}"
@@ -162,8 +162,8 @@
 
                                 <MenuFlyoutSeparator />
 
-                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/Sidebar" GroupName="Dialog" />
-                                <muxc:RadioMenuFlyoutItem x:Uid="/Information/MenuBar" GroupName="Dialog" />
+                                <muxc:RadioMenuFlyoutItem Text="{markup:ResourceHelper Name=/Settings/SettingsSidebar}" GroupName="Dialog" />
+                                <muxc:RadioMenuFlyoutItem Text="{markup:ResourceHelper Name=/Settings/SettingsMenuBar}" GroupName="Dialog" />
                             </MenuFlyoutSubItem>
 
                             <MenuFlyoutSeparator />
@@ -221,7 +221,7 @@
                 </ToggleButton>
 
                 <Button
-                    x:Uid="/Information/Feedback"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Feedback}"
                     Width="32"
                     Height="32"
                     Padding="0"
@@ -233,7 +233,7 @@
 
                 <Button
                     x:Name="CloseButton"
-                    x:Uid="/Information/Close"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Close}"
                     Width="32"
                     Height="32"
                     Margin="4,0,0,0"

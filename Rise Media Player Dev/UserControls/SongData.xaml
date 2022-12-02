@@ -127,7 +127,7 @@
                 Spacing="4">
                 <Button
                     x:Name="EditButton"
-                    x:Uid="/Information/Props"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}"
                     Width="36"
                     Height="36"
                     Padding="0"

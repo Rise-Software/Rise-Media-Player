@@ -597,33 +597,25 @@
     <PRIResource Include="Strings\pt-PT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\pt-PT\Information.resw" />
     <PRIResource Include="Strings\pt-PT\HelpTips.resw" />
-    <PRIResource Include="Strings\pl-PL\Information.resw" />
     <PRIResource Include="Strings\pl-PL\HelpTips.resw" />
     <PRIResource Include="Strings\it-IT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\it-IT\Information.resw" />
     <PRIResource Include="Strings\it-IT\HelpTips.resw" />
     <PRIResource Include="Strings\hi-IN\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\hi-IN\Information.resw" />
     <PRIResource Include="Strings\hi-IN\HelpTips.resw" />
-    <PRIResource Include="Strings\fr-FR\Information.resw" />
     <PRIResource Include="Strings\fr-FR\HelpTips.resw" />
     <PRIResource Include="Strings\tr-TR\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\tr-TR\Information.resw" />
     <PRIResource Include="Strings\tr-TR\HelpTips.resw" />
-    <PRIResource Include="Strings\ru-RU\Information.resw" />
     <PRIResource Include="Strings\ru-RU\HelpTips.resw" />
     <PRIResource Include="Strings\ro-RO\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\ro-RO\Information.resw" />
     <PRIResource Include="Strings\ro-RO\HelpTips.resw" />
     <PRIResource Include="Strings\en-GB\Resources.resw">
       <SubType>Designer</SubType>
@@ -1023,9 +1015,6 @@
     <PackageReference Include="YoutubeExplode">
       <Version>6.2.4</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en-GB\Information.resw" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\AtAGlance\WidgetService\" />
