@@ -1,4 +1,5 @@
-﻿using Rise.Common;
+﻿using Rise.App.ChangeTrackers;
+using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
