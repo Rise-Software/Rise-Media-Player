@@ -50,9 +50,10 @@ namespace Rise.Data.Json
             var file = dataFolder.CreateFileAsync($"{filename}.json", CreationCollisionOption.OpenIfExists).Get();
             var controller = new JsonBackendController<T>(file);
 
-            _controllers[filename] = controller;
-            controller.LoadStoredItems();
+            var items = controller.GetStoredItems();
+            controller.Items = new(items);
 
+            _controllers[filename] = controller;
             return controller;
         }
 
@@ -76,9 +77,10 @@ namespace Rise.Data.Json
             var file = await dataFolder.CreateFileAsync($"{filename}.json", CreationCollisionOption.OpenIfExists);
             var controller = new JsonBackendController<T>(file);
 
-            _controllers[filename] = controller;
-            await controller.LoadStoredItemsAsync();
+            var items = await controller.GetStoredItemsAsync();
+            controller.Items = new(items);
 
+            _controllers[filename] = controller;
             return controller;
         }
     }
@@ -89,7 +91,7 @@ namespace Rise.Data.Json
         /// <summary>
         /// The collection of items in the controller.
         /// </summary>
-        public SafeObservableCollection<T> Items { get; } = new();
+        public SafeObservableCollection<T> Items { get; private set; }
 
         /// <summary>
         /// Gets the items currently saved in the JSON file.
@@ -113,20 +115,6 @@ namespace Rise.Data.Json
                 return JsonConvert.DeserializeObject<IEnumerable<T>>(text);
 
             return Enumerable.Empty<T>();
-        }
-
-        private void LoadStoredItems()
-        {
-            var items = GetStoredItems();
-            foreach (var itm in items)
-                Items.Add(itm);
-        }
-
-        private async Task LoadStoredItemsAsync()
-        {
-            var items = await GetStoredItemsAsync();
-            foreach (var itm in items)
-                Items.Add(itm);
         }
 
         /// <summary>
