@@ -271,6 +271,8 @@
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                         ShowAlbum="False"
+                        ShowThumbnail="False"
+                        Height="50"
                         Song="{x:Bind}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
