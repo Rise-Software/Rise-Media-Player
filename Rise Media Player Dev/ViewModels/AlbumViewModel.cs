@@ -2,6 +2,7 @@
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -158,35 +159,34 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// Deletes item data from the backend.
         /// </summary>
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(bool queue = false)
         {
             if (App.MViewModel.Albums.Contains(this))
             {
                 App.MViewModel.Albums.Remove(this);
-                await NewRepository.Repository.DeleteAsync(Model);
+
+                if (queue)
+                    NewRepository.Repository.QueueRemove(Model);
+                else
+                    await NewRepository.Repository.DeleteAsync(Model);
             }
 
-            ArtistViewModel artist = App.MViewModel.Artists.
-                FirstOrDefault(a => a.Model.Name == Model.Artist);
+            IEnumerable<ArtistViewModel> artists = App.MViewModel.Artists.Where(a => a.Model.Name == Model.Artist);
 
-            if (artist != null)
-            {
-                await artist.CheckAvailabilityAsync();
-            }
+            foreach (var artist in artists)
+                await artist.CheckAvailabilityAsync(queue);
         }
 
         /// <summary>
         /// Checks whether or not the item is available. If it's not,
         /// delete it.
         /// </summary>
-        public async Task CheckAvailabilityAsync()
+        public async Task CheckAvailabilityAsync(bool queue = false)
         {
             var trackCount = (await NewRepository.Repository.GetItemsAsync<Song>()).Count(s => s.Album == Model.Title);
 
             if (trackCount == 0)
-            {
-                await DeleteAsync();
-            }
+                await DeleteAsync(queue);
         }
         #endregion
 
