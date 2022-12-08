@@ -1,6 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Helpers;
 using System;
 using Windows.Storage;
@@ -67,7 +68,9 @@ namespace Rise.App.Views
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker picker = new();
-            picker.FileTypeFilter.Add(".m3u");
+            
+            foreach (var format in SupportedFileTypes.PlaylistFiles)
+                picker.FileTypeFilter.Add(format);
 
             StorageFile file = await picker.PickSingleFileAsync();
 

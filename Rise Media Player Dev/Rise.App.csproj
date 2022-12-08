@@ -1004,7 +1004,6 @@
     <Content Include="Assets\NavViewItemData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Rise.App_TemporaryKey.pfx" />
     <PRIResource Include="Strings\pt-PT\Terms.resw" />
     <PRIResource Include="Strings\pt-PT\Sidebar.resw" />
     <PRIResource Include="Strings\pt-PT\Props.resw" />
@@ -1130,6 +1129,11 @@
       <Project>{1319ce6d-828f-4024-93c9-4052f3f053ba}</Project>
       <Name>Rise.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.22000.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

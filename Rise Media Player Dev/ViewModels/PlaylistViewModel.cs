@@ -9,8 +9,11 @@ using Rise.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using WindowsPlaylist = Windows.Media.Playlists.Playlist;
 using System.Threading.Tasks;
 using Windows.Storage;
+using System.Xml;
+using System.Linq;
 
 namespace Rise.App.ViewModels
 {
@@ -32,8 +35,6 @@ namespace Rise.App.ViewModels
         /// <returns>A playlist based on the file.</returns>
         public static async Task<PlaylistViewModel> GetFromFileAsync(IStorageFile file)
         {
-            // Read playlist file
-            var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
             PlaylistViewModel playlist = new()
             {
                 Title = string.Empty,
@@ -42,8 +43,67 @@ namespace Rise.App.ViewModels
                 Icon = string.Empty
             };
 
+            try
+            {
+                WindowsPlaylist winrtPlaylist = await WindowsPlaylist.LoadAsync(file);
+
+                // Read playlist file
+                switch (file.ContentType)
+                {
+                    case "application/vnd.ms-wpl":
+                    case "application/vnd.ms-zpl":
+                        var text = await FileIO.ReadTextAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+
+                        XmlDocument document = new();
+                        document.LoadXml(text);
+
+                        var head = document.SelectSingleNode("/smil/head");
+
+                        // Nodes must not be null to fetch info.
+                        if (head != null)
+                        {
+                            foreach (XmlNode node in head.ChildNodes)
+                            {
+                                if (node.Name == "meta" && node.Attributes["name"].Value == "Subtitle")
+                                    playlist.Description = node.Attributes["content"].InnerText;
+                                else if (node.Name == "title")
+                                    playlist.Title = node.InnerText;
+                            }
+                        }
+                        else
+                        {
+                            // TODO: error or something.
+                        }
+                        break;
+                    case "audio/mpegurl":
+                    case "audio/x-mpegurl":
+                    case "application/mpegurl":
+                    case "application/x-mpegurl":
+                    case "application/vnd.apple.mpegurl":
+                    case "application/vnd.apple.mpegurl.audio":
+                        var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+                        break;
+                }
+
+                foreach (var playlistFile in winrtPlaylist.Files)
+                {
+                    IMediaItem item = default;
+
+                    if (SupportedFileTypes.MusicFiles.Contains(playlistFile.FileType))
+                        item = new SongViewModel(await Song.GetFromFileAsync(playlistFile));
+                    else if (SupportedFileTypes.VideoFiles.Contains(playlistFile.FileType))
+                        item = new VideoViewModel(await Video.GetFromFileAsync(playlistFile));
+
+                    await playlist.AddItemAsync(item);
+                }
+            }
+            catch (Exception e)
+            {
+                e.WriteToOutput();
+            }
+
             // Check if linked to directory
-            if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
+            /*if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
             {
                 Uri baseUri = new(Path.GetDirectoryName(file.Path));
 
@@ -210,13 +270,11 @@ namespace Rise.App.ViewModels
                         }
                     }
                 }
-            }
+            }*/
 
-        done:
+            //done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
-            {
                 playlist.Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png";
-            }
 
             return playlist;
         }
