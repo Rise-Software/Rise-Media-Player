@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74561130/206787857-e2c42231-89b1-4427-ae30-c414662af075.png" />
+  <img src="https://user-images.githubusercontent.com/74561130/206788538-b4d84a04-5aae-419e-9b2a-5357d7c79d4f.png" />
   <div class="row" align="center">
 <a href='https://www.microsoft.com/store/r/9PCSZTMTT55Z'><img src='https://user-images.githubusercontent.com/74561130/160254559-a457ff95-09a9-4910-9776-5517e2b1ea2f.png'alt='Get it from Microsoft' />
   <a href='https://github.com/Rise-Software/Rise-Media-Player/releases/download/v0.0.171.0/Rise.App_0.0.171.0_x86_x64_arm.msixbundle'><img src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png'alt='Get it from GitHub' /></a>
