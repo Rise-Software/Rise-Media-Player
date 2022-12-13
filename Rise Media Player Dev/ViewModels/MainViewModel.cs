@@ -11,6 +11,7 @@ using Rise.NewRepository;
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -203,6 +204,12 @@ namespace Rise.App.ViewModels
 
         private async Task FetchArtistsArtAsync(CancellationToken token)
         {
+            using var wc = new HttpClient(new HttpClientHandler()
+            {
+                Proxy = null,
+                UseProxy = false
+            });
+
             for (int i = 0; i < Artists.Count; i++)
             {
                 if (token.IsCancellationRequested)
@@ -210,7 +217,7 @@ namespace Rise.App.ViewModels
 
                 var artist = Artists[i];
 
-                artist.Picture = await Task.Run(() => GetArtistImage(artist.Name));
+                artist.Picture = await GetArtistImageAsync(artist.Name, wc);
             }
         }
 
@@ -344,7 +351,7 @@ namespace Rise.App.ViewModels
             return !songExists;
         }
 
-        public string GetArtistImage(string artist)
+        public async Task<string> GetArtistImageAsync(string artist, HttpClient wc = null)
         {
             if (App.SViewModel.FetchOnlineData && artist != "Unknown Artist")
             {
@@ -352,8 +359,13 @@ namespace Rise.App.ViewModels
                 {
                     string m_strFilePath = URLs.Deezer + "/search/artist/?q=" + artist + "&output=xml";
 
-                    using var wc = new WebClient();
-                    string xmlStr = wc.DownloadString(m_strFilePath);
+                    wc ??= new HttpClient(new HttpClientHandler()
+                    {
+                        Proxy = null,
+                        UseProxy = false
+                    });
+
+                    string xmlStr = await wc.GetStringAsync(m_strFilePath);
 
                     var xmlDoc = new XmlDocument();
                     xmlDoc.LoadXml(xmlStr);

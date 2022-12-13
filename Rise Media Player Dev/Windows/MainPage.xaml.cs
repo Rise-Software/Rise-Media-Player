@@ -124,7 +124,10 @@ namespace Rise.App.Views
             }
 
             if (MViewModel.IsScanning)
+            {
+                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
+            }
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)
@@ -270,7 +273,7 @@ namespace Rise.App.Views
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                await Task.Delay(30);
+                await Task.Delay(60);
                 _ = VisualStateManager.GoToState(this, "ScanningState", false);
             });
         }
