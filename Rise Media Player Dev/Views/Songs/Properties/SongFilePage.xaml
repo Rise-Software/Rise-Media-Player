@@ -42,17 +42,17 @@
                         <TextBlock
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=FileName}"/>
+                            Text="{markup:ResourceHelper Name=FileName}" />
                         <TextBlock
                             Grid.Row="1"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=FileType}"/>
+                            Text="{markup:ResourceHelper Name=FileType}" />
                         <TextBlock
                             Grid.Row="2"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=FileOpensWith}"/>
+                            Text="{markup:ResourceHelper Name=FileOpensWith}" />
 
                         <TextBox
                             x:Name="SongFilename"
@@ -72,7 +72,7 @@
                             Grid.Column="1"
                             Margin="25,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Unknown" />
+                            Text="{markup:ResourceHelper Name=Unknown}" />
                     </Grid>
 
                     <Rectangle
@@ -95,13 +95,13 @@
                         <TextBlock
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            TextTrimming="WordEllipsis"
-                            Text="{markup:ResourceHelper Name=FileLocation}" />
+                            Text="{markup:ResourceHelper Name=FileLocation}"
+                            TextTrimming="WordEllipsis" />
                         <TextBlock
                             Grid.Row="1"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=FileSize}"/>
+                            Text="{markup:ResourceHelper Name=FileSize}" />
 
                         <TextBlock
                             Grid.Column="1"
@@ -141,7 +141,7 @@
                             Grid.Row="1"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=FileModified}"/>
+                            Text="{markup:ResourceHelper Name=FileModified}" />
                         <TextBlock
                             Grid.Column="1"
                             Margin="38,0,0,0"

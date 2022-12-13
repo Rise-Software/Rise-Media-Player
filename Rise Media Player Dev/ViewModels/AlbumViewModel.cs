@@ -118,7 +118,19 @@ namespace Rise.App.ViewModels
                 {
                     Model.Year = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(LocalizedYear));
                 }
+            }
+        }
+
+        public string LocalizedYear
+        {
+            get
+            {
+                string year = ResourceHelper.GetString("ReleaseYearN");
+                if (Year == 0)
+                    return string.Format(year, ResourceHelper.GetString("Unknown"));
+                return string.Format(year, Year);
             }
         }
 

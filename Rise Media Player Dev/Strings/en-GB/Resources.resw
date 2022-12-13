@@ -612,4 +612,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="WhatsNewTitle" xml:space="preserve">
     <value>What's New</value>
   </data>
+  <data name="ReleaseYearN" xml:space="preserve">
+    <value>Release year: {0}</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>
