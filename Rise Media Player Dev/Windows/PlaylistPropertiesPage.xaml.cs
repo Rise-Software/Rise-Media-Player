@@ -1,5 +1,9 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Data.Json;
 using System;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,15 +13,20 @@ namespace Rise.App.Views
 {
     public sealed partial class PlaylistPropertiesPage : Page
     {
+        private JsonBackendController<PlaylistViewModel> Controller
+            => App.MViewModel.PBackend;
+
         private PlaylistViewModel Playlist;
-        private bool _saveChanges = false;
+        private readonly ApplicationView View;
 
         public PlaylistPropertiesPage()
         {
             InitializeComponent();
-            TitleBar.SetTitleBarForCurrentView();
+            View = ApplicationView.GetForCurrentView();
 
-            ApplicationView.GetForCurrentView().Consolidated += PlaylistPropertiesPage_Consolidated;
+            TitleBar.SetTitleBarForCurrentView();
+            Controller.Items.CollectionChanged += OnPlaylistCollectionChanged;
+            View.Consolidated += OnViewConsolidated;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -25,35 +34,51 @@ namespace Rise.App.Views
             Playlist = e.Parameter as PlaylistViewModel;
         }
 
-        private async void CancelButton_Click(object sender, RoutedEventArgs e)
+        private async void OnPlaylistCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            _saveChanges = false;
-            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                Controller.Items.CollectionChanged -= OnPlaylistCollectionChanged;
+                await View.TryConsolidateAsync();
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                bool hasRemoved = e.OldItems.Contains(Playlist);
+                if (hasRemoved)
+                {
+                    Controller.Items.CollectionChanged -= OnPlaylistCollectionChanged;
+                    await View.TryConsolidateAsync();
+                }
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
+            => await FinishEditsAsync(true);
+
+        private async void CancelButton_Click(object sender, RoutedEventArgs e)
+            => await FinishEditsAsync(false);
+
+        private async Task FinishEditsAsync(bool save)
         {
-            _saveChanges = true;
-            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+            Controller.Items.CollectionChanged -= OnPlaylistCollectionChanged;
+            if (!save)
+            {
+                var items = await Controller.GetStoredItemsAsync();
+                var item = items.FirstOrDefault(i => i.Id == Playlist.Id);
+
+                Controller.Items.Remove(Playlist);
+                Controller.Items.Add(item);
+            }
+
+            await View.TryConsolidateAsync();
+            await Controller.SaveAsync();
         }
 
-        private async void PlaylistPropertiesPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
+        private async void OnViewConsolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
         {
-            if (_saveChanges)
-            {
-                await Playlist.SaveEditsAsync();
-            }
-            else
-            {
-                try
-                {
-                    await Playlist.CancelEditsAsync();
-                }
-                catch
-                {
-
-                }
-            }
+            View.Consolidated -= OnViewConsolidated;
+            if (args.IsUserInitiated)
+                await Controller.SaveAsync();
         }
 
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)

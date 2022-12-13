@@ -196,9 +196,6 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="DbControllers\BaseBackendController.cs" />
-    <Compile Include="DbControllers\NotificationsBackendController.cs" />
-    <Compile Include="DbControllers\PlaylistsBackendController.cs" />
     <Compile Include="Dialogs\AboutArtist.xaml.cs">
       <DependentUpon>AboutArtist.xaml</DependentUpon>
     </Compile>
@@ -279,7 +276,6 @@
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
@@ -921,6 +917,11 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="IsExternalInit">
+      <Version>1.0.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>

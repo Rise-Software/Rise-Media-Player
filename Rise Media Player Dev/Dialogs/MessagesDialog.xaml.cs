@@ -1,4 +1,5 @@
-﻿using Rise.App.ViewModels;
+﻿using Rise.Data.Json;
+using Rise.Data.Messages;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -6,15 +7,16 @@ namespace Rise.App.Dialogs
 {
     public sealed partial class MessagesDialog : Page
     {
-        private MainViewModel MViewModel => App.MViewModel;
+        private JsonBackendController<BasicNotification> NBackend
+            => App.MViewModel.NBackend;
 
         public static readonly DependencyProperty SelectedNotificationProperty =
-            DependencyProperty.Register(nameof(SelectedNotification), typeof(NotificationViewModel),
-                typeof(MessagesDialog), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedNotification), typeof(BasicNotification),
+                typeof(MessagesDialog), null);
 
-        public NotificationViewModel SelectedNotification
+        public BasicNotification SelectedNotification
         {
-            get => (NotificationViewModel)GetValue(SelectedNotificationProperty);
+            get => (BasicNotification)GetValue(SelectedNotificationProperty);
             set => SetValue(SelectedNotificationProperty, value);
         }
 
@@ -35,13 +37,16 @@ namespace Rise.App.Dialogs
             if (cont == null)
                 fl.Hide();
             else
-                SelectedNotification = (NotificationViewModel)cont;
+                SelectedNotification = (BasicNotification)cont;
         }
 
         private async void DeleteMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedNotification != null)
-                await SelectedNotification.DeleteAsync();
+            {
+                NBackend.Items.Remove(SelectedNotification);
+                await NBackend.SaveAsync();
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
+using Rise.Data.Messages;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
@@ -68,15 +70,14 @@ namespace Rise.App.ViewModels
         /// </summary>
         public readonly SafeObservableCollection<VideoViewModel> Videos = new();
 
-        /// <summary>
-        /// The collection of playlists in the list. 
-        /// </summary>
-        public readonly SafeObservableCollection<PlaylistViewModel> Playlists = new();
+        private JsonBackendController<PlaylistViewModel> _pBackend;
+        public JsonBackendController<PlaylistViewModel> PBackend
+            => _pBackend ??= JsonBackendController<PlaylistViewModel>.Get("SavedPlaylists");
+        public SafeObservableCollection<PlaylistViewModel> Playlists => PBackend.Items;
 
-        /// <summary>
-        /// The collection of playlists in the list. 
-        /// </summary>
-        public readonly SafeObservableCollection<NotificationViewModel> Notifications = new();
+        private JsonBackendController<BasicNotification> _nBackend;
+        public JsonBackendController<BasicNotification> NBackend
+            => _nBackend ??= JsonBackendController<BasicNotification>.Get("Messages");
 
         /// <summary>
         /// Gets the complete list of data from the database.
@@ -88,10 +89,7 @@ namespace Rise.App.ViewModels
             Albums.Clear();
             Artists.Clear();
             Genres.Clear();
-
             Videos.Clear();
-            Playlists.Clear();
-            Notifications.Clear();
 
             var songs = await Repository.GetItemsAsync<Song>();
 
@@ -128,24 +126,6 @@ namespace Rise.App.ViewModels
             {
                 foreach (var item in videos)
                     Videos.Add(new(item));
-            }
-
-            // Playlists may contain songs or videos
-            if (songs != null || videos != null)
-            {
-                var playlists = await App.PBackendController.GetAsync();
-                if (playlists != null)
-                {
-                    foreach (var item in playlists)
-                        Playlists.Add(item);
-                }
-            }
-
-            var notifications = await App.NBackendController.GetAsync();
-            if (notifications != null)
-            {
-                foreach (var item in notifications)
-                    Notifications.Add(new(item));
             }
         }
 

@@ -87,7 +87,8 @@
 
                 <MenuFlyoutItem
                     x:Uid="/Information/RemovePlaylist"
-                    Click="RemoveSong_Click"
+                    Command="{x:Bind RemoveItemCommand}"
+                    CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                     Icon="Delete" />
 
                 <MenuFlyoutItem
@@ -275,7 +276,8 @@
 
                         <MenuFlyoutItem
                             x:Uid="/Information/RemoveThing"
-                            Click="RemoveVideo_Click"
+                            Command="{x:Bind RemoveItemCommand}"
+                            CommandParameter="{x:Bind SelectedVideo, Mode=OneWay}"
                             Icon="Delete" />
 
                         <MenuFlyoutItem
