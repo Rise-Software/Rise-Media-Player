@@ -1,7 +1,6 @@
 using Microsoft.QueryStringDotNET;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Rise.App.ChangeTrackers;
-using Rise.App.DbControllers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
 using Rise.Common;
@@ -9,6 +8,7 @@ using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Messages;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
 using Rise.Effects;
@@ -54,15 +54,6 @@ namespace Rise.App
         private readonly static Lazy<LastFMViewModel> _lmViewModel
             = new(OnLFMRequested);
         public static LastFMViewModel LMViewModel => _lmViewModel.Value;
-
-        // Backend controllers
-        private readonly static Lazy<PlaylistsBackendController> _pBackendController
-            = new(() => new PlaylistsBackendController());
-        public static PlaylistsBackendController PBackendController => _pBackendController.Value;
-
-        private readonly static Lazy<NotificationsBackendController> _nBackendController
-            = new(() => new NotificationsBackendController());
-        public static NotificationsBackendController NBackendController => _nBackendController.Value;
 
         // Data sources
         private readonly static Lazy<NavViewDataSource> _navDataSource
@@ -360,6 +351,7 @@ namespace Rise.App
 
             var builder = new StringBuilder();
 
+            builder.Append("Rise Media Player has crashed.\n\n");
             builder.AppendLine("-----");
             builder.Append("Exception type: ");
             builder.AppendLine(e.GetType().ToString());
@@ -378,7 +370,10 @@ namespace Rise.App
             builder.AppendLine(e.StackTrace);
             builder.AppendLine("-----");
 
-            NBackendController.AddItemAsync("An error occurred!", "Rise Media Player has crashed.\n\n" + builder.ToString(), "\uE8BB").Wait();
+            var notif = new BasicNotification("An error occurred!", builder.ToString(), "\uE8BB");
+
+            MViewModel.NBackend.Items.Add(notif);
+            MViewModel.NBackend.Save();
         }
 
         private void OnUnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)

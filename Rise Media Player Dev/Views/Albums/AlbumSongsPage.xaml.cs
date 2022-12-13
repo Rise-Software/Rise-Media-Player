@@ -3,6 +3,7 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Rise.App.Views
     public sealed partial class AlbumSongsPage : MediaPageBase
     {
         public MainViewModel MViewModel => App.MViewModel;
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
 
         private AlbumViewModel SelectedAlbum;
         public SongViewModel SelectedItem
@@ -80,42 +83,34 @@ namespace Rise.App.Views
     {
         private async void LikeAlbum_Checked(object sender, RoutedEventArgs e)
         {
-            var songs = new List<SongViewModel>();
-
-            var playlist = App.MViewModel.Playlists.
-                FirstOrDefault(p => p.Title == "Liked");
-            var create = playlist == null;
-
-            if (create)
+            var playlist = PBackend.Items.FirstOrDefault(p => p.Title == "Liked");
+            if (playlist == null)
             {
                 playlist = new()
                 {
                     Title = $"Liked",
                     Description = "Your liked songs, albums and artists' songs go here.",
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
                 };
+                PBackend.Items.Add(playlist);
             }
 
             foreach (var song in MediaViewModel.Items)
-                songs.Add((SongViewModel)song);
+                playlist.Songs.Add((SongViewModel)song);
 
-            await playlist.AddItemsAsync(songs, create);
+            await PBackend.SaveAsync();
         }
 
         private async void LikeAlbum_Unchecked(object sender, RoutedEventArgs e)
         {
-            var songs = new List<SongViewModel>();
-            var playlist = App.MViewModel.Playlists.
-                FirstOrDefault(p => p.Title == "Liked");
-
+            var playlist = PBackend.Items.FirstOrDefault(p => p.Title == "Liked");
             if (playlist == null)
                 return;
 
             foreach (var song in MediaViewModel.Items)
-                songs.Add((SongViewModel)song);
+                _ = playlist.Songs.Remove((SongViewModel)song);
 
-            await playlist.RemoveItemsAsync(songs);
+            await PBackend.SaveAsync();
         }
     }
 

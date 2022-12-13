@@ -5,6 +5,7 @@ using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -25,7 +26,10 @@ namespace Rise.App.Views
 {
     public sealed partial class ArtistSongsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
         private MainViewModel MViewModel => App.MViewModel;
+
         private MediaPlaybackViewModel MPViewModel => App.MPViewModel;
         private SettingsViewModel SViewModel => App.SViewModel;
 
@@ -133,9 +137,14 @@ namespace Rise.App.Views
                     items.Add(itm);
 
             if (playlist == null)
+            {
                 return PlaylistHelper.CreateNewPlaylistAsync(items);
+            }
             else
-                return playlist.AddItemsAsync(items);
+            {
+                playlist.AddItems(items);
+                return PBackend.SaveAsync();
+            }
         }
     }
 
