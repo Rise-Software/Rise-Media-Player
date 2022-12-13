@@ -408,7 +408,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="AlbumArtist" xml:space="preserve">
     <value>Album artist</value>
   </data>
-  <data name="Artist" xml:space="preserve">
+  <data name="ArtistOrArtists" xml:space="preserve">
     <value>Artist(s)</value>
   </data>
   <data name="BecomeTranslator" xml:space="preserve">
@@ -492,7 +492,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="AppSettings" xml:space="preserve">
     <value>App settings</value>
   </data>
-  <data name="Artist1" xml:space="preserve">
+  <data name="Artist" xml:space="preserve">
     <value>Artist</value>
   </data>
   <data name="Ascending" xml:space="preserve">

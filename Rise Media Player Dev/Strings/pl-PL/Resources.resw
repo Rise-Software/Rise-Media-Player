@@ -387,7 +387,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="AlbumArtist" xml:space="preserve">
     <value>Album artist</value>
   </data>
-  <data name="Artist" xml:space="preserve">
+  <data name="ArtistOrArtists" xml:space="preserve">
     <value>Artist(s)</value>
   </data>
   <data name="BecomeTranslator" xml:space="preserve">
@@ -476,17 +476,5 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="OneVideo" xml:space="preserve">
     <value>1 video</value>
-  </data>
-  <data name="OneDay" xml:space="preserve">
-    <value>1 day</value>
-  </data>
-  <data name="OneHour" xml:space="preserve">
-    <value>1 hour</value>
-  </data>
-  <data name="OneMinute" xml:space="preserve">
-    <value>1 minute</value>
-  </data>
-  <data name="OneSecond" xml:space="preserve">
-    <value>1 second</value>
   </data>
 </root>

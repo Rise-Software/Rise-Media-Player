@@ -138,7 +138,7 @@
                         Grid.Row="1"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        Text="{markup:ResourceHelper Name=Artist}" />
+                        Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                     <TextBlock
                         Grid.Row="2"
                         Margin="0,-2,0,0"
@@ -271,9 +271,9 @@
         <muxc:TeachingTip
             x:Name="LocalTip"
             Title="{markup:ResourceHelper Name=MediaLocalTitle}"
-            Subtitle="{markup:ResourceHelper Name=MediaLocalDesc}"
             IsLightDismissEnabled="True"
             PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=MediaLocalDesc}"
             Target="{x:Bind LocalButton}" />
     </StackPanel>
 </Page>

@@ -405,7 +405,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="AlbumArtist" xml:space="preserve">
     <value>Album artist</value>
   </data>
-  <data name="Artist" xml:space="preserve">
+  <data name="ArtistOrArtists" xml:space="preserve">
     <value>Artist(s)</value>
   </data>
   <data name="BecomeTranslator" xml:space="preserve">

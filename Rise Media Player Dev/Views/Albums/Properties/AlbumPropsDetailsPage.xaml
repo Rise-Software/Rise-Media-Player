@@ -104,24 +104,24 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock
-                        Text="{markup:ResourceHelper Name=DetailsAlbumTitle}"
                         Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Text="{markup:ResourceHelper Name=DetailsAlbumTitle}" />
                     <TextBlock
-                        Text="{markup:ResourceHelper Name=Artist}"
                         Grid.Row="1"
                         Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                     <TextBlock
-                        Text="{markup:ResourceHelper Name=Genre}"
                         Grid.Row="2"
                         Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Text="{markup:ResourceHelper Name=Genre}" />
                     <TextBlock
-                        Text="{markup:ResourceHelper Name=ReleaseYear}"
                         Grid.Row="3"
                         Margin="0,-2,0,0"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                     <TextBox
                         x:Name="AlbumTitle"
