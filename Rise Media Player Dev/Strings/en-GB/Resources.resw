@@ -618,4 +618,16 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="EnterMiniView" xml:space="preserve">
+    <value>Enter mini view</value>
+  </data>
+  <data name="MoreOptions" xml:space="preserve">
+    <value>More options</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Now playing</value>
+  </data>
+  <data name="PlaybackSpeed" xml:space="preserve">
+    <value>Playback speed</value>
+  </data>
 </root>
