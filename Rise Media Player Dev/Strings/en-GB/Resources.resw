@@ -630,4 +630,25 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="PlaybackSpeed" xml:space="preserve">
     <value>Playback speed</value>
   </data>
+  <data name="AlbumArt" xml:space="preserve">
+    <value>Album art</value>
+  </data>
+  <data name="AlbumTitle" xml:space="preserve">
+    <value>Album title</value>
+  </data>
+  <data name="CardBackground" xml:space="preserve">
+    <value>Card background</value>
+  </data>
+  <data name="RoundedAlbumArt" xml:space="preserve">
+    <value>Rounded album art</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="TilesHorizontal" xml:space="preserve">
+    <value>Tiles (horizontal)</value>
+  </data>
+  <data name="TilesVertical" xml:space="preserve">
+    <value>Tiles (vertical)</value>
+  </data>
 </root>

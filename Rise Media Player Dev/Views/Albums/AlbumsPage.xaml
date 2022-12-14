@@ -111,34 +111,30 @@
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.VerticalTile}"
                             GroupName="ViewModes"
-                            Text="Tiles (Vertical)" />
+                            Text="{markup:ResourceHelper Name=TilesVertical}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.HorizontalTile}"
                             GroupName="ViewModes"
-                            Text="Tiles (Horizontal)" />
+                            Text="{markup:ResourceHelper Name=TilesHorizontal}" />
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem IsEnabled="False" Text="Split online &amp; local media" />
+                        <ToggleMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=CardBackground}" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" Text="{markup:ResourceHelper Name=RoundedAlbumArt}" />
 
                         <MenuFlyoutSeparator />
 
-                        <ToggleMenuFlyoutItem IsEnabled="False" Text="Card background" />
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.RoundedAlbumArt, Mode=TwoWay}" Text="Rounded album art" />
+                        <MenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=MoreOptions}" />
 
-                        <MenuFlyoutSeparator />
+                        <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Show}">
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=AlbumTitle}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=AlbumArt}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=Genre}" />
+                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowReleaseYearInAlbums, Mode=TwoWay}" Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
-                        <MenuFlyoutItem IsEnabled="False" Text="Additional settings" />
-
-                        <MenuFlyoutSubItem Text="Show">
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTitleInAlbums, Mode=TwoWay}" Text="Album title" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowThumbnailInAlbums, Mode=TwoWay}" Text="Album art" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowArtistInAlbums, Mode=TwoWay}" Text="Artist name" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowGenreInAlbums, Mode=TwoWay}" Text="Genre" />
-                            <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowReleaseYearInAlbums, Mode=TwoWay}" Text="Release year" />
-
-                            <ToggleMenuFlyoutItem IsEnabled="False" Text="Rating" />
+                            <ToggleMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Rating}" />
                         </MenuFlyoutSubItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
@@ -154,7 +150,7 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Artist"
-                            Text="{markup:ResourceHelper Name=Artist}" />
+                            Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Genres"
@@ -249,8 +245,7 @@
                     <MenuFlyoutItem
                         Icon="Delete"
                         IsEnabled="False"
-                        Text="{markup:ResourceHelper Name=RemoveThing}"
-                        ToolTipService.ToolTip="{markup:ResourceHelper Name=RemoveThing}" />
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
                         Command="{x:Bind EditItemCommand}"
