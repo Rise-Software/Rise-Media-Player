@@ -59,9 +59,9 @@
             <AppBarSeparator />
 
             <AppBarButton
-                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Icon="Delete"
                 IsEnabled="False"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
                 Icon="Rename"
@@ -78,7 +78,7 @@
 
             <AppBarSeparator />
 
-            <AppBarButton Label="{markup:ResourceHelper Name=View}" IsEnabled="False">
+            <AppBarButton IsEnabled="False" Label="{markup:ResourceHelper Name=View}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
@@ -94,17 +94,17 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton Label="{markup:ResourceHelper Name=Sort}" Icon="Sort">
+            <AppBarButton Icon="Sort" Label="{markup:ResourceHelper Name=Sort}">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            Text="{markup:ResourceHelper Name=Title}"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title" />
+                            CommandParameter="Title"
+                            Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
-                            Text="{markup:ResourceHelper Name=ReleaseYear}"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year" />
+                            CommandParameter="Year"
+                            Text="{markup:ResourceHelper Name=ReleaseYear}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Length"
@@ -113,15 +113,15 @@
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
-                            Text="{markup:ResourceHelper Name=Ascending}"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
-                            Text="{markup:ResourceHelper Name=Descending}"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -131,8 +131,7 @@
             <AppBarButton
                 Click="AddFolders_Click"
                 Icon="NewFolder"
-                Label="{markup:ResourceHelper Name=/Settings/AddFolders}"
-                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AddFolders}" />
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
         <GridView
@@ -159,7 +158,7 @@
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -167,28 +166,28 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=RemoveThing}"
                         Icon="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
                         Icon="Rename"
                         IsEnabled="False"
-                        Text="Rename" />
+                        Text="{markup:ResourceHelper Name=Rename}" />
                 </MenuFlyout>
             </GridView.ContextFlyout>
 
