@@ -53,6 +53,9 @@ namespace Rise.App.Views
 
         private ArtistViewModel SelectedArtist;
 
+        // This handles the way artist discography is displayed
+        private bool DiscographyExpanded = true;
+
         // These handle the way artist biography is displayed
         private bool ShowingSummarized = true;
         private string ShortBio;
@@ -85,7 +88,7 @@ namespace Rise.App.Views
             else
             {
                 string genre = await GetGenreFromArtistAsync(name);
-                SongAlbums.Text = SongAlbums.Text + ", Genre: " + genre;
+                SongAlbums.Text += $" • {genre}";
 
                 TopTracks.ItemsSource = await GetTopTracksAsync(name);
                 NoListeners.Text = await GetMonthlyListenersAsync(name);
@@ -212,12 +215,12 @@ namespace Rise.App.Views
                     LongBio = await GetArtistBioAsync(SelectedArtist.Name, false);
 
                 AboutArtist.Text = LongBio;
-                ReadMoreAbout.Content = "Read less";
+                ReadMoreAbout.Content = ResourceHelper.GetString("ReadLess");
             }
             else
             {
                 AboutArtist.Text = ShortBio;
-                ReadMoreAbout.Content = "Read more";
+                ReadMoreAbout.Content = ResourceHelper.GetString("ReadMore");
             }
 
             ShowingSummarized = !ShowingSummarized;
@@ -225,10 +228,12 @@ namespace Rise.App.Views
 
         private void UpDown_Click(object sender, RoutedEventArgs e)
         {
-            if (UpDown.Label == "Expand")
-                VisualStateManager.GoToState(this, "Expanded", true);
-            else
+            if (DiscographyExpanded)
                 VisualStateManager.GoToState(this, "Collapsed", true);
+            else
+                VisualStateManager.GoToState(this, "Expanded", true);
+
+            DiscographyExpanded = !DiscographyExpanded;
         }
 
         private async Task<List<Track>> GetTopTracksAsync(string artist)
@@ -318,7 +323,7 @@ namespace Rise.App.Views
             }
             catch { }
 
-            return "No artist info.";
+            return ResourceHelper.GetString("NoArtistInfo");
         }
 
         private async Task<string> GetMonthlyListenersAsync(string artist)
@@ -338,7 +343,7 @@ namespace Rise.App.Views
 
                         var node = doc.DocumentElement.SelectSingleNode("/lfm/artist/stats/listeners");
                         if (node != null && long.TryParse(node.InnerText, out long num))
-                            return $"{FormatNumber.Format(num)} listeners.";
+                            return string.Format(ResourceHelper.GetString("NListeners"), FormatNumber.Format(num));
                     }
                 }
             }

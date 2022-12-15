@@ -126,18 +126,18 @@
                                     Background="Transparent"
                                     DefaultLabelPosition="Right">
                                     <AppBarButton
-                                        Label="{markup:ResourceHelper Name=PlayAll}"
                                         Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Play" />
+                                        Icon="Play"
+                                        Label="{markup:ResourceHelper Name=PlayAll}" />
 
                                     <AppBarSeparator />
 
                                     <AppBarButton
-                                        Label="{markup:ResourceHelper Name=Shuffle}"
                                         Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Shuffle" />
+                                        Icon="Shuffle"
+                                        Label="{markup:ResourceHelper Name=Shuffle}" />
                                     <AppBarButton Label="{markup:ResourceHelper Name=AddTo}">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xECC8;" />
@@ -145,7 +145,7 @@
 
                                         <AppBarButton.Flyout>
                                             <MenuFlyout x:Name="AddToBar">
-                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
+                                                <MenuFlyoutItem Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -181,7 +181,7 @@
                                 <TextBlock
                                     Margin="8,0,0,0"
                                     FontWeight="SemiBold"
-                                    Text="Top tracks" />
+                                    Text="{markup:ResourceHelper Name=TopTracks}" />
                             </StackPanel>
 
                             <Rectangle
@@ -241,7 +241,7 @@
                                     <TextBlock
                                         Margin="8,0,0,0"
                                         FontWeight="SemiBold"
-                                        Text="Music videos" />
+                                        Text="{markup:ResourceHelper Name=MusicVideos}" />
                                 </StackPanel>
                                 <Rectangle
                                     Height="1"
@@ -275,39 +275,39 @@
 
                             <AppBarButton
                                 x:Name="SortButton"
-                                Label="{markup:ResourceHelper Name=Sort}"
-                                Icon="Sort">
+                                Icon="Sort"
+                                Label="{markup:ResourceHelper Name=Sort}">
                                 <AppBarButton.Flyout>
                                     <MenuFlyout>
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=Track}"
                                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                                            CommandParameter="Track" />
+                                            CommandParameter="Track"
+                                            Text="{markup:ResourceHelper Name=Track}" />
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=Title}"
                                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                                            CommandParameter="Title" />
+                                            CommandParameter="Title"
+                                            Text="{markup:ResourceHelper Name=Title}" />
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=Genre}"
                                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                                            CommandParameter="Genres" />
+                                            CommandParameter="Genres"
+                                            Text="{markup:ResourceHelper Name=Genre}" />
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=ReleaseYear}"
                                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                                            CommandParameter="Year" />
+                                            CommandParameter="Year"
+                                            Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                                         <MenuFlyoutSeparator />
 
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=Ascending}"
                                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
-                                            GroupName="SortDirection" />
+                                            GroupName="SortDirection"
+                                            Text="{markup:ResourceHelper Name=Ascending}" />
                                         <muxc:RadioMenuFlyoutItem
-                                            Text="{markup:ResourceHelper Name=Descending}"
                                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
-                                            GroupName="SortDirection" />
+                                            GroupName="SortDirection"
+                                            Text="{markup:ResourceHelper Name=Descending}" />
                                     </MenuFlyout>
                                 </AppBarButton.Flyout>
                             </AppBarButton>
@@ -315,7 +315,7 @@
                             <AppBarButton
                                 x:Name="UpDown"
                                 Click="UpDown_Click"
-                                Label="Collapse">
+                                Label="{markup:ResourceHelper Name=Collapse}">
                                 <AppBarButton.Icon>
                                     <FontIcon x:Name="UpDownIcon" Glyph="&#xE010;" />
                                 </AppBarButton.Icon>
@@ -328,7 +328,7 @@
                                 <TextBlock
                                     Margin="8,0,0,0"
                                     FontWeight="SemiBold"
-                                    Text="Discography" />
+                                    Text="{markup:ResourceHelper Name=Discography}" />
                             </StackPanel>
 
                             <Rectangle
@@ -376,10 +376,10 @@
                                                 Icon="Play"
                                                 Text="{markup:ResourceHelper Name=Play}" />
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=ShuffleAlbum}"
                                                 Command="{x:Bind AlbumsViewModel.ShuffleSingleItemCommand}"
                                                 CommandParameter="{x:Bind SelectedAlbum, Mode=OneWay}"
-                                                Icon="Shuffle" />
+                                                Icon="Shuffle"
+                                                Text="{markup:ResourceHelper Name=ShuffleAlbum}" />
 
                                             <MenuFlyoutSeparator />
 
@@ -388,7 +388,7 @@
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
 
-                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddAlbumToPlaylistCommand}">
+                                                <MenuFlyoutItem Command="{x:Bind AddAlbumToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -396,23 +396,23 @@
                                             </MenuFlyoutSubItem>
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=Share}"
                                                 Icon="Share"
-                                                IsEnabled="False" />
+                                                IsEnabled="False"
+                                                Text="{markup:ResourceHelper Name=Share}" />
 
                                             <MenuFlyoutSeparator />
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=AskDiscy}"
                                                 Click="AskDiscy_Click"
-                                                Icon="Help" />
+                                                Icon="Help"
+                                                Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                                             <MenuFlyoutSeparator />
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=RemoveThing}"
                                                 Icon="Delete"
-                                                IsEnabled="False" />
+                                                IsEnabled="False"
+                                                Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                                             <MenuFlyoutItem
                                                 Command="{x:Bind EditItemCommand}"
@@ -454,9 +454,9 @@
                                                 Text="{markup:ResourceHelper Name=Play}" />
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=ShowAlbum}"
                                                 Command="{x:Bind GoToAlbumCommand}"
-                                                CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}">
+                                                CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}"
+                                                Text="{markup:ResourceHelper Name=ShowAlbum}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xE93C;" />
                                                 </MenuFlyoutItem.Icon>
@@ -469,7 +469,7 @@
                                                     <FontIcon Glyph="&#xECC8;" />
                                                 </MenuFlyoutSubItem.Icon>
 
-                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                                                <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -477,16 +477,16 @@
                                             </MenuFlyoutSubItem>
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=Share}"
                                                 Icon="Share"
-                                                IsEnabled="False" />
+                                                IsEnabled="False"
+                                                Text="{markup:ResourceHelper Name=Share}" />
 
                                             <MenuFlyoutSeparator />
 
                                             <MenuFlyoutItem
-                                                Text="{markup:ResourceHelper Name=ShowInFileExplorer}"
                                                 Command="{x:Bind OpenInExplorerCommand}"
-                                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
+                                                CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                                                Text="{markup:ResourceHelper Name=ShowInFileExplorer}">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon Glyph="&#xEC50;" />
                                                 </MenuFlyoutItem.Icon>
@@ -533,7 +533,7 @@
                                 <TextBlock
                                     Margin="8,0,0,0"
                                     FontWeight="SemiBold"
-                                    Text="About" />
+                                    Text="{markup:ResourceHelper Name=About}" />
                             </StackPanel>
 
                             <Rectangle
@@ -550,7 +550,7 @@
                                 x:Name="ReadMoreAbout"
                                 Padding="0"
                                 Click="ReadMoreAbout_Click"
-                                Content="Read more" />
+                                Content="{markup:ResourceHelper Name=ReadMore}" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -576,7 +576,7 @@
                 <VisualState x:Name="Expanded" />
                 <VisualState x:Name="Collapsed">
                     <VisualState.Setters>
-                        <Setter Target="UpDown.Label" Value="Expand" />
+                        <Setter Target="UpDown.Label" Value="{markup:ResourceHelper Name=Expand}" />
                         <Setter Target="UpDownIcon.Glyph" Value="&#xE011;" />
 
                         <Setter Target="SortButton.Visibility" Value="Collapsed" />

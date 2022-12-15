@@ -639,6 +639,30 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="CardBackground" xml:space="preserve">
     <value>Card background</value>
   </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Discography" xml:space="preserve">
+    <value>Discography</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="MusicVideos" xml:space="preserve">
+    <value>Music videos</value>
+  </data>
+  <data name="NListeners" xml:space="preserve">
+    <value>{0} listeners</value>
+  </data>
+  <data name="NoArtistInfo" xml:space="preserve">
+    <value>No artist info.</value>
+  </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>Read less</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
   <data name="RoundedAlbumArt" xml:space="preserve">
     <value>Rounded album art</value>
   </data>
@@ -650,5 +674,11 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="TilesVertical" xml:space="preserve">
     <value>Tiles (vertical)</value>
+  </data>
+  <data name="TopTracks" xml:space="preserve">
+    <value>Top tracks</value>
+  </data>
+  <data name="TopTracksDesc" xml:space="preserve">
+    <value>Show the trending and most popular tracks from your artist from across the world.</value>
   </data>
 </root>
