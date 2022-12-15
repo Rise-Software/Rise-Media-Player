@@ -720,4 +720,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="TopTracksDesc" xml:space="preserve">
     <value>Show the trending and most popular tracks from your artist from across the world.</value>
   </data>
+  <data name="ForX" xml:space="preserve">
+    <value>for {0}</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Search results</value>
+  </data>
 </root>
