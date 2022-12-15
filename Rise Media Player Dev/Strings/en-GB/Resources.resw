@@ -684,6 +684,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="NoLyricsFound" xml:space="preserve">
     <value>No lyrics found</value>
   </data>
+  <data name="PlayMedia" xml:space="preserve">
+    <value>Play media</value>
+  </data>
   <data name="PoweredBy" xml:space="preserve">
     <value>Powered by {0}</value>
   </data>

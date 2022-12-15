@@ -198,7 +198,7 @@ namespace Rise.App
 
             if (e.DragUIOverride != null)
             {
-                e.DragUIOverride.Caption = "Play media";
+                e.DragUIOverride.Caption = ResourceHelper.GetString("PlayMedia");
                 e.DragUIOverride.IsContentVisible = true;
             }
         }
