@@ -25,21 +25,17 @@
                 </FlipView.ItemTemplate>
             </FlipView>
 
-            <StackPanel
+            <TextBlock
+                x:Name="SelectedWall"
                 Padding="0,20,0,0"
-                Orientation="Horizontal"
-                Spacing="4">
-                <TextBlock x:Name="CurrentWall" FontWeight="SemiBold" />
-                <TextBlock FontWeight="SemiBold" Text="{markup:ResourceHelper Name=Of}" />
-                <TextBlock FontWeight="SemiBold" Text="{x:Bind Walls.Count}" />
-            </StackPanel>
+                FontWeight="SemiBold" />
 
             <StackPanel
                 Padding="0,12,0,0"
                 Orientation="Horizontal"
                 Spacing="4">
                 <TextBlock x:Name="WallName" FontWeight="SemiBold" />
-                <TextBlock Text="-" />
+                <TextBlock Text="•" />
                 <TextBlock x:Name="WallShortDesc" Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
 
@@ -61,10 +57,10 @@
                     </StackPanel>
                 </Button>
 
-                <Button>
+                <Button IsEnabled="False">
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <FontIcon Glyph="&#xF6FA;" />
-                        <TextBlock Text="{markup:ResourceHelper Name=LearnMore}" />
+                        <TextBlock Text="{markup:ResourceHelper Name=Learn}" />
                     </StackPanel>
                 </Button>
             </StackPanel>

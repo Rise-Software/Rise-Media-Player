@@ -723,7 +723,13 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="ForX" xml:space="preserve">
     <value>for {0}</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Search results</value>
+  </data>
+  <data name="XofY" xml:space="preserve">
+    <value>{0} of {1}</value>
   </data>
 </root>
