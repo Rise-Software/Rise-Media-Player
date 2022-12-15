@@ -106,7 +106,7 @@
                     <TextBlock
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        Text="{markup:ResourceHelper Name=DetailsAlbumTitle}" />
+                        Text="{markup:ResourceHelper Name=AlbumTitle}" />
                     <TextBlock
                         Grid.Row="1"
                         Margin="0,-2,0,0"

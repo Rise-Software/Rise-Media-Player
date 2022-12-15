@@ -405,9 +405,6 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="DetailsAlbumTitle" xml:space="preserve">
-    <value>Album title</value>
-  </data>
   <data name="Disc" xml:space="preserve">
     <value>Disc</value>
   </data>
