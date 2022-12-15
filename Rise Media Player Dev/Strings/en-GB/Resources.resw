@@ -642,11 +642,20 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
   </data>
+  <data name="CrashDetails" xml:space="preserve">
+    <value>RiseMP has crashed. Here's some details.</value>
+  </data>
+  <data name="CrashStackTrace" xml:space="preserve">
+    <value>Unfortunately, Rise Media Player crashed. Click to view stack trace.</value>
+  </data>
   <data name="Discography" xml:space="preserve">
     <value>Discography</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
+  </data>
+  <data name="ErrorOcurred" xml:space="preserve">
+    <value>An error occurred!</value>
   </data>
   <data name="Expand" xml:space="preserve">
     <value>Expand</value>
@@ -671,6 +680,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="PoweredBy" xml:space="preserve">
     <value>Powered by {0}</value>
+  </data>
+  <data name="RanIntoProblem" xml:space="preserve">
+    <value>We've ran into a problem. Sorry about that.</value>
   </data>
   <data name="ReadLess" xml:space="preserve">
     <value>Read less</value>
