@@ -378,7 +378,7 @@
   <data name="PropsSave" xml:space="preserve">
     <value>Save changes</value>
   </data>
-  <data name="ShufflePlaylistText" xml:space="preserve">
+  <data name="ShufflePlaylist" xml:space="preserve">
     <value>Shuffle playlist</value>
   </data>
   <data name="Contribute" xml:space="preserve">
@@ -648,6 +648,12 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Expand" xml:space="preserve">
     <value>Expand</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
   <data name="MusicVideos" xml:space="preserve">
     <value>Music videos</value>
   </data>
@@ -662,6 +668,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read more</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
   </data>
   <data name="RoundedAlbumArt" xml:space="preserve">
     <value>Rounded album art</value>

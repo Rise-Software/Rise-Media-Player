@@ -239,7 +239,7 @@
                     <TextBlock
                         Padding="8,4"
                         Style="{StaticResource SubheaderTextBlockStyle}"
-                        Text="Videos"
+                        Text="{markup:ResourceHelper Name=Videos}"
                         Visibility="{x:Bind VideosViewModel.Items.Count, Converter={StaticResource IntToVis}}" />
                 </GridView.Header>
 
@@ -280,7 +280,7 @@
                         <MenuFlyoutItem
                             Icon="Rename"
                             IsEnabled="False"
-                            Text="Rename" />
+                            Text="{markup:ResourceHelper Name=Rename}" />
                     </MenuFlyout>
                 </GridView.ContextFlyout>
 

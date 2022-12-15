@@ -49,14 +49,14 @@
             <AppBarButton
                 Click="CreatePlaylistButton_Click"
                 Icon="Add"
-                Label="New playlist" />
+                Label="{markup:ResourceHelper Name=NewPlaylist}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Icon="Delete"
                 IsEnabled="False"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
                 Command="{x:Bind EditItemCommand}"
@@ -71,12 +71,12 @@
             <AppBarButton
                 Click="ImportPlaylist_Click"
                 Icon="OpenFile"
-                Label="Import" />
+                Label="{markup:ResourceHelper Name=Import}" />
 
             <AppBarButton
                 Icon="Save"
                 IsEnabled="False"
-                Label="Export" />
+                Label="{markup:ResourceHelper Name=Export}" />
         </CommandBar>
 
         <GridView
@@ -98,10 +98,10 @@
                         Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=ShufflePlaylistText}"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle" />
+                        Icon="Shuffle"
+                        Text="{markup:ResourceHelper Name=ShufflePlaylist}" />
 
                     <MenuFlyoutSeparator />
 
@@ -113,23 +113,23 @@
                         Text="{markup:ResourceHelper Name=PinToSidebar}" />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
                         Click="DeletePlaylist_Click"
                         Icon="Delete"
-                        Text="Delete playlist" />
+                        Text="{markup:ResourceHelper Name=RemovePlaylist}" />
 
                     <MenuFlyoutItem
                         Command="{x:Bind EditItemCommand}"
