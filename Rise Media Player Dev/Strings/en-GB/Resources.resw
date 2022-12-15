@@ -744,4 +744,19 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="XofY" xml:space="preserve">
     <value>{0} of {1}</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreatePlaylist" xml:space="preserve">
+    <value>Create playlist</value>
+  </data>
+  <data name="PlaylistAlreadyExists" xml:space="preserve">
+    <value>The playlist with the specified name already exists.</value>
+  </data>
+  <data name="TitleNotEmpty" xml:space="preserve">
+    <value>Title must not be empty.</value>
+  </data>
+  <data name="UseCustomImage" xml:space="preserve">
+    <value>Use custom image</value>
+  </data>
 </root>
