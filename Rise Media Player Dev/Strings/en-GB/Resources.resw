@@ -642,11 +642,20 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Collapse" xml:space="preserve">
     <value>Collapse</value>
   </data>
+  <data name="ConfirmRemovalSong" xml:space="preserve">
+    <value>Are you sure that you want to remove the song "{0}"?</value>
+  </data>
   <data name="CrashDetails" xml:space="preserve">
     <value>RiseMP has crashed. Here's some details.</value>
   </data>
   <data name="CrashStackTrace" xml:space="preserve">
     <value>Unfortunately, Rise Media Player crashed. Click to view stack trace.</value>
+  </data>
+  <data name="DeleteAnyway" xml:space="preserve">
+    <value>Delete anyway</value>
+  </data>
+  <data name="DeleteSong" xml:space="preserve">
+    <value>Delete song</value>
   </data>
   <data name="Discography" xml:space="preserve">
     <value>Discography</value>

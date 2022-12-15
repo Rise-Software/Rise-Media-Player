@@ -6,6 +6,7 @@ using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.Json;
@@ -534,8 +535,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Messages & reports",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("MessagesAndReports"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new MessagesDialog()
             };

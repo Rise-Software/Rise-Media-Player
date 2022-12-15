@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
@@ -73,7 +74,7 @@
                         Width="208"
                         Margin="2"
                         Click="CloseButton_Click"
-                        Content="Close"
+                        Content="{markup:ResourceHelper Name=Close}"
                         Style="{StaticResource AccentButtonStyle}" />
                 </GridView>
             </StackPanel>
