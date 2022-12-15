@@ -645,6 +645,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Discography" xml:space="preserve">
     <value>Discography</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="Expand" xml:space="preserve">
     <value>Expand</value>
   </data>
@@ -662,6 +665,12 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="NoArtistInfo" xml:space="preserve">
     <value>No artist info.</value>
+  </data>
+  <data name="NoLyricsFound" xml:space="preserve">
+    <value>No lyrics found</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by {0}</value>
   </data>
   <data name="ReadLess" xml:space="preserve">
     <value>Read less</value>

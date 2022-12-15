@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
-using System.Collections.Generic;
-using System.Linq;
-using Rise.Models;
-using Rise.App.Helpers;
-using Rise.App.ViewModels;
+using Windows.UI.Xaml.Navigation;
 
 namespace Rise.App.Views
 {
@@ -31,7 +27,11 @@ namespace Rise.App.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            Lyrics.Text = await Props.Model.GetLyricsAsync() ?? "No lyrics found.";
+            string lyrics = await Props.Model.GetLyricsAsync();
+            if (!string.IsNullOrWhiteSpace(lyrics))
+                Lyrics.Text = lyrics;
+            else
+                Lyrics.Text = ResourceHelper.GetString("NoLyricsFound");
 
             LoadingRing.IsActive = false;
             LoadingRing.Visibility = Visibility.Collapsed;

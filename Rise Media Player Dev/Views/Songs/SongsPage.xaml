@@ -113,8 +113,8 @@
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="Track number" />
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="Duration" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="{markup:ResourceHelper Name=TrackNumber}" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="{markup:ResourceHelper Name=Duration}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -125,7 +125,7 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Track"
-                            Text="{markup:ResourceHelper Name=Track}" />
+                            Text="{markup:ResourceHelper Name=TrackNumber}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
                             CommandParameter="Title"
@@ -168,8 +168,7 @@
             <AppBarButton
                 Click="AddFolders_Click"
                 Icon="NewFolder"
-                Label="{markup:ResourceHelper Name=/Settings/AddFolders}"
-                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/AddFolders}" />
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
         <ListView
