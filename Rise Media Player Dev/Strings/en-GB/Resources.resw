@@ -720,8 +720,20 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="TopTracksDesc" xml:space="preserve">
     <value>Show the trending and most popular tracks from your artist from across the world.</value>
   </data>
+  <data name="AddWidgets" xml:space="preserve">
+    <value>Add widgets</value>
+  </data>
   <data name="ForX" xml:space="preserve">
     <value>for {0}</value>
+  </data>
+  <data name="HomeAddSomeWidgets" xml:space="preserve">
+    <value>That's pretty sad, so add some widgets!</value>
+  </data>
+  <data name="HomeNothingToShow" xml:space="preserve">
+    <value>We have nothing to show here.</value>
+  </data>
+  <data name="HomeThingsYouLove" xml:space="preserve">
+    <value>Personalise your at a glance page with the things you love.</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Image</value>

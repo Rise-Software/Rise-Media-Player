@@ -35,7 +35,7 @@
                         x:Name="GlanceManage"
                         Width="125"
                         Click="GlanceManage_Click"
-                        Content="Add widgets" />
+                        Content="{markup:ResourceHelper Name=AddWidgets}" />
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
@@ -57,13 +57,13 @@
                     <TextBlock
                         FontSize="24"
                         FontWeight="SemiBold"
-                        Text="We have nothing to show here."
+                        Text="{markup:ResourceHelper Name=HomeNothingToShow}"
                         TextAlignment="Center"
                         TextWrapping="WrapWholeWords" />
                     <TextBlock
                         FontSize="24"
                         FontWeight="SemiBold"
-                        Text="That's pretty sad, so add some widgets!"
+                        Text="{markup:ResourceHelper Name=HomeAddSomeWidgets}"
                         TextAlignment="Center"
                         TextWrapping="WrapWholeWords" />
                     <TextBlock
@@ -71,7 +71,7 @@
                         FontSize="15"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Text="Personalise your at a glance page with the things you love."
+                        Text="{markup:ResourceHelper Name=HomeThingsYouLove}"
                         TextAlignment="Center"
                         TextWrapping="WrapWholeWords" />
                 </StackPanel>
@@ -81,21 +81,21 @@
 
             <uc:ExpanderControl
                 Title="{markup:ResourceHelper Name=AddRemoveTitle}"
-                Description="{markup:ResourceHelper Name=AddRemoveDesc}"
                 Click="FoldersButton_Click"
+                Description="{markup:ResourceHelper Name=AddRemoveDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xE19C;" />
             <uc:ExpanderControl
                 x:Name="BrowseMedia"
                 Title="{markup:ResourceHelper Name=BrowseMediaTitle}"
-                Description="{markup:ResourceHelper Name=BrowseMediaDesc}"
                 Click="BrowseMedia_Click"
+                Description="{markup:ResourceHelper Name=BrowseMediaDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xE838;" />
             <uc:ExpanderControl
                 Title="{markup:ResourceHelper Name=SupportDevTitle}"
-                Description="{markup:ResourceHelper Name=SupportDevDesc}"
                 Click="SupportButton_Click"
+                Description="{markup:ResourceHelper Name=SupportDevDesc}"
                 ExpanderStyle="Button"
                 Icon="&#xE822;" />
             <uc:ExpanderControl
