@@ -122,7 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Enums\ControlCode.cs" />
+    <Compile Include="Enums\IOControlFunctionType.cs" />
     <Compile Include="Enums\TRACK_MODE_TYPE.cs" />
     <Compile Include="Helpers\CdRomDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

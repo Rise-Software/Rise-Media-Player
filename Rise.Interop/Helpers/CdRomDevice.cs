@@ -24,7 +24,7 @@ namespace Rise.Interop.Helpers
         private const int CB_CDDASECTOR = 2368;
         private const int CB_QSUBCHANNEL = 16;
         private const int CB_CDROMSECTOR = 2048;
-        private const int CB_AUDIO = (CB_CDDASECTOR - CB_QSUBCHANNEL);
+        private const int CB_AUDIO = CB_CDDASECTOR - CB_QSUBCHANNEL;
 
         /// <summary>
         /// Gets the underlying custom device.
@@ -52,7 +52,7 @@ namespace Rise.Interop.Helpers
             await inputBuffer.AsStream().WriteAsync(InteropHelpers.SerializeToByteArray(preventMediaRemoval), 0, Marshal.SizeOf<PREVENT_MEDIA_REMOVAL>());
 
             var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)ControlCode.IOCTL_STORAGE_MEDIA_REMOVAL,
+                (ushort)IOControlFunctionType.IOCTL_STORAGE_MEDIA_REMOVAL,
                 IOControlAccessMode.Read,
                 IOControlBufferingMethod.DirectInput);
 
@@ -75,7 +75,7 @@ namespace Rise.Interop.Helpers
             await inputBuffer.AsStream().WriteAsync(InteropHelpers.SerializeToByteArray(preventMediaRemoval), 0, Marshal.SizeOf<PREVENT_MEDIA_REMOVAL>());
 
             var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)ControlCode.IOCTL_STORAGE_MEDIA_REMOVAL,
+                (ushort)IOControlFunctionType.IOCTL_STORAGE_MEDIA_REMOVAL,
                 IOControlAccessMode.Read,
                 IOControlBufferingMethod.DirectInput);
 
@@ -92,10 +92,10 @@ namespace Rise.Interop.Helpers
         {
             IBuffer outputBuffer = new Windows.Storage.Streams.Buffer((uint)Marshal.SizeOf<CDROM_TOC>());
 
-            var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)ControlCode.IOCTL_CDROM_READ_TOC,
+            var code = new IOControlCode(0x00000002,
+                (ushort)IOControlFunctionType.IOCTL_CDROM_READ_TOC,
                 IOControlAccessMode.Read,
-                IOControlBufferingMethod.DirectOutput);
+                IOControlBufferingMethod.Buffered);
 
             if (await _customDevice.TrySendIOControlAsync(code, null, outputBuffer))
             {
@@ -130,7 +130,7 @@ namespace Rise.Interop.Helpers
             IBuffer outputBuffer = new Windows.Storage.Streams.Buffer((uint)numSectors * CB_AUDIO);
 
             var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)ControlCode.IOCTL_CDROM_RAW_READ,
+                (ushort)IOControlFunctionType.IOCTL_CDROM_RAW_READ,
                 IOControlAccessMode.Read,
                 IOControlBufferingMethod.Buffered);
 

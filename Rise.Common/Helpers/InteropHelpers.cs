@@ -5,10 +5,21 @@ namespace Rise.Common.Helpers
 {
     public static class InteropHelpers
     {
-        public static unsafe T DeserializeByteArray<T>(this byte[] bytes) where T : struct
+        public static T DeserializeByteArray<T>(this byte[] bytes) where T : struct
         {
-            fixed (byte* structure = &bytes[0])
-                return *(T*)structure;
+            T returnStruct;
+            GCHandle handle = GCHandle.Alloc(bytes, GCHandleType.Pinned);
+
+            try
+            {
+                returnStruct = Marshal.PtrToStructure<T>(handle.AddrOfPinnedObject());
+            }
+            finally
+            {
+                handle.Free();
+            }
+
+            return returnStruct;
         }
 
         public static byte[] SerializeToByteArray<T>(T obj)
