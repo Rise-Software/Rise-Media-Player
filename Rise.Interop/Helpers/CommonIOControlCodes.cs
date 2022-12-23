@@ -8,7 +8,7 @@ namespace Rise.Interop.Helpers
         /// <summary>
         /// Gets the control code of a specified type.
         /// </summary>
-        /// <remarks>Values supported in this method come from the ntddstor.h and ntddcdrm.h SDK headers.</remarks>
+        /// <remarks>Values supported in this method are taken from the ntddstor.h, ntddcdrm.h and devioctl.h SDK headers.</remarks>
         /// <param name="type">The control type.</param>
         /// <returns>The control code using the specified control type.</returns>
         public static IIOControlCode GetControlCode(IOControlType type)
