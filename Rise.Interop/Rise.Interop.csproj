@@ -122,9 +122,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Enums\IOControlFunctionType.cs" />
+    <Compile Include="Enums\IOControlType.cs" />
     <Compile Include="Enums\TRACK_MODE_TYPE.cs" />
     <Compile Include="Helpers\CdRomDevice.cs" />
+    <Compile Include="Helpers\CommonIOControlCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\CDROM_TOC.cs" />
     <Compile Include="Structures\PREVENT_MEDIA_REMOVAL.cs" />

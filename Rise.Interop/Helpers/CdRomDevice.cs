@@ -8,6 +8,7 @@ using Windows.Devices.Custom;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.IO;
+using Buffer = Windows.Storage.Streams.Buffer;
 
 namespace Rise.Interop.Helpers
 {
@@ -40,46 +41,36 @@ namespace Rise.Interop.Helpers
         /// Locks the CD drive.
         /// </summary>
         /// <returns>Whether the operation has succeeded or not.</returns>
-        public async Task<bool> LockAsync()
+        public Task<bool> LockAsync()
         {
-            IBuffer inputBuffer = new Windows.Storage.Streams.Buffer((uint)Marshal.SizeOf(typeof(PREVENT_MEDIA_REMOVAL)));
-
             var preventMediaRemoval = new PREVENT_MEDIA_REMOVAL()
             {
                 PreventMediaRemoval = 1
             };
 
-            await inputBuffer.AsStream().WriteAsync(InteropHelpers.SerializeToByteArray(preventMediaRemoval), 0, Marshal.SizeOf<PREVENT_MEDIA_REMOVAL>());
+            byte[] inputBuffer = InteropHelpers.SerializeToByteArray(preventMediaRemoval);
 
-            var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)IOControlFunctionType.IOCTL_STORAGE_MEDIA_REMOVAL,
-                IOControlAccessMode.Read,
-                IOControlBufferingMethod.DirectInput);
+            IIOControlCode code = CommonIOControlCodes.GetControlCode(IOControlType.IOCTL_STORAGE_MEDIA_REMOVAL);
 
-            return await _customDevice.TrySendIOControlAsync(code, inputBuffer, null);
+            return _customDevice.TrySendIOControlAsync(code, inputBuffer.AsBuffer(), null).AsTask();
         }
 
         /// <summary>
         /// Unlocks the CD drive.
         /// </summary>
         /// <returns>Whether the operation has succeeded or not.</returns>
-        public async Task<bool> UnlockAsync()
+        public Task<bool> UnlockAsync()
         {
-            IBuffer inputBuffer = new Windows.Storage.Streams.Buffer((uint)Marshal.SizeOf(typeof(PREVENT_MEDIA_REMOVAL)));
-
             var preventMediaRemoval = new PREVENT_MEDIA_REMOVAL()
             {
                 PreventMediaRemoval = 0
             };
 
-            await inputBuffer.AsStream().WriteAsync(InteropHelpers.SerializeToByteArray(preventMediaRemoval), 0, Marshal.SizeOf<PREVENT_MEDIA_REMOVAL>());
+            byte[] inputBuffer = InteropHelpers.SerializeToByteArray(preventMediaRemoval);
 
-            var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)IOControlFunctionType.IOCTL_STORAGE_MEDIA_REMOVAL,
-                IOControlAccessMode.Read,
-                IOControlBufferingMethod.DirectInput);
+            IIOControlCode code = CommonIOControlCodes.GetControlCode(IOControlType.IOCTL_STORAGE_MEDIA_REMOVAL);
 
-            return await _customDevice.TrySendIOControlAsync(code, inputBuffer, null);
+            return _customDevice.TrySendIOControlAsync(code, inputBuffer.AsBuffer(), null).AsTask();
         }
 
         /// <summary>
@@ -90,16 +81,13 @@ namespace Rise.Interop.Helpers
         /// <exception cref="ArgumentNullException" />
         public async Task<CDROM_TOC?> GetTableOfContentsAsync()
         {
-            IBuffer outputBuffer = new Windows.Storage.Streams.Buffer((uint)Marshal.SizeOf<CDROM_TOC>());
+            IIOControlCode code = CommonIOControlCodes.GetControlCode(IOControlType.IOCTL_CDROM_READ_TOC);
 
-            var code = new IOControlCode(0x00000002,
-                (ushort)IOControlFunctionType.IOCTL_CDROM_READ_TOC,
-                IOControlAccessMode.Read,
-                IOControlBufferingMethod.Buffered);
+            byte[] outputBuffer = new byte[Marshal.SizeOf<CDROM_TOC>()];
 
-            if (await _customDevice.TrySendIOControlAsync(code, null, outputBuffer))
+            if (await _customDevice.TrySendIOControlAsync(code, null, outputBuffer.AsBuffer()))
             {
-                _cdToc = InteropHelpers.DeserializeByteArray<CDROM_TOC>(outputBuffer.ToArray());
+                _cdToc = InteropHelpers.DeserializeByteArray<CDROM_TOC>(outputBuffer);
                 _tocValid = true;
             }
 
@@ -123,20 +111,14 @@ namespace Rise.Interop.Helpers
                 DiskOffset = sectorOffset * CB_CDROMSECTOR
             };
 
-            IBuffer inputBuffer = new Windows.Storage.Streams.Buffer((uint)Marshal.SizeOf(typeof(RAW_READ_INFO)));
+            var code = CommonIOControlCodes.GetControlCode(IOControlType.IOCTL_CDROM_RAW_READ);
 
-            await inputBuffer.AsStream().WriteAsync(InteropHelpers.SerializeToByteArray(readInfo), 0, Marshal.SizeOf<RAW_READ_INFO>());
+            byte[] inputBuffer = InteropHelpers.SerializeToByteArray(readInfo);
+            byte[] outputBuffer = new byte[numSectors * CB_AUDIO];
 
-            IBuffer outputBuffer = new Windows.Storage.Streams.Buffer((uint)numSectors * CB_AUDIO);
+            _ = await _customDevice.TrySendIOControlAsync(code, inputBuffer.AsBuffer(), outputBuffer.AsBuffer());
 
-            var code = new IOControlCode(KnownDeviceTypes.Unknown,
-                (ushort)IOControlFunctionType.IOCTL_CDROM_RAW_READ,
-                IOControlAccessMode.Read,
-                IOControlBufferingMethod.Buffered);
-
-            _ = await _customDevice.TrySendIOControlAsync(code, inputBuffer, outputBuffer);
-
-            return Array.Empty<byte>();
+            return outputBuffer;
         }
 
         /// <summary>
@@ -188,7 +170,7 @@ namespace Rise.Interop.Helpers
                 if ((end.TotalSeconds > 0) && ((int)(startSect + end.TotalSeconds * 75) < endSect))
                     endSect = startSect + (int)end.TotalSeconds * 75;
 
-                var buffer = new Windows.Storage.Streams.Buffer((uint)(endSect * CB_AUDIO));
+                var buffer = new Buffer((uint)(endSect * CB_AUDIO));
 
                 uint bytesToRead = (uint)(endSect - startSect) * CB_AUDIO;
                 byte[] data = new byte[CB_AUDIO * NSECTORS];
