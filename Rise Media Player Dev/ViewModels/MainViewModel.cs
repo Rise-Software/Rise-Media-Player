@@ -233,7 +233,7 @@ namespace Rise.App.ViewModels
 
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song) || s.Location == file.Path);
+                Any(s => s.Model.Equals(song));
 
             // Check if album exists.
             bool albumExists = Albums.
@@ -296,10 +296,7 @@ namespace Rise.App.ViewModels
                     }
                 }
 
-                if (song.Thumbnail == null)
-                {
-                    song.Thumbnail = alvm.Thumbnail;
-                }
+                song.Thumbnail ??= alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
@@ -401,21 +398,13 @@ namespace Rise.App.ViewModels
                 VideoViewModel vid = new(video);
 
                 // Get song thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
+                using StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
                 bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                if (result)
-                {
-                    vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
-                }
-                else
-                {
-                    vid.Thumbnail = URIs.AlbumThumb;
-                }
+                vid.Thumbnail = result ? $@"ms-appdata:///local/{filename}.png" : URIs.AlbumThumb;
 
-                thumbnail?.Dispose();
                 await vid.SaveAsync(queue);
             }
 
