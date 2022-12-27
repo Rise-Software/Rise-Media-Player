@@ -707,8 +707,9 @@ namespace Rise.App.Views
         }
 
         private void GoToScanningSettings_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Frame.Navigate(typeof(AllSettingsPage));
-        }
+            => _ = Frame.Navigate(typeof(AllSettingsPage));
+
+        private void DismissButton_Click(object sender, RoutedEventArgs e)
+            => _ = VisualStateManager.GoToState(this, "NotScanningState", false);
     }
 }
