@@ -105,7 +105,7 @@ namespace Rise.Models
             }
 
             string albumTitle = musicProperties.Album.ReplaceIfNullOrWhiteSpace("UnknownAlbumResource");
-            string thumb = URIs.AlbumThumb;
+            string thumb = URIs.MusicThumb;
 
             using var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
             string filename = albumTitle.AsValidFileName();

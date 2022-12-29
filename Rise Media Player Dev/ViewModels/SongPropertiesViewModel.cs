@@ -1,10 +1,14 @@
-﻿using Rise.Common.Constants;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
+using Rise.NewRepository;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -150,14 +154,60 @@ namespace Rise.App.ViewModels
                     await songFile.RenameAsync(Filename, NameCollisionOption.GenerateUniqueName);
                     Model.Location = songFile.Path;
 
-                    var ogSong = await NewRepository.Repository.GetItemAsync<Song>(Model.Model.Id);
-                    await NewRepository.Repository.DeleteAsync(ogSong);
+                    var ogSong = await Repository.GetItemAsync<Song>(Model.Model.Id);
+                    await Repository.DeleteAsync(ogSong);
 
                     await Model.SaveAsync();
                 }
+
+                await EnsureObjectsExistAsync();
             }
 
             return result;
+        }
+
+        private async Task EnsureObjectsExistAsync()
+        {
+            List<Task> tasks = new();
+
+            if (!App.MViewModel.Artists.Any(a => a.Name == Artist))
+            {
+                var artist = new ArtistViewModel()
+                {
+                    Name = Artist,
+                    Picture = URIs.ArtistThumb
+                };
+
+                tasks.Add(artist.SaveAsync(true));
+            }
+
+            if (!App.MViewModel.Artists.Any(a => a.Name == Artist || a.Name == AlbumArtist))
+            {
+                var artist = new ArtistViewModel()
+                {
+                    Name = AlbumArtist,
+                    Picture = URIs.ArtistThumb
+                };
+
+                tasks.Add(artist.SaveAsync(true));
+            }
+
+            if (!App.MViewModel.Albums.Any(a => a.Title == Album))
+            {
+                var album = new AlbumViewModel()
+                {
+                    Title = Album,
+                    Artist = AlbumArtist,
+                    Genres = Genres,
+                    Thumbnail = Thumbnail,
+                    Year = Year
+                };
+
+                tasks.Add(album.SaveAsync(true));
+            }
+
+            await Task.WhenAll(tasks);
+            await Repository.UpsertQueuedAsync();
         }
     }
 }
