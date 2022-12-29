@@ -9,30 +9,21 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Rise.App.Views.Albums.Properties
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class AlbumPropsDetailsPagexaml : Page
+    public sealed partial class AlbumPropsDetailsPage : Page
     {
         private AlbumViewModel Album;
-        public AlbumPropsDetailsPagexaml()
+
+        public AlbumPropsDetailsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             Album = e.Parameter as AlbumViewModel;
-        }
-
-        private void LocalButton_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private async void EditArtButton_Click(Microsoft.UI.Xaml.Controls.SplitButton sender, Microsoft.UI.Xaml.Controls.SplitButtonClickEventArgs args)
@@ -65,21 +56,20 @@ namespace Rise.App.Views.Albums.Properties
 
         private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile =
-                await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(Album.Thumbnail));
+            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Album.Thumbnail));
 
-            FolderPicker folderPicker = new FolderPicker
+            FileSavePicker fileSavePicker = new()
             {
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
-            folderPicker.FileTypeFilter.Add("*");
 
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                await picFile.CopyAsync(folder);
-            }
+            fileSavePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
+            fileSavePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
+
+            StorageFile file = await fileSavePicker.PickSaveFileAsync();
+
+            if (file != null)
+                await picFile.CopyAndReplaceAsync(file);
         }
     }
 }
