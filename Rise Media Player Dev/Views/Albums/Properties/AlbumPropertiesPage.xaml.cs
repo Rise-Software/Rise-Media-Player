@@ -27,7 +27,6 @@ namespace Rise.App.Views.Albums.Properties
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            await Album.CancelEditsAsync();
             _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
         }
 

@@ -261,7 +261,7 @@ namespace Rise.App.ViewModels
                     Title = song.Album,
                     Artist = albumArtist,
                     Genres = song.Genres,
-                    Thumbnail = song.Thumbnail.ReplaceIfNullOrWhiteSpace(URIs.AlbumThumb),
+                    Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
 
