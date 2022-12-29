@@ -356,7 +356,7 @@
                         IsTextSelectionEnabled="False"
                         Visibility="Collapsed">
                         <Paragraph x:Name="DefaultTitleParagraph">
-                            <Span FontWeight="SemiBold">Rise</Span>
+                            <Run x:Name="RiseSpan" FontWeight="SemiBold" Text="Rise" />
                             <Span>Media Player</Span>
                         </Paragraph>
                     </RichTextBlock>

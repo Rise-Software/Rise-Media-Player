@@ -98,6 +98,11 @@ namespace Rise.App.Views
             UpdateTitleBarLayout(coreTitleBar);
 
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
+
+            var date = DateTime.Now;
+
+            if (date != null && date.Month == 4 && date.Day == 1)
+                RiseSpan.Text = "Rice";
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs args)
