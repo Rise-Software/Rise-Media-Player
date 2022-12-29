@@ -49,13 +49,14 @@ namespace Rise.Models
 
         public string Thumbnail { get; set; }
 
+        [Ignore]
+        public bool IsLocal { get; set; } = true;
+
         /// <summary>
         /// Returns the song title.
         /// </summary>
         public override string ToString()
-        {
-            return Title;
-        }
+            => Title;
     }
 
     // Constructors/Factory methods
@@ -127,7 +128,8 @@ namespace Rise.Models
                 Year = musicProperties.Year,
                 Location = file.Path,
                 Rating = musicProperties.Rating,
-                Bitrate = musicProperties.Bitrate
+                Bitrate = musicProperties.Bitrate,
+                IsLocal = file.Provider.Id == "computer"
             };
         }
     }

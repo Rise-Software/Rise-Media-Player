@@ -27,6 +27,11 @@ namespace Rise.App.Views
                 Props = props;
             }
 
+            if (Props.Model.Model.IsLocal)
+                LocalExpander.Visibility = Visibility.Visible;
+            else
+                OnlineExpander.Visibility = Visibility.Visible;
+
             base.OnNavigatedTo(e);
         }
 
@@ -80,6 +85,11 @@ namespace Rise.App.Views
             {
                 await picFile.CopyAsync(folder);
             }
+        }
+
+        private void OnlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnlineTip.IsOpen = true;
         }
     }
 }
