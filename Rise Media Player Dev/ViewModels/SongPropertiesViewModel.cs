@@ -1,4 +1,5 @@
 ﻿using Rise.Common.Constants;
+using Rise.Common.Extensions;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -127,16 +128,12 @@ namespace Rise.App.ViewModels
                 musicProps.Year = Year;
                 musicProps.Rating = Rating * 20;
 
-                // We can't set MusicProperties.Genres, so
-                // we use the Win32 prop here
-                var genreProp = await songFile.Properties.
-                    RetrievePropertiesAsync(new string[] { SystemMusic.Genre });
-                genreProp[SystemMusic.Genre] = Genres.Split("; ")[0];
+                foreach (var genre in Genres.Split("; "))
+                    _ = musicProps.Genre.AddIfNotExists(genre);
 
                 try
                 {
                     await musicProps.SavePropertiesAsync();
-                    await songFile.Properties.SavePropertiesAsync(genreProp);
 
                     result = true;
                 }
