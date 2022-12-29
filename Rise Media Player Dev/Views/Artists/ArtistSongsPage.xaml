@@ -510,9 +510,23 @@
                                                 GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                                                 PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                                                 ShowArtist="False"
-                                                Song="{x:Bind}" />
+                                                Song="{x:Bind}"
+                                                Style="{StaticResource TransparentSongDataStyle}" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
+
+                                    <tkitui:ListViewExtensions.AlternateItemTemplate>
+                                        <DataTemplate x:DataType="viewmodels:SongViewModel">
+                                            <uc:SongData
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
+                                                GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
+                                                PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
+                                                ShowArtist="False"
+                                                Song="{x:Bind}" />
+                                        </DataTemplate>
+                                    </tkitui:ListViewExtensions.AlternateItemTemplate>
                                 </ListView>
                             </Grid>
                         </StackPanel>

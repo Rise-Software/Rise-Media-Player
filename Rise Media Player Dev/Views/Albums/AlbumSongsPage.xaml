@@ -265,16 +265,31 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel" x:DefaultBindMode="OneWay">
                     <uc:SongData
+                        Height="50"
                         EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                         GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                         ShowAlbum="False"
                         ShowThumbnail="False"
-                        Height="50"
-                        Song="{x:Bind}" />
+                        Song="{x:Bind}"
+                        Style="{StaticResource TransparentSongDataStyle}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
+
+            <ui:ListViewExtensions.AlternateItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SongViewModel" x:DefaultBindMode="OneWay">
+                    <uc:SongData
+                        Height="50"
+                        EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
+                        GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
+                        GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
+                        PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
+                        ShowAlbum="False"
+                        ShowThumbnail="False"
+                        Song="{x:Bind}" />
+                </DataTemplate>
+            </ui:ListViewExtensions.AlternateItemTemplate>
 
             <ListView.Footer>
                 <Border

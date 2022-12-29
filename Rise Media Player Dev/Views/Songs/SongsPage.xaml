@@ -268,9 +268,23 @@
                         PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                         ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
                         ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                        Song="{x:Bind}" />
+                        Song="{x:Bind}"
+                        Style="{StaticResource TransparentSongDataStyle}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
+
+            <tkitui:ListViewExtensions.AlternateItemTemplate>
+                <DataTemplate x:DataType="viewmodels:SongViewModel">
+                    <uc:SongData
+                        EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
+                        GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
+                        GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
+                        PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
+                        ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
+                        ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
+                        Song="{x:Bind}" />
+                </DataTemplate>
+            </tkitui:ListViewExtensions.AlternateItemTemplate>
         </ListView>
     </Grid>
 </uc:MediaPageBase>
