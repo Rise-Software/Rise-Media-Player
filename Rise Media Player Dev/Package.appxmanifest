@@ -49,9 +49,6 @@
 				</uap:DefaultTile >
 				<uap:SplashScreen Image="Assets\App\SplashScreen.png" uap5:Optional="true" />
 				<uap:LockScreen BadgeLogo="Assets\App\BadgeLogo.png" Notification="badge"/>
-				<uap:InitialRotationPreference>
-					<uap:Rotation Preference="landscape"/>
-					<uap:Rotation Preference="portrait"/></uap:InitialRotationPreference>
 			</uap:VisualElements>
 				<Extensions>
           <uap5:Extension
