@@ -115,11 +115,13 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.VerticalTile}"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.VerticalTile)}"
                             GroupName="ViewModes"
                             Text="Tiles (Vertical)" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.HorizontalTile}"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.HorizontalTile)}"
                             GroupName="ViewModes"
                             Text="Tiles (Horizontal)" />
 
