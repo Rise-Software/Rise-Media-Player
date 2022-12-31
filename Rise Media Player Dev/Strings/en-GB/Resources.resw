@@ -759,4 +759,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="UseCustomImage" xml:space="preserve">
     <value>Use custom image</value>
   </data>
+  <data name="MediaOnlineDesc" xml:space="preserve">
+    <value>This song is on the internet, meaning it is stored on the cloud or online. Properties changed here will get applied to the file if it's stored on a cloud service like OneDrive.</value>
+  </data>
+  <data name="MediaOnlineTitle" xml:space="preserve">
+    <value>This song is stored on the internet.</value>
+  </data>
 </root>

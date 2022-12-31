@@ -52,7 +52,8 @@
 
         <uc:ExpanderControl
             x:Name="OnlineExpander"
-            x:Uid="/Details/AsOnlineFile"
+            Title="{markup:ResourceHelper Name=MediaOnlineTitle}"
+            Description="{markup:ResourceHelper Name=MediaOnlineDesc}"
             d:Visibility="Collapsed"
             ExpanderStyle="Static"
             Icon="&#xE12B;"
