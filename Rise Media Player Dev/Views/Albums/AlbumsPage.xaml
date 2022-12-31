@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
@@ -115,14 +115,14 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.VerticalTile}"
-                            GroupName="ViewModes"
                             IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.VerticalTile)}"
+                            GroupName="ViewModes"
                             Text="Tiles (Vertical)" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.HorizontalTile}"
-                            GroupName="ViewModes"
                             IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.HorizontalTile)}"
+                            GroupName="ViewModes"
                             Text="Tiles (Horizontal)" />
 
                         <MenuFlyoutSeparator />
@@ -200,10 +200,10 @@
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
-            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             SelectionMode="Single">
             <GridView.ContextFlyout>
@@ -269,7 +269,6 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:AlbumViewModel" x:DefaultBindMode="OneWay">
                     <uc:AlbumData
-                        HorizontalAlignment="Stretch"
                         Album="{x:Bind Mode=OneTime}"
                         GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot, Mode=OneTime}"
                         ShowArtist="{x:Bind app:App.SViewModel.ShowArtistInAlbums}"
