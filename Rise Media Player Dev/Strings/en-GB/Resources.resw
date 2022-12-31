@@ -765,4 +765,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="MediaOnlineTitle" xml:space="preserve">
     <value>This song is stored on the internet.</value>
   </data>
+  <data name="EditThumbnail" xml:space="preserve">
+    <value>Edit thumbnail</value>
+  </data>
+  <data name="ExportThumbnail" xml:space="preserve">
+    <value>Export thumbnail</value>
+  </data>
 </root>

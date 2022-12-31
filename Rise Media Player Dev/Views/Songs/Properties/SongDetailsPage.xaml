@@ -117,14 +117,14 @@
                         <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon FontSize="16" Glyph="&#xE104;" />
-                                <TextBlock Text="Edit thumbnail" Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock Text="{markup:ResourceHelper Name=EditThumbnail}" Style="{StaticResource BodyTextBlockStyle}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
                                     <MenuFlyoutItem
                                         Name="exportAlbumArt"
                                         Click="exportAlbumArt_Click"
-                                        Text="Export thumbnail">
+                                        Text="{markup:ResourceHelper Name=ExportThumbnail}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE159;" />
                                         </MenuFlyoutItem.Icon>
