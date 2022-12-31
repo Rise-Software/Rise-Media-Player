@@ -2,6 +2,7 @@
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.Json;
 using Rise.Data.Messages;
@@ -9,6 +10,7 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using Rise.NewRepository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -198,7 +200,6 @@ namespace Rise.App.ViewModels
             }, token);
 
             await Task.WhenAll(songsTask, videosTask);
-
             await Repository.UpsertQueuedAsync();
         }
 
@@ -233,7 +234,7 @@ namespace Rise.App.ViewModels
 
             // Check if song exists.
             bool songExists = Songs.
-                Any(s => s.Model.Equals(song) || s.Location == file.Path);
+                Any(s => s.Model.Equals(song));
 
             // Check if album exists.
             bool albumExists = Albums.
@@ -247,6 +248,10 @@ namespace Rise.App.ViewModels
             bool genreExists = Genres.
                 Any(g => g.Model.Name == song.Genres);
 
+            var albumArtist = song.AlbumArtist.ReplaceIfNullOrWhiteSpace(song.Artist);
+
+            List<Task> tasks = new();
+
             // If album isn't there already, add it to the database.
             if (!albumExists)
             {
@@ -254,14 +259,14 @@ namespace Rise.App.ViewModels
                 AlbumViewModel alvm = new()
                 {
                     Title = song.Album,
-                    Artist = song.AlbumArtist,
+                    Artist = albumArtist,
                     Genres = song.Genres,
                     Thumbnail = song.Thumbnail,
                     Year = song.Year
                 };
 
                 // Add new data to the MViewModel.
-                await alvm.SaveAsync(queue);
+                tasks.Add(alvm.SaveAsync(queue));
             }
             else
             {
@@ -274,7 +279,7 @@ namespace Rise.App.ViewModels
                     bool save = false;
                     if (alvm.Model.Artist == "UnknownArtistResource")
                     {
-                        alvm.Model.Artist = song.AlbumArtist;
+                        alvm.Model.Artist = albumArtist;
                         save = true;
                     }
 
@@ -291,15 +296,10 @@ namespace Rise.App.ViewModels
                     }
 
                     if (save)
-                    {
-                        await alvm.SaveAsync(queue);
-                    }
+                        tasks.Add(alvm.SaveAsync(queue));
                 }
 
-                if (song.Thumbnail == null)
-                {
-                    song.Thumbnail = alvm.Thumbnail;
-                }
+                song.Thumbnail ??= alvm.Thumbnail;
             }
 
             // If artist isn't there already, add it to the database.
@@ -311,7 +311,7 @@ namespace Rise.App.ViewModels
                     Picture = URIs.ArtistThumb
                 };
 
-                await arvm.SaveAsync(queue);
+                tasks.Add(arvm.SaveAsync(queue));
             }
 
             // Check for the album artist as well.
@@ -327,7 +327,7 @@ namespace Rise.App.ViewModels
                     Picture = URIs.ArtistThumb
                 };
 
-                await arvm.SaveAsync(queue);
+                tasks.Add(arvm.SaveAsync(queue));
             }
 
             // If genre isn't there already, add it to the database.
@@ -338,22 +338,24 @@ namespace Rise.App.ViewModels
                     Name = song.Genres
                 };
 
-                await gvm.SaveAsync();
+                tasks.Add(gvm.SaveAsync());
             }
 
             // If song isn't there already, add it to the database
             if (!songExists)
             {
                 SongViewModel svm = new(song);
-                await svm.SaveAsync(queue);
+                tasks.Add(svm.SaveAsync(queue));
             }
+
+            await Task.WhenAll(tasks);
 
             return !songExists;
         }
 
         public async Task<string> GetArtistImageAsync(string artist, HttpClient wc = null)
         {
-            if (App.SViewModel.FetchOnlineData && artist != "Unknown Artist")
+            if (App.SViewModel.FetchOnlineData && artist != ResourceHelper.GetString("UnknownArtistResource"))
             {
                 try
                 {
@@ -401,21 +403,13 @@ namespace Rise.App.ViewModels
                 VideoViewModel vid = new(video);
 
                 // Get song thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
+                using StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.VideosView, 238);
 
                 string filename = vid.Title.AsValidFileName();
                 bool result = await thumbnail.SaveToFileAsync($@"{filename}.png");
 
-                if (result)
-                {
-                    vid.Thumbnail = $@"ms-appdata:///local/{filename}.png";
-                }
-                else
-                {
-                    vid.Thumbnail = URIs.AlbumThumb;
-                }
+                vid.Thumbnail = result ? $@"ms-appdata:///local/{filename}.png" : URIs.AlbumThumb;
 
-                thumbnail?.Dispose();
                 await vid.SaveAsync(queue);
             }
 

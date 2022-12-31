@@ -246,7 +246,7 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets the song album's thumbnail.
+        /// Gets the song's thumbnail.
         /// </summary>
         public string Thumbnail
         {
@@ -256,6 +256,20 @@ namespace Rise.App.ViewModels
                 if (value != Model.Thumbnail)
                 {
                     Model.Thumbnail = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public bool IsLocal
+        {
+            get => Model.IsLocal;
+            set
+            {
+                if (value != Model.IsLocal)
+                {
+                    Model.IsLocal = value;
                     OnPropertyChanged();
                 }
             }

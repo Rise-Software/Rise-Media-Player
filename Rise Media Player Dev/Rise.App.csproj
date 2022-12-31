@@ -26,8 +26,6 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>latest</LangVersion>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
@@ -219,6 +217,9 @@
     </Compile>
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml.cs">
+      <DependentUpon>AlbumPropsSongsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
@@ -692,6 +693,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SongData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

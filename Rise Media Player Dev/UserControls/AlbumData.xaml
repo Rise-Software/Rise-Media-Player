@@ -83,7 +83,6 @@
             <VisualStateGroup x:Name="ViewModes">
                 <VisualState x:Name="VerticalTile">
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.Width" Value="158" />
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
                         <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="134" />
                         <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="0" />
@@ -97,7 +96,6 @@
 
                 <VisualState x:Name="HorizontalTile">
                     <VisualState.Setters>
-                        <Setter Target="MainGrid.Width" Value="256" />
                         <Setter Target="MainGrid.ColumnSpacing" Value="8" />
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="0" />
 

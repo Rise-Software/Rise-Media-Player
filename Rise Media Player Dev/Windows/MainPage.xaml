@@ -355,7 +355,7 @@
                         IsTextSelectionEnabled="False"
                         Visibility="Collapsed">
                         <Paragraph x:Name="DefaultTitleParagraph">
-                            <Span FontWeight="SemiBold">Rise</Span>
+                            <Run x:Name="RiseSpan" FontWeight="SemiBold" Text="Rise" />
                             <Span>Media Player</Span>
                         </Paragraph>
                     </RichTextBlock>
@@ -581,10 +581,10 @@
                     </Grid.RowDefinitions>
                     <Border
                         x:Name="IndexingTip"
+                        Grid.Row="1"
                         Height="50"
                         Margin="-16,8,-16,-16"
                         Padding="0"
-                        Grid.Row="1"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         Style="{StaticResource SettingsCard}"
@@ -624,24 +624,35 @@
                                     Text="Indexing your library. Please wait." />
                             </StackPanel>
 
-                            <Button
+                            <StackPanel
                                 Margin="0,0,12,0"
-                                Padding="8"
-                                Click="GoToScanningSettings_Click"
+                                Orientation="Horizontal"
                                 RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                Style="{ThemeResource TransparentButtonStyle}"
-                                ToolTipService.ToolTip="Scanning settings">
-                                <FontIcon FontSize="16" Glyph="&#xE115;" />
-                            </Button>
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <Button
+                                    Padding="8"
+                                    Click="GoToScanningSettings_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Scanning settings">
+                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
+                                </Button>
+
+                                <Button
+                                    Padding="8"
+                                    Click="DismissButton_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Dismiss">
+                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
+                                </Button>
+                            </StackPanel>
                         </RelativePanel>
                     </Border>
                     <Border
                         x:Name="FetchingMetadataTip"
+                        Grid.Row="1"
                         Height="50"
                         Margin="-16,8,-16,-16"
                         Padding="0"
-                        Grid.Row="1"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         Style="{StaticResource SettingsCard}"
@@ -681,24 +692,35 @@
                                     Text="Fetching artist info..." />
                             </StackPanel>
 
-                            <Button
+                            <StackPanel
                                 Margin="0,0,12,0"
-                                Padding="8"
-                                Click="GoToScanningSettings_Click"
+                                Orientation="Horizontal"
                                 RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                Style="{ThemeResource TransparentButtonStyle}"
-                                ToolTipService.ToolTip="Scanning settings">
-                                <FontIcon FontSize="16" Glyph="&#xE115;" />
-                            </Button>
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <Button
+                                    Padding="8"
+                                    Click="GoToScanningSettings_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Scanning settings">
+                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
+                                </Button>
+
+                                <Button
+                                    Padding="8"
+                                    Click="DismissButton_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Dismiss">
+                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
+                                </Button>
+                            </StackPanel>
                         </RelativePanel>
                     </Border>
                     <Border
                         x:Name="SuccessTip"
+                        Grid.Row="1"
                         Height="50"
                         Margin="-16,8,-16,-16"
                         Padding="0"
-                        Grid.Row="1"
                         VerticalAlignment="Bottom"
                         Background="{ThemeResource MediaTransportControlsPanelBackground}"
                         Style="{StaticResource SettingsCard}"
@@ -721,21 +743,44 @@
                                 To="0"
                                 Duration="0:0:0.5" />
                         </animations:Implicit.HideAnimations>
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <muxc:InfoBadge
-                                Margin="0,1,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource SuccessIconInfoBadgeStyle}" />
+                        <RelativePanel>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <muxc:InfoBadge
+                                    Margin="0,1,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource SuccessIconInfoBadgeStyle}" />
 
-                            <TextBlock
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BaseTextBlockStyle}"
-                                Text="Indexing complete!" />
-                        </StackPanel>
+                                <TextBlock
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Indexing complete!" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,0,12,0"
+                                Orientation="Horizontal"
+                                RelativePanel.AlignRightWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <Button
+                                    Padding="8"
+                                    Click="GoToScanningSettings_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Scanning settings">
+                                    <FontIcon FontSize="16" Glyph="&#xE115;" />
+                                </Button>
+
+                                <Button
+                                    Padding="8"
+                                    Click="DismissButton_Click"
+                                    Style="{ThemeResource TransparentButtonStyle}"
+                                    ToolTipService.ToolTip="Dismiss">
+                                    <FontIcon FontSize="16" Glyph="&#xE711;" />
+                                </Button>
+                            </StackPanel>
+                        </RelativePanel>
                     </Border>
 
                     <uc:RiseMediaPlayerElement

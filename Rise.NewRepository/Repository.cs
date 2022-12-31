@@ -32,11 +32,15 @@ namespace Rise.NewRepository
             _db ??= new SQLiteConnection(DbPath);
             _asyncDb ??= new SQLiteAsyncConnection(DbPath);
 
-            _ = await _asyncDb.CreateTableAsync<Song>();
-            _ = await _asyncDb.CreateTableAsync<Artist>();
-            _ = await _asyncDb.CreateTableAsync<Album>();
-            _ = await _asyncDb.CreateTableAsync<Genre>();
-            _ = await _asyncDb.CreateTableAsync<Video>();
+            await _asyncDb.EnableWriteAheadLoggingAsync();
+
+            await Task.WhenAll(
+                _asyncDb.CreateTableAsync<Song>(),
+                _asyncDb.CreateTableAsync<Artist>(),
+                _asyncDb.CreateTableAsync<Album>(),
+                _asyncDb.CreateTableAsync<Genre>(),
+                _asyncDb.CreateTableAsync<Video>()
+            );
 
             _upsertQueue ??= new();
             _removeQueue ??= new();

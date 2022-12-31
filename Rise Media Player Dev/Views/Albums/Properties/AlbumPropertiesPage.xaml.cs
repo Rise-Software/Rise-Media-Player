@@ -1,5 +1,8 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Models;
+using Rise.NewRepository;
 using System;
+using System.Linq;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,7 +16,7 @@ namespace Rise.App.Views.Albums.Properties
 
         public AlbumPropertiesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
         }
 
@@ -24,16 +27,27 @@ namespace Rise.App.Views.Albums.Properties
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            await Album.CancelEditsAsync();
             _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
-        }
+            var originalAlbum = await Repository.GetItemAsync<Album>(Album.Model.Id);
 
-        private async void PlaylistPropertiesPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
-        {
+            await Album.SaveAsync();
+
+            foreach (var song in App.MViewModel.Songs.Where(s => s.Album == originalAlbum.Title))
+            {
+                song.AlbumArtist = Album.Artist;
+                song.Genres = Album.Genres;
+                song.Thumbnail = Album.Thumbnail;
+
+                await song.SaveAsync(true);
+            }
+
+            await Repository.UpsertQueuedAsync();
+
             _ = await ApplicationView.GetForCurrentView().TryConsolidateAsync();
         }
 
@@ -46,7 +60,7 @@ namespace Rise.App.Views.Albums.Properties
                 switch (selectedItemTag)
                 {
                     case "DetailsItem":
-                        _ = PropsFrame.Navigate(typeof(AlbumPropsDetailsPagexaml), Album);
+                        _ = PropsFrame.Navigate(typeof(AlbumPropsDetailsPage), Album);
                         break;
 
                     default:

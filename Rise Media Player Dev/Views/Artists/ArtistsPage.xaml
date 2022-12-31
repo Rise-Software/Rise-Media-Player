@@ -7,6 +7,8 @@
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -85,11 +87,13 @@
                 Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
-        <GridView
+        <tkitui:AdaptiveGridView
             x:Name="MainGrid"
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
+            DesiredWidth="230"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -152,10 +156,7 @@
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:ArtistViewModel" x:DefaultBindMode="OneWay">
-                    <Grid
-                        Width="200"
-                        Margin="12"
-                        ColumnSpacing="10">
+                    <Grid Margin="12" ColumnSpacing="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80" />
                             <ColumnDefinition Width="1*" />
@@ -201,6 +202,6 @@
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </tkitui:AdaptiveGridView>
     </Grid>
 </uc:MediaPageBase>

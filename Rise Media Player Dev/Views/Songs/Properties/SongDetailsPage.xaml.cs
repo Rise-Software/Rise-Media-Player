@@ -1,5 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Extensions;
+using Rise.Models;
 using System;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -27,6 +28,11 @@ namespace Rise.App.Views
                 Props = props;
             }
 
+            if (Props.Model.Model.IsLocal)
+                LocalExpander.Visibility = Visibility.Visible;
+            else
+                OnlineExpander.Visibility = Visibility.Visible;
+
             base.OnNavigatedTo(e);
         }
 
@@ -42,6 +48,7 @@ namespace Rise.App.Views
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
+
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
@@ -51,35 +58,38 @@ namespace Rise.App.Views
             if (file != null)
             {
                 // Get file thumbnail and make a PNG out of it.
-                StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
+                using StorageItemThumbnail thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
                 await thumbnail.SaveToFileAsync($@"modified-artist-{file.Name}.png");
 
                 var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
 
-                thumbnail?.Dispose();
                 Props.Thumbnail = uri.ToString();
-                //Update the source in the XAML view
+
                 imgAlbum.Source = new BitmapImage(uri);
             }
         }
 
         private async void exportAlbumArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile =
-                await StorageFile.GetFileFromApplicationUriAsync
-                (new Uri(Props.Thumbnail));
+            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Props.Thumbnail));
 
-            FolderPicker folderPicker = new FolderPicker
+            FileSavePicker fileSavePicker = new()
             {
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
-            folderPicker.FileTypeFilter.Add("*");
 
-            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                await picFile.CopyAsync(folder);
-            }
+            fileSavePicker.FileTypeChoices.Add("PNG Image", new string[] { ".png" });
+            fileSavePicker.FileTypeChoices.Add("JPEG Image", new string[] { ".jpg" });
+
+            StorageFile file = await fileSavePicker.PickSaveFileAsync();
+
+            if (file != null)
+                await picFile.CopyAndReplaceAsync(file);
+        }
+
+        private void OnlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnlineTip.IsOpen = true;
         }
     }
 }

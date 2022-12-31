@@ -74,22 +74,11 @@ namespace Rise.Common.Extensions
             return false;
         }
 
-        public static bool AddIfNotExists<T>(this ICollection<T> collection, T item)
+        public static bool AddIfNotExists<T>(this IList<T> list, T item)
         {
-            if (!collection.Contains(item))
+            if (!list.Contains(item))
             {
-                collection.Add(item);
-                return true;
-            }
-
-            return false;
-        }
-
-        public static bool AddIfNotExists<T>(this AdvancedCollectionView collection, T item)
-        {
-            if (!collection.Contains(item))
-            {
-                collection.Add(item);
+                list.Add(item);
                 return true;
             }
 
