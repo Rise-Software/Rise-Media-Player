@@ -32,6 +32,7 @@
         Orientation="Vertical"
         Spacing="4">
         <uc:ExpanderControl
+            x:Name="LocalExpander"
             Title="{markup:ResourceHelper Name=MediaLocalTitle}"
             Description="{markup:ResourceHelper Name=MediaLocalDesc}"
             d:Visibility="Visible"
