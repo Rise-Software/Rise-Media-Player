@@ -18,22 +18,24 @@
     <Grid
         x:Name="MainGrid"
         Padding="12"
+        HorizontalAlignment="Stretch"
         x:DefaultBindMode="OneWay">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Border
             x:Name="AlbumThumb"
             CornerRadius="{x:Bind ThumbnailCornerRadius}"
             ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}"
-            Visibility="{x:Bind ShowThumbnail}">
+            Visibility="{x:Bind ShowThumbnail}"
+            HorizontalAlignment="Stretch">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill">
                     <ImageBrush.ImageSource>
@@ -88,12 +90,10 @@
                 <VisualState x:Name="VerticalTile">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.RowSpacing" Value="4" />
-                        <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="134" />
                         <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="0" />
 
                         <Setter Target="InfoPanel.(Grid.Row)" Value="1" />
 
-                        <Setter Target="AlbumThumb.Width" Value="134" />
                         <Setter Target="AlbumThumb.Height" Value="134" />
                     </VisualState.Setters>
                 </VisualState>
@@ -101,6 +101,7 @@
                 <VisualState x:Name="HorizontalTile">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.ColumnSpacing" Value="8" />
+                        <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="Auto" />
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="0" />
 
                         <Setter Target="InfoPanel.(Grid.Column)" Value="1" />
