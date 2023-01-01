@@ -5,6 +5,7 @@
     xmlns:control="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Rise.App.Web"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -12,7 +13,6 @@
     mc:Ignorable="d">
 
     <Grid>
-
         <Border
             x:Name="AppTitleBar"
             Height="32"
@@ -32,22 +32,18 @@
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="What's new?" />
+                    Text="{markup:ResourceHelper Name=WhatsNewTitle}" />
             </StackPanel>
         </Border>
-
-
 
         <muxc:ProgressRing
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             IsActive="True" />
+
         <control:WebView2
             x:Name="wv2"
             Margin="0,32,0,0"
             Source="https://rise-media.netlify.app/shell/whatsnew" />
-
     </Grid>
-
-
 </Page>
