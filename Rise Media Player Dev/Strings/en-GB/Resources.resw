@@ -786,6 +786,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="IndexingComplete" xml:space="preserve">
     <value>Indexing complete!</value>
   </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
   <data name="ScanningSettings" xml:space="preserve">
     <value>Scanning settings</value>
   </data>

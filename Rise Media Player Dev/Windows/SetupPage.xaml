@@ -60,7 +60,7 @@
                 HorizontalAlignment="Center"
                 Click="SetupButton_Click"
                 Content="{markup:ResourceHelper Name=/Setup/Start}"
-                Style="{StaticResource AccentButtonStyle}" />
+                Style="{ThemeResource AccentButtonStyle}" />
         </StackPanel>
     </Grid>
 </Page>
