@@ -786,6 +786,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="IndexingComplete" xml:space="preserve">
     <value>Indexing complete!</value>
   </data>
+  <data name="NotEnoughQ" xml:space="preserve">
+    <value>Not enough?</value>
+  </data>
   <data name="OpenInBrowser" xml:space="preserve">
     <value>Open in browser</value>
   </data>

@@ -161,6 +161,18 @@ Early Access Insiders (previously Seeding Insiders) get access to the app earlie
   <data name="BetaH.Text" xml:space="preserve">
     <value>Beta</value>
   </data>
+  <data name="DiscyAboutTipDesc" xml:space="preserve">
+    <value>You can find me by right clicking on different things. For example, an album. I'll tell you what you can do :). I'm still pretty new, so I won't be everywhere, but I'm growing every day!</value>
+  </data>
+  <data name="DiscyAboutTipTitle" xml:space="preserve">
+    <value>Hey! I'm Discy.</value>
+  </data>
+  <data name="DiscyOnVideoDesc" xml:space="preserve">
+    <value>Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.</value>
+  </data>
+  <data name="DiscyOnVideoTitle" xml:space="preserve">
+    <value>Playing videos</value>
+  </data>
   <data name="FAQH.Text" xml:space="preserve">
     <value>The basics</value>
   </data>

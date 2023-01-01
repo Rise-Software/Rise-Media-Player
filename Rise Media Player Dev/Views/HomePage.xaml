@@ -51,7 +51,7 @@
                         <Image
                             Width="88"
                             Height="80"
-                            Source="/Assets/AtAGlance/widgets.png" />
+                            Source="ms-appx:///Assets/AtAGlance/widgets.png" />
                     </StackPanel>
 
                     <TextBlock

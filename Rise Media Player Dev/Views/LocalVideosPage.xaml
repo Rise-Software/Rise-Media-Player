@@ -30,19 +30,20 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnVideo"
-            Title="Playing videos"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoTitle}"
             ActionButtonContent="Learn more"
             CloseButtonContent="Got it!"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Click on a video to play it. Rename and sort them. Videos will take up the whole app window and you can scrub, pause, skip and more.">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
         <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=LocalVideos}" />
+        
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
