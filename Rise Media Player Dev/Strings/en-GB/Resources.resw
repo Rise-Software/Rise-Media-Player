@@ -771,6 +771,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="ExportThumbnail" xml:space="preserve">
     <value>Export thumbnail</value>
   </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
   <data name="Dismiss" xml:space="preserve">
     <value>Dismiss</value>
   </data>
