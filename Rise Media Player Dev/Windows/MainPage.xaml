@@ -620,8 +620,11 @@
                                 <TextBlock
                                     Margin="12,0"
                                     VerticalAlignment="Center"
-                                    Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Indexing your library. Please wait." />
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Indexing" />
+                                    <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+                                    <Run Text="media from your library. Please wait." />
+                                </TextBlock>
                             </StackPanel>
 
                             <StackPanel

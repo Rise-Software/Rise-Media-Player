@@ -12,7 +12,6 @@ using Rise.NewRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +28,7 @@ namespace Rise.App.ViewModels
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
+
         /// <summary>
         /// Whether the app is currently looking for new media.
         /// </summary>
@@ -37,11 +37,36 @@ namespace Rise.App.ViewModels
             get => _isScanning;
             private set => Set(ref _isScanning, value);
         }
+        
+        /// <summary>
+        /// The media indexed so far.
+        /// </summary>
+        public uint IndexedMedia => IndexedSongs + IndexedVideos;
+
+        private uint _indexedSongs = 0;
+        private uint _indexedVideos = 0;
 
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
-        private uint IndexedSongs = 0;
-        private uint IndexedVideos = 0;
+        private uint IndexedSongs
+        {
+            get => _indexedSongs;
+            set
+            {
+                _ = Set(ref _indexedSongs, value);
+                OnPropertyChanged(nameof(IndexedMedia));
+            }
+        }
+
+        private uint IndexedVideos
+        {
+            get => _indexedVideos;
+            set
+            {
+                _ = Set(ref _indexedVideos, value);
+                OnPropertyChanged(nameof(IndexedMedia));
+            }
+        }
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -155,26 +180,27 @@ namespace Rise.App.ViewModels
             await IndexLibrariesAsync(token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            if (App.SViewModel.FetchOnlineData)
-                MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
-
             await Task.WhenAll(
                 SongsTracker.CheckDuplicatesAsync(),
-                VideosTracker.CheckDuplicatesAsync(),
-                OptionalTask(FetchArtistsArtAsync(token), App.SViewModel.FetchOnlineData)
+                VideosTracker.CheckDuplicatesAsync()
             );
 
-            await Repository.DeleteQueuedAsync();
+            await Task.WhenAll(
+                Repository.UpsertQueuedAsync(),
+                Repository.DeleteQueuedAsync()
+            );
+
+            if (App.SViewModel.FetchOnlineData)
+            {
+                MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
+                await FetchArtistsArtAsync(token);
+            }
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
-
             IsScanning = false;
 
             IndexedSongs = 0;
             IndexedVideos = 0;
-
-            static Task OptionalTask(Task task, bool condition)
-                => condition ? task : Task.CompletedTask;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
@@ -184,8 +210,8 @@ namespace Rise.App.ViewModels
                 await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
-                    if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
-                        IndexedSongs++;
+                    _ = await SaveMusicModelsAsync(song, true).ConfigureAwait(false);
+                    IndexedSongs++;
                 }
             }, token);
 
@@ -194,8 +220,8 @@ namespace Rise.App.ViewModels
                 await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
-                    if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
-                        IndexedVideos++;
+                    _ = await SaveVideoModelAsync(video, true).ConfigureAwait(false);
+                    IndexedVideos++;
                 }
             }, token);
 
@@ -211,14 +237,20 @@ namespace Rise.App.ViewModels
                 UseProxy = false
             });
 
-            for (int i = 0; i < Artists.Count; i++)
+            foreach (var artist in Artists)
             {
                 if (token.IsCancellationRequested)
                     return;
 
-                var artist = Artists[i];
+                // The ms-appx prefix is used for files within the app
+                // bundle, and if it isn't present, it means a custom
+                // image has already been applied
+                if (!artist.Picture.StartsWith("ms-appx"))
+                    return;
 
-                artist.Picture = await GetArtistImageAsync(artist.Name, wc);
+                string pic = await GetArtistImageAsync(artist.Name, wc);
+                if (!string.IsNullOrEmpty(pic))
+                    artist.Picture = pic;
             }
         }
 
@@ -353,9 +385,9 @@ namespace Rise.App.ViewModels
             return !songExists;
         }
 
-        public async Task<string> GetArtistImageAsync(string artist, HttpClient wc = null)
+        public async Task<string> GetArtistImageAsync(string artist, HttpClient wc)
         {
-            if (App.SViewModel.FetchOnlineData && artist != ResourceHelper.GetString("UnknownArtistResource"))
+            if (artist != ResourceHelper.GetString("UnknownArtistResource"))
             {
                 try
                 {
@@ -376,13 +408,10 @@ namespace Rise.App.ViewModels
                     if (node != null)
                         return node.InnerText.Replace("<![CDATA[ ", string.Empty).Replace(" ]]>", string.Empty);
                 }
-                catch (Exception)
-                {
-
-                }
+                catch { }
             }
 
-            return URIs.ArtistThumb;
+            return string.Empty;
         }
 
         /// <summary>

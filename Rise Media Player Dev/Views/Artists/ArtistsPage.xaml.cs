@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
@@ -101,21 +102,41 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var img = await file.GetBitmapAsync(200, 200);
+                // The explicit null check here simplifies the logic
+                // around removing unused files
+                using var img = await file.GetBitmapAsync();
+                if (img == null)
+                    return;
 
-                var newFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync($@"modified-artist-{SelectedItem.Name}.png", CreationCollisionOption.ReplaceExisting);
+                string filename = $@"artist-{SelectedItem.Model.Id}.png";
 
-                var result = await img.SaveToFileAsync(newFile);
+                var localFolder = ApplicationData.Current.LocalFolder;
+                var newFile = await localFolder.CreateFileAsync(filename,
+                    CreationCollisionOption.GenerateUniqueName);
 
-                if (result)
+                if (await img.SaveToFileAsync(newFile))
                 {
-                    SelectedItem.Picture = $@"ms-appdata:///local/modified-artist-{SelectedItem.Name}.png";
+                    if (newFile.Name != filename)
+                    {
+                        // This avoids a file in use exception if a different
+                        // custom image is being replaced
+                        SelectedItem.Picture = URIs.ArtistThumb;
+
+                        var oldFile = await localFolder.GetFileAsync(filename);
+                        await oldFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
+
+                        await newFile.RenameAsync(filename);
+                    }
+
+                    SelectedItem.Picture = $@"ms-appdata:///local/{filename}";
                     await SelectedItem.SaveAsync();
+                }
+                else
+                {
+                    await newFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
                 }
             }
         }

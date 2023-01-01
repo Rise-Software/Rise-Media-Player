@@ -1,4 +1,5 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Interfaces;
 using Rise.Data.Json;
 using System.Collections.Generic;
@@ -101,7 +102,7 @@ namespace Rise.App.Helpers
                 {
                     Title = $"Untitled Playlist #{_items.Count + 1}",
                     Description = string.Empty,
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png"
+                    Icon = URIs.PlaylistThumb
                 };
 
                 _addSeparator = true;
