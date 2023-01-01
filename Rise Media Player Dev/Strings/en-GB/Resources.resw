@@ -771,4 +771,31 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="ExportThumbnail" xml:space="preserve">
     <value>Export thumbnail</value>
   </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
+  <data name="FetchingArtistInfo" xml:space="preserve">
+    <value>Fetching artist info...</value>
+  </data>
+  <data name="GoToAlbum" xml:space="preserve">
+    <value>Go to album</value>
+  </data>
+  <data name="GoToArtist" xml:space="preserve">
+    <value>Go to artist</value>
+  </data>
+  <data name="IndexingComplete" xml:space="preserve">
+    <value>Indexing complete!</value>
+  </data>
+  <data name="ScanningSettings" xml:space="preserve">
+    <value>Scanning settings</value>
+  </data>
+  <data name="SupportProject" xml:space="preserve">
+    <value>Support this project</value>
+  </data>
+  <data name="SyncAll" xml:space="preserve">
+    <value>Sync all</value>
+  </data>
+  <data name="SyncCenter" xml:space="preserve">
+    <value>Sync centre</value>
+  </data>
 </root>

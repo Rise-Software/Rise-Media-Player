@@ -139,7 +139,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <FontIcon FontSize="16" Glyph="&#xE93C;" />
-                                    <TextBlock Grid.Column="1" Text="Go to album" />
+                                    <TextBlock Grid.Column="1" Text="{markup:ResourceHelper Name=GoToAlbum}" />
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -157,7 +157,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <FontIcon FontSize="16" Glyph="&#xE13D;" />
-                                    <TextBlock Grid.Column="1" Text="Go to artist" />
+                                    <TextBlock Grid.Column="1" Text="{markup:ResourceHelper Name=GoToArtist}" />
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -431,7 +431,7 @@
                     VerticalAlignment="Center"
                     IsEnabled="False"
                     Style="{StaticResource TransparentButtonStyle}"
-                    ToolTipService.ToolTip="Sync centre">
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=SyncCenter}">
                     <Button.Content>
                         <Grid>
                             <FontIcon
@@ -454,11 +454,11 @@
                                     <TextBlock
                                         Margin="0,2,0,12"
                                         Style="{ThemeResource BaseTextBlockStyle}"
-                                        Text="Sync centre" />
+                                        Text="{markup:ResourceHelper Name=SyncCenter}" />
                                     <Button
                                         Height="32"
                                         Margin="70,-9,-2,0"
-                                        Content="Sync all"
+                                        Content="{markup:ResourceHelper Name=SyncAll}"
                                         FontSize="12"
                                         FontStretch="Normal" />
                                 </StackPanel>
@@ -468,7 +468,7 @@
                                     <TextBlock
                                         FontSize="14"
                                         FontWeight="Normal"
-                                        Text="Coming soon"
+                                        Text="{markup:ResourceHelper Name=ComingSoon}"
                                         TextAlignment="Center" />
                                 </StackPanel>
                             </StackPanel>
@@ -515,7 +515,7 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Click="Support_Click" Text="Support this project">
+                            <MenuFlyoutItem Click="Support_Click" Text="{markup:ResourceHelper Name=SupportProject}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE125;" />
                                 </MenuFlyoutItem.Icon>
@@ -636,7 +636,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -644,7 +644,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
@@ -692,7 +692,7 @@
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Fetching artist info..." />
+                                    Text="{markup:ResourceHelper Name=FetchingArtistInfo}" />
                             </StackPanel>
 
                             <StackPanel
@@ -704,7 +704,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -712,7 +712,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
@@ -760,7 +760,7 @@
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Indexing complete!" />
+                                    Text="{markup:ResourceHelper Name=IndexingComplete}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,0,12,0"
@@ -771,7 +771,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -779,7 +779,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
