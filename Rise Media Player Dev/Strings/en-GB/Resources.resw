@@ -807,4 +807,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="SyncCenter" xml:space="preserve">
     <value>Sync centre</value>
   </data>
+  <data name="MoreAlbumsByArtist" xml:space="preserve">
+    <value>More albums by this artist</value>
+  </data>
 </root>

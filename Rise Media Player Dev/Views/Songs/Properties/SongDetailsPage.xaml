@@ -179,7 +179,6 @@
                         Grid.Row="4"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Genre"
                         Text="{markup:ResourceHelper Name=Genre}" />
                     <TextBlock
                         Grid.Row="5"

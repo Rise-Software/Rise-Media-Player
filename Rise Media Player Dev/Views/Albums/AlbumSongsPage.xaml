@@ -311,7 +311,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 FontWeight="SemiBold"
-                                Text="More albums by this artist" />
+                                Text="{markup:ResourceHelper Name=MoreAlbumsByArtist}" />
                         </StackPanel>
 
                         <Rectangle
