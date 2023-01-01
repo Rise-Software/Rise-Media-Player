@@ -28,6 +28,7 @@ namespace Rise.App.ViewModels
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
+
         /// <summary>
         /// Whether the app is currently looking for new media.
         /// </summary>
@@ -36,11 +37,36 @@ namespace Rise.App.ViewModels
             get => _isScanning;
             private set => Set(ref _isScanning, value);
         }
+        
+        /// <summary>
+        /// The media indexed so far.
+        /// </summary>
+        public uint IndexedMedia => IndexedSongs + IndexedVideos;
+
+        private uint _indexedSongs = 0;
+        private uint _indexedVideos = 0;
 
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
-        private uint IndexedSongs = 0;
-        private uint IndexedVideos = 0;
+        private uint IndexedSongs
+        {
+            get => _indexedSongs;
+            set
+            {
+                _ = Set(ref _indexedSongs, value);
+                OnPropertyChanged(nameof(IndexedMedia));
+            }
+        }
+
+        private uint IndexedVideos
+        {
+            get => _indexedVideos;
+            set
+            {
+                _ = Set(ref _indexedVideos, value);
+                OnPropertyChanged(nameof(IndexedMedia));
+            }
+        }
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -184,8 +210,8 @@ namespace Rise.App.ViewModels
                 await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
-                    if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
-                        IndexedSongs++;
+                    _ = await SaveMusicModelsAsync(song, true).ConfigureAwait(false);
+                    IndexedSongs++;
                 }
             }, token);
 
@@ -194,8 +220,8 @@ namespace Rise.App.ViewModels
                 await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
-                    if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
-                        IndexedVideos++;
+                    _ = await SaveVideoModelAsync(video, true).ConfigureAwait(false);
+                    IndexedVideos++;
                 }
             }, token);
 
