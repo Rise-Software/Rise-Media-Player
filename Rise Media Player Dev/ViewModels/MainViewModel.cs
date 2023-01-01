@@ -159,16 +159,16 @@ namespace Rise.App.ViewModels
                 VideosTracker.CheckDuplicatesAsync()
             );
 
+            await Task.WhenAll(
+                Repository.UpsertQueuedAsync(),
+                Repository.DeleteQueuedAsync()
+            );
+
             if (App.SViewModel.FetchOnlineData)
             {
                 MetadataFetchingStarted?.Invoke(this, EventArgs.Empty);
                 await FetchArtistsArtAsync(token);
             }
-
-            await Task.WhenAll(
-                Repository.UpsertQueuedAsync(),
-                Repository.DeleteQueuedAsync()
-            );
 
             IndexingFinished?.Invoke(this, new(IndexedSongs, IndexedVideos));
             IsScanning = false;
