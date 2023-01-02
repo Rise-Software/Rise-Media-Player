@@ -623,6 +623,8 @@
                                     Style="{StaticResource BaseTextBlockStyle}">
                                     <Run Text="Indexing" />
                                     <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+                                    <Run Text="of" />
+                                    <Run Text="{x:Bind MViewModel.TotalMedia, Mode=OneWay}" />
                                     <Run Text="media from your library. Please wait." />
                                 </TextBlock>
                             </StackPanel>
@@ -742,7 +744,7 @@
                                 To="0,56,0"
                                 Duration="0:0:0.75" />
                             <animations:OpacityAnimation
-                                From="1.0"
+                                From="1"
                                 To="0"
                                 Duration="0:0:0.5" />
                         </animations:Implicit.HideAnimations>
