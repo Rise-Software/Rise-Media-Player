@@ -331,6 +331,7 @@
                     <StackPanel
                         x:Name="HeaderArea"
                         Padding="48,0"
+                        MaxWidth="1300"
                         Orientation="Horizontal">
                         <Button
                             x:Name="GoBackPage"
@@ -373,6 +374,7 @@
                     <Frame
                         x:Name="SettingsMainFrame"
                         Grid.Row="1"
+                        MaxWidth="1300"
                         x:FieldModifier="public" />
                 </Grid>
             </Border>
