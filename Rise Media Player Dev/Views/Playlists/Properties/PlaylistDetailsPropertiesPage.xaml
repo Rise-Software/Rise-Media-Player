@@ -109,7 +109,7 @@
                             Grid.Row="1"
                             Margin="0,-2,0,0"
                             VerticalAlignment="Center"
-                            Text="{markup:ResourceHelper Name=PlaylistDescription}" />
+                            Text="{markup:ResourceHelper Name=Description}" />
 
                         <TextBox Grid.Column="1" Text="{x:Bind Playlist.Title, Mode=TwoWay}" />
                         <TextBox
