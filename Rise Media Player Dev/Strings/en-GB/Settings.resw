@@ -303,6 +303,12 @@
   <data name="PlaybackVisualizerTitle" xml:space="preserve">
     <value>Visualiser</value>
   </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>Run every:</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>Scan now</value>
+  </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Select language</value>
   </data>
@@ -317,5 +323,32 @@
   </data>
   <data name="SettingsStyle" xml:space="preserve">
     <value>Settings style</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>Startup settings</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>Some settings might be unavailable because you are running Rise Media Player on the leaked build.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>Some settings might be unavailable. To use them, upgrade your PC to Windows 11.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>You are running Windows 10</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>All settings should be available.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>You are running Windows 11</value>
   </data>
 </root>

@@ -8,6 +8,6 @@ namespace Rise.Common.Constants
 
         public static string Version => $"{_version.Major}.{_version.Minor}.{_version.Build}.{_version.Revision}";
 
-        public static string VersionName => "Alpha Preview 3";
+        public const string VersionName = "Alpha Preview 3";
     }
 }
