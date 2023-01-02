@@ -23,7 +23,7 @@
                 x:Name="ManualScanButton"
                 MaxWidth="150"
                 Click="ManualScanButton_Click"
-                Content="Scan now" />
+                Content="{markup:ResourceHelper Name=/Settings/ScanNow}" />
         </uc:ExpanderControl>
 
         <Border Style="{StaticResource SettingsCard}">
@@ -44,7 +44,7 @@
                         <TextBlock
                             FontWeight="Normal"
                             Style="{StaticResource SubheaderTextBlockStyle}"
-                            Text="Run every:" />
+                            Text="{markup:ResourceHelper Name=/Settings/RunEvery}" />
                         <muxc:RadioButtons
                             x:Name="PeriodicScan"
                             Margin="16,3,0,0"
