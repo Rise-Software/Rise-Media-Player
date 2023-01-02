@@ -813,7 +813,19 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Bloom" xml:space="preserve">
     <value>Bloom</value>
   </data>
+  <data name="MaybeLater" xml:space="preserve">
+    <value>Maybe later</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="PageComingSoon" xml:space="preserve">
+    <value>This page is coming soon.</value>
+  </data>
+  <data name="RestartChangesEffect" xml:space="preserve">
+    <value>You'll need to restart the app for your changes to take effect.</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Restart now</value>
   </data>
 </root>
