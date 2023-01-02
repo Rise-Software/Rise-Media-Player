@@ -64,7 +64,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="App settings" />
+                    Text="{markup:ResourceHelper Name=/Settings/Title}" />
             </Grid>
         </skuc:ExtendedTitleBar>
 
@@ -123,7 +123,7 @@
                             Visibility="Collapsed">
                             <Button.Flyout>
                                 <MenuFlyout x:Name="MoreFlyout">
-                                    <MenuFlyoutSubItem Text="Settings menus">
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=/Settings/SettingsMenus}">
                                         <MenuFlyoutSubItem.Icon>
                                             <FontIcon Glyph="&#xE145;" />
                                         </MenuFlyoutSubItem.Icon>
@@ -137,7 +137,7 @@
                                             Text="Top" />
                                     </MenuFlyoutSubItem>
 
-                                    <MenuFlyoutSubItem Text="Header">
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Header}">
                                         <MenuFlyoutSubItem.Icon>
                                             <FontIcon Glyph="&#xE185;" />
                                         </MenuFlyoutSubItem.Icon>
@@ -146,11 +146,11 @@
                                             IsChecked="True"
                                             IsEnabled="False"
                                             Text="Left" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Centre" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Right" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Center}" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=Right}" />
                                     </MenuFlyoutSubItem>
 
-                                    <MenuFlyoutSubItem Text="Icons">
+                                    <MenuFlyoutSubItem Text="{markup:ResourceHelper Name=Icons}">
                                         <MenuFlyoutSubItem.Icon>
                                             <FontIcon Glyph="&#xE91B;" />
                                         </MenuFlyoutSubItem.Icon>
@@ -158,8 +158,8 @@
                                         <muxc:RadioMenuFlyoutItem
                                             IsChecked="True"
                                             IsEnabled="False"
-                                            Text="High Contrast" />
-                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="Fluent Colour" />
+                                            Text="{markup:ResourceHelper Name=/Settings/SettingsHighContrast}" />
+                                        <muxc:RadioMenuFlyoutItem IsEnabled="False" Text="{markup:ResourceHelper Name=/Settings/SettingsFluentColor}" />
                                     </MenuFlyoutSubItem>
 
                                     <MenuFlyoutSeparator />
@@ -167,7 +167,7 @@
                                     <MenuFlyoutItem
                                         x:Name="LanguageItem"
                                         Click="Language_Click"
-                                        Text="Language">
+                                        Text="{markup:ResourceHelper Name=Language}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="" />
                                         </MenuFlyoutItem.Icon>
@@ -176,7 +176,7 @@
                                     <MenuFlyoutItem
                                         x:Name="Insider"
                                         Click="Insider_Click"
-                                        Text="Insider Hub">
+                                        Text="{markup:ResourceHelper Name=/Settings/InsiderHub}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xF1AD;" />
                                         </MenuFlyoutItem.Icon>
@@ -187,7 +187,7 @@
                                     <MenuFlyoutItem
                                         x:Name="ClassicDialog"
                                         Click="ClassicDialog_Click"
-                                        Text="Open classic dialog">
+                                        Text="{markup:ResourceHelper Name=/Settings/OpenClassicDialog}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE17C;" />
                                         </MenuFlyoutItem.Icon>
@@ -196,7 +196,7 @@
                                     <MenuFlyoutItem
                                         x:Name="RestoreDefaultSettings"
                                         IsEnabled="False"
-                                        Text="Restore defaults">
+                                        Text="{markup:ResourceHelper Name=/Settings/RestoreDefaults}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons" Glyph="&#xE359;" />
                                         </MenuFlyoutItem.Icon>
@@ -242,7 +242,7 @@
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Appearance"
-                                Content="Appearance"
+                                Content="{markup:ResourceHelper Name=Appearance}"
                                 Tag="Appearance"
                                 ToolTipService.ToolTip="Customise app colours, themes, icons, layouts and motion.">
                                 <muxc:NavigationViewItem.Icon>
@@ -251,25 +251,25 @@
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="MediaLibrary"
-                                Content="Media library"
+                                Content="{markup:ResourceHelper Name=MediaLibrary}"
                                 Tag="MediaLibrary"
-                                ToolTipService.ToolTip="Manage media sources, your online services and scanning settings.">
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/MediaLibraryItemDesc}">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="Navigation"
-                                Content="Navigation"
+                                Content="{markup:ResourceHelper Name=Navigation}"
                                 Tag="Navigation"
-                                ToolTipService.ToolTip="Change click actions, startup options.">
+                                ToolTipService.ToolTip="{markup:ResourceHelper Name=/Settings/NavigationItemDesc}">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="Playback"
-                                Content="Playback &amp; sound"
+                                Content="{markup:ResourceHelper Name=PlaybackAndSound}"
                                 Tag="Playback">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
@@ -277,7 +277,7 @@
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="Sync"
-                                Content="Syncing"
+                                Content="{markup:ResourceHelper Name=Syncing}"
                                 Tag="Sync">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
@@ -288,7 +288,7 @@
                         <muxc:NavigationView.FooterMenuItems>
                             <muxc:NavigationViewItem
                                 x:Name="Behaviour"
-                                Content="System behaviours"
+                                Content="{markup:ResourceHelper Name=SystemBehaviors}"
                                 Tag="Behaviour">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="&#xEC7A;" />
@@ -296,7 +296,7 @@
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="Components"
-                                Content="Manage components"
+                                Content="{markup:ResourceHelper Name=ManageComponents}"
                                 Tag="Components">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
@@ -304,7 +304,7 @@
                             </muxc:NavigationViewItem>
                             <muxc:NavigationViewItem
                                 x:Name="About"
-                                Content="About"
+                                Content="{markup:ResourceHelper Name=About}"
                                 Tag="About">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon Glyph="" />
@@ -365,7 +365,7 @@
                             x:Name="MainSettingsHeader"
                             x:FieldModifier="public"
                             Style="{StaticResource TitleTextBlockStyle}"
-                            Text="No page selected"
+                            Text="{markup:ResourceHelper Name=NoPageSelected}"
                             TextTrimming="CharacterEllipsis"
                             TextWrapping="WrapWholeWords" />
                     </StackPanel>

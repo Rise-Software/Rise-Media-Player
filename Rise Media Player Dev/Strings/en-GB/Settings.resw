@@ -171,6 +171,9 @@
   <data name="AppearanceIconsAndFonts" xml:space="preserve">
     <value>Icons &amp; fonts</value>
   </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>Customise app colours, themes, icons, layouts and motion.</value>
+  </data>
   <data name="AppearanceNothing" xml:space="preserve">
     <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="HighContrastIcons" xml:space="preserve">
     <value>High Contrast Icons</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider Hub</value>
   </data>
   <data name="MatchSystemAppLang" xml:space="preserve">
     <value>Match system &amp; app languages</value>
@@ -239,6 +245,9 @@
   </data>
   <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
     <value>Fetch data from the Internet when needed</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>Manage media sources, your online services and scanning settings.</value>
   </data>
   <data name="MediaLibraryLocalMediaH" xml:space="preserve">
     <value>Local media &amp; devices</value>
@@ -282,11 +291,17 @@
   <data name="NavigationIconStyle" xml:space="preserve">
     <value>Icon style</value>
   </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>Change click actions, startup options.</value>
+  </data>
   <data name="NavigationResize" xml:space="preserve">
     <value>Window resize changes</value>
   </data>
   <data name="NavigationShowHeader" xml:space="preserve">
     <value>Show header</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>Open classic dialog</value>
   </data>
   <data name="PlaybackCrossfadeDesc" xml:space="preserve">
     <value>Blend the end &amp; beginning of your music tracks.</value>
@@ -333,6 +348,9 @@
   <data name="RecentColors" xml:space="preserve">
     <value>Recent colours</value>
   </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Restore defaults</value>
+  </data>
   <data name="RunEvery" xml:space="preserve">
     <value>Run every:</value>
   </data>
@@ -345,8 +363,17 @@
   <data name="SelectLanguageDesc" xml:space="preserve">
     <value>Choose your language manually from a list.</value>
   </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>Fluent Colour</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>High contrast</value>
+  </data>
   <data name="SettingsMenuBar" xml:space="preserve">
     <value>Menu bar</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>Settings menus</value>
   </data>
   <data name="SettingsSidebar" xml:space="preserve">
     <value>Sidebar (Classic)</value>
@@ -380,6 +407,9 @@
   </data>
   <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
     <value>You are running Windows 11</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>App settings</value>
   </data>
   <data name="ViewColors" xml:space="preserve">
     <value>View colours</value>

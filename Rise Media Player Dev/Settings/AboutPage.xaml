@@ -56,7 +56,7 @@
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Text="Wallpapers and extras" />
+                                            Text="{markup:ResourceHelper Name=WallpapersAndExtras}" />
                                     </StackPanel>
                                 </StackPanel>
                             </Button>

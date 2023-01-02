@@ -828,4 +828,43 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="RestartNow" xml:space="preserve">
     <value>Restart now</value>
   </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Centre</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Header</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="ManageComponents" xml:space="preserve">
+    <value>Manage components</value>
+  </data>
+  <data name="MediaLibrary" xml:space="preserve">
+    <value>Media library</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="NoPageSelected" xml:space="preserve">
+    <value>No page selected</value>
+  </data>
+  <data name="PlaybackAndSound" xml:space="preserve">
+    <value>Playback &amp; sound</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Syncing" xml:space="preserve">
+    <value>Syncing</value>
+  </data>
+  <data name="SystemBehaviors" xml:space="preserve">
+    <value>System behaviours</value>
+  </data>
+  <data name="WallpapersAndExtras" xml:space="preserve">
+    <value>Wallpapers &amp; extras</value>
+  </data>
 </root>
