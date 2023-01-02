@@ -37,10 +37,15 @@
 
         public const string TranslationReports =
             "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAc11dY1UMkpWUVJCVkNEMFMxWkRJMFoyWkpLQVhGSC4u";
-        public const string LastFM =
-            "http://ws.audioscrobbler.com/2.0/?method=";
+        
+        public const string LastFM = "http://ws.audioscrobbler.com/2.0/?method=";
 
-        public const string Deezer =
-            "https://api.deezer.com/";
+        public const string Deezer = "https://api.deezer.com/";
+
+        public const string Discord = "https://discord.gg/GNEwaDbCef";
+
+        public const string Reddit = "https://www.reddit.com/r/risesoftware/";
+
+        public const string Twitter = "http://www.twitter.com/appsbyrise/";
     }
 }

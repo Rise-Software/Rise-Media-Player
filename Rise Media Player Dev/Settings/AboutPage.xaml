@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
+    xmlns:constants="using:Rise.Common.Constants"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -38,7 +39,7 @@
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Text="Alpha Preview 3" />
+                                            Text="{x:Bind constants:AppVersion.VersionName}" />
                                     </StackPanel>
                                 </StackPanel>
                             </Button>
@@ -60,7 +61,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <HyperlinkButton NavigateUri="https://github.com/Rise-Software/Rise-Media-Player" Tag="GitHub">
+                            <HyperlinkButton NavigateUri="{x:Bind constants:URLs.GitHub}" Tag="GitHub">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon VerticalAlignment="Center" Glyph="&#xEC7A;" />
 
@@ -69,7 +70,7 @@
                                         <TextBlock>
                                             <Hyperlink
                                                 FontSize="12"
-                                                NavigateUri="https://github.com/Rise-Software/Rise-Media-Player"
+                                                NavigateUri="{x:Bind constants:URLs.GitHub}"
                                                 UnderlineStyle="None">
                                                 <Run Text="{markup:ResourceHelper Name=Contribute}" />
                                             </Hyperlink>
@@ -95,15 +96,15 @@
                     <HyperlinkButton
                         Padding="10"
                         Content="Discord"
-                        NavigateUri="https://discord.gg/GNEwaDbCef" />
+                        NavigateUri="{x:Bind constants:URLs.Discord}" />
                     <HyperlinkButton
                         Padding="10"
                         Content="Reddit"
-                        NavigateUri="https://www.reddit.com/r/risesoftware/" />
+                        NavigateUri="{x:Bind constants:URLs.Reddit}" />
                     <HyperlinkButton
                         Padding="10"
                         Content="Twitter"
-                        NavigateUri="http://www.twitter.com/appsbyrise/" />
+                        NavigateUri="{x:Bind constants:URLs.Twitter}" />
                 </StackPanel>
             </uc:ExpanderControl>
 
