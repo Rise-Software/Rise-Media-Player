@@ -6,10 +6,11 @@
     xmlns:effects="using:Rise.Effects"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    CloseButtonText="{markup:ResourceHelper Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="OnPrimaryButtonClick"
-    PrimaryButtonText="OK"
+    PrimaryButtonText="{markup:ResourceHelper Name=Ok}"
     SecondaryButtonClick="OnSecondaryButtonClick"
-    SecondaryButtonText="Cancel"
     Style="{ThemeResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 

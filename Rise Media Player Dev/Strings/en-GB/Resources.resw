@@ -876,4 +876,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Scanning" xml:space="preserve">
     <value>Scanning</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>
