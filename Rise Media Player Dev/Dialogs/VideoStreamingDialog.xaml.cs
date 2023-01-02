@@ -23,6 +23,8 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            var deferral = args.GetDeferral();
+
             var url = StreamingTextBox.Text;
 
             string title = null, subtitle = null, thumbnailUrl = null;
@@ -55,6 +57,8 @@ namespace Rise.App.Dialogs
             var video = WebHelpers.GetVideoFromUri(uri, title, subtitle, thumbnailUrl);
             ViewModel.AddSingleItemToQueue(video);
             ViewModel.Player.Play();
+
+            deferral?.Complete();
         }
     }
 }
