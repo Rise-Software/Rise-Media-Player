@@ -12,13 +12,13 @@
 
     <Page.Resources>
         <MenuFlyout x:Name="AddFlyout">
-            <MenuFlyoutItem Click="AddMusicFolder_Click" Text="Contains music">
+            <MenuFlyoutItem Click="AddMusicFolder_Click" Text="{markup:ResourceHelper Name=/Settings/MediaSourcesContainsMusic}">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE189;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Click="AddVideoFolder_Click" Text="Contains videos">
+            <MenuFlyoutItem Click="AddVideoFolder_Click" Text="{markup:ResourceHelper Name=/Settings/MediaSourcesContainsVideos}">
                 <MenuFlyoutItem.Icon>
                     <FontIcon Glyph="&#xE8B2;" />
                 </MenuFlyoutItem.Icon>
@@ -69,7 +69,7 @@
                 IsClosable="False"
                 IsIconVisible="True"
                 IsOpen="True"
-                Message="We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders."
+                Message="{markup:ResourceHelper Name=/Settings/MediaSourcesInfo}"
                 Severity="Informational" />
             <ListView
                 x:Name="MusicList"
@@ -94,7 +94,7 @@
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon FontSize="16" Glyph="&#xE838;" />
-                                            <TextBlock Margin="8,0,0,0" Text="Open folder location" />
+                                            <TextBlock Margin="8,0,0,0" Text="{markup:ResourceHelper Name=/Settings/ViewFiles}" />
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
@@ -135,7 +135,7 @@
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon FontSize="16" Glyph="&#xE838;" />
-                                            <TextBlock Margin="8,0,0,0" Text="Open folder location" />
+                                            <TextBlock Margin="8,0,0,0" Text="{markup:ResourceHelper Name=/Settings/ViewFiles}" />
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>

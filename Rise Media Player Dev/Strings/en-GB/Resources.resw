@@ -858,6 +858,9 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Right" xml:space="preserve">
     <value>Right</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="Syncing" xml:space="preserve">
     <value>Syncing</value>
   </data>
@@ -866,5 +869,11 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   </data>
   <data name="WallpapersAndExtras" xml:space="preserve">
     <value>Wallpapers &amp; extras</value>
+  </data>
+  <data name="OnlineServices" xml:space="preserve">
+    <value>Online services</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>Scanning</value>
   </data>
 </root>

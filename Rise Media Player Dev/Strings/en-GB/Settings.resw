@@ -246,6 +246,9 @@
   <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
     <value>Fetch data from the Internet when needed</value>
   </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>Files &amp; folders</value>
+  </data>
   <data name="MediaLibraryItemDesc" xml:space="preserve">
     <value>Manage media sources, your online services and scanning settings.</value>
   </data>
@@ -264,6 +267,9 @@
   <data name="MediaLibraryManualScanTitle" xml:space="preserve">
     <value>Manual scan</value>
   </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
   <data name="MediaLibraryOnlineDataH" xml:space="preserve">
     <value>Online data</value>
   </data>
@@ -275,6 +281,15 @@
   </data>
   <data name="MediaLibraryRippingTitle" xml:space="preserve">
     <value>Disc ripping options</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>Contains music</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>Contains videos</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>We already look for your media in the default media locations (Music &amp;amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
   </data>
   <data name="NavigationAddRemoveH" xml:space="preserve">
     <value>Add/remove sidebar items</value>
@@ -413,6 +428,9 @@
   </data>
   <data name="ViewColors" xml:space="preserve">
     <value>View colours</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>View files</value>
   </data>
   <data name="WindowsColors" xml:space="preserve">
     <value>Windows colours</value>
