@@ -28,6 +28,7 @@ namespace Rise.App.ViewModels
         public event EventHandler<IndexingFinishedEventArgs> IndexingFinished;
 
         private bool _isScanning;
+
         /// <summary>
         /// Whether the app is currently looking for new media.
         /// </summary>
@@ -37,10 +38,44 @@ namespace Rise.App.ViewModels
             private set => Set(ref _isScanning, value);
         }
 
+        private uint _indexedMedia = 0;
+        
+        /// <summary>
+        /// The media indexed so far.
+        /// </summary>
+        public uint IndexedMedia
+        {
+            get => _indexedMedia;
+            set => Set(ref _indexedMedia, value);
+        }
+
+        private uint _totalMedia = 0;
+
+        /// <summary>
+        /// The total media in the library.
+        /// </summary>
+        public uint TotalMedia
+        {
+            get => _totalMedia;
+            set => Set(ref _totalMedia, value);
+        }
+
+        private uint _indexedSongs = 0;
+        private uint _indexedVideos = 0;
+
         // Amount of indexed items. These are used to provide data to the
         // IndexingFinished event.
-        private uint IndexedSongs = 0;
-        private uint IndexedVideos = 0;
+        private uint IndexedSongs
+        {
+            get => _indexedSongs;
+            set => Set(ref _indexedSongs, value);
+        }
+
+        private uint IndexedVideos
+        {
+            get => _indexedVideos;
+            set => Set(ref _indexedVideos, value);
+        }
 
         /// <summary>
         /// Helps cancel indexing related Tasks.
@@ -148,6 +183,15 @@ namespace Rise.App.ViewModels
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
+            if (TotalMedia == 0)
+            {
+                foreach (var item in App.MusicLibrary.Folders)
+                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
+
+                foreach (var item in App.VideoLibrary.Folders)
+                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
+            }
+
             IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
@@ -156,7 +200,11 @@ namespace Rise.App.ViewModels
 
             await Task.WhenAll(
                 SongsTracker.CheckDuplicatesAsync(),
-                VideosTracker.CheckDuplicatesAsync(),
+                VideosTracker.CheckDuplicatesAsync()
+            );
+
+            await Task.WhenAll(
+                Repository.UpsertQueuedAsync(),
                 Repository.DeleteQueuedAsync()
             );
 
@@ -171,6 +219,8 @@ namespace Rise.App.ViewModels
 
             IndexedSongs = 0;
             IndexedVideos = 0;
+            IndexedMedia = 0;
+            TotalMedia = 0;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
@@ -182,6 +232,8 @@ namespace Rise.App.ViewModels
                 {
                     if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
                         IndexedSongs++;
+
+                    IndexedMedia++;
                 }
             }, token);
 
@@ -192,11 +244,12 @@ namespace Rise.App.ViewModels
                 {
                     if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
                         IndexedVideos++;
+
+                    IndexedMedia++;
                 }
             }, token);
 
             await Task.WhenAll(songsTask, videosTask);
-            await Repository.UpsertQueuedAsync();
         }
 
         private async Task FetchArtistsArtAsync(CancellationToken token)
@@ -206,6 +259,9 @@ namespace Rise.App.ViewModels
                 Proxy = null,
                 UseProxy = false
             });
+
+            if (!WebHelpers.IsInternetAccessAvailable())
+                return;
 
             foreach (var artist in Artists)
             {
@@ -218,7 +274,10 @@ namespace Rise.App.ViewModels
                 if (!artist.Picture.StartsWith("ms-appx"))
                     return;
 
-                string pic = await GetArtistImageAsync(artist.Name, wc);
+                if (!WebHelpers.IsInternetAccessAvailable())
+                    return;
+
+                string pic = await GetArtistImageAsync(artist.Name, wc).ConfigureAwait(false);
                 if (!string.IsNullOrEmpty(pic))
                     artist.Picture = pic;
             }
