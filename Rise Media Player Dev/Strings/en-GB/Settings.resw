@@ -156,14 +156,26 @@
   <data name="AddFolders" xml:space="preserve">
     <value>Add folders</value>
   </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>App layout</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>App window</value>
+  </data>
   <data name="AppearanceChooseColor" xml:space="preserve">
     <value>Choose your window glaze</value>
   </data>
   <data name="AppearanceChooseTheme" xml:space="preserve">
     <value>Choose your colour</value>
   </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>Icons &amp; fonts</value>
+  </data>
   <data name="AppearanceNothing" xml:space="preserve">
     <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>Overview</value>
   </data>
   <data name="AppearancePickUp" xml:space="preserve">
     <value>Pick up where you left off</value>

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:markup="using:Rise.Common.Extensions.Markup"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -24,28 +24,20 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
                     x:Name="Overview"
-                    Content="Overview"
+                    Content="{markup:ResourceHelper Name=/Settings/AppearanceOverview}"
                     Tag="Overview" />
                 <muxc:NavigationViewItem
                     x:Name="Window"
-                    Content="App window"
+                    Content="{markup:ResourceHelper Name=/Settings/AppearanceAppWindow}"
                     Tag="Window" />
                 <muxc:NavigationViewItem
                     x:Name="IconsFonts"
-                    Content="Icons &amp; fonts"
+                    Content="{markup:ResourceHelper Name=/Settings/AppearanceIconsAndFonts}"
                     Tag="IconsFonts" />
                 <muxc:NavigationViewItem
                     x:Name="Layout"
-                    Content="App layout"
+                    Content="{markup:ResourceHelper Name=/Settings/AppearanceAppLayout}"
                     Tag="Layout" />
-                <muxc:NavigationViewItem
-                    x:Name="Motion"
-                    Content="Motion"
-                    Tag="Motion" />
-                <muxc:NavigationViewItem
-                    x:Name="Controls"
-                    Content="Controls"
-                    Tag="Controls" />
             </muxc:NavigationView.MenuItems>
 
             <ScrollViewer
