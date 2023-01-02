@@ -624,6 +624,8 @@
                                     Style="{StaticResource BaseTextBlockStyle}">
                                     <Run Text="Indexing" />
                                     <Run Text="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+                                    <Run Text="of" />
+                                    <Run Text="{x:Bind MViewModel.TotalMedia, Mode=OneWay}" />
                                     <Run Text="media from your library. Please wait." />
                                 </TextBlock>
                             </StackPanel>

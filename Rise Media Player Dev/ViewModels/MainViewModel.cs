@@ -41,7 +41,18 @@ namespace Rise.App.ViewModels
         /// <summary>
         /// The media indexed so far.
         /// </summary>
-        public uint IndexedMedia => IndexedSongs + IndexedVideos;
+        public uint IndexedMedia { get; private set; }
+
+        private uint _totalMedia = 0;
+
+        /// <summary>
+        /// The total media in the library.
+        /// </summary>
+        public uint TotalMedia
+        {
+            get => _totalMedia;
+            set => Set(ref _totalMedia, value);
+        }
 
         private uint _indexedSongs = 0;
         private uint _indexedVideos = 0;
@@ -54,6 +65,7 @@ namespace Rise.App.ViewModels
             set
             {
                 _ = Set(ref _indexedSongs, value);
+                IndexedMedia = value + IndexedVideos;
                 OnPropertyChanged(nameof(IndexedMedia));
             }
         }
@@ -64,6 +76,7 @@ namespace Rise.App.ViewModels
             set
             {
                 _ = Set(ref _indexedVideos, value);
+                IndexedMedia = IndexedSongs + value;
                 OnPropertyChanged(nameof(IndexedMedia));
             }
         }
@@ -174,6 +187,15 @@ namespace Rise.App.ViewModels
 
         private async Task StartFullCrawlImpl(CancellationToken token)
         {
+            if (TotalMedia == 0)
+            {
+                foreach (var item in App.MusicLibrary.Folders)
+                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetItemCountAsync();
+
+                foreach (var item in App.VideoLibrary.Folders)
+                    TotalMedia += await item.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetItemCountAsync();
+            }
+
             IsScanning = true;
             IndexingStarted?.Invoke(this, EventArgs.Empty);
 
@@ -201,6 +223,7 @@ namespace Rise.App.ViewModels
 
             IndexedSongs = 0;
             IndexedVideos = 0;
+            TotalMedia = 0;
         }
 
         private async Task IndexLibrariesAsync(CancellationToken token)
@@ -226,7 +249,6 @@ namespace Rise.App.ViewModels
             }, token);
 
             await Task.WhenAll(songsTask, videosTask);
-            await Repository.UpsertQueuedAsync();
         }
 
         private async Task FetchArtistsArtAsync(CancellationToken token)
@@ -236,6 +258,9 @@ namespace Rise.App.ViewModels
                 Proxy = null,
                 UseProxy = false
             });
+
+            if (!WebHelpers.IsInternetAccessAvailable())
+                return;
 
             foreach (var artist in Artists)
             {
@@ -248,7 +273,10 @@ namespace Rise.App.ViewModels
                 if (!artist.Picture.StartsWith("ms-appx"))
                     return;
 
-                string pic = await GetArtistImageAsync(artist.Name, wc);
+                if (!WebHelpers.IsInternetAccessAvailable())
+                    return;
+
+                string pic = await GetArtistImageAsync(artist.Name, wc).ConfigureAwait(false);
                 if (!string.IsNullOrEmpty(pic))
                     artist.Picture = pic;
             }
