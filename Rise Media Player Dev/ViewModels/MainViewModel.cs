@@ -37,11 +37,17 @@ namespace Rise.App.ViewModels
             get => _isScanning;
             private set => Set(ref _isScanning, value);
         }
+
+        private uint _indexedMedia = 0;
         
         /// <summary>
         /// The media indexed so far.
         /// </summary>
-        public uint IndexedMedia { get; private set; }
+        public uint IndexedMedia
+        {
+            get => _indexedMedia;
+            set => Set(ref _indexedMedia, value);
+        }
 
         private uint _totalMedia = 0;
 
@@ -62,23 +68,13 @@ namespace Rise.App.ViewModels
         private uint IndexedSongs
         {
             get => _indexedSongs;
-            set
-            {
-                _ = Set(ref _indexedSongs, value);
-                IndexedMedia = value + IndexedVideos;
-                OnPropertyChanged(nameof(IndexedMedia));
-            }
+            set => Set(ref _indexedSongs, value);
         }
 
         private uint IndexedVideos
         {
             get => _indexedVideos;
-            set
-            {
-                _ = Set(ref _indexedVideos, value);
-                IndexedMedia = IndexedSongs + value;
-                OnPropertyChanged(nameof(IndexedMedia));
-            }
+            set => Set(ref _indexedVideos, value);
         }
 
         /// <summary>
@@ -223,6 +219,7 @@ namespace Rise.App.ViewModels
 
             IndexedSongs = 0;
             IndexedVideos = 0;
+            IndexedMedia = 0;
             TotalMedia = 0;
         }
 
@@ -233,8 +230,10 @@ namespace Rise.App.ViewModels
                 await foreach (var song in App.MusicLibrary.IndexAsync(QueryPresets.SongQueryOptions,
                     PropertyPrefetchOptions.MusicProperties, SongProperties.DiscProperties))
                 {
-                    _ = await SaveMusicModelsAsync(song, true).ConfigureAwait(false);
-                    IndexedSongs++;
+                    if (await SaveMusicModelsAsync(song, true).ConfigureAwait(false))
+                        IndexedSongs++;
+
+                    IndexedMedia++;
                 }
             }, token);
 
@@ -243,8 +242,10 @@ namespace Rise.App.ViewModels
                 await foreach (var video in App.VideoLibrary.IndexAsync(QueryPresets.VideoQueryOptions,
                     PropertyPrefetchOptions.VideoProperties))
                 {
-                    _ = await SaveVideoModelAsync(video, true).ConfigureAwait(false);
-                    IndexedVideos++;
+                    if (await SaveVideoModelAsync(video, true).ConfigureAwait(false))
+                        IndexedVideos++;
+
+                    IndexedMedia++;
                 }
             }, token);
 
