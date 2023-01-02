@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     Title="{markup:ResourceHelper Name=CreatePlaylist}"
+    CloseButtonClick="ContentDialog_CloseButtonClick"
     CloseButtonText="{markup:ResourceHelper Name=Cancel}"
     DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
@@ -35,8 +36,11 @@
                         x:Name="PreviewImage"
                         Width="200"
                         Height="200"
-                        Source="/Assets/navigationview/playlistspage/blankplaylist.png"
-                        Stretch="Uniform" />
+                        Stretch="Uniform">
+                        <Image.Source>
+                            <BitmapImage UriSource="{x:Bind NewPlaylist.Icon, Mode=OneWay}" />
+                        </Image.Source>
+                    </Image>
                 </Border>
             </Button>
         </Grid>
@@ -50,7 +54,8 @@
             <TextBox
                 x:Name="TitleTextBox"
                 IsSpellCheckEnabled="False"
-                PlaceholderText="{markup:ResourceHelper Name=Title}" />
+                PlaceholderText="{markup:ResourceHelper Name=Title}"
+                Text="{x:Bind NewPlaylist.Title, Mode=TwoWay}" />
             <TextBlock
                 x:Name="ErrorBlock"
                 Margin="0,-4,0,0"
@@ -64,6 +69,7 @@
                 AcceptsReturn="True"
                 IsSpellCheckEnabled="False"
                 PlaceholderText="{markup:ResourceHelper Name=Description}"
+                Text="{x:Bind NewPlaylist.Description, Mode=TwoWay}"
                 TextWrapping="Wrap" />
             <Button
                 x:Name="UseCustomImageButton"

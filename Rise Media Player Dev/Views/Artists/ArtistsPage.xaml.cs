@@ -105,39 +105,26 @@ namespace Rise.App.Views
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                // The explicit null check here simplifies the logic
-                // around removing unused files
-                using var img = await file.GetBitmapAsync();
-                if (img == null)
-                    return;
-
-                string filename = $@"artist-{SelectedItem.Model.Id}.png";
-
-                var localFolder = ApplicationData.Current.LocalFolder;
-                var newFile = await localFolder.CreateFileAsync(filename,
-                    CreationCollisionOption.GenerateUniqueName);
-
-                if (await img.SaveToFileAsync(newFile))
+                // If this throws, there's no image to work with
+                try
                 {
-                    if (newFile.Name != filename)
-                    {
-                        // This avoids a file in use exception if a different
-                        // custom image is being replaced
-                        SelectedItem.Picture = URIs.ArtistThumb;
+                    var img = await file.GetBitmapAsync();
+                    if (img == null)
+                        return;
 
-                        var oldFile = await localFolder.GetFileAsync(filename);
-                        await oldFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
-
-                        await newFile.RenameAsync(filename);
-                    }
-
-                    SelectedItem.Picture = $@"ms-appdata:///local/{filename}";
-                    await SelectedItem.SaveAsync();
+                    img.Dispose();
                 }
-                else
-                {
-                    await newFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                }
+                catch { return; }
+
+                var artist = SelectedItem;
+                artist.Picture = URIs.ArtistThumb;
+
+                string filename = $@"artist-{artist.Model.Id}{file.FileType}";
+                _ = await file.CopyAsync(ApplicationData.Current.LocalFolder,
+                    filename, NameCollisionOption.ReplaceExisting);
+
+                artist.Picture = $@"ms-appdata:///local/{filename}";
+                await artist.SaveAsync();
             }
         }
 

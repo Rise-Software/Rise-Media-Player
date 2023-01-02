@@ -1,14 +1,14 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using Rise.Common.Extensions.Markup;
 using Rise.Data.Json;
 using System;
 using System.Linq;
-using Windows.Storage.FileProperties;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Rise.App.Dialogs
 {
@@ -16,7 +16,10 @@ namespace Rise.App.Dialogs
     {
         private JsonBackendController<PlaylistViewModel> PBackend
             => App.MViewModel.PBackend;
-        private Uri _imagePath = new("ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png");
+        private readonly PlaylistViewModel NewPlaylist = new()
+        {
+            Icon = URIs.PlaylistThumb
+        };
 
         public CreatePlaylistDialog()
         {
@@ -25,7 +28,7 @@ namespace Rise.App.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            string title = TitleTextBox.Text;
+            string title = NewPlaylist.Title;
             if (string.IsNullOrWhiteSpace(title))
             {
                 ErrorBlock.Text = ResourceHelper.GetString("TitleNotEmpty");
@@ -35,17 +38,10 @@ namespace Rise.App.Dialogs
                 return;
             }
 
-            PlaylistViewModel plViewModel = new()
-            {
-                Title = title,
-                Description = DescriptionTextBox.Text,
-                Icon = _imagePath.OriginalString
-            };
-
             var pl = PBackend.Items.FirstOrDefault(p => p.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
             if (pl == null)
             {
-                PBackend.Items.Add(plViewModel);
+                PBackend.Items.Add(NewPlaylist);
                 PBackend.Save();
             }
             else
@@ -55,6 +51,15 @@ namespace Rise.App.Dialogs
 
                 args.Cancel = true;
             }
+        }
+
+        private async void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var icon = await ApplicationData.Current.
+                LocalFolder.TryGetItemAsync($@"playlist-{NewPlaylist.Id}.png");
+
+            if (icon != null)
+                await icon.DeleteAsync(StorageDeleteOption.PermanentDelete);
         }
 
         private async void UseCustomImageButton_Click(object sender, RoutedEventArgs e)
@@ -72,14 +77,25 @@ namespace Rise.App.Dialogs
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var thumbnail = await file.GetThumbnailAsync(ThumbnailMode.MusicView, 200);
-                if (await thumbnail.SaveToFileAsync($@"playlist-{file.Name}.png"))
-                    _imagePath = new Uri($@"ms-appdata:///local/playlist-{file.Name}.png");
+                // If this throws, there's no image to work with
+                try
+                {
+                    var img = await file.GetBitmapAsync();
+                    if (img == null)
+                        return;
 
-                thumbnail?.Dispose();
+                    img.Dispose();
+                }
+                catch { return; }
+
+                NewPlaylist.Icon = URIs.PlaylistThumb;
+
+                string filename = $@"artist-{NewPlaylist.Id}{file.FileType}";
+                _ = await file.CopyAsync(ApplicationData.Current.LocalFolder,
+                    filename, NameCollisionOption.ReplaceExisting);
+
+                NewPlaylist.Icon = $@"ms-appdata:///local/{filename}";
             }
-
-            PreviewImage.Source = new BitmapImage(_imagePath);
         }
     }
 }
