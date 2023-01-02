@@ -810,4 +810,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="MoreAlbumsByArtist" xml:space="preserve">
     <value>More albums by this artist</value>
   </data>
+  <data name="Bloom" xml:space="preserve">
+    <value>Bloom</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

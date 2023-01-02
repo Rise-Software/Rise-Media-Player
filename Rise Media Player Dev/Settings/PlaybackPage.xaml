@@ -18,8 +18,8 @@
                 ExpanderStyle="Static"
                 Icon="&#xE8B9;">
                 <ComboBox SelectedIndex="{x:Bind local:App.SViewModel.VisualizerType, Mode=TwoWay}">
-                    <x:String>None</x:String>
-                    <x:String>Bloom</x:String>
+                    <ComboBoxItem Content="{markup:ResourceHelper Name=None}" />
+                    <ComboBoxItem Content="{markup:ResourceHelper Name=Bloom}" />
                 </ComboBox>
             </uc:ExpanderControl>
 

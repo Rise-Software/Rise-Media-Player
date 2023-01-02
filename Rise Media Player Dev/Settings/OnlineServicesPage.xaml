@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:markup="using:Rise.Common.Extensions.Markup"
     mc:Ignorable="d">
 
     <StackPanel Orientation="Vertical" Spacing="4">
@@ -28,12 +28,12 @@
                     Margin="0,8,0,0"
                     FontSize="24"
                     FontWeight="SemiBold"
-                    Text="Connect to last.fm" />
+                    Text="{markup:ResourceHelper Name=/Settings/ConnectToLastFmH}" />
                 <TextBlock
                     Grid.Row="2"
                     FontSize="16"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Discover your recently played, listening history and scrobble to the internet." />
+                    Text="{markup:ResourceHelper Name=/Settings/ConnectToLastFmDesc}" />
             </Grid>
         </Button>
     </StackPanel>
