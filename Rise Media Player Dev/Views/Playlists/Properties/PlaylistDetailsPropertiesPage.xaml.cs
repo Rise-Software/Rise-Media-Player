@@ -1,4 +1,5 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Extensions;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,8 @@ namespace Rise.App.Views
 
         private async void exportPlaylistArt_Click(object sender, RoutedEventArgs e)
         {
-            StorageFile picFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(Playlist.Icon));
+            var picFile = await StorageFile.
+                GetFileFromApplicationUriAsync(new Uri(Playlist.Icon));
 
             FileSavePicker filePicker = new()
             {
@@ -36,8 +38,7 @@ namespace Rise.App.Views
 
             filePicker.FileTypeChoices.Add("Portable Network Graphics", new List<string>() { ".png" });
 
-            StorageFile file = await filePicker.PickSaveFileAsync();
-
+            var file = await filePicker.PickSaveFileAsync();
             if (file != null)
                 await picFile.CopyAndReplaceAsync(file);
         }
@@ -54,22 +55,27 @@ namespace Rise.App.Views
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
 
-            StorageFile file = await picker.PickSingleFileAsync();
-
+            var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                var img = await file.GetBitmapAsync(200, 200);
-
-                var newFile = await ApplicationData.Current.LocalFolder.
-                    CreateFileAsync($@"modified-artist-{file.Name}.png", CreationCollisionOption.ReplaceExisting);
-
-                var result = await img.SaveToFileAsync(newFile);
-
-                if (result)
+                // If this throws, there's no image to work with
+                try
                 {
-                    var uri = new Uri($@"ms-appdata:///local/modified-artist-{file.Name}.png");
-                    Playlist.Icon = uri.ToString();
+                    var img = await file.GetBitmapAsync();
+                    if (img == null)
+                        return;
+
+                    img.Dispose();
                 }
+                catch { return; }
+
+                Playlist.Icon = URIs.PlaylistThumb;
+
+                string filename = $@"artist-{Playlist.Id}{file.FileType}";
+                _ = await file.CopyAsync(ApplicationData.Current.LocalFolder,
+                    filename, NameCollisionOption.ReplaceExisting);
+
+                Playlist.Icon = $@"ms-appdata:///local/{filename}";
             }
         }
     }
