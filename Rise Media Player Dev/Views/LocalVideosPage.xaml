@@ -6,7 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:tkituictrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -137,11 +139,13 @@
                 Icon="NewFolder" />
         </CommandBar>
 
-        <GridView
+        <tkituictrls:AdaptiveGridView
             x:Name="MainGrid"
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
+            DesiredWidth="200"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -205,10 +209,7 @@
                             Background="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"
                             CornerRadius="4"
                             ToolTipService.ToolTip="{x:Bind Converter={StaticResource VidToStr}}">
-                            <Image
-                                Width="192"
-                                Height="108"
-                                Stretch="UniformToFill">
+                            <Image Height="108" Stretch="UniformToFill">
                                 <Image.Source>
                                     <BitmapImage
                                         DecodePixelHeight="108"
@@ -220,16 +221,19 @@
                         </Border>
 
                         <TextBlock
-                            Padding="0,7,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind Title}" />
+                            Grid.Row="1"
+                            Padding="0,6,0,0"
+                            MaxLines="1"
+                            Text="{x:Bind Title}"
+                            TextTrimming="CharacterEllipsis" />
                         <TextBlock
-                            FontSize="13"
+                            Grid.Row="2"
+                            FontSize="12"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Text="{x:Bind Length, Converter={StaticResource TimeToStr}, ConverterParameter=D-S}" />
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </tkituictrls:AdaptiveGridView>
     </Grid>
 </uc:MediaPageBase>
