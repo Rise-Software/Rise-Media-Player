@@ -203,10 +203,8 @@ namespace Rise.App.ViewModels
                 VideosTracker.CheckDuplicatesAsync()
             );
 
-            await Task.WhenAll(
-                Repository.UpsertQueuedAsync(),
-                Repository.DeleteQueuedAsync()
-            );
+            await Repository.UpsertQueuedAsync();
+            await Repository.DeleteQueuedAsync();
 
             if (App.SViewModel.FetchOnlineData)
             {
