@@ -882,4 +882,7 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="MediaOnlineExpanderTitle" xml:space="preserve">
     <value>This song is stored on the internet.</value>
   </data>
+  <data name="PlaylistDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
 </root>
