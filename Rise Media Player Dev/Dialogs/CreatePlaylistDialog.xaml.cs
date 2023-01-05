@@ -16,6 +16,7 @@ namespace Rise.App.Dialogs
     {
         private JsonBackendController<PlaylistViewModel> PBackend
             => App.MViewModel.PBackend;
+
         private readonly PlaylistViewModel NewPlaylist = new()
         {
             Icon = URIs.PlaylistThumb
@@ -26,7 +27,9 @@ namespace Rise.App.Dialogs
             InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        #region Events/Methods
+
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             string title = NewPlaylist.Title;
             if (string.IsNullOrWhiteSpace(title))
@@ -38,11 +41,10 @@ namespace Rise.App.Dialogs
                 return;
             }
 
-            var pl = PBackend.Items.FirstOrDefault(p => p.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
-            if (pl == null)
+            if (!PBackend.Items.Any(p => p.Title.Equals(title, StringComparison.OrdinalIgnoreCase)))
             {
                 PBackend.Items.Add(NewPlaylist);
-                PBackend.Save();
+                await PBackend.SaveAsync();
             }
             else
             {
@@ -97,5 +99,7 @@ namespace Rise.App.Dialogs
                 NewPlaylist.Icon = $@"ms-appdata:///local/{filename}";
             }
         }
+
+        #endregion
     }
 }
