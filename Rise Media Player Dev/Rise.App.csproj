@@ -194,9 +194,6 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="Dialogs\AboutArtist.xaml.cs">
-      <DependentUpon>AboutArtist.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>
@@ -235,9 +232,6 @@
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
       <DependentUpon>SongFilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
-      <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
@@ -579,10 +573,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AboutArtist.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -672,10 +662,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\Properties\SongFilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\UnavailableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
