@@ -355,7 +355,10 @@
                         IsTextSelectionEnabled="False"
                         Visibility="Collapsed">
                         <Paragraph x:Name="DefaultTitleParagraph">
-                            <Run x:Name="RiseSpan" FontWeight="SemiBold" Text="Rise" />
+                            <Run
+                                x:Name="RiseSpan"
+                                FontWeight="SemiBold"
+                                Text="Rise" />
                             <Span>Media Player</Span>
                         </Paragraph>
                     </RichTextBlock>
@@ -608,6 +611,12 @@
                                 Duration="0:0:0.5" />
                         </animations:Implicit.HideAnimations>
                         <RelativePanel>
+                            <muxc:ProgressBar
+                                Maximum="{x:Bind MViewModel.TotalMedia, Mode=OneWay}"
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignRightWithPanel="True"
+                                Value="{x:Bind MViewModel.IndexedMedia, Mode=OneWay}" />
+
                             <StackPanel
                                 Orientation="Horizontal"
                                 RelativePanel.AlignHorizontalCenterWithPanel="True"

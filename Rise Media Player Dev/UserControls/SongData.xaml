@@ -26,7 +26,7 @@
         Background="{x:Bind Background, Mode=OneWay}"
         BorderBrush="{x:Bind BorderBrush, Mode=OneWay}"
         BorderThickness="{x:Bind BorderThickness, Mode=OneWay}"
-        CornerRadius="8">
+        CornerRadius="{x:Bind CornerRadius, Mode=OneWay}">
         <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
