@@ -289,7 +289,7 @@
     <value>Contains videos</value>
   </data>
   <data name="MediaSourcesInfo" xml:space="preserve">
-    <value>We already look for your media in the default media locations (Music &amp;amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
+    <value>We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
   </data>
   <data name="NavigationAddRemoveH" xml:space="preserve">
     <value>Add/remove sidebar items</value>
