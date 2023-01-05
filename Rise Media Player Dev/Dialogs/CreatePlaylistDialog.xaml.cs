@@ -15,6 +15,7 @@ namespace Rise.App.Dialogs
     {
         private JsonBackendController<PlaylistViewModel> PBackend
             => App.MViewModel.PBackend;
+
         private readonly PlaylistViewModel NewPlaylist = new()
         {
             Icon = URIs.PlaylistThumb
@@ -27,13 +28,12 @@ namespace Rise.App.Dialogs
 
         #region Events/Methods
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var pl = PBackend.Items.FirstOrDefault(p => p.Title == NewPlaylist.Title);
-            if (pl == null)
+            if (!PBackend.Items.Any(p => p.Title == NewPlaylist.Title))
             {
                 PBackend.Items.Add(NewPlaylist);
-                PBackend.Save();
+                await PBackend.SaveAsync();
             }
         }
 
