@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -33,8 +33,7 @@
         Spacing="4">
         <uc:ExpanderControl
             x:Name="LocalExpander"
-            Title="{markup:ResourceHelper Name=MediaLocalTitle}"
-            Description="{markup:ResourceHelper Name=MediaLocalDesc}"
+            Title="{markup:ResourceHelper Name=MediaLocalExpanderTitle}"
             d:Visibility="Visible"
             ExpanderStyle="Static"
             Icon="&#xE8B7;"
@@ -53,8 +52,7 @@
 
         <uc:ExpanderControl
             x:Name="OnlineExpander"
-            Title="{markup:ResourceHelper Name=MediaOnlineTitle}"
-            Description="{markup:ResourceHelper Name=MediaOnlineDesc}"
+            Title="{markup:ResourceHelper Name=MediaOnlineExpanderTitle}"
             d:Visibility="Collapsed"
             ExpanderStyle="Static"
             Icon="&#xE12B;"
@@ -118,7 +116,7 @@
                         <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon FontSize="16" Glyph="&#xE104;" />
-                                <TextBlock Text="{markup:ResourceHelper Name=EditThumbnail}" Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=EditThumbnail}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
@@ -157,9 +155,7 @@
                         <RowDefinition Height="32" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Text="{markup:ResourceHelper Name=SongTitle}" />
+                    <TextBlock VerticalAlignment="Center" Text="{markup:ResourceHelper Name=SongTitle}" />
                     <TextBlock
                         Grid.Row="1"
                         Margin="0,-2,0,0"
@@ -303,9 +299,10 @@
 
         <muxc:TeachingTip
             x:Name="OnlineTip"
-            x:Uid="/Details/Online"
+            Title="{markup:ResourceHelper Name=MediaOnlineTitle}"
             IsLightDismissEnabled="True"
             PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=MediaOnlineDesc}"
             Target="{x:Bind OnlineButton}" />
     </StackPanel>
 </Page>

@@ -876,4 +876,10 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Scanning" xml:space="preserve">
     <value>Scanning</value>
   </data>
+  <data name="MediaLocalExpanderTitle" xml:space="preserve">
+    <value>This song is stored as a file on your device.</value>
+  </data>
+  <data name="MediaOnlineExpanderTitle" xml:space="preserve">
+    <value>This song is stored on the internet.</value>
+  </data>
 </root>
