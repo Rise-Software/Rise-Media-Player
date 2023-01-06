@@ -114,9 +114,7 @@
                                 ValueChanged="OnBandGainChanged"
                                 Value="{x:Bind Gain, Mode=TwoWay}" />
 
-                            <TextBlock HorizontalTextAlignment="Center">
-                                <Run Text="{x:Bind HzText}" />
-                                Hz</TextBlock>
+                            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind FormattedHz, Mode=OneWay}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
