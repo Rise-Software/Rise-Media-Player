@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using System.Xml;
 using System.Linq;
+using Windows.Storage.Streams;
 
 namespace Rise.App.ViewModels
 {
@@ -157,65 +158,22 @@ namespace Rise.App.ViewModels
         /// <returns>A playlist based on the file.</returns>
         public static async Task<PlaylistViewModel> GetFromFileAsync(IStorageFile file)
         {
-            PlaylistViewModel playlist = new()
-            {
-                Title = string.Empty,
-                Description = string.Empty,
-                Icon = string.Empty
-            };
-
             try
             {
-                WindowsPlaylist winrtPlaylist = await WindowsPlaylist.LoadAsync(file);
-
                 // Read playlist file
                 switch (file.ContentType)
                 {
                     case "application/vnd.ms-wpl":
                     case "application/vnd.ms-zpl":
-                        var text = await FileIO.ReadTextAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-
-                        XmlDocument document = new();
-                        document.LoadXml(text);
-
-                        var head = document.SelectSingleNode("/smil/head");
-
-                        // Nodes must not be null to fetch info.
-                        if (head != null)
-                        {
-                            foreach (XmlNode node in head.ChildNodes)
-                            {
-                                if (node.Name == "meta" && node.Attributes["name"].Value == "Subtitle")
-                                    playlist.Description = node.Attributes["content"].InnerText;
-                                else if (node.Name == "title")
-                                    playlist.Title = node.InnerText;
-                            }
-                        }
-                        else
-                        {
-                            // TODO: error or something.
-                        }
-                        break;
+                        return await ParseWMPPlaylistAsync(file);
                     case "audio/mpegurl":
                     case "audio/x-mpegurl":
                     case "application/mpegurl":
                     case "application/x-mpegurl":
                     case "application/vnd.apple.mpegurl":
                     case "application/vnd.apple.mpegurl.audio":
-                        var lines = await FileIO.ReadLinesAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
-                        break;
-                }
-
-                foreach (var playlistFile in winrtPlaylist.Files)
-                {
-                    IMediaItem item = default;
-
-                    if (SupportedFileTypes.MusicFiles.Contains(playlistFile.FileType))
-                        item = new SongViewModel(await Song.GetFromFileAsync(playlistFile));
-                    else if (SupportedFileTypes.VideoFiles.Contains(playlistFile.FileType))
-                        item = new VideoViewModel(await Video.GetFromFileAsync(playlistFile));
-
-                    playlist.AddItem(item);
+                        var lines = await FileIO.ReadLinesAsync(file, UnicodeEncoding.Utf8);
+                        return await ParseM3UAsync(lines, file.Path);
                 }
             }
             catch (Exception e)
@@ -223,10 +181,70 @@ namespace Rise.App.ViewModels
                 e.WriteToOutput();
             }
 
-            // Check if linked to directory
-            /*if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
+            return null;
+        }
+
+        private static async Task<PlaylistViewModel> ParseWMPPlaylistAsync(IStorageFile file)
+        {
+            PlaylistViewModel playlist = new()
             {
-                Uri baseUri = new(Path.GetDirectoryName(file.Path));
+                Title = string.Empty,
+                Description = string.Empty,
+                Icon = string.Empty
+            };
+
+            WindowsPlaylist winrtPlaylist = await WindowsPlaylist.LoadAsync(file);
+            var text = await FileIO.ReadTextAsync(file, UnicodeEncoding.Utf8);
+
+            XmlDocument document = new();
+            document.LoadXml(text);
+
+            var head = document.SelectSingleNode("/smil/head");
+
+            // Nodes must not be null to fetch info.
+            if (head != null)
+            {
+                foreach (XmlNode node in head.ChildNodes)
+                {
+                    if (node.Name == "meta" && node.Attributes["name"].Value == "Subtitle")
+                        playlist.Description = node.Attributes["content"].InnerText;
+                    else if (node.Name == "title")
+                        playlist.Title = node.InnerText;
+                }
+            }
+            else
+            {
+                // TODO: error or something.
+            }
+
+            foreach (var playlistFile in winrtPlaylist.Files)
+            {
+                IMediaItem item = default;
+
+                if (SupportedFileTypes.MusicFiles.Contains(playlistFile.FileType))
+                    item = new SongViewModel(await Song.GetFromFileAsync(playlistFile));
+                else if (SupportedFileTypes.VideoFiles.Contains(playlistFile.FileType))
+                    item = new VideoViewModel(await Video.GetFromFileAsync(playlistFile));
+
+                playlist.AddItem(item);
+            }
+
+            return playlist;
+        }
+
+        private static async Task<PlaylistViewModel> ParseM3UAsync(IList<string> lines, string baseFilePath)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = string.Empty,
+                Description = string.Empty,
+                Icon = string.Empty
+            };
+
+            // Check if linked to directory
+            if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
+            {
+                Uri baseUri = new(Path.GetDirectoryName(baseFilePath));
 
                 if (baseUri.AbsoluteUri.StartsWith("http") || baseUri.AbsoluteUri.StartsWith("https"))
                 {
@@ -242,7 +260,7 @@ namespace Rise.App.ViewModels
                         Thumbnail = URIs.MusicThumb
                     };
 
-                    playlist.Songs.Add(song);
+                    playlist.AddItem(song);
 
                     goto done;
                 }
@@ -280,76 +298,59 @@ namespace Rise.App.ViewModels
 
             // Get details
             string title = null, artist = null, icon = null;
-            for (int i = 0; i < lines.Count; i++)
+            foreach (var line in lines.Select(l => l.Trim()))
             {
-                string line = lines[i].Trim();
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
 
-                if (!string.IsNullOrWhiteSpace(line))
+                if (line.StartsWith("#"))
                 {
-                    if (line.StartsWith("#"))
+                    int splitIdx = line.IndexOf(':');
+                    string prop;
+                    string value = null;
+                    if (splitIdx >= 0)
                     {
-                        int splitIdx = line.IndexOf(':');
-                        string prop;
-                        string value = null;
-                        if (splitIdx >= 0)
-                        {
-                            prop = line.Substring(0, splitIdx).Trim();
-                            value = line.Substring(splitIdx + 1).Trim();
-                        }
-                        else
-                        {
-                            prop = line;
-                        }
-
-                        if (prop == "#EXTINF")
-                        {
-                            string[] inf = value.Split(new[] { ',', '-' }, 3);
-                            artist = inf[1].Trim();
-                            title = inf[2].Trim();
-                        }
-                        else if (prop == "#EXTDESC" || prop == "#DESCRIPTION")
-                        {
-                            playlist.Description = value;
-                        }
-                        else if (prop == "#EXTIMG")
-                        {
-                            playlist.Icon = lines[++i];
-                        }
-                        else if (prop == "#PLAYLIST")
-                        {
-                            playlist.Title = value;
-                        }
-
-                        // Otherwise, we skip this line because we don't want anything from it
-                        // or it's a whitespace
+                        prop = line.Substring(0, splitIdx).Trim();
+                        value = line.Substring(splitIdx + 1).Trim();
                     }
                     else
                     {
-                        SongViewModel song;
+                        prop = line;
+                    }
 
-                        try
-                        {
-                            StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+                    if (prop == "#EXTINF")
+                    {
+                        string[] inf = value.Split(new[] { ',', '-' }, 3);
+                        artist = inf[1].Trim();
+                        title = inf[2].Trim();
+                    }
+                    else if (prop == "#EXTDESC" || prop == "#DESCRIPTION")
+                    {
+                        playlist.Description = value;
+                    }
+                    else if (prop == "#EXTIMG")
+                    {
+                        playlist.Icon = lines[++i];
+                    }
+                    else if (prop == "#PLAYLIST")
+                    {
+                        playlist.Title = value;
+                    }
 
-                            if (songFile != null)
-                                song = new(await Song.GetFromFileAsync(songFile));
-                            else
-                                song = new()
-                                {
-                                    Title = "Title",
-                                    Track = 0,
-                                    Disc = 0,
-                                    Album = "UnknownAlbumResource",
-                                    Artist = "UnknownArtistResource",
-                                    AlbumArtist = "UnknownArtistResource",
-                                    Location = line,
-                                    Thumbnail = URIs.MusicThumb
-                                };
-                        }
-                        catch (Exception e)
-                        {
-                            e.WriteToOutput();
+                    // Otherwise, we skip this line because we don't want anything from it
+                    // or it's a whitespace
+                }
+                else
+                {
+                    SongViewModel song;
 
+                    try
+                    {
+                        StorageFile songFile = await StorageFile.GetFileFromPathAsync(line);
+
+                        if (songFile != null)
+                            song = new(await Song.GetFromFileAsync(songFile));
+                        else
                             song = new()
                             {
                                 Title = "Title",
@@ -361,34 +362,49 @@ namespace Rise.App.ViewModels
                                 Location = line,
                                 Thumbnail = URIs.MusicThumb
                             };
-                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.WriteToOutput();
 
-                        if (song != null)
+                        song = new()
                         {
-                            // If the playlist entry includes track info, override the tag data
-                            if (title != null)
-                            {
-                                song.Title = title;
-                                title = null;
-                            }
-                            if (artist != null)
-                            {
-                                song.Artist = artist;
-                                artist = null;
-                            }
-                            if (icon != null)
-                            {
-                                song.Thumbnail = icon;
-                                icon = null;
-                            }
+                            Title = "Title",
+                            Track = 0,
+                            Disc = 0,
+                            Album = "UnknownAlbumResource",
+                            Artist = "UnknownArtistResource",
+                            AlbumArtist = "UnknownArtistResource",
+                            Location = line,
+                            Thumbnail = URIs.MusicThumb
+                        };
+                    }
 
-                            playlist.Songs.Add(song);
+                    if (song != null)
+                    {
+                        // If the playlist entry includes track info, override the tag data
+                        if (title != null)
+                        {
+                            song.Title = title;
+                            title = null;
                         }
+                        if (artist != null)
+                        {
+                            song.Artist = artist;
+                            artist = null;
+                        }
+                        if (icon != null)
+                        {
+                            song.Thumbnail = icon;
+                            icon = null;
+                        }
+
+                        playlist.AddItem(song);
                     }
                 }
-            }*/
+            }
 
-            //done:
+            done:
             if (string.IsNullOrWhiteSpace(playlist.Icon))
                 playlist.Icon = URIs.PlaylistThumb;
 
