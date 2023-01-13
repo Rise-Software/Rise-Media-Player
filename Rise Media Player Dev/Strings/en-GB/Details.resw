@@ -123,6 +123,9 @@
   <data name="AsFile.Title" xml:space="preserve">
     <value>This song is stored as a file on your device.</value>
   </data>
+  <data name="AsOnlineFile.Title" xml:space="preserve">
+    <value>This song is stored on the internet.</value>
+  </data>
   <data name="AsPlaylist.Title" xml:space="preserve">
     <value>Move songs by clicking the up and down buttons.</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="Local.Title" xml:space="preserve">
     <value>Local Music</value>
+  </data>
+  <data name="Online.Subtitle" xml:space="preserve">
+    <value>This song is on the internet, meaning it is stored on the cloud or online. Properties changed here will get applied to the file if it's stored on a cloud service like OneDrive.</value>
+  </data>
+  <data name="Online.Title" xml:space="preserve">
+    <value>Online Music</value>
   </data>
   <data name="PlaylistDescription.Text" xml:space="preserve">
     <value>Description</value>

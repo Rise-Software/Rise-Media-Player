@@ -82,18 +82,17 @@
                             <FontIcon Glyph="&#xF12E;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="/Props/FileItemNav" Tag="FileItem">
+                    <muxc:NavigationViewItem
+                        x:Uid="/Props/FileItemNav"
+                        IsEnabled="{x:Bind Props.Model.Model.IsLocal}"
+                        Tag="FileItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE130;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-
                 </muxc:NavigationView.MenuItems>
-
-
             </muxc:NavigationView>
         </ScrollViewer>
-
 
         <ScrollViewer
             Grid.Row="2"

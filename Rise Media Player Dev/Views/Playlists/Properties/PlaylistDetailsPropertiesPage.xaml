@@ -38,10 +38,7 @@
                                 Height="96"
                                 Stretch="UniformToFill">
                                 <Image.Source>
-                                    <BitmapImage
-                                        DecodePixelHeight="96"
-                                        DecodePixelWidth="96"
-                                        UriSource="{x:Bind Playlist.Icon, Mode=OneWay}" />
+                                    <BitmapImage UriSource="{x:Bind Playlist.Icon, Mode=OneWay}" />
                                 </Image.Source>
                             </Image>
                         </Border>

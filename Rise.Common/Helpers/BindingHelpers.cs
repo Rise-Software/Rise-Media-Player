@@ -40,10 +40,14 @@ namespace Rise.Common.Helpers
             return obj == otherObj;
         }
 
-        public static Windows.UI.Xaml.Visibility IsNotNullVis(object obj)
-        {
-            return obj != null ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-        }
+        public static Visibility BoolToVis(bool boolean)
+            => boolean ? Visibility.Visible : Visibility.Collapsed;
+
+        public static Visibility InverseBoolToVis(bool boolean)
+            => !boolean ? Visibility.Visible : Visibility.Collapsed;
+
+        public static Visibility IsNotNullVis(object obj)
+            => BoolToVis(obj != null);
 
         public static bool IsNull(object obj)
         {

@@ -26,8 +26,6 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
     <AppxPackageDir>C:\RiseMP\</AppxPackageDir>
     <LangVersion>latest</LangVersion>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
@@ -196,12 +194,6 @@
     <Compile Include="ChangeTrackers\SongsTracker.cs" />
     <Compile Include="Converters\TimeSpanToString.cs" />
     <Compile Include="Converters\VideoToString.cs" />
-    <Compile Include="DbControllers\BaseBackendController.cs" />
-    <Compile Include="DbControllers\NotificationsBackendController.cs" />
-    <Compile Include="DbControllers\PlaylistsBackendController.cs" />
-    <Compile Include="Dialogs\AboutArtist.xaml.cs">
-      <DependentUpon>AboutArtist.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\CreatePlaylistDialog.xaml.cs">
       <DependentUpon>CreatePlaylistDialog.xaml</DependentUpon>
     </Compile>
@@ -223,6 +215,9 @@
     <Compile Include="Dialogs\WidgetsDialogContent.xaml.cs">
       <DependentUpon>WidgetsDialogContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml.cs">
+      <DependentUpon>AlbumPropsSongsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
@@ -237,9 +232,6 @@
     </Compile>
     <Compile Include="Views\Songs\Properties\SongFilePage.xaml.cs">
       <DependentUpon>SongFilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UnavailableDialog.xaml.cs">
-      <DependentUpon>UnavailableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\AllSettingsPage.xaml.cs">
       <DependentUpon>AllSettingsPage.xaml</DependentUpon>
@@ -279,7 +271,6 @@
       <DependentUpon>TiledImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\ExpanderViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
@@ -289,8 +280,8 @@
     <Compile Include="Views\Albums\Properties\AlbumPropertiesPage.xaml.cs">
       <DependentUpon>AlbumPropertiesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml.cs">
-      <DependentUpon>AlbumPropsDetailsPagexaml.xaml</DependentUpon>
+    <Compile Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml.cs">
+      <DependentUpon>AlbumPropsDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Artists\ArtistSongsPage.xaml.cs">
       <DependentUpon>ArtistSongsPage.xaml</DependentUpon>
@@ -582,10 +573,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AboutArtist.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\CreatePlaylistDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -654,6 +641,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Albums\Properties\AlbumPropsSongsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BrowsePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -671,10 +662,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Songs\Properties\SongFilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\UnavailableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -742,7 +729,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPagexaml.xaml">
+    <Page Include="Views\Albums\Properties\AlbumPropsDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -922,6 +909,11 @@
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.0.0</Version>
     </PackageReference>
+    <PackageReference Include="IsExternalInit">
+      <Version>1.0.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="ksemenenko.ColorThief">
       <Version>1.1.1.4</Version>
     </PackageReference>
@@ -944,7 +936,7 @@
       <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.1</Version>
+      <Version>2.8.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -968,7 +960,7 @@
       <Version>2.3.0</Version>
     </PackageReference>
     <PackageReference Include="YoutubeExplode">
-      <Version>6.2.4</Version>
+      <Version>6.2.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

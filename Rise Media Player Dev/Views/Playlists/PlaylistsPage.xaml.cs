@@ -3,6 +3,7 @@ using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Helpers;
+using Rise.Data.Json;
 using System;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -13,6 +14,9 @@ namespace Rise.App.Views
 {
     public sealed partial class PlaylistsPage : MediaPageBase
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         public PlaylistViewModel SelectedItem
         {
             get => (PlaylistViewModel)GetValue(SelectedItemProperty);
@@ -35,7 +39,7 @@ namespace Rise.App.Views
         {
             if (e.ClickedItem is PlaylistViewModel playlist && !KeyboardHelpers.IsCtrlPressed())
             {
-                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Model.Id);
+                _ = Frame.Navigate(typeof(PlaylistDetailsPage), playlist.Id);
             }
         }
 
@@ -62,7 +66,8 @@ namespace Rise.App.Views
 
         private async void DeletePlaylist_Click(object sender, RoutedEventArgs e)
         {
-            await SelectedItem.DeleteAsync();
+            PBackend.Items.Remove(SelectedItem);
+            await PBackend.SaveAsync();
         }
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
@@ -77,7 +82,9 @@ namespace Rise.App.Views
             if (file != null)
             {
                 var playlist = await PlaylistViewModel.GetFromFileAsync(file);
-                await playlist.SaveAsync();
+
+                PBackend.Items.Add(playlist);
+                await PBackend.SaveAsync();
             }
         }
     }

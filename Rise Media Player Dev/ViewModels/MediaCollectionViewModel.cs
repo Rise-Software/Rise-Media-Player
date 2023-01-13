@@ -145,7 +145,7 @@ namespace Rise.App.ViewModels
             else if (parameter is GenreViewModel genre)
                 return PlaySingleGenreAsync(genre, PlaybackCancelHelper.Token);
             else if (parameter is PlaylistViewModel playlist)
-                PlaySinglePlaylistAsync(playlist, PlaybackCancelHelper.Token);
+                return PlaySinglePlaylistAsync(playlist, PlaybackCancelHelper.Token);
 
             return PlaySingleItemAsync((IMediaItem)parameter, PlaybackCancelHelper.Token);
         }

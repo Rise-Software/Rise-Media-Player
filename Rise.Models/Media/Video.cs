@@ -14,28 +14,24 @@ namespace Rise.Models
     [Table("Videos")]
     public partial class Video : DbObject, IEquatable<Video>, IMatchable<Video>
     {
-        [Column(nameof(Directors))]
         public string Directors { get; set; }
 
-        [Column(nameof(Length))]
         public TimeSpan Length { get; set; }
 
-        [Column(nameof(Location))]
         public string Location { get; set; }
 
-        [Column(nameof(Rating))]
         [NotNull]
         public uint Rating { get; set; }
 
-        [Column(nameof(Title))]
         public string Title { get; set; }
 
-        [Column(nameof(Year))]
         [NotNull]
         public uint Year { get; set; }
 
-        [Column(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
+
+        [Ignore]
+        public bool IsLocal { get; set; }
 
         /// <summary>
         /// Returns the video title.
@@ -70,7 +66,8 @@ namespace Rise.Models
                 Length = videoProperties.Duration,
                 Year = videoProperties.Year,
                 Location = file.Path,
-                Rating = videoProperties.Rating
+                Rating = videoProperties.Rating,
+                IsLocal = file.Provider.Id == "computer"
             };
         }
     }

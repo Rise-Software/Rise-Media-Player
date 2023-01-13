@@ -1,5 +1,7 @@
 ﻿using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Interfaces;
+using Rise.Data.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,6 +14,9 @@ namespace Rise.App.Helpers
     /// </summary>
     public partial class AddToPlaylistHelper
     {
+        private JsonBackendController<PlaylistViewModel> PBackend
+            => App.MViewModel.PBackend;
+
         private bool _addSeparator = false;
         private readonly IList<PlaylistViewModel> _items;
 
@@ -97,22 +102,17 @@ namespace Rise.App.Helpers
                 {
                     Title = $"Untitled Playlist #{_items.Count + 1}",
                     Description = string.Empty,
-                    Icon = "ms-appx:///Assets/NavigationView/PlaylistsPage/blankplaylist.png",
-                    Duration = "0"
+                    Icon = URIs.PlaylistThumb
                 };
 
                 _addSeparator = true;
             }
 
-            foreach (var item in items)
-            {
-                if (item is SongViewModel svm)
-                    playlist.Songs.Add(svm);
-                else
-                    playlist.Videos.Add(item as VideoViewModel);
-            }
+            playlist.AddItems(items);
 
-            await playlist.SaveAsync();
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
+
             return playlist;
         }
     }

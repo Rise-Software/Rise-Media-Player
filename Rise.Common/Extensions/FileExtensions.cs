@@ -21,14 +21,12 @@ namespace Rise.Common.Extensions
         /// </summary>
         /// <param name="str">The <see cref="Uri"/> <see cref="string"/>.</param>
         /// <returns>Whether or not the launch was successful.</returns>
-        public static async Task<bool> LaunchAsync(this string str)
+        public static Task<bool> LaunchAsync(this string str)
         {
             if (str.IsValidUri())
-            {
-                return await Launcher.LaunchUriAsync(new Uri(str));
-            }
+                return Launcher.LaunchUriAsync(new Uri(str)).AsTask();
 
-            return false;
+            return Task.FromResult(false);
         }
 
         /// <summary>
@@ -36,8 +34,8 @@ namespace Rise.Common.Extensions
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> to launch.</param>
         /// <returns>Whether or not the launch was successful.</returns>
-        public static async Task<bool> LaunchAsync(this Uri uri)
-            => await Launcher.LaunchUriAsync(uri);
+        public static Task<bool> LaunchAsync(this Uri uri)
+            => Launcher.LaunchUriAsync(uri).AsTask();
 
         /// <summary>
         /// Checks whether or not the provided <see cref="string"/> is
@@ -172,6 +170,22 @@ namespace Rise.Common.Extensions
             }
 
             return sb.Length == 0 ? "_" : changed ? sb.ToString() : text;
+        }
+
+        /// <summary>
+        /// Checks if file in the path provided exists using StorageFile APIs.
+        /// </summary>
+        /// <param name="path">The path to check for.</param>
+        /// <returns>A <see cref="Task"/> which represents the operation.</returns>
+        public static async Task<bool> CheckStorageFileExistsAsync(this string path)
+        {
+            try
+            {
+                return await StorageFile.GetFileFromPathAsync(path) != null;
+            } catch
+            {
+                return false;
+            }
         }
     }
 }
