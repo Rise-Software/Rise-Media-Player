@@ -215,7 +215,7 @@ namespace Rise.App.ViewModels
                     else if (SupportedFileTypes.VideoFiles.Contains(playlistFile.FileType))
                         item = new VideoViewModel(await Video.GetFromFileAsync(playlistFile));
 
-                    await playlist.AddItemAsync(item);
+                    playlist.AddItem(item);
                 }
             }
             catch (Exception e)
