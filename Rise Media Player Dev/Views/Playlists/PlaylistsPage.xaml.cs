@@ -72,19 +72,37 @@ namespace Rise.App.Views
 
         private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
         {
-            FileOpenPicker picker = new();
-            
-            foreach (var format in SupportedFileTypes.PlaylistFiles)
-                picker.FileTypeFilter.Add(format);
-
-            StorageFile file = await picker.PickSingleFileAsync();
-
-            if (file != null)
+            switch ((sender as FrameworkElement).Tag)
             {
-                var playlist = await PlaylistViewModel.GetFromFileAsync(file);
+                case "FromFile":
+                    FileOpenPicker picker = new();
 
-                PBackend.Items.Add(playlist);
-                await PBackend.SaveAsync();
+                    foreach (var format in SupportedFileTypes.PlaylistFiles)
+                        picker.FileTypeFilter.Add(format);
+
+                    StorageFile file = await picker.PickSingleFileAsync();
+
+                    if (file != null)
+                    {
+                        var playlist = await PlaylistViewModel.GetFromFileAsync(file);
+
+                        PBackend.Items.Add(playlist);
+                        await PBackend.SaveAsync();
+                    }
+                    break;
+                case "FromFolder":
+                    FolderPicker picker1 = new();
+
+                    var folder = await picker1.PickSingleFolderAsync();
+
+                    if (folder != null)
+                    {
+                        var playlist = await PlaylistViewModel.GetFromFolderAsync(folder);
+
+                        PBackend.Items.Add(playlist);
+                        await PBackend.SaveAsync();
+                    }
+                    break;
             }
         }
     }

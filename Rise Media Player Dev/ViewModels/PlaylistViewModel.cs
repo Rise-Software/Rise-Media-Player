@@ -15,6 +15,7 @@ using Windows.Storage;
 using System.Xml;
 using System.Linq;
 using Windows.Storage.Streams;
+using Windows.Storage.Search;
 
 namespace Rise.App.ViewModels
 {
@@ -184,13 +185,34 @@ namespace Rise.App.ViewModels
             return null;
         }
 
+        public static async Task<PlaylistViewModel> GetFromFolderAsync(IStorageFolderQueryOperations folder)
+        {
+            PlaylistViewModel playlist = new()
+            {
+                Title = "Untitled Playlist",
+                Description = string.Empty,
+                Icon = URIs.PlaylistThumb
+            };
+
+            var songs = await folder.CreateFileQueryWithOptions(QueryPresets.SongQueryOptions).GetFilesAsync();
+            var videos = await folder.CreateFileQueryWithOptions(QueryPresets.VideoQueryOptions).GetFilesAsync();
+
+            foreach (var item in songs)
+                playlist.AddItem(new SongViewModel(await Song.GetFromFileAsync(item)));
+
+            foreach (var item in videos)
+                playlist.AddItem(new VideoViewModel(await Video.GetFromFileAsync(item)));
+
+            return playlist;
+        }
+
         private static async Task<PlaylistViewModel> ParseWMPPlaylistAsync(IStorageFile file)
         {
             PlaylistViewModel playlist = new()
             {
-                Title = string.Empty,
+                Title = "Untitled Playlist",
                 Description = string.Empty,
-                Icon = string.Empty
+                Icon = URIs.PlaylistThumb
             };
 
             WindowsPlaylist winrtPlaylist = await WindowsPlaylist.LoadAsync(file);
@@ -236,9 +258,9 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = string.Empty,
+                Title = "Untitled Playlist",
                 Description = string.Empty,
-                Icon = string.Empty
+                Icon = URIs.PlaylistThumb
             };
 
             var trimmedLines = lines.Select(l => l.Trim()).ToList();
@@ -409,9 +431,6 @@ namespace Rise.App.ViewModels
             }
 
             done:
-            if (string.IsNullOrWhiteSpace(playlist.Icon))
-                playlist.Icon = URIs.PlaylistThumb;
-
             return playlist;
         }
     }
