@@ -241,8 +241,10 @@ namespace Rise.App.ViewModels
                 Icon = string.Empty
             };
 
+            var trimmedLines = lines.Select(l => l.Trim()).ToList();
+
             // Check if linked to directory
-            if (lines.Count == 1 && Uri.TryCreate(lines[0], UriKind.RelativeOrAbsolute, out var refUri))
+            if (trimmedLines.Count == 1 && Uri.TryCreate(trimmedLines[0], UriKind.RelativeOrAbsolute, out var refUri))
             {
                 Uri baseUri = new(Path.GetDirectoryName(baseFilePath));
 
@@ -298,8 +300,10 @@ namespace Rise.App.ViewModels
 
             // Get details
             string title = null, artist = null, icon = null;
-            foreach (var line in lines.Select(l => l.Trim()))
+            for (int i = 0; i < trimmedLines.Count; i++)
             {
+                var line = trimmedLines[i];
+
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
@@ -330,7 +334,7 @@ namespace Rise.App.ViewModels
                     }
                     else if (prop == "#EXTIMG")
                     {
-                        playlist.Icon = lines[++i];
+                        playlist.Icon = trimmedLines[++i];
                     }
                     else if (prop == "#PLAYLIST")
                     {
