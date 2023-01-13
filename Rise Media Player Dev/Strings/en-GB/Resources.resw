@@ -885,4 +885,24 @@ Rise Software - Discy &amp; YourOrdinaryCat</value>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="DirectLinkExamplesM" xml:space="preserve">
+    <value>Examples of direct links include:
+
+https://www.example.com/song.mp3
+https://www.example.com/song_playlist.m3u
+https://www.youtube.com/watch?v=dQw4w9Wg</value>
+  </data>
+  <data name="DirectLinkExamplesV" xml:space="preserve">
+    <value>Examples of direct links include:
+
+https://www.example.com/video.mp4
+https://youtu.be/JEGjlELJxC8
+https://www.youtube.com/watch?v=p7YXXieghto</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Invalid URL</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>URL</value>
+  </data>
 </root>

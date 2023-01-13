@@ -3,27 +3,26 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Play music from URL"
-    CloseButtonText="Cancel"
+    Title="{markup:ResourceHelper Name=PlayFromUrl}"
+    CloseButtonText="{markup:ResourceHelper Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
-    PrimaryButtonText="Play song"
+    PrimaryButtonText="{markup:ResourceHelper Name=PlayMedia}"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
     <StackPanel Width="300" Spacing="6">
-        <TextBox x:Name="StreamingTextBox" Header="URL" />
-        <TextBlock FontSize="13" TextWrapping="Wrap">
-            Examples of direct links include:<LineBreak />
-            https://www.example.com/song.mp3<LineBreak />
-            https://www.example.com/song_playlist.m3u<LineBreak />
-            https://www.youtube.com/watch?v=dQw4w9Wg
-        </TextBlock>
+        <TextBox x:Name="StreamingTextBox" Header="{markup:ResourceHelper Name=Url}" />
+        <TextBlock
+            FontSize="13"
+            Text="{markup:ResourceHelper Name=DirectLinkExamplesM}"
+            TextWrapping="Wrap" />
         <TextBlock
             x:Name="InvalidUrlText"
             FontSize="13"
-            Text="Invalid URL."
+            Text="{markup:ResourceHelper Name=InvalidUrl}"
             TextWrapping="Wrap"
             Visibility="Collapsed" />
     </StackPanel>
