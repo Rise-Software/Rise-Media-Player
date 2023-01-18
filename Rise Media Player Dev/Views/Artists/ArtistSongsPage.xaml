@@ -30,13 +30,13 @@
         <Grid Padding="0,0,0,120">
             <muxc:TeachingTip
                 x:Name="DiscyOnSong"
-                Title="Taking action on songs"
-                ActionButtonContent="Learn more"
-                CloseButtonContent="Got it!"
+                Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongH}"
+                ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+                CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
                 IsLightDismissEnabled="True"
                 PlacementMargin="20"
                 PreferredPlacement="Auto"
-                Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!">
+                Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongDesc}">
                 <muxc:TeachingTip.HeroContent>
                     <Image Source="/Assets/Branding/discygraphic.png" />
                 </muxc:TeachingTip.HeroContent>

@@ -32,9 +32,9 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnVideo"
-            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoTitle}"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnVideoH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"

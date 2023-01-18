@@ -27,13 +27,13 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnPlaylist"
-            Title="Group with playlists"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnPlaylistH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Put your favourite songs, special songs, your songs, together in a playlist. Give it a description and a title. Then add extra music and remove tracks you're not too sure about. Happy listening!">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnPlaylistDesc}">
             <muxc:TeachingTip.HeroContent>
                 <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>

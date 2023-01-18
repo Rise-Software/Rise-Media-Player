@@ -929,4 +929,10 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="EQPVocal" xml:space="preserve">
     <value>Vocal</value>
   </data>
+  <data name="GotIt" xml:space="preserve">
+    <value>Got it</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
 </root>

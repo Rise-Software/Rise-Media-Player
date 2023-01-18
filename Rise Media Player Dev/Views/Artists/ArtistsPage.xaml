@@ -30,12 +30,12 @@
         <muxc:TeachingTip
             x:Name="DiscyOnArtist"
             Title="{markup:ResourceHelper Name=Artists}"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnArtistDesc}">
             <muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
