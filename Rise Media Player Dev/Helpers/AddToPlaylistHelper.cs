@@ -1,5 +1,6 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Constants;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Interfaces;
 using Rise.Data.Json;
 using System.Collections.Generic;
@@ -100,7 +101,7 @@ namespace Rise.App.Helpers
             {
                 playlist = new()
                 {
-                    Title = $"Untitled Playlist #{_items.Count + 1}",
+                    Title = ResourceHelper.GetString("UntitledPlaylist"),
                     Description = string.Empty,
                     Icon = URIs.PlaylistThumb
                 };

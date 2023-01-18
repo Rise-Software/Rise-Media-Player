@@ -905,4 +905,7 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="Url" xml:space="preserve">
     <value>URL</value>
   </data>
+  <data name="UntitledPlaylist" xml:space="preserve">
+    <value>Untitled Playlist</value>
+  </data>
 </root>
