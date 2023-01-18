@@ -156,6 +156,9 @@
   <data name="AddFolders" xml:space="preserve">
     <value>Add folders</value>
   </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>Use album art</value>
+  </data>
   <data name="AppearanceAppLayout" xml:space="preserve">
     <value>App layout</value>
   </data>
@@ -168,11 +171,17 @@
   <data name="AppearanceChooseTheme" xml:space="preserve">
     <value>Choose your colour</value>
   </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>Use custom colour</value>
+  </data>
   <data name="AppearanceIconsAndFonts" xml:space="preserve">
     <value>Icons &amp; fonts</value>
   </data>
   <data name="AppearanceItemDesc" xml:space="preserve">
     <value>Customise app colours, themes, icons, layouts and motion.</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>No glaze</value>
   </data>
   <data name="AppearanceNothing" xml:space="preserve">
     <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
@@ -185,6 +194,9 @@
   </data>
   <data name="AppearanceStartupTitle" xml:space="preserve">
     <value>On startup</value>
+  </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>Use system accent colour</value>
   </data>
   <data name="AppearanceTip" xml:space="preserve">
     <value>*Compact mode changes won't take effect until after setup has completed.</value>
