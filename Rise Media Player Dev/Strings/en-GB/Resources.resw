@@ -908,4 +908,25 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="UntitledPlaylist" xml:space="preserve">
     <value>Untitled Playlist</value>
   </data>
+  <data name="EQPAir" xml:space="preserve">
+    <value>Air</value>
+  </data>
+  <data name="EQPBass" xml:space="preserve">
+    <value>Bass</value>
+  </data>
+  <data name="EQPCustom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="EQPFlat" xml:space="preserve">
+    <value>Flat</value>
+  </data>
+  <data name="EQPPop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="EQPRock" xml:space="preserve">
+    <value>Rock</value>
+  </data>
+  <data name="EQPVocal" xml:space="preserve">
+    <value>Vocal</value>
+  </data>
 </root>

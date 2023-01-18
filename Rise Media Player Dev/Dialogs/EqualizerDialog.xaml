@@ -45,13 +45,13 @@
                 RelativePanel.AlignRightWithPanel="True"
                 SelectedIndex="{x:Bind SViewModel.SelectedEqualizerPreset, Mode=TwoWay}"
                 SelectionChanged="OnPresetChanged">
-                <x:String>Flat</x:String>
-                <x:String>Custom</x:String>
-                <x:String>Pop</x:String>
-                <x:String>Rock</x:String>
-                <x:String>Vocal</x:String>
-                <x:String>Bass</x:String>
-                <x:String>Air</x:String>
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPFlat}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPCustom}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPPop}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPRock}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPVocal}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPBass}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPAir}" />
             </ComboBox>
         </RelativePanel>
 
@@ -67,9 +67,9 @@
             <StackPanel VerticalAlignment="Top" Spacing="12">
                 <TextBlock Text="+ 12dB" />
                 <TextBlock Text="+ 6dB" />
-                <TextBlock Margin="0,4,0,0" Text="   0dB" />
-                <TextBlock Text="- 6dB" />
-                <TextBlock Text="- 12dB" />
+                <TextBlock Margin="13,4,0,0" Text="0dB" />
+                <TextBlock Text="-  6dB" />
+                <TextBlock Text="-  12dB" />
             </StackPanel>
 
             <ListView
