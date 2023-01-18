@@ -70,40 +70,37 @@ namespace Rise.App.Views
             await PBackend.SaveAsync();
         }
 
-        private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
+        private async void ImportFromFile_Click(object sender, RoutedEventArgs e)
         {
-            switch ((sender as FrameworkElement).Tag)
-            {
-                case "FromFile":
-                    FileOpenPicker picker = new();
+            FileOpenPicker picker = new();
 
-                    foreach (var format in SupportedFileTypes.PlaylistFiles)
-                        picker.FileTypeFilter.Add(format);
+            foreach (var format in SupportedFileTypes.PlaylistFiles)
+                picker.FileTypeFilter.Add(format);
 
-                    StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
 
-                    if (file != null)
-                    {
-                        var playlist = await PlaylistViewModel.GetFromFileAsync(file);
+            if (file == null)
+                return;
 
-                        PBackend.Items.Add(playlist);
-                        await PBackend.SaveAsync();
-                    }
-                    break;
-                case "FromFolder":
-                    FolderPicker picker1 = new();
+            var playlist = await PlaylistViewModel.GetFromFileAsync(file);
 
-                    var folder = await picker1.PickSingleFolderAsync();
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
+        }
 
-                    if (folder != null)
-                    {
-                        var playlist = await PlaylistViewModel.GetFromFolderAsync(folder);
+        private async void ImportFromFolder_Click(object sender, RoutedEventArgs e)
+        {
+            FolderPicker picker = new();
 
-                        PBackend.Items.Add(playlist);
-                        await PBackend.SaveAsync();
-                    }
-                    break;
-            }
+            var folder = await picker.PickSingleFolderAsync();
+
+            if (folder == null)
+                return;
+
+            var playlist = await PlaylistViewModel.GetFromFolderAsync(folder);
+
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
         }
     }
 }

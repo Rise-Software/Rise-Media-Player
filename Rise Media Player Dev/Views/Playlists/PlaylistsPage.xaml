@@ -77,12 +77,12 @@
                 Label="Import">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Tag="FromFile" Text="From file" Click="ImportPlaylist_Click">
+                        <MenuFlyoutItem Text="From file" Click="ImportFromFile_Click">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE1A5;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem Tag="FromFolder" Text="From folder" Click="ImportPlaylist_Click">
+                        <MenuFlyoutItem Text="From folder" Click="ImportFromFolder_Click">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon Glyph="&#xE838;" />
                             </MenuFlyoutItem.Icon>
