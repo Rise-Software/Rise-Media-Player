@@ -162,17 +162,13 @@ namespace Rise.App.ViewModels
             try
             {
                 // Read playlist file
-                switch (file.ContentType)
+                switch (file.FileType)
                 {
-                    case "application/vnd.ms-wpl":
-                    case "application/vnd.ms-zpl":
+                    case ".wpl":
+                    case ".zpl":
                         return await ParseWMPPlaylistAsync(file);
-                    case "audio/mpegurl":
-                    case "audio/x-mpegurl":
-                    case "application/mpegurl":
-                    case "application/x-mpegurl":
-                    case "application/vnd.apple.mpegurl":
-                    case "application/vnd.apple.mpegurl.audio":
+                    case ".m3u":
+                    case ".m3u8":
                         var lines = await FileIO.ReadLinesAsync(file, UnicodeEncoding.Utf8);
                         return await ParseM3UAsync(lines, file.Path);
                 }
@@ -185,11 +181,11 @@ namespace Rise.App.ViewModels
             return null;
         }
 
-        public static async Task<PlaylistViewModel> GetFromFolderAsync(IStorageFolderQueryOperations folder)
+        public static async Task<PlaylistViewModel> GetFromFolderAsync(StorageFolder folder)
         {
             PlaylistViewModel playlist = new()
             {
-                Title = "Untitled Playlist",
+                Title = folder.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
@@ -210,7 +206,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = "Untitled Playlist",
+                Title = file.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
@@ -258,7 +254,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = "Untitled Playlist",
+                Title = Path.GetFileName(baseFilePath),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
