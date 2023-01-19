@@ -69,9 +69,23 @@
             <AppBarSeparator />
 
             <AppBarButton
-                Click="ImportPlaylist_Click"
                 Icon="OpenFile"
-                Label="{markup:ResourceHelper Name=Import}" />
+                Label="{markup:ResourceHelper Name=Import}">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="From file" Click="ImportFromFile_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE1A5;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="From folder" Click="ImportFromFolder_Click">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE838;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
 
             <AppBarButton
                 Icon="Save"

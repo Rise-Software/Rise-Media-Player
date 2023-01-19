@@ -1,6 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Constants;
 using Rise.Common.Helpers;
 using Rise.Data.Json;
 using System;
@@ -67,20 +68,37 @@ namespace Rise.App.Views
             await PBackend.SaveAsync();
         }
 
-        private async void ImportPlaylist_Click(object sender, RoutedEventArgs e)
+        private async void ImportFromFile_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker picker = new();
-            picker.FileTypeFilter.Add(".m3u");
+
+            foreach (var format in SupportedFileTypes.PlaylistFiles)
+                picker.FileTypeFilter.Add(format);
 
             StorageFile file = await picker.PickSingleFileAsync();
 
-            if (file != null)
-            {
-                var playlist = await PlaylistViewModel.GetFromFileAsync(file);
+            if (file == null)
+                return;
 
-                PBackend.Items.Add(playlist);
-                await PBackend.SaveAsync();
-            }
+            var playlist = await PlaylistViewModel.GetFromFileAsync(file);
+
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
+        }
+
+        private async void ImportFromFolder_Click(object sender, RoutedEventArgs e)
+        {
+            FolderPicker picker = new();
+
+            var folder = await picker.PickSingleFolderAsync();
+
+            if (folder == null)
+                return;
+
+            var playlist = await PlaylistViewModel.GetFromFolderAsync(folder);
+
+            PBackend.Items.Add(playlist);
+            await PBackend.SaveAsync();
         }
     }
 }
