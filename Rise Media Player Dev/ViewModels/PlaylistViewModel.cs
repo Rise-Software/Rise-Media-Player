@@ -186,7 +186,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = folder.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
+                Title = folder.Name.ReplaceIfNullOrWhiteSpace(ResourceHelper.GetString("UntitledPlaylist")),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
@@ -207,7 +207,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = file.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
+                Title = file.Name.ReplaceIfNullOrWhiteSpace(ResourceHelper.GetString("UntitledPlaylist")),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
