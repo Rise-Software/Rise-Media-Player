@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -47,7 +48,7 @@
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Song info" />
+                    Text="{markup:ResourceHelper Name=SongInfo}" />
             </Grid>
         </skuc:ExtendedTitleBar>
 
@@ -71,20 +72,20 @@
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Name="SongDetails"
-                        x:Uid="/Props/DetailItemNav"
+                        Content="{markup:ResourceHelper Name=Details}"
                         Tag="DetailsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="/Props/LyricsItemNav" Tag="LyricsItem">
+                    <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Lyrics}" Tag="LyricsItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xF12E;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
-                        x:Uid="/Props/FileItemNav"
                         IsEnabled="{x:Bind Props.Model.Model.IsLocal}"
+                        Content="{markup:ResourceHelper Name=File}"
                         Tag="FileItem">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE130;" />
@@ -121,12 +122,12 @@
 
             <Rectangle />
             <Button
-                x:Uid="/Props/Save"
+                Content="{markup:ResourceHelper Name=PropsSave}"
                 HorizontalAlignment="Stretch"
                 Click="SaveButton_Click"
                 Style="{StaticResource AccentButtonStyle}" />
             <Button
-                x:Uid="/Props/Cancel"
+                Content="{markup:ResourceHelper Name=Cancel}"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 Click="CancelButton_Click" />
@@ -134,7 +135,8 @@
 
         <muxc:TeachingTip
             x:Name="ErrorTip"
-            x:Uid="/Props/Error"
-            PreferredPlacement="Bottom" />
+            Title="{markup:ResourceHelper Name=PropsErrorTitle}"
+            PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=PropsErrorContent}" />
     </Grid>
 </Page>

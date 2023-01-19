@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Despre</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Accept</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Adaugă un cont</value>
   </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Albume</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Artiști</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuare</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Întunecat</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Decide pentru mine</value>
@@ -132,14 +144,68 @@
   <data name="Decline" xml:space="preserve">
     <value>Declinare</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Centru de ajutor</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Genuri</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Dintr-o privire</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Limbă</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Librărie</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Luminos</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Toate videoclipurile</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Potrivește întotdeauna cu rezoluția</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Muzică</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Niciun crossfade</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Nu acum (Ieșire)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} secunde</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Utilizează numai fișiere locale</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Utilizează numai servicii de streaming</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Personalizare</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Redare</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Playlist-uri</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Proprietăți și info</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Coadă</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Scalează la mărimea ferestrei</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
     <value>Eliminare din sidebar</value>
@@ -150,35 +216,11 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Căutare</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Fă-ți experiența personală</value>
+  <data name="Settings" xml:space="preserve">
+    <value>Setări</value>
   </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Conectează-te cu un cont online</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>Ești gata!</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Suntem bucuroși că ești aici. Doar câțiva pași și vei fi gata!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Media ta</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Pre-setup</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Confidențialitate și recomandări</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Pornește setup</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Acord licență și termeni</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Bun venit la</value>
+  <data name="Songs" xml:space="preserve">
+    <value>Melodii</value>
   </data>
   <data name="StepOf" xml:space="preserve">
     <value>Pasul {0} din {1}</value>
@@ -191,5 +233,137 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Gen necunoscut</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Folosește setările sistemului</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videoclipuri</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Imagini de fundal</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>În curând</value>
+  </data>
+  <data name="AlbumInfo" xml:space="preserve">
+    <value>Informații album</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Info melodie</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Colorat</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Prestabilit</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Nu afișa sidebar-ul</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Afișează doar pictogramele</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Afișează tot</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Șterge doar din aplicație</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Șterge de pe dispozitiv</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Înapoi</value>
+  </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Deschideți Rise Media Player când vă conectați la dispozitiv.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Începeți cu Windows</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Creată</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>Se deschide cu</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Nume de fișier</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Tip fișier</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>Locație</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Modificat</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Mărime fișier</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Deschide locația fișierului</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="ShufflePlaylist" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albums</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} songs</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 album</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 song</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
   </data>
 </root>

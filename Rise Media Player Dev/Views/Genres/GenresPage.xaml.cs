@@ -13,8 +13,6 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly string Label = "Genres";
-
         public GenresPage()
             : base("Name", App.MViewModel.Genres)
         {

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
@@ -17,7 +18,6 @@
 
     <uc:MediaPageBase.Resources>
         <conv:NullToBoolean x:Key="NullToBool" />
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -29,22 +29,19 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnArtist"
-            Title="Artists"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=Artists}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Play an entire artist's discography at once. View information about an artist, their albums (stored on your device) and songs by clicking on the artist you want. Share your favourite artists with your friends or add an entire artist's music to a playlist.">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnArtistDesc}">
             <muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Artists"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Artists}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -52,28 +49,28 @@
             Background="Transparent"
             DefaultLabelPosition="Right">
             <AppBarButton
-                x:Uid="/Information/Play"
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Shuffle"
                 Command="{x:Bind MediaViewModel.ShuffleFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Shuffle"
-                IsEnabled="{x:Bind SelectedItem, Mode=OneWay, Converter={StaticResource NullToBool}}" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}">
+                IsEnabled="{x:Bind SelectedItem, Mode=OneWay, Converter={StaticResource NullToBool}}"
+                Label="{markup:ResourceHelper Name=Shuffle}" />
+            <AppBarButton IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}" Label="{markup:ResourceHelper Name=AddTo}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout x:Name="AddToBar">
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -85,9 +82,9 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/MediaLibrary/AddFolders"
                 Click="AddFolders_Click"
-                Icon="NewFolder" />
+                Icon="NewFolder"
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
         <tkitui:AdaptiveGridView
@@ -105,25 +102,25 @@
             <GridView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlaySingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShuffleArtist"
                         Command="{x:Bind MediaViewModel.ShuffleSingleItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Shuffle" />
+                        Icon="Shuffle"
+                        Text="{markup:ResourceHelper Name=ShuffleArtist}" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -131,25 +128,25 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
                         Icon="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
-                    <MenuFlyoutItem x:Uid="/Information/ChangeArtImg" Click="ChngArtImg_Click">
+                    <MenuFlyoutItem Click="ChngArtImg_Click" Text="{markup:ResourceHelper Name=ChangeArtistImage}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEF1F;" />
                         </MenuFlyoutItem.Icon>
@@ -188,11 +185,11 @@
                             <TextBlock
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind Songs}" />
+                                Text="{x:Bind LocalizedSongCount}" />
                             <TextBlock
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind Albums}" />
+                                Text="{x:Bind LocalizedAlbumCount}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

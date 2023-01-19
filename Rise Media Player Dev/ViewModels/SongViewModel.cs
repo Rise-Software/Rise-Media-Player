@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Rise.App.Helpers;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
@@ -12,8 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using TagLib;
 using Windows.Media.Playback;
 using Windows.Storage;
 
@@ -29,9 +28,6 @@ namespace Rise.App.ViewModels
         public SongViewModel(Song model = null)
         {
             Model = model ?? new Song();
-
-            OnPropertyChanged(nameof(AlbumViewModel.TrackCount));
-            OnPropertyChanged(nameof(ArtistViewModel.SongCount));
         }
         #endregion
 
@@ -293,23 +289,25 @@ namespace Rise.App.ViewModels
                     var lyrics = await MusixmatchHelper.GetLyricsAsync(Title, Artist);
 
                     if (lyrics == null)
-                        return null;
+                        return string.Empty;
 
-                    var lyricsString = lyrics.Message.Body.Lyrics.LyricsBody;
+                    var builder = new StringBuilder(lyrics.Message.Body.Lyrics.LyricsBody);
+                    _ = builder.Append("\n\n");
+                    _ = builder.Append(lyrics.Message.Body.Lyrics.LyricsCopyright);
+                    _ = builder.Append("\n");
 
-                    lyricsString += lyrics;
-                    lyricsString += "\n\n";
-                    lyricsString += lyrics.Message.Body.Lyrics.LyricsCopyright;
-                    lyricsString += "\nPowered by Musixmatch.";
+                    var crForm = ResourceHelper.GetString("PoweredBy");
+                    _ = builder.Append(string.Format(crForm, "Musixmatch"));
 
-                    return lyricsString;
+                    return builder.ToString();
                 }
                 catch (Exception e)
                 {
                     e.WriteToOutput();
-                    return null;
+                    return string.Empty;
                 }
-            } else
+            }
+            else
             {
                 try
                 {
@@ -317,10 +315,11 @@ namespace Rise.App.ViewModels
                     var taglibFile = await Task.Run(() => TagLib.File.Create(new UwpStorageFileAbstraction(file)));
 
                     return (await Task.Run(() => taglibFile.Tag)).Lyrics;
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.WriteToOutput();
-                    return null;
+                    return string.Empty;
                 }
             }
         }
@@ -359,7 +358,7 @@ namespace Rise.App.ViewModels
             else
                 await NewRepository.Repository.DeleteAsync(Model);
 
-            IEnumerable<AlbumViewModel> albums = App.MViewModel.Albums.Where(a => a.Model.Title == Model.Album 
+            IEnumerable<AlbumViewModel> albums = App.MViewModel.Albums.Where(a => a.Model.Title == Model.Album
                                     && a.Model.Artist == Model.AlbumArtist);
 
             foreach (var album in albums)
@@ -399,7 +398,8 @@ namespace Rise.App.ViewModels
                 await Task.Run(() => taglibFile.Save());
 
                 return true;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 e.WriteToOutput();
             }

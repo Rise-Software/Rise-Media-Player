@@ -60,21 +60,23 @@ namespace Rise.App.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the artist's song count.
+        /// Gets the artist's song count.
         /// </summary>
-        public int SongCount => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
-        public string Songs => SongCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Songs");
+        public int SongCount
+            => App.MViewModel.Songs.Count(s => s.Model.Artist == Model.Name);
+        public string LocalizedSongCount
+            => ResourceHelper.GetLocalizedCount("Song", SongCount);
 
         /// <summary>
-        /// Gets or sets the artist's album count.
+        /// Gets the artist's album count.
         /// </summary>
-        public int AlbumCount => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
-        public string Albums => AlbumCount.ToString() + " " + ResourceLoaders.MediaDataLoader.GetString("Albums");
+        public int AlbumCount
+            => App.MViewModel.Albums.Count(a => a.Model.Artist == Model.Name);
+        public string LocalizedAlbumCount
+            => ResourceHelper.GetLocalizedCount("Album", AlbumCount);
 
-        /// <summary>
-        /// Combination of artist's song count and album count.
-        /// </summary>
-        public string SongsNAlbums => Albums + ", " + Songs;
+        public string LocalizedSongsAndAlbums
+            => $"{LocalizedSongCount}, {LocalizedAlbumCount}";
         #endregion
 
         #region Backend

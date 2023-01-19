@@ -5,6 +5,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:Rise.Common.Helpers"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -32,7 +33,7 @@
         Spacing="4">
         <uc:ExpanderControl
             x:Name="LocalExpander"
-            x:Uid="/Details/AsFile"
+            Title="{markup:ResourceHelper Name=MediaLocalExpanderTitle}"
             d:Visibility="Visible"
             ExpanderStyle="Static"
             Icon="&#xE8B7;"
@@ -51,7 +52,7 @@
 
         <uc:ExpanderControl
             x:Name="OnlineExpander"
-            x:Uid="/Details/AsOnlineFile"
+            Title="{markup:ResourceHelper Name=MediaOnlineExpanderTitle}"
             d:Visibility="Collapsed"
             ExpanderStyle="Static"
             Icon="&#xE12B;"
@@ -115,14 +116,14 @@
                         <muxc:SplitButton Click="EditArtButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon FontSize="16" Glyph="&#xE104;" />
-                                <TextBlock Text="Edit thumbnail" Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=EditThumbnail}" />
                             </StackPanel>
                             <muxc:SplitButton.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
                                     <MenuFlyoutItem
                                         Name="exportAlbumArt"
                                         Click="exportAlbumArt_Click"
-                                        Text="Export thumbnail">
+                                        Text="{markup:ResourceHelper Name=ExportThumbnail}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xE159;" />
                                         </MenuFlyoutItem.Icon>
@@ -154,41 +155,32 @@
                         <RowDefinition Height="32" />
                     </Grid.RowDefinitions>
 
+                    <TextBlock VerticalAlignment="Center" Text="{markup:ResourceHelper Name=SongTitle}" />
                     <TextBlock
-                        x:Uid="/Details/SongTitle"
-                        Margin="0,-2,0,0"
-                        VerticalAlignment="Center"
-                        d:Text="Song title" />
-                    <TextBlock
-                        x:Uid="/Details/SongArtist"
                         Grid.Row="1"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Artist(s)" />
+                        Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                     <TextBlock
-                        x:Uid="/Details/SongAlbum"
                         Grid.Row="2"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Album" />
+                        Text="{markup:ResourceHelper Name=Album}" />
                     <TextBlock
-                        x:Uid="/Details/Track"
                         Grid.Row="3"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Track number" />
+                        Text="{markup:ResourceHelper Name=TrackNumber}" />
                     <TextBlock
-                        x:Uid="/Details/Genre"
                         Grid.Row="4"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Genre" />
+                        Text="{markup:ResourceHelper Name=Genre}" />
                     <TextBlock
-                        x:Uid="/Details/Year"
                         Grid.Row="5"
                         Margin="0,-2,0,0"
                         VerticalAlignment="Center"
-                        d:Text="Year" />
+                        Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                     <TextBox
                         x:Name="SongTitle"
@@ -244,27 +236,24 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    x:Uid="/Details/SongAlbumArtist"
                     Margin="0,-2,0,0"
                     VerticalAlignment="Center"
-                    d:Text="Album artist" />
+                    Text="{markup:ResourceHelper Name=AlbumArtist}" />
                 <TextBlock
-                    x:Uid="/Details/Disc"
                     Grid.Row="1"
                     Margin="0,-2,0,0"
                     VerticalAlignment="Center"
-                    d:Text="Disc" />
+                    Text="{markup:ResourceHelper Name=Disc}" />
                 <TextBlock
                     Grid.Row="2"
                     Margin="0,-2,0,0"
                     VerticalAlignment="Center"
-                    Text="Bitrate" />
+                    Text="{markup:ResourceHelper Name=Bitrate}" />
                 <TextBlock
-                    x:Uid="/Details/Rating"
                     Grid.Row="3"
                     Margin="0,-2,0,0"
                     VerticalAlignment="Center"
-                    d:Text="Rating" />
+                    Text="{markup:ResourceHelper Name=Rating}" />
 
                 <TextBox
                     x:Name="SongAlbumArtist"
@@ -302,16 +291,18 @@
 
         <muxc:TeachingTip
             x:Name="LocalTip"
-            x:Uid="/Details/Local"
+            Title="{markup:ResourceHelper Name=MediaLocalTitle}"
             IsLightDismissEnabled="True"
             PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=MediaLocalDesc}"
             Target="{x:Bind LocalButton}" />
 
         <muxc:TeachingTip
             x:Name="OnlineTip"
-            x:Uid="/Details/Online"
+            Title="{markup:ResourceHelper Name=MediaOnlineTitle}"
             IsLightDismissEnabled="True"
             PreferredPlacement="Bottom"
+            Subtitle="{markup:ResourceHelper Name=MediaOnlineDesc}"
             Target="{x:Bind OnlineButton}" />
     </StackPanel>
 </Page>

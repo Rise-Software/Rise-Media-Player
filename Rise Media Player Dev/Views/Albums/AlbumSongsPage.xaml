@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -23,15 +24,15 @@
     <Grid>
         <muxc:TeachingTip
             x:Name="DiscyOnSong"
-            Title="Taking action on songs"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongDesc}">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="/Assets/Branding/discygraphic.png" />
+                <Image Source="ms-appx:///Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
@@ -47,25 +48,25 @@
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowArtist"
+                        Text="{markup:ResourceHelper Name=ShowArtist}"
                         Command="{x:Bind GoToArtistCommand}"
                         CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
                         Icon="People" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -74,19 +75,19 @@
 
                     <MenuFlyoutItem
                         x:Name="Share"
-                        x:Uid="/Information/Share"
+                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
                         IsEnabled="False" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
+                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
                         Icon="Help" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowinFE"
+                        Text="{markup:ResourceHelper Name=ShowInFileExplorer}"
                         Command="{x:Bind OpenInExplorerCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
                         <MenuFlyoutItem.Icon>
@@ -97,15 +98,15 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
+                        Text="{markup:ResourceHelper Name=RemoveThing}"
                         Icon="Delete"
                         IsEnabled="False" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaData/Properties"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                 </MenuFlyout>
             </ListView.ContextFlyout>
 
@@ -210,7 +211,7 @@
                                         FontWeight="SemiBold"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.TrackCount}" />
+                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
                                 </StackPanel>
 
                                 <CommandBar
@@ -220,26 +221,26 @@
                                     Background="Transparent"
                                     DefaultLabelPosition="Right">
                                     <AppBarButton
+                                        Label="{markup:ResourceHelper Name=PlayAll}"
                                         Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Play"
-                                        Label="Play all" />
+                                        Icon="Play" />
 
                                     <AppBarSeparator />
 
                                     <AppBarButton
-                                        x:Uid="/Information/Shuffle"
+                                        Label="{markup:ResourceHelper Name=Shuffle}"
                                         Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
                                         Icon="Shuffle" />
-                                    <AppBarButton x:Uid="/Information/Add">
+                                    <AppBarButton Label="{markup:ResourceHelper Name=AddTo}">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xECC8;" />
                                         </AppBarButton.Icon>
 
                                         <AppBarButton.Flyout>
                                             <MenuFlyout x:Name="AddToBar">
-                                                <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
+                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
@@ -251,10 +252,10 @@
                                     <AppBarSeparator />
 
                                     <AppBarButton
-                                        x:Uid="/Information/Properties"
                                         Command="{x:Bind EditItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedAlbum}"
-                                        Icon="Edit" />
+                                        Icon="Edit"
+                                        Label="{markup:ResourceHelper Name=PropertiesInfo}" />
                                 </CommandBar>
                             </StackPanel>
                         </Grid>
@@ -310,7 +311,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 FontWeight="SemiBold"
-                                Text="More albums by this artist" />
+                                Text="{markup:ResourceHelper Name=MoreAlbumsByArtist}" />
                         </StackPanel>
 
                         <Rectangle

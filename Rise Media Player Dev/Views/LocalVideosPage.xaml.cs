@@ -1,6 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.ViewModels;
 using System;
@@ -18,8 +19,6 @@ namespace Rise.App.Views
             get => (VideoViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "LocalVideos";
 
         public LocalVideosPage()
             : base("Title", App.MViewModel.Videos, App.MViewModel.Playlists)
@@ -68,8 +67,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:Rise.App.UserControls"
@@ -16,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <muxc:InfoBar
-            x:Uid="/Details/AsPlaylist"
+            Title="{markup:ResourceHelper Name=PlaylistSongsDetailsTipTitle}"
             Margin="0,0,0,4"
             IsOpen="True">
             <muxc:InfoBar.IconSource>
@@ -58,7 +59,7 @@
                                     VerticalAlignment="Center"
                                     MaxLines="2"
                                     Text="{x:Bind Title}"
-                                    TextTrimming="WordEllipsis"
+                                    TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                                 <TextBlock
                                     VerticalAlignment="Center"
@@ -66,7 +67,7 @@
                                     FontWeight="SemiBold"
                                     MaxLines="2"
                                     Text="{x:Bind Artist}"
-                                    TextTrimming="WordEllipsis"
+                                    TextTrimming="CharacterEllipsis"
                                     TextWrapping="WrapWholeWords" />
                             </StackPanel>
 
@@ -75,7 +76,7 @@
                                 Orientation="Horizontal"
                                 Spacing="4">
                                 <Button
-                                    x:Uid="/Information/MoveUp2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveUp}"
                                     Click="MoveUp_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
@@ -85,7 +86,7 @@
                                         Glyph="&#xE014;" />
                                 </Button>
                                 <Button
-                                    x:Uid="/Information/MoveDown2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoveDown}"
                                     Click="MoveBottom_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">
@@ -102,7 +103,7 @@
                                     Fill="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
                                     Opacity="0.3" />
                                 <Button
-                                    x:Uid="/Information/RemovePlaylist2"
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=RemoveFromPlaylist}"
                                     Click="RemoveSong_Click"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{x:Bind}">

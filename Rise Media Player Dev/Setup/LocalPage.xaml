@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupLocalH}">
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=/Setup/LocalH}">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
                     <muxc:AnimatedVisualPlayer.Source>
@@ -22,7 +22,7 @@
             </local:SetupPageContent.Icon>
 
             <StackPanel>
-                <TextBlock x:Uid="/Local/Header" Style="{StaticResource BaseTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/LocalDesc}" />
                 <settings:MediaSourcesPage Margin="-48,0" />
             </StackPanel>
         </local:SetupPageContent>

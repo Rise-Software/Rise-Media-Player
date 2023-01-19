@@ -7,6 +7,7 @@ using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Enums;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.Messages;
 using Rise.Data.Sources;
@@ -197,7 +198,7 @@ namespace Rise.App
 
             if (e.DragUIOverride != null)
             {
-                e.DragUIOverride.Caption = "Play media";
+                e.DragUIOverride.Caption = ResourceHelper.GetString("PlayMedia");
                 e.DragUIOverride.IsContentVisible = true;
             }
         }
@@ -333,6 +334,7 @@ namespace Rise.App
         /// </summary>
         private void ShowExceptionToast(Exception e)
         {
+            string notifTitle = ResourceHelper.GetString("ErrorOcurred");
             ToastContent content = new ToastContentBuilder()
                 .AddToastActivationInfo(new QueryString()
                 {
@@ -342,8 +344,8 @@ namespace Rise.App
                      { "source", e.Source },
                      { "hresult", $"{e.HResult}" }
                 }.ToString(), ToastActivationType.Foreground)
-                .AddText("An error occurred!")
-                .AddText("Unfortunately, Rise Media Player crashed. Click to view stack trace.")
+                .AddText(notifTitle)
+                .AddText(ResourceHelper.GetString("CrashStackTrace"))
                 .GetToastContent();
 
             ToastNotification notification = new(content.GetXml());
@@ -351,7 +353,8 @@ namespace Rise.App
 
             var builder = new StringBuilder();
 
-            builder.Append("Rise Media Player has crashed.\n\n");
+            builder.Append(ResourceHelper.GetString("CrashDetails"));
+            builder.Append("\n\n");
             builder.AppendLine("-----");
             builder.Append("Exception type: ");
             builder.AppendLine(e.GetType().ToString());
@@ -370,7 +373,7 @@ namespace Rise.App
             builder.AppendLine(e.StackTrace);
             builder.AppendLine("-----");
 
-            var notif = new BasicNotification("An error occurred!", builder.ToString(), "\uE8BB");
+            var notif = new BasicNotification(notifTitle, builder.ToString(), "\uE8BB");
 
             MViewModel.NBackend.Items.Add(notif);
             MViewModel.NBackend.Save();

@@ -12,10 +12,6 @@
     d:DesignWidth="256"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <conv:UintToStringConverter x:Key="UintToStringConverter" />
-    </UserControl.Resources>
-
     <Grid
         x:Name="MainGrid"
         Padding="12"
@@ -70,9 +66,10 @@
                 <TextBlock Text="{x:Bind Album.Artist}" TextTrimming="CharacterEllipsis" />
             </HyperlinkButton>
 
-            <TextBlock FontSize="13" Visibility="{x:Bind ShowReleaseYear}">
-                Release year:<Run Text="{x:Bind Album.Year, Converter={StaticResource UintToStringConverter}}" />
-            </TextBlock>
+            <TextBlock
+                FontSize="13"
+                Text="{x:Bind Album.LocalizedYear}"
+                Visibility="{x:Bind ShowReleaseYear}" />
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>

@@ -2,6 +2,7 @@
 using Rise.Common;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
 using Rise.Data.ViewModels;
@@ -80,16 +81,16 @@ namespace Rise.App.ViewModels
     public sealed partial class PlaylistViewModel
     {
         [JsonIgnore]
-        public int SongsCount => Songs.Count;
+        public string LocalizedSongCount
+            => ResourceHelper.GetLocalizedCount("Song", Songs.Count);
 
         [JsonIgnore]
-        public string SongsCountString => SongsCount == 1 ? "song" : "songs";
+        public string LocalizedVideoCount
+            => ResourceHelper.GetLocalizedCount("Video", Videos.Count);
 
         [JsonIgnore]
-        public int VideosCount => Videos.Count;
-
-        [JsonIgnore]
-        public string VideosCountString => VideosCount == 1 ? "video" : "videos";
+        public string LocalizedSongsAndVideos
+            => $"{LocalizedSongCount}, {LocalizedVideoCount}";
     }
 
     // Item management
@@ -185,7 +186,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = folder.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
+                Title = folder.Name.ReplaceIfNullOrWhiteSpace(ResourceHelper.GetString("UntitledPlaylist")),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };
@@ -206,7 +207,7 @@ namespace Rise.App.ViewModels
         {
             PlaylistViewModel playlist = new()
             {
-                Title = file.Name.ReplaceIfNullOrWhiteSpace("Untitled Playlist"),
+                Title = file.Name.ReplaceIfNullOrWhiteSpace(ResourceHelper.GetString("UntitledPlaylist")),
                 Description = string.Empty,
                 Icon = URIs.PlaylistThumb
             };

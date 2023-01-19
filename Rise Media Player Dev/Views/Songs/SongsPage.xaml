@@ -5,6 +5,7 @@
     xmlns:app="using:Rise.App"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
@@ -19,8 +20,6 @@
     <uc:MediaPageBase.Resources>
         <conv:BooleanToVisibility x:Key="BoolToVis" />
         <conv:NullToBoolean x:Key="NullToBool" />
-
-        <conv:ResourceToString x:Key="StrToRes" />
     </uc:MediaPageBase.Resources>
 
     <Grid Padding="56,56,56,0" d:Padding="20,12">
@@ -32,22 +31,19 @@
 
         <muxc:TeachingTip
             x:Name="DiscyOnSong"
-            Title="Taking action on songs"
-            ActionButtonContent="Learn more"
-            CloseButtonContent="Got it!"
+            Title="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongH}"
+            ActionButtonContent="{markup:ResourceHelper Name=LearnMore}"
+            CloseButtonContent="{markup:ResourceHelper Name=GotIt}"
             IsLightDismissEnabled="True"
             PlacementMargin="20"
             PreferredPlacement="Auto"
-            Subtitle="Hover over a song and click the play button to play a song, or double click. Skip, go back and view song info from the now playing bar (at the bottom of your app window). Click 'Info and Properties' to edit song metadata and file information. You can always share to others or add to a playlist too!">
+            Subtitle="{markup:ResourceHelper Name=/HelpTips/DiscyOnSongDesc}">
             <muxc:TeachingTip.HeroContent>
                 <Image Source="/Assets/Branding/discygraphic.png" />
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
-        <TextBlock
-            d:Text="Songs"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar}" />
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=Songs}" />
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -55,27 +51,27 @@
             Background="Transparent"
             DefaultLabelPosition="Right">
             <AppBarButton
-                x:Uid="/Information/Play"
                 Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Play"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=Play}" />
 
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Shuffle"
                 Command="{x:Bind MediaViewModel.ShuffleFromItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                Icon="Shuffle" />
-            <AppBarButton x:Uid="/Information/Add" IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}">
+                Icon="Shuffle"
+                Label="{markup:ResourceHelper Name=Shuffle}" />
+            <AppBarButton IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}" Label="{markup:ResourceHelper Name=AddTo}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECC8;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout x:Name="AddToBar">
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -87,22 +83,22 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/Information/Delete"
                 Click="Remove_Click"
                 Icon="Delete"
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
+                Label="{markup:ResourceHelper Name=RemoveThing}"
                 Style="{StaticResource AppBarCompactButtonStyle}" />
             <AppBarButton
-                x:Uid="/Information/Edit"
                 Command="{x:Bind EditItemCommand}"
                 CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
                 Icon="Edit"
                 IsEnabled="{x:Bind SelectedItem, Converter={StaticResource NullToBool}, Mode=OneWay}"
-                Style="{StaticResource AppBarCompactButtonStyle}" />
+                Style="{StaticResource AppBarCompactButtonStyle}"
+                ToolTipService.ToolTip="{markup:ResourceHelper Name=PropertiesInfo}" />
 
             <AppBarSeparator />
 
-            <AppBarButton Click="PlayFromUrl_Click" Label="Play from URL">
+            <AppBarButton Click="PlayFromUrl_Click" Label="{markup:ResourceHelper Name=PlayFromUrl}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE704;" />
                 </AppBarButton.Icon>
@@ -110,59 +106,59 @@
 
             <AppBarSeparator />
 
-            <AppBarButton x:Uid="/Information/View">
+            <AppBarButton Label="{markup:ResourceHelper Name=View}">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xECAA;" />
                 </AppBarButton.Icon>
 
                 <AppBarButton.Flyout>
                     <MenuFlyout>
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="Track number" />
-                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="Duration" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowTrackNumberInSongs, Mode=TwoWay}" Text="{markup:ResourceHelper Name=TrackNumber}" />
+                        <ToggleMenuFlyoutItem IsChecked="{x:Bind SViewModel.ShowDurationInSongs, Mode=TwoWay}" Text="{markup:ResourceHelper Name=Duration}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
 
-            <AppBarButton x:Uid="/Information/Sort" Icon="Sort">
+            <AppBarButton Icon="Sort" Label="{markup:ResourceHelper Name=Sort}">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Track"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Track" />
+                            CommandParameter="Track"
+                            Text="{markup:ResourceHelper Name=TrackNumber}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Title"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title" />
+                            CommandParameter="Title"
+                            Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Album"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Album" />
+                            CommandParameter="Album"
+                            Text="{markup:ResourceHelper Name=Album}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Artist"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Artist" />
+                            CommandParameter="Artist"
+                            Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Genre"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Genres" />
+                            CommandParameter="Genres"
+                            Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Year"
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year" />
+                            CommandParameter="Year"
+                            Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Ascending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
-                            x:Uid="/Information/Descending"
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
                             CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
-                            GroupName="SortDirection" />
+                            GroupName="SortDirection"
+                            Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
@@ -170,9 +166,9 @@
             <AppBarSeparator />
 
             <AppBarButton
-                x:Uid="/MediaLibrary/AddFolders"
                 Click="AddFolders_Click"
-                Icon="NewFolder" />
+                Icon="NewFolder"
+                Label="{markup:ResourceHelper Name=/Settings/AddFolders}" />
         </CommandBar>
 
         <ListView
@@ -189,34 +185,34 @@
             <ListView.ContextFlyout>
                 <MenuFlyout Opening="MenuFlyout_Opening">
                     <MenuFlyoutItem
-                        x:Uid="/Information/PlayItem"
                         Command="{x:Bind MediaViewModel.PlayFromItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Play" />
+                        Icon="Play"
+                        Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowAlbum"
                         Command="{x:Bind GoToAlbumCommand}"
-                        CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}">
+                        CommandParameter="{x:Bind SelectedItem.Album, Mode=OneWay}"
+                        Text="{markup:ResourceHelper Name=ShowAlbum}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE93C;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowArtist"
                         Command="{x:Bind GoToArtistCommand}"
                         CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
-                        Icon="People" />
+                        Icon="People"
+                        Text="{markup:ResourceHelper Name=ShowArtist}" />
 
                     <MenuFlyoutSeparator />
 
-                    <MenuFlyoutSubItem x:Name="AddTo" x:Uid="/Information/AddTo">
+                    <MenuFlyoutSubItem x:Name="AddTo" Text="{markup:ResourceHelper Name=AddTo}">
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem x:Uid="/Information/NewPlaylist" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -224,21 +220,21 @@
                     </MenuFlyoutSubItem>
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/Share"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/AskDiscy"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/ShowinFE"
                         Command="{x:Bind OpenInExplorerCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Text="{markup:ResourceHelper Name=ShowInFileExplorer}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEC50;" />
                         </MenuFlyoutItem.Icon>
@@ -247,15 +243,15 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        x:Uid="/Information/RemoveThing"
                         Click="Remove_Click"
-                        Icon="Delete" />
+                        Icon="Delete"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
-                        x:Uid="/MediaData/Properties"
                         Command="{x:Bind EditItemCommand}"
                         CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
-                        Icon="Edit" />
+                        Icon="Edit"
+                        Text="{markup:ResourceHelper Name=PropertiesInfo}" />
                 </MenuFlyout>
             </ListView.ContextFlyout>
 

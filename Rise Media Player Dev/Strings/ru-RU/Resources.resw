@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Добавить аккаунт</value>
+  </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Альбомы</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Исполнители</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="DecideForMe" xml:space="preserve">
+    <value>Решите за меня</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Отклонить</value>
+  </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Справочный центр</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Жанры</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Самое главное</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Центр инсайдеров</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Все видео</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Всегда соответствовать разрешению</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Музыка</value>
+  </data>
+  <data name="NDays" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
+  <data name="NHours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="NMinutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Без плавного переключения</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Не сейчас (Выйти из приложения)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} секунд</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
+  </data>
+  <data name="OnlyLocal" xml:space="preserve">
+    <value>Использовать только локальные медиафайлы</value>
+  </data>
+  <data name="OnlyStreaming" xml:space="preserve">
+    <value>Использовать только стриминговые сервисы</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Персонализация</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Плэйбек</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Плейлисты</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Свойства и информация</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Очередь</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Масштабировать до размера окна</value>
+  </data>
+  <data name="PinToSidebar" xml:space="preserve">
+    <value>Pin to sidebar</value>
+  </data>
+  <data name="RemoveFromSidebar" xml:space="preserve">
+    <value>Удалить из боковой панели</value>
+  </data>
+  <data name="SearchMediaPlaceholder" xml:space="preserve">
+    <value>Искать все медиафайлы на этом устройстве</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>Песни</value>
+  </data>
+  <data name="StepOf" xml:space="preserve">
+    <value>Шаг {0} из {1}</value>
+  </data>
+  <data name="UnknownAlbumResource" xml:space="preserve">
+    <value>Неизвестный альбом</value>
+  </data>
+  <data name="UnknownArtistResource" xml:space="preserve">
+    <value>Неизвестный исполнитель</value>
+  </data>
+  <data name="UnknownGenreResource" xml:space="preserve">
+    <value>Неизвестный жанр</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Использовать системные настройки</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Обои</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Скоро</value>
+  </data>
+  <data name="AlbumInfo" xml:space="preserve">
+    <value>Album info</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Воспроизвести</value>
+  </data>
+  <data name="EditPlaylist" xml:space="preserve">
+    <value>Изменить плейлист</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Информация о песне</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Цветной</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Не показывать боковую панель</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Показывать только иконки</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Показать все</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Удалить только из приложения</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Удалить с устройства</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Откройте Rise Media Player при входе в систему на своем устройстве..</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Начните с Windows</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Созданный</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>Открывается с</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Имя файла</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Тип файла</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>местонахождение</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Изменено</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Размер файла</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Местонахождение открытого файла</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="ShufflePlaylist" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albums</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} songs</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 album</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 song</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
+  </data>
+</root>

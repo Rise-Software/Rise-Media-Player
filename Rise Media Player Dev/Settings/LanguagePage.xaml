@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:Rise.App.UserControls"
+    xmlns:uc="using:Rise.App.UserControls" xmlns:markup="using:Rise.Common.Extensions.Markup"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="48,4,48,0" VerticalScrollBarVisibility="Auto">
@@ -17,7 +17,7 @@
                             <FontIcon VerticalAlignment="Center" Glyph="&#xE128;" />
 
                             <StackPanel VerticalAlignment="Center" Orientation="Vertical">
-                                <TextBlock x:Uid="/Language/System" FontWeight="SemiBold" />
+                                <TextBlock Text="{markup:ResourceHelper Name=SystemLanguage}" FontWeight="SemiBold" />
                                 <TextBlock
                                     x:Name="SysLang"
                                     FontSize="12"
@@ -33,7 +33,7 @@
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon VerticalAlignment="Center" Glyph="&#xF2B7;" />
                             <TextBlock
-                                x:Uid="/Language/Translations"
+                                Text="{markup:ResourceHelper Name=Translations}"
                                 VerticalAlignment="Center"
                                 FontWeight="SemiBold" />
                         </StackPanel>
@@ -51,7 +51,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource SystemAccentColor}"
                                     Glyph="&#xE7BA;" />
-                                <TextBlock x:Uid="/Language/Report" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                                <TextBlock Text="{markup:ResourceHelper Name=ReportAnIssue}" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                             </StackPanel>
                         </Button>
 
@@ -62,14 +62,14 @@
                                 Orientation="Horizontal"
                                 Spacing="8">
                                 <FontIcon Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Glyph="&#xE144;" />
-                                <TextBlock x:Uid="/Language/Translate" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
+                                <TextBlock Text="{markup:ResourceHelper Name=BecomeTranslator}" Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
                 </uc:AdaptiveItemPane.RightPane>
             </uc:AdaptiveItemPane>
 
-            <TextBlock x:Uid="/Language/Options" Style="{StaticResource SubheaderTextBlockStyle}" />
+            <TextBlock Text="{markup:ResourceHelper Name=Options}" Style="{StaticResource SubheaderTextBlockStyle}" />
             <muxc:InfoBar
                 Title="English is currently the only available language"
                 IsClosable="False"
@@ -77,12 +77,13 @@
                 Message="Other languages and regions will be available soon."
                 Severity="Informational" />
             <uc:ExpanderControl
-                x:Uid="/Language/Match"
+                Title="{markup:ResourceHelper Name=MatchSystemAppLang}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE923;" />
 
             <uc:ExpanderControl
-                x:Uid="/Language/Select"
+                Title="{markup:ResourceHelper Name=/Settings/SelectLanguage}"
+                Description="{markup:ResourceHelper Name=/Settings/SelectLanguageDesc}"
                 ExpanderStyle="Disabled"
                 Icon="&#xE12B;">
                 <ComboBox

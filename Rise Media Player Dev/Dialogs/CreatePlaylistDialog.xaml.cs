@@ -1,6 +1,7 @@
 ﻿using Rise.App.ViewModels;
 using Rise.Common.Constants;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Data.Json;
 using System;
 using System.Linq;
@@ -30,10 +31,27 @@ namespace Rise.App.Dialogs
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!PBackend.Items.Any(p => p.Title == NewPlaylist.Title))
+            string title = NewPlaylist.Title;
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                ErrorBlock.Text = ResourceHelper.GetString("TitleNotEmpty");
+                ErrorBlock.Visibility = Visibility.Visible;
+
+                args.Cancel = true;
+                return;
+            }
+
+            if (!PBackend.Items.Any(p => p.Title.Equals(title, StringComparison.OrdinalIgnoreCase)))
             {
                 PBackend.Items.Add(NewPlaylist);
                 await PBackend.SaveAsync();
+            }
+            else
+            {
+                ErrorBlock.Text = ResourceHelper.GetString("PlaylistAlreadyExists");
+                ErrorBlock.Visibility = Visibility.Visible;
+
+                args.Cancel = true;
             }
         }
 
@@ -83,10 +101,5 @@ namespace Rise.App.Dialogs
         }
 
         #endregion
-
-        private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-
-        }
     }
 }

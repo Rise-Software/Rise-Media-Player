@@ -9,17 +9,17 @@
     mc:Ignorable="d">
 
     <Grid>
-        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=SetupDoneH}">
+        <local:SetupPageContent x:Name="SetupRoot" Header="{markup:ResourceHelper Name=/Setup/DoneH}">
             <local:SetupPageContent.Icon>
                 <Image Margin="32" Source="ms-appx:///Assets/Setup/Done.png" />
             </local:SetupPageContent.Icon>
 
             <StackPanel Spacing="20">
                 <StackPanel Orientation="Vertical" Spacing="12">
-                    <TextBlock x:Uid="/Finish/Header" Style="{StaticResource BaseTextBlockStyle}" />
+                    <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishDesc}" />
 
-                    <TextBlock x:Uid="/Finish/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock x:Uid="/Finish/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishBodyPart1}" />
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/FinishBodyPart2}" />
                 </StackPanel>
             </StackPanel>
         </local:SetupPageContent>

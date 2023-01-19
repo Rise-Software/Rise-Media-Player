@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Kabul Et</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Bir hesap ekle</value>
   </data>
+  <data name="Albums" xml:space="preserve">
+    <value>Albümler</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>Sanatçılar</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Devam</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Karanlık</value>
   </data>
   <data name="DecideForMe" xml:space="preserve">
     <value>Benim adıma karar ver</value>
@@ -132,14 +144,68 @@
   <data name="Decline" xml:space="preserve">
     <value>Reddet</value>
   </data>
+  <data name="Discy" xml:space="preserve">
+    <value>Yardım Merkezi</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Türler</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Genel bakış</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Kütüphane</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Aydınlık</value>
+  </data>
+  <data name="LocalVideos" xml:space="preserve">
+    <value>Tüm Videolar</value>
+  </data>
+  <data name="MatchResolution" xml:space="preserve">
+    <value>Çözünürlüğü her zaman eşleştir</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Müzik</value>
+  </data>
+  <data name="NoCrossfade" xml:space="preserve">
+    <value>Çapraz geçiş yok</value>
+  </data>
   <data name="NotNow" xml:space="preserve">
     <value>Şimdi Değil (Uygulamadan çık)</value>
+  </data>
+  <data name="NSeconds" xml:space="preserve">
+    <value>{0} saniye</value>
   </data>
   <data name="OnlyLocal" xml:space="preserve">
     <value>Yalnızca yerel medya dosyalarını kullan</value>
   </data>
   <data name="OnlyStreaming" xml:space="preserve">
     <value>Yalnızca yayınakışı hizmetlerini kullan</value>
+  </data>
+  <data name="Personalise" xml:space="preserve">
+    <value>Kişiselleştirme</value>
+  </data>
+  <data name="Playback" xml:space="preserve">
+    <value>Yürütme</value>
+  </data>
+  <data name="Playlists" xml:space="preserve">
+    <value>Çalma listeleri</value>
+  </data>
+  <data name="PropertiesInfo" xml:space="preserve">
+    <value>Properties &amp; Info</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Kuyruk</value>
+  </data>
+  <data name="ScaleToWindow" xml:space="preserve">
+    <value>Pencere boyutuna göre ölçeklendir</value>
   </data>
   <data name="RemoveFromSidebar" xml:space="preserve">
     <value>Kenar çubuğundan kaldır</value>
@@ -150,35 +216,11 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Ara</value>
   </data>
-  <data name="SetupAppearanceH" xml:space="preserve">
-    <value>Kendin yap</value>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
   </data>
-  <data name="SetupConnectH" xml:space="preserve">
-    <value>Bir internet hesabı bağlayın</value>
-  </data>
-  <data name="SetupDoneH" xml:space="preserve">
-    <value>İşte bu kadar!</value>
-  </data>
-  <data name="SetupIntro" xml:space="preserve">
-    <value>Burada olmandan memnunuz. Sadece birkaç basit adımdan geçmeniz gerekiyor. Bundan sonrası için her şey hazır ve çalışıyor olacak!</value>
-  </data>
-  <data name="SetupLocalH" xml:space="preserve">
-    <value>Kendi medyanız</value>
-  </data>
-  <data name="SetupPre" xml:space="preserve">
-    <value>Ön kurulum</value>
-  </data>
-  <data name="SetupPrivacyH" xml:space="preserve">
-    <value>Gizlilik &amp; Öneriler</value>
-  </data>
-  <data name="SetupStart" xml:space="preserve">
-    <value>Kurulumu başlat</value>
-  </data>
-  <data name="SetupTermsH" xml:space="preserve">
-    <value>Lisans Sözleşmesi &amp; Koşulları</value>
-  </data>
-  <data name="SetupWelcome" xml:space="preserve">
-    <value>Hoşgeldiniz</value>
+  <data name="Songs" xml:space="preserve">
+    <value>Müzikler</value>
   </data>
   <data name="StepOf" xml:space="preserve">
     <value>Adım {0}/{1}</value>
@@ -191,5 +233,137 @@
   </data>
   <data name="UnknownGenreResource" xml:space="preserve">
     <value>Bilinmeyen Tür</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Sistem ayarını kullan</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videolar</value>
+  </data>
+  <data name="Wallpapers" xml:space="preserve">
+    <value>Duvar kağıtları</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Çok yakında</value>
+  </data>
+  <data name="AlbumInfo" xml:space="preserve">
+    <value>Albüm bilgisi</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Yürüt</value>
+  </data>
+  <data name="SongInfo" xml:space="preserve">
+    <value>Müzik Bilgisi</value>
+  </data>
+  <data name="Colorful" xml:space="preserve">
+    <value>Renkli</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="DontShowSidebar" xml:space="preserve">
+    <value>Kenar çubuğunu gösterme</value>
+  </data>
+  <data name="OnlyShowIcons" xml:space="preserve">
+    <value>Yalnızca simgeleri göster</value>
+  </data>
+  <data name="ShowEverything" xml:space="preserve">
+    <value>Her şeyi göster</value>
+  </data>
+  <data name="RemoveFromApp" xml:space="preserve">
+    <value>Yalnızca uygulamadan kaldır</value>
+  </data>
+  <data name="RemoveFromDevice" xml:space="preserve">
+    <value>Cihazdan sil</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Geri</value>
+  </data>
+  <data name="OpenRiseOnStartup" xml:space="preserve">
+    <value>Cihazınıza giriş yaptığınızda Rise Media Player'ı açın.</value>
+  </data>
+  <data name="OpenRiseOnStartupH" xml:space="preserve">
+    <value>Pencerelerle başla</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>oluşturuldu</value>
+  </data>
+  <data name="FileOpensWith" xml:space="preserve">
+    <value>İle açılır</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Dosya adı</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Dosya tipi</value>
+  </data>
+  <data name="FileLocation" xml:space="preserve">
+    <value>Konum</value>
+  </data>
+  <data name="FileModified" xml:space="preserve">
+    <value>Değiştirilmiş</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>Dosya boyutu</value>
+  </data>
+  <data name="FileOpenLocation" xml:space="preserve">
+    <value>Dosya konumunu aç</value>
+  </data>
+  <data name="WidgetArtistNewsFeedTitle" xml:space="preserve">
+    <value>Artist news feed</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="PropsErrorContent" xml:space="preserve">
+    <value>We couldn't save the song properties. The file might have been moved, changed or deleted, or maybe this is just a Windows issue.</value>
+  </data>
+  <data name="PropsErrorTitle" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PropsSave" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="ShufflePlaylist" xml:space="preserve">
+    <value>Shuffle playlist</value>
+  </data>
+  <data name="NAlbums" xml:space="preserve">
+    <value>{0} albums</value>
+  </data>
+  <data name="NSongs" xml:space="preserve">
+    <value>{0} songs</value>
+  </data>
+  <data name="NVideos" xml:space="preserve">
+    <value>{0} videos</value>
+  </data>
+  <data name="OneAlbum" xml:space="preserve">
+    <value>1 album</value>
+  </data>
+  <data name="OneSong" xml:space="preserve">
+    <value>1 song</value>
+  </data>
+  <data name="OneVideo" xml:space="preserve">
+    <value>1 video</value>
+  </data>
+  <data name="OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneMinute" xml:space="preserve">
+    <value>1 minute</value>
+  </data>
+  <data name="OneSecond" xml:space="preserve">
+    <value>1 second</value>
   </data>
 </root>

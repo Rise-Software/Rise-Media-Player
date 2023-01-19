@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
@@ -24,23 +25,23 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
                     x:Name="Overview"
-                    Content="Overview"
+                    Content="{markup:ResourceHelper Name=/Settings/AppearanceOverview}"
                     Tag="Overview" />
                 <muxc:NavigationViewItem
                     x:Name="Local"
-                    Content="Files and folders"
+                    Content="{markup:ResourceHelper Name=/Settings/MediaLibraryFilesAndFolders}"
                     Tag="Local" />
                 <muxc:NavigationViewItem
                     x:Name="Data"
-                    Content="Metadata"
+                    Content="{markup:ResourceHelper Name=/Settings/MediaLibraryMetadata}"
                     Tag="Data" />
                 <muxc:NavigationViewItem
                     x:Name="Services"
-                    Content="Online services"
+                    Content="{markup:ResourceHelper Name=OnlineServices}"
                     Tag="Services" />
                 <muxc:NavigationViewItem
                     x:Name="Scanning"
-                    Content="Scanning"
+                    Content="{markup:ResourceHelper Name=Scanning}"
                     Tag="Scanning" />
             </muxc:NavigationView.MenuItems>
 

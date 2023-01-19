@@ -13,7 +13,7 @@
     <Grid>
         <local:SetupPageContent
             x:Name="SetupRoot"
-            Header="{markup:ResourceHelper Name=SetupTermsH}"
+            Header="{markup:ResourceHelper Name=/Setup/TermsH}"
             IsBackButtonAutoPaddingEnabled="False">
             <local:SetupPageContent.Icon>
                 <muxc:AnimatedVisualPlayer Loaded="OnIconLoaded">
@@ -24,17 +24,17 @@
             </local:SetupPageContent.Icon>
 
             <StackPanel Orientation="Vertical" Spacing="20">
-                <TextBlock x:Uid="/Terms/TermsStart" Style="{StaticResource BaseTextBlockStyle}" />
-                <TextBlock x:Uid="/Terms/LastUpdated" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsStart}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsLastUpdated}" />
 
-                <TextBlock x:Uid="/Terms/BaseH" Style="{StaticResource BaseTextBlockStyle}" />
-                <TextBlock x:Uid="/Terms/BodyPart1" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBaseH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart1}" />
 
-                <TextBlock x:Uid="/Terms/LocalH" Style="{StaticResource BaseTextBlockStyle}" />
-                <TextBlock x:Uid="/Terms/BodyPart2" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsLocalH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart2}" />
 
-                <TextBlock x:Uid="/Terms/StreamingH" Style="{StaticResource BaseTextBlockStyle}" />
-                <TextBlock x:Uid="/Terms/BodyPart3" Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsStreamingH}" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{markup:ResourceHelper Name=/Setup/TermsBodyPart3}" />
             </StackPanel>
         </local:SetupPageContent>
 

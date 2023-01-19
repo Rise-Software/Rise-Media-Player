@@ -2,6 +2,7 @@
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Enums;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using Rise.Data.Json;
 using System;
@@ -24,8 +25,6 @@ namespace Rise.App.Views
             get => (AlbumViewModel)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
-
-        private readonly string Label = "Albums";
 
         public AlbumsPage()
             : base("Title", App.MViewModel.Albums, App.MViewModel.Playlists)
@@ -110,8 +109,8 @@ namespace Rise.App.Views
         {
             ContentDialog dialog = new()
             {
-                Title = "Manage local media folders",
-                CloseButtonText = "Close",
+                Title = ResourceHelper.GetString("/Settings/MediaLibraryManageFoldersTitle"),
+                CloseButtonText = ResourceHelper.GetString("Close"),
                 Content = new Settings.MediaSourcesPage()
             };
             _ = await dialog.ShowAsync();

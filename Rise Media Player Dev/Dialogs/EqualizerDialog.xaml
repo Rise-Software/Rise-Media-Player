@@ -4,11 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:effects="using:Rise.Effects"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    CloseButtonText="{markup:ResourceHelper Name=Cancel}"
+    DefaultButton="Primary"
     PrimaryButtonClick="OnPrimaryButtonClick"
-    PrimaryButtonText="OK"
+    PrimaryButtonText="{markup:ResourceHelper Name=Ok}"
     SecondaryButtonClick="OnSecondaryButtonClick"
-    SecondaryButtonText="Cancel"
     Style="{ThemeResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
@@ -27,12 +29,12 @@
             <TextBlock
                 RelativePanel.AlignVerticalCenterWithPanel="True"
                 Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Equalizer" />
+                Text="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}" />
 
             <ToggleSwitch
-                Style="{StaticResource RightAlignedToggleSwitchStyle}"
                 IsOn="{x:Bind Effect.IsEnabled, Mode=TwoWay}"
-                RelativePanel.AlignRightWithPanel="True" />
+                RelativePanel.AlignRightWithPanel="True"
+                Style="{StaticResource RightAlignedToggleSwitchStyle}" />
         </RelativePanel>
 
         <RelativePanel Grid.Row="1">
@@ -43,13 +45,13 @@
                 RelativePanel.AlignRightWithPanel="True"
                 SelectedIndex="{x:Bind SViewModel.SelectedEqualizerPreset, Mode=TwoWay}"
                 SelectionChanged="OnPresetChanged">
-                <x:String>Flat</x:String>
-                <x:String>Custom</x:String>
-                <x:String>Pop</x:String>
-                <x:String>Rock</x:String>
-                <x:String>Vocal</x:String>
-                <x:String>Bass</x:String>
-                <x:String>Air</x:String>
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPFlat}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPCustom}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPPop}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPRock}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPVocal}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPBass}" />
+                <ComboBoxItem Content="{markup:ResourceHelper Name=EQPAir}" />
             </ComboBox>
         </RelativePanel>
 
@@ -65,9 +67,9 @@
             <StackPanel VerticalAlignment="Top" Spacing="12">
                 <TextBlock Text="+ 12dB" />
                 <TextBlock Text="+ 6dB" />
-                <TextBlock Margin="0,4,0,0" Text="   0dB" />
-                <TextBlock Text="- 6dB" />
-                <TextBlock Text="- 12dB" />
+                <TextBlock Margin="13,4,0,0" Text="0dB" />
+                <TextBlock Text="-  6dB" />
+                <TextBlock Text="-  12dB" />
             </StackPanel>
 
             <ListView
@@ -112,9 +114,7 @@
                                 ValueChanged="OnBandGainChanged"
                                 Value="{x:Bind Gain, Mode=TwoWay}" />
 
-                            <TextBlock HorizontalTextAlignment="Center">
-                                <Run Text="{x:Bind HzText}" />Hz
-                            </TextBlock>
+                            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind FormattedHz, Mode=OneWay}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

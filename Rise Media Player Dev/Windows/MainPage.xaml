@@ -54,7 +54,6 @@
             <conv:UintToStringConverter x:Key="UIntToStr" />
             <conv:StreamToBitmap x:Key="StrmToBmp" />
 
-            <conv:ResourceToString x:Key="StrToRes" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:TimeSpanToString x:Key="TimeToStr" />
             <conv:StringToIconElement x:Key="StrToIcon" />
@@ -140,7 +139,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <FontIcon FontSize="16" Glyph="&#xE93C;" />
-                                    <TextBlock Grid.Column="1" Text="Go to album" />
+                                    <TextBlock Grid.Column="1" Text="{markup:ResourceHelper Name=GoToAlbum}" />
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -158,7 +157,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <FontIcon FontSize="16" Glyph="&#xE13D;" />
-                                    <TextBlock Grid.Column="1" Text="Go to artist" />
+                                    <TextBlock Grid.Column="1" Text="{markup:ResourceHelper Name=GoToArtist}" />
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -227,8 +226,8 @@
                             AccessKey="{x:Bind AccessKey}"
                             AccessKeyInvoked="NavigationViewItem_AccessKeyInvoked"
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            AutomationProperties.Name="{x:Bind Label, Mode=OneWay}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
+                            AutomationProperties.Name="{x:Bind Label}"
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label)}"
                             ContextRequested="NavigationViewItem_ContextRequested"
                             Icon="{x:Bind Icon, Converter={StaticResource StrToIcon}, Mode=OneWay}"
                             MenuItemsSource="{x:Bind SubItems}"
@@ -254,7 +253,7 @@
                     <DataTemplate x:DataType="viewmodels:NavViewItemViewModel">
                         <muxc:NavigationViewItemHeader
                             AutomationProperties.AutomationId="{x:Bind Id}"
-                            Content="{x:Bind Label, Converter={StaticResource StrToRes}, ConverterParameter=Sidebar, Mode=OneWay}"
+                            Content="{x:Bind markup:ResourceHelper.GetString(Label), Mode=OneWay}"
                             Visibility="{x:Bind IsVisible, Mode=OneWay}" />
                     </DataTemplate>
                 </selectors:NavViewItemTemplateSelector.HeaderTemplate>
@@ -269,14 +268,14 @@
             <MenuFlyout x:Key="DefaultItemFlyout" x:Name="DefaultItemFlyout">
                 <MenuFlyoutItem
                     x:Name="TopOption"
-                    x:Uid="/Information/ToTop"
+                    Text="{markup:ResourceHelper Name=MoveToTop}"
                     Command="{x:Bind NavDataSource.MoveToTopCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
                     Icon="Upload" />
 
                 <MenuFlyoutItem
                     x:Name="UpOption"
-                    x:Uid="/Information/MoveUp"
+                    Text="{markup:ResourceHelper Name=MoveUp}"
                     Command="{x:Bind NavDataSource.MoveUpCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
@@ -286,7 +285,7 @@
 
                 <MenuFlyoutItem
                     x:Name="DownOption"
-                    x:Uid="/Information/MoveDown"
+                    Text="{markup:ResourceHelper Name=MoveDown}"
                     Command="{x:Bind NavDataSource.MoveDownCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
@@ -296,7 +295,7 @@
 
                 <MenuFlyoutItem
                     x:Name="BottomOption"
-                    x:Uid="/Information/ToBottom"
+                    Text="{markup:ResourceHelper Name=MoveToBottom}"
                     Command="{x:Bind NavDataSource.MoveToBottomCommand}"
                     CommandParameter="{x:Bind RightClickedItem.Id, Mode=OneWay}"
                     Icon="Download" />
@@ -310,7 +309,7 @@
                     Text="{markup:ResourceHelper Name=RemoveFromSidebar}" />
 
                 <MenuFlyoutItem
-                    x:Uid="/Information/RemoveSection"
+                    Text="{markup:ResourceHelper Name=RemoveSection}"
                     Command="{x:Bind NavDataSource.HideGroupCommand}"
                     CommandParameter="{x:Bind RightClickedItem.HeaderGroup, Mode=OneWay}">
                     <MenuFlyoutItem.Icon>
@@ -435,7 +434,7 @@
                     VerticalAlignment="Center"
                     IsEnabled="False"
                     Style="{StaticResource TransparentButtonStyle}"
-                    ToolTipService.ToolTip="Sync centre">
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=SyncCenter}">
                     <Button.Content>
                         <Grid>
                             <FontIcon
@@ -458,11 +457,11 @@
                                     <TextBlock
                                         Margin="0,2,0,12"
                                         Style="{ThemeResource BaseTextBlockStyle}"
-                                        Text="Sync centre" />
+                                        Text="{markup:ResourceHelper Name=SyncCenter}" />
                                     <Button
                                         Height="32"
                                         Margin="70,-9,-2,0"
-                                        Content="Sync all"
+                                        Content="{markup:ResourceHelper Name=SyncAll}"
                                         FontSize="12"
                                         FontStretch="Normal" />
                                 </StackPanel>
@@ -472,7 +471,7 @@
                                     <TextBlock
                                         FontSize="14"
                                         FontWeight="Normal"
-                                        Text="Coming soon"
+                                        Text="{markup:ResourceHelper Name=ComingSoon}"
                                         TextAlignment="Center" />
                                 </StackPanel>
                             </StackPanel>
@@ -482,7 +481,7 @@
 
                 <Button
                     x:Name="MoreButton"
-                    x:Uid="/Information/More"
+                    ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreSettings}"
                     Grid.Column="1"
                     Height="32"
                     Margin="46,0,0,0"
@@ -513,13 +512,13 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem x:Uid="/Information/Notif" Click="Messages_Click">
+                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=MessagesAndReports}" Click="Messages_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xF716;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem Click="Support_Click" Text="Support this project">
+                            <MenuFlyoutItem Click="Support_Click" Text="{markup:ResourceHelper Name=SupportProject}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE125;" />
                                 </MenuFlyoutItem.Icon>
@@ -527,7 +526,7 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem x:Uid="/Information/Scan" Click="StartScan_Click">
+                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Scan}" Click="StartScan_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE721;" />
                                 </MenuFlyoutItem.Icon>
@@ -535,13 +534,13 @@
 
                             <MenuFlyoutSeparator />
 
-                            <MenuFlyoutItem x:Uid="/Information/Fdb" Click="Button_Click">
+                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=Feedback}" Click="Button_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xED15;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Uid="/Information/Settings" Click="OpenSettings_Click">
+                            <MenuFlyoutItem Text="{markup:ResourceHelper Name=AppSettings}" Click="OpenSettings_Click">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE115;" />
                                 </MenuFlyoutItem.Icon>
@@ -648,7 +647,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -656,7 +655,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
@@ -704,7 +703,7 @@
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Fetching artist info..." />
+                                    Text="{markup:ResourceHelper Name=FetchingArtistInfo}" />
                             </StackPanel>
 
                             <StackPanel
@@ -716,7 +715,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -724,7 +723,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
@@ -772,7 +771,7 @@
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BaseTextBlockStyle}"
-                                    Text="Indexing complete!" />
+                                    Text="{markup:ResourceHelper Name=IndexingComplete}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,0,12,0"
@@ -783,7 +782,7 @@
                                     Padding="8"
                                     Click="GoToScanningSettings_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Scanning settings">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=ScanningSettings}">
                                     <FontIcon FontSize="16" Glyph="&#xE115;" />
                                 </Button>
 
@@ -791,7 +790,7 @@
                                     Padding="8"
                                     Click="DismissButton_Click"
                                     Style="{ThemeResource TransparentButtonStyle}"
-                                    ToolTipService.ToolTip="Dismiss">
+                                    ToolTipService.ToolTip="{markup:ResourceHelper Name=Dismiss}">
                                     <FontIcon FontSize="16" Glyph="&#xE711;" />
                                 </Button>
                             </StackPanel>
