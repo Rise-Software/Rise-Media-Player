@@ -935,4 +935,10 @@ https://www.youtube.com/watch?v=p7YXXieghto</value>
   <data name="LearnMore" xml:space="preserve">
     <value>Learn more</value>
   </data>
+  <data name="FromFile" xml:space="preserve">
+    <value>From file</value>
+  </data>
+  <data name="FromFolder" xml:space="preserve">
+    <value>From folder</value>
+  </data>
 </root>
