@@ -6,6 +6,7 @@
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="120"
     d:DesignWidth="256"
@@ -24,24 +25,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-
-        <Border
+        
+        <tkitctrls:ImageEx
             x:Name="AlbumThumb"
             CornerRadius="{x:Bind ThumbnailCornerRadius}"
+            DecodePixelType="Logical"
+            IsCacheEnabled="True"
+            PlaceholderSource="ms-appx:///Assets/BlankAlbum.png"
+            Source="{x:Bind Album.Thumbnail}"
             ToolTipService.ToolTip="{x:Bind Album.TitleWithArtist}"
-            Visibility="{x:Bind ShowThumbnail}">
-            <Border.Background>
-                <ImageBrush Stretch="UniformToFill">
-                    <ImageBrush.ImageSource>
-                        <BitmapImage
-                            DecodePixelHeight="134"
-                            DecodePixelType="Logical"
-                            DecodePixelWidth="134"
-                            UriSource="{x:Bind Album.Thumbnail}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Border.Background>
-        </Border>
+            Visibility="{x:Bind ShowThumbnail}" />
 
         <StackPanel
             x:Name="InfoPanel"
