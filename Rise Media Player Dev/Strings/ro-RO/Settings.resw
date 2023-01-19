@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -156,11 +156,38 @@
   <data name="AddFolders" xml:space="preserve">
     <value>Add folders</value>
   </data>
+  <data name="AppearanceGlazeAlbumArt" xml:space="preserve">
+    <value>Use album art</value>
+  </data>
+  <data name="AppearanceAppLayout" xml:space="preserve">
+    <value>App layout</value>
+  </data>
+  <data name="AppearanceAppWindow" xml:space="preserve">
+    <value>App window</value>
+  </data>
   <data name="AppearanceChooseColor" xml:space="preserve">
     <value>Choose your window glaze</value>
   </data>
   <data name="AppearanceChooseTheme" xml:space="preserve">
     <value>Choose your colour</value>
+  </data>
+  <data name="AppearanceCustomGlazeColor" xml:space="preserve">
+    <value>Use custom colour</value>
+  </data>
+  <data name="AppearanceIconsAndFonts" xml:space="preserve">
+    <value>Icons &amp; fonts</value>
+  </data>
+  <data name="AppearanceItemDesc" xml:space="preserve">
+    <value>Customise app colours, themes, icons, layouts and motion.</value>
+  </data>
+  <data name="AppearanceNoGlaze" xml:space="preserve">
+    <value>No glaze</value>
+  </data>
+  <data name="AppearanceNothing" xml:space="preserve">
+    <value>There's nothing to show here. To show available colours, select 'Use custom colour' from the dropdown.</value>
+  </data>
+  <data name="AppearanceOverview" xml:space="preserve">
+    <value>Overview</value>
   </data>
   <data name="AppearancePickUp" xml:space="preserve">
     <value>Pick up where you left off</value>
@@ -168,8 +195,32 @@
   <data name="AppearanceStartupTitle" xml:space="preserve">
     <value>On startup</value>
   </data>
+  <data name="AppearanceSystemGlazeColor" xml:space="preserve">
+    <value>Use system accent colour</value>
+  </data>
   <data name="AppearanceTip" xml:space="preserve">
     <value>*Compact mode changes won't take effect until after setup has completed.</value>
+  </data>
+  <data name="AppThemeChanged" xml:space="preserve">
+    <value>App theme changed</value>
+  </data>
+  <data name="ColorfulIcons" xml:space="preserve">
+    <value>Colourful Icons</value>
+  </data>
+  <data name="ConnectToLastFmDesc" xml:space="preserve">
+    <value>Discover your recently played, listening history and scrobble to the internet.</value>
+  </data>
+  <data name="ConnectToLastFmH" xml:space="preserve">
+    <value>Connect to last.fm</value>
+  </data>
+  <data name="CustomizedColors" xml:space="preserve">
+    <value>Customised colours</value>
+  </data>
+  <data name="HighContrastIcons" xml:space="preserve">
+    <value>High Contrast Icons</value>
+  </data>
+  <data name="InsiderHub" xml:space="preserve">
+    <value>Insider Hub</value>
   </data>
   <data name="MatchSystemAppLang" xml:space="preserve">
     <value>Match system &amp; app languages</value>
@@ -207,6 +258,12 @@
   <data name="MediaLibraryFetchOnlineData" xml:space="preserve">
     <value>Fetch data from the Internet when needed</value>
   </data>
+  <data name="MediaLibraryFilesAndFolders" xml:space="preserve">
+    <value>Files &amp; folders</value>
+  </data>
+  <data name="MediaLibraryItemDesc" xml:space="preserve">
+    <value>Manage media sources, your online services and scanning settings.</value>
+  </data>
   <data name="MediaLibraryLocalMediaH" xml:space="preserve">
     <value>Local media &amp; devices</value>
   </data>
@@ -222,14 +279,29 @@
   <data name="MediaLibraryManualScanTitle" xml:space="preserve">
     <value>Manual scan</value>
   </data>
+  <data name="MediaLibraryMetadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
   <data name="MediaLibraryOnlineDataH" xml:space="preserve">
     <value>Online data</value>
+  </data>
+  <data name="MediaLibraryRemoveFolder" xml:space="preserve">
+    <value>Remove folder</value>
   </data>
   <data name="MediaLibraryRippingDesc" xml:space="preserve">
     <value>Choose what you want to happen when you rip a disc.</value>
   </data>
   <data name="MediaLibraryRippingTitle" xml:space="preserve">
     <value>Disc ripping options</value>
+  </data>
+  <data name="MediaSourcesContainsMusic" xml:space="preserve">
+    <value>Contains music</value>
+  </data>
+  <data name="MediaSourcesContainsVideos" xml:space="preserve">
+    <value>Contains videos</value>
+  </data>
+  <data name="MediaSourcesInfo" xml:space="preserve">
+    <value>We already look for your media in the default media locations (Music &amp; Videos). If you only store your media here, there is no need to add a folder. If not, select 'Add folder' to add all of your media folders.</value>
   </data>
   <data name="NavigationAddRemoveH" xml:space="preserve">
     <value>Add/remove sidebar items</value>
@@ -246,11 +318,17 @@
   <data name="NavigationIconStyle" xml:space="preserve">
     <value>Icon style</value>
   </data>
+  <data name="NavigationItemDesc" xml:space="preserve">
+    <value>Change click actions, startup options.</value>
+  </data>
   <data name="NavigationResize" xml:space="preserve">
     <value>Window resize changes</value>
   </data>
   <data name="NavigationShowHeader" xml:space="preserve">
     <value>Show header</value>
+  </data>
+  <data name="OpenClassicDialog" xml:space="preserve">
+    <value>Open classic dialog</value>
   </data>
   <data name="PlaybackCrossfadeDesc" xml:space="preserve">
     <value>Blend the end &amp; beginning of your music tracks.</value>
@@ -294,10 +372,79 @@
   <data name="PlaybackVisualizerTitle" xml:space="preserve">
     <value>Visualiser</value>
   </data>
+  <data name="RecentColors" xml:space="preserve">
+    <value>Recent colours</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Restore defaults</value>
+  </data>
+  <data name="RunEvery" xml:space="preserve">
+    <value>Run every:</value>
+  </data>
+  <data name="ScanNow" xml:space="preserve">
+    <value>Scan now</value>
+  </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Select language</value>
   </data>
   <data name="SelectLanguageDesc" xml:space="preserve">
     <value>Choose your language manually from a list.</value>
+  </data>
+  <data name="SettingsFluentColor" xml:space="preserve">
+    <value>Fluent Colour</value>
+  </data>
+  <data name="SettingsHighContrast" xml:space="preserve">
+    <value>High Contrast</value>
+  </data>
+  <data name="SettingsMenuBar" xml:space="preserve">
+    <value>Menu bar</value>
+  </data>
+  <data name="SettingsMenus" xml:space="preserve">
+    <value>Settings menus</value>
+  </data>
+  <data name="SettingsSidebar" xml:space="preserve">
+    <value>Sidebar (Classic)</value>
+  </data>
+  <data name="SettingsStyle" xml:space="preserve">
+    <value>Settings style</value>
+  </data>
+  <data name="StartupSettings" xml:space="preserve">
+    <value>Startup settings</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByPolicy" xml:space="preserve">
+    <value>This feature is disabled due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+  </data>
+  <data name="SystemBehaviorsDisabledByUser" xml:space="preserve">
+    <value>This feature is disabled due to your current startup settings. Click the link below to modify these settings, then restart the app.</value>
+  </data>
+  <data name="SystemBehaviorsEnabledByPolicy" xml:space="preserve">
+    <value>This feature is enabled but cannot be modified due to your administrator's current policies. If this is necessary, please contact your system administrator.</value>
+  </data>
+  <data name="SystemBehaviorsRunningLeakedDesc" xml:space="preserve">
+    <value>Some settings might be unavailable because you are running Rise Media Player on the leaked build.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10Desc" xml:space="preserve">
+    <value>Some settings might be unavailable. To use them, upgrade your PC to Windows 11.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin10H" xml:space="preserve">
+    <value>You are running Windows 10</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11Desc" xml:space="preserve">
+    <value>All settings should be available.</value>
+  </data>
+  <data name="SystemBehaviorsRunningWin11H" xml:space="preserve">
+    <value>You are running Windows 11</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>App settings</value>
+  </data>
+  <data name="ViewColors" xml:space="preserve">
+    <value>View colours</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>View files</value>
+  </data>
+  <data name="WindowsColors" xml:space="preserve">
+    <value>Windows colours</value>
   </data>
 </root>
