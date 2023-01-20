@@ -178,7 +178,7 @@
                             <CommandBar
                                 x:Name="MainMediaControlsCommandBar"
                                 Grid.Column="1"
-                                Margin="0"
+                                Margin="0,4,0,0"
                                 HorizontalAlignment="{TemplateBinding HorizontalControlsAlignment}"
                                 DefaultLabelPosition="Collapsed"
                                 IsDynamicOverflowEnabled="False"
@@ -227,13 +227,18 @@
                                 <AppBarButton
                                     x:Name="PlayPauseButton"
                                     BorderThickness="4"
+                                    Width="52"
+                                    Height="60"
+                                    Margin="0,-6,0,0"
                                     CornerRadius="50">
                                     <AppBarButton.Icon>
-                                        <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
+                                        <FontIcon Margin="0,-4,0,0" x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                                     </AppBarButton.Icon>
 
                                     <AppBarButton.Resources>
                                         <ResourceDictionary>
+                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,23,0,2</Thickness>
+
                                             <ResourceDictionary.ThemeDictionaries>
                                                 <ResourceDictionary x:Key="Default">
                                                     <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
