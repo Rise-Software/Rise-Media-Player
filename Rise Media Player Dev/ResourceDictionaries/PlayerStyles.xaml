@@ -229,7 +229,7 @@
                                     BorderThickness="4"
                                     Width="52"
                                     Height="60"
-                                    Margin="0,-6,0,0"
+                                    Margin="0,-7,0,0"
                                     CornerRadius="50">
                                     <AppBarButton.Icon>
                                         <FontIcon Margin="0,-4,0,0" x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
@@ -237,7 +237,7 @@
 
                                     <AppBarButton.Resources>
                                         <ResourceDictionary>
-                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,23,0,2</Thickness>
+                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,24,0,2</Thickness>
 
                                             <ResourceDictionary.ThemeDictionaries>
                                                 <ResourceDictionary x:Key="Default">
