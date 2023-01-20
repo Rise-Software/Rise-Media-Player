@@ -6,6 +6,28 @@
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <LinearGradientBrush x:Key="TransportControlsButtonGradientBrush">
+                <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight2}" />
+                <GradientStop Color="{StaticResource SystemAccentColorLight1}" />
+                <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Light">
+            <LinearGradientBrush x:Key="TransportControlsButtonGradientBrush">
+                <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
+                <GradientStop Color="{StaticResource SystemAccentColor}" />
+                <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark2}" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <StaticResource x:Key="TransportControlsButtonGradientBrush" ResourceKey="SystemControlHighlightAltBaseHighBrush" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
     <Style x:Key="DefaultRiseMediaPlayerElementStyle" TargetType="co:RiseMediaPlayerElement">
         <Setter Property="AreTransportControlsEnabled" Value="True" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -164,19 +186,14 @@
                                 <CommandBar.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
-                                            <ResourceDictionary x:Key="Dark">
-                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                    <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                </LinearGradientBrush>
+                                            <ResourceDictionary x:Key="Default">
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
                                             </ResourceDictionary>
                                             <ResourceDictionary x:Key="Light">
-                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                    <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                </LinearGradientBrush>
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="HighContrast">
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
                                             </ResourceDictionary>
                                         </ResourceDictionary.ThemeDictionaries>
                                     </ResourceDictionary>
@@ -207,10 +224,29 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="PlayPauseButton">
+                                <AppBarButton
+                                    x:Name="PlayPauseButton"
+                                    BorderThickness="4"
+                                    CornerRadius="50">
                                     <AppBarButton.Icon>
                                         <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                                     </AppBarButton.Icon>
+
+                                    <AppBarButton.Resources>
+                                        <ResourceDictionary>
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Default">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="HighContrast">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </AppBarButton.Resources>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="NextTrackButton">
@@ -806,19 +842,14 @@
                                 <CommandBar.Resources>
                                     <ResourceDictionary>
                                         <ResourceDictionary.ThemeDictionaries>
-                                            <ResourceDictionary x:Key="Dark">
-                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight3}" />
-                                                    <GradientStop Color="{StaticResource SystemAccentColorLight2}" />
-                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
-                                                </LinearGradientBrush>
+                                            <ResourceDictionary x:Key="Default">
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
                                             </ResourceDictionary>
                                             <ResourceDictionary x:Key="Light">
-                                                <LinearGradientBrush x:Key="AppBarButtonForegroundPointerOver">
-                                                    <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                                                    <GradientStop Color="{StaticResource SystemAccentColor}" />
-                                                    <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark3}" />
-                                                </LinearGradientBrush>
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="HighContrast">
+                                                <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
                                             </ResourceDictionary>
                                         </ResourceDictionary.ThemeDictionaries>
                                     </ResourceDictionary>
@@ -878,6 +909,9 @@
                                                 </ResourceDictionary>
                                                 <ResourceDictionary x:Key="Light">
                                                     <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="TextFillColorPrimaryBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="HighContrast">
+                                                    <StaticResource x:Key="AppBarButtonForegroundPointerOver" ResourceKey="SystemControlHighlightAltBaseHighBrush" />
                                                 </ResourceDictionary>
                                             </ResourceDictionary.ThemeDictionaries>
                                         </ResourceDictionary>
