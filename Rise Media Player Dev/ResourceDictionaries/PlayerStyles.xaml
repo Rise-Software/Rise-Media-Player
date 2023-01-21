@@ -9,17 +9,17 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
             <LinearGradientBrush x:Key="TransportControlsButtonGradientBrush">
-                <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColorLight2}" />
-                <GradientStop Color="{StaticResource SystemAccentColorLight1}" />
-                <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorLight1}" />
+                <GradientStop Offset="0.1" Color="{ThemeResource SystemAccentColorLight2}" />
+                <GradientStop Color="{ThemeResource SystemAccentColorLight1}" />
+                <GradientStop Offset="0.8" Color="{ThemeResource SystemAccentColorLight1}" />
             </LinearGradientBrush>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Light">
             <LinearGradientBrush x:Key="TransportControlsButtonGradientBrush">
-                <GradientStop Offset="0.1" Color="{StaticResource SystemAccentColor}" />
-                <GradientStop Color="{StaticResource SystemAccentColor}" />
-                <GradientStop Offset="0.8" Color="{StaticResource SystemAccentColorDark2}" />
+                <GradientStop Offset="0.1" Color="{ThemeResource SystemAccentColor}" />
+                <GradientStop Color="{ThemeResource SystemAccentColor}" />
+                <GradientStop Offset="0.8" Color="{ThemeResource SystemAccentColorDark2}" />
             </LinearGradientBrush>
         </ResourceDictionary>
 
@@ -242,12 +242,15 @@
                                             <ResourceDictionary.ThemeDictionaries>
                                                 <ResourceDictionary x:Key="Default">
                                                     <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
                                                 </ResourceDictionary>
                                                 <ResourceDictionary x:Key="Light">
                                                     <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
                                                 </ResourceDictionary>
                                                 <ResourceDictionary x:Key="HighContrast">
                                                     <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
                                                 </ResourceDictionary>
                                             </ResourceDictionary.ThemeDictionaries>
                                         </ResourceDictionary>
