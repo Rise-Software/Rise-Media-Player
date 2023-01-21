@@ -951,10 +951,37 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton x:Name="PlayPauseButton">
+                                <AppBarButton
+                                    x:Name="PlayPauseButton"
+                                    BorderThickness="4"
+                                    Width="52"
+                                    Height="60"
+                                    Margin="0,-7,0,0"
+                                    CornerRadius="50">
                                     <AppBarButton.Icon>
-                                        <FontIcon x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
+                                        <FontIcon Margin="0,-4,0,0" x:Name="PlayPauseIcon" Glyph="&#xF5B0;" />
                                     </AppBarButton.Icon>
+
+                                    <AppBarButton.Resources>
+                                        <ResourceDictionary>
+                                            <Thickness x:Key="AppBarButtonContentViewboxCollapsedMargin">0,24,0,2</Thickness>
+
+                                            <ResourceDictionary.ThemeDictionaries>
+                                                <ResourceDictionary x:Key="Default">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="Light">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                                <ResourceDictionary x:Key="HighContrast">
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPointerOver" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                    <StaticResource x:Key="AppBarButtonBorderBrushPressed" ResourceKey="TransportControlsButtonGradientBrush" />
+                                                </ResourceDictionary>
+                                            </ResourceDictionary.ThemeDictionaries>
+                                        </ResourceDictionary>
+                                    </AppBarButton.Resources>
                                 </AppBarButton>
 
                                 <AppBarButton x:Name="NextTrackButton">
