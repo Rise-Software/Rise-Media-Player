@@ -132,6 +132,7 @@
     <Compile Include="Constants\URLs.cs" />
     <Compile Include="Constants\ViewManagement.cs" />
     <Compile Include="Enums\AlbumViewMode.cs" />
+    <Compile Include="Enums\DisplayItemPosition.cs" />
     <Compile Include="Enums\ExistingDialogOptions.cs" />
     <Compile Include="Enums\ExpanderStyles.cs" />
     <Compile Include="Enums\GlazeTypes.cs" />

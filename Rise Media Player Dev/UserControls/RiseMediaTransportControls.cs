@@ -213,6 +213,15 @@ namespace Rise.App.UserControls
         }
 
         /// <summary>
+        /// The position of the display item.
+        /// </summary>
+        public DisplayItemPosition DisplayItemPosition
+        {
+            get => (DisplayItemPosition)GetValue(DisplayItemPositionProperty);
+            set => SetValue(DisplayItemPositionProperty, value);
+        }
+
+        /// <summary>
         /// Gets or sets the <see cref="DisplayItem"/> visibility.
         /// </summary>
         public Visibility DisplayItemVisibility
@@ -254,15 +263,19 @@ namespace Rise.App.UserControls
     {
         public readonly static DependencyProperty HorizontalControlsAlignmentProperty =
             DependencyProperty.Register(nameof(HorizontalControlsAlignment), typeof(HorizontalAlignment),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Center));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Stretch));
 
         public readonly static DependencyProperty TimelineDisplayModeProperty =
             DependencyProperty.Register(nameof(TimelineDisplayMode), typeof(SliderDisplayModes),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(SliderDisplayModes.Full, TimelineDisplayModeChanged));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(SliderDisplayModes.Full, OnTimelineDisplayModeChanged));
 
         public readonly static DependencyProperty DisplayItemProperty =
             DependencyProperty.Register(nameof(DisplayItem), typeof(object),
                 typeof(RiseMediaTransportControls), new PropertyMetadata(null));
+
+        public readonly static DependencyProperty DisplayItemPositionProperty =
+            DependencyProperty.Register(nameof(DisplayItemPosition), typeof(DisplayItemPosition),
+                typeof(RiseMediaTransportControls), new PropertyMetadata(DisplayItemPosition.Left, OnDisplayItemPositionChanged));
 
         public readonly static DependencyProperty DisplayItemVisibilityProperty =
             DependencyProperty.Register(nameof(DisplayItemVisibility), typeof(Visibility),
@@ -351,6 +364,8 @@ namespace Rise.App.UserControls
 
         protected override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
+
             if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
                 overlayButton.CommandParameter = ApplicationViewMode.Default;
 
@@ -387,34 +402,42 @@ namespace Rise.App.UserControls
                 helper.AddPlaylistsToSubItem(addToPlaylistMenu, AddToPlaylistCommand);
             }
 
-            base.OnApplyTemplate();
+            UpdateTimelineDisplayMode(this, TimelineDisplayMode);
+            UpdateDisplayItemPosition(this, DisplayItemPosition);
         }
     }
 
     // Event handlers
     public sealed partial class RiseMediaTransportControls : MediaTransportControls
     {
-        private static async void TimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTimelineDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            => UpdateTimelineDisplayMode((RiseMediaTransportControls)d, (SliderDisplayModes)e.NewValue);
+
+        private static void OnDisplayItemPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            => UpdateDisplayItemPosition((RiseMediaTransportControls)d, (DisplayItemPosition)e.NewValue);
+
+        private static void UpdateTimelineDisplayMode(RiseMediaTransportControls transportControls, SliderDisplayModes displayMode)
         {
-            if (d is RiseMediaTransportControls rmtc)
-                await rmtc.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    switch ((SliderDisplayModes)e.NewValue)
-                    {
-                        case SliderDisplayModes.Hidden:
-                            VisualStateManager.GoToState(rmtc, "HiddenTimelineState", true);
-                            break;
-                        case SliderDisplayModes.Minimal:
-                            VisualStateManager.GoToState(rmtc, "MinimalTimelineState", true);
-                            break;
-                        case SliderDisplayModes.SliderOnly:
-                            VisualStateManager.GoToState(rmtc, "SliderOnlyTimelineState", true);
-                            break;
-                        case SliderDisplayModes.Full:
-                            VisualStateManager.GoToState(rmtc, "FullTimelineState", true);
-                            break;
-                    }
-                });
+            string state = displayMode switch
+            {
+                SliderDisplayModes.Hidden => "HiddenTimelineState",
+                SliderDisplayModes.Minimal => "MinimalTimelineState",
+                SliderDisplayModes.SliderOnly => "SliderOnlyTimelineState",
+                _ => "FullTimelineState"
+            };
+
+            _ = VisualStateManager.GoToState(transportControls, state, true);
+        }
+
+        private static void UpdateDisplayItemPosition(RiseMediaTransportControls transportControls, DisplayItemPosition position)
+        {
+            string state = position switch
+            {
+                DisplayItemPosition.Top => "DisplayItemPositionTopState",
+                _ => "DisplayItemPositionLeftState"
+            };
+
+            _ = VisualStateManager.GoToState(transportControls, state, true);
         }
 
         private async void PropertiesButtonClick(object sender, RoutedEventArgs e)

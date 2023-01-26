@@ -97,16 +97,19 @@
 
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
-            MaxWidth="1000"
             Margin="0,-3"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Canvas.ZIndex="0"
-            MediaPlayerVisibility="Collapsed">
+            MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls
                     x:Name="PlayerControls"
+                    DisplayItemPosition="Top"
                     DisplayItemVisibility="Visible"
+                    HorizontalControlsAlignment="Left"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
                     IsFullWindowButtonVisible="True"
@@ -119,7 +122,6 @@
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
                     ShowAndHideAutomatically="False"
-                    Style="{StaticResource NowPlayingTransportControlsStyle}"
                     TimelineDisplayMode="Minimal">
                     <uc:RiseMediaTransportControls.QueueFlyout>
                         <Flyout>
@@ -205,8 +207,8 @@
             </ListView.ItemTemplate>
             <ListView.Footer>
                 <TextBlock
-                    HorizontalAlignment="Center"
                     Padding="0,12"
+                    HorizontalAlignment="Center"
                     Text="Licensed and provided by Musixmatch."
                     Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
             </ListView.Footer>
@@ -342,10 +344,6 @@
                     <VisualState.Setters>
                         <Setter Target="BlurBrushBorder.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
 
-                        <Setter Target="MainPlayer.HorizontalAlignment" Value="Left" />
-                        <Setter Target="MainPlayer.Width" Value="700" />
-
-                        <Setter Target="PlayerControls.HorizontalControlsAlignment" Value="Left" />
                         <Setter Target="PlayerControls.TimelineDisplayMode" Value="Full" />
 
                         <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="300" />
