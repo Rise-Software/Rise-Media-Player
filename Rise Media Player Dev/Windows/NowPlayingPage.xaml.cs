@@ -5,11 +5,10 @@ using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -190,22 +189,30 @@ namespace Rise.App.Views
         private async Task FetchLyricsForCurrentItemAsync()
         {
             LyricsList.ItemsSource = null;
-            try
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Music)
             {
-                var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
-                var body = lyricsObj.Message.Body;
-
-                if (body != null)
+                try
                 {
-                    _lyrics = await Task.Run(() => new List<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
-                    LyricsCount = _lyrics.Count;
-                    LyricsList.ItemsSource = _lyrics;
+                    var lyricsObj = await MusixmatchHelper.GetSyncedLyricsAsync(MPViewModel.PlayingItemProperties.Title, MPViewModel.PlayingItemProperties.Artist);
+                    var body = lyricsObj.Message.Body;
+
+                    if (body != null)
+                    {
+                        _lyrics = await Task.Run(() => new List<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
+                        LyricsCount = _lyrics.Count;
+                        LyricsList.ItemsSource = _lyrics;
+
+                        _ = VisualStateManager.GoToState(this, "LyricsAvailableState", true);
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.WriteToOutput();
                 }
             }
-            catch (Exception e)
-            {
-                e.WriteToOutput();
-            }
+
+            _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
         }
     }
 
