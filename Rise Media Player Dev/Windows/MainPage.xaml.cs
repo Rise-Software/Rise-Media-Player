@@ -254,13 +254,20 @@ namespace Rise.App.Views
         {
             if (MPViewModel.PlayingItem == null) return;
             if (newMode == ApplicationViewMode.CompactOverlay)
+            {
                 await ApplicationView.GetForCurrentView().
                     TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
 
-            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                Frame.Navigate(typeof(VideoPlaybackPage));
+                Frame.Navigate(typeof(CompactNowPlayingPage));
+            }
             else
-                Frame.Navigate(typeof(NowPlayingPage));
+            {
+                if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                    Frame.Navigate(typeof(VideoPlaybackPage));
+                else
+                    Frame.Navigate(typeof(NowPlayingPage));
+            }
+
         }
 
         private async void OnDisplayItemClick(object sender, RoutedEventArgs e)

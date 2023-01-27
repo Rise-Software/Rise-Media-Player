@@ -4,13 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:nouac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
-    xmlns:uac14="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,14)"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:visualizers="using:Rise.App.Visualizers"
@@ -58,79 +56,46 @@
             <ColumnDefinition x:Name="LyricsColumn" Width="0" />
         </Grid.ColumnDefinitions>
 
-        <Border
-            x:Name="BlurBrushBorder"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-            <Border.Background>
-                <media:BackdropBlurBrush Amount="10" />
-            </Border.Background>
-        </Border>
-
         <visualizers:BloomView
             x:Name="BloomVis"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             x:Load="False"
-            Background="#7F000000"
             Visibility="Collapsed" />
+
+        <Border
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
 
         <skuc:ExtendedTitleBar
             x:Name="TitleBar"
             Grid.ColumnSpan="2"
             Height="40"
-            Margin="92,0,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Canvas.ZIndex="1" />
+            Canvas.ZIndex="1">
+            <TextBlock
+                Padding="44,0,0,0"
+                VerticalAlignment="Center"
+                Text="{markup:ResourceHelper Name=NowPlaying}" />
+        </skuc:ExtendedTitleBar>
 
-        <Grid
-            Margin="4"
-            HorizontalAlignment="Left"
+        <Button
+            Height="32"
+            Margin="4,4,0,0"
             VerticalAlignment="Top"
-            Canvas.ZIndex="2">
-            <Button
-                Width="40"
-                Height="36"
-                Click="OnExitButtonClick"
-                Style="{StaticResource TransparentButtonStyle}">
-                <FontIcon
-                    x:Name="ExitIcon"
-                    FontSize="16"
-                    Glyph="&#xE112;" />
-            </Button>
-        </Grid>
-
-        <ListView
-            x:Name="LyricsList"
-            Grid.Column="1"
-            Width="400"
-            Margin="12,32,0,32"
-            Padding="16"
-            HorizontalAlignment="Right"
-            ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
-            Loaded="OnLyricsListLoaded"
-            SelectionMode="None"
-            Visibility="Collapsed">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:SyncedLyricItem">
-                    <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.Footer>
-                <TextBlock
-                    Padding="0,12"
-                    HorizontalAlignment="Center"
-                    Text="Licensed and provided by Musixmatch."
-                    Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
-            </ListView.Footer>
-        </ListView>
+            Canvas.ZIndex="2"
+            Click="OnExitButtonClick"
+            Style="{StaticResource TransparentButtonStyle}"
+            ToolTipService.ToolTip="{markup:ResourceHelper Name=Back}">
+            <FontIcon FontSize="12" Glyph="&#xE112;" />
+        </Button>
 
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
-            Margin="0,-3"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
@@ -150,12 +115,13 @@
                     IsPreviousTrackButtonVisible="True"
                     IsQueueButtonEnabled="True"
                     IsQueueButtonVisible="True"
+                    IsRepeatButtonVisible="True"
                     IsRepeatEnabled="True"
                     IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
+                    IsShuffleButtonVisible="True"
                     IsShuffleEnabled="True"
-                    IsVolumeButtonVisible="False"
-                    ShowAndHideAutomatically="False"
-                    TimelineDisplayMode="Minimal">
+                    IsVolumeButtonVisible="True"
+                    ShowAndHideAutomatically="False">
                     <uc:RiseMediaTransportControls.QueueFlyout>
                         <Flyout>
                             <uc:DefaultQueueFlyout Width="300" Height="300" />
@@ -165,151 +131,88 @@
                     <uc:RiseMediaTransportControls.DisplayItem>
                         <Grid
                             x:Name="InfoGrid"
+                            Margin="0,40,0,0"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
                             x:DefaultBindMode="OneWay"
                             ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="160" />
+                                <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
 
                             <Border
                                 x:Name="ThumbBorder"
-                                Width="300"
-                                Height="300"
-                                Margin="0,0,0,4"
-                                HorizontalAlignment="Left"
+                                Height="160"
                                 ui:Effects.Shadow="{StaticResource StrongShadow}"
                                 BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
                                 BorderThickness="1"
-                                CornerRadius="12"
-                                Visibility="Collapsed">
+                                CornerRadius="12">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" />
+                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
                                 </Border.Background>
                             </Border>
 
-                            <TextBlock
-                                x:Name="TitleText"
-                                Grid.Row="1"
-                                d:Text="Title"
-                                FontSize="20"
-                                FontWeight="SemiBold"
-                                HorizontalTextAlignment="Center"
-                                MaxLines="2"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
-                            <TextBlock
-                                x:Name="SubtitleText"
-                                Grid.Row="2"
-                                Margin="0,4,0,0"
-                                d:Text="Subtitle"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                HorizontalTextAlignment="Center"
-                                MaxLines="1"
-                                Opacity="0.6"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                            <Grid
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                RowSpacing="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock
+                                    x:Name="TitleText"
+                                    d:Text="Title"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    MaxLines="2"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                                <TextBlock
+                                    x:Name="SubtitleText"
+                                    Grid.Row="1"
+                                    d:Text="Subtitle"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    MaxLines="2"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                            </Grid>
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
+        <ListView
+            x:Name="LyricsList"
+            Grid.Column="1"
+            Width="400"
+            Margin="0,40,0,0"
+            Padding="16,0,16,48"
+            Canvas.ZIndex="0"
+            ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
+            Loaded="OnLyricsListLoaded"
+            SelectionMode="None"
+            Visibility="Collapsed">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:SyncedLyricItem">
+                    <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.Footer>
+                <TextBlock
+                    Padding="0,12"
+                    HorizontalAlignment="Center"
+                    Text="Licensed and provided by Musixmatch."
+                    Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+            </ListView.Footer>
+        </ListView>
+
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="ArtStates">
-                <VisualState x:Name="DefaultState">
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind UseImmersiveArt.Equals(x:False), Mode=OneWay}" />
-                    </VisualState.StateTriggers>
-
-                    <Storyboard>
-                        <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
-                            Storyboard.TargetName="ThumbnailBrush"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource ThumbnailBrushPointerInOpacity}">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoGrid"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="BlurBrushBorder"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-
-                <VisualState x:Name="ImmersiveState">
-                    <VisualState.StateTriggers>
-                        <StateTrigger IsActive="{x:Bind UseImmersiveArt, Mode=OneWay}" />
-                    </VisualState.StateTriggers>
-
-                    <Storyboard>
-                        <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
-                            Storyboard.TargetName="ThumbnailBrush"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoGrid"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="BlurBrushBorder"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-
             <VisualStateGroup x:Name="LyricsAvailabilityStates">
                 <VisualState x:Name="LyricsUnavailableState" />
                 <VisualState x:Name="LyricsAvailableState">
@@ -321,12 +224,6 @@
 
             <VisualStateGroup x:Name="VisualizerStates">
                 <VisualState x:Name="NoVisualizerState" />
-                <VisualState x:Name="LineVisualizerState">
-                    <VisualState.Setters>
-                        <Setter Target="LineVis.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-
                 <VisualState x:Name="BloomVisualizerState">
                     <VisualState.Setters>
                         <Setter Target="BloomVis.Visibility" Value="Visible" />
@@ -334,47 +231,13 @@
                 </VisualState>
             </VisualStateGroup>
 
-            <VisualStateGroup x:Name="SelectedModeStates">
-                <VisualState x:Name="CompactOverlayState">
-                    <VisualState.Setters>
-                        <uac14:Setter Target="ExitIcon.Glyph" Value="&#xEE47;" />
-                        <nouac14:Setter Target="ExitIcon.Glyph" Value="&#xE944;" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-
             <VisualStateGroup x:Name="SizeStates">
-                <VisualState x:Name="MediumSizeState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="260" MinWindowWidth="260" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="PlayerControls.TimelineDisplayMode" Value="Full" />
-                    </VisualState.Setters>
-                </VisualState>
-
                 <VisualState x:Name="LargeSizeState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="600" MinWindowWidth="720" />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="BlurBrushBorder.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
-
-                        <Setter Target="PlayerControls.TimelineDisplayMode" Value="Full" />
-
-                        <Setter Target="InfoGrid.ColumnDefinitions[1].Width" Value="300" />
-                        <Setter Target="InfoGrid.HorizontalAlignment" Value="Left" />
-                        <Setter Target="InfoGrid.VerticalAlignment" Value="Bottom" />
-                        <Setter Target="InfoGrid.Padding" Value="16,0,0,8" />
-
-                        <Setter Target="TitleText.HorizontalTextAlignment" Value="Left" />
-                        <Setter Target="TitleText.Padding" Value="8,0,0,0" />
-                        <Setter Target="SubtitleText.HorizontalTextAlignment" Value="Left" />
-                        <Setter Target="SubtitleText.Padding" Value="8,0,0,0" />
-                        <Setter Target="ThumbBorder.Visibility" Value="Visible" />
-
                         <Setter Target="LyricsColumn.Width" Value="Auto" />
                     </VisualState.Setters>
                 </VisualState>
@@ -391,20 +254,6 @@
                         <Setter Target="TitleText.FontWeight" Value="Bold" />
                         <Setter Target="SubtitleText.FontSize" Value="18" />
                         <Setter Target="SubtitleText.FontWeight" Value="SemiBold" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="MediumWidthState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="260" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="PlayerControls.IsVolumeButtonVisible" Value="True" />
-                        <Setter Target="PlayerControls.IsRepeatButtonVisible" Value="True" />
-                        <Setter Target="PlayerControls.IsShuffleButtonVisible" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
