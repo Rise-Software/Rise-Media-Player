@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:skuc="using:SimpleKit.WindowsRuntime.UI.Controls"
@@ -14,8 +15,6 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:visualizers="using:Rise.App.Visualizers"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    d:DesignHeight="300"
-    d:DesignWidth="320"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="OnPageLoaded"
     Unloaded="OnPageUnloaded"
@@ -54,7 +53,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition x:Name="LyricsColumn" Width="0" />
+            <ColumnDefinition x:Name="SidebarColumn" Width="0" />
         </Grid.ColumnDefinitions>
 
         <visualizers:BloomView
@@ -203,38 +202,54 @@
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
 
-        <ListView
-            x:Name="LyricsList"
+        <Border
+            x:Name="SidebarGrid"
             Grid.Column="1"
-            Width="400"
-            Margin="0,40,0,0"
-            Padding="16,0,16,48"
-            Canvas.ZIndex="0"
-            ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
-            Loaded="OnLyricsListLoaded"
-            SelectionMode="None"
-            Visibility="Collapsed">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:SyncedLyricItem">
-                    <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
+            Width="350"
+            Margin="0,48,24,104"
+            Canvas.ZIndex="1">
+            <ui:Effects.Shadow>
+                <media:AttachedCardShadow
+                    BlurRadius="64"
+                    CornerRadius="8"
+                    Opacity=".25"
+                    Offset="0,16,0" />
+            </ui:Effects.Shadow>
 
-            <ListView.Footer>
-                <TextBlock
-                    Padding="0,12"
-                    HorizontalAlignment="Center"
-                    Text="Licensed and provided by Musixmatch."
-                    Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
-            </ListView.Footer>
-        </ListView>
+            <Grid
+                Padding="16"
+                BorderBrush="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <ListView
+                    x:Name="LyricsList"
+                    Margin="-16,0"
+                    ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
+                    Loaded="OnLyricsListLoaded"
+                    SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SyncedLyricItem">
+                            <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.Footer>
+                        <TextBlock
+                            Padding="0,12"
+                            HorizontalAlignment="Center"
+                            Text="Licensed and provided by Musixmatch."
+                            Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+                    </ListView.Footer>
+                </ListView>
+            </Grid>
+        </Border>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LyricsAvailabilityStates">
                 <VisualState x:Name="LyricsUnavailableState" />
                 <VisualState x:Name="LyricsAvailableState">
                     <VisualState.Setters>
-                        <Setter Target="LyricsList.Visibility" Value="Visible" />
+                        <Setter Target="SidebarGrid.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -255,7 +270,7 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="LyricsColumn.Width" Value="Auto" />
+                        <Setter Target="SidebarColumn.Width" Value="Auto" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
