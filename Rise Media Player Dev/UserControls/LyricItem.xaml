@@ -14,9 +14,8 @@
             x:Name="LyricTextBlock"
             Margin="0,4"
             HorizontalAlignment="Stretch"
-            FontSize="16"
+            FontSize="18"
             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            HorizontalTextAlignment="Center"
             Text="{x:Bind Text, Mode=OneWay}"
             TextWrapping="WrapWholeWords" />
 
@@ -30,7 +29,7 @@
                                 Storyboard.TargetName="LyricTextBlock"
                                 Storyboard.TargetProperty="FontSize"
                                 Duration="0:0:0.3">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="20">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="24">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <ExponentialEase EasingMode="EaseIn" />
                                     </EasingDoubleKeyFrame.EasingFunction>
@@ -51,7 +50,7 @@
                                 Storyboard.TargetName="LyricTextBlock"
                                 Storyboard.TargetProperty="FontSize"
                                 Duration="0:0:0.3">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="16">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="18">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <ExponentialEase EasingMode="EaseOut" />
                                     </EasingDoubleKeyFrame.EasingFunction>
