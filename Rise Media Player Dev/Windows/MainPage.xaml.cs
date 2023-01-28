@@ -210,12 +210,7 @@ namespace Rise.App.Views
 
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode || view.TryEnterFullScreenMode())
-            {
-                if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                    Frame.Navigate(typeof(VideoPlaybackPage), true);
-                else
-                    Frame.Navigate(typeof(NowPlayingPage), true);
-            }
+                Frame.Navigate(typeof(NowPlayingPage), true);
         }
 
         [RelayCommand]
@@ -255,19 +250,15 @@ namespace Rise.App.Views
             if (MPViewModel.PlayingItem == null) return;
             if (newMode == ApplicationViewMode.CompactOverlay)
             {
-                await ApplicationView.GetForCurrentView().
+                _ = await ApplicationView.GetForCurrentView().
                     TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
 
                 Frame.Navigate(typeof(CompactNowPlayingPage));
             }
             else
             {
-                if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                    Frame.Navigate(typeof(VideoPlaybackPage));
-                else
-                    Frame.Navigate(typeof(NowPlayingPage));
+                Frame.Navigate(typeof(NowPlayingPage));
             }
-
         }
 
         private async void OnDisplayItemClick(object sender, RoutedEventArgs e)

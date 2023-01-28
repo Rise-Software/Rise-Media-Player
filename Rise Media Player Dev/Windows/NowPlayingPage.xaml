@@ -22,22 +22,9 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0.5</x:Double>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0.25</x:Double>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <x:Double x:Key="ThumbnailBrushPointerInOpacity">0</x:Double>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
-            <conv:TimeSpanToString x:Key="TimeToStr" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:IntToVisibility x:Key="IntToVis" />
         </ResourceDictionary>
@@ -107,6 +94,7 @@
                     x:Name="PlayerControls"
                     DisplayItemPosition="Top"
                     DisplayItemVisibility="Visible"
+                    FullWindowCommand="{x:Bind ToggleFullScreenCommand}"
                     HorizontalControlsAlignment="Left"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
@@ -164,8 +152,8 @@
                                 <TextBlock
                                     x:Name="TitleText"
                                     d:Text="Title"
-                                    FontSize="20"
-                                    FontWeight="SemiBold"
+                                    FontSize="24"
+                                    FontWeight="Bold"
                                     MaxLines="2"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
@@ -173,7 +161,7 @@
                                     x:Name="SubtitleText"
                                     Grid.Row="1"
                                     d:Text="Subtitle"
-                                    FontSize="16"
+                                    FontSize="18"
                                     FontWeight="SemiBold"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     MaxLines="2"
@@ -207,8 +195,7 @@
                 <TextBlock
                     Padding="0,12"
                     HorizontalAlignment="Center"
-                    Text="Licensed and provided by Musixmatch."
-                    Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+                    Text="Licensed and provided by Musixmatch." />
             </ListView.Footer>
         </ListView>
 
@@ -218,6 +205,16 @@
                 <VisualState x:Name="LyricsAvailableState">
                     <VisualState.Setters>
                         <Setter Target="LyricsList.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="PlaybackItemTypeStates">
+                <VisualState x:Name="MusicItemState" />
+                <VisualState x:Name="VideoItemState">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
+                        <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -239,21 +236,6 @@
 
                     <VisualState.Setters>
                         <Setter Target="LyricsColumn.Width" Value="Auto" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-
-            <VisualStateGroup x:Name="HeightStates">
-                <VisualState x:Name="MediumHeightState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="260" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="TitleText.FontSize" Value="24" />
-                        <Setter Target="TitleText.FontWeight" Value="Bold" />
-                        <Setter Target="SubtitleText.FontSize" Value="18" />
-                        <Setter Target="SubtitleText.FontWeight" Value="SemiBold" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

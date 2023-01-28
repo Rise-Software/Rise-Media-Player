@@ -1,5 +1,8 @@
-﻿using Rise.Data.ViewModels;
+﻿using Rise.Common.Threading;
+using Rise.Data.ViewModels;
 using System;
+using Windows.Media;
+using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,6 +22,8 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
+
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
         }
 
         private void OnPlayerLoaded(object sender, RoutedEventArgs e)
@@ -50,6 +55,15 @@ namespace Rise.App.Views
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
             _ = VisualStateManager.GoToState(this, nameof(PointerOutState), true);
+        }
+
+        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
+        {
+            await Dispatcher;
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                _ = VisualStateManager.GoToState(this, nameof(VideoItemState), true);
+            else
+                _ = VisualStateManager.GoToState(this, nameof(MusicItemState), true);
         }
     }
 }

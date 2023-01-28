@@ -732,7 +732,6 @@
                                 <VisualState x:Name="FullWindowState">
                                     <VisualState.Setters>
                                         <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />
-                                        <Setter Target="FullWindowSymbol1.Symbol" Value="BackToWindow" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

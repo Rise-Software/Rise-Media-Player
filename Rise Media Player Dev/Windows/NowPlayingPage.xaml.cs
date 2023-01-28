@@ -1,6 +1,8 @@
-﻿using Rise.App.Helpers;
+﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
+using Rise.Common.Threading;
 using Rise.Data.ViewModels;
 using Rise.Models;
 using System;
@@ -43,6 +45,8 @@ namespace Rise.App.Views
         {
             InitializeComponent();
             TitleBar.SetTitleBarForCurrentView();
+
+            MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -56,7 +60,6 @@ namespace Rise.App.Views
             MPViewModel.Player.SeekCompleted -= Player_SeekCompleted;
             MPViewModel.Player.PlaybackSession.PositionChanged -= PlaybackSession_PositionChanged;
             MPViewModel.PlayingItemChanged -= MPViewModel_PlayingItemChanged;
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -75,6 +78,16 @@ namespace Rise.App.Views
     // Event handlers
     public sealed partial class NowPlayingPage
     {
+        [RelayCommand]
+        private void ToggleFullScreen()
+        {
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+                view.ExitFullScreenMode();
+            else
+                _ = view.TryEnterFullScreenMode();
+        }
+
         private async void OnLyricsListLoaded(object sender, RoutedEventArgs e)
         {
             if (SViewModel.FetchOnlineData)
@@ -83,7 +96,6 @@ namespace Rise.App.Views
 
                 MPViewModel.Player.SeekCompleted += Player_SeekCompleted;
                 MPViewModel.Player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
-                MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
             }
         }
 
@@ -91,6 +103,19 @@ namespace Rise.App.Views
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
+        }
+
+        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
+        {
+            await Dispatcher;
+
+            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
+                _ = VisualStateManager.GoToState(this, nameof(VideoItemState), true);
+            else
+                _ = VisualStateManager.GoToState(this, nameof(MusicItemState), true);
+
+            if (SViewModel.FetchOnlineData)
+                await FetchLyricsForCurrentItemAsync();
         }
 
         private bool ApplyVisualizer(int index) => index switch
@@ -103,9 +128,6 @@ namespace Rise.App.Views
     // Lyrics
     public sealed partial class NowPlayingPage
     {
-        private async void MPViewModel_PlayingItemChanged(object sender, MediaPlaybackItem e)
-            => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await FetchLyricsForCurrentItemAsync());
-
         private async void Player_SeekCompleted(MediaPlayer sender, object args)
             => await UpdateCurrentLyricAsync(sender.PlaybackSession.Position);
 

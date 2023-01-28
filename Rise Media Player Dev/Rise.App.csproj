@@ -418,9 +418,6 @@
     <Compile Include="Windows\CrashDetailsPage.xaml.cs">
       <DependentUpon>CrashDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\VideoPlaybackPage.xaml.cs">
-      <DependentUpon>VideoPlaybackPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -952,10 +949,6 @@
     <Page Include="Windows\CrashDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\VideoPlaybackPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

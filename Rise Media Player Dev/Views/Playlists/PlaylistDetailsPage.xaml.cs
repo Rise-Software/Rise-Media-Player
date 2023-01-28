@@ -138,7 +138,7 @@ namespace Rise.App.Views
             {
                 await MPViewModel.PlaySingleItemAsync(video);
                 if (Window.Current.Content is Frame rootFrame)
-                    rootFrame.Navigate(typeof(VideoPlaybackPage));
+                    rootFrame.Navigate(typeof(NowPlayingPage));
             }
         }
 
@@ -146,7 +146,7 @@ namespace Rise.App.Views
         {
             await MPViewModel.PlaySingleItemAsync(SelectedVideo);
             if (Window.Current.Content is Frame rootFrame)
-                _ = rootFrame.Navigate(typeof(VideoPlaybackPage));
+                _ = rootFrame.Navigate(typeof(NowPlayingPage));
         }
     }
 }

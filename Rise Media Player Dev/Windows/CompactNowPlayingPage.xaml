@@ -93,7 +93,7 @@
                     HorizontalControlsAlignment="Left"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
-                    IsFullWindowButtonVisible="True"
+                    IsFullWindowButtonVisible="False"
                     IsNextTrackButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
                     IsQueueButtonEnabled="True"
@@ -149,6 +149,16 @@
         </uc:RiseMediaPlayerElement>
 
         <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PlaybackItemTypeStates">
+                <VisualState x:Name="MusicItemState" />
+                <VisualState x:Name="VideoItemState">
+                    <VisualState.Setters>
+                        <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
+                        <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
             <VisualStateGroup x:Name="PointerStates">
                 <VisualState x:Name="PointerInState">
                     <Storyboard>
