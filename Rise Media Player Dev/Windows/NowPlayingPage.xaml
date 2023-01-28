@@ -123,6 +123,8 @@
                     DisplayItemPosition="Top"
                     DisplayItemVisibility="Visible"
                     HorizontalControlsAlignment="Left"
+                    IsCompactOverlayButtonVisible="True"
+                    IsCompactOverlayEnabled="True"
                     IsEqualizerButtonEnabled="True"
                     IsEqualizerButtonVisible="True"
                     IsFullWindowButtonVisible="True"
