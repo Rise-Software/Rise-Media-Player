@@ -17,8 +17,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         FontFamily="ms-appx:///Assets/SettingsIcons.ttf#Settings Fluent Icons"
-                        FontSize="56"
-                        Glyph="&#xE336;" />
+                        FontSize="56" />
                     <StackPanel
                         Margin="8,0,0,0"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
@@ -28,7 +27,7 @@
                             Padding="8,0,0,0"
                             RelativePanel.RightOf="WindowsLogo"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{markup:ResourceHelper Name=/Settings/SystemBehaviorsRunningWin11H}"
+                            
                             TextWrapping="WrapWholeWords" />
                         <TextBlock
                             x:Name="InfoString"
@@ -37,7 +36,7 @@
                             Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                             RelativePanel.Below="WinVer"
                             RelativePanel.RightOf="WindowsLogo"
-                            Text="{markup:ResourceHelper Name=/Settings/SystemBehaviorsRunningWin11Desc}"
+                            
                             TextWrapping="WrapWholeWords" />
                         <HyperlinkButton
                             x:Name="Update"
@@ -56,7 +55,7 @@
 
             <muxc:InfoBar
                 x:Name="InfoBarStartup"
-                Title="Warning"
+                Title="{markup:ResourceHelper Name=Warning}"
                 IsClosable="False"
                 IsIconVisible="True"
                 IsOpen="True"
@@ -83,51 +82,4 @@
             </uc:ExpanderControl>
         </StackPanel>
     </ScrollViewer>
-
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup x:Name="WindowsVersionStates">
-            <VisualState x:Name="Windows11State" />
-            <VisualState x:Name="LeakedBuildState">
-                <VisualState.Setters>
-                    <Setter Target="Update.Visibility" Value="Visible" />
-                    <Setter Target="InfoString.Text" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsRunningLeakedDesc}" />
-                </VisualState.Setters>
-            </VisualState>
-
-            <VisualState x:Name="Windows10State">
-                <VisualState.Setters>
-                    <Setter Target="WindowsLogo.Glyph" Value="&#xF144;" />
-                    <Setter Target="Update.Visibility" Value="Visible" />
-                    <Setter Target="WinVer.Text" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsRunningWin10H}" />
-                    <Setter Target="InfoString.Text" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsRunningWin10Desc}" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-        <VisualStateGroup x:Name="StartupTaskRestrictionStates">
-            <VisualState x:Name="NoRestrictions">
-                <VisualState.Setters>
-                    <Setter Target="InfoBarStartup.IsOpen" Value="False" />
-                </VisualState.Setters>
-            </VisualState>
-
-            <VisualState x:Name="DisabledByPolicy">
-                <VisualState.Setters>
-                    <Setter Target="InfoBarStartup.Message" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsDisabledByPolicy}" />
-                </VisualState.Setters>
-            </VisualState>
-
-            <VisualState x:Name="DisabledByUser">
-                <VisualState.Setters>
-                    <Setter Target="InfoBarStartup.Message" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsDisabledByUser}" />
-                    <Setter Target="InfoBarStartupLink.Visibility" Value="Visible" />
-                </VisualState.Setters>
-            </VisualState>
-
-            <VisualState x:Name="EnabledByPolicy">
-                <VisualState.Setters>
-                    <Setter Target="InfoBarStartup.Message" Value="{markup:ResourceHelper Name=/Settings/SystemBehaviorsEnabledByPolicy}" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
 </Page>
