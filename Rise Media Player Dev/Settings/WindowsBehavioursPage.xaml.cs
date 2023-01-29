@@ -1,6 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Rise.App.ViewModels;
-using Rise.Common.Extensions.Markup;
 using System;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -15,19 +14,20 @@ namespace Rise.App.Settings
         public WindowsBehavioursPage()
         {
             InitializeComponent();
+
             Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            LoadInfoBarState();
-            LoadWindowsVersionState(SystemInformation.Instance.OperatingSystemVersion.Build);
+            VisualStateManager.GoToState(this, GetInfoBarState(), false);
+            VisualStateManager.GoToState(this, GetVersionState(SystemInformation.Instance.OperatingSystemVersion.Build), false);
         }
 
         private async void OpenAtStartup_Toggled(object sender, RoutedEventArgs e)
         {
             await ViewModel.OpenAtStartupAsync();
-            LoadInfoBarState();
+            VisualStateManager.GoToState(this, GetInfoBarState(), false);
         }
 
         private async void InfoBarStartupLink_Click(object sender, RoutedEventArgs e)
@@ -35,68 +35,23 @@ namespace Rise.App.Settings
 
         private async void Update_Click(object sender, RoutedEventArgs e)
             => _ = await Launcher.LaunchUriAsync(new Uri(@"ms-settings:windowsupdate"));
+    }
 
-        private void LoadInfoBarState()
+    public partial class WindowsBehavioursPage
+    {
+        private string GetInfoBarState() => ViewModel.FLGStartupTask switch
         {
-            switch (ViewModel.FLGStartupTask)
-            {
-                case 1:
-                    //DisabledByPolicy
-                    InfoBarStartup.Visibility = Visibility.Visible;
-                    InfoBarStartup.Message = ResourceHelper.GetString("/Settings/SystemBehaviorsDisabledByPolicy");
-                    InfoBarStartupLink.Visibility = Visibility.Collapsed;
-                    break;
+            1 => "DisabledByPolicy",
+            2 => "DisabledByUser",
+            3 => "EnabledByPolicy",
+            _ => "NoRestrictions",
+        };
 
-                case 2:
-                    //DisabledByUser
-                    InfoBarStartup.Visibility = Visibility.Visible;
-                    InfoBarStartup.Message = ResourceHelper.GetString("/Settings/SystemBehaviorsDisabledByUser");
-                    InfoBarStartupLink.Visibility = Visibility.Visible;
-                    break;
-
-                case 3:
-                    //EnabledByPolicy
-                    InfoBarStartup.Visibility = Visibility.Visible;
-                    InfoBarStartup.Message = ResourceHelper.GetString("/Settings/SystemBehaviorsEnabledByPolicy");
-                    InfoBarStartupLink.Visibility = Visibility.Visible;
-                    break;
-
-                default:
-                    //NoRestrictions
-                    InfoBarStartup.Visibility = Visibility.Collapsed;
-                    InfoBarStartupLink.Visibility = Visibility.Collapsed;
-                    break;
-            }
-        }
-
-        private void LoadWindowsVersionState(ushort version)
+        private string GetVersionState(ushort version) => version switch
         {
-            switch (version)
-            {
-                case >= 22000:
-                    //Windows 11
-                    WindowsLogo.Glyph = "\xE336";
-                    WinVer.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningWin11H");
-                    InfoString.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningWin11Desc");
-                    Update.Visibility = Visibility.Collapsed;
-                    break;
-
-                case >= 21996:
-                    //Leaked Build
-                    WindowsLogo.Glyph = "\xE336";
-                    WinVer.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningWin11H");
-                    InfoString.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningLeakedDesc");
-                    Update.Visibility = Visibility.Visible;
-                    break;
-
-                default:
-                    //Windows 10
-                    WindowsLogo.Glyph = "\xF23F";
-                    WinVer.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningWin10H");
-                    InfoString.Text = ResourceHelper.GetString("/Settings/SystemBehaviorsRunningWin10Desc");
-                    Update.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+            >= 22000 => "Windows11State",
+            >= 21996 => "LeakedBuildState",
+            _ => "Windows10State",
+        };
     }
 }
