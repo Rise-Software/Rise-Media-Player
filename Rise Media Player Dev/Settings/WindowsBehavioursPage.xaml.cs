@@ -64,7 +64,7 @@ namespace Rise.App.Settings
                 default:
                     //NoRestrictions
                     InfoBarStartup.Visibility = Visibility.Collapsed;
-                    InfoBarStartupLink.Visibility = Visibility.Visible;
+                    InfoBarStartupLink.Visibility = Visibility.Collapsed;
                     break;
             }
         }
