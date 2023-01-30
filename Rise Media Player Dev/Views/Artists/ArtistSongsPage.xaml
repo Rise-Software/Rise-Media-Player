@@ -12,6 +12,8 @@
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="760"
@@ -99,28 +101,25 @@
                                 VerticalAlignment="Center">
                                 <TextBlock
                                     x:Name="ArtistName"
-                                    FontSize="36"
                                     MaxLines="1"
+                                    FontSize="32"
                                     Style="{StaticResource TitleTextBlockStyle}"
                                     Text="{x:Bind SelectedArtist.Name, Mode=OneWay}" />
                                 <TextBlock
                                     x:Name="SongAlbums"
-                                    Margin="0,0,0,8"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    Opacity="0.6"
+                                    Margin="0,4"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind SelectedArtist.LocalizedSongsAndAlbums, Mode=OneWay}" />
                                 <TextBlock
                                     x:Name="NoListeners"
-                                    Margin="0,0,0,0"
                                     FontSize="16"
-                                    FontWeight="Bold"
-                                    Opacity="0.6"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}" />
 
                                 <CommandBar
-                                    Margin="-12,8,-12,0"
+                                    Margin="-16,4,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
                                     Background="Transparent"

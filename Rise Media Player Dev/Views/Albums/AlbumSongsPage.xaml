@@ -160,62 +160,55 @@
 
                             <StackPanel
                                 Grid.Column="1"
-                                Padding="0,10,0,0"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
                                 <TextBlock
                                     x:Name="AlbumName"
-                                    FontSize="36"
+                                    FontSize="32"
                                     MaxLines="1"
                                     Style="{StaticResource TitleTextBlockStyle}"
                                     Text="{x:Bind SelectedAlbum.Title}" />
                                 <HyperlinkButton
-                                    Margin="0,0,0,8"
+                                    Margin="-2,0,0,8"
                                     Padding="0"
                                     Command="{x:Bind GoToArtistCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedAlbum.Artist}"
-                                    FontSize="18"
+                                    FontSize="16"
                                     FontWeight="SemiBold">
                                     <TextBlock Text="{x:Bind SelectedAlbum.Artist}" TextTrimming="CharacterEllipsis" />
                                 </HyperlinkButton>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
+                                        x:Name="TrackCountName"
                                         Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
+                                    <TextBlock
+                                        Margin="4,0"
+                                        FontSize="16"
+                                        Text="•" />
+                                    <TextBlock
+                                        Margin="0"
+                                        FontSize="16"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Year}" />
                                     <TextBlock
                                         Margin="4,0"
-                                        FontSize="18"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Text="•" />
                                     <TextBlock
                                         Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Genres}" />
-                                    <TextBlock
-                                        Margin="4,0"
-                                        FontSize="18"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="•" />
-                                    <TextBlock
-                                        x:Name="TrackCountName"
-                                        Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
                                 </StackPanel>
 
                                 <CommandBar
-                                    Margin="-12,8,-12,0"
+                                    Margin="-16,36,-12,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
                                     Background="Transparent"
