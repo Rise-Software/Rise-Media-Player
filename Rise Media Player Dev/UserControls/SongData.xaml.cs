@@ -136,6 +136,20 @@ namespace Rise.App.UserControls
             set => SetValue(ShowLengthProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the song's
+        /// genre should be shown.
+        /// </summary>
+        public bool ShowGenre
+        {
+            get => (bool)GetValue(ShowGenreProperty);
+            set => SetValue(ShowGenreProperty, value);
+        }
+
+        public static readonly DependencyProperty ShowGenreProperty
+            = DependencyProperty.Register(nameof(ShowGenre), typeof(bool),
+                typeof(SongData), new PropertyMetadata(true));
+
         public static readonly DependencyProperty PlayCommandProperty
             = DependencyProperty.Register(nameof(PlayCommand), typeof(ICommand),
                 typeof(SongData), new PropertyMetadata(null));

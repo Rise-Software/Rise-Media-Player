@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -36,9 +37,17 @@
             </muxc:TeachingTip.HeroContent>
         </muxc:TeachingTip>
 
+        <Border
+            x:Name="BackgroundHost"
+            Height="330"
+            Margin="-52,-44,-52,0"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="1"
+            SizeChanged="BackgroundHost_SizeChanged" />
+
         <ListView
             x:Name="MainList"
-            Padding="56,44,56,120"
+            Padding="56,24,56,120"
             DoubleTapped="MainList_DoubleTapped"
             IsDoubleTapEnabled="True"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -54,10 +63,10 @@
                         Text="{markup:ResourceHelper Name=Play}" />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=ShowArtist}"
                         Command="{x:Bind GoToArtistCommand}"
                         CommandParameter="{x:Bind SelectedItem.Artist, Mode=OneWay}"
-                        Icon="People" />
+                        Icon="People"
+                        Text="{markup:ResourceHelper Name=ShowArtist}" />
 
                     <MenuFlyoutSeparator />
 
@@ -66,7 +75,7 @@
                             <FontIcon Glyph="&#xECC8;" />
                         </MenuFlyoutSubItem.Icon>
 
-                        <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddSelectedItemToPlaylistCommand}">
+                        <MenuFlyoutItem Command="{x:Bind AddSelectedItemToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
@@ -75,21 +84,21 @@
 
                     <MenuFlyoutItem
                         x:Name="Share"
-                        Text="{markup:ResourceHelper Name=Share}"
                         Icon="Share"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=Share}" />
 
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=AskDiscy}"
                         Click="AskDiscy_Click"
-                        Icon="Help" />
+                        Icon="Help"
+                        Text="{markup:ResourceHelper Name=AskDiscy}" />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=ShowInFileExplorer}"
                         Command="{x:Bind OpenInExplorerCommand}"
-                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}">
+                        CommandParameter="{x:Bind SelectedItem, Mode=OneWay}"
+                        Text="{markup:ResourceHelper Name=ShowInFileExplorer}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xEC50;" />
                         </MenuFlyoutItem.Icon>
@@ -98,9 +107,9 @@
                     <MenuFlyoutSeparator />
 
                     <MenuFlyoutItem
-                        Text="{markup:ResourceHelper Name=RemoveThing}"
                         Icon="Delete"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Text="{markup:ResourceHelper Name=RemoveThing}" />
 
                     <MenuFlyoutItem
                         Command="{x:Bind EditItemCommand}"
@@ -117,122 +126,91 @@
                     x:DefaultBindMode="OneWay"
                     CornerRadius="8">
                     <Grid>
-                        <ParallaxView
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalShift="0"
-                            Source="{x:Bind MainList, Mode=OneTime}"
-                            VerticalShift="500">
-                            <Image
-                                Opacity="0.6"
-                                Source="{x:Bind SelectedAlbum.Thumbnail}"
-                                Stretch="UniformToFill" />
-                        </ParallaxView>
-
                         <Grid Padding="24,0" ColumnSpacing="24">
-                            <Grid.Background>
-                                <media:BackdropBlurBrush Amount="35" />
-                            </Grid.Background>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="172" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Border
+                            <tkitctrls:ImageEx
+                                x:Name="Image"
                                 Width="172"
                                 Height="172"
-                                ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}">
-                                <Border CornerRadius="8">
-                                    <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill">
-                                            <ImageBrush.ImageSource>
-                                                <BitmapImage
-                                                    DecodePixelHeight="172"
-                                                    DecodePixelType="Logical"
-                                                    DecodePixelWidth="172"
-                                                    UriSource="{x:Bind SelectedAlbum.Thumbnail}" />
-                                            </ImageBrush.ImageSource>
-                                        </ImageBrush>
-                                    </Border.Background>
-                                </Border>
-                            </Border>
+                                ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
+                                BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                                CornerRadius="8"
+                                DecodePixelType="Logical"
+                                Source="{x:Bind SelectedAlbum.Thumbnail}"
+                                Stretch="UniformToFill" />
 
                             <StackPanel
                                 Grid.Column="1"
-                                Padding="0,10,0,0"
                                 VerticalAlignment="Center"
                                 Orientation="Vertical">
                                 <TextBlock
                                     x:Name="AlbumName"
-                                    FontSize="36"
+                                    FontSize="32"
                                     MaxLines="1"
                                     Style="{StaticResource TitleTextBlockStyle}"
                                     Text="{x:Bind SelectedAlbum.Title}" />
                                 <HyperlinkButton
-                                    Margin="0,0,0,8"
+                                    Margin="-2,0,0,8"
                                     Padding="0"
                                     Command="{x:Bind GoToArtistCommand, Mode=OneTime}"
                                     CommandParameter="{x:Bind SelectedAlbum.Artist}"
-                                    FontSize="18"
+                                    FontSize="16"
                                     FontWeight="SemiBold">
                                     <TextBlock Text="{x:Bind SelectedAlbum.Artist}" TextTrimming="CharacterEllipsis" />
                                 </HyperlinkButton>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
+                                        x:Name="TrackCountName"
                                         Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
+                                    <TextBlock
+                                        Margin="4,0"
+                                        FontSize="16"
+                                        Text="•" />
+                                    <TextBlock
+                                        Margin="0"
+                                        FontSize="16"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Year}" />
                                     <TextBlock
                                         Margin="4,0"
-                                        FontSize="18"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Text="•" />
                                     <TextBlock
                                         Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Genres}" />
-                                    <TextBlock
-                                        Margin="4,0"
-                                        FontSize="18"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="•" />
-                                    <TextBlock
-                                        x:Name="TrackCountName"
-                                        Margin="0"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedAlbum.LocalizedTrackCount}" />
                                 </StackPanel>
 
                                 <CommandBar
-                                    Margin="-12,8,-12,0"
+                                    Margin="-16,36,-12,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
                                     Background="Transparent"
                                     DefaultLabelPosition="Right">
                                     <AppBarButton
-                                        Label="{markup:ResourceHelper Name=PlayAll}"
                                         Command="{x:Bind MediaViewModel.PlayFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Play" />
+                                        Icon="Play"
+                                        Label="{markup:ResourceHelper Name=PlayAll}" />
 
                                     <AppBarSeparator />
 
                                     <AppBarButton
-                                        Label="{markup:ResourceHelper Name=Shuffle}"
                                         Command="{x:Bind MediaViewModel.ShuffleFromItemCommand, Mode=OneTime}"
                                         CommandParameter="{x:Bind SelectedItem}"
-                                        Icon="Shuffle" />
+                                        Icon="Shuffle"
+                                        Label="{markup:ResourceHelper Name=Shuffle}" />
                                     <AppBarButton Label="{markup:ResourceHelper Name=AddTo}">
                                         <AppBarButton.Icon>
                                             <FontIcon Glyph="&#xECC8;" />
@@ -240,7 +218,7 @@
 
                                         <AppBarButton.Flyout>
                                             <MenuFlyout x:Name="AddToBar">
-                                                <MenuFlyoutItem Text="{markup:ResourceHelper Name=NewPlaylist}" Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}">
+                                                <MenuFlyoutItem Command="{x:Bind AddMediaItemsToPlaylistCommand, Mode=OneTime}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>

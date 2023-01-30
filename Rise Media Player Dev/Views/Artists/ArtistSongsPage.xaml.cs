@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
@@ -13,13 +14,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Windows.Globalization;
+using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.Web.Http;
 
 namespace Rise.App.Views
@@ -61,6 +67,9 @@ namespace Rise.App.Views
         private string ShortBio;
         private string LongBio;
 
+        private Compositor _compositor;
+        private SpriteVisual _backgroundVisual;
+
         public ArtistSongsPage()
             : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
@@ -99,6 +108,16 @@ namespace Rise.App.Views
                 if (!string.IsNullOrWhiteSpace(ShortBio))
                     ArtistAbout.Visibility = Visibility.Visible;
             }
+
+            var propSet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(RootViewer);
+            _compositor = propSet.Compositor;
+            CreateImageBackgroundGradientVisual(propSet.GetSpecializedReference<ManipulationPropertySetReferenceNode>().Translation.Y);
+        }
+
+        private void BackgroundHost_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_backgroundVisual == null) return;
+            _backgroundVisual.Size = new Vector2((float)e.NewSize.Width, (float)BackgroundHost.Height);
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
@@ -350,6 +369,37 @@ namespace Rise.App.Views
             catch { }
 
             return string.Empty;
+        }
+
+        private void CreateImageBackgroundGradientVisual(ScalarNode scrollVerticalOffset)
+        {
+            if (_compositor == null) return;
+
+            var imageSurface = LoadedImageSurface.StartLoadFromUri(new(SelectedArtist.Picture));
+            var imageBrush = _compositor.CreateSurfaceBrush(imageSurface);
+            imageBrush.HorizontalAlignmentRatio = 0.5f;
+            imageBrush.VerticalAlignmentRatio = 0.5f;
+            imageBrush.Stretch = CompositionStretch.UniformToFill;
+
+            var gradientBrush = _compositor.CreateLinearGradientBrush();
+            gradientBrush.EndPoint = new Vector2(0, 1);
+            gradientBrush.MappingMode = CompositionMappingMode.Relative;
+            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(0.6f, Colors.White));
+            gradientBrush.ColorStops.Add(_compositor.CreateColorGradientStop(1, Colors.Transparent));
+
+            var maskBrush = _compositor.CreateMaskBrush();
+            maskBrush.Source = imageBrush;
+            maskBrush.Mask = gradientBrush;
+
+            SpriteVisual visual = _backgroundVisual = _compositor.CreateSpriteVisual();
+            visual.Size = new Vector2((float)BackgroundHost.ActualWidth, (float)BackgroundHost.Height);
+            visual.Opacity = 0.15f;
+            visual.Brush = maskBrush;
+
+            visual.StartAnimation("Offset.Y", scrollVerticalOffset);
+            imageBrush.StartAnimation("Offset.Y", -scrollVerticalOffset * 0.8f);
+
+            ElementCompositionPreview.SetElementChildVisual(BackgroundHost, visual);
         }
     }
 }
