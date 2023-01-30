@@ -2,8 +2,10 @@
     x:Class="Rise.App.Views.ArtistSongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
@@ -12,8 +14,6 @@
     xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="760"
@@ -25,10 +25,7 @@
         <converters:NullToBoolean x:Key="NullToBool" />
     </uc:MediaPageBase.Resources>
 
-    <ScrollViewer
-        x:Name="RootViewer"
-        Padding="44,44,44,0"
-        d:Padding="12">
+    <ScrollViewer x:Name="RootViewer" d:Padding="12">
         <Grid Padding="0,0,0,120">
             <muxc:TeachingTip
                 x:Name="DiscyOnSong"
@@ -44,7 +41,7 @@
                 </muxc:TeachingTip.HeroContent>
             </muxc:TeachingTip>
 
-            <Grid RowSpacing="12">
+            <Grid Padding="44,0,44,0" RowSpacing="12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -53,27 +50,18 @@
                 </Grid.RowDefinitions>
 
                 <Border
-                    Height="230"
-                    x:DefaultBindMode="OneWay"
-                    CornerRadius="8">
+                    x:Name="BackgroundHost"
+                    Grid.RowSpan="4"
+                    Height="330"
+                    Margin="-44,0"
+                    VerticalAlignment="Top"
+                    SizeChanged="BackgroundHost_SizeChanged" />
+
+                <Border Height="230" x:DefaultBindMode="OneWay">
                     <Grid>
-                        <ParallaxView
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalShift="0"
-                            Source="{x:Bind RootViewer, Mode=OneTime}"
-                            VerticalShift="500">
-                            <Image
-                                Opacity="0.6"
-                                Source="{x:Bind SelectedArtist.Picture}"
-                                Stretch="UniformToFill" />
-                        </ParallaxView>
-
-                        <Grid Padding="24,0" ColumnSpacing="24">
-                            <Grid.Background>
-                                <media:BackdropBlurBrush Amount="35" />
-                            </Grid.Background>
-
+                        <Grid
+                            Padding="24,0"
+                            ColumnSpacing="24">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="172" />
                                 <ColumnDefinition Width="1*" />
@@ -101,8 +89,8 @@
                                 VerticalAlignment="Center">
                                 <TextBlock
                                     x:Name="ArtistName"
-                                    MaxLines="1"
                                     FontSize="32"
+                                    MaxLines="1"
                                     Style="{StaticResource TitleTextBlockStyle}"
                                     Text="{x:Bind SelectedArtist.Name, Mode=OneWay}" />
                                 <TextBlock
