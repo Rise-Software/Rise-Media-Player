@@ -1,6 +1,7 @@
 ﻿using Rise.App.Dialogs;
 using Rise.App.Views;
 using Rise.Common.Extensions;
+using Rise.Common.Extensions.Markup;
 using Rise.Common.Helpers;
 using System;
 using System.Linq;
@@ -96,43 +97,39 @@ namespace Rise.App.Settings
             {
                 case "AppearanceBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uE771";
-                    MainSettingsHeader.Text = "Appearance";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Appearance");
                     break;
                 case "MediaLibraryBasePage":
                     MainSettingsHeaderIcon.Glyph = "\uEA69";
-                    MainSettingsHeader.Text = "Media library";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("MediaLibrary");
                     break;
                 case "NavigationPage":
                     MainSettingsHeaderIcon.Glyph = "\uE8B0";
-                    MainSettingsHeader.Text = "Navigation";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Navigation");
                     break;
                 case "PlaybackPage":
                     MainSettingsHeaderIcon.Glyph = "\uF4C3";
-                    MainSettingsHeader.Text = "Playback & sound";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("PlaybackAndSound");
                     break;
                 case "ComingSoonPage":
                     MainSettingsHeaderIcon.Glyph = "\uE115";
-                    MainSettingsHeader.Text = "Coming soon...";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("ComingSoon");
                     break;
                 case "WindowsBehavioursPage":
                     MainSettingsHeaderIcon.Glyph = "\uEC7A";
-                    MainSettingsHeader.Text = "System behaviours";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("SystemBehaviors");
                     break;
                 case "AboutPage":
                     MainSettingsHeaderIcon.Glyph = "\uE946";
-                    MainSettingsHeader.Text = "About";
-                    break;
-                case "MediaSourcesPage":
-                    MainSettingsHeaderIcon.Glyph = "\uE115";
-                    MainSettingsHeader.Text = "Media Sources";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("About");
                     break;
                 case "InsiderPage":
                     MainSettingsHeaderIcon.Glyph = "\uF1AD";
-                    MainSettingsHeader.Text = "Insider Hub";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("InsiderHub");
                     break;
                 case "LanguagePage":
                     MainSettingsHeaderIcon.Glyph = "\uE12B";
-                    MainSettingsHeader.Text = "Language";
+                    MainSettingsHeader.Text = ResourceHelper.GetString("Language");
                     break;
             }
         }

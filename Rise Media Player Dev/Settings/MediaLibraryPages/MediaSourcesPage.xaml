@@ -29,8 +29,8 @@
                 x:Name="AllMedia"
                 Content="{markup:ResourceHelper Name=ShowAll}"
                 Tag="AllMedia" />
-            <muxc:NavigationViewItem Content="Music" Tag="Music" />
-            <muxc:NavigationViewItem Content="Videos" Tag="Videos" />
+            <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Music}" Tag="Music" />
+            <muxc:NavigationViewItem Content="{markup:ResourceHelper Name=Videos}" Tag="Videos" />
         </muxc:NavigationView.MenuItems>
 
         <ScrollViewer
