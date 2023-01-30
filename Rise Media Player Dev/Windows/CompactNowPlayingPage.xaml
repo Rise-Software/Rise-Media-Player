@@ -91,17 +91,13 @@
                     DisplayItemPosition="Top"
                     DisplayItemVisibility="Visible"
                     HorizontalControlsAlignment="Left"
-                    IsEqualizerButtonEnabled="True"
-                    IsEqualizerButtonVisible="True"
+                    IsCompact="True"
                     IsFullWindowButtonVisible="False"
                     IsNextTrackButtonVisible="True"
+                    IsPlaybackRateButtonVisible="True"
                     IsPreviousTrackButtonVisible="True"
-                    IsQueueButtonEnabled="True"
-                    IsQueueButtonVisible="True"
-                    IsRepeatEnabled="True"
-                    IsShuffleButtonChecked="{x:Bind MPViewModel.ShuffleEnabled, Mode=TwoWay}"
-                    IsShuffleEnabled="True"
                     IsVolumeButtonVisible="False"
+                    IsZoomButtonVisible="False"
                     ShowAndHideAutomatically="False"
                     TimelineDisplayMode="Minimal">
                     <uc:RiseMediaTransportControls.QueueFlyout>
@@ -130,7 +126,7 @@
                                 HorizontalTextAlignment="Center"
                                 MaxLines="2"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties.Title, Mode=OneWay}" />
                             <TextBlock
                                 x:Name="SubtitleText"
                                 Grid.Row="1"
@@ -141,7 +137,7 @@
                                 HorizontalTextAlignment="Center"
                                 MaxLines="2"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource, Mode=OneWay}" />
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
@@ -153,8 +149,10 @@
                 <VisualState x:Name="MusicItemState" />
                 <VisualState x:Name="VideoItemState">
                     <VisualState.Setters>
+                        <Setter Target="BlurBrushBorder.Visibility" Value="Collapsed" />
+
+                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Bottom" />
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
-                        <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -162,6 +160,17 @@
             <VisualStateGroup x:Name="PointerStates">
                 <VisualState x:Name="PointerInState">
                     <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
                         <DoubleAnimationUsingKeyFrames
                             EnableDependentAnimation="True"
                             Storyboard.TargetName="ThumbnailBrush"
@@ -175,18 +184,7 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoGrid"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetName="PlayerControls"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
@@ -201,6 +199,17 @@
                 <VisualState x:Name="PointerOutState">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
                             EnableDependentAnimation="True"
                             Storyboard.TargetName="ThumbnailBrush"
                             Storyboard.TargetProperty="Opacity"
@@ -213,18 +222,7 @@
                         </DoubleAnimationUsingKeyFrames>
 
                         <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="InfoGrid"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetName="PlayerControls"
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">

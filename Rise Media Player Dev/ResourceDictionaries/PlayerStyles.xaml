@@ -60,6 +60,8 @@
     </Style>
     <Style BasedOn="{StaticResource DefaultRiseMediaPlayerElementStyle}" TargetType="co:RiseMediaPlayerElement" />
 
+    <x:Double x:Key="MTCPositionSliderMaximumWidth">Infinity</x:Double>
+
     <Style x:Key="DefaultRiseMediaTransportControlsStyle" TargetType="co:RiseMediaTransportControls">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
@@ -79,7 +81,6 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid.Resources>
-                                <conv:TooltipToText x:Key="TooltipToText" />
                                 <Style BasedOn="{StaticResource AppBarCompactButtonStyle}" TargetType="AppBarButton" />
                             </Grid.Resources>
 
@@ -89,9 +90,7 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition x:Name="PrimaryBarColumn" Width="1*" />
                                 <ColumnDefinition x:Name="SecondaryBarColumn" Width="168" />
                             </Grid.ColumnDefinitions>
 
@@ -112,7 +111,7 @@
                             <muxc:ProgressBar
                                 x:Name="BufferingProgressBar"
                                 Grid.Row="1"
-                                Grid.ColumnSpan="5"
+                                Grid.ColumnSpan="3"
                                 VerticalAlignment="Top"
                                 IsIndeterminate="True"
                                 Visibility="Collapsed" />
@@ -127,32 +126,11 @@
                                     Visibility="{TemplateBinding DisplayItemVisibility}" />
                             </Border>
 
-                            <!--  Compact mode play button  -->
-                            <Border
-                                x:Name="LeftSidePlayBorder"
-                                Grid.Row="1"
-                                Margin="4,0,0,0"
-                                Visibility="Collapsed">
-                                <Button
-                                    x:Name="PlayPauseButtonOnLeft"
-                                    Width="40"
-                                    Height="40"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                    <Button.Content>
-                                        <FontIcon
-                                            x:Name="PlayPauseIconLeft"
-                                            FontSize="16"
-                                            Glyph="&#xF5B0;" />
-                                    </Button.Content>
-                                </Button>
-                            </Border>
-
                             <!--  Primary area  -->
                             <CommandBar
                                 x:Name="MainMediaControlsCommandBar"
                                 Grid.Row="1"
-                                Grid.Column="2"
+                                Grid.Column="1"
                                 Margin="0,4,0,0"
                                 HorizontalAlignment="{TemplateBinding HorizontalControlsAlignment}"
                                 DefaultLabelPosition="Collapsed"
@@ -260,8 +238,9 @@
                             <Grid
                                 x:Name="MediaTransportControls_Timeline"
                                 Grid.Row="2"
-                                Grid.Column="2"
-                                Margin="12,0,0,4"
+                                Grid.Column="1"
+                                Margin="12,0"
+                                HorizontalAlignment="Stretch"
                                 ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -277,6 +256,8 @@
                                 <Slider
                                     x:Name="ProgressSlider"
                                     Grid.Column="1"
+                                    MinWidth="{StaticResource MTCPositionSliderMinimumWidth}"
+                                    MaxWidth="{StaticResource MTCPositionSliderMaximumWidth}"
                                     VerticalAlignment="Center"
                                     IsThumbToolTipEnabled="False" />
 
@@ -287,14 +268,26 @@
                                     Text="00:00" />
                             </Grid>
 
-                            <!--  Secondary area (column 4)  -->
+                            <!--  Secondary area  -->
                             <CommandBar
                                 x:Name="SecondaryMediaControlsCommandBar"
                                 Grid.Row="1"
-                                Grid.Column="4"
+                                Grid.Column="2"
                                 Margin="0"
                                 DefaultLabelPosition="Collapsed"
-                                OverflowButtonVisibility="Collapsed">
+                                OverflowButtonVisibility="Visible">
+                                <AppBarButton x:Name="CCSelectionButton" Visibility="Collapsed">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xED1E;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
+                                <AppBarButton x:Name="AudioTracksSelectionButton" Visibility="Collapsed">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xED1F;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+
                                 <AppBarButton
                                     x:Name="OverlayButton"
                                     Command="{TemplateBinding OverlayCommand}"
@@ -314,24 +307,6 @@
                                     Visibility="{Binding IsQueueButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE142;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="CCSelectionButton"
-                                    IsEnabled="False"
-                                    Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xED1E;" />
-                                    </AppBarButton.Icon>
-                                </AppBarButton>
-
-                                <AppBarButton
-                                    x:Name="AudioTracksSelectionButton"
-                                    IsEnabled="False"
-                                    Visibility="Collapsed">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xED1F;" />
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
@@ -358,98 +333,98 @@
                                     </AppBarButton.Icon>
                                 </AppBarButton>
 
-                                <AppBarButton Label="{markup:ResourceHelper Name=MoreOptions}" ToolTipService.ToolTip="{markup:ResourceHelper Name=MoreOptions}">
-                                    <AppBarButton.Icon>
-                                        <FontIcon Glyph="&#xE10C;" />
-                                    </AppBarButton.Icon>
+                                <CommandBar.SecondaryCommands>
+                                    <AppBarButton
+                                        x:Name="InfoPropertiesButton"
+                                        IsEnabled="{TemplateBinding IsPropertiesEnabled}"
+                                        Label="{markup:ResourceHelper Name=PropertiesInfo}"
+                                        Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xE946;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
 
-                                    <AppBarButton.Flyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem
-                                                x:Name="InfoPropertiesButton"
-                                                IsEnabled="{TemplateBinding IsPropertiesEnabled}"
-                                                Text="{markup:ResourceHelper Name=PropertiesInfo}"
-                                                Visibility="{Binding IsPropertiesButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xE946;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
+                                    <AppBarButton
+                                        x:Name="AddToPlaylistMenu"
+                                        Label="{markup:ResourceHelper Name=AddTo}"
+                                        Visibility="{Binding IsAddToMenuVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xECC8;" />
+                                        </AppBarButton.Icon>
 
-                                            <MenuFlyoutItem
-                                                x:Name="FullScreenButton"
-                                                Command="{TemplateBinding FullWindowCommand}"
-                                                IsEnabled="{TemplateBinding IsFullWindowEnabled}"
-                                                Text="{Binding ElementName=FullWindowButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}"
-                                                Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                                <MenuFlyoutItem.Icon>
-                                                    <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-
-                                            <MenuFlyoutSubItem x:Name="AddToPlaylistMenu" Text="{markup:ResourceHelper Name=AddTo}">
-                                                <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xECC8;" />
-                                                </MenuFlyoutSubItem.Icon>
+                                        <AppBarButton.Flyout>
+                                            <MenuFlyout x:Name="AddToPlaylistFlyout">
                                                 <MenuFlyoutItem Command="{TemplateBinding AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
                                                         <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
-                                            </MenuFlyoutSubItem>
+                                            </MenuFlyout>
+                                        </AppBarButton.Flyout>
+                                    </AppBarButton>
 
-                                            <MenuFlyoutItem x:Name="CastToButton" Text="{Binding ElementName=CastButton, Path=(ToolTipService.ToolTip), Converter={StaticResource TooltipToText}}">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon Glyph="&#xEC15;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
+                                    <AppBarSeparator />
 
-                                            <MenuFlyoutItem
-                                                x:Name="MiniViewButton"
-                                                Command="{TemplateBinding OverlayCommand}"
-                                                IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
-                                                Text="{markup:ResourceHelper Name=EnterMiniView}"
-                                                Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
+                                    <AppBarButton
+                                        x:Name="FullScreenButton"
+                                        Command="{TemplateBinding FullWindowCommand}"
+                                        IsEnabled="{TemplateBinding IsFullWindowEnabled}"
+                                        Label="{markup:ResourceHelper Name=FullScreen}"
+                                        Visibility="{Binding IsFullWindowButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <AppBarButton.Icon>
+                                            <SymbolIcon x:Name="FullWindowSymbol" Symbol="FullScreen" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
 
-                                            <MenuFlyoutSeparator />
+                                    <AppBarButton x:Name="CastToButton" Label="{markup:ResourceHelper Name=CastToDevice}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xEC15;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
 
-                                            <MenuFlyoutSubItem
-                                                x:Name="PlaybackSpeedButton"
-                                                IsEnabled="{TemplateBinding IsPlaybackRateEnabled}"
-                                                Text="{markup:ResourceHelper Name=PlaybackSpeed}"
-                                                Visibility="{Binding IsPlaybackRateButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
-                                                <MenuFlyoutSubItem.Icon>
-                                                    <FontIcon Glyph="&#xEC4A;" />
-                                                </MenuFlyoutSubItem.Icon>
-                                            </MenuFlyoutSubItem>
+                                    <AppBarButton
+                                        x:Name="MiniViewButton"
+                                        Command="{TemplateBinding OverlayCommand}"
+                                        IsEnabled="{TemplateBinding IsCompactOverlayEnabled}"
+                                        Label="{markup:ResourceHelper Name=EnterMiniView}"
+                                        Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
 
-                                            <MenuFlyoutItem
-                                                x:Name="EqualizerButton"
-                                                IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
-                                                Text="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
-                                                Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                        </MenuFlyout>
-                                    </AppBarButton.Flyout>
-                                </AppBarButton>
+                                    <AppBarSeparator />
 
-                                <!--  Unused controls  -->
-                                <AppBarButton x:Name="CastButton" IsTabStop="False" />
-                                <AppBarButton x:Name="CompactOverlayButton" IsTabStop="False" />
-                                <AppBarButton x:Name="FullWindowButton" IsTabStop="False" />
-                                <AppBarButton x:Name="PlaybackRateButton" IsTabStop="False" />
+                                    <AppBarButton
+                                        x:Name="PlaybackSpeedButton"
+                                        IsEnabled="{TemplateBinding IsPlaybackRateEnabled}"
+                                        Label="{markup:ResourceHelper Name=PlaybackSpeed}"
+                                        Visibility="{Binding IsPlaybackRateButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon Glyph="&#xEC4A;" />
+                                        </AppBarButton.Icon>
+
+                                        <AppBarButton.Flyout>
+                                            <MenuFlyout x:Name="PlaybackSpeedFlyout" />
+                                        </AppBarButton.Flyout>
+                                    </AppBarButton>
+
+                                    <AppBarButton
+                                        x:Name="EqualizerButton"
+                                        IsEnabled="{TemplateBinding IsEqualizerButtonEnabled}"
+                                        Label="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
+                                        Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <AppBarButton.Icon>
+                                            <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+                                </CommandBar.SecondaryCommands>
                             </CommandBar>
 
                             <Grid
                                 x:Name="VolumeMuteButton"
                                 Grid.Row="2"
-                                Grid.Column="4"
+                                Grid.Column="2"
                                 Margin="12,0,12,4"
                                 ColumnSpacing="6">
                                 <Grid.ColumnDefinitions>
@@ -559,10 +534,7 @@
 
                                 <VisualState x:Name="DisplayItemPositionTopState">
                                     <VisualState.Setters>
-                                        <Setter Target="DisplayItemPresenter_Border.(Grid.ColumnSpan)" Value="5" />
-
-                                        <Setter Target="MainMediaControlsCommandBar.(Grid.Column)" Value="1" />
-                                        <Setter Target="MediaTransportControls_Timeline.(Grid.Column)" Value="1" />
+                                        <Setter Target="DisplayItemPresenter_Border.(Grid.ColumnSpan)" Value="3" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -628,7 +600,7 @@
                                 <VisualState x:Name="AudioSelectionUnavailable" />
                                 <VisualState x:Name="AudioSelectionAvailable">
                                     <VisualState.Setters>
-                                        <Setter Target="AudioTracksSelectionButton.IsEnabled" Value="True" />
+                                        <Setter Target="AudioTracksSelectionButton.Visibility" Value="Visible" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -637,7 +609,7 @@
                                 <VisualState x:Name="CCSelectionUnavailable" />
                                 <VisualState x:Name="CCSelectionAvailable">
                                     <VisualState.Setters>
-                                        <Setter Target="CCSelectionButton.IsEnabled" Value="True" />
+                                        <Setter Target="CCSelectionButton.Visibility" Value="Visible" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -667,20 +639,12 @@
                                 <VisualState x:Name="CompactMode">
                                     <VisualState.Setters>
                                         <Setter Target="ControlPanelGrid.Padding" Value="0" />
-                                        <Setter Target="DisplayItemPresenter_Border.Visibility" Value="Collapsed" />
 
-                                        <Setter Target="PlayPauseButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="LeftSidePlayBorder.Visibility" Value="Visible" />
-
-                                        <Setter Target="MainMediaControlsCommandBar.(Grid.Column)" Value="3" />
-                                        <Setter Target="MediaTransportControls_Timeline.(Grid.Row)" Value="1" />
-                                        <Setter Target="MediaTransportControls_Timeline.Margin" Value="12,0,0,0" />
-
-                                        <Setter Target="TimeElapsedElement.Visibility" Value="Collapsed" />
-                                        <Setter Target="TimeRemainingElement.Visibility" Value="Collapsed" />
+                                        <Setter Target="MediaTransportControls_Timeline.(Grid.Column)" Value="0" />
+                                        <Setter Target="MediaTransportControls_Timeline.(Grid.ColumnSpan)" Value="3" />
 
                                         <Setter Target="VolumeMuteButton.Visibility" Value="Collapsed" />
-                                        <Setter Target="SecondaryBarColumn.Width" Value="92" />
+                                        <Setter Target="SecondaryBarColumn.Width" Value="Auto" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -689,7 +653,6 @@
                                 <VisualState x:Name="PlayState" />
                                 <VisualState x:Name="PauseState">
                                     <VisualState.Setters>
-                                        <Setter Target="PlayPauseIconLeft.Glyph" Value="&#xF8AE;" />
                                         <Setter Target="PlayPauseIcon.Glyph" Value="&#xF8AE;" />
                                     </VisualState.Setters>
                                 </VisualState>
@@ -728,7 +691,6 @@
 
                             <VisualStateGroup x:Name="FullWindowStates">
                                 <VisualState x:Name="NonFullWindowState" />
-
                                 <VisualState x:Name="FullWindowState">
                                     <VisualState.Setters>
                                         <Setter Target="FullWindowSymbol.Symbol" Value="BackToWindow" />

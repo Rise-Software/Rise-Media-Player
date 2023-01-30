@@ -23,6 +23,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
+            <x:Double x:Key="MTCPositionSliderMaximumWidth">302</x:Double>
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:ResourceFallback x:Key="ResFallback" />
@@ -247,6 +248,8 @@
                 <VisualState x:Name="MusicItemState" />
                 <VisualState x:Name="VideoItemState">
                     <VisualState.Setters>
+                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Bottom" />
+
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
