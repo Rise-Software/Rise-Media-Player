@@ -194,7 +194,7 @@
         <Border
             x:Name="SidebarGrid"
             Grid.Column="1"
-            Width="350"
+            Width="282"
             Margin="0,48,24,104"
             Canvas.ZIndex="1"
             Visibility="Collapsed">
@@ -217,6 +217,14 @@
                     ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
                     Loaded="OnLyricsListLoaded"
                     SelectionMode="None">
+                    <ListView.Foreground>
+                        <LinearGradientBrush>
+                            <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                            <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
+                            <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                        </LinearGradientBrush>
+                    </ListView.Foreground>
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:SyncedLyricItem">
                             <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
