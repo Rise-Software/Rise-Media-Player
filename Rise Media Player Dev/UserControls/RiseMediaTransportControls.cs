@@ -263,7 +263,7 @@ namespace Rise.App.UserControls
     {
         public readonly static DependencyProperty HorizontalControlsAlignmentProperty =
             DependencyProperty.Register(nameof(HorizontalControlsAlignment), typeof(HorizontalAlignment),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Stretch));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(HorizontalAlignment.Center));
 
         public readonly static DependencyProperty TimelineDisplayModeProperty =
             DependencyProperty.Register(nameof(TimelineDisplayMode), typeof(SliderDisplayModes),
@@ -323,7 +323,7 @@ namespace Rise.App.UserControls
 
         public readonly static DependencyProperty IsAddToMenuVisibleProperty =
             DependencyProperty.Register(nameof(IsAddToMenuVisible), typeof(bool),
-                typeof(RiseMediaTransportControls), new PropertyMetadata(false));
+                typeof(RiseMediaTransportControls), new PropertyMetadata(true));
 
         public readonly static DependencyProperty IsPropertiesEnabledProperty =
             DependencyProperty.Register(nameof(IsPropertiesEnabled), typeof(bool),
@@ -369,19 +369,19 @@ namespace Rise.App.UserControls
             if (GetTemplateChild("OverlayButton") is ButtonBase overlayButton)
                 overlayButton.CommandParameter = ApplicationViewMode.Default;
 
-            if (GetTemplateChild("MiniViewButton") is MenuFlyoutItem miniButton)
+            if (GetTemplateChild("MiniViewButton") is ButtonBase miniButton)
                 miniButton.CommandParameter = ApplicationViewMode.CompactOverlay;
 
-            if (GetTemplateChild("InfoPropertiesButton") is MenuFlyoutItem propertiesButton)
+            if (GetTemplateChild("InfoPropertiesButton") is ButtonBase propertiesButton)
                 propertiesButton.Click += PropertiesButtonClick;
 
-            if (GetTemplateChild("EqualizerButton") is MenuFlyoutItem equalizerButton)
+            if (GetTemplateChild("EqualizerButton") is ButtonBase equalizerButton)
                 equalizerButton.Click += EqualizerButtonClick;
 
-            if (GetTemplateChild("CastToButton") is MenuFlyoutItem castButton)
+            if (GetTemplateChild("CastToButton") is ButtonBase castButton)
                 castButton.Click += CastButtonClick;
 
-            if (GetTemplateChild("PlaybackSpeedButton") is MenuFlyoutSubItem speedButton)
+            if (GetTemplateChild("PlaybackSpeedFlyout") is MenuFlyout speedFlyout)
             {
                 for (double i = 0.25; i <= 2; i += 0.25)
                 {
@@ -392,14 +392,14 @@ namespace Rise.App.UserControls
                         CommandParameter = i
                     };
 
-                    speedButton.Items.Add(itm);
+                    speedFlyout.Items.Add(itm);
                 }
             }
 
-            if (GetTemplateChild("AddToPlaylistMenu") is MenuFlyoutSubItem addToPlaylistMenu)
+            if (GetTemplateChild("AddToPlaylistFlyout") is MenuFlyout addToPlaylistFlyout)
             {
                 var helper = new AddToPlaylistHelper(App.MViewModel.Playlists);
-                helper.AddPlaylistsToSubItem(addToPlaylistMenu, AddToPlaylistCommand);
+                helper.AddPlaylistsToFlyout(addToPlaylistFlyout, AddToPlaylistCommand);
             }
 
             UpdateTimelineDisplayMode(this, TimelineDisplayMode);
@@ -481,7 +481,7 @@ namespace Rise.App.UserControls
                 picker.CastingDeviceSelected += OnCastingDeviceSelected;
                 picker.CastingDevicePickerDismissed += OnCastingDevicePickerDismissed;
 
-                var btn = sender as MenuFlyoutItem;
+                var btn = sender as ButtonBase;
 
                 // Retrieve the location of the casting button
                 var transform = btn.TransformToVisual(Window.Current.Content);
