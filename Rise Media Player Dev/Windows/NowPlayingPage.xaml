@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
@@ -23,7 +24,6 @@
     <Page.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
-            <x:Double x:Key="MTCPositionSliderMaximumWidth">302</x:Double>
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:ResourceFallback x:Key="ResFallback" />
@@ -38,11 +38,6 @@
                 ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Mode=OneWay, Converter={StaticResource StrmToBmp}}"
                 Stretch="UniformToFill" />
         </Grid.Background>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition x:Name="SidebarColumn" Width="0" />
-        </Grid.ColumnDefinitions>
 
         <visualizers:BloomView
             x:Name="BloomVis"
@@ -98,6 +93,7 @@
 
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
+            Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
@@ -127,6 +123,10 @@
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="True"
                     ShowAndHideAutomatically="False">
+                    <uc:RiseMediaTransportControls.Resources>
+                        <x:Double x:Key="MTCPositionSliderMaximumWidth">302</x:Double>
+                    </uc:RiseMediaTransportControls.Resources>
+
                     <uc:RiseMediaTransportControls.QueueFlyout>
                         <Flyout>
                             <uc:DefaultQueueFlyout Width="300" Height="300" />
@@ -134,113 +134,127 @@
                     </uc:RiseMediaTransportControls.QueueFlyout>
 
                     <uc:RiseMediaTransportControls.DisplayItem>
-                        <Grid
-                            x:Name="InfoGrid"
-                            Margin="0,40,0,0"
-                            HorizontalAlignment="Center"
-                            x:DefaultBindMode="OneWay"
-                            ColumnSpacing="12">
+                        <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="160" />
-                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition x:Name="SidebarColumn" Width="0" />
                             </Grid.ColumnDefinitions>
 
-                            <Border
-                                x:Name="ThumbBorder"
-                                Height="160"
-                                ui:Effects.Shadow="{StaticResource StrongShadow}"
-                                BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="12">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
-                                </Border.Background>
-                            </Border>
-
                             <Grid
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                RowSpacing="4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*" />
-                                    <RowDefinition Height="1*" />
-                                </Grid.RowDefinitions>
+                                x:Name="InfoGrid"
+                                Margin="0,40,0,0"
+                                HorizontalAlignment="Center"
+                                x:DefaultBindMode="OneWay"
+                                ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="190" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                                <TextBlock
-                                    x:Name="TitleText"
-                                    d:Text="Title"
-                                    FontSize="24"
-                                    FontWeight="Bold"
-                                    MaxLines="2"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
-                                <TextBlock
-                                    x:Name="SubtitleText"
-                                    Grid.Row="1"
-                                    d:Text="Subtitle"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    MaxLines="2"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                <Border
+                                    x:Name="ThumbBorder"
+                                    Width="184"
+                                    Height="184"
+                                    BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <ui:Effects.Shadow>
+                                        <media:AttachedCardShadow
+                                            BlurRadius="8"
+                                            CornerRadius="8"
+                                            Opacity="0.2"
+                                            Offset="0,4,0" />
+                                    </ui:Effects.Shadow>
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
+                                    </Border.Background>
+                                </Border>
+
+                                <Grid
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    RowSpacing="4">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        x:Name="TitleText"
+                                        d:Text="Title"
+                                        FontSize="24"
+                                        FontWeight="Bold"
+                                        MaxLines="2"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind MPViewModel.PlayingItemProperties.Title}" />
+                                    <TextBlock
+                                        x:Name="SubtitleText"
+                                        Grid.Row="1"
+                                        d:Text="Subtitle"
+                                        FontSize="18"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        MaxLines="2"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind MPViewModel.PlayingItemProperties.Artist, Converter={StaticResource ResFallback}, ConverterParameter=UnknownArtistResource}" />
+                                </Grid>
                             </Grid>
+
+                            <Border
+                                x:Name="SidebarGrid"
+                                Grid.Column="1"
+                                Width="282"
+                                Margin="0,48,24,12"
+                                Canvas.ZIndex="1"
+                                Visibility="Collapsed">
+                                <ui:Effects.Shadow>
+                                    <media:AttachedCardShadow
+                                        BlurRadius="64"
+                                        CornerRadius="8"
+                                        Opacity=".25"
+                                        Offset="0,16,0" />
+                                </ui:Effects.Shadow>
+
+                                <Grid
+                                    Padding="16"
+                                    BorderBrush="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <ListView
+                                        x:Name="LyricsList"
+                                        Margin="-16,0"
+                                        ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
+                                        Loaded="OnLyricsListLoaded"
+                                        SelectionMode="None">
+                                        <ListView.Foreground>
+                                            <LinearGradientBrush>
+                                                <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                                                <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
+                                                <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
+                                            </LinearGradientBrush>
+                                        </ListView.Foreground>
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:SyncedLyricItem">
+                                                <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+
+                                        <ListView.Footer>
+                                            <TextBlock
+                                                Padding="0,12"
+                                                HorizontalAlignment="Center"
+                                                Text="Licensed and provided by Musixmatch."
+                                                Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+                                        </ListView.Footer>
+                                    </ListView>
+                                </Grid>
+                            </Border>
                         </Grid>
                     </uc:RiseMediaTransportControls.DisplayItem>
                 </uc:RiseMediaTransportControls>
             </uc:RiseMediaPlayerElement.TransportControls>
         </uc:RiseMediaPlayerElement>
-
-        <Border
-            x:Name="SidebarGrid"
-            Grid.Column="1"
-            Width="282"
-            Margin="0,48,24,104"
-            Canvas.ZIndex="1"
-            Visibility="Collapsed">
-            <ui:Effects.Shadow>
-                <media:AttachedCardShadow
-                    BlurRadius="64"
-                    CornerRadius="8"
-                    Opacity=".25"
-                    Offset="0,16,0" />
-            </ui:Effects.Shadow>
-
-            <Grid
-                Padding="16"
-                BorderBrush="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
-                BorderThickness="1"
-                CornerRadius="8">
-                <ListView
-                    x:Name="LyricsList"
-                    Margin="-16,0"
-                    ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
-                    Loaded="OnLyricsListLoaded"
-                    SelectionMode="None">
-                    <ListView.Foreground>
-                        <LinearGradientBrush>
-                            <GradientStop Offset="0.2" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                            <GradientStop Offset="0.5" Color="{ThemeResource ApplicationForegroundThemeBrush}" />
-                            <GradientStop Offset="0.8" Color="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}" />
-                        </LinearGradientBrush>
-                    </ListView.Foreground>
-                    
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:SyncedLyricItem">
-                            <uc:LyricItem IsSelected="{x:Bind IsSelected, Mode=OneWay}" Text="{x:Bind Text}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-
-                    <ListView.Footer>
-                        <TextBlock
-                            Padding="0,12"
-                            HorizontalAlignment="Center"
-                            Text="Licensed and provided by Musixmatch."
-                            Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
-                    </ListView.Footer>
-                </ListView>
-            </Grid>
-        </Border>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="LyricsAvailabilityStates">
@@ -255,6 +269,9 @@
             <VisualStateGroup x:Name="PlaybackItemTypeStates">
                 <VisualState x:Name="MusicItemState" />
                 <VisualState x:Name="VideoItemState">
+                    <VisualState.StateTriggers>
+                        <behaviors:IsEqualStateTrigger Value="{x:Bind MPViewModel.PlayingItemType, Mode=OneWay}" To="Video" />
+                    </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainPlayer.VerticalContentAlignment" Value="Bottom" />
 

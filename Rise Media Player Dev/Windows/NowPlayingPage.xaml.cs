@@ -109,11 +109,6 @@ namespace Rise.App.Views
         {
             await Dispatcher;
 
-            if (MPViewModel.PlayingItemType == MediaPlaybackType.Video)
-                _ = VisualStateManager.GoToState(this, nameof(VideoItemState), true);
-            else
-                _ = VisualStateManager.GoToState(this, nameof(MusicItemState), true);
-
             if (SViewModel.FetchOnlineData)
                 await FetchLyricsForCurrentItemAsync();
         }
