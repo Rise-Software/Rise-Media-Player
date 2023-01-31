@@ -44,9 +44,6 @@ namespace Rise.Data.ViewModels
             private set
             {
                 Set(ref _playingItem, value);
-                OnPropertyChanged(nameof(PlayingItemType));
-                OnPropertyChanged(nameof(PlayingItemProperties));
-
                 PlayingItemChanged?.Invoke(this, _playingItem);
             }
         }
