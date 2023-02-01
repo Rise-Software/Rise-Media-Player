@@ -37,6 +37,8 @@ namespace Rise.App.Views
 
         private readonly AdvancedCollectionView AlbumsByArtist = new();
 
+        private bool MoreAlbumsExpanded;
+
         private Compositor _compositor;
         private SpriteVisual _backgroundVisual;
 
@@ -164,6 +166,16 @@ namespace Rise.App.Views
         private void AskDiscy_Click(object sender, RoutedEventArgs e)
         {
             DiscyOnSong.IsOpen = true;
+        }
+
+        private void UpDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (MoreAlbumsExpanded)
+                VisualStateManager.GoToState(this, "Collapsed", true);
+            else
+                VisualStateManager.GoToState(this, "Expanded", true);
+
+            MoreAlbumsExpanded = !MoreAlbumsExpanded;
         }
 
         private void CreateImageBackgroundGradientVisual(ScalarNode scrollVerticalOffset)

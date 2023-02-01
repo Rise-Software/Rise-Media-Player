@@ -127,6 +127,8 @@ namespace Rise.App.Views
 
                 if (SViewModel.IndexingAtStartupEnabled)
                     await Task.Run(App.MViewModel.StartFullCrawlAsync);
+                else
+                    await MViewModel.FetchArtistsArtAsync();
             }
 
             if (MViewModel.IsScanning)

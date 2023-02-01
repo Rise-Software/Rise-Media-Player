@@ -523,7 +523,6 @@
                     <Border
                         x:Name="ArtistAbout"
                         Grid.Row="3"
-                        Margin="0,12,0,0"
                         Style="{StaticResource SettingsCard}"
                         Visibility="Collapsed">
                         <Grid>
