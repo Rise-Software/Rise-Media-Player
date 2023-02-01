@@ -69,7 +69,7 @@ namespace Rise.App.Views
                 SelectedPlaylist = MViewModel.Playlists.
                     FirstOrDefault(p => p.Id == id);
 
-                CreateViewModel("Title", SelectedPlaylist.Songs);
+                CreateViewModel(string.Empty, SelectedPlaylist.Songs);
                 VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
             }
         }
@@ -147,6 +147,38 @@ namespace Rise.App.Views
             await MPViewModel.PlaySingleItemAsync(SelectedVideo);
             if (Window.Current.Content is Frame rootFrame)
                 _ = rootFrame.Navigate(typeof(NowPlayingPage));
+        }
+
+        private void RemoveSong_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+            SelectedPlaylist.Songs.Remove(song);
+        }
+
+        private void MoveBottom_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+
+            if ((SelectedPlaylist.Songs.IndexOf(song) + 1) < SelectedPlaylist.Songs.Count)
+            {
+                var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                SelectedPlaylist.Songs.Remove(song);
+                SelectedPlaylist.Songs.Insert(index + 1, song);
+            }
+        }
+
+        private void MoveUp_Click(object sender, RoutedEventArgs e)
+        {
+            SongViewModel song = (sender as Button).Tag as SongViewModel;
+
+            if ((SelectedPlaylist.Songs.IndexOf(song) - 1) >= 0)
+            {
+                var index = SelectedPlaylist.Songs.IndexOf(song);
+
+                SelectedPlaylist.Songs.Remove(song);
+                SelectedPlaylist.Songs.Insert(index - 1, song);
+            }
         }
     }
 }

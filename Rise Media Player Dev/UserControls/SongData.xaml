@@ -32,7 +32,7 @@
         <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" MaxWidth="36" />
+                <ColumnDefinition Width="36" />
                 <ColumnDefinition Width="1.6*" />
                 <ColumnDefinition
                     x:Name="ArtistColumn"
@@ -46,7 +46,7 @@
                     x:Name="GenreColumn"
                     Width="0"
                     d:Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition x:Name="SideControlsColumn" Width="*" />
             </Grid.ColumnDefinitions>
 
             <TextBlock
@@ -153,6 +153,11 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal"
                 Spacing="4">
+                <ContentPresenter
+                    x:Name="SideControlContentPresenter"
+                    Content="{x:Bind SideControlContent}"
+                    Visibility="Collapsed" />
+
                 <Button
                     x:Name="EditButton"
                     Width="36"
@@ -184,6 +189,19 @@
 
                         <Setter Target="PlayButton.Visibility" Value="Visible" />
                         <Setter Target="EditButton.Visibility" Value="Visible" />
+                        <Setter Target="SideControlContentPresenter.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="SideControlContentStates">
+                <VisualState x:Name="NoContent" />
+                <VisualState x:Name="WithContent">
+                    <VisualState.StateTriggers>
+                        <ui:IsNotEqualStateTrigger Value="{x:Bind SideControlContent}" To="{x:Null}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SideControlsColumn.Width" Value="Auto" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

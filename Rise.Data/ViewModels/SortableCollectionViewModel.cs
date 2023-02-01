@@ -84,9 +84,12 @@ namespace Rise.Data.ViewModels
             string defaultProperty, SortDirection defaultDirection)
             : this(itemSource, canSort)
         {
-            Items.SortDescriptions.Add(new SortDescription(defaultProperty, defaultDirection));
+            if (!string.IsNullOrWhiteSpace(defaultProperty))
+            {
+                Items.SortDescriptions.Add(new SortDescription(defaultProperty, defaultDirection));
+                CurrentSortProperty = defaultProperty;
+            }
 
-            CurrentSortProperty = defaultProperty;
             CurrentSortDirection = defaultDirection;
         }
 
