@@ -244,6 +244,15 @@ namespace Rise.App.UserControls
         }
 
         [RelayCommand]
+        private async Task AddSelectedItemToQueueAsync()
+        {
+            var itm = GetValue(SelectedItemProperty);
+
+            if (itm is IMediaItem media)
+                App.MPViewModel.AddSingleItemToQueue(await media.AsPlaybackItemAsync());
+        }
+
+        [RelayCommand]
         private Task AddMediaItemsToPlaylistAsync(PlaylistViewModel playlist)
         {
             var first = MediaViewModel.Items.FirstOrDefault();
