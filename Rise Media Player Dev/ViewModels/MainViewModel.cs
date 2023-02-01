@@ -250,7 +250,7 @@ namespace Rise.App.ViewModels
             await Task.WhenAll(songsTask, videosTask);
         }
 
-        private async Task FetchArtistsArtAsync(CancellationToken token)
+        public async Task FetchArtistsArtAsync(CancellationToken token = default)
         {
             using var wc = new HttpClient(new HttpClientHandler()
             {
@@ -263,7 +263,7 @@ namespace Rise.App.ViewModels
 
             foreach (var artist in Artists)
             {
-                if (token.IsCancellationRequested)
+                if (token != null && token.IsCancellationRequested)
                     return;
 
                 // The ms-appx prefix is used for files within the app

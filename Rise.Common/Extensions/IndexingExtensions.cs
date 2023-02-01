@@ -51,7 +51,7 @@ namespace Rise.Common.Extensions
         /// an invalid <paramref name="stepSize"/> is specified.</exception>
         public static async IAsyncEnumerable<StorageFile> IndexAsync(this StorageFolder folder,
             QueryOptions options,
-            uint stepSize = 10)
+            uint stepSize = 50)
         {
             if (stepSize < 1)
             {
