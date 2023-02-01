@@ -217,7 +217,7 @@
 
                                 <Grid
                                     Padding="16"
-                                    BorderBrush="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                                    BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
                                     <ListView
