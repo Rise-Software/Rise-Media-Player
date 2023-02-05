@@ -68,7 +68,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Width="172" Height="172">
-                                    <Border CornerRadius="86">
+                                    <Border
+                                        BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="86">
                                         <Border.Background>
                                             <ImageBrush Stretch="UniformToFill">
                                                 <ImageBrush.ImageSource>
@@ -93,13 +96,29 @@
                                         MaxLines="1"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="{x:Bind SelectedArtist.Name, Mode=OneWay}" />
-                                    <TextBlock
-                                        x:Name="SongAlbums"
-                                        Margin="0,4"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind SelectedArtist.LocalizedSongsAndAlbums, Mode=OneWay}" />
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            x:Name="SongAlbums"
+                                            Margin="0,4"
+                                            FontSize="16"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{x:Bind SelectedArtist.LocalizedSongsAndAlbums, Mode=OneWay}" />
+
+                                        <TextBlock
+                                            Margin="4"
+                                            FontSize="16"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="•" />
+
+                                        <TextBlock
+                                            x:Name="ArtistDuration"
+                                            Margin="0,4"
+                                            FontSize="16"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                    </StackPanel>
+
                                     <TextBlock
                                         x:Name="NoListeners"
                                         FontSize="16"

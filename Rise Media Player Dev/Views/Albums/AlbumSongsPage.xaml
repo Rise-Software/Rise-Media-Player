@@ -195,6 +195,15 @@
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Genres}" />
+                                    <TextBlock
+                                        Margin="4,0"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="•" />
+                                    <TextBlock
+                                        x:Name="AlbumDuration"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                                 </StackPanel>
 
                                 <CommandBar

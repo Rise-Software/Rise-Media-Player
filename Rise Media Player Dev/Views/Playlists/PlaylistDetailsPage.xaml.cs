@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Rise.App.Converters;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
@@ -56,10 +57,9 @@ namespace Rise.App.Views
             PlaylistHelper.AddPlaylistsToSubItem(AddToVideo, AddVideoToPlaylistCommand);
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (_offset != null)
-                MainList.FindVisualChild<ScrollViewer>().ChangeView(null, _offset, null);
+            PlaylistDuration.Text = await Task.Run(() => TimeSpanToString.GetShortFormat(TimeSpan.FromSeconds(MediaViewModel.Items.Cast<SongViewModel>().Select(s => s.Length).Aggregate((t, t1) => t + t1).TotalSeconds)));
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
