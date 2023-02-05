@@ -32,6 +32,7 @@
             Height="340"
             Margin="0,-44,0,0"
             VerticalAlignment="Top"
+            Canvas.ZIndex="0"
             SizeChanged="BackgroundHost_SizeChanged" />
 
         <ScrollViewer x:Name="RootViewer" d:Padding="12">
