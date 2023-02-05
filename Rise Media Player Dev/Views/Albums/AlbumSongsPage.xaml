@@ -42,7 +42,7 @@
             Height="330"
             Margin="0,-44,-52,0"
             VerticalAlignment="Top"
-            Canvas.ZIndex="1"
+            Canvas.ZIndex="0"
             SizeChanged="BackgroundHost_SizeChanged" />
 
         <ListView
@@ -138,16 +138,21 @@
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
-                            <tkitctrls:ImageEx
-                                x:Name="Image"
+                            <Border
                                 Width="172"
                                 Height="172"
                                 ui:Effects.Shadow="{StaticResource LightShadowBottomOffset}"
                                 BorderBrush="{ThemeResource ControlElevationBorderBrush}"
-                                CornerRadius="8"
-                                DecodePixelType="Logical"
-                                Source="{x:Bind SelectedAlbum.Thumbnail}"
-                                Stretch="UniformToFill" />
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Border.Background>
+                                    <ImageBrush Stretch="UniformToFill">
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage DecodePixelType="Logical" UriSource="{x:Bind SelectedAlbum.Thumbnail}" />
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Border.Background>
+                            </Border>
 
                             <StackPanel
                                 Grid.Column="1"
@@ -196,6 +201,15 @@
                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind SelectedAlbum.Genres}" />
+                                    <TextBlock
+                                        Margin="4,0"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="•" />
+                                    <TextBlock
+                                        x:Name="AlbumDuration"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
                                 </StackPanel>
 
                                 <CommandBar
@@ -280,8 +294,8 @@
                 <Border
                     x:Name="MoreAlbumsByArtist"
                     Margin="0,12,0,8"
-                    HorizontalAlignment="Stretch"
                     Padding="16,0,8,0"
+                    HorizontalAlignment="Stretch"
                     x:Load="False"
                     Style="{StaticResource SettingsCard}">
                     <Grid>
@@ -292,7 +306,7 @@
                         </Grid.RowDefinitions>
 
                         <RelativePanel>
-                            <StackPanel RelativePanel.AlignVerticalCenterWithPanel="True" Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" RelativePanel.AlignVerticalCenterWithPanel="True">
                                 <FontIcon Glyph="&#xE93C;" />
                                 <TextBlock
                                     Margin="8,0,0,0"

@@ -13,6 +13,7 @@
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <uc:MediaPageBase.Resources>
@@ -165,12 +166,25 @@
                                 MaxLines="1"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{x:Bind SelectedPlaylist.Title}" />
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind SelectedPlaylist.LocalizedSongsAndVideos}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,0,8"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind SelectedPlaylist.LocalizedSongsAndVideos}" />
+
+                                <TextBlock
+                                    Margin="4,0"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="•" />
+
+                                <TextBlock
+                                    x:Name="PlaylistDuration"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
                             <TextBlock
                                 x:Name="Description"
                                 d:Text="Description"
