@@ -23,6 +23,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
@@ -94,12 +95,12 @@
         <uc:RiseMediaPlayerElement
             x:Name="MainPlayer"
             Grid.ColumnSpan="2"
+            Margin="4,0,8,8"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             Canvas.ZIndex="0"
-            Margin="4,0,8,8"
             MediaPlayerVisibility="Visible">
             <uc:RiseMediaPlayerElement.TransportControls>
                 <uc:RiseMediaTransportControls

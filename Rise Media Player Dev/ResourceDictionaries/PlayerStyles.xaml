@@ -244,7 +244,10 @@
                                 ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition
+                                        Width="1*"
+                                        MinWidth="{ThemeResource MTCPositionSliderMinimumWidth}"
+                                        MaxWidth="{ThemeResource MTCPositionSliderMaximumWidth}" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
@@ -256,8 +259,6 @@
                                 <Slider
                                     x:Name="ProgressSlider"
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource MTCPositionSliderMinimumWidth}"
-                                    MaxWidth="{StaticResource MTCPositionSliderMaximumWidth}"
                                     VerticalAlignment="Center"
                                     IsThumbToolTipEnabled="False" />
 
