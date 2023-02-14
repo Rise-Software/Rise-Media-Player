@@ -72,7 +72,7 @@
                     <MenuFlyout x:Name="AddToBar">
                         <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -122,7 +122,7 @@
 
                         <MenuFlyoutItem Command="{x:Bind AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyoutSubItem>

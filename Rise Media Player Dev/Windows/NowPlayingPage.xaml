@@ -62,7 +62,7 @@
             VerticalAlignment="Top"
             Canvas.ZIndex="1">
             <StackPanel Margin="48,0,0,0" Orientation="Horizontal">
-                <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE768;" />
+                <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE768;" />
 
                 <TextBlock
                     Margin="12,0,0,0"

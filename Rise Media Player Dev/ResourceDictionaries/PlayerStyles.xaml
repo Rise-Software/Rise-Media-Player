@@ -62,6 +62,8 @@
 
     <x:Double x:Key="MTCPositionSliderMaximumWidth">Infinity</x:Double>
 
+    <FontFamily x:Key="PlayerIconsFontFamily">ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons</FontFamily>
+
     <Style x:Key="DefaultRiseMediaTransportControlsStyle" TargetType="co:RiseMediaTransportControls">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
@@ -357,7 +359,7 @@
                                             <MenuFlyout x:Name="AddToPlaylistFlyout">
                                                 <MenuFlyoutItem Command="{TemplateBinding AddToPlaylistCommand}" Text="{markup:ResourceHelper Name=NewPlaylist}">
                                                     <MenuFlyoutItem.Icon>
-                                                        <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93F;" />
+                                                        <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93F;" />
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
                                             </MenuFlyout>
@@ -390,7 +392,7 @@
                                         Label="{markup:ResourceHelper Name=EnterMiniView}"
                                         Visibility="{Binding IsCompactOverlayButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
                                         <AppBarButton.Icon>
-                                            <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE93B;" />
+                                            <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE93B;" />
                                         </AppBarButton.Icon>
                                     </AppBarButton>
 
@@ -416,7 +418,7 @@
                                         Label="{markup:ResourceHelper Name=/Settings/PlaybackEQTitle}"
                                         Visibility="{Binding IsEqualizerButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                         <AppBarButton.Icon>
-                                            <FontIcon FontFamily="ms-appx:///Assets/MediaPlayerIcons.ttf#Media Player Fluent Icons" Glyph="&#xE9E9;" />
+                                            <FontIcon FontFamily="{StaticResource PlayerIconsFontFamily}" Glyph="&#xE9E9;" />
                                         </AppBarButton.Icon>
                                     </AppBarButton>
                                 </CommandBar.SecondaryCommands>
