@@ -52,7 +52,7 @@
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             Visibility="{TemplateBinding AreTransportControlsEnabled}" />
-                        <Grid x:Name="TimedTextSourcePresenter" />
+                        <Grid x:Name="TimedTextSourcePresenter" Visibility="{TemplateBinding MediaPlayerVisibility}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
