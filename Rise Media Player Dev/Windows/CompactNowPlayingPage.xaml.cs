@@ -24,6 +24,7 @@ namespace Rise.App.Views
             TitleBar.SetTitleBarForCurrentView();
 
             MPViewModel.PlayingItemChanged += MPViewModel_PlayingItemChanged;
+            _ = VisualStateManager.GoToState(this, nameof(PointerOutState), false);
         }
 
         private void OnPlayerLoaded(object sender, RoutedEventArgs e)

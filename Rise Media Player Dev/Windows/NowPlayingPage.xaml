@@ -23,7 +23,6 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
             <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
 
             <conv:StreamToBitmap x:Key="StrmToBmp" />
@@ -51,8 +50,15 @@
         <Border
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+            VerticalAlignment="Stretch">
+            <Border.Background>
+                <media:AcrylicBrush
+                    BlurAmount="70"
+                    FallbackColor="Transparent"
+                    TintColor="{Binding Color, Source={ThemeResource ApplicationPageBackgroundThemeBrush}}"
+                    TintOpacity="0.7" />
+            </Border.Background>
+        </Border>
 
         <skuc:ExtendedTitleBar
             x:Name="TitleBar"
@@ -126,7 +132,7 @@
                     IsVolumeButtonVisible="True"
                     ShowAndHideAutomatically="False">
                     <uc:RiseMediaTransportControls.Resources>
-                        <x:Double x:Key="MTCPositionSliderMaximumWidth">302</x:Double>
+                        <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
                     </uc:RiseMediaTransportControls.Resources>
 
                     <uc:RiseMediaTransportControls.QueueFlyout>
@@ -149,7 +155,7 @@
                                 x:DefaultBindMode="OneWay"
                                 ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="190" />
+                                    <ColumnDefinition x:Name="ThumbnailColumn" Width="190" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
@@ -205,7 +211,7 @@
                             <Border
                                 x:Name="SidebarGrid"
                                 Grid.Column="1"
-                                Width="282"
+                                Width="292"
                                 Margin="0,48,24,12"
                                 Canvas.ZIndex="1"
                                 Visibility="Collapsed">
@@ -218,13 +224,12 @@
                                 </ui:Effects.Shadow>
 
                                 <Grid
-                                    Padding="16"
                                     BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
                                     <ListView
                                         x:Name="LyricsList"
-                                        Margin="-16,0"
+                                        Padding="4,16,8,16"
                                         ItemContainerStyle="{StaticResource StretchedListViewItemStyle}"
                                         Loaded="OnLyricsListLoaded"
                                         SelectionMode="None">
@@ -246,8 +251,8 @@
                                             <TextBlock
                                                 Padding="0,12"
                                                 HorizontalAlignment="Center"
-                                                Text="Licensed and provided by Musixmatch."
-                                                Visibility="{x:Bind LyricsCount, Mode=OneWay, Converter={StaticResource IntToVis}}" />
+                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                Text="Licensed and provided by Musixmatch." />
                                         </ListView.Footer>
                                     </ListView>
                                 </Grid>
@@ -293,6 +298,17 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="SizeStates">
+                <VisualState x:Name="SmallSizeState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    
+                    <VisualState.Setters>
+                        <Setter Target="ThumbBorder.Width" Value="120" />
+                        <Setter Target="ThumbBorder.Height" Value="120" />
+                        <Setter Target="ThumbnailColumn.Width" Value="120" />
+                    </VisualState.Setters>
+                </VisualState>
                 <VisualState x:Name="LargeSizeState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="400" MinWindowWidth="840" />

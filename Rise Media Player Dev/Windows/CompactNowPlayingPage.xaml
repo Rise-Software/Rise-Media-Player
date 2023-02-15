@@ -158,44 +158,6 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="PointerStates">
-                <VisualState x:Name="PointerInState">
-                    <Storyboard>
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="BlurBrushBorder"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            EnableDependentAnimation="True"
-                            Storyboard.TargetName="ThumbnailBrush"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource ThumbnailBrushPointerInOpacity}">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-
-                        <DoubleAnimationUsingKeyFrames
-                            Storyboard.TargetName="PlayerControls"
-                            Storyboard.TargetProperty="Opacity"
-                            Duration="0:0:0.3">
-                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
-                                <EasingDoubleKeyFrame.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut" />
-                                </EasingDoubleKeyFrame.EasingFunction>
-                            </EasingDoubleKeyFrame>
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-
                 <VisualState x:Name="PointerOutState">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames
@@ -226,6 +188,44 @@
                             Storyboard.TargetProperty="Opacity"
                             Duration="0:0:0.3">
                             <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                
+                <VisualState x:Name="PointerInState">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="BlurBrushBorder"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            EnableDependentAnimation="True"
+                            Storyboard.TargetName="ThumbnailBrush"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource ThumbnailBrushPointerInOpacity}">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimationUsingKeyFrames
+                            Storyboard.TargetName="PlayerControls"
+                            Storyboard.TargetProperty="Opacity"
+                            Duration="0:0:0.3">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
                                 <EasingDoubleKeyFrame.EasingFunction>
                                     <CubicEase EasingMode="EaseOut" />
                                 </EasingDoubleKeyFrame.EasingFunction>
