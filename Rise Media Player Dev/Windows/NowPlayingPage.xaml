@@ -130,6 +130,7 @@
                     IsShuffleButtonVisible="True"
                     IsShuffleEnabled="True"
                     IsVolumeButtonVisible="True"
+                    IsZoomButtonVisible="False"
                     ShowAndHideAutomatically="False">
                     <uc:RiseMediaTransportControls.Resources>
                         <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
@@ -280,8 +281,11 @@
                         <behaviors:IsEqualStateTrigger Value="{x:Bind MPViewModel.PlayingItemType, Mode=OneWay}" To="Video" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Bottom" />
+                        <Setter Target="MainPlayer.VerticalContentAlignment" Value="Stretch" />
+                        <Setter Target="MainPlayer.Margin" Value="0" />
 
+                        <Setter Target="PlayerControls.IsCompact" Value="True" />
+                        <Setter Target="PlayerControls.IsZoomButtonVisible" Value="True" />
                         <Setter Target="PlayerControls.DisplayItemVisibility" Value="Collapsed" />
                         <Setter Target="PlayerControls.ShowAndHideAutomatically" Value="True" />
                     </VisualState.Setters>
@@ -302,7 +306,7 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="0" />
                     </VisualState.StateTriggers>
-                    
+
                     <VisualState.Setters>
                         <Setter Target="ThumbBorder.Width" Value="120" />
                         <Setter Target="ThumbBorder.Height" Value="120" />
