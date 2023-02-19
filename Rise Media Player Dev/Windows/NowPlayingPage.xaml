@@ -24,8 +24,6 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
-
             <conv:StreamToBitmap x:Key="StrmToBmp" />
             <conv:ResourceFallback x:Key="ResFallback" />
             <conv:IntToVisibility x:Key="IntToVis" />
@@ -134,6 +132,8 @@
                     IsZoomButtonVisible="False"
                     ShowAndHideAutomatically="False">
                     <uc:RiseMediaTransportControls.Resources>
+                        <SolidColorBrush x:Key="MediaTransportControlsPanelBackground" Color="Transparent" />
+
                         <x:Double x:Key="MTCPositionSliderMaximumWidth">400</x:Double>
                     </uc:RiseMediaTransportControls.Resources>
 
@@ -157,14 +157,14 @@
                                 x:DefaultBindMode="OneWay"
                                 ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition x:Name="ThumbnailColumn" Width="190" />
+                                    <ColumnDefinition x:Name="ThumbnailColumn" Width="120" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <Border
                                     x:Name="ThumbBorder"
-                                    Width="184"
-                                    Height="184"
+                                    Width="120"
+                                    Height="120"
                                     BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="8">
@@ -175,6 +175,7 @@
                                             Opacity="0.2"
                                             Offset="0,4,0" />
                                     </ui:Effects.Shadow>
+
                                     <Border.Background>
                                         <ImageBrush ImageSource="{x:Bind MPViewModel.PlayingItemProperties.Thumbnail, Converter={StaticResource StrmToBmp}}" Stretch="UniformToFill" />
                                     </Border.Background>
@@ -281,6 +282,7 @@
                     <VisualState.StateTriggers>
                         <behaviors:IsEqualStateTrigger Value="{x:Bind MPViewModel.PlayingItemType, Mode=OneWay}" To="Video" />
                     </VisualState.StateTriggers>
+
                     <VisualState.Setters>
                         <Setter Target="MainPlayer.VerticalContentAlignment" Value="Stretch" />
                         <Setter Target="MainPlayer.Margin" Value="0" />
@@ -303,17 +305,6 @@
             </VisualStateGroup>
 
             <VisualStateGroup x:Name="SizeStates">
-                <VisualState x:Name="SmallSizeState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="ThumbBorder.Width" Value="120" />
-                        <Setter Target="ThumbBorder.Height" Value="120" />
-                        <Setter Target="ThumbnailColumn.Width" Value="120" />
-                    </VisualState.Setters>
-                </VisualState>
                 <VisualState x:Name="LargeSizeState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="400" MinWindowWidth="840" />
@@ -321,6 +312,10 @@
 
                     <VisualState.Setters>
                         <Setter Target="SidebarColumn.Width" Value="Auto" />
+
+                        <Setter Target="ThumbBorder.Width" Value="184" />
+                        <Setter Target="ThumbBorder.Height" Value="184" />
+                        <Setter Target="ThumbnailColumn.Width" Value="190" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
