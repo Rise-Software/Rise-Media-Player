@@ -31,16 +31,6 @@ namespace Rise.App.Views
 
         private List<SyncedLyricItem> _lyrics;
 
-        /// <summary>
-        /// The count of the lyrics in the current playback item,
-        /// default value is 0.
-        /// </summary>
-        public int LyricsCount
-        {
-            get => (int)GetValue(LyricsCountProperty);
-            set => SetValue(LyricsCountProperty, value);
-        }
-
         public NowPlayingPage()
         {
             InitializeComponent();
@@ -168,7 +158,6 @@ namespace Rise.App.Views
                     if (body != null)
                     {
                         _lyrics = await Task.Run(() => new List<SyncedLyricItem>(body.Subtitle.Subtitles.Where(i => !string.IsNullOrWhiteSpace(i.Text))));
-                        LyricsCount = _lyrics.Count;
                         LyricsList.ItemsSource = _lyrics;
 
                         _ = VisualStateManager.GoToState(this, "LyricsAvailableState", true);
@@ -183,13 +172,5 @@ namespace Rise.App.Views
 
             _ = VisualStateManager.GoToState(this, "LyricsUnavailableState", true);
         }
-    }
-
-    // Dependency properties
-    public sealed partial class NowPlayingPage
-    {
-        private readonly static DependencyProperty LyricsCountProperty =
-            DependencyProperty.Register(nameof(LyricsCount), typeof(int),
-                typeof(NowPlayingPage), new PropertyMetadata(0));
     }
 }
