@@ -17,7 +17,6 @@
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.Data.ViewModels"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="OnPageLoaded"
     Unloaded="OnPageUnloaded"
     mc:Ignorable="d">

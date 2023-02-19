@@ -16,7 +16,8 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:visualizers="using:Rise.App.Visualizers"
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    d:DesignHeight="300"
+    d:DesignWidth="320"
     Loaded="OnPageLoaded"
     Unloaded="OnPageUnloaded"
     mc:Ignorable="d">

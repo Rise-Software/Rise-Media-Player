@@ -584,20 +584,13 @@ namespace Rise.App.ViewModels
         /// <returns>App setting value.</returns>
         private Type Get<Type>(Type defaultValue, string store = "Local", [CallerMemberName] string setting = null)
         {
-            // Get the container, always create it if it doesn't exist
-            var container = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always);
+            // Get the container values, always create it if it doesn't exist
+            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
 
-            container.Values[setting] ??= defaultValue;
-            object value = container.Values[setting];
+            values[setting] ??= defaultValue;
+            var value = (Type)values[setting];
 
-            // Return the setting if type matches
-            if (value is not Type)
-            {
-                string message = $"Type mismatch for \"{setting}\" in \"{store}\" container. Current type is {value.GetType()}";
-                throw new ArgumentException(message, nameof(setting));
-            }
-
-            return (Type)value;
+            return value;
         }
 
         /// <summary>
@@ -608,14 +601,19 @@ namespace Rise.App.ViewModels
         /// <param name="setting">Setting name.</param>
         private void Set<Type>(Type newValue, string store = "Local", [CallerMemberName] string setting = null)
         {
-            // Try to get the setting - if types don't match, it'll throw an exception
-            _ = Get(newValue, store, setting);
-
             // Get the container, always create it if it doesn't exist
-            var container = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always);
+            var values = LocalSettings.CreateContainer(store, ApplicationDataCreateDisposition.Always).Values;
+
+            // Check whether type matches
+            object value = values[setting];
+            if (value is not Type && value != null)
+            {
+                string message = $"Type mismatch for \"{setting}\" in \"{store}\" container. Current type is {value.GetType()}";
+                throw new ArgumentException(message, nameof(setting));
+            }
 
             // Set the setting to the desired value
-            container.Values[setting] = newValue;
+            values[setting] = newValue;
             OnPropertyChanged(setting);
         }
     }

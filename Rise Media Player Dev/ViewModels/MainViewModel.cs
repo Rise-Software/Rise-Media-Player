@@ -121,13 +121,6 @@ namespace Rise.App.ViewModels
         /// </summary>
         public async Task GetListsAsync()
         {
-            // Clear the collections
-            Songs.Clear();
-            Albums.Clear();
-            Artists.Clear();
-            Genres.Clear();
-            Videos.Clear();
-
             var songs = await Repository.GetItemsAsync<Song>();
 
             // If we have no songs, we have no albums, artists or genres
