@@ -17,7 +17,6 @@
     d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignHeight="300"
     d:DesignWidth="320"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     Loaded="OnPageLoaded"
     Unloaded="OnPageUnloaded"
     mc:Ignorable="d">
