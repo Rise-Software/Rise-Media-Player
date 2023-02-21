@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using Windows.Foundation.Collections;
 
 namespace Rise.Common.Helpers
@@ -13,119 +11,102 @@ namespace Rise.Common.Helpers
     /// </summary>
     public sealed class ObservableVector<T> : IObservableVector<T>
     {
-        private readonly ObservableCollection<T> _base;
+        private readonly List<T> _base;
+        public T this[int index]
+        {
+            get => _base[index];
+            set
+            {
+                _base[index] = value;
+                VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.ItemChanged, (uint)index));
+            }
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableVector{T}"/> class that
+        /// is empty and has the default initial capacity.
+        /// </summary>
         public ObservableVector()
         {
             _base = new();
-            _base.CollectionChanged += OnBaseCollectionChanged;
         }
 
-        public ObservableVector(List<T> list)
-        {
-            _base = new(list);
-            _base.CollectionChanged += OnBaseCollectionChanged;
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableVector{T}"/> class that
+        /// contains elements copied from the specified collection and has sufficient capacity
+        /// to accommodate the number of elements copied.
+        /// </summary>
+        /// <param name="collection">The collection whose elements are copied to the new list.</param>
+        /// <exception cref="System.ArgumentNullException"><paramref name="collection"/> is null.</exception>
         public ObservableVector(IEnumerable<T> collection)
         {
             _base = new(collection);
-            _base.CollectionChanged += OnBaseCollectionChanged;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObservableVector{T}"/> class that
+        /// is empty and has the specified initial capacity.
+        /// </summary>
+        /// <param name="capacity">The number of elements that the new list can initially store.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>
+        public ObservableVector(int capacity)
+        {
+            _base = new(capacity);
+        }
+
+        public int Count => _base.Count;
+        public bool IsReadOnly { get; private set; }
+            = false;
 
         public event VectorChangedEventHandler<T> VectorChanged;
-        /// <summary>
-        /// Handles and adapts collection changes.
-        /// </summary>
-        private void OnBaseCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            var args = new VectorChangedEventArgs();
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    args.CollectionChange = CollectionChange.ItemInserted;
-                    args.Index = (uint)e.NewStartingIndex;
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    args.CollectionChange = CollectionChange.ItemRemoved;
-                    args.Index = (uint)e.OldStartingIndex;
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    args.CollectionChange = CollectionChange.ItemChanged;
-                    args.Index = (uint)e.NewStartingIndex;
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-                case NotifyCollectionChangedAction.Move:
-                    args.CollectionChange = CollectionChange.Reset;
-                    break;
-            }
-
-            VectorChanged?.Invoke(this, args);
-        }
-
         public int IndexOf(T item)
+            => _base.IndexOf(item);
+
+        public void Add(T item)
         {
-            return _base.IndexOf(item);
+            _base.Add(item);
+            VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.ItemInserted, (uint)_base.Count - 1));
         }
 
         public void Insert(int index, T item)
         {
             _base.Insert(index, item);
+            VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.ItemInserted, (uint)index));
+        }
+
+        public bool Remove(T item)
+        {
+            int index = _base.IndexOf(item);
+            if (index != -1)
+            {
+                _base.RemoveAt(index);
+                VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.ItemRemoved, (uint)index));
+                return true;
+            }
+
+            return false;
         }
 
         public void RemoveAt(int index)
         {
             _base.RemoveAt(index);
-        }
-
-        public T this[int index]
-        {
-            get => _base[index];
-            set => _base[index] = value;
-        }
-
-        public void Add(T item)
-        {
-            _base.Add(item);
+            VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.ItemRemoved, (uint)index));
         }
 
         public void Clear()
         {
             _base.Clear();
+            VectorChanged?.Invoke(this, new VectorChangedEventArgs(CollectionChange.Reset, 0));
         }
 
         public bool Contains(T item)
-        {
-            return _base.Contains(item);
-        }
+            => _base.Contains(item);
 
         public void CopyTo(T[] array, int arrayIndex)
-        {
-            _base.CopyTo(array, arrayIndex);
-        }
+            => _base.CopyTo(array, arrayIndex);
 
-        public bool Remove(T item)
-        {
-            return _base.Remove(item);
-        }
-
-        public int Count => _base.Count;
-
-        public bool IsReadOnly { get; private set; }
-            = false;
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _base.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _base.GetEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => _base.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _base.GetEnumerator();
     }
 
     /// <summary>
@@ -135,7 +116,13 @@ namespace Rise.Common.Helpers
     /// </summary>
     public sealed class VectorChangedEventArgs : IVectorChangedEventArgs
     {
-        public CollectionChange CollectionChange { get; set; }
-        public uint Index { get; set; }
+        public CollectionChange CollectionChange { get; }
+        public uint Index { get; }
+
+        public VectorChangedEventArgs(CollectionChange change, uint index)
+        {
+            CollectionChange = change;
+            Index = index;
+        }
     }
 }
