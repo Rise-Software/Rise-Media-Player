@@ -290,11 +290,13 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
 
         foreach (var group in grouped)
         {
-            int index = _collectionGroups.BinarySearch(group, comparer);
+            var cvw = new CollectionViewGroup(group);
+            int index = _collectionGroups.BinarySearch(cvw, comparer);
+
             if (index < 0)
                 index = ~index;
 
-            _collectionGroups.Insert(index, new CollectionViewGroup(group));
+            _collectionGroups.Insert(index, cvw);
         }
     }
 
