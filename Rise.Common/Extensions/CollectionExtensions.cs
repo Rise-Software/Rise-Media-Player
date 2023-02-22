@@ -1,25 +1,11 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reflection;
 
 namespace Rise.Common.Extensions
 {
     public static class CollectionExtensions
     {
-        private static FieldInfo _acvFilterProp;
-        /// <summary>
-        /// Clears the filter of the provided <see cref="AdvancedCollectionView"/>
-        /// without forcing a refresh. Used to prevent a memory leak due to the filter
-        /// predicate staying in memory.
-        /// </summary>
-        public static void ClearFilter(this AdvancedCollectionView acv)
-        {
-            _acvFilterProp ??= typeof(AdvancedCollectionView).GetField("_filter", BindingFlags.NonPublic | BindingFlags.Instance);
-            _acvFilterProp.SetValue(acv, null);
-        }
-
         /// <summary>
         /// Move item at oldIndex to newIndex.
         /// </summary>
@@ -114,7 +100,7 @@ namespace Rise.Common.Extensions
             while (lower <= upper)
             {
                 int middle = lower + ((upper - lower) >> 1);
-                int comparisonResult = comparer.Compare(value, list[middle]);
+                int comparisonResult = comparer.Compare(list[middle], value);
 
                 if (comparisonResult == 0)
                     return middle;
