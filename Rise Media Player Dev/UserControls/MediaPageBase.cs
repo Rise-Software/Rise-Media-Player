@@ -62,7 +62,6 @@ namespace Rise.App.UserControls
         public MediaPageBase()
         {
             NavigationHelper = new(this);
-            NavigationHelper.LoadState += NavigationHelper_LoadState;
             NavigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
@@ -300,32 +299,9 @@ namespace Rise.App.UserControls
     // Session state
     public partial class MediaPageBase
     {
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-            if (e.PageState != null && MediaViewModel != null)
-            {
-                bool result = e.PageState.TryGetValue("Ascending", out var asc);
-                if (result)
-                    MediaViewModel.UpdateSortDirection((bool)asc ?
-                        SortDirection.Ascending : SortDirection.Descending);
-
-                result = e.PageState.TryGetValue("Property", out var prop);
-                if (result)
-                    MediaViewModel.SortBy(prop.ToString());
-            }
-        }
-
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            if (MediaViewModel != null)
-            {
-                e.PageState["Ascending"] = MediaViewModel.
-                    CurrentSortDirection == SortDirection.Ascending;
-
-                e.PageState["Property"] = MediaViewModel.CurrentSortProperty;
-
-                MediaViewModel.Dispose();
-            }
+            MediaViewModel?.Dispose();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

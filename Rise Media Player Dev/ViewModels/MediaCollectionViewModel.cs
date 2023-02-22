@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Rise.App.ViewModels
 {
@@ -17,49 +18,15 @@ namespace Rise.App.ViewModels
     /// A ViewModel for collections of items that can
     /// be played.
     /// </summary>
-    public partial class MediaCollectionViewModel : SortableCollectionViewModel
+    public sealed partial class MediaCollectionViewModel : IDisposable
     {
         private readonly MediaPlaybackViewModel _player;
         private readonly IList<SongViewModel> _songs;
 
-        private bool _canPlay = true;
-        /// <summary>
-        /// Whether starting playback is possible at the moment.
-        /// </summary>
-        private bool CanPlay
-        {
-            get => _canPlay;
-            set
-            {
-                if (Set(ref _canPlay, value))
-                    NotifyCanPlayChanged();
-            }
-        }
+        public AdvancedCollectionView Items { get; }
 
-        private void NotifyCanPlayChanged()
-        {
-            PlaySingleItemCommand.NotifyCanExecuteChanged();
-            ShuffleSingleItemCommand.NotifyCanExecuteChanged();
-            PlayFromItemCommand.NotifyCanExecuteChanged();
-            ShuffleFromItemCommand.NotifyCanExecuteChanged();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of this ViewModel.
-        /// </summary>
-        /// <param name="defaultProperty">Name of the default property to sort
-        /// the item collection.</param>
-        /// <param name="itemSource">Source of items for the underlying
-        /// ViewModel.</param>
-        /// <param name="songs">The collection of songs to use. Only needed
-        /// for albums, artists, and genres.</param>
-        /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
-        /// responsible for playback management.</param>
-        public MediaCollectionViewModel(string defaultProperty,
-            IList itemSource,
-            IList<SongViewModel> songs,
-            MediaPlaybackViewModel pvm)
-            : this(defaultProperty, itemSource, songs, pvm, null) { }
+        public ICommand SortByCommand { get; }
+        public ICommand UpdateSortDirectionCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of this ViewModel.
@@ -77,12 +44,17 @@ namespace Rise.App.ViewModels
         public MediaCollectionViewModel(string defaultProperty,
             IList itemSource,
             IList<SongViewModel> songs,
-            MediaPlaybackViewModel pvm,
-            Func<object, bool> canSort)
-            : base(itemSource, canSort, defaultProperty, SortDirection.Ascending)
+            MediaPlaybackViewModel pvm)
         {
+            Items = new(itemSource);
+            Items.SortDescriptions.Add(new(defaultProperty, SortDirection.Ascending));
+
             _songs = songs;
             _player = pvm;
+        }
+
+        public void Dispose()
+        {
         }
     }
 
@@ -94,7 +66,7 @@ namespace Rise.App.ViewModels
         /// </summary>
         private readonly CancellableTaskHelper PlaybackCancelHelper = new();
 
-        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
+        [RelayCommand(AllowConcurrentExecutions = true)]
         private async Task PlayFromItemAsync(object parameter)
         {
             try
@@ -105,7 +77,7 @@ namespace Rise.App.ViewModels
             catch (OperationCanceledException) { }
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
+        [RelayCommand(AllowConcurrentExecutions = true)]
         private async Task PlaySingleItemAsync(object parameter)
         {
             if (parameter == null)
@@ -122,14 +94,14 @@ namespace Rise.App.ViewModels
             catch (OperationCanceledException) { }
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
+        [RelayCommand(AllowConcurrentExecutions = true)]
         private Task ShuffleFromItemAsync(object parameter)
         {
             _player.ShuffleEnabled = true;
             return PlayFromItemAsync(parameter);
         }
 
-        [RelayCommand(CanExecute = nameof(CanPlay), AllowConcurrentExecutions = true)]
+        [RelayCommand(AllowConcurrentExecutions = true)]
         private Task ShuffleSingleItemAsync(object parameter)
         {
             _player.ShuffleEnabled = true;
@@ -261,10 +233,7 @@ namespace Rise.App.ViewModels
     {
         public Task PlayFromItemAsync(IMediaItem item, CancellationToken token)
         {
-            CanPlay = false;
             var items = Items.CloneList<object, IMediaItem>();
-
-            CanPlay = true;
             token.ThrowIfCancellationRequested();
 
             if (item != null)
@@ -281,12 +250,10 @@ namespace Rise.App.ViewModels
 
         public Task PlayFromAlbumAsync(AlbumViewModel album, CancellationToken token)
         {
-            CanPlay = false;
             var items = Items.CloneList<object, AlbumViewModel>();
             var songs = _songs.CloneList<object, SongViewModel>().
                 OrderBy(s => s.Disc).ThenBy(s => s.Track);
 
-            CanPlay = true;
             token.ThrowIfCancellationRequested();
 
             var toPlay = new List<SongViewModel>();
@@ -312,11 +279,9 @@ namespace Rise.App.ViewModels
 
         public Task PlayFromArtistAsync(ArtistViewModel artist, CancellationToken token)
         {
-            CanPlay = false;
             var items = Items.CloneList<object, ArtistViewModel>();
             var songs = _songs.CloneList<object, SongViewModel>().OrderBy(s => s.Title);
 
-            CanPlay = true;
             token.ThrowIfCancellationRequested();
 
             var toPlay = new List<SongViewModel>();
@@ -342,11 +307,9 @@ namespace Rise.App.ViewModels
 
         public Task PlayFromGenreAsync(GenreViewModel genre, CancellationToken token)
         {
-            CanPlay = false;
             var items = Items.CloneList<object, GenreViewModel>();
             var songs = _songs.CloneList<object, SongViewModel>().OrderBy(s => s.Title);
 
-            CanPlay = true;
             token.ThrowIfCancellationRequested();
 
             var toPlay = new List<SongViewModel>();
@@ -372,10 +335,7 @@ namespace Rise.App.ViewModels
 
         public Task PlayFromPlaylistAsync(PlaylistViewModel playlist, CancellationToken token)
         {
-            CanPlay = false;
             var items = Items.CloneList<object, PlaylistViewModel>();
-            CanPlay = true;
-
             token.ThrowIfCancellationRequested();
 
             var toPlay = new List<IMediaItem>();
