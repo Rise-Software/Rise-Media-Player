@@ -71,9 +71,9 @@ namespace Rise.App.Views
         private SpriteVisual _backgroundVisual;
 
         public ArtistSongsPage()
-            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base("GSongTitle", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
-            AlbumsViewModel = new("Year", MViewModel.Albums, MViewModel.Songs, MPViewModel);
+            AlbumsViewModel = new("GAlbumYear", MViewModel.Albums, MViewModel.Songs, MPViewModel);
 
             InitializeComponent();
 
