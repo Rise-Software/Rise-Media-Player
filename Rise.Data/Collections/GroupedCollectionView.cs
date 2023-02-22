@@ -162,8 +162,26 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// with the provided data source, sort descriptions, and grouping delegate.
     /// </summary>
     public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Func<object, object> group)
+        : this(source, sorts, group, SortDirection.Ascending, null) { }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
+    /// with the provided data source, sort descriptions, grouping delegate,
+    /// and group sorting direction.
+    /// </summary>
+    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Func<object, object> group, SortDirection groupDirection)
+        : this(source, sorts, group, groupDirection, null) { }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
+    /// which uses all available functionality.
+    /// </summary>
+    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Func<object, object> group, SortDirection groupDirection, Predicate<object> filter)
     {
+        _filter = filter;
+
         _groupDelegate = group;
+        _groupsSortDirection = groupDirection;
 
         _sortDescriptions = new(sorts);
         _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
