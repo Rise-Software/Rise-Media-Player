@@ -21,7 +21,7 @@ namespace Rise.App.Views
         }
 
         public LocalVideosPage()
-            : base("Title", App.MViewModel.Videos, App.MViewModel.Playlists)
+            : base("VideoTitle", App.MViewModel.Videos, App.MViewModel.Playlists)
         {
             InitializeComponent();
 

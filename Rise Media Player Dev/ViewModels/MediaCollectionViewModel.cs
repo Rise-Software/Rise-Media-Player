@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI;
+using Rise.App.Helpers;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.ViewModels;
 using System;
 using System.Collections;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Rise.App.ViewModels
 {
@@ -23,38 +23,110 @@ namespace Rise.App.ViewModels
         private readonly MediaPlaybackViewModel _player;
         private readonly IList<SongViewModel> _songs;
 
-        public AdvancedCollectionView Items { get; }
+        /// <summary>
+        /// The items in the collection.
+        /// </summary>
+        public GroupedCollectionView Items { get; }
 
-        public ICommand SortByCommand { get; }
-        public ICommand UpdateSortDirectionCommand { get; }
+        private MediaCollectionViewModel(IList<SongViewModel> songs, MediaPlaybackViewModel pvm)
+        {
+            SortByCommand = new(SortBy);
+            UpdateSortDirectionCommand = new(UpdateSortDirection);
+
+            _songs = songs;
+            _player = pvm;
+        }
 
         /// <summary>
         /// Initializes a new instance of this ViewModel.
         /// </summary>
-        /// <param name="defaultProperty">Name of the default property to sort
-        /// the item collection.</param>
+        /// <param name="delegateKey">Key for the delegate to use for sorting. Must
+        /// be present in <see cref="CollectionViewDelegates"/>.</param>
         /// <param name="itemSource">Source of items for the underlying
         /// ViewModel.</param>
         /// <param name="songs">The collection of songs to use. Only needed
         /// for albums, artists, and genres.</param>
         /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
         /// responsible for playback management.</param>
-        /// <param name="canSort">A delegate indicating whether sorting
-        /// is possible.</param>
-        public MediaCollectionViewModel(string defaultProperty,
+        public MediaCollectionViewModel(string delegateKey,
             IList itemSource,
             IList<SongViewModel> songs,
             MediaPlaybackViewModel pvm)
+            : this(songs, pvm)
         {
-            Items = new(itemSource);
-            Items.SortDescriptions.Add(new(defaultProperty, SortDirection.Ascending));
+            _currentDelegate = delegateKey;
+            if (!string.IsNullOrEmpty(delegateKey))
+            {
+                var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
+                var sort = new SortDescription(SortDirection.Ascending, sortDel);
 
-            _songs = songs;
-            _player = pvm;
+                bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
+                if (canGroup)
+                    Items = new(itemSource, new[] { sort }, null, groupDel);
+                else
+                    Items = new(itemSource, new[] { sort });
+            }
+            else
+            {
+                Items = new(itemSource);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this ViewModel.
+        /// </summary>
+        /// <param name="itemSource">Source of items for the underlying
+        /// ViewModel.</param>
+        /// <param name="sorts">Sort descriptions to use.</param>
+        /// <param name="groupDel">Group delegates to use.</param>
+        /// <param name="filter">Filter to use.</param>
+        /// <param name="songs">The collection of songs to use. Only needed
+        /// for albums, artists, and genres.</param>
+        /// <param name="pvm">An instance of <see cref="MediaPlaybackViewModel"/>
+        /// responsible for playback management.</param>
+        public MediaCollectionViewModel(IList itemSource,
+            IEnumerable<SortDescription> sorts,
+            Predicate<object> filter,
+            Func<object, object> groupDel,
+            IList<SongViewModel> songs,
+            MediaPlaybackViewModel pvm)
+            : this(songs, pvm)
+        {
+            Items = new(itemSource, sorts, filter, groupDel, SortDirection.Ascending);
         }
 
         public void Dispose()
+            => Items.Dispose();
+    }
+
+    // Sorting
+    public partial class MediaCollectionViewModel
+    {
+        private string _currentDelegate;
+        private SortDirection _currentDirection = SortDirection.Ascending;
+
+        public RelayCommand<string> SortByCommand { get; }
+        public void SortBy(string delegateKey)
         {
+            _currentDelegate = delegateKey;
+
+            var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
+            var sort = new SortDescription(_currentDirection, sortDel);
+
+            _ = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
+            Items.ReplaceSortingAndGrouping(new[] { sort }, groupDel, _currentDirection);
+        }
+
+        public RelayCommand<SortDirection> UpdateSortDirectionCommand { get; }
+        public void UpdateSortDirection(SortDirection direction)
+        {
+            _currentDirection = direction;
+
+            var sortDel = CollectionViewDelegates.GetDelegate(_currentDelegate);
+            var sort = new SortDescription(direction, sortDel);
+
+            _ = CollectionViewDelegates.TryGetDelegate($"G{_currentDelegate}", out var groupDel);
+            Items.ReplaceSortingAndGrouping(new[] { sort }, groupDel, direction);
         }
     }
 
@@ -164,56 +236,36 @@ namespace Rise.App.ViewModels
 
         public Task PlaySingleAlbumAsync(AlbumViewModel album, CancellationToken token)
         {
-            var acv = new AdvancedCollectionView(_songs.ToList());
-            var songs = new List<SongViewModel>();
+            var filtered = _songs.Where(s => s.Album == album.Title);
             token.ThrowIfCancellationRequested();
 
-            acv.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
-            acv.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+            var toPlay = filtered.OrderBy(s => s.Disc).ThenBy(s => s.Track);
             token.ThrowIfCancellationRequested();
 
-            acv.Filter = s => ((SongViewModel)s).Album == album.Title;
-            songs.AddRange(acv.CloneList<object, SongViewModel>());
-            acv.Filter = null;
-            token.ThrowIfCancellationRequested();
-
-            return _player.PlayItemsAsync(songs, token);
+            return _player.PlayItemsAsync(toPlay, token);
         }
 
         public Task PlaySingleArtistAsync(ArtistViewModel artist, CancellationToken token)
         {
-            var acv = new AdvancedCollectionView(_songs.ToList());
-            var songs = new List<SongViewModel>();
+            string name = artist.Name;
+            var filtered = _songs.Where(s => s.Artist == name || s.AlbumArtist == name);
             token.ThrowIfCancellationRequested();
 
-            acv.SortDescriptions.Add(new SortDescription("Title", SortDirection.Ascending));
+            var toPlay = filtered.OrderBy(s => s.Title);
             token.ThrowIfCancellationRequested();
 
-            acv.Filter = s => ((SongViewModel)s).Artist == artist.Name ||
-                ((SongViewModel)s).AlbumArtist == artist.Name;
-            songs.AddRange(acv.CloneList<object, SongViewModel>());
-            acv.Filter = null;
-            token.ThrowIfCancellationRequested();
-
-            return _player.PlayItemsAsync(songs, token);
+            return _player.PlayItemsAsync(toPlay, token);
         }
 
         public Task PlaySingleGenreAsync(GenreViewModel genre, CancellationToken token)
         {
-            var acv = new AdvancedCollectionView(_songs.ToList());
-            var songs = new List<SongViewModel>();
+            var filtered = _songs.Where(s => s.Genres == genre.Name);
             token.ThrowIfCancellationRequested();
 
-            acv.SortDescriptions.Add(new SortDescription("Disc", SortDirection.Ascending));
-            acv.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+            var toPlay = filtered.OrderBy(s => s.Disc).ThenBy(s => s.Track);
             token.ThrowIfCancellationRequested();
 
-            acv.Filter = s => ((SongViewModel)s).Genres == genre.Name;
-            songs.AddRange(acv.CloneList<object, SongViewModel>());
-            acv.Filter = null;
-            token.ThrowIfCancellationRequested();
-
-            return _player.PlayItemsAsync(songs, token);
+            return _player.PlayItemsAsync(toPlay, token);
         }
 
         public Task PlaySinglePlaylistAsync(PlaylistViewModel playlist, CancellationToken token)

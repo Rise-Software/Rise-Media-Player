@@ -1,13 +1,13 @@
-﻿using Microsoft.Toolkit.Uwp.UI;
-using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations.Expressions;
 using Rise.App.Converters;
+using Rise.App.Helpers;
 using Rise.App.UserControls;
 using Rise.App.ViewModels;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -37,7 +37,7 @@ namespace Rise.App.Views
             set => SetValue(SelectedItemProperty, value);
         }
 
-        private readonly AdvancedCollectionView AlbumsByArtist = new();
+        private GroupedCollectionView AlbumsByArtist;
 
         private bool MoreAlbumsExpanded;
 
@@ -45,7 +45,7 @@ namespace Rise.App.Views
         private SpriteVisual _backgroundVisual;
 
         public AlbumSongsPage()
-            : base("Disc", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base(App.MViewModel.Playlists)
         {
             InitializeComponent();
 
@@ -64,7 +64,7 @@ namespace Rise.App.Views
             if (AlbumsByArtist.Count > 0)
                 _ = FindName("MoreAlbumsByArtist");
 
-            var scrollViewer = MainList.FindDescendant<ScrollViewer>();
+            var scrollViewer = MainList.FindVisualChild<ScrollViewer>();
 
             var propSet = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(scrollViewer);
             _compositor = propSet.Compositor;
@@ -83,25 +83,34 @@ namespace Rise.App.Views
             {
                 SelectedAlbum = App.MViewModel.Albums.
                     FirstOrDefault(a => a.Model.Id == id);
-
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Album == SelectedAlbum.Title;
             }
             else if (e.NavigationParameter is string str)
             {
                 SelectedAlbum = App.MViewModel.Albums.FirstOrDefault(a => a.Title == str);
-                MediaViewModel.Items.Filter = s => ((SongViewModel)s).Album == str;
             }
 
-            MediaViewModel.Items.SortDescriptions.Add(new SortDescription("Track", SortDirection.Ascending));
+            var discSort = CollectionViewDelegates.GetDelegate("SongDisc");
+            var trackSort = CollectionViewDelegates.GetDelegate("SongTrack");
 
-            AlbumsByArtist.Source = MViewModel.Albums;
-            AlbumsByArtist.Filter = a => ((AlbumViewModel)a).Title != SelectedAlbum.Title && ((AlbumViewModel)a).Artist == SelectedAlbum.Artist;
-            AlbumsByArtist.SortDescriptions.Add(new SortDescription("Year", SortDirection.Descending));
+            var sorts = new SortDescription[] { new(SortDirection.Ascending, discSort), new(SortDirection.Ascending, trackSort) };
+            bool IsPartOfAlbum(object s)
+                => ((SongViewModel)s).Album == SelectedAlbum.Title;
+
+            CreateViewModel(App.MViewModel.Songs, sorts, IsPartOfAlbum, null);
+
+            var yearSort = CollectionViewDelegates.GetDelegate("AlbumYear");
+            bool IsFromSameArtist(object a)
+            {
+                var album = (AlbumViewModel)a;
+                return album.Title != SelectedAlbum.Title && album.Artist == SelectedAlbum.Artist;
+            };
+
+            AlbumsByArtist = new(App.MViewModel.Albums, new SortDescription[] { new(SortDirection.Ascending, yearSort) }, IsFromSameArtist);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
-            AlbumsByArtist.ClearFilter();
+            AlbumsByArtist.Dispose();
         }
     }
 

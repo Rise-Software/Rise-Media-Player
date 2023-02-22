@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.Toolkit.Uwp.UI;
 using Rise.App.Helpers;
 using Rise.App.ViewModels;
 using Rise.App.Views;
@@ -8,6 +7,7 @@ using Rise.Common.Enums;
 using Rise.Common.Extensions;
 using Rise.Common.Helpers;
 using Rise.Common.Interfaces;
+using Rise.Data.Collections;
 using Rise.Data.Json;
 using Rise.Data.Sources;
 using Rise.Data.ViewModels;
@@ -69,10 +69,10 @@ namespace Rise.App.UserControls
         /// Initializes a new instance of this class with the specified
         /// property for sorting and ViewModel data source.
         /// </summary>
-        public MediaPageBase(string defaultProperty, IList viewModelSource)
+        public MediaPageBase(string delegateKey, IList viewModelSource)
             : this()
         {
-            CreateViewModel(defaultProperty, viewModelSource);
+            CreateViewModel(delegateKey, viewModelSource);
         }
 
         /// <summary>
@@ -90,19 +90,31 @@ namespace Rise.App.UserControls
         /// property for sorting, a ViewModel data source, and a data
         /// source for <see cref="PlaylistHelper"/>.
         /// </summary>
-        public MediaPageBase(string defaultProperty, IList viewModelSource, IList<PlaylistViewModel> playlists)
-            : this(defaultProperty, viewModelSource)
+        public MediaPageBase(string delegateKey, IList viewModelSource, IList<PlaylistViewModel> playlists)
+            : this(delegateKey, viewModelSource)
         {
             PlaylistHelper = new(playlists);
         }
 
         /// <summary>
         /// Initializes <see cref="MediaViewModel"/> with the specified
-        /// property for sorting and data source.
+        /// delegate key for sorting and data source.
         /// </summary>
-        public void CreateViewModel(string defaultProperty, IList dataSource)
+        public void CreateViewModel(string delegateKey, IList dataSource)
         {
-            MediaViewModel ??= new(defaultProperty, dataSource,
+            MediaViewModel ??= new(delegateKey, dataSource,
+                App.MViewModel.Songs, App.MPViewModel);
+        }
+
+        /// <summary>
+        /// Initializes <see cref="MediaViewModel"/> with the provided parameters.
+        /// </summary>
+        public void CreateViewModel(IList dataSource,
+            IEnumerable<SortDescription> sorts,
+            Predicate<object> filter,
+            Func<object, object> groupDel)
+        {
+            MediaViewModel ??= new(dataSource, sorts, filter, groupDel,
                 App.MViewModel.Songs, App.MPViewModel);
         }
     }

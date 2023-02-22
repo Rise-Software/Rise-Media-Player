@@ -6,9 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -48,6 +46,7 @@
         <ListView
             x:Name="MainList"
             Padding="56,24,56,120"
+            ui:ListViewExtensions.AlternateColor="{ThemeResource ExpanderContentBackground}"
             DoubleTapped="MainList_DoubleTapped"
             IsDoubleTapEnabled="True"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -269,20 +268,6 @@
                         Style="{StaticResource TransparentSongDataStyle}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <ui:ListViewExtensions.AlternateItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel" x:DefaultBindMode="OneWay">
-                    <uc:SongData
-                        Height="50"
-                        EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
-                        GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
-                        GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
-                        PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
-                        ShowAlbum="False"
-                        ShowThumbnail="False"
-                        Song="{x:Bind}" />
-                </DataTemplate>
-            </ui:ListViewExtensions.AlternateItemTemplate>
 
             <ListView.Footer>
                 <Border

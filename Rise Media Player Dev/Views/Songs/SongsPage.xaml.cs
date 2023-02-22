@@ -20,7 +20,7 @@ namespace Rise.App.Views
         }
 
         public SongsPage()
-            : base("Title", App.MViewModel.Songs, App.MViewModel.Playlists)
+            : base("SongTitle", App.MViewModel.Songs, App.MViewModel.Playlists)
         {
             InitializeComponent();
 

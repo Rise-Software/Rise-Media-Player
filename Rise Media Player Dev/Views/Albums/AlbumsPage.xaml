@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
+    xmlns:collections="using:Rise.Data.Collections"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="using:Rise.Common.Enums"
@@ -10,7 +11,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -112,14 +112,14 @@
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.VerticalTile}"
-                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.VerticalTile)}"
                             GroupName="ViewModes"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.VerticalTile)}"
                             Text="{markup:ResourceHelper Name=TilesVertical}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind UpdateViewModeCommand}"
                             CommandParameter="{x:Bind enums:AlbumViewMode.HorizontalTile}"
-                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.HorizontalTile)}"
                             GroupName="ViewModes"
+                            IsChecked="{x:Bind app:App.SViewModel.AlbumViewMode.Equals(enums:AlbumViewMode.HorizontalTile)}"
                             Text="{markup:ResourceHelper Name=TilesHorizontal}" />
 
                         <MenuFlyoutSeparator />
@@ -149,31 +149,31 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title"
+                            CommandParameter="AlbumTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Artist"
+                            CommandParameter="AlbumArtist"
                             Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Genres"
+                            CommandParameter="AlbumGenres"
                             Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year"
+                            CommandParameter="AlbumYear"
                             Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Ascending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Descending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
@@ -194,10 +194,10 @@
             Grid.Row="2"
             Margin="-56,0"
             Padding="44,0,44,120"
+            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
             IsItemClickEnabled="True"
             ItemClick="MainGrid_ItemClick"
             ItemsSource="{x:Bind MediaViewModel.Items}"
-            tkitanim:ItemsReorderAnimation.Duration="0:0:0.2"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             SelectionMode="Single">
             <GridView.ContextFlyout>

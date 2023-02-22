@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
+    xmlns:collections="using:Rise.Data.Collections"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
@@ -124,39 +125,35 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Track"
-                            Text="{markup:ResourceHelper Name=TrackNumber}" />
-                        <muxc:RadioMenuFlyoutItem
-                            Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title"
+                            CommandParameter="SongTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Album"
+                            CommandParameter="SongAlbum"
                             Text="{markup:ResourceHelper Name=Album}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Artist"
+                            CommandParameter="SongArtist"
                             Text="{markup:ResourceHelper Name=ArtistOrArtists}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Genres"
+                            CommandParameter="SongGenres"
                             Text="{markup:ResourceHelper Name=Genre}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year"
+                            CommandParameter="SongYear"
                             Text="{markup:ResourceHelper Name=ReleaseYear}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Ascending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Descending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
@@ -176,6 +173,7 @@
             Grid.Row="2"
             Margin="-56,0"
             Padding="56,0,56,120"
+            tkitui:ListViewExtensions.AlternateColor="{ThemeResource ExpanderContentBackground}"
             DoubleTapped="MainList_DoubleTapped"
             IsDoubleTapEnabled="True"
             ItemsSource="{x:Bind MediaViewModel.Items}"
@@ -255,6 +253,16 @@
                 </MenuFlyout>
             </ListView.ContextFlyout>
 
+            <ListView.GroupStyle>
+                <GroupStyle HidesIfEmpty="True">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:SongViewModel">
                     <uc:SongData
@@ -268,19 +276,6 @@
                         Style="{StaticResource TransparentSongDataStyle}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <tkitui:ListViewExtensions.AlternateItemTemplate>
-                <DataTemplate x:DataType="viewmodels:SongViewModel">
-                    <uc:SongData
-                        EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
-                        GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
-                        GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
-                        PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
-                        ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
-                        ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                        Song="{x:Bind}" />
-                </DataTemplate>
-            </tkitui:ListViewExtensions.AlternateItemTemplate>
         </ListView>
     </Grid>
 </uc:MediaPageBase>

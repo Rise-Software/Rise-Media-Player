@@ -2,13 +2,13 @@
     x:Class="Rise.App.Views.LocalVideosPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:collections="using:Rise.Data.Collections"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tkitanim="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:tkituictrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
@@ -45,7 +45,7 @@
         </muxc:TeachingTip>
 
         <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{markup:ResourceHelper Name=LocalVideos}" />
-        
+
         <CommandBar
             Grid.Row="1"
             Margin="-12,0"
@@ -102,27 +102,27 @@
                     <MenuFlyout>
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Title"
+                            CommandParameter="VideoTitle"
                             Text="{markup:ResourceHelper Name=Title}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Year"
+                            CommandParameter="VideoYear"
                             Text="{markup:ResourceHelper Name=ReleaseYear}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.SortByCommand}"
-                            CommandParameter="Length"
+                            CommandParameter="VideoLength"
                             Text="{markup:ResourceHelper Name=Length}" />
 
                         <MenuFlyoutSeparator />
 
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Ascending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Ascending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Ascending}" />
                         <muxc:RadioMenuFlyoutItem
                             Command="{x:Bind MediaViewModel.UpdateSortDirectionCommand}"
-                            CommandParameter="{x:Bind tkitui:SortDirection.Descending}"
+                            CommandParameter="{x:Bind collections:SortDirection.Descending}"
                             GroupName="SortDirection"
                             Text="{markup:ResourceHelper Name=Descending}" />
                     </MenuFlyout>
