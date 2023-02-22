@@ -141,6 +141,7 @@
     <Compile Include="AnimatedVisuals\UpdateSettingsLottie.cs" />
     <Compile Include="AnimatedVisuals\ZdpLottie.cs" />
     <Compile Include="ChangeTrackers\VideosTracker.cs" />
+    <Compile Include="Converters\IntToBoolean.cs" />
     <Compile Include="Converters\IntToVisibility.cs" />
     <Compile Include="Converters\ResourceFallback.cs" />
     <Compile Include="Converters\StreamToBitmap.cs" />
