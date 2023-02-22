@@ -42,6 +42,10 @@ namespace Rise.App.Helpers
 
             { "GVideoTitle", GVideoTitle },
             { "GVideoYear", v => ((VideoViewModel)v).Year },
+
+            { "PlaylistTitle", p => ((PlaylistViewModel)p).Title },
+
+            { "ArtistName", a => ((ArtistViewModel)a).Name },
         };
 
         public static Func<object, object> GetDelegate(string key)
