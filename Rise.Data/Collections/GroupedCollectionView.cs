@@ -158,6 +158,49 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
         Source = source;
     }
 
+    /// <summary>
+    /// Replaces all sort descriptions with the provided ones.
+    /// </summary>
+    public void ReplaceSorting(IEnumerable<SortDescription> sorts)
+        => ReplaceSortingAndGrouping(sorts, _groupDelegate, _groupsSortDirection);
+
+    /// <summary>
+    /// Replaces grouping related params with the provided ones.
+    /// </summary>
+    public void ReplaceGrouping(Func<object, object> groupDel, SortDirection groupDirection)
+    {
+        _groupDelegate = groupDel;
+        _groupsSortDirection = groupDirection;
+
+        OnGroupChanged();
+    }
+
+    /// <summary>
+    /// Replaces all sort descriptions with the provided ones, and uses
+    /// the provided delegate for grouping.
+    /// </summary>
+    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, Func<object, object> groupDel)
+        => ReplaceSortingAndGrouping(sorts, groupDel, _groupsSortDirection);
+
+    /// <summary>
+    /// Replaces all sort descriptions with the provided ones, uses the
+    /// provided delegate for grouping, and updates the grouping direction.
+    /// </summary>
+    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, Func<object, object> groupDel, SortDirection groupDirection)
+    {
+        _groupDelegate = groupDel;
+        _groupsSortDirection = groupDirection;
+
+        _sortDescriptions.CollectionChanged -= OnSortDescriptionsChanged;
+
+        _sortDescriptions.Clear();
+        foreach (var sort in sorts)
+            _sortDescriptions.Add(sort);
+
+        _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
+        OnSortChanged();
+    }
+
     private void OnSortDescriptionsChanged(object sender, NotifyCollectionChangedEventArgs e)
         => OnSortChanged();
 
