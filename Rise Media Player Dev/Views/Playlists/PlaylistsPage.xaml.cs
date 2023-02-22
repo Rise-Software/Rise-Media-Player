@@ -24,7 +24,7 @@ namespace Rise.App.Views
         }
 
         public PlaylistsPage()
-            : base("Title", App.MViewModel.Playlists)
+            : base("PlaylistTitle", App.MViewModel.Playlists)
         {
             InitializeComponent();
         }
