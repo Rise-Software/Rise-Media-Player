@@ -1,6 +1,7 @@
 ﻿using Rise.Common.Helpers;
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Data;
 
@@ -9,7 +10,7 @@ namespace Rise.Data.Collections;
 public sealed partial class GroupedCollectionView
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    private void OnPropertyChanged(string propertyName)
+    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         => PropertyChanged?.Invoke(this, new(propertyName));
 
     // Current item

@@ -34,9 +34,17 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             {
                 _groupDelegate = value;
                 OnGroupChanged();
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsGrouped));
             }
         }
     }
+
+    /// <summary>
+    /// Whether the view is currently grouped.
+    /// </summary>
+    public bool IsGrouped => _groupDelegate != null;
 
     private SortDirection _groupsSortDirection = SortDirection.Ascending;
     /// <summary>
@@ -52,6 +60,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             {
                 _groupsSortDirection = value;
                 OnGroupChanged();
+
+                OnPropertyChanged();
             }
         }
     }
@@ -78,6 +88,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             {
                 _filter = value;
                 OnFilterChanged();
+
+                OnPropertyChanged();
             }
         }
     }
@@ -105,6 +117,7 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
                 ncc.CollectionChanged += OnSourceCollectionChanged;
 
             OnSourceChanged();
+            OnPropertyChanged();
         }
     }
 
@@ -276,6 +289,8 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
         _view.Sort(this);
 
         OnVectorChanged(CollectionChange.Reset, 0);
+        OnPropertyChanged(nameof(IsGrouped));
+
         _ = MoveCurrentTo(current);
     }
 
@@ -302,10 +317,15 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
 
     private void OnSortChanged()
     {
+        var current = CurrentItem;
+
         _view.Sort(this);
         OnGroupChanged();
 
         OnVectorChanged(CollectionChange.Reset, 0);
+        OnPropertyChanged(nameof(IsGrouped));
+
+        _ = MoveCurrentTo(current);
     }
 
     private void OnFilterChanged()
