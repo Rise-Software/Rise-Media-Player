@@ -43,7 +43,6 @@ namespace Rise.App.Views
         }
 
         private PlaylistViewModel SelectedPlaylist;
-        private double? _offset = null;
 
         public PlaylistDetailsPage()
             : base(App.MViewModel.Playlists)
@@ -69,8 +68,8 @@ namespace Rise.App.Views
                 SelectedPlaylist = MViewModel.Playlists.
                     FirstOrDefault(p => p.Id == id);
 
-                CreateViewModel("Title", SelectedPlaylist.Songs);
-                VideosViewModel = new("Title", SelectedPlaylist.Videos, null, MPViewModel);
+                CreateViewModel(string.Empty, SelectedPlaylist.Songs);
+                VideosViewModel = new(string.Empty, SelectedPlaylist.Videos, null, MPViewModel);
             }
         }
 
