@@ -3,8 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Rise.App"
+    xmlns:behaviors="using:Rise.Common.Behaviors"
     xmlns:conv="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
@@ -27,9 +29,9 @@
         Padding="56,44,56,120"
         d:Padding="12"
         DoubleTapped="MainList_DoubleTapped"
+        ItemContainerStyle="{StaticResource SongListViewItemStyle}"
         ItemsSource="{x:Bind MediaViewModel.Items}"
-        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-        Style="{StaticResource SongListViewStyle}">
+        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}">
         <ListView.ContextFlyout>
             <MenuFlyout Opening="SongFlyout_Opening">
                 <MenuFlyoutItem
@@ -345,22 +347,15 @@
                     PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                     ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
                     ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                    Song="{x:Bind}"
-                    Style="{StaticResource TransparentSongDataStyle}" />
+                    Song="{x:Bind}" />
             </DataTemplate>
         </ListView.ItemTemplate>
 
-        <ui:ListViewExtensions.AlternateItemTemplate>
-            <DataTemplate x:DataType="viewmodels:SongViewModel">
-                <uc:SongData
-                    EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
-                    GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
-                    GoToArtistCommand="{Binding GoToArtistCommand, ElementName=PageRoot}"
-                    PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
-                    ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
-                    ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                    Song="{x:Bind}" />
-            </DataTemplate>
-        </ui:ListViewExtensions.AlternateItemTemplate>
+        <interactivity:Interaction.Behaviors>
+            <behaviors:AlternatingListViewBehavior
+                AlternateBackground="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                AlternateBorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                AlternateBorderThickness="1" />
+        </interactivity:Interaction.Behaviors>
     </ListView>
 </uc:MediaPageBase>

@@ -1,10 +1,10 @@
-﻿using Windows.Foundation.Collections;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
+﻿using Microsoft.Xaml.Interactivity;
+using Rise.Common.Extensions;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Microsoft.Xaml.Interactivity;
-using Microsoft.Toolkit.Uwp.UI;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 
 #nullable enable
 
@@ -98,23 +98,10 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
     {
         base.OnDetaching();
 
-        AssociatedObject.ActualThemeChanged -= OnActualThemeChanged;
         AssociatedObject.ContainerContentChanging -= OnContainerContentChanging;
 
         if (AssociatedObject.Items != null)
             AssociatedObject.Items.VectorChanged -= ItemsOnVectorChanged;
-    }
-
-    private void OnActualThemeChanged(FrameworkElement sender, object args)
-    {
-        if (AssociatedObject.Items == null) return;
-        for (int i = 0; i < AssociatedObject.Items.Count; i++)
-        {
-            if (AssociatedObject.ContainerFromIndex(i) is not SelectorItem itemContainer)
-                continue;
-
-            UpdateAlternateLayout(itemContainer, i);
-        }
     }
 
     private void ItemsOnVectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
@@ -145,24 +132,23 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
 
     private void UpdateAlternateLayout(SelectorItem itemContainer, int itemIndex)
     {
-        if (itemIndex < 0 || AlternateBackground == null) return;
+        if (itemIndex < 0) return;
 
-        var evenBackground = AlternateBackground;
-        itemContainer.Background = itemIndex % 2 == 0 ? evenBackground : null;
-
-        if (itemContainer.FindDescendant<Border>() is not { } border) return;
+        var border = itemContainer.FindVisualChild<Border>();
+        if (border == null)
+            return;
 
         if (itemIndex % 2 == 0)
         {
-            border.Background = evenBackground;
+            border.Background = AlternateBackground;
             border.BorderBrush = AlternateBorderBrush;
             border.BorderThickness = AlternateBorderThickness;
-
-            return;
         }
-
-        border.Background = Background;
-        border.BorderBrush = BorderBrush;
-        border.BorderThickness = BorderThickness;
+        else
+        {
+            border.Background = Background;
+            border.BorderBrush = BorderBrush;
+            border.BorderThickness = BorderThickness;
+        }
     }
 }

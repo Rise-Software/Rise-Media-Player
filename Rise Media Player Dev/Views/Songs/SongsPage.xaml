@@ -196,13 +196,12 @@
                 <ListView
                     x:Name="MainList"
                     Padding="56,0,56,120"
-                    tkitui:ListViewExtensions.AlternateColor="{ThemeResource ExpanderContentBackground}"
                     DoubleTapped="MainList_DoubleTapped"
                     IsDoubleTapEnabled="True"
+                    ItemContainerStyle="{StaticResource SongListViewItemStyle}"
                     ItemsSource="{x:Bind MediaViewModel.Items}"
                     SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-                    SelectionMode="Single"
-                    Style="{StaticResource SongListViewStyle}">
+                    SelectionMode="Single">
                     <ListView.ContextFlyout>
                         <MenuFlyout Opening="MenuFlyout_Opening">
                             <MenuFlyoutItem
@@ -298,8 +297,7 @@
                                 PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                                 ShowLength="{x:Bind app:App.SViewModel.ShowDurationInSongs, Mode=OneWay}"
                                 ShowTrackNumber="{x:Bind app:App.SViewModel.ShowTrackNumberInSongs, Mode=OneWay}"
-                                Song="{x:Bind}"
-                                Style="{StaticResource TransparentSongDataStyle}" />
+                                Song="{x:Bind}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
 

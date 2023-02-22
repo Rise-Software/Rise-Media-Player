@@ -2,14 +2,15 @@
     x:Class="Rise.App.Views.ArtistSongsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Rise.Common.Behaviors"
     xmlns:collections="using:Rise.Data.Collections"
     xmlns:converters="using:Rise.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Rise.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:tkitui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:uc="using:Rise.App.UserControls"
     xmlns:viewmodels="using:Rise.App.ViewModels"
     x:Name="PageRoot"
@@ -444,11 +445,11 @@
                                         Padding="16,0,16,12"
                                         DoubleTapped="MainList_DoubleTapped"
                                         IsDoubleTapEnabled="True"
+                                        ItemContainerStyle="{StaticResource SongListViewItemStyle}"
                                         ItemsSource="{x:Bind MediaViewModel.Items}"
                                         ScrollViewer.IsVerticalScrollChainingEnabled="False"
                                         SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-                                        SelectionMode="Single"
-                                        Style="{StaticResource SongListViewStyle}">
+                                        SelectionMode="Single">
                                         <ListView.ContextFlyout>
                                             <MenuFlyout Opening="SongFlyout_Opening">
                                                 <MenuFlyoutItem
@@ -509,29 +510,20 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate x:DataType="viewmodels:SongViewModel">
                                                 <uc:SongData
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
-                                                    EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
-                                                    GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
-                                                    PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
-                                                    ShowArtist="False"
-                                                    Song="{x:Bind}"
-                                                    Style="{StaticResource TransparentSongDataStyle}" />
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-
-                                        <tkitui:ListViewExtensions.AlternateItemTemplate>
-                                            <DataTemplate x:DataType="viewmodels:SongViewModel">
-                                                <uc:SongData
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
                                                     EditCommand="{Binding EditItemCommand, ElementName=PageRoot}"
                                                     GoToAlbumCommand="{Binding GoToAlbumCommand, ElementName=PageRoot}"
                                                     PlayCommand="{Binding MediaViewModel.PlayFromItemCommand, ElementName=PageRoot}"
                                                     ShowArtist="False"
                                                     Song="{x:Bind}" />
                                             </DataTemplate>
-                                        </tkitui:ListViewExtensions.AlternateItemTemplate>
+                                        </ListView.ItemTemplate>
+
+                                        <interactivity:Interaction.Behaviors>
+                                            <behaviors:AlternatingListViewBehavior
+                                                AlternateBackground="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                AlternateBorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                AlternateBorderThickness="1" />
+                                        </interactivity:Interaction.Behaviors>
                                     </ListView>
                                 </Grid>
                             </StackPanel>
