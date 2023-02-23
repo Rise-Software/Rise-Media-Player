@@ -1,4 +1,5 @@
-﻿using Microsoft.Xaml.Interactivity;
+﻿using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Xaml.Interactivity;
 using Rise.Common.Extensions;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -94,10 +95,23 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
             AssociatedObject.Items.VectorChanged += ItemsOnVectorChanged;
     }
 
+    private void OnActualThemeChanged(FrameworkElement sender, object args)
+    {
+        if (AssociatedObject.Items == null) return;
+        for (int i = 0; i < AssociatedObject.Items.Count; i++)
+        {
+            if (AssociatedObject.ContainerFromIndex(i) is not SelectorItem itemContainer)
+                continue;
+
+            UpdateAlternateLayout(itemContainer, i);
+        }
+    }
+
     protected override void OnDetaching()
     {
         base.OnDetaching();
 
+        AssociatedObject.ActualThemeChanged -= OnActualThemeChanged;
         AssociatedObject.ContainerContentChanging -= OnContainerContentChanging;
 
         if (AssociatedObject.Items != null)
@@ -134,11 +148,15 @@ public sealed class AlternatingListViewBehavior : Behavior<ListViewBase>
     {
         if (itemIndex < 0) return;
 
-        var border = itemContainer.FindVisualChild<Border>();
-        if (border == null)
+        var isEven = itemIndex % 2 == 0;
+        itemContainer.Background = isEven ? AlternateBackground : null;
+
+        var border = itemContainer.FindDescendant<Border>();
+
+        if (border is not { })
             return;
 
-        if (itemIndex % 2 == 0)
+        if (isEven)
         {
             border.Background = AlternateBackground;
             border.BorderBrush = AlternateBorderBrush;

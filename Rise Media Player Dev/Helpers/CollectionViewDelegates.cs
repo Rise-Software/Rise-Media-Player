@@ -1,8 +1,7 @@
 ﻿using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using Windows.UI.Xaml;
+using Windows.Globalization.Collation;
 
 namespace Rise.App.Helpers
 {
