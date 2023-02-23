@@ -1,6 +1,8 @@
 ﻿using Rise.App.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using Windows.UI.Xaml;
 
 namespace Rise.App.Helpers
 {
@@ -71,7 +73,12 @@ namespace Rise.App.Helpers
         {
             if (char.IsLetter(c))
                 return char.ToUpper(c);
-            return '#';
+            if (char.IsNumber(c))
+                return '#';
+            if (char.IsSymbol(c) || char.IsPunctuation(c) || char.IsSeparator(c))
+                return '&';
+
+            return '\u2026';
         }
     }
 }
