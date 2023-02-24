@@ -189,12 +189,12 @@ namespace Rise.App.UserControls
     {
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Hovered", true);
+            VisualStateManager.GoToState(this, "PointerOver", true);
         }
 
         private void OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Default", true);
+            VisualStateManager.GoToState(this, "Normal", true);
         }
     }
 }

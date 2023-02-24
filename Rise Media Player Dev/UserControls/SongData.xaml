@@ -7,11 +7,10 @@
     xmlns:helpers="using:Rise.Common.Helpers"
     xmlns:markup="using:Rise.Common.Extensions.Markup"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkitctrls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     d:DesignHeight="64"
     d:DesignWidth="600"
-    PointerCanceled="OnPointerExited"
-    PointerCaptureLost="OnPointerExited"
     PointerEntered="OnPointerEntered"
     PointerExited="OnPointerExited"
     mc:Ignorable="d">
@@ -32,20 +31,13 @@
         CornerRadius="{x:Bind CornerRadius, Mode=OneWay}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" MaxWidth="36" />
+            <ColumnDefinition Width="36" />
             <ColumnDefinition Width="1.6*" />
-            <ColumnDefinition
-                x:Name="ArtistColumn"
-                Width="0"
-                d:Width="*" />
-            <ColumnDefinition
-                x:Name="AlbumColumn"
-                Width="0"
-                d:Width="*" />
-            <ColumnDefinition
-                x:Name="GenreColumn"
-                Width="0"
-                d:Width="*" />
+
+            <ColumnDefinition x:Name="ArtistColumn" Width="0" />
+            <ColumnDefinition x:Name="AlbumColumn" Width="0" />
+            <ColumnDefinition x:Name="GenreColumn" Width="0" />
+
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -74,24 +66,16 @@
                     Glyph="&#xE102;" />
             </Button>
 
-            <Border
+            <tkitctrls:ImageEx
                 x:Name="AlbumThumb"
                 Width="36"
                 Height="36"
                 CornerRadius="{x:Bind ThumbnailCornerRadius}"
-                Visibility="{x:Bind ShowThumbnail}">
-                <Border.Background>
-                    <ImageBrush Stretch="UniformToFill">
-                        <ImageBrush.ImageSource>
-                            <BitmapImage
-                                DecodePixelHeight="36"
-                                DecodePixelType="Logical"
-                                DecodePixelWidth="36"
-                                UriSource="{x:Bind Song.Thumbnail}" />
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
-                </Border.Background>
-            </Border>
+                DecodePixelHeight="36"
+                DecodePixelWidth="36"
+                Source="{x:Bind Song.Thumbnail}"
+                Stretch="UniformToFill"
+                Visibility="{x:Bind ShowThumbnail}" />
         </Grid>
 
         <TextBlock
@@ -127,8 +111,7 @@
             VerticalAlignment="Center"
             Command="{x:Bind GoToAlbumCommand}"
             CommandParameter="{x:Bind Song.Album}"
-            FontSize="12"
-            Visibility="{x:Bind ShowAlbum}">
+            FontSize="12">
             <TextBlock
                 d:Text="Unknown Album"
                 Text="{x:Bind Song.Album}"
@@ -174,9 +157,9 @@
         </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="HoverStates">
-                <VisualState x:Name="Default" />
-                <VisualState x:Name="Hovered">
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
                     <VisualState.Setters>
                         <Setter Target="AlbumThumb.IsHitTestVisible" Value="False" />
                         <Setter Target="AlbumThumb.Opacity" Value="0" />
@@ -187,48 +170,47 @@
                 </VisualState>
             </VisualStateGroup>
 
-            <VisualStateGroup x:Name="DetailsLevels">
-                <VisualState x:Name="Level0" />
-                <VisualState x:Name="Level1">
+            <VisualStateGroup x:Name="ArtistVisibilityStates">
+                <VisualState x:Name="ArtistHidden" />
+                <VisualState x:Name="ArtistVisible">
                     <VisualState.StateTriggers>
-                        <ui:ControlSizeTrigger
-                            MaxWidth="620"
-                            CanTrigger="True"
-                            TargetElement="{x:Bind RootBorder, Mode=OneTime}" />
+                        <StateTrigger IsActive="{x:Bind ShowArtist, Mode=OneWay}" />
                     </VisualState.StateTriggers>
+
                     <VisualState.Setters>
                         <Setter Target="ArtistColumn.Width" Value="*" />
-                        <Setter Target="ArtistName.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="Level2">
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="AlbumStates">
+                <VisualState x:Name="AlbumHidden" />
+                <VisualState x:Name="AlbumVisible">
                     <VisualState.StateTriggers>
                         <ui:ControlSizeTrigger
-                            MaxWidth="800"
-                            CanTrigger="True"
+                            MinWidth="620"
+                            CanTrigger="{x:Bind ShowAlbum, Mode=OneWay}"
                             TargetElement="{x:Bind RootBorder, Mode=OneTime}" />
                     </VisualState.StateTriggers>
+
                     <VisualState.Setters>
-                        <Setter Target="ArtistColumn.Width" Value="*" />
                         <Setter Target="AlbumColumn.Width" Value="*" />
-                        <Setter Target="ArtistName.Visibility" Value="Visible" />
-                        <Setter Target="AlbumTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="Level3">
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Name="GenreStates">
+                <VisualState x:Name="GenreHidden" />
+                <VisualState x:Name="GenreVisible">
                     <VisualState.StateTriggers>
                         <ui:ControlSizeTrigger
                             MinWidth="800"
-                            CanTrigger="True"
+                            CanTrigger="{x:Bind ShowGenre, Mode=OneWay}"
                             TargetElement="{x:Bind RootBorder, Mode=OneTime}" />
                     </VisualState.StateTriggers>
+
                     <VisualState.Setters>
-                        <Setter Target="ArtistColumn.Width" Value="*" />
-                        <Setter Target="AlbumColumn.Width" Value="*" />
                         <Setter Target="GenreColumn.Width" Value="*" />
-                        <Setter Target="ArtistName.Visibility" Value="Visible" />
-                        <Setter Target="AlbumTitle.Visibility" Value="Visible" />
-                        <Setter Target="GenreTitle.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
