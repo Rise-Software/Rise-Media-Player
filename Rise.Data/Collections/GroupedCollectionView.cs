@@ -150,12 +150,7 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// with the provided data source and sort descriptions.
     /// </summary>
     public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts)
-    {
-        _sortDescriptions = new(sorts);
-        _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
-
-        Source = source;
-    }
+        : this(source, sorts, null, null, SortDirection.Ascending) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="GroupedCollectionView"/>
