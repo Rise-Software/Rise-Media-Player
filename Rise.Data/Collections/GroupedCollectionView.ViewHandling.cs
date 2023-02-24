@@ -140,7 +140,7 @@ public sealed partial class GroupedCollectionView
 
     // Group handling
     private object GetItemGroup(object item)
-        => _groupDelegate?.Invoke(item);
+        => _groupDescription?.ValueDelegate?.Invoke(item);
 
     private void AddItemToGroup(object item)
     {
@@ -148,11 +148,11 @@ public sealed partial class GroupedCollectionView
         if (key == null)
             return;
 
-        var group = _collectionGroups.Cast<CollectionViewGroup>().FirstOrDefault(g => Equals(g.Group, key));
+        var group = _collectionGroups.Cast<ICollectionViewGroup>().FirstOrDefault(g => Equals(g.Group, key));
         if (group == null)
         {
-            group = new(key);
-            var comparer = ItemGroupComparer.Get(_groupsSortDirection);
+            group = new CollectionViewGroup(key);
+            var comparer = ItemGroupComparer.Get(_groupDescription.SortDirection);
 
             int groupIndex = _collectionGroups.BinarySearch(group, comparer);
             if (groupIndex < 0)

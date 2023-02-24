@@ -19,8 +19,8 @@ public sealed partial class GroupedCollectionView
         => CurrentChanging?.Invoke(this, args);
 
     public event EventHandler<object> CurrentChanged;
-    private void OnCurrentChanged(object e)
-        => CurrentChanged?.Invoke(this, e);
+    private void OnCurrentChanged()
+        => CurrentChanged?.Invoke(this, null);
 
     // Observable vector
     public event VectorChangedEventHandler<object> VectorChanged;

@@ -38,11 +38,11 @@ public sealed partial class GroupedCollectionView
         => MoveCurrentToIndex(CurrentPosition + 1);
 
     public bool MoveCurrentToPrevious()
-        => MoveCurrentToIndex(CurrentPosition + 1);
+        => MoveCurrentToIndex(CurrentPosition - 1);
 
     private bool MoveCurrentToIndex(int index)
     {
-        if (index < -1 || index >= _view.Count || index == CurrentPosition)
+        if (index < -1 || index >= _view.Count)
             return false;
 
         var args = new CurrentChangingEventArgs();
@@ -52,7 +52,7 @@ public sealed partial class GroupedCollectionView
             return false;
 
         CurrentPosition = index;
-        OnCurrentChanged(null);
+        OnCurrentChanged();
 
         return true;
     }

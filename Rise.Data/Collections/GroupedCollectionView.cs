@@ -21,18 +21,18 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
 {
     private readonly List<object> _view = new();
 
-    private Func<object, object> _groupDelegate;
+    private SortDescription _groupDescription;
     /// <summary>
-    /// A delegate for grouping.
+    /// A sort description used for item grouping.
     /// </summary>
-    public Func<object, object> GroupDelegate
+    public SortDescription GroupDescription
     {
-        get => _groupDelegate;
+        get => _groupDescription;
         set
         {
-            if (_groupDelegate != value)
+            if (_groupDescription != value)
             {
-                _groupDelegate = value;
+                _groupDescription = value;
                 OnGroupChanged();
 
                 OnPropertyChanged();
@@ -44,27 +44,7 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// <summary>
     /// Whether the view is currently grouped.
     /// </summary>
-    public bool IsGrouped => _groupDelegate != null;
-
-    private SortDirection _groupsSortDirection = SortDirection.Ascending;
-    /// <summary>
-    /// The sort direction of the collection's groups.
-    /// Ascending by default.
-    /// </summary>
-    public SortDirection GroupsSortDirection
-    {
-        get => _groupsSortDirection;
-        set
-        {
-            if (_groupsSortDirection != value)
-            {
-                _groupsSortDirection = value;
-                OnGroupChanged();
-
-                OnPropertyChanged();
-            }
-        }
-    }
+    public bool IsGrouped => _groupDescription != null;
 
     private readonly ObservableVector<object> _collectionGroups = new();
     public IObservableVector<object> CollectionGroups => _collectionGroups;
@@ -150,33 +130,24 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// with the provided data source and sort descriptions.
     /// </summary>
     public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts)
-        : this(source, sorts, null, null, SortDirection.Ascending) { }
+        : this(source, sorts, null, null) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// with the provided data source, sort descriptions, and grouping delegate.
+    /// with the provided data source, sort descriptions, and filter.
     /// </summary>
     public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter)
-        : this(source, sorts, filter, null, SortDirection.Ascending) { }
+        : this(source, sorts, filter, null) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// with the provided data source, sort descriptions, grouping delegate,
-    /// and group sorting direction.
+    /// with the provided data source, sort descriptions, filter, and group description.
     /// </summary>
-    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter, Func<object, object> group)
-        : this(source, sorts, filter, group, SortDirection.Ascending) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="GroupedCollectionView"/>
-    /// which uses all available functionality.
-    /// </summary>
-    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter, Func<object, object> group, SortDirection groupDirection)
+    public GroupedCollectionView(IList source, IEnumerable<SortDescription> sorts, Predicate<object> filter, SortDescription group)
     {
         _filter = filter;
 
-        _groupDelegate = group;
-        _groupsSortDirection = groupDirection;
+        _groupDescription = group;
 
         _sortDescriptions = new(sorts);
         _sortDescriptions.CollectionChanged += OnSortDescriptionsChanged;
@@ -188,34 +159,15 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     /// Replaces all sort descriptions with the provided ones.
     /// </summary>
     public void ReplaceSorting(IEnumerable<SortDescription> sorts)
-        => ReplaceSortingAndGrouping(sorts, _groupDelegate, _groupsSortDirection);
+        => ReplaceSortingAndGrouping(sorts, _groupDescription);
 
     /// <summary>
-    /// Replaces grouping related params with the provided ones.
+    /// Replaces all sort descriptions with the provided ones, and uses the
+    /// provided delegate for grouping.
     /// </summary>
-    public void ReplaceGrouping(Func<object, object> groupDel, SortDirection groupDirection)
+    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, SortDescription group)
     {
-        _groupDelegate = groupDel;
-        _groupsSortDirection = groupDirection;
-
-        OnGroupChanged();
-    }
-
-    /// <summary>
-    /// Replaces all sort descriptions with the provided ones, and uses
-    /// the provided delegate for grouping.
-    /// </summary>
-    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, Func<object, object> groupDel)
-        => ReplaceSortingAndGrouping(sorts, groupDel, _groupsSortDirection);
-
-    /// <summary>
-    /// Replaces all sort descriptions with the provided ones, uses the
-    /// provided delegate for grouping, and updates the grouping direction.
-    /// </summary>
-    public void ReplaceSortingAndGrouping(IEnumerable<SortDescription> sorts, Func<object, object> groupDel, SortDirection groupDirection)
-    {
-        _groupDelegate = groupDel;
-        _groupsSortDirection = groupDirection;
+        _groupDescription = group;
 
         _sortDescriptions.CollectionChanged -= OnSortDescriptionsChanged;
 
@@ -286,7 +238,6 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
 
         var current = CurrentItem;
         _view.Clear();
-        _collectionGroups.Clear();
 
         foreach (var item in _source)
         {
@@ -294,12 +245,10 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
                 continue;
 
             _view.Add(item);
-
-            if (_groupDelegate != null)
-                AddItemToGroup(item);
         }
 
         _view.Sort(this);
+        OnGroupChanged();
 
         OnVectorChanged(CollectionChange.Reset, 0);
         OnPropertyChanged(nameof(IsGrouped));
@@ -310,11 +259,11 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
     private void OnGroupChanged()
     {
         _collectionGroups.Clear();
-        if (_groupDelegate == null)
+        if (_groupDescription == null)
             return;
 
-        var grouped = _view.GroupBy(_groupDelegate);
-        var comparer = ItemGroupComparer.Get(_groupsSortDirection);
+        var grouped = _view.GroupBy(_groupDescription.ValueDelegate);
+        var comparer = ItemGroupComparer.Get(_groupDescription.SortDirection);
 
         foreach (var group in grouped)
         {
@@ -374,6 +323,18 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
 
     public int Compare(object x, object y)
     {
+        if (_groupDescription != null)
+        {
+            var del = _groupDescription.ValueDelegate;
+
+            object xVal = del(x);
+            object yVal = del(y);
+
+            int result = _groupDescription.Comparer.Compare(xVal, yVal);
+            if (result != 0)
+                return _groupDescription.SortDirection == SortDirection.Ascending ? +result : -result;
+        }
+
         foreach (var desc in _sortDescriptions)
         {
             var del = desc.ValueDelegate;
@@ -381,7 +342,7 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
             object xVal = del(x);
             object yVal = del(y);
 
-            var result = desc.Comparer.Compare(xVal, yVal);
+            int result = desc.Comparer.Compare(xVal, yVal);
             if (result != 0)
                 return desc.SortDirection == SortDirection.Ascending ? +result : -result;
         }
@@ -394,29 +355,5 @@ public sealed partial class GroupedCollectionView : ICollectionView, ISupportInc
         _filter = null;
         if (_source is INotifyCollectionChanged ncc)
             ncc.CollectionChanged -= OnSourceCollectionChanged;
-    }
-
-    private sealed class CollectionViewGroup : ICollectionViewGroup
-    {
-        public object Group { get; }
-        public IObservableVector<object> GroupItems { get; }
-
-        public CollectionViewGroup(object group)
-        {
-            Group = group;
-            GroupItems = new ObservableVector<object>();
-        }
-
-        public CollectionViewGroup(IGrouping<object, object> group)
-        {
-            Group = group.Key;
-            GroupItems = new ObservableVector<object>(group);
-        }
-
-        public CollectionViewGroup(object group, IEnumerable<object> items)
-        {
-            Group = group;
-            GroupItems = new ObservableVector<object>(items);
-        }
     }
 }

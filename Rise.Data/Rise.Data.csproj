@@ -121,6 +121,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\CollectionViewGroup.cs" />
     <Compile Include="Collections\GroupedCollectionView.Events.cs" />
     <Compile Include="Collections\SortDescription.cs" />
     <Compile Include="Collections\GroupedCollectionView.cs" />

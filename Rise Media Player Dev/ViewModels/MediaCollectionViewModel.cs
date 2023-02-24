@@ -62,7 +62,7 @@ namespace Rise.App.ViewModels
 
                 bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
                 if (canGroup)
-                    Items = new(itemSource, new[] { sort }, null, groupDel);
+                    Items = new(itemSource, new[] { sort }, null, new(SortDirection.Ascending, groupDel));
                 else
                     Items = new(itemSource, new[] { sort });
             }
@@ -92,7 +92,10 @@ namespace Rise.App.ViewModels
             MediaPlaybackViewModel pvm)
             : this(songs, pvm)
         {
-            Items = new(itemSource, sorts, filter, groupDel, SortDirection.Ascending);
+            if (groupDel != null)
+                Items = new(itemSource, sorts, filter, new(SortDirection.Ascending, groupDel));
+            else
+                Items = new(itemSource, sorts, filter);
         }
 
         public void Dispose()
@@ -108,25 +111,37 @@ namespace Rise.App.ViewModels
         public RelayCommand<string> SortByCommand { get; }
         public void SortBy(string delegateKey)
         {
+            if (_currentDelegate == delegateKey)
+                return;
+
             _currentDelegate = delegateKey;
 
             var sortDel = CollectionViewDelegates.GetDelegate(delegateKey);
             var sort = new SortDescription(_currentDirection, sortDel);
 
-            _ = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
-            Items.ReplaceSortingAndGrouping(new[] { sort }, groupDel, _currentDirection);
+            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{delegateKey}", out var groupDel);
+            if (canGroup)
+                Items.ReplaceSortingAndGrouping(new[] { sort }, new(_currentDirection, groupDel));
+            else
+                Items.ReplaceSorting(new[] { sort });
         }
 
         public RelayCommand<SortDirection> UpdateSortDirectionCommand { get; }
         public void UpdateSortDirection(SortDirection direction)
         {
+            if (_currentDirection == direction)
+                return;
+
             _currentDirection = direction;
 
             var sortDel = CollectionViewDelegates.GetDelegate(_currentDelegate);
             var sort = new SortDescription(direction, sortDel);
 
-            _ = CollectionViewDelegates.TryGetDelegate($"G{_currentDelegate}", out var groupDel);
-            Items.ReplaceSortingAndGrouping(new[] { sort }, groupDel, direction);
+            bool canGroup = CollectionViewDelegates.TryGetDelegate($"G{_currentDelegate}", out var groupDel);
+            if (canGroup)
+                Items.ReplaceSortingAndGrouping(new[] { sort }, new(direction, groupDel));
+            else
+                Items.ReplaceSorting(new[] { sort });
         }
     }
 
